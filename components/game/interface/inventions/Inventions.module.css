@@ -1,0 +1,13 @@
+.container {
+    width: 100%;
+    height: 100%;
+    grid-column: 6 / span 1;
+    grid-row: 1 / span 2;
+    background-image: url("../../../../public/interface/oldPaper.png");
+    border: 1px solid black;
+    display: flex;
+}
+
+.invention {
+    
+}
