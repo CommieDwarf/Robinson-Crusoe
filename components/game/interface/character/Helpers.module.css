@@ -1,0 +1,88 @@
+.container {
+  grid-column: 2 / span 1;
+  grid-row: 3 / span1;
+  height: 100%;
+  width: 100%;
+}
+
+.friday {
+  width: 100%;
+  height: 50%;
+  border: 1px dashed #451e14;
+  position: relative;
+}
+
+.picture {
+  position: absolute;
+  width: 25%;
+  height: 50%;
+  display: inline-block;
+  vertical-align: top;
+  right: 0;
+}
+
+.health {
+  position: relative;
+  width: 75%;
+  height: 40%;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.heart {
+  width: 20%;
+  height: 80%;
+  position: relative;
+  display: inline-block;
+}
+
+.skull {
+  width: 20%;
+  height: 80%;
+  position: relative;
+  display: inline-block;
+}
+
+.name {
+  width: 80%;
+  text-align: right;
+  font-weight: bold;
+  border-radius: 5px;
+  margin-right: 3px;
+  float: right;
+}
+
+.dog {
+  width: 100%;
+  height: 50%;
+  position: relative;
+}
+
+.dog-pic {
+  height: 75%;
+  width: 40%;
+  bottom: 0;
+  right: 10px
+}
+
+.dog-usage {
+  position: absolute;
+  bottom: 0;
+  height: 40%;
+  width: 40%;
+  display: inline-block;
+}
+
+
+.pawn {
+    width: 25px;
+    height: 25px;
+    border: 1px solid #451e14;
+    border-radius: 100%;
+    background-image: url("../../../../public/interface/players/cookMaleIcon.png") !important;
+    background-size: cover;
+    background-color: white;
+    position: absolute;
+    left: 2px;
+    top: 2px;
+}

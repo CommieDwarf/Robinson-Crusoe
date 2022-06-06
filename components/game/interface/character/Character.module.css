@@ -1,0 +1,140 @@
+.container {
+  width: 100%;
+  height: 100%;
+  grid-column: 4 / span 1;
+  grid-row: 3 / span 1;
+  background-image: url("../../../../public/interface/characters/background.png");
+  background-size: cover;
+  background-repeat: true;
+  border: 1px solid black;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 2fr 3fr;
+}
+
+
+
+
+
+.picture {
+  width: 100%;
+  height: 100%;
+  background-image: url("../../../../public/interface/characters/carpenter-female.png");
+  background-size: contain;
+  grid-column: 1 / span 1;
+  grid-row: 3 / span 1;
+  position: relative;
+  border-right: 1px dashed #451e14;
+}
+
+.description {
+  grid-column: 1 / span 1;
+  grid-row: 1 / span 2;
+  width: 100%;
+  height: 100%;
+  border-right: 1px dashed #451e14;
+}
+
+.skill-description:hover {
+    background-color: #451e14;
+    color: white;
+}
+
+.name {
+  width: 80%;
+  height: 20%;
+  text-align: center;
+  background-image: url("../../../../public/interface/darkwood.png");
+  background-size: cover;
+  color: white;
+  margin: auto;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.skills {
+  height: 80%;
+  width: 100%;
+}
+.skill {
+  height: 25%;
+
+  font-weight: bold;
+  font-style: italic;
+  cursor: pointer;
+}
+
+.skill-description {
+    text-align: center;
+    margin: auto;
+    display: block;
+    height: 70%;
+    font-size: 11px;
+    
+}
+
+.skill-drop-button {
+  height: 10%;
+  position: relative;
+}
+.triangle {
+    width: 0;
+  height: 0;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-top: 5px solid #451e14;
+  position: absolute;
+}
+
+
+
+.scrollbar {
+    background-size:contain;
+    border-top: 1px dashed #451e14;
+}
+
+.pawns {
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+.pawn {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #451e14;
+    border-radius: 100%;
+
+}
+
+.cook-male {
+    background-image: url("../../../../public/interface/players/cookMaleIcon.png") !important;
+    background-size: cover;
+    background-color: orange;
+    
+}
+
+
+
+.track-horizontal {
+    display: none;
+  }
+
+  .thumb-horizontal {
+      display: none;
+  }
+
+  .track-vertical {
+      width: 5px !important;
+      height: 100%;
+      right: 2px;
+      background: transparent;
+  }
+
+  .thumb-vertical {
+      width: 7px !important;
+      background-image: url("../../../../public/interface/resources/boardVert.jpg");
+      background-size: cover;
+      border-radius: 5px;
+      border: 1px solid #451e14;
+  }

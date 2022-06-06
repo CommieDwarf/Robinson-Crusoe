@@ -6,6 +6,8 @@ import Resources from '../../components/game/interface/resources/Resources';
 import Structures from '../../components/game/interface/structures/Structures';
 import Map from '../../components/game/interface/map/Map';
 import Inventions from '../../components/game/interface/inventions/Inventions';
+import Character from '../../components/game/interface/character/Character';
+import Health from '../../components/game/interface/character/Health';
 
 export default function Game() {
   return (
@@ -19,6 +21,8 @@ export default function Game() {
       <div className={styles.dupa2}></div>
       <div className={styles.dupa3}></div>
       <Inventions/>
+      <Character />
+      <Health />
     </div>
   )
 }

@@ -24,3 +24,7 @@ a {
   --arrowAspectRatio: calc(346 / 122);
   --arrowWidth: calc(var(--arrowHeight) * var(--arrowAspectRatio))
 }
+
+body::-webkit-scrollbar-track {
+  background-color: black;
+}

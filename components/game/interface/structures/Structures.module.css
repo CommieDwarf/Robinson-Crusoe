@@ -5,7 +5,7 @@
     border: 1px solid black;
     font-weight: bold;
     font-size: 23px;
-    grid-column: 5 / span 1;
+    grid-column: 4 / span 1;
     grid-row: 1 / span 2;
     width: 100%;
     height: 100%;
@@ -13,7 +13,7 @@
 
 .structure {
     width: 100%;
-    height: 75px;
+    height: 25%;
     border-bottom: 1px solid black;
     position: relative;
 }
