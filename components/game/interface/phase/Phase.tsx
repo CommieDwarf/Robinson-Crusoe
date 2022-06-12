@@ -31,7 +31,7 @@ export default function Phase(props: Props) {
       <strong>Faza <span className={styles[props.phase]}>{phases[props.phase]}</span></strong>
       <div className={styles["phase-icon"]}>
         <Image
-          src={"/interface/phases/" + props.phase + ".png"}
+          src={"/interface/phase/" + props.phase + ".png"}
           width={iconSize}
           height={iconSize}
           alt="phase icon"

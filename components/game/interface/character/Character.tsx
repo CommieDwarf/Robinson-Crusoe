@@ -4,7 +4,7 @@ import { Scrollbars } from "react-custom-scrollbars";
 import styles from "./Character.module.css";
 import Helpers from "./Helpers";
 
-import Tokens from "./Tokens";
+import Determination from "./Determination";
 
 export default function Character() {
   return (
@@ -44,11 +44,12 @@ export default function Character() {
           </div>
         </div>
       </div>
-      <Tokens />
+      <Determination />
       <Scrollbars
         className={styles.scrollbar}
         // style={scrollbarStyle}
         universal={true}
+        hideTracksWhenNotNeeded={true}
         renderTrackHorizontal={(props) => (
           <div {...props} className={styles["track-horizontal"]} />
         )}

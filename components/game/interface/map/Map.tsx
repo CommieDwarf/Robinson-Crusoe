@@ -1,51 +1,71 @@
-import Image from 'next/image';
-import React from 'react'
+import Image from "next/image";
+import React, { useState } from "react";
 import styles from "./Map.module.css";
+import { Scrollbars } from "react-custom-scrollbars";
+import DragAndScroll from "../../../../utils/dragAndScroll";
+import Tile from "./Tile";
+import tilePositions from "./tilePositions";
+import Scrollbar from "../Scrollbar";
+import scrollBarStyle from "./Scrollbar.module.css";
 
+console.log(scrollBarStyle)
 export default function Map() {
 
-    let hex = [];
-  let beehive = [
-    [false, true, true, true],
-    [true, true, true, true, true],
-    [true, true, true, true],
-    [false, true, true, true],
-  ];
 
-  const hexes: JSX.Element[] = [];
+  const [zoom, setZoom] = useState(1);
 
-  let top = 17;
-  let startLeft = 22;
-  for (let row of beehive) {
-    let left = startLeft;
-    console.log(left);
-    for (let hex of row) {
-      if (hex) {
-        const style = { left: left + "%", top: top + "%" };
-        console.log(style);
-        let div = (
-          <div className={styles.hex} style={style}>
-            <Image src="/hex1.png" width="100%" height="100%" />
-          </div>
-        );
-        hexes.push(div);
-      }
-      left += 16;
+  function zoomIn() {
+    if (zoom < 4) {
+      setZoom((prev) => {
+        return ++prev;
+      })
     }
-    top += 13.5;
-    startLeft = startLeft === 22 ? 14 : 22;
+
   }
 
+  function zoomOut() {
+    if (zoom > 1) {
+      setZoom((prev) => {
+        return --prev;
+      })
+    }
+  }
 
+  const tiles = tilePositions.map((position) => {
+    return <Tile position={position} typeId={11} />
+  })
 
+  
+ 
 
+const zoomClass = "zoom" + zoom;
+
+const scrollbar = React.createRef<Scrollbars>();
+const container = React.createRef<HTMLDivElement>();
+
+const dragAndScroll = new DragAndScroll(scrollbar, container);
 
   return (
-    <div className={styles.container}>
-        <div className={styles.map}>
-            <Image src="/interface/map/map.png" layout="fill" alt="map"/>
-            {hexes}
-        </div>
+    <div className={styles.container} ref={container} onMouseDown={dragAndScroll.handleMouseDown}>
+      <div className={styles.zoom}>
+            <div className={styles.zoomIcon}>
+              <Image
+                src="/interface/map/magnifying-glass.png"
+                layout="fill"
+                alt="zoom"
+              />
+            </div>
+            <div className={styles.zoomButton} onClick={zoomIn}><span className={styles.zoomText}>+</span></div>
+            <div className={styles.zoomButton} onClick={zoomOut}><span className={styles.zoomText}>-</span></div>
+          </div>
+        <Scrollbar scrollbarRef={scrollbar} styleModule={scrollBarStyle} >
+          <div className={`${styles.content} ${styles[zoomClass]}`}>
+            <div className={styles.map}>
+              <Image src="/interface/map/map.png" layout="fill" alt="map" />
+              {tiles}
+            </div>
+          </div>
+        </Scrollbar>
     </div>
-  )
+  );
 }

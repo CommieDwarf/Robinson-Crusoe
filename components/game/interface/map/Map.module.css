@@ -1,23 +1,84 @@
+
 .container {
-  grid-column: 1 / span 2;
-  grid-row: 2 / span 2;
-  margin: 0;
+  grid-column: 1 / span 2 !important;
+  grid-row: 2 / span 2 !important;
+  position: relative;
+}
+
+.content {
   height: 100%;
   width: 100%;
   background-image: url("../../../../public/interface/oldPaper.png");
   border: 1px solid black;
 }
 
+.zoom1 {
+  height: 100%;
+  width: 100%;
+}
+
+.zoom2 {
+  height: 150%;
+  width: 150%;
+}
+
+.zoom3 {
+  height: 200%;
+  width: 200%;
+}
+
+.zoom4 {
+  height: 250%;
+  width: 250%;
+}
+
+
 
 .map {
-    position: relative;
-    aspect-ratio: 425 / 416;
-    display: inline-block;
-    height: 100%;
-  }
+  position: relative;
+  aspect-ratio: 425 / 416;
+  display: inline-block;
+  height: 100%;
+}
 
-  .hex {
-    position: absolute;
-    width: 19%;
-    height: 19%;
-  }
+
+
+
+
+.zoom {
+  position: absolute;
+  z-index: 999;
+  width: 100px;
+  height: 50px;
+  right: 0;
+  top: 4px;
+  font-size: 30px;
+}
+
+.zoomButton {
+  display: inline-block;
+  background-image: url("../../../../public/interface/oldPaper.png");
+  background-size: contain;
+  height: 25px;
+  width: 25px;
+  text-align: center;
+}
+
+
+
+.zoomText {
+  width: 25px;
+  height: 25px;
+  position: relative;
+  bottom: 10px;
+  color: #451e14;
+}
+
+
+.zoomIcon {
+  width: 30px;
+  height: 30px;
+  
+  position: relative;
+  display: inline-block;
+}

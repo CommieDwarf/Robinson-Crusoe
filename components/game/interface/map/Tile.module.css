@@ -1,0 +1,13 @@
+.container {
+  position: absolute;
+  width: 19%;
+  height: 19%;
+}
+
+.tile {
+  position: absolute;
+  width: 95%;
+  height: 95%;
+  top: 3px;
+  left: 1px;
+}

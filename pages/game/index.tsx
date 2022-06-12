@@ -8,6 +8,12 @@ import Map from '../../components/game/interface/map/Map';
 import Inventions from '../../components/game/interface/inventions/Inventions';
 import Character from '../../components/game/interface/character/Character';
 import Health from '../../components/game/interface/character/Health';
+import Cards from '../../components/game/interface/cards/Cards';
+import ActionsOrder from '../../components/game/interface/actionsOrder/ActionsOrder';
+import Chat from '../../components/game/interface/chat/Chat';
+import Tokens from '../../components/game/interface/tokens/Tokens';
+import ScenarioButton from '../../components/game/interface/scenario/ScenarioButton';
+import Players from '../../components/game/interface/players/Players';
 
 export default function Game() {
   return (
@@ -17,12 +23,15 @@ export default function Game() {
       <Resources />
       <Structures />
       <Map />
-      <div className={styles.dupa1}></div>
-      <div className={styles.dupa2}></div>
-      <div className={styles.dupa3}></div>
       <Inventions/>
       <Character />
       <Health />
+      <Cards />
+      <ActionsOrder />
+      <Chat />
+      <Tokens />
+      <ScenarioButton />
+      <Players />
     </div>
   )
 }
