@@ -1,0 +1,16 @@
+.exploreSlot {
+    width: 50%;
+    height: 50%;
+  }
+  
+  .playerSlot {
+    border-radius: 100%;
+    background-color: white;
+    border: 1px dashed #451e14;
+    position: relative;
+  }
+
+  .gatherSlot {
+    width: 50%;
+    height: 50%;
+  }

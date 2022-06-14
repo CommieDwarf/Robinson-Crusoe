@@ -3,12 +3,14 @@
   grid-column: 1 / span 2 !important;
   grid-row: 2 / span 2 !important;
   position: relative;
+ 
 }
 
 .content {
   height: 100%;
   width: 100%;
   background-image: url("../../../../public/interface/oldPaper.png");
+  background-size: cover;
   border: 1px solid black;
 }
 
