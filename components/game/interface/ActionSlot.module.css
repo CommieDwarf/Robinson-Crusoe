@@ -1,0 +1,6 @@
+  .actionSlot {
+    border-radius: 100%;
+    background-color: white;
+    border: 1px dashed #451e14;
+    position: relative;
+  }

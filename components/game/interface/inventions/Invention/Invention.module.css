@@ -1,0 +1,32 @@
+.inventionWrapper {
+    aspect-ratio: 404 / 617;
+    height: 140px;
+    position: absolute;
+    transition: all 0.5s;
+    z-index: 0;
+  }
+  
+  .inventionWrapperEnlarged {
+    transform: scale(2);
+    z-index: 999999;
+  }
+  .invention {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+  
+  
+  .wrapperLocked {
+      filter: brightness(0.5)
+  }
+
+  .actionSlots {
+    top: 75px;
+    left: 8px;
+    display: flex;
+    position: absolute;
+    width: 75px;
+    height: 23px;
+    justify-content: center;
+  }

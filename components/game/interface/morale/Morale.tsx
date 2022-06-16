@@ -1,64 +1,38 @@
 import Image from "next/image";
-import React, { useRef } from "react";
+import React from "react";
 import styles from "./Morale.module.css";
+import MoraleBar from "./MoraleBar/MoraleBar";
 
-const heartImgAspectRatio = 258 / 176;
 
-const heartHeight = 30;
-const heartWidth = heartImgAspectRatio * heartHeight;
+interface Props {
+  current: number;
+}
 
-export default function Morale() {
+export default function Morale(props: Props) {
   const moraleBars = [];
 
-  for (let i = -3; i < 3; i++) {
-    if (i == 0) {
-      moraleBars.push(
-        <div className={styles["morale-bar-0"]}>
-          <div className={styles["morale-label"]}>
-            <div className={styles["morale-value"]}>{i}</div>
-          </div>
-        </div>
-      );
-      continue;
-    }
+  for (let i = -3; i <= 3; i++) {
+
     moraleBars.push(
-      <div className={styles["morale-bar"]}>
-        <div className={styles["morale-label"]}>
-          <div className={styles["morale-value"]}>{i}</div>
-          <div className={styles["morale-icon"]}>
-            <Image src="/interface/morale/icon.png" layout="fill" />
-          </div>
-        </div>
-      </div>
+     <MoraleBar current={i === props.current} value={i} />
     );
   }
 
   return (
     <div className={styles.container}>
-      <div className={styles["left-bar"]}>
-        <div className={styles["arrow"]}>
+      <div className={styles.leftBar}>
+        <div className={styles.arrow}>
           <Image src="/interface/morale/arrow-left.png" layout="fill" />
         </div>
       </div>
-      <div className={styles["right-bar"]}>
-        <div className={styles["arrow"]}>
+      <div className={styles.rightBar}>
+        <div className={styles.arrow}>
           <Image src="/interface/morale/arrow-right.png" layout="fill" />
         </div>
       </div>
-      <div className={styles["bot-bar"]}>
+      <div className={styles.botBar}>
         {moraleBars}
-        <div className={styles["morale-bar"] + " " + styles["morale-bar--last"]}>
-          <div className={styles["morale-label"]}>
-            <div className={styles["morale-lastValue"]}>3</div>
-            <div className={styles["morale-lastIcon"]}>
-              <Image src="/interface/morale/icon.png" layout="fill" />
-            </div>
-            <div className={styles["morale-lastHeart"]}>
-              <Image src="/interface/morale/heart.png" height={heartHeight} width={heartWidth}/>
-            </div>
-            <div className={styles["cross-line"]}></div>
-          </div>
-        </div>
+      
       </div>
     </div>
   );

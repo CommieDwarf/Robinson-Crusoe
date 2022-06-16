@@ -15,15 +15,21 @@ import Tokens from '../../components/game/interface/tokens/Tokens';
 import ScenarioButton from '../../components/game/interface/scenario/ScenarioButton';
 import Players from '../../components/game/interface/players/Players';
 
-export default function Game() {
+import game from "../../server/game";
+
+interface Props {
+
+}
+
+export default function Game(props: Props) {
   return (
     <div className={styles.game}>
       <Phase phase="production"/>
-      <Morale />
-      <Resources />
-      <Structures />
-      <Map />
-      <Inventions/>
+      <Morale current={3}/>
+      <Resources allResources={game.allResources}/>
+      <Structures structures={game.structures}/>
+      <Map tiles={game.tiles}/>
+      <Inventions inventions={game.inventions}/>
       <Character />
       <Health />
       <Cards />

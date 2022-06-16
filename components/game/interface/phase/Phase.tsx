@@ -1,9 +1,10 @@
-import { GetStaticPathsResult } from "next";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Phase.module.css";
 
-const phases = {
+import PhaseDropDownMenu from "./PhaseDropDownMenu/PhaseDropDownMenu";
+
+export const polishPhaseConjugation = {
   production: "produkcji",
   night: "nocy",
   action: "akcji",
@@ -12,7 +13,7 @@ const phases = {
   weather: "pogody",
 };
 
-type phaseType =
+export type PhaseType =
   | "production"
   | "night"
   | "action"
@@ -21,14 +22,27 @@ type phaseType =
   | "weather";
 
 type Props = {
-  phase: phaseType;
+  phase: PhaseType;
 };
 
 export default function Phase(props: Props) {
+  const [showMenu, setShowMenu] = useState(false);
+
+  function toggleShowMenu() {
+    setShowMenu((prev) => {
+      return !prev;
+    });
+  }
+
   const iconSize = 32;
   return (
-    <div className={styles.phase}>
-      <strong>Faza <span className={styles[props.phase]}>{phases[props.phase]}</span></strong>
+    <div className={styles.phase} onClick={toggleShowMenu}>
+      <strong>
+        Faza{" "}
+        <span className={styles[props.phase]}>
+          {polishPhaseConjugation[props.phase]}
+        </span>
+      </strong>
       <div className={styles["phase-icon"]}>
         <Image
           src={"/interface/phase/" + props.phase + ".png"}
@@ -37,6 +51,10 @@ export default function Phase(props: Props) {
           alt="phase icon"
         />
       </div>
+      <div className={styles.dropDownButton}>
+        <div className={styles.triangle}></div>
+      </div>
+      <PhaseDropDownMenu currentPhase={"production"} show={showMenu} />
     </div>
   );
 }

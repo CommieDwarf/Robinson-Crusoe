@@ -6,14 +6,17 @@ interface Props {
   scrollbarRef?: React.RefObject<Scrollbars>;
   styleModule: {
     readonly [key: string]: string;
-  };
+}
   contentScale?: number;
+  setScrollTop?: Function;
 }
 
 export default class Scrollbar extends React.Component<Props> {
   constructor(props: Props) {
     super(props);
   }
+
+
 
   getSnapshotBeforeUpdate(prevProps: Props) {
     const scroll = prevProps.scrollbarRef?.current;
@@ -51,10 +54,19 @@ export default class Scrollbar extends React.Component<Props> {
     }
   }
 
+  handleScroll = () => {
+    if (!this.props.setScrollTop) {
+      return;
+    }
+    const scrollTop = this.props.scrollbarRef?.current?.getScrollTop()
+    this.props.setScrollTop(scrollTop);
+  }
+
   render() {
     const props = this.props;
     return (
       <Scrollbars
+        onScroll={this.handleScroll}
         ref={props.scrollbarRef}
         className={props.styleModule.scrollbar}
         universal={true}

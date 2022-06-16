@@ -2,7 +2,16 @@ import Image from "next/image";
 import React from "react";
 import styles from "./Resources.module.css";
 
-export default function Resources() {
+
+import { AllResources } from "../../../../interfaces/Resources";
+import ResourceValues from "./ResourceValues.tsx/ResourceValues";
+
+
+interface Props {
+  allResources: AllResources
+}
+
+export default function Resources(props: Props) {
   return (
     <div className={styles.container}>
       <div className={styles.topBar}>
@@ -11,42 +20,7 @@ export default function Resources() {
       <div className={styles.leftBar}>
         <Image src="/interface/resources/boardVert.jpg" layout="fill" />
       </div>
-      <div className={styles.futureResources}>
-          Przyszłe surowce
-          <br />
-          <div className={styles.resource}>
-            <div className={styles.icon}>
-              <Image src="/interface/resources/food.png" layout="fill" />
-            </div>
-            <div className={styles.label}>Żywność:</div>
-            
-            <div className={styles.value}>0</div>
-          </div>
-          <div className={styles.resource}>
-            <div className={styles.icon}>
-              <Image src="/interface/resources/dry-food.png" layout="fill" />
-            </div>
-            <div className={styles.label}>Suchy prowiant:</div>
-            
-            <div className={styles.value}>10</div>
-          </div>
-          <div className={styles.resource}>
-            <div className={styles.icon}>
-              <Image src="/interface/resources/wood.png" layout="fill" />
-            </div>
-            <div className={styles.label}>Drewno:</div>
-            
-            <div className={styles.value}>10</div>
-          </div>
-          <div className={styles.resource}>
-            <div className={styles.icon}>
-              <Image src="/interface/resources/leather.png" layout="fill" />
-            </div>
-            <div className={styles.label}>Skóry:</div>
-            
-            <div className={styles.value}>10</div>
-          </div>
-      </div>
+      <ResourceValues resources={props.allResources.future} type="future" />
       <div className={styles.rightBar}>
         <Image src="/interface/resources/boardVert.jpg" layout="fill" />
       </div>
@@ -61,42 +35,7 @@ export default function Resources() {
           </div>
         </div>
       </div>
-      <div className={styles.futureResources}>
-          Posiadane surowce
-          <br />
-          <div className={styles.resource}>
-            <div className={styles.icon}>
-              <Image src="/interface/resources/food.png" layout="fill" />
-            </div>
-            <div className={styles.label}>Żywność:</div>
-            
-            <div className={styles.value}>0</div>
-          </div>
-          <div className={styles.resource}>
-            <div className={styles.icon}>
-              <Image src="/interface/resources/dry-food.png" layout="fill" />
-            </div>
-            <div className={styles.label}>Suchy prowiant:</div>
-            
-            <div className={styles.value}>10</div>
-          </div>
-          <div className={styles.resource}>
-            <div className={styles.icon}>
-              <Image src="/interface/resources/wood.png" layout="fill" />
-            </div>
-            <div className={styles.label}>Drewno:</div>
-            
-            <div className={styles.value}>10</div>
-          </div>
-          <div className={styles.resource}>
-            <div className={styles.icon}>
-              <Image src="/interface/resources/leather.png" layout="fill" />
-            </div>
-            <div className={styles.label}>Skóry:</div>
-            
-            <div className={styles.value}>10</div>
-          </div>
-      </div>
+      <ResourceValues resources={props.allResources.owned} type={"owned"} />
     </div>
   );
 }

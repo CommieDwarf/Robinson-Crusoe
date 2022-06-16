@@ -1,39 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Inventions.module.css";
+import scrollbarStyles from "./Scrollbar.module.css";
+
+import Invention from "./Invention/Invention";
+import Scrollbar from "../Scrollbar";
 import { Scrollbars } from "react-custom-scrollbars";
+import IInvention from "../../../../interfaces/Invention";
 
-import * as cards from "./inventionList";
-import Invention from "./Invention";
 
-export default function Inventions() {
-  const starters = cards.starters.map((card, i) => {
-    let locked = false;
-    if (i == 1) {
-      locked = true;
-    }
-    return <Invention name={card} type={"starter"} key={i} locked={locked} />;
+interface Props {
+  inventions: IInvention[],
+}
+
+export default function Inventions(props: Props) {
+
+  const scrollbar = React.createRef<Scrollbars>();
+  const [scrollTop, setScrollTop] = useState(0);
+
+
+
+  let column = -1;
+  let row = -1;
+  const starters = props.inventions.map((invention, i) => {
+    column = column == 2 ? 0: column + 1;
+    row = column == 0 ? row + 1 : row;
+    
+    return <Invention top={scrollTop} column={column} row={row} name={invention.name} type={invention.type} key={i} locked={invention.locked} />;
   });
 
-  const scrollbarStyle = {
-    width: "100%",
-    height: "100%",
-    "grid-column": "6 / span 1",
-    "grid-row": "1 / span 2",
-  };
+
+  const contentStyle = {
+    height: (row + 1) * 140,
+  }
+
+  console.log(starters.length)
 
   return (
-    <Scrollbars
-      className={styles.scrollbar}
-      // style={scrollbarStyle}
-      universal={true}
-      renderTrackHorizontal={props => <div {...props} className={styles["track-horizontal"]}/>}
-        renderThumbHorizontal={props => <div {...props} className={styles["thumb-horizontal"]}/>}
-        renderTrackVertical={props => <div {...props} className={styles["track-vertical"]}/>}
-        renderThumbVertical={props => <div {...props} className={styles["thumb-vertical"]}/>}
-    >
-      <div className={styles.container}>{starters}</div>
-      
-      
-    </Scrollbars>
+    <div className={styles.container}>
+      <Scrollbar styleModule={scrollbarStyles} scrollbarRef={scrollbar} setScrollTop={setScrollTop}>
+        <div className={styles.content} style={contentStyle}>{starters}</div>
+      </Scrollbar>
+    </div>
   );
 }

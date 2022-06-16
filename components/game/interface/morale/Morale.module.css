@@ -9,7 +9,7 @@
     height: 100%;
 }
 
-.left-bar {
+.leftBar {
     width: calc(50%);
     height: 20px;
     border-bottom: 1px solid black;
@@ -17,7 +17,7 @@
     vertical-align: top;
     display: inline-block;
 }
-.right-bar {
+.rightBar {
     width: 50%;
     height: 20px;
     display: inline-block;
@@ -34,87 +34,10 @@
     position: relative;
 }
 
-.bot-bar {
+.botBar {
     height: 29px;
     width: 100%;
     vertical-align: top;
     margin-top: -2px;
 }
 
-.morale-bar {
-    width: 15.5%;
-    border-right: 1px solid black;
-    height: 100%;
-    display: inline-block;
-    vertical-align: top;
-}
-
-.morale-bar-0 {
-    width: 7%;
-    border-right: 1px solid black;
-    height: 100%;
-    display: inline-block;
-    text-align: center;
-}
-
-.morale-bar--last {
-    border: none;
-}
-
-.morale-label {
-    width: 80%;
-    margin: auto;
-    height: 20px;
-    margin-top: 6px;
-    position: relative;
-}
-
-.morale-icon {
-    width: 17px;
-    height: 17px;
-    position: relative;
-    display: inline-block;
-}
-
-.morale-value {
-    position: relative;
-    top: -3px;
-    display: inline-block;
-    font-weight: bold;
-    width: 15px;
-    text-align: center;
-    
-}
-
-.cross-line {
-    height: 35px;
-    width: 35px;
-    border-right: 1px solid black;
-    transform: rotate(45deg);
-    margin: auto;
-    position: absolute;
-    left: -12px;
-    top: -21px;
-}
-.morale-lastValue {
-    position: absolute;
-    font-weight: bold;
-    font-size: 12px;
-    top: -28%;
-}
-
-.morale-lastIcon {
-    position: absolute;
-    width: 12px;
-    height: 12px;
-    left: 20%;
-    top: -15%;
-}
-
-.morale-lastHeart {
-    position: absolute;
-    top: 20%;
-    left: 30%;
-    width: 30px;
-    height: 30px;
-}

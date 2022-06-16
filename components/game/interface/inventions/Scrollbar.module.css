@@ -1,0 +1,29 @@
+.scrollbar {
+  width: 100%;
+  height: 100%;
+
+}
+
+.trackHorizontal {
+  display: none;
+}
+
+.thumbHorizontal {
+  display: none;
+}
+
+.trackVertical {
+  width: 20px !important;
+  color: red;
+  height: 100%;
+  right: 2px;
+  background: transparent;
+}
+
+.thumbVertical {
+  width: 20px !important;
+  background-image: url("../../../../public/interface/resources/boardVert.jpg");
+  background-size: cover;
+  border-radius: 5px;
+  border: 1px solid black;
+}

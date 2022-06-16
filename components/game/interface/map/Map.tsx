@@ -2,19 +2,25 @@ import Image from "next/image";
 import React, { UIEventHandler, useEffect, useState } from "react";
 import styles from "./Map.module.css";
 import { Scrollbars } from "react-custom-scrollbars";
-import Tile from "./Tile";
-import tilePositions from "../../../../utils/tilePositions";
 import Scrollbar from "../Scrollbar";
-import scrollBarStyle from "./Scrollbar.module.css";
-import tileStyles from "./Tile.module.css";
+import scrollbarStyles from "./Scrollbar.module.css";
+import tileStyles from "./Tile/Tile.module.css";
 import getDragAndScrollHandle from "../../../../utils/dragAndScrollHandle";
+import ITile from "../../../../interfaces/Tile";
+import Tile from "./Tile/Tile";
 
-export default function Map() {
+interface Props {
+  tiles: ITile[];
+}
+
+export default function Map(props: Props) {
   const [contentScale, setContentScale] = useState(100);
 
-  const tiles = tilePositions.map((position, i) => {
-    return <Tile position={position} typeId={i} />;
-  });
+  const tiles = [];
+
+  for (let i = 0; i < 15; i++) {
+    tiles.push(<Tile tile={props.tiles[i]} key={i} />);
+  }
 
   const scrollbar = React.createRef<Scrollbars>();
   const container = React.createRef<HTMLDivElement>();
@@ -33,7 +39,7 @@ export default function Map() {
   useEffect(() => {
     function handleWheel(event: WheelEvent) {
       const target = event.target as HTMLDivElement;
-      if (target.closest("."+tileStyles.gatherPlayerSlots)) {
+      if (target.closest("." + tileStyles.gatherPlayerSlots)) {
         return;
       }
       event.preventDefault();
@@ -77,6 +83,8 @@ export default function Map() {
     height: contentScale + "%",
   };
 
+  
+
   return (
     <div
       className={styles.container}
@@ -95,12 +103,14 @@ export default function Map() {
           <span className={styles.zoomText}>+</span>
         </div>
         <div className={styles.zoomButton}>
-          <span className={styles.zoomText} onClick={zoomOut}>-</span>
+          <span className={styles.zoomText} onClick={zoomOut}>
+            -
+          </span>
         </div>
       </div>
       <Scrollbar
         scrollbarRef={scrollbar}
-        styleModule={scrollBarStyle}
+        styleModule={scrollbarStyles}
         contentScale={contentScale}
       >
         <div className={`${styles.content}`} style={contentStyle}>
