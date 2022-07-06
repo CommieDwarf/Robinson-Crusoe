@@ -3,7 +3,7 @@
   width: 100%;
   background-image: url("../../.././../../public/interface/oldPaper.png");
   z-index: 9999;
-  border: 1px solid black;
+  border: none;
   left: 0;
   top: 100%;
   overflow: hidden;
@@ -13,6 +13,7 @@
 
 .show {
   height: 360px;
+  border: 1px solid black;
 }
 
 .hide {

@@ -1,12 +1,17 @@
 import Image from "next/image";
-import React from "react";
+import React, { NewLifecycle } from "react";
+import { Character } from "../../../../../server/characters";
 import ITile from "../../../../../interfaces/Tile";
 import ActionSlot from "../../ActionSlot";
 import Scrollbar from "../../Scrollbar";
 import styles from "./Tile.module.css";
+import IPawn from "../../../../../interfaces/Pawn";
+import Pawn from "../../../../../interfaces/Pawn";
 
 interface Props {
   tile: ITile;
+  contentScale: number;
+  actionSlots: Map<string, Pawn | null>;
 }
 
 export default function Tile(props: Props) {
@@ -15,30 +20,66 @@ export default function Tile(props: Props) {
     left: props.tile.structure.position.left + "%",
   };
 
-  let actionSlots;
+  function getActionSlots(
+    action: "explore" | "gather",
+    side: "left" | "right" | ""
+  ): JSX.Element[] {
+    const actionSlots = [];
+    for (let i = 0; i < props.tile.helpersRequied; i++) {
+      const id = "tile" + props.tile.id + action + side + "helper" + (i + 1);
+      let pawn = props.actionSlots.get(id);
+      pawn = pawn === undefined ? null : pawn;
+      actionSlots.push(
+        <ActionSlot
+          type={"helper"}
+          pawn={pawn}
+          action={action}
+          context={action}
+          id={id}
+          key={id}
+        />
+      );
+    }
 
-const actionSlotSize = {
-  width: "50%",
-  height: "50%"
-}
+    const id = "tile" + props.tile.id + action + side + "leader";
+    let pawn = props.actionSlots.get(id);
+    pawn = pawn === undefined ? null : pawn;
+
+    actionSlots.unshift(
+      <ActionSlot
+        type={"leader"}
+        pawn={pawn}
+        action={action}
+        context={action}
+        id={id}
+        key={id}
+      />
+    );
+
+    return actionSlots;
+  }
+
+  let actionSlots;
 
   if (!props.tile.type) {
     actionSlots = (
       <div className={styles.explorePlayerSlots}>
-        <ActionSlot type={"helper"} character={null} action={"explore"} size={actionSlotSize}/>
-        <ActionSlot type={"leader"} character={null} action={"explore"} size={actionSlotSize} />
+        {getActionSlots("explore", "")}
       </div>
     );
   } else {
+    let scrollableClass = props.tile.helpersRequied > 1 ? styles.gatherActionSlotsScrollable : "";
+
     actionSlots = (
-      <Scrollbar styleModule={styles} >
-        <div className={styles.gatherPlayerSlots}>
-          <ActionSlot type={"leader"} character={null} action={"gather"} size={actionSlotSize}  />
-          <ActionSlot type={"leader"} character={null} action={"gather"} size={actionSlotSize} />
-          <ActionSlot type={"helper"} character={null} action={"gather"} size={actionSlotSize} />
-          <ActionSlot type={"helper"} character={null} action={"gather"} size={actionSlotSize} />
-          {/* <PlayerSlot type={"helper"} character={null} action={"gather"} />
-          <PlayerSlot type={"helper"} character={null} action={"gather"} /> */}
+      <Scrollbar styleModule={styles}>
+        <div className={styles.gatherActionSlots + " " + scrollableClass}>
+          <div className={styles.gatherActionSlotsLeft}>
+          
+            {getActionSlots("gather", "left")}
+          </div>
+          <div className={styles.gatherActionSlotsRight}>
+            {getActionSlots("gather", "right")}
+          </div>
         </div>
       </Scrollbar>
     );
@@ -48,14 +89,18 @@ const actionSlotSize = {
 
   return (
     <div className={styles.container} style={style}>
-      {props.tile.show && <><div className={styles.tile}>
-        <Image
-          src={`/interface/map/tiles/${imgId}.png`}
-          layout="fill"
-          alt="kafelek"
-        />
-      </div>
-      {actionSlots} </>}
+      {props.tile.show && (
+        <>
+          <div className={styles.tile}>
+            <Image
+              src={`/interface/map/tiles/${imgId}.png`}
+              layout="fill"
+              alt="kafelek"
+            />
+          </div>
+          {actionSlots}
+        </>
+      )}
     </div>
   );
 }

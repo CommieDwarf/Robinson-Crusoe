@@ -4,7 +4,7 @@ import { TerrainType, TileExtras, TileResource } from "../../interfaces/Tile";
 export class TileType {
   id: number;
   terrainType: TerrainType;
-  slots: {
+  resources: {
     left: TileResource,
     right: TileResource,
   };
@@ -13,13 +13,13 @@ export class TileType {
   constructor(
     id: number,
     terrainType: TerrainType,
-    slots: {left: TileResource, right: TileResource},
+    resources: {left: TileResource, right: TileResource},
     extras: TileExtras
   ) {
     this.id = id;
     this.terrainType = terrainType;
     this.extras = extras;
-    this.slots = slots;
+    this.resources = resources;
   }
 }
 

@@ -1,33 +1,73 @@
-import Image from 'next/image';
-import React from 'react'
+import Image from "next/image";
+import React, { useId } from "react";
 import styles from "./ActionSlot.module.css";
+import { Droppable } from "react-beautiful-dnd";
+import characters, { Character } from "../../../server/characters";
+import Pawn from "./Pawn";
+import IPawn from "../../../interfaces/Pawn";
 
 interface Props {
-    type: "helper" | "leader",
-    character: null | {}, 
-    action: "threat" | "hunt" | "build" | "gather" | "explore" | "arrange-camp" | "rest",
-    size: {
-      width: string,
-      height: string
-    },
+  type: "helper" | "leader";
+  pawn: null | IPawn;
+  action:
+    | "threat"
+    | "hunt"
+    | "build"
+    | "gather"
+    | "explore"
+    | "arrangeCamp"
+    | "rest";
+  context:
+    | "gather"
+    | "explore"
+    | "structure"
+    | "invention"
+    | "rest"
+    | "arrangeCamp"
+    | "threat"
+    | "hunt";
+  id: string;
 }
 
 export default function PlayerSlot(props: Props) {
-  
-  let slotIcon; 
-  if (props.character) {
-    slotIcon = "character"
+  let slotIcon: string;
+  if (props.pawn) {
+    slotIcon = "character";
   } else if (props.type == "leader") {
     slotIcon = props.action;
   } else {
-    slotIcon = "helper"
+    slotIcon = "helper";
   }
 
-  
+  let element: JSX.Element;
+
+  if (props.pawn) {
+    element = <Pawn pawn={props.pawn} context={props.context} index={1} />;
+  }
+
+  const helperClass = props.type == "helper" ? styles.helper : "";
 
   return (
-    <div className={styles.actionSlot} style={props.size}>
-      <Image src={"/interface/playerSlot/" + slotIcon + ".png"} layout="fill" alt={slotIcon} /> 
+    <div
+      className={
+        styles.container + " " + styles[props.context] + " " + helperClass
+      }
+      id={props.id}
+    >
+      <Droppable droppableId={props.id}>
+        {(provided) => {
+          return (
+            <div
+              className={styles.actionSlot}
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+            >
+              {element}
+              <div style={{ display: "none" }}>{provided.placeholder}</div>
+            </div>
+          );
+        }}
+      </Droppable>
     </div>
-  )
+  );
 }

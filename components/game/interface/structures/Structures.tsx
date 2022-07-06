@@ -2,9 +2,11 @@ import React from "react";
 import Structure from "./Structure/Structure";
 import styles from "./Structures.module.css";
 import IStructure from "../../../../interfaces/Structure";
+import Pawn from "../../../../interfaces/Pawn";
 
 interface Props {
-  structures: IStructure[]
+  structures: IStructure[];
+  actionSlots: Map<string, Pawn | null>;
 }
 
 export default function Structures(props: Props) {
@@ -15,6 +17,7 @@ export default function Structures(props: Props) {
         <Structure
           structure={props.structures[i]}
           key={i}
+          actionSlots={props.actionSlots}
         />
       ))
     }

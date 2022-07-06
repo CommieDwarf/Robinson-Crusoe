@@ -24,9 +24,12 @@ export default function ResourceValues(props: Props) {
 
     const resources = [];
 
+    let i = 0;
+
     for (const [key, value] of Object.entries(props.resources)) {
+      i++;
         resources.push(
-            <div className={styles.resource}>
+            <div className={styles.resource} key={i}>
             <div className={styles.icon}>
               <Image src={`/interface/resources/${key}.png`} layout="fill" />
             </div>

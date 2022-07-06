@@ -1,5 +1,7 @@
+import Pawn from "./Pawn";
+
 export default interface IStructure {
-    type: structureType,
+    type: StructureType,
     level: number,
     commitedResources: {
         type: null | "wood" | "leather"
@@ -8,8 +10,7 @@ export default interface IStructure {
     woodCost: number,
     leatherCost: number,
     locked: boolean,
-    builder: null | {},
-    helper: null | {},
+    requiedHelpers: number,
 }
 
-export type structureType = "shelter" | "roof" | "palisade" | "weapon";
+export type StructureType = "shelter" | "roof" | "palisade" | "weapon";

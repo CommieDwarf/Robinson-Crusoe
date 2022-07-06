@@ -14,7 +14,7 @@ export default function Morale(props: Props) {
   for (let i = -3; i <= 3; i++) {
 
     moraleBars.push(
-     <MoraleBar current={i === props.current} value={i} />
+     <MoraleBar current={i === props.current} value={i} key={i}/>
     );
   }
 

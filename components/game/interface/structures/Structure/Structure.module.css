@@ -103,7 +103,7 @@
     height: 70%;
 }
 
-.builderSlots {
+.actionSlots {
     width: 75px;
     display: inline-flex;
     flex-wrap: wrap;

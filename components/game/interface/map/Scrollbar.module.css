@@ -16,6 +16,7 @@
   background-size: cover;
   border-radius: 5px;
   border: 1px solid black;
+  z-index: 999 !important;
 }
 
 .trackVertical {
@@ -30,4 +31,5 @@
   background-size: cover;
   border-radius: 5px;
   border: 1px solid black;
+  z-index: 999 !important;
 }

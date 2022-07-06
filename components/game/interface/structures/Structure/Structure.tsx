@@ -1,14 +1,25 @@
 import Image from "next/image";
 import React from "react";
-import IStructure, { structureType } from "../../../../../interfaces/Structure";
+import Pawn from "../../../../../interfaces/Pawn";
+import IStructure from "../../../../../interfaces/Structure";
 import ActionSlot from "../../ActionSlot";
 import styles from "./Structure.module.css";
 
 type Props = {
   structure: IStructure;
+  actionSlots: Map<string, Pawn | null>;
 };
 
 export default function Structure(props: Props) {
+
+
+
+
+
+
+
+
+
   const resources = [];
   if (props.structure.commitedResources.type) {
     for (let i = 0; i < props.structure.commitedResources.quantity; i++) {
@@ -55,16 +66,27 @@ export default function Structure(props: Props) {
     );
   }
 
+  let leaderPawn = props.actionSlots.get("structure" + props.structure.type + "leader");
+  leaderPawn = leaderPawn ? leaderPawn : null;
+  let helperActionSlots = [];
+
+  for (let i = 0; i < props.structure.requiedHelpers; i++) {
+    const actionSlotId = "structure" + props.structure.type + "helper" + (i + 1)
+    let helperPawn = props.actionSlots.get(actionSlotId);
+    helperPawn = helperPawn ? helperPawn : null;
+    helperActionSlots.push(<ActionSlot type={"helper"} pawn={helperPawn} action={"build"} context={"structure"} id={actionSlotId} key={actionSlotId}/>)
+  }
+
   return (
     <div className={styles.structure}>
       <div className={styles.lvlLabel}>Poziom {props.structure.level}</div>
       <div className={styles.cost}>{costIcon}</div>
       <div className={styles.build}>
-        <div className={styles.builderSlots}>
+        <div className={styles.actionSlots}>
           {!props.structure.locked && (
             <>
-              <ActionSlot type={"helper"} character={null} action={"build"} size={{width: "33%", height: "100%"}} />
-              <ActionSlot type={"leader"} character={null} action={"build"} size={{width: "33%", height: "100%"}} />
+              {helperActionSlots}
+              <ActionSlot type={"leader"} pawn={leaderPawn} action={"build"} context="structure" id={"structure" + props.structure.type + "leader"}/>
             </>
           )}
         </div>

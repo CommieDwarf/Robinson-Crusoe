@@ -15,7 +15,7 @@ export default function PhaseDropDownMenu(props: Props) {
 
     const phaseElements = phases.map((phase, i) => {
       const currentPhaseClass = props.currentPhase === phase ? styles.currentPhase : "";
-        return <div className={styles.phase + " " + currentPhaseClass}>
+        return <div className={styles.phase + " " + currentPhaseClass} key={i}>
             <div className={styles.phaseLabel + " " +styles[phase]}>{i + 1}. Faza {polishPhaseConjugation[phase]}</div>
             <div className={styles.phasePicture}>
               <Image src={"/interface/phase/"+phase+"-pic.png"} layout="fill" alt={phase} />

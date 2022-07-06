@@ -6,10 +6,15 @@ import Invention from "./Invention/Invention";
 import Scrollbar from "../Scrollbar";
 import { Scrollbars } from "react-custom-scrollbars";
 import IInvention from "../../../../interfaces/Invention";
+import Pawn from "../../../../interfaces/Pawn";
 
 
 interface Props {
   inventions: IInvention[],
+  isBeingDragged: boolean,
+  zIndexIncreased: boolean,
+  zIndexInventionIncreased: Map<string, boolean>
+  actionSlots: Map<string, Pawn | null>;
 }
 
 export default function Inventions(props: Props) {
@@ -24,8 +29,10 @@ export default function Inventions(props: Props) {
   const starters = props.inventions.map((invention, i) => {
     column = column == 2 ? 0: column + 1;
     row = column == 0 ? row + 1 : row;
+
+    const zIndexIncreased = props.zIndexInventionIncreased.get(invention.name);
     
-    return <Invention top={scrollTop} column={column} row={row} name={invention.name} type={invention.type} key={i} locked={invention.locked} />;
+    return <Invention top={scrollTop} column={column} row={row} invention={invention} key={i} actionSlots={props.actionSlots} zIndexIncreased={zIndexIncreased}/>;
   });
 
 
@@ -33,11 +40,13 @@ export default function Inventions(props: Props) {
     height: (row + 1) * 140,
   }
 
-  console.log(starters.length)
+  
+  const zIndexClass = props.zIndexIncreased ? styles.zIndexIncreased : "";
+
 
   return (
-    <div className={styles.container}>
-      <Scrollbar styleModule={scrollbarStyles} scrollbarRef={scrollbar} setScrollTop={setScrollTop}>
+    <div className={styles.container + " " + zIndexClass}>
+      <Scrollbar styleModule={scrollbarStyles} scrollbarRef={scrollbar} setScrollTop={setScrollTop} disabled={props.isBeingDragged}>
         <div className={styles.content} style={contentStyle}>{starters}</div>
       </Scrollbar>
     </div>

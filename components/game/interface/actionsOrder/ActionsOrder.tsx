@@ -18,7 +18,7 @@ export default function ActionsOrder() {
   actionOrder.forEach((action, i) => {
     if (i > 0) {
       actionIcons.push(
-        <div className={styles.redArrow}>
+        <div className={styles.redArrow} key={i}>
           <Image
             src="/interface/actions/red-arrow.png"
             layout="fill"
@@ -29,7 +29,7 @@ export default function ActionsOrder() {
     }
 
     actionIcons.push(
-      <div className={styles.actionIcon}>
+      <div className={styles.actionIcon} key={i + 100}>
         <Image
           src={"/interface/actions/" + action + ".png"}
           layout="fill"

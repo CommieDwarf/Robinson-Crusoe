@@ -1,80 +1,84 @@
 import Image from "next/image";
-import React from "react";
-import { Scrollbars } from "react-custom-scrollbars";
+import React, { useId, useState } from "react";
 import styles from "./Character.module.css";
-import Helpers from "./Helpers";
+import SideCharacters from "./sideCharacters/SideCharacters";
+import scrollbarStyles from "./Scrollbar.module.css";
 
-import Determination from "./Determination";
+import Determination from "./determination/Determination";
+import Skill from "./Skill/Skill";
+import ICharacter, { ISkill } from "../../../../interfaces/Character";
+import SkillMenu from "./SkillMenu/SkillMenu";
+import Scrollbar from "../Scrollbar";
+import Pawn from "../Pawn";
+import IPawn from "../../../../interfaces/Pawn";
+import { Droppable } from "react-beautiful-dnd";
 
-export default function Character() {
+interface Props {
+  character: ICharacter;
+  friday: ICharacter;
+  dog: ICharacter;
+}
+
+export default function Character(props: Props) {
+  const [skillDescription, setSkillDescription] = useState<{
+    skill: ISkill | null;
+    show: boolean;
+  }>({ skill: null, show: false });
+
+  const skills = props.character.skills.map((skill, i) => {
+    return (
+      <Skill skill={skill} setSkillDescription={setSkillDescription} key={i} />
+    );
+  });
+
+  const pawnSize = {
+    width: "30px",
+    height: "30px",
+  };
+
   return (
     <div className={styles.container}>
-      <div className={styles.picture}>
-        {/* <Image src="/interface/characters/cook-male.png" layout="fill" alt="character"/> */}
+      <div className={styles.characterPicture}>
+        <Image
+          src={`/interface/characters/characterPictures/${props.character.name.en}-${props.character.gender}.png`}
+          layout="fill"
+          alt="character"
+        />
       </div>
       <div className={styles.description}>
-        <div className={styles.name}>Kucharz</div>
+        <div className={styles.characterName}>{props.character.name.pl}</div>
         <div className={styles.skills}>
-          <div className={styles.skill}>
-            <span className={styles["skill-description"]}>
-              Babcina receptura
-            </span>
-            <div className={styles["skill-drop-button"]}>
-              <div className={styles.triangle}></div>
-            </div>
-          </div>
-          <div className={styles.skill}>
-            <span className={styles["skill-description"]}>Bystre oko</span>
-            <div className={styles["skill-drop-button"]}>
-              <div className={styles.triangle}></div>
-            </div>
-          </div>
-
-          <div className={styles.skill}>
-            <span className={styles["skill-description"]}>Zupa z gwoździa</span>
-            <div className={styles["skill-drop-button"]}>
-              <div className={styles.triangle}></div>
-            </div>
-          </div>
-          <div className={styles.skill}>
-            <span className={styles["skill-description"]}>Samogon</span>
-            <div className={styles["skill-drop-button"]}>
-              <div className={styles.triangle}></div>
-            </div>
-          </div>
+          <SkillMenu skillDescription={skillDescription} />
+          {skills}
         </div>
       </div>
       <Determination />
-      <Scrollbars
-        className={styles.scrollbar}
-        // style={scrollbarStyle}
-        universal={true}
-        hideTracksWhenNotNeeded={true}
-        renderTrackHorizontal={(props) => (
-          <div {...props} className={styles["track-horizontal"]} />
-        )}
-        renderThumbHorizontal={(props) => (
-          <div {...props} className={styles["thumb-horizontal"]} />
-        )}
-        renderTrackVertical={(props) => (
-          <div {...props} className={styles["track-vertical"]} />
-        )}
-        renderThumbVertical={(props) => (
-          <div {...props} className={styles["thumb-vertical"]} />
-        )}
-      >
-        <div className={styles.pawns}>
-          <div className={`${styles.pawn} ${styles["cook-male"]}`}></div>
-          <div className={`${styles.pawn} ${styles["cook-male"]}`}></div>
-          <div className={`${styles.pawn} ${styles["cook-male"]}`}></div>
-          <div className={`${styles.pawn} ${styles["cook-male"]}`}></div>
-          <div className={`${styles.pawn} ${styles["cook-male"]}`}></div>
-          <div className={`${styles.pawn} ${styles["cook-male"]}`}></div>
-          <div className={`${styles.pawn} ${styles["cook-male"]}`}></div>
-          <div className={`${styles.pawn} ${styles["cook-male"]}`}></div>
-        </div>
-      </Scrollbars>
-      <Helpers />
+      <Scrollbar styleModule={scrollbarStyles}>
+        <Droppable droppableId={"freepawns"}>
+          {(provided) => (
+            <div
+              id="freepawns"
+              className={styles.pawns}
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+            >
+              {props.character.freePawns.map((pawn, i) => {
+                return (
+                  <Pawn
+                    pawn={pawn}
+                    context={"character"}
+                    index={i}
+                    key={pawn.id}
+                  />
+                );
+              })}
+
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </Scrollbar>
+      <SideCharacters friday={props.friday} dog={props.dog} />
     </div>
   );
 }

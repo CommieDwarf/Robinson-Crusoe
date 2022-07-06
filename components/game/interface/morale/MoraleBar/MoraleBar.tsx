@@ -22,9 +22,9 @@ export default function MoraleBar(props: Props) {
       <div className={styles.moraleBar + " " + moraleBar0Class + " " + moraleCurrentClass}>
         <div className={styles.moraleLabel}>
           <div className={styles.moraleValue}>{props.value}</div>
-          <div className={styles.moraleIcon}>
+         {props.value !== 0 &&  <div className={styles.moraleIcon}>
             <Image src="/interface/morale/icon.png" layout="fill" alt="morale"/>
-          </div>
+          </div>}
         </div>
       </div>
     )

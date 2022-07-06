@@ -5,12 +5,16 @@ import { Scrollbars } from "react-custom-scrollbars";
 import Scrollbar from "../Scrollbar";
 import scrollbarStyles from "./Scrollbar.module.css";
 import tileStyles from "./Tile/Tile.module.css";
+import pawnStyles from "../Pawn.module.css";
 import getDragAndScrollHandle from "../../../../utils/dragAndScrollHandle";
 import ITile from "../../../../interfaces/Tile";
 import Tile from "./Tile/Tile";
+import Pawn from "../../../../interfaces/Pawn";
 
 interface Props {
   tiles: ITile[];
+  actionSlots: Map<string, Pawn | null>;
+  zIndexIncreased: boolean;
 }
 
 export default function Map(props: Props) {
@@ -18,8 +22,9 @@ export default function Map(props: Props) {
 
   const tiles = [];
 
-  for (let i = 0; i < 15; i++) {
-    tiles.push(<Tile tile={props.tiles[i]} key={i} />);
+
+  for (let i = 0; i < props.tiles.length; i++) {
+    tiles.push(<Tile tile={props.tiles[i]} key={i} contentScale={contentScale} actionSlots={props.actionSlots}/>);
   }
 
   const scrollbar = React.createRef<Scrollbars>();
@@ -39,9 +44,13 @@ export default function Map(props: Props) {
   useEffect(() => {
     function handleWheel(event: WheelEvent) {
       const target = event.target as HTMLDivElement;
-      if (target.closest("." + tileStyles.gatherPlayerSlots)) {
+      const actionSlotsScrollable = target.closest("." + tileStyles.gatherActionSlotsScrollable);
+      
+      if (actionSlotsScrollable) {
         return;
       }
+     
+
       event.preventDefault();
       if (event.deltaY < 0) {
         zoomIn();
@@ -83,11 +92,12 @@ export default function Map(props: Props) {
     height: contentScale + "%",
   };
 
+  const zIndexClass = props.zIndexIncreased ? styles.zIndexIncreased : "";
   
 
   return (
     <div
-      className={styles.container}
+      className={styles.container + " " + zIndexClass}
       ref={container}
       onMouseDown={mouseDownHandle}
     >
@@ -115,7 +125,7 @@ export default function Map(props: Props) {
       >
         <div className={`${styles.content}`} style={contentStyle}>
           <div className={styles.map}>
-            <Image src="/interface/map/map.png" layout="fill" alt="map" />
+            <Image src="/interface/map/map.png" layout="fill" alt="map" priority/>
             {tiles}
           </div>
         </div>

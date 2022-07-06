@@ -2,12 +2,24 @@ import tiles from "./tiles";
 import allResources from "./resources";
 import structures from "./structures";
 import inventions from "./inventions";
+import threatCards from "./threatCards";
+import equipment from "./equipment";
+import player from "./Players";
+import characters from "./characters";
+import actionSlots from "./actionSlots";
+import pawns from "./pawns";
 
 const game = {
     tiles,
     allResources,
     structures,
-    inventions
+    inventions,
+    threatCards,
+    equipment,
+    player,
+    characters,
+    actionSlots,
+    pawns
 }
 
 export default game;
