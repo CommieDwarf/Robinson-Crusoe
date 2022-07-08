@@ -193,6 +193,8 @@ export default function Game(props: Props) {
     if (!draggableId || !destination?.droppableId || !source.droppableId) {
       return;
     }
+
+
     updatePawnLocations(
       draggableId,
       destination.droppableId,
@@ -268,7 +270,7 @@ export default function Game(props: Props) {
       
       return;
     }
-
+// dasdasd
     if (
       update.destination.droppableId.includes("freepawns")
     ) {
