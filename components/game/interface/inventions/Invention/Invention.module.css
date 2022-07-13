@@ -1,49 +1,66 @@
 .invention {
-  aspect-ratio: 404 / 617;
-  height: 140px;
-  position: absolute;
-  transition: all 0.5s;
-  z-index: 0;
-  cursor: pointer;
+    aspect-ratio: 404 / 617;
+    height: 140px;
+    position: absolute;
+    transition: all 0.5s;
+    z-index: 0;
+    cursor: pointer;
 }
 
 .zIndexIncreased {
-  z-index: 10 !important;
+    z-index: 10 !important;
+}
+
+.zIndexTransition {
+    animation-name: zIndex;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+}
+
+@keyframes zIndex {
+
+    from {
+        z-index: 1
+    }
+    to {
+        z-index: 0
+    }
 }
 
 .inventionEnlarged {
-  height: 280px;
-  z-index: 2;
+    height: 280px;
+    z-index: 2;
 }
 
 .inventionLocked {
-  filter: brightness(0.5);
+    filter: brightness(0.5);
 }
 
 .actionSlots {
-  top: 55%;
-  left: 10%;
-  display: flex;
-  position: absolute;
-  width: 80%;
-  height: 17%;
-  justify-content: center;
+    top: 55%;
+    left: 10%;
+    display: flex;
+    position: absolute;
+    width: 80%;
+    height: 17%;
+    justify-content: center;
 }
 
 .commitedResources {
-  position: absolute;
-  top: 32%;
-  left: 10%;
-  width: 80%;
-  height: 10%;
-  display: flex;
-  justify-content: center;
+    position: absolute;
+    top: 32%;
+    left: 10%;
+    width: 80%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
 }
 
 .resource {
-  position: relative;
-  width: 20%;
-  height: 100%;
-  background-color: white;
-  border-radius: 100%;
+    position: relative;
+    width: 20%;
+    height: 100%;
+    background-color: white;
+    border-radius: 100%;
 }

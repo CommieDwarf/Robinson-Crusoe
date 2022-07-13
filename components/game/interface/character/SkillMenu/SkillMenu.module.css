@@ -1,47 +1,47 @@
 
 .container {
-  position: absolute;
-  width: 0;
-  height: 145%;
-  z-index: 10;
-  left: 0;
-  top: -24%;
-  transition: all 1s;
-  z-index: 2;
-  background-image: url("../../../../../public/interface/characters/background.png");
-  background-size: contain;
-  border: none;
-  overflow: hidden;
-  font-size: 13px;
-  white-space: nowrap;
-  font-weight: bold;
+    position: absolute;
+    width: 0;
+    height: 145%;
+    left: 0;
+    top: -24%;
+    transition: all 1s;
+    background-image: url("../../../../../public/interface/characters/background.png");
+    background-size: contain;
+    border: none;
+    overflow: hidden;
+    font-size: 13px;
+    white-space: nowrap;
+    font-weight: bold;
+
 }
 
+
 .skillDescriptionVisible {
-  width: 200%;
-  left: -200%;
-  border: 1px solid #451e14;
+    width: 200%;
+    left: -200%;
+    border: 1px solid #451e14;
 }
 
 .useButton {
-  margin-left: 40px;
-  border: 1px dashed #451e14;
-  color: #451e14;
-  width: 130px;
-  text-align: center;
-  border-radius: 5px;
+    margin-left: 40px;
+    border: 1px dashed #451e14;
+    color: #451e14;
+    width: 130px;
+    text-align: center;
+    border-radius: 5px;
 }
 
 .commentary {
-  font-weight: bold;
-  font-style:italic;
-  font-size: 10px;
-  font-family: Snell Roundhand, cursive;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 10px;
+    font-family: Snell Roundhand, cursive;
 }
 
 .icon {
-  width: 20px;
-  height: 20px;
-  position: relative;
-  display: inline-block;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    display: inline-block;
 }

@@ -1,7 +1,7 @@
 import Image from "next/image";
-import React, { UIEventHandler, useEffect, useState } from "react";
+import React, {UIEventHandler, useEffect, useState} from "react";
 import styles from "./Map.module.css";
-import { Scrollbars } from "react-custom-scrollbars";
+import {Scrollbars} from "react-custom-scrollbars";
 import Scrollbar from "../Scrollbar";
 import scrollbarStyles from "./Scrollbar.module.css";
 import tileStyles from "./Tile/Tile.module.css";
@@ -10,6 +10,7 @@ import getDragAndScrollHandle from "../../../../utils/dragAndScrollHandle";
 import ITile from "../../../../interfaces/Tile";
 import Tile from "./Tile/Tile";
 import Pawn from "../../../../interfaces/Pawn";
+import Hunting from "./Hunting/Hunting";
 
 interface Props {
   tiles: ITile[];
@@ -22,9 +23,15 @@ export default function Map(props: Props) {
 
   const tiles = [];
 
-
   for (let i = 0; i < props.tiles.length; i++) {
-    tiles.push(<Tile tile={props.tiles[i]} key={i} contentScale={contentScale} actionSlots={props.actionSlots}/>);
+    tiles.push(
+        <Tile
+            tile={props.tiles[i]}
+            key={i}
+            contentScale={contentScale}
+            actionSlots={props.actionSlots}
+        />
+    );
   }
 
   const scrollbar = React.createRef<Scrollbars>();
@@ -44,12 +51,13 @@ export default function Map(props: Props) {
   useEffect(() => {
     function handleWheel(event: WheelEvent) {
       const target = event.target as HTMLDivElement;
-      const actionSlotsScrollable = target.closest("." + tileStyles.gatherActionSlotsScrollable);
-      
+      const actionSlotsScrollable = target.closest(
+          "." + tileStyles.gatherActionSlotsScrollable
+      );
+
       if (actionSlotsScrollable) {
         return;
       }
-     
 
       event.preventDefault();
       if (event.deltaY < 0) {
@@ -60,7 +68,7 @@ export default function Map(props: Props) {
     }
 
     const element = container.current;
-    element?.addEventListener("wheel", handleWheel, { passive: false });
+    element?.addEventListener("wheel", handleWheel, {passive: false});
 
     return () => {
       element?.removeEventListener("wheel", handleWheel);
@@ -93,43 +101,49 @@ export default function Map(props: Props) {
   };
 
   const zIndexClass = props.zIndexIncreased ? styles.zIndexIncreased : "";
-  
 
   return (
-    <div
-      className={styles.container + " " + zIndexClass}
-      ref={container}
-      onMouseDown={mouseDownHandle}
-    >
-      <div className={styles.zoom}>
-        <div className={styles.zoomIcon}>
-          <Image
-            src="/interface/map/magnifying-glass.png"
-            layout="fill"
-            alt="zoom"
-          />
-        </div>
-        <div className={styles.zoomButton} onClick={zoomIn}>
-          <span className={styles.zoomText}>+</span>
-        </div>
-        <div className={styles.zoomButton}>
+      <div
+          className={styles.container + " " + zIndexClass}
+          ref={container}
+          onMouseDown={mouseDownHandle}
+      >
+        <Hunting/>
+        <div className={styles.zoom}>
+          <div className={styles.zoomIcon}>
+            <Image
+                src="/interface/map/magnifying-glass.png"
+                layout="fill"
+                alt="zoom"
+            />
+          </div>
+          <div className={styles.zoomButton} onClick={zoomIn}>
+            <span className={styles.zoomText}>+</span>
+          </div>
+          <div className={styles.zoomButton}>
           <span className={styles.zoomText} onClick={zoomOut}>
             -
           </span>
-        </div>
-      </div>
-      <Scrollbar
-        scrollbarRef={scrollbar}
-        styleModule={scrollbarStyles}
-        contentScale={contentScale}
-      >
-        <div className={`${styles.content}`} style={contentStyle}>
-          <div className={styles.map}>
-            <Image src="/interface/map/map.png" layout="fill" alt="map" priority/>
-            {tiles}
           </div>
         </div>
-      </Scrollbar>
-    </div>
+        <Scrollbar
+            scrollbarRef={scrollbar}
+            styleModule={scrollbarStyles}
+            contentScale={contentScale}
+        >
+          <div className={`${styles.content}`} style={contentStyle}>
+            <div className={styles.map}>
+              <Image
+                  src="/interface/map/map.png"
+                  layout="fill"
+                  alt="map"
+                  priority
+              />
+              {tiles}
+            </div>
+          </div>
+        </Scrollbar>
+
+      </div>
   );
 }

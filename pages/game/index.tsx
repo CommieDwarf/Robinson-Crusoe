@@ -20,6 +20,8 @@ import game from "../../server/game";
 import Threat from "../../components/game/interface/threat/Threat";
 import AdditionalActivities from "../../components/game/interface/additionalActivities/AdditionalActivities";
 import Equipment from "../../components/game/interface/equipment/Equipment";
+import pawnStyles from "../../components/game/interface/Pawn.module.css";
+import IZIndexIncreased from "../../interfaces/ZIndexIncreased";
 
 import {
   DragDropContext,
@@ -34,6 +36,7 @@ import Pawn from "../../interfaces/Pawn";
 import ICharacter from "../../interfaces/Character";
 import getPawnCanBeSettled from "../../utils/getCanPawnBeSettled";
 import { stringify } from "querystring";
+import sleep from "../../utils/sleep";
 
 interface Characters {
   cook: ICharacter;
@@ -53,14 +56,40 @@ export default function Game(props: Props) {
   const [characters, setCharacters] = useState<Characters>(game.characters);
   const [isBeingDragged, setIsBeingDragged] = useState(false);
   const [player, setPlayer] = useState(game.player);
-  const [zIndexIncreased, setZIndexIncreased] = useState({
+  const [activities, setActivities] = useState(game.activities);
+  const [zIndexIncreased, setZIndexIncreased] = useState<IZIndexIncreased>({
     map: false,
     inventions: false,
     threat: false,
     structures: false,
     additionalActivities: false,
+    character: false,
   });
-  const [zIndexInventionIncreased, setZIndexInventionIncreased] = useState(new Map<string, boolean>());
+  const [zIndexInventionIncreased, setZIndexInventionIncreased] = useState(
+    new Map<string, boolean>()
+  );
+
+  function setActivitiesPawnCounter(destination: string, source: string) {
+    const destArray = destination.split("-");
+    const sourceArray = source.split("-");
+
+    const destActivity = destArray[0];
+    if (destActivity === "rest" || destActivity === "arrange") {
+      setActivities((prev) => {
+        const copy = { ...prev };
+        copy[destActivity].pawns++;
+        return copy;
+      });
+    }
+    const sourceActivity = sourceArray[0];
+    if (sourceActivity === "rest" || sourceActivity === "arrange") {
+      setActivities((prev) => {
+        const copy = { ...prev };
+        copy[sourceActivity].pawns--;
+        return copy;
+      });
+    }
+  }
 
   function unselectAllActionSlots() {
     actionSlots.forEach((value, key) => {
@@ -69,16 +98,15 @@ export default function Game(props: Props) {
         actionSlot.classList.remove(actionSlotStyles.canBeSettled);
         actionSlot.classList.remove(actionSlotStyles.cantBeSettled);
       }
-     
     });
     const dogDroppable = document.getElementById("dog-droppable");
     const fridayDroppable = document.getElementById("friday-droppable");
     const chars = [dogDroppable, fridayDroppable];
 
     chars.forEach((char) => {
-      char?.classList.remove(actionSlotStyles.canBeSettled)
-      char?.classList.remove(actionSlotStyles.cantBeSettled)
-    })
+      char?.classList.remove(actionSlotStyles.canBeSettled);
+      char?.classList.remove(actionSlotStyles.cantBeSettled);
+    });
   }
 
   function setPawn(pawn: Pawn, destinationId: string) {
@@ -152,7 +180,7 @@ export default function Game(props: Props) {
     });
 
     await sleep(10); // Sleep has been used because DnD library have thrown
-    // "Couldnt find draggable with id..."
+    // "Couldn't find draggable with id..."
     setActionSlots((prev) => {
       const actionSlots = new Map(prev);
       actionSlots.set(destinationId, pawn1);
@@ -174,6 +202,7 @@ export default function Game(props: Props) {
     }
     if (getPawnCanBeSettled(pawn, destinationId)) {
       let pawn2 = actionSlots.get(destinationId);
+      setActivitiesPawnCounter(destinationId, sourceId);
       if (pawn2) {
         if (!getPawnCanBeSettled(pawn2, sourceId)) {
           return;
@@ -190,10 +219,12 @@ export default function Game(props: Props) {
     setIsBeingDragged(false);
     unselectAllActionSlots();
     const { draggableId, destination, source } = result;
+    const pawn = document.getElementById(draggableId);
+    pawn?.classList.remove(pawnStyles.dragged);
+
     if (!draggableId || !destination?.droppableId || !source.droppableId) {
       return;
     }
-
 
     updatePawnLocations(
       draggableId,
@@ -205,18 +236,17 @@ export default function Game(props: Props) {
       const copy = { ...prev };
       Object.keys(copy).forEach((key) => {
         const k = key as keyof typeof copy;
-          copy[k] = false;
+        copy[k] = false;
       });
       return copy;
     });
     setZIndexInventionIncreased((prev) => {
       const copy = new Map(prev);
-      copy.forEach((value,key) => {
+      copy.forEach((value, key) => {
         copy.set(key, false);
-      })
+      });
       return copy;
-    })
-
+    });
   }
 
   function getPawnById(id: string) {
@@ -224,24 +254,27 @@ export default function Game(props: Props) {
   }
 
   function onDragStart(start: DragStart, provided: ResponderProvided) {
-    
-    start.mode = "SNAP";
+    const pawn = document.getElementById(start.draggableId);
+    if (!pawn) {
+      return;
+    }
+    pawn.classList.add(pawnStyles.dragged);
     setIsBeingDragged(true);
-    const componentName = getComponentNameFromSourceId(start.source.droppableId)
+    const componentName = getComponentNameFromSourceId(
+      start.source.droppableId
+    );
     setZIndexIncreased((prev) => {
       const copy = { ...prev };
-        
       copy[componentName] = true;
       return copy;
     });
     if (componentName.includes("invention")) {
       const array = start.source.droppableId.split("-");
-      console.log(array)
       setZIndexInventionIncreased((prev) => {
         const copy = new Map(prev);
         copy.set(array[1], true);
         return copy;
-      })
+      });
     }
   }
 
@@ -267,16 +300,13 @@ export default function Game(props: Props) {
     const pawn = getPawnById(update.draggableId);
 
     if (!slotDestinationElement || !pawn || !slotSourceElement) {
-      
       return;
     }
-// dasdasd
-    if (
-      update.destination.droppableId.includes("freepawns")
-    ) {
+    // dasdasd
+    if (update.destination.droppableId.includes("freepawns")) {
       return;
     }
-    console.log(slotSourceElement, slotDestinationElement )
+    console.log(slotSourceElement, slotDestinationElement);
     if (getPawnCanBeSettled(pawn, update.destination.droppableId)) {
       slotDestinationElement.classList.add(actionSlotStyles.canBeSettled);
     } else {
@@ -295,8 +325,6 @@ export default function Game(props: Props) {
       }
     }
   }
-
-  
 
   return (
     <div className={styles.game}>
@@ -325,10 +353,15 @@ export default function Game(props: Props) {
           character={player.character}
           dog={characters.dog}
           friday={characters.friday}
+          zIndexIncreased={zIndexIncreased.character}
+          setZIndexIncreased={setZIndexIncreased}
         />
         <Health />
-        <Threat threatCards={game.threatCards} />
-        <AdditionalActivities />
+        <Threat threatCards={game.threatCards} actionSlots={actionSlots} />
+        <AdditionalActivities
+          activities={activities}
+          actionSlots={actionSlots}
+        />
         <Equipment equipment={game.equipment} />
         <ActionsOrder />
         <Chat />
@@ -345,7 +378,3 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
   return { props: { data: [] } };
 };
-
-function sleep(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}

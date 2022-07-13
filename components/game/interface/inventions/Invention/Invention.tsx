@@ -21,7 +21,7 @@ export default function Invention(props: Props) {
   const inventionRef = React.createRef<HTMLDivElement>();
 
   function handleClick() {
-    if(!props.zIndexIncreased) {
+    if (!props.zIndexIncreased) {
       setEnlarge((prev) => !prev);
     }
   }
@@ -31,7 +31,9 @@ export default function Invention(props: Props) {
     top: props.row * 140,
   };
 
-  const enlargedClass = enlarge ? styles.inventionEnlarged : "";
+  const enlargedClass = enlarge
+    ? styles.inventionEnlarged
+    : styles.zIndexTransition;
 
   wrapperStyle.top = enlarge ? props.top + 10 : wrapperStyle.top;
   wrapperStyle.left = enlarge ? 60 : wrapperStyle.left;
@@ -54,12 +56,12 @@ export default function Invention(props: Props) {
 
   const leaderId = "invention-" + props.invention.name + "-leader";
   let leaderPawn = props.actionSlots.get(leaderId);
-  leaderPawn = leaderPawn ? leaderPawn : null; 
+  leaderPawn = leaderPawn ? leaderPawn : null;
 
   const zIndexClass = props.zIndexIncreased ? styles.zIndexIncreased : "";
 
-  if(zIndexClass) {
-    console.log('Z INDEX')
+  if (zIndexClass) {
+    console.log("Z INDEX");
   }
   return (
     <div
@@ -80,7 +82,7 @@ export default function Invention(props: Props) {
         alt={props.invention.name + " invention"}
       />
       <div className={styles.actionSlots}>
-       {getHelperActionSlots(props.invention, props.actionSlots)}
+        {getHelperActionSlots(props.invention, props.actionSlots)}
         <ActionSlot
           type="leader"
           pawn={leaderPawn}

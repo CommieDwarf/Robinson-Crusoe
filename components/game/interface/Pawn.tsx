@@ -17,7 +17,7 @@ interface Props {
     | "explore"
     | "structure"
     | "invention"
-    | "arrangeCamp"
+    | "arrange"
     | "rest"
     | "threat"
     | "hunt"
@@ -43,7 +43,10 @@ export default function Pawn(props: Props) {
       props.pawn.character.name.en === "dog")
   ) {
     pawn = (
-      <div className={styles.pawn + " " + styles[props.pawn.character.name.en]} id={props.pawn.id}>
+      <div
+        className={styles.pawn + " " + styles[props.pawn.character.name.en]}
+        id={props.pawn.id}
+      >
         <Image
           src={`/interface/characters/pawns/${props.pawn.character.name.en}.png`}
           layout="fill"
@@ -53,7 +56,10 @@ export default function Pawn(props: Props) {
     );
   } else {
     pawn = (
-      <div className={styles.pawn + " " + styles[props.pawn.character.name.en]} id={props.pawn.id}>
+      <div
+        className={styles.pawn + " " + styles[props.pawn.character.name.en]}
+        id={props.pawn.id}
+      >
         <Image
           src={`/interface/characters/pawns/helper.png`}
           layout="fill"
@@ -70,13 +76,8 @@ export default function Pawn(props: Props) {
       : props.context + "Context";
 
   return (
-    <Draggable
-      draggableId={props.pawn.id}
-      index={props.index}
-      
-    >
+    <Draggable draggableId={props.pawn.id} index={props.index}>
       {(provided, snapshot) => {
-        
         return (
           <div
             className={styles.container + " " + styles[context]}

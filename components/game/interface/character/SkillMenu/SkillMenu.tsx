@@ -20,6 +20,7 @@ export default function SkillMenu(props: Props) {
   const visibilityClass = props.skillDescription.show
     ? styles.skillDescriptionVisible
     : "";
+
   return (
     <div className={styles.container + " " + visibilityClass}>
       {props.skillDescription.skill && (
@@ -45,7 +46,7 @@ const icons = [
 function insertJSXIntoString(string: string) {
   const array = string.split("$");
 
-  const replaced = array.map((st) => {
+  return array.map((st) => {
     if (icons.includes(st)) {
       return (
         <div className={styles.icon}>
@@ -62,6 +63,4 @@ function insertJSXIntoString(string: string) {
       return st;
     }
   });
-
-  return replaced;
 }

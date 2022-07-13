@@ -8,14 +8,14 @@ import IPawn from "../../../interfaces/Pawn";
 
 interface Props {
   type: "helper" | "leader";
-  pawn: null | IPawn;
+  pawn: null | IPawn | undefined;
   action:
     | "threat"
     | "hunt"
     | "build"
     | "gather"
     | "explore"
-    | "arrangeCamp"
+    | "arrange"
     | "rest";
   context:
     | "gather"
@@ -23,7 +23,7 @@ interface Props {
     | "structure"
     | "invention"
     | "rest"
-    | "arrangeCamp"
+    | "arrange"
     | "threat"
     | "hunt";
   id: string;

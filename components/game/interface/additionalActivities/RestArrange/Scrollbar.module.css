@@ -1,28 +1,29 @@
 .scrollbar {
-  width: 65% !important;
-  height: 75% !important;
-  display: inline-block !important;
+    width: 65% !important;
+    height: 75% !important;
+    display: inline-block !important;
 }
 
 .trackHorizontal {
-  display: none;
+    display: none;
 }
 
 .thumbHorizontal {
-  display: none;
+    display: none;
 }
 
 .trackVertical {
-  width: 10px !important;
-  height: 100%;
-  right: 0;
-  background: transparent;
+    width: 8px !important;
+    height: 100%;
+    right: 0;
+    background: transparent;
 }
 
 .thumbVertical {
-  width: 10px !important;
-  background-image: url("../../../../../public/interface/resources/boardVert.jpg");
-  background-size: cover;
-  border-radius: 5px;
-  border: 1px solid black;
+    width: 8px !important;
+    background-image: url("../../../../../public/interface/resources/boardVert.jpg");
+    background-size: cover;
+    border-radius: 5px;
+    border: 1px solid black;
+    z-index: 100 !important;
 }

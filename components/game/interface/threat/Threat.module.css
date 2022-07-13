@@ -10,9 +10,9 @@
     position: relative;
     grid-column: 3 / span 2;
     grid-row: 3 / span 1;
-  }
-  
-  .cardSlot {
+}
+
+.cardSlot {
     width: 60px;
     height: 90px;
     position: relative;
@@ -20,37 +20,56 @@
     margin-top: 2px;
     border-radius: 5px;
     background-image: url("../../../../public/interface/cards/event-icon.png"),
-      url("../../../../public/interface/cards/event-slot-background.png");
+    url("../../../../public/interface/cards/event-slot-background.png");
     background-size: cover;
     transition: all 0.5s;
-    z-index: 1;
     cursor: pointer;
-  }
+}
 
-  .cardEnlarged {
-    z-index: 10;
+.cardEnlarged {
     transform: scale(5);
-  }
-  
-  .actionSlots {
+}
+
+.zIndexIncreased {
+    z-index: 200;
+}
+
+.zIndexTransition {
+    animation-name: zIndex;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+}
+
+@keyframes zIndex {
+
+    from {
+        z-index: 500
+    }
+    to {
+        z-index: 1
+    }
+}
+
+
+.actionSlots {
     width: 60px;
     display: flex;
     justify-content: space-around;
-  }
-  
+}
 
-  
-  .arrow {
+
+.arrow {
     position: absolute;
     width: 35px;
     height: 20px;
     top: 35%;
-  }
-  
-  .curvedArrow{
+}
+
+.curvedArrow {
     position: absolute;
     width: 35px;
     height: 20px;
     left: -2px;
     bottom: 50px;
-  }
+}

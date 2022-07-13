@@ -12,11 +12,14 @@ import Scrollbar from "../Scrollbar";
 import Pawn from "../Pawn";
 import IPawn from "../../../../interfaces/Pawn";
 import { Droppable } from "react-beautiful-dnd";
+import IZIndexIncreased from "../../../../interfaces/ZIndexIncreased";
 
 interface Props {
   character: ICharacter;
   friday: ICharacter;
   dog: ICharacter;
+  zIndexIncreased: boolean;
+  setZIndexIncreased: React.Dispatch<React.SetStateAction<IZIndexIncreased>>;
 }
 
 export default function Character(props: Props) {
@@ -27,17 +30,21 @@ export default function Character(props: Props) {
 
   const skills = props.character.skills.map((skill, i) => {
     return (
-      <Skill skill={skill} setSkillDescription={setSkillDescription} key={i} />
+      <Skill
+        skill={skill}
+        setSkillDescription={setSkillDescription}
+        key={i}
+        setZIndex={props.setZIndexIncreased}
+      />
     );
   });
 
-  const pawnSize = {
-    width: "30px",
-    height: "30px",
-  };
+  const zIndexClass = props.zIndexIncreased
+    ? styles.zIndexIncreased
+    : styles.zIndexTransition;
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container + " " + zIndexClass}>
       <div className={styles.characterPicture}>
         <Image
           src={`/interface/characters/characterPictures/${props.character.name.en}-${props.character.gender}.png`}
