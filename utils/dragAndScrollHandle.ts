@@ -3,6 +3,7 @@ import pawnStyles from "../components/game/interface/Pawn.module.css";
 
 import { Scrollbars } from "react-custom-scrollbars";
 
+// set handler to container component
 
 export default function getMouseDownHandle(
   scrollbar: React.RefObject<Scrollbars>,
@@ -38,9 +39,6 @@ export default function getMouseDownHandle(
     if (!scrollbar.current || !container.current || pawn) {
       return;
     }
-    
-    
-   
 
     event.preventDefault();
     pos = {

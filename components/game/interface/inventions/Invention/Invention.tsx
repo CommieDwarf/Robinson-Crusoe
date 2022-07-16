@@ -61,7 +61,6 @@ export default function Invention(props: Props) {
   const zIndexClass = props.zIndexIncreased ? styles.zIndexIncreased : "";
 
   if (zIndexClass) {
-    console.log("Z INDEX");
   }
   return (
     <div

@@ -14,15 +14,14 @@ let testPawn: null = null;
 const pawns = characters.cook.pawns;
 
 tiles.forEach((tile) => {
-  actionSlots.set("tile" + tile.id + "gatherleftleader", testPawn);
-  actionSlots.set("tile" + tile.id + "gatherrightleader", testPawn);
-  actionSlots.set("tile" + tile.id + "gatherrighthelper1", testPawn);
-  actionSlots.set("tile" + tile.id + "gatherlefthelper1", testPawn);
-  actionSlots.set("tile" + tile.id + "gatherrighthelper2", testPawn);
-  actionSlots.set("tile" + tile.id + "gatherlefthelper2", testPawn);
-  actionSlots.set("tile" + tile.id + "exploreleader", testPawn);
-  actionSlots.set("tile" + tile.id + "explorehelper1", testPawn);
-  actionSlots.set("tile" + tile.id + "explorehelper2", testPawn);
+  actionSlots.set(`tile-${tile.id}-gather-left-leader`, testPawn);
+  actionSlots.set(`tile-${tile.id}-gather-right-helper-1`, testPawn);
+  actionSlots.set(`tile-${tile.id}-gather-left-helper-1`, testPawn);
+  actionSlots.set(`tile-${tile.id}-gather-right-helper-2`, testPawn);
+  actionSlots.set(`tile-${tile.id}-gather-left-helper-2`, testPawn);
+  actionSlots.set(`tile-${tile.id}-explore-leader`, testPawn);
+  actionSlots.set(`tile-${tile.id}-explore-helper-1`, testPawn);
+  actionSlots.set(`tile-${tile.id}-explore-helper-2`, testPawn);
 });
 
 structures.forEach((structure) => {
@@ -46,5 +45,8 @@ for (let i = 1; i <= 2; i++) {
   actionSlots.set("threat-left-" + i, null);
   actionSlots.set("threat-right-" + i, null);
 }
+
+actionSlots.set("hunt-leader", null);
+actionSlots.set("hunt-helper", null);
 
 export default actionSlots;

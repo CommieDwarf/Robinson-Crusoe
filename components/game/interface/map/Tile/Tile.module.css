@@ -1,85 +1,89 @@
 .container {
-  position: absolute;
-  width: 19%;
-  height: 19%;
+    position: absolute;
+    width: 19%;
+    height: 19%;
+}
+
+.zIndexIncreased {
+    z-index: 2634634643634600;
 }
 
 .tile {
-  position: absolute;
-  width: 95%;
-  height: 95%;
-  top: 3px;
-  left: 1px;
+    position: absolute;
+    width: 95%;
+    height: 95%;
+    top: 3px;
+    left: 1px;
 }
 
-.explorePlayerSlots{
-  width: 60%;
-  height: 60%;
-  display: flex;
-  flex-wrap: wrap;
-  margin: auto;
-  justify-content: center;
-  align-items:center;
-  position: relative;
-  top: 15%;
-  right: 2%;
-  z-index: 1;
+.explorePlayerSlots {
+    width: 60%;
+    height: 60%;
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 15%;
+    right: 2%;
+    z-index: 1;
 }
-
 
 
 .gatherActionSlots {
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
 }
 
 .gatherActionSlotsLeft {
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  float: left;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    float: left;
 }
+
 .gatherActionSlotsRight {
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  float: right;
-  background-color: right
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    float: right;
+    background-color: right
 }
 
 .actionSlotsScrollable {
-  color: blue;
+    color: blue;
 }
 
 
 .scrollbar {
-  width: 50% !important;
-  height: 50% !important;
-  z-index: 1;
-  margin: auto;
-  position: relative;
-  right: 2%;
-  top: 10%;
+    width: 50% !important;
+    height: 50% !important;
+    z-index: 1;
+    margin: auto;
+    position: relative;
+    right: 2%;
+    top: 10%;
 }
 
 .trackHorizontal {
-  display: none;
+    display: none;
 }
 
 .thumbHorizontal {
-  display: none;
+    display: none;
 }
 
 .trackVertical {
-  width: 10% !important;
-  height: 100%;
-  right: 0;
-  background: transparent;
+    width: 10% !important;
+    height: 100%;
+    right: 0;
+    background: transparent;
 }
 
 .thumbVertical {
-  background-image: url("../../../../../public/interface/map/boardVert.jpg");
-  background-size: cover;
-  border-radius: 5px;
-  border: 1px solid black;
+    background-image: url("../../../../../public/interface/map/boardVert.jpg");
+    background-size: cover;
+    border-radius: 5px;
+    border: 1px solid black;
 }

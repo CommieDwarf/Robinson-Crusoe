@@ -9,6 +9,7 @@ import characters from "./characters";
 import actionSlots from "./actionSlots";
 import pawns from "./pawns";
 import activities from "./additionalActivities";
+import beastDeck from "./beast";
 
 const game = {
   tiles,
@@ -22,6 +23,7 @@ const game = {
   actionSlots,
   pawns,
   activities,
+  beastDeck,
 };
 
 export default game;

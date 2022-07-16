@@ -37,6 +37,7 @@ import ICharacter from "../../interfaces/Character";
 import getPawnCanBeSettled from "../../utils/getCanPawnBeSettled";
 import { stringify } from "querystring";
 import sleep from "../../utils/sleep";
+import Hunting from "../../components/game/interface/Hunting/Hunting";
 
 interface Characters {
   cook: ICharacter;
@@ -57,6 +58,7 @@ export default function Game(props: Props) {
   const [isBeingDragged, setIsBeingDragged] = useState(false);
   const [player, setPlayer] = useState(game.player);
   const [activities, setActivities] = useState(game.activities);
+  const [beastDeck, setBeastDeck] = useState(game.beastDeck);
   const [zIndexIncreased, setZIndexIncreased] = useState<IZIndexIncreased>({
     map: false,
     inventions: false,
@@ -64,10 +66,21 @@ export default function Game(props: Props) {
     structures: false,
     additionalActivities: false,
     character: false,
+    hunt: false,
   });
+  const [zIndexTileIncreased, setZIndexTileIncreased] = useState(
+    new Map<number, boolean>()
+  );
   const [zIndexInventionIncreased, setZIndexInventionIncreased] = useState(
     new Map<string, boolean>()
   );
+
+  useEffect(() => {}, [zIndexTileIncreased]);
+
+  actionSlots.forEach((slot, key) => {
+    if (key.includes("tile")) {
+    }
+  });
 
   function setActivitiesPawnCounter(destination: string, source: string) {
     const destArray = destination.split("-");
@@ -215,6 +228,29 @@ export default function Game(props: Props) {
     }
   }
 
+  function resetAllZIndexexIncreaased() {
+    setZIndexIncreased((prev) => {
+      const copy = { ...prev };
+      for (let key in copy) {
+        const k = key as keyof typeof copy;
+        copy[k] = false;
+      }
+      return copy;
+    });
+
+    setZIndexTileIncreased((prev) => {
+      const copy = new Map(prev);
+
+      copy.forEach((value, key) => copy.set(key, false));
+      return copy;
+    });
+    setZIndexInventionIncreased((prev) => {
+      const copy = new Map(prev);
+      copy.forEach((value, key) => copy.set(key, false));
+      return copy;
+    });
+  }
+
   function onDragEnd(result: DropResult) {
     setIsBeingDragged(false);
     unselectAllActionSlots();
@@ -232,21 +268,22 @@ export default function Game(props: Props) {
       source.droppableId
     );
 
-    setZIndexIncreased((prev) => {
-      const copy = { ...prev };
-      Object.keys(copy).forEach((key) => {
-        const k = key as keyof typeof copy;
-        copy[k] = false;
-      });
-      return copy;
-    });
-    setZIndexInventionIncreased((prev) => {
-      const copy = new Map(prev);
-      copy.forEach((value, key) => {
-        copy.set(key, false);
-      });
-      return copy;
-    });
+    // setZIndexIncreased((prev) => {
+    //   const copy = { ...prev };
+    //   Object.keys(copy).forEach((key) => {
+    //     const k = key as keyof typeof copy;
+    //     copy[k] = false;
+    //   });
+    //   return copy;
+    // });
+    // setZIndexInventionIncreased((prev) => {
+    //   const copy = new Map(prev);
+    //   copy.forEach((value, key) => {
+    //     copy.set(key, false);
+    //   });
+    //   return copy;
+    // });
+    resetAllZIndexexIncreaased();
   }
 
   function getPawnById(id: string) {
@@ -275,6 +312,14 @@ export default function Game(props: Props) {
         copy.set(array[1], true);
         return copy;
       });
+    } else if (start.source.droppableId.includes("tile")) {
+      const array = start.source.droppableId.split("-");
+      const tileId = parseInt(array[1]);
+      setZIndexTileIncreased((prev) => {
+        const copy = new Map(prev);
+        copy.set(tileId, true);
+        return copy;
+      });
     }
   }
 
@@ -282,7 +327,6 @@ export default function Game(props: Props) {
     const dupa = document.getElementById(update.draggableId);
     if (dupa) {
       const style = getComputedStyle(dupa);
-      console.log(style.visibility);
     }
     unselectAllActionSlots();
     if (!update.destination?.droppableId || !update.draggableId) {
@@ -306,7 +350,6 @@ export default function Game(props: Props) {
     if (update.destination.droppableId.includes("freepawns")) {
       return;
     }
-    console.log(slotSourceElement, slotDestinationElement);
     if (getPawnCanBeSettled(pawn, update.destination.droppableId)) {
       slotDestinationElement.classList.add(actionSlotStyles.canBeSettled);
     } else {
@@ -341,7 +384,12 @@ export default function Game(props: Props) {
           tiles={game.tiles}
           actionSlots={actionSlots}
           zIndexIncreased={zIndexIncreased.map}
+          scrollDisabled={isBeingDragged}
+          zIndexTileIncreased={zIndexTileIncreased}
+          zIndexHuntingIncreased={zIndexIncreased.hunt}
+          beastDeck={beastDeck}
         />
+
         <Inventions
           inventions={game.inventions}
           isBeingDragged={isBeingDragged}

@@ -12,6 +12,7 @@ interface Props {
   tile: ITile;
   contentScale: number;
   actionSlots: Map<string, Pawn | null>;
+  zIndexIncreased: boolean | undefined;
 }
 
 export default function Tile(props: Props) {
@@ -25,8 +26,9 @@ export default function Tile(props: Props) {
     side: "left" | "right" | ""
   ): JSX.Element[] {
     const actionSlots = [];
+    const sideString = side ? side + "-" : "";
     for (let i = 0; i < props.tile.helpersRequied; i++) {
-      const id = "tile" + props.tile.id + action + side + "helper" + (i + 1);
+      const id = `tile-${props.tile.id}-${action}-${sideString}helper-${i + 1}`;
       let pawn = props.actionSlots.get(id);
       pawn = pawn === undefined ? null : pawn;
       actionSlots.push(
@@ -41,7 +43,7 @@ export default function Tile(props: Props) {
       );
     }
 
-    const id = "tile" + props.tile.id + action + side + "leader";
+    const id = `tile-${props.tile.id}-${action}-${sideString}leader`;
     let pawn = props.actionSlots.get(id);
     pawn = pawn === undefined ? null : pawn;
 
@@ -68,13 +70,13 @@ export default function Tile(props: Props) {
       </div>
     );
   } else {
-    let scrollableClass = props.tile.helpersRequied > 1 ? styles.gatherActionSlotsScrollable : "";
+    let scrollableClass =
+      props.tile.helpersRequied > 1 ? styles.gatherActionSlotsScrollable : "";
 
     actionSlots = (
       <Scrollbar styleModule={styles}>
         <div className={styles.gatherActionSlots + " " + scrollableClass}>
           <div className={styles.gatherActionSlotsLeft}>
-          
             {getActionSlots("gather", "left")}
           </div>
           <div className={styles.gatherActionSlotsRight}>
@@ -87,8 +89,9 @@ export default function Tile(props: Props) {
 
   const imgId = props.tile.type == null ? 11 : props.tile.type.id;
 
+  const zIndexClass = props.zIndexIncreased ? styles.zIndexIncreased : "";
   return (
-    <div className={styles.container} style={style}>
+    <div className={styles.container + " " + zIndexClass} style={style}>
       {props.tile.show && (
         <>
           <div className={styles.tile}>

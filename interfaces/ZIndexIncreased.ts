@@ -5,4 +5,5 @@ export default interface ZIndexIncreased {
   structures: boolean;
   additionalActivities: boolean;
   character: boolean;
+  hunt: boolean;
 }

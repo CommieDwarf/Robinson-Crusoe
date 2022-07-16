@@ -1,0 +1,66 @@
+.container {
+    width: 150px;
+    height: 150px;
+    border: 1px dotted rosybrown;
+    border: none;
+    position: absolute;
+    right: 0;
+    top: 160px;
+    font-weight: bold;
+    font-style: italic;
+    font-family: Snell Roundhand, cursive;
+    color: saddlebrown;
+}
+
+.title {
+    margin: auto;
+    text-align: center;
+    position: relative;
+    top: 10px;
+}
+
+.woodStack {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    filter: brightness(30%) sepia(150%);
+    margin: auto;
+}
+
+.wood {
+    height: 30px;
+    width: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.woodImage {
+    width: 30px;
+    height: 30px;
+    position: relative;
+}
+
+.woodAmount {
+    position: relative;
+    line-height: 30px;
+}
+
+.woodButton {
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    border: 3px dashed sandybrown;
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 18px;
+    padding-left: 1px;
+}
+
+.addWoodButton {
+    color: green;
+}
+
+.removeWoodButton {
+    color: indianred;
+}
