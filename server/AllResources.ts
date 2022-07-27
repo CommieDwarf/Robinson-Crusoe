@@ -48,6 +48,8 @@ export default class AllResources implements IAllResources {
     });
   }
 
+  // ddd;
+
   getCanAfford(cost: Resources) {
     Object.entries(cost).forEach(([key, value]) => {
       const k = key as keyof typeof this.owned;
