@@ -13,6 +13,7 @@ interface Props {
   contentScale: number;
   actionSlots: Map<string, Pawn | null>;
   zIndexIncreased: boolean | undefined;
+  isDragDisabled: boolean;
 }
 
 export default function Tile(props: Props) {
@@ -27,7 +28,7 @@ export default function Tile(props: Props) {
   ): JSX.Element[] {
     const actionSlots = [];
     const sideString = side ? side + "-" : "";
-    for (let i = 0; i < props.tile.helpersRequied; i++) {
+    for (let i = 0; i < props.tile.helpersrequired; i++) {
       const id = `tile-${props.tile.id}-${action}-${sideString}helper-${i + 1}`;
       let pawn = props.actionSlots.get(id);
       pawn = pawn === undefined ? null : pawn;
@@ -39,6 +40,7 @@ export default function Tile(props: Props) {
           context={action}
           id={id}
           key={id}
+          isDragDisabled={props.isDragDisabled}
         />
       );
     }
@@ -55,6 +57,7 @@ export default function Tile(props: Props) {
         context={action}
         id={id}
         key={id}
+        isDragDisabled={props.isDragDisabled}
       />
     );
 
@@ -71,7 +74,7 @@ export default function Tile(props: Props) {
     );
   } else {
     let scrollableClass =
-      props.tile.helpersRequied > 1 ? styles.gatherActionSlotsScrollable : "";
+      props.tile.helpersrequired > 1 ? styles.gatherActionSlotsScrollable : "";
 
     actionSlots = (
       <Scrollbar styleModule={styles}>

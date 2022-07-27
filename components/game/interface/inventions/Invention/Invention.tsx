@@ -42,11 +42,11 @@ export default function Invention(props: Props) {
 
   const resources = [];
 
-  for (let i = 0; i < props.invention.commitedResources.quantity; i++) {
+  for (let i = 0; i < props.invention.committedResources.quantity; i++) {
     resources.push(
       <div className={styles.resource} key={i}>
         <Image
-          src={`/interface/resources/${props.invention.commitedResources.type}.png`}
+          src={`/interface/resources/${props.invention.committedResources.type}.png`}
           layout="fill"
           alt="surowiec"
         />
@@ -90,7 +90,7 @@ export default function Invention(props: Props) {
           id={leaderId}
         />
       </div>
-      <div className={styles.commitedResources}>{resources}</div>
+      <div className={styles.committedResources}>{resources}</div>
     </div>
   );
 }

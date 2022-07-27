@@ -6,4 +6,5 @@ export default interface ZIndexIncreased {
   additionalActivities: boolean;
   character: boolean;
   hunt: boolean;
+  scenario: boolean;
 }

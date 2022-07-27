@@ -1,16 +1,13 @@
 import Pawn from "./Pawn";
+import Resources from "./Resources";
 
 export default interface IStructure {
-    type: StructureType,
-    level: number,
-    commitedResources: {
-        type: null | "wood" | "leather"
-        quantity: number,
-    },
-    woodCost: number,
-    leatherCost: number,
-    locked: boolean,
-    requiedHelpers: number,
+  type: StructureType;
+  level: number;
+  committedResources: Resources;
+  cost: Resources;
+  locked: boolean;
+  requiredHelpers: number;
 }
 
 export type StructureType = "shelter" | "roof" | "palisade" | "weapon";

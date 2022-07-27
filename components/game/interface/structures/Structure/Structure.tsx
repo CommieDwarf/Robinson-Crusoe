@@ -11,24 +11,15 @@ type Props = {
 };
 
 export default function Structure(props: Props) {
-
-
-
-
-
-
-
-
-
   const resources = [];
-  if (props.structure.commitedResources.type) {
-    for (let i = 0; i < props.structure.commitedResources.quantity; i++) {
+  if (props.structure.committedResources.type) {
+    for (let i = 0; i < props.structure.committedResources.quantity; i++) {
       resources.push(
-        <div className={styles.commitedResource} key={i}>
+        <div className={styles.committedResource} key={i}>
           <Image
-            src={`/interface/resources/${props.structure.commitedResources.type}.png`}
+            src={`/interface/resources/${props.structure.committedResources.type}.png`}
             layout="fill"
-            alt={props.structure.commitedResources.type}
+            alt={props.structure.committedResources.type}
           />
         </div>
       );
@@ -66,15 +57,27 @@ export default function Structure(props: Props) {
     );
   }
 
-  let leaderPawn = props.actionSlots.get("structure" + props.structure.type + "leader");
+  let leaderPawn = props.actionSlots.get(
+    "structure" + props.structure.type + "leader"
+  );
   leaderPawn = leaderPawn ? leaderPawn : null;
   let helperActionSlots = [];
 
-  for (let i = 0; i < props.structure.requiedHelpers; i++) {
-    const actionSlotId = "structure" + props.structure.type + "helper" + (i + 1)
+  for (let i = 0; i < props.structure.requiredHelpers; i++) {
+    const actionSlotId =
+      "structure" + props.structure.type + "helper" + (i + 1);
     let helperPawn = props.actionSlots.get(actionSlotId);
     helperPawn = helperPawn ? helperPawn : null;
-    helperActionSlots.push(<ActionSlot type={"helper"} pawn={helperPawn} action={"build"} context={"structure"} id={actionSlotId} key={actionSlotId}/>)
+    helperActionSlots.push(
+      <ActionSlot
+        type={"helper"}
+        pawn={helperPawn}
+        action={"build"}
+        context={"structure"}
+        id={actionSlotId}
+        key={actionSlotId}
+      />
+    );
   }
 
   return (
@@ -86,7 +89,13 @@ export default function Structure(props: Props) {
           {!props.structure.locked && (
             <>
               {helperActionSlots}
-              <ActionSlot type={"leader"} pawn={leaderPawn} action={"build"} context="structure" id={"structure" + props.structure.type + "leader"}/>
+              <ActionSlot
+                type={"leader"}
+                pawn={leaderPawn}
+                action={"build"}
+                context="structure"
+                id={"structure" + props.structure.type + "leader"}
+              />
             </>
           )}
         </div>

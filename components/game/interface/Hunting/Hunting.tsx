@@ -8,6 +8,7 @@ interface Props {
   actionSlots: Map<string, Pawn | null>;
   zIndexIncreased: boolean;
   beastDeck: Beast[];
+  isDragDisabled: boolean;
 }
 
 export default function Hunting(props: Props) {
@@ -38,6 +39,7 @@ export default function Hunting(props: Props) {
             action={"hunt"}
             context={"hunt"}
             id={"hunt-leader"}
+            isDragDisabled={props.isDragDisabled}
           />
           <ActionSlot
             type={"helper"}
@@ -45,6 +47,7 @@ export default function Hunting(props: Props) {
             action={"hunt"}
             context={"hunt"}
             id={"hunt-helper"}
+            isDragDisabled={props.isDragDisabled}
           />
         </div>
       )}

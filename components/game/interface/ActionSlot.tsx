@@ -27,6 +27,7 @@ interface Props {
     | "threat"
     | "hunt";
   id: string;
+  isDragDisabled?: boolean;
 }
 
 export default function PlayerSlot(props: Props) {
@@ -54,7 +55,7 @@ export default function PlayerSlot(props: Props) {
       }
       id={props.id}
     >
-      <Droppable droppableId={props.id}>
+      <Droppable droppableId={props.id} isDropDisabled={props.isDragDisabled}>
         {(provided) => {
           return (
             <div

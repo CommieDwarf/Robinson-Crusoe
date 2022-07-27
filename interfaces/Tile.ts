@@ -4,22 +4,19 @@ import Pawn from "../interfaces/Pawn";
 export interface TileActionSlots {
   gather: {
     left: {
-        leader: null | Pawn;
-        helpers: (null | Pawn)[];
+      leader: null | Pawn;
+      helpers: (null | Pawn)[];
     };
     right: {
       leader: null | Pawn;
       helpers: (null | Pawn)[];
-    }
-  },
+    };
+  };
   explore: {
     leader: null | Pawn;
     helpers: (null | Pawn)[];
-  }
+  };
 }
-
-
-
 
 export default interface ITile {
   structure: TileStructure;
@@ -27,7 +24,7 @@ export default interface ITile {
   starter: boolean;
   show: boolean;
   type: TileType | null;
-  helpersRequied: number;
+  helpersRequired: number;
 }
 
 export type TileResource = "food" | "wood" | "beast";
@@ -44,13 +41,11 @@ export interface TileType {
   id: number;
   terrainType: TerrainType;
   resources: {
-    left: TileResource,
-    right: TileResource,
+    left: TileResource;
+    right: TileResource;
   };
   extras: TileExtras;
 }
-
-
 
 export interface TileStructure {
   borderTiles: number[];

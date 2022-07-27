@@ -4,18 +4,31 @@ import * as React from "react";
 import styles from "./WoodStack.module.css";
 import Image from "next/image";
 
-type Props = {};
+type Props = {
+  stackLevel: number;
+  committedWood: number;
+  wood: number;
+};
 export const WoodStack = (props: Props) => {
   return (
     <div className={styles.container}>
-      <div className={styles.title}>Stos 1/5</div>
-      <div className={styles.woodStack}>
+      <div className={styles.fire}>
         <Image
-          src={"/interface/scenarios/castaways/woodStack1.png"}
+          src={"/interface/scenarios/fire.png"}
+          layout={"fill"}
+          alt={"ogień"}
+        />
+      </div>
+      <div
+        className={styles.woodStack + " " + styles["level" + props.stackLevel]}
+      >
+        <Image
+          src={`/interface/scenarios/castaways/woodStack${props.stackLevel}.png`}
           layout={"fill"}
           alt={"stos drewna"}
         />
       </div>
+      <div className={styles.title}>Stos {props.stackLevel}/5</div>
 
       <div className={styles.wood}>
         <div className={styles.woodButton + " " + styles.addWoodButton}>+</div>
@@ -26,7 +39,9 @@ export const WoodStack = (props: Props) => {
             alt={"drewno"}
           />
         </div>
-        <div className={styles.woodAmount}>0/1</div>
+        <div className={styles.woodAmount}>
+          {props.committedWood + props.wood}/{props.stackLevel}
+        </div>
         <div className={styles.woodButton + " " + styles.removeWoodButton}>
           -
         </div>

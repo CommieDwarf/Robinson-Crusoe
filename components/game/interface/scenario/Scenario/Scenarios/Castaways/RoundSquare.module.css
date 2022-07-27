@@ -12,11 +12,12 @@
     text-align: center;
     position: relative;
     top: 2px;
-    color: rosybrown;
+    color: var(--brown);
+    filter: opacity(40%);
 }
 
 .currentRound {
-    color: saddlebrown;
+    filter: none;
 }
 
 .boat {
@@ -31,6 +32,7 @@
 .square {
     filter: invert(12%) sepia(25%) saturate(2174%) hue-rotate(352deg) brightness(97%) contrast(102%);
 }
+
 
 .weather {
     position: absolute;

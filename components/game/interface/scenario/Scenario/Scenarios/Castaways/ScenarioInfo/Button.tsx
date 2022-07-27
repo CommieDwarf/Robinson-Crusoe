@@ -37,7 +37,7 @@ export const Button = (props: Props) => {
     >
       <div className={styles.background}>
         <Image
-          src={"/interface/scenarios/title.png"}
+          src={"/interface/scenarios/textBackground2.png"}
           layout={"fill"}
           alt={"tło"}
         />

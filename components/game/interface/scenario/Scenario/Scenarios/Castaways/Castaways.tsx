@@ -3,6 +3,7 @@ import Image from "next/image";
 import { RoundSquare } from "./RoundSquare";
 import { ScenarioInfo } from "./ScenarioInfo/ScenarioInfo";
 import { WoodStack } from "./WoodStack/WoodStack";
+import IInvention from "../../../../../../../interfaces/Invention";
 
 const rainDays = [5, 6, 7, 8, 9, 10, 11, 12];
 const hungryAnimalDays = [7, 8, 9, 10, 11, 12];
@@ -27,7 +28,19 @@ const stashBuild = `Stos ma się składać z 15 znaczników drewna.
   (za pierwszym razem 1 znacznik drewna, następnie max. 2 znaczniki itd.), 
   Drewno odłożone na stos nie może być z niego zabrane.`;
 
-export default function Castaways() {
+import Invention from "../../../../inventions/Invention/Invention";
+import Pawn from "../../../../../../../interfaces/Pawn";
+import React from "react";
+
+interface Props {
+  inventions: IInvention[];
+  actionSlots: Map<string, Pawn | null>;
+  zIndexIncreased: boolean;
+  zIndexInventionIncreased: Map<string, boolean>;
+  setShow: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function Castaways(props: Props) {
   let rounds = [];
 
   for (let i = 1; i <= 12; i++) {
@@ -44,6 +57,7 @@ export default function Castaways() {
         ship={ship}
         weather={weather}
         currentRound={current}
+        key={i}
       />
     );
   }
@@ -53,12 +67,19 @@ export default function Castaways() {
   scenarioInfo.set("objective", scenarioObjective);
   scenarioInfo.set("woodStash", stashBuild);
 
+  function handleClick() {
+    props.setShow(false);
+  }
+
   return (
     <div className={styles.container}>
+      <div className={styles.hideButton} onClick={handleClick}>
+        X
+      </div>
       <div className={styles.titleDiv}>
         <span className={styles.title}>Rozbitkowie</span>
         <Image
-          src="/interface/scenarios/title.png"
+          src="/interface/scenarios/textBackground2.png"
           className={styles.titleImage}
           layout={"fill"}
           alt="tytuł tło"
@@ -66,7 +87,48 @@ export default function Castaways() {
       </div>
       <div className={styles.rounds}>{rounds}</div>
       <ScenarioInfo info={scenarioInfo} />
-      <WoodStack />
+      <div className={styles.eventEffects}>
+        <div className={styles.eventEffect + " " + styles.bookEffect}>
+          <Image
+            src={"/interface/scenarios/castaways/bookEffectFinal.png"}
+            layout={"fill"}
+            alt={"tokeny"}
+          />
+        </div>
+
+        <div className={styles.eventEffect}>
+          <Image
+            src={"/interface/scenarios/castaways/totemEffectFinal.png"}
+            layout={"fill"}
+            alt={"tokeny"}
+          />
+        </div>
+      </div>
+      <WoodStack stackLevel={5} committedWood={0} wood={1} />
+      <div className={styles.bottomHalf}>
+        <div className={styles.tokens}>
+          <Image
+            src={"/interface/scenarios/castaways/tokens3.png"}
+            layout={"fill"}
+            alt={"tokeny"}
+          />
+        </div>
+        <div className={styles.inventions}>
+          {props.inventions.map((inv, i) => {
+            return (
+              <Invention
+                key={inv.name}
+                invention={inv}
+                column={i + 1}
+                row={1}
+                top={-100}
+                actionSlots={props.actionSlots}
+                zIndexIncreased={props.zIndexInventionIncreased.get(inv.name)}
+              />
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }

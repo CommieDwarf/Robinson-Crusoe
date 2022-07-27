@@ -4,8 +4,7 @@
     line-height: 35px;
     text-align: center;
     border-radius: 5px;
-    color: #451e14;
-    font-weight: bold;
+    color: var(--brown);
     position: relative;
     cursor: pointer;
 }
@@ -21,10 +20,14 @@
 .text {
     position: relative;
     z-index: 2;
+    font-style: italic;
+    font-family: Snell Roundhand, cursive;
+    color: var(--brown);
 }
 
 .selected {
-    color: brown;
+    font-weight: bold;
+    filter: brightness(110%);
 }
 
 .woodStash {

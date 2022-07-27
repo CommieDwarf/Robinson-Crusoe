@@ -21,6 +21,8 @@ interface Props {
   zIndexTileIncreased: Map<number, boolean>;
   zIndexHuntingIncreased: boolean;
   beastDeck: Beast[];
+  huntingHidden: boolean;
+  isDragDisabled: boolean;
 }
 
 export default function Map(props: Props) {
@@ -36,6 +38,7 @@ export default function Map(props: Props) {
         contentScale={contentScale}
         actionSlots={props.actionSlots}
         zIndexIncreased={props.zIndexTileIncreased.get(props.tiles[i].id)}
+        isDragDisabled={props.isDragDisabled}
       />
     );
   }
@@ -135,6 +138,7 @@ export default function Map(props: Props) {
         actionSlots={props.actionSlots}
         zIndexIncreased={props.zIndexHuntingIncreased}
         beastDeck={props.beastDeck}
+        isDragDisabled={props.isDragDisabled}
       />
       <Scrollbar
         scrollbarRef={scrollbar}

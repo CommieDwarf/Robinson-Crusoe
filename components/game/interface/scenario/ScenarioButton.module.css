@@ -6,32 +6,44 @@
     height: 100%;
     font-size: 14px;
     position: relative;
+    z-index: 100;
+}
+
+
+.zIndexIncreased {
+    z-index: 100;
 }
 
 .button {
-    height: 20%;
-}
-
-.triangle {
-    width: 0;
-    height: 0;
-    border-left: 200px solid transparent;
-    border-right: 200px solid transparent;
-    border-bottom: 15px solid #451e14;
-    margin: auto;
-    margin-top: 5px;
+    width: 300px;
+    margin: 20px auto auto;
+    display: flex;
     cursor: pointer;
+
 }
 
 .label {
     margin: auto;
     text-align: center;
     font-weight: bold;
-    height: 80%;
-    cursor: pointer;
+    height: 30px;
+    display: inline-block;
+    color: var(--brown)
 }
 
-.label:hover {
-    background-color: #451e14;
-    color: white;
+
+.arrowWrapper {
+}
+
+.arrow {
+    display: inline-block;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    transform: rotate(90deg);
+    filter: brightness(0) saturate(100%) invert(13%) sepia(10%) saturate(5194%) hue-rotate(333deg) brightness(150%) contrast(94%);
+}
+
+.arrowRotated {
+    transform: rotate(270deg);
 }

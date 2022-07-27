@@ -1,13 +1,13 @@
-export default interface IResources {
-    food: number,
-    dryFood: number,
-    wood: number,
-    leather: number
-  }
+export default interface Resources {
+  food: number;
+  dryFood: number;
+  wood: number;
+  leather: number;
+}
 
 export interface AllResources {
-    owned: IResources,
-    future: IResources,
+  owned: Resources;
+  future: Resources;
 }
 
 

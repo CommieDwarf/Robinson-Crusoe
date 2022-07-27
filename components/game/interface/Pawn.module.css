@@ -1,7 +1,7 @@
 .container {
     top: 20px;
     aspect-ratio: 1;
-    z-index: 999;
+    z-index: 9999;
 }
 
 
@@ -10,7 +10,7 @@
     border-radius: 100%;
     width: 100%;
     height: 100%;
-    z-index: 50;
+    z-index: 999;
 
     background-color: orange;
     background-color: lightgray;

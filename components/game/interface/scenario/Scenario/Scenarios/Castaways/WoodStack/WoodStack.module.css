@@ -1,22 +1,18 @@
 .container {
     width: 150px;
     height: 150px;
-    border: 1px dotted rosybrown;
-    border: none;
+
     position: absolute;
-    right: 0;
+    right: 20px;
     top: 160px;
-    font-weight: bold;
     font-style: italic;
     font-family: Snell Roundhand, cursive;
-    color: saddlebrown;
+    color: var(--brown);
 }
 
 .title {
     margin: auto;
     text-align: center;
-    position: relative;
-    top: 10px;
 }
 
 .woodStack {
@@ -25,6 +21,29 @@
     height: 100px;
     filter: brightness(30%) sepia(150%);
     margin: auto;
+}
+
+
+.level1 {
+    top: 10px;
+}
+
+.level2 {
+    transform: scale(80%);
+    top: 15px;
+}
+
+.level4 {
+    transform: scale(130%);
+    bottom: 15px;
+}
+
+.fire {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    right: -15px;
+    top: 5px;
 }
 
 .wood {
@@ -39,22 +58,26 @@
     width: 30px;
     height: 30px;
     position: relative;
+    left: 5px;
 }
 
 .woodAmount {
-    position: relative;
     line-height: 30px;
+    position: relative;
+    right: 5px;
 }
 
 .woodButton {
     width: 30px;
     height: 30px;
     border-radius: 100%;
-    border: 3px dashed sandybrown;
+    border: 1px dashed var(--brown);
+    background-color: white;
     font-size: 30px;
+    line-height: 22px;
+    padding-left: 4px;
     font-weight: bold;
-    line-height: 18px;
-    padding-left: 1px;
+    cursor: pointer;
 }
 
 .addWoodButton {
@@ -64,3 +87,4 @@
 .removeWoodButton {
     color: indianred;
 }
+

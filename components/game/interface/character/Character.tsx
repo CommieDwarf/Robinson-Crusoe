@@ -13,6 +13,7 @@ import Pawn from "../Pawn";
 import IPawn from "../../../../interfaces/Pawn";
 import { Droppable } from "react-beautiful-dnd";
 import IZIndexIncreased from "../../../../interfaces/ZIndexIncreased";
+import capitalize from "../../../../utils/capitalize";
 
 interface Props {
   character: ICharacter;
@@ -43,6 +44,8 @@ export default function Character(props: Props) {
     ? styles.zIndexIncreased
     : styles.zIndexTransition;
 
+  const nameCapitalized = capitalize(props.character.name.pl);
+
   return (
     <div className={styles.container + " " + zIndexClass}>
       <div className={styles.characterPicture}>
@@ -53,7 +56,7 @@ export default function Character(props: Props) {
         />
       </div>
       <div className={styles.description}>
-        <div className={styles.characterName}>{props.character.name.pl}</div>
+        <div className={styles.characterName}>{nameCapitalized}</div>
         <div className={styles.skills}>
           <SkillMenu skillDescription={skillDescription} />
           {skills}

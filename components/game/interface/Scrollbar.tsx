@@ -2,12 +2,48 @@ import { ScrollEvent } from "@react-types/shared";
 import React, { useCallback, useRef } from "react";
 import { positionValues, Scrollbars } from "react-custom-scrollbars";
 
+// .scrollbar {
+//   width: 100%;
+//   height: 100%;
+//
+// }
+//
+// .trackHorizontal {
+//   height: 15px !important;
+//   width: 100%;
+//   bottom: 0;
+//   background: transparent;
+// }
+//
+// .thumbHorizontal {
+//   background-image: url("../../../../public/interface/map/board.jpg");
+//   background-size: cover;
+//   border-radius: 5px;
+//   border: 1px solid black;
+//   z-index: 999 !important;
+// }
+//
+// .trackVertical {
+//   width: 15px !important;
+//   height: 100%;
+//   right: 0;
+//   background: transparent;
+// }
+//
+// .thumbVertical {
+//   background-image: url("../../../../public/interface/map/boardVert.jpg");
+//   background-size: cover;
+//   border-radius: 5px;
+//   border: 1px solid black;
+//   z-index: 999 !important;
+// }
+
 interface Props {
   children: JSX.Element | JSX.Element[];
   scrollbarRef?: React.RefObject<Scrollbars>;
   styleModule: {
     readonly [key: string]: string;
-}
+  };
   contentScale?: number;
   setScrollTop?: Function;
   disabled?: boolean;
@@ -15,18 +51,17 @@ interface Props {
 
 export default class Scrollbar extends React.Component<Props> {
   position: {
-    scrollLeft: number,
-    scrollTop: number,
+    scrollLeft: number;
+    scrollTop: number;
   };
+
   constructor(props: Props) {
     super(props);
     this.position = {
       scrollLeft: 0,
       scrollTop: 0,
-    }
+    };
   }
-  
-
 
   getSnapshotBeforeUpdate(prevProps: Props) {
     const scroll = prevProps.scrollbarRef?.current;
@@ -68,12 +103,10 @@ export default class Scrollbar extends React.Component<Props> {
     if (!this.props.setScrollTop) {
       return;
     }
-    
-   
-    
-    const scrollTop = this.props.scrollbarRef?.current?.getScrollTop()
+
+    const scrollTop = this.props.scrollbarRef?.current?.getScrollTop();
     this.props.setScrollTop(scrollTop);
-  }
+  };
 
   handleOnScrollFrame = (event: positionValues) => {
     if (this.props.disabled && this.props.scrollbarRef?.current) {
@@ -83,7 +116,7 @@ export default class Scrollbar extends React.Component<Props> {
       this.position.scrollLeft = event.scrollLeft;
       this.position.scrollTop = event.scrollTop;
     }
-    }
+  };
 
   render() {
     const props = this.props;

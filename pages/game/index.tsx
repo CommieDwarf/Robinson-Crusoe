@@ -38,6 +38,8 @@ import getPawnCanBeSettled from "../../utils/getCanPawnBeSettled";
 import { stringify } from "querystring";
 import sleep from "../../utils/sleep";
 import Hunting from "../../components/game/interface/Hunting/Hunting";
+import { castawaysInventions } from "../../server/inventions";
+import { WeatherAndNight } from "../../components/game/interface/WeatherAndNight/WeatherAndNight";
 
 interface Characters {
   cook: ICharacter;
@@ -59,6 +61,8 @@ export default function Game(props: Props) {
   const [player, setPlayer] = useState(game.player);
   const [activities, setActivities] = useState(game.activities);
   const [beastDeck, setBeastDeck] = useState(game.beastDeck);
+  const [showScenario, setShowScenario] = useState(false);
+
   const [zIndexIncreased, setZIndexIncreased] = useState<IZIndexIncreased>({
     map: false,
     inventions: false,
@@ -67,6 +71,7 @@ export default function Game(props: Props) {
     additionalActivities: false,
     character: false,
     hunt: false,
+    scenario: false,
   });
   const [zIndexTileIncreased, setZIndexTileIncreased] = useState(
     new Map<number, boolean>()
@@ -295,17 +300,24 @@ export default function Game(props: Props) {
     if (!pawn) {
       return;
     }
+
     pawn.classList.add(pawnStyles.dragged);
     setIsBeingDragged(true);
     const componentName = getComponentNameFromSourceId(
       start.source.droppableId
     );
+
     setZIndexIncreased((prev) => {
+      console.log("prev", prev);
       const copy = { ...prev };
       copy[componentName] = true;
+      console.log("copy", copy);
       return copy;
     });
-    if (componentName.includes("invention")) {
+    if (
+      componentName.includes("invention") ||
+      componentName.includes("scenario")
+    ) {
       const array = start.source.droppableId.split("-");
       setZIndexInventionIncreased((prev) => {
         const copy = new Map(prev);
@@ -322,6 +334,8 @@ export default function Game(props: Props) {
       });
     }
   }
+
+  ``;
 
   function onDragUpdate(update: DragUpdate, provided: ResponderProvided) {
     const dupa = document.getElementById(update.draggableId);
@@ -388,6 +402,8 @@ export default function Game(props: Props) {
           zIndexTileIncreased={zIndexTileIncreased}
           zIndexHuntingIncreased={zIndexIncreased.hunt}
           beastDeck={beastDeck}
+          huntingHidden={showScenario}
+          isDragDisabled={showScenario}
         />
 
         <Inventions
@@ -413,8 +429,26 @@ export default function Game(props: Props) {
         <Equipment equipment={game.equipment} />
         <ActionsOrder />
         <Chat />
-        <Tokens />
-        <ScenarioButton />
+        <WeatherAndNight />
+        <Tokens
+          tokens={[
+            "additionalFood",
+            "basket",
+            "discovery3",
+            "discovery4",
+            "largeLeaves",
+            "oldMachete",
+            "shortcut",
+          ]}
+        />
+        <ScenarioButton
+          inventions={castawaysInventions}
+          actionSlots={actionSlots}
+          zIndexIncreased={zIndexIncreased.scenario}
+          show={showScenario}
+          setShow={setShowScenario}
+          zIndexInventionIncreased={zIndexInventionIncreased}
+        />
         <Players />
       </DragDropContext>
     </div>
