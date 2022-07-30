@@ -6,7 +6,7 @@ import Beast from "../../../../interfaces/Beast";
 
 interface Props {
   actionSlots: Map<string, Pawn | null>;
-  zIndexIncreased: boolean;
+  zIndexIncreased: boolean | undefined;
   beastDeck: Beast[];
   isDragDisabled: boolean;
 }

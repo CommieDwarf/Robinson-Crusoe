@@ -1,10 +1,9 @@
+import IResources from "./Resources";
 
+export interface EventCard {
+  name: string;
 
-interface EventCard {
-    name: string,
-}
+  getReward(numberOfPawnsAssigned: number): Map<keyof IResources, number>;
 
-export default interface ThreatCards {
-    left: EventCard | null,
-    right: EventCard | null
+  triggerThreatEffect(game: {}): void;
 }

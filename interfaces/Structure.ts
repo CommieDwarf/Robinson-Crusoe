@@ -1,13 +1,17 @@
-import Pawn from "./Pawn";
-import Resources from "./Resources";
+import { Resources } from "../server/Classes/AllResources/AllResources";
 
-export default interface IStructure {
-  type: StructureType;
-  level: number;
+export enum STRUCTURE_NAMES {
+  SHELTER = "shelter",
+  ROOF = "roof",
+  PALISADE = "palisade",
+  WEAPON = "weapon",
+}
+
+export interface IStructure {
+  name: STRUCTURE_NAMES;
+  lvl: number;
   committedResources: Resources;
   cost: Resources;
   locked: boolean;
   requiredHelpers: number;
 }
-
-export type StructureType = "shelter" | "roof" | "palisade" | "weapon";

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React, { NewLifecycle } from "react";
-import { Character } from "../../../../../server/characters";
+import { Character } from "../../../../../server/Classes/Characters/characters";
 import ITile from "../../../../../interfaces/Tile";
 import ActionSlot from "../../ActionSlot";
 import Scrollbar from "../../Scrollbar";
@@ -28,7 +28,7 @@ export default function Tile(props: Props) {
   ): JSX.Element[] {
     const actionSlots = [];
     const sideString = side ? side + "-" : "";
-    for (let i = 0; i < props.tile.helpersrequired; i++) {
+    for (let i = 0; i < props.tile.helpersRequired + 1; i++) {
       const id = `tile-${props.tile.id}-${action}-${sideString}helper-${i + 1}`;
       let pawn = props.actionSlots.get(id);
       pawn = pawn === undefined ? null : pawn;
@@ -74,7 +74,7 @@ export default function Tile(props: Props) {
     );
   } else {
     let scrollableClass =
-      props.tile.helpersrequired > 1 ? styles.gatherActionSlotsScrollable : "";
+      props.tile.helpersRequired >= 1 ? styles.gatherActionSlotsScrollable : "";
 
     actionSlots = (
       <Scrollbar styleModule={styles}>

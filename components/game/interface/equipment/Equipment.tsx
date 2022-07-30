@@ -1,19 +1,18 @@
 import React from "react";
 import styles from "./Equipment.module.css";
 import Item from "./Item";
-
+import EquipmentClass from "../../../../server/Classes/Equipment/Equipment";
 
 interface Props {
-  equipment: string[];
+  equipment: EquipmentClass;
 }
 
 export default function Equipment(props: Props) {
-
-  
   return (
     <div className={styles.container}>
-          <Item name={props.equipment[0]} uses={2}/>
-          <Item name={props.equipment[1]} uses={2}/>
+      {props.equipment.equipmentItems.map((item) => {
+        return <Item item={item} key={item.name} />;
+      })}
     </div>
   );
 }

@@ -1,18 +1,22 @@
-import { normal, personal, starters } from "../server/inventions/inventionList";
 import { TerrainType } from "./Tile";
+import { Resources } from "../server/Classes/AllResources/AllResources";
 
-export default interface IInvention {
-  name:
-    | typeof starters[number]
-    | typeof normal[number]
-    | typeof personal[number];
+export interface IInvention {
+  name: string;
   locked: boolean;
-  requirement: (TerrainType | IInvention)[] | null;
   requiredHelpers: number;
   reward: {};
-  type: "starter" | "normal" | "personal" | "scenario";
-  committedResources: {
-    type: "wood" | "leather" | null;
-    quantity: number;
+  type: INVENTION_TYPE;
+  committedResources: Resources;
+  requirement: {
+    invention: Invention | null;
+    terrainType: TerrainType | null;
   };
+}
+
+export enum INVENTION_TYPE {
+  NORMAL = "normal",
+  STARTER = "starter",
+  PERSONAL = "personal",
+  SCENARIO = "scenario",
 }

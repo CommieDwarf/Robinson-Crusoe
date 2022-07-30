@@ -1,4 +1,4 @@
-import Character from "./Character";
+import Character from "./Characters/Character";
 import Pawn from "../interfaces/Pawn";
 
 export interface TileActionSlots {

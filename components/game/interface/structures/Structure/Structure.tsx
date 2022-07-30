@@ -1,7 +1,9 @@
 import Image from "next/image";
 import React from "react";
 import Pawn from "../../../../../interfaces/Pawn";
-import IStructure from "../../../../../interfaces/Structure";
+import IStructure, {
+  STRUCTURE_NAMES,
+} from "../../../../../interfaces/Structure";
 import ActionSlot from "../../ActionSlot";
 import styles from "./Structure.module.css";
 
@@ -11,61 +13,78 @@ type Props = {
 };
 
 export default function Structure(props: Props) {
-  const resources = [];
-  if (props.structure.committedResources.type) {
-    for (let i = 0; i < props.structure.committedResources.quantity; i++) {
+  const resources: JSX.Element[] = [];
+
+  props.structure.committedResources.amount.forEach((value, key) => {
+    for (let i = 0; i < value; i++) {
       resources.push(
-        <div className={styles.committedResource} key={i}>
+        <div className={styles.committedResource} key={key}>
           <Image
-            src={`/interface/resources/${props.structure.committedResources.type}.png`}
+            src={`/interface/resources/${key}.png`}
             layout="fill"
-            alt={props.structure.committedResources.type}
+            alt={key}
           />
         </div>
       );
     }
-  }
+  });
 
   const lockedClass = props.structure.locked ? styles.locked : "";
 
   let costIcon;
 
-  if (props.structure.type == "weapon") {
+  if (props.structure.name == STRUCTURE_NAMES.WEAPON) {
     costIcon = (
       <div className={styles.costIcon}>
-        <div className={styles.costWoodValue}>{props.structure.woodCost}</div>
+        <div className={styles.costWoodValue}>
+          {props.structure.cost.getResource("wood")}
+        </div>
         <div className={styles.woodImage}>
-          <Image src="/interface/resources/wood.png" layout="fill" />
+          <Image
+            src="/interface/resources/wood.png"
+            layout="fill"
+            alt={"wood"}
+          />
         </div>
       </div>
     );
   } else {
     costIcon = (
       <div className={styles.costIcon}>
-        <div className={styles.costWoodValue}>{props.structure.woodCost}</div>
+        <div className={styles.costWoodValue}>
+          {props.structure.cost.getResource("wood")}
+        </div>
         <div className={styles.woodImage}>
-          <Image src="/interface/resources/wood.png" layout="fill" />
+          <Image
+            src="/interface/resources/wood.png"
+            layout="fill"
+            alt={"drewno"}
+          />
         </div>
         <div className={styles.crossLine}></div>
         <div className={styles.costLeatherValue}>
-          {props.structure.leatherCost}
+          {props.structure.cost.getResource("leather")}
         </div>
         <div className={styles.leatherImage}>
-          <Image src="/interface/resources/leather.png" layout="fill" />
+          <Image
+            src="/interface/resources/leather.png"
+            layout="fill"
+            alt={"drewno"}
+          />
         </div>
       </div>
     );
   }
 
   let leaderPawn = props.actionSlots.get(
-    "structure" + props.structure.type + "leader"
+    "structure" + props.structure.name + "leader"
   );
   leaderPawn = leaderPawn ? leaderPawn : null;
   let helperActionSlots = [];
 
   for (let i = 0; i < props.structure.requiredHelpers; i++) {
     const actionSlotId =
-      "structure" + props.structure.type + "helper" + (i + 1);
+      "structure" + props.structure.name + "helper" + (i + 1);
     let helperPawn = props.actionSlots.get(actionSlotId);
     helperPawn = helperPawn ? helperPawn : null;
     helperActionSlots.push(
@@ -82,7 +101,7 @@ export default function Structure(props: Props) {
 
   return (
     <div className={styles.structure}>
-      <div className={styles.lvlLabel}>Poziom {props.structure.level}</div>
+      <div className={styles.lvlLabel}>Poziom {props.structure.lvl}</div>
       <div className={styles.cost}>{costIcon}</div>
       <div className={styles.build}>
         <div className={styles.actionSlots}>
@@ -94,29 +113,29 @@ export default function Structure(props: Props) {
                 pawn={leaderPawn}
                 action={"build"}
                 context="structure"
-                id={"structure" + props.structure.type + "leader"}
+                id={"structure" + props.structure.name + "leader"}
               />
             </>
           )}
         </div>
-        <div className={styles.comitedResources}>{resources}</div>
+        <div className={styles.committedResources}>{resources}</div>
       </div>
       <div
-        className={`${styles[props.structure.type]} ${
-          props.structure.level === 0 ? styles.level0 : ""
+        className={`${styles[props.structure.name]} ${
+          props.structure.lvl === 0 ? styles.level0 : ""
         }`}
       >
         <Image
-          src={`/interface/structures/${props.structure.type}.png`}
+          src={`/interface/structures/${props.structure.name}.png`}
           layout="fill"
-          alt={props.structure.type}
+          alt={props.structure.name}
         />
       </div>
       <div className={styles.structureIcon}>
         <Image
-          src={`/interface/structures/${props.structure.type}-icon.png`}
+          src={`/interface/structures/${props.structure.name}-icon.png`}
           layout="fill"
-          alt={props.structure.type + " icon"}
+          alt={props.structure.name + " icon"}
         />
       </div>
     </div>

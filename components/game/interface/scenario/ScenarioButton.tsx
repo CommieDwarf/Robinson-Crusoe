@@ -8,10 +8,9 @@ import Image from "next/image";
 interface Props {
   inventions: IInvention[];
   actionSlots: Map<string, Pawn | null>;
-  zIndexIncreased: boolean;
+  zIndexIncreased: Map<string, boolean>;
   show: boolean;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
-  zIndexInventionIncreased: Map<string, boolean>;
 }
 
 export default function ScenarioButton(props: Props) {
@@ -34,7 +33,6 @@ export default function ScenarioButton(props: Props) {
         actionSlots={props.actionSlots}
         show={props.show}
         zIndexIncreased={props.zIndexIncreased}
-        zIndexInventionIncreased={props.zIndexInventionIncreased}
         setShow={props.setShow}
       />
       <div className={styles.button} onClick={handleShow}>

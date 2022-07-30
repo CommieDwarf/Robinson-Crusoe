@@ -1,9 +1,6 @@
-import ICharacter from "../interfaces/Character"
+import { ICharacter } from "./Characters/Character";
 
-
-interface Pawn {
-    id: string,
-    character: ICharacter;
+export interface IPawn {
+  draggableId: string;
+  character: ICharacter;
 }
-
-export default Pawn;

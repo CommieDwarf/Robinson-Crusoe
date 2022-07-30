@@ -6,21 +6,23 @@ import scrollbarStyles from "./Scrollbar.module.css";
 
 import Determination from "./determination/Determination";
 import Skill from "./Skill/Skill";
-import ICharacter, { ISkill } from "../../../../interfaces/Character";
+import ICharacter, {
+  ISkill,
+} from "../../../../interfaces/Characters/Character";
 import SkillMenu from "./SkillMenu/SkillMenu";
 import Scrollbar from "../Scrollbar";
 import Pawn from "../Pawn";
-import IPawn from "../../../../interfaces/Pawn";
 import { Droppable } from "react-beautiful-dnd";
-import IZIndexIncreased from "../../../../interfaces/ZIndexIncreased";
 import capitalize from "../../../../utils/capitalize";
 
 interface Props {
   character: ICharacter;
   friday: ICharacter;
   dog: ICharacter;
-  zIndexIncreased: boolean;
-  setZIndexIncreased: React.Dispatch<React.SetStateAction<IZIndexIncreased>>;
+  zIndexIncreased: Map<string, boolean>;
+  setZIndexIncreased: React.Dispatch<
+    React.SetStateAction<Map<string, boolean>>
+  >;
 }
 
 export default function Character(props: Props) {

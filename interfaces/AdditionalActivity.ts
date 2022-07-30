@@ -1,7 +1,4 @@
 export default interface AdditionalActivity {
-  type: "arrange" | "rest";
+  type: "arrangeCamp" | "rest";
   pawns: number;
 }
-
-
-

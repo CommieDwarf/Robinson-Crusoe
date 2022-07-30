@@ -10,8 +10,7 @@ interface Props {
   inventions: IInvention[];
   actionSlots: Map<string, Pawn | null>;
   show: boolean;
-  zIndexIncreased: boolean;
-  zIndexInventionIncreased: Map<string, boolean>;
+  zIndexIncreased: Map<string, boolean>;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -25,7 +24,6 @@ export default function Scenario(props: Props) {
           inventions={props.inventions}
           actionSlots={props.actionSlots}
           zIndexIncreased={props.zIndexIncreased}
-          zIndexInventionIncreased={props.zIndexInventionIncreased}
           setShow={props.setShow}
         />
       </div>

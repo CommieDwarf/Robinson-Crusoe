@@ -16,13 +16,10 @@ import Beast from "../../../../interfaces/Beast";
 interface Props {
   tiles: ITile[];
   actionSlots: Map<string, Pawn | null>;
-  zIndexIncreased: boolean;
+  zIndexIncreased: Map<string, boolean>;
   scrollDisabled: boolean;
-  zIndexTileIncreased: Map<number, boolean>;
-  zIndexHuntingIncreased: boolean;
   beastDeck: Beast[];
-  huntingHidden: boolean;
-  isDragDisabled: boolean;
+  showScenario: boolean;
 }
 
 export default function Map(props: Props) {
@@ -37,8 +34,10 @@ export default function Map(props: Props) {
         key={i}
         contentScale={contentScale}
         actionSlots={props.actionSlots}
-        zIndexIncreased={props.zIndexTileIncreased.get(props.tiles[i].id)}
-        isDragDisabled={props.isDragDisabled}
+        zIndexIncreased={props.zIndexIncreased.get(
+          props.tiles[i].id.toString()
+        )}
+        isDragDisabled={props.showScenario}
       />
     );
   }
@@ -136,9 +135,9 @@ export default function Map(props: Props) {
       </div>
       <Hunting
         actionSlots={props.actionSlots}
-        zIndexIncreased={props.zIndexHuntingIncreased}
+        zIndexIncreased={props.zIndexIncreased.get("hunting")}
         beastDeck={props.beastDeck}
-        isDragDisabled={props.isDragDisabled}
+        isDragDisabled={props.showScenario}
       />
       <Scrollbar
         scrollbarRef={scrollbar}

@@ -1,13 +1,14 @@
 import Image from "next/image";
 import React, { createRef, useState } from "react";
-import IInvention from "../../../../../interfaces/Invention";
 import Pawn from "../../../../../interfaces/Pawn";
 import ActionSlot from "../../ActionSlot";
 import styles from "./Invention.module.css";
 import getHelperActionSlots from "../../../../../utils/getHelperActionSlots";
 
+import { Invention as InventionClass } from "../../../../../server/Classes/Inventions/Inventions";
+
 type Props = {
-  invention: IInvention;
+  invention: InventionClass;
   column: number;
   row: number;
   top: number;
@@ -38,21 +39,21 @@ export default function Invention(props: Props) {
   wrapperStyle.top = enlarge ? props.top + 10 : wrapperStyle.top;
   wrapperStyle.left = enlarge ? 60 : wrapperStyle.left;
 
-  const lockedClass = props.invention.locked ? styles.inventionLocked : "";
+  const resources: JSX.Element[] = [];
 
-  const resources = [];
-
-  for (let i = 0; i < props.invention.committedResources.quantity; i++) {
-    resources.push(
-      <div className={styles.resource} key={i}>
-        <Image
-          src={`/interface/resources/${props.invention.committedResources.type}.png`}
-          layout="fill"
-          alt="surowiec"
-        />
-      </div>
-    );
-  }
+  props.invention.committedResources.amount.forEach((value, key) => {
+    for (let i = 0; i < value; i++) {
+      resources.push(
+        <div className={styles.resource} key={value}>
+          <Image
+            src={`/interface/resources/${key}.png`}
+            layout="fill"
+            alt="surowiec"
+          />
+        </div>
+      );
+    }
+  });
 
   const leaderId = "invention-" + props.invention.name + "-leader";
   let leaderPawn = props.actionSlots.get(leaderId);
@@ -65,7 +66,7 @@ export default function Invention(props: Props) {
   return (
     <div
       ref={inventionRef}
-      className={`${styles.invention} ${lockedClass} ${enlargedClass} ${zIndexClass}`}
+      className={`${styles.invention} ${enlargedClass} ${zIndexClass}`}
       onClick={handleClick}
       style={wrapperStyle}
     >
@@ -80,16 +81,18 @@ export default function Invention(props: Props) {
         layout="fill"
         alt={props.invention.name + " invention"}
       />
-      <div className={styles.actionSlots}>
-        {getHelperActionSlots(props.invention, props.actionSlots)}
-        <ActionSlot
-          type="leader"
-          pawn={leaderPawn}
-          action="build"
-          context="invention"
-          id={leaderId}
-        />
-      </div>
+      {!props.invention.locked && (
+        <div className={styles.actionSlots}>
+          {getHelperActionSlots(props.invention, props.actionSlots)}
+          <ActionSlot
+            type="leader"
+            pawn={leaderPawn}
+            action="build"
+            context="invention"
+            id={leaderId}
+          />
+        </div>
+      )}
       <div className={styles.committedResources}>{resources}</div>
     </div>
   );

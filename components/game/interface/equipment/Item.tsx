@@ -1,34 +1,30 @@
 import React, { useState } from "react";
 import styles from "./Equipment.module.css";
 import Image from "next/image";
+import EquipmentItem from "../../../../interfaces/EquipmentItem";
 
 interface Props {
-  name: string;
-  uses: number;
+  item: EquipmentItem;
 }
 
 export default function Item(props: Props) {
+  const [enlarged, setEnlarged] = useState(false);
 
-const [enlarged, setEnlarged] = useState(false);
-
-
-function handleClick() {
+  function handleClick() {
     setEnlarged((prev) => !prev);
-}
+  }
 
-const enlargedClass = enlarged ? styles.itemEnlarged : "";
-const buttonClass = enlarged ? styles.useButtonVisible : "";
+  const enlargedClass = enlarged ? styles.itemEnlarged : "";
+  const buttonClass = enlarged ? styles.useButtonVisible : "";
 
   return (
     <div className={styles.item + " " + enlargedClass} onClick={handleClick}>
       <Image
-        src={`/interface/equipment/${props.name}.png`}
+        src={`/interface/equipment/${props.item.name}.png`}
         layout="fill"
-        alt={props.name}
+        alt={props.item.name}
       />
-      <div className={styles.useButton + " " + buttonClass}>
-        Użyj
-      </div>
+      <div className={styles.useButton + " " + buttonClass}>Użyj</div>
       <div className={styles.uses}>
         <div className={styles.useMark}></div>
         <div className={styles.useMark}></div>

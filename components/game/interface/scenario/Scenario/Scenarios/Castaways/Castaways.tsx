@@ -35,8 +35,7 @@ import React from "react";
 interface Props {
   inventions: IInvention[];
   actionSlots: Map<string, Pawn | null>;
-  zIndexIncreased: boolean;
-  zIndexInventionIncreased: Map<string, boolean>;
+  zIndexIncreased: Map<string, boolean>;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -123,7 +122,7 @@ export default function Castaways(props: Props) {
                 row={1}
                 top={-100}
                 actionSlots={props.actionSlots}
-                zIndexIncreased={props.zIndexInventionIncreased.get(inv.name)}
+                zIndexIncreased={props.zIndexIncreased.get(inv.name)}
               />
             );
           })}

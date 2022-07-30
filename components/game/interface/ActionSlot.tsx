@@ -2,7 +2,9 @@ import Image from "next/image";
 import React, { useId } from "react";
 import styles from "./ActionSlot.module.css";
 import { Droppable } from "react-beautiful-dnd";
-import characters, { Character } from "../../../server/characters";
+import characters, {
+  Character,
+} from "../../../server/Classes/Characters/characters";
 import Pawn from "./Pawn";
 import IPawn from "../../../interfaces/Pawn";
 

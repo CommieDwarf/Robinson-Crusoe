@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
-import { EventCard } from "../../../../server/threatCards";
 import styles from "./Threat.module.css";
+import { EventCard } from "../../../../interfaces/threatCards";
 
 interface Props {
   card: EventCard | null;

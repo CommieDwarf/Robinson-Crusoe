@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React, { Dispatch, SetStateAction, useState } from "react";
-import { Skill as ISkill } from "../../../../../server/characters";
+import { Skill as ISkill } from "../../../../../server/Classes/Characters/characters";
 
 import styles from "./Skill.module.css";
 import ZIndexIncreased from "../../../../../interfaces/ZIndexIncreased";

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import { ISkill } from "../../../../../interfaces/Character";
+import { ISkill } from "../../../../../interfaces/Characters/Character";
 import styles from "./SkillMenu.module.css";
 
 interface Props {

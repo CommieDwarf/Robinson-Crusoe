@@ -1,12 +1,11 @@
 import Image from "next/image";
 import React, { useId } from "react";
-import Character from "../../../../../interfaces/Character";
+import Character from "../../../../../interfaces/Characters/Character";
 import Pawn from "../../Pawn";
 import FridayHealth from "./fridayHealth/FridayHealth";
 import styles from "./SideCharacters.module.css";
-import characters from "../../../../../server/characters";
+import characters from "../../../../../server/Classes/Characters/characters";
 import { Droppable } from "react-beautiful-dnd";
-
 
 interface Props {
   friday: Character;
@@ -14,24 +13,28 @@ interface Props {
 }
 
 export default function SideCharacters(props: Props) {
-
-  
   return (
     <div className={styles.container}>
       <div className={styles.friday}>
-      <Droppable droppableId={"friday-droppable"}>
-            {(provided) => (
-              <div className={styles.pawn}
+        <Droppable droppableId={"friday-droppable"}>
+          {(provided) => (
+            <div
+              className={styles.pawn}
               id={"friday-droppable"}
               ref={provided.innerRef}
               {...provided.droppableProps}
-              >
-                 {props.friday.freePawns[0] && <Pawn pawn={props.friday.freePawns[0]} context="character" index={0}/>}
-              {provided.placeholder}
-          </div>
+            >
+              {props.friday.freePawns[0] && (
+                <Pawn
+                  pawn={props.friday.freePawns[0]}
+                  context="character"
+                  index={0}
+                />
               )}
-              
-          </Droppable>
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
         <div className={`${styles.name} ${styles["friday-name"]}`}>
           Piętaszek
         </div>
@@ -45,22 +48,26 @@ export default function SideCharacters(props: Props) {
         </div>
       </div>
       <div className={styles.dog}>
-      <div className={styles.dogPawn}>
-        
-      </div>
-      <Droppable droppableId={"dog-droppable"}>
-            {(provided) => (
-              <div className={styles.pawn}
+        <div className={styles.dogPawn}></div>
+        <Droppable droppableId={"dog-droppable"}>
+          {(provided) => (
+            <div
+              className={styles.pawn}
               ref={provided.innerRef}
               {...provided.droppableProps}
               id={"dog-droppable"}
-              >
-                 {props.dog.freePawns[0] && <Pawn pawn={props.dog.freePawns[0]} context="character" index={0} />}
-              {provided.placeholder}
-          </div>
+            >
+              {props.dog.freePawns[0] && (
+                <Pawn
+                  pawn={props.dog.freePawns[0]}
+                  context="character"
+                  index={0}
+                />
               )}
-              
-          </Droppable>
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
         <div className={`${styles.name}`}>Pies</div>
         <div className={styles["dog-usage"]}>
           <Image
