@@ -1,15 +1,19 @@
-import { ICharEffects } from "../../../interfaces/Characters/CharEffects";
-import { PlayerCharacter } from "./PlayerCharacter";
+import {ICharEffects} from "../../../interfaces/Characters/CharEffects";
+import {IPlayerCharacter} from "../../../interfaces/Characters/PlayerCharacter";
 
 export class PlayerCharEffects implements ICharEffects {
-  character: PlayerCharacter;
+  character: IPlayerCharacter;
 
-  constructor(character: PlayerCharacter) {
+  constructor(character: IPlayerCharacter) {
     this.character = character;
   }
 
   diceQuestionMark() {
     console.log("adventure");
+  }
+
+  getHurt() {
+
   }
 
   death() {
@@ -26,9 +30,9 @@ export class PlayerCharEffects implements ICharEffects {
 }
 
 export class SideCharEffects implements ICharEffects {
-  character: PlayerCharacter;
+  character: IPlayerCharacter;
 
-  constructor(character: PlayerCharacter) {
+  constructor(character: IPlayerCharacter) {
     this.character = character;
   }
 
@@ -46,5 +50,9 @@ export class SideCharEffects implements ICharEffects {
 
   nightBeyondCamp() {
     console.log("nothing");
+  }
+
+  getHurt() {
+
   }
 }

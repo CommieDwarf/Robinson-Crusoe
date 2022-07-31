@@ -9,9 +9,9 @@ import pawnStyles from "../Pawn.module.css";
 import getDragAndScrollHandle from "../../../../utils/dragAndScrollHandle";
 import ITile from "../../../../interfaces/Tile";
 import Tile from "./Tile/Tile";
-import Pawn from "../../../../interfaces/Pawn";
+import Pawn from "../../../../interfaces/Pawns/Pawn";
 import Hunting from "../Hunting/Hunting";
-import Beast from "../../../../interfaces/Beast";
+import Beast from "../../../../interfaces/Beasts/Beast";
 
 interface Props {
   tiles: ITile[];

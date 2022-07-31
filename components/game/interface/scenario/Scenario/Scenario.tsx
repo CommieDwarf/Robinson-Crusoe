@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 
 import Castaways from "./Scenarios/Castaways/Castaways";
 import IInvention from "../../../../../interfaces/Invention";
-import Pawn from "../../../../../interfaces/Pawn";
+import Pawn from "../../../../../interfaces/Pawns/Pawn";
 
 interface Props {
   inventions: IInvention[];

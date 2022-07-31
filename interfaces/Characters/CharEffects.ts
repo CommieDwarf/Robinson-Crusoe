@@ -3,4 +3,5 @@ export interface ICharEffects {
   death: () => void;
   starve: () => void;
   nightBeyondCamp: () => void;
+  getHurt: () => void;
 }

@@ -1,4 +1,4 @@
-import { IPawn } from "../interfaces/Pawn";
+import { IPawn } from "../interfaces/Pawns/Pawn";
 
 export default function getPawnCanBeSettled(
   pawn: IPawn,

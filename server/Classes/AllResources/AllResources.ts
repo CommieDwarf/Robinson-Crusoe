@@ -1,4 +1,4 @@
-import IResources from "../../../interfaces/Resources";
+import {IResources} from "../../../interfaces/Resources";
 
 type Entries<T> = {
   [K in keyof T]: [K, T[K]];
@@ -12,9 +12,11 @@ const initialResources: IResources = {
 };
 
 export class Resources {
-  get amount(): Map<keyof IResources, number> {
-    return this._amount;
-  }
+
+
+  private _amount = new Map<keyof IResources, number>(
+      Object.entries(initialResources) as Entries<IResources>
+  );
 
   constructor(food = 0, dryFood = 0, wood = 0, leather = 0) {
     this.setResource("food", food);
@@ -23,9 +25,10 @@ export class Resources {
     this.setResource("leather", leather);
   }
 
-  private _amount = new Map<keyof IResources, number>(
-    Object.entries(initialResources) as Entries<IResources>
-  );
+  get amount(): Map<keyof IResources, number> {
+    return this._amount;
+  }
+
 
   public getResource = (key: keyof IResources): number => {
     return this._amount.get(key) as number;
@@ -48,8 +51,8 @@ export class Resources {
   public addToAllResources = (newResources: Resources): void => {
     newResources._amount.forEach((value: number, key: keyof IResources) => {
       this.setResource(
-        key,
-        this.getResource(key) + newResources.getResource(key)
+          key,
+          this.getResource(key) + newResources.getResource(key)
       );
     });
   };
@@ -64,8 +67,8 @@ export class Resources {
     if (this.canAfford(resources)) {
       this._amount.forEach((value: number, key: keyof IResources) => {
         this.setResource(
-          key,
-          this.getResource(key) - resources.getResource(key)
+            key,
+            this.getResource(key) - resources.getResource(key)
         );
       });
     }

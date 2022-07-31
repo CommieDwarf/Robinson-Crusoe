@@ -1,10 +1,22 @@
-import { IPawn } from "../Pawn";
+import { ICharEffects } from "./CharEffects";
+import { IPawns } from "../Pawns/Pawns";
 
 export interface ICharacter {
-  pawns: IPawn[];
-  freePawns: IPawn[];
+  pawns: IPawns;
   name: string;
+  id: number;
+  health: number;
+  effects: ICharEffects;
+  namePL: CHAR_NAME_TRANSLATION;
 }
+
+export type CharacterName =
+  | "explorer"
+  | "carpenter"
+  | "cook"
+  | "soldier"
+  | "dog"
+  | "friday";
 
 export enum CHAR_NAME_TRANSLATION {
   explorer = "kucharz",

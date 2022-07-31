@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React, { createRef, useState } from "react";
-import Pawn from "../../../../../interfaces/Pawn";
+import Pawn from "../../../../../interfaces/Pawns/Pawn";
 import ActionSlot from "../../ActionSlot";
 import styles from "./Invention.module.css";
 import getHelperActionSlots from "../../../../../utils/getHelperActionSlots";

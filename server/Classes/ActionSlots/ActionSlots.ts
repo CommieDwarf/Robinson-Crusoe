@@ -1,4 +1,4 @@
-import Pawn from "../../../interfaces/Pawn";
+import Pawn from "../../../interfaces/Pawns/Pawn";
 import Tiles from "../Tiles/Tiles";
 import Structures from "../Structures/Structures";
 import Inventions from "../Inventions/Inventions";

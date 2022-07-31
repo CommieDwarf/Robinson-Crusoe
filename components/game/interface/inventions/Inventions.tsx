@@ -5,7 +5,7 @@ import scrollbarStyles from "./Scrollbar.module.css";
 import Invention from "./Invention/Invention";
 import Scrollbar from "../Scrollbar";
 import { Scrollbars } from "react-custom-scrollbars";
-import Pawn from "../../../../interfaces/Pawn";
+import Pawn from "../../../../interfaces/Pawns/Pawn";
 import InventionsClass from "../../../../server/Classes/Inventions/Inventions";
 
 interface Props {

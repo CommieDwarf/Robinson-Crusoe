@@ -1,5 +1,5 @@
 import Character from "./Characters/Character";
-import Pawn from "../interfaces/Pawn";
+import Pawn from "./Pawns/Pawn";
 
 export interface TileActionSlots {
   gather: {

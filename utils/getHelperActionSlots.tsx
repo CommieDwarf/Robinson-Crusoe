@@ -1,4 +1,4 @@
-import Pawn from "../interfaces/Pawn";
+import Pawn from "../interfaces/Pawns/Pawn";
 import ActionSlot from "../components/game/interface/ActionSlot";
 import { Invention } from "../server/Classes/Inventions/Inventions";
 import { Structure } from "../server/Classes/Structures/Structures";

@@ -1,21 +1,28 @@
 import { ICharacter } from "../../../interfaces/Characters/Character";
-import { ISkill } from "../../../interfaces/Characters/PlayerCharacter";
+import { ISkill, ISkillInfo } from "../../../interfaces/Characters/Skill";
 
-export class Skill implements ISkill {
-  commentary: string;
+export class SkillInfo implements SkillInfo {
+  quote: string;
   description: string;
   namePL: string;
-  use: (character: ICharacter) => void;
 
-  constructor(
-    namePL: string,
-    description: string,
-    commentary: string,
-    use: (character: ICharacter) => void
-  ) {
+  constructor(namePL: string, description: string, quote: string) {
     this.namePL = namePL;
-    this.commentary = commentary;
+    this.quote = quote;
     this.description = description;
+  }
+}
+
+export class Skill implements ISkill {
+  use: () => void;
+  namePL: string;
+  description: string;
+  quote: string;
+
+  constructor(skillInfo: ISkillInfo, use: () => void) {
+    this.namePL = skillInfo.namePL;
+    this.description = skillInfo.description;
+    this.quote = skillInfo.quote;
     this.use = use;
   }
 }

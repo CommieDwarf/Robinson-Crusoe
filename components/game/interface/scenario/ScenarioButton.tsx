@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./ScenarioButton.module.css";
 import Scenario from "./Scenario/Scenario";
 import IInvention from "../../../../interfaces/Invention";
-import Pawn from "../../../../interfaces/Pawn";
+import Pawn from "../../../../interfaces/Pawns/Pawn";
 import Image from "next/image";
 
 interface Props {

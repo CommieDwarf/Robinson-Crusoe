@@ -2,7 +2,7 @@ import React from "react";
 import Structure from "./Structure/Structure";
 import styles from "./Structures.module.css";
 import IStructure from "../../../../interfaces/Structure";
-import Pawn from "../../../../interfaces/Pawn";
+import Pawn from "../../../../interfaces/Pawns/Pawn";
 
 interface Props {
   structures: IStructure[];
@@ -10,23 +10,16 @@ interface Props {
 }
 
 export default function Structures(props: Props) {
-
   const structures = [];
-  for (let i = 0; i < 4; i ++) {
-    structures.push( (
-        <Structure
-          structure={props.structures[i]}
-          key={i}
-          actionSlots={props.actionSlots}
-        />
-      ))
-    }
+  for (let i = 0; i < 4; i++) {
+    structures.push(
+      <Structure
+        structure={props.structures[i]}
+        key={i}
+        actionSlots={props.actionSlots}
+      />
+    );
+  }
 
-  
-
-  return (
-    <div className={styles.container}>
-      {structures}
-    </div>
-  );
+  return <div className={styles.container}>{structures}</div>;
 }

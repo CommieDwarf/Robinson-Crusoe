@@ -1,29 +1,17 @@
 import { IPlayer } from "../Player";
-import { ICharacter } from "./Character";
+import { CHAR_NAME_TRANSLATION, CharacterName, ICharacter } from "./Character";
 import { ISideCharacter } from "./SideCharacter";
 import { PlayerCharEffects } from "../../server/Classes/Characters/CharEffects";
 import { ICharEffects } from "./CharEffects";
+import { IDictionary } from "../IDictionary";
+import { ISkill } from "./Skill";
 
-export type PlayableCharacterName =
-  | "explorer"
-  | "carpenter"
-  | "cook"
-  | "soldier";
+export type PlayableCharacterName = Exclude<CharacterName, "dog" | "friday">;
 
 export interface IPlayerCharacter extends ICharacter {
   player: IPlayer;
   name: PlayableCharacterName;
   gender: "male" | "female";
   moraleThresholds: number[];
-  skills: Map<string, ISkill>;
-  id: number;
-  health: number;
-  effects: ICharEffects;
-}
-
-export interface ISkill {
-  namePL: string;
-  description: string;
-  commentary: string;
-  use: (character: IPlayerCharacter | ISideCharacter) => void;
+  skills: IDictionary<ISkill>;
 }

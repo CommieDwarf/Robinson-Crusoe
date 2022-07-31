@@ -2,7 +2,7 @@ import Image from "next/image";
 import React, { useId } from "react";
 import styles from "./Pawn.module.css";
 import { Draggable } from "react-beautiful-dnd";
-import IPawn from "../../../interfaces/Pawn";
+import IPawn from "../../../interfaces/Pawns/Pawn";
 
 type Helper = "explore" | "gather" | "build" | "hunt";
 

@@ -29,7 +29,7 @@ const stashBuild = `Stos ma się składać z 15 znaczników drewna.
   Drewno odłożone na stos nie może być z niego zabrane.`;
 
 import Invention from "../../../../inventions/Invention/Invention";
-import Pawn from "../../../../../../../interfaces/Pawn";
+import Pawn from "../../../../../../../interfaces/Pawns/Pawn";
 import React from "react";
 
 interface Props {

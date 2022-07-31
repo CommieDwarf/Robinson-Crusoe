@@ -5,8 +5,8 @@ import ITile from "../../../../../interfaces/Tile";
 import ActionSlot from "../../ActionSlot";
 import Scrollbar from "../../Scrollbar";
 import styles from "./Tile.module.css";
-import IPawn from "../../../../../interfaces/Pawn";
-import Pawn from "../../../../../interfaces/Pawn";
+import IPawn from "../../../../../interfaces/Pawns/Pawn";
+import Pawn from "../../../../../interfaces/Pawns/Pawn";
 
 interface Props {
   tile: ITile;

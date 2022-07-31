@@ -6,7 +6,7 @@ import characters, {
   Character,
 } from "../../../server/Classes/Characters/characters";
 import Pawn from "./Pawn";
-import IPawn from "../../../interfaces/Pawn";
+import IPawn from "../../../interfaces/Pawns/Pawn";
 
 interface Props {
   type: "helper" | "leader";

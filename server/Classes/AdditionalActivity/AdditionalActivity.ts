@@ -1,4 +1,4 @@
-import Pawn from "../../../interfaces/Pawn";
+import Pawn from "../../../interfaces/Pawns/Pawn";
 import AdditionalActivity from "../../../interfaces/AdditionalActivity";
 
 class Activity implements AdditionalActivity {

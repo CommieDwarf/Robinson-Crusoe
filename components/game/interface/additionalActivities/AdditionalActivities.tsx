@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./AdditionalActivities.module.css";
 import RestArrange from "./RestArrange/RestArrange";
 import AdditionalActivity from "../../../../interfaces/AdditionalActivity";
-import Pawn from "../../../../interfaces/Pawn";
+import Pawn from "../../../../interfaces/Pawns/Pawn";
 
 interface Props {
   activities: {

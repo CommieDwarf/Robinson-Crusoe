@@ -4,7 +4,7 @@ import styles from "./Threat.module.css";
 import ActionSlot from "../ActionSlot";
 import Card from "./Card";
 import ThreatCards from "../../../../interfaces/threatCards";
-import Pawn from "../../../../interfaces/Pawn";
+import Pawn from "../../../../interfaces/Pawns/Pawn";
 import { Threat as IThreat } from "../../../../server/Classes/Threat/Threat";
 
 interface Props {

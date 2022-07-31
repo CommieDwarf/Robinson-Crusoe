@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import Pawn from "../../../../../interfaces/Pawn";
+import Pawn from "../../../../../interfaces/Pawns/Pawn";
 import IStructure, {
   STRUCTURE_NAMES,
 } from "../../../../../interfaces/Structure";

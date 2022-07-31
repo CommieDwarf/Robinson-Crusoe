@@ -1,8 +1,8 @@
 import styles from "./Hunting.module.css";
 import Image from "next/image";
 import ActionSlot from "../ActionSlot";
-import Pawn from "../../../../interfaces/Pawn";
-import Beast from "../../../../interfaces/Beast";
+import Pawn from "../../../../interfaces/Pawns/Pawn";
+import Beast from "../../../../interfaces/Beasts/Beast";
 
 interface Props {
   actionSlots: Map<string, Pawn | null>;
