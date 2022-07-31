@@ -1,6 +1,5 @@
 import { Threat } from "./Threat/Threat";
 import player, { Player } from "./Players/Players";
-import characters from "./Characters/characters";
 import ActionSlots from "./ActionSlots/ActionSlots";
 import Tiles from "./Tiles/Tiles";
 import AllResources from "./AllResources/AllResources";
@@ -19,7 +18,7 @@ export class Game {
   threat = new Threat(this);
   equipment = new Equipment(this);
   player: Player = player;
-  sideCharacters = { dog: characters.dog, friday: characters.friday };
+  sideCharacters = { dog:  };
   actionSlots = new ActionSlots(this.structures, this.inventions, this.tiles);
   rest = new Activity("rest");
   arrangeCamp = new Activity("arrangeCamp");

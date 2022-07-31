@@ -1,11 +1,12 @@
-import IStructure, { STRUCTURE_NAMES } from "../../../interfaces/Structure";
-import { Resources } from "../AllResources/AllResources";
+import { IStructure, STRUCTURE_NAMES } from "../../../interfaces/Structure";
+import { Resources } from "../AllResources/Resources";
+import { IResources, IResourcesAmount } from "../../../interfaces/Resources";
 
 export class Structure implements IStructure {
   private readonly _name: STRUCTURE_NAMES;
   private _lvl = 0;
-  private _committedResources = new Resources();
-  private _cost: Resources;
+  private _committedResources: IResources = new Resources();
+  private _cost: IResources;
   private _locked: boolean;
 
   get name(): STRUCTURE_NAMES {
@@ -16,19 +17,19 @@ export class Structure implements IStructure {
     return this._lvl;
   }
 
-  get committedResources(): Resources {
+  get committedResources(): IResources {
     return this._committedResources;
   }
 
-  set committedResources(value: Resources) {
-    this._committedResources = value;
+  set committedResources(resources: IResources) {
+    this._committedResources = resources;
   }
 
-  get cost(): Resources {
+  get cost(): IResources {
     return this._cost;
   }
 
-  set cost(value: Resources) {
+  set cost(value: IResources) {
     this._cost = value;
   }
 

@@ -1,18 +1,18 @@
-import Pawn from "../../../interfaces/Pawns/Pawn";
 import Tiles from "../Tiles/Tiles";
 import Structures from "../Structures/Structures";
 import Inventions from "../Inventions/Inventions";
+import { IPawn } from "../../../interfaces/Pawns/Pawn";
 
 export default class ActionSlots {
-  set slots(value: Map<string, Pawn | null>) {
+  set slots(value: Map<string, IPawn | null>) {
     this._slots = value;
   }
 
-  get slots(): Map<string, Pawn | null> {
+  get slots(): Map<string, IPawn | null> {
     return this._slots;
   }
 
-  private _slots: Map<string, null | Pawn>;
+  private _slots: Map<string, null | IPawn>;
   private _structures: Structures;
   private _inventions: Inventions;
   private _tiles: Tiles;
@@ -25,7 +25,7 @@ export default class ActionSlots {
   }
 
   private getInitialSlots() {
-    const actionSlots = new Map<string, null | Pawn>();
+    const actionSlots = new Map<string, null | IPawn>();
 
     this._structures.structures.forEach((structure) => {
       actionSlots.set("structure" + structure.name + "leader", null);
@@ -67,11 +67,11 @@ export default class ActionSlots {
     return actionSlots;
   }
 
-  public setPawn(id: string, pawn: Pawn) {
+  public setIIPawn(id: string, pawn: IPawn) {
     this._slots.set(id, pawn);
   }
 
-  public unsetPawn(id: string) {
+  public unsetIPawn(id: string) {
     this._slots.set(id, null);
   }
 
@@ -79,12 +79,12 @@ export default class ActionSlots {
     this._slots = this.getInitialSlots();
   }
 
-  public findPawn(slotId: string) {
-    let pawn = this._slots.get(slotId);
-    if (pawn === undefined) {
+  public findIPawn(slotId: string) {
+    let IPawn = this._slots.get(slotId);
+    if (IPawn === undefined) {
       throw new Error("Cant find slot with id: " + slotId);
     } else {
-      return pawn;
+      return IPawn;
     }
   }
 }

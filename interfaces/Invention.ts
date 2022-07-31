@@ -1,15 +1,17 @@
 import { TerrainType } from "./Tile";
-import { Resources } from "../server/Classes/AllResources/AllResources";
+import { IResources } from "./Resources";
 
 export interface IInvention {
   name: string;
   locked: boolean;
-  requiredHelpers: number;
+  requiredHelpersAmount: number;
   reward: {};
   type: INVENTION_TYPE;
-  committedResources: Resources;
+  committedResources: IResources;
+  isBuilt: boolean;
+  cost: IResources;
   requirement: {
-    invention: Invention | null;
+    invention: IInvention | null;
     terrainType: TerrainType | null;
   };
 }

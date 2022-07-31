@@ -1,20 +1,19 @@
-import Character from "./Characters/Character";
-import Pawn from "./Pawns/Pawn";
+import { IPawn } from "./Pawns/Pawn";
 
 export interface TileActionSlots {
   gather: {
     left: {
-      leader: null | Pawn;
-      helpers: (null | Pawn)[];
+      leader: null | IPawn;
+      helpers: (null | IPawn)[];
     };
     right: {
-      leader: null | Pawn;
-      helpers: (null | Pawn)[];
+      leader: null | IPawn;
+      helpers: (null | IPawn)[];
     };
   };
   explore: {
-    leader: null | Pawn;
-    helpers: (null | Pawn)[];
+    leader: null | IPawn;
+    helpers: (null | IPawn)[];
   };
 }
 

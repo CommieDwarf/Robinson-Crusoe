@@ -1,7 +1,6 @@
 import shuffle from "../../../utils/shuffleArray";
 import equipmentList from "../../constants/equipmentList";
 import { EqList } from "../../constants/equipmentList";
-import EquipmentList from "../../constants/equipmentList";
 import Entries from "../../../interfaces/Entries";
 import IEquipmentItem from "../../../interfaces/EquipmentItem";
 

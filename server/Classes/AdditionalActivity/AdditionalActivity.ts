@@ -1,25 +1,24 @@
-import Pawn from "../../../interfaces/Pawns/Pawn";
 import AdditionalActivity from "../../../interfaces/AdditionalActivity";
 
 class Activity implements AdditionalActivity {
   type: "arrangeCamp" | "rest";
-  pawns: number;
+  pawnAmount: number;
 
   constructor(type: "arrangeCamp" | "rest") {
     this.type = type;
-    this.pawns = 0;
+    this.pawnAmount = 0;
   }
 
   incrementPawns() {
-    this.pawns++;
+    this.pawnAmount++;
   }
 
   decrementPawns() {
-    this.pawns--;
+    this.pawnAmount--;
   }
 
   resetPawns() {
-    this.pawns = 0;
+    this.pawnAmount = 0;
   }
 }
 

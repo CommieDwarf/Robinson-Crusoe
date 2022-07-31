@@ -1,122 +1,31 @@
 import inventionList from "../../constants/inventionList";
-import shuffle from "../../../utils/shuffleArray";
-import { TerrainType } from "../../../interfaces/Tile";
-import IInvention, { INVENTION_TYPE } from "../../../interfaces/Invention";
-import { Resources } from "../AllResources/AllResources";
-import { Character } from "../Characters/characters";
 import InventionList from "../../constants/inventionList";
-
-import characters from "../Characters/characters";
-import {Player} from "../Players/Players";
-
-export class Invention implements IInvention {
-  get character(): Character {
-    return this._character;
-  }
-  get cost(): Resources {
-    return this._cost;
-  }
-
-  set cost(value: Resources) {
-    this._cost = value;
-  }
-
-  get built(): boolean {
-    return this._built;
-  }
-
-  set built(value: boolean) {
-    this._built = value;
-  }
-
-  get name(): string {
-    return this._name;
-  }
-
-  get locked(): boolean {
-    return this._locked;
-  }
-
-  set locked(value: boolean) {
-    this._locked = value;
-  }
-
-  get requiredHelpers(): number {
-    return this._requiredHelpers;
-  }
-
-  set requiredHelpers(value: number) {
-    this._requiredHelpers = value;
-  }
-
-  get reward(): {} {
-    return this._reward;
-  }
-
-  get type(): INVENTION_TYPE {
-    return this._type;
-  }
-
-  get committedResources(): Resources {
-    return this._committedResources;
-  }
-
-  set committedResources(value: Resources) {
-    this._committedResources = value;
-  }
-
-  get requirement() {
-    return this._requirement;
-  }
-
-  private readonly _name: string;
-  private _locked = true;
-  private readonly _requirement: {
-    invention: IInvention | null;
-    terrainType: TerrainType | null;
-  };
-  private _requiredHelpers = 1;
-  private readonly _reward: {};
-  private readonly _type: INVENTION_TYPE;
-  private _committedResources = new Resources();
-  private _built = false;
-  private _cost: Resources;
-  private readonly _character: Character | null;
-
-  constructor(
-    name: string,
-    requirement: {
-      invention: IInvention | null;
-      terrainType: TerrainType | null;
-    },
-    reward: {},
-    type: INVENTION_TYPE,
-    cost: Resources,
-    character: Character | null,
-  ) {
-    this._name = name;
-    this._requirement = requirement;
-    this._reward = reward;
-    this._type = type;
-    this._cost = cost;
-    this._character = character;
-  }
-}
+import shuffle from "../../../utils/shuffleArray";
+import { Player } from "../Players/Players";
+import { Invention } from "./Invention";
+import { INVENTION_TYPE } from "../../../interfaces/Invention";
+import { Resources } from "../AllResources/Resources";
+import {
+  IPlayerCharacter,
+  PlayableCharacterName,
+} from "../../../interfaces/Characters/PlayerCharacter";
+import { ICharacter } from "../../../interfaces/Characters/Character";
 
 export default class Inventions {
   get inventions(): Invention[] {
     return this._inventions;
   }
+
   builtInventions: Invention[] = [];
   scenario: "castaways";
   discoveredTileTypes = ["beach"];
   private readonly _inventions: Invention[];
-  players: Player[];
+  private _characters: IPlayerCharacter[];
 
-  constructor(scenario: "castaways", players: Player[]) {
+  constructor(scenario: "castaways", characters: IPlayerCharacter[]) {
     this.scenario = scenario;
     this._inventions = this.getInitialInventions(scenario);
-    this.players = players;
+    this._characters = characters;
   }
 
   getInitialInventions(scenario: "castaways") {
@@ -129,14 +38,12 @@ export default class Inventions {
       inventions.push(
         new Invention(
           name,
-          {
-            invention: null,
-            terrainType: null,
-          },
+          { invention: null, terrainType: null },
           {},
           INVENTION_TYPE.NORMAL,
           new Resources(),
-            null
+          null
+        )
       );
     });
     scenarioInventionList.forEach((name) => {
@@ -150,7 +57,7 @@ export default class Inventions {
           {},
           INVENTION_TYPE.SCENARIO,
           new Resources(),
-            null
+          null
         )
       );
     });
@@ -165,19 +72,19 @@ export default class Inventions {
           {},
           INVENTION_TYPE.STARTER,
           new Resources(),
-            null
+          null
         )
       );
     });
-    this.players.forEach((player) => {
+    this._characters.forEach((character) => {
       inventions.push(
         new Invention(
-          InventionList.personal[player.character.name.en],
+          InventionList.personal[character.name],
           { invention: null, terrainType: null },
           {},
           INVENTION_TYPE.PERSONAL,
           new Resources(),
-          player
+          character
         )
       );
     });
@@ -187,7 +94,7 @@ export default class Inventions {
   build(invention: Invention) {
     if (!this.builtInventions.includes(invention)) {
       this.builtInventions.push(invention);
-      invention.built = true;
+      invention.isBuilt = true;
     } else {
       throw new Error("Invention is already has been built " + invention.name);
     }
@@ -198,7 +105,7 @@ export default class Inventions {
       this.builtInventions = this.builtInventions.filter((inv) => {
         return inv.name !== invention.name;
       });
-      invention.built = false;
+      invention.isBuilt = false;
     } else {
       throw new Error("There is no such invention built: " + invention.name);
     }

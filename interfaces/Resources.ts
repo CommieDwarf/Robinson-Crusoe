@@ -1,11 +1,22 @@
-export interface IResources {
+export interface IResourcesAmount {
   food: number;
   dryFood: number;
   wood: number;
   leather: number;
 }
 
+export interface IResources {
+  amount: Map<keyof IResourcesAmount, number>;
+  getResource: (key: keyof IResourcesAmount) => number;
+  setResource: (key: keyof IResourcesAmount, value: number) => void;
+  setResources: (amount: IResourcesAmount) => void;
+  canAfford: (cost: IResources) => boolean;
+  addToAllResources: (newResources: IResources) => void;
+  resetResources: () => void;
+  spendFromAllResources: (resources: IResources) => void;
+}
+
 export interface IAllResources {
-  owned: Map<keyof IResources, number>;
-  future: Map<keyof IResources, number>;
+  owned: Map<keyof IResourcesAmount, number>;
+  future: Map<keyof IResourcesAmount, number>;
 }

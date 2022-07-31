@@ -1,6 +1,6 @@
 import { IBeast } from "./Beast";
 
-export interface Beasts {
-  beasts: IBeast[];
-  beastDeck: IBeast[];
+export interface IBeasts {
+  getBeast: () => IBeast;
+  deckCount: number;
 }
