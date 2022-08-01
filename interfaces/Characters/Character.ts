@@ -8,6 +8,7 @@ export interface ICharacter {
   health: number;
   effects: ICharEffects;
   namePL: CHAR_NAME_TRANSLATION;
+  currentHealth: number;
 }
 
 export type CharacterName =

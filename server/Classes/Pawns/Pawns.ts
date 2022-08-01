@@ -4,6 +4,8 @@ import { IPlayerCharacter } from "../../../interfaces/Characters/PlayerCharacter
 import { ISideCharacter } from "../../../interfaces/Characters/SideCharacter";
 import { PawnArrayName } from "../../../interfaces/Pawns/Pawns";
 import { Pawn } from "./Pawn";
+import {ICharacter} from "../../../interfaces/Characters/Character";
+import {IDictionary} from "../../../interfaces/IDictionary";
 
 type Character = IPlayerCharacter | ISideCharacter;
 
@@ -24,18 +26,20 @@ export class Pawns implements IPawns {
     return this._pawns;
   }
 
-  get character(): Character {
+  get character(): ICharacter {
     return this._character;
   }
 
   private _freePawns: IPawn[];
   private _pawns: IPawn[];
-  private readonly _character: Character;
+  private readonly _character: ICharacter;
+  _initialQuantity: number;
 
-  constructor(character: Character, quantity: number) {
+  constructor(character: ICharacter, initialQuantity: number) {
     this._pawns = this.getInitialPawns();
     this._freePawns = this._pawns;
     this._character = character;
+    this._initialQuantity = initialQuantity
   }
 
   addPawn(pawn: IPawn): void {
@@ -61,7 +65,7 @@ export class Pawns implements IPawns {
 
   private getInitialPawns(): IPawn[] {
     const pawns: IPawn[] = [];
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < this.; i++) {
       pawns.push(new Pawn(i, this.character));
     }
     return pawns;
