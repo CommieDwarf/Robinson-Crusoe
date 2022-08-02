@@ -1,7 +1,8 @@
-import { Skill, SkillInfo } from "../Classes/Characters/Skill";
+import { Skill } from "../Classes/Skills/Skill";
 import { ISkill } from "../../interfaces/Characters/Skill";
 import { IDictionary } from "../../interfaces/IDictionary";
 import { IPlayerCharacter } from "../../interfaces/Characters/PlayerCharacter";
+import { SkillInfo } from "../Classes/Skills/SkillInfo";
 
 export function getCookSkills(
   character: IPlayerCharacter

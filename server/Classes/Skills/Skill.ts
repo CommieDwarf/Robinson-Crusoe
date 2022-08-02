@@ -1,17 +1,4 @@
-import { ICharacter } from "../../../interfaces/Characters/Character";
 import { ISkill, ISkillInfo } from "../../../interfaces/Characters/Skill";
-
-export class SkillInfo implements SkillInfo {
-  quote: string;
-  description: string;
-  namePL: string;
-
-  constructor(namePL: string, description: string, quote: string) {
-    this.namePL = namePL;
-    this.quote = quote;
-    this.description = description;
-  }
-}
 
 export class Skill implements ISkill {
   use: () => void;

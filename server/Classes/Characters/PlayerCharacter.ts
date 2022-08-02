@@ -10,6 +10,14 @@ import { getCookSkills } from "../../constants/getCookSkills";
 import { ISkill } from "../../../interfaces/Characters/Skill";
 
 export class PlayerCharacter extends Character implements IPlayerCharacter {
+  get name(): PlayerCharacterName {
+    return this._name;
+  }
+
+  set name(value: PlayerCharacterName) {
+    this._name = value;
+  }
+
   get pawns(): Pawns {
     return this._pawns;
   }
@@ -34,6 +42,7 @@ export class PlayerCharacter extends Character implements IPlayerCharacter {
   protected readonly _moraleThresholds: number[];
   protected readonly _gender: "male" | "female";
   protected _pawns: Pawns;
+  protected declare _name: PlayerCharacterName;
 
   constructor(
     name: PlayerCharacterName,
@@ -52,11 +61,11 @@ export class PlayerCharacter extends Character implements IPlayerCharacter {
   }
 
   private getSkills(): IDictionary<ISkill> {
-    switch (this.name) {
+    switch (this._name) {
       case "cook":
         return getCookSkills(this);
       default:
-        throw new Error("getSkills is not yet implemented for: " + this.name);
+        throw new Error("getSkills is not yet implemented for: " + this._name);
     }
   }
 }
