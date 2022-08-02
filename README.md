@@ -13,7 +13,7 @@ very much.
 This project my browser version of existing board
 game which name I'd rather not to reveal for legal concerns.
 <br>
-Game requires a password which I reveal personally myself.
+Game requires a password which I reveal myself.
 
 ## Game concepts
 
