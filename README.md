@@ -45,6 +45,7 @@ Game can be played solo or with max. 4 players.
 * Text and voice chat
 * Register and login system
 * Game history
+* Sound effects
 
 ## Technologies:
 
@@ -68,3 +69,9 @@ Game can be played solo or with max. 4 players.
 * React Redux
 * MongoDB
 * Tests
+
+## Problems I've encountered:
+
+* Unfortunately react-beautiful-dnd and
+  react-custom-scrollbars don't let to lock scrollbar
+  which I solved by fixing scroll value but the effect Isn't perfect.
