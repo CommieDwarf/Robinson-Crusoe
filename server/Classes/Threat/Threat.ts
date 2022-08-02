@@ -1,6 +1,5 @@
-import {Resources} from "../AllResources/AllResources";
-import {IEventCard} from "../../../interfaces/Threat/EventCard";
-import {IThreat} from "../../../interfaces/Threat/Threat";
+import { IEventCard } from "../../../interfaces/Threat/EventCard";
+import { IThreat } from "../../../interfaces/Threat/Threat";
 
 interface threatSlots {
   left: null | IEventCard;
@@ -42,4 +41,3 @@ export class Threat implements IThreat {
     this.rightSlot = null;
   }
 }
-

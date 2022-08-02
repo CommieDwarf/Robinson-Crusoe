@@ -1,6 +1,6 @@
-import {IResources} from "../../../interfaces/Resources";
-import {IBeasts} from "../../../interfaces/Beasts/Beasts";
-import {IBeast} from "../../../interfaces/Beasts/Beast";
+import { IResources } from "../../../interfaces/Resources";
+import { IBeasts } from "../../../interfaces/Beasts/Beasts";
+import { IBeast } from "../../../interfaces/Beasts/Beast";
 
 class Beasts implements IBeasts {
   private _deck: IBeast[] = [];
@@ -32,10 +32,8 @@ class Beasts implements IBeasts {
     this._deck.push(beast);
   }
 
-  killBeast() {
-    const beast = this.getBeast();
-    this._ownedResources.
-  }
+  //TODO implement killBeast()
+  killBeast() {}
 }
 
 export default Beasts;

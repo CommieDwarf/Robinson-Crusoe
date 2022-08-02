@@ -1,13 +1,9 @@
 import { IPawns } from "../../../interfaces/Pawns/Pawns";
 import { IPawn } from "../../../interfaces/Pawns/Pawn";
-import { IPlayerCharacter } from "../../../interfaces/Characters/PlayerCharacter";
-import { ISideCharacter } from "../../../interfaces/Characters/SideCharacter";
+
 import { PawnArrayName } from "../../../interfaces/Pawns/Pawns";
 import { Pawn } from "./Pawn";
-import {ICharacter} from "../../../interfaces/Characters/Character";
-import {IDictionary} from "../../../interfaces/IDictionary";
-
-type Character = IPlayerCharacter | ISideCharacter;
+import { ICharacter } from "../../../interfaces/Characters/Character";
 
 export class Pawns implements IPawns {
   set freePawns(value: IPawn[]) {
@@ -39,11 +35,11 @@ export class Pawns implements IPawns {
     this._pawns = this.getInitialPawns();
     this._freePawns = this._pawns;
     this._character = character;
-    this._initialQuantity = initialQuantity
+    this._initialQuantity = initialQuantity;
   }
 
   addPawn(pawn: IPawn): void {
-    this._pawns.push(pawn);
+    this.pawns.push(pawn);
   }
 
   copyPawnToFreePawns(draggableId: string): void {
@@ -53,7 +49,7 @@ export class Pawns implements IPawns {
         `There is already pawn with id: ${draggableId} in freePawns[]`
       );
     }
-    this._freePawns.push(this.findPawn(draggableId, "pawns"));
+    this.freePawns.push(this.findPawn(draggableId, "pawns"));
   }
 
   removePawn(draggableId: string, source: PawnArrayName): void {
@@ -65,7 +61,7 @@ export class Pawns implements IPawns {
 
   private getInitialPawns(): IPawn[] {
     const pawns: IPawn[] = [];
-    for (let i = 0; i < this.; i++) {
+    for (let i = 0; i < this._initialQuantity; i++) {
       pawns.push(new Pawn(i, this.character));
     }
     return pawns;
