@@ -28,7 +28,7 @@ Game can be played solo or with max. 4 players.
 
 * Single-player
 * One scenario
-    * cook
+    * castaways
 * One character
     * cook
 * Two Side characters
@@ -53,15 +53,16 @@ Game can be played solo or with max. 4 players.
 * Additional libraries:
     * react-beautiful-dnd
     * react-custom-scrollbars
+    * web-sockets
 
 ## What I've learned:
 
 * Became more skilled at OOP concept
-* Improved knowledge of typescript and react.
-* Learnt Next.js framework
+* Improved knowledge of Typescript and React.
+* Next.js framework
 
 ## What I'll learn in the future:
 
-* React redux
+* React Redux
 * MongoDB
 * Tests
