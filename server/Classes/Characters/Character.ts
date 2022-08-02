@@ -12,16 +12,8 @@ export abstract class Character {
     return this._id;
   }
 
-  get effects(): ICharEffects {
-    return this._effects;
-  }
-
   get health() {
     return this._health;
-  }
-
-  get pawns(): IPawns {
-    return this._pawns;
   }
 
   get namePL(): CHAR_NAME_TRANSLATION {
@@ -40,14 +32,6 @@ export abstract class Character {
     this._currentHealth = value;
   }
 
-  get skills(): IDictionary<ISkill> {
-    return this._skills;
-  }
-
-  set skills(value: IDictionary<ISkill>) {
-    this._skills = value;
-  }
-
   get name(): PlayerCharacterName | SideCharacterName {
     return this._name;
   }
@@ -55,10 +39,8 @@ export abstract class Character {
   protected _namePL: CHAR_NAME_TRANSLATION;
   protected _currentHealth = 0;
   protected _name: PlayerCharacterName | SideCharacterName;
-  protected _pawns: IPawns = new Pawns(this, 2);
-  protected declare _skills: IDictionary<ISkill>;
+
   protected _id: number;
-  protected declare _effects: ICharEffects;
   protected _health;
 
   protected constructor(

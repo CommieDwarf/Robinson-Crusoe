@@ -1,6 +1,4 @@
 import { ICharacter } from "../../../interfaces/Characters/Character";
-import { Cook } from "../Characters/Cook";
-import { ICharEffects } from "../../../interfaces/Characters/CharEffects";
 import { IPlayer } from "../../../interfaces/Player";
 
 export class Player implements IPlayer {
@@ -43,9 +41,3 @@ export class Player implements IPlayer {
     this._character = value;
   }
 }
-
-const player = new Player("Konrad", "orange", 0);
-
-player.setCharacter(new Cook({}, player, "male"));
-
-export default player;

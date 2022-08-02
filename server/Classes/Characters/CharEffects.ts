@@ -1,5 +1,6 @@
-import {ICharEffects} from "../../../interfaces/Characters/CharEffects";
-import {IPlayerCharacter} from "../../../interfaces/Characters/PlayerCharacter";
+import { ICharEffects } from "../../../interfaces/Characters/CharEffects";
+import { IPlayerCharacter } from "../../../interfaces/Characters/PlayerCharacter";
+import { ISideCharacter } from "../../../interfaces/Characters/SideCharacter";
 
 export class PlayerCharEffects implements ICharEffects {
   character: IPlayerCharacter;
@@ -12,9 +13,7 @@ export class PlayerCharEffects implements ICharEffects {
     console.log("adventure");
   }
 
-  getHurt() {
-
-  }
+  getHurt() {}
 
   death() {
     console.log("gameover");
@@ -30,9 +29,9 @@ export class PlayerCharEffects implements ICharEffects {
 }
 
 export class SideCharEffects implements ICharEffects {
-  character: IPlayerCharacter;
+  character: ISideCharacter;
 
-  constructor(character: IPlayerCharacter) {
+  constructor(character: ISideCharacter) {
     this.character = character;
   }
 
@@ -52,7 +51,5 @@ export class SideCharEffects implements ICharEffects {
     console.log("nothing");
   }
 
-  getHurt() {
-
-  }
+  getHurt() {}
 }

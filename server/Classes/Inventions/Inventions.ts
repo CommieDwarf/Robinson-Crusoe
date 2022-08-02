@@ -1,15 +1,10 @@
 import inventionList from "../../constants/inventionList";
 import InventionList from "../../constants/inventionList";
 import shuffle from "../../../utils/shuffleArray";
-import { Player } from "../Players/Players";
 import { Invention } from "./Invention";
 import { INVENTION_TYPE } from "../../../interfaces/Invention";
 import { Resources } from "../AllResources/Resources";
-import {
-  IPlayerCharacter,
-  PlayableCharacterName,
-} from "../../../interfaces/Characters/PlayerCharacter";
-import { ICharacter } from "../../../interfaces/Characters/Character";
+import { IPlayerCharacter } from "../../../interfaces/Characters/PlayerCharacter";
 
 export default class Inventions {
   get inventions(): Invention[] {
