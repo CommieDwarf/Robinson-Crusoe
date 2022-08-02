@@ -1,34 +1,67 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Board Game
 
-## Getting Started
+### by Konrad Czaczkowski
 
-First, run the development server:
+## Purpose
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+<strong>This is not a commercial product.</strong>
+<br> I've created this for learning purpouses and to play it with my close friends online since i liked this board game
+very much.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## About
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+This project my browser version of existing board
+game which name I'd reather not to reveal for legal matters.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## Game concepts
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+You are a survivor on desert island. Your primary goal is
+to survive and fulfill scenario's objective by exploring,
+gathering resources, building and upgrading camp and building inventions.
+At the beginning you own 2 random utility items for e.g. pistol.
+<br>
+The game contains with different phases in which different things happen  (for e.g weather phase where you are disposed
+to weather effects)
+Game can be played solo or with max. 4 players.
 
-## Learn More
+## Features
 
-To learn more about Next.js, take a look at the following resources:
+* Single-player
+* One scenario
+    * cook
+* One character
+    * cook
+* Two Side characters
+    * Friday
+    * Dog
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Upcoming features
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+* Multiplayer with up to 3 friends via internet
+* 5 more playable scenarios
+* 4 characters
+* Text and voice chat
+* Register and login system
+* Game history
 
-## Deploy on Vercel
+## Technologies:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+* Typescript
+* React
+* Next.js
+* Node.js
+* Additional libraries:
+    * react-beautiful-dnd
+    * react-custom-scrollbars
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## What I've learned:
+
+* Became more skilled at OOP concept
+* Improved knowledge of typescript and react.
+* Learnt Next.js framework
+
+## What I'll learn in the future:
+
+* React redux
+* MongoDB
+* Tests
