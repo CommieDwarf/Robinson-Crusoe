@@ -1,4 +1,4 @@
-import { Resources } from "../server/Classes/AllResources/AllResources";
+import { Resources } from "../../server/Classes/AllResources/AllResources";
 
 export enum STRUCTURE_NAMES {
   SHELTER = "shelter",

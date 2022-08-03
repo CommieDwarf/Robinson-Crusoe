@@ -3,7 +3,7 @@ import styles from "./Scenario.module.css";
 import React, { useEffect, useState } from "react";
 
 import Castaways from "./Scenarios/Castaways/Castaways";
-import IInvention from "../../../../../interfaces/Invention";
+import IInvention from "../../../../../interfaces/Inventions/Invention";
 import Pawn from "../../../../../interfaces/Pawns/Pawn";
 
 interface Props {

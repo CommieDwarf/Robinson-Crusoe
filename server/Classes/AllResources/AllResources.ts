@@ -1,24 +1,25 @@
 import { Resources } from "./Resources";
-import { IResources } from "../../../interfaces/Resources";
+import { IResources } from "../../../interfaces/Resources/Resources";
+import { IAllResources } from "../../../interfaces/Resources/AllResources";
 
-export default class AllResources {
-  get future(): Resources {
+export default class AllResources implements IAllResources {
+  get future(): IResources {
     return this._future;
   }
 
-  get owned(): Resources {
+  get owned(): IResources {
     return this._owned;
   }
 
-  private _future: Resources = new Resources();
-  private _owned: Resources = new Resources();
+  private _future: IResources = new Resources();
+  private _owned: IResources = new Resources();
 
   public addFutureToOwned = (): void => {
     this._owned.addToAllResources(this.future);
     this._future.resetResources();
   };
 
-  public recoverResources = (resources: IResources): void => {
+  public addToOwned = (resources: IResources): void => {
     this._owned.addToAllResources(resources);
   };
 }

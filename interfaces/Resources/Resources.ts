@@ -15,8 +15,3 @@ export interface IResources {
   resetResources: () => void;
   spendFromAllResources: (resources: IResources) => void;
 }
-
-export interface IAllResources {
-  owned: Map<keyof IResourcesAmount, number>;
-  future: Map<keyof IResourcesAmount, number>;
-}

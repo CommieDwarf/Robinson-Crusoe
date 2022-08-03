@@ -1,75 +1,13 @@
-import { IStructure, STRUCTURE_NAMES } from "../../../interfaces/Structure";
 import { Resources } from "../AllResources/Resources";
-import { IResources, IResourcesAmount } from "../../../interfaces/Resources";
+import { STRUCTURE_NAMES } from "../../../interfaces/Structures/Structure";
+import { Structure } from "./Structure";
+import { IStructures } from "../../../interfaces/Structures/Structures";
+import { IResources } from "../../../interfaces/Resources/Resources";
 
-export class Structure implements IStructure {
-  private readonly _name: STRUCTURE_NAMES;
-  private _lvl = 0;
-  private _committedResources: IResources = new Resources();
-  private _cost: IResources;
-  private _locked: boolean;
-
-  get name(): STRUCTURE_NAMES {
-    return this._name;
-  }
-
-  get lvl(): number {
-    return this._lvl;
-  }
-
-  get committedResources(): IResources {
-    return this._committedResources;
-  }
-
-  set committedResources(resources: IResources) {
-    this._committedResources = resources;
-  }
-
-  get cost(): IResources {
-    return this._cost;
-  }
-
-  set cost(value: IResources) {
-    this._cost = value;
-  }
-
-  get locked(): boolean {
-    return this._locked;
-  }
-
-  set locked(value: boolean) {
-    this._locked = value;
-  }
-
-  get requiredHelpers(): number {
-    return this._requiredHelpers;
-  }
-
-  set requiredHelpers(value: number) {
-    this._requiredHelpers = value;
-  }
-
-  private _requiredHelpers = 1;
-
-  constructor(name: STRUCTURE_NAMES, cost: Resources, locked: boolean) {
-    this._name = name;
-    this._cost = cost;
-    this._locked = locked;
-  }
-
-  incrementLvl(num: number) {
-    this._lvl += num;
-  }
-
-  decrementLvl(num: number) {
-    this._lvl -= num;
-  }
-}
-
-export default class Structures {
+export default class Structures implements IStructures {
   structures = this.getInitialStructures();
 
-  getInitialStructures() {
+  private getInitialStructures() {
     return Object.entries(STRUCTURE_NAMES).map(([key, value]) => {
       const cost = new Resources();
       if (value === STRUCTURE_NAMES.WEAPON) {
@@ -82,35 +20,35 @@ export default class Structures {
     });
   }
 
-  incrementStructureLvl(name: STRUCTURE_NAMES, num: number) {
-    this.findStructure(name).incrementLvl(num);
+  lvlUpStruct(name: STRUCTURE_NAMES, by: number) {
+    this.getStruct(name).incrementLvl(by);
   }
 
-  decrementStructureLvl(name: STRUCTURE_NAMES, num: number) {
-    this.findStructure(name).decrementLvl(num);
+  lvlDownStruct(name: STRUCTURE_NAMES, by: number) {
+    this.getStruct(name).decrementLvl(by);
   }
 
-  unlockStructure(name: STRUCTURE_NAMES) {
-    this.findStructure(name).locked = true;
+  unlockStruct(name: STRUCTURE_NAMES) {
+    this.getStruct(name).locked = true;
   }
 
-  lockStructure(name: STRUCTURE_NAMES) {
-    this.findStructure(name).locked = false;
+  lockStruct(name: STRUCTURE_NAMES) {
+    this.getStruct(name).locked = false;
   }
 
-  unlockAllStructures() {
+  unlockAllStructs() {
     this.structures.forEach((structure) => (structure.locked = true));
   }
 
-  commitResources(name: STRUCTURE_NAMES, resources: Resources) {
-    this.findStructure(name).committedResources = resources;
+  commitResources(name: STRUCTURE_NAMES, resources: IResources) {
+    this.getStruct(name).committedResources = resources;
   }
 
-  unCommitResources(name: STRUCTURE_NAMES) {
-    this.findStructure(name).committedResources = new Resources();
+  rollBackCommittedResources(name: STRUCTURE_NAMES) {
+    this.getStruct(name).committedResources = new Resources();
   }
 
-  findStructure(name: STRUCTURE_NAMES) {
+  getStruct(name: STRUCTURE_NAMES) {
     const struct = this.structures.find((structure) => structure.name === name);
     if (!struct) {
       throw new Error("Cant find structure with given name: " + name);

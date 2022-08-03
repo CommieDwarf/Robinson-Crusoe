@@ -3,7 +3,7 @@ import React from "react";
 import Pawn from "../../../../../interfaces/Pawns/Pawn";
 import IStructure, {
   STRUCTURE_NAMES,
-} from "../../../../../interfaces/Structure";
+} from "../../../../../interfaces/Structures/Structure";
 import ActionSlot from "../../ActionSlot";
 import styles from "./Structure.module.css";
 

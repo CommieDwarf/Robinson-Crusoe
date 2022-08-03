@@ -1,4 +1,7 @@
-import { IResources, IResourcesAmount } from "../../../interfaces/Resources";
+import {
+  IResources,
+  IResourcesAmount,
+} from "../../../interfaces/Resources/Resources";
 import Entries from "../../../interfaces/Entries";
 
 const initialResources: IResourcesAmount = {

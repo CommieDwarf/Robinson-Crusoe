@@ -1,4 +1,4 @@
-import { IPawn } from "./Pawns/Pawn";
+import { IPawn } from "../Pawns/Pawn";
 
 export interface TileActionSlots {
   gather: {

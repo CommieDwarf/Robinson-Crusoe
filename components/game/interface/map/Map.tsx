@@ -7,7 +7,7 @@ import scrollbarStyles from "./Scrollbar.module.css";
 import tileStyles from "./Tile/Tile.module.css";
 import pawnStyles from "../Pawn.module.css";
 import getDragAndScrollHandle from "../../../../utils/dragAndScrollHandle";
-import ITile from "../../../../interfaces/Tile";
+import ITile from "../../../../interfaces/Tiles/Tile";
 import Tile from "./Tile/Tile";
 import Pawn from "../../../../interfaces/Pawns/Pawn";
 import Hunting from "../Hunting/Hunting";

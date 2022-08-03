@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { NewLifecycle } from "react";
 import { Character } from "../../../../../server/Classes/Characters/characters";
-import ITile from "../../../../../interfaces/Tile";
+import ITile from "../../../../../interfaces/Tiles/Tile";
 import ActionSlot from "../../ActionSlot";
 import Scrollbar from "../../Scrollbar";
 import styles from "./Tile.module.css";

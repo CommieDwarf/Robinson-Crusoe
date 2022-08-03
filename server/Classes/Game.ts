@@ -12,6 +12,7 @@ import { SideCharacter } from "./Characters/SideCharacter";
 import { PlayerCharacter } from "./Characters/PlayerCharacter";
 import { IPlayer } from "../../interfaces/Player";
 import { ICharacter } from "../../interfaces/Characters/Character";
+import { IGame } from "../../interfaces/Game";
 
 const player = new Player("Konrad", "orange", 0);
 const friday = new SideCharacter("friday", 0, 4);
@@ -21,7 +22,7 @@ player.setCharacter(cook);
 
 type ScenarioName = "castaways";
 
-export class Game {
+export class Game implements IGame {
   players: IPlayer[];
   characters: ICharacter[] = this.getCharacters();
   tiles = new Tiles();

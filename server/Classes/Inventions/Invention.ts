@@ -1,7 +1,10 @@
-import { IInvention, INVENTION_TYPE } from "../../../interfaces/Invention";
-import { TerrainType } from "../../../interfaces/Tile";
+import {
+  IInvention,
+  INVENTION_TYPE,
+} from "../../../interfaces/Inventions/Invention";
+import { TerrainType } from "../../../interfaces/Tiles/Tile";
 import { ICharacter } from "../../../interfaces/Characters/Character";
-import { IResources } from "../../../interfaces/Resources";
+import { IResources } from "../../../interfaces/Resources/Resources";
 import { Resources } from "../AllResources/Resources";
 
 export class Invention implements IInvention {

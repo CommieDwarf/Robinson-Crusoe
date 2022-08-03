@@ -1,5 +1,5 @@
-import { TerrainType } from "./Tile";
-import { IResources } from "./Resources";
+import { TerrainType } from "../Tiles/Tile";
+import { IResources } from "../Resources/Resources";
 
 export interface IInvention {
   name: string;

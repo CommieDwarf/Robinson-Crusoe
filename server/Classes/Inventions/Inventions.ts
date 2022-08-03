@@ -2,28 +2,36 @@ import inventionList from "../../constants/inventionList";
 import InventionList from "../../constants/inventionList";
 import shuffle from "../../../utils/shuffleArray";
 import { Invention } from "./Invention";
-import { INVENTION_TYPE } from "../../../interfaces/Invention";
+import {
+  IInvention,
+  INVENTION_TYPE,
+} from "../../../interfaces/Inventions/Invention";
 import { Resources } from "../AllResources/Resources";
 import { IPlayerCharacter } from "../../../interfaces/Characters/PlayerCharacter";
+import {
+  IInventions,
+  InventionName,
+} from "../../../interfaces/Inventions/Inventions";
+import { SCENARIO_NAME } from "../../../interfaces/Scenario/Scenario";
 
-export default class Inventions {
-  get inventions(): Invention[] {
+export default class Inventions implements IInventions {
+  get inventions(): IInvention[] {
     return this._inventions;
   }
 
-  builtInventions: Invention[] = [];
-  scenario: "castaways";
-  discoveredTileTypes = ["beach"];
-  private readonly _inventions: Invention[];
+  private _builtInventions: IInvention[] = [];
+  scenario: SCENARIO_NAME;
+  private _discoveredTileTypes = ["beach"];
+  private readonly _inventions: IInvention[];
   private _characters: IPlayerCharacter[];
 
-  constructor(scenario: "castaways", characters: IPlayerCharacter[]) {
+  constructor(scenario: SCENARIO_NAME, characters: IPlayerCharacter[]) {
     this.scenario = scenario;
     this._inventions = this.getInitialInventions(scenario);
     this._characters = characters;
   }
 
-  getInitialInventions(scenario: "castaways") {
+  private getInitialInventions(scenario: "castaways") {
     const normalInventionList = shuffle(inventionList.normal).slice(0, 5);
     const scenarioInventionList = inventionList.scenario[scenario];
 
@@ -86,61 +94,61 @@ export default class Inventions {
     return inventions;
   }
 
-  build(invention: Invention) {
-    if (!this.builtInventions.includes(invention)) {
-      this.builtInventions.push(invention);
-      invention.isBuilt = true;
-    } else {
+  build(name: InventionName) {
+    const invention = this.getInvention(name);
+    if (!this._builtInventions.includes(invention)) {
       throw new Error("Invention is already has been built " + invention.name);
     }
+
+    this._builtInventions.push(invention);
+    invention.isBuilt = true;
   }
 
-  destroy(invention: Invention) {
-    if (this.builtInventions.includes(invention)) {
-      this.builtInventions = this.builtInventions.filter((inv) => {
-        return inv.name !== invention.name;
-      });
-      invention.isBuilt = false;
-    } else {
+  destroy(name: InventionName) {
+    const invention = this.getInvention(name);
+    if (!this._builtInventions.includes(invention)) {
       throw new Error("There is no such invention built: " + invention.name);
     }
+
+    this._builtInventions = this._builtInventions.filter((inv) => {
+      return inv.name !== invention.name;
+    });
+    invention.isBuilt = false;
   }
 
-  updateLockToAllInventions() {
+  updateLocks() {
     this._inventions.forEach((invention) => {
       invention.locked =
-        this.checkInventionRequirement(invention) &&
-        this.checkTileTypeRequirement(invention);
+        !this.isInvRequirementMet(invention) ||
+        !this.isTileTypeRequirementMet(invention);
     });
   }
 
-  checkInventionRequirement(invention: Invention) {
+  private isInvRequirementMet(invention: IInvention) {
     if (!invention.requirement.invention) {
       return true;
     }
-
-    return this.builtInventions.some((builtInv) => {
+    return this._builtInventions.some((builtInv) => {
       return builtInv.name === invention.requirement.invention?.name;
     });
   }
 
-  checkTileTypeRequirement(invention: Invention) {
+  private isTileTypeRequirementMet(invention: IInvention) {
     if (!invention.requirement.terrainType) {
       return true;
     }
 
-    return this.discoveredTileTypes.some((tileType) => {
+    return this._discoveredTileTypes.some((tileType) => {
       return invention.requirement.terrainType === tileType;
     });
   }
 
-  findInvention(name: string) {
+  getInvention(name: string): IInvention {
     const invention = this._inventions.find((inv) => inv.name === name);
 
     if (!invention) {
       throw new Error("Can find invention with specific name: " + name);
     }
-
     return invention;
   }
 }

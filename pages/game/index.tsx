@@ -36,7 +36,7 @@ import ICharacter from "../../interfaces/Characters/Character";
 import canPawnBeSettled from "../../utils/canPawnBeSettled";
 import sleep from "../../utils/sleep";
 import { WeatherAndNight } from "../../components/game/interface/WeatherAndNight/WeatherAndNight";
-import { INVENTION_TYPE } from "../../interfaces/Invention";
+import { INVENTION_TYPE } from "../../interfaces/Inventions/Invention";
 
 interface Characters {
   cook: ICharacter;

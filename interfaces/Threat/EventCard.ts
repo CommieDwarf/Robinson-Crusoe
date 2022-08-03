@@ -1,4 +1,4 @@
-import { IResources } from "../Resources";
+import { IResources } from "../Resources/Resources";
 
 export interface IEventCard {
   id: number;

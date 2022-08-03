@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import IResources from "../../../../../interfaces/Resources";
+import IResources from "../../../../../interfaces/Resources/Resources";
 import styles from "./ResourceValues.module.css";
 import Entries from "../../../../../interfaces/Entries";
 

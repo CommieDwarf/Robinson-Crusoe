@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 import styles from "./Resources.module.css";
 
-import IResources from "../../../../interfaces/Resources";
+import IResources from "../../../../interfaces/Resources/Resources";
 import ResourceValues from "./ResourceValues/ResourceValues";
 
 interface Props {

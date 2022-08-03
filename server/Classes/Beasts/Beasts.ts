@@ -1,4 +1,4 @@
-import { IResources } from "../../../interfaces/Resources";
+import { IResources } from "../../../interfaces/Resources/Resources";
 import { IBeasts } from "../../../interfaces/Beasts/Beasts";
 import { IBeast } from "../../../interfaces/Beasts/Beast";
 

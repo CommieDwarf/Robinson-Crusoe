@@ -1,4 +1,8 @@
-import { TerrainType, TileExtras, TileResource } from "../../interfaces/Tile";
+import {
+  TerrainType,
+  TileExtras,
+  TileResource,
+} from "../../interfaces/Tiles/Tile";
 
 export class TileType {
   id: number;

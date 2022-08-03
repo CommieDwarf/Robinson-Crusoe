@@ -1,7 +1,7 @@
 import React from "react";
 import Structure from "./Structure/Structure";
 import styles from "./Structures.module.css";
-import IStructure from "../../../../interfaces/Structure";
+import IStructure from "../../../../interfaces/Structures/Structure";
 import Pawn from "../../../../interfaces/Pawns/Pawn";
 
 interface Props {

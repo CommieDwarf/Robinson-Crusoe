@@ -1,8 +1,9 @@
 import shuffle from "../../../utils/shuffleArray";
 import tileStructures from "../../constants/tileStructures";
-import { TileStructure } from "../../../interfaces/Tile";
+import { TileStructure } from "../../../interfaces/Tiles/Tile";
 import tileTypes, { TileType, starterTile } from "../../constants/tilleTypes";
-import ITile from "../../../interfaces/Tile";
+import ITile from "../../../interfaces/Tiles/Tile";
+import { ITiles } from "../../../interfaces/Tiles/Tiles";
 
 const starterId = 7;
 
@@ -70,7 +71,7 @@ export class Tile implements ITile {
   }
 }
 
-export default class Tiles {
+export default class Tiles implements ITiles {
   tiles = Tiles.getInitialTiles();
   tileStack: TileType[];
 
@@ -99,11 +100,11 @@ export default class Tiles {
     this.findTile(id).reveal(tileType);
   }
 
-  setHelpersNumber(id: number, helpers: number) {
+  setRequiredHelpersAmount(id: number, helpers: number) {
     this.findTile(id).helpersRequired = helpers;
   }
 
-  setAllHelpersNumber(helpers: number) {
+  setAllRequiredHelpersAmount(helpers: number) {
     this.tiles.forEach((tile) => (tile.helpersRequired = helpers));
   }
 

@@ -1,4 +1,4 @@
-import { IResources } from "../../../interfaces/Resources";
+import { IResources } from "../../../interfaces/Resources/Resources";
 import { IBeast } from "../../../interfaces/Beasts/Beast";
 
 export class Beast implements IBeast {
