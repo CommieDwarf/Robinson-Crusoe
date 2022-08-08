@@ -20,10 +20,16 @@ import Threat from "../../components/game/interface/threat/Threat";
 import AdditionalActivities from "../../components/game/interface/additionalActivities/AdditionalActivities";
 import Equipment from "../../components/game/interface/equipment/Equipment";
 
-import { DragDropContext, resetServerContext } from "react-beautiful-dnd";
+import {
+  DragDropContext,
+  Draggable,
+  DragUpdate,
+  resetServerContext,
+} from "react-beautiful-dnd";
 import { GetServerSideProps } from "next";
 import { WeatherAndNight } from "../../components/game/interface/WeatherAndNight/WeatherAndNight";
 import { INVENTION_TYPE } from "../../interfaces/Inventions/Invention";
+import { getPawnCanBeSettled } from "../../utils/canPawnBeSettled";
 
 interface Props {}
 
@@ -72,11 +78,34 @@ export default function Game(props: Props) {
 
   function onDragEnd() {}
 
-  function onDragUpdate() {}
+  function onDragUpdate(update: DragUpdate) {
+    unselectActionSlots();
+    const pawn = game.allPawns.find(
+      (p) => p.draggableId === update.draggableId
+    );
+    const destinationId = update.destination?.droppableId;
+
+    if (destinationId?.includes("freepawns")) {
+      return;
+    } else if (destinationId === update.source.droppableId) {
+      return;
+    }
+
+    console.log(pawn);
+
+    if (destinationId && pawn) {
+      const slotElement = document.getElementById(destinationId);
+      if (getPawnCanBeSettled(pawn, destinationId)) {
+        slotElement?.classList.add(actionSlotStyles.canBeSettled);
+      } else {
+        slotElement?.classList.add(actionSlotStyles.cantBeSettled);
+      }
+    }
+  }
 
   return (
     <div className={styles.game}>
-      <DragDropContext onDragEnd={onDragEnd}>
+      <DragDropContext onDragEnd={onDragEnd} onDragUpdate={onDragUpdate}>
         <Phase phase="production" />
         <Morale current={3} />
         <Resources
