@@ -1,10 +1,10 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import styles from "./Threat.module.css";
-import { EventCard } from "../../../../interfaces/threatCards";
+import { IEventCard } from "../../../../interfaces/Threat/EventCard";
 
 interface Props {
-  card: EventCard | null;
+  card: IEventCard | null;
 }
 
 export default function Card(props: Props) {

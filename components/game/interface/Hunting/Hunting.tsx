@@ -1,13 +1,12 @@
 import styles from "./Hunting.module.css";
 import Image from "next/image";
 import ActionSlot from "../ActionSlot";
-import Pawn from "../../../../interfaces/Pawns/Pawn";
-import Beast from "../../../../interfaces/Beasts/Beast";
+import { IPawn } from "../../../../interfaces/Pawns/Pawn";
 
 interface Props {
-  actionSlots: Map<string, Pawn | null>;
+  actionSlots: Map<string, IPawn | null>;
   zIndexIncreased: boolean | undefined;
-  beastDeck: Beast[];
+  beastCount: number;
   isDragDisabled: boolean;
 }
 
@@ -16,7 +15,7 @@ export default function Hunting(props: Props) {
   const helperPawn = props.actionSlots.get("hunt-helper");
 
   const zIndexClass = props.zIndexIncreased ? styles.zIndexIncreased : "";
-  const lockedClass = props.beastDeck.length === 0 ? styles.locked : "";
+  const lockedClass = props.beastCount === 0;
 
   return (
     <div className={styles.container + " " + zIndexClass}>
@@ -28,10 +27,10 @@ export default function Hunting(props: Props) {
         />
       </div>
       <div className={styles.beastCount + " " + styles.locked}>
-        {props.beastDeck.length}
+        {props.beastCount}
       </div>
 
-      {props.beastDeck.length > 0 && (
+      {props.beastCount > 0 && (
         <div className={styles.actionSlots}>
           <ActionSlot
             type={"leader"}

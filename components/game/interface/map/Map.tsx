@@ -1,24 +1,22 @@
 import Image from "next/image";
-import React, { UIEventHandler, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Map.module.css";
 import { Scrollbars } from "react-custom-scrollbars";
 import Scrollbar from "../Scrollbar";
 import scrollbarStyles from "./Scrollbar.module.css";
 import tileStyles from "./Tile/Tile.module.css";
-import pawnStyles from "../Pawn.module.css";
 import getDragAndScrollHandle from "../../../../utils/dragAndScrollHandle";
 import ITile from "../../../../interfaces/Tiles/Tile";
 import Tile from "./Tile/Tile";
-import Pawn from "../../../../interfaces/Pawns/Pawn";
 import Hunting from "../Hunting/Hunting";
-import Beast from "../../../../interfaces/Beasts/Beast";
+import { IPawn } from "../../../../interfaces/Pawns/Pawn";
 
 interface Props {
   tiles: ITile[];
-  actionSlots: Map<string, Pawn | null>;
+  actionSlots: Map<string, IPawn | null>;
   zIndexIncreased: Map<string, boolean>;
   scrollDisabled: boolean;
-  beastDeck: Beast[];
+  beastCount: number;
   showScenario: boolean;
 }
 
@@ -108,7 +106,10 @@ export default function Map(props: Props) {
     height: contentScale + "%",
   };
 
-  const zIndexClass = props.zIndexIncreased ? styles.zIndexIncreased : "";
+  const zIndexClass = props.zIndexIncreased.get("map")
+    ? styles.zIndexIncreased
+    : "";
+  console.log(props.zIndexIncreased, "z");
 
   return (
     <div
@@ -136,7 +137,7 @@ export default function Map(props: Props) {
       <Hunting
         actionSlots={props.actionSlots}
         zIndexIncreased={props.zIndexIncreased.get("hunting")}
-        beastDeck={props.beastDeck}
+        beastCount={props.beastCount}
         isDragDisabled={props.showScenario}
       />
       <Scrollbar

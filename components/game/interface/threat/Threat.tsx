@@ -3,13 +3,12 @@ import React from "react";
 import styles from "./Threat.module.css";
 import ActionSlot from "../ActionSlot";
 import Card from "./Card";
-import ThreatCards from "../../../../interfaces/threatCards";
-import Pawn from "../../../../interfaces/Pawns/Pawn";
-import { Threat as IThreat } from "../../../../server/Classes/Threat/Threat";
+import { IPawn } from "../../../../interfaces/Pawns/Pawn";
+import { IThreat } from "../../../../interfaces/Threat/Threat";
 
 interface Props {
   threat: IThreat;
-  actionSlots: Map<string, Pawn | null>;
+  actionSlots: Map<string, IPawn | null>;
 }
 
 export default function Threat(props: Props) {

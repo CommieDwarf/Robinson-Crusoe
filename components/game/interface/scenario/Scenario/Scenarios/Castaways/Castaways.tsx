@@ -3,7 +3,6 @@ import Image from "next/image";
 import { RoundSquare } from "./RoundSquare";
 import { ScenarioInfo } from "./ScenarioInfo/ScenarioInfo";
 import { WoodStack } from "./WoodStack/WoodStack";
-import IInvention from "../../../../../../../interfaces/Inventions/Invention";
 
 const rainDays = [5, 6, 7, 8, 9, 10, 11, 12];
 const hungryAnimalDays = [7, 8, 9, 10, 11, 12];
@@ -29,12 +28,13 @@ const stashBuild = `Stos ma się składać z 15 znaczników drewna.
   Drewno odłożone na stos nie może być z niego zabrane.`;
 
 import Invention from "../../../../inventions/Invention/Invention";
-import Pawn from "../../../../../../../interfaces/Pawns/Pawn";
 import React from "react";
+import { IInvention } from "../../../../../../../interfaces/Inventions/Invention";
+import { IPawn } from "../../../../../../../interfaces/Pawns/Pawn";
 
 interface Props {
   inventions: IInvention[];
-  actionSlots: Map<string, Pawn | null>;
+  actionSlots: Map<string, IPawn | null>;
   zIndexIncreased: Map<string, boolean>;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
 }

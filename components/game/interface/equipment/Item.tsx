@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import styles from "./Equipment.module.css";
 import Image from "next/image";
-import EquipmentItem from "../../../../interfaces/EquipmentItem";
+import { IItem } from "../../../../interfaces/Equipment/Item";
 
 interface Props {
-  item: EquipmentItem;
+  item: IItem;
 }
 
 export default function Item(props: Props) {

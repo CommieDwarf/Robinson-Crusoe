@@ -32,9 +32,9 @@ export class Pawns implements IPawns {
   _initialQuantity: number;
 
   constructor(character: ICharacter, initialQuantity: number) {
-    this._pawns = this.getInitialPawns();
-    this._freePawns = this._pawns;
     this._character = character;
+    this._pawns = this.getInitialPawns(initialQuantity);
+    this._freePawns = this._pawns;
     this._initialQuantity = initialQuantity;
   }
 
@@ -59,9 +59,9 @@ export class Pawns implements IPawns {
 
   resetFreePawns(): void {}
 
-  private getInitialPawns(): IPawn[] {
+  private getInitialPawns(initialQuantity: number): IPawn[] {
     const pawns: IPawn[] = [];
-    for (let i = 0; i < this._initialQuantity; i++) {
+    for (let i = 0; i < initialQuantity; i++) {
       pawns.push(new Pawn(i, this.character));
     }
     return pawns;

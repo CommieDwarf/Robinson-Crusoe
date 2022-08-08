@@ -1,11 +1,11 @@
 .container {
-    height: 545px;
+    height: 525px;
     width: 100%;
     position: absolute;
-    top: -525px;
+    top: -510px;
     z-index: 100;
     transition: all 1s;
-    border-bottom: 1px black dashed;
+    background-color: blue;
 }
 
 .hidden {

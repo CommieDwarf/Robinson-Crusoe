@@ -7,6 +7,8 @@ import AdditionalActivity from "./AdditionalActivity";
 import { ITiles } from "./Tiles/Tiles";
 import { IStructures } from "./Structures/Structures";
 import { IAllResources } from "./Resources/AllResources";
+import { IInventions } from "./Inventions/Inventions";
+import { IActionSlots } from "./ActionSlots";
 
 class IEquipment {}
 
@@ -23,7 +25,7 @@ export interface IGame {
     dog: ISideCharacter;
     friday: ISideCharacter;
   };
-  actionSlots: Map<string, null | IPawn>;
+  actionSlots: IActionSlots;
   rest: AdditionalActivity;
   arrangeCamp: AdditionalActivity;
   beasts: IBeasts;

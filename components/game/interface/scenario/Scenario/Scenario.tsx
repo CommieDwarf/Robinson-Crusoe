@@ -3,12 +3,12 @@ import styles from "./Scenario.module.css";
 import React, { useEffect, useState } from "react";
 
 import Castaways from "./Scenarios/Castaways/Castaways";
-import IInvention from "../../../../../interfaces/Inventions/Invention";
-import Pawn from "../../../../../interfaces/Pawns/Pawn";
+import { IInvention } from "../../../../../interfaces/Inventions/Invention";
+import { IPawn } from "../../../../../interfaces/Pawns/Pawn";
 
 interface Props {
   inventions: IInvention[];
-  actionSlots: Map<string, Pawn | null>;
+  actionSlots: Map<string, IPawn | null>;
   show: boolean;
   zIndexIncreased: Map<string, boolean>;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;

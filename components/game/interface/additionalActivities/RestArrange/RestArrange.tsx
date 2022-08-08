@@ -5,22 +5,22 @@ import Scrollbar from "../../Scrollbar";
 import scrollbarStyles from "./Scrollbar.module.css";
 import ActionSlot from "../../ActionSlot";
 import AdditionalActivity from "../../../../../interfaces/AdditionalActivity";
-import Pawn from "../../../../../interfaces/Pawns/Pawn";
+import { IPawn } from "../../../../../interfaces/Pawns/Pawn";
 
 interface Props {
   activity: AdditionalActivity;
-  actionSlots: Map<string, Pawn | null>;
+  actionSlots: Map<string, IPawn | null>;
 }
 
 const activityPL = {
-  arrange: "Porządkowanie obozu",
+  arrangeCamp: "Porządkowanie obozu",
   rest: "Odpoczynek",
 };
 
 export default function RestArrange(props: Props) {
   let rewardLabel;
 
-  if (props.activity.type === "arrange") {
+  if (props.activity.type === "arrangeCamp") {
     rewardLabel = (
       <div className={styles.activityReward}>
         <div className={styles.determinationReward}>
@@ -60,7 +60,7 @@ export default function RestArrange(props: Props) {
   }
 
   const slotsQuantity =
-    props.activity.pawns == 0 ? 2 : props.activity.pawns + 1;
+    props.activity.pawnAmount == 0 ? 2 : props.activity.pawnAmount + 1;
 
   const actionSlots = [];
 

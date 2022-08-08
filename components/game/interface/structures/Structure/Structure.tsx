@@ -1,15 +1,16 @@
 import Image from "next/image";
 import React from "react";
-import Pawn from "../../../../../interfaces/Pawns/Pawn";
-import IStructure, {
-  STRUCTURE_NAMES,
-} from "../../../../../interfaces/Structures/Structure";
 import ActionSlot from "../../ActionSlot";
 import styles from "./Structure.module.css";
+import {
+  IStructure,
+  STRUCTURE,
+} from "../../../../../interfaces/Structures/Structure";
+import { IPawn } from "../../../../../interfaces/Pawns/Pawn";
 
 type Props = {
   structure: IStructure;
-  actionSlots: Map<string, Pawn | null>;
+  actionSlots: Map<string, IPawn | null>;
 };
 
 export default function Structure(props: Props) {
@@ -33,7 +34,7 @@ export default function Structure(props: Props) {
 
   let costIcon;
 
-  if (props.structure.name == STRUCTURE_NAMES.WEAPON) {
+  if (props.structure.name == STRUCTURE.WEAPON) {
     costIcon = (
       <div className={styles.costIcon}>
         <div className={styles.costWoodValue}>

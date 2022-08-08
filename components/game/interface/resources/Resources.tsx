@@ -2,12 +2,15 @@ import Image from "next/image";
 import React from "react";
 import styles from "./Resources.module.css";
 
-import IResources from "../../../../interfaces/Resources/Resources";
 import ResourceValues from "./ResourceValues/ResourceValues";
+import {
+  IResources,
+  IResourcesAmount,
+} from "../../../../interfaces/Resources/Resources";
 
 interface Props {
-  owned: Map<keyof IResources, number>;
-  future: Map<keyof IResources, number>;
+  owned: Map<keyof IResourcesAmount, number>;
+  future: Map<keyof IResourcesAmount, number>;
 }
 
 export default function Resources(props: Props) {

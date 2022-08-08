@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
-import { ISkill } from "../../../../../interfaces/Characters/Character";
 import styles from "./SkillMenu.module.css";
+import { ISkill } from "../../../../../interfaces/Characters/Skill";
 
 interface Props {
   skillDescription: {
@@ -15,7 +15,7 @@ export default function SkillMenu(props: Props) {
   let commentary;
   if (props.skillDescription.skill) {
     description = insertJSXIntoString(props.skillDescription.skill.description);
-    commentary = insertJSXIntoString(props.skillDescription.skill.commentary);
+    commentary = insertJSXIntoString(props.skillDescription.skill.quote);
   }
   const visibilityClass = props.skillDescription.show
     ? styles.skillDescriptionVisible

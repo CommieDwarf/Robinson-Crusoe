@@ -1,5 +1,6 @@
-import { ICharacter } from "../../../interfaces/Characters/Character";
-import { IPlayer } from "../../../interfaces/Player";
+import {ICharacter} from "../../../interfaces/Characters/Character";
+import {IPlayer} from "../../../interfaces/Player";
+import {IPlayerCharacter} from "../../../interfaces/Characters/PlayerCharacter";
 
 export class Player implements IPlayer {
   get name(): string {
@@ -24,7 +25,7 @@ export class Player implements IPlayer {
 
   private _name: string;
   private _color: string;
-  private _character: ICharacter | null = null;
+  private _character: IPlayerCharacter | null = null;
   private readonly _id: number;
 
   constructor(name: string, color: string, id: number) {
@@ -33,11 +34,18 @@ export class Player implements IPlayer {
     this._id = id;
   }
 
-  getCharacter(): ICharacter | null {
+  getCharacter(): IPlayerCharacter {
+    if (!this._character) {
+      throw new Error("There is no character assigned to player: " + this._name)
+    }
     return this._character;
   }
 
-  setCharacter(value: ICharacter | null) {
+  setCharacter(value: IPlayerCharacter) {
     this._character = value;
+  }
+
+  unsetCharacter() {
+    this._character = null;
   }
 }

@@ -1,4 +1,4 @@
-const eqList: EqList = {
+export const equipmentList: EqList = {
   bible: "biblia",
   biscuits: "suchary",
   emptyBottle: "pusta butelka",
@@ -23,5 +23,3 @@ export interface EqList {
 type Entries<T> = {
   [K in keyof T]: [K, T[K]];
 }[keyof T][];
-
-export default new Map(Object.entries(eqList) as Entries<EqList>);

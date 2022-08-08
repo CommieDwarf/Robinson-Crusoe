@@ -1,10 +1,13 @@
 import { IPawn } from "../interfaces/Pawns/Pawn";
 
-export default function getPawnCanBeSettled(
-  pawn: IPawn,
+export function getPawnCanBeSettled(
+  pawn: IPawn | null,
   destinationId: string
 ): boolean {
-  if (pawn.id == "dog") {
+  if (!pawn) {
+    return true;
+  }
+  if (pawn.draggableId == "dog") {
     if (destinationId.includes("leader")) {
       return false;
     }
@@ -20,7 +23,7 @@ export default function getPawnCanBeSettled(
     ) {
       return false;
     }
-  } else if (pawn.id === "friday") {
+  } else if (pawn.draggableId === "friday") {
     if (
       destinationId.includes("freepawns") ||
       destinationId.includes("dog-droppable")

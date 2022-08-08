@@ -1,12 +1,9 @@
-import Image from "next/image";
 import React, { useId } from "react";
 import styles from "./ActionSlot.module.css";
 import { Droppable } from "react-beautiful-dnd";
-import characters, {
-  Character,
-} from "../../../server/Classes/Characters/characters";
+
 import Pawn from "./Pawn";
-import IPawn from "../../../interfaces/Pawns/Pawn";
+import { IPawn } from "../../../interfaces/Pawns/Pawn";
 
 interface Props {
   type: "helper" | "leader";
@@ -17,7 +14,7 @@ interface Props {
     | "build"
     | "gather"
     | "explore"
-    | "arrange"
+    | "arrangeCamp"
     | "rest";
   context:
     | "gather"
@@ -25,7 +22,7 @@ interface Props {
     | "structure"
     | "invention"
     | "rest"
-    | "arrange"
+    | "arrangeCamp"
     | "threat"
     | "hunt";
   id: string;

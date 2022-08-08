@@ -5,14 +5,14 @@ import scrollbarStyles from "./Scrollbar.module.css";
 import Invention from "./Invention/Invention";
 import Scrollbar from "../Scrollbar";
 import { Scrollbars } from "react-custom-scrollbars";
-import Pawn from "../../../../interfaces/Pawns/Pawn";
-import InventionsClass from "../../../../server/Classes/Inventions/Inventions";
+import { IPawn } from "../../../../interfaces/Pawns/Pawn";
+import { IInventions } from "../../../../interfaces/Inventions/Inventions";
 
 interface Props {
-  inventions: InventionsClass;
+  inventions: IInventions;
   isBeingDragged: boolean;
   zIndexIncreased: Map<string, boolean>;
-  actionSlots: Map<string, Pawn | null>;
+  actionSlots: Map<string, IPawn | null>;
 }
 
 export default function Inventions(props: Props) {

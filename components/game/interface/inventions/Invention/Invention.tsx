@@ -1,18 +1,17 @@
 import Image from "next/image";
-import React, { createRef, useState } from "react";
-import Pawn from "../../../../../interfaces/Pawns/Pawn";
+import React, { useState } from "react";
 import ActionSlot from "../../ActionSlot";
 import styles from "./Invention.module.css";
 import getHelperActionSlots from "../../../../../utils/getHelperActionSlots";
-
-import { Invention as InventionClass } from "../../../../../server/Classes/Inventions/Inventions";
+import { IInvention } from "../../../../../interfaces/Inventions/Invention";
+import { IPawn } from "../../../../../interfaces/Pawns/Pawn";
 
 type Props = {
-  invention: InventionClass;
+  invention: IInvention;
   column: number;
   row: number;
   top: number;
-  actionSlots: Map<string, Pawn | null>;
+  actionSlots: Map<string, IPawn | null>;
   zIndexIncreased: boolean | undefined;
 };
 
@@ -79,7 +78,7 @@ export default function Invention(props: Props) {
           ".png"
         }
         layout="fill"
-        alt={props.invention.name + " invention"}
+        alt={"karta pomysłu"}
       />
       {!props.invention.locked && (
         <div className={styles.actionSlots}>

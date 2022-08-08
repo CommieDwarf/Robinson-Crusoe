@@ -1,6 +1,6 @@
-import { Resources } from "../../server/Classes/AllResources/AllResources";
+import { IResources } from "../Resources/Resources";
 
-export enum STRUCTURE_NAMES {
+export enum STRUCTURE {
   SHELTER = "shelter",
   ROOF = "roof",
   PALISADE = "palisade",
@@ -8,10 +8,10 @@ export enum STRUCTURE_NAMES {
 }
 
 export interface IStructure {
-  name: STRUCTURE_NAMES;
+  name: STRUCTURE;
   lvl: number;
-  committedResources: Resources;
-  cost: Resources;
+  committedResources: IResources;
+  cost: IResources;
   locked: boolean;
   requiredHelpers: number;
 }

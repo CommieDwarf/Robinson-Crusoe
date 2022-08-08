@@ -1,13 +1,13 @@
 import React from "react";
 import styles from "./ScenarioButton.module.css";
 import Scenario from "./Scenario/Scenario";
-import IInvention from "../../../../interfaces/Inventions/Invention";
-import Pawn from "../../../../interfaces/Pawns/Pawn";
 import Image from "next/image";
+import { IInvention } from "../../../../interfaces/Inventions/Invention";
+import { IPawn } from "../../../../interfaces/Pawns/Pawn";
 
 interface Props {
   inventions: IInvention[];
-  actionSlots: Map<string, Pawn | null>;
+  actionSlots: Map<string, IPawn | null>;
   zIndexIncreased: Map<string, boolean>;
   show: boolean;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;

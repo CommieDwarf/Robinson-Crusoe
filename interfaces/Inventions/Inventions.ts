@@ -1,10 +1,9 @@
 import { IInvention } from "./Invention";
-import { SCENARIO_NAME } from "../Scenario/Scenario";
-import { TileType } from "../Tiles/Tile";
+import { SCENARIO } from "../Scenario/Scenario";
 
 export interface IInventions {
   inventions: IInvention[];
-  scenario: SCENARIO_NAME;
+  scenario: SCENARIO;
   build: (name: InventionName) => void;
   destroy: (name: InventionName) => void;
   updateLocks: () => void;

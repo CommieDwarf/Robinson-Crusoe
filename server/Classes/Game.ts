@@ -13,6 +13,9 @@ import { PlayerCharacter } from "./Characters/PlayerCharacter";
 import { IPlayer } from "../../interfaces/Player";
 import { ICharacter } from "../../interfaces/Characters/Character";
 import { IGame } from "../../interfaces/Game";
+import { SCENARIO } from "../../interfaces/Scenario/Scenario";
+import { IInventions } from "../../interfaces/Inventions/Inventions";
+import { IActionSlots } from "../../interfaces/ActionSlots";
 
 const player = new Player("Konrad", "orange", 0);
 const friday = new SideCharacter("friday", 0, 4);
@@ -24,16 +27,16 @@ type ScenarioName = "castaways";
 
 export class Game implements IGame {
   players: IPlayer[];
-  characters: ICharacter[] = this.getCharacters();
+  player: Player = player;
+  characters: ICharacter[];
   tiles = new Tiles();
   allResources = new AllResources();
   structures = new Structures();
-  inventions = new Inventions("castaways", [cook]);
+  inventions: IInventions;
   threat = new Threat(this);
   equipment = new Equipment(this);
-  player: Player = player;
   sideCharacters = { dog, friday };
-  actionSlots = new ActionSlots(this.structures, this.inventions, this.tiles);
+  actionSlots: IActionSlots;
   rest = new Activity("rest");
   arrangeCamp = new Activity("arrangeCamp");
   beasts = new Beasts(this, this.allResources.owned);
@@ -41,6 +44,13 @@ export class Game implements IGame {
 
   constructor(players: IPlayer[], scenarioName: ScenarioName) {
     this.players = players;
+    this.characters = this.getCharacters();
+    this.inventions = new Inventions(SCENARIO.CASTAWAYS, [cook]);
+    this.actionSlots = new ActionSlots(
+      this.structures,
+      this.inventions,
+      this.tiles
+    );
   }
 
   getCharacters() {

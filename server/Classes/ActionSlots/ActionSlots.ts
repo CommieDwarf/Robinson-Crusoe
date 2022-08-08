@@ -2,8 +2,13 @@ import Tiles from "../Tiles/Tiles";
 import Structures from "../Structures/Structures";
 import Inventions from "../Inventions/Inventions";
 import { IPawn } from "../../../interfaces/Pawns/Pawn";
+import { IActionSlots } from "../../../interfaces/ActionSlots";
+import { getPawnCanBeSettled } from "../../../utils/canPawnBeSettled";
+import { IStructures } from "../../../interfaces/Structures/Structures";
+import { IInventions } from "../../../interfaces/Inventions/Inventions";
+import { ITiles } from "../../../interfaces/Tiles/Tiles";
 
-export default class ActionSlots {
+export default class ActionSlots implements IActionSlots {
   set slots(value: Map<string, IPawn | null>) {
     this._slots = value;
   }
@@ -13,15 +18,47 @@ export default class ActionSlots {
   }
 
   private _slots: Map<string, null | IPawn>;
-  private _structures: Structures;
-  private _inventions: Inventions;
-  private _tiles: Tiles;
+  private _structures: IStructures;
+  private _inventions: IInventions;
+  private _tiles: ITiles;
 
-  constructor(structures: Structures, inventions: Inventions, tiles: Tiles) {
+  constructor(structures: IStructures, inventions: IInventions, tiles: ITiles) {
     this._structures = structures;
     this._inventions = inventions;
     this._tiles = tiles;
     this._slots = this.getInitialSlots();
+  }
+
+  public setPawns(destinationId: string, sourceId: string) {
+    const pawn1 = this.getPawn(destinationId);
+    const pawn2 = this.getPawn(sourceId);
+    if (getPawnCanBeSettled(pawn1, sourceId)) {
+      this.setPawn(sourceId, pawn1);
+    }
+    if (getPawnCanBeSettled(pawn2, destinationId)) {
+      this.setPawn(destinationId, pawn2);
+    }
+  }
+
+  public setPawn(id: string, pawn: IPawn | null) {
+    this._slots.set(id, pawn);
+  }
+
+  public unsetPawn(id: string) {
+    this._slots.set(id, null);
+  }
+
+  public clearSlots() {
+    this._slots = this.getInitialSlots();
+  }
+
+  public getPawn(droppableId: string): IPawn | null {
+    let IPawn = this._slots.get(droppableId);
+    if (IPawn === undefined) {
+      throw new Error("Cant find slot with id: " + droppableId);
+    } else {
+      return IPawn;
+    }
   }
 
   private getInitialSlots() {
@@ -65,26 +102,5 @@ export default class ActionSlots {
     actionSlots.set("hunt-helper", null);
 
     return actionSlots;
-  }
-
-  public setIIPawn(id: string, pawn: IPawn) {
-    this._slots.set(id, pawn);
-  }
-
-  public unsetIPawn(id: string) {
-    this._slots.set(id, null);
-  }
-
-  public clearSlots() {
-    this._slots = this.getInitialSlots();
-  }
-
-  public findIPawn(slotId: string) {
-    let IPawn = this._slots.get(slotId);
-    if (IPawn === undefined) {
-      throw new Error("Cant find slot with id: " + slotId);
-    } else {
-      return IPawn;
-    }
   }
 }

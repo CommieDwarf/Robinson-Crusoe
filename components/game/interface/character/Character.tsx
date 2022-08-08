@@ -6,19 +6,19 @@ import scrollbarStyles from "./Scrollbar.module.css";
 
 import Determination from "./determination/Determination";
 import Skill from "./Skill/Skill";
-import ICharacter, {
-  ISkill,
-} from "../../../../interfaces/Characters/Character";
 import SkillMenu from "./SkillMenu/SkillMenu";
 import Scrollbar from "../Scrollbar";
 import Pawn from "../Pawn";
 import { Droppable } from "react-beautiful-dnd";
 import capitalize from "../../../../utils/capitalize";
+import { IPlayerCharacter } from "../../../../interfaces/Characters/PlayerCharacter";
+import { ISideCharacter } from "../../../../interfaces/Characters/SideCharacter";
+import { ISkill } from "../../../../interfaces/Characters/Skill";
 
 interface Props {
-  character: ICharacter;
-  friday: ICharacter;
-  dog: ICharacter;
+  character: IPlayerCharacter;
+  friday: ISideCharacter;
+  dog: ISideCharacter;
   zIndexIncreased: Map<string, boolean>;
   setZIndexIncreased: React.Dispatch<
     React.SetStateAction<Map<string, boolean>>
@@ -31,12 +31,25 @@ export default function Character(props: Props) {
     show: boolean;
   }>({ skill: null, show: false });
 
-  const skills = props.character.skills.map((skill, i) => {
+  // const skills = props.character.skills((skill, i) => {
+  //   return (
+  //     <Skill
+  //       skill={skill}
+  //       setSkillDescription={setSkillDescription}
+  //       key={i}
+  //       setZIndex={props.setZIndexIncreased}
+  //     />
+  //   );
+  // });
+
+  const skillEntries = Object.entries(props.character.skills);
+
+  const skills = skillEntries.map(([key, value]) => {
     return (
       <Skill
-        skill={skill}
+        skill={value}
         setSkillDescription={setSkillDescription}
-        key={i}
+        key={key}
         setZIndex={props.setZIndexIncreased}
       />
     );
@@ -46,13 +59,15 @@ export default function Character(props: Props) {
     ? styles.zIndexIncreased
     : styles.zIndexTransition;
 
-  const nameCapitalized = capitalize(props.character.name.pl);
+  const nameCapitalized = capitalize(props.character.namePL);
+
+  console.log(props.character.pawns);
 
   return (
     <div className={styles.container + " " + zIndexClass}>
       <div className={styles.characterPicture}>
         <Image
-          src={`/interface/characters/characterPictures/${props.character.name.en}-${props.character.gender}.png`}
+          src={`/interface/characters/characterPictures/${props.character.name}-${props.character.gender}.png`}
           layout="fill"
           alt="character"
         />
@@ -74,13 +89,13 @@ export default function Character(props: Props) {
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
-              {props.character.freePawns.map((pawn, i) => {
+              {props.character.pawns.freePawns.map((pawn, i) => {
                 return (
                   <Pawn
                     pawn={pawn}
                     context={"character"}
                     index={i}
-                    key={pawn.id}
+                    key={pawn.draggableId}
                   />
                 );
               })}

@@ -1,14 +1,14 @@
-import { IStructure, STRUCTURE_NAMES } from "./Structure";
+import { IStructure, STRUCTURE } from "./Structure";
 import { IResources } from "../Resources/Resources";
 
 export interface IStructures {
   structures: IStructure[];
-  lvlUpStruct: (name: STRUCTURE_NAMES, by: number) => void;
-  lvlDownStruct: (name: STRUCTURE_NAMES, by: number) => void;
-  unlockStruct: (name: STRUCTURE_NAMES) => void;
-  lockStruct: (name: STRUCTURE_NAMES) => void;
+  lvlUpStruct: (name: STRUCTURE, by: number) => void;
+  lvlDownStruct: (name: STRUCTURE, by: number) => void;
+  unlockStruct: (name: STRUCTURE) => void;
+  lockStruct: (name: STRUCTURE) => void;
   unlockAllStructs: () => void;
-  commitResources: (name: STRUCTURE_NAMES, resources: IResources) => void;
-  rollBackCommittedResources: (name: STRUCTURE_NAMES) => void;
-  getStruct: (name: STRUCTURE_NAMES) => IStructure;
+  commitResources: (name: STRUCTURE, resources: IResources) => void;
+  rollBackCommittedResources: (name: STRUCTURE) => void;
+  getStruct: (name: STRUCTURE) => IStructure;
 }

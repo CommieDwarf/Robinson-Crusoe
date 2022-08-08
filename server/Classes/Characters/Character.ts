@@ -1,11 +1,7 @@
 import { CHAR_NAME_TRANSLATION } from "../../../interfaces/Characters/Character";
-import { ICharEffects } from "../../../interfaces/Characters/CharEffects";
-import { IDictionary } from "../../../interfaces/IDictionary";
-import { ISkill } from "../../../interfaces/Characters/Skill";
+
 import { PlayerCharacterName } from "../../../interfaces/Characters/PlayerCharacter";
 import { SideCharacterName } from "../../../interfaces/Characters/SideCharacter";
-import { Pawns } from "../Pawns/Pawns";
-import { IPawns } from "../../../interfaces/Pawns/Pawns";
 
 export abstract class Character {
   get id(): number {
@@ -36,9 +32,14 @@ export abstract class Character {
     return this._name;
   }
 
+  get gender() {
+    return this._gender;
+  }
+
   protected _namePL: CHAR_NAME_TRANSLATION;
   protected _currentHealth = 0;
   protected _name: PlayerCharacterName | SideCharacterName;
+  protected _gender = "";
 
   protected _id: number;
   protected _health;

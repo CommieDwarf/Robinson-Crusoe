@@ -1,17 +1,14 @@
 import Image from "next/image";
 import React from "react";
-import IResources from "../../../../../interfaces/Resources/Resources";
 import styles from "./ResourceValues.module.css";
-import Entries from "../../../../../interfaces/Entries";
+import { IResourcesAmount } from "../../../../../interfaces/Resources/Resources";
 
 interface Props {
-  resources: Map<keyof IResources, number>;
+  resources: Map<keyof IResourcesAmount, number>;
   type: "future" | "owned";
 }
 
-type Resource = keyof IResources;
-
-const polishResourceTranslation = {
+const ResourcePL = {
   food: "Żywność",
   dryFood: "Suchy prowiant",
   wood: "Drewno",
@@ -27,11 +24,11 @@ export default function ResourceValues(props: Props) {
 
   props.resources.forEach((value, key) => {
     resources.push(
-      <div className={styles.resource} key={value}>
+      <div className={styles.resource} key={key}>
         <div className={styles.icon}>
           <Image src={`/interface/resources/${key}.png`} layout="fill" />
         </div>
-        <div className={styles.label}>{polishResourceTranslation[key]}:</div>
+        <div className={styles.label}>{ResourcePL[key]}:</div>
 
         <div className={styles.value}>{value}</div>
       </div>

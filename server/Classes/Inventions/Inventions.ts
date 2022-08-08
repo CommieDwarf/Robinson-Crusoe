@@ -1,18 +1,18 @@
 import inventionList from "../../constants/inventionList";
 import InventionList from "../../constants/inventionList";
 import shuffle from "../../../utils/shuffleArray";
-import { Invention } from "./Invention";
+import {Invention} from "./Invention";
 import {
   IInvention,
   INVENTION_TYPE,
 } from "../../../interfaces/Inventions/Invention";
-import { Resources } from "../AllResources/Resources";
-import { IPlayerCharacter } from "../../../interfaces/Characters/PlayerCharacter";
+import {Resources} from "../AllResources/Resources";
+import {IPlayerCharacter} from "../../../interfaces/Characters/PlayerCharacter";
 import {
   IInventions,
   InventionName,
 } from "../../../interfaces/Inventions/Inventions";
-import { SCENARIO_NAME } from "../../../interfaces/Scenario/Scenario";
+import {SCENARIO} from "../../../interfaces/Scenario/Scenario";
 
 export default class Inventions implements IInventions {
   get inventions(): IInvention[] {
@@ -20,15 +20,16 @@ export default class Inventions implements IInventions {
   }
 
   private _builtInventions: IInvention[] = [];
-  scenario: SCENARIO_NAME;
+  scenario: SCENARIO;
   private _discoveredTileTypes = ["beach"];
   private readonly _inventions: IInvention[];
   private _characters: IPlayerCharacter[];
 
-  constructor(scenario: SCENARIO_NAME, characters: IPlayerCharacter[]) {
+  constructor(scenario: SCENARIO, characters: IPlayerCharacter[]) {
     this.scenario = scenario;
-    this._inventions = this.getInitialInventions(scenario);
     this._characters = characters;
+    this._inventions = this.getInitialInventions(scenario);
+
   }
 
   private getInitialInventions(scenario: "castaways") {
@@ -39,56 +40,56 @@ export default class Inventions implements IInventions {
 
     normalInventionList.forEach((name) => {
       inventions.push(
-        new Invention(
-          name,
-          { invention: null, terrainType: null },
-          {},
-          INVENTION_TYPE.NORMAL,
-          new Resources(),
-          null
-        )
+          new Invention(
+              name,
+              {invention: null, terrainType: null},
+              {},
+              INVENTION_TYPE.NORMAL,
+              new Resources(),
+              null
+          )
       );
     });
     scenarioInventionList.forEach((name) => {
       inventions.push(
-        new Invention(
-          name,
-          {
-            invention: null,
-            terrainType: null,
-          },
-          {},
-          INVENTION_TYPE.SCENARIO,
-          new Resources(),
-          null
-        )
+          new Invention(
+              name,
+              {
+                invention: null,
+                terrainType: null,
+              },
+              {},
+              INVENTION_TYPE.SCENARIO,
+              new Resources(),
+              null
+          )
       );
     });
     InventionList.starters.forEach((name) => {
       inventions.push(
-        new Invention(
-          name,
-          {
-            invention: null,
-            terrainType: null,
-          },
-          {},
-          INVENTION_TYPE.STARTER,
-          new Resources(),
-          null
-        )
+          new Invention(
+              name,
+              {
+                invention: null,
+                terrainType: null,
+              },
+              {},
+              INVENTION_TYPE.STARTER,
+              new Resources(),
+              null
+          )
       );
     });
     this._characters.forEach((character) => {
       inventions.push(
-        new Invention(
-          InventionList.personal[character.name],
-          { invention: null, terrainType: null },
-          {},
-          INVENTION_TYPE.PERSONAL,
-          new Resources(),
-          character
-        )
+          new Invention(
+              InventionList.personal[character.name],
+              {invention: null, terrainType: null},
+              {},
+              INVENTION_TYPE.PERSONAL,
+              new Resources(),
+              character
+          )
       );
     });
     return inventions;
@@ -119,8 +120,8 @@ export default class Inventions implements IInventions {
   updateLocks() {
     this._inventions.forEach((invention) => {
       invention.locked =
-        !this.isInvRequirementMet(invention) ||
-        !this.isTileTypeRequirementMet(invention);
+          !this.isInvRequirementMet(invention) ||
+          !this.isTileTypeRequirementMet(invention);
     });
   }
 

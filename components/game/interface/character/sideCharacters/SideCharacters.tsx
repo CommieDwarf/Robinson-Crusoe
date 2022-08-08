@@ -1,15 +1,14 @@
 import Image from "next/image";
-import React, { useId } from "react";
-import Character from "../../../../../interfaces/Characters/Character";
+import React from "react";
 import Pawn from "../../Pawn";
 import FridayHealth from "./fridayHealth/FridayHealth";
 import styles from "./SideCharacters.module.css";
-import characters from "../../../../../server/Classes/Characters/characters";
 import { Droppable } from "react-beautiful-dnd";
+import { ISideCharacter } from "../../../../../interfaces/Characters/SideCharacter";
 
 interface Props {
-  friday: Character;
-  dog: Character;
+  friday: ISideCharacter;
+  dog: ISideCharacter;
 }
 
 export default function SideCharacters(props: Props) {
@@ -24,13 +23,17 @@ export default function SideCharacters(props: Props) {
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
-              {props.friday.freePawns[0] && (
-                <Pawn
-                  pawn={props.friday.freePawns[0]}
-                  context="character"
-                  index={0}
-                />
-              )}
+              {props.friday.pawns.freePawns[0] &&
+                props.friday.pawns.freePawns.map((pawn, i) => {
+                  return (
+                    <Pawn
+                      pawn={pawn}
+                      context="character"
+                      index={i}
+                      key={pawn.draggableId}
+                    />
+                  );
+                })}
               {provided.placeholder}
             </div>
           )}
@@ -57,13 +60,17 @@ export default function SideCharacters(props: Props) {
               {...provided.droppableProps}
               id={"dog-droppable"}
             >
-              {props.dog.freePawns[0] && (
-                <Pawn
-                  pawn={props.dog.freePawns[0]}
-                  context="character"
-                  index={0}
-                />
-              )}
+              {props.dog.pawns.freePawns[0] &&
+                props.dog.pawns.freePawns.map((pawn, i) => {
+                  return (
+                    <Pawn
+                      pawn={pawn}
+                      context="character"
+                      index={i}
+                      key={pawn.draggableId}
+                    />
+                  );
+                })}
               {provided.placeholder}
             </div>
           )}

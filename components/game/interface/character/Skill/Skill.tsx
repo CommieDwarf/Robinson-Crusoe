@@ -1,17 +1,15 @@
 import Image from "next/image";
 import React, { Dispatch, SetStateAction, useState } from "react";
-import { Skill as ISkill } from "../../../../../server/Classes/Characters/characters";
 
 import styles from "./Skill.module.css";
-import ZIndexIncreased from "../../../../../interfaces/ZIndexIncreased";
-import sleep from "../../../../../utils/sleep";
+import { ISkill } from "../../../../../interfaces/Characters/Skill";
 
 interface Props {
   skill: ISkill;
   setSkillDescription: Dispatch<
     SetStateAction<{ skill: ISkill | null; show: boolean }>
   >;
-  setZIndex: React.Dispatch<React.SetStateAction<ZIndexIncreased>>;
+  setZIndex: React.Dispatch<React.SetStateAction<Map<string, boolean>>>;
 }
 
 export default function Skill(props: Props) {
@@ -32,14 +30,14 @@ export default function Skill(props: Props) {
 
     props.setZIndex((prev) => {
       const copy = { ...prev };
-      copy.character = !copy.character;
+      // copy.character = !copy.character;
       return copy;
     });
   }
 
   return (
     <div className={styles.container} onClick={handleClick}>
-      <span className={styles.skillName}>{props.skill.name}</span>
+      <span className={styles.skillName}>{props.skill.namePL}</span>
     </div>
   );
 }

@@ -2,14 +2,14 @@ import React from "react";
 import styles from "./AdditionalActivities.module.css";
 import RestArrange from "./RestArrange/RestArrange";
 import AdditionalActivity from "../../../../interfaces/AdditionalActivity";
-import Pawn from "../../../../interfaces/Pawns/Pawn";
+import { IPawn } from "../../../../interfaces/Pawns/Pawn";
 
 interface Props {
   activities: {
     rest: AdditionalActivity;
     arrange: AdditionalActivity;
   };
-  actionSlots: Map<string, Pawn | null>;
+  actionSlots: Map<string, IPawn | null>;
 }
 
 export default function AdditionalActivities(props: Props) {

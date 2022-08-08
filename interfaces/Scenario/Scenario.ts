@@ -1,3 +1,3 @@
-export enum SCENARIO_NAME {
+export enum SCENARIO {
   CASTAWAYS = "castaways",
 }

@@ -1,12 +1,12 @@
 import React from "react";
 import Structure from "./Structure/Structure";
 import styles from "./Structures.module.css";
-import IStructure from "../../../../interfaces/Structures/Structure";
-import Pawn from "../../../../interfaces/Pawns/Pawn";
+import { IStructure } from "../../../../interfaces/Structures/Structure";
+import { IPawn } from "../../../../interfaces/Pawns/Pawn";
 
 interface Props {
   structures: IStructure[];
-  actionSlots: Map<string, Pawn | null>;
+  actionSlots: Map<string, IPawn | null>;
 }
 
 export default function Structures(props: Props) {

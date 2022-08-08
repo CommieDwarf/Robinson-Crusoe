@@ -1,5 +1,6 @@
 import { IEventCard } from "../../../interfaces/Threat/EventCard";
 import { IThreat } from "../../../interfaces/Threat/Threat";
+import { EventCard } from "./EventCard";
 
 interface threatSlots {
   left: null | IEventCard;
@@ -9,7 +10,7 @@ interface threatSlots {
 export class Threat implements IThreat {
   private _threatSlots: threatSlots = {
     left: null,
-    right: null,
+    right: new EventCard("supplyCrates", 0, undefined),
   };
   private readonly _game: unknown;
 
