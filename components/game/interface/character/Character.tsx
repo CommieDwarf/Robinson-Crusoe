@@ -31,17 +31,6 @@ export default function Character(props: Props) {
     show: boolean;
   }>({ skill: null, show: false });
 
-  // const skills = props.character.skills((skill, i) => {
-  //   return (
-  //     <Skill
-  //       skill={skill}
-  //       setSkillDescription={setSkillDescription}
-  //       key={i}
-  //       setZIndex={props.setZIndexIncreased}
-  //     />
-  //   );
-  // });
-
   const skillEntries = Object.entries(props.character.skills);
 
   const skills = skillEntries.map(([key, value]) => {
@@ -61,8 +50,6 @@ export default function Character(props: Props) {
 
   const nameCapitalized = capitalize(props.character.namePL);
 
-  console.log(props.character.pawns);
-
   return (
     <div className={styles.container + " " + zIndexClass}>
       <div className={styles.characterPicture}>
@@ -81,10 +68,10 @@ export default function Character(props: Props) {
       </div>
       <Determination />
       <Scrollbar styleModule={scrollbarStyles}>
-        <Droppable droppableId={"freepawns"}>
+        <Droppable droppableId={"freepawns-" + props.character.name}>
           {(provided) => (
             <div
-              id="freepawns"
+              id={"freepawns-" + props.character.name}
               className={styles.pawns}
               ref={provided.innerRef}
               {...provided.droppableProps}

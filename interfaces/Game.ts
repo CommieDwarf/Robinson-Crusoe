@@ -9,6 +9,9 @@ import { IStructures } from "./Structures/Structures";
 import { IAllResources } from "./Resources/AllResources";
 import { IInventions } from "./Inventions/Inventions";
 import { IActionSlots } from "./ActionSlots";
+import { ICharacter } from "./Characters/Character";
+import { IPlayerCharacter } from "./Characters/PlayerCharacter";
+import { IAllCharacters } from "../components/game/interface/Characters";
 
 class IEquipment {}
 
@@ -21,6 +24,7 @@ export interface IGame {
   threat: IThreat;
   equipment: IEquipment;
   player: IPlayer;
+  allCharacters: IAllCharacters;
   sideCharacters: {
     dog: ISideCharacter;
     friday: ISideCharacter;
@@ -30,4 +34,11 @@ export interface IGame {
   arrangeCamp: AdditionalActivity;
   beasts: IBeasts;
   allPawns: IPawn[];
+  setPawns: (
+    sourceId: string,
+    destinationId: string,
+    draggableId: string
+  ) => void;
+  setPawn: (droppableId: string, pawn: IPawn) => void;
+  unsetPawn: (destinationId: string, draggableId: string) => void;
 }

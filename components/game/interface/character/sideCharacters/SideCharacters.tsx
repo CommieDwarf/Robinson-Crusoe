@@ -15,7 +15,7 @@ export default function SideCharacters(props: Props) {
   return (
     <div className={styles.container}>
       <div className={styles.friday}>
-        <Droppable droppableId={"friday-droppable"}>
+        <Droppable droppableId={"freepawns-friday"}>
           {(provided) => (
             <div
               className={styles.pawn}
@@ -52,7 +52,7 @@ export default function SideCharacters(props: Props) {
       </div>
       <div className={styles.dog}>
         <div className={styles.dogPawn}></div>
-        <Droppable droppableId={"dog-droppable"}>
+        <Droppable droppableId={"freepawns-dog"}>
           {(provided) => (
             <div
               className={styles.pawn}

@@ -14,6 +14,7 @@ import Tokens from "../../components/game/interface/tokens/Tokens";
 import ScenarioButton from "../../components/game/interface/scenario/ScenarioButton";
 import Players from "../../components/game/interface/players/Players";
 import actionSlotStyles from "../../components/game/interface/ActionSlot.module.css";
+import _ from "lodash";
 
 import newGame from "../../server/Classes/Game";
 import Threat from "../../components/game/interface/threat/Threat";
@@ -23,20 +24,32 @@ import Equipment from "../../components/game/interface/equipment/Equipment";
 import {
   DragDropContext,
   Draggable,
+  DragStart,
   DragUpdate,
+  DropResult,
   resetServerContext,
+  ResponderProvided,
 } from "react-beautiful-dnd";
 import { GetServerSideProps } from "next";
 import { WeatherAndNight } from "../../components/game/interface/WeatherAndNight/WeatherAndNight";
 import { INVENTION_TYPE } from "../../interfaces/Inventions/Invention";
 import { getPawnCanBeSettled } from "../../utils/canPawnBeSettled";
+import { Simulate } from "react-dom/test-utils";
+import drop = Simulate.drop;
+import { IGame } from "../../interfaces/Game";
+import { CharacterName } from "../../interfaces/Characters/Character";
+import sleep from "../../utils/sleep";
+import drag = Simulate.drag;
 
 interface Props {}
 
 export default function Game(props: Props) {
-  const [game, setGame] = useState(newGame);
+  const [game, setGame] = useState<IGame>(newGame);
 
   const [isPawnBeingDragged, setIsPawnBeingDragged] = useState(false);
+
+  // Increase of proper component's z-index is necessary to render dragged pawn above other components
+  // and also for proper render of scaled components
   const [zIndexIncreased, setZIndexIncreased] = useState<Map<string, boolean>>(
     new Map()
   );
@@ -66,7 +79,7 @@ export default function Game(props: Props) {
     unselectSideCharsSlots();
   }
 
-  function resetAllIndexes() {
+  function resetAllZIndexes() {
     setZIndexIncreased((prev) => {
       const copy = new Map(prev);
       copy.forEach((value, key) => {
@@ -76,7 +89,7 @@ export default function Game(props: Props) {
     });
   }
 
-  function onDragEnd() {}
+  function onDragStart(start: DragStart) {}
 
   function onDragUpdate(update: DragUpdate) {
     unselectActionSlots();
@@ -85,27 +98,85 @@ export default function Game(props: Props) {
     );
     const destinationId = update.destination?.droppableId;
 
-    if (destinationId?.includes("freepawns")) {
-      return;
-    } else if (destinationId === update.source.droppableId) {
+    if (
+      destinationId?.includes("freepawns") ||
+      destinationId === update.source.droppableId
+    ) {
       return;
     }
 
-    console.log(pawn);
-
     if (destinationId && pawn) {
-      const slotElement = document.getElementById(destinationId);
+      const destinationSlotElement = document.getElementById(destinationId);
       if (getPawnCanBeSettled(pawn, destinationId)) {
-        slotElement?.classList.add(actionSlotStyles.canBeSettled);
+        destinationSlotElement?.classList.add(actionSlotStyles.canBeSettled);
       } else {
-        slotElement?.classList.add(actionSlotStyles.cantBeSettled);
+        destinationSlotElement?.classList.add(actionSlotStyles.cantBeSettled);
       }
+      const pawnAtDestination = game.actionSlots.getPawn(destinationId);
+      const sourceSlotElement = document.getElementById(
+        update.source.droppableId
+      );
+      if (update.source.droppableId.includes("freepawns")) {
+        return;
+      }
+      if (getPawnCanBeSettled(pawnAtDestination, update.source.droppableId)) {
+        sourceSlotElement?.classList.add(actionSlotStyles.canBeSettled);
+      } else {
+        sourceSlotElement?.classList.add(actionSlotStyles.cantBeSettled);
+      }
+    }
+  }
+
+  async function onDragEnd(result: DropResult) {
+    unselectAllActionSlots();
+    const destinationId = result.destination?.droppableId;
+    const sourceId = result.source.droppableId;
+    const draggedPawn = game.allPawns.find(
+      (p) => p.draggableId === result.draggableId
+    );
+
+    if (
+      !destinationId ||
+      !sourceId ||
+      !draggedPawn ||
+      destinationId === sourceId
+    ) {
+      return;
+    }
+
+    const pawnAtActionSlot = game.actionSlots.getPawn(destinationId);
+    if (
+      !getPawnCanBeSettled(draggedPawn, destinationId) ||
+      !getPawnCanBeSettled(pawnAtActionSlot, sourceId)
+    ) {
+      return;
+    }
+
+    setGame((prev) => {
+      prev.setPawn(destinationId, draggedPawn);
+      prev.unsetPawn(sourceId, result.draggableId);
+      return _.cloneDeep(prev);
+    });
+
+    // Sleep is used here, because if pawns are switched in the same time,
+    // beautiful DND goes nuts and throws error that it cannot find draggable
+    await sleep(100);
+
+    if (pawnAtActionSlot) {
+      setGame((prev) => {
+        prev.setPawn(sourceId, pawnAtActionSlot);
+        return _.cloneDeep(prev);
+      });
     }
   }
 
   return (
     <div className={styles.game}>
-      <DragDropContext onDragEnd={onDragEnd} onDragUpdate={onDragUpdate}>
+      <DragDropContext
+        onDragEnd={onDragEnd}
+        onDragUpdate={onDragUpdate}
+        onDragStart={onDragStart}
+      >
         <Phase phase="production" />
         <Morale current={3} />
         <Resources

@@ -54,7 +54,7 @@ export class Pawns implements IPawns {
 
   removePawn(draggableId: string, source: PawnArrayName): void {
     const pawn = this.findPawn(draggableId, source);
-    this[source] = this[source].filter((p) => pawn === p);
+    this[source] = this[source].filter((p) => pawn !== p);
   }
 
   resetFreePawns(): void {}
