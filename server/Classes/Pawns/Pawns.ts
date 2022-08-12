@@ -1,9 +1,9 @@
-import { IPawns } from "../../../interfaces/Pawns/Pawns";
-import { IPawn } from "../../../interfaces/Pawns/Pawn";
+import {IPawns} from "../../../interfaces/Pawns/Pawns";
+import {IPawn} from "../../../interfaces/Pawns/Pawn";
 
-import { PawnArrayName } from "../../../interfaces/Pawns/Pawns";
-import { Pawn } from "./Pawn";
-import { ICharacter } from "../../../interfaces/Characters/Character";
+import {PawnArrayName} from "../../../interfaces/Pawns/Pawns";
+import {Pawn} from "./Pawn";
+import {ICharacter} from "../../../interfaces/Characters/Character";
 
 export class Pawns implements IPawns {
   set freePawns(value: IPawn[]) {
@@ -43,13 +43,18 @@ export class Pawns implements IPawns {
   }
 
   copyPawnToFreePawns(draggableId: string): void {
-    const freePawn = this.findPawn(draggableId, "freePawns");
-    if (freePawn) {
+    const duplicated = this.findPawn(draggableId, "freePawns");
+    if (duplicated) {
       throw new Error(
-        `There is already pawn with id: ${draggableId} in freePawns[]`
+          `There is already pawn with id: ${draggableId} in freePawns[]`
       );
     }
-    this.freePawns.push(this.findPawn(draggableId, "pawns"));
+    let pawn = this.findPawn(draggableId, "pawns");
+    if (!pawn) {
+      throw new Error("character doesn't own pawn with draggable id: " + draggableId);
+    }
+
+    this.freePawns.push(pawn);
   }
 
   removePawn(draggableId: string, source: PawnArrayName): void {
@@ -57,7 +62,8 @@ export class Pawns implements IPawns {
     this[source] = this[source].filter((p) => pawn !== p);
   }
 
-  resetFreePawns(): void {}
+  resetFreePawns(): void {
+  }
 
   private getInitialPawns(initialQuantity: number): IPawn[] {
     const pawns: IPawn[] = [];
@@ -67,13 +73,7 @@ export class Pawns implements IPawns {
     return pawns;
   }
 
-  findPawn(draggableId: string, source: PawnArrayName): IPawn {
-    const pawn = this[source].find((pawn) => pawn.draggableId === draggableId);
-    if (!pawn) {
-      throw new Error(
-        `Couldn't find pawn with drag. id: ${draggableId} in ${source}[]`
-      );
-    }
-    return pawn;
+  findPawn(draggableId: string, source: PawnArrayName): IPawn | undefined {
+    return this[source].find((pawn) => pawn.draggableId === draggableId);
   }
 }

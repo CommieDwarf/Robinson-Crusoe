@@ -7,36 +7,24 @@ export function getPawnCanBeSettled(
   if (!pawn) {
     return true;
   }
+  console.log(destinationId);
   if (pawn.draggableId.includes("dog")) {
     if (destinationId.includes("leader")) {
       return false;
     }
-    if (destinationId === "dog-droppable") {
+    if (destinationId.includes("hunt") || destinationId.includes("explore")) {
       return true;
     }
-    if (!destinationId.includes("explore") && !destinationId.includes("hunt")) {
-      return false;
-    }
-    if (
-      destinationId.includes("freepawns") ||
-      destinationId.includes("friday-droppable")
-    ) {
-      return false;
-    }
+    return destinationId.includes("freepawns-dog");
   } else if (pawn.draggableId === "friday") {
-    if (
-      destinationId.includes("freepawns") ||
-      destinationId.includes("dog-droppable")
-    ) {
-      return false;
-    }
+    return !(
+      destinationId.includes("freepawns") &&
+      !destinationId.includes("freepawns-friday")
+    );
   } else {
-    if (
-      destinationId.includes("dog-droppable") ||
-      destinationId.includes("friday-droppable")
-    ) {
-      return false;
-    }
+    return !(
+      destinationId.includes("freepawns") &&
+      !destinationId.includes(pawn.character.name)
+    );
   }
-  return true;
 }

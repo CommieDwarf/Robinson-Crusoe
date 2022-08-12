@@ -40,6 +40,7 @@ import { IGame } from "../../interfaces/Game";
 import { CharacterName } from "../../interfaces/Characters/Character";
 import sleep from "../../utils/sleep";
 import drag = Simulate.drag;
+import { IPawn } from "../../interfaces/Pawns/Pawn";
 
 interface Props {}
 
@@ -116,9 +117,13 @@ export default function Game(props: Props) {
       const sourceSlotElement = document.getElementById(
         update.source.droppableId
       );
-      if (update.source.droppableId.includes("freepawns")) {
+      if (
+        update.source.droppableId.includes("freepawns") ||
+        !pawnAtDestination
+      ) {
         return;
       }
+
       if (getPawnCanBeSettled(pawnAtDestination, update.source.droppableId)) {
         sourceSlotElement?.classList.add(actionSlotStyles.canBeSettled);
       } else {
@@ -139,12 +144,16 @@ export default function Game(props: Props) {
       !destinationId ||
       !sourceId ||
       !draggedPawn ||
-      destinationId === sourceId
+      destinationId === sourceId ||
+      (destinationId.includes("freepawns") && sourceId.includes("freepawns"))
     ) {
       return;
     }
+    let pawnAtActionSlot: null | IPawn = null;
+    if (!destinationId.includes("freepawns")) {
+      pawnAtActionSlot = game.actionSlots.getPawn(destinationId);
+    }
 
-    const pawnAtActionSlot = game.actionSlots.getPawn(destinationId);
     if (
       !getPawnCanBeSettled(draggedPawn, destinationId) ||
       !getPawnCanBeSettled(pawnAtActionSlot, sourceId)

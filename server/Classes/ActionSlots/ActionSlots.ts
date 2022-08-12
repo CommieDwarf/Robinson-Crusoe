@@ -89,14 +89,14 @@ export default class ActionSlots implements IActionSlots {
     });
 
     for (let i = 1; i < 10; i++) {
-      actionSlots.set("rest-leader-" + i, null);
-      actionSlots.set("arrange-leader-" + i, null);
+      actionSlots.set("rest-" + i, null);
+      actionSlots.set("arrangeCamp-" + i, null);
     }
 
-    actionSlots.set("threat-left-helper", null);
-    actionSlots.set("threat-left-leader", null);
-    actionSlots.set("threat-right-helper", null);
-    actionSlots.set("threat-right-leader", null);
+    actionSlots.set("threat-left-1", null);
+    actionSlots.set("threat-left-2", null);
+    actionSlots.set("threat-right-1", null);
+    actionSlots.set("threat-right-2", null);
 
     actionSlots.set("hunt-leader", null);
     actionSlots.set("hunt-helper", null);

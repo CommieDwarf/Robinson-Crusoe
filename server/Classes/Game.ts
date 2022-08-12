@@ -68,9 +68,14 @@ export class Game implements IGame {
     }
 
     if (droppableId.includes("freepawns")) {
-      pawn.character.pawns.addPawn(pawn, "freePawns");
+      pawn.character.pawns.copyPawnToFreePawns(pawn.draggableId);
     } else {
       this.actionSlots.setPawn(droppableId, pawn);
+    }
+    if (droppableId.includes("rest")) {
+      this.rest.incrementPawns();
+    } else if (droppableId.includes("arrangeCamp")) {
+      this.arrangeCamp.incrementPawns();
     }
   }
 
@@ -82,58 +87,12 @@ export class Game implements IGame {
     } else {
       this.actionSlots.unsetPawn(destinationId);
     }
+    if (destinationId.includes("rest")) {
+      this.rest.decrementPawns();
+    } else if (destinationId.includes("arrangeCamp")) {
+      this.arrangeCamp.decrementPawns();
+    }
   }
-
-  //
-  // setPawns(sourceId: string, destinationId: string, draggableId: string) {
-  //   if (sourceId === destinationId) {
-  //     return;
-  //   }
-  //   let draggedPawn: IPawn | null | undefined =
-  //       this.getPawnFromCharacter(draggableId);
-  //   console.log(draggableId);
-  //   if (!draggedPawn) {
-  //     draggedPawn = this.getPawnFromActionSlot(sourceId);
-  //   }
-  //   if (!draggedPawn) {
-  //     throw new Error(
-  //         "Can't find pawn with id: " +
-  //         draggableId +
-  //         " neither with droppableId: " +
-  //         sourceId
-  //     );
-  //   }
-  //   let pawnAtDestination: IPawn | null | undefined =
-  //       this.getPawnFromActionSlot(destinationId);
-  //
-  //   let canPawnsBeSwapped = getPawnCanBeSettled(draggedPawn, destinationId);
-  //   if (pawnAtDestination !== undefined) {
-  //     canPawnsBeSwapped = getPawnCanBeSettled(pawnAtDestination, sourceId);
-  //   }
-  //
-  //   if (!canPawnsBeSwapped) {
-  //     return;
-  //   }
-  //
-  //   if (sourceId.includes("freepawns")) {
-  //     const charName = sourceId.split("-")[1];
-  //     const character = this.allCharacters.getCharacter(charName);
-  //     character.pawns.removePawn(draggableId, "freePawns");
-  //     if (pawnAtDestination) {
-  //       character.pawns.copyPawnToFreePawns(pawnAtDestination.draggableId);
-  //     }
-  //     console.log(destinationId, draggedPawn);
-  //     this.actionSlots.setPawn(destinationId, draggedPawn);
-  //     console.log(this.actionSlots.getPawn(destinationId));
-  //   } else if (destinationId.includes("freepawns")) {
-  //     const charName = destinationId.split("-")[1];
-  //     const character = this.allCharacters.getCharacter(charName);
-  //     character.pawns.addPawn(draggedPawn, "freePawns");
-  //     this.actionSlots.unsetPawn(draggableId);
-  //   } else {
-  //     this.actionSlots.setPawns(destinationId, sourceId);
-  //   }
-  // }
 
   getPawnFromActionSlot(droppableId: string) {
     return this.actionSlots.getPawn(droppableId);
