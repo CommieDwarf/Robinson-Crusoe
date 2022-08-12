@@ -7,6 +7,7 @@ import { IPawn } from "../../../../interfaces/Pawns/Pawn";
 interface Props {
   structures: IStructure[];
   actionSlots: Map<string, IPawn | null>;
+  zIndexIncreased: Map<string, boolean>;
 }
 
 export default function Structures(props: Props) {
@@ -21,5 +22,13 @@ export default function Structures(props: Props) {
     );
   }
 
-  return <div className={styles.container}>{structures}</div>;
+  let zIndexIncreasedClass = props.zIndexIncreased.get("structures")
+    ? styles.zIndexIncreased
+    : "";
+
+  return (
+    <div className={styles.container + " " + zIndexIncreasedClass}>
+      {structures}
+    </div>
+  );
 }

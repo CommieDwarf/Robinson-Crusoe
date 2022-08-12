@@ -34,13 +34,12 @@ import { GetServerSideProps } from "next";
 import { WeatherAndNight } from "../../components/game/interface/WeatherAndNight/WeatherAndNight";
 import { INVENTION_TYPE } from "../../interfaces/Inventions/Invention";
 import { getPawnCanBeSettled } from "../../utils/canPawnBeSettled";
-import { Simulate } from "react-dom/test-utils";
-import drop = Simulate.drop;
+
 import { IGame } from "../../interfaces/Game";
-import { CharacterName } from "../../interfaces/Characters/Character";
 import sleep from "../../utils/sleep";
-import drag = Simulate.drag;
 import { IPawn } from "../../interfaces/Pawns/Pawn";
+import { Pawn } from "../../server/Classes/Pawns/Pawn";
+import getComponentNameFromSourceId from "../../utils/getComponentNameFromSourceId";
 
 interface Props {}
 
@@ -90,7 +89,17 @@ export default function Game(props: Props) {
     });
   }
 
-  function onDragStart(start: DragStart) {}
+  function onDragStart(start: DragStart) {
+    const componentName = getComponentNameFromSourceId(
+      start.source.droppableId
+    );
+    resetAllZIndexes();
+    setZIndexIncreased((prev) => {
+      const copy = new Map(prev);
+      copy.set(componentName, true);
+      return copy;
+    });
+  }
 
   function onDragUpdate(update: DragUpdate) {
     unselectActionSlots();
@@ -133,6 +142,7 @@ export default function Game(props: Props) {
   }
 
   async function onDragEnd(result: DropResult) {
+    resetAllZIndexes();
     unselectAllActionSlots();
     const destinationId = result.destination?.droppableId;
     const sourceId = result.source.droppableId;
@@ -173,7 +183,7 @@ export default function Game(props: Props) {
 
     if (pawnAtActionSlot) {
       setGame((prev) => {
-        prev.setPawn(sourceId, pawnAtActionSlot);
+        prev.setPawn(sourceId, pawnAtActionSlot as IPawn);
         return _.cloneDeep(prev);
       });
     }
@@ -195,6 +205,7 @@ export default function Game(props: Props) {
         <Structures
           structures={game.structures.structures}
           actionSlots={game.actionSlots.slots}
+          zIndexIncreased={zIndexIncreased}
         />
         <MapComponent
           tiles={game.tiles.tiles}
