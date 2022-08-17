@@ -71,99 +71,161 @@ export class GameClass implements IGame {
     );
   }
 
-  get players() {
-    return this._players;
-  }
+  get renderData() {
+    const leftThreatSlot = this._threat.leftSlot
+      ? this._threat.leftSlot.name
+      : null;
+    const rightThreatSlot = this._threat.rightSlot
+      ? this._threat.rightSlot.name
+      : null;
 
-  get player() {
-    return this._player;
-  }
-
-  get characters() {
-    return this._allCharacters.characters;
-  }
-
-  get tiles() {
-    return this._tiles.tiles;
-  }
-
-  get allResources() {
     return {
-      future: Object.fromEntries(this._allResources.future.amount.entries()),
-      owned: Object.fromEntries(this._allResources.owned.amount.entries()),
+      players: this._players,
+      player: this._player,
+      characters: this._allCharacters.characters,
+      tiles: this._tiles.tiles,
+      allResources: {
+        future: Object.fromEntries(this._allResources.future.amount.entries()),
+        owned: Object.fromEntries(this._allResources.owned.amount.entries()),
+      },
+      structures: this._structures.structures.map((structure) => {
+        return {
+          name: structure.name,
+          lvl: structure.lvl,
+          requiredHelperAmount: structure.requiredHelpersAmount,
+          committedResources: Object.fromEntries(
+            structure.committedResources.amount.entries()
+          ),
+        };
+      }),
+      inventions: this._inventions.inventions.map((invention) => {
+        return {
+          name: invention.name,
+          committedResources: Object.fromEntries(
+            invention.committedResources.amount.entries()
+          ),
+          requiredHelperAmount: invention.requiredHelpersAmount,
+          locked: invention.locked,
+          build: invention.isBuilt,
+        };
+      }),
+      threat: {
+        leftSlot: leftThreatSlot,
+        rightSlot: rightThreatSlot,
+      },
+      equipment: this._equipment.items.map((item) => {
+        return {
+          name: item.name,
+          uses: item.uses,
+        };
+      }),
+      actionSlots: Object.fromEntries(this._actionSlots.slots.entries()),
+      restPawnAmount: this._rest.pawnAmount,
+      arrangeCampPawnCount: this._arrangeCamp.pawnAmount,
+      beastCount: this._beasts.deckCount,
+      allPawns: this._allPawns.map((pawn) => {
+        return {
+          draggableId: pawn.draggableId,
+          characterName: pawn.character.name,
+          characterNamePL: pawn.character.namePL,
+        };
+      }),
     };
   }
 
-  get structures() {
-    return this._structures.structures.map((structure) => {
-      return {
-        name: structure.name,
-        lvl: structure.lvl,
-        requiredHelperAmount: structure.requiredHelpersAmount,
-        committedResources: Object.fromEntries(
-          structure.committedResources.amount.entries()
-        ),
-      };
-    });
-  }
+  // get players() {
+  //   return this._players;
+  // }
+  //
+  // get player() {
+  //   return this._player;
+  // }
+  //
+  // get characters() {
+  //   return this._allCharacters.characters;
+  // }
 
-  get inventions() {
-    this._inventions.inventions.map((invention) => {
-      return {
-        name: invention.name,
-        committedResources: Object.fromEntries(
-          invention.committedResources.amount.entries()
-        ),
-        requiredHelperAmount: invention.requiredHelpersAmount,
-        locked: invention.locked,
-        build: invention.isBuilt,
-      };
-    });
-  }
+  // get tiles() {
+  //   return this._tiles.tiles;
+  // }
+  //
+  // get allResources() {
+  //   return {
+  //     future: Object.fromEntries(this._allResources.future.amount.entries()),
+  //     owned: Object.fromEntries(this._allResources.owned.amount.entries()),
+  //   };
+  // }
+  //
+  // get structures() {
+  //   return this._structures.structures.map((structure) => {
+  //     return {
+  //       name: structure.name,
+  //       lvl: structure.lvl,
+  //       requiredHelperAmount: structure.requiredHelpersAmount,
+  //       committedResources: Object.fromEntries(
+  //         structure.committedResources.amount.entries()
+  //       ),
+  //     };
+  //   });
+  // }
 
-  get threat() {
-    const left = this._threat.leftSlot ? this._threat.leftSlot.name : null;
-    const right = this._threat.rightSlot ? this._threat.rightSlot.name : null;
-    return {
-      leftSlot: left,
-      rightSlot: right,
-    };
-  }
-
-  get equipment() {
-    return this._equipment.items.map((item) => {
-      return {
-        name: item.name,
-        uses: item.uses,
-      };
-    });
-  }
-
-  get actionSlots() {
-    return Object.fromEntries(this._actionSlots.slots.entries());
-  }
-
-  get restPawnAmount() {
-    return this._rest.pawnAmount;
-  }
-
-  get arrangeCampPawnAmount() {
-    return this._arrangeCamp.pawnAmount;
-  }
-
-  get beastDeckCount() {
-    return this._beasts.deckCount;
-  }
-
-  get allPawns() {
-    return this._allPawns.map((pawn) => {
-      return {
-        draggableId: pawn.draggableId,
-        characterName: pawn.character.name,
-        characterNamePL: pawn.character.namePL,
-      };
-    });
-  }
+  // get inventions() {
+  //   this._inventions.inventions.map((invention) => {
+  //     return {
+  //       name: invention.name,
+  //       committedResources: Object.fromEntries(
+  //         invention.committedResources.amount.entries()
+  //       ),
+  //       requiredHelperAmount: invention.requiredHelpersAmount,
+  //       locked: invention.locked,
+  //       build: invention.isBuilt,
+  //     };
+  //   });
+  // }
+  //
+  // get threat() {
+  //   const left = this._threat.leftSlot ? this._threat.leftSlot.name : null;
+  //   const right = this._threat.rightSlot ? this._threat.rightSlot.name : null;
+  //   return {
+  //     leftSlot: left,
+  //     rightSlot: right,
+  //   };
+  // }
+  //
+  // get equipment() {
+  //   return this._equipment.items.map((item) => {
+  //     return {
+  //       name: item.name,
+  //       uses: item.uses,
+  //     };
+  //   });
+  // }
+  //
+  // get actionSlots() {
+  //   return Object.fromEntries(this._actionSlots.slots.entries());
+  // }
+  //
+  // get restPawnAmount() {
+  //   return this._rest.pawnAmount;
+  // }
+  //
+  // get arrangeCampPawnAmount() {
+  //   return this._arrangeCamp.pawnAmount;
+  // }
+  //
+  // get beastDeckCount() {
+  //   return this._beasts.deckCount;
+  // }
+  //
+  // get allPawns() {
+  //   return this._allPawns.map((pawn) => {
+  //     return {
+  //       draggableId: pawn.draggableId,
+  //       characterName: pawn.character.name,
+  //       characterNamePL: pawn.character.namePL,
+  //     };
+  //   });
+  // }
 
   setPawn(droppableId: string, pawn: IPawn) {
     if (!getPawnCanBeSettled(pawn, droppableId)) {
