@@ -1,7 +1,7 @@
 import { IStructure, STRUCTURE } from "./Structure";
 import { IResources } from "../Resources/Resources";
 
-export interface IStructures {
+export interface IStructuresService {
   structures: IStructure[];
   lvlUpStruct: (name: STRUCTURE, by: number) => void;
   lvlDownStruct: (name: STRUCTURE, by: number) => void;

@@ -1,4 +1,4 @@
-import React, { useId } from "react";
+import React, { useEffect, useId, useState } from "react";
 import styles from "./ActionSlot.module.css";
 import { Droppable } from "react-beautiful-dnd";
 
@@ -30,15 +30,6 @@ interface Props {
 }
 
 export default function PlayerSlot(props: Props) {
-  let slotIcon: string;
-  if (props.pawn) {
-    slotIcon = "character";
-  } else if (props.type == "leader") {
-    slotIcon = props.action;
-  } else {
-    slotIcon = "helper";
-  }
-
   let element: JSX.Element;
 
   if (props.pawn) {
@@ -47,6 +38,12 @@ export default function PlayerSlot(props: Props) {
 
   const helperClass = props.type == "helper" ? styles.helper : "";
 
+  const [isBrowser, setIsBrowser] = useState(false);
+
+  useEffect(() => {
+    setIsBrowser(process.browser);
+  }, []);
+
   return (
     <div
       className={
@@ -54,20 +51,22 @@ export default function PlayerSlot(props: Props) {
       }
       id={props.id}
     >
-      <Droppable droppableId={props.id} isDropDisabled={props.isDragDisabled}>
-        {(provided) => {
-          return (
-            <div
-              className={styles.actionSlot}
-              ref={provided.innerRef}
-              {...provided.droppableProps}
-            >
-              {element}
-              <div style={{ display: "none" }}>{provided.placeholder}</div>
-            </div>
-          );
-        }}
-      </Droppable>
+      {isBrowser && (
+        <Droppable droppableId={props.id} isDropDisabled={props.isDragDisabled}>
+          {(provided) => {
+            return (
+              <div
+                className={styles.actionSlot}
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+              >
+                {element}
+                <div style={{ display: "none" }}>{provided.placeholder}</div>
+              </div>
+            );
+          }}
+        </Droppable>
+      )}
     </div>
   );
 }

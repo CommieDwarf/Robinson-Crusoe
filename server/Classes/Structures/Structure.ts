@@ -38,15 +38,15 @@ export class Structure implements IStructure {
     this._locked = value;
   }
 
-  get requiredHelpers(): number {
-    return this._requiredHelpers;
+  get requiredHelpersAmount(): number {
+    return this._requiredHelpersAmount;
   }
 
-  set requiredHelpers(value: number) {
-    this._requiredHelpers = value;
+  set requiredHelpersAmount(value: number) {
+    this._requiredHelpersAmount = value;
   }
 
-  private _requiredHelpers = 1;
+  private _requiredHelpersAmount = 0;
   private readonly _name: STRUCTURE;
   private _lvl = 0;
   private _committedResources: IResources = new Resources();

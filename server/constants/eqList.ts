@@ -3,8 +3,8 @@ export const equipmentList: EqList = {
   biscuits: "suchary",
   emptyBottle: "pusta butelka",
   flaskOfRum: "flaszka rumu",
-  "hammer&Nails": "młotek",
-  "pipe&Tobacco": "fajka i tytoń",
+  hammer: "młotek",
+  tobacco: "fajka i tytoń",
   pistol: "pistolet",
   stormGlass: "barometr",
 };
@@ -14,8 +14,8 @@ export interface EqList {
   biscuits: string;
   emptyBottle: string;
   flaskOfRum: string;
-  "hammer&Nails": string;
-  "pipe&Tobacco": string;
+  hammer: string;
+  tobacco: string;
   pistol: string;
   stormGlass: string;
 }

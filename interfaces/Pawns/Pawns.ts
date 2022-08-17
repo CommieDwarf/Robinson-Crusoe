@@ -2,7 +2,7 @@ import { IPawn, IPawnHelper } from "./Pawn";
 
 export type PawnArrayName = "pawns" | "freePawns";
 
-export interface IPawns {
+export interface IPawnsService {
   pawns: (IPawn | IPawnHelper)[];
   freePawns: (IPawn | IPawnHelper)[];
   resetFreePawns: () => void;

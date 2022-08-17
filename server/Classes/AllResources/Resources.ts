@@ -13,7 +13,7 @@ const initialResources: IResourcesAmount = {
 
 export class Resources implements IResources {
   private _amount = new Map<keyof IResourcesAmount, number>(
-    Object.entries(initialResources) as Entries<IResourcesAmount>
+      Object.entries(initialResources) as Entries<IResourcesAmount>
   );
 
   constructor(food = 0, dryFood = 0, wood = 0, leather = 0) {
@@ -34,7 +34,8 @@ export class Resources implements IResources {
   public setResource = (key: keyof IResourcesAmount, value: number): void => {
     this._amount.set(key, value);
   };
-  public setResources = (amount: IResourcesAmount) => {};
+  public setResources = (amount: IResourcesAmount) => {
+  };
 
   public canAfford = (cost: IResources): boolean => {
     for (let key of this._amount.keys()) {
@@ -48,12 +49,12 @@ export class Resources implements IResources {
 
   public addToAllResources = (newResources: IResources): void => {
     newResources.amount.forEach(
-      (value: number, key: keyof IResourcesAmount) => {
-        this.setResource(
-          key,
-          this.getResource(key) + newResources.getResource(key)
-        );
-      }
+        (value: number, key: keyof IResourcesAmount) => {
+          this.setResource(
+              key,
+              this.getResource(key) + newResources.getResource(key)
+          );
+        }
     );
   };
 
@@ -67,8 +68,8 @@ export class Resources implements IResources {
     if (this.canAfford(resources)) {
       this._amount.forEach((value: number, key: keyof IResourcesAmount) => {
         this.setResource(
-          key,
-          this.getResource(key) - resources.getResource(key)
+            key,
+            this.getResource(key) - resources.getResource(key)
         );
       });
     }

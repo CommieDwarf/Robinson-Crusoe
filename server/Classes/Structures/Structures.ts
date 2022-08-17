@@ -1,10 +1,10 @@
 import { Resources } from "../AllResources/Resources";
 import { STRUCTURE } from "../../../interfaces/Structures/Structure";
 import { Structure } from "./Structure";
-import { IStructures } from "../../../interfaces/Structures/Structures";
+import { IStructuresService } from "../../../interfaces/Structures/Structures";
 import { IResources } from "../../../interfaces/Resources/Resources";
 
-export default class Structures implements IStructures {
+export class StructuresService implements IStructuresService {
   structures = this.getInitialStructures();
 
   private getInitialStructures() {

@@ -1,6 +1,6 @@
-import AdditionalActivity from "../../../interfaces/AdditionalActivity";
+import { IAdditionalActivity } from "../../../interfaces/AdditionalActivity";
 
-class Activity implements AdditionalActivity {
+export class AdditionalActivity implements IAdditionalActivity {
   type: "arrangeCamp" | "rest";
   pawnAmount: number;
 
@@ -21,5 +21,3 @@ class Activity implements AdditionalActivity {
     this.pawnAmount = 0;
   }
 }
-
-export default Activity;

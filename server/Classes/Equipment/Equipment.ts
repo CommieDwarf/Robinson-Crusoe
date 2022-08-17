@@ -6,7 +6,7 @@ import { IGame } from "../../../interfaces/Game";
 import { Item } from "./Item";
 import { EqList, equipmentList } from "../../constants/eqList";
 
-export default class Equipment implements IEquipment {
+export class Equipment implements IEquipment {
   items: IItem[];
   game: IGame;
 

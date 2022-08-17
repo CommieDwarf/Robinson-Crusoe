@@ -1,14 +1,11 @@
-import Tiles from "../Tiles/Tiles";
-import Structures from "../Structures/Structures";
-import Inventions from "../Inventions/Inventions";
 import { IPawn } from "../../../interfaces/Pawns/Pawn";
 import { IActionSlots } from "../../../interfaces/ActionSlots";
 import { getPawnCanBeSettled } from "../../../utils/canPawnBeSettled";
-import { IStructures } from "../../../interfaces/Structures/Structures";
-import { IInventions } from "../../../interfaces/Inventions/Inventions";
+import { IStructuresService } from "../../../interfaces/Structures/Structures";
+import { IInventionsService } from "../../../interfaces/Inventions/Inventions";
 import { ITiles } from "../../../interfaces/Tiles/Tiles";
 
-export default class ActionSlots implements IActionSlots {
+export class ActionSlotsService implements IActionSlots {
   set slots(value: Map<string, IPawn | null>) {
     this._slots = value;
   }
@@ -18,11 +15,15 @@ export default class ActionSlots implements IActionSlots {
   }
 
   private _slots: Map<string, null | IPawn>;
-  private _structures: IStructures;
-  private _inventions: IInventions;
+  private _structures: IStructuresService;
+  private _inventions: IInventionsService;
   private _tiles: ITiles;
 
-  constructor(structures: IStructures, inventions: IInventions, tiles: ITiles) {
+  constructor(
+    structures: IStructuresService,
+    inventions: IInventionsService,
+    tiles: ITiles
+  ) {
     this._structures = structures;
     this._inventions = inventions;
     this._tiles = tiles;
@@ -66,8 +67,8 @@ export default class ActionSlots implements IActionSlots {
 
     this._structures.structures.forEach((structure) => {
       actionSlots.set("structure" + structure.name + "leader", null);
-      actionSlots.set("structure" + structure.name + "helper1", null);
-      actionSlots.set("structure" + structure.name + "helper2", null);
+      actionSlots.set("structure" + structure.name + "helper-1", null);
+      actionSlots.set("structure" + structure.name + "helper-2", null);
     });
 
     this._inventions.inventions.forEach((invention) => {

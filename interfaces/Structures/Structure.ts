@@ -13,5 +13,5 @@ export interface IStructure {
   committedResources: IResources;
   cost: IResources;
   locked: boolean;
-  requiredHelpers: number;
+  requiredHelpersAmount: number;
 }

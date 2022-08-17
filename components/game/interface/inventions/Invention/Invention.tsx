@@ -80,18 +80,18 @@ export default function Invention(props: Props) {
         layout="fill"
         alt={"karta pomysłu"}
       />
-      {!props.invention.locked && (
-        <div className={styles.actionSlots}>
-          {getHelperActionSlots(props.invention, props.actionSlots)}
-          <ActionSlot
-            type="leader"
-            pawn={leaderPawn}
-            action="build"
-            context="invention"
-            id={leaderId}
-          />
-        </div>
-      )}
+      {/*{!props.invention.locked && (*/}
+      <div className={styles.actionSlots}>
+        {getHelperActionSlots(props.invention, props.actionSlots)}
+        <ActionSlot
+          type="leader"
+          pawn={leaderPawn}
+          action="build"
+          context="invention"
+          id={leaderId}
+        />
+      </div>
+      {/*)}*/}
       <div className={styles.committedResources}>{resources}</div>
     </div>
   );

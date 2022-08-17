@@ -4,13 +4,13 @@ import {
   PlayerCharacterName,
 } from "../../../interfaces/Characters/PlayerCharacter";
 import { IPlayer } from "../../../interfaces/Player";
-import { Pawns } from "../Pawns/Pawns";
+import { PawnsService } from "../Pawns/Pawns";
 import { IDictionary } from "../../../interfaces/IDictionary";
 import { getCookSkills } from "../../constants/getCookSkills";
 import { ISkill } from "../../../interfaces/Characters/Skill";
 import { ICharEffects } from "../../../interfaces/Characters/CharEffects";
 import { PlayerCharEffects } from "./CharEffects";
-import { IPawns } from "../../../interfaces/Pawns/Pawns";
+import { IPawnsService } from "../../../interfaces/Pawns/Pawns";
 
 export class PlayerCharacter extends Character implements IPlayerCharacter {
   get skills(): IDictionary<ISkill> {
@@ -37,12 +37,8 @@ export class PlayerCharacter extends Character implements IPlayerCharacter {
     this._name = value;
   }
 
-  get pawns(): IPawns {
+  get pawns(): IPawnsService {
     return this._pawns;
-  }
-
-  set pawns(pawns: IPawns) {
-    this._pawns = pawns;
   }
 
   get player(): IPlayer {
@@ -60,7 +56,7 @@ export class PlayerCharacter extends Character implements IPlayerCharacter {
   protected readonly _player: IPlayer;
   protected readonly _moraleThresholds: number[];
   protected readonly _gender: "male" | "female";
-  protected _pawns: IPawns = new Pawns(this, 2);
+  protected _pawns: IPawnsService = new PawnsService(this, 2);
   protected declare _name: PlayerCharacterName;
   private _skills: IDictionary<ISkill>;
   private _effects: ICharEffects;
@@ -77,7 +73,7 @@ export class PlayerCharacter extends Character implements IPlayerCharacter {
     this._player = player;
     this._moraleThresholds = moraleThresholds;
     this._gender = gender;
-    this._pawns = new Pawns(this, 2);
+    this._pawns = new PawnsService(this, 2);
     this._skills = this.getSkills();
     this._effects = new PlayerCharEffects(this);
   }
