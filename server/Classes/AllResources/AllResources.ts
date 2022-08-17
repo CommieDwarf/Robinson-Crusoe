@@ -2,7 +2,7 @@ import { Resources } from "./Resources";
 import { IResources } from "../../../interfaces/Resources/Resources";
 import { IAllResources } from "../../../interfaces/Resources/AllResources";
 
-export default class AllResources implements IAllResources {
+export class AllResources implements IAllResources {
   get future(): IResources {
     return this._future;
   }

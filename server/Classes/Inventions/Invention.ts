@@ -37,11 +37,11 @@ export class Invention implements IInvention {
   }
 
   get requiredHelpersAmount(): number {
-    return this._requiredHelpers;
+    return this._requiredHelpersAmount;
   }
 
   set requiredHelpersAmount(value: number) {
-    this._requiredHelpers = value;
+    this._requiredHelpersAmount = value;
   }
 
   get reward(): {} {
@@ -70,7 +70,9 @@ export class Invention implements IInvention {
     invention: IInvention | null;
     terrainType: TerrainType | null;
   };
-  private _requiredHelpers = 1;
+
+  //temporary fixed
+  private _requiredHelpersAmount = 0;
   private readonly _reward: {};
   private readonly _type: INVENTION_TYPE;
   private _committedResources: IResources = new Resources();

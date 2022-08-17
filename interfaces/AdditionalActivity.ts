@@ -1,4 +1,4 @@
-export default interface AdditionalActivity {
+export interface IAdditionalActivity {
   type: "arrangeCamp" | "rest";
   pawnAmount: number;
 }

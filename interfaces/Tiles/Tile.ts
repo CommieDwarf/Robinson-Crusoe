@@ -24,6 +24,7 @@ export default interface ITile {
   show: boolean;
   type: TileType | null;
   helpersRequired: number;
+  reveal: (type: TileType) => void;
 }
 
 export type TileResource = "food" | "wood" | "beast";

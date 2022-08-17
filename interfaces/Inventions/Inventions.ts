@@ -1,7 +1,7 @@
 import { IInvention } from "./Invention";
 import { SCENARIO } from "../Scenario/Scenario";
 
-export interface IInventions {
+export interface IInventionsService {
   inventions: IInvention[];
   scenario: SCENARIO;
   build: (name: InventionName) => void;

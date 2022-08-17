@@ -2,9 +2,9 @@ import { IResources } from "../../../interfaces/Resources/Resources";
 import { IBeasts } from "../../../interfaces/Beasts/Beasts";
 import { IBeast } from "../../../interfaces/Beasts/Beast";
 
-class Beasts implements IBeasts {
+export class Beasts implements IBeasts {
   private _deck: IBeast[] = [];
-  private _beasts: IBeast[] = [];
+  private _allBeasts: IBeast[] = [];
   private _game: unknown;
   private _ownedResources: IResources;
 
@@ -25,7 +25,7 @@ class Beasts implements IBeasts {
   }
 
   moveBeastToDeck() {
-    const beast = this._beasts.pop();
+    const beast = this._allBeasts.pop();
     if (!beast) {
       throw new Error("There is no more beasts to push into the deck");
     }
@@ -35,5 +35,3 @@ class Beasts implements IBeasts {
   //TODO implement killBeast()
   killBeast() {}
 }
-
-export default Beasts;

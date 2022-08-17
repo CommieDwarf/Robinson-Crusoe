@@ -1,11 +1,11 @@
-import {IPawns} from "../../../interfaces/Pawns/Pawns";
-import {IPawn} from "../../../interfaces/Pawns/Pawn";
+import { IPawnsService } from "../../../interfaces/Pawns/Pawns";
+import { IPawn } from "../../../interfaces/Pawns/Pawn";
 
-import {PawnArrayName} from "../../../interfaces/Pawns/Pawns";
-import {Pawn} from "./Pawn";
-import {ICharacter} from "../../../interfaces/Characters/Character";
+import { PawnArrayName } from "../../../interfaces/Pawns/Pawns";
+import { Pawn } from "./Pawn";
+import { ICharacter } from "../../../interfaces/Characters/Character";
 
-export class Pawns implements IPawns {
+export class PawnsService implements IPawnsService {
   set freePawns(value: IPawn[]) {
     this._freePawns = value;
   }
@@ -46,12 +46,14 @@ export class Pawns implements IPawns {
     const duplicated = this.findPawn(draggableId, "freePawns");
     if (duplicated) {
       throw new Error(
-          `There is already pawn with id: ${draggableId} in freePawns[]`
+        `There is already pawn with id: ${draggableId} in freePawns[]`
       );
     }
     let pawn = this.findPawn(draggableId, "pawns");
     if (!pawn) {
-      throw new Error("character doesn't own pawn with draggable id: " + draggableId);
+      throw new Error(
+        "character doesn't own pawn with draggable id: " + draggableId
+      );
     }
 
     this.freePawns.push(pawn);
@@ -62,8 +64,7 @@ export class Pawns implements IPawns {
     this[source] = this[source].filter((p) => pawn !== p);
   }
 
-  resetFreePawns(): void {
-  }
+  resetFreePawns(): void {}
 
   private getInitialPawns(initialQuantity: number): IPawn[] {
     const pawns: IPawn[] = [];

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Phase from "../../components/game/interface/phase/Phase";
 import Morale from "../../components/game/interface/morale/Morale";
 import styles from "./Game.module.css";
@@ -16,7 +16,7 @@ import Players from "../../components/game/interface/players/Players";
 import actionSlotStyles from "../../components/game/interface/ActionSlot.module.css";
 import _ from "lodash";
 
-import newGame from "../../server/Classes/Game";
+import { GameClass } from "../../server/Classes/Game";
 import Threat from "../../components/game/interface/threat/Threat";
 import AdditionalActivities from "../../components/game/interface/additionalActivities/AdditionalActivities";
 import Equipment from "../../components/game/interface/equipment/Equipment";
@@ -38,14 +38,29 @@ import { getPawnCanBeSettled } from "../../utils/canPawnBeSettled";
 import { IGame } from "../../interfaces/Game";
 import sleep from "../../utils/sleep";
 import { IPawn } from "../../interfaces/Pawns/Pawn";
-import { Pawn } from "../../server/Classes/Pawns/Pawn";
 import getComponentNameFromSourceId from "../../utils/getComponentNameFromSourceId";
+import { player } from "../../server/Classes/Game";
 
-interface Props {}
+interface Props {
+  resourcesAmount: {
+    future: IResourcesAmount;
+    owned: IResourcesAmount;
+  };
+  inventions: string;
+}
+
+function objToMap<T>(obj: T): Map<keyof T, any> {
+  return new Map(Object.entries(obj) as Entries<T>);
+}
 
 export default function Game(props: Props) {
-  const [game, setGame] = useState<IGame>(newGame);
-
+  const [game, setGame] = useState<IGame>(new GameClass([player], "castaways"));
+  const resourcesAmount = {
+    future: objToMap(props.resourcesAmount.future),
+    owned: objToMap(props.resourcesAmount.owned),
+  };
+  const inventions = fromJSON(props.inventions);
+  console.log(inventions);
   const [isPawnBeingDragged, setIsPawnBeingDragged] = useState(false);
 
   // Increase of proper component's z-index is necessary to render dragged pawn above other components
@@ -102,6 +117,7 @@ export default function Game(props: Props) {
   }
 
   function onDragUpdate(update: DragUpdate) {
+    console.log(update.destination?.droppableId);
     unselectActionSlots();
     const pawn = game.allPawns.find(
       (p) => p.draggableId === update.draggableId
@@ -199,8 +215,8 @@ export default function Game(props: Props) {
         <Phase phase="production" />
         <Morale current={3} />
         <Resources
-          future={game.allResources.future.amount}
-          owned={game.allResources.owned.amount}
+          future={resourcesAmount.future}
+          owned={resourcesAmount.owned}
         />
         <Structures
           structures={game.structures.structures}
@@ -268,8 +284,23 @@ export default function Game(props: Props) {
   );
 }
 
+import { parse, stringify, toJSON, fromJSON } from "flatted";
+import { getResourcesAmount } from "../api/getResourcesAmount";
+import { IResourcesAmount } from "../../interfaces/Resources/Resources";
+import Entries from "../../interfaces/Entries";
+import { IDictionary } from "../../interfaces/IDictionary";
+import { getInventions } from "../api/getInventions";
+
+// for beautiful DND to work correctly...
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   resetServerContext(); // <-- CALL RESET SERVER CONTEXT, SERVER SIDE
+  const resourcesAmountJSON = await getResourcesAmount();
+  const inventions = await getInventions();
 
-  return { props: { data: [] } };
+  return {
+    props: {
+      resourcesAmount: fromJSON(resourcesAmountJSON),
+      inventions,
+    },
+  };
 };
