@@ -1,9 +1,9 @@
 import { ICharEffects } from "./CharEffects";
-import { IPawns } from "../Pawns/Pawns";
+import { IPawnsService } from "../Pawns/Pawns";
 
 export interface ICharacter {
-  pawns: IPawns;
-  name: string;
+  pawns: IPawnsService;
+  name: CharacterName;
   id: number;
   health: number;
   effects: ICharEffects;

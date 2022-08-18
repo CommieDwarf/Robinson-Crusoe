@@ -14,14 +14,18 @@ import { IPlayer } from "../../interfaces/Player";
 import { IGame } from "../../interfaces/Game";
 import { SCENARIO } from "../../interfaces/Scenario/Scenario";
 import { IInventionsService } from "../../interfaces/Inventions/Inventions";
-import { IActionSlots } from "../../interfaces/ActionSlots";
 
 import { IEquipment } from "../../interfaces/Equipment/Equipment";
 import { IAllCharacters } from "../../components/game/interface/Characters";
 import { AllCharacters } from "./Characters/Characters";
 import { getPawnCanBeSettled } from "../../utils/canPawnBeSettled";
-import { IPawn } from "../../interfaces/Pawns/Pawn";
+import { IPawn, IPawnHelper } from "../../interfaces/Pawns/Pawn";
 import { ICharacter } from "../../interfaces/Characters/Character";
+import { ITilesService } from "../../interfaces/Tiles/Tiles";
+import { IAllResources } from "../../interfaces/Resources/AllResources";
+import { IStructuresService } from "../../interfaces/Structures/Structures";
+import { IThreat } from "../../interfaces/Threat/Threat";
+import { IBeasts } from "../../interfaces/Beasts/Beasts";
 
 const player = new Player("Konrad", "orange", 0);
 const friday = new SideCharacter("friday", 0, 4);
@@ -33,24 +37,83 @@ export { player };
 type ScenarioName = "castaways";
 
 export class GameClass implements IGame {
+  get players(): IPlayer[] {
+    return this._players;
+  }
+
+  get localPlayer(): Player {
+    return this._localPlayer;
+  }
+
+  get allCharacters(): IAllCharacters {
+    return this._allCharacters;
+  }
+
+  get tilesService(): ITilesService {
+    return this._tilesService;
+  }
+
+  get allResources(): IAllResources {
+    return this._allResources;
+  }
+
+  get structuresService(): IStructuresService {
+    return this._structuresService;
+  }
+
+  get inventionsService(): IInventionsService {
+    return this._inventionsService;
+  }
+
+  get threat(): IThreat {
+    return this._threat;
+  }
+
+  get equipment(): IEquipment {
+    return this._equipment;
+  }
+
+  get rest(): AdditionalActivity {
+    return this._rest;
+  }
+
+  get arrangeCamp(): AdditionalActivity {
+    return this._arrangeCamp;
+  }
+
+  get beasts(): IBeasts {
+    return this._beasts;
+  }
+
+  get actionSlotsService(): ActionSlotsService {
+    return this._actionSlotsService;
+  }
+
+  get allPawns(): (IPawn | IPawnHelper)[] {
+    return this._allPawns;
+  }
+
   private _players: IPlayer[];
-  private _player: Player = player;
+  private _localPlayer: Player = player;
   private _allCharacters: IAllCharacters;
-  private _tiles = new Tiles();
-  private _allResources = new AllResources();
-  private _structures = new StructuresService();
-  private _inventions = new InventionsService(
+  private _tilesService: ITilesService = new TilesService();
+  private _allResources: IAllResources = new AllResources();
+  private _structuresService: IStructuresService = new StructuresService();
+  private _inventionsService: IInventionsService = new InventionsService(
     SCENARIO.CASTAWAYS,
     [cook],
-    this._tiles
+    this._tilesService
   );
-  private _threat = new Threat(this);
+  private _threat: IThreat = new Threat(this);
   private _equipment: IEquipment = new Equipment(this);
-  private _sideCharacters = { dog, friday };
-  private _actionSlots: IActionSlots;
   private _rest = new AdditionalActivity("rest");
   private _arrangeCamp = new AdditionalActivity("arrangeCamp");
-  private _beasts = new Beasts(this, this._allResources.owned);
+  private _beasts: IBeasts = new Beasts(this, this._allResources.owned);
+  private _actionSlotsService = new ActionSlotsService(
+    this._structuresService,
+    this._inventionsService,
+    this._tilesService
+  );
   private _allPawns = [
     ...cook.pawns.pawns,
     ...friday.pawns.pawns,
@@ -64,74 +127,70 @@ export class GameClass implements IGame {
       player.getCharacter(),
       dog,
     ]);
-    this._actionSlots = new ActionSlotsService(
-      this._structures,
-      this._inventions,
-      this._tiles
-    );
   }
 
-  get renderData() {
-    const leftThreatSlot = this._threat.leftSlot
-      ? this._threat.leftSlot.name
-      : null;
-    const rightThreatSlot = this._threat.rightSlot
-      ? this._threat.rightSlot.name
-      : null;
-
-    return {
-      players: this._players,
-      player: this._player,
-      characters: this._allCharacters.characters,
-      tiles: this._tiles.tiles,
-      allResources: {
-        future: Object.fromEntries(this._allResources.future.amount.entries()),
-        owned: Object.fromEntries(this._allResources.owned.amount.entries()),
-      },
-      structures: this._structures.structures.map((structure) => {
-        return {
-          name: structure.name,
-          lvl: structure.lvl,
-          requiredHelperAmount: structure.requiredHelpersAmount,
-          committedResources: Object.fromEntries(
-            structure.committedResources.amount.entries()
-          ),
-        };
-      }),
-      inventions: this._inventions.inventions.map((invention) => {
-        return {
-          name: invention.name,
-          committedResources: Object.fromEntries(
-            invention.committedResources.amount.entries()
-          ),
-          requiredHelperAmount: invention.requiredHelpersAmount,
-          locked: invention.locked,
-          build: invention.isBuilt,
-        };
-      }),
-      threat: {
-        leftSlot: leftThreatSlot,
-        rightSlot: rightThreatSlot,
-      },
-      equipment: this._equipment.items.map((item) => {
-        return {
-          name: item.name,
-          uses: item.uses,
-        };
-      }),
-      actionSlots: Object.fromEntries(this._actionSlots.slots.entries()),
-      restPawnAmount: this._rest.pawnAmount,
-      arrangeCampPawnCount: this._arrangeCamp.pawnAmount,
-      beastCount: this._beasts.deckCount,
-      allPawns: this._allPawns.map((pawn) => {
-        return {
-          draggableId: pawn.draggableId,
-          characterName: pawn.character.name,
-          characterNamePL: pawn.character.namePL,
-        };
-      }),
-    };
-  }
+  //
+  // get renderData() {
+  //   const leftThreatSlot = this._threat.leftSlot
+  //     ? this._threat.leftSlot.name
+  //     : null;
+  //   const rightThreatSlot = this._threat.rightSlot
+  //     ? this._threat.rightSlot.name
+  //     : null;
+  //
+  //   return {
+  //     players: this._players,
+  //     player: this._player,
+  //     characters: this._allCharacters.characters,
+  //     tiles: this._tiles.tiles,
+  //     allResources: {
+  //       future: Object.fromEntries(this._allResources.future.amount.entries()),
+  //       owned: Object.fromEntries(this._allResources.owned.amount.entries()),
+  //     },
+  //     structures: this._structures.structures.map((structure) => {
+  //       return {
+  //         name: structure.name,
+  //         lvl: structure.lvl,
+  //         requiredHelperAmount: structure.requiredHelpersAmount,
+  //         committedResources: Object.fromEntries(
+  //           structure.committedResources.amount.entries()
+  //         ),
+  //       };
+  //     }),
+  //     inventions: this._inventions.inventions.map((invention) => {
+  //       return {
+  //         name: invention.name,
+  //         committedResources: Object.fromEntries(
+  //           invention.committedResources.amount.entries()
+  //         ),
+  //         requiredHelperAmount: invention.requiredHelpersAmount,
+  //         locked: invention.locked,
+  //         build: invention.isBuilt,
+  //       };
+  //     }),
+  //     threat: {
+  //       leftSlot: leftThreatSlot,
+  //       rightSlot: rightThreatSlot,
+  //     },
+  //     equipment: this._equipment.items.map((item) => {
+  //       return {
+  //         name: item.name,
+  //         uses: item.uses,
+  //       };
+  //     }),
+  //     actionSlots: Object.fromEntries(this._actionSlots.slots.entries()),
+  //     restPawnAmount: this._rest.pawnAmount,
+  //     arrangeCampPawnCount: this._arrangeCamp.pawnAmount,
+  //     beastCount: this._beasts.deckCount,
+  //     allPawns: this._allPawns.map((pawn) => {
+  //       return {
+  //         draggableId: pawn.draggableId,
+  //         characterName: pawn.character.name,
+  //         characterNamePL: pawn.character.namePL,
+  //       };
+  //     }),
+  //   };
+  // }
 
   // get players() {
   //   return this._players;
@@ -235,7 +294,7 @@ export class GameClass implements IGame {
     if (droppableId.includes("freepawns")) {
       pawn.character.pawns.copyPawnToFreePawns(pawn.draggableId);
     } else {
-      this._actionSlots.setPawn(droppableId, pawn);
+      this._actionSlotsService.setPawn(droppableId, pawn);
     }
     if (droppableId.includes("rest")) {
       this._rest.incrementPawns();
@@ -250,7 +309,7 @@ export class GameClass implements IGame {
       const character = this._allCharacters.getCharacter(charName);
       character.pawns.removePawn(draggableId, "freePawns");
     } else {
-      this._actionSlots.unsetPawn(destinationId);
+      this._actionSlotsService.unsetPawn(destinationId);
     }
     if (destinationId.includes("rest")) {
       this._rest.decrementPawns();
@@ -260,7 +319,7 @@ export class GameClass implements IGame {
   }
 
   getPawnFromActionSlot(droppableId: string) {
-    return this._actionSlots.getPawn(droppableId);
+    return this._actionSlotsService.getPawn(droppableId);
   }
 
   getPawnFromCharacter(draggableId: string) {

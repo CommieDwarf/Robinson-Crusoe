@@ -1,6 +1,6 @@
 import { IPawn } from "./Pawns/Pawn";
 
-export interface IActionSlots {
+export interface IActionSlotsService {
   slots: Map<string, IPawn | null>;
   setPawn: (droppableId: string, pawn: IPawn) => void;
   unsetPawn: (droppableId: string) => void;
