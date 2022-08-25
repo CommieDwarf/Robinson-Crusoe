@@ -12,7 +12,6 @@ const scenarioCards = ["mast", "axe"];
 
 function stringIncludesSomeArrayElement(array: string[], str: string) {
   for (let element of array) {
-    console.log(element, str);
     if (str.includes(element)) {
       return true;
     }

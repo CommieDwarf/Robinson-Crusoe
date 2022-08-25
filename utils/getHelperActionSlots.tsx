@@ -1,15 +1,14 @@
 import ActionSlot from "../components/game/interface/ActionSlot";
 
 import { IPawn } from "../interfaces/Pawns/Pawn";
-import { IStructure, STRUCTURE } from "../interfaces/Structures/Structure";
-import { IInvention, INVENTION_TYPE } from "../interfaces/Inventions/Invention";
+import { InventionData, StructureData } from "../interfaces/GameData/GameData";
 
 export default function getHelperActionSlots(
-  object: IStructure | IInvention,
+  object: StructureData | InventionData,
   actionSlots: Map<string, IPawn | null>
 ) {
   const helperActionSlots = [];
-  for (let i = 0; i < object.requiredHelpersAmount + 1; i++) {
+  for (let i = 0; i < object.requiredHelperAmount + 1; i++) {
     let actionSlotId;
     let context: "invention" | "structure";
     if ("lvl" in object) {

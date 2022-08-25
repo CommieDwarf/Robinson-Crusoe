@@ -4,20 +4,28 @@ import shuffle from "../../../utils/shuffleArray";
 import { Invention } from "./Invention";
 import {
   IInvention,
+  IInventionRenderData,
   INVENTION_TYPE,
 } from "../../../interfaces/Inventions/Invention";
 import { Resources } from "../AllResources/Resources";
 import { IPlayerCharacter } from "../../../interfaces/Characters/PlayerCharacter";
 import {
   IInventionsService,
+  IInventionsServiceRenderData,
   InventionName,
 } from "../../../interfaces/Inventions/Inventions";
 import { SCENARIO } from "../../../interfaces/Scenario/Scenario";
-import { ITiles } from "../../../interfaces/Tiles/Tiles";
+import { ITilesService } from "../../../interfaces/Tiles/Tiles";
 
 export class InventionsService implements IInventionsService {
   get inventions(): IInvention[] {
     return this._inventions;
+  }
+
+  get renderData(): IInventionsServiceRenderData {
+    return {
+      inventions: this.inventions.map((invention) => invention.renderData),
+    };
   }
 
   private _builtInventions: IInvention[] = [];
@@ -25,12 +33,12 @@ export class InventionsService implements IInventionsService {
   private _discoveredTileTypes = ["beach"];
   private readonly _inventions: IInvention[];
   private _characters: IPlayerCharacter[];
-  private _tiles: ITiles;
+  private _tiles: ITilesService;
 
   constructor(
     scenario: SCENARIO,
     characters: IPlayerCharacter[],
-    tiles: ITiles
+    tiles: ITilesService
   ) {
     this.scenario = scenario;
     this._characters = characters;

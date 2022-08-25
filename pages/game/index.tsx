@@ -21,6 +21,13 @@ import Threat from "../../components/game/interface/threat/Threat";
 import AdditionalActivities from "../../components/game/interface/additionalActivities/AdditionalActivities";
 import Equipment from "../../components/game/interface/equipment/Equipment";
 
+import { parse, stringify, toJSON, fromJSON } from "flatted";
+import { IResourcesAmount } from "../../interfaces/Resources/Resources";
+import Entries from "../../interfaces/Entries";
+import { ISideCharacter } from "../../interfaces/Characters/SideCharacter";
+import getGameData from "../api/getGame";
+import setPawn from "../api/setPawn";
+
 import {
   DragDropContext,
   Draggable,
@@ -40,13 +47,10 @@ import sleep from "../../utils/sleep";
 import { IPawn } from "../../interfaces/Pawns/Pawn";
 import getComponentNameFromSourceId from "../../utils/getComponentNameFromSourceId";
 import { player } from "../../server/Classes/Game";
+import { GameData } from "../../interfaces/GameData/GameData";
 
 interface Props {
-  resourcesAmount: {
-    future: IResourcesAmount;
-    owned: IResourcesAmount;
-  };
-  inventions: string;
+  gameData: JSON;
 }
 
 function objToMap<T>(obj: T): Map<keyof T, any> {
@@ -55,12 +59,9 @@ function objToMap<T>(obj: T): Map<keyof T, any> {
 
 export default function Game(props: Props) {
   const [game, setGame] = useState<IGame>(new GameClass([player], "castaways"));
-  const resourcesAmount = {
-    future: objToMap(props.resourcesAmount.future),
-    owned: objToMap(props.resourcesAmount.owned),
-  };
-  const inventions = fromJSON(props.inventions);
-  console.log(inventions);
+
+  const [gameData, setGameData] = useState<GameData>(fromJSON(props.gameData));
+
   const [isPawnBeingDragged, setIsPawnBeingDragged] = useState(false);
 
   // Increase of proper component's z-index is necessary to render dragged pawn above other components
@@ -71,7 +72,7 @@ export default function Game(props: Props) {
   const [showScenario, setShowScenario] = useState(false);
 
   function unselectActionSlots() {
-    game.actionSlots.slots.forEach((value, key) => {
+    game.actionSlotsService.slots.forEach((value, key) => {
       const actionSlot = document.getElementById(key);
       if (actionSlot) {
         actionSlot.classList.remove(actionSlotStyles.canBeSettled);
@@ -117,7 +118,6 @@ export default function Game(props: Props) {
   }
 
   function onDragUpdate(update: DragUpdate) {
-    console.log(update.destination?.droppableId);
     unselectActionSlots();
     const pawn = game.allPawns.find(
       (p) => p.draggableId === update.draggableId
@@ -138,7 +138,7 @@ export default function Game(props: Props) {
       } else {
         destinationSlotElement?.classList.add(actionSlotStyles.cantBeSettled);
       }
-      const pawnAtDestination = game.actionSlots.getPawn(destinationId);
+      const pawnAtDestination = game.actionSlotsService.getPawn(destinationId);
       const sourceSlotElement = document.getElementById(
         update.source.droppableId
       );
@@ -177,7 +177,7 @@ export default function Game(props: Props) {
     }
     let pawnAtActionSlot: null | IPawn = null;
     if (!destinationId.includes("freepawns")) {
-      pawnAtActionSlot = game.actionSlots.getPawn(destinationId);
+      pawnAtActionSlot = game.actionSlotsService.getPawn(destinationId);
     }
 
     if (
@@ -187,23 +187,40 @@ export default function Game(props: Props) {
       return;
     }
 
-    setGame((prev) => {
-      prev.setPawn(destinationId, draggedPawn);
-      prev.unsetPawn(sourceId, result.draggableId);
-      return _.cloneDeep(prev);
-    });
+    // setGame((prev) => {
+    //   prev.setPawn(destinationId, draggedPawn);
+    //   prev.unsetPawn(sourceId, result.draggableId);
+    //   return _.cloneDeep(prev);
+    // });
+
+    const setPawnData = {
+      destinationId,
+      draggableId: draggedPawn.draggableId,
+    };
+
+    setPawn(toJSON(setPawnData));
 
     // Sleep is used here, because if pawns are switched in the same time,
     // beautiful DND goes nuts and throws error that it cannot find draggable
     await sleep(100);
 
-    if (pawnAtActionSlot) {
-      setGame((prev) => {
-        prev.setPawn(sourceId, pawnAtActionSlot as IPawn);
-        return _.cloneDeep(prev);
-      });
-    }
+    // if (pawnAtActionSlot) {
+    //   setGame((prev) => {
+    //     prev.setPawn(sourceId, pawnAtActionSlot as IPawn);
+    //     return _.cloneDeep(prev);
+    //   });
+    // }
+
+    const gameDataJSON = await getGameData();
+
+    const gameData = await fromJSON(gameDataJSON);
+    setGameData(gameData);
   }
+
+  const actionSlots = new Map<string, IPawn | null>(
+    Object.entries(gameData.actionSlots)
+  );
+  console.log(actionSlots);
 
   return (
     <div className={styles.game}>
@@ -215,17 +232,27 @@ export default function Game(props: Props) {
         <Phase phase="production" />
         <Morale current={3} />
         <Resources
-          future={resourcesAmount.future}
-          owned={resourcesAmount.owned}
+          future={
+            new Map(Object.entries(gameData.allResources.future)) as Map<
+              keyof IResourcesAmount,
+              number
+            >
+          }
+          owned={
+            new Map(Object.entries(gameData.allResources.owned)) as Map<
+              keyof IResourcesAmount,
+              number
+            >
+          }
         />
         <Structures
-          structures={game.structures.structures}
-          actionSlots={game.actionSlots.slots}
+          structures={game.structuresService.structures}
+          actionSlots={game.actionSlotsService.slots}
           zIndexIncreased={zIndexIncreased}
         />
         <MapComponent
-          tiles={game.tiles.tiles}
-          actionSlots={game.actionSlots.slots}
+          tiles={game.tilesService.tiles}
+          actionSlots={game.actionSlotsService.slots}
           zIndexIncreased={zIndexIncreased}
           scrollDisabled={isPawnBeingDragged}
           showScenario={showScenario}
@@ -233,26 +260,29 @@ export default function Game(props: Props) {
         />
 
         <Inventions
-          inventions={game.inventions}
+          inventions={gameData.inventions}
           isBeingDragged={isPawnBeingDragged}
           zIndexIncreased={zIndexIncreased}
-          actionSlots={game.actionSlots.slots}
+          actionSlots={actionSlots}
         />
         <Character
-          character={game.player.getCharacter()}
-          dog={game.sideCharacters.dog}
-          friday={game.sideCharacters.friday}
+          character={gameData.localPlayer.getCharacter()}
+          dog={game.allCharacters.getCharacter("dog") as ISideCharacter}
+          friday={game.allCharacters.getCharacter("friday") as ISideCharacter}
           zIndexIncreased={zIndexIncreased}
           setZIndexIncreased={setZIndexIncreased}
         />
         <Health />
-        <Threat threat={game.threat} actionSlots={game.actionSlots.slots} />
+        <Threat
+          threat={game.threat}
+          actionSlots={game.actionSlotsService.slots}
+        />
         <AdditionalActivities
           activities={{
             rest: game.rest,
             arrange: game.arrangeCamp,
           }}
-          actionSlots={game.actionSlots.slots}
+          actionSlots={game.actionSlotsService.slots}
         />
         <Equipment equipment={game.equipment} />
         <ActionsOrder />
@@ -270,10 +300,10 @@ export default function Game(props: Props) {
           ]}
         />
         <ScenarioButton
-          inventions={game.inventions.inventions.filter(
+          inventions={game.inventionsService.inventions.filter(
             (inv) => inv.type !== INVENTION_TYPE.SCENARIO
           )}
-          actionSlots={game.actionSlots.slots}
+          actionSlots={game.actionSlotsService.slots}
           zIndexIncreased={zIndexIncreased}
           show={showScenario}
           setShow={setShowScenario}
@@ -284,23 +314,14 @@ export default function Game(props: Props) {
   );
 }
 
-import { parse, stringify, toJSON, fromJSON } from "flatted";
-import { getResourcesAmount } from "../api/getResourcesAmount";
-import { IResourcesAmount } from "../../interfaces/Resources/Resources";
-import Entries from "../../interfaces/Entries";
-import { IDictionary } from "../../interfaces/IDictionary";
-import { getInventions } from "../api/getInventions";
-
 // for beautiful DND to work correctly...
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   resetServerContext(); // <-- CALL RESET SERVER CONTEXT, SERVER SIDE
-  const resourcesAmountJSON = await getResourcesAmount();
-  const inventions = await getInventions();
+  const gameDataJSON = await getGameData();
 
   return {
     props: {
-      resourcesAmount: fromJSON(resourcesAmountJSON),
-      inventions,
+      gameData: gameDataJSON,
     },
   };
 };

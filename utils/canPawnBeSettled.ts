@@ -7,7 +7,6 @@ export function getPawnCanBeSettled(
   if (!pawn) {
     return true;
   }
-  console.log(destinationId);
   if (pawn.draggableId.includes("dog")) {
     if (destinationId.includes("leader")) {
       return false;

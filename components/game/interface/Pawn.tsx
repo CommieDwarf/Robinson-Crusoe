@@ -27,7 +27,6 @@ interface Props {
 
 export default function Pawn(props: Props) {
   let pawn: JSX.Element;
-  console.log(props.pawn.character.gender);
   if (props.pawn.character.gender) {
     pawn = (
       <div className={styles.pawn} id={props.pawn.draggableId}>

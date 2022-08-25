@@ -9,20 +9,30 @@ import { IResourcesAmount } from "../Resources/Resources";
 import { STRUCTURE } from "../Structures/Structure";
 import { IThreat } from "../Threat/Threat";
 import { EqList } from "../../server/constants/eqList";
+import {
+  IPlayerCharacter,
+  PlayerCharacterName,
+} from "../Characters/PlayerCharacter";
+import { IPawnsService } from "../Pawns/Pawns";
+import { ICharEffects } from "../Characters/CharEffects";
+import { IDictionary } from "../IDictionary";
+import { ISkill } from "../Characters/Skill";
+import { IPawn } from "../Pawns/Pawn";
 
-export interface StructuresData {
+export interface StructureData {
   name: STRUCTURE;
   lvl: number;
   requiredHelperAmount: number;
   committedResources: IResourcesAmount;
 }
 
-export interface InventionsData {
+export interface InventionData {
   name: string;
   committedResources: IResourcesAmount;
   requiredHelperAmount: number;
   locked: boolean;
   built: boolean;
+  type: "personal" | "scenario" | "starter" | "normal";
 }
 
 export interface ItemData {
@@ -36,6 +46,30 @@ export interface PawnData {
   characterNamePL: CHAR_NAME_TRANSLATION;
 }
 
+export interface PlayerData {
+  name: string;
+  color: string;
+  id: number;
+  character: PlayerCharacterData;
+}
+
+export interface CharacterData {
+  pawns: PawnData[];
+  name: CharacterName;
+  id: number;
+  health: number;
+  namePL: CHAR_NAME_TRANSLATION;
+  currentHealth: number;
+  gender: string;
+}
+
+export interface PlayerCharacterData extends CharacterData {
+  player: IPlayer;
+  name: PlayerCharacterName;
+  gender: "male" | "female";
+  moraleThresholds: number[];
+}
+
 export interface GameData {
   players: IPlayer[];
   localPlayer: IPlayer;
@@ -45,8 +79,8 @@ export interface GameData {
     future: IResourcesAmount;
     owned: IResourcesAmount;
   };
-  structures: StructuresData[];
-  inventions: InventionsData[];
+  structures: StructureData[];
+  inventions: InventionData[];
   threat: IThreat;
   equipment: ItemData[];
   actionSlots: Object;

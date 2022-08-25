@@ -109,7 +109,6 @@ export default function Map(props: Props) {
   const zIndexClass = props.zIndexIncreased.get("map")
     ? styles.zIndexIncreased
     : "";
-  console.log(props.zIndexIncreased, "z");
 
   return (
     <div

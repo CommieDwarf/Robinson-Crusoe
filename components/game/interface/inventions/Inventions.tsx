@@ -6,10 +6,10 @@ import Invention from "./Invention/Invention";
 import Scrollbar from "../Scrollbar";
 import { Scrollbars } from "react-custom-scrollbars";
 import { IPawn } from "../../../../interfaces/Pawns/Pawn";
-import { IInventions } from "../../../../interfaces/Inventions/Inventions";
+import { InventionData } from "../../../../interfaces/GameData/GameData";
 
 interface Props {
-  inventions: IInventions;
+  inventions: InventionData[];
   isBeingDragged: boolean;
   zIndexIncreased: Map<string, boolean>;
   actionSlots: Map<string, IPawn | null>;
@@ -21,7 +21,7 @@ export default function Inventions(props: Props) {
 
   let column = -1;
   let row = -1;
-  const starters = props.inventions.inventions.map((invention, i) => {
+  const starters = props.inventions.map((invention, i) => {
     column = column == 2 ? 0 : column + 1;
     row = column == 0 ? row + 1 : row;
 

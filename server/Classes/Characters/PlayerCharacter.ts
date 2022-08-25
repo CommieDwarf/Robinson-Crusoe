@@ -1,6 +1,7 @@
 import { Character } from "./Character";
 import {
   IPlayerCharacter,
+  IPlayerCharacterRenderData,
   PlayerCharacterName,
 } from "../../../interfaces/Characters/PlayerCharacter";
 import { IPlayer } from "../../../interfaces/Player";
@@ -51,6 +52,21 @@ export class PlayerCharacter extends Character implements IPlayerCharacter {
 
   get gender(): "male" | "female" {
     return this._gender;
+  }
+
+  get renderData(): IPlayerCharacterRenderData {
+    return {
+      name: this.name,
+      namePL: this.namePL,
+      playerId: this.id,
+      gender: this.gender,
+      moraleThresholds: this.moraleThresholds,
+      skills: this.skills,
+      id: this.id,
+      freePawns: this.pawns.freePawns.map((pawn) => pawn.renderData),
+      health: this.health,
+      currentHealth: this.currentHealth,
+    };
   }
 
   protected readonly _player: IPlayer;

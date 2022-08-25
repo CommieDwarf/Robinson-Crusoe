@@ -1,5 +1,6 @@
 import {
   IStructure,
+  IStructureRenderData,
   STRUCTURE,
 } from "../../../interfaces/Structures/Structure";
 import { IResources } from "../../../interfaces/Resources/Resources";
@@ -44,6 +45,17 @@ export class Structure implements IStructure {
 
   set requiredHelpersAmount(value: number) {
     this._requiredHelpersAmount = value;
+  }
+
+  get renderData(): IStructureRenderData {
+    return {
+      committedResources: this.committedResources.renderData,
+      cost: this.cost.renderData,
+      locked: this.locked,
+      lvl: this.lvl,
+      name: this.name,
+      requiredHelpersAmount: this.requiredHelpersAmount,
+    };
   }
 
   private _requiredHelpersAmount = 0;

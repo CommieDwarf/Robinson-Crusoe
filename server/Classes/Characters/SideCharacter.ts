@@ -1,6 +1,7 @@
 import { Character } from "./Character";
 import {
   ISideCharacter,
+  ISideCharacterRenderData,
   SideCharacterName,
 } from "../../../interfaces/Characters/SideCharacter";
 import { IDictionary } from "../../../interfaces/IDictionary";
@@ -37,6 +38,19 @@ export class SideCharacter extends Character implements ISideCharacter {
 
   set name(value: SideCharacterName) {
     this._name = value;
+  }
+
+  get renderData(): ISideCharacterRenderData {
+    return {
+      name: this.name,
+      namePL: this.namePL,
+      gender: this.gender,
+      skills: this.skills,
+      id: this.id,
+      freePawns: this.pawns.freePawns.map((pawn) => pawn.renderData),
+      health: this.health,
+      currentHealth: this.currentHealth,
+    };
   }
 
   private _pawns: IPawnsService;

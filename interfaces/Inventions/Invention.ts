@@ -1,5 +1,14 @@
 import { TerrainType } from "../Tiles/Tile";
-import { IResources } from "../Resources/Resources";
+import { IResources, IResourcesAmount } from "../Resources/Resources";
+
+export interface IInventionRenderData {
+  name: string;
+  locked: boolean;
+  requiredHelpersAmount: number;
+  type: INVENTION_TYPE;
+  committedResources: IResourcesAmount;
+  isBuilt: boolean;
+}
 
 export interface IInvention {
   name: string;
@@ -14,6 +23,7 @@ export interface IInvention {
     invention: IInvention | null;
     terrainType: TerrainType | null;
   };
+  renderData: IInventionRenderData;
 }
 
 export enum INVENTION_TYPE {

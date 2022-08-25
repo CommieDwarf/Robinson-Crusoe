@@ -8,7 +8,6 @@ interface Props {
 }
 
 export default function Equipment(props: Props) {
-  console.log(props.equipment);
   return (
     <div className={styles.container}>
       {props.equipment.items.map((item) => {
