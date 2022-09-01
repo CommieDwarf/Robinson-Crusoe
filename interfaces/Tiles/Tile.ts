@@ -1,23 +1,6 @@
-import { IPawn } from "../Pawns/Pawn";
+export type ITileRenderData = Omit<ITile, "starter" | "reveal" | "renderData">;
 
-export interface TileActionSlots {
-  gather: {
-    left: {
-      leader: null | IPawn;
-      helpers: (null | IPawn)[];
-    };
-    right: {
-      leader: null | IPawn;
-      helpers: (null | IPawn)[];
-    };
-  };
-  explore: {
-    leader: null | IPawn;
-    helpers: (null | IPawn)[];
-  };
-}
-
-export default interface ITile {
+export interface ITile {
   structure: TileStructure;
   id: number;
   starter: boolean;
@@ -25,6 +8,7 @@ export default interface ITile {
   type: TileType | null;
   helpersRequired: number;
   reveal: (type: TileType) => void;
+  renderData: ITileRenderData;
 }
 
 export type TileResource = "food" | "wood" | "beast";

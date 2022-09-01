@@ -11,18 +11,21 @@ import Scrollbar from "../Scrollbar";
 import Pawn from "../Pawn";
 import { Droppable } from "react-beautiful-dnd";
 import capitalize from "../../../../utils/capitalize";
-import { IPlayerCharacter } from "../../../../interfaces/Characters/PlayerCharacter";
-import { ISideCharacter } from "../../../../interfaces/Characters/SideCharacter";
+import {
+  IPlayerCharacter,
+  IPlayerCharacterRenderData,
+} from "../../../../interfaces/Characters/PlayerCharacter";
+import {
+  ISideCharacter,
+  ISideCharacterRenderData,
+} from "../../../../interfaces/Characters/SideCharacter";
 import { ISkill } from "../../../../interfaces/Characters/Skill";
 
 interface Props {
-  character: IPlayerCharacter;
-  friday: ISideCharacter;
-  dog: ISideCharacter;
-  zIndexIncreased: Map<string, boolean>;
-  setZIndexIncreased: React.Dispatch<
-    React.SetStateAction<Map<string, boolean>>
-  >;
+  character: IPlayerCharacterRenderData;
+  friday: ISideCharacterRenderData;
+  dog: ISideCharacterRenderData;
+  zIndex: string;
 }
 
 export default function Character(props: Props) {
@@ -31,25 +34,22 @@ export default function Character(props: Props) {
     show: boolean;
   }>({ skill: null, show: false });
 
-  const skillEntries = Object.entries(props.character.skills);
-
-  const skills = skillEntries.map(([key, value]) => {
+  const skills = Object.entries(props.character.skills).map(([key, value]) => {
     return (
       <Skill
         skill={value}
         setSkillDescription={setSkillDescription}
         key={key}
-        setZIndex={props.setZIndexIncreased}
       />
     );
   });
 
-  const zIndexClass = props.zIndexIncreased
+  const zIndexClass = props.zIndex.includes("freepawns")
     ? styles.zIndexIncreased
     : styles.zIndexTransition;
 
+  // const nameCapitalized = capitalize(props.character.namePL);
   const nameCapitalized = capitalize(props.character.namePL);
-
   return (
     <div className={styles.container + " " + zIndexClass}>
       <div className={styles.characterPicture}>
@@ -76,7 +76,7 @@ export default function Character(props: Props) {
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
-              {props.character.pawns.freePawns.map((pawn, i) => {
+              {props.character.freePawns.map((pawn, i) => {
                 return (
                   <Pawn
                     pawn={pawn}

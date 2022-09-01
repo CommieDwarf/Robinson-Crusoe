@@ -1,12 +1,12 @@
 import ActionSlot from "../components/game/interface/ActionSlot";
 
-import { IPawn } from "../interfaces/Pawns/Pawn";
-import { IStructure, STRUCTURE } from "../interfaces/Structures/Structure";
-import { IInvention, INVENTION_TYPE } from "../interfaces/Inventions/Invention";
+import { IPawn, IPawnRenderData } from "../interfaces/Pawns/Pawn";
+import { IInventionRenderData } from "../interfaces/Inventions/Invention";
+import { IStructureRenderData } from "../interfaces/Structures/Structure";
 
 export default function getHelperActionSlots(
-  object: IStructure | IInvention,
-  actionSlots: Map<string, IPawn | null>
+  object: IInventionRenderData | IStructureRenderData,
+  actionSlots: Map<string, IPawnRenderData | null>
 ) {
   const helperActionSlots = [];
   for (let i = 0; i < object.requiredHelpersAmount + 1; i++) {

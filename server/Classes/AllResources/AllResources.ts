@@ -1,6 +1,9 @@
 import { Resources } from "./Resources";
 import { IResources } from "../../../interfaces/Resources/Resources";
-import { IAllResources } from "../../../interfaces/Resources/AllResources";
+import {
+  IAllResources,
+  IAllResourcesRenderData,
+} from "../../../interfaces/Resources/AllResources";
 
 export class AllResources implements IAllResources {
   get future(): IResources {
@@ -9,6 +12,13 @@ export class AllResources implements IAllResources {
 
   get owned(): IResources {
     return this._owned;
+  }
+
+  get renderData(): IAllResourcesRenderData {
+    return {
+      future: this.future.renderData,
+      owned: this.owned.renderData,
+    };
   }
 
   private _future: IResources = new Resources();

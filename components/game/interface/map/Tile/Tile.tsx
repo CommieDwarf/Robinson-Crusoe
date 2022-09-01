@@ -1,19 +1,17 @@
 import Image from "next/image";
 import React, { NewLifecycle } from "react";
-import { Character } from "../../../../../server/Classes/Characters/characters";
-import ITile from "../../../../../interfaces/Tiles/Tile";
 import ActionSlot from "../../ActionSlot";
 import Scrollbar from "../../Scrollbar";
 import styles from "./Tile.module.css";
-import IPawn from "../../../../../interfaces/Pawns/Pawn";
-import Pawn from "../../../../../interfaces/Pawns/Pawn";
+import { ITileRenderData } from "../../../../../interfaces/Tiles/Tile";
+import { IPawnRenderData } from "../../../../../interfaces/Pawns/Pawn";
 
 interface Props {
-  tile: ITile;
+  tile: ITileRenderData;
   contentScale: number;
-  actionSlots: Map<string, Pawn | null>;
-  zIndexIncreased: boolean | undefined;
+  actionSlots: Map<string, IPawnRenderData | null>;
   isDragDisabled: boolean;
+  zIndex: string;
 }
 
 export default function Tile(props: Props) {
@@ -92,7 +90,11 @@ export default function Tile(props: Props) {
 
   const imgId = props.tile.type == null ? 11 : props.tile.type.id;
 
-  const zIndexClass = props.zIndexIncreased ? styles.zIndexIncreased : "";
+  const zIndexClass =
+    props.zIndex.includes("tile") &&
+    props.zIndex.includes("-" + props.tile.id + "-")
+      ? styles.zIndexIncreased
+      : "";
   return (
     <div className={styles.container + " " + zIndexClass} style={style}>
       {props.tile.show && (

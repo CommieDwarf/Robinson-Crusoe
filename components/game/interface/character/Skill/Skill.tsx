@@ -9,7 +9,6 @@ interface Props {
   setSkillDescription: Dispatch<
     SetStateAction<{ skill: ISkill | null; show: boolean }>
   >;
-  setZIndex: React.Dispatch<React.SetStateAction<Map<string, boolean>>>;
 }
 
 export default function Skill(props: Props) {
@@ -28,11 +27,11 @@ export default function Skill(props: Props) {
       }
     });
 
-    props.setZIndex((prev) => {
-      const copy = { ...prev };
-      // copy.character = !copy.character;
-      return copy;
-    });
+    // props.setZIndex((prev) => {
+    //   const copy = { ...prev };
+    //   // copy.character = !copy.character;
+    //   return copy;
+    // });
   }
 
   return (

@@ -1,4 +1,8 @@
-import ITile, { TileStructure } from "../../../interfaces/Tiles/Tile";
+import {
+  ITile,
+  ITileRenderData,
+  TileStructure,
+} from "../../../interfaces/Tiles/Tile";
 import { TileType } from "../../constants/tilleTypes";
 
 export class Tile implements ITile {
@@ -35,6 +39,16 @@ export class Tile implements ITile {
       throw new Error("There must be atleast 1 helper required");
     }
     this._helpersRequired = value;
+  }
+
+  get renderData(): ITileRenderData {
+    return {
+      helpersRequired: this.helpersRequired,
+      id: this.id,
+      show: this.show,
+      structure: this.structure,
+      type: this.type,
+    };
   }
 
   private readonly _structure: TileStructure;

@@ -4,20 +4,21 @@ import ActionSlot from "../../ActionSlot";
 import styles from "./Structure.module.css";
 import {
     IStructure,
+    IStructureRenderData,
     STRUCTURE,
 } from "../../../../../interfaces/Structures/Structure";
-import {IPawn} from "../../../../../interfaces/Pawns/Pawn";
+import {IPawn, IPawnRenderData} from "../../../../../interfaces/Pawns/Pawn";
 import getHelperActionSlots from "../../../../../utils/getHelperActionSlots";
 
 type Props = {
-    structure: IStructure;
-    actionSlots: Map<string, IPawn | null>;
+    structure: IStructureRenderData;
+    actionSlots: Map<string, IPawnRenderData | null>;
 };
 
 export default function Structure(props: Props) {
     const resources: JSX.Element[] = [];
 
-    props.structure.committedResources.amount.forEach((value, key) => {
+    Object.entries(props.structure.committedResources).forEach(([key, value]) => {
         for (let i = 0; i < value; i++) {
             resources.push(
                 <div className={styles.committedResource} key={key}>
@@ -38,9 +39,7 @@ export default function Structure(props: Props) {
     if (props.structure.name == STRUCTURE.WEAPON) {
         costIcon = (
             <div className={styles.costIcon}>
-                <div className={styles.costWoodValue}>
-                    {props.structure.cost.getResource("wood")}
-                </div>
+                <div className={styles.costWoodValue}>{props.structure.cost.wood}</div>
                 <div className={styles.woodImage}>
                     <Image
                         src="/interface/resources/wood.png"
@@ -53,9 +52,7 @@ export default function Structure(props: Props) {
     } else {
         costIcon = (
             <div className={styles.costIcon}>
-                <div className={styles.costWoodValue}>
-                    {props.structure.cost.getResource("wood")}
-                </div>
+                <div className={styles.costWoodValue}>{props.structure.cost.wood}</div>
                 <div className={styles.woodImage}>
                     <Image
                         src="/interface/resources/wood.png"
@@ -65,7 +62,7 @@ export default function Structure(props: Props) {
                 </div>
                 <div className={styles.crossLine}></div>
                 <div className={styles.costLeatherValue}>
-                    {props.structure.cost.getResource("leather")}
+                    {props.structure.cost.leather}
                 </div>
                 <div className={styles.leatherImage}>
                     <Image
@@ -79,28 +76,14 @@ export default function Structure(props: Props) {
     }
 
     let leaderPawn = props.actionSlots.get(
-        "structure" + props.structure.name + "leader"
+        "structure-" + props.structure.name + "-leader"
     );
     leaderPawn = leaderPawn ? leaderPawn : null;
-    let helperActionSlots = getHelperActionSlots(props.structure, props.actionSlots);
 
-    // for (let i = 0; i < props.structure.requiredHelpers; i++) {
-    //   const actionSlotId =
-    //     "structure" + props.structure.name + "helper" + (i + 1);
-    //   let helperPawn = props.actionSlots.get(actionSlotId);
-    //   helperPawn = helperPawn ? helperPawn : null;
-    //   helperActionSlots.push(
-    //     <ActionSlot
-    //       type={"helper"}
-    //       pawn={helperPawn}
-    //       action={"build"}
-    //       context={"structure"}
-    //       id={actionSlotId}
-    //       key={actionSlotId}
-    //     />
-    //   );
-    // }
-    //
+    let helperActionSlots = getHelperActionSlots(
+        props.structure,
+        props.actionSlots
+    );
 
 
     return (
@@ -117,7 +100,7 @@ export default function Structure(props: Props) {
                                 pawn={leaderPawn}
                                 action={"build"}
                                 context="structure"
-                                id={"structure" + props.structure.name + "leader"}
+                                id={"structure-" + props.structure.name + "-leader"}
                             />
                         </>
                     )}

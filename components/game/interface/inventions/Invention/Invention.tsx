@@ -3,16 +3,16 @@ import React, { useState } from "react";
 import ActionSlot from "../../ActionSlot";
 import styles from "./Invention.module.css";
 import getHelperActionSlots from "../../../../../utils/getHelperActionSlots";
-import { IInvention } from "../../../../../interfaces/Inventions/Invention";
-import { IPawn } from "../../../../../interfaces/Pawns/Pawn";
+import { IPawn, IPawnRenderData } from "../../../../../interfaces/Pawns/Pawn";
+import { IInventionRenderData } from "../../../../../interfaces/Inventions/Invention";
 
 type Props = {
-  invention: IInvention;
+  invention: IInventionRenderData;
   column: number;
   row: number;
   top: number;
-  actionSlots: Map<string, IPawn | null>;
-  zIndexIncreased: boolean | undefined;
+  actionSlots: Map<string, IPawnRenderData | null>;
+  zIndex: string;
 };
 
 export default function Invention(props: Props) {
@@ -21,9 +21,7 @@ export default function Invention(props: Props) {
   const inventionRef = React.createRef<HTMLDivElement>();
 
   function handleClick() {
-    if (!props.zIndexIncreased) {
-      setEnlarge((prev) => !prev);
-    }
+    setEnlarge((prev) => !prev);
   }
 
   const wrapperStyle = {
@@ -40,28 +38,32 @@ export default function Invention(props: Props) {
 
   const resources: JSX.Element[] = [];
 
-  props.invention.committedResources.amount.forEach((value, key) => {
-    for (let i = 0; i < value; i++) {
-      resources.push(
-        <div className={styles.resource} key={value}>
-          <Image
-            src={`/interface/resources/${key}.png`}
-            layout="fill"
-            alt="surowiec"
-          />
-        </div>
-      );
+  Object.entries(props.invention.committedResources).forEach(
+    ([key, value], i) => {
+      for (let i = 0; i < value; i++) {
+        resources.push(
+          <div className={styles.resource} key={i}>
+            <Image
+              src={`/interface/resources/${key}.png`}
+              layout="fill"
+              alt="surowiec"
+            />
+          </div>
+        );
+      }
     }
-  });
+  );
 
   const leaderId = "invention-" + props.invention.name + "-leader";
   let leaderPawn = props.actionSlots.get(leaderId);
   leaderPawn = leaderPawn ? leaderPawn : null;
 
-  const zIndexClass = props.zIndexIncreased ? styles.zIndexIncreased : "";
+  const zIndexClass = props.zIndex.includes(props.invention.name)
+    ? styles.zIndexIncreased
+    : "";
 
-  if (zIndexClass) {
-  }
+  console.log("ZINDEX " + props.zIndex);
+
   return (
     <div
       ref={inventionRef}
@@ -80,18 +82,19 @@ export default function Invention(props: Props) {
         layout="fill"
         alt={"karta pomysłu"}
       />
-      {/*{!props.invention.locked && (*/}
-      <div className={styles.actionSlots}>
-        {getHelperActionSlots(props.invention, props.actionSlots)}
-        <ActionSlot
-          type="leader"
-          pawn={leaderPawn}
-          action="build"
-          context="invention"
-          id={leaderId}
-        />
-      </div>
-      {/*)}*/}
+      {!props.invention.locked && (
+        <div className={styles.actionSlots}>
+          {getHelperActionSlots(props.invention, props.actionSlots)}
+          <ActionSlot
+            type="leader"
+            pawn={leaderPawn}
+            action="build"
+            context="invention"
+            id={leaderId}
+          />
+        </div>
+      )}
+
       <div className={styles.committedResources}>{resources}</div>
     </div>
   );

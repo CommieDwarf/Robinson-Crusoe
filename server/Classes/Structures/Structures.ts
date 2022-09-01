@@ -1,11 +1,20 @@
 import { Resources } from "../AllResources/Resources";
 import { STRUCTURE } from "../../../interfaces/Structures/Structure";
 import { Structure } from "./Structure";
-import { IStructuresService } from "../../../interfaces/Structures/Structures";
+import {
+  IStructuresService,
+  IStructuresServiceRenderData,
+} from "../../../interfaces/Structures/Structures";
 import { IResources } from "../../../interfaces/Resources/Resources";
 
 export class StructuresService implements IStructuresService {
   structures = this.getInitialStructures();
+
+  get renderData(): IStructuresServiceRenderData {
+    return {
+      structures: this.structures.map((structure) => structure.renderData),
+    };
+  }
 
   private getInitialStructures() {
     return Object.entries(STRUCTURE).map(([key, value]) => {

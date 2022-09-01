@@ -1,6 +1,6 @@
 import { EqList } from "../../constants/eqList";
 import { IGame } from "../../../interfaces/Game";
-import { IItem } from "../../../interfaces/Equipment/Item";
+import { IItem, IItemRenderData } from "../../../interfaces/Equipment/Item";
 
 export class Item implements IItem {
   get name(): keyof EqList {
@@ -17,6 +17,10 @@ export class Item implements IItem {
 
   get game(): IGame {
     return this._game;
+  }
+
+  get renderData(): IItemRenderData {
+    return { name: this.name, namePL: this.namePL, uses: this.uses };
   }
 
   private readonly _name: keyof EqList;

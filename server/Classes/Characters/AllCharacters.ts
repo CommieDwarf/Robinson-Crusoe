@@ -3,11 +3,13 @@ import {
   CharacterName,
   ICharacter,
 } from "../../../interfaces/Characters/Character";
+import { IPlayerCharacter } from "../../../interfaces/Characters/PlayerCharacter";
+import { ISideCharacter } from "../../../interfaces/Characters/SideCharacter";
 
 export class AllCharacters implements IAllCharacters {
-  characters: ICharacter[];
+  characters: (IPlayerCharacter | ISideCharacter)[];
 
-  constructor(characters: ICharacter[]) {
+  constructor(characters: (IPlayerCharacter | ISideCharacter)[]) {
     this.characters = characters;
   }
 

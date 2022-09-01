@@ -1,6 +1,6 @@
-import {ICharacter} from "../../../interfaces/Characters/Character";
-import {IPlayer} from "../../../interfaces/Player";
-import {IPlayerCharacter} from "../../../interfaces/Characters/PlayerCharacter";
+import { ICharacter } from "../../../interfaces/Characters/Character";
+import { IPlayer, IPlayerRenderData } from "../../../interfaces/Player";
+import { IPlayerCharacter } from "../../../interfaces/Characters/PlayerCharacter";
 
 export class Player implements IPlayer {
   get name(): string {
@@ -34,9 +34,20 @@ export class Player implements IPlayer {
     this._id = id;
   }
 
+  get renderData(): IPlayerRenderData {
+    return {
+      name: this.name,
+      color: this.color,
+      id: this.id,
+      characterId: this.getCharacter().id,
+    };
+  }
+
   getCharacter(): IPlayerCharacter {
     if (!this._character) {
-      throw new Error("There is no character assigned to player: " + this._name)
+      throw new Error(
+        "There is no character assigned to player: " + this._name
+      );
     }
     return this._character;
   }

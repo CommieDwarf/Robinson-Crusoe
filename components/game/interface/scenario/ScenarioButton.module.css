@@ -1,5 +1,4 @@
 .container {
-
     grid-column: 1 / span 2;
     grid-row: 6 / span 1;
     width: 100%;
@@ -9,9 +8,8 @@
     z-index: 100;
 }
 
-
 .zIndexIncreased {
-    z-index: 100;
+    z-index: 10000;
 }
 
 .button {
@@ -19,7 +17,6 @@
     margin: 20px auto auto;
     display: flex;
     cursor: pointer;
-
 }
 
 .label {
@@ -30,7 +27,6 @@
     display: inline-block;
     color: var(--brown)
 }
-
 
 .arrowWrapper {
 }

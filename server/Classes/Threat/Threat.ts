@@ -1,5 +1,5 @@
 import { IEventCard } from "../../../interfaces/Threat/EventCard";
-import { IThreat } from "../../../interfaces/Threat/Threat";
+import { IThreat, IThreatRenderData } from "../../../interfaces/Threat/Threat";
 import { EventCard } from "./EventCard";
 
 interface threatSlots {
@@ -32,6 +32,15 @@ export class Threat implements IThreat {
 
   get rightSlot() {
     return this._threatSlots.right;
+  }
+
+  get renderData(): IThreatRenderData {
+    const leftSlot = this.leftSlot ? this.leftSlot.renderData : null;
+    const rightSlot = this.rightSlot ? this.rightSlot.renderData : null;
+    return {
+      leftSlot,
+      rightSlot,
+    };
   }
 
   moveCardsLeft() {

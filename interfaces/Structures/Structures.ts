@@ -1,5 +1,9 @@
-import { IStructure, STRUCTURE } from "./Structure";
+import { IStructure, IStructureRenderData, STRUCTURE } from "./Structure";
 import { IResources } from "../Resources/Resources";
+
+export interface IStructuresServiceRenderData {
+  structures: IStructureRenderData[];
+}
 
 export interface IStructuresService {
   structures: IStructure[];
@@ -11,4 +15,5 @@ export interface IStructuresService {
   commitResources: (name: STRUCTURE, resources: IResources) => void;
   rollBackCommittedResources: (name: STRUCTURE) => void;
   getStruct: (name: STRUCTURE) => IStructure;
+  renderData: IStructuresServiceRenderData;
 }

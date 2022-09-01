@@ -1,11 +1,11 @@
 import {
-  IInvention,
+  IInvention, IInventionRenderData,
   INVENTION_TYPE,
 } from "../../../interfaces/Inventions/Invention";
-import { TerrainType } from "../../../interfaces/Tiles/Tile";
-import { ICharacter } from "../../../interfaces/Characters/Character";
-import { IResources } from "../../../interfaces/Resources/Resources";
-import { Resources } from "../AllResources/Resources";
+import {TerrainType} from "../../../interfaces/Tiles/Tile";
+import {ICharacter} from "../../../interfaces/Characters/Character";
+import {IResources, IResourcesAmount} from "../../../interfaces/Resources/Resources";
+import {Resources} from "../AllResources/Resources";
 
 export class Invention implements IInvention {
   get cost(): IResources {
@@ -64,6 +64,18 @@ export class Invention implements IInvention {
     return this._requirement;
   }
 
+  get renderData(): IInventionRenderData {
+    return {
+      name: this.name,
+      locked: this.locked,
+      requiredHelpersAmount: this.requiredHelpersAmount,
+      type: this.type,
+      committedResources: this._committedResources.renderData,
+      isBuilt: this.isBuilt
+
+    }
+  }
+
   private readonly _name: string;
   private _locked = true;
   private readonly _requirement: {
@@ -71,7 +83,7 @@ export class Invention implements IInvention {
     terrainType: TerrainType | null;
   };
 
-  //temporary fixed
+  //temporary fixed value
   private _requiredHelpersAmount = 0;
   private readonly _reward: {};
   private readonly _type: INVENTION_TYPE;
@@ -81,15 +93,15 @@ export class Invention implements IInvention {
   private readonly _character: ICharacter | null;
 
   constructor(
-    name: string,
-    requirement: {
-      invention: IInvention | null;
-      terrainType: TerrainType | null;
-    },
-    reward: {},
-    type: INVENTION_TYPE,
-    cost: IResources,
-    character: ICharacter | null
+      name: string,
+      requirement: {
+        invention: IInvention | null;
+        terrainType: TerrainType | null;
+      },
+      reward: {},
+      type: INVENTION_TYPE,
+      cost: IResources,
+      character: ICharacter | null
   ) {
     this._name = name;
     this._requirement = requirement;

@@ -104,8 +104,6 @@ export default function Game(props: Props) {
     });
   }
 
-  g;
-
   function onDragStart(start: DragStart) {
     const componentName = getComponentNameFromSourceId(
       start.source.droppableId

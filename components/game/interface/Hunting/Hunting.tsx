@@ -1,11 +1,11 @@
 import styles from "./Hunting.module.css";
 import Image from "next/image";
 import ActionSlot from "../ActionSlot";
-import { IPawn } from "../../../../interfaces/Pawns/Pawn";
+import { IPawn, IPawnRenderData } from "../../../../interfaces/Pawns/Pawn";
 
 interface Props {
-  actionSlots: Map<string, IPawn | null>;
-  zIndexIncreased: boolean | undefined;
+  actionSlots: Map<string, IPawnRenderData | null>;
+  zIndex: string;
   beastCount: number;
   isDragDisabled: boolean;
 }
@@ -14,7 +14,9 @@ export default function Hunting(props: Props) {
   const leaderPawn = props.actionSlots.get("hunt-leader");
   const helperPawn = props.actionSlots.get("hunt-helper");
 
-  const zIndexClass = props.zIndexIncreased ? styles.zIndexIncreased : "";
+  const zIndexClass = props.zIndex.includes("hunt")
+    ? styles.zIndexIncreased
+    : "";
   const lockedClass = props.beastCount === 0;
 
   return (

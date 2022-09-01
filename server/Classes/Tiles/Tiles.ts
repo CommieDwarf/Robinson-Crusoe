@@ -1,9 +1,12 @@
 import shuffle from "../../../utils/shuffleArray";
 import tileStructures from "../../constants/tileStructures";
 import tileTypes, { TileType, starterTile } from "../../constants/tilleTypes";
-import { ITilesService } from "../../../interfaces/Tiles/Tiles";
+import {
+  ITilesService,
+  ITilesServiceRenderData,
+} from "../../../interfaces/Tiles/Tiles";
 import { Tile } from "./Tile";
-import ITile, { TerrainType } from "../../../interfaces/Tiles/Tile";
+import { ITile, TerrainType } from "../../../interfaces/Tiles/Tile";
 
 const starterId = 7;
 
@@ -12,11 +15,17 @@ export class TilesService implements ITilesService {
   tileStack: TileType[];
   terrainTypesExplored: Set<TerrainType>;
 
+  get renderData(): ITilesServiceRenderData {
+    return {
+      tiles: this.tiles.map((tile) => tile.renderData),
+    };
+  }
+
   constructor() {
     this.tileStack = shuffle(tileTypes);
-    this.showAdjacentTiles(starterId);
     this.terrainTypesExplored = new Set<TerrainType>(["beach"]);
     this.tiles = this.getInitialTiles();
+    this.showAdjacentTiles(starterId);
   }
 
   private getInitialTiles() {

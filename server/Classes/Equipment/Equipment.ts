@@ -1,12 +1,19 @@
 import shuffle from "../../../utils/shuffleArray";
 import Entries from "../../../interfaces/Entries";
-import { IEquipment } from "../../../interfaces/Equipment/Equipment";
-import { IItem } from "../../../interfaces/Equipment/Item";
-import { IGame } from "../../../interfaces/Game";
-import { Item } from "./Item";
-import { EqList, equipmentList } from "../../constants/eqList";
+import {IEquipment, IEquipmentRenderData} from "../../../interfaces/Equipment/Equipment";
+import {IItem} from "../../../interfaces/Equipment/Item";
+import {IGame} from "../../../interfaces/Game";
+import {Item} from "./Item";
+import {EqList, equipmentList} from "../../constants/eqList";
 
 export class Equipment implements IEquipment {
+
+  get renderData(): IEquipmentRenderData {
+    return {
+      items: this.items.map((item) => item.renderData)
+    }
+  }
+
   items: IItem[];
   game: IGame;
 
