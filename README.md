@@ -62,7 +62,7 @@ Game can be played solo or with max. 4 players.
 
 * Became more skilled at OOP concept
 * Improved knowledge of Typescript and React.
-* Next.js framework
+* Next.js framework.
 
 ## What I'll learn in the future:
 
