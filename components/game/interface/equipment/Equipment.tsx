@@ -1,14 +1,16 @@
 import React from "react";
 import styles from "./Equipment.module.css";
-import { IEquipment } from "../../../../interfaces/Equipment/Equipment";
+import {
+  IEquipment,
+  IEquipmentRenderData,
+} from "../../../../interfaces/Equipment/Equipment";
 import Item from "./Item";
 
 interface Props {
-  equipment: IEquipment;
+  equipment: IEquipmentRenderData;
 }
 
 export default function Equipment(props: Props) {
-  console.log(props.equipment);
   return (
     <div className={styles.container}>
       {props.equipment.items.map((item) => {

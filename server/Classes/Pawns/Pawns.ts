@@ -1,5 +1,5 @@
 import { IPawnsService } from "../../../interfaces/Pawns/Pawns";
-import { IPawn } from "../../../interfaces/Pawns/Pawn";
+import { IPawn, IPawnRenderData } from "../../../interfaces/Pawns/Pawn";
 
 import { PawnArrayName } from "../../../interfaces/Pawns/Pawns";
 import { Pawn } from "./Pawn";
@@ -24,6 +24,12 @@ export class PawnsService implements IPawnsService {
 
   get character(): ICharacter {
     return this._character;
+  }
+
+  get renderData(): IPawnRenderData[] {
+    return this._freePawns.map((pawn) => {
+      return pawn.renderData;
+    });
   }
 
   private _freePawns: IPawn[];

@@ -29,14 +29,14 @@ const stashBuild = `Stos ma się składać z 15 znaczników drewna.
 
 import Invention from "../../../../inventions/Invention/Invention";
 import React from "react";
-import { IInvention } from "../../../../../../../interfaces/Inventions/Invention";
-import { IPawn } from "../../../../../../../interfaces/Pawns/Pawn";
+import { IInventionRenderData } from "../../../../../../../interfaces/Inventions/Invention";
+import { IPawnRenderData } from "../../../../../../../interfaces/Pawns/Pawn";
 
 interface Props {
-  inventions: IInvention[];
-  actionSlots: Map<string, IPawn | null>;
-  zIndexIncreased: Map<string, boolean>;
+  inventions: IInventionRenderData[];
+  actionSlots: Map<string, IPawnRenderData | null>;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
+  zIndex: string;
 }
 
 export default function Castaways(props: Props) {
@@ -122,7 +122,7 @@ export default function Castaways(props: Props) {
                 row={1}
                 top={-100}
                 actionSlots={props.actionSlots}
-                zIndexIncreased={props.zIndexIncreased.get(inv.name)}
+                zIndex={props.zIndex}
               />
             );
           })}

@@ -1,5 +1,5 @@
 import { IResources } from "../../../interfaces/Resources/Resources";
-import { IBeasts } from "../../../interfaces/Beasts/Beasts";
+import { IBeasts, IBeastsRenderData } from "../../../interfaces/Beasts/Beasts";
 import { IBeast } from "../../../interfaces/Beasts/Beast";
 
 export class Beasts implements IBeasts {
@@ -10,6 +10,12 @@ export class Beasts implements IBeasts {
 
   get deckCount() {
     return this._deck.length;
+  }
+
+  get renderData(): IBeastsRenderData {
+    return {
+      deckCount: this.deckCount,
+    };
   }
 
   constructor(game: unknown, ownedResources: IResources) {

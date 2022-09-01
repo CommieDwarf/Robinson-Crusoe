@@ -3,11 +3,11 @@ import styles from "./ActionSlot.module.css";
 import { Droppable } from "react-beautiful-dnd";
 
 import Pawn from "./Pawn";
-import { IPawn } from "../../../interfaces/Pawns/Pawn";
+import { IPawnRenderData } from "../../../interfaces/Pawns/Pawn";
 
 interface Props {
   type: "helper" | "leader";
-  pawn: null | IPawn | undefined;
+  pawn: null | IPawnRenderData | undefined;
   action:
     | "threat"
     | "hunt"
@@ -38,12 +38,6 @@ export default function PlayerSlot(props: Props) {
 
   const helperClass = props.type == "helper" ? styles.helper : "";
 
-  const [isBrowser, setIsBrowser] = useState(false);
-
-  useEffect(() => {
-    setIsBrowser(process.browser);
-  }, []);
-
   return (
     <div
       className={
@@ -51,22 +45,20 @@ export default function PlayerSlot(props: Props) {
       }
       id={props.id}
     >
-      {isBrowser && (
-        <Droppable droppableId={props.id} isDropDisabled={props.isDragDisabled}>
-          {(provided) => {
-            return (
-              <div
-                className={styles.actionSlot}
-                ref={provided.innerRef}
-                {...provided.droppableProps}
-              >
-                {element}
-                <div style={{ display: "none" }}>{provided.placeholder}</div>
-              </div>
-            );
-          }}
-        </Droppable>
-      )}
+      <Droppable droppableId={props.id} isDropDisabled={props.isDragDisabled}>
+        {(provided) => {
+          return (
+            <div
+              className={styles.actionSlot}
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+            >
+              {element}
+              <div style={{ display: "none" }}>{provided.placeholder}</div>
+            </div>
+          );
+        }}
+      </Droppable>
     </div>
   );
 }

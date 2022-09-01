@@ -1,5 +1,5 @@
 import { IResources } from "../../../interfaces/Resources/Resources";
-import { IBeast } from "../../../interfaces/Beasts/Beast";
+import { IBeast, IBeastRenderData } from "../../../interfaces/Beasts/Beast";
 
 export class Beast implements IBeast {
   get name(): { pl: string; en: string } {
@@ -16,6 +16,12 @@ export class Beast implements IBeast {
 
   get reward(): Map<keyof IResources, number> {
     return this._reward;
+  }
+
+  get renderData(): IBeastRenderData {
+    return {
+      name: this.name,
+    };
   }
 
   private readonly _name: {

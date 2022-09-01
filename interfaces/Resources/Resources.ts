@@ -14,4 +14,5 @@ export interface IResources {
   addToAllResources: (newResources: IResources) => void;
   resetResources: () => void;
   spendFromAllResources: (resources: IResources) => void;
+  renderData: IResourcesAmount;
 }

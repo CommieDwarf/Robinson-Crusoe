@@ -1,4 +1,8 @@
-import ITile, { TerrainType, TileType } from "./Tile";
+import { ITile, ITileRenderData, TerrainType, TileType } from "./Tile";
+
+export interface ITilesServiceRenderData {
+  tiles: ITileRenderData[];
+}
 
 export interface ITilesService {
   tiles: ITile[];
@@ -8,4 +12,5 @@ export interface ITilesService {
   setAllRequiredHelpersAmount: (amount: number) => void;
   showAdjacentTiles: (tileId: number) => void;
   terrainTypesExplored: Set<TerrainType>;
+  renderData: ITilesServiceRenderData;
 }

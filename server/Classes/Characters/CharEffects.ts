@@ -9,15 +9,11 @@ export class PlayerCharEffects implements ICharEffects {
     this.character = character;
   }
 
-  diceQuestionMark() {
-    console.log("adventure");
-  }
+  diceQuestionMark() {}
 
   getHurt() {}
 
-  death() {
-    console.log("gameover");
-  }
+  death() {}
 
   starve() {
     console.log("hurt");

@@ -3,15 +3,18 @@ import styles from "./Scenario.module.css";
 import React, { useEffect, useState } from "react";
 
 import Castaways from "./Scenarios/Castaways/Castaways";
-import { IInvention } from "../../../../../interfaces/Inventions/Invention";
-import { IPawn } from "../../../../../interfaces/Pawns/Pawn";
+import {
+  IInvention,
+  IInventionRenderData,
+} from "../../../../../interfaces/Inventions/Invention";
+import { IPawn, IPawnRenderData } from "../../../../../interfaces/Pawns/Pawn";
 
 interface Props {
-  inventions: IInvention[];
-  actionSlots: Map<string, IPawn | null>;
+  inventions: IInventionRenderData[];
+  actionSlots: Map<string, IPawnRenderData | null>;
   show: boolean;
-  zIndexIncreased: Map<string, boolean>;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
+  zIndex: string;
 }
 
 export default function Scenario(props: Props) {
@@ -23,8 +26,8 @@ export default function Scenario(props: Props) {
         <Castaways
           inventions={props.inventions}
           actionSlots={props.actionSlots}
-          zIndexIncreased={props.zIndexIncreased}
           setShow={props.setShow}
+          zIndex={props.zIndex}
         />
       </div>
     </div>

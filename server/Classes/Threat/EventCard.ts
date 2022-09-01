@@ -1,4 +1,7 @@
-import { IEventCard } from "../../../interfaces/Threat/EventCard";
+import {
+  IEventCard,
+  IEventCardRenderData,
+} from "../../../interfaces/Threat/EventCard";
 
 export class EventCard implements IEventCard {
   get reward(): unknown {
@@ -11,6 +14,13 @@ export class EventCard implements IEventCard {
 
   get name(): string {
     return this._name;
+  }
+
+  get renderData(): IEventCardRenderData {
+    return {
+      id: this.id,
+      name: this.name,
+    };
   }
 
   private readonly _id: number;

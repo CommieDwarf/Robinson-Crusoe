@@ -1,5 +1,9 @@
-import { IInvention } from "./Invention";
+import { IInvention, IInventionRenderData } from "./Invention";
 import { SCENARIO } from "../Scenario/Scenario";
+
+export interface IInventionsServiceRenderData {
+  inventions: IInventionRenderData[];
+}
 
 export interface IInventionsService {
   inventions: IInvention[];
@@ -8,6 +12,7 @@ export interface IInventionsService {
   destroy: (name: InventionName) => void;
   updateLocks: () => void;
   getInvention: (name: InventionName) => IInvention;
+  renderData: IInventionsServiceRenderData;
 }
 
 export type NormalInventionName =

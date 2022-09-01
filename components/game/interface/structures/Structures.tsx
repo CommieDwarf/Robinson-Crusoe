@@ -1,13 +1,16 @@
 import React from "react";
 import Structure from "./Structure/Structure";
 import styles from "./Structures.module.css";
-import { IStructure } from "../../../../interfaces/Structures/Structure";
-import { IPawn } from "../../../../interfaces/Pawns/Pawn";
+import {
+  IStructure,
+  IStructureRenderData,
+} from "../../../../interfaces/Structures/Structure";
+import { IPawn, IPawnRenderData } from "../../../../interfaces/Pawns/Pawn";
 
 interface Props {
-  structures: IStructure[];
-  actionSlots: Map<string, IPawn | null>;
-  zIndexIncreased: Map<string, boolean>;
+  structures: IStructureRenderData[];
+  actionSlots: Map<string, IPawnRenderData | null>;
+  zIndex: string;
 }
 
 export default function Structures(props: Props) {
@@ -22,7 +25,7 @@ export default function Structures(props: Props) {
     );
   }
 
-  let zIndexIncreasedClass = props.zIndexIncreased.get("structures")
+  let zIndexIncreasedClass = props.zIndex.includes("structure")
     ? styles.zIndexIncreased
     : "";
 

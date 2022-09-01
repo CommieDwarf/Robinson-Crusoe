@@ -1,4 +1,8 @@
-import { IPawn, IPawnHelper } from "../../../interfaces/Pawns/Pawn";
+import {
+  IPawn,
+  IPawnHelper,
+  IPawnRenderData,
+} from "../../../interfaces/Pawns/Pawn";
 import { ISideCharacter } from "../../../interfaces/Characters/SideCharacter";
 import { IPlayerCharacter } from "../../../interfaces/Characters/PlayerCharacter";
 import { ICharacter } from "../../../interfaces/Characters/Character";
@@ -11,6 +15,13 @@ export class Pawn implements IPawn {
 
   get character(): ICharacter {
     return this._character;
+  }
+
+  get renderData(): IPawnRenderData {
+    return {
+      draggableId: this.draggableId,
+      characterId: this.character.id,
+    };
   }
 
   private readonly _draggableId: string;
