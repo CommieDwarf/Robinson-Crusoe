@@ -61,6 +61,7 @@ export default function Game(props: Props) {
   };
   const inventions = fromJSON(props.inventions);
   console.log(inventions);
+  // dd
   const [isPawnBeingDragged, setIsPawnBeingDragged] = useState(false);
 
   // Increase of proper component's z-index is necessary to render dragged pawn above other components
