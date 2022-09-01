@@ -6,18 +6,18 @@ import Scrollbar from "../Scrollbar";
 import scrollbarStyles from "./Scrollbar.module.css";
 import tileStyles from "./Tile/Tile.module.css";
 import getDragAndScrollHandle from "../../../../utils/dragAndScrollHandle";
-import ITile from "../../../../interfaces/Tiles/Tile";
 import Tile from "./Tile/Tile";
 import Hunting from "../Hunting/Hunting";
-import { IPawn } from "../../../../interfaces/Pawns/Pawn";
+import { IPawnRenderData } from "../../../../interfaces/Pawns/Pawn";
+import { ITileRenderData } from "../../../../interfaces/Tiles/Tile";
 
 interface Props {
-  tiles: ITile[];
-  actionSlots: Map<string, IPawn | null>;
-  zIndexIncreased: Map<string, boolean>;
+  tiles: ITileRenderData[];
+  actionSlots: Map<string, IPawnRenderData | null>;
   scrollDisabled: boolean;
   beastCount: number;
   showScenario: boolean;
+  zIndex: string;
 }
 
 export default function Map(props: Props) {
@@ -32,10 +32,8 @@ export default function Map(props: Props) {
         key={i}
         contentScale={contentScale}
         actionSlots={props.actionSlots}
-        zIndexIncreased={props.zIndexIncreased.get(
-          props.tiles[i].id.toString()
-        )}
         isDragDisabled={props.showScenario}
+        zIndex={props.zIndex}
       />
     );
   }
@@ -106,7 +104,7 @@ export default function Map(props: Props) {
     height: contentScale + "%",
   };
 
-  const zIndexClass = props.zIndexIncreased.get("map")
+  const zIndexClass = props.zIndex.includes("tile")
     ? styles.zIndexIncreased
     : "";
 
@@ -135,9 +133,9 @@ export default function Map(props: Props) {
       </div>
       <Hunting
         actionSlots={props.actionSlots}
-        zIndexIncreased={props.zIndexIncreased.get("hunting")}
         beastCount={props.beastCount}
         isDragDisabled={props.showScenario}
+        zIndex={props.zIndex}
       />
       <Scrollbar
         scrollbarRef={scrollbar}

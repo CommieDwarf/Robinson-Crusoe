@@ -1,5 +1,4 @@
 import inventionList from "../../constants/inventionList";
-import InventionList from "../../constants/inventionList";
 import shuffle from "../../../utils/shuffleArray";
 import { Invention } from "./Invention";
 import {
@@ -30,7 +29,6 @@ export class InventionsService implements IInventionsService {
 
   private _builtInventions: IInvention[] = [];
   scenario: SCENARIO;
-  private _discoveredTileTypes = ["beach"];
   private readonly _inventions: IInvention[];
   private _characters: IPlayerCharacter[];
   private _tiles: ITilesService;
@@ -80,7 +78,7 @@ export class InventionsService implements IInventionsService {
         )
       );
     });
-    InventionList.starters.forEach((name) => {
+    inventionList.starters.forEach((name) => {
       inventions.push(
         new Invention(
           name,
@@ -98,7 +96,7 @@ export class InventionsService implements IInventionsService {
     this._characters.forEach((character) => {
       inventions.push(
         new Invention(
-          InventionList.personal[character.name],
+          inventionList.personal[character.name],
           { invention: null, terrainType: null },
           {},
           INVENTION_TYPE.PERSONAL,

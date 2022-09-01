@@ -2,6 +2,7 @@ import { IPlayer } from "../Player";
 import { CharacterName, ICharacter, ICharacterRenderData } from "./Character";
 import { IDictionary } from "../IDictionary";
 import { ISkill } from "./Skill";
+import { IPawnRenderData } from "../Pawns/Pawn";
 
 export type PlayerCharacterName = Exclude<CharacterName, "dog" | "friday">;
 
@@ -11,6 +12,7 @@ export interface IPlayerCharacterRenderData extends ICharacterRenderData {
   gender: "male" | "female";
   moraleThresholds: number[];
   skills: IDictionary<ISkill>;
+  freePawns: IPawnRenderData[];
 }
 
 export interface IPlayerCharacter extends ICharacter {

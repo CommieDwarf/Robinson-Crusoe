@@ -1,7 +1,4 @@
-export type ITileRenderData = Omit<
-  ITile,
-  "starter" | "type" | "reveal" | "renderData"
->;
+export type ITileRenderData = Omit<ITile, "starter" | "reveal" | "renderData">;
 
 export interface ITile {
   structure: TileStructure;

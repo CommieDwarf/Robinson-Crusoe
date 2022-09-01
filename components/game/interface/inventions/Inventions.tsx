@@ -5,14 +5,14 @@ import scrollbarStyles from "./Scrollbar.module.css";
 import Invention from "./Invention/Invention";
 import Scrollbar from "../Scrollbar";
 import { Scrollbars } from "react-custom-scrollbars";
-import { IPawn } from "../../../../interfaces/Pawns/Pawn";
-import { InventionData } from "../../../../interfaces/GameData/GameData";
+import { IPawnRenderData } from "../../../../interfaces/Pawns/Pawn";
+import { IInventionRenderData } from "../../../../interfaces/Inventions/Invention";
 
 interface Props {
-  inventions: InventionData[];
+  inventions: IInventionRenderData[];
   isBeingDragged: boolean;
-  zIndexIncreased: Map<string, boolean>;
-  actionSlots: Map<string, IPawn | null>;
+  zIndex: string;
+  actionSlots: Map<string, IPawnRenderData | null>;
 }
 
 export default function Inventions(props: Props) {
@@ -25,8 +25,6 @@ export default function Inventions(props: Props) {
     column = column == 2 ? 0 : column + 1;
     row = column == 0 ? row + 1 : row;
 
-    const zIndexIncreased = props.zIndexIncreased.get(invention.name);
-
     return (
       <Invention
         top={scrollTop}
@@ -35,7 +33,7 @@ export default function Inventions(props: Props) {
         invention={invention}
         key={i}
         actionSlots={props.actionSlots}
-        zIndexIncreased={zIndexIncreased}
+        zIndex={props.zIndex}
       />
     );
   });
@@ -44,7 +42,9 @@ export default function Inventions(props: Props) {
     height: (row + 1) * 140,
   };
 
-  const zIndexClass = props.zIndexIncreased ? styles.zIndexIncreased : "";
+  const zIndexClass = props.zIndex.includes("invention")
+    ? styles.zIndexIncreased
+    : "";
 
   return (
     <div className={styles.container + " " + zIndexClass}>

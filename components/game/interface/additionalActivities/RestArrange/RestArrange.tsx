@@ -4,12 +4,12 @@ import styles from "./RestArrange.module.css";
 import Scrollbar from "../../Scrollbar";
 import scrollbarStyles from "./Scrollbar.module.css";
 import ActionSlot from "../../ActionSlot";
-import AdditionalActivity from "../../../../../interfaces/AdditionalActivity";
-import { IPawn } from "../../../../../interfaces/Pawns/Pawn";
+import { IPawnRenderData } from "../../../../../interfaces/Pawns/Pawn";
+import { IAdditionalActivity } from "../../../../../interfaces/AdditionalActivity";
 
 interface Props {
-  activity: AdditionalActivity;
-  actionSlots: Map<string, IPawn | null>;
+  activity: IAdditionalActivity;
+  actionSlots: Map<string, IPawnRenderData | null>;
 }
 
 const activityPL = {

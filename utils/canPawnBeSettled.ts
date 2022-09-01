@@ -1,12 +1,20 @@
-import { IPawn } from "../interfaces/Pawns/Pawn";
+import { IPawn, IPawnRenderData } from "../interfaces/Pawns/Pawn";
+import { ICharacter } from "../interfaces/Characters/Character";
+import { characters } from "../server/Classes/Game";
 
 export function getPawnCanBeSettled(
-  pawn: IPawn | null,
+  pawn: null | IPawnRenderData,
   destinationId: string
 ): boolean {
   if (!pawn) {
     return true;
   }
+
+  const char = characters.find((ch: ICharacter) => ch.id === pawn.characterId);
+  if (!char) {
+    throw new Error("Can't find character with id: " + pawn.characterId);
+  }
+
   if (pawn.draggableId.includes("dog")) {
     if (destinationId.includes("leader")) {
       return false;
@@ -22,8 +30,7 @@ export function getPawnCanBeSettled(
     );
   } else {
     return !(
-      destinationId.includes("freepawns") &&
-      !destinationId.includes(pawn.character.name)
+      destinationId.includes("freepawns") && !destinationId.includes(char.name)
     );
   }
 }

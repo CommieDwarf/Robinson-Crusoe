@@ -1,12 +1,13 @@
-import { game } from "../../server/game";
+import {game} from "../../server/game";
 
-import { fromJSON } from "flatted";
+export interface SetPawnData {
+  destinationId: string;
+  draggableId: string;
+}
 
-export default function setPawn(json: JSON) {
-  const data = fromJSON(json);
+export default function setPawn(data: string) {
+  const dataObj = JSON.parse(data) as SetPawnData;
 
-  const destinationId = data.destinationId;
-  const draggableId = data.draggableId;
 
-  game.setPawn(destinationId, draggableId);
+  game.setPawn(dataObj.destinationId, dataObj.draggableId);
 }

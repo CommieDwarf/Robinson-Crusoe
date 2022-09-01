@@ -1,22 +1,23 @@
 import React from "react";
 import styles from "./AdditionalActivities.module.css";
 import RestArrange from "./RestArrange/RestArrange";
-import AdditionalActivity from "../../../../interfaces/AdditionalActivity";
-import { IPawn } from "../../../../interfaces/Pawns/Pawn";
+import { IPawn, IPawnRenderData } from "../../../../interfaces/Pawns/Pawn";
+import { AdditionalActivity } from "../../../../server/Classes/AdditionalActivity/AdditionalActivity";
+import { IAdditionalActivity } from "../../../../interfaces/AdditionalActivity";
 
 interface Props {
   activities: {
-    rest: AdditionalActivity;
-    arrange: AdditionalActivity;
+    rest: IAdditionalActivity;
+    arrangeCamp: IAdditionalActivity;
   };
-  actionSlots: Map<string, IPawn | null>;
+  actionSlots: Map<string, IPawnRenderData | null>;
 }
 
 export default function AdditionalActivities(props: Props) {
   return (
     <div className={styles.container}>
       <RestArrange
-        activity={props.activities.arrange}
+        activity={props.activities.arrangeCamp}
         actionSlots={props.actionSlots}
       />
       <RestArrange

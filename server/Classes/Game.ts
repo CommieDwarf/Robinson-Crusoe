@@ -19,7 +19,11 @@ import { IEquipment } from "../../interfaces/Equipment/Equipment";
 import { IAllCharacters } from "../../components/game/interface/Characters";
 import { AllCharacters } from "./Characters/AllCharacters";
 import { getPawnCanBeSettled } from "../../utils/canPawnBeSettled";
-import { IPawn, IPawnHelper } from "../../interfaces/Pawns/Pawn";
+import {
+  IPawn,
+  IPawnHelper,
+  IPawnRenderData,
+} from "../../interfaces/Pawns/Pawn";
 import { ICharacter } from "../../interfaces/Characters/Character";
 import { ITilesService } from "../../interfaces/Tiles/Tiles";
 import { IAllResources } from "../../interfaces/Resources/AllResources";
@@ -32,6 +36,8 @@ const friday = new SideCharacter("friday", 0, 4);
 const dog = new SideCharacter("dog", 1, Infinity);
 const cook = new PlayerCharacter("cook", 2, 13, "male", [2, 1, 3, 7], player);
 player.setCharacter(cook);
+
+export const characters = [friday, dog, cook];
 
 export { player };
 type ScenarioName = "castaways";
@@ -151,19 +157,18 @@ export class GameClass implements IGame {
   }
 
   setPawn(droppableId: string, draggableId: string) {
-    console.log(droppableId, draggableId);
     const pawn = this.allPawns.find((p) => p.draggableId === draggableId);
-    console.log(pawn);
     if (!pawn) {
       throw new Error("cant find pawn with id: " + draggableId);
     }
-    if (!getPawnCanBeSettled(pawn, droppableId)) {
+    if (!this.canPawnBeSettled(pawn, droppableId)) {
       return;
     }
 
     if (droppableId.includes("freepawns")) {
       pawn.character.pawns.copyPawnToFreePawns(pawn.draggableId);
     } else {
+      console.log(droppableId, pawn);
       this._actionSlotsService.setPawn(droppableId, pawn);
     }
     if (droppableId.includes("rest")) {
@@ -211,5 +216,30 @@ export class GameClass implements IGame {
       throw new Error("Can't find character with id: " + id);
     }
     return char;
+  }
+
+  canPawnBeSettled(pawn: null | IPawn, destinationId: string): boolean {
+    if (!pawn) {
+      return true;
+    }
+    if (pawn.draggableId.includes("dog")) {
+      if (destinationId.includes("leader")) {
+        return false;
+      }
+      if (destinationId.includes("hunt") || destinationId.includes("explore")) {
+        return true;
+      }
+      return destinationId.includes("freepawns-dog");
+    } else if (pawn.draggableId === "friday") {
+      return !(
+        destinationId.includes("freepawns") &&
+        !destinationId.includes("freepawns-friday")
+      );
+    } else {
+      return !(
+        destinationId.includes("freepawns") &&
+        !destinationId.includes(pawn.character.name)
+      );
+    }
   }
 }

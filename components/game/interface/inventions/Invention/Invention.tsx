@@ -3,16 +3,16 @@ import React, { useState } from "react";
 import ActionSlot from "../../ActionSlot";
 import styles from "./Invention.module.css";
 import getHelperActionSlots from "../../../../../utils/getHelperActionSlots";
-import { IPawn } from "../../../../../interfaces/Pawns/Pawn";
-import { InventionData } from "../../../../../interfaces/GameData/GameData";
+import { IPawn, IPawnRenderData } from "../../../../../interfaces/Pawns/Pawn";
+import { IInventionRenderData } from "../../../../../interfaces/Inventions/Invention";
 
 type Props = {
-  invention: InventionData;
+  invention: IInventionRenderData;
   column: number;
   row: number;
   top: number;
-  actionSlots: Map<string, IPawn | null>;
-  zIndexIncreased: boolean | undefined;
+  actionSlots: Map<string, IPawnRenderData | null>;
+  zIndex: string;
 };
 
 export default function Invention(props: Props) {
@@ -21,9 +21,7 @@ export default function Invention(props: Props) {
   const inventionRef = React.createRef<HTMLDivElement>();
 
   function handleClick() {
-    if (!props.zIndexIncreased) {
-      setEnlarge((prev) => !prev);
-    }
+    setEnlarge((prev) => !prev);
   }
 
   const wrapperStyle = {
@@ -60,9 +58,12 @@ export default function Invention(props: Props) {
   let leaderPawn = props.actionSlots.get(leaderId);
   leaderPawn = leaderPawn ? leaderPawn : null;
 
-  const zIndexClass = props.zIndexIncreased ? styles.zIndexIncreased : "";
-  if (zIndexClass) {
-  }
+  const zIndexClass = props.zIndex.includes(props.invention.name)
+    ? styles.zIndexIncreased
+    : "";
+
+  console.log("ZINDEX " + props.zIndex);
+
   return (
     <div
       ref={inventionRef}

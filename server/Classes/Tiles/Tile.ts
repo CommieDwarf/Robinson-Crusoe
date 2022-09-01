@@ -45,8 +45,9 @@ export class Tile implements ITile {
     return {
       helpersRequired: this.helpersRequired,
       id: this.id,
-      show: false,
+      show: this.show,
       structure: this.structure,
+      type: this.type,
     };
   }
 

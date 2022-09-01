@@ -10,6 +10,5 @@ export interface IActionSlotsService {
   unsetPawn: (droppableId: string) => void;
   clearSlots: () => void;
   getPawn: (droppableId: string) => IPawn | null;
-  setPawns: (destinationId: string, sourceId: string) => void;
   renderData: IActionSlotsServiceRenderData;
 }

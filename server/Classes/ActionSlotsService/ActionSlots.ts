@@ -1,9 +1,13 @@
-import {IPawn} from "../../../interfaces/Pawns/Pawn";
-import {IActionSlotsService, IActionSlotsServiceRenderData} from "../../../interfaces/ActionSlots";
-import {getPawnCanBeSettled} from "../../../utils/canPawnBeSettled";
-import {IStructuresService} from "../../../interfaces/Structures/Structures";
-import {IInventionsService} from "../../../interfaces/Inventions/Inventions";
-import {ITilesService} from "../../../interfaces/Tiles/Tiles";
+import { IPawn } from "../../../interfaces/Pawns/Pawn";
+import {
+  IActionSlotsService,
+  IActionSlotsServiceRenderData,
+} from "../../../interfaces/ActionSlots";
+import { getPawnCanBeSettled } from "../../../utils/canPawnBeSettled";
+import { IStructuresService } from "../../../interfaces/Structures/Structures";
+import { IInventionsService } from "../../../interfaces/Inventions/Inventions";
+import { ITilesService } from "../../../interfaces/Tiles/Tiles";
+import inventionList from "../../constants/inventionList";
 
 export class ActionSlotsService implements IActionSlotsService {
   set slots(value: Map<string, IPawn | null>) {
@@ -15,15 +19,15 @@ export class ActionSlotsService implements IActionSlotsService {
   }
 
   get renderData(): IActionSlotsServiceRenderData {
-    const renderData: any = {};
+    const slots: any = {};
     this.slots.forEach((pawn, slotId) => {
       if (pawn) {
-        renderData[slotId] = pawn.renderData;
+        slots[slotId] = pawn.renderData;
       } else {
-        renderData[slotId] = null;
+        slots[slotId] = null;
       }
-    })
-    return renderData;
+    });
+    return { slots };
   }
 
   private _slots: Map<string, null | IPawn>;
@@ -32,25 +36,14 @@ export class ActionSlotsService implements IActionSlotsService {
   private _tiles: ITilesService;
 
   constructor(
-      structuresService: IStructuresService,
-      inventionsService: IInventionsService,
-      tiles: ITilesService
+    structuresService: IStructuresService,
+    inventionsService: IInventionsService,
+    tiles: ITilesService
   ) {
     this._structuresService = structuresService;
     this._inventionsService = inventionsService;
     this._tiles = tiles;
     this._slots = this.getInitialSlots();
-  }
-
-  public setPawns(destinationId: string, sourceId: string) {
-    const pawn1 = this.getPawn(destinationId);
-    const pawn2 = this.getPawn(sourceId);
-    if (getPawnCanBeSettled(pawn1, sourceId)) {
-      this.setPawn(sourceId, pawn1);
-    }
-    if (getPawnCanBeSettled(pawn2, destinationId)) {
-      this.setPawn(destinationId, pawn2);
-    }
   }
 
   public setPawn(id: string, pawn: IPawn | null) {
@@ -66,27 +59,34 @@ export class ActionSlotsService implements IActionSlotsService {
   }
 
   public getPawn(droppableId: string): IPawn | null {
-    let IPawn = this._slots.get(droppableId);
-    if (IPawn === undefined) {
+    let pawn = this.slots.get(droppableId);
+    console.log(this.slots, this._inventionsService.inventions);
+    if (pawn === undefined) {
       throw new Error("Cant find slot with id: " + droppableId);
     } else {
-      return IPawn;
+      return pawn;
     }
   }
 
   private getInitialSlots() {
     const actionSlots = new Map<string, null | IPawn>();
-
     this._structuresService.structures.forEach((structure) => {
-      actionSlots.set("structure" + structure.name + "leader", null);
-      actionSlots.set("structure" + structure.name + "helper-1", null);
-      actionSlots.set("structure" + structure.name + "helper-2", null);
+      actionSlots.set("structure-" + structure.name + "-leader", null);
+      actionSlots.set("structure-" + structure.name + "-helper-1", null);
+      actionSlots.set("structure-" + structure.name + "-helper-2", null);
     });
 
-    this._inventionsService.inventions.forEach((invention) => {
-      actionSlots.set("invention-" + invention.name + "-leader", null);
-      actionSlots.set("invention-" + invention.name + "-helper-1", null);
-      actionSlots.set("invention-" + invention.name + "-helper-2", null);
+    const inventions = [
+      ...inventionList.normal,
+      ...inventionList.scenario.castaways,
+      inventionList.personal.cook,
+      ...inventionList.starters,
+    ];
+
+    inventions.forEach((invention) => {
+      actionSlots.set("invention-" + invention + "-leader", null);
+      actionSlots.set("invention-" + invention + "-helper-1", null);
+      actionSlots.set("invention-" + invention + "-helper-2", null);
     });
 
     this._tiles.tiles.forEach((tile) => {

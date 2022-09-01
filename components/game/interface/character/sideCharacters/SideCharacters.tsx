@@ -4,11 +4,11 @@ import Pawn from "../../Pawn";
 import FridayHealth from "./fridayHealth/FridayHealth";
 import styles from "./SideCharacters.module.css";
 import { Droppable } from "react-beautiful-dnd";
-import { ISideCharacter } from "../../../../../interfaces/Characters/SideCharacter";
+import { ISideCharacterRenderData } from "../../../../../interfaces/Characters/SideCharacter";
 
 interface Props {
-  friday: ISideCharacter;
-  dog: ISideCharacter;
+  friday: ISideCharacterRenderData;
+  dog: ISideCharacterRenderData;
 }
 
 export default function SideCharacters(props: Props) {
@@ -23,8 +23,8 @@ export default function SideCharacters(props: Props) {
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
-              {props.friday.pawns.freePawns[0] &&
-                props.friday.pawns.freePawns.map((pawn, i) => {
+              {props.friday.freePawns[0] &&
+                props.friday.freePawns.map((pawn, i) => {
                   return (
                     <Pawn
                       pawn={pawn}
@@ -60,8 +60,8 @@ export default function SideCharacters(props: Props) {
               {...provided.droppableProps}
               id={"dog-droppable"}
             >
-              {props.dog.pawns.freePawns[0] &&
-                props.dog.pawns.freePawns.map((pawn, i) => {
+              {props.dog.freePawns[0] &&
+                props.dog.freePawns.map((pawn, i) => {
                   return (
                     <Pawn
                       pawn={pawn}
