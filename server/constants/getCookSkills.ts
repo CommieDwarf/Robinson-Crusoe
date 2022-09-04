@@ -29,22 +29,22 @@ export function getCookSkills(
 
 const recipeInfo = new SkillInfo(
   "Babcina Receptura",
-  "Odrzuć 2 $determination$ aby uleczyć 2 $heart$ $br$ odrzucając 1 $food$",
-  "Po zupie mojej babci na pewno $br$ poczujesz się lepiej."
+  "Odrzuć 2 $determination$ aby uleczyć 2 $heart$ odrzucając 1 $food$",
+  "Po zupie mojej babci na pewno poczujesz się lepiej."
 );
 
 const reRollInfo = new SkillInfo(
   "Bystre oko",
-  "Odrzuć 2 $determination$, aby $reroll$ dowolną $br$ szarą kość podczas swojej Akcji.",
-  "Gdy mówię, że się znajdzie $br$ to się znajdzie. Trzeba tylko $br$ wiedzieć, gdzie szukać!"
+  "Odrzuć 2 $determination$, aby $reroll$ dowolną szarą kość podczas swojej Akcji.",
+  "Gdy mówię, że się znajdzie to się znajdzie. Trzeba tylko wiedzieć, gdzie szukać!"
 );
 const stoneSoupInfo = new SkillInfo(
   "Zupa z gwoździa",
   "Odrzuć 3 $determination$, aby otrzymać 1 $food$.",
-  "Brak składników to nie $br$ przeszkoda, to wyzwanie. $br$ Dobry kucharz poradzi sobie $br$ w każdej sytuacji!"
+  "Brak składników to nie przeszkoda, to wyzwanie. Dobry kucharz poradzi sobie w każdej sytuacji!"
 );
 const boozeInfo = new SkillInfo(
   "Samogon",
-  "Odrzuć 3 $determination$, aby usunąć 1 $rainCloud$  $br$ lub zamienić 1 $snowCloud$ w 1 $rainCloud$",
-  "Wiem, że jest zimno i w ogóle, $br$ ale mam tu coś co ogrzeje ciało $br$ i rozjaśni umysł."
+  "Odrzuć 3 $determination$, aby usunąć 1 $rainCloud$ lub zamienić 1 $snowCloud$ w 1 $rainCloud$",
+  "Wiem, że jest zimno i w ogóle, ale mam tu coś co ogrzeje ciało i rozjaśni umysł."
 );

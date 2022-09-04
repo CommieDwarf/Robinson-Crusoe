@@ -2,7 +2,7 @@
 .container {
     position: absolute;
     width: 0;
-    height: 145%;
+    height: 155%;
     left: 0;
     top: -24%;
     transition: all 1s;
@@ -11,16 +11,14 @@
     border: none;
     overflow: hidden;
     font-size: 13px;
-    white-space: nowrap;
     font-weight: bold;
-
 }
 
-
 .skillDescriptionVisible {
-    width: 200%;
-    left: -200%;
+    width: 210px;
+    left: -210px;
     border: 1px solid #451e14;
+
 }
 
 .useButton {
@@ -32,7 +30,14 @@
     border-radius: 5px;
 }
 
-.commentary {
+.text {
+    position: absolute;
+    left: 0;
+    width: 205px;
+    height: 155%;
+}
+
+.quote {
     font-weight: bold;
     font-style: italic;
     font-size: 10px;

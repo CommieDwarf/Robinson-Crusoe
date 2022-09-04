@@ -52,7 +52,7 @@ export default function Game(props: Props) {
   const actionSlots = new Map<string, IPawnRenderData | null>(
     Object.entries(gameRenderData.actionSlotsService.slots)
   );
-
+  console.log(gameRenderData.inventionsService);
   const [isPawnBeingDragged, setIsPawnBeingDragged] = useState(false);
 
   const [showScenario, setShowScenario] = useState(false);
@@ -256,13 +256,18 @@ export default function Game(props: Props) {
         )}
 
         <Health />
-        <Threat threat={gameRenderData.threat} actionSlots={actionSlots} />
+        <Threat
+          threat={gameRenderData.threat}
+          actionSlots={actionSlots}
+          zIndex={zIndex}
+        />
         <AdditionalActivities
           activities={{
             rest: gameRenderData.rest,
             arrangeCamp: gameRenderData.arrangeCamp,
           }}
           actionSlots={actionSlots}
+          zIndex={zIndex}
         />
         <Equipment equipment={gameRenderData.equipment} />
         <ActionsOrder />

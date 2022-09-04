@@ -1,12 +1,7 @@
-import inventionList from "../../constants/inventionList";
+import { inventions } from "../../constants/inventionList";
 import shuffle from "../../../utils/shuffleArray";
 import { Invention } from "./Invention";
-import {
-  IInvention,
-  IInventionRenderData,
-  INVENTION_TYPE,
-} from "../../../interfaces/Inventions/Invention";
-import { Resources } from "../AllResources/Resources";
+import { IInvention } from "../../../interfaces/Inventions/Invention";
 import { IPlayerCharacter } from "../../../interfaces/Characters/PlayerCharacter";
 import {
   IInventionsService,
@@ -43,69 +38,24 @@ export class InventionsService implements IInventionsService {
     this._inventions = this.getInitialInventions(scenario);
     this._tiles = tiles;
     this.updateLocks();
+    console.log(this._inventions, "INVENTIONS");
   }
 
   private getInitialInventions(scenario: "castaways") {
-    const normalInventionList = shuffle(inventionList.normal).slice(0, 5);
-    const scenarioInventionList = inventionList.scenario[scenario];
-
-    const inventions: Invention[] = [];
-
-    normalInventionList.forEach((name) => {
-      inventions.push(
-        new Invention(
-          name,
-          { invention: null, terrainType: null },
-          {},
-          INVENTION_TYPE.NORMAL,
-          new Resources(),
-          null
-        )
-      );
-    });
-    scenarioInventionList.forEach((name) => {
-      inventions.push(
-        new Invention(
-          name,
-          {
-            invention: null,
-            terrainType: null,
-          },
-          {},
-          INVENTION_TYPE.SCENARIO,
-          new Resources(),
-          null
-        )
-      );
-    });
-    inventionList.starters.forEach((name) => {
-      inventions.push(
-        new Invention(
-          name,
-          {
-            invention: null,
-            terrainType: null,
-          },
-          {},
-          INVENTION_TYPE.STARTER,
-          new Resources(),
-          null
-        )
-      );
-    });
-    this._characters.forEach((character) => {
-      inventions.push(
-        new Invention(
-          inventionList.personal[character.name],
-          { invention: null, terrainType: null },
-          {},
-          INVENTION_TYPE.PERSONAL,
-          new Resources(),
-          character
-        )
-      );
-    });
-    return inventions;
+    const normalShuffled = shuffle(inventions.normal).slice(0, 5);
+    console.log(normalShuffled, "SHUFFLED");
+    return [
+      ...inventions.starters,
+      ...normalShuffled,
+      ...inventions.scenario.castaways,
+      inventions.personal.cook,
+    ];
+    // return [
+    //   ...inventions.starters,
+    //   ...shuffle(inventions.normal),
+    //   ...inventions.scenario.castaways,
+    //   inventions.personal.cook,
+    // ];
   }
 
   build(name: InventionName) {
@@ -132,23 +82,28 @@ export class InventionsService implements IInventionsService {
 
   updateLocks() {
     this._inventions.forEach((invention) => {
-      invention.locked =
-        !this.isInvRequirementMet(invention) ||
-        !this.isTileTypeRequirementMet(invention);
+      invention.locked = !(
+        this.isInvRequirementMet(invention) &&
+        this.isTileTypeRequirementMet(invention)
+      );
     });
   }
 
   private isInvRequirementMet(invention: IInvention) {
-    if (!invention.requirement.invention) {
+    if (!invention.requirement || !invention.requirement.invention) {
       return true;
     }
-    return this._builtInventions.some((builtInv) => {
-      return builtInv.name === invention.requirement.invention?.name;
+    let flag = true;
+    invention.requirement.invention.forEach((req) => {
+      if (!this._builtInventions.some((inv) => inv.name === req)) {
+        flag = false;
+      }
     });
+    return flag;
   }
 
   private isTileTypeRequirementMet(invention: IInvention) {
-    if (!invention.requirement.terrainType) {
+    if (!invention.requirement || !invention.requirement.terrainType) {
       return true;
     }
 

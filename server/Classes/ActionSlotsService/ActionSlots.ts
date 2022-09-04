@@ -7,7 +7,7 @@ import { getPawnCanBeSettled } from "../../../utils/canPawnBeSettled";
 import { IStructuresService } from "../../../interfaces/Structures/Structures";
 import { IInventionsService } from "../../../interfaces/Inventions/Inventions";
 import { ITilesService } from "../../../interfaces/Tiles/Tiles";
-import inventionList from "../../constants/inventionList";
+import { inventionList } from "../../constants/inventionList";
 
 export class ActionSlotsService implements IActionSlotsService {
   set slots(value: Map<string, IPawn | null>) {
@@ -76,14 +76,7 @@ export class ActionSlotsService implements IActionSlotsService {
       actionSlots.set("structure-" + structure.name + "-helper-2", null);
     });
 
-    const inventions = [
-      ...inventionList.normal,
-      ...inventionList.scenario.castaways,
-      inventionList.personal.cook,
-      ...inventionList.starters,
-    ];
-
-    inventions.forEach((invention) => {
+    inventionList.forEach((invention) => {
       actionSlots.set("invention-" + invention + "-leader", null);
       actionSlots.set("invention-" + invention + "-helper-1", null);
       actionSlots.set("invention-" + invention + "-helper-2", null);

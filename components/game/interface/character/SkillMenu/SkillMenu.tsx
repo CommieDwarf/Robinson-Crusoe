@@ -12,10 +12,12 @@ interface Props {
 
 export default function SkillMenu(props: Props) {
   let description;
-  let commentary;
+  let quote;
   if (props.skillDescription.skill) {
-    description = insertJSXIntoString(props.skillDescription.skill.description);
-    commentary = insertJSXIntoString(props.skillDescription.skill.quote);
+    description = insertIconsIntoString(
+      props.skillDescription.skill.description
+    );
+    quote = insertIconsIntoString(props.skillDescription.skill.quote);
   }
   const visibilityClass = props.skillDescription.show
     ? styles.skillDescriptionVisible
@@ -26,8 +28,10 @@ export default function SkillMenu(props: Props) {
       {props.skillDescription.skill && (
         <>
           <div className={styles.useButton}>Użyj</div>
-          <div className={styles.commentary}>{commentary}</div>
-          <div className={styles.description}>{description}</div>
+          <div className={styles.text}>
+            <div className={styles.quote}>{quote}</div>
+            <div className={styles.description}>{description}</div>
+          </div>
         </>
       )}
     </div>
@@ -43,7 +47,7 @@ const icons = [
   "food",
 ];
 
-function insertJSXIntoString(string: string) {
+function insertIconsIntoString(string: string) {
   const array = string.split("$");
 
   return array.map((st) => {
@@ -57,8 +61,6 @@ function insertJSXIntoString(string: string) {
           />
         </div>
       );
-    } else if (st === "br") {
-      return <br />;
     } else {
       return st;
     }

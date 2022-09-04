@@ -18,7 +18,7 @@ interface Props {
 export default function Inventions(props: Props) {
   const scrollbar = React.createRef<Scrollbars>();
   const [scrollTop, setScrollTop] = useState(0);
-
+  const [isEnlarged, setIsEnlarged] = useState(false);
   let column = -1;
   let row = -1;
   const starters = props.inventions.map((invention, i) => {
@@ -34,6 +34,7 @@ export default function Inventions(props: Props) {
         key={i}
         actionSlots={props.actionSlots}
         zIndex={props.zIndex}
+        setIsEnlarged={setIsEnlarged}
       />
     );
   });
@@ -52,7 +53,7 @@ export default function Inventions(props: Props) {
         styleModule={scrollbarStyles}
         scrollbarRef={scrollbar}
         setScrollTop={setScrollTop}
-        disabled={props.isBeingDragged}
+        disabled={props.isBeingDragged && isEnlarged}
       >
         <div className={styles.content} style={contentStyle}>
           {starters}

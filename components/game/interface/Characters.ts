@@ -1,7 +1,3 @@
-import {
-  CharacterName,
-  ICharacter,
-} from "../../../interfaces/Characters/Character";
 import { ISideCharacter } from "../../../interfaces/Characters/SideCharacter";
 import { IPlayerCharacter } from "../../../interfaces/Characters/PlayerCharacter";
 

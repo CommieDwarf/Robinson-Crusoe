@@ -5,7 +5,7 @@ import SideCharacters from "./sideCharacters/SideCharacters";
 import scrollbarStyles from "./Scrollbar.module.css";
 
 import Determination from "./determination/Determination";
-import Skill from "./Skill/Skill";
+import SkillLabel from "./SkillLabel/SkillLabel";
 import SkillMenu from "./SkillMenu/SkillMenu";
 import Scrollbar from "../Scrollbar";
 import Pawn from "../Pawn";
@@ -36,10 +36,11 @@ export default function Character(props: Props) {
 
   const skills = Object.entries(props.character.skills).map(([key, value]) => {
     return (
-      <Skill
+      <SkillLabel
         skill={value}
         setSkillDescription={setSkillDescription}
         key={key}
+        selected={value === skillDescription.skill && skillDescription.show}
       />
     );
   });
