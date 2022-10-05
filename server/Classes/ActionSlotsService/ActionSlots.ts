@@ -60,7 +60,6 @@ export class ActionSlotsService implements IActionSlotsService {
 
   public getPawn(droppableId: string): IPawn | null {
     let pawn = this.slots.get(droppableId);
-    console.log(this.slots, this._inventionsService.inventions);
     if (pawn === undefined) {
       throw new Error("Cant find slot with id: " + droppableId);
     } else {

@@ -52,7 +52,6 @@ export default function Game(props: Props) {
   const actionSlots = new Map<string, IPawnRenderData | null>(
     Object.entries(gameRenderData.actionSlotsService.slots)
   );
-  console.log(gameRenderData.inventionsService);
   const [isPawnBeingDragged, setIsPawnBeingDragged] = useState(false);
 
   const [showScenario, setShowScenario] = useState(false);
@@ -92,7 +91,6 @@ export default function Game(props: Props) {
 
   function onDragUpdate(update: DragUpdate) {
     unselectActionSlots();
-    console.log(update.destination?.droppableId);
     const pawn = gameRenderData.allPawns.find(
       (p) => p.draggableId === update.draggableId
     );

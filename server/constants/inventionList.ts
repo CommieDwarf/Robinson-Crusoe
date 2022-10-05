@@ -300,7 +300,7 @@ export const inventionList = [
   ...starterList,
   ...normalList,
   ...scenarioList.castaways,
-  ...personalList.cook,
+  personalList.cook,
 ];
 
 export const inventions = {

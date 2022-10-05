@@ -38,17 +38,15 @@ export class InventionsService implements IInventionsService {
     this._inventions = this.getInitialInventions(scenario);
     this._tiles = tiles;
     this.updateLocks();
-    console.log(this._inventions, "INVENTIONS");
   }
 
   private getInitialInventions(scenario: "castaways") {
     const normalShuffled = shuffle(inventions.normal).slice(0, 5);
-    console.log(normalShuffled, "SHUFFLED");
     return [
       ...inventions.starters,
       ...normalShuffled,
-      ...inventions.scenario.castaways,
-      inventions.personal.cook,
+      ...inventions.scenario.castaways, // HARD CODED FOR THE DEMO
+      inventions.personal.cook, // SAME THING
     ];
     // return [
     //   ...inventions.starters,
