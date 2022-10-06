@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 import styles from "./Health.module.css";
 
+
 const health = [
   "h",
   "h",

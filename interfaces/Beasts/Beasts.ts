@@ -5,7 +5,14 @@ export interface IBeastsRenderData {
 }
 
 export interface IBeasts {
-  getBeast: () => IBeast;
+  getBeastFromDeck: () => IBeast;
   deckCount: number;
   renderData: IBeastsRenderData;
+  moveBeastFromStackToDeck: () => void;
+  addBeastToDeck: (beast: IBeast) => void;
+  getBeastsFromStack: (amount: number) => IBeast[];
+  killBeast: () => void;
+  fightBeast: () => void;
+  swapDeckTopToBottom: () => void;
+  beastStrengthEnchanted: boolean;
 }

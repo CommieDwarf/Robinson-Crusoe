@@ -23,7 +23,6 @@ export default function ScenarioButton(props: Props) {
       ? styles.zIndexIncreased
       : "";
 
-  console.log(zIndexClass)
 
   function handleHide() {
     props.setShow(false);

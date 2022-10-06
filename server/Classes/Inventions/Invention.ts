@@ -1,11 +1,15 @@
 import {
-  IInvention, IInventionRenderData,
+  IInvention,
+  IInventionRenderData,
   INVENTION_TYPE,
 } from "../../../interfaces/Inventions/Invention";
-import {TerrainType} from "../../../interfaces/Tiles/Tile";
-import {ICharacter} from "../../../interfaces/Characters/Character";
-import {IResources, IResourcesAmount} from "../../../interfaces/Resources/Resources";
-import {Resources} from "../AllResources/Resources";
+import { TerrainType } from "../../../interfaces/Tiles/Tile";
+import {
+  CharacterName,
+  ICharacter,
+} from "../../../interfaces/Characters/Character";
+import { IResources } from "../../../interfaces/Resources/Resources";
+import { Resources } from "../AllResources/Resources";
 
 export class Invention implements IInvention {
   get cost(): IResources {
@@ -71,15 +75,14 @@ export class Invention implements IInvention {
       requiredHelpersAmount: this.requiredHelpersAmount,
       type: this.type,
       committedResources: this._committedResources.renderData,
-      isBuilt: this.isBuilt
-
-    }
+      isBuilt: this.isBuilt,
+    };
   }
 
   private readonly _name: string;
   private _locked = true;
   private readonly _requirement: {
-    invention: IInvention | null;
+    invention: string[] | null;
     terrainType: TerrainType | null;
   };
 
@@ -90,18 +93,18 @@ export class Invention implements IInvention {
   private _committedResources: IResources = new Resources();
   private _built = false;
   private _cost: IResources;
-  private readonly _character: ICharacter | null;
+  private readonly _character: CharacterName | null;
 
   constructor(
-      name: string,
-      requirement: {
-        invention: IInvention | null;
-        terrainType: TerrainType | null;
-      },
-      reward: {},
-      type: INVENTION_TYPE,
-      cost: IResources,
-      character: ICharacter | null
+    name: string,
+    requirement: {
+      invention: string[] | null;
+      terrainType: TerrainType | null;
+    },
+    reward: {},
+    type: INVENTION_TYPE,
+    cost: IResources,
+    character: CharacterName | null
   ) {
     this._name = name;
     this._requirement = requirement;

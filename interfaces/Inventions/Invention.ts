@@ -20,7 +20,7 @@ export interface IInvention {
   isBuilt: boolean;
   cost: IResources;
   requirement: {
-    invention: IInvention | null;
+    invention: string[] | null;
     terrainType: TerrainType | null;
   };
   renderData: IInventionRenderData;

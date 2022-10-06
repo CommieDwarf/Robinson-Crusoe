@@ -13,6 +13,7 @@ type Props = {
   top: number;
   actionSlots: Map<string, IPawnRenderData | null>;
   zIndex: string;
+  setIsEnlarged?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function Invention(props: Props) {
@@ -22,6 +23,9 @@ export default function Invention(props: Props) {
 
   function handleClick() {
     setEnlarge((prev) => !prev);
+    if (props.setIsEnlarged) {
+      props.setIsEnlarged((prev) => !prev);
+    }
   }
 
   const wrapperStyle = {
@@ -62,7 +66,6 @@ export default function Invention(props: Props) {
     ? styles.zIndexIncreased
     : "";
 
-  console.log("ZINDEX " + props.zIndex);
 
   return (
     <div

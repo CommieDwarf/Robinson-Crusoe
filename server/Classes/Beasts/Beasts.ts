@@ -1,12 +1,26 @@
-import { IResources } from "../../../interfaces/Resources/Resources";
-import { IBeasts, IBeastsRenderData } from "../../../interfaces/Beasts/Beasts";
-import { IBeast } from "../../../interfaces/Beasts/Beast";
+import {IResources} from "../../../interfaces/Resources/Resources";
+import {IBeasts, IBeastsRenderData} from "../../../interfaces/Beasts/Beasts";
+import {IBeast} from "../../../interfaces/Beasts/Beast";
 
 export class Beasts implements IBeasts {
+  get beastStrengthEnchanted(): boolean {
+    return this._beastStrengthEnchanted;
+  }
+
+  set beastStrengthEnchanted(value: boolean) {
+    this._beastStrengthEnchanted = value;
+  }
+
   private _deck: IBeast[] = [];
+
+  // TODO: changge allBeasts name to stack
   private _allBeasts: IBeast[] = [];
   private _game: unknown;
   private _ownedResources: IResources;
+
+  private beastBeingFought: IBeast | null = null;
+
+  private _beastStrengthEnchanted = false;
 
   get deckCount() {
     return this._deck.length;
@@ -23,14 +37,14 @@ export class Beasts implements IBeasts {
     this._ownedResources = ownedResources;
   }
 
-  getBeast(): IBeast {
+  getBeastFromDeck(): IBeast {
     if (this.deckCount === 0) {
       throw new Error("There is no more beasts in the deck");
     }
     return this._deck[this.deckCount - 1];
   }
 
-  moveBeastToDeck() {
+  moveBeastFromStackToDeck() {
     const beast = this._allBeasts.pop();
     if (!beast) {
       throw new Error("There is no more beasts to push into the deck");
@@ -38,6 +52,48 @@ export class Beasts implements IBeasts {
     this._deck.push(beast);
   }
 
+  addBeastToDeck(beast: IBeast) {
+    this._deck.push(beast);
+  }
+
+  swapDeckTopToBottom() {
+    let beastFromTop = this._deck.pop();
+    if (beastFromTop) {
+      this._deck.unshift(beastFromTop);
+    }
+  }
+
+  getBeastsFromStack(amount: number) {
+    let beasts: IBeast[] = [];
+    for (let i = 0; i < amount; i++) {
+      let beast = this._allBeasts.pop();
+      if (beast) {
+        beasts.push(beast);
+      }
+    }
+    return beasts;
+  }
+
+  fightBeast() {
+    const beast = this._deck.pop();
+    if (beast) {
+      this.beastBeingFought = beast;
+    }
+  }
+
   //TODO implement killBeast()
-  killBeast() {}
+  killBeast() {
+  }
+
+  static getStrongestBeast(beasts: IBeast[]) {
+    let strength = 0;
+    let current: null | IBeast = null;
+    beasts.forEach((beast) => {
+      if (beast.strength > strength) {
+        current = beast;
+      }
+    });
+
+    return current;
+  }
 }

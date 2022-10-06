@@ -1,7 +1,3 @@
-import {
-  CharacterName,
-  ICharacter,
-} from "../../../interfaces/Characters/Character";
 import { ISideCharacter } from "../../../interfaces/Characters/SideCharacter";
 import { IPlayerCharacter } from "../../../interfaces/Characters/PlayerCharacter";
 
@@ -12,4 +8,5 @@ export interface IAllCharacters {
   addPawn: (charName: string, draggableId: string) => void;
   addFreePawn: (charName: string, draggableId: string) => void;
   getCharacter: (charName: string) => ISideCharacter | IPlayerCharacter;
+  hurtAllPlayerCharacters: (by: number) => void;
 }
