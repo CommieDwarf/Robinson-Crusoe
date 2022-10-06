@@ -8,4 +8,5 @@ export interface IAllCharacters {
   addPawn: (charName: string, draggableId: string) => void;
   addFreePawn: (charName: string, draggableId: string) => void;
   getCharacter: (charName: string) => ISideCharacter | IPlayerCharacter;
+  hurtAllPlayerCharacters: (by: number) => void;
 }

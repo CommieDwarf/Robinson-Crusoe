@@ -25,6 +25,8 @@ import {
 } from "./Inventions/Inventions";
 import { ISideCharacterRenderData } from "./Characters/SideCharacter";
 import { IPlayerCharacterRenderData } from "./Characters/PlayerCharacter";
+import { IMorale } from "./Morale/Morale";
+import { IWeather } from "./Weather/Weather";
 
 export interface IGameRenderData {
   players: IPlayerRenderData[];
@@ -58,6 +60,8 @@ export interface IGame {
   arrangeCamp: IAdditionalActivity;
   beasts: IBeasts;
   allPawns: IPawn[];
+  morale: IMorale;
+  weather: IWeather;
 
   setPawn: (droppableId: string, draggableId: string) => void;
   unsetPawn: (destinationId: string, draggableId: string) => void;

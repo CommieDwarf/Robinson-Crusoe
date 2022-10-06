@@ -14,6 +14,12 @@ export class TilesService implements ITilesService {
   tiles: ITile[];
   tileStack: TileType[];
   terrainTypesExplored: Set<TerrainType>;
+  currentCampTile: ITile;
+  previousCampTile: ITile | null = null;
+  campTransition = {
+    status: false,
+    forced: false,
+  };
 
   get renderData(): ITilesServiceRenderData {
     return {
@@ -26,6 +32,7 @@ export class TilesService implements ITilesService {
     this.terrainTypesExplored = new Set<TerrainType>(["beach"]);
     this.tiles = this.getInitialTiles();
     this.showAdjacentTiles(starterId);
+    this.currentCampTile = this.getExploredTile(starterId);
   }
 
   private getInitialTiles() {
@@ -71,5 +78,23 @@ export class TilesService implements ITilesService {
     } else {
       return tile;
     }
+  }
+
+  forceCampTransition() {
+    this.campTransition.forced = true;
+    this.campTransition.status = true;
+  }
+
+  isCampTransitionAvailable(): boolean {
+    return true; // TODO: implement this
+  }
+
+  getExploredTile(id: number): ITile {
+    const tile = this.tiles.find((tile) => tile.id === id);
+    if (!tile) {
+      throw new Error("Cant find explored tile with id: " + id);
+    }
+
+    return tile;
   }
 }

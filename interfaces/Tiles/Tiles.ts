@@ -13,4 +13,9 @@ export interface ITilesService {
   showAdjacentTiles: (tileId: number) => void;
   terrainTypesExplored: Set<TerrainType>;
   renderData: ITilesServiceRenderData;
+  forceCampTransition: () => void;
+  isCampTransitionAvailable: () => boolean;
+  currentCampTile: ITile;
+  previousCampTile: ITile | null;
+  getExploredTile: (id: number) => ITile;
 }

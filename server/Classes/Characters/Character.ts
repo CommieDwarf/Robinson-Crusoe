@@ -4,6 +4,10 @@ import { PlayerCharacterName } from "../../../interfaces/Characters/PlayerCharac
 import { SideCharacterName } from "../../../interfaces/Characters/SideCharacter";
 
 export abstract class Character {
+  get determination(): number {
+    return this._determination;
+  }
+
   get id(): number {
     return this._id;
   }
@@ -37,9 +41,12 @@ export abstract class Character {
   }
 
   protected _namePL: CHAR_NAME_TRANSLATION;
+
+  // I decided to go from 0 to maximum capacity(death) to simplify morale thresholds
   protected _currentHealth = 0;
   protected _name: PlayerCharacterName | SideCharacterName;
   protected _gender = "";
+  private _determination = 0;
 
   protected _id: number;
   protected _health;
@@ -54,5 +61,21 @@ export abstract class Character {
     this._name = name;
     this._id = id;
     this._health = health;
+  }
+
+  incrementDetermination(by: number) {
+    this._determination += by;
+  }
+
+  decrementDetermination(by: number) {
+    this._determination -= by;
+  }
+
+  getHurt(by: number) {
+    this._currentHealth += by;
+  }
+
+  getHealed(by: number) {
+    this._currentHealth -= by;
   }
 }

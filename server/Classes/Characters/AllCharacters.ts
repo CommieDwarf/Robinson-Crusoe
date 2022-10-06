@@ -1,10 +1,11 @@
-import { IAllCharacters } from "../../../components/game/interface/Characters";
+import {IAllCharacters} from "../../../components/game/interface/Characters";
 import {
   CharacterName,
   ICharacter,
 } from "../../../interfaces/Characters/Character";
-import { IPlayerCharacter } from "../../../interfaces/Characters/PlayerCharacter";
-import { ISideCharacter } from "../../../interfaces/Characters/SideCharacter";
+import {IPlayerCharacter} from "../../../interfaces/Characters/PlayerCharacter";
+import {ISideCharacter} from "../../../interfaces/Characters/SideCharacter";
+import {PlayerCharacter} from "./PlayerCharacter";
 
 export class AllCharacters implements IAllCharacters {
   characters: (IPlayerCharacter | ISideCharacter)[];
@@ -25,7 +26,8 @@ export class AllCharacters implements IAllCharacters {
     this.getCharacter(charName).pawns.copyPawnToFreePawns(draggableId);
   }
 
-  addPawn(charName: string, draggableId: string): void {}
+  addPawn(charName: string, draggableId: string): void {
+  }
 
   getCharacter(charName: string) {
     const character = this.characters.find((char) => char.name === charName);
@@ -33,5 +35,13 @@ export class AllCharacters implements IAllCharacters {
       throw new Error("Couldn't find character with name: " + charName);
     }
     return character;
+  }
+
+  hurtAllPlayerCharacters(by: number) {
+    this.characters.forEach((char) => {
+      if (char instanceof PlayerCharacter) {
+        char.getHurt(by);
+      }
+    })
   }
 }

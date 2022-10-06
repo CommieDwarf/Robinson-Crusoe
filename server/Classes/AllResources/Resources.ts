@@ -79,4 +79,15 @@ export class Resources implements IResources {
       });
     }
   };
+
+  public spend(resource: keyof IResourcesAmount, amount: number) {
+    if (this.getResource(resource) <= amount) {
+      throw new Error("Not sufficent resources - " + amount + "" + resource);
+    }
+    this._amount.set(resource, -amount);
+  }
+
+  public addResource(resource: keyof IResourcesAmount, amount: number) {
+    this._amount.set(resource, (this._amount.get(resource) as number) + amount);
+  }
 }

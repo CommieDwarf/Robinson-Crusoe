@@ -10,6 +10,14 @@ export interface IAllResources {
   owned: IResources;
   addFutureToOwned: () => void;
   addToOwned: (resources: IResources) => void;
-
   renderData: IAllResourcesRenderData;
+  addResourceToOwned: (
+    resource: keyof IResourcesAmount,
+    amount: number
+  ) => void;
+  addResourceToFuture: (
+    resource: keyof IResourcesAmount,
+    amount: number
+  ) => void;
+  productionBlocked: boolean;
 }

@@ -30,6 +30,10 @@ import { IAllResources } from "../../interfaces/Resources/AllResources";
 import { IStructuresService } from "../../interfaces/Structures/Structures";
 import { IThreat } from "../../interfaces/Threat/Threat";
 import { IBeasts } from "../../interfaces/Beasts/Beasts";
+import { Morale } from "./Morale/Morale";
+import { IMorale } from "../../interfaces/Morale/Morale";
+import { Weather } from "./Weather/Weather";
+import { IWeather } from "../../interfaces/Weather/Weather";
 
 const player = new Player("Konrad", "orange", 0);
 const friday = new SideCharacter("friday", 0, 4);
@@ -43,6 +47,14 @@ export { player };
 type ScenarioName = "castaways";
 
 export class GameClass implements IGame {
+  get weather(): IWeather {
+    return this._weather;
+  }
+
+  get morale(): IMorale {
+    return this._morale;
+  }
+
   get players(): IPlayer[] {
     return this._players;
   }
@@ -110,6 +122,7 @@ export class GameClass implements IGame {
     [cook],
     this._tilesService
   );
+  private _weather: IWeather = new Weather();
   private _threat: IThreat = new Threat(this);
   private _equipment: IEquipment = new Equipment(this);
   private _rest = new AdditionalActivity("rest");
@@ -125,6 +138,8 @@ export class GameClass implements IGame {
     ...friday.pawns.pawns,
     ...dog.pawns.pawns,
   ];
+
+  private _morale = new Morale(this);
 
   get renderData(): IGameRenderData {
     return {

@@ -1,4 +1,5 @@
 import {
+  BuiltTileStructure,
   ITile,
   ITileRenderData,
   TileStructure,
@@ -6,6 +7,7 @@ import {
 import { TileType } from "../../constants/tilleTypes";
 
 export class Tile implements ITile {
+  // TODO: change name "structure" to "position"
   get structure(): TileStructure {
     return this._structure;
   }
@@ -57,6 +59,11 @@ export class Tile implements ITile {
   private _show: boolean;
   private _type: TileType | null;
   private _helpersRequired: number;
+  builtStructures = {
+    roof: 0,
+    shelter: 0,
+    palisade: 0,
+  };
 
   constructor(
     structure: TileStructure,
@@ -76,5 +83,26 @@ export class Tile implements ITile {
 
   reveal(type: TileType) {
     this._type = type;
+  }
+
+  setStructureLvl(structure: "roof" | "palisade" | "shelter", amount: number) {
+    this.builtStructures[structure] = amount;
+  }
+
+  incrementStructureLvl(structure: BuiltTileStructure, amount: number) {
+    this.builtStructures[structure] += amount;
+  }
+
+  // TODO: implement edge cases
+  decrementStructureLvl(structure: BuiltTileStructure, amount: number) {
+    this.builtStructures[structure] -= amount;
+  }
+
+  resetStructures() {
+    this.builtStructures = {
+      roof: 0,
+      shelter: 0,
+      palisade: 0,
+    };
   }
 }

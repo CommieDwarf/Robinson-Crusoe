@@ -22,6 +22,12 @@ export interface ICharacter {
   currentHealth: number;
   gender: string;
   renderData: ICharacterRenderData;
+  determination: number | null;
+
+  incrementDetermination: (by: number) => void;
+  decrementDetermination: (by: number) => void;
+  getHurt: (by: number) => void;
+  getHealed: (by: number) => void;
 }
 
 export type CharacterName =
