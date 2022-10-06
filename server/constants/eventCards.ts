@@ -328,6 +328,7 @@ function getEventCards(game: IGame, threat: IThreat) {
           amount: 2,
         },
         resource: null,
+        git,
       },
       {
         triggerEffect() {
