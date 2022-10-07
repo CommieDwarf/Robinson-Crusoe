@@ -1,6 +1,7 @@
-import {IResources} from "../../../interfaces/Resources/Resources";
-import {IBeasts, IBeastsRenderData} from "../../../interfaces/Beasts/Beasts";
-import {IBeast} from "../../../interfaces/Beasts/Beast";
+import { IResources } from "../../../interfaces/Resources/Resources";
+import { IBeasts, IBeastsRenderData } from "../../../interfaces/Beasts/Beasts";
+import { IBeast } from "../../../interfaces/Beasts/Beast";
+import { ICharacter } from "../../../interfaces/Characters/Character";
 
 export class Beasts implements IBeasts {
   get beastStrengthEnchanted(): boolean {
@@ -74,7 +75,7 @@ export class Beasts implements IBeasts {
     return beasts;
   }
 
-  fightBeast() {
+  fightBeast(leader: ICharacter, helper: ICharacter) {
     const beast = this._deck.pop();
     if (beast) {
       this.beastBeingFought = beast;
@@ -82,8 +83,7 @@ export class Beasts implements IBeasts {
   }
 
   //TODO implement killBeast()
-  killBeast() {
-  }
+  killBeast() {}
 
   static getStrongestBeast(beasts: IBeast[]) {
     let strength = 0;

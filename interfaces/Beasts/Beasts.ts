@@ -1,4 +1,5 @@
 import { IBeast, IBeastRenderData } from "./Beast";
+import { ICharacter } from "../Characters/Character";
 
 export interface IBeastsRenderData {
   deckCount: number;
@@ -12,7 +13,7 @@ export interface IBeasts {
   addBeastToDeck: (beast: IBeast) => void;
   getBeastsFromStack: (amount: number) => IBeast[];
   killBeast: () => void;
-  fightBeast: () => void;
+  fightBeast: (leader: ICharacter, helper: ICharacter) => void;
   swapDeckTopToBottom: () => void;
   beastStrengthEnchanted: boolean;
 }

@@ -28,7 +28,7 @@ export class Tile implements ITile {
     this._show = value;
   }
 
-  get type(): TileType | null {
+  get tileType(): TileType | null {
     return this._type;
   }
 
@@ -49,7 +49,7 @@ export class Tile implements ITile {
       id: this.id,
       show: this.show,
       structure: this.structure,
-      type: this.type,
+      tileType: this.tileType,
     };
   }
 
@@ -70,14 +70,14 @@ export class Tile implements ITile {
     id: number,
     starter: boolean,
     show: boolean,
-    type: TileType | null,
+    tileType: TileType | null,
     helpersRequired: number
   ) {
     this._structure = structure;
     this._id = id;
     this._starter = starter;
     this._show = show;
-    this._type = type;
+    this._type = tileType;
     this._helpersRequired = helpersRequired;
   }
 

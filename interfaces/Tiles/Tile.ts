@@ -3,7 +3,7 @@ export type ITileRenderData = {
   id: number;
   show: boolean;
   structure: TileStructure;
-  type: TileType | null;
+  tileType: TileType | null;
 };
 
 export type BuiltTileStructure = "roof" | "palisade" | "shelter";
@@ -13,7 +13,7 @@ export interface ITile {
   id: number;
   starter: boolean;
   show: boolean;
-  type: TileType | null;
+  tileType: TileType | null;
   helpersRequired: number;
   reveal: (type: TileType) => void;
   renderData: ITileRenderData;

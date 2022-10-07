@@ -1,6 +1,6 @@
-import { ICharEffects } from "./CharEffects";
-import { IPawnsService } from "../Pawns/Pawns";
-import { IPawnRenderData } from "../Pawns/Pawn";
+import {ICharEffects} from "./CharEffects";
+import {IPawnsService} from "../Pawns/Pawns";
+import {IPawnRenderData} from "../Pawns/Pawn";
 
 export interface ICharacterRenderData {
   freePawns: IPawnRenderData[];
@@ -31,12 +31,12 @@ export interface ICharacter {
 }
 
 export type CharacterName =
-  | "explorer"
-  | "carpenter"
-  | "cook"
-  | "soldier"
-  | "dog"
-  | "friday";
+    | "explorer"
+    | "carpenter"
+    | "cook"
+    | "soldier"
+    | "dog"
+    | "friday";
 
 export enum CHAR_NAME_TRANSLATION {
   explorer = "kucharz",

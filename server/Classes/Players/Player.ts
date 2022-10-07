@@ -1,5 +1,8 @@
 import { ICharacter } from "../../../interfaces/Characters/Character";
-import { IPlayer, IPlayerRenderData } from "../../../interfaces/Player";
+import {
+  IPlayer,
+  IPlayerRenderData,
+} from "../../../interfaces/PlayerService/Player";
 import { IPlayerCharacter } from "../../../interfaces/Characters/PlayerCharacter";
 
 export class Player implements IPlayer {

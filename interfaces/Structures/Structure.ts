@@ -1,4 +1,5 @@
 import { IResources, IResourcesAmount } from "../Resources/Resources";
+import { StructureName } from "./Structures";
 
 export enum STRUCTURE {
   SHELTER = "shelter",
@@ -8,7 +9,7 @@ export enum STRUCTURE {
 }
 
 export interface IStructureRenderData {
-  name: STRUCTURE;
+  name: StructureName;
   lvl: number;
   committedResources: IResourcesAmount;
   cost: IResourcesAmount;
@@ -17,7 +18,7 @@ export interface IStructureRenderData {
 }
 
 export interface IStructure {
-  name: STRUCTURE;
+  name: StructureName;
   lvl: number;
   committedResources: IResources;
   cost: IResources;

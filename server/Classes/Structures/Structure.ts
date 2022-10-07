@@ -7,6 +7,10 @@ import { IResources } from "../../../interfaces/Resources/Resources";
 import { Resources } from "../AllResources/Resources";
 
 export class Structure implements IStructure {
+  set lvl(value: number) {
+    this._lvl = value;
+  }
+
   get name(): STRUCTURE {
     return this._name;
   }

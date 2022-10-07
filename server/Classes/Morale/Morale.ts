@@ -13,6 +13,7 @@ export class Morale implements IMorale {
   }
 
   private _lvl = 0;
+  private _maxLvl = 3;
   private readonly _game: IGame;
 
   constructor(game: IGame) {
@@ -20,11 +21,18 @@ export class Morale implements IMorale {
   }
 
   lvlUp(by: number) {
-    this._lvl += by;
+    if (this._lvl < 3) {
+      this._lvl += by;
+    }
+
   }
 
   lvlDown(by: number) {
-    this._lvl -= by;
+    //TODO: maybe im going to implement here punishment for negative morale threshold. dunno yet.
+    if (this._lvl > -3) {
+      this._lvl -= by;
+    }
+
   }
 
   getDetermination() {

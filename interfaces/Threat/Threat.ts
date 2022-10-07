@@ -28,4 +28,5 @@ export interface IThreat {
   addCardToTopOfStack: (card: unknown) => void;
   shuffleCardInToStack: (card: unknown) => void;
   switchCardFromTopToBottomOfStack: () => void;
+  pullCard: () => void;
 }

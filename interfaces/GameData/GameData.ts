@@ -1,4 +1,4 @@
-import { IPlayer } from "../Player";
+import { IPlayer } from "../PlayerService/Player";
 import {
   CHAR_NAME_TRANSLATION,
   CharacterName,

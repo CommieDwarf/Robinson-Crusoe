@@ -4,6 +4,7 @@ import { Structure } from "./Structure";
 import {
   IStructuresService,
   IStructuresServiceRenderData,
+  StructureName,
 } from "../../../interfaces/Structures/Structures";
 import { IResources } from "../../../interfaces/Resources/Resources";
 
@@ -19,29 +20,33 @@ export class StructuresService implements IStructuresService {
   private getInitialStructures() {
     return Object.entries(STRUCTURE).map(([key, value]) => {
       const cost = new Resources();
-      if (value === STRUCTURE.WEAPON) {
+      if (value === "weapon") {
         cost.setResource("wood", 1);
       } else {
         cost.setResource("wood", 3);
         cost.setResource("leather", 2);
       }
-      return new Structure(value, cost, value !== STRUCTURE.SHELTER);
+      return new Structure(value, cost, value !== "shelter");
     });
   }
 
-  lvlUpStruct(name: STRUCTURE, by: number) {
+  lvlUpStruct(name: StructureName, by: number) {
     this.getStruct(name).incrementLvl(by);
   }
 
-  lvlDownStruct(name: STRUCTURE, by: number) {
+  lvlDownStruct(name: StructureName, by: number) {
     this.getStruct(name).decrementLvl(by);
   }
 
-  unlockStruct(name: STRUCTURE) {
+  setLvl(name: StructureName, lvl: number) {
+    this.getStruct(name).lvl = lvl;
+  }
+
+  unlockStruct(name: StructureName) {
     this.getStruct(name).locked = true;
   }
 
-  lockStruct(name: STRUCTURE) {
+  lockStruct(name: StructureName) {
     this.getStruct(name).locked = false;
   }
 
@@ -49,15 +54,15 @@ export class StructuresService implements IStructuresService {
     this.structures.forEach((structure) => (structure.locked = true));
   }
 
-  commitResources(name: STRUCTURE, resources: IResources) {
+  commitResources(name: StructureName, resources: IResources) {
     this.getStruct(name).committedResources = resources;
   }
 
-  rollBackCommittedResources(name: STRUCTURE) {
+  rollBackCommittedResources(name: StructureName) {
     this.getStruct(name).committedResources = new Resources();
   }
 
-  getStruct(name: STRUCTURE) {
+  getStruct(name: StructureName) {
     const struct = this.structures.find((structure) => structure.name === name);
     if (!struct) {
       throw new Error("Cant find structure with given name: " + name);

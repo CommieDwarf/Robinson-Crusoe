@@ -1,7 +1,6 @@
-import { IResources, IResourcesAmount } from "../Resources/Resources";
-import { Actions } from "@reduxjs/toolkit";
-import { IGame } from "../Game";
+import { IResourcesAmount } from "../Resources/Resources";
 import { STRUCTURE } from "../Structures/Structure";
+import { ICharacter } from "../Characters/Character";
 
 export interface IEventCardRenderData {
   id: number;
@@ -30,7 +29,7 @@ export interface Requirements {
 export interface EventEffects {
   triggerEffect(): void;
 
-  fullFill(): void;
+  fullFill(character: ICharacter): void;
 
   triggerThreatEffect(): void;
 }
@@ -39,8 +38,6 @@ export interface IEventCard {
   id: number;
   name: string;
   namePL: string;
-  reward: unknown;
-  extraReward: unknown;
   renderData: IEventCardRenderData;
   type: EVENT_TYPE;
   pawnsAssigned: number;

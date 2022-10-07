@@ -1,4 +1,4 @@
-import {IAllCharacters} from "../../../components/game/interface/Characters";
+import {IAllCharacters} from "../../../interfaces/AllCharacters/Characters";
 import {
   CharacterName,
   ICharacter,
@@ -42,6 +42,15 @@ export class AllCharacters implements IAllCharacters {
       if (char instanceof PlayerCharacter) {
         char.getHurt(by);
       }
+    });
+  }
+
+  decrDeterminationAllPlayerCharacters(by: number) {
+    this.characters.forEach((char) => {
+      if (char instanceof PlayerCharacter) {
+        char.decrementDetermination(by);
+      }
     })
   }
 }
+

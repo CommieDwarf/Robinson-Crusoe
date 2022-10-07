@@ -1,18 +1,17 @@
 import { EventCard } from "../Classes/Threat/EventCard";
 import { IGame } from "../../interfaces/Game";
-import { EVENT_TYPE } from "../../interfaces/Threat/EventCard";
+import { EVENT_TYPE, IEventCard } from "../../interfaces/Threat/EventCard";
 import { STRUCTURE } from "../../interfaces/Structures/Structure";
 import { IThreat } from "../../interfaces/Threat/Threat";
 import { Beasts } from "../Classes/Beasts/Beasts";
+import { ICharacter } from "../../interfaces/Characters/Character";
 
-function getEventCards(game: IGame, threat: IThreat) {
-  const bookCards = [
+export function getEventCards(game: IGame, threat: IThreat): IEventCard[] {
+  return [
     new EventCard(
       "argument",
       "kłótnia",
       2,
-      null,
-      null,
       EVENT_TYPE.book,
       {
         pawns: 2,
@@ -26,15 +25,12 @@ function getEventCards(game: IGame, threat: IThreat) {
           threat.specialEffects.argument = true;
         },
         triggerThreatEffect() {
-          game.players.forEach((player) => {
-            player.getCharacter().decrementDetermination(1);
-          });
+          game.allCharacters.decrDeterminationAllPlayerCharacters(1);
           game.morale.lvlDown(1);
         },
-        fullFill() {
+        fullFill(character: ICharacter) {
           game.morale.lvlUp(1);
-          const char = threat.getAssignedCharByCardName("argument");
-          char.incrementDetermination(1);
+          character.incrementDetermination(1);
         },
       }
     ),
@@ -42,8 +38,6 @@ function getEventCards(game: IGame, threat: IThreat) {
       "awfulWeather",
       "okropna pogoda",
       3,
-      null,
-      null,
       EVENT_TYPE.explore,
       {
         pawns: 1,
@@ -64,9 +58,8 @@ function getEventCards(game: IGame, threat: IThreat) {
         triggerThreatEffect() {
           game.weather.snowCloud = true;
         },
-        fullFill() {
-          const char = threat.getAssignedCharByCardName("argument");
-          char.incrementDetermination(1);
+        fullFill(character: ICharacter) {
+          character.incrementDetermination(1);
         },
       }
     ),
@@ -74,8 +67,6 @@ function getEventCards(game: IGame, threat: IThreat) {
       "coldNight",
       "niezwykle zimna noc",
       4,
-      null,
-      null,
       EVENT_TYPE.book,
       {
         pawns: 1,
@@ -100,9 +91,8 @@ function getEventCards(game: IGame, threat: IThreat) {
         triggerThreatEffect() {
           game.allCharacters.hurtAllPlayerCharacters(1);
         },
-        fullFill() {
-          const char = threat.getAssignedCharByCardName("coldNight");
-          char.incrementDetermination(1);
+        fullFill(character: ICharacter) {
+          character.incrementDetermination(1);
         },
       }
     ),
@@ -110,8 +100,6 @@ function getEventCards(game: IGame, threat: IThreat) {
       "dangerousNight",
       "niebezpieczna noc",
       5,
-      null,
-      null,
       EVENT_TYPE.book,
       {
         pawns: 1,
@@ -130,7 +118,7 @@ function getEventCards(game: IGame, threat: IThreat) {
         triggerThreatEffect() {
           // nothing happens
         },
-        fullFill() {
+        fullFill(character: ICharacter) {
           // TODO: shuffle beast from top of the stack into the middle
           threat.shuffleCardInToStack(undefined);
         },
@@ -140,8 +128,6 @@ function getEventCards(game: IGame, threat: IThreat) {
       "detachedClouds",
       "oberwane chmury",
       6,
-      null,
-      null,
       EVENT_TYPE.gather,
       {
         pawns: 1,
@@ -161,52 +147,7 @@ function getEventCards(game: IGame, threat: IThreat) {
         triggerThreatEffect() {
           // nothing happens
         },
-        fullFill() {
-          const previousCampTile = game.tilesService.previousCampTile;
-          if (previousCampTile) {
-            if (previousCampTile.builtStructures.roof > 0) {
-              game.tilesService.currentCampTile.incrementStructureLvl(
-                "roof",
-                1
-              );
-            }
-            if (previousCampTile.builtStructures.shelter > 0) {
-              game.tilesService.currentCampTile.incrementStructureLvl(
-                "palisade",
-                1
-              );
-            }
-          }
-        },
-      }
-    ),
-
-    new EventCard(
-      "detachedClouds",
-      "oberwane chmury",
-      7,
-      null,
-      null,
-      EVENT_TYPE.gather,
-      {
-        pawns: 1,
-        optionalPawns: null,
-        invention: null,
-        structure: null,
-        resource: null,
-      },
-      {
-        triggerEffect() {
-          if (game.tilesService.isCampTransitionAvailable()) {
-            game.tilesService.forceCampTransition();
-          } else {
-            game.allCharacters.hurtAllPlayerCharacters(1);
-          }
-        },
-        triggerThreatEffect() {
-          // nothing happens
-        },
-        fullFill() {
+        fullFill(character: ICharacter) {
           const previousCampTile = game.tilesService.previousCampTile;
           if (previousCampTile) {
             if (previousCampTile.builtStructures.roof > 0) {
@@ -229,10 +170,6 @@ function getEventCards(game: IGame, threat: IThreat) {
       "fallenTree",
       "powalone drzewo",
       8,
-      {
-        wood: 1,
-      },
-      null,
       EVENT_TYPE.build,
       {
         pawns: 1,
@@ -248,10 +185,9 @@ function getEventCards(game: IGame, threat: IThreat) {
         triggerThreatEffect() {
           game.morale.lvlDown(1);
         },
-        fullFill() {
-          threat
-            .getAssignedCharByCardName("fallenTree")
-            .incrementDetermination(1);
+        fullFill(character: ICharacter) {
+          character.incrementDetermination(1);
+          game.allResources.addResourceToOwned("wood", 1);
         },
       }
     ),
@@ -259,8 +195,6 @@ function getEventCards(game: IGame, threat: IThreat) {
       "fire",
       "pożar",
       9,
-      null,
-      null,
       EVENT_TYPE.explore,
       {
         pawns: 1,
@@ -276,8 +210,8 @@ function getEventCards(game: IGame, threat: IThreat) {
         triggerThreatEffect() {
           game.allResources.productionBlocked = true;
         },
-        fullFill() {
-          threat.getAssignedCharByCardName("fire").incrementDetermination(2);
+        fullFill(character: ICharacter) {
+          character.incrementDetermination(2);
         },
       }
     ),
@@ -285,8 +219,6 @@ function getEventCards(game: IGame, threat: IThreat) {
       "forestHowl",
       "wycie od strony lasu",
       10,
-      null,
-      null,
       EVENT_TYPE.book,
       {
         pawns: 1,
@@ -306,8 +238,8 @@ function getEventCards(game: IGame, threat: IThreat) {
         triggerThreatEffect() {
           game.beasts.fightBeast();
         },
-        fullFill() {
-          threat.getAssignedCharByCardName("fire").incrementDetermination(2);
+        fullFill(character: ICharacter) {
+          character.incrementDetermination(2);
           game.beasts.swapDeckTopToBottom();
         },
       }
@@ -316,8 +248,6 @@ function getEventCards(game: IGame, threat: IThreat) {
       "nightHowl",
       "nocne wycie z dżungli",
       11,
-      null,
-      null,
       EVENT_TYPE.book,
       {
         pawns: 1,
@@ -328,7 +258,6 @@ function getEventCards(game: IGame, threat: IThreat) {
           amount: 2,
         },
         resource: null,
-        git,
       },
       {
         triggerEffect() {
@@ -337,10 +266,8 @@ function getEventCards(game: IGame, threat: IThreat) {
         triggerThreatEffect() {
           game.structuresService.lvlDownStruct(STRUCTURE.PALISADE, 1);
         },
-        fullFill() {
-          threat
-            .getAssignedCharByCardName("nightHowl")
-            .incrementDetermination(1);
+        fullFill(character: ICharacter) {
+          character.incrementDetermination(1);
         },
       }
     ),
@@ -348,8 +275,6 @@ function getEventCards(game: IGame, threat: IThreat) {
       "ragingStorm",
       "rozszalała burza",
       12,
-      null,
-      null,
       EVENT_TYPE.explore,
       {
         pawns: 1,
@@ -370,12 +295,66 @@ function getEventCards(game: IGame, threat: IThreat) {
         triggerThreatEffect() {
           // nothing happens
         },
-        fullFill() {
-          threat
-            .getAssignedCharByCardName("ragingStorm")
-            .incrementDetermination(1);
+        fullFill(character: ICharacter) {
+          character.incrementDetermination(1);
 
           game.structuresService.lvlUpStruct(STRUCTURE.WEAPON, 1);
+        },
+      }
+    ),
+    new EventCard(
+      "rain",
+      "deszcz",
+      13,
+      EVENT_TYPE.gather,
+      {
+        pawns: 1,
+        optionalPawns: null,
+        invention: null,
+        structure: null,
+        resource: {
+          wood: 0,
+          leather: 1,
+          dryFood: 0,
+          food: 0,
+        },
+      },
+      {
+        triggerEffect() {
+          game.weather.rainCloud = true;
+        },
+        triggerThreatEffect() {
+          game.weather.rainCloud = true;
+        },
+        fullFill(character: ICharacter) {
+          character.incrementDetermination(1);
+        },
+      }
+    ),
+    new EventCard(
+      "sleeplessNight",
+      "bezsenna noc",
+      14,
+      EVENT_TYPE.book,
+      {
+        pawns: 1,
+        optionalPawns: null,
+        invention: null,
+        structure: null,
+        resource: null,
+      },
+      {
+        triggerEffect() {
+          game.actionServices.gather.reRollToken = true;
+          game.actionServices.build.reRollToken = true;
+          game.actionServices.explore.reRollToken = true;
+        },
+        triggerThreatEffect() {
+          game.actionServices.explore.eventToken = true;
+          game.actionServices.gather.eventToken = true;
+        },
+        fullFill(character: ICharacter) {
+          character.incrementDetermination(1);
         },
       }
     ),

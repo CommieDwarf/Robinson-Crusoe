@@ -1,5 +1,5 @@
-import { ICharacter } from "./Characters/Character";
-import { IPlayerCharacter } from "./Characters/PlayerCharacter";
+import { ICharacter } from "../Characters/Character";
+import { IPlayerCharacter } from "../Characters/PlayerCharacter";
 
 export interface IPlayerRenderData {
   name: string;

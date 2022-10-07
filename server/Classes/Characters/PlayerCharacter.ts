@@ -4,7 +4,7 @@ import {
   IPlayerCharacterRenderData,
   PlayerCharacterName,
 } from "../../../interfaces/Characters/PlayerCharacter";
-import { IPlayer } from "../../../interfaces/Player";
+import { IPlayer } from "../../../interfaces/PlayerService/Player";
 import { PawnsService } from "../Pawns/Pawns";
 import { IDictionary } from "../../../interfaces/IDictionary";
 import { getCookSkills } from "../../constants/getCookSkills";

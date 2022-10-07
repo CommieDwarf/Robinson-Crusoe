@@ -1,4 +1,4 @@
-import { IPlayer } from "../Player";
+import { IPlayer } from "../PlayerService/Player";
 import { CharacterName, ICharacter, ICharacterRenderData } from "./Character";
 import { IDictionary } from "../IDictionary";
 import { ISkill } from "./Skill";

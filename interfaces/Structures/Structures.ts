@@ -5,15 +5,18 @@ export interface IStructuresServiceRenderData {
   structures: IStructureRenderData[];
 }
 
+export type StructureName = "shelter" | "roof" | "palisade" | "weapon";
+
 export interface IStructuresService {
   structures: IStructure[];
-  lvlUpStruct: (name: STRUCTURE, by: number) => void;
-  lvlDownStruct: (name: STRUCTURE, by: number) => void;
-  unlockStruct: (name: STRUCTURE) => void;
-  lockStruct: (name: STRUCTURE) => void;
+  lvlUpStruct: (name: StructureName, by: number) => void;
+  lvlDownStruct: (name: StructureName, by: number) => void;
+  setLvl: (name: StructureName, lvl: number) => void;
+  unlockStruct: (name: StructureName) => void;
+  lockStruct: (name: StructureName) => void;
   unlockAllStructs: () => void;
-  commitResources: (name: STRUCTURE, resources: IResources) => void;
-  rollBackCommittedResources: (name: STRUCTURE) => void;
-  getStruct: (name: STRUCTURE) => IStructure;
+  commitResources: (name: StructureName, resources: IResources) => void;
+  rollBackCommittedResources: (name: StructureName) => void;
+  getStruct: (name: StructureName) => IStructure;
   renderData: IStructuresServiceRenderData;
 }

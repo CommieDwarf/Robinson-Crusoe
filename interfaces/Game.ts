@@ -1,7 +1,7 @@
 import { IThreat, IThreatRenderData } from "./Threat/Threat";
 import { IPawn, IPawnRenderData } from "./Pawns/Pawn";
 import { IBeasts, IBeastsRenderData } from "./Beasts/Beasts";
-import { IPlayer, IPlayerRenderData } from "./Player";
+import { IPlayer, IPlayerRenderData } from "./PlayerService/Player";
 import { IAdditionalActivity } from "./AdditionalActivity";
 import { ITilesService, ITilesServiceRenderData } from "./Tiles/Tiles";
 import {
@@ -16,9 +16,9 @@ import {
   IActionSlotsService,
   IActionSlotsServiceRenderData,
 } from "./ActionSlots";
-import { IAllCharacters } from "../components/game/interface/Characters";
+import { IAllCharacters } from "./AllCharacters/Characters";
 import { IEquipment, IEquipmentRenderData } from "./Equipment/Equipment";
-import { Player } from "../server/Classes/Players/Players";
+import { Player } from "../server/Classes/Players/Player";
 import {
   IInventionsService,
   IInventionsServiceRenderData,
@@ -27,6 +27,8 @@ import { ISideCharacterRenderData } from "./Characters/SideCharacter";
 import { IPlayerCharacterRenderData } from "./Characters/PlayerCharacter";
 import { IMorale } from "./Morale/Morale";
 import { IWeather } from "./Weather/Weather";
+import { IActionService } from "./ActionService/Action";
+import { IPlayerService } from "./PlayerService/PlayerSevice";
 
 export interface IGameRenderData {
   players: IPlayerRenderData[];
@@ -46,7 +48,7 @@ export interface IGameRenderData {
 }
 
 export interface IGame {
-  players: IPlayer[];
+  playerService: IPlayerService;
   localPlayer: Player;
   allCharacters: IAllCharacters;
   tilesService: ITilesService;
@@ -63,8 +65,13 @@ export interface IGame {
   morale: IMorale;
   weather: IWeather;
 
+  actionServices: {
+    gather: IActionService;
+    build: IActionService;
+    explore: IActionService;
+    hunt: IActionService;
+  };
   setPawn: (droppableId: string, draggableId: string) => void;
   unsetPawn: (destinationId: string, draggableId: string) => void;
-
   renderData: IGameRenderData;
 }
