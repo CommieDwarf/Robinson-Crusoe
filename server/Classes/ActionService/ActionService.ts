@@ -1,78 +1,109 @@
-import {IActionService} from "../../../interfaces/ActionService/IActionService";
-import {IGame} from "../../../interfaces/Game";
-import {Action} from "./Action";
-import {ACTION_TYPE} from "../../../interfaces/ActionService/Action";
-import {ICharacter} from "../../../interfaces/Characters/Character";
-import {IActionSlotsService} from "../../../interfaces/ActionSlots";
-import {inventionList} from "../../constants/inventionList";
-import {StructureName} from "../../../interfaces/Structures/Structures";
-import {InventionName} from "../../../interfaces/Inventions/Inventions";
+import { IActionService } from "../../../interfaces/ActionService/IActionService";
+import { IGame } from "../../../interfaces/Game";
+import { Action } from "./Action";
+import { ACTION_TYPE } from "../../../interfaces/ActionService/Action";
+import { ICharacter } from "../../../interfaces/Characters/Character";
+import { IActionSlotsService } from "../../../interfaces/ActionSlots";
+import { inventionList } from "../../constants/inventionList";
+import { StructureName } from "../../../interfaces/Structures/Structures";
+import { InventionName } from "../../../interfaces/Inventions/Inventions";
+import { IPawn } from "../../../interfaces/Pawns/Pawn";
 
 export class ActionService implements IActionService {
-    build = new Action(ACTION_TYPE.build);
-    explore = new Action(ACTION_TYPE.explore);
-    gather = new Action(ACTION_TYPE.gather);
-    hunt = new Action(ACTION_TYPE.hunt);
-    threat = new Action(ACTION_TYPE.threat);
-    _game: IGame;
+  build = new Action(ACTION_TYPE.build);
+  explore = new Action(ACTION_TYPE.explore);
+  gather = new Action(ACTION_TYPE.gather);
+  hunt = new Action(ACTION_TYPE.hunt);
+  threat = new Action(ACTION_TYPE.threat);
+  _game: IGame;
 
-    constructor(game: IGame) {
-        this._game = game;
+  constructor(game: IGame) {
+    this._game = game;
+  }
+
+  resolveActions(): void {
+    const slotsCategorized =
+      this._game.actionSlotsService.slotsOccupiedAndCategorized;
+    this.resolveThreat(slotsCategorized.threat);
+  }
+
+  private resolveThreat(slots: Map<string, IPawn>) {
+    // TODO implement 2 pawns option.
+    slots.forEach((pawn, droppableId) => {
+      const arrDroppableId = droppableId.split("-");
+      const side = (arrDroppableId[1] + "Slot") as "leftSlot" | "rightSlot";
+      const pawnSlotCount = arrDroppableId[2];
+      if (pawnSlotCount === "1") {
+        this._game.threat[side]?.effects.fullFill(pawn.character);
+      }
+    });
+  }
+
+  private resolveHunt(slots: Map<string, IPawn>) {
+    const leader = slots.get("hunt-leader")?.character;
+    const helper = slots.get("hunt-helper")?.character;
+
+    if (leader && helper) {
+      this._game.beasts.fightBeast(leader, helper);
+    } else if (leader || helper) {
+      throw new Error("There must be 2 pawns assigned to hunt");
     }
+  }
 
-    resolveActions(): void {
-        const actionSlotsService = this._game.actionSlotsService;
-        this.resolveThreat(actionSlotsService);
-        this.resolveHunt(actionSlotsService);
-        this.resolveBuild(actionSlotsService);
-    }
+  private resolveBuildStructure(slots: Map<string, IPawn>) {
+    // TODO: implement roll dice and reRoll and pull adventure card
+    slots.forEach((pawn, droppableId) => {
+      const droppableIdArr = droppableId.split("-");
+      const structureName = droppableIdArr[1] as StructureName;
+      const leader = droppableIdArr[droppableId.length - 1] === "leader";
+      if (leader) {
+        // TODO: implement helper
+        this._game.structuresService.lvlUpStruct(structureName, 1);
+      }
+    });
+  }
 
-    private resolveThreat(actionSlotsService: IActionSlotsService) {
-        // TODO implement 2 pawns option.
-        const characterLeft1 =
-            actionSlotsService.getPawn("threat-left-1")?.character;
-        const characterRight1 =
-            actionSlotsService.getPawn("threat-left-2")?.character;
-        if (characterLeft1) {
-            this._game.threat.leftSlot?.effects.fullFill(characterLeft1);
-        }
-        if (characterRight1) {
-            this._game.threat.rightSlot?.effects.fullFill(characterRight1);
-        }
-    }
+  private resolveBuildInvention(slots: Map<string, IPawn>) {
+    // TODO: implement roll dice and reRoll and pull adventure card
+    slots.forEach((pawn, droppableId) => {
+      const droppableIdArr = droppableId.split("-");
+      const inventionName = droppableIdArr[1] as InventionName;
+      const leader = droppableIdArr[droppableId.length - 1] === "leader";
+      if (leader) {
+        // TODO: implement helper
+        this._game.inventionsService.build(inventionName);
+      }
+    });
+  }
 
-    private resolveHunt(actionSlotsService: IActionSlotsService) {
-        const leader = actionSlotsService.getPawn("hunt-leader")?.character;
-        const helper = actionSlotsService.getPawn("hunt-helper")?.character;
+  private resolveGather(slots: Map<string, IPawn>) {
+    // TODO: implement roll dice, reRoll and pull adventure card
+    slots.forEach((pawn, droppableId) => {
+      const array = droppableId.split("-");
+      const tileId = parseInt(array[1]);
+      const side = array[3] as "left" | "right";
+      const resource =
+        this._game.tilesService.getExploredTile(tileId).tileType?.resources[
+          side
+        ];
+      if (!resource || resource === "beast") {
+        throw new Error("Cant add resource " + resource + " to all resources");
+      }
+      this._game.allResources.addResourceToOwned(resource, 1);
+    });
+  }
 
-        if (leader && helper) {
-            this._game.beasts.fightBeast(leader, helper);
-        } else if (leader || helper) {
-            throw new Error("There must be 2 pawns assigned to fight a beast");
-        }
-    }
-
-    private resolveBuild(actionSlotsService: IActionSlotsService) {
-        // TODO: implement roll dice and reRoll
-        actionSlotsService.slots.forEach((value, key) => {
-            const array = key.split("-");
-            if (key.includes("structure")) {
-                const structName = array[1] as StructureName;
-                this._game.structuresService.lvlUpStruct(structName, 1);
-            } else if (key.includes("invention")) {
-                const inventionName = array[1] as InventionName;
-                const invention =
-                    this._game.inventionsService.getInvention(inventionName);
-                invention.isBuilt = true;
-            }
-        });
-    }
-
-    // private resolveGather(actionSlotsService: IActionSlotsService) {
-    //   actionSlotsService.slots.forEach(([value, key] => {
-    //
-    //     }))
-    // }
+  private resolveExplore(slots: Map<string, IPawn>) {
+    // TODO: implement roll dice, reRoll and pull adventure card and many pawns
+    slots.forEach((pawn, droppableId) => {
+      const droppableIdArr = droppableId.split("-");
+      const tileId = parseInt(droppableIdArr[1]);
+      const leader = droppableIdArr[droppableIdArr.length - 1] === "leader";
+      if (leader) {
+        this._game.tilesService.revealTile(tileId);
+      }
+    });
+  }
 }
 
 // this._structuresService.structures.forEach((structure) => {

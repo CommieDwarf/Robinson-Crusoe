@@ -2,12 +2,13 @@ import { IPawn } from "../../../interfaces/Pawns/Pawn";
 import {
   IActionSlotsService,
   IActionSlotsServiceRenderData,
+  SlotsOccupiedAndCategorized,
 } from "../../../interfaces/ActionSlots";
-import { getPawnCanBeSettled } from "../../../utils/canPawnBeSettled";
 import { IStructuresService } from "../../../interfaces/Structures/Structures";
 import { IInventionsService } from "../../../interfaces/Inventions/Inventions";
 import { ITilesService } from "../../../interfaces/Tiles/Tiles";
 import { inventionList } from "../../constants/inventionList";
+import Entries from "../../../interfaces/Entries";
 
 export class ActionSlotsService implements IActionSlotsService {
   set slots(value: Map<string, IPawn | null>) {
@@ -16,6 +17,35 @@ export class ActionSlotsService implements IActionSlotsService {
 
   get slots(): Map<string, IPawn | null> {
     return this._slots;
+  }
+
+  get slotsOccupiedAndCategorized(): SlotsOccupiedAndCategorized {
+    const categorized: SlotsOccupiedAndCategorized = {
+      threat: new Map(),
+      hunt: new Map(),
+      invention: new Map(),
+      structure: new Map(),
+      gather: new Map(),
+      explore: new Map(),
+      arrangeCamp: new Map(),
+      rest: new Map(),
+    };
+
+    this.slots.forEach((pawn, droppableId) => {
+      if (pawn) {
+        const arrDroppableId = droppableId.split("-");
+        const entries = Object.entries(
+          categorized
+        ) as Entries<SlotsOccupiedAndCategorized>;
+        entries.forEach(([value, key]) => {
+          if (arrDroppableId.includes(value)) {
+            categorized[value].set(value, pawn);
+          }
+        });
+      }
+    });
+
+    return categorized;
   }
 
   get renderData(): IActionSlotsServiceRenderData {
