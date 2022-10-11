@@ -15,8 +15,18 @@ const phases: Phase[] = [
 ];
 
 export class PhaseService implements IPhaseService {
-  phase: Phase = "event";
-  phaseIndex = 0;
+  get phase(): Phase {
+    return this._phase;
+  }
+
+  get renderData() {
+    return {
+      phase: this._phase,
+    };
+  }
+
+  private _phase: Phase = "event";
+  private _phaseIndex = 0;
   private _game: IGame;
 
   phaseEffects = {};
@@ -26,7 +36,9 @@ export class PhaseService implements IPhaseService {
   }
 
   goNextPhase() {
-    this.phaseIndex = this.phaseIndex === 5 ? 0 : this.phaseIndex++;
+    this._phaseIndex = this._phaseIndex === 5 ? 0 : ++this._phaseIndex;
+    this._phase = phases[this._phaseIndex];
+    console.log(this._phase);
   }
 
   private eventEffect() {

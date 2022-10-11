@@ -3,5 +3,9 @@ export interface IMorale {
   lvlUp: (by: number) => void;
   lvlDown: (by: number) => void;
   getDetermination: () => void;
-  renderData: { lvl: number };
+  renderData: IMoraleRenderData;
+}
+
+export interface IMoraleRenderData {
+  lvl: number;
 }

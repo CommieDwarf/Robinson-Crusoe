@@ -67,7 +67,7 @@ export class Threat implements IThreat {
   constructor(game: IGame) {
     this._game = game;
     this._eventCards = getEventCards(game, this);
-    this.testEventCards(game);
+    // this.testEventCards(game);
   }
 
   pullCard() {

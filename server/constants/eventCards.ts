@@ -236,7 +236,7 @@ export function getEventCards(game: IGame, threat: IThreat): IEventCard[] {
           }
         },
         triggerThreatEffect() {
-          game.beasts.fightBeast();
+          // game.beasts.fightBeast();
         },
         fullFill(character: ICharacter) {
           character.incrementDetermination(2);
@@ -345,13 +345,13 @@ export function getEventCards(game: IGame, threat: IThreat): IEventCard[] {
       },
       {
         triggerEffect() {
-          game.actionServices.gather.reRollToken = true;
-          game.actionServices.build.reRollToken = true;
-          game.actionServices.explore.reRollToken = true;
+          game.actionService.gather.reRollToken = true;
+          game.actionService.build.reRollToken = true;
+          game.actionService.explore.reRollToken = true;
         },
         triggerThreatEffect() {
-          game.actionServices.explore.eventToken = true;
-          game.actionServices.gather.eventToken = true;
+          game.actionService.explore.eventToken = true;
+          game.actionService.gather.eventToken = true;
         },
         fullFill(character: ICharacter) {
           character.incrementDetermination(1);

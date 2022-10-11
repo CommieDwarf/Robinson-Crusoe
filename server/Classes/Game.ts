@@ -38,6 +38,10 @@ import { Action } from "./ActionService/Action";
 import { ACTION_TYPE } from "../../interfaces/ActionService/Action";
 import { PlayerService } from "./Players/PlayerService";
 import { IPlayerService } from "../../interfaces/PlayerService/PlayerSevice";
+import { ActionService } from "./ActionService/ActionService";
+import { PhaseService } from "./PhaseService/PhaseService";
+import { IActionService } from "../../interfaces/ActionService/IActionService";
+import { IPhaseService } from "../../interfaces/PhaseService/PhaseService";
 
 const player = new Player("Konrad", "orange", 0);
 const friday = new SideCharacter("friday", 0, 4);
@@ -51,6 +55,14 @@ export { player };
 type ScenarioName = "castaways";
 
 export class GameClass implements IGame {
+  get actionService(): IActionService {
+    return this._actionService;
+  }
+
+  get phaseService(): IPhaseService {
+    return this._phaseService;
+  }
+
   get playerService(): IPlayerService {
     return this._playerService;
   }
@@ -116,6 +128,7 @@ export class GameClass implements IGame {
   }
 
   get renderData(): IGameRenderData {
+    console.log(this.equipment.items);
     return {
       actionSlotsService: this.actionSlotsService.renderData,
       allCharacters: this.allCharacters.characters.map(
@@ -133,9 +146,13 @@ export class GameClass implements IGame {
       structuresService: this.structuresService.renderData,
       threat: this.threat.renderData,
       tilesService: this.tilesService.renderData,
+      phaseService: this._phaseService.renderData,
+      morale: this._morale.renderData,
     };
   }
 
+  private _actionService: IActionService = new ActionService(this);
+  private _phaseService: IPhaseService = new PhaseService(this);
   private _playerService: IPlayerService;
   private _localPlayer: Player = player;
   private _allCharacters: IAllCharacters;
@@ -165,13 +182,6 @@ export class GameClass implements IGame {
   ];
 
   private _morale = new Morale(this);
-
-  actionServices = {
-    gather: new Action(ACTION_TYPE.gather),
-    build: new Action(ACTION_TYPE.build),
-    explore: new Action(ACTION_TYPE.explore),
-    hunt: new Action(ACTION_TYPE.hunt),
-  };
 
   constructor(players: IPlayer[], scenarioName: ScenarioName) {
     this._playerService = new PlayerService(players);

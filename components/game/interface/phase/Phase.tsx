@@ -54,7 +54,7 @@ export default function Phase(props: Props) {
       <div className={styles.dropDownButton}>
         <div className={styles.triangle}></div>
       </div>
-      <PhaseDropDownMenu currentPhase={"production"} show={showMenu} />
+      <PhaseDropDownMenu currentPhase={props.phase} show={showMenu} />
     </div>
   );
 }

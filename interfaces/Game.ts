@@ -25,10 +25,14 @@ import {
 } from "./Inventions/Inventions";
 import { ISideCharacterRenderData } from "./Characters/SideCharacter";
 import { IPlayerCharacterRenderData } from "./Characters/PlayerCharacter";
-import { IMorale } from "./Morale/Morale";
+import { IMorale, IMoraleRenderData } from "./Morale/Morale";
 import { IWeather } from "./Weather/Weather";
-import { IActionService } from "./ActionService/Action";
 import { IPlayerService } from "./PlayerService/PlayerSevice";
+import {
+  IPhaseService,
+  IPhaseServiceRenderData,
+} from "./PhaseService/PhaseService";
+import { IActionService } from "./ActionService/IActionService";
 
 export interface IGameRenderData {
   players: IPlayerRenderData[];
@@ -45,6 +49,8 @@ export interface IGameRenderData {
   arrangeCamp: IAdditionalActivity;
   beasts: IBeastsRenderData;
   allPawns: IPawnRenderData[];
+  phaseService: IPhaseServiceRenderData;
+  morale: IMoraleRenderData;
 }
 
 export interface IGame {
@@ -64,13 +70,9 @@ export interface IGame {
   allPawns: IPawn[];
   morale: IMorale;
   weather: IWeather;
+  phaseService: IPhaseService;
+  actionService: IActionService;
 
-  actionServices: {
-    gather: IActionService;
-    build: IActionService;
-    explore: IActionService;
-    hunt: IActionService;
-  };
   setPawn: (droppableId: string, draggableId: string) => void;
   unsetPawn: (destinationId: string, draggableId: string) => void;
   renderData: IGameRenderData;

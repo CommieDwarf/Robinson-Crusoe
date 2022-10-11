@@ -42,6 +42,8 @@ import sleep from "../../utils/sleep";
 import { IPawnRenderData } from "../../interfaces/Pawns/Pawn";
 import { IPlayerCharacterRenderData } from "../../interfaces/Characters/PlayerCharacter";
 import unsetPawn, { UnsetPawnData } from "../api/unsetPawn";
+import { NextPhaseButton } from "../../components/game/interface/nextPhaseButton/NextPhaseButton";
+import nextPhase from "../api/nextPhase";
 
 interface Props {
   gameData: IGameRenderData;
@@ -189,6 +191,11 @@ export default function Game(props: Props) {
     }
   }
 
+  function goNextPhase() {
+    nextPhase();
+    setGameRenderData(JSON.parse(getGameData()));
+  }
+
   const dog = gameRenderData.allCharacters.find(
     (char) => char.name === "dog"
   ) as ISideCharacterRenderData;
@@ -206,8 +213,8 @@ export default function Game(props: Props) {
         onDragUpdate={onDragUpdate}
         onDragStart={onDragStart}
       >
-        <Phase phase="production" />
-        <Morale current={3} />
+        <Phase phase={gameRenderData.phaseService.phase} />
+        <Morale current={gameRenderData.morale.lvl} />
         <Resources
           future={
             new Map(Object.entries(gameRenderData.allResources.future)) as Map<
@@ -292,13 +299,14 @@ export default function Game(props: Props) {
           setShow={setShowScenario}
         />
         <Players />
+        <NextPhaseButton goNextPhase={goNextPhase} />
       </DragDropContext>
     </div>
   );
 }
 
 // for beautiful DND to work correctly...
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+export const getStaticProps: GetServerSideProps = async ({ query }) => {
   resetServerContext(); // <-- CALL RESET SERVER CONTEXT, SERVER SIDE
   const gameDataJSON = getGameData();
   const gameData = await JSON.parse(gameDataJSON);

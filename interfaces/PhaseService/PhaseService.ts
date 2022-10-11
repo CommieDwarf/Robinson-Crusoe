@@ -8,7 +8,12 @@ export type Phase =
   | "weather"
   | "night";
 
+export interface IPhaseServiceRenderData {
+  phase: Phase;
+}
+
 export interface IPhaseService {
   phase: Phase;
   goNextPhase: () => void;
+  renderData: IPhaseServiceRenderData;
 }
