@@ -6,7 +6,7 @@ import {
 } from "../../../interfaces/ActionSlots";
 import { IStructuresService } from "../../../interfaces/Structures/Structures";
 import { IInventionsService } from "../../../interfaces/Inventions/Inventions";
-import { ITilesService } from "../../../interfaces/Tiles/Tiles";
+import { ITilesService } from "../../../interfaces/Tiles/TilesService";
 import { inventionList } from "../../constants/inventionList";
 import Entries from "../../../interfaces/Entries";
 

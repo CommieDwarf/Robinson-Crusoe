@@ -3,11 +3,13 @@
     height: 40px;
     position: relative;
     z-index: 1;
+    font-size: 25px;
 }
+
 
 .round {
     font-style: italic;
-    font-size: 25px;
+    font-size: inherit;
     font-family: Snell Roundhand, cursive;
     text-align: center;
     position: relative;

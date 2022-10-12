@@ -3,7 +3,7 @@ import { IPawn, IPawnRenderData } from "./Pawns/Pawn";
 import { IBeasts, IBeastsRenderData } from "./Beasts/Beasts";
 import { IPlayer, IPlayerRenderData } from "./PlayerService/Player";
 import { IAdditionalActivity } from "./AdditionalActivity";
-import { ITilesService, ITilesServiceRenderData } from "./Tiles/Tiles";
+import { ITilesService, ITilesServiceRenderData } from "./Tiles/TilesService";
 import {
   IStructuresService,
   IStructuresServiceRenderData,
@@ -33,6 +33,8 @@ import {
   IPhaseServiceRenderData,
 } from "./PhaseService/PhaseService";
 import { IActionService } from "./ActionService/IActionService";
+import { IChatLog } from "./ChatLog/ChatLog";
+import { ILogMessageRenderData } from "./ChatLog/LogMessage";
 
 export interface IGameRenderData {
   players: IPlayerRenderData[];
@@ -51,6 +53,8 @@ export interface IGameRenderData {
   allPawns: IPawnRenderData[];
   phaseService: IPhaseServiceRenderData;
   morale: IMoraleRenderData;
+  turn: number;
+  logs: ILogMessageRenderData[];
 }
 
 export interface IGame {
@@ -72,7 +76,10 @@ export interface IGame {
   weather: IWeather;
   phaseService: IPhaseService;
   actionService: IActionService;
+  chatLog: IChatLog;
 
+  turn: number;
+  setNextTurn: () => void;
   setPawn: (droppableId: string, draggableId: string) => void;
   unsetPawn: (destinationId: string, draggableId: string) => void;
   renderData: IGameRenderData;

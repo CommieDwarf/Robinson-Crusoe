@@ -25,7 +25,7 @@ import {
   IPawnRenderData,
 } from "../../interfaces/Pawns/Pawn";
 import { ICharacter } from "../../interfaces/Characters/Character";
-import { ITilesService } from "../../interfaces/Tiles/Tiles";
+import { ITilesService } from "../../interfaces/Tiles/TilesService";
 import { IAllResources } from "../../interfaces/Resources/AllResources";
 import { IStructuresService } from "../../interfaces/Structures/Structures";
 import { IThreat } from "../../interfaces/Threat/Threat";
@@ -42,6 +42,8 @@ import { ActionService } from "./ActionService/ActionService";
 import { PhaseService } from "./PhaseService/PhaseService";
 import { IActionService } from "../../interfaces/ActionService/IActionService";
 import { IPhaseService } from "../../interfaces/PhaseService/PhaseService";
+import { ChatLog } from "./ChatLog/ChatLog";
+import { IChatLog } from "../../interfaces/ChatLog/ChatLog";
 
 const player = new Player("Konrad", "orange", 0);
 const friday = new SideCharacter("friday", 0, 4);
@@ -55,6 +57,14 @@ export { player };
 type ScenarioName = "castaways";
 
 export class GameClass implements IGame {
+  get chatLog(): IChatLog {
+    return this._chatLog;
+  }
+
+  get turn(): number {
+    return this._turn;
+  }
+
   get actionService(): IActionService {
     return this._actionService;
   }
@@ -148,11 +158,13 @@ export class GameClass implements IGame {
       tilesService: this.tilesService.renderData,
       phaseService: this._phaseService.renderData,
       morale: this._morale.renderData,
+      turn: this.turn,
+      logs: this.chatLog.renderData,
     };
   }
 
+  private _chatLog: IChatLog = new ChatLog(this);
   private _actionService: IActionService = new ActionService(this);
-  private _phaseService: IPhaseService = new PhaseService(this);
   private _playerService: IPlayerService;
   private _localPlayer: Player = player;
   private _allCharacters: IAllCharacters;
@@ -166,6 +178,7 @@ export class GameClass implements IGame {
   );
   private _weather: IWeather = new Weather();
   private _threat: IThreat = new Threat(this);
+  private _phaseService: IPhaseService = new PhaseService(this);
   private _equipment: IEquipment = new Equipment(this);
   private _rest = new AdditionalActivity("rest");
   private _arrangeCamp = new AdditionalActivity("arrangeCamp");
@@ -182,14 +195,14 @@ export class GameClass implements IGame {
   ];
 
   private _morale = new Morale(this);
+  private _turn = 1;
 
   constructor(players: IPlayer[], scenarioName: ScenarioName) {
     this._playerService = new PlayerService(players);
-    this._allCharacters = new AllCharacters([
-      friday,
-      player.getCharacter(),
-      dog,
-    ]);
+    this._allCharacters = new AllCharacters(
+      [friday, player.getCharacter(), dog],
+      this
+    );
   }
 
   setPawn(droppableId: string, draggableId: string) {
@@ -227,6 +240,10 @@ export class GameClass implements IGame {
     } else if (destinationId.includes("arrangeCamp")) {
       this._arrangeCamp.decrementPawns();
     }
+  }
+
+  setNextTurn() {
+    this._turn++;
   }
 
   getPawnFromActionSlot(droppableId: string) {

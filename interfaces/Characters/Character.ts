@@ -1,6 +1,6 @@
-import {ICharEffects} from "./CharEffects";
-import {IPawnsService} from "../Pawns/Pawns";
-import {IPawnRenderData} from "../Pawns/Pawn";
+import { ICharEffects } from "./CharEffects";
+import { IPawnsService } from "../Pawns/Pawns";
+import { IPawnRenderData } from "../Pawns/Pawn";
 
 export interface ICharacterRenderData {
   freePawns: IPawnRenderData[];
@@ -24,19 +24,19 @@ export interface ICharacter {
   renderData: ICharacterRenderData;
   determination: number | null;
 
-  incrementDetermination: (by: number) => void;
-  decrementDetermination: (by: number) => void;
-  getHurt: (by: number) => void;
-  getHealed: (by: number) => void;
+  incrementDetermination: (by: number, logSource?: string) => void;
+  decrementDetermination: (by: number, logSource?: string) => void;
+  getHurt: (by: number, logSource?: string) => void;
+  getHealed: (by: number, logSource?: string) => void;
 }
 
 export type CharacterName =
-    | "explorer"
-    | "carpenter"
-    | "cook"
-    | "soldier"
-    | "dog"
-    | "friday";
+  | "explorer"
+  | "carpenter"
+  | "cook"
+  | "soldier"
+  | "dog"
+  | "friday";
 
 export enum CHAR_NAME_TRANSLATION {
   explorer = "kucharz",

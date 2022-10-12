@@ -29,4 +29,9 @@ export interface IThreat {
   shuffleCardInToStack: (card: unknown) => void;
   switchCardFromTopToBottomOfStack: () => void;
   pullCard: () => void;
+  setSpecialEffect: (
+    effect: keyof ThreatSpecialEffects,
+    value: boolean,
+    logSource: string
+  ) => void;
 }

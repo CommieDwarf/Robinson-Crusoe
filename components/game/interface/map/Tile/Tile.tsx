@@ -1,10 +1,10 @@
 import Image from "next/image";
-import React, { NewLifecycle } from "react";
+import React, {NewLifecycle} from "react";
 import ActionSlot from "../../ActionSlot";
 import Scrollbar from "../../Scrollbar";
 import styles from "./Tile.module.css";
-import { ITileRenderData } from "../../../../../interfaces/Tiles/Tile";
-import { IPawnRenderData } from "../../../../../interfaces/Pawns/Pawn";
+import {ITileRenderData} from "../../../../../interfaces/Tiles/Tile";
+import {IPawnRenderData} from "../../../../../interfaces/Pawns/Pawn";
 
 interface Props {
   tile: ITileRenderData;
@@ -12,6 +12,7 @@ interface Props {
   actionSlots: Map<string, IPawnRenderData | null>;
   isDragDisabled: boolean;
   zIndex: string;
+  camp: boolean;
 }
 
 export default function Tile(props: Props) {
@@ -21,8 +22,8 @@ export default function Tile(props: Props) {
   };
 
   function getActionSlots(
-    action: "explore" | "gather",
-    side: "left" | "right" | ""
+      action: "explore" | "gather",
+      side: "left" | "right" | ""
   ): JSX.Element[] {
     const actionSlots = [];
     const sideString = side ? side + "-" : "";
@@ -31,15 +32,15 @@ export default function Tile(props: Props) {
       let pawn = props.actionSlots.get(id);
       pawn = pawn === undefined ? null : pawn;
       actionSlots.push(
-        <ActionSlot
-          type={"helper"}
-          pawn={pawn}
-          action={action}
-          context={action}
-          id={id}
-          key={id}
-          isDragDisabled={props.isDragDisabled}
-        />
+          <ActionSlot
+              type={"helper"}
+              pawn={pawn}
+              action={action}
+              context={action}
+              id={id}
+              key={id}
+              isDragDisabled={props.isDragDisabled}
+          />
       );
     }
 
@@ -48,15 +49,15 @@ export default function Tile(props: Props) {
     pawn = pawn === undefined ? null : pawn;
 
     actionSlots.unshift(
-      <ActionSlot
-        type={"leader"}
-        pawn={pawn}
-        action={action}
-        context={action}
-        id={id}
-        key={id}
-        isDragDisabled={props.isDragDisabled}
-      />
+        <ActionSlot
+            type={"leader"}
+            pawn={pawn}
+            action={action}
+            context={action}
+            id={id}
+            key={id}
+            isDragDisabled={props.isDragDisabled}
+        />
     );
 
     return actionSlots;
@@ -64,51 +65,60 @@ export default function Tile(props: Props) {
 
   let actionSlots;
 
-  if (!props.tile.type) {
+  if (!props.tile.tileType) {
     actionSlots = (
-      <div className={styles.explorePlayerSlots}>
-        {getActionSlots("explore", "")}
-      </div>
+        <div className={styles.explorePlayerSlots}>
+          {getActionSlots("explore", "")}
+        </div>
     );
   } else {
     let scrollableClass =
-      props.tile.helpersRequired >= 1 ? styles.gatherActionSlotsScrollable : "";
+        props.tile.helpersRequired >= 1 ? styles.gatherActionSlotsScrollable : "";
 
     actionSlots = (
-      <Scrollbar styleModule={styles}>
-        <div className={styles.gatherActionSlots + " " + scrollableClass}>
-          <div className={styles.gatherActionSlotsLeft}>
-            {getActionSlots("gather", "left")}
+        <Scrollbar styleModule={styles}>
+          <div className={styles.gatherActionSlots + " " + scrollableClass}>
+            <div className={styles.gatherActionSlotsLeft}>
+              {getActionSlots("gather", "left")}
+            </div>
+            <div className={styles.gatherActionSlotsRight}>
+              {getActionSlots("gather", "right")}
+            </div>
           </div>
-          <div className={styles.gatherActionSlotsRight}>
-            {getActionSlots("gather", "right")}
-          </div>
-        </div>
-      </Scrollbar>
+        </Scrollbar>
     );
   }
 
-  const imgId = props.tile.type == null ? 11 : props.tile.type.id;
+
+  const imgId = props.tile.tileType == null ? 11 : props.tile.tileType.id;
 
   const zIndexClass =
-    props.zIndex.includes("tile") &&
-    props.zIndex.includes("-" + props.tile.id + "-")
-      ? styles.zIndexIncreased
-      : "";
+      props.zIndex.includes("tile") &&
+      props.zIndex.includes("-" + props.tile.id + "-")
+          ? styles.zIndexIncreased
+          : "";
   return (
-    <div className={styles.container + " " + zIndexClass} style={style}>
-      {props.tile.show && (
-        <>
-          <div className={styles.tile}>
-            <Image
-              src={`/interface/map/tiles/${imgId}.png`}
-              layout="fill"
-              alt="kafelek"
-            />
-          </div>
-          {actionSlots}
-        </>
-      )}
-    </div>
+      <div className={styles.container + " " + zIndexClass} style={style}>
+        {props.tile.show && (
+            <>
+              <div className={styles.tile}>
+                <Image
+                    src={`/interface/map/tiles/${imgId}.png`}
+                    layout="fill"
+                    alt="kafelek"
+                />
+              </div>
+              {actionSlots}
+              {props.camp && <div className={styles.campIcon}>
+                <Image
+                    src={"/interface/map/camp.png"}
+                    layout={"fill"}
+                    alt={"obóz"}
+                />
+              </div>}
+
+            </>
+        )}
+      </div>
   );
 }

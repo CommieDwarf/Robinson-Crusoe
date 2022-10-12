@@ -30,7 +30,7 @@ export default function Card(props: Props) {
     >
       {props.card && (
         <Image
-          src={`/interface/cards/wreckage/${props.card.name}.png`}
+          src={`/interface/events/${props.card.name}.png`}
           layout="fill"
           alt={props.card.name}
         />

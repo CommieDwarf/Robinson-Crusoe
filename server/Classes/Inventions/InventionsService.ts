@@ -9,7 +9,7 @@ import {
   InventionName,
 } from "../../../interfaces/Inventions/Inventions";
 import { SCENARIO } from "../../../interfaces/Scenario/Scenario";
-import { ITilesService } from "../../../interfaces/Tiles/Tiles";
+import { ITilesService } from "../../../interfaces/Tiles/TilesService";
 
 export class InventionsService implements IInventionsService {
   get inventions(): IInvention[] {

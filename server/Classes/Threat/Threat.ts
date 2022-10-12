@@ -5,10 +5,9 @@ import {
   IThreatRenderData,
   ThreatSpecialEffects,
 } from "../../../interfaces/Threat/Threat";
-import { EventCard } from "./EventCard";
 import { ICharacter } from "../../../interfaces/Characters/Character";
 import { IGame } from "../../../interfaces/Game";
-import { getEventCards } from "../../constants/eventCards";
+import { getEventCards } from "../../constants/getEventCards";
 
 interface ThreatSlots {
   left: null | IEventCard;
@@ -16,6 +15,10 @@ interface ThreatSlots {
 }
 
 export class Threat implements IThreat {
+  get specialEffects(): ThreatSpecialEffects {
+    return this._specialEffects;
+  }
+
   get assignedCharacters(): EventAssignedCharacters {
     return this._assignedCharacters;
   }
@@ -47,11 +50,11 @@ export class Threat implements IThreat {
 
   private _eventCards: IEventCard[];
 
+  private readonly _game: IGame;
   private _threatSlots: ThreatSlots = {
     left: null,
     right: null,
   };
-  private readonly _game: IGame;
 
   private _assignedCharacters: EventAssignedCharacters = {
     left1: null,
@@ -60,28 +63,35 @@ export class Threat implements IThreat {
     right2: null,
   };
 
-  specialEffects: ThreatSpecialEffects = {
+  private _specialEffects: ThreatSpecialEffects = {
     argument: false,
   };
 
   constructor(game: IGame) {
     this._game = game;
     this._eventCards = getEventCards(game, this);
-    // this.testEventCards(game);
+    this._threatSlots.right = getWreckageCard(game, this);
+  }
+
+  private setInitialCard(eventCards: IEventCard[]) {
+    const wreckage = eventCards.shift();
+    if (!wreckage) {
+      throw new Error("eventCards are empty");
+    }
+    this._threatSlots.right = wreckage;
   }
 
   pullCard() {
-    let card = this._eventCards.pop();
+    let card = this._eventCards.shift();
     if (!card) {
       throw new Error("There is no card to pull");
     }
     this._threatSlots.right = card;
-
-    card.effects.triggerEffect();
+    card.triggerEffect();
   }
 
   moveCardsLeft() {
-    // this.leftSlot?.effects.triggerThreatEffect();
+    this.leftSlot?.triggerThreatEffect();
     this.leftSlot = null;
 
     this.leftSlot = this.rightSlot;
@@ -123,6 +133,21 @@ export class Threat implements IThreat {
     this.assignedCharacters[card + slot] = char;
   }
 
+  setSpecialEffect(
+    effect: keyof ThreatSpecialEffects,
+    value: boolean,
+    logSource: string
+  ) {
+    this._specialEffects[effect] = value;
+    if (effect === "argument") {
+      const color = value ? "red" : "green";
+      const msg = value
+        ? "przy zagrożeniu muszą być użyte pionki 2 innych postaci"
+        : 'przy zagrożeniu nie muszą już być użyte pionki 2 innych postaci"';
+      this._game.chatLog.addMessage(msg, color, logSource);
+    }
+  }
+
   public async testEventCards(game: IGame) {
     await sleep(2000);
     this._eventCards.forEach((event, i) => {
@@ -143,3 +168,4 @@ export class Threat implements IThreat {
 }
 
 import sleep from "../../../utils/sleep";
+import { getWreckageCard } from "../../constants/getWreckageCard";

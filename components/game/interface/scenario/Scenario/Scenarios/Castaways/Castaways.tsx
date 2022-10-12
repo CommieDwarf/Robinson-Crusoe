@@ -8,8 +8,6 @@ const rainDays = [5, 6, 7, 8, 9, 10, 11, 12];
 const hungryAnimalDays = [7, 8, 9, 10, 11, 12];
 const snowDays = hungryAnimalDays;
 
-const currentRound = 2;
-
 const scenarioDescription = `Jesteście rozbitkami na bezludnej wyspie.
  Jest koniec lata, musicie przygotować się na nadejście zimy
   — zbudować schronienie, dach, palisadę. Ciężko będzie przetrwać 
@@ -37,6 +35,7 @@ interface Props {
   actionSlots: Map<string, IPawnRenderData | null>;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
   zIndex: string;
+  turn: number;
 }
 
 export default function Castaways(props: Props) {
@@ -49,7 +48,7 @@ export default function Castaways(props: Props) {
       snow: snowDays.includes(i),
       hungryAnimal: hungryAnimalDays.includes(i),
     };
-    const current = i === currentRound;
+    const current = i === props.turn;
     rounds.push(
       <RoundSquare
         round={i}

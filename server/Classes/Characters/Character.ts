@@ -63,19 +63,19 @@ export abstract class Character {
     this._health = health;
   }
 
-  incrementDetermination(by: number) {
+  incrementDetermination(by: number, logSource: string = "") {
     this._determination += by;
   }
 
-  decrementDetermination(by: number) {
+  decrementDetermination(by: number, logSource: string = "") {
     this._determination -= by;
   }
 
-  getHurt(by: number) {
+  getHurt(by: number, logSource: string = "") {
     this._currentHealth += by;
   }
 
-  getHealed(by: number) {
+  getHealed(by: number, logSource: string = "") {
     this._currentHealth -= by;
   }
 }

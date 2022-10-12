@@ -1,7 +1,7 @@
 export interface IMorale {
   lvl: number;
-  lvlUp: (by: number) => void;
-  lvlDown: (by: number) => void;
+  lvlUp: (by: number, sourceLog: string) => void;
+  lvlDown: (by: number, sourceLog: string) => void;
   getDetermination: () => void;
   renderData: IMoraleRenderData;
 }

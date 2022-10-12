@@ -18,6 +18,7 @@ interface Props {
   beastCount: number;
   showScenario: boolean;
   zIndex: string;
+  campTileId: number;
 }
 
 export default function Map(props: Props) {
@@ -34,6 +35,7 @@ export default function Map(props: Props) {
         actionSlots={props.actionSlots}
         isDragDisabled={props.showScenario}
         zIndex={props.zIndex}
+        camp={props.tiles[i].id === props.campTileId}
       />
     );
   }

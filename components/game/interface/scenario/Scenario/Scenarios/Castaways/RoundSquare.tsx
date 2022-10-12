@@ -2,6 +2,7 @@
 import * as React from "react";
 import styles from "./RoundSquare.module.css";
 import Image from "next/image";
+import logStyles from "../../../../ChatLog/LogMessage/LogMessage.module.css";
 
 interface Props {
   round: number;
@@ -12,6 +13,7 @@ interface Props {
     snow: boolean;
     hungryAnimal: boolean;
   };
+  chatLog?: boolean;
 }
 
 export function RoundSquare(props: Props) {
@@ -43,9 +45,13 @@ export function RoundSquare(props: Props) {
 
   const currentRoundClass = props.currentRound ? styles.currentRound : "";
 
+  const containerClass = props.chatLog
+    ? logStyles.roundContainer
+    : styles.container;
+
   const picture = props.currentRound ? "current" : props.round;
   return (
-    <div className={styles.container}>
+    <div className={containerClass}>
       {weatherEffects}
       <Image
         src={"/interface/scenarios/squares/" + picture + ".png"}

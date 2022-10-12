@@ -47,7 +47,6 @@ export class AllResources implements IAllResources {
   };
 
   public addResourceToOwned(resource: keyof IResourcesAmount, amount: number) {
-    throw new Error("dupa");
     this._owned.addResource(resource, amount);
   }
 

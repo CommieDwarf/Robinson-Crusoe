@@ -4,7 +4,7 @@ import tileTypes, { TileType, starterTile } from "../../constants/tilleTypes";
 import {
   ITilesService,
   ITilesServiceRenderData,
-} from "../../../interfaces/Tiles/Tiles";
+} from "../../../interfaces/Tiles/TilesService";
 import { Tile } from "./Tile";
 import { ITile, TerrainType } from "../../../interfaces/Tiles/Tile";
 
@@ -24,6 +24,7 @@ export class TilesService implements ITilesService {
   get renderData(): ITilesServiceRenderData {
     return {
       tiles: this.tiles.map((tile) => tile.renderData),
+      campTileId: this.currentCampTile.id,
     };
   }
 

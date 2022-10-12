@@ -2,6 +2,7 @@ import { ITile, ITileRenderData, TerrainType, TileType } from "./Tile";
 
 export interface ITilesServiceRenderData {
   tiles: ITileRenderData[];
+  campTileId: number;
 }
 
 export interface ITilesService {

@@ -1,0 +1,40 @@
+.container {
+    width: 100%;
+    height: 40px;
+    border-bottom: 1px dashed var(--brown);
+}
+
+
+.roundContainer {
+    width: 25px;
+    height: 25px;
+    position: relative;
+    z-index: 1;
+    font-size: 20px;
+    line-height: 20px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.phaseIcon {
+    width: 25px;
+    height: 25px;
+    position: relative;
+    display: inline-block;
+}
+
+.messageContent {
+    width: calc(100% - 50px);
+    display: inline-block;
+    vertical-align: top;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.messageSource {
+    color: var(--brown);
+}
+
+.red {
+    color: red;
+}

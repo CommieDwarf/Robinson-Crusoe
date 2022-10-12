@@ -6,7 +6,7 @@ import {
   IInvention,
   IInventionRenderData,
 } from "../../../../interfaces/Inventions/Invention";
-import {IPawn, IPawnRenderData} from "../../../../interfaces/Pawns/Pawn";
+import { IPawn, IPawnRenderData } from "../../../../interfaces/Pawns/Pawn";
 
 interface Props {
   inventions: IInventionRenderData[];
@@ -14,15 +14,15 @@ interface Props {
   zIndex: string;
   show: boolean;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
+  turn: number;
 }
 
 export default function ScenarioButton(props: Props) {
   const zIndexClass = props.inventions.some((inv) =>
-      props.zIndex.includes(inv.name)
+    props.zIndex.includes(inv.name)
   )
-      ? styles.zIndexIncreased
-      : "";
-
+    ? styles.zIndexIncreased
+    : "";
 
   function handleHide() {
     props.setShow(false);
@@ -35,36 +35,39 @@ export default function ScenarioButton(props: Props) {
   const rotatedArrowClass = props.show ? styles.arrowRotated : "";
 
   return (
-      <div className={styles.container + " " + zIndexClass}>
-        <Scenario
-            zIndex={props.zIndex}
-            inventions={props.inventions}
-            actionSlots={props.actionSlots}
-            show={props.show}
-            setShow={props.setShow}
-        />
-        <div className={styles.button} onClick={handleShow}>
-          <div className={styles.arrowWrapper}>
-            <div className={styles.arrow + " " + rotatedArrowClass}>
-              <Image
-                  src="/interface/cards/red-arrow.png"
-                  layout="fill"
-                  alt="strzałka"
-              />
-            </div>
-          </div>
-          <div className={styles.label}>Scenariusz: Rozbitkowie --- Tura: 2</div>
-          <div className={styles.arrowWrapper}>
-            <div className={styles.arrow + " " + rotatedArrowClass}>
-              <Image
-                  src="/interface/cards/red-arrow.png"
-                  layout="fill"
-                  alt="strzałka"
-              />
-            </div>
+    <div className={styles.container + " " + zIndexClass}>
+      <Scenario
+        zIndex={props.zIndex}
+        inventions={props.inventions}
+        actionSlots={props.actionSlots}
+        show={props.show}
+        setShow={props.setShow}
+        turn={props.turn}
+      />
+      <div className={styles.button} onClick={handleShow}>
+        <div className={styles.arrowWrapper}>
+          <div className={styles.arrow + " " + rotatedArrowClass}>
+            <Image
+              src="/interface/cards/red-arrow.png"
+              layout="fill"
+              alt="strzałka"
+            />
           </div>
         </div>
-        )
+        <div className={styles.label}>
+          Scenariusz: Rozbitkowie --- Tura: {props.turn}
+        </div>
+        <div className={styles.arrowWrapper}>
+          <div className={styles.arrow + " " + rotatedArrowClass}>
+            <Image
+              src="/interface/cards/red-arrow.png"
+              layout="fill"
+              alt="strzałka"
+            />
+          </div>
+        </div>
       </div>
+      )
+    </div>
   );
 }

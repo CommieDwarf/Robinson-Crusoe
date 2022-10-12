@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import Phase from "../../components/game/interface/phase/Phase";
 import Morale from "../../components/game/interface/morale/Morale";
 import styles from "./Game.module.css";
@@ -9,7 +9,7 @@ import Inventions from "../../components/game/interface/inventions/Inventions";
 import Character from "../../components/game/interface/character/Character";
 import Health from "../../components/game/interface/health/Health";
 import ActionsOrder from "../../components/game/interface/actionsOrder/ActionsOrder";
-import Chat from "../../components/game/interface/chat/Chat";
+import ChatLog from "../../components/game/interface/ChatLog/ChatLog";
 import Tokens from "../../components/game/interface/tokens/Tokens";
 import ScenarioButton from "../../components/game/interface/scenario/ScenarioButton";
 import Players from "../../components/game/interface/players/Players";
@@ -19,11 +19,11 @@ import Threat from "../../components/game/interface/threat/Threat";
 import AdditionalActivities from "../../components/game/interface/additionalActivities/AdditionalActivities";
 import Equipment from "../../components/game/interface/equipment/Equipment";
 
-import { fromJSON, parse, stringify, toJSON } from "flatted";
-import { IResourcesAmount } from "../../interfaces/Resources/Resources";
-import { ISideCharacterRenderData } from "../../interfaces/Characters/SideCharacter";
+import {fromJSON, parse, stringify, toJSON} from "flatted";
+import {IResourcesAmount} from "../../interfaces/Resources/Resources";
+import {ISideCharacterRenderData} from "../../interfaces/Characters/SideCharacter";
 import getGameData from "../api/getGame";
-import setPawn, { SetPawnData } from "../api/setPawn";
+import setPawn, {SetPawnData} from "../api/setPawn";
 
 import {
   DragDropContext,
@@ -32,17 +32,17 @@ import {
   DropResult,
   resetServerContext,
 } from "react-beautiful-dnd";
-import { GetServerSideProps } from "next";
-import { WeatherAndNight } from "../../components/game/interface/WeatherAndNight/WeatherAndNight";
-import { INVENTION_TYPE } from "../../interfaces/Inventions/Invention";
-import { getPawnCanBeSettled } from "../../utils/canPawnBeSettled";
+import {GetServerSideProps} from "next";
+import {WeatherAndNight} from "../../components/game/interface/WeatherAndNight/WeatherAndNight";
+import {INVENTION_TYPE} from "../../interfaces/Inventions/Invention";
+import {getPawnCanBeSettled} from "../../utils/canPawnBeSettled";
 
-import { IGameRenderData } from "../../interfaces/Game";
+import {IGameRenderData} from "../../interfaces/Game";
 import sleep from "../../utils/sleep";
-import { IPawnRenderData } from "../../interfaces/Pawns/Pawn";
-import { IPlayerCharacterRenderData } from "../../interfaces/Characters/PlayerCharacter";
-import unsetPawn, { UnsetPawnData } from "../api/unsetPawn";
-import { NextPhaseButton } from "../../components/game/interface/nextPhaseButton/NextPhaseButton";
+import {IPawnRenderData} from "../../interfaces/Pawns/Pawn";
+import {IPlayerCharacterRenderData} from "../../interfaces/Characters/PlayerCharacter";
+import unsetPawn, {UnsetPawnData} from "../api/unsetPawn";
+import {NextPhaseButton} from "../../components/game/interface/nextPhaseButton/NextPhaseButton";
 import nextPhase from "../api/nextPhase";
 
 interface Props {
@@ -52,7 +52,7 @@ interface Props {
 export default function Game(props: Props) {
   const [gameRenderData, setGameRenderData] = useState(props.gameData);
   const actionSlots = new Map<string, IPawnRenderData | null>(
-    Object.entries(gameRenderData.actionSlotsService.slots)
+      Object.entries(gameRenderData.actionSlotsService.slots)
   );
   const [isPawnBeingDragged, setIsPawnBeingDragged] = useState(false);
 
@@ -94,13 +94,13 @@ export default function Game(props: Props) {
   function onDragUpdate(update: DragUpdate) {
     unselectActionSlots();
     const pawn = gameRenderData.allPawns.find(
-      (p) => p.draggableId === update.draggableId
+        (p) => p.draggableId === update.draggableId
     );
     const destinationId = update.destination?.droppableId;
 
     if (
-      destinationId?.includes("freepawns") ||
-      destinationId === update.source.droppableId
+        destinationId?.includes("freepawns") ||
+        destinationId === update.source.droppableId
     ) {
       return;
     }
@@ -114,11 +114,11 @@ export default function Game(props: Props) {
       }
       const pawnAtDestination = actionSlots.get(destinationId);
       const sourceSlotElement = document.getElementById(
-        update.source.droppableId
+          update.source.droppableId
       );
       if (
-        update.source.droppableId.includes("freepawns") ||
-        !pawnAtDestination
+          update.source.droppableId.includes("freepawns") ||
+          !pawnAtDestination
       ) {
         return;
       }
@@ -138,15 +138,15 @@ export default function Game(props: Props) {
     const destinationId = result.destination?.droppableId;
     const sourceId = result.source.droppableId;
     const draggedPawn = gameRenderData.allPawns.find(
-      (p) => p.draggableId === result.draggableId
+        (p) => p.draggableId === result.draggableId
     );
 
     if (
-      !destinationId ||
-      !sourceId ||
-      !draggedPawn ||
-      destinationId === sourceId ||
-      (destinationId.includes("freepawns") && sourceId.includes("freepawns"))
+        !destinationId ||
+        !sourceId ||
+        !draggedPawn ||
+        destinationId === sourceId ||
+        (destinationId.includes("freepawns") && sourceId.includes("freepawns"))
     ) {
       return;
     }
@@ -154,12 +154,12 @@ export default function Game(props: Props) {
     if (!destinationId.includes("freepawns")) {
       pawnAtActionSlot = actionSlots.get(destinationId);
       pawnAtActionSlot =
-        pawnAtActionSlot === undefined ? null : pawnAtActionSlot;
+          pawnAtActionSlot === undefined ? null : pawnAtActionSlot;
     }
 
     if (
-      !getPawnCanBeSettled(draggedPawn, destinationId) ||
-      !getPawnCanBeSettled(pawnAtActionSlot, sourceId)
+        !getPawnCanBeSettled(draggedPawn, destinationId) ||
+        !getPawnCanBeSettled(pawnAtActionSlot, sourceId)
     ) {
       return;
     }
@@ -191,122 +191,122 @@ export default function Game(props: Props) {
     }
   }
 
+  console.log(gameRenderData.logs)
+
   function goNextPhase() {
     nextPhase();
     setGameRenderData(JSON.parse(getGameData()));
   }
 
   const dog = gameRenderData.allCharacters.find(
-    (char) => char.name === "dog"
+      (char) => char.name === "dog"
   ) as ISideCharacterRenderData;
   const friday = gameRenderData.allCharacters.find(
-    (char) => char.name === "friday"
+      (char) => char.name === "friday"
   ) as ISideCharacterRenderData;
   const localPlayerCharacter = gameRenderData.allCharacters.find(
-    (char) => char.id === gameRenderData.localPlayer.characterId
+      (char) => char.id === gameRenderData.localPlayer.characterId
   ) as IPlayerCharacterRenderData;
 
   return (
-    <div className={styles.game}>
-      <DragDropContext
-        onDragEnd={onDragEnd}
-        onDragUpdate={onDragUpdate}
-        onDragStart={onDragStart}
-      >
-        <Phase phase={gameRenderData.phaseService.phase} />
-        <Morale current={gameRenderData.morale.lvl} />
-        <Resources
-          future={
-            new Map(Object.entries(gameRenderData.allResources.future)) as Map<
-              keyof IResourcesAmount,
-              number
-            >
-          }
-          owned={
-            new Map(Object.entries(gameRenderData.allResources.owned)) as Map<
-              keyof IResourcesAmount,
-              number
-            >
-          }
-        />
-        <Structures
-          structures={gameRenderData.structuresService.structures}
-          actionSlots={actionSlots}
-          zIndex={zIndex}
-        />
-        <MapComponent
-          tiles={gameRenderData.tilesService.tiles}
-          actionSlots={actionSlots}
-          zIndex={zIndex}
-          scrollDisabled={isPawnBeingDragged}
-          showScenario={showScenario}
-          beastCount={gameRenderData.beasts.deckCount}
-        />
-
-        <Inventions
-          inventions={gameRenderData.inventionsService.inventions.filter(
-            (inv) => inv.type !== INVENTION_TYPE.SCENARIO
-          )}
-          isBeingDragged={isPawnBeingDragged}
-          zIndex={zIndex}
-          actionSlots={actionSlots}
-        />
-        {localPlayerCharacter && dog && friday && (
-          <Character
-            character={localPlayerCharacter}
-            dog={dog}
-            friday={friday}
-            zIndex={zIndex}
+      <div className={styles.game}>
+        <DragDropContext
+            onDragEnd={onDragEnd}
+            onDragUpdate={onDragUpdate}
+            onDragStart={onDragStart}
+        >
+          <Phase phase={gameRenderData.phaseService.phase}/>
+          <Morale current={gameRenderData.morale.lvl}/>
+          <Resources
+              future={
+                new Map(Object.entries(gameRenderData.allResources.future)) as Map<keyof IResourcesAmount,
+                    number>
+              }
+              owned={
+                new Map(Object.entries(gameRenderData.allResources.owned)) as Map<keyof IResourcesAmount,
+                    number>
+              }
           />
-        )}
+          <Structures
+              structures={gameRenderData.structuresService.structures}
+              actionSlots={actionSlots}
+              zIndex={zIndex}
+          />
+          <MapComponent
+              tiles={gameRenderData.tilesService.tiles}
+              actionSlots={actionSlots}
+              zIndex={zIndex}
+              scrollDisabled={isPawnBeingDragged}
+              showScenario={showScenario}
+              beastCount={gameRenderData.beasts.deckCount}
+              campTileId={gameRenderData.tilesService.campTileId}
+          />
 
-        <Health />
-        <Threat
-          threat={gameRenderData.threat}
-          actionSlots={actionSlots}
-          zIndex={zIndex}
-        />
-        <AdditionalActivities
-          activities={{
-            rest: gameRenderData.rest,
-            arrangeCamp: gameRenderData.arrangeCamp,
-          }}
-          actionSlots={actionSlots}
-          zIndex={zIndex}
-        />
-        <Equipment equipment={gameRenderData.equipment} />
-        <ActionsOrder />
-        <Chat />
-        <WeatherAndNight />
-        <Tokens
-          tokens={[
-            "additionalFood",
-            "basket",
-            "discovery3",
-            "discovery4",
-            "largeLeaves",
-            "oldMachete",
-            "shortcut",
-          ]}
-        />
-        <ScenarioButton
-          inventions={gameRenderData.inventionsService.inventions.filter(
-            (inv) => inv.type === INVENTION_TYPE.SCENARIO
+          <Inventions
+              inventions={gameRenderData.inventionsService.inventions.filter(
+                  (inv) => inv.type !== INVENTION_TYPE.SCENARIO
+              )}
+              isBeingDragged={isPawnBeingDragged}
+              zIndex={zIndex}
+              actionSlots={actionSlots}
+          />
+          {localPlayerCharacter && dog && friday && (
+              <Character
+                  character={localPlayerCharacter}
+                  dog={dog}
+                  friday={friday}
+                  zIndex={zIndex}
+              />
           )}
-          actionSlots={actionSlots}
-          zIndex={zIndex}
-          show={showScenario}
-          setShow={setShowScenario}
-        />
-        <Players />
-        <NextPhaseButton goNextPhase={goNextPhase} />
-      </DragDropContext>
-    </div>
+
+          <Health/>
+          <Threat
+              threat={gameRenderData.threat}
+              actionSlots={actionSlots}
+              zIndex={zIndex}
+          />
+          <AdditionalActivities
+              activities={{
+                rest: gameRenderData.rest,
+                arrangeCamp: gameRenderData.arrangeCamp,
+              }}
+              actionSlots={actionSlots}
+              zIndex={zIndex}
+          />
+          <Equipment equipment={gameRenderData.equipment}/>
+          <ActionsOrder/>
+          <ChatLog logMessages={gameRenderData.logs}/>
+          <WeatherAndNight/>
+          <Tokens
+              tokens={[
+                "additionalFood",
+                "basket",
+                "discovery3",
+                "discovery4",
+                "largeLeaves",
+                "oldMachete",
+                "shortcut",
+              ]}
+          />
+          <ScenarioButton
+              inventions={gameRenderData.inventionsService.inventions.filter(
+                  (inv) => inv.type === INVENTION_TYPE.SCENARIO
+              )}
+              actionSlots={actionSlots}
+              zIndex={zIndex}
+              show={showScenario}
+              setShow={setShowScenario}
+              turn={gameRenderData.turn}
+          />
+          <Players/>
+          <NextPhaseButton goNextPhase={goNextPhase}/>
+        </DragDropContext>
+      </div>
   );
 }
 
 // for beautiful DND to work correctly...
-export const getStaticProps: GetServerSideProps = async ({ query }) => {
+export const getStaticProps: GetServerSideProps = async ({query}) => {
   resetServerContext(); // <-- CALL RESET SERVER CONTEXT, SERVER SIDE
   const gameDataJSON = getGameData();
   const gameData = await JSON.parse(gameDataJSON);

@@ -1,5 +1,22 @@
 .container {
     grid-column: 6 / span 1;
     grid-row: 3 / span 2;
+    border-bottom: 1px solid var(--brown);
+}
 
+.scrollWrapper {
+    height: 85%;
+    width: 100%;
+    border: 1px solid var(--brown);
+}
+
+.tabButton {
+    height: 11%;
+    margin-top: 1%;
+    width: 15%;
+    border: 1px solid var(--brown);
+    display: inline-block;
+    border-radius: 6px;
+    text-align: center;
+    line-height: 100%;
 }

@@ -8,6 +8,6 @@ export interface IAllCharacters {
   addPawn: (charName: string, draggableId: string) => void;
   addFreePawn: (charName: string, draggableId: string) => void;
   getCharacter: (charName: string) => ISideCharacter | IPlayerCharacter;
-  hurtAllPlayerCharacters: (by: number) => void;
-  decrDeterminationAllPlayerCharacters: (by: number) => void;
+  hurtAllPlayerCharacters: (by: number, source: string) => void;
+  decrDeterminationAllPlayerCharacters: (by: number, logSource: string) => void;
 }
