@@ -42,5 +42,10 @@ export interface IEventCard {
   type: EVENT_TYPE;
   pawnsAssigned: number;
   requirements: Requirements;
-  effects: EventEffects;
+
+  triggerEffect(): void;
+
+  fullFill(character: ICharacter): void;
+
+  triggerThreatEffect(): void;
 }

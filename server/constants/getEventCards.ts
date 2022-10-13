@@ -20,12 +20,10 @@ export function getEventCards(game: IGame, threat: IThreat): IEventCard[] {
         structure: null,
         resource: null,
       },
-      triggerEffect() {
-        const THIS = this as EventCard;
-        console.log(this, "nameP L");
-        threat.setSpecialEffect("argument", true, THIS.namePL);
+      triggerEffect(this: EventCard) {
+        threat.setSpecialEffect("argument", true, this.namePL);
       },
-      triggerThreatEffect() {
+      triggerThreatEffect(this: EventCard) {
         game.allCharacters.decrDeterminationAllPlayerCharacters(1, this.namePL);
         game.morale.lvlDown(1, this.namePL);
       },

@@ -160,12 +160,12 @@ export class Threat implements IThreat {
 
     this._eventCards.forEach((card) => {
       this._threatSlots.left = card;
-      card.effects.triggerThreatEffect();
-      card.effects.triggerEffect();
-      card.effects.fullFill(char);
+      card.triggerThreatEffect();
+      card.triggerEffect();
+      card.fullFill(char);
     });
   }
 }
 
 import sleep from "../../../utils/sleep";
-import { getWreckageCard } from "../../constants/getWreckageCard";
+import {getWreckageCard} from "../../constants/getWreckageCard";

@@ -29,10 +29,6 @@ export class EventCard implements IEventCard {
     return this._game;
   }
 
-  get effects(): EventEffects {
-    return this._effects;
-  }
-
   get requirements(): Requirements {
     return this._requirements;
   }
@@ -90,6 +86,4 @@ export class EventCard implements IEventCard {
     this._triggerThreatEffect = data.triggerThreatEffect;
     this._fullFill = data.fullFill;
   }
-
-  triggerEffect() {}
 }
