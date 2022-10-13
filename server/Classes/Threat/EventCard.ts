@@ -67,23 +67,23 @@ export class EventCard implements IEventCard {
   private _triggerThreatEffect: () => void;
   private _fullFill: (character: ICharacter) => void;
 
-  constructor(data: {
-    name: string;
-    namePL: string;
-    id: number;
-    type: EVENT_TYPE;
-    requirements: Requirements;
-    triggerEffect(): void;
-    fullFill(character: ICharacter): void;
-    triggerThreatEffect(): void;
-  }) {
-    this._name = data.name;
-    this._namePL = data.namePL;
-    this._id = data.id;
-    this._type = data.type;
-    this._requirements = data.requirements;
-    this._triggerEffect = data.triggerEffect;
-    this._triggerThreatEffect = data.triggerThreatEffect;
-    this._fullFill = data.fullFill;
+  constructor(
+    name: string,
+    namePL: string,
+    id: number,
+    type: EVENT_TYPE,
+    requirements: Requirements,
+    triggerEffect: (this: EventCard) => void,
+    triggerThreatEffect: (this: EventCard) => void,
+    fullFill: (this: EventCard, character: ICharacter) => void
+  ) {
+    this._name = name;
+    this._namePL = namePL;
+    this._id = id;
+    this._type = type;
+    this._requirements = requirements;
+    this._triggerEffect = triggerEffect;
+    this._triggerThreatEffect = triggerThreatEffect;
+    this._fullFill = fullFill;
   }
 }

@@ -15,13 +15,9 @@ export class PlayerCharEffects implements ICharEffects {
 
   death() {}
 
-  starve() {
-    console.log("hurt");
-  }
+  starve() {}
 
-  nightBeyondCamp() {
-    console.log("hurt");
-  }
+  nightBeyondCamp() {}
 }
 
 export class SideCharEffects implements ICharEffects {
@@ -31,21 +27,13 @@ export class SideCharEffects implements ICharEffects {
     this.character = character;
   }
 
-  diceQuestionMark() {
-    console.log("hurt");
-  }
+  diceQuestionMark() {}
 
-  death() {
-    console.log("char dies");
-  }
+  death() {}
 
-  starve() {
-    console.log("nothing");
-  }
+  starve() {}
 
-  nightBeyondCamp() {
-    console.log("nothing");
-  }
+  nightBeyondCamp() {}
 
   getHurt() {}
 }

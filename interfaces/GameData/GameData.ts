@@ -13,11 +13,11 @@
 //   IPlayerCharacter,
 //   PlayerCharacterName,
 // } from "../Characters/PlayerCharacter";
-// import { IPawnsService } from "../Pawns/Pawns";
+// import { IPawnsService } from "../PawnService/PawnService";
 // import { ICharEffects } from "../Characters/CharEffects";
 // import { IDictionary } from "../IDictionary";
 // import { ISkill } from "../Characters/Skill";
-// import { IPawn } from "../Pawns/Pawn";
+// import { IPawn } from "../PawnService/Pawn";
 //
 // export interface StructureData {
 //   name: STRUCTURE;

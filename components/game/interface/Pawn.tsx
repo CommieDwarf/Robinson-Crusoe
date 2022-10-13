@@ -4,8 +4,6 @@ import styles from "./Pawn.module.css";
 import { Draggable } from "react-beautiful-dnd";
 import { IPawnRenderData } from "../../../interfaces/Pawns/Pawn";
 
-import { characters } from "../../../server/Classes/Game";
-
 interface Props {
   pawn: IPawnRenderData;
   context:
@@ -22,22 +20,13 @@ interface Props {
 }
 
 export default function Pawn(props: Props) {
-  let pawn: JSX.Element;
-  const character = characters.find(
-    (char) => char.id === props.pawn.characterId
-  );
-  let imageName = "";
-  let charName = "";
-  if (character) {
-    imageName = character.gender
-      ? character.name + "-" + character.gender
-      : character.name;
-    charName = character.name;
-  } else {
-  }
+  let imageName = props.pawn.character.gender
+    ? props.pawn.character.name + "-" + props.pawn.character.gender
+    : props.pawn.character.name;
 
   const context =
-    character?.name === "dog" || character?.name === "friday"
+    props.pawn.character.name === "dog" ||
+    props.pawn.character.name === "friday"
       ? props.context + "ContextSideCharacter"
       : props.context + "Context";
 
@@ -53,7 +42,7 @@ export default function Pawn(props: Props) {
             ref={provided.innerRef}
           >
             <div
-              className={styles.pawn + " " + styles[charName]}
+              className={styles.pawn + " " + styles[props.pawn.character.name]}
               id={props.pawn.draggableId}
             >
               <Image

@@ -12,8 +12,10 @@ export interface ICharacterRenderData {
   gender: string;
 }
 
+type ICharacterRenderDataNoPawns = Omit<ICharacterRenderData, "freePawns">;
+
 export interface ICharacter {
-  pawns: IPawnsService;
+  pawnService: IPawnsService;
   name: CharacterName;
   id: number;
   health: number;

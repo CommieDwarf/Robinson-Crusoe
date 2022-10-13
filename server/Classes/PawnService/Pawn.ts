@@ -20,7 +20,12 @@ export class Pawn implements IPawn {
   get renderData(): IPawnRenderData {
     return {
       draggableId: this.draggableId,
-      characterId: this.character.id,
+      character: {
+        id: this.character.id,
+        name: this.character.name,
+        namePL: this.character.namePL,
+        gender: this.character.gender,
+      },
     };
   }
 

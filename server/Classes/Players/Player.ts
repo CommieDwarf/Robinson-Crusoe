@@ -42,7 +42,7 @@ export class Player implements IPlayer {
       name: this.name,
       color: this.color,
       id: this.id,
-      characterId: this.getCharacter().id,
+      character: this.getCharacter().renderData,
     };
   }
 

@@ -150,11 +150,7 @@ export class Threat implements IThreat {
 
   public async testEventCards(game: IGame) {
     await sleep(2000);
-    this._eventCards.forEach((event, i) => {
-      console.log(event.name, event.namePL);
-    });
-
-    console.log(this._eventCards.length, "length");
+    this._eventCards.forEach((event, i) => {});
 
     const char = game.allCharacters.getCharacter("cook");
 
@@ -168,4 +164,4 @@ export class Threat implements IThreat {
 }
 
 import sleep from "../../../utils/sleep";
-import {getWreckageCard} from "../../constants/getWreckageCard";
+import { getWreckageCard } from "../../constants/getWreckageCard";

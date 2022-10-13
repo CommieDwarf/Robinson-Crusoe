@@ -1,7 +1,7 @@
 import { IThreat, IThreatRenderData } from "./Threat/Threat";
 import { IPawn, IPawnRenderData } from "./Pawns/Pawn";
 import { IBeasts, IBeastsRenderData } from "./Beasts/Beasts";
-import { IPlayer, IPlayerRenderData } from "./PlayerService/Player";
+import { IPlayerRenderData } from "./PlayerService/Player";
 import { IAdditionalActivity } from "./AdditionalActivity";
 import { ITilesService, ITilesServiceRenderData } from "./Tiles/TilesService";
 import {
@@ -16,15 +16,24 @@ import {
   IActionSlotsService,
   IActionSlotsServiceRenderData,
 } from "./ActionSlots";
-import { IAllCharacters } from "./AllCharacters/Characters";
+import {
+  ICharacterService,
+  ICharacterServiceRenderData,
+} from "./CharacterService/CharacterService";
 import { IEquipment, IEquipmentRenderData } from "./Equipment/Equipment";
 import { Player } from "../server/Classes/Players/Player";
 import {
   IInventionsService,
   IInventionsServiceRenderData,
 } from "./Inventions/Inventions";
-import { ISideCharacterRenderData } from "./Characters/SideCharacter";
-import { IPlayerCharacterRenderData } from "./Characters/PlayerCharacter";
+import {
+  ISideCharacter,
+  ISideCharacterRenderData,
+} from "./Characters/SideCharacter";
+import {
+  IPlayerCharacter,
+  IPlayerCharacterRenderData,
+} from "./Characters/PlayerCharacter";
 import { IMorale, IMoraleRenderData } from "./Morale/Morale";
 import { IWeather } from "./Weather/Weather";
 import { IPlayerService } from "./PlayerService/PlayerSevice";
@@ -39,8 +48,8 @@ import { ILogMessageRenderData } from "./ChatLog/LogMessage";
 export interface IGameRenderData {
   players: IPlayerRenderData[];
   localPlayer: IPlayerRenderData;
-  allCharacters: (IPlayerCharacterRenderData | ISideCharacterRenderData)[];
   tilesService: ITilesServiceRenderData;
+  characterService: ICharacterServiceRenderData;
   allResources: IAllResourcesRenderData;
   structuresService: IStructuresServiceRenderData;
   inventionsService: IInventionsServiceRenderData;
@@ -60,7 +69,7 @@ export interface IGameRenderData {
 export interface IGame {
   playerService: IPlayerService;
   localPlayer: Player;
-  allCharacters: IAllCharacters;
+  characterService: ICharacterService;
   tilesService: ITilesService;
   allResources: IAllResources;
   structuresService: IStructuresService;

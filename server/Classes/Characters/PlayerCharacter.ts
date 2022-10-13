@@ -5,7 +5,7 @@ import {
   PlayerCharacterName,
 } from "../../../interfaces/Characters/PlayerCharacter";
 import { IPlayer } from "../../../interfaces/PlayerService/Player";
-import { PawnsService } from "../Pawns/Pawns";
+import { PawnsService } from "../PawnService/PawnService";
 import { IDictionary } from "../../../interfaces/IDictionary";
 import { getCookSkills } from "../../constants/getCookSkills";
 import { ISkill } from "../../../interfaces/Characters/Skill";
@@ -38,8 +38,8 @@ export class PlayerCharacter extends Character implements IPlayerCharacter {
     this._name = value;
   }
 
-  get pawns(): IPawnsService {
-    return this._pawns;
+  get pawnService(): IPawnsService {
+    return this._pawnService;
   }
 
   get player(): IPlayer {
@@ -63,7 +63,7 @@ export class PlayerCharacter extends Character implements IPlayerCharacter {
       moraleThresholds: this.moraleThresholds,
       skills: this.skills,
       id: this.id,
-      freePawns: this.pawns.freePawns.map((pawn) => pawn.renderData),
+      freePawns: this.pawnService.freePawns.map((pawn) => pawn.renderData),
       health: this.health,
       currentHealth: this.currentHealth,
     };
@@ -72,7 +72,7 @@ export class PlayerCharacter extends Character implements IPlayerCharacter {
   protected readonly _player: IPlayer;
   protected readonly _moraleThresholds: number[];
   protected readonly _gender: "male" | "female";
-  protected _pawns: IPawnsService = new PawnsService(this, 2);
+  protected _pawnService: IPawnsService = new PawnsService(this, 2);
   protected declare _name: PlayerCharacterName;
   private _skills: IDictionary<ISkill>;
   private _effects: ICharEffects;
@@ -89,7 +89,7 @@ export class PlayerCharacter extends Character implements IPlayerCharacter {
     this._player = player;
     this._moraleThresholds = moraleThresholds;
     this._gender = gender;
-    this._pawns = new PawnsService(this, 2);
+    this._pawnService = new PawnsService(this, 2);
     this._skills = this.getSkills();
     this._effects = new PlayerCharEffects(this);
   }

@@ -1,10 +1,13 @@
-import { ICharacter } from "../Characters/Character";
-import { IPlayerCharacter } from "../Characters/PlayerCharacter";
+import { ICharacter, ICharacterRenderData } from "../Characters/Character";
+import {
+  IPlayerCharacter,
+  IPlayerCharacterRenderData,
+} from "../Characters/PlayerCharacter";
 
 export interface IPlayerRenderData {
   name: string;
   color: string;
-  characterId: number;
+  character: IPlayerCharacterRenderData;
   id: number;
 }
 

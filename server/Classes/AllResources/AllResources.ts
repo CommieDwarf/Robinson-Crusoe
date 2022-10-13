@@ -26,7 +26,6 @@ export class AllResources implements IAllResources {
   }
 
   get renderData(): IAllResourcesRenderData {
-    console.log(this._owned.amount);
     return {
       future: this.future.renderData,
       owned: this.owned.renderData,

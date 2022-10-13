@@ -1,9 +1,14 @@
-import { ICharacter } from "../Characters/Character";
+import { ICharacter, ICharacterRenderData } from "../Characters/Character";
 import { HelperAction } from "../Action";
 
 export interface IPawnRenderData {
   draggableId: string;
-  characterId: number;
+  character: {
+    name: string;
+    namePL: string;
+    gender: string;
+    id: number;
+  };
 }
 
 export interface IPawn {

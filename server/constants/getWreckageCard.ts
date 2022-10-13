@@ -6,12 +6,12 @@ import { ICharacter } from "../../interfaces/Characters/Character";
 
 export function getWreckageCard(game: IGame, threat: IThreat): IEventCard {
   // TODO: implement more wreckage cards and return random
-  return new EventCard({
-    name: "supplyCrates",
-    namePL: "skrzynie z jedzeniem",
-    id: 1,
-    type: EVENT_TYPE.wreckage,
-    requirements: {
+  return new EventCard(
+    "supplyCrates",
+    "skrzynie z jedzeniem",
+    1,
+    EVENT_TYPE.wreckage,
+    {
       pawns: 1,
       optionalPawns: 1,
       invention: null,
@@ -19,17 +19,17 @@ export function getWreckageCard(game: IGame, threat: IThreat): IEventCard {
       resource: null,
     },
 
-    triggerEffect() {
+    function triggerEffect() {
       //nothing happens
     },
-    triggerThreatEffect() {
+    function triggerThreatEffect() {
       // nothing happens
     },
-    fullFill(character: ICharacter, helper: ICharacter | null = null) {
+    function fullFill(character: ICharacter, helper: ICharacter | null = null) {
       game.allResources.addResourceToOwned("food", 1);
       if (helper) {
         game.allResources.addResourceToOwned("dryFood", 1);
       }
-    },
-  });
+    }
+  );
 }
