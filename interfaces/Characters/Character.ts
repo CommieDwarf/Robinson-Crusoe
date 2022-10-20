@@ -8,8 +8,9 @@ export interface ICharacterRenderData {
   namePL: CHAR_NAME_TRANSLATION;
   id: number;
   health: number;
-  currentHealth: number;
+  maxHealth: number;
   gender: string;
+  determination: number;
 }
 
 type ICharacterRenderDataNoPawns = Omit<ICharacterRenderData, "freePawns">;
@@ -18,18 +19,18 @@ export interface ICharacter {
   pawnService: IPawnsService;
   name: CharacterName;
   id: number;
-  health: number;
+  maxHealth: number;
   effects: ICharEffects;
   namePL: CHAR_NAME_TRANSLATION;
-  currentHealth: number;
+  health: number;
   gender: string;
   renderData: ICharacterRenderData;
-  determination: number | null;
+  determination: number;
 
-  incrementDetermination: (by: number, logSource?: string) => void;
-  decrementDetermination: (by: number, logSource?: string) => void;
-  getHurt: (by: number, logSource?: string) => void;
-  getHealed: (by: number, logSource?: string) => void;
+  incrementDetermination: (by: number) => void;
+  decrementDetermination: (by: number) => void;
+  hurt: (by: number) => void;
+  heal: (by: number) => void;
 }
 
 export type CharacterName =

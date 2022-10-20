@@ -4,6 +4,8 @@ import styles from "./LogMessage.module.css";
 import { RoundSquare } from "../../scenario/Scenario/Scenarios/Castaways/RoundSquare";
 import Image from "next/image";
 import { ILogMessageRenderData } from "../../../../../interfaces/ChatLog/LogMessage";
+import { toUpper } from "lodash";
+import capitalizeFirstLetter from "../../../../../utils/capitalizeFirstLetter";
 
 type Props = {
   message: ILogMessageRenderData;
@@ -26,10 +28,13 @@ export const LogMessage = (props: Props) => {
           alt={"faza"}
         />
       </div>
+      {}
       <div className={styles.messageContent}>
-        <span className={styles.messageSource}>{msg.source} - </span>
+        <span className={styles.messageSource}>
+          {capitalizeFirstLetter(msg.source)} -{" "}
+        </span>
         <span className={styles.message + " " + styles[msg.color]}>
-          {msg.message}
+          {capitalizeFirstLetter(msg.message)}
         </span>
       </div>
     </div>

@@ -2,45 +2,29 @@ import Image from "next/image";
 import React from "react";
 import styles from "./Health.module.css";
 
+interface Props {
+  value: number;
+  maxHealth: number;
+  moraleThresholds: number[];
+}
 
-const health = [
-  "h",
-  "h",
-  "h",
-  "h",
-  "m",
-  "h",
-  "h",
-  "h",
-  "m",
-  "h",
-  "h",
-  "m",
-  "h",
-  "h",
-  "m",
-  "h",
-  "h",
-  "d",
-];
-
-export default function Health() {
+export default function Health(props: Props) {
   let marks: JSX.Element[] = [];
 
-  health.forEach((char, i) => {
-    if (char === "h") {
+  for (let i = props.maxHealth; i > 0; i--) {
+    const red = i === props.value ? "red-" : "";
+    marks.push(
+      <div className={styles.heart} key={i}>
+        <Image
+          src={"/interface/characters/" + red + "heart.png"}
+          layout="fill"
+          alt="serce"
+        />
+      </div>
+    );
+    if (props.moraleThresholds.includes(i - 1)) {
       marks.push(
-        <div className={styles.heart} key={i}>
-          <Image
-            src="/interface/characters/heart.png"
-            layout="fill"
-            alt="serce"
-          />
-        </div>
-      );
-    } else if (char === "m") {
-      marks.push(
-        <div className={styles.arrow} key={i}>
+        <div className={styles.arrow} key={i + 100}>
           <Image
             src="/interface/characters/arrow-left.png"
             layout="fill"
@@ -48,19 +32,17 @@ export default function Health() {
           />
         </div>
       );
-    } else {
-      marks.push(
-        <div className={styles.skull} key={i}>
-          <Image
-            src="/interface/characters/skull.png"
-            layout="fill"
-            alt="czaszka"
-          />
-        </div>
-      );
     }
-  });
-
+  }
+  marks.push(
+    <div className={styles.skull} key={2137}>
+      <Image
+        src="/interface/characters/skull.png"
+        layout="fill"
+        alt="czaszka"
+      />
+    </div>
+  );
   return (
     <div className={styles.container}>
       <div className={styles.health}>{marks}</div>

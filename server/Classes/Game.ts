@@ -40,7 +40,7 @@ import { IChatLog } from "../../interfaces/ChatLog/ChatLog";
 
 const player = new Player("Konrad", "orange", 0);
 
-const cook = new PlayerCharacter("cook", 2, 13, "male", [2, 1, 3, 7], player);
+const cook = new PlayerCharacter("cook", 2, 13, "male", [2, 4, 6, 9], player);
 player.setCharacter(cook);
 
 export { player };
@@ -187,8 +187,8 @@ export class GameClass implements IGame {
       players.map((player) => player.getCharacter()),
       this
     );
-    this._characterService.allCharacters.forEach((char) =>
-      this._allPawns.concat(char.pawnService.pawns)
+    this._characterService.allCharacters.forEach(
+      (char) => (this._allPawns = this._allPawns.concat(char.pawnService.pawns))
     );
   }
 

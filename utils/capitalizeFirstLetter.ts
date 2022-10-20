@@ -1,4 +1,4 @@
-export default function capitalize(string: string) {
+export default function capitalizeFirstLetter(string: string) {
   if (string.length == 0) {
     return string;
   }

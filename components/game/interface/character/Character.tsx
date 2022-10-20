@@ -10,7 +10,7 @@ import SkillMenu from "./SkillMenu/SkillMenu";
 import Scrollbar from "../Scrollbar";
 import Pawn from "../Pawn";
 import { Droppable } from "react-beautiful-dnd";
-import capitalize from "../../../../utils/capitalize";
+import capitalize from "../../../../utils/capitalizeFirstLetter";
 import {
   IPlayerCharacter,
   IPlayerCharacterRenderData,
@@ -67,7 +67,7 @@ export default function Character(props: Props) {
           {skills}
         </div>
       </div>
-      <Determination />
+      <Determination value={props.character.determination} />
       <Scrollbar styleModule={scrollbarStyles}>
         <Droppable droppableId={"freepawns-" + props.character.name}>
           {(provided) => (

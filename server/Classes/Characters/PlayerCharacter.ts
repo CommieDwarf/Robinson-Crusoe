@@ -1,17 +1,17 @@
-import { Character } from "./Character";
+import {Character} from "./Character";
 import {
   IPlayerCharacter,
   IPlayerCharacterRenderData,
   PlayerCharacterName,
 } from "../../../interfaces/Characters/PlayerCharacter";
-import { IPlayer } from "../../../interfaces/PlayerService/Player";
-import { PawnsService } from "../PawnService/PawnService";
-import { IDictionary } from "../../../interfaces/IDictionary";
-import { getCookSkills } from "../../constants/getCookSkills";
-import { ISkill } from "../../../interfaces/Characters/Skill";
-import { ICharEffects } from "../../../interfaces/Characters/CharEffects";
-import { PlayerCharEffects } from "./CharEffects";
-import { IPawnsService } from "../../../interfaces/Pawns/Pawns";
+import {IPlayer} from "../../../interfaces/PlayerService/Player";
+import {PawnsService} from "../PawnService/PawnService";
+import {IDictionary} from "../../../interfaces/IDictionary";
+import {getCookSkills} from "../../constants/getCookSkills";
+import {ISkill} from "../../../interfaces/Characters/Skill";
+import {ICharEffects} from "../../../interfaces/Characters/CharEffects";
+import {PlayerCharEffects} from "./CharEffects";
+import {IPawnsService} from "../../../interfaces/Pawns/Pawns";
 
 export class PlayerCharacter extends Character implements IPlayerCharacter {
   get skills(): IDictionary<ISkill> {
@@ -54,6 +54,10 @@ export class PlayerCharacter extends Character implements IPlayerCharacter {
     return this._gender;
   }
 
+  get moraleDrop(): boolean {
+    return this._moraleThresholds.includes(this.health);
+  }
+
   get renderData(): IPlayerCharacterRenderData {
     return {
       name: this.name,
@@ -65,7 +69,8 @@ export class PlayerCharacter extends Character implements IPlayerCharacter {
       id: this.id,
       freePawns: this.pawnService.freePawns.map((pawn) => pawn.renderData),
       health: this.health,
-      currentHealth: this.currentHealth,
+      maxHealth: this.maxHealth,
+      determination: this.determination,
     };
   }
 
@@ -78,12 +83,12 @@ export class PlayerCharacter extends Character implements IPlayerCharacter {
   private _effects: ICharEffects;
 
   constructor(
-    name: PlayerCharacterName,
-    id: number,
-    health: number,
-    gender: "male" | "female",
-    moraleThresholds: number[],
-    player: IPlayer
+      name: PlayerCharacterName,
+      id: number,
+      health: number,
+      gender: "male" | "female",
+      moraleThresholds: number[],
+      player: IPlayer
   ) {
     super(name, id, health);
     this._player = player;
@@ -92,6 +97,10 @@ export class PlayerCharacter extends Character implements IPlayerCharacter {
     this._pawnService = new PawnsService(this, 2);
     this._skills = this.getSkills();
     this._effects = new PlayerCharEffects(this);
+  }
+
+  hurt() {
+    this._health--;
   }
 
   private getSkills(): IDictionary<ISkill> {

@@ -96,8 +96,8 @@ export default function Game(props: Props) {
     const pawn = gameRenderData.allPawns.find(
       (p) => p.draggableId === update.draggableId
     );
-    const destinationId = update.destination?.droppableId;
 
+    const destinationId = update.destination?.droppableId;
     if (
       destinationId?.includes("freepawns") ||
       destinationId === update.source.droppableId
@@ -249,7 +249,13 @@ export default function Game(props: Props) {
           zIndex={zIndex}
         />
 
-        <Health />
+        <Health
+          value={gameRenderData.localPlayer.character.health}
+          maxHealth={gameRenderData.localPlayer.character.maxHealth}
+          moraleThresholds={
+            gameRenderData.localPlayer.character.moraleThresholds
+          }
+        />
         <Threat
           threat={gameRenderData.threat}
           actionSlots={actionSlots}

@@ -4,16 +4,20 @@ import { PlayerCharacterName } from "../../../interfaces/Characters/PlayerCharac
 import { SideCharacterName } from "../../../interfaces/Characters/SideCharacter";
 
 export abstract class Character {
+  set determination(value: number) {
+    this._determination = value;
+  }
+
+  get maxHealth() {
+    return this._maxHealth;
+  }
+
   get determination(): number {
     return this._determination;
   }
 
   get id(): number {
     return this._id;
-  }
-
-  get health() {
-    return this._health;
   }
 
   get namePL(): CHAR_NAME_TRANSLATION {
@@ -24,12 +28,12 @@ export abstract class Character {
     this._namePL = value;
   }
 
-  get currentHealth(): number {
-    return this._currentHealth;
+  get health(): number {
+    return this._health;
   }
 
-  set currentHealth(value: number) {
-    this._currentHealth = value;
+  set health(value: number) {
+    this._health = value;
   }
 
   get name(): PlayerCharacterName | SideCharacterName {
@@ -43,39 +47,40 @@ export abstract class Character {
   protected _namePL: CHAR_NAME_TRANSLATION;
 
   // I decided to go from 0 to maximum capacity(death) to simplify morale thresholds
-  protected _currentHealth = 0;
+
   protected _name: PlayerCharacterName | SideCharacterName;
   protected _gender = "";
   private _determination = 0;
 
   protected _id: number;
-  protected _health;
+  private readonly _maxHealth;
+  protected _health: number;
 
   protected constructor(
     name: PlayerCharacterName | SideCharacterName,
     id: number,
-    health: number
+    maxHealth: number
   ) {
     this._namePL = CHAR_NAME_TRANSLATION[name];
-    this._currentHealth = health;
     this._name = name;
     this._id = id;
-    this._health = health;
+    this._maxHealth = maxHealth;
+    this._health = this._maxHealth;
   }
 
-  incrementDetermination(by: number, logSource: string = "") {
+  incrementDetermination(by: number) {
     this._determination += by;
   }
 
-  decrementDetermination(by: number, logSource: string = "") {
+  decrementDetermination(by: number) {
     this._determination -= by;
   }
 
-  getHurt(by: number, logSource: string = "") {
-    this._currentHealth += by;
+  hurt(by: number) {
+    this._health -= by;
   }
 
-  getHealed(by: number, logSource: string = "") {
-    this._currentHealth -= by;
+  heal(by: number) {
+    this._health -= by;
   }
 }

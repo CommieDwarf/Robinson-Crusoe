@@ -27,4 +27,7 @@ export interface ICharacterService {
   hurtAllPlayerCharacters: (by: number, source: string) => void;
   decrDeterminationAllPlayerCharacters: (by: number, logSource: string) => void;
   renderData: ICharacterServiceRenderData;
+  hurt: (charName: string, by: number, logSource: string) => void;
+  heal: (charName: string, by: number, logSource: string) => void;
+  decrDetermination: (charName: string, by: number, logSource: string) => void;
 }

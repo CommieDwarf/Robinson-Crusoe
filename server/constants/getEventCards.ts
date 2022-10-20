@@ -24,7 +24,10 @@ export function getEventCards(game: IGame, threat: IThreat): IEventCard[] {
         threat.setSpecialEffect("argument", true, this.namePL);
       },
       function triggerThreatEffect() {
-        game.allCharacters.decrDeterminationAllPlayerCharacters(1, this.namePL);
+        game.characterService.decrDeterminationAllPlayerCharacters(
+          1,
+          this.namePL
+        );
         game.morale.lvlDown(1, this.namePL);
       },
       function fullFill(character: ICharacter) {
@@ -84,13 +87,13 @@ export function getEventCards(game: IGame, threat: IThreat): IEventCard[] {
       },
       function triggerEffect() {
         if (game.allResources.owned.getResource("wood") < 2) {
-          game.allCharacters.hurtAllPlayerCharacters(1, this.namePL);
+          game.characterService.hurtAllPlayerCharacters(1, this.namePL);
         } else {
           game.allResources.owned.spend("wood", 2);
         }
       },
       function triggerThreatEffect() {
-        game.allCharacters.hurtAllPlayerCharacters(1, this.namePL);
+        game.characterService.hurtAllPlayerCharacters(1, this.namePL);
       },
       function fullFill(character: ICharacter) {
         character.incrementDetermination(
@@ -143,7 +146,7 @@ export function getEventCards(game: IGame, threat: IThreat): IEventCard[] {
         if (game.tilesService.isCampTransitionAvailable()) {
           game.tilesService.forceCampTransition();
         } else {
-          game.allCharacters.hurtAllPlayerCharacters(1, "Oberwane chmury");
+          game.characterService.hurtAllPlayerCharacters(1, "Oberwane chmury");
         }
       },
       function triggerThreatEffect() {
@@ -177,7 +180,7 @@ export function getEventCards(game: IGame, threat: IThreat): IEventCard[] {
         resource: null,
       },
       function triggerEffect() {
-        game.allCharacters.hurtAllPlayerCharacters(1, this.namePL);
+        game.characterService.hurtAllPlayerCharacters(1, this.namePL);
       },
       function triggerThreatEffect() {
         game.morale.lvlDown(1, this.namePL);

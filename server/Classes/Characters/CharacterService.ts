@@ -10,15 +10,19 @@ import { IGame } from "../../../interfaces/Game";
 import { SideCharacter } from "./SideCharacter";
 
 export class CharacterService implements ICharacterService {
+  get allCharacters(): (ISideCharacter | IPlayerCharacter)[] {
+    return this._allCharacters;
+  }
+
   get playerCharacters(): IPlayerCharacter[] {
-    return this.allCharacters.filter(
+    return this._allCharacters.filter(
       (char) => char instanceof PlayerCharacter
     ) as IPlayerCharacter[];
   }
 
   dog: ISideCharacter = new SideCharacter("dog", 1, Infinity);
   friday: ISideCharacter = new SideCharacter("friday", 0, 4);
-  allCharacters: (ISideCharacter | IPlayerCharacter)[] = [
+  private _allCharacters: (ISideCharacter | IPlayerCharacter)[] = [
     this.dog,
     this.friday,
   ];
@@ -36,7 +40,8 @@ export class CharacterService implements ICharacterService {
   private readonly _game: IGame;
 
   constructor(characters: IPlayerCharacter[], game: IGame) {
-    this.allCharacters.concat(characters);
+    this._allCharacters = this._allCharacters.concat(characters);
+    console.log(this._allCharacters);
     this._game = game;
   }
 
@@ -55,16 +60,37 @@ export class CharacterService implements ICharacterService {
   addPawn(charName: string, draggableId: string): void {}
 
   getCharacter(charName: string): IPlayerCharacter | ISideCharacter {
-    const character = this.allCharacters.find((char) => char.name === charName);
+    const character = this._allCharacters.find(
+      (char) => char.name === charName
+    );
     if (!character) {
       throw new Error("Couldn't find character with name: " + charName);
     }
     return character;
   }
 
+  hurt(charName: string, by: number, sourceLog: string) {
+    const char = this.getCharacter(charName);
+    char.hurt(by);
+    if (sourceLog) {
+      this._game.chatLog.addMessage(
+        `${char.namePL} otrzymał ${by} obrażeń`,
+        "red",
+        sourceLog
+      );
+    }
+    if (char instanceof PlayerCharacter) {
+      if (char.moraleDrop) {
+        this._game.morale.lvlDown(1, char.namePL);
+      }
+    }
+  }
+
+  heal(charName: string, by: number, sourceLog: string) {}
+
   hurtAllPlayerCharacters(by: number, logSource: string): void {
     this.playerCharacters.forEach((char) => {
-      char.getHurt(by);
+      this.hurt(char.name, by, "");
     });
     this._game.chatLog.addMessage(
       "Wszyscy gracze dostają obrażenia.",
@@ -73,14 +99,35 @@ export class CharacterService implements ICharacterService {
     );
   }
 
-  decrDeterminationAllPlayerCharacters(by: number, logSource: string) {
-    this.playerCharacters.forEach((char) => {
+  decrDetermination(charName: string, by: number, logSource: string) {
+    const char = this.getCharacter(charName);
+    if (logSource) {
+      this._game.chatLog.addMessage(
+        `${char.namePL} odrzuca ${by} żeton/y determinacji`,
+        "red",
+        logSource
+      );
+    }
+    if (char.determination < by) {
+      this.hurt(
+        charName,
+        char.determination - by,
+        "brak determinacji do odrzucenia"
+      );
+      char.determination = 0;
+    } else {
       char.decrementDetermination(by);
-    });
+    }
+  }
+
+  decrDeterminationAllPlayerCharacters(by: number, logSource: string) {
     this._game.chatLog.addMessage(
       "Wszyscy gracze tracą 1 determinację.",
       "red",
       logSource
     );
+    this.playerCharacters.forEach((char) => {
+      this.decrDetermination(char.name, by, "");
+    });
   }
 }
