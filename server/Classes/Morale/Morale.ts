@@ -1,5 +1,6 @@
 import { IGame } from "../../../interfaces/Game";
 import { IMorale } from "../../../interfaces/Morale/Morale";
+import { ICharacter } from "../../../interfaces/Characters/Character";
 
 export class Morale implements IMorale {
   get lvl(): number {
@@ -43,5 +44,14 @@ export class Morale implements IMorale {
     }
   }
 
-  getDetermination() {}
+  getDetermination(primeCharacter: ICharacter) {
+    if (this._lvl === 0) {
+      return;
+    }
+    if (this._lvl > 0) {
+      primeCharacter.incrementDetermination(this._lvl, "efekt morali");
+    } else {
+      primeCharacter.decrementDetermination(this._lvl, "efekt morali");
+    }
+  }
 }

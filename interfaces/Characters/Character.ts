@@ -27,8 +27,8 @@ export interface ICharacter {
   renderData: ICharacterRenderData;
   determination: number;
 
-  incrementDetermination: (by: number) => void;
-  decrementDetermination: (by: number) => void;
+  incrDetermination: (by: number) => void;
+  decrDetermination: (by: number) => void;
   hurt: (by: number) => void;
   heal: (by: number) => void;
 }

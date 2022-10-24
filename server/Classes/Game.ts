@@ -9,7 +9,6 @@ import { Equipment } from "./Equipment/Equipment";
 import { AdditionalActivity } from "./AdditionalActivity/AdditionalActivity";
 import { Beasts } from "./Beasts/Beasts";
 import { PlayerCharacter } from "./Characters/PlayerCharacter";
-import { IPlayer } from "../../interfaces/PlayerService/Player";
 import { IGame, IGameRenderData } from "../../interfaces/Game";
 import { SCENARIO } from "../../interfaces/Scenario/Scenario";
 import { IInventionsService } from "../../interfaces/Inventions/Inventions";
@@ -38,12 +37,6 @@ import { IPhaseService } from "../../interfaces/PhaseService/PhaseService";
 import { ChatLog } from "./ChatLog/ChatLog";
 import { IChatLog } from "../../interfaces/ChatLog/ChatLog";
 
-const player = new Player("Konrad", "orange", 0);
-
-const cook = new PlayerCharacter("cook", 2, 13, "male", [2, 4, 6, 9], player);
-player.setCharacter(cook);
-
-export { player };
 type ScenarioName = "castaways";
 
 export class GameClass implements IGame {
@@ -153,15 +146,14 @@ export class GameClass implements IGame {
   private _chatLog: IChatLog = new ChatLog(this);
   private _actionService: IActionService = new ActionService(this);
   private _playerService: IPlayerService;
-  private _localPlayer: Player = player;
+  private _localPlayer: Player;
   private _tilesService: ITilesService = new TilesService();
-  private _allResources: IAllResources = new AllResources();
+  private _allResources: IAllResources = new AllResources(this);
   private _structuresService: IStructuresService = new StructuresService();
-  private _inventionsService: IInventionsService = new InventionsService(
-    SCENARIO.CASTAWAYS,
-    [cook],
-    this._tilesService
-  );
+
+  // hardcoded for demo version
+  private _inventionsService: IInventionsService;
+
   private _weather: IWeather = new Weather();
   private _threat: IThreat = new Threat(this);
   private _phaseService: IPhaseService = new PhaseService(this);
@@ -173,7 +165,7 @@ export class GameClass implements IGame {
   private _beasts: IBeasts = new Beasts(this, this._allResources.owned);
   private _actionSlotsService = new ActionSlotsService(
     this._structuresService,
-    this._inventionsService,
+    this.inventionsService,
     this._tilesService
   );
   private _allPawns: IPawn[] = [];
@@ -181,14 +173,32 @@ export class GameClass implements IGame {
   private _morale = new Morale(this);
   private _turn = 1;
 
-  constructor(players: IPlayer[], scenarioName: ScenarioName) {
-    this._playerService = new PlayerService(players);
+  constructor(scenarioName: ScenarioName) {
+    // this is hardcoded for demo purpose.
+    const cook = new PlayerCharacter(
+      "cook",
+      2,
+      13,
+      this,
+      "male",
+      [2, 4, 6, 9],
+      this.localPlayer
+    );
+    this._localPlayer = new Player("Konrad", "orange", 0, cook);
+
+    this._playerService = new PlayerService([this.localPlayer]);
     this._characterService = new CharacterService(
-      players.map((player) => player.getCharacter()),
+      [this.localPlayer.getCharacter()],
       this
     );
     this._characterService.allCharacters.forEach(
       (char) => (this._allPawns = this._allPawns.concat(char.pawnService.pawns))
+    );
+
+    this._inventionsService = new InventionsService(
+      SCENARIO.CASTAWAYS,
+      [this.localPlayer.getCharacter()],
+      this._tilesService
     );
   }
 

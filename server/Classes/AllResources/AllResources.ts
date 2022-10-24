@@ -7,6 +7,14 @@ import {
   IAllResources,
   IAllResourcesRenderData,
 } from "../../../interfaces/Resources/AllResources";
+import { IGame } from "../../../interfaces/Game";
+
+enum resourcePL {
+  wood = "drewna",
+  food = "jedzenia",
+  dryFood = "suchego jedzenia",
+  leather = "skóry",
+}
 
 export class AllResources implements IAllResources {
   get productionBlocked(): boolean {
@@ -35,6 +43,11 @@ export class AllResources implements IAllResources {
   private _future: IResources = new Resources();
   private _owned: IResources = new Resources();
   private _blockedProduction = false;
+  private readonly _game: IGame;
+
+  constructor(game: IGame) {
+    this._game = game;
+  }
 
   public addFutureToOwned = (): void => {
     this._owned.addToAllResources(this.future);
@@ -45,11 +58,24 @@ export class AllResources implements IAllResources {
     this._owned.addToAllResources(resources);
   };
 
-  public addResourceToOwned(resource: keyof IResourcesAmount, amount: number) {
+  public addResourceToOwned(
+    resource: keyof IResourcesAmount,
+    amount: number,
+    logSource: string
+  ) {
+    this._game.chatLog.addMessage(
+      `Dodano ${amount} ${resourcePL[resource]} do posiadanych surowców`,
+      "green",
+      logSource
+    );
     this._owned.addResource(resource, amount);
   }
 
-  public addResourceToFuture(resource: keyof IResourcesAmount, amount: number) {
+  public addResourceToFuture(
+    resource: keyof IResourcesAmount,
+    amount: number,
+    logSource: string
+  ) {
     this._future.addResource(resource, amount);
   }
 }

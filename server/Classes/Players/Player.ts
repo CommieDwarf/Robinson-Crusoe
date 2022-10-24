@@ -28,13 +28,19 @@ export class Player implements IPlayer {
 
   private _name: string;
   private _color: string;
-  private _character: IPlayerCharacter | null = null;
+  private _character: IPlayerCharacter;
   private readonly _id: number;
 
-  constructor(name: string, color: string, id: number) {
+  constructor(
+    name: string,
+    color: string,
+    id: number,
+    character: IPlayerCharacter
+  ) {
     this._name = name;
     this._color = color;
     this._id = id;
+    this._character = character;
   }
 
   get renderData(): IPlayerRenderData {
@@ -57,9 +63,5 @@ export class Player implements IPlayer {
 
   setCharacter(value: IPlayerCharacter) {
     this._character = value;
-  }
-
-  unsetCharacter() {
-    this._character = null;
   }
 }

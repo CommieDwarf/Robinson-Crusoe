@@ -10,6 +10,7 @@ import { ICharEffects } from "../../../interfaces/Characters/CharEffects";
 import { SideCharEffects } from "./CharEffects";
 import { IPawnsService } from "../../../interfaces/Pawns/Pawns";
 import { PawnsService } from "../PawnService/PawnService";
+import { IGame } from "../../../interfaces/Game";
 
 export class SideCharacter extends Character implements ISideCharacter {
   get pawnService(): IPawnsService {
@@ -49,7 +50,8 @@ export class SideCharacter extends Character implements ISideCharacter {
       id: this.id,
       freePawns: this.pawnService.freePawns.map((pawn) => pawn.renderData),
       health: this.health,
-      currentHealth: this.currentHealth,
+      maxHealth: this.maxHealth,
+      determination: this.determination,
     };
   }
 
@@ -58,8 +60,13 @@ export class SideCharacter extends Character implements ISideCharacter {
   private _effects: ICharEffects;
   protected declare _name: SideCharacterName;
 
-  constructor(name: SideCharacterName, id: number, health: number) {
-    super(name, id, health);
+  constructor(
+    name: SideCharacterName,
+    id: number,
+    maxHealth: number,
+    game: IGame
+  ) {
+    super(name, id, maxHealth, game);
     this._pawnService = new PawnsService(this, 1);
     this._skills = this.getSkills();
     this._effects = new SideCharEffects(this);

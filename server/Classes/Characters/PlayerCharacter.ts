@@ -12,6 +12,7 @@ import {ISkill} from "../../../interfaces/Characters/Skill";
 import {ICharEffects} from "../../../interfaces/Characters/CharEffects";
 import {PlayerCharEffects} from "./CharEffects";
 import {IPawnsService} from "../../../interfaces/Pawns/Pawns";
+import {IGame} from "../../../interfaces/Game";
 
 export class PlayerCharacter extends Character implements IPlayerCharacter {
   get skills(): IDictionary<ISkill> {
@@ -85,12 +86,13 @@ export class PlayerCharacter extends Character implements IPlayerCharacter {
   constructor(
       name: PlayerCharacterName,
       id: number,
-      health: number,
+      maxHealth: number,
+      game: IGame,
       gender: "male" | "female",
       moraleThresholds: number[],
       player: IPlayer
   ) {
-    super(name, id, health);
+    super(name, id, maxHealth, game);
     this._player = player;
     this._moraleThresholds = moraleThresholds;
     this._gender = gender;
@@ -99,9 +101,6 @@ export class PlayerCharacter extends Character implements IPlayerCharacter {
     this._effects = new PlayerCharEffects(this);
   }
 
-  hurt() {
-    this._health--;
-  }
 
   private getSkills(): IDictionary<ISkill> {
     switch (this._name) {

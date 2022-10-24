@@ -56,6 +56,7 @@ export default function Game(props: Props) {
   );
   const [isPawnBeingDragged, setIsPawnBeingDragged] = useState(false);
 
+  console.log(gameRenderData.localPlayer.character.health);
   const [showScenario, setShowScenario] = useState(false);
 
   // Increase of proper component's z-index is necessary to render dragged pawn above other components

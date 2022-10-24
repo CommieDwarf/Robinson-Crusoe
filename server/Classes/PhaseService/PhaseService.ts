@@ -71,10 +71,10 @@ export class PhaseService implements IPhaseService {
     const res1 = resources.left;
     const res2 = resources.right;
     if (res1 !== "beast") {
-      this._game.allResources.addResourceToOwned(res1, 1);
+      this._game.allResources.addResourceToOwned(res1, 1, "kafelek z obozem");
     }
     if (res2 !== "beast") {
-      this._game.allResources.addResourceToOwned(res2, 1);
+      this._game.allResources.addResourceToOwned(res2, 1, "kafelek z obozem");
     }
   };
 

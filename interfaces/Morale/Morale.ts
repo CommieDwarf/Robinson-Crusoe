@@ -1,8 +1,11 @@
+import { IPlayer } from "../PlayerService/Player";
+import { IPlayerCharacter } from "../Characters/PlayerCharacter";
+
 export interface IMorale {
   lvl: number;
   lvlUp: (by: number, sourceLog: string) => void;
   lvlDown: (by: number, sourceLog: string) => void;
-  getDetermination: () => void;
+  getDetermination: (primeCharacter: IPlayerCharacter) => void;
   renderData: IMoraleRenderData;
 }
 

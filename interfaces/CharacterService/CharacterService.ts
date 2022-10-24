@@ -6,7 +6,7 @@ import {
   IPlayerCharacter,
   IPlayerCharacterRenderData,
 } from "../Characters/PlayerCharacter";
-import { ICharacterRenderData } from "../Characters/Character";
+import { ICharacter, ICharacterRenderData } from "../Characters/Character";
 
 export interface ICharacterServiceRenderData {
   playerCharacters: IPlayerCharacterRenderData[];
@@ -27,7 +27,24 @@ export interface ICharacterService {
   hurtAllPlayerCharacters: (by: number, source: string) => void;
   decrDeterminationAllPlayerCharacters: (by: number, logSource: string) => void;
   renderData: ICharacterServiceRenderData;
-  hurt: (charName: string, by: number, logSource: string) => void;
-  heal: (charName: string, by: number, logSource: string) => void;
-  decrDetermination: (charName: string, by: number, logSource: string) => void;
+  hurt: (
+    charOrName: string | ICharacter,
+    by: number,
+    logSource: string
+  ) => void;
+  heal: (
+    charOrName: string | ICharacter,
+    by: number,
+    logSource: string
+  ) => void;
+  decrDetermination: (
+    charOrName: string | ICharacter,
+    by: number,
+    logSource: string
+  ) => void;
+  incrDetermination: (
+    charOrName: string | ICharacter,
+    by: number,
+    logSource: string
+  ) => void;
 }

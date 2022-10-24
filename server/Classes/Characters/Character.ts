@@ -2,6 +2,7 @@ import { CHAR_NAME_TRANSLATION } from "../../../interfaces/Characters/Character"
 
 import { PlayerCharacterName } from "../../../interfaces/Characters/PlayerCharacter";
 import { SideCharacterName } from "../../../interfaces/Characters/SideCharacter";
+import { IGame } from "../../../interfaces/Game";
 
 export abstract class Character {
   set determination(value: number) {
@@ -46,8 +47,6 @@ export abstract class Character {
 
   protected _namePL: CHAR_NAME_TRANSLATION;
 
-  // I decided to go from 0 to maximum capacity(death) to simplify morale thresholds
-
   protected _name: PlayerCharacterName | SideCharacterName;
   protected _gender = "";
   private _determination = 0;
@@ -55,32 +54,67 @@ export abstract class Character {
   protected _id: number;
   private readonly _maxHealth;
   protected _health: number;
+  protected _game: IGame;
 
   protected constructor(
     name: PlayerCharacterName | SideCharacterName,
     id: number,
-    maxHealth: number
+    maxHealth: number,
+    game: IGame
   ) {
     this._namePL = CHAR_NAME_TRANSLATION[name];
     this._name = name;
     this._id = id;
     this._maxHealth = maxHealth;
     this._health = this._maxHealth;
+    this._game = game;
   }
 
-  incrementDetermination(by: number) {
+  incrDetermination(by: number) {
     this._determination += by;
+    // this._game.chatLog.addMessage(
+    //   `${this.namePL} otrzymuje ${by} determinacji`,
+    //   "green",
+    //   logSource
+    // );
   }
 
-  decrementDetermination(by: number) {
+  decrDetermination(by: number) {
+    // if (logSource) {
+    //   this._game.chatLog.addMessage(
+    //     `${this.namePL} odrzuca ${by} determinacji`,
+    //     "red",
+    //     logSource
+    //   );
+    // }
+
     this._determination -= by;
   }
 
   hurt(by: number) {
     this._health -= by;
+    // if (logSource) {
+    //   this._game.chatLog.addMessage(
+    //     `${this.namePL} dostaje ${by} obrażeń`,
+    //     "red",
+    //     logSource
+    //   );
+    // }
   }
 
   heal(by: number) {
-    this._health -= by;
+    if (by + this._health > this._maxHealth) {
+      this._health = this._maxHealth;
+    } else {
+      this._health += by;
+    }
+
+    // if (logSource) {
+    //   this._game.chatLog.addMessage(
+    //     `${this.namePL} leczy ${by} obrażeń`,
+    //     "green",
+    //     logSource
+    //   );
+    // }
   }
 }

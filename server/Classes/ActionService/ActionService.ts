@@ -1,13 +1,13 @@
-import {IActionService} from "../../../interfaces/ActionService/IActionService";
-import {IGame} from "../../../interfaces/Game";
-import {Action} from "./Action";
-import {ACTION_TYPE} from "../../../interfaces/ActionService/Action";
-import {ICharacter} from "../../../interfaces/Characters/Character";
-import {IActionSlotsService} from "../../../interfaces/ActionSlots";
-import {inventionList} from "../../constants/inventionList";
-import {StructureName} from "../../../interfaces/Structures/Structures";
-import {InventionName} from "../../../interfaces/Inventions/Inventions";
-import {IPawn} from "../../../interfaces/Pawns/Pawn";
+import { IActionService } from "../../../interfaces/ActionService/IActionService";
+import { IGame } from "../../../interfaces/Game";
+import { Action } from "./Action";
+import { ACTION_TYPE } from "../../../interfaces/ActionService/Action";
+import { ICharacter } from "../../../interfaces/Characters/Character";
+import { IActionSlotsService } from "../../../interfaces/ActionSlots";
+import { inventionList } from "../../constants/inventionList";
+import { StructureName } from "../../../interfaces/Structures/Structures";
+import { InventionName } from "../../../interfaces/Inventions/Inventions";
+import { IPawn } from "../../../interfaces/Pawns/Pawn";
 
 export class ActionService implements IActionService {
   build = new Action(ACTION_TYPE.build);
@@ -24,9 +24,8 @@ export class ActionService implements IActionService {
   resolveActions(): void {
     // TODO: call resolve methods
     const slotsCategorized =
-        this._game.actionSlotsService.slotsOccupiedAndCategorized;
+      this._game.actionSlotsService.slotsOccupiedAndCategorized;
     this.resolveThreat(slotsCategorized.threat);
-
   }
 
   private resolveThreat(slots: Map<string, IPawn>) {
@@ -36,7 +35,7 @@ export class ActionService implements IActionService {
       const side = (arrDroppableId[1] + "Slot") as "leftSlot" | "rightSlot";
       const pawnSlotCount = arrDroppableId[2];
       if (pawnSlotCount === "1") {
-        this._game.threat[side]?.effects.fullFill(pawn.character);
+        this._game.threat[side]?.fullFill(pawn.character);
       }
     });
   }
@@ -85,9 +84,9 @@ export class ActionService implements IActionService {
       const tileId = parseInt(array[1]);
       const side = array[3] as "left" | "right";
       const resource =
-          this._game.tilesService.getExploredTile(tileId).tileType?.resources[
-              side
-              ];
+        this._game.tilesService.getExploredTile(tileId).tileType?.resources[
+          side
+        ];
       if (!resource || resource === "beast") {
         throw new Error("Cant add resource " + resource + " to all resources");
       }

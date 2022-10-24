@@ -13,11 +13,14 @@ export interface IAllResources {
   renderData: IAllResourcesRenderData;
   addResourceToOwned: (
     resource: keyof IResourcesAmount,
-    amount: number
+    amount: number,
+    logSource: string
   ) => void;
   addResourceToFuture: (
     resource: keyof IResourcesAmount,
-    amount: number
+    amount: number,
+    logSource: string,
+    s
   ) => void;
   productionBlocked: boolean;
 }
