@@ -44,6 +44,7 @@ import { IPlayerCharacterRenderData } from "../../interfaces/Characters/PlayerCh
 import unsetPawn, { UnsetPawnData } from "../api/unsetPawn";
 import { NextPhaseButton } from "../../components/game/interface/nextPhaseButton/NextPhaseButton";
 import nextPhase from "../api/nextPhase";
+import { ActionResolveWindow } from "../../components/game/interface/ActionResolveWindow/ActionResolveWindow";
 
 interface Props {
   gameData: IGameRenderData;
@@ -298,6 +299,14 @@ export default function Game(props: Props) {
         <Players />
         <NextPhaseButton goNextPhase={goNextPhase} />
       </DragDropContext>
+      <ActionResolveWindow
+        currentAction={"threat"}
+        threat={gameRenderData.threat}
+        beast={gameRenderData.beasts}
+        inventions={gameRenderData.inventionsService}
+        structures={gameRenderData.structuresService}
+        tiles={gameRenderData.tilesService}
+      />
     </div>
   );
 }

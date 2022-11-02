@@ -1,13 +1,13 @@
-import { IPawn } from "../../../interfaces/Pawns/Pawn";
+import {IPawn} from "../../../interfaces/Pawns/Pawn";
 import {
   IActionSlotsService,
   IActionSlotsServiceRenderData,
   SlotsOccupiedAndCategorized,
 } from "../../../interfaces/ActionSlots";
-import { IStructuresService } from "../../../interfaces/Structures/Structures";
-import { IInventionsService } from "../../../interfaces/Inventions/Inventions";
-import { ITilesService } from "../../../interfaces/Tiles/TilesService";
-import { inventionList } from "../../constants/inventionList";
+import {IStructuresService} from "../../../interfaces/Structures/Structures";
+import {IInventionsService} from "../../../interfaces/Inventions/Inventions";
+import {ITilesService} from "../../../interfaces/Tiles/TilesService";
+import {inventionList} from "../../constants/inventionList";
 import Entries from "../../../interfaces/Entries";
 
 export class ActionSlotsService implements IActionSlotsService {
@@ -23,8 +23,7 @@ export class ActionSlotsService implements IActionSlotsService {
     const categorized: SlotsOccupiedAndCategorized = {
       threat: new Map(),
       hunt: new Map(),
-      invention: new Map(),
-      structure: new Map(),
+      build: new Map(),
       gather: new Map(),
       explore: new Map(),
       arrangeCamp: new Map(),
@@ -35,7 +34,7 @@ export class ActionSlotsService implements IActionSlotsService {
       if (pawn) {
         const arrDroppableId = droppableId.split("-");
         const entries = Object.entries(
-          categorized
+            categorized
         ) as Entries<SlotsOccupiedAndCategorized>;
         entries.forEach(([value, key]) => {
           if (arrDroppableId.includes(value)) {
@@ -57,7 +56,7 @@ export class ActionSlotsService implements IActionSlotsService {
         slots[slotId] = null;
       }
     });
-    return { slots };
+    return {slots};
   }
 
   private _slots: Map<string, null | IPawn>;
@@ -66,9 +65,9 @@ export class ActionSlotsService implements IActionSlotsService {
   private _tiles: ITilesService;
 
   constructor(
-    structuresService: IStructuresService,
-    inventionsService: IInventionsService,
-    tiles: ITilesService
+      structuresService: IStructuresService,
+      inventionsService: IInventionsService,
+      tiles: ITilesService
   ) {
     this._structuresService = structuresService;
     this._inventionsService = inventionsService;
@@ -138,4 +137,5 @@ export class ActionSlotsService implements IActionSlotsService {
 
     return actionSlots;
   }
+
 }

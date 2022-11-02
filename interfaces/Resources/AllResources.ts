@@ -19,8 +19,9 @@ export interface IAllResources {
   addResourceToFuture: (
     resource: keyof IResourcesAmount,
     amount: number,
-    logSource: string,
-    s
+    logSource: string
   ) => void;
   productionBlocked: boolean;
+  canOwnedAfford: (resources: IResources) => boolean;
+  spendFromOwned: (resources: IResources) => void;
 }

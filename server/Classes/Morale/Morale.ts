@@ -49,9 +49,9 @@ export class Morale implements IMorale {
       return;
     }
     if (this._lvl > 0) {
-      primeCharacter.incrementDetermination(this._lvl, "efekt morali");
+      primeCharacter.incrDetermination(this._lvl);
     } else {
-      primeCharacter.decrementDetermination(this._lvl, "efekt morali");
+      primeCharacter.decrDetermination(this._lvl);
     }
   }
 }

@@ -34,4 +34,6 @@ export interface IThreat {
     value: boolean,
     logSource: string
   ) => void;
+
+  getCardSlotByDroppableId: (droppableId: string) => IEventCard;
 }

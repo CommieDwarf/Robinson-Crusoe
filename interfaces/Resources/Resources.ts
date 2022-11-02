@@ -11,10 +11,13 @@ export interface IResources {
   setResource: (key: keyof IResourcesAmount, value: number) => void;
   setResources: (amount: IResourcesAmount) => void;
   canAfford: (cost: IResources) => boolean;
-  addToAllResources: (newResources: IResources) => void;
+  addResources: (newResources: IResources) => void;
+  addSingleResource: (resource: keyof IResourcesAmount, amount: number) => void;
+  spendResources: (resources: IResources) => void;
+  spendSingleResource: (
+    resource: keyof IResourcesAmount,
+    amount: number
+  ) => void;
   resetResources: () => void;
-  spendFromAllResources: (resources: IResources) => void;
   renderData: IResourcesAmount;
-  spend: (resource: keyof IResourcesAmount, amount: number) => void;
-  addResource: (resource: keyof IResourcesAmount, amount: number) => void;
 }

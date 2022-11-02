@@ -32,7 +32,7 @@ import { PlayerService } from "./Players/PlayerService";
 import { IPlayerService } from "../../interfaces/PlayerService/PlayerSevice";
 import { ActionService } from "./ActionService/ActionService";
 import { PhaseService } from "./PhaseService/PhaseService";
-import { IActionService } from "../../interfaces/ActionService/IActionService";
+import { IActionService } from "../../interfaces/ActionService/ActionService";
 import { IPhaseService } from "../../interfaces/PhaseService/PhaseService";
 import { ChatLog } from "./ChatLog/ChatLog";
 import { IChatLog } from "../../interfaces/ChatLog/ChatLog";
@@ -140,14 +140,15 @@ export class GameClass implements IGame {
       morale: this._morale.renderData,
       turn: this.turn,
       logs: this.chatLog.renderData,
+      actionService: this.actionService.renderData,
     };
   }
 
   private _chatLog: IChatLog = new ChatLog(this);
-  private _actionService: IActionService = new ActionService(this);
+  private _actionService: ActionService = new ActionService(this);
   private _playerService: IPlayerService;
   private _localPlayer: Player;
-  private _tilesService: ITilesService = new TilesService();
+  private _tilesService: ITilesService = new TilesService(this);
   private _allResources: IAllResources = new AllResources(this);
   private _structuresService: IStructuresService = new StructuresService();
 

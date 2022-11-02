@@ -7,8 +7,7 @@ export interface IActionSlotsServiceRenderData {
 export interface SlotsOccupiedAndCategorized {
   threat: Map<string, IPawn>;
   hunt: Map<string, IPawn>;
-  structure: Map<string, IPawn>;
-  invention: Map<string, IPawn>;
+  build: Map<string, IPawn>;
   gather: Map<string, IPawn>;
   explore: Map<string, IPawn>;
   arrangeCamp: Map<string, IPawn>;

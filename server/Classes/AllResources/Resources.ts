@@ -16,12 +16,6 @@ export class Resources implements IResources {
     Object.entries(initialResources) as Entries<IResourcesAmount>
   );
 
-  get renderData() {
-    return Object.fromEntries(
-      this._amount.entries()
-    ) as unknown as IResourcesAmount;
-  }
-
   constructor(food = 0, dryFood = 0, wood = 0, leather = 0) {
     this.setResource("food", food);
     this.setResource("dryFood", dryFood);
@@ -29,9 +23,21 @@ export class Resources implements IResources {
     this.setResource("leather", leather);
   }
 
+  get renderData() {
+    return Object.fromEntries(
+      this._amount.entries()
+    ) as unknown as IResourcesAmount;
+  }
+
   get amount(): Map<keyof IResourcesAmount, number> {
     return this._amount;
   }
+
+  public resetResources = (): void => {
+    this._amount.forEach((value: number, key: keyof IResourcesAmount) => {
+      this._amount.set(key, 0);
+    });
+  };
 
   public getResource = (key: keyof IResourcesAmount): number => {
     return this._amount.get(key) as number;
@@ -52,36 +58,29 @@ export class Resources implements IResources {
     return true;
   };
 
-  public addToAllResources = (newResources: IResources): void => {
-    newResources.amount.forEach(
-      (value: number, key: keyof IResourcesAmount) => {
-        this.setResource(
-          key,
-          this.getResource(key) + newResources.getResource(key)
-        );
-      }
-    );
-  };
+  public addResources(resources: IResources): void {
+    resources.amount.forEach((value: number, key: keyof IResourcesAmount) => {
+      this.setResource(key, this.getResource(key) + resources.getResource(key));
+    });
+  }
 
-  public resetResources = (): void => {
+  public addSingleResource(resource: keyof IResourcesAmount, amount: number) {
+    this._amount.set(resource, this.getResource(resource) + amount);
+  }
+
+  public spendResources = (cost: IResources): void => {
+    if (!this.canAfford(cost)) {
+      throw new Error(
+        `Cant afford. Cost: ${cost.amount}. Resources: ${this._amount}`
+      );
+    }
     this._amount.forEach((value: number, key: keyof IResourcesAmount) => {
-      this._amount.set(key, 0);
+      this.setResource(key, this.getResource(key) - cost.getResource(key));
     });
   };
 
-  public spendFromAllResources = (resources: IResources): void => {
-    if (this.canAfford(resources)) {
-      this._amount.forEach((value: number, key: keyof IResourcesAmount) => {
-        this.setResource(
-          key,
-          this.getResource(key) - resources.getResource(key)
-        );
-      });
-    }
-  };
-
-  public spend(resource: keyof IResourcesAmount, amount: number) {
-    if (this.getResource(resource) <= amount) {
+  public spendSingleResource(resource: keyof IResourcesAmount, amount: number) {
+    if (this.getResource(resource) < amount) {
       throw new Error("Not sufficent resources - " + amount + "" + resource);
     }
     this._amount.set(resource, -amount);

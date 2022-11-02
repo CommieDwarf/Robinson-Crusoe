@@ -1,3 +1,3 @@
-import { GameClass, player } from "./Classes/Game";
+import { GameClass } from "./Classes/Game";
 
-export const game = new GameClass([player], "castaways");
+export const game = new GameClass("castaways");

@@ -26,9 +26,9 @@ export function getWreckageCard(game: IGame, threat: IThreat): IEventCard {
       // nothing happens
     },
     function fullFill(character: ICharacter, helper: ICharacter | null = null) {
-      game.allResources.addResourceToOwned("food", 1);
+      game.allResources.addResourceToOwned("food", 1, this.namePL);
       if (helper) {
-        game.allResources.addResourceToOwned("dryFood", 1);
+        game.allResources.addResourceToOwned("dryFood", 1, this.namePL);
       }
     }
   );

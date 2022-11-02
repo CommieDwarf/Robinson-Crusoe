@@ -7,6 +7,7 @@ import {
 } from "../../../interfaces/Tiles/TilesService";
 import { Tile } from "./Tile";
 import { ITile, TerrainType } from "../../../interfaces/Tiles/Tile";
+import { IGame } from "../../../interfaces/Game";
 
 const starterId = 7;
 
@@ -20,20 +21,42 @@ export class TilesService implements ITilesService {
     status: false,
     forced: false,
   };
+  _game: IGame;
+
+  constructor(game: IGame) {
+    this._game = game;
+    this.tileStack = shuffle(tileTypes);
+    this.terrainTypesExplored = new Set<TerrainType>(["beach"]);
+    this.tiles = this.getInitialTiles();
+    this.showAdjacentTiles(starterId);
+    this.currentCampTile = this.getExploredTile(starterId);
+  }
+
+  gather(side: "left" | "right", tileId: number) {
+    const tile = this.getExploredTile(tileId);
+    const tileType = tile.tileType;
+    if (!tile) {
+      throw new Error("Can't find tile to gather. id " + tileId);
+    }
+
+    if (!tileType) {
+      throw new Error("Tile has no tileType");
+    }
+
+    const resource = tile.tileType?.resources[side];
+
+    if (!resource || resource === "beast") {
+      throw new Error("can't gather" + resource);
+    }
+
+    this._game.allResources.addResourceToFuture(resource, 1, "Zbieractwo");
+  }
 
   get renderData(): ITilesServiceRenderData {
     return {
       tiles: this.tiles.map((tile) => tile.renderData),
       campTileId: this.currentCampTile.id,
     };
-  }
-
-  constructor() {
-    this.tileStack = shuffle(tileTypes);
-    this.terrainTypesExplored = new Set<TerrainType>(["beach"]);
-    this.tiles = this.getInitialTiles();
-    this.showAdjacentTiles(starterId);
-    this.currentCampTile = this.getExploredTile(starterId);
   }
 
   private getInitialTiles() {
@@ -48,7 +71,7 @@ export class TilesService implements ITilesService {
     return tiles;
   }
 
-  revealTile(id: number) {
+  explore(id: number) {
     const tileType = this.tileStack.pop();
     if (!tileType) {
       throw new Error("Empty tile type stack!");
@@ -97,5 +120,14 @@ export class TilesService implements ITilesService {
     }
 
     return tile;
+  }
+
+  public static getTileIdFromDroppableId(droppableId: string): number {
+    const droppableArr = droppableId.split("-");
+    const id = parseInt(droppableArr[1]);
+    if (!id) {
+      throw new Error("Couldnt find tile id from " + droppableId);
+    }
+    return id;
   }
 }

@@ -36,7 +36,7 @@ export class PhaseService implements IPhaseService {
     this._game = game;
     this.phaseEffects = {
       event: this.eventEffect,
-      morale: () => {},
+      morale: () => this.moraleEffect(),
       production: this.productionEffect,
       action: () => {},
       weather: () => {},
@@ -45,9 +45,13 @@ export class PhaseService implements IPhaseService {
   }
 
   goNextPhase() {
-    this._phaseIndex = this._phaseIndex === 5 ? 0 : ++this._phaseIndex;
-    this._phase = phases[this._phaseIndex];
     this.phaseEffects[this._phase]();
+    this._phaseIndex =
+      this._phaseIndex === phases.length - 1 ? 0 : ++this._phaseIndex;
+    this._phase = phases[this._phaseIndex];
+    if (this._phase === "action") {
+      this._game.actionService;
+    }
   }
 
   private eventEffect = () => {
@@ -56,10 +60,25 @@ export class PhaseService implements IPhaseService {
   };
 
   private moraleEffect() {
+    if (this._game.morale.lvl === 0) {
+      return;
+    }
     // TODO: implement player choice when lvl 3 whenever he wants determination or health
-    this._game.playerService.primePlayer
-      .getCharacter()
-      .incrementDetermination(this._game.morale.lvl);
+    const primePlayerCharacter =
+      this._game.playerService.primePlayer.getCharacter();
+    if (this._game.morale.lvl > 0) {
+      this._game.characterService.incrDetermination(
+        primePlayerCharacter,
+        this._game.morale.lvl,
+        "Faza morali"
+      );
+    } else {
+      this._game.characterService.decrDetermination(
+        primePlayerCharacter,
+        Math.abs(this._game.morale.lvl),
+        "Faza morali"
+      );
+    }
   }
 
   private productionEffect = () => {
@@ -78,9 +97,7 @@ export class PhaseService implements IPhaseService {
     }
   };
 
-  private actionEffect() {
-    // let actionSlots = this._game.actionServices
-  }
+  private actionEffect() {}
 
   private nightEffect = () => {
     this._game.setNextTurn();

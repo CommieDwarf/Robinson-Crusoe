@@ -41,9 +41,12 @@ import {
   IPhaseService,
   IPhaseServiceRenderData,
 } from "./PhaseService/PhaseService";
-import { IActionService } from "./ActionService/IActionService";
 import { IChatLog } from "./ChatLog/ChatLog";
 import { ILogMessageRenderData } from "./ChatLog/LogMessage";
+import {
+  IActionService,
+  IActionServiceRenderData,
+} from "./ActionService/ActionService";
 
 export interface IGameRenderData {
   players: IPlayerRenderData[];
@@ -64,6 +67,7 @@ export interface IGameRenderData {
   morale: IMoraleRenderData;
   turn: number;
   logs: ILogMessageRenderData[];
+  actionService: IActionServiceRenderData;
 }
 
 export interface IGame {

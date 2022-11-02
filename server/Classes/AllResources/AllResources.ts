@@ -50,12 +50,12 @@ export class AllResources implements IAllResources {
   }
 
   public addFutureToOwned = (): void => {
-    this._owned.addToAllResources(this.future);
+    this._owned.addResources(this.future);
     this._future.resetResources();
   };
 
   public addToOwned = (resources: IResources): void => {
-    this._owned.addToAllResources(resources);
+    this._owned.addResources(resources);
   };
 
   public addResourceToOwned(
@@ -68,7 +68,7 @@ export class AllResources implements IAllResources {
       "green",
       logSource
     );
-    this._owned.addResource(resource, amount);
+    this._owned.addSingleResource(resource, amount);
   }
 
   public addResourceToFuture(
@@ -76,6 +76,14 @@ export class AllResources implements IAllResources {
     amount: number,
     logSource: string
   ) {
-    this._future.addResource(resource, amount);
+    this._future.addSingleResource(resource, amount);
+  }
+
+  canOwnedAfford(cost: IResources) {
+    return this.owned.canAfford(cost);
+  }
+
+  spendFromOwned(cost: IResources) {
+    this.owned;
   }
 }

@@ -8,7 +8,7 @@ export interface ITilesServiceRenderData {
 export interface ITilesService {
   tiles: ITile[];
   tileStack: TileType[];
-  revealTile: (id: number) => void;
+  explore: (id: number) => void;
   setRequiredHelpersAmount: (tileId: number, amount: number) => void;
   setAllRequiredHelpersAmount: (amount: number) => void;
   showAdjacentTiles: (tileId: number) => void;
@@ -19,4 +19,5 @@ export interface ITilesService {
   currentCampTile: ITile;
   previousCampTile: ITile | null;
   getExploredTile: (id: number) => ITile;
+  gather: (side: "left" | "right", tileId: number) => void;
 }
