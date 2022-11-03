@@ -11,6 +11,7 @@ import { GatherStatus } from "./ActionStatuses/GatherStatus";
 import { ExploreStatus } from "./ActionStatuses/ExploreStatus";
 import { ArrangeCampStatus } from "./ActionStatuses/ArrangeCampStatus";
 import { RestStatus } from "./ActionStatuses/RestStatus";
+import { IActionStatus } from "../../../interfaces/ActionService/ActionStatus";
 
 const actionOrder: (keyof Statuses)[] = [
   "threat",
@@ -40,18 +41,19 @@ export class ActionService implements IActionService {
   private _finished: boolean = false;
   orderIndex = 0;
 
-  statuses: Statuses = {
-    threat: new ThreatStatus(this.game),
-    hunt: new HuntStatus(this.game),
-    build: new BuildStatus(this.game),
-    gather: new GatherStatus(this.game),
-    explore: new ExploreStatus(this.game),
-    arrangeCamp: new ArrangeCampStatus(this.game),
-    rest: new RestStatus(this.game),
-  };
+  statuses: Statuses;
 
   constructor(game: IGame) {
     this._game = game;
+    this.statuses = {
+      threat: new ThreatStatus(this.game),
+      hunt: new HuntStatus(this.game),
+      build: new BuildStatus(this.game),
+      gather: new GatherStatus(this.game),
+      explore: new ExploreStatus(this.game),
+      arrangeCamp: new ArrangeCampStatus(this.game),
+      rest: new RestStatus(this.game),
+    };
   }
 
   get renderData(): IActionServiceRenderData {
@@ -81,6 +83,10 @@ export class ActionService implements IActionService {
   }
 
   resolveNext(): void {
+    for (const [key, value] of Object.entries(this.statuses)) {
+      let val = value as IActionStatus;
+      val.updateItems();
+    }
     if (!this._finished) {
       this.statuses[this.currentResolve].resolveNextItem();
     }

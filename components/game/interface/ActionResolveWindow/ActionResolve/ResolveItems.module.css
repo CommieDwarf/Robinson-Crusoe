@@ -9,9 +9,8 @@
     height: 20px;
 }
 
-.actions {
-    display: flex;
-    width: calc(100% - 50px);
-    height: calc(100% - 20px);
-    border: 2px solid green;
+.items {
+    background-color: blue;
+    width: 100%;
+    height: 200px;
 }

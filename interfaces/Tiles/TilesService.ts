@@ -20,4 +20,5 @@ export interface ITilesService {
   previousCampTile: ITile | null;
   getExploredTile: (id: number) => ITile;
   gather: (side: "left" | "right", tileId: number) => void;
+  findTile: (id: number) => ITile;
 }

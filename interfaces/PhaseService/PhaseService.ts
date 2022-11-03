@@ -10,6 +10,7 @@ export type Phase =
 
 export interface IPhaseServiceRenderData {
   phase: Phase;
+  locked: boolean;
 }
 
 export interface PhaseEffects {
@@ -26,4 +27,5 @@ export interface IPhaseService {
   goNextPhase: () => void;
   renderData: IPhaseServiceRenderData;
   phaseEffects: PhaseEffects;
+  locked: boolean;
 }

@@ -2,11 +2,11 @@ import {
   IActionStatus,
   IActionStatusRenderData,
   IResolvableItem,
-  RESOLVE_ITEM_STATUS,
 } from "../../../../../interfaces/ActionService/ActionStatus";
 import { Action } from "../../../../../interfaces/Action";
 import { IGame } from "../../../../../interfaces/Game";
 import { ResolvableItem } from "../ResolvableItem/ResolvableItem";
+import { getItemFromDroppableId } from "../../../../../utils/getItemFromDroppableId";
 
 export abstract class ActionStatus implements IActionStatus {
   protected _eventToken = false;
@@ -72,8 +72,17 @@ export abstract class ActionStatus implements IActionStatus {
 
     const items = new Map<string, IResolvableItem>();
     slots.forEach((value, key) => {
+      const newKey = key.split("-").pop();
+      console.log(value, key);
       if (key.includes("leader")) {
-        items.set(key, new ResolvableItem(key, value));
+        items.set(
+          key,
+          new ResolvableItem(
+            key,
+            value,
+            getItemFromDroppableId(key, this._game)
+          )
+        );
       }
     });
     slots.forEach((value, key) => {
@@ -85,6 +94,7 @@ export abstract class ActionStatus implements IActionStatus {
         item.incrementHelpers();
       }
     });
-    return new Array(items);
+
+    console.log((this._items = Array.from(items, ([key, value]) => value)));
   }
 }

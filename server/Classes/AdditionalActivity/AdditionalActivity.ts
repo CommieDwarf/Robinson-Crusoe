@@ -1,4 +1,4 @@
-import { IAdditionalActivity } from "../../../interfaces/AdditionalActivity";
+import { IAdditionalActivity } from "../../../interfaces/AdditionalActivity/AdditionalActivity";
 
 export class AdditionalActivity implements IAdditionalActivity {
   type: "arrangeCamp" | "rest";

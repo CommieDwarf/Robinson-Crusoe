@@ -17,7 +17,9 @@ export class ThreatStatus extends ActionStatus {
     super.resolveNextItem();
     const item = this._items.shift();
     if (item) {
-      const threatCard = this._game.threat.getCardSlotByDroppableId(item.name);
+      const threatCard = this._game.threat.getCardSlotByDroppableId(
+        item.droppableId
+      );
       threatCard.fullFill(item.leader.character);
       item.status = RESOLVE_ITEM_STATUS.SUCCESS;
     }

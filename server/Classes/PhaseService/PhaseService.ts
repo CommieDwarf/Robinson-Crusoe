@@ -16,6 +16,14 @@ const phases: Phase[] = [
 ];
 
 export class PhaseService implements IPhaseService {
+  get locked(): boolean {
+    return this._locked;
+  }
+
+  set locked(value: boolean) {
+    this._locked = value;
+  }
+
   get phase(): Phase {
     return this._phase;
   }
@@ -23,12 +31,14 @@ export class PhaseService implements IPhaseService {
   get renderData() {
     return {
       phase: this._phase,
+      locked: this.locked,
     };
   }
 
   private _phase: Phase = "event";
   private _phaseIndex = 0;
   private _game: IGame;
+  private _locked: boolean = false;
 
   phaseEffects: PhaseEffects;
 
@@ -50,7 +60,10 @@ export class PhaseService implements IPhaseService {
       this._phaseIndex === phases.length - 1 ? 0 : ++this._phaseIndex;
     this._phase = phases[this._phaseIndex];
     if (this._phase === "action") {
-      this._game.actionService;
+      this._game.actionService.statuses.threat.updateItems();
+      console.log("UPDATE");
+      console.log(this._game.actionService.statuses.threat);
+      this.locked = true;
     }
   }
 

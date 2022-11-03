@@ -1,5 +1,16 @@
-import {Action} from "../Action";
-import {IPawn, IPawnRenderData} from "../Pawns/Pawn";
+import { Action } from "../Action";
+import { IPawn, IPawnRenderData } from "../Pawns/Pawn";
+import { EventCard } from "../../server/Classes/Threat/EventCard";
+import { Beast } from "../../server/Classes/Beasts/Beast";
+import { IEventCard, IEventCardRenderData } from "../Threat/EventCard";
+import { IBeast, IBeastRenderData } from "../Beasts/Beast";
+import { IInvention, IInventionRenderData } from "../Inventions/Invention";
+import { IStructure, IStructureRenderData } from "../Structures/Structure";
+import { ITile, ITileRenderData } from "../Tiles/Tile";
+import {
+  IRestArrange,
+  IRestArrangeRenderData,
+} from "../AdditionalActivity/RestArrange";
 
 export enum RESOLVE_ITEM_STATUS {
   SUCCESS = "SUCCESS",
@@ -7,15 +18,32 @@ export enum RESOLVE_ITEM_STATUS {
   PENDING = "PENDING",
 }
 
-export interface IResolvableItemRenderData {
-  name: string,
-  status: RESOLVE_ITEM_STATUS,
-  leader: IPawnRenderData,
+type IResolvableItemTypeRenderType =
+  | IEventCardRenderData
+  | IBeastRenderData
+  | IInventionRenderData
+  | IStructureRenderData
+  | ITileRenderData
+  | IRestArrangeRenderData;
 
+export interface IResolvableItemRenderData {
+  droppableId: string;
+  type: IResolvableItemTypeRenderType;
+  status: RESOLVE_ITEM_STATUS;
+  leader: IPawnRenderData;
 }
 
+export type IResolvableItemType =
+  | IEventCard
+  | IBeast
+  | IInvention
+  | IStructure
+  | ITile
+  | IRestArrange;
+
 export interface IResolvableItem {
-  name: string;
+  droppableId: string;
+  type: IResolvableItemType;
   status: RESOLVE_ITEM_STATUS;
   leader: IPawn;
   helpers: number;
@@ -36,4 +64,5 @@ export interface IActionStatus {
   resolveNextItem: () => void;
   finished: boolean;
   renderData: IActionStatusRenderData;
+  updateItems: () => void;
 }

@@ -297,16 +297,14 @@ export default function Game(props: Props) {
           turn={gameRenderData.turn}
         />
         <Players />
-        <NextPhaseButton goNextPhase={goNextPhase} />
+        <NextPhaseButton
+          goNextPhase={goNextPhase}
+          locked={gameRenderData.phaseService.locked}
+        />
       </DragDropContext>
-      <ActionResolveWindow
-        currentAction={"threat"}
-        threat={gameRenderData.threat}
-        beast={gameRenderData.beasts}
-        inventions={gameRenderData.inventionsService}
-        structures={gameRenderData.structuresService}
-        tiles={gameRenderData.tilesService}
-      />
+      {gameRenderData.phaseService.phase === "action" && (
+        <ActionResolveWindow actionService={gameRenderData.actionService} />
+      )}
     </div>
   );
 }

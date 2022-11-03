@@ -1,30 +1,42 @@
 import {
-  IResolvableItem, IResolvableItemRenderData,
+  IResolvableItem,
+  IResolvableItemRenderData,
+  IResolvableItemType,
   RESOLVE_ITEM_STATUS,
 } from "../../../../../interfaces/ActionService/ActionStatus";
-import {IPawn} from "../../../../../interfaces/Pawns/Pawn";
+import { IPawn } from "../../../../../interfaces/Pawns/Pawn";
+import { IEventCard } from "../../../../../interfaces/Threat/EventCard";
+import { IInvention } from "../../../../../interfaces/Inventions/Invention";
 
 export class ResolvableItem implements IResolvableItem {
-
-
-  private readonly _name: string;
+  private readonly _droppableId: string;
   private readonly _leader: IPawn;
+  private readonly _type: IResolvableItemType;
   private _status: RESOLVE_ITEM_STATUS = RESOLVE_ITEM_STATUS.PENDING;
   private _helpers: number = 0;
 
-  constructor(name: string, leader: IPawn) {
-    this._name = name;
+  constructor(droppableId: string, leader: IPawn, type: IResolvableItemType) {
+    this._droppableId = droppableId;
     this._leader = leader;
+    this._type = type;
   }
 
   get renderData(): IResolvableItemRenderData {
     return {
-      name: this.name,
+      droppableId: this.droppableId,
       status: this.status,
       leader: this._leader.renderData,
-    }
+      type: this._type.renderData,
+    };
   }
 
+  get droppableId(): string {
+    return this._droppableId;
+  }
+
+  get type(): IResolvableItemType {
+    return this._type;
+  }
 
   get leader(): IPawn {
     return this._leader;
@@ -40,10 +52,6 @@ export class ResolvableItem implements IResolvableItem {
 
   set status(value: RESOLVE_ITEM_STATUS) {
     this._status = value;
-  }
-
-  get name(): string {
-    return this._name;
   }
 
   get status(): RESOLVE_ITEM_STATUS {

@@ -24,4 +24,5 @@ export interface IStructure {
   cost: IResources;
   locked: boolean;
   requiredHelpersAmount: number;
+  renderData: IStructureRenderData;
 }

@@ -5,7 +5,7 @@ import Scrollbar from "../../Scrollbar";
 import scrollbarStyles from "./Scrollbar.module.css";
 import ActionSlot from "../../ActionSlot";
 import { IPawnRenderData } from "../../../../../interfaces/Pawns/Pawn";
-import { IAdditionalActivity } from "../../../../../interfaces/AdditionalActivity";
+import { IAdditionalActivity } from "../../../../../interfaces/AdditionalActivity/AdditionalActivity";
 
 interface Props {
   activity: IAdditionalActivity;
