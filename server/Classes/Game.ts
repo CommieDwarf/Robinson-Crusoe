@@ -204,11 +204,13 @@ export class GameClass implements IGame {
   }
 
   setPawn(droppableId: string, draggableId: string) {
+    console.log("dd");
     const pawn = this.allPawns.find((p) => p.draggableId === draggableId);
     if (!pawn) {
       throw new Error("cant find pawn with id: " + draggableId);
     }
     if (!this.canPawnBeSettled(pawn, droppableId)) {
+      console.log("return");
       return;
     }
 

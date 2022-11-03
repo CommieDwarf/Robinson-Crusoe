@@ -1,4 +1,4 @@
-import { IPawn } from "./Pawns/Pawn";
+import { IPawn, IPawnRenderData } from "./Pawns/Pawn";
 
 export interface IActionSlotsServiceRenderData {
   slots: Object;
@@ -23,3 +23,5 @@ export interface IActionSlotsService {
   renderData: IActionSlotsServiceRenderData;
   slotsOccupiedAndCategorized: SlotsOccupiedAndCategorized;
 }
+
+export type IActionSlotsRenderData = Map<string, IPawnRenderData | null>;

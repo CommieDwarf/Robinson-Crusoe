@@ -15,7 +15,7 @@ export default function ChatLog(props: Props) {
 
   useEffect(() => {
     scrollbarRef.current?.scrollToBottom();
-    console.log(scrollbarRef);
+    scrollbarRef;
   });
 
   return (

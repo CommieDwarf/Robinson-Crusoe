@@ -2,13 +2,13 @@ import Image from "next/image";
 import React from "react";
 import styles from "./ActionsOrder.module.css";
 
-const actionOrder = [
+export const actionOrder = [
   "threat",
   "hunt",
   "build",
   "gather",
   "explore",
-  "arrange-camp",
+  "arrangeCamp",
   "rest",
 ];
 
@@ -39,8 +39,10 @@ export default function ActionsOrder() {
     );
   });
 
-  return <div className={styles.container}>
-    <div className={styles.label}>Kolejność akcji</div>
-    {actionIcons}
-    </div>;
+  return (
+    <div className={styles.container}>
+      <div className={styles.label}>Kolejność akcji</div>
+      {actionIcons}
+    </div>
+  );
 }

@@ -39,7 +39,7 @@ export default function Hunting(props: Props) {
             pawn={leaderPawn}
             action={"hunt"}
             context={"hunt"}
-            id={"hunt-leader"}
+            id={"hunt-leader-0"}
             isDragDisabled={props.isDragDisabled}
           />
           <ActionSlot
@@ -47,7 +47,7 @@ export default function Hunting(props: Props) {
             pawn={helperPawn}
             action={"hunt"}
             context={"hunt"}
-            id={"hunt-helper"}
+            id={"hunt-helper-1"}
             isDragDisabled={props.isDragDisabled}
           />
         </div>

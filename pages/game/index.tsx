@@ -57,7 +57,7 @@ export default function Game(props: Props) {
   );
   const [isPawnBeingDragged, setIsPawnBeingDragged] = useState(false);
 
-  console.log(gameRenderData.localPlayer.character.health);
+  gameRenderData.localPlayer.character.health;
   const [showScenario, setShowScenario] = useState(false);
 
   // Increase of proper component's z-index is necessary to render dragged pawn above other components
@@ -303,7 +303,10 @@ export default function Game(props: Props) {
         />
       </DragDropContext>
       {gameRenderData.phaseService.phase === "action" && (
-        <ActionResolveWindow actionService={gameRenderData.actionService} />
+        <ActionResolveWindow
+          actionService={gameRenderData.actionService}
+          actionSlots={actionSlots}
+        />
       )}
     </div>
   );

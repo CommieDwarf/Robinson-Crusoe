@@ -7,6 +7,7 @@ import { Action } from "../../../../../interfaces/Action";
 import { IGame } from "../../../../../interfaces/Game";
 import { ResolvableItem } from "../ResolvableItem/ResolvableItem";
 import { getItemFromDroppableId } from "../../../../../utils/getItemFromDroppableId";
+import { ActionSlotsService } from "../../../ActionSlotsService/ActionSlots";
 
 export abstract class ActionStatus implements IActionStatus {
   protected _eventToken = false;
@@ -72,11 +73,12 @@ export abstract class ActionStatus implements IActionStatus {
 
     const items = new Map<string, IResolvableItem>();
     slots.forEach((value, key) => {
-      const newKey = key.split("-").pop();
-      console.log(value, key);
+      // removing LEADER/HELPER-ID information
+      const id = ActionSlotsService.rmvRoleInfoFromDroppableId(key);
+
       if (key.includes("leader")) {
         items.set(
-          key,
+          id,
           new ResolvableItem(
             key,
             value,
@@ -87,7 +89,8 @@ export abstract class ActionStatus implements IActionStatus {
     });
     slots.forEach((value, key) => {
       if (key.includes("helper")) {
-        const item = items.get(key);
+        const id = ActionSlotsService.rmvRoleInfoFromDroppableId(key);
+        const item = items.get(id);
         if (!item) {
           throw new Error("Can't find item with assigned helper. " + key);
         }
@@ -95,6 +98,6 @@ export abstract class ActionStatus implements IActionStatus {
       }
     });
 
-    console.log((this._items = Array.from(items, ([key, value]) => value)));
+    this._items = Array.from(items, ([key, value]) => value);
   }
 }

@@ -1,3 +1,13 @@
 .container {
-    
+    height: 200px !important;
+    aspect-ratio: 404 / 617 !important;
+    width: auto !important;
+}
+
+
+.container > div {
+    height: 100% !important;
+    aspect-ratio: 404 / 617 !important;
+    width: auto !important;
+    transform: none !important;
 }

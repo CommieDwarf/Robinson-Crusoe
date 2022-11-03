@@ -16,9 +16,9 @@ export default function Threat(props: Props) {
   function getActionSlots(side: "left" | "right") {
     const actionSlots = [];
 
-    for (let i = 1; i <= 2; i++) {
-      const role = i === 1 ? "leader" : "helper";
-      const id = "threat-" + side + "-" + i + "-" + role;
+    for (let i = 0; i <= 1; i++) {
+      const role = i === 0 ? "leader" : "helper";
+      const id = `threat-${side}-${role}-${i}`;
       let pawn = props.actionSlots.get(id);
       pawn = pawn ? pawn : null;
       actionSlots.push(

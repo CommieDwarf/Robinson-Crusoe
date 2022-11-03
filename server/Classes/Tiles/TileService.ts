@@ -1,13 +1,13 @@
 import shuffle from "../../../utils/shuffleArray";
 import tileStructures from "../../constants/tileStructures";
-import tileTypes, {TileType, starterTile} from "../../constants/tilleTypes";
+import tileTypes, { TileType, starterTile } from "../../constants/tilleTypes";
 import {
   ITilesService,
   ITilesServiceRenderData,
 } from "../../../interfaces/Tiles/TilesService";
-import {Tile} from "./Tile";
-import {ITile, TerrainType} from "../../../interfaces/Tiles/Tile";
-import {IGame} from "../../../interfaces/Game";
+import { Tile } from "./Tile";
+import { ITile, TerrainType } from "../../../interfaces/Tiles/Tile";
+import { IGame } from "../../../interfaces/Game";
 
 const starterId = 7;
 
@@ -32,7 +32,6 @@ export class TilesService implements ITilesService {
     this.currentCampTile = this.getExploredTile(starterId);
   }
 
-  
   gather(side: "left" | "right", tileId: number) {
     const tile = this.getExploredTile(tileId);
     const tileType = tile.tileType;
@@ -96,7 +95,7 @@ export class TilesService implements ITilesService {
     });
   }
 
-  private findTile(id: number) {
+  public findTile(id: number) {
     const tile = this.tiles.find((t) => t.id === id);
     if (!tile) {
       throw new Error("tile with id: " + id + "has been not found");

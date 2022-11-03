@@ -65,7 +65,8 @@ export default function RestArrange(props: Props) {
   const actionSlots = [];
 
   for (let i = 1; i <= slotsQuantity; i++) {
-    const id = props.activity.type + "-" + i;
+    const id = props.activity.type + "-" + (i - 1) + "-leader-0";
+    id;
     let pawn = props.actionSlots.get(id);
     pawn = pawn ? pawn : null;
     actionSlots.push(

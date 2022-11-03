@@ -25,6 +25,13 @@ a {
     --arrowWidth: calc(var(--arrowHeight) * var(--arrowAspectRatio));
     --brown: #451e14;
     --beastRed: rgb(186, 51, 28);
+    --threat: #241f21;
+    --beast: #a90c1c;
+    --build: #7f584a;
+    --gather: #767472;
+    --explore: #6cac3a;
+    --arrangeCamp: #2e3563;
+    --rest: #2e3563;
 }
 
 body::-webkit-scrollbar-track {

@@ -1,16 +1,48 @@
 .container {
-    width: calc(100%);
+    width: 100%;
     height: 80%;
-    border: 1px solid red;
     text-align: center;
 }
 
 .title {
     height: 20px;
+    font-weight: bold;
 }
 
+.threat {
+    color: var(--threat);
+}
+
+.beast {
+    color: var(--beast);
+}
+
+.build {
+    color: var(--build);
+}
+
+.gather {
+    color: var(--gather);
+}
+
+.explore {
+    color: var(--explore);
+}
+
+.arrangeCamp {
+    color: var(--arrangeCamp)
+}
+
+.rest {
+    color: var(--rest);
+}
+
+
 .items {
-    background-color: blue;
     width: 100%;
     height: 200px;
+    display: flex;
+    justify-content: center;
+    vertical-align: top;
 }
+

@@ -1,13 +1,13 @@
-import { IPawn } from "../../../interfaces/Pawns/Pawn";
+import {IPawn} from "../../../interfaces/Pawns/Pawn";
 import {
   IActionSlotsService,
   IActionSlotsServiceRenderData,
   SlotsOccupiedAndCategorized,
 } from "../../../interfaces/ActionSlots";
-import { IStructuresService } from "../../../interfaces/Structures/Structures";
-import { IInventionsService } from "../../../interfaces/Inventions/Inventions";
-import { ITilesService } from "../../../interfaces/Tiles/TilesService";
-import { inventionList } from "../../constants/inventionList";
+import {IStructuresService} from "../../../interfaces/Structures/Structures";
+import {IInventionsService} from "../../../interfaces/Inventions/Inventions";
+import {ITilesService} from "../../../interfaces/Tiles/TilesService";
+import {inventionList} from "../../constants/inventionList";
 import Entries from "../../../interfaces/Entries";
 
 export class ActionSlotsService implements IActionSlotsService {
@@ -34,7 +34,7 @@ export class ActionSlotsService implements IActionSlotsService {
       if (pawn) {
         const arrDroppableId = droppableId.split("-");
         const entries = Object.entries(
-          categorized
+            categorized
         ) as Entries<SlotsOccupiedAndCategorized>;
         entries.forEach(([value, key]) => {
           if (arrDroppableId.includes(value)) {
@@ -56,7 +56,7 @@ export class ActionSlotsService implements IActionSlotsService {
         slots[slotId] = null;
       }
     });
-    return { slots };
+    return {slots};
   }
 
   private _slots: Map<string, null | IPawn>;
@@ -65,9 +65,9 @@ export class ActionSlotsService implements IActionSlotsService {
   private _tiles: ITilesService;
 
   constructor(
-    structuresService: IStructuresService,
-    inventionsService: IInventionsService,
-    tiles: ITilesService
+      structuresService: IStructuresService,
+      inventionsService: IInventionsService,
+      tiles: ITilesService
   ) {
     this._structuresService = structuresService;
     this._inventionsService = inventionsService;
@@ -99,42 +99,48 @@ export class ActionSlotsService implements IActionSlotsService {
   private getInitialSlots() {
     const actionSlots = new Map<string, null | IPawn>();
     this._structuresService.structures.forEach((structure) => {
-      actionSlots.set("structure-" + structure.name + "-leader", null);
+      actionSlots.set("structure-" + structure.name + "-leader-0", null);
       actionSlots.set("structure-" + structure.name + "-helper-1", null);
       actionSlots.set("structure-" + structure.name + "-helper-2", null);
     });
 
     inventionList.forEach((invention) => {
-      actionSlots.set("invention-" + invention + "-leader", null);
+      actionSlots.set("invention-" + invention + "-leader-0", null);
       actionSlots.set("invention-" + invention + "-helper-1", null);
       actionSlots.set("invention-" + invention + "-helper-2", null);
     });
 
     this._tiles.tiles.forEach((tile) => {
-      actionSlots.set(`tile-${tile.id}-gather-left-leader`, null);
+      actionSlots.set(`tile-${tile.id}-gather-left-leader-0`, null);
       actionSlots.set(`tile-${tile.id}-gather-right-helper-1`, null);
       actionSlots.set(`tile-${tile.id}-gather-left-helper-1`, null);
-      actionSlots.set(`tile-${tile.id}-gather-right-leader`, null);
+      actionSlots.set(`tile-${tile.id}-gather-right-leader-0`, null);
       actionSlots.set(`tile-${tile.id}-gather-right-helper-2`, null);
       actionSlots.set(`tile-${tile.id}-gather-left-helper-2`, null);
-      actionSlots.set(`tile-${tile.id}-explore-leader`, null);
+      actionSlots.set(`tile-${tile.id}-explore-leader-0`, null);
       actionSlots.set(`tile-${tile.id}-explore-helper-1`, null);
       actionSlots.set(`tile-${tile.id}-explore-helper-2`, null);
     });
 
-    for (let i = 1; i < 10; i++) {
-      actionSlots.set("rest-" + i + "-leader", null);
-      actionSlots.set("arrangeCamp-" + i + "-leader", null);
+    for (let i = 0; i < 10; i++) {
+      actionSlots.set("rest-" + i + "-leader-0", null);
+      actionSlots.set("arrangeCamp-" + i + "-leader-0", null);
     }
 
-    actionSlots.set("threat-left-1-leader", null);
-    actionSlots.set("threat-left-2-helper", null);
-    actionSlots.set("threat-right-1-leader", null);
-    actionSlots.set("threat-right-2-helper", null);
+    actionSlots.set("threat-left-leader-0", null);
+    actionSlots.set("threat-left-helper-1", null);
+    actionSlots.set("threat-right-leader-0", null);
+    actionSlots.set("threat-right-helper-1", null);
 
-    actionSlots.set("hunt-leader", null);
-    actionSlots.set("hunt-helper", null);
+    actionSlots.set("hunt-leader-0", null);
+    actionSlots.set("hunt-helper-1", null);
 
     return actionSlots;
+  }
+
+  public static rmvRoleInfoFromDroppableId(droppableId: string): string {
+    const arr = droppableId.split("-");
+    return arr.slice(0, arr.length - 2).join("-");
+
   }
 }

@@ -1,7 +1,7 @@
 .container {
     width: 500px;
     height: 300px;
-    border: 1px solid var(--brown);
+    border: 2px solid var(--brown);
     position: absolute;
     left: calc(50% - 250px);
     top: calc(50% - 150px);

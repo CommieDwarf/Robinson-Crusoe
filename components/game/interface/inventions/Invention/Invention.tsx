@@ -58,14 +58,13 @@ export default function Invention(props: Props) {
     }
   );
 
-  const leaderId = "invention-" + props.invention.name + "-leader";
+  const leaderId = "invention-" + props.invention.name + "-leader-0";
   let leaderPawn = props.actionSlots.get(leaderId);
   leaderPawn = leaderPawn ? leaderPawn : null;
 
   const zIndexClass = props.zIndex.includes(props.invention.name)
     ? styles.zIndexIncreased
     : "";
-
 
   return (
     <div
