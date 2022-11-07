@@ -1,11 +1,10 @@
 import { ActionStatus } from "./ActionStatus/ActionStatus";
 import { IGame } from "../../../../interfaces/Game";
 import { RESOLVE_ITEM_STATUS } from "../../../../interfaces/ActionService/ActionStatus";
+import { Action } from "../../../../interfaces/Action";
 
 export class ArrangeCampStatus extends ActionStatus {
-  public get action() {
-    return this._action;
-  }
+  protected _action: Action = "arrangeCamp";
 
   constructor(game: IGame) {
     super(game);

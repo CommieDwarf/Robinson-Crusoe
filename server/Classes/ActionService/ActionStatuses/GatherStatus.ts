@@ -1,13 +1,12 @@
-import {ActionStatus} from "./ActionStatus/ActionStatus";
-import {IGame} from "../../../../interfaces/Game";
-import {RESOLVE_ITEM_STATUS} from "../../../../interfaces/ActionService/ActionStatus";
-import {TilesService} from "../../Tiles/TileService";
-import {ITile} from "../../../../interfaces/Tiles/Tile";
+import { ActionStatus } from "./ActionStatus/ActionStatus";
+import { IGame } from "../../../../interfaces/Game";
+import { RESOLVE_ITEM_STATUS } from "../../../../interfaces/ActionService/ActionStatus";
+import { TilesService } from "../../Tiles/TileService";
+import { ITile } from "../../../../interfaces/Tiles/Tile";
+import { Action } from "../../../../interfaces/Action";
 
 export class GatherStatus extends ActionStatus {
-  public get action() {
-    return this._action;
-  }
+  protected _action: Action = "gather";
 
   constructor(game: IGame) {
     super(game);
@@ -15,9 +14,9 @@ export class GatherStatus extends ActionStatus {
 
   resolveNextItem() {
     super.resolveNextItem();
-    const item = this._items.shift()
+    const item = this._items.shift();
     if (item) {
-      const tile = item.item as ITile;
+      const tile = item.type as ITile;
       // TODO: implement ROLL DICE
       if (!item.leader || item.helpers < 1) {
         throw new Error("need more pawns");

@@ -30,4 +30,5 @@ export interface IActionService {
   currentResolve: keyof Statuses;
   resolveNext: () => void;
   renderData: IActionServiceRenderData;
+  setNextAction: () => void;
 }

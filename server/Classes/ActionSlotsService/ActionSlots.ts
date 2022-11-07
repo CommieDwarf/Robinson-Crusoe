@@ -37,7 +37,9 @@ export class ActionSlotsService implements IActionSlotsService {
             categorized
         ) as Entries<SlotsOccupiedAndCategorized>;
         entries.forEach(([value, key]) => {
-          if (arrDroppableId.includes(value)) {
+
+
+          if (arrDroppableId.includes(value) || (value === "build" && this.isBuildCategory(droppableId))) {
             categorized[value].set(droppableId, pawn);
           }
         });
@@ -45,6 +47,10 @@ export class ActionSlotsService implements IActionSlotsService {
     });
 
     return categorized;
+  }
+
+  isBuildCategory(droppableId: string) {
+    return droppableId.includes("invention") || droppableId.includes("structure");
   }
 
   get renderData(): IActionSlotsServiceRenderData {

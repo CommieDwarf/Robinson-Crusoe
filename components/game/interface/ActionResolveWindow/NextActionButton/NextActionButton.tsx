@@ -7,6 +7,7 @@ import { actionOrder } from "../../actionsOrder/ActionsOrder";
 
 type Props = {
   currentAction: Action;
+  setNextAction: () => void;
 };
 
 export const NextActionButton = (props: Props) => {
@@ -17,8 +18,12 @@ export const NextActionButton = (props: Props) => {
     currentActionIndex === actionOrder.length + 1 ? 0 : currentActionIndex + 1;
   const nextAction = actionOrder[nextActionIndex];
 
+  function clickHandle() {
+    props.setNextAction();
+  }
+
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={clickHandle}>
       <div className={styles.arrow}>
         <Image
           src={"/interface/actions/red-arrow.png"}

@@ -9,10 +9,22 @@ import { NextActionButton } from "./NextActionButton/NextActionButton";
 type Props = {
   actionService: IActionServiceRenderData;
   actionSlots: IActionSlotsRenderData;
+  setNextAction: () => void;
 };
 export const ActionResolveWindow = (props: Props) => {
+  let containerRef = React.createRef<HTMLDivElement>();
+
+  // useEffect(() => {
+  //   let mouseDownHandle = getMouseDownHandle(containerRef);
+  //   containerRef.current?.addEventListener("mousedown", mouseDownHandle);
+  //
+  //   return () => {
+  //     containerRef.current?.removeEventListener("mousedown", mouseDownHandle);
+  //   };
+  // });
+
   return (
-    <div className={styles.container}>
+    <div className={styles.container} ref={containerRef}>
       <div className={styles.header}>
         <div className={styles.actionIcon}>
           <Image src={"/interface/phase/action.png"} layout={"fill"} />
@@ -34,7 +46,10 @@ export const ActionResolveWindow = (props: Props) => {
         actionService={props.actionService}
         actionSlots={props.actionSlots}
       />
-      <NextActionButton currentAction={props.actionService.currentResolve} />
+      <NextActionButton
+        currentAction={props.actionService.currentResolve}
+        setNextAction={props.setNextAction}
+      />
     </div>
   );
 };

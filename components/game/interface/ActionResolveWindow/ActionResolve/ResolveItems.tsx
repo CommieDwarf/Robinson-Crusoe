@@ -2,21 +2,27 @@
 import * as React from "react";
 import styles from "./ResolveItems.module.css";
 import { IActionServiceRenderData } from "../../../../../interfaces/ActionService/ActionService";
-import Card from "../../threat/Card";
-import { IEventCardRenderData } from "../../../../../interfaces/Threat/EventCard";
-import {
-  IActionSlots,
-  IActionSlotsServiceRenderData,
-} from "../../../../../interfaces/ActionSlots";
 import { Item } from "./Item/Item";
-import Image from "next/image";
+import { IActionSlotsRenderData } from "../../../../../interfaces/ActionSlots";
+import capitalizeFirstLetter from "../../../../../utils/capitalizeFirstLetter";
+
+const translateActionPL = {
+  threat: "zagrożenie",
+  hunt: "polowanie",
+  build: "budowanie",
+  gather: "zbieranie",
+  explore: "exploracja",
+  arrangeCamp: "porządkowanie obozu",
+  rest: "odpoczynek",
+};
 
 type Props = {
   actionService: IActionServiceRenderData;
-  actionSlots: IActionSlots;
+  actionSlots: IActionSlotsRenderData;
 };
 
 export const ResolveItems = (props: Props) => {
+  console.log(props.actionService.statuses);
   const items = props.actionService.statuses[
     props.actionService.currentResolve
   ].items.map((item) => {
@@ -37,7 +43,9 @@ export const ResolveItems = (props: Props) => {
           styles.title + " " + styles[props.actionService.currentResolve]
         }
       >
-        Zagrożenie
+        {capitalizeFirstLetter(
+          translateActionPL[props.actionService.currentResolve]
+        )}
       </div>
       <div className={styles.items}>{items}</div>
     </div>

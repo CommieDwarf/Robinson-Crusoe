@@ -26,12 +26,19 @@ a {
     --brown: #451e14;
     --beastRed: rgb(186, 51, 28);
     --threat: #241f21;
-    --beast: #a90c1c;
+    --hunt: #a90c1c;
     --build: #7f584a;
     --gather: #767472;
     --explore: #6cac3a;
     --arrangeCamp: #2e3563;
-    --rest: #2e3563;
+    --rest: #f8b121;
+    --eventCardAspectRatio: 409 / 610;
+    --beastCardAspectRatio: 409 / 610;
+    --shelterAspectRatio: 579 / 402;
+    --roofAspectRatio: 361 / 199;
+    --palisadeAspectRatio: 640 / 481;
+    --weaponAspectRatio: 366 / 681;
+
 }
 
 body::-webkit-scrollbar-track {

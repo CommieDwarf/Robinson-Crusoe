@@ -1,18 +1,18 @@
-import {Character} from "./Character";
+import { Character } from "./Character";
 import {
   IPlayerCharacter,
   IPlayerCharacterRenderData,
   PlayerCharacterName,
 } from "../../../interfaces/Characters/PlayerCharacter";
-import {IPlayer} from "../../../interfaces/PlayerService/Player";
-import {PawnsService} from "../PawnService/PawnService";
-import {IDictionary} from "../../../interfaces/IDictionary";
-import {getCookSkills} from "../../constants/getCookSkills";
-import {ISkill} from "../../../interfaces/Characters/Skill";
-import {ICharEffects} from "../../../interfaces/Characters/CharEffects";
-import {PlayerCharEffects} from "./CharEffects";
-import {IPawnsService} from "../../../interfaces/Pawns/Pawns";
-import {IGame} from "../../../interfaces/Game";
+import { IPlayer } from "../../../interfaces/PlayerService/Player";
+import { PawnsService } from "../PawnService/PawnService";
+import { IDictionary } from "../../../interfaces/IDictionary";
+import { getCookSkills } from "../../constants/getCookSkills";
+import { ISkill } from "../../../interfaces/Characters/Skill";
+import { ICharEffects } from "../../../interfaces/Characters/CharEffects";
+import { PlayerCharEffects } from "./CharEffects";
+import { IPawnsService } from "../../../interfaces/Pawns/Pawns";
+import { IGame } from "../../../interfaces/Game";
 
 export class PlayerCharacter extends Character implements IPlayerCharacter {
   get skills(): IDictionary<ISkill> {
@@ -78,29 +78,28 @@ export class PlayerCharacter extends Character implements IPlayerCharacter {
   protected readonly _player: IPlayer;
   protected readonly _moraleThresholds: number[];
   protected readonly _gender: "male" | "female";
-  protected _pawnService: IPawnsService = new PawnsService(this, 2);
+  protected _pawnService: IPawnsService = new PawnsService(this, 3);
   protected declare _name: PlayerCharacterName;
   private _skills: IDictionary<ISkill>;
   private _effects: ICharEffects;
 
   constructor(
-      name: PlayerCharacterName,
-      id: number,
-      maxHealth: number,
-      game: IGame,
-      gender: "male" | "female",
-      moraleThresholds: number[],
-      player: IPlayer
+    name: PlayerCharacterName,
+    id: number,
+    maxHealth: number,
+    game: IGame,
+    gender: "male" | "female",
+    moraleThresholds: number[],
+    player: IPlayer
   ) {
     super(name, id, maxHealth, game);
     this._player = player;
     this._moraleThresholds = moraleThresholds;
     this._gender = gender;
-    this._pawnService = new PawnsService(this, 2);
+    this._pawnService = new PawnsService(this, 3);
     this._skills = this.getSkills();
     this._effects = new PlayerCharEffects(this);
   }
-
 
   private getSkills(): IDictionary<ISkill> {
     switch (this._name) {

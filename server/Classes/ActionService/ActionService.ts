@@ -3,15 +3,15 @@ import {
   IActionServiceRenderData,
   Statuses,
 } from "../../../interfaces/ActionService/ActionService";
-import { IGame } from "../../../interfaces/Game";
-import { ThreatStatus } from "./ActionStatuses/ThreatStatus";
-import { HuntStatus } from "./ActionStatuses/HuntStatus";
-import { BuildStatus } from "./ActionStatuses/BuildStatus";
-import { GatherStatus } from "./ActionStatuses/GatherStatus";
-import { ExploreStatus } from "./ActionStatuses/ExploreStatus";
-import { ArrangeCampStatus } from "./ActionStatuses/ArrangeCampStatus";
-import { RestStatus } from "./ActionStatuses/RestStatus";
-import { IActionStatus } from "../../../interfaces/ActionService/ActionStatus";
+import {IGame} from "../../../interfaces/Game";
+import {ThreatStatus} from "./ActionStatuses/ThreatStatus";
+import {HuntStatus} from "./ActionStatuses/HuntStatus";
+import {BuildStatus} from "./ActionStatuses/BuildStatus";
+import {GatherStatus} from "./ActionStatuses/GatherStatus";
+import {ExploreStatus} from "./ActionStatuses/ExploreStatus";
+import {ArrangeCampStatus} from "./ActionStatuses/ArrangeCampStatus";
+import {RestStatus} from "./ActionStatuses/RestStatus";
+import {IActionStatus} from "../../../interfaces/ActionService/ActionStatus";
 
 const actionOrder: (keyof Statuses)[] = [
   "threat",
@@ -80,18 +80,19 @@ export class ActionService implements IActionService {
       this.orderIndex++;
     }
     this._currentResolve = actionOrder[this.orderIndex];
-  }
-
-  resolveNext(): void {
     for (const [key, value] of Object.entries(this.statuses)) {
       let val = value as IActionStatus;
       val.updateItems();
     }
+  }
+
+  resolveNext(): void {
+
+
     if (!this._finished) {
       this.statuses[this.currentResolve].resolveNextItem();
     }
     if (this.statuses[this.currentResolve].finished) {
-      this.setNextAction();
       if (this.currentResolve === "threat") {
         this._finished = true;
       }

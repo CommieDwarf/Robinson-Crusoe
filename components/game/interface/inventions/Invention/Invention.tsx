@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import ActionSlot from "../../ActionSlot";
 import styles from "./Invention.module.css";
 import getHelperActionSlots from "../../../../../utils/getHelperActionSlots";
-import { IPawn, IPawnRenderData } from "../../../../../interfaces/Pawns/Pawn";
+import { IPawnRenderData } from "../../../../../interfaces/Pawns/Pawn";
 import { IInventionRenderData } from "../../../../../interfaces/Inventions/Invention";
 
 type Props = {
@@ -14,6 +14,7 @@ type Props = {
   actionSlots: Map<string, IPawnRenderData | null>;
   zIndex: string;
   setIsEnlarged?: React.Dispatch<React.SetStateAction<boolean>>;
+  hideActionSlots?: boolean;
 };
 
 export default function Invention(props: Props) {
@@ -84,7 +85,7 @@ export default function Invention(props: Props) {
         layout="fill"
         alt={"karta pomysłu"}
       />
-      {!props.invention.locked && (
+      {!props.invention.locked && !props?.hideActionSlots && (
         <div className={styles.actionSlots}>
           {getHelperActionSlots(props.invention, props.actionSlots)}
           <ActionSlot

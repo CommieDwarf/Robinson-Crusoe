@@ -21,8 +21,7 @@ import Equipment from "../../components/game/interface/equipment/Equipment";
 
 import { fromJSON, parse, stringify, toJSON } from "flatted";
 import { IResourcesAmount } from "../../interfaces/Resources/Resources";
-import { ISideCharacterRenderData } from "../../interfaces/Characters/SideCharacter";
-import getGameData from "../api/getGame";
+import getGameRenderData from "../api/getGame";
 import setPawn, { SetPawnData } from "../api/setPawn";
 
 import {
@@ -45,6 +44,7 @@ import unsetPawn, { UnsetPawnData } from "../api/unsetPawn";
 import { NextPhaseButton } from "../../components/game/interface/nextPhaseButton/NextPhaseButton";
 import nextPhase from "../api/nextPhase";
 import { ActionResolveWindow } from "../../components/game/interface/ActionResolveWindow/ActionResolveWindow";
+import { setNextAction } from "../api/setNextAction";
 
 interface Props {
   gameData: IGameRenderData;
@@ -63,6 +63,11 @@ export default function Game(props: Props) {
   // Increase of proper component's z-index is necessary to render dragged pawn above other components
   // and also for proper render of scaled components
   const [zIndex, setZIndex] = useState("");
+
+  function setNextActionHandle() {
+    setNextAction();
+    setGameRenderData(JSON.parse(getGameRenderData()));
+  }
 
   function unselectActionSlots() {
     actionSlots.forEach((value, key) => {
@@ -177,7 +182,7 @@ export default function Game(props: Props) {
     };
     unsetPawn(JSON.stringify(unsetPawnData));
 
-    setGameRenderData(JSON.parse(getGameData()));
+    setGameRenderData(JSON.parse(getGameRenderData()));
 
     // Sleep is used here, because if pawns are switched in the same time,
     // beautiful DND goes nuts and throws error that it cannot find draggable
@@ -189,13 +194,13 @@ export default function Game(props: Props) {
         draggableId: pawnAtActionSlot.draggableId,
       };
       setPawn(JSON.stringify(setPawnData));
-      setGameRenderData(JSON.parse(getGameData()));
+      setGameRenderData(JSON.parse(getGameRenderData()));
     }
   }
 
   function goNextPhase() {
     nextPhase();
-    setGameRenderData(JSON.parse(getGameData()));
+    setGameRenderData(JSON.parse(getGameRenderData()));
   }
 
   return (
@@ -306,6 +311,7 @@ export default function Game(props: Props) {
         <ActionResolveWindow
           actionService={gameRenderData.actionService}
           actionSlots={actionSlots}
+          setNextAction={setNextActionHandle}
         />
       )}
     </div>
@@ -315,7 +321,7 @@ export default function Game(props: Props) {
 // for beautiful DND to work correctly...
 export const getStaticProps: GetServerSideProps = async ({ query }) => {
   resetServerContext(); // <-- CALL RESET SERVER CONTEXT, SERVER SIDE
-  const gameDataJSON = getGameData();
+  const gameDataJSON = getGameRenderData();
   const gameData = await JSON.parse(gameDataJSON);
   return {
     props: {

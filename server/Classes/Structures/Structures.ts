@@ -43,15 +43,15 @@ export class StructuresService implements IStructuresService {
   }
 
   unlockStruct(name: StructureName) {
-    this.getStruct(name).locked = true;
-  }
-
-  lockStruct(name: StructureName) {
     this.getStruct(name).locked = false;
   }
 
+  lockStruct(name: StructureName) {
+    this.getStruct(name).locked = true;
+  }
+
   unlockAllStructs() {
-    this.structures.forEach((structure) => (structure.locked = true));
+    this.structures.forEach((structure) => (structure.locked = false));
   }
 
   commitResources(name: StructureName, resources: IResources) {

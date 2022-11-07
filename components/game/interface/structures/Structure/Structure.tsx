@@ -13,6 +13,7 @@ import getHelperActionSlots from "../../../../../utils/getHelperActionSlots";
 type Props = {
   structure: IStructureRenderData;
   actionSlots: Map<string, IPawnRenderData | null>;
+  hideActionSlots?: boolean;
 };
 
 export default function Structure(props: Props) {
@@ -91,7 +92,7 @@ export default function Structure(props: Props) {
       <div className={styles.cost}>{costIcon}</div>
       <div className={styles.build}>
         <div className={styles.actionSlots}>
-          {!props.structure.locked && (
+          {!props.structure.locked && !props?.hideActionSlots && (
             <>
               {helperActionSlots}
               <ActionSlot

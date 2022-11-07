@@ -2,11 +2,10 @@ import { ActionStatus } from "./ActionStatus/ActionStatus";
 import { IGame } from "../../../../interfaces/Game";
 import { RESOLVE_ITEM_STATUS } from "../../../../interfaces/ActionService/ActionStatus";
 import { TilesService } from "../../Tiles/TileService";
+import { Action } from "../../../../interfaces/Action";
 
 export class ExploreStatus extends ActionStatus {
-  public get action() {
-    return this._action;
-  }
+  protected _action: Action = "explore";
 
   constructor(game: IGame) {
     super(game);
@@ -20,7 +19,7 @@ export class ExploreStatus extends ActionStatus {
       if (!item.leader || item.helpers < 1) {
         throw new Error("need more pawns");
       }
-      const tileId = TilesService.getTileIdFromDroppableId(item.name);
+      const tileId = TilesService.getTileIdFromDroppableId(item.droppableId);
       this._game.tilesService.explore(tileId);
       item.status = RESOLVE_ITEM_STATUS.SUCCESS;
     }

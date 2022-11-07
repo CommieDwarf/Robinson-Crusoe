@@ -1,13 +1,14 @@
 .container {
-    width: 500px;
-    height: 300px;
+    width: 600px;
+    height: 370px;
     border: 2px solid var(--brown);
     position: absolute;
-    left: calc(50% - 250px);
-    top: calc(50% - 150px);
+    left: calc(50% - 300px);
+    top: calc(50% - 185px);
     margin: auto;
     z-index: 9000;
     background-image: url("../../../../public/interface/oldPaper.png");
+    background-size: cover;
 }
 
 .header {
