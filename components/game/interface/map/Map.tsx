@@ -7,7 +7,7 @@ import scrollbarStyles from "./Scrollbar.module.css";
 import tileStyles from "./Tile/Tile.module.css";
 import getDragAndScrollHandle from "../../../../utils/dragAndScrollHandle";
 import Tile from "./Tile/Tile";
-import Hunting from "../Hunting/Hunting";
+import Hunt from "../Hunt/Hunt";
 import { IPawnRenderData } from "../../../../interfaces/Pawns/Pawn";
 import { ITileRenderData } from "../../../../interfaces/Tiles/Tile";
 
@@ -133,7 +133,7 @@ export default function Map(props: Props) {
           </span>
         </div>
       </div>
-      <Hunting
+      <Hunt
         actionSlots={props.actionSlots}
         beastCount={props.beastCount}
         isDragDisabled={props.showScenario}

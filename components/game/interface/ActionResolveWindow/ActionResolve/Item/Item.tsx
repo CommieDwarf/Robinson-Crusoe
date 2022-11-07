@@ -14,6 +14,7 @@ import { IActionSlotsRenderData } from "../../../../../../interfaces/ActionSlots
 import Image from "next/image";
 import { Action } from "../../../../../../interfaces/Action";
 import { IInventionRenderData } from "../../../../../../interfaces/Inventions/Invention";
+import { IBeastRenderData } from "../../../../../../interfaces/Beasts/Beast";
 
 type Props = {
   status: RESOLVE_ITEM_STATUS;
@@ -39,6 +40,16 @@ export const Item = (props: Props) => {
       </div>
     );
   } else if (droppableId.includes("hunt")) {
+    const beast = props.item.type as unknown as IBeastRenderData;
+    image = (
+      <div className={styles.hunt}>
+        <Image
+          src={`/interface/beast/${beast.name.en}.png`}
+          layout={"fill"}
+          alt={beast.name.pl}
+        />
+      </div>
+    );
   } else if (droppableId.includes("invention")) {
     itemType = "invention";
     const invention = props.item.type as unknown as IInventionRenderData;

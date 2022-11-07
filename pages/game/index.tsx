@@ -55,6 +55,7 @@ export default function Game(props: Props) {
   const actionSlots = new Map<string, IPawnRenderData | null>(
     Object.entries(gameRenderData.actionSlotsService.slots)
   );
+
   const [isPawnBeingDragged, setIsPawnBeingDragged] = useState(false);
 
   gameRenderData.localPlayer.character.health;

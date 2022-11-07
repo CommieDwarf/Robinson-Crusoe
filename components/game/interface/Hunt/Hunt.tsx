@@ -1,4 +1,4 @@
-import styles from "./Hunting.module.css";
+import styles from "./Hunt.module.css";
 import Image from "next/image";
 import ActionSlot from "../ActionSlot";
 import { IPawn, IPawnRenderData } from "../../../../interfaces/Pawns/Pawn";
@@ -10,9 +10,9 @@ interface Props {
   isDragDisabled: boolean;
 }
 
-export default function Hunting(props: Props) {
-  const leaderPawn = props.actionSlots.get("hunt-leader");
-  const helperPawn = props.actionSlots.get("hunt-helper");
+export default function Hunt(props: Props) {
+  const leaderPawn = props.actionSlots.get("hunt-leader-0");
+  const helperPawn = props.actionSlots.get("hunt-helper-1");
 
   const zIndexClass = props.zIndex.includes("hunt")
     ? styles.zIndexIncreased

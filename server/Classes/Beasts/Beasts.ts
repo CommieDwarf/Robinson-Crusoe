@@ -2,6 +2,7 @@ import { IResources } from "../../../interfaces/Resources/Resources";
 import { IBeasts, IBeastsRenderData } from "../../../interfaces/Beasts/Beasts";
 import { IBeast } from "../../../interfaces/Beasts/Beast";
 import { ICharacter } from "../../../interfaces/Characters/Character";
+import { beasts } from "../../constants/beasts";
 
 export class Beasts implements IBeasts {
   get beastStrengthEnchanted(): boolean {
@@ -14,8 +15,7 @@ export class Beasts implements IBeasts {
 
   private _deck: IBeast[] = [];
 
-  // TODO: changge allBeasts name to stack
-  private _allBeasts: IBeast[] = [];
+  private _allBeasts: IBeast[] = beasts;
   private _game: unknown;
   private _ownedResources: IResources;
 

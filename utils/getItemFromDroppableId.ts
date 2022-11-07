@@ -11,7 +11,7 @@ export function getItemFromDroppableId(droppableId: string, game: IGame) {
     } else {
       return game.threat.rightSlot as EventCard;
     }
-  } else if (droppableId.includes("beast")) {
+  } else if (droppableId.includes("hunt")) {
     return game.beasts.getBeastFromDeck();
   } else if (droppableId.includes("invention")) {
     let name = droppableId.split("-")[1] as InventionName;
