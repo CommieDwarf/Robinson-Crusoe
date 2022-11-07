@@ -1,9 +1,9 @@
-import { ActionStatus } from "./ActionStatus/ActionStatus";
+import { ResolvableActionService } from "./ResolvableActionService/ResolvableActionService";
 import { IGame } from "../../../../interfaces/Game";
-import { RESOLVE_ITEM_STATUS } from "../../../../interfaces/ActionService/ActionStatus";
+import { RESOLVE_ITEM_STATUS } from "../../../../interfaces/ActionService/IActionResolvableService";
 import { Action } from "../../../../interfaces/Action";
 
-export class ArrangeCampStatus extends ActionStatus {
+export class ArrangeCampStatus extends ResolvableActionService {
   protected _action: Action = "arrangeCamp";
 
   constructor(game: IGame) {

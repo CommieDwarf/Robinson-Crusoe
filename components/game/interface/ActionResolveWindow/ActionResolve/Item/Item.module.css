@@ -12,6 +12,11 @@
     position: relative;
 }
 
+.tile {
+    aspect-ratio: 1;
+    width: 100%;
+    position: relative;
+}
 
 .threat {
     width: 100%;
@@ -88,6 +93,11 @@
 
 .structureStatus {
     top: 20px;
+}
+
+.tileStatus {
+    top: 36px;
+
 }
 
 .success {

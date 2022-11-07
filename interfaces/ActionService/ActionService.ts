@@ -1,34 +1,37 @@
-import { IActionStatus, IActionStatusRenderData } from "./ActionStatus";
+import {
+  IResolvableActionService,
+  IResolvableActionServiceRenderData,
+} from "./IActionResolvableService";
 
-export interface Statuses {
-  threat: IActionStatus;
-  hunt: IActionStatus;
-  build: IActionStatus;
-  gather: IActionStatus;
-  explore: IActionStatus;
-  arrangeCamp: IActionStatus;
-  rest: IActionStatus;
+export interface IActionService {
+  resolvableActionServices: IResolvableActionServices;
+  finished: boolean;
+  currentResolve: keyof IResolvableActionServices;
+  resolveNext: () => void;
+  renderData: IActionServiceRenderData;
+  setNextAction: () => void;
+}
+
+export interface IResolvableActionServices {
+  threat: IResolvableActionService;
+  hunt: IResolvableActionService;
+  build: IResolvableActionService;
+  gather: IResolvableActionService;
+  explore: IResolvableActionService;
+  arrangeCamp: IResolvableActionService;
+  rest: IResolvableActionService;
 }
 
 export interface IActionServiceRenderData {
   statuses: {
-    threat: IActionStatusRenderData;
-    hunt: IActionStatusRenderData;
-    build: IActionStatusRenderData;
-    gather: IActionStatusRenderData;
-    explore: IActionStatusRenderData;
-    arrangeCamp: IActionStatusRenderData;
-    rest: IActionStatusRenderData;
+    threat: IResolvableActionServiceRenderData;
+    hunt: IResolvableActionServiceRenderData;
+    build: IResolvableActionServiceRenderData;
+    gather: IResolvableActionServiceRenderData;
+    explore: IResolvableActionServiceRenderData;
+    arrangeCamp: IResolvableActionServiceRenderData;
+    rest: IResolvableActionServiceRenderData;
   };
   finished: boolean;
-  currentResolve: keyof Statuses;
-}
-
-export interface IActionService {
-  statuses: Statuses;
-  finished: boolean;
-  currentResolve: keyof Statuses;
-  resolveNext: () => void;
-  renderData: IActionServiceRenderData;
-  setNextAction: () => void;
+  currentResolve: keyof IResolvableActionServices;
 }

@@ -1,10 +1,10 @@
-import { ActionStatus } from "./ActionStatus/ActionStatus";
+import { ResolvableActionService } from "./ResolvableActionService/ResolvableActionService";
 import { IGame } from "../../../../interfaces/Game";
-import { RESOLVE_ITEM_STATUS } from "../../../../interfaces/ActionService/ActionStatus";
+import { RESOLVE_ITEM_STATUS } from "../../../../interfaces/ActionService/IActionResolvableService";
 import { TilesService } from "../../Tiles/TileService";
 import { Action } from "../../../../interfaces/Action";
 
-export class ExploreStatus extends ActionStatus {
+export class ExploreStatus extends ResolvableActionService {
   protected _action: Action = "explore";
 
   constructor(game: IGame) {

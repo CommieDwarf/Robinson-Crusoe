@@ -1,9 +1,6 @@
 // @flow
 import * as React from "react";
-import {
-  IResolvableItemRenderData,
-  RESOLVE_ITEM_STATUS,
-} from "../../../../../../interfaces/ActionService/ActionStatus";
+import { RESOLVE_ITEM_STATUS } from "../../../../../../interfaces/ActionService/IActionResolvableService";
 
 import styles from "./Item.module.css";
 import { IEventCardRenderData } from "../../../../../../interfaces/Threat/EventCard";
@@ -12,9 +9,9 @@ import Tile from "../../../map/Tile/Tile";
 import { ITileRenderData } from "../../../../../../interfaces/Tiles/Tile";
 import { IActionSlotsRenderData } from "../../../../../../interfaces/ActionSlots";
 import Image from "next/image";
-import { Action } from "../../../../../../interfaces/Action";
 import { IInventionRenderData } from "../../../../../../interfaces/Inventions/Invention";
 import { IBeastRenderData } from "../../../../../../interfaces/Beasts/Beast";
+import { IResolvableItemRenderData } from "../../../../../../interfaces/ActionService/IResolvableItem";
 
 type Props = {
   status: RESOLVE_ITEM_STATUS;
@@ -29,7 +26,7 @@ export const Item = (props: Props) => {
   const droppableId = props.item.droppableId;
 
   if (droppableId.includes("threat")) {
-    const card = props.item.type as unknown as IEventCardRenderData;
+    const card = props.item.content as unknown as IEventCardRenderData;
     image = (
       <div className={styles.threat}>
         <Image
@@ -40,7 +37,7 @@ export const Item = (props: Props) => {
       </div>
     );
   } else if (droppableId.includes("hunt")) {
-    const beast = props.item.type as unknown as IBeastRenderData;
+    const beast = props.item.content as unknown as IBeastRenderData;
     image = (
       <div className={styles.hunt}>
         <Image
@@ -52,7 +49,7 @@ export const Item = (props: Props) => {
     );
   } else if (droppableId.includes("invention")) {
     itemType = "invention";
-    const invention = props.item.type as unknown as IInventionRenderData;
+    const invention = props.item.content as unknown as IInventionRenderData;
     image = (
       <div className={styles.invention}>
         <Image
@@ -63,7 +60,7 @@ export const Item = (props: Props) => {
       </div>
     );
   } else if (droppableId.includes("structure")) {
-    const structure = props.item.type as unknown as IStructure;
+    const structure = props.item.content as unknown as IStructure;
     itemType = "structure";
     image = (
       <div className={styles[structure.name] + " " + styles.structure}>
@@ -97,16 +94,19 @@ export const Item = (props: Props) => {
     droppableId.includes("gather") ||
     droppableId.includes("explore")
   ) {
+    const tile = props.item.content as unknown as ITileRenderData;
+    itemType = "tile";
     image = (
-      <Tile
-        tile={props.item.type as ITileRenderData}
-        contentScale={100}
-        actionSlots={props.actionSlots}
-        isDragDisabled={true}
-        zIndex={""}
-        camp={false}
-      />
+      <div className={styles.tile}>
+        <Image
+          src={`/interface/map/tiles/${tile.id}.png`}
+          layout={"fill"}
+          alt={"kafelek"}
+        />
+      </div>
     );
+    console.log(tile);
+    extraInfoDiv = <div className={styles.gather}></div>;
   } else if (
     droppableId.includes("rest") ||
     droppableId.includes("arrangeCamp")

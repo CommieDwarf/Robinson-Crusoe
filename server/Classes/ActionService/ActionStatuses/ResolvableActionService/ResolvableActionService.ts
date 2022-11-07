@@ -1,15 +1,17 @@
 import {
-  IActionStatus,
   IActionStatusRenderData,
+  IResolvableActionService,
   IResolvableItem,
-} from "../../../../../interfaces/ActionService/ActionStatus";
+} from "../../../../../interfaces/ActionService/IActionResolvableService";
 import { Action } from "../../../../../interfaces/Action";
 import { IGame } from "../../../../../interfaces/Game";
 import { ResolvableItem } from "../ResolvableItem/ResolvableItem";
 import { getItemFromDroppableId } from "../../../../../utils/getItemFromDroppableId";
 import { ActionSlotsService } from "../../../ActionSlotsService/ActionSlots";
 
-export abstract class ActionStatus implements IActionStatus {
+export abstract class ResolvableActionService
+  implements IResolvableActionService
+{
   protected _eventToken = false;
   protected _reRollToken = false;
   protected _additionalPawnRequired = false;
@@ -82,7 +84,9 @@ export abstract class ActionStatus implements IActionStatus {
           new ResolvableItem(
             key,
             value,
-            getItemFromDroppableId(key, this._game)
+            getItemFromDroppableId(key, this._game),
+            {},
+            "threat"
           )
         );
       }

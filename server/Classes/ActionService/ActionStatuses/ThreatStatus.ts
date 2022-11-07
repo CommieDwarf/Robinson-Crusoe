@@ -1,9 +1,9 @@
-import { ActionStatus } from "./ActionStatus/ActionStatus";
+import { ResolvableActionService } from "./ResolvableActionService/ResolvableActionService";
 import { Action } from "../../../../interfaces/Action";
 import { IGame } from "../../../../interfaces/Game";
-import { RESOLVE_ITEM_STATUS } from "../../../../interfaces/ActionService/ActionStatus";
+import { RESOLVE_ITEM_STATUS } from "../../../../interfaces/ActionService/IActionResolvableService";
 
-export class ThreatStatus extends ActionStatus {
+export class ThreatStatus extends ResolvableActionService {
   protected _action: Action = "threat";
   public get action() {
     return this._action;

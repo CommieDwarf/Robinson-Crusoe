@@ -1,24 +1,46 @@
 import {
   IResolvableItem,
+  IResolvableItemAdditionalInfo,
   IResolvableItemRenderData,
   IResolvableItemType,
   RESOLVE_ITEM_STATUS,
-} from "../../../../../interfaces/ActionService/ActionStatus";
+} from "../../../../../interfaces/ActionService/IActionResolvableService";
 import { IPawn } from "../../../../../interfaces/Pawns/Pawn";
-import { IEventCard } from "../../../../../interfaces/Threat/EventCard";
-import { IInvention } from "../../../../../interfaces/Inventions/Invention";
+import { Action } from "../../../../../interfaces/Action";
 
 export class ResolvableItem implements IResolvableItem {
+  get action(): any {
+    return this._action;
+  }
+
+  get item() {
+    return this._item;
+  }
+
+  get additionalInfo() {
+    return this._additionalInfo;
+  }
+
   private readonly _droppableId: string;
   private readonly _leader: IPawn;
-  private readonly _type: IResolvableItemType;
   private _status: RESOLVE_ITEM_STATUS = RESOLVE_ITEM_STATUS.PENDING;
   private _helpers: number = 0;
+  private readonly _item;
+  private readonly _additionalInfo;
+  private readonly _action;
 
-  constructor(droppableId: string, leader: IPawn, type: IResolvableItemType) {
+  constructor(
+    droppableId: string,
+    leader: IPawn,
+    item: IResolvableItemType,
+    additionalInfo: IResolvableItemAdditionalInfo,
+    action: Action
+  ) {
     this._droppableId = droppableId;
     this._leader = leader;
-    this._type = type;
+    this._item = item;
+    this._additionalInfo = additionalInfo;
+    this._action = action;
   }
 
   get renderData(): IResolvableItemRenderData {
@@ -26,16 +48,14 @@ export class ResolvableItem implements IResolvableItem {
       droppableId: this.droppableId,
       status: this.status,
       leader: this._leader.renderData,
-      type: this._type.renderData,
+      item: this._item.renderData,
+      additionalInfo: this._additionalInfo,
+      action: this._action,
     };
   }
 
   get droppableId(): string {
     return this._droppableId;
-  }
-
-  get type(): IResolvableItemType {
-    return this._type;
   }
 
   get leader(): IPawn {

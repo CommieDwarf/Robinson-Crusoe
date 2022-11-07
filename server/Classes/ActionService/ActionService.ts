@@ -1,19 +1,19 @@
 import {
   IActionService,
   IActionServiceRenderData,
-  Statuses,
+  IResolvableActionServices,
 } from "../../../interfaces/ActionService/ActionService";
-import {IGame} from "../../../interfaces/Game";
-import {ThreatStatus} from "./ActionStatuses/ThreatStatus";
-import {HuntStatus} from "./ActionStatuses/HuntStatus";
-import {BuildStatus} from "./ActionStatuses/BuildStatus";
-import {GatherStatus} from "./ActionStatuses/GatherStatus";
-import {ExploreStatus} from "./ActionStatuses/ExploreStatus";
-import {ArrangeCampStatus} from "./ActionStatuses/ArrangeCampStatus";
-import {RestStatus} from "./ActionStatuses/RestStatus";
-import {IActionStatus} from "../../../interfaces/ActionService/ActionStatus";
+import { IGame } from "../../../interfaces/Game";
+import { ThreatStatus } from "./ActionStatuses/ThreatStatus";
+import { HuntStatus } from "./ActionStatuses/HuntStatus";
+import { BuildStatus } from "./ActionStatuses/BuildStatus";
+import { GatherStatus } from "./ActionStatuses/GatherStatus";
+import { ExploreStatus } from "./ActionStatuses/ExploreStatus";
+import { ArrangeCampStatus } from "./ActionStatuses/ArrangeCampStatus";
+import { RestStatus } from "./ActionStatuses/RestStatus";
+import { IResolvableActionService } from "../../../interfaces/ActionService/IActionResolvableService";
 
-const actionOrder: (keyof Statuses)[] = [
+const actionOrder: (keyof IResolvableActionServices)[] = [
   "threat",
   "hunt",
   "build",
@@ -24,7 +24,11 @@ const actionOrder: (keyof Statuses)[] = [
 ];
 
 export class ActionService implements IActionService {
-  get currentResolve(): keyof Statuses {
+  get resolvableActionServices(): IResolvableActionServices {
+    return this._resolvableActionServices;
+  }
+
+  get currentResolve(): keyof IResolvableActionServices {
     return this._currentResolve;
   }
 
@@ -37,15 +41,15 @@ export class ActionService implements IActionService {
   }
 
   private readonly _game: IGame;
-  private _currentResolve: keyof Statuses = "threat";
+  private _currentResolve: keyof IResolvableActionServices = "threat";
   private _finished: boolean = false;
   orderIndex = 0;
 
-  statuses: Statuses;
+  private _resolvableActionServices: IResolvableActionServices;
 
   constructor(game: IGame) {
     this._game = game;
-    this.statuses = {
+    this._resolvableActionServices = {
       threat: new ThreatStatus(this.game),
       hunt: new HuntStatus(this.game),
       build: new BuildStatus(this.game),
@@ -58,13 +62,13 @@ export class ActionService implements IActionService {
 
   get renderData(): IActionServiceRenderData {
     const statuses = {
-      threat: this.statuses.threat.renderData,
-      hunt: this.statuses.hunt.renderData,
-      build: this.statuses.build.renderData,
-      gather: this.statuses.gather.renderData,
-      explore: this.statuses.explore.renderData,
-      arrangeCamp: this.statuses.arrangeCamp.renderData,
-      rest: this.statuses.rest.renderData,
+      threat: this.resolvableActionServices.threat.renderData,
+      hunt: this.resolvableActionServices.hunt.renderData,
+      build: this.resolvableActionServices.build.renderData,
+      gather: this.resolvableActionServices.gather.renderData,
+      explore: this.resolvableActionServices.explore.renderData,
+      arrangeCamp: this.resolvableActionServices.arrangeCamp.renderData,
+      rest: this.resolvableActionServices.rest.renderData,
     };
     return {
       statuses,
@@ -80,19 +84,17 @@ export class ActionService implements IActionService {
       this.orderIndex++;
     }
     this._currentResolve = actionOrder[this.orderIndex];
-    for (const [key, value] of Object.entries(this.statuses)) {
-      let val = value as IActionStatus;
+    for (const [key, value] of Object.entries(this.resolvableActionServices)) {
+      let val = value as IResolvableActionService;
       val.updateItems();
     }
   }
 
   resolveNext(): void {
-
-
     if (!this._finished) {
-      this.statuses[this.currentResolve].resolveNextItem();
+      this.resolvableActionServices[this.currentResolve].resolveNextItem();
     }
-    if (this.statuses[this.currentResolve].finished) {
+    if (this.resolvableActionServices[this.currentResolve].finished) {
       if (this.currentResolve === "threat") {
         this._finished = true;
       }

@@ -1,13 +1,12 @@
-import {ActionStatus} from "./ActionStatus/ActionStatus";
-import {Action} from "../../../../interfaces/Action";
-import {IGame} from "../../../../interfaces/Game";
-import {RESOLVE_ITEM_STATUS} from "../../../../interfaces/ActionService/ActionStatus";
-import {InventionName} from "../../../../interfaces/Inventions/Inventions";
-import {StructureName} from "../../../../interfaces/Structures/Structures";
+import { ResolvableActionService } from "./ResolvableActionService/ResolvableActionService";
+import { Action } from "../../../../interfaces/Action";
+import { IGame } from "../../../../interfaces/Game";
+import { RESOLVE_ITEM_STATUS } from "../../../../interfaces/ActionService/IActionResolvableService";
+import { InventionName } from "../../../../interfaces/Inventions/Inventions";
+import { StructureName } from "../../../../interfaces/Structures/Structures";
 
-export class BuildStatus extends ActionStatus {
+export class BuildStatus extends ResolvableActionService {
   protected _action: Action = "build";
-
 
   constructor(game: IGame) {
     super(game);
@@ -20,8 +19,8 @@ export class BuildStatus extends ActionStatus {
     if (item) {
       // TODO: implement roll dice.
       let rollDice =
-          (this.additionalPawnRequired && item.helpers < 2) ||
-          (!this.additionalPawnRequired && item.helpers < 1);
+        (this.additionalPawnRequired && item.helpers < 2) ||
+        (!this.additionalPawnRequired && item.helpers < 1);
 
       let arrDroppable = item.droppableId.split("-");
 
