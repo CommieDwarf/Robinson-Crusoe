@@ -1,13 +1,13 @@
-import {IEventCard} from "../../../interfaces/Threat/EventCard";
+import { IEventCard } from "../../../interfaces/Threat/EventCard";
 import {
   EventAssignedCharacters,
   IThreat,
   IThreatRenderData,
   ThreatSpecialEffects,
 } from "../../../interfaces/Threat/Threat";
-import {ICharacter} from "../../../interfaces/Characters/Character";
-import {IGame} from "../../../interfaces/Game";
-import {getEventCards} from "../../constants/getEventCards";
+import { ICharacter } from "../../../interfaces/Characters/Character";
+import { IGame } from "../../../interfaces/Game";
+import { getEventCards } from "../../constants/getEventCards";
 
 interface ThreatSlots {
   left: null | IEventCard;
@@ -15,8 +15,6 @@ interface ThreatSlots {
 }
 
 export class Threat implements IThreat {
-
-
   private _eventCards: IEventCard[];
 
   private readonly _game: IGame;
@@ -68,15 +66,16 @@ export class Threat implements IThreat {
   }
 
   getCardSlotByDroppableId(droppableId: string) {
-
-    if (this._threatSlots.left?.name.includes("left-1")) {
-      return this._threatSlots.left;
-    } else if (this._threatSlots.right?.name.includes("right-1")) {
-      return this._threatSlots.right;
-    } else {
-      throw new Error("Couldnt find card in slot with droppable: " + droppableId);
+    let card;
+    if (droppableId.includes("left")) {
+      card = this._threatSlots.left;
+    } else if (droppableId.includes("right")) {
+      card = this._threatSlots.right;
     }
-
+    if (card) {
+      return card;
+    }
+    throw new Error("Couldnt find card in slot with droppable: " + droppableId);
   }
 
   get renderData(): IThreatRenderData {
@@ -126,21 +125,18 @@ export class Threat implements IThreat {
   getAssignedCharByCardName = (name: string) => {
     const slot = this.getSlotByCardName(name);
     const char =
-        this.assignedCharacters[(slot + "1") as keyof EventAssignedCharacters];
+      this.assignedCharacters[(slot + "1") as keyof EventAssignedCharacters];
     if (!char) {
       throw new Error("Cant find character in slot: " + slot + "1");
     }
     return char;
   };
 
-  addCardToTopOfStack(card: unknown) {
-  }
+  addCardToTopOfStack(card: unknown) {}
 
-  shuffleCardInToStack(card: unknown) {
-  }
+  shuffleCardInToStack(card: unknown) {}
 
-  switchCardFromTopToBottomOfStack() {
-  }
+  switchCardFromTopToBottomOfStack() {}
 
   assignCharacter(char: ICharacter, card: "left" | "right", slot: number) {
     if (slot > 2) {
@@ -152,24 +148,23 @@ export class Threat implements IThreat {
   }
 
   setSpecialEffect(
-      effect: keyof ThreatSpecialEffects,
-      value: boolean,
-      logSource: string
+    effect: keyof ThreatSpecialEffects,
+    value: boolean,
+    logSource: string
   ) {
     this._specialEffects[effect] = value;
     if (effect === "argument") {
       const color = value ? "red" : "green";
       const msg = value
-          ? "przy zagrożeniu muszą być użyte pionki 2 innych postaci"
-          : 'przy zagrożeniu nie muszą już być użyte pionki 2 innych postaci"';
+        ? "przy zagrożeniu muszą być użyte pionki 2 innych postaci"
+        : 'przy zagrożeniu nie muszą już być użyte pionki 2 innych postaci"';
       this._game.chatLog.addMessage(msg, color, logSource);
     }
   }
 
   public async testEventCards(game: IGame) {
     await sleep(2000);
-    this._eventCards.forEach((event, i) => {
-    });
+    this._eventCards.forEach((event, i) => {});
 
     const char = game.characterService.getCharacter("cook");
 
@@ -183,4 +178,4 @@ export class Threat implements IThreat {
 }
 
 import sleep from "../../../utils/sleep";
-import {getWreckageCard} from "../../constants/getWreckageCard";
+import { getWreckageCard } from "../../constants/getWreckageCard";

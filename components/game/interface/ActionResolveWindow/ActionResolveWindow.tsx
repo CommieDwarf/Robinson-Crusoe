@@ -5,11 +5,13 @@ import { ResolveItems } from "./ActionResolve/ResolveItems";
 import { IActionServiceRenderData } from "../../../../interfaces/ActionService/ActionService";
 import { IActionSlotsRenderData } from "../../../../interfaces/ActionSlots";
 import { NextActionButton } from "./NextActionButton/NextActionButton";
+import { Action } from "../../../../interfaces/Action";
 
 type Props = {
   actionService: IActionServiceRenderData;
   actionSlots: IActionSlotsRenderData;
   setNextAction: () => void;
+  resolveItem: (action: Action, droppableId: string) => void;
 };
 export const ActionResolveWindow = (props: Props) => {
   let containerRef = React.createRef<HTMLDivElement>();
@@ -34,7 +36,7 @@ export const ActionResolveWindow = (props: Props) => {
           <Image
             src={
               "/interface/actions/" +
-              props.actionService.currentResolve +
+              props.actionService.currentResolve.action +
               ".png"
             }
             layout={"fill"}
@@ -45,11 +47,14 @@ export const ActionResolveWindow = (props: Props) => {
       <ResolveItems
         actionService={props.actionService}
         actionSlots={props.actionSlots}
+        resolveItem={props.resolveItem}
       />
-      <NextActionButton
-        currentAction={props.actionService.currentResolve}
-        setNextAction={props.setNextAction}
-      />
+      {props.actionService.currentResolve.finished && (
+        <NextActionButton
+          currentAction={props.actionService.currentResolve.action}
+          setNextAction={props.setNextAction}
+        />
+      )}
     </div>
   );
 };

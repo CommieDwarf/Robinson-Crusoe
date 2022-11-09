@@ -12,24 +12,17 @@ export class BuildStatus extends ResolvableActionService {
     super(game);
   }
 
-  resolveNextItem() {
-    super.resolveNextItem();
+  resolveItem(droppableId: string) {
+    const item = this.getItem(droppableId);
+    let arrDroppable = item.droppableId.split("-");
 
-    const item = this._items.shift();
-    if (item) {
-      // TODO: implement roll dice.
-      let rollDice =
-        (this.additionalPawnRequired && item.helpers < 2) ||
-        (!this.additionalPawnRequired && item.helpers < 1);
-
-      let arrDroppable = item.droppableId.split("-");
-
-      if (arrDroppable[0].includes("invention")) {
-        this.buildInvention(arrDroppable[1] as InventionName);
-      } else {
-        this.buildStruct(arrDroppable[1] as StructureName);
-      }
+    if (arrDroppable[0].includes("invention")) {
+      this.buildInvention(arrDroppable[1] as InventionName);
+    } else {
+      this.buildStruct(arrDroppable[1] as StructureName);
     }
+    item.status = RESOLVE_ITEM_STATUS.SUCCESS;
+    this.updateFinished();
   }
 
   private buildStruct(name: StructureName) {

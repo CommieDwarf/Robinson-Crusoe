@@ -12,20 +12,13 @@ export class GatherStatus extends ResolvableActionService {
     super(game);
   }
 
-  resolveNextItem() {
-    super.resolveNextItem();
-    const item = this._items.shift();
-    if (item) {
-      const tile = item.type as ITile;
-      // TODO: implement ROLL DICE
-      if (!item.leader || item.helpers < 1) {
-        throw new Error("need more pawns");
-      }
-      const tileId = TilesService.getTileIdFromDroppableId(item.droppableId);
-      const side = item.droppableId[3] as "left" | "right";
-
-      this._game.tilesService.gather(side, tileId);
-      item.status = RESOLVE_ITEM_STATUS.SUCCESS;
-    }
+  resolveItem(droppableId: string) {
+    const item = this.getItem(droppableId);
+    const side = item.droppableId.split("-")[3] as "left" | "right";
+    const tile = item.content as unknown as ITile;
+    console.log(side, tile.id);
+    this._game.tilesService.gather(side, tile.id);
+    item.status = RESOLVE_ITEM_STATUS.SUCCESS;
+    this.updateFinished();
   }
 }

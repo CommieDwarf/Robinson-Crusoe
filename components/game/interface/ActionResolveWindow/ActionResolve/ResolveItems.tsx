@@ -5,6 +5,7 @@ import { IActionServiceRenderData } from "../../../../../interfaces/ActionServic
 import { Item } from "./Item/Item";
 import { IActionSlotsRenderData } from "../../../../../interfaces/ActionSlots";
 import capitalizeFirstLetter from "../../../../../utils/capitalizeFirstLetter";
+import { Action } from "../../../../../interfaces/Action";
 
 const translateActionPL = {
   threat: "zagrożenie",
@@ -19,19 +20,18 @@ const translateActionPL = {
 type Props = {
   actionService: IActionServiceRenderData;
   actionSlots: IActionSlotsRenderData;
+  resolveItem: (action: Action, droppableItem: string) => void;
 };
 
 export const ResolveItems = (props: Props) => {
-  console.log(props.actionService.statuses);
-  const items = props.actionService.statuses[
-    props.actionService.currentResolve
-  ].items.map((item) => {
+  const items = props.actionService.currentResolve.items.map((item) => {
     return (
       <Item
         status={item.status}
         item={item}
         actionSlots={props.actionSlots}
         key={item.droppableId}
+        resolveItem={props.resolveItem}
       />
     );
   });
@@ -40,11 +40,11 @@ export const ResolveItems = (props: Props) => {
     <div className={styles.container}>
       <div
         className={
-          styles.title + " " + styles[props.actionService.currentResolve]
+          styles.title + " " + styles[props.actionService.currentResolve.action]
         }
       >
         {capitalizeFirstLetter(
-          translateActionPL[props.actionService.currentResolve]
+          translateActionPL[props.actionService.currentResolve.action]
         )}
       </div>
       <div className={styles.items}>{items}</div>

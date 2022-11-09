@@ -13,15 +13,13 @@ export class ThreatStatus extends ResolvableActionService {
     super(game);
   }
 
-  resolveNextItem() {
-    super.resolveNextItem();
-    const item = this._items.shift();
-    if (item) {
-      const threatCard = this._game.threat.getCardSlotByDroppableId(
-        item.droppableId
-      );
-      threatCard.fullFill(item.leader.character);
-      item.status = RESOLVE_ITEM_STATUS.SUCCESS;
-    }
+  resolveItem(droppableId: string) {
+    const item = this.getItem(droppableId);
+    const threatCard = this._game.threat.getCardSlotByDroppableId(
+      item.droppableId
+    );
+    threatCard.fullFill(item.leader.character);
+    item.status = RESOLVE_ITEM_STATUS.SUCCESS;
+    this.updateFinished();
   }
 }

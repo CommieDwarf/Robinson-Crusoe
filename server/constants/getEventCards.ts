@@ -349,13 +349,13 @@ export function getEventCards(game: IGame, threat: IThreat): IEventCard[] {
         resource: null,
       },
       function triggerEffect() {
-        game.actionService.statuses.gather.reRollToken = true;
-        game.actionService.statuses.build.reRollToken = true;
-        game.actionService.statuses.explore.reRollToken = true;
+        game.actionService.resolvableActionServices.gather.reRollToken = true;
+        game.actionService.resolvableActionServices.build.reRollToken = true;
+        game.actionService.resolvableActionServices.explore.reRollToken = true;
       },
       function triggerThreatEffect() {
-        game.actionService.statuses.explore.eventToken = true;
-        game.actionService.statuses.gather.eventToken = true;
+        game.actionService.resolvableActionServices.explore.eventToken = true;
+        game.actionService.resolvableActionServices.gather.eventToken = true;
       },
       function fullFill(character: ICharacter) {
         game.characterService.incrDetermination(character, 1, this.namePL);

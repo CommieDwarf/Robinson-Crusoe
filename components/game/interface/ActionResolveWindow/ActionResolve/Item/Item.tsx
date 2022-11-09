@@ -5,24 +5,30 @@ import { RESOLVE_ITEM_STATUS } from "../../../../../../interfaces/ActionService/
 import styles from "./Item.module.css";
 import { IEventCardRenderData } from "../../../../../../interfaces/Threat/EventCard";
 import { IStructure } from "../../../../../../interfaces/Structures/Structure";
-import Tile from "../../../map/Tile/Tile";
 import { ITileRenderData } from "../../../../../../interfaces/Tiles/Tile";
 import { IActionSlotsRenderData } from "../../../../../../interfaces/ActionSlots";
 import Image from "next/image";
 import { IInventionRenderData } from "../../../../../../interfaces/Inventions/Invention";
 import { IBeastRenderData } from "../../../../../../interfaces/Beasts/Beast";
 import { IResolvableItemRenderData } from "../../../../../../interfaces/ActionService/IResolvableItem";
+import { Action } from "../../../../../../interfaces/Action";
+
+enum ITEM_STATUS_PL {
+  SUCCESS = "sukces!",
+  FAILURE = "porażka!",
+  PENDING = "",
+}
 
 type Props = {
   status: RESOLVE_ITEM_STATUS;
   item: IResolvableItemRenderData;
   actionSlots: IActionSlotsRenderData;
+  resolveItem: (action: Action, droppableId: string) => void;
 };
 export const Item = (props: Props) => {
   let image;
   let extraInfoDiv;
   // TODO: make field itemType in item;
-  let itemType = "";
   const droppableId = props.item.droppableId;
 
   if (droppableId.includes("threat")) {
@@ -48,7 +54,6 @@ export const Item = (props: Props) => {
       </div>
     );
   } else if (droppableId.includes("invention")) {
-    itemType = "invention";
     const invention = props.item.content as unknown as IInventionRenderData;
     image = (
       <div className={styles.invention}>
@@ -61,7 +66,6 @@ export const Item = (props: Props) => {
     );
   } else if (droppableId.includes("structure")) {
     const structure = props.item.content as unknown as IStructure;
-    itemType = "structure";
     image = (
       <div className={styles[structure.name] + " " + styles.structure}>
         <Image
@@ -95,27 +99,55 @@ export const Item = (props: Props) => {
     droppableId.includes("explore")
   ) {
     const tile = props.item.content as unknown as ITileRenderData;
-    itemType = "tile";
+
+    const id = tile.tileType?.id != null ? tile.tileType.id : 11;
     image = (
       <div className={styles.tile}>
         <Image
-          src={`/interface/map/tiles/${tile.id}.png`}
+          src={`/interface/map/tiles/${id}.png`}
           layout={"fill"}
           alt={"kafelek"}
         />
       </div>
     );
-    console.log(tile);
-    extraInfoDiv = <div className={styles.gather}></div>;
+    if (props.item.additionalInfo.resource) {
+      extraInfoDiv = (
+        <div className={styles.gather}>
+          <span className={styles.gatherAmount}>1</span>
+          <div className={styles.resourceIcon}>
+            <Image
+              src={`/interface/resources/${
+                tile.tileType?.resources[props.item.additionalInfo.resource]
+              }.png`}
+              layout={"fill"}
+              alt={"surowiec"}
+            />
+          </div>
+        </div>
+      );
+    }
   } else if (
     droppableId.includes("rest") ||
     droppableId.includes("arrangeCamp")
   ) {
+    image = (
+      <div className={styles.restArrange}>
+        <Image
+          src={`/interface/actions/${props.item.action}Picture.png`}
+          layout={"fill"}
+          alt={props.item.action}
+        />
+      </div>
+    );
+  }
+
+  function handleClick() {
+    props.resolveItem(props.item.action, props.item.droppableId);
   }
 
   const lockedButtonClass = styles.locked;
-
   const imageName = `${props.item.leader.character.name}-${props.item.leader.character.gender}`;
+  const itemType = props.item.droppableId.split("-")[0];
   return (
     <div className={styles.container}>
       <div className={styles.item}>
@@ -124,9 +156,12 @@ export const Item = (props: Props) => {
       </div>
 
       <div className={styles.status + " " + styles[itemType + "Status"]}>
-        Sukces!
+        {ITEM_STATUS_PL[props.status]}
       </div>
-      <div className={`${styles.resolveButton} ${lockedButtonClass}`}>
+      <div
+        className={`${styles.resolveButton} ${lockedButtonClass}`}
+        onClick={handleClick}
+      >
         Wykonaj
       </div>
       <div className={styles.character}>

@@ -14,12 +14,10 @@ export class RestStatus extends ResolvableActionService {
     super(game);
   }
 
-  resolveNextItem() {
-    super.resolveNextItem();
-    const item = this._items.shift();
-    if (item) {
-      this._game.characterService.heal(item.leader.character, 1, "Odpoczynek");
-      item.status = RESOLVE_ITEM_STATUS.SUCCESS;
-    }
+  resolveItem(droppableId: string) {
+    const item = this.getItem(droppableId);
+    this._game.characterService.heal(item.leader.character, 1, "Odpoczynek");
+    item.status = RESOLVE_ITEM_STATUS.SUCCESS;
+    this.updateFinished();
   }
 }

@@ -2,14 +2,15 @@ import {
   IResolvableActionService,
   IResolvableActionServiceRenderData,
 } from "./IActionResolvableService";
+import { Action } from "../Action";
 
 export interface IActionService {
   resolvableActionServices: IResolvableActionServices;
   finished: boolean;
-  currentResolve: keyof IResolvableActionServices;
-  resolveNext: () => void;
+  currentResolvableActionService: IResolvableActionService;
   renderData: IActionServiceRenderData;
   setNextAction: () => void;
+  resolveItem: (action: Action, droppableId: string) => void;
 }
 
 export interface IResolvableActionServices {
@@ -33,5 +34,5 @@ export interface IActionServiceRenderData {
     rest: IResolvableActionServiceRenderData;
   };
   finished: boolean;
-  currentResolve: keyof IResolvableActionServices;
+  currentResolve: IResolvableActionServiceRenderData;
 }

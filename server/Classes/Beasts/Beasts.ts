@@ -76,7 +76,7 @@ export class Beasts implements IBeasts {
   }
 
   fightBeast(leader: ICharacter, helper: ICharacter) {
-    const beast = this._deck.pop();
+    const beast = this._deck[0];
     if (beast) {
       this.beastBeingFought = beast;
     }

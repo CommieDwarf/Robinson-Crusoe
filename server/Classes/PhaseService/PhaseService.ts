@@ -3,8 +3,8 @@ import {
   Phase,
   PhaseEffects,
 } from "../../../interfaces/PhaseService/PhaseService";
-import {IGame} from "../../../interfaces/Game";
-import {PHASE} from "../../../interfaces/PhaseService/Phase";
+import { IGame } from "../../../interfaces/Game";
+import { PHASE } from "../../../interfaces/PhaseService/Phase";
 
 const phases: Phase[] = [
   "event",
@@ -48,10 +48,8 @@ export class PhaseService implements IPhaseService {
       event: this.eventEffect,
       morale: () => this.moraleEffect(),
       production: this.productionEffect,
-      action: () => {
-      },
-      weather: () => {
-      },
+      action: () => {},
+      weather: () => {},
       night: this.nightEffect,
     };
   }
@@ -59,12 +57,10 @@ export class PhaseService implements IPhaseService {
   goNextPhase() {
     this.phaseEffects[this._phase]();
     this._phaseIndex =
-        this._phaseIndex === phases.length - 1 ? 0 : ++this._phaseIndex;
+      this._phaseIndex === phases.length - 1 ? 0 : ++this._phaseIndex;
     this._phase = phases[this._phaseIndex];
     if (this._phase === "action") {
-      this._game.actionService.statuses.threat.updateItems();
-
-
+      this._game.actionService.resolvableActionServices.threat.updateItems();
       this.locked = true;
     }
   }
@@ -80,25 +76,25 @@ export class PhaseService implements IPhaseService {
     }
     // TODO: implement player choice when lvl 3 whenever he wants determination or health
     const primePlayerCharacter =
-        this._game.playerService.primePlayer.getCharacter();
+      this._game.playerService.primePlayer.getCharacter();
     if (this._game.morale.lvl > 0) {
       this._game.characterService.incrDetermination(
-          primePlayerCharacter,
-          this._game.morale.lvl,
-          "Faza morali"
+        primePlayerCharacter,
+        this._game.morale.lvl,
+        "Faza morali"
       );
     } else {
       this._game.characterService.decrDetermination(
-          primePlayerCharacter,
-          Math.abs(this._game.morale.lvl),
-          "Faza morali"
+        primePlayerCharacter,
+        Math.abs(this._game.morale.lvl),
+        "Faza morali"
       );
     }
   }
 
   private productionEffect = () => {
     const resources =
-        this._game.tilesService.currentCampTile.tileType?.resources;
+      this._game.tilesService.currentCampTile.tileType?.resources;
     if (!resources) {
       throw new Error("There are no resources in tile");
     }
@@ -112,8 +108,7 @@ export class PhaseService implements IPhaseService {
     }
   };
 
-  private actionEffect() {
-  }
+  private actionEffect() {}
 
   private nightEffect = () => {
     this._game.setNextTurn();

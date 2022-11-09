@@ -8,10 +8,10 @@ export interface IResolvableActionService {
   reRollToken: boolean;
   additionalPawnRequired: boolean;
   items: IResolvableItem[];
-  resolveNextItem: () => void;
   finished: boolean;
   renderData: IResolvableActionServiceRenderData;
   updateItems: () => void;
+  resolveItem: (droppableId: string) => void;
 }
 
 export enum RESOLVE_ITEM_STATUS {
@@ -22,4 +22,6 @@ export enum RESOLVE_ITEM_STATUS {
 
 export interface IResolvableActionServiceRenderData {
   items: IResolvableItemRenderData[];
+  finished: boolean;
+  action: Action;
 }

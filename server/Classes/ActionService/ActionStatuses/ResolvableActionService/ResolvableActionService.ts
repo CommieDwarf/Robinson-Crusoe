@@ -1,13 +1,17 @@
 import {
-  IActionStatusRenderData,
   IResolvableActionService,
-  IResolvableItem,
+  IResolvableActionServiceRenderData,
+  RESOLVE_ITEM_STATUS,
 } from "../../../../../interfaces/ActionService/IActionResolvableService";
 import { Action } from "../../../../../interfaces/Action";
 import { IGame } from "../../../../../interfaces/Game";
 import { ResolvableItem } from "../ResolvableItem/ResolvableItem";
 import { getItemFromDroppableId } from "../../../../../utils/getItemFromDroppableId";
 import { ActionSlotsService } from "../../../ActionSlotsService/ActionSlots";
+import {
+  IResolvableItem,
+  IResolvableItemAdditionalInfo,
+} from "../../../../../interfaces/ActionService/IResolvableItem";
 
 export abstract class ResolvableActionService
   implements IResolvableActionService
@@ -24,11 +28,15 @@ export abstract class ResolvableActionService
     this._game = game;
   }
 
-  get renderData(): IActionStatusRenderData {
+  get renderData(): IResolvableActionServiceRenderData {
     return {
       items: this._items.map((item) => item.renderData),
+      action: this._action,
+      finished: this.finished,
     };
   }
+
+  resolveItem(droppableId: string) {}
 
   get items(): IResolvableItem[] {
     return this._items;
@@ -62,11 +70,18 @@ export abstract class ResolvableActionService
     this._additionalPawnRequired = value;
   }
 
-  resolveNextItem(): void {
-    if (this._items.length === 0) {
-      this.finished = true;
-      return;
+  getItem(droppableId: string) {
+    const item = this._items.find((it) => it.droppableId === droppableId);
+    if (!item) {
+      throw new Error("Couldn't find item with droppableId: " + droppableId);
     }
+    return item;
+  }
+
+  protected updateFinished() {
+    this.finished = !this._items.some(
+      (item) => item.status === RESOLVE_ITEM_STATUS.PENDING
+    );
   }
 
   public updateItems() {
@@ -77,6 +92,10 @@ export abstract class ResolvableActionService
     slots.forEach((value, key) => {
       // removing LEADER/HELPER-ID information
       const id = ActionSlotsService.rmvRoleInfoFromDroppableId(key);
+      const additionalInfo: IResolvableItemAdditionalInfo = {};
+      if (key.includes("gather")) {
+        additionalInfo.resource = key.split("-")[3] as "left" | "right";
+      }
 
       if (key.includes("leader")) {
         items.set(
@@ -85,8 +104,8 @@ export abstract class ResolvableActionService
             key,
             value,
             getItemFromDroppableId(key, this._game),
-            {},
-            "threat"
+            additionalInfo,
+            this._action
           )
         );
       }
@@ -103,5 +122,6 @@ export abstract class ResolvableActionService
     });
 
     this._items = Array.from(items, ([key, value]) => value);
+    this.finished = this._items.length === 0;
   }
 }

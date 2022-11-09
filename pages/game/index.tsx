@@ -45,6 +45,8 @@ import { NextPhaseButton } from "../../components/game/interface/nextPhaseButton
 import nextPhase from "../api/nextPhase";
 import { ActionResolveWindow } from "../../components/game/interface/ActionResolveWindow/ActionResolveWindow";
 import { setNextAction } from "../api/setNextAction";
+import { Action } from "../../interfaces/Action";
+import resolveItem from "../api/resolveItem";
 
 interface Props {
   gameData: IGameRenderData;
@@ -204,6 +206,11 @@ export default function Game(props: Props) {
     setGameRenderData(JSON.parse(getGameRenderData()));
   }
 
+  function resolveActionItem(action: Action, droppableId: string) {
+    resolveItem(action, droppableId);
+    setGameRenderData(JSON.parse(getGameRenderData()));
+  }
+
   return (
     <div className={styles.game}>
       <DragDropContext
@@ -313,6 +320,7 @@ export default function Game(props: Props) {
           actionService={gameRenderData.actionService}
           actionSlots={actionSlots}
           setNextAction={setNextActionHandle}
+          resolveItem={resolveActionItem}
         />
       )}
     </div>

@@ -12,6 +12,7 @@ import { ExploreStatus } from "./ActionStatuses/ExploreStatus";
 import { ArrangeCampStatus } from "./ActionStatuses/ArrangeCampStatus";
 import { RestStatus } from "./ActionStatuses/RestStatus";
 import { IResolvableActionService } from "../../../interfaces/ActionService/IActionResolvableService";
+import { Action } from "../../../interfaces/Action";
 
 const actionOrder: (keyof IResolvableActionServices)[] = [
   "threat",
@@ -28,8 +29,8 @@ export class ActionService implements IActionService {
     return this._resolvableActionServices;
   }
 
-  get currentResolve(): keyof IResolvableActionServices {
-    return this._currentResolve;
+  get currentResolvableActionService(): IResolvableActionService {
+    return this._currentResolvableActionService;
   }
 
   get finished(): boolean {
@@ -41,11 +42,11 @@ export class ActionService implements IActionService {
   }
 
   private readonly _game: IGame;
-  private _currentResolve: keyof IResolvableActionServices = "threat";
+  private _currentResolvableActionService: IResolvableActionService;
   private _finished: boolean = false;
   orderIndex = 0;
 
-  private _resolvableActionServices: IResolvableActionServices;
+  private readonly _resolvableActionServices: IResolvableActionServices;
 
   constructor(game: IGame) {
     this._game = game;
@@ -58,6 +59,8 @@ export class ActionService implements IActionService {
       arrangeCamp: new ArrangeCampStatus(this.game),
       rest: new RestStatus(this.game),
     };
+    this._currentResolvableActionService =
+      this.resolvableActionServices["threat"];
   }
 
   get renderData(): IActionServiceRenderData {
@@ -73,31 +76,28 @@ export class ActionService implements IActionService {
     return {
       statuses,
       finished: this.finished,
-      currentResolve: this.currentResolve,
+      currentResolve: this.currentResolvableActionService.renderData,
     };
   }
 
   setNextAction() {
+    if (!this.currentResolvableActionService.finished) {
+      throw new Error("All items must be resolved before setting next action");
+    }
     if (this.orderIndex >= actionOrder.length) {
       this.orderIndex = 0;
     } else {
       this.orderIndex++;
     }
-    this._currentResolve = actionOrder[this.orderIndex];
+    this._currentResolvableActionService =
+      this._resolvableActionServices[actionOrder[this.orderIndex]];
     for (const [key, value] of Object.entries(this.resolvableActionServices)) {
       let val = value as IResolvableActionService;
       val.updateItems();
     }
   }
 
-  resolveNext(): void {
-    if (!this._finished) {
-      this.resolvableActionServices[this.currentResolve].resolveNextItem();
-    }
-    if (this.resolvableActionServices[this.currentResolve].finished) {
-      if (this.currentResolve === "threat") {
-        this._finished = true;
-      }
-    }
+  resolveItem(action: Action, droppableId: string) {
+    this.resolvableActionServices[action].resolveItem(droppableId);
   }
 }
