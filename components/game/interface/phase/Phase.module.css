@@ -31,7 +31,7 @@
     font-size: 14px;
 }
 
-.action {
+.action, .preAction {
     color: #743230;
 }
 

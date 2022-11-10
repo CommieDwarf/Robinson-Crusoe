@@ -10,6 +10,7 @@ const phases: Phase[] = [
   "event",
   "morale",
   "production",
+  "preAction",
   "action",
   "weather",
   "night",
@@ -46,9 +47,10 @@ export class PhaseService implements IPhaseService {
     this._game = game;
     this.phaseEffects = {
       event: this.eventEffect,
-      morale: () => this.moraleEffect(),
+      morale: this.moraleEffect,
       production: this.productionEffect,
-      action: () => {},
+      preAction: this.preActionEffect,
+      action: this.actionEffect,
       weather: () => {},
       night: this.nightEffect,
     };
@@ -59,10 +61,6 @@ export class PhaseService implements IPhaseService {
     this._phaseIndex =
       this._phaseIndex === phases.length - 1 ? 0 : ++this._phaseIndex;
     this._phase = phases[this._phaseIndex];
-    if (this._phase === "action") {
-      this._game.actionService.resolvableActionServices.threat.updateItems();
-      this.locked = true;
-    }
   }
 
   private eventEffect = () => {
@@ -70,7 +68,7 @@ export class PhaseService implements IPhaseService {
     this._game.threat.pullCard();
   };
 
-  private moraleEffect() {
+  private moraleEffect = () => {
     if (this._game.morale.lvl === 0) {
       return;
     }
@@ -90,7 +88,7 @@ export class PhaseService implements IPhaseService {
         "Faza morali"
       );
     }
-  }
+  };
 
   private productionEffect = () => {
     const resources =
@@ -108,7 +106,12 @@ export class PhaseService implements IPhaseService {
     }
   };
 
-  private actionEffect() {}
+  private preActionEffect = () => {};
+
+  private actionEffect = () => {
+    this._game.actionService.resolvableActionServices.threat.updateItems();
+    this.locked = true;
+  };
 
   private nightEffect = () => {
     this._game.setNextTurn();

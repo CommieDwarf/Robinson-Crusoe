@@ -42,6 +42,11 @@ export class Morale implements IMorale {
         logSource
       );
     }
+    this._game.chatLog.addMessage(
+      "Jan Paweł Drugi Zajebał mi szlugi",
+      "red",
+      "dasrfgd"
+    );
   }
 
   getDetermination(primeCharacter: ICharacter) {

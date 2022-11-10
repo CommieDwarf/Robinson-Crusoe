@@ -8,6 +8,7 @@ export const polishPhaseConjugation = {
   production: "produkcji",
   night: "nocy",
   action: "akcji",
+  preAction: "akcji",
   event: "wydarzenia",
   morale: "morali",
   weather: "pogody",
@@ -16,6 +17,7 @@ export const polishPhaseConjugation = {
 export type PhaseType =
   | "production"
   | "night"
+  | "preAction"
   | "action"
   | "event"
   | "morale"

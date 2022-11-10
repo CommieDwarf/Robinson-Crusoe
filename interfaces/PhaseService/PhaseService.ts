@@ -4,6 +4,7 @@ export type Phase =
   | "event"
   | "morale"
   | "production"
+  | "preAction"
   | "action"
   | "weather"
   | "night";
@@ -17,6 +18,7 @@ export interface PhaseEffects {
   event: () => void;
   morale: () => void;
   production: () => void;
+  preAction: () => void;
   action: () => void;
   weather: () => void;
   night: () => void;
