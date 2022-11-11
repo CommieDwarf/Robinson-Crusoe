@@ -72,10 +72,16 @@ export default function Invention(props: Props) {
     ? styles.zIndexIncreased
     : "";
 
-  let reverse =
+  const reverse =
     props.invention.isBuilt && props.invention.type !== "scenario"
       ? "-reverse"
       : "";
+
+  const scenarioBuiltDiv = (
+    <div className={styles.scenarioBuilt}>
+      <span>Zbudowano</span>
+    </div>
+  );
 
   return (
     <div
@@ -120,7 +126,9 @@ export default function Invention(props: Props) {
             />
           </div>
         )}
-
+      {props.invention.type === "scenario" &&
+        props.invention.isBuilt &&
+        scenarioBuiltDiv}
       <div className={styles.committedResources}>{resources}</div>
     </div>
   );
