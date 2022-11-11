@@ -321,6 +321,7 @@ export default function Game(props: Props) {
           actionSlots={actionSlots}
           setNextAction={setNextActionHandle}
           resolveItem={resolveActionItem}
+          setNextPhase={goNextPhase}
         />
       )}
     </div>

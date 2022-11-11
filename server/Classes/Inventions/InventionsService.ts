@@ -10,6 +10,8 @@ import {
 } from "../../../interfaces/Inventions/Inventions";
 import { SCENARIO } from "../../../interfaces/Scenario/Scenario";
 import { ITilesService } from "../../../interfaces/Tiles/TilesService";
+import { ICharacter } from "../../../interfaces/Characters/Character";
+import { IGame } from "../../../interfaces/Game";
 
 export class InventionsService implements IInventionsService {
   get inventions(): IInvention[] {
@@ -27,17 +29,20 @@ export class InventionsService implements IInventionsService {
   private readonly _inventions: IInvention[];
   private _characters: IPlayerCharacter[];
   private _tiles: ITilesService;
+  private _game: IGame;
 
   constructor(
     scenario: SCENARIO,
     characters: IPlayerCharacter[],
-    tiles: ITilesService
+    tiles: ITilesService,
+    game: IGame
   ) {
     this.scenario = scenario;
     this._characters = characters;
     this._inventions = this.getInitialInventions(scenario);
     this._tiles = tiles;
     this.updateLocks();
+    this._game = game;
   }
 
   private getInitialInventions(scenario: "castaways") {
@@ -56,14 +61,21 @@ export class InventionsService implements IInventionsService {
     // ];
   }
 
-  build(name: InventionName) {
+  build(name: InventionName, builder: ICharacter) {
     const invention = this.getInvention(name);
-    if (!this._builtInventions.includes(invention)) {
+    if (this._builtInventions.includes(invention)) {
       throw new Error("Invention is already has been built " + invention.name);
     }
 
     this._builtInventions.push(invention);
     invention.isBuilt = true;
+    this._game.chatLog.addMessage(
+      `zbudowano ${invention.namePL}`,
+      "green",
+      builder.namePL
+    );
+    this.updateLocks();
+    this.sortInventionsByBuilt();
   }
 
   destroy(name: InventionName) {
@@ -117,5 +129,15 @@ export class InventionsService implements IInventionsService {
       throw new Error("Can find invention with specific name: " + name);
     }
     return invention;
+  }
+
+  sortInventionsByBuilt() {
+    this._inventions.sort((a) => {
+      if (a.isBuilt) {
+        return -1;
+      } else {
+        return 1;
+      }
+    });
   }
 }

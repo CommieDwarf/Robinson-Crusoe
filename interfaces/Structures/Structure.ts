@@ -19,6 +19,7 @@ export interface IStructureRenderData {
 
 export interface IStructure {
   name: StructureName;
+  namePL: string;
   lvl: number;
   committedResources: IResources;
   cost: IResources;

@@ -24,7 +24,7 @@ export interface IResolvableActionServices {
 }
 
 export interface IActionServiceRenderData {
-  statuses: {
+  resolvableActionServices: {
     threat: IResolvableActionServiceRenderData;
     hunt: IResolvableActionServiceRenderData;
     build: IResolvableActionServiceRenderData;

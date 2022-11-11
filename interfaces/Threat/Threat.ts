@@ -35,5 +35,7 @@ export interface IThreat {
     logSource: string
   ) => void;
 
+  fullFill: (id: number, leader: ICharacter, helper: boolean) => void;
+
   getCardSlotByDroppableId: (droppableId: string) => IEventCard;
 }

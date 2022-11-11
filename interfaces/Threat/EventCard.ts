@@ -29,7 +29,7 @@ export interface Requirements {
 export interface EventEffects {
   triggerEffect(): void;
 
-  fullFill(character: ICharacter): void;
+  fullFill(character: ICharacter, helper: boolean): void;
 
   triggerThreatEffect(): void;
 }
@@ -45,7 +45,7 @@ export interface IEventCard {
 
   triggerEffect(): void;
 
-  fullFill(character: ICharacter): void;
+  fullFill(character: ICharacter, helper: boolean): void;
 
   triggerThreatEffect(): void;
 }

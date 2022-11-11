@@ -47,4 +47,5 @@ export interface ICharacterService {
     by: number,
     logSource: string
   ) => void;
+  resetPawns: () => void;
 }

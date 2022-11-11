@@ -150,7 +150,7 @@ export class GameClass implements IGame {
   private _localPlayer: Player;
   private _tilesService: ITilesService = new TilesService(this);
   private _allResources: IAllResources = new AllResources(this);
-  private _structuresService: IStructuresService = new StructuresService();
+  private _structuresService: IStructuresService = new StructuresService(this);
 
   // hardcoded for demo version
   private _inventionsService: IInventionsService;
@@ -199,7 +199,8 @@ export class GameClass implements IGame {
     this._inventionsService = new InventionsService(
       SCENARIO.CASTAWAYS,
       [this.localPlayer.getCharacter()],
-      this._tilesService
+      this._tilesService,
+      this
     );
   }
 
@@ -238,6 +239,11 @@ export class GameClass implements IGame {
     } else if (destinationId.includes("arrangeCamp")) {
       this._arrangeCamp.decrementPawns();
     }
+  }
+
+  resetPawns() {
+    this.characterService.resetPawns();
+    this.actionSlotsService.clearSlots();
   }
 
   setNextTurn() {

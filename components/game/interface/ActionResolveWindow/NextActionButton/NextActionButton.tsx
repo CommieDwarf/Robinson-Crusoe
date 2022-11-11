@@ -8,18 +8,25 @@ import { actionOrder } from "../../actionsOrder/ActionsOrder";
 type Props = {
   currentAction: Action;
   setNextAction: () => void;
+  setNextPhase: () => void;
 };
 
 export const NextActionButton = (props: Props) => {
   const currentActionIndex = actionOrder.findIndex(
     (action) => props.currentAction === action
   );
-  const nextActionIndex =
-    currentActionIndex === actionOrder.length + 1 ? 0 : currentActionIndex + 1;
-  const nextAction = actionOrder[nextActionIndex];
+  const nextActionIndex = currentActionIndex + 1;
+  const nextAction =
+    nextActionIndex < actionOrder.length
+      ? actionOrder[nextActionIndex]
+      : "nextTurn";
 
   function clickHandle() {
-    props.setNextAction();
+    if (props.currentAction === "rest") {
+      props.setNextPhase();
+    } else {
+      props.setNextAction();
+    }
   }
 
   return (

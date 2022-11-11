@@ -12,9 +12,11 @@ type Props = {
   actionSlots: IActionSlotsRenderData;
   setNextAction: () => void;
   resolveItem: (action: Action, droppableId: string) => void;
+  setNextPhase: () => void;
 };
 export const ActionResolveWindow = (props: Props) => {
   let containerRef = React.createRef<HTMLDivElement>();
+  console.log(props.actionService);
 
   // useEffect(() => {
   //   let mouseDownHandle = getMouseDownHandle(containerRef);
@@ -53,6 +55,7 @@ export const ActionResolveWindow = (props: Props) => {
         <NextActionButton
           currentAction={props.actionService.currentResolve.action}
           setNextAction={props.setNextAction}
+          setNextPhase={props.setNextPhase}
         />
       )}
     </div>

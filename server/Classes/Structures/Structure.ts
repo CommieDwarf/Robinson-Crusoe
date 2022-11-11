@@ -3,8 +3,16 @@ import {
   IStructureRenderData,
   STRUCTURE,
 } from "../../../interfaces/Structures/Structure";
-import { IResources } from "../../../interfaces/Resources/Resources";
-import { Resources } from "../AllResources/Resources";
+import {IResources} from "../../../interfaces/Resources/Resources";
+import {Resources} from "../AllResources/Resources";
+
+
+export enum STRUCTURE_PL {
+  shelter = "schronienie",
+  roof = "dach",
+  palisade = "palisada",
+  weapon = "broń",
+}
 
 export class Structure implements IStructure {
   set lvl(value: number) {
@@ -13,6 +21,10 @@ export class Structure implements IStructure {
 
   get name(): STRUCTURE {
     return this._name;
+  }
+
+  get namePL(): string {
+    return STRUCTURE_PL[this.name];
   }
 
   get lvl(): number {

@@ -28,7 +28,6 @@ type Props = {
 export const Item = (props: Props) => {
   let image;
   let extraInfoDiv;
-  // TODO: make field itemType in item;
   const droppableId = props.item.droppableId;
 
   if (droppableId.includes("threat")) {
@@ -55,10 +54,12 @@ export const Item = (props: Props) => {
     );
   } else if (droppableId.includes("invention")) {
     const invention = props.item.content as unknown as IInventionRenderData;
+    const reverse =
+      invention.isBuilt && invention.type !== "scenario" ? "-reverse" : "";
     image = (
       <div className={styles.invention}>
         <Image
-          src={`/interface/inventions/${invention.type}/${invention.name}.png`}
+          src={`/interface/inventions/${invention.type}/${invention.name}${reverse}.png`}
           layout="fill"
           alt={invention.name}
         />
@@ -75,23 +76,31 @@ export const Item = (props: Props) => {
         />
       </div>
     );
+    const arrowAndNextLvl =
+      props.item.status !== RESOLVE_ITEM_STATUS.PENDING ? (
+        ""
+      ) : (
+        <>
+          <div className={styles.arrow}>
+            <Image
+              src={"/interface/actions/red-arrow.png"}
+              layout={"fill"}
+              alt="lvl"
+            />
+          </div>
+          <span className={styles.nextLvl + " " + styles.lvl}>
+            {structure.lvl + 1}
+            <span className={styles.lvlSpan}>lvl</span>
+          </span>
+        </>
+      );
     extraInfoDiv = (
       <div className={styles.structureLvl}>
         <span className={styles.currentLvl + " " + styles.lvl}>
           {structure.lvl}
           <span className={styles.lvlSpan}>lvl</span>
         </span>
-        <div className={styles.arrow}>
-          <Image
-            src={"/interface/actions/red-arrow.png"}
-            layout={"fill"}
-            alt="lvl"
-          />
-        </div>
-        <span className={styles.nextLvl + " " + styles.lvl}>
-          {structure.lvl + 1}
-          <span className={styles.lvlSpan}>lvl</span>
-        </span>
+        {arrowAndNextLvl}
       </div>
     );
   } else if (
@@ -142,10 +151,15 @@ export const Item = (props: Props) => {
   }
 
   function handleClick() {
-    props.resolveItem(props.item.action, props.item.droppableId);
+    if (props.status === RESOLVE_ITEM_STATUS.PENDING) {
+      props.resolveItem(props.item.action, props.item.droppableId);
+    }
   }
 
-  const lockedButtonClass = styles.locked;
+  const lockedButtonClass =
+    props.status === RESOLVE_ITEM_STATUS.PENDING
+      ? styles.clickableButton
+      : styles.locked;
   const imageName = `${props.item.leader.character.name}-${props.item.leader.character.gender}`;
   const itemType = props.item.droppableId.split("-")[0];
   return (

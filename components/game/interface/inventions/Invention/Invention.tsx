@@ -19,6 +19,11 @@ type Props = {
 
 export default function Invention(props: Props) {
   const [enlarge, setEnlarge] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  function handleLoad() {
+    setImageLoaded(true);
+  }
 
   const inventionRef = React.createRef<HTMLDivElement>();
 
@@ -67,6 +72,11 @@ export default function Invention(props: Props) {
     ? styles.zIndexIncreased
     : "";
 
+  let reverse =
+    props.invention.isBuilt && props.invention.type !== "scenario"
+      ? "-reverse"
+      : "";
+
   return (
     <div
       ref={inventionRef}
@@ -80,23 +90,36 @@ export default function Invention(props: Props) {
           props.invention.type +
           "/" +
           props.invention.name +
+          reverse +
           ".png"
         }
         layout="fill"
         alt={"karta pomysłu"}
+        onLoad={handleLoad}
       />
-      {!props.invention.locked && !props?.hideActionSlots && (
-        <div className={styles.actionSlots}>
-          {getHelperActionSlots(props.invention, props.actionSlots)}
-          <ActionSlot
-            type="leader"
-            pawn={leaderPawn}
-            action="build"
-            context="invention"
-            id={leaderId}
+      {!imageLoaded && (
+        <div className={styles.placeholder}>
+          <Image
+            src={"/interface/actionSlots/build.png"}
+            layout={"fill"}
+            alt={"loading"}
           />
         </div>
       )}
+      {!props.invention.isBuilt &&
+        !props.invention.locked &&
+        !props?.hideActionSlots && (
+          <div className={styles.actionSlots}>
+            {getHelperActionSlots(props.invention, props.actionSlots)}
+            <ActionSlot
+              type="leader"
+              pawn={leaderPawn}
+              action="build"
+              context="invention"
+              id={leaderId}
+            />
+          </div>
+        )}
 
       <div className={styles.committedResources}>{resources}</div>
     </div>

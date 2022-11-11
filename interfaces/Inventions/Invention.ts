@@ -12,6 +12,7 @@ export interface IInventionRenderData {
 
 export interface IInvention {
   name: string;
+  namePL: string;
   locked: boolean;
   requiredHelpersAmount: number;
   reward: {};

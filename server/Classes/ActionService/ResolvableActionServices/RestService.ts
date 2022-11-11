@@ -3,8 +3,12 @@ import { IGame } from "../../../../interfaces/Game";
 import { RESOLVE_ITEM_STATUS } from "../../../../interfaces/ActionService/IActionResolvableService";
 import { Action } from "../../../../interfaces/Action";
 
-export class ArrangeCampStatus extends ResolvableActionService {
-  protected _action: Action = "arrangeCamp";
+export class RestService extends ResolvableActionService {
+  public get action() {
+    return this._action;
+  }
+
+  protected _action: Action = "rest";
 
   constructor(game: IGame) {
     super(game);
@@ -12,12 +16,7 @@ export class ArrangeCampStatus extends ResolvableActionService {
 
   resolveItem(droppableId: string) {
     const item = this.getItem(droppableId);
-    this._game.morale.lvlUp(1, "Sprzątanie obozu");
-    this._game.characterService.incrDetermination(
-      item.leader.character,
-      2,
-      "Sprzątanie obozu"
-    );
+    this._game.characterService.heal(item.leader.character, 1, "Odpoczynek");
     item.status = RESOLVE_ITEM_STATUS.SUCCESS;
     this.updateFinished();
   }

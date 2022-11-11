@@ -3,19 +3,18 @@ import {
   IResolvableActionServiceRenderData,
   RESOLVE_ITEM_STATUS,
 } from "../../../../../interfaces/ActionService/IActionResolvableService";
-import { Action } from "../../../../../interfaces/Action";
-import { IGame } from "../../../../../interfaces/Game";
-import { ResolvableItem } from "../ResolvableItem/ResolvableItem";
-import { getItemFromDroppableId } from "../../../../../utils/getItemFromDroppableId";
-import { ActionSlotsService } from "../../../ActionSlotsService/ActionSlots";
+import {Action} from "../../../../../interfaces/Action";
+import {IGame} from "../../../../../interfaces/Game";
+import {ResolvableItem} from "../ResolvableItem/ResolvableItem";
+import {getItemFromDroppableId} from "../../../../../utils/getItemFromDroppableId";
+import {ActionSlotsService} from "../../../ActionSlotsService/ActionSlots";
 import {
   IResolvableItem,
   IResolvableItemAdditionalInfo,
 } from "../../../../../interfaces/ActionService/IResolvableItem";
 
 export abstract class ResolvableActionService
-  implements IResolvableActionService
-{
+    implements IResolvableActionService {
   protected _eventToken = false;
   protected _reRollToken = false;
   protected _additionalPawnRequired = false;
@@ -36,7 +35,8 @@ export abstract class ResolvableActionService
     };
   }
 
-  resolveItem(droppableId: string) {}
+  resolveItem(droppableId: string) {
+  }
 
   get items(): IResolvableItem[] {
     return this._items;
@@ -80,13 +80,13 @@ export abstract class ResolvableActionService
 
   protected updateFinished() {
     this.finished = !this._items.some(
-      (item) => item.status === RESOLVE_ITEM_STATUS.PENDING
+        (item) => item.status === RESOLVE_ITEM_STATUS.PENDING
     );
   }
 
   public updateItems() {
     const slots =
-      this._game.actionSlotsService.slotsOccupiedAndCategorized[this._action];
+        this._game.actionSlotsService.slotsOccupiedAndCategorized[this._action];
 
     const items = new Map<string, IResolvableItem>();
     slots.forEach((value, key) => {
@@ -99,14 +99,14 @@ export abstract class ResolvableActionService
 
       if (key.includes("leader")) {
         items.set(
-          id,
-          new ResolvableItem(
-            key,
-            value,
-            getItemFromDroppableId(key, this._game),
-            additionalInfo,
-            this._action
-          )
+            id,
+            new ResolvableItem(
+                key,
+                value,
+                getItemFromDroppableId(key, this._game),
+                additionalInfo,
+                this._action
+            )
         );
       }
     });
@@ -123,5 +123,9 @@ export abstract class ResolvableActionService
 
     this._items = Array.from(items, ([key, value]) => value);
     this.finished = this._items.length === 0;
+  }
+
+  clearItems() {
+    this._items = [];
   }
 }

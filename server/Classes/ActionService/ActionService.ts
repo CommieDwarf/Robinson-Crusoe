@@ -4,14 +4,17 @@ import {
   IResolvableActionServices,
 } from "../../../interfaces/ActionService/ActionService";
 import { IGame } from "../../../interfaces/Game";
-import { ThreatStatus } from "./ActionStatuses/ThreatStatus";
-import { HuntStatus } from "./ActionStatuses/HuntStatus";
-import { BuildStatus } from "./ActionStatuses/BuildStatus";
-import { GatherStatus } from "./ActionStatuses/GatherStatus";
-import { ExploreStatus } from "./ActionStatuses/ExploreStatus";
-import { ArrangeCampStatus } from "./ActionStatuses/ArrangeCampStatus";
-import { RestStatus } from "./ActionStatuses/RestStatus";
-import { IResolvableActionService } from "../../../interfaces/ActionService/IActionResolvableService";
+import { ThreatService } from "./ResolvableActionServices/ThreatService";
+import { HuntStatus } from "./ResolvableActionServices/HuntService";
+import { BuildService } from "./ResolvableActionServices/BuildService";
+import { GatherService } from "./ResolvableActionServices/GatherService";
+import { ExploreService } from "./ResolvableActionServices/ExploreService";
+import { ArrangeCampService } from "./ResolvableActionServices/ArrangeCampService";
+import { RestService } from "./ResolvableActionServices/RestService";
+import {
+  IResolvableActionService,
+  RESOLVE_ITEM_STATUS,
+} from "../../../interfaces/ActionService/IActionResolvableService";
 import { Action } from "../../../interfaces/Action";
 
 const actionOrder: (keyof IResolvableActionServices)[] = [
@@ -25,6 +28,10 @@ const actionOrder: (keyof IResolvableActionServices)[] = [
 ];
 
 export class ActionService implements IActionService {
+  set finished(value: boolean) {
+    this._finished = value;
+  }
+
   get resolvableActionServices(): IResolvableActionServices {
     return this._resolvableActionServices;
   }
@@ -51,20 +58,20 @@ export class ActionService implements IActionService {
   constructor(game: IGame) {
     this._game = game;
     this._resolvableActionServices = {
-      threat: new ThreatStatus(this.game),
+      threat: new ThreatService(this.game),
       hunt: new HuntStatus(this.game),
-      build: new BuildStatus(this.game),
-      gather: new GatherStatus(this.game),
-      explore: new ExploreStatus(this.game),
-      arrangeCamp: new ArrangeCampStatus(this.game),
-      rest: new RestStatus(this.game),
+      build: new BuildService(this.game),
+      gather: new GatherService(this.game),
+      explore: new ExploreService(this.game),
+      arrangeCamp: new ArrangeCampService(this.game),
+      rest: new RestService(this.game),
     };
     this._currentResolvableActionService =
       this.resolvableActionServices["threat"];
   }
 
   get renderData(): IActionServiceRenderData {
-    const statuses = {
+    const resolvableActionServices = {
       threat: this.resolvableActionServices.threat.renderData,
       hunt: this.resolvableActionServices.hunt.renderData,
       build: this.resolvableActionServices.build.renderData,
@@ -74,30 +81,49 @@ export class ActionService implements IActionService {
       rest: this.resolvableActionServices.rest.renderData,
     };
     return {
-      statuses,
+      resolvableActionServices,
       finished: this.finished,
       currentResolve: this.currentResolvableActionService.renderData,
     };
   }
 
-  setNextAction() {
-    if (!this.currentResolvableActionService.finished) {
-      throw new Error("All items must be resolved before setting next action");
-    }
-    if (this.orderIndex >= actionOrder.length) {
-      this.orderIndex = 0;
-    } else {
-      this.orderIndex++;
-    }
-    this._currentResolvableActionService =
-      this._resolvableActionServices[actionOrder[this.orderIndex]];
+  updateItems() {
     for (const [key, value] of Object.entries(this.resolvableActionServices)) {
       let val = value as IResolvableActionService;
       val.updateItems();
     }
   }
 
+  setNextAction() {
+    if (!this.currentResolvableActionService.finished) {
+      throw new Error("All items must be resolved before setting next action");
+    }
+    this._currentResolvableActionService.clearItems();
+    console.log("CLEAR");
+
+    this.orderIndex =
+      this.orderIndex >= actionOrder.length - 1 ? 0 : this.orderIndex + 1;
+
+    this._currentResolvableActionService =
+      this._resolvableActionServices[actionOrder[this.orderIndex]];
+
+    if (!this._finished) {
+      this._currentResolvableActionService.updateItems();
+    }
+
+    if (this._currentResolvableActionService.action === "rest") {
+      this._finished = true;
+    }
+  }
+
   resolveItem(action: Action, droppableId: string) {
-    this.resolvableActionServices[action].resolveItem(droppableId);
+    const item = this._currentResolvableActionService.getItem(droppableId);
+    if (item.status === RESOLVE_ITEM_STATUS.PENDING) {
+      this._currentResolvableActionService.resolveItem(item.droppableId);
+    } else {
+      throw new Error(
+        "Trying to resolve already resolved item: " + item.droppableId
+      );
+    }
   }
 }

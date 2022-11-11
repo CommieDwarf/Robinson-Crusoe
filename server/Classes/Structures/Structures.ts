@@ -7,13 +7,23 @@ import {
   StructureName,
 } from "../../../interfaces/Structures/Structures";
 import { IResources } from "../../../interfaces/Resources/Resources";
+import { IGame } from "../../../interfaces/Game";
 
 export class StructuresService implements IStructuresService {
-  structures = this.getInitialStructures();
+  get structures(): Structure[] {
+    return this._structures;
+  }
+
+  private _structures = this.getInitialStructures();
+  private readonly _game: IGame;
+
+  constructor(game: IGame) {
+    this._game = game;
+  }
 
   get renderData(): IStructuresServiceRenderData {
     return {
-      structures: this.structures.map((structure) => structure.renderData),
+      structures: this._structures.map((structure) => structure.renderData),
     };
   }
 
@@ -30,12 +40,24 @@ export class StructuresService implements IStructuresService {
     });
   }
 
-  lvlUpStruct(name: StructureName, by: number) {
-    this.getStruct(name).incrementLvl(by);
+  lvlUpStruct(name: StructureName, by: number, logSource: string) {
+    const structure = this.getStruct(name);
+    structure.incrementLvl(by);
+    this._game.chatLog.addMessage(
+      `ulepszono ${structure.namePL} do poziomu ${structure.lvl}-ego`,
+      "green",
+      logSource
+    );
   }
 
-  lvlDownStruct(name: StructureName, by: number) {
-    this.getStruct(name).decrementLvl(by);
+  lvlDownStruct(name: StructureName, by: number, logSource: string) {
+    const structure = this.getStruct(name);
+    structure.decrementLvl(by);
+    this._game.chatLog.addMessage(
+      `Poziom ${structure.namePL} spadł do poziomu ${structure.lvl}-ego`,
+      "red",
+      logSource
+    );
   }
 
   setLvl(name: StructureName, lvl: number) {
@@ -51,7 +73,7 @@ export class StructuresService implements IStructuresService {
   }
 
   unlockAllStructs() {
-    this.structures.forEach((structure) => (structure.locked = false));
+    this._structures.forEach((structure) => (structure.locked = false));
   }
 
   commitResources(name: StructureName, resources: IResources) {
@@ -63,7 +85,9 @@ export class StructuresService implements IStructuresService {
   }
 
   getStruct(name: StructureName) {
-    const struct = this.structures.find((structure) => structure.name === name);
+    const struct = this._structures.find(
+      (structure) => structure.name === name
+    );
     if (!struct) {
       throw new Error("Cant find structure with given name: " + name);
     }

@@ -70,7 +70,9 @@ export class PawnsService implements IPawnsService {
     this[source] = this[source].filter((p) => pawn !== p);
   }
 
-  resetFreePawns(): void {}
+  resetFreePawns(): void {
+    this._freePawns = this._pawns;
+  }
 
   private getInitialPawns(initialQuantity: number): IPawn[] {
     const pawns: IPawn[] = [];

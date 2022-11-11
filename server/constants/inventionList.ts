@@ -9,6 +9,7 @@ const requirementNone = { invention: null, terrainType: null };
 export const starters = [
   new Invention(
     "bricks",
+    "cegły",
     { invention: null, terrainType: "hills" },
     {},
     INVENTION_TYPE.STARTER,
@@ -17,6 +18,7 @@ export const starters = [
   ),
   new Invention(
     "cure",
+    "lek",
     { invention: null, terrainType: "plains" },
     {},
     INVENTION_TYPE.STARTER,
@@ -25,6 +27,7 @@ export const starters = [
   ),
   new Invention(
     "dam",
+    "tama",
     { invention: null, terrainType: "river" },
     {},
     INVENTION_TYPE.STARTER,
@@ -33,6 +36,7 @@ export const starters = [
   ),
   new Invention(
     "fire",
+    "ogień",
     { invention: null, terrainType: "mountains" },
     {},
     INVENTION_TYPE.STARTER,
@@ -41,6 +45,7 @@ export const starters = [
   ),
   new Invention(
     "knife",
+    "nóż",
     { invention: null, terrainType: "mountains" },
     {},
     INVENTION_TYPE.STARTER,
@@ -49,6 +54,7 @@ export const starters = [
   ),
   new Invention(
     "map",
+    "mapa",
     { invention: null, terrainType: "river" },
     {},
     INVENTION_TYPE.STARTER,
@@ -57,6 +63,7 @@ export const starters = [
   ),
   new Invention(
     "pot",
+    "naczynia",
     { invention: null, terrainType: "hills" },
     {},
     INVENTION_TYPE.STARTER,
@@ -65,6 +72,7 @@ export const starters = [
   ),
   new Invention(
     "rope",
+    "lina",
     { invention: null, terrainType: "plains" },
     {},
     INVENTION_TYPE.STARTER,
@@ -73,6 +81,7 @@ export const starters = [
   ),
   new Invention(
     "shovel",
+    "łopata",
     requirementNone,
     {},
     INVENTION_TYPE.STARTER,
@@ -112,6 +121,7 @@ export const normal = [
   // ),
   new Invention(
     "belts",
+    "pasy",
     { invention: ["knife"], terrainType: null },
     {},
     INVENTION_TYPE.NORMAL,
@@ -120,6 +130,7 @@ export const normal = [
   ),
   new Invention(
     "bow",
+    "łuk",
     { invention: ["rope", "knife"], terrainType: null },
     {},
     INVENTION_TYPE.NORMAL,
@@ -171,6 +182,7 @@ export const normal = [
   // ),
   new Invention(
     "lantern",
+    "latarnia",
     { invention: ["fire"], terrainType: "hills" },
     {},
     INVENTION_TYPE.NORMAL,
@@ -179,6 +191,7 @@ export const normal = [
   ),
   new Invention(
     "moat",
+    "ogrodzenie",
     { invention: ["shovel"], terrainType: null },
     {},
     INVENTION_TYPE.NORMAL,
@@ -211,6 +224,7 @@ export const normal = [
   // ),
   new Invention(
     "shield",
+    "tarcza",
     { invention: ["rope"], terrainType: null },
     {},
     INVENTION_TYPE.NORMAL,
@@ -227,6 +241,7 @@ export const normal = [
   // ),
   new Invention(
     "wall",
+    "mur",
     requirementNone,
     {},
     INVENTION_TYPE.NORMAL,
@@ -264,6 +279,7 @@ const personalList = {
 
 const cookInvention = new Invention(
   "fireplace",
+  "palenisko",
   requirementNone,
   {},
   INVENTION_TYPE.PERSONAL,
@@ -275,6 +291,7 @@ const scenario = {
   castaways: [
     new Invention(
       "axe",
+      "siekiera",
       { invention: null, terrainType: "mountains" },
       {},
       INVENTION_TYPE.SCENARIO,
@@ -283,6 +300,7 @@ const scenario = {
     ),
     new Invention(
       "mast",
+      "maszt",
       { invention: ["rope"], terrainType: null },
       {},
       INVENTION_TYPE.SCENARIO,

@@ -17,7 +17,7 @@ export class EventCard implements IEventCard {
     return this._triggerThreatEffect;
   }
 
-  get fullFill(): (character: ICharacter) => void {
+  get fullFill(): (character: ICharacter, helper: boolean) => void {
     return this._fullFill;
   }
 
@@ -65,7 +65,7 @@ export class EventCard implements IEventCard {
   private _game: IGame | null = null;
   private _triggerEffect: () => void;
   private _triggerThreatEffect: () => void;
-  private _fullFill: (character: ICharacter) => void;
+  private _fullFill: (character: ICharacter, helper: boolean) => void;
 
   constructor(
     name: string,
@@ -75,7 +75,7 @@ export class EventCard implements IEventCard {
     requirements: Requirements,
     triggerEffect: (this: EventCard) => void,
     triggerThreatEffect: (this: EventCard) => void,
-    fullFill: (this: EventCard, character: ICharacter) => void
+    fullFill: (this: EventCard, leader: ICharacter, helper: boolean) => void
   ) {
     this._name = name;
     this._namePL = namePL;

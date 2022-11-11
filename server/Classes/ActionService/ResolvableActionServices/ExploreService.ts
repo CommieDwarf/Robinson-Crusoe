@@ -4,7 +4,7 @@ import { RESOLVE_ITEM_STATUS } from "../../../../interfaces/ActionService/IActio
 import { TilesService } from "../../Tiles/TileService";
 import { Action } from "../../../../interfaces/Action";
 
-export class ExploreStatus extends ResolvableActionService {
+export class ExploreService extends ResolvableActionService {
   protected _action: Action = "explore";
 
   constructor(game: IGame) {

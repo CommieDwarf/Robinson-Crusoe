@@ -77,6 +77,11 @@ export class AllResources implements IAllResources {
     logSource: string
   ) {
     this._future.addSingleResource(resource, amount);
+    this._game.chatLog.addMessage(
+      `Dodano ${amount} ${resourcePL[resource]} do przyszłych surowców`,
+      "green",
+      logSource
+    );
   }
 
   canOwnedAfford(cost: IResources) {

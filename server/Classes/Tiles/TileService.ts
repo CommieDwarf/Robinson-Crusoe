@@ -32,7 +32,7 @@ export class TilesService implements ITilesService {
     this.currentCampTile = this.getExploredTile(starterId);
   }
 
-  gather(side: "left" | "right", tileId: number) {
+  gather(side: "left" | "right", tileId: number, logSource: string) {
     const tile = this.getExploredTile(tileId);
     const tileType = tile.tileType;
     if (!tile) {
@@ -48,8 +48,7 @@ export class TilesService implements ITilesService {
     if (!resource || resource === "beast") {
       throw new Error("can't gather" + resource);
     }
-
-    this._game.allResources.addResourceToFuture(resource, 1, "Zbieractwo");
+    this._game.allResources.addResourceToFuture(resource, 1, logSource);
   }
 
   get renderData(): ITilesServiceRenderData {

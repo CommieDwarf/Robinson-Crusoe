@@ -4,7 +4,6 @@ import {
   PhaseEffects,
 } from "../../../interfaces/PhaseService/PhaseService";
 import { IGame } from "../../../interfaces/Game";
-import { PHASE } from "../../../interfaces/PhaseService/Phase";
 
 const phases: Phase[] = [
   "event",
@@ -106,11 +105,16 @@ export class PhaseService implements IPhaseService {
     }
   };
 
-  private preActionEffect = () => {};
-
-  private actionEffect = () => {
+  private preActionEffect = () => {
     this._game.actionService.resolvableActionServices.threat.updateItems();
     this.locked = true;
+  };
+
+  private actionEffect = () => {
+    this.locked = false;
+    this._game.actionService.setNextAction();
+    this._game.actionService.finished = false;
+    this._game.resetPawns();
   };
 
   private nightEffect = () => {

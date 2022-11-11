@@ -11,7 +11,9 @@ export interface IResolvableActionService {
   finished: boolean;
   renderData: IResolvableActionServiceRenderData;
   updateItems: () => void;
+  clearItems: () => void;
   resolveItem: (droppableId: string) => void;
+  getItem: (droppableId: string) => IResolvableItem;
 }
 
 export enum RESOLVE_ITEM_STATUS {

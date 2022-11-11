@@ -36,8 +36,10 @@ export class Threat implements IThreat {
 
   constructor(game: IGame) {
     this._game = game;
-    this._eventCards = getEventCards(game, this);
-    this._threatSlots.right = getWreckageCard(game, this);
+    this._eventCards = [
+      getWreckageCard(game, this),
+      ...getEventCards(game, this),
+    ];
     // this.testEventCards(game);
   }
 
@@ -76,6 +78,18 @@ export class Threat implements IThreat {
       return card;
     }
     throw new Error("Couldnt find card in slot with droppable: " + droppableId);
+  }
+
+  fullFill(id: number, leader: ICharacter, helper: boolean) {
+    if (this.leftSlot?.id === id) {
+      this.leftSlot.fullFill(leader, helper);
+      this.leftSlot = null;
+    } else if (this.rightSlot?.id === id) {
+      this.rightSlot.fullFill(leader, helper);
+      this.rightSlot = null;
+    } else {
+      throw new Error("Can't find card with id: " + id + " in slots");
+    }
   }
 
   get renderData(): IThreatRenderData {
@@ -172,7 +186,7 @@ export class Threat implements IThreat {
       this._threatSlots.left = card;
       card.triggerThreatEffect();
       card.triggerEffect();
-      card.fullFill(char);
+      card.fullFill(char, true);
     });
   }
 }

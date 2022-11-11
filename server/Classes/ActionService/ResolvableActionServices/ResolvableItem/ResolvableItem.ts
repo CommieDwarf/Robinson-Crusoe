@@ -83,6 +83,6 @@ export class ResolvableItem implements IResolvableItem {
   }
 
   resolveItem(droppableId: string) {
-
   }
+
 }

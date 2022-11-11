@@ -4,8 +4,9 @@ import { IGame } from "../../../../interfaces/Game";
 import { RESOLVE_ITEM_STATUS } from "../../../../interfaces/ActionService/IActionResolvableService";
 import { InventionName } from "../../../../interfaces/Inventions/Inventions";
 import { StructureName } from "../../../../interfaces/Structures/Structures";
+import { ICharacter } from "../../../../interfaces/Characters/Character";
 
-export class BuildStatus extends ResolvableActionService {
+export class BuildService extends ResolvableActionService {
   protected _action: Action = "build";
 
   constructor(game: IGame) {
@@ -17,20 +18,22 @@ export class BuildStatus extends ResolvableActionService {
     let arrDroppable = item.droppableId.split("-");
 
     if (arrDroppable[0].includes("invention")) {
-      this.buildInvention(arrDroppable[1] as InventionName);
+      this.buildInvention(
+        arrDroppable[1] as InventionName,
+        item.leader.character
+      );
     } else {
-      this.buildStruct(arrDroppable[1] as StructureName);
+      this.buildStruct(arrDroppable[1] as StructureName, item.leader.character);
     }
     item.status = RESOLVE_ITEM_STATUS.SUCCESS;
     this.updateFinished();
   }
 
-  private buildStruct(name: StructureName) {
-    this._game.structuresService.lvlUpStruct(name, 1);
+  private buildStruct(name: StructureName, builder: ICharacter) {
+    this._game.structuresService.lvlUpStruct(name, 1, builder.namePL);
   }
 
-  private buildInvention(name: InventionName) {
-    this._game.inventionsService.getInvention(name).isBuilt = true;
-    this._game.inventionsService.updateLocks();
+  private buildInvention(name: InventionName, builder: ICharacter) {
+    this._game.inventionsService.build(name, builder);
   }
 }

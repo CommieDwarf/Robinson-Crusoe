@@ -15,13 +15,15 @@ export const NextPhaseButton = (props: Props) => {
     props.goNextPhase();
   }
 
+  const className = props.locked ? styles.locked : "";
+
   return (
-    <div className={styles.container} onClick={handleClick}>
-      <Image
-        src={"/interface/compass.png"}
-        layout={"fill"}
-        alt="następna faza"
-      />
-    </div>
+      <div className={styles.container + " " + className} onClick={handleClick}>
+        <Image
+            src={"/interface/compass.png"}
+            layout={"fill"}
+            alt="następna faza"
+        />
+      </div>
   );
 };
