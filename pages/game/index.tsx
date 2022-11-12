@@ -47,6 +47,7 @@ import { ActionResolveWindow } from "../../components/game/interface/ActionResol
 import { setNextAction } from "../api/setNextAction";
 import { Action } from "../../interfaces/Action";
 import resolveItem from "../api/resolveItem";
+import { RollDiceWindow } from "../../components/game/interface/RollDiceWindow/RollDiceWindow";
 
 interface Props {
   gameData: IGameRenderData;
@@ -324,6 +325,7 @@ export default function Game(props: Props) {
           setNextPhase={goNextPhase}
         />
       )}
+      <RollDiceWindow />
     </div>
   );
 }
