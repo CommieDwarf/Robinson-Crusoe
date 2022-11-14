@@ -4,56 +4,126 @@ import * as THREE from "three";
 import { useEffect } from "react";
 import styles from "./AnimationWindow.module.css";
 
-import { gatherStructure } from "./diceStructures/gatherStructure";
-
 import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeometry";
 import { degreesToRadians } from "../../../../utils/degreesToRadians";
-import { getActionTextures } from "../../../../utils/getActionCubeTexture";
 import { Object3D } from "three";
-import { RollActionDiceInfo } from "../../../../interfaces/RollDice/RollDice";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
-type DiceType =
-  | "gather"
-  | "build"
-  | "explore"
-  | "rain"
-  | "snow"
-  | "hungryAnimals";
+import { gather } from "./diceStructures/gather";
+import { explore } from "./diceStructures/explore";
+import { build } from "./diceStructures/build";
+import { weather } from "./diceStructures/weather";
+
+const structures = {
+  gather,
+  explore,
+  build,
+  weather,
+};
+import {
+  ActionCubeSide,
+  ActionDice,
+  ActionRollDiceInfo,
+  ActionType,
+  WeatherRollDiceInfo,
+} from "../../../../interfaces/RollDice/RollDice";
 
 type Props = {
-  rollDiceInfo: RollActionDiceInfo;
+  rollDiceInfo: ActionRollDiceInfo;
 };
+
+const actionTypes = ["build", "explore", "gather"];
+const weatherTypes = ["rain", "snow", "animals"];
+
 export const AnimationWindow = (props: Props) => {
-  const containerRef = React.createRef<HTMLDivElement>();
+  const containerRef = React.createRef<HTMLCanvasElement>();
 
   useEffect(() => {
     const { current } = containerRef;
     if (!current) {
       return;
     }
-    const camera = new THREE.PerspectiveCamera(70, 1, 0.01, 10);
-    camera.position.z = 1;
+    const camera = new THREE.PerspectiveCamera(
+      80,
+      current.width / current.height,
+      0.01,
+      10
+    );
+    camera.position.z = 4;
+    camera.position.x = 0;
+    camera.position.y = 0;
 
     const scene = new THREE.Scene();
+    const cubeSize = 2;
+    const cubeTranslateX = 2.5;
+    const controls = new OrbitControls(camera, current);
+    controls.target.set(0, 0, 0);
+    controls.update();
+    const hurtObjects = getCube(
+      props.rollDiceInfo.type,
+      "hurt",
+      -cubeTranslateX,
+      cubeSize
+    );
+    const mysteryObjects = getCube(
+      props.rollDiceInfo.type,
+      "mystery",
+      0,
+      cubeSize
+    );
+    const successObjects = getCube(
+      props.rollDiceInfo.type,
+      "success",
+      cubeTranslateX,
+      cubeSize
+    );
 
-    let x = -1;
-    const hurtObjects = getCube(props.rollDiceInfo.category, "hurt", -0.5);
-    const mysteryObjects = getCube(props.rollDiceInfo.category, "mystery", 0);
-    const successObjects = getCube(props.rollDiceInfo.category, "success", 0.5);
-
-    scene.add(...hurtObjects, ...mysteryObjects, ...successObjects);
-
-    scene.children.forEach((child) => {
-      child.rotation.x = 0;
-      child.rotation.y = 0;
-      child.rotation.z = 0;
+    const backgroundGeometry = new THREE.BoxGeometry(19, 11, 1);
+    const backgroundTexture = new THREE.TextureLoader().load(
+      "/interface/dice/background.png"
+    );
+    const backgroundMaterial = new THREE.MeshPhongMaterial({
+      map: backgroundTexture,
+      transparent: true,
+      shininess: 0,
     });
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setAnimationLoop(animation);
-    renderer.setSize(300, 300);
+    const background = new THREE.Mesh(backgroundGeometry, backgroundMaterial);
+    background.receiveShadow = true;
+    background.position.x = 0;
+    background.position.y = 0;
+    background.position.z = -2;
 
-    current.appendChild(renderer.domElement);
+    scene.add(...hurtObjects, ...mysteryObjects, ...successObjects, background);
+
+    const directionalLightColor = 0xffffff;
+    const directionalLightIntensity = 0.5;
+    const directionalLight = new THREE.SpotLight(
+      directionalLightColor,
+      directionalLightIntensity
+    );
+    directionalLight.castShadow = true;
+    directionalLight.position.set(2, 3, 9);
+    directionalLight.target.position.set(0, 0, -1);
+    directionalLight.shadow.mapSize.width = 1024;
+    directionalLight.shadow.mapSize.height = 1024;
+    scene.add(directionalLight);
+
+    const ambientLightColor = 0xffffff;
+    const ambientLightIntensity = 0.6;
+    const ambientLight = new THREE.AmbientLight(
+      ambientLightColor,
+      ambientLightIntensity
+    );
+    scene.add(ambientLight);
+
+    const renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      alpha: true,
+      canvas: current,
+    });
+    renderer.shadowMap.enabled = true;
+    renderer.setAnimationLoop(animation);
 
     function animation(time: number) {
       Object.entries(props.rollDiceInfo.results.hurt.axes).forEach(
@@ -81,13 +151,51 @@ export const AnimationWindow = (props: Props) => {
       );
       renderer.render(scene, camera);
     }
-
-    return () => {
-      current.removeChild(renderer.domElement);
-    };
   });
 
-  return <div ref={containerRef} className={styles.container}></div>;
+  function getCube(
+    type: ActionType,
+    dice: ActionDice,
+    x: number,
+    size: number
+  ) {
+    const textureCube = getActionTextures(type, dice);
+    const geometry = new RoundedBoxGeometry(size, size, size, 2, 0.4);
+
+    const edges = new THREE.EdgesGeometry(geometry);
+    const line = new THREE.LineSegments(
+      edges,
+      new THREE.LineBasicMaterial({ color: "#565655" })
+    );
+    const mesh = new THREE.Mesh(geometry, textureCube);
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    mesh.position.x = x;
+    line.position.x = x;
+
+    return [mesh];
+  }
+
+  function getActionTextures(type: ActionType, dice: ActionDice) {
+    const loader = new THREE.TextureLoader();
+    const basePath = "/interface/dice";
+    const path = actionTypes.includes(props.rollDiceInfo.type)
+      ? basePath + "/action/" + props.rollDiceInfo.type
+      : basePath + "/weather";
+    loader.setPath(path);
+
+    return Object.entries(structures[type][dice]).map(([key, side]) => {
+      return new THREE.MeshPhysicalMaterial({
+        map: loader.load(`/${side}.png`),
+        clearcoat: 0,
+        clearcoatRoughness: 0,
+        metalness: 0,
+        roughness: 0.2,
+      });
+    });
+  }
+
+  return <canvas ref={containerRef} className={styles.container}></canvas>;
 };
 
 function rotateMesh(
@@ -97,44 +205,23 @@ function rotateMesh(
 ) {
   let radians = degreesToRadians(degrees);
   objects3D.forEach((object) => {
-    if (object.rotation[axis] < radians / 4) {
-      object.rotation[axis] += 0.6;
-    } else if (object.rotation[axis] < radians / 3.5) {
-      object.rotation[axis] += 0.5;
-    } else if (object.rotation[axis] < radians / 2.5) {
-      object.rotation[axis] += 0.4;
-    } else if (object.rotation[axis] < radians / 2) {
-      object.rotation[axis] += 0.4;
-    } else if (object.rotation[axis] < radians / 1.4) {
-      object.rotation[axis] += 0.3;
-    } else if (object.rotation[axis] < radians) {
-      object.rotation[axis] += 0.1;
+    const diff = radians - object.rotation[axis];
+    if (diff > 0.01) {
+      object.rotation[axis] += diff / 16;
     }
+
+    // if (object.rotation[axis] < radians / 4) {
+    //   object.rotation[axis] += 0.6;
+    // } else if (object.rotation[axis] < radians / 3.5) {
+    //   object.rotation[axis] += 0.5;
+    // } else if (object.rotation[axis] < radians / 2.5) {
+    //   object.rotation[axis] += 0.4;
+    // } else if (object.rotation[axis] < radians / 2) {
+    //   object.rotation[axis] += 0.4;
+    // } else if (object.rotation[axis] < radians / 1.4) {
+    //   object.rotation[axis] += 0.3;
+    // } else if (object.rotation[axis] < radians) {
+    //   object.rotation[axis] += 0.1;
+    // }
   });
-}
-
-const cubeTextures = {
-  gather: gatherStructure,
-};
-
-function getCube(
-  CubeType: DiceType,
-  type: "hurt" | "mystery" | "success",
-  x: number
-) {
-  const loader = new THREE.TextureLoader();
-  loader.setPath(`/interface/dice/${CubeType}/`);
-  const textureCube = getActionTextures(loader, cubeTextures[CubeType])[type];
-  const geometry = new RoundedBoxGeometry(0.2, 0.2, 0.2, 0.01, 0.09);
-  const edges = new THREE.EdgesGeometry(geometry);
-  const line = new THREE.LineSegments(
-    edges,
-    new THREE.LineBasicMaterial({ color: "#565655" })
-  );
-  const mesh = new THREE.Mesh(geometry, textureCube);
-
-  mesh.position.x = x;
-  line.position.x = x;
-
-  return [mesh, line];
 }

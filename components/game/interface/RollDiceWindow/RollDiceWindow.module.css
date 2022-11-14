@@ -1,8 +1,37 @@
 .container {
     position: absolute;
-    width: 360px;
-    height: 360px;
     z-index: 9999999999999;
-    left: calc(50% - 150px);
-    top: 80px;
+    left: -40px;
+    top: -40px;
+    /*top: -180px;*/
+    /*top: 288px;*/
+    width: 240px;
+    height: 130px;
+}
+
+.bar {
+    position: absolute;
+}
+
+.barTop, .barBot {
+    width: 100%;
+    height: 10px;
+}
+
+.barTop {
+    bottom: 0;
+}
+
+.barLeft, .barRight {
+    height: calc(100% - 20px);
+    width: 10px;
+    top: 10px;
+}
+
+.barLeft {
+    left: 0;
+}
+
+.barRight {
+    right: 0;
 }

@@ -325,7 +325,6 @@ export default function Game(props: Props) {
           setNextPhase={goNextPhase}
         />
       )}
-      <RollDiceWindow />
     </div>
   );
 }

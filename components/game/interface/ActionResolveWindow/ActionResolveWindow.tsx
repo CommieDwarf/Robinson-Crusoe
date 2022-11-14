@@ -6,6 +6,7 @@ import { IActionServiceRenderData } from "../../../../interfaces/ActionService/A
 import { IActionSlotsRenderData } from "../../../../interfaces/ActionSlots";
 import { NextActionButton } from "./NextActionButton/NextActionButton";
 import { Action } from "../../../../interfaces/Action";
+import { RollDiceWindow } from "../RollDiceWindow/RollDiceWindow";
 
 type Props = {
   actionService: IActionServiceRenderData;
@@ -29,6 +30,7 @@ export const ActionResolveWindow = (props: Props) => {
 
   return (
     <div className={styles.container} ref={containerRef}>
+      <RollDiceWindow />
       <div className={styles.header}>
         <div className={styles.actionIcon}>
           <Image src={"/interface/phase/action.png"} layout={"fill"} />

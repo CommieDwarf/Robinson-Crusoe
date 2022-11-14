@@ -1,15 +1,24 @@
-export type RollField =
+export type ActionCubeSide =
   | "hurt"
   | "mystery"
   | "success"
   | "determination"
   | "blank";
 
-export type NightRollCategory = "snow" | "rain" | "hungryAnimals";
+export type WeatherCubeSide =
+  | "rain"
+  | "doubleRain"
+  | "snow"
+  | "doubleSnow"
+  | "food"
+  | "beast"
+  | "palisade"
+  | "blank";
 
-export type ActionRollCategory = "gather" | "explore" | "build";
-
-export type ActionRollCube = "hurt" | "success" | "mystery";
+export type WeatherType = "snow" | "rain" | "animals";
+export type ActionType = "gather" | "explore" | "build";
+export type WeatherDice = "animals" | "snow" | "rain";
+export type ActionDice = "success" | "mystery" | "hurt";
 
 export interface RollDiceResult {
   result: number;
@@ -20,8 +29,8 @@ export interface RollDiceResult {
   };
 }
 
-export interface RollActionDiceInfo {
-  category: ActionRollCategory;
+export interface ActionRollDiceInfo {
+  type: ActionType;
   results: {
     hurt: RollDiceResult;
     success: RollDiceResult;
@@ -29,10 +38,11 @@ export interface RollActionDiceInfo {
   };
 }
 
-export interface RollNightDiceInfo {
+export interface WeatherRollDiceInfo {
+  dice: WeatherType;
   results: {
     snow: RollDiceResult;
     rain: RollDiceResult;
-    hungryAnimals: RollDiceResult;
+    animals: RollDiceResult;
   };
 }
