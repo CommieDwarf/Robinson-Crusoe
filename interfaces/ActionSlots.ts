@@ -4,7 +4,7 @@ export interface IActionSlotsServiceRenderData {
   slots: Object;
 }
 
-export interface SlotsOccupiedAndCategorized {
+export interface SlotsOccupied {
   threat: Map<string, IPawn>;
   hunt: Map<string, IPawn>;
   build: Map<string, IPawn>;
@@ -21,7 +21,7 @@ export interface IActionSlotsService {
   clearSlots: () => void;
   getPawn: (droppableId: string) => IPawn | null;
   renderData: IActionSlotsServiceRenderData;
-  slotsOccupiedAndCategorized: SlotsOccupiedAndCategorized;
+  slotsOccupiedAndCategorized: SlotsOccupied;
 }
 
 export type IActionSlotsRenderData = Map<string, IPawnRenderData | null>;

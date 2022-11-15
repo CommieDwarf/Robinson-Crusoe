@@ -11,6 +11,7 @@ export interface IActionService {
   renderData: IActionServiceRenderData;
   setNextAction: () => void;
   resolveItem: (action: Action, droppableId: string) => void;
+  updateItems: () => void;
 }
 
 export interface IResolvableActionServices {

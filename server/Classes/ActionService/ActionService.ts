@@ -99,7 +99,6 @@ export class ActionService implements IActionService {
       throw new Error("All items must be resolved before setting next action");
     }
     this._currentResolvableActionService.clearItems();
-    console.log("CLEAR");
 
     this.orderIndex =
       this.orderIndex >= actionOrder.length - 1 ? 0 : this.orderIndex + 1;

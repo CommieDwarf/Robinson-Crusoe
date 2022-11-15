@@ -48,6 +48,7 @@ import { setNextAction } from "../api/setNextAction";
 import { Action } from "../../interfaces/Action";
 import resolveItem from "../api/resolveItem";
 import { RollDiceWindow } from "../../components/game/interface/RollDiceWindow/RollDiceWindow";
+import { Alerts } from "../../components/game/interface/Alerts/Alerts";
 
 interface Props {
   gameData: IGameRenderData;
@@ -310,7 +311,7 @@ export default function Game(props: Props) {
           setShow={setShowScenario}
           turn={gameRenderData.turn}
         />
-        <Players />
+        {/*<Players />*/}
         <NextPhaseButton
           goNextPhase={goNextPhase}
           locked={gameRenderData.phaseService.locked}
@@ -325,6 +326,7 @@ export default function Game(props: Props) {
           setNextPhase={goNextPhase}
         />
       )}
+      <Alerts message={gameRenderData.alertService.alert} />
     </div>
   );
 }

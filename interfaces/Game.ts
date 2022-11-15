@@ -1,9 +1,9 @@
-import {IThreat, IThreatRenderData} from "./Threat/Threat";
-import {IPawn, IPawnRenderData} from "./Pawns/Pawn";
-import {IBeasts, IBeastsRenderData} from "./Beasts/Beasts";
-import {IPlayerRenderData} from "./PlayerService/Player";
-import {IAdditionalActivity} from "./AdditionalActivity/AdditionalActivity";
-import {ITilesService, ITilesServiceRenderData} from "./Tiles/TilesService";
+import { IThreat, IThreatRenderData } from "./Threat/Threat";
+import { IPawn, IPawnRenderData } from "./Pawns/Pawn";
+import { IBeasts, IBeastsRenderData } from "./Beasts/Beasts";
+import { IPlayerRenderData } from "./PlayerService/Player";
+import { IAdditionalActivity } from "./AdditionalActivity/AdditionalActivity";
+import { ITilesService, ITilesServiceRenderData } from "./Tiles/TilesService";
 import {
   IStructuresService,
   IStructuresServiceRenderData,
@@ -20,8 +20,8 @@ import {
   ICharacterService,
   ICharacterServiceRenderData,
 } from "./CharacterService/CharacterService";
-import {IEquipment, IEquipmentRenderData} from "./Equipment/Equipment";
-import {Player} from "../server/Classes/Players/Player";
+import { IEquipment, IEquipmentRenderData } from "./Equipment/Equipment";
+import { Player } from "../server/Classes/Players/Player";
 import {
   IInventionsService,
   IInventionsServiceRenderData,
@@ -34,19 +34,23 @@ import {
   IPlayerCharacter,
   IPlayerCharacterRenderData,
 } from "./Characters/PlayerCharacter";
-import {IMorale, IMoraleRenderData} from "./Morale/Morale";
-import {IWeather} from "./Weather/Weather";
-import {IPlayerService} from "./PlayerService/PlayerSevice";
+import { IMorale, IMoraleRenderData } from "./Morale/Morale";
+import { IWeather } from "./Weather/Weather";
+import { IPlayerService } from "./PlayerService/PlayerSevice";
 import {
   IPhaseService,
   IPhaseServiceRenderData,
 } from "./PhaseService/PhaseService";
-import {IChatLog} from "./ChatLog/ChatLog";
-import {ILogMessageRenderData} from "./ChatLog/LogMessage";
+import { IChatLog } from "./ChatLog/ChatLog";
+import { ILogMessageRenderData } from "./ChatLog/LogMessage";
 import {
   IActionService,
   IActionServiceRenderData,
 } from "./ActionService/ActionService";
+import {
+  IAlertService,
+  IAlertServiceRenderData,
+} from "./AlertService/AlertService";
 
 export interface IGameRenderData {
   players: IPlayerRenderData[];
@@ -68,6 +72,7 @@ export interface IGameRenderData {
   turn: number;
   logs: ILogMessageRenderData[];
   actionService: IActionServiceRenderData;
+  alertService: IAlertServiceRenderData;
 }
 
 export interface IGame {
@@ -90,6 +95,7 @@ export interface IGame {
   phaseService: IPhaseService;
   actionService: IActionService;
   chatLog: IChatLog;
+  alertService: IAlertService;
 
   turn: number;
   setNextTurn: () => void;

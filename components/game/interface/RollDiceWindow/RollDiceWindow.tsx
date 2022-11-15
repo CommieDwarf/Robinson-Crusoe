@@ -52,7 +52,7 @@ export const RollDiceWindow = (props: Props) => {
 
   rollDiceInfo.results.success.axes = dupa.r4;
   rollDiceInfo.results.mystery.axes = dupa.r2;
-  rollDiceInfo.results.hurt.axes = dupa.r6;
+  rollDiceInfo.results.hurt.axes = dupa.r2;
 
   return (
     <div className={styles.container}>

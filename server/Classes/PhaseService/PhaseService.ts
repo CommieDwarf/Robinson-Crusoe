@@ -4,6 +4,12 @@ import {
   PhaseEffects,
 } from "../../../interfaces/PhaseService/PhaseService";
 import { IGame } from "../../../interfaces/Game";
+import { MissingLeaderError } from "../Errors/MissingLeaderError";
+import {
+  ACTION_PL,
+  Translatable,
+  TRANSLATE_PL,
+} from "../../../interfaces/TRANSLATE_PL/TRANSLATE_PL";
 
 const phases: Phase[] = [
   "event",
@@ -56,10 +62,23 @@ export class PhaseService implements IPhaseService {
   }
 
   goNextPhase() {
-    this.phaseEffects[this._phase]();
-    this._phaseIndex =
-      this._phaseIndex === phases.length - 1 ? 0 : ++this._phaseIndex;
-    this._phase = phases[this._phaseIndex];
+    try {
+      this.phaseEffects[this._phase]();
+      this._phaseIndex =
+        this._phaseIndex === phases.length - 1 ? 0 : ++this._phaseIndex;
+      this._phase = phases[this._phaseIndex];
+      this._game.alertService.clearAlert();
+    } catch (error) {
+      if (error instanceof MissingLeaderError) {
+        this._game.alertService.setAlert(
+          `Pomocnicy nie mogą samodzielnie wykonywać akcji. ${[
+            TRANSLATE_PL[error.itemType as Translatable],
+          ]} - ${TRANSLATE_PL[error.itemName as Translatable]}`
+        );
+      } else {
+        throw error;
+      }
+    }
   }
 
   private eventEffect = () => {
@@ -106,7 +125,11 @@ export class PhaseService implements IPhaseService {
   };
 
   private preActionEffect = () => {
-    this._game.actionService.resolvableActionServices.threat.updateItems();
+    try {
+      this._game.actionService.updateItems();
+    } catch (error) {
+      throw error;
+    }
     this.locked = true;
   };
 

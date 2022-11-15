@@ -36,10 +36,102 @@ import { IActionService } from "../../interfaces/ActionService/ActionService";
 import { IPhaseService } from "../../interfaces/PhaseService/PhaseService";
 import { ChatLog } from "./ChatLog/ChatLog";
 import { IChatLog } from "../../interfaces/ChatLog/ChatLog";
+import { IAlertService } from "../../interfaces/AlertService/AlertService";
+import { AlertService } from "./AlertService/AlertService";
 
 type ScenarioName = "castaways";
 
 export class GameClass implements IGame {
+  get alertService(): IAlertService {
+    return this._alertService;
+  }
+
+  private _chatLog: IChatLog = new ChatLog(this);
+  private _actionService: ActionService = new ActionService(this);
+  private _playerService: IPlayerService;
+  private _localPlayer: Player;
+  private _tilesService: ITilesService = new TilesService(this);
+  private _allResources: IAllResources = new AllResources(this);
+  private _structuresService: IStructuresService = new StructuresService(this);
+  private _alertService: IAlertService = new AlertService();
+
+  // hardcoded for demo version
+  private _inventionsService: IInventionsService;
+
+  private _weather: IWeather = new Weather();
+  private _threat: IThreat = new Threat(this);
+  private _phaseService: IPhaseService = new PhaseService(this);
+
+  private _characterService: ICharacterService;
+  private _equipment: IEquipment = new Equipment(this);
+  private _rest = new AdditionalActivity("rest");
+  private _arrangeCamp = new AdditionalActivity("arrangeCamp");
+  private _beasts: IBeasts = new Beasts(this, this._allResources.owned);
+  private _actionSlotsService = new ActionSlotsService(
+    this._structuresService,
+    this.inventionsService,
+    this._tilesService
+  );
+  private _allPawns: IPawn[] = [];
+
+  private _morale = new Morale(this);
+  private _turn = 1;
+
+  constructor(scenarioName: ScenarioName) {
+    // this is hardcoded for demo purpose.
+    const cook = new PlayerCharacter(
+      "cook",
+      2,
+      13,
+      this,
+      "male",
+      [2, 4, 6, 9],
+      this.localPlayer
+    );
+    this._localPlayer = new Player("Konrad", "orange", 0, cook);
+
+    this._playerService = new PlayerService([this.localPlayer]);
+    this._characterService = new CharacterService(
+      [this.localPlayer.getCharacter()],
+      this
+    );
+    this._characterService.allCharacters.forEach(
+      (char) => (this._allPawns = this._allPawns.concat(char.pawnService.pawns))
+    );
+
+    this._inventionsService = new InventionsService(
+      SCENARIO.CASTAWAYS,
+      [this.localPlayer.getCharacter()],
+      this._tilesService,
+      this
+    );
+  }
+
+  get renderData(): IGameRenderData {
+    return {
+      actionSlotsService: this.actionSlotsService.renderData,
+      characterService: this._characterService.renderData,
+      allPawns: this.allPawns.map((pawn) => pawn.renderData),
+      allResources: this.allResources.renderData,
+      arrangeCamp: this.arrangeCamp,
+      beasts: this.beasts.renderData,
+      equipment: this.equipment.renderData,
+      inventionsService: this.inventionsService.renderData,
+      localPlayer: this.localPlayer.renderData,
+      players: this._playerService.renderData,
+      rest: this.rest,
+      structuresService: this.structuresService.renderData,
+      threat: this.threat.renderData,
+      tilesService: this.tilesService.renderData,
+      phaseService: this._phaseService.renderData,
+      morale: this._morale.renderData,
+      turn: this.turn,
+      logs: this.chatLog.renderData,
+      actionService: this.actionService.renderData,
+      alertService: this.alertService.renderData,
+    };
+  }
+
   get characterService(): ICharacterService {
     return this._characterService;
   }
@@ -118,90 +210,6 @@ export class GameClass implements IGame {
 
   get allPawns(): (IPawn | IPawnHelper)[] {
     return this._allPawns;
-  }
-
-  get renderData(): IGameRenderData {
-    return {
-      actionSlotsService: this.actionSlotsService.renderData,
-      characterService: this._characterService.renderData,
-      allPawns: this.allPawns.map((pawn) => pawn.renderData),
-      allResources: this.allResources.renderData,
-      arrangeCamp: this.arrangeCamp,
-      beasts: this.beasts.renderData,
-      equipment: this.equipment.renderData,
-      inventionsService: this.inventionsService.renderData,
-      localPlayer: this.localPlayer.renderData,
-      players: this._playerService.renderData,
-      rest: this.rest,
-      structuresService: this.structuresService.renderData,
-      threat: this.threat.renderData,
-      tilesService: this.tilesService.renderData,
-      phaseService: this._phaseService.renderData,
-      morale: this._morale.renderData,
-      turn: this.turn,
-      logs: this.chatLog.renderData,
-      actionService: this.actionService.renderData,
-    };
-  }
-
-  private _chatLog: IChatLog = new ChatLog(this);
-  private _actionService: ActionService = new ActionService(this);
-  private _playerService: IPlayerService;
-  private _localPlayer: Player;
-  private _tilesService: ITilesService = new TilesService(this);
-  private _allResources: IAllResources = new AllResources(this);
-  private _structuresService: IStructuresService = new StructuresService(this);
-
-  // hardcoded for demo version
-  private _inventionsService: IInventionsService;
-
-  private _weather: IWeather = new Weather();
-  private _threat: IThreat = new Threat(this);
-  private _phaseService: IPhaseService = new PhaseService(this);
-
-  private _characterService: ICharacterService;
-  private _equipment: IEquipment = new Equipment(this);
-  private _rest = new AdditionalActivity("rest");
-  private _arrangeCamp = new AdditionalActivity("arrangeCamp");
-  private _beasts: IBeasts = new Beasts(this, this._allResources.owned);
-  private _actionSlotsService = new ActionSlotsService(
-    this._structuresService,
-    this.inventionsService,
-    this._tilesService
-  );
-  private _allPawns: IPawn[] = [];
-
-  private _morale = new Morale(this);
-  private _turn = 1;
-
-  constructor(scenarioName: ScenarioName) {
-    // this is hardcoded for demo purpose.
-    const cook = new PlayerCharacter(
-      "cook",
-      2,
-      13,
-      this,
-      "male",
-      [2, 4, 6, 9],
-      this.localPlayer
-    );
-    this._localPlayer = new Player("Konrad", "orange", 0, cook);
-
-    this._playerService = new PlayerService([this.localPlayer]);
-    this._characterService = new CharacterService(
-      [this.localPlayer.getCharacter()],
-      this
-    );
-    this._characterService.allCharacters.forEach(
-      (char) => (this._allPawns = this._allPawns.concat(char.pawnService.pawns))
-    );
-
-    this._inventionsService = new InventionsService(
-      SCENARIO.CASTAWAYS,
-      [this.localPlayer.getCharacter()],
-      this._tilesService,
-      this
-    );
   }
 
   setPawn(droppableId: string, draggableId: string) {
