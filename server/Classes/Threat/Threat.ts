@@ -7,7 +7,9 @@ import {
 } from "../../../interfaces/Threat/Threat";
 import { ICharacter } from "../../../interfaces/Characters/Character";
 import { IGame } from "../../../interfaces/Game";
-import { getEventCards } from "../../constants/getEventCards";
+import { getEventCards } from "../../../constants/getEventCards";
+import sleep from "../../../utils/sleep";
+import { getWreckageCard } from "../../../constants/getWreckageCard";
 
 interface ThreatSlots {
   left: null | IEventCard;
@@ -41,6 +43,15 @@ export class Threat implements IThreat {
       ...getEventCards(game, this),
     ];
     // this.testEventCards(game);
+  }
+
+  get renderData(): IThreatRenderData {
+    const leftSlot = this.leftSlot ? this.leftSlot.renderData : null;
+    const rightSlot = this.rightSlot ? this.rightSlot.renderData : null;
+    return {
+      leftSlot,
+      rightSlot,
+    };
   }
 
   get specialEffects(): ThreatSpecialEffects {
@@ -90,15 +101,6 @@ export class Threat implements IThreat {
     } else {
       throw new Error("Can't find card with id: " + id + " in slots");
     }
-  }
-
-  get renderData(): IThreatRenderData {
-    const leftSlot = this.leftSlot ? this.leftSlot.renderData : null;
-    const rightSlot = this.rightSlot ? this.rightSlot.renderData : null;
-    return {
-      leftSlot,
-      rightSlot,
-    };
   }
 
   private setInitialCard(eventCards: IEventCard[]) {
@@ -190,6 +192,3 @@ export class Threat implements IThreat {
     });
   }
 }
-
-import sleep from "../../../utils/sleep";
-import { getWreckageCard } from "../../constants/getWreckageCard";

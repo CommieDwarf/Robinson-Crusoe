@@ -1,5 +1,5 @@
 import { IPawn } from "../interfaces/Pawns/Pawn";
-import { inventionList } from "../server/constants/inventionList";
+import { inventionList } from "../constants/inventionList";
 import { Action } from "../interfaces/Action";
 
 export function getActionTypeFromDroppableId(droppableId: string): Action {

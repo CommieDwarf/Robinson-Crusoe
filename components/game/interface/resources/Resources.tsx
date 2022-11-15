@@ -3,10 +3,7 @@ import React from "react";
 import styles from "./Resources.module.css";
 
 import ResourceValues from "./ResourceValues/ResourceValues";
-import {
-  IResources,
-  IResourcesAmount,
-} from "../../../../interfaces/Resources/Resources";
+import { IResourcesAmount } from "../../../../interfaces/Resources/Resources";
 
 interface Props {
   owned: Map<keyof IResourcesAmount, number>;
@@ -20,14 +17,14 @@ export default function Resources(props: Props) {
         <Image
           src="/interface/resources/board.jpg"
           layout="fill"
-          alt={"board"}
+          alt={"ramka"}
         />
       </div>
       <div className={styles.leftBar}>
         <Image
           src="/interface/resources/boardVert.jpg"
           layout="fill"
-          alt={"board"}
+          alt={"ramka"}
         />
       </div>
       <ResourceValues resources={props.future} type="future" />
@@ -35,28 +32,24 @@ export default function Resources(props: Props) {
         <Image
           src="/interface/resources/boardVert.jpg"
           layout="fill"
-          alt={"board"}
+          alt={"ramka"}
         />
       </div>
       <div className={styles.botBar}>
-        <Image
-          src="/interface/resources/board.jpg"
-          layout="fill"
-          alt={"board"}
-        />
+        <Image src="/interface/resources/board.jpg" layout="fill" alt={"tło"} />
       </div>
       <div className={styles.midBar}>
         <Image
           src="/interface/resources/board.jpg"
           layout="fill"
-          alt={"board"}
+          alt={"ramka"}
         />
         <div className={styles.barDecoration}>
           <div className={styles.productionIcon}>
             <Image
               src="/interface/resources/production.png"
               layout="fill"
-              alt={"production icon"}
+              alt={"ikona produkcji"}
             />
           </div>
         </div>

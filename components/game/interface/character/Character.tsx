@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useId, useState } from "react";
+import React, { useState } from "react";
 import styles from "./Character.module.css";
 import SideCharacters from "./sideCharacters/SideCharacters";
 import scrollbarStyles from "./Scrollbar.module.css";
@@ -11,14 +11,8 @@ import Scrollbar from "../Scrollbar";
 import Pawn from "../Pawn";
 import { Droppable } from "react-beautiful-dnd";
 import capitalize from "../../../../utils/capitalizeFirstLetter";
-import {
-  IPlayerCharacter,
-  IPlayerCharacterRenderData,
-} from "../../../../interfaces/Characters/PlayerCharacter";
-import {
-  ISideCharacter,
-  ISideCharacterRenderData,
-} from "../../../../interfaces/Characters/SideCharacter";
+import { IPlayerCharacterRenderData } from "../../../../interfaces/Characters/PlayerCharacter";
+import { ISideCharacterRenderData } from "../../../../interfaces/Characters/SideCharacter";
 import { ISkill } from "../../../../interfaces/Characters/Skill";
 
 interface Props {

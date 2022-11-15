@@ -1,4 +1,4 @@
-import { TileStructure } from "../../interfaces/Tiles/Tile";
+import { TileStructure } from "../interfaces/Tiles/Tile";
 
 const mapStructure = [
   [
@@ -28,7 +28,7 @@ const mapStructure = [
   ],
 ];
 
-function getTileStructures(topStart: number, leftStart: number) {
+function getTilePositions(topStart: number, leftStart: number) {
   const tileStructures: TileStructure[] = [];
   let top = topStart;
   let nextRowStartLeft = leftStart;
@@ -47,4 +47,4 @@ function getTileStructures(topStart: number, leftStart: number) {
   return tileStructures;
 }
 
-export default getTileStructures(17, 22);
+export const tilePositions = getTilePositions(17, 22);

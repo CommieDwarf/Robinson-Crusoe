@@ -7,7 +7,7 @@ import {
 import { IItem } from "../../../interfaces/Equipment/Item";
 import { IGame } from "../../../interfaces/Game";
 import { Item } from "./Item";
-import { EqList, equipmentList } from "../../constants/eqList";
+import { EqList, equipmentList } from "../../../constants/eqList";
 
 export class Equipment implements IEquipment {
   get renderData(): IEquipmentRenderData {

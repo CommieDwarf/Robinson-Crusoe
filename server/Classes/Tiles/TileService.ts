@@ -1,6 +1,9 @@
 import shuffle from "../../../utils/shuffleArray";
-import tileStructures from "../../constants/tileStructures";
-import tileTypes, { TileType, starterTile } from "../../constants/tilleTypes";
+import {
+  tileTypes,
+  TileType,
+  starterTile,
+} from "../../../constants/tilleTypes";
 import {
   ITilesService,
   ITilesServiceRenderData,
@@ -8,6 +11,7 @@ import {
 import { Tile } from "./Tile";
 import { ITile, TerrainType } from "../../../interfaces/Tiles/Tile";
 import { IGame } from "../../../interfaces/Game";
+import { tilePositions } from "../../../constants/tilePositions";
 
 const starterId = 7;
 
@@ -61,11 +65,9 @@ export class TilesService implements ITilesService {
   private getInitialTiles() {
     const tiles = [];
     for (let i = 0; i < 15; i++) {
-      if (i === starterId) {
-        tiles.push(new Tile(tileStructures[i], i, true, true, starterTile, 0));
-      } else {
-        tiles.push(new Tile(tileStructures[i], i, false, false, null, 0));
-      }
+      tiles.push(
+        new Tile(tilePositions[i], i, i === starterId, true, starterTile, 0)
+      );
     }
     return tiles;
   }
@@ -89,7 +91,7 @@ export class TilesService implements ITilesService {
 
   showAdjacentTiles(id: number) {
     const tile = this.findTile(id);
-    tile.structure.borderTiles.forEach((id) => {
+    tile.position.borderTiles.forEach((id) => {
       this.findTile(id).show = true;
     });
   }

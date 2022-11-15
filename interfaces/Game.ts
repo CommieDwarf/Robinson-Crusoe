@@ -2,7 +2,7 @@ import { IThreat, IThreatRenderData } from "./Threat/Threat";
 import { IPawn, IPawnRenderData } from "./Pawns/Pawn";
 import { IBeasts, IBeastsRenderData } from "./Beasts/Beasts";
 import { IPlayerRenderData } from "./PlayerService/Player";
-import { IAdditionalActivity } from "./AdditionalActivity/AdditionalActivity";
+import { IAdditionalActivity } from "./ArrangeCampService/ArrangeCampService";
 import { ITilesService, ITilesServiceRenderData } from "./Tiles/TilesService";
 import {
   IStructuresService,

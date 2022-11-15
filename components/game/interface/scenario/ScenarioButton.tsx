@@ -2,11 +2,8 @@ import React from "react";
 import styles from "./ScenarioButton.module.css";
 import Scenario from "./Scenario/Scenario";
 import Image from "next/image";
-import {
-  IInvention,
-  IInventionRenderData,
-} from "../../../../interfaces/Inventions/Invention";
-import { IPawn, IPawnRenderData } from "../../../../interfaces/Pawns/Pawn";
+import { IInventionRenderData } from "../../../../interfaces/Inventions/Invention";
+import { IPawnRenderData } from "../../../../interfaces/Pawns/Pawn";
 
 interface Props {
   inventions: IInventionRenderData[];
@@ -24,11 +21,7 @@ export default function ScenarioButton(props: Props) {
     ? styles.zIndexIncreased
     : "";
 
-  function handleHide() {
-    props.setShow(false);
-  }
-
-  function handleShow() {
+  function handleClick() {
     props.setShow((prev) => !prev);
   }
 
@@ -44,7 +37,7 @@ export default function ScenarioButton(props: Props) {
         setShow={props.setShow}
         turn={props.turn}
       />
-      <div className={styles.button} onClick={handleShow}>
+      <div className={styles.button} onClick={handleClick}>
         <div className={styles.arrowWrapper}>
           <div className={styles.arrow + " " + rotatedArrowClass}>
             <Image

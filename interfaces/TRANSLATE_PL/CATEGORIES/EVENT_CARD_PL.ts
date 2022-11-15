@@ -11,4 +11,5 @@ export enum EVENT_CARD_PL {
   ragingStorm = "rozszalała burza",
   rain = "deszcz",
   sleeplessNight = "bezsenna noc",
+  supplyCrates = "skrzynie z jedzeniem",
 }

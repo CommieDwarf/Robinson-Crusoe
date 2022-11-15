@@ -1,13 +1,10 @@
 import styles from "./Scenario.module.css";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import Castaways from "./Scenarios/Castaways/Castaways";
-import {
-  IInvention,
-  IInventionRenderData,
-} from "../../../../../interfaces/Inventions/Invention";
-import { IPawn, IPawnRenderData } from "../../../../../interfaces/Pawns/Pawn";
+import { IInventionRenderData } from "../../../../../interfaces/Inventions/Invention";
+import { IPawnRenderData } from "../../../../../interfaces/Pawns/Pawn";
 
 interface Props {
   inventions: IInventionRenderData[];

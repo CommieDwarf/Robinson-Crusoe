@@ -1,19 +1,26 @@
 // @flow
 import * as React from "react";
-import styles from "./ScenarioInfo.module.css";
+import styles from "./Description.module.css";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { Button } from "./Button";
+import { useState } from "react";
+import { Button } from "./Button/Button";
+import { ScenarioText } from "../../../../../../../../interfaces/Scenario/Scenario";
+import { castaways } from "../../../../../../../../constants/scenarios/castaways";
+import Entries from "../../../../../../../../interfaces/Entries";
 
-type Props = {
-  info: Map<string, string>;
-};
-export const ScenarioInfo = (props: Props) => {
+type Props = {};
+
+export enum BUTTON_PL {
+  mechanics = "Budowa stosu",
+  description = "opis",
+  objective = "cel",
+}
+
+export const Description = (props: Props) => {
   const [extended, setExtended] = useState(false);
-  const [currentInfo, setCurrentInfo] = useState([
-    "description",
-    props.info.get("description"),
-  ]);
+  const [currentInfo, setCurrentInfo] = useState<
+    (keyof typeof BUTTON_PL | string)[]
+  >(["description", castaways.text.description]);
   const [selectedButton, setSelectedButton] = useState("");
 
   function handleButtonClick(info: string[]) {
@@ -31,14 +38,16 @@ export const ScenarioInfo = (props: Props) => {
 
   const buttons: JSX.Element[] = [];
 
-  props.info.forEach((value, key) => {
+  const textEntries = Object.entries(castaways.text) as Entries<ScenarioText>;
+
+  textEntries.forEach(([key, value], i) => {
     buttons.push(
       <Button
-        buttonText={key}
+        buttonText={BUTTON_PL[key]}
         selected={currentInfo[0] === key && extended}
-        info={value}
+        text={value}
         buttonClick={handleButtonClick}
-        key={key}
+        key={i}
       />
     );
   });

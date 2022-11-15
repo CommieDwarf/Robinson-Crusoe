@@ -1,21 +1,15 @@
-import React, { useEffect, useId, useState } from "react";
+import React from "react";
 import styles from "./ActionSlot.module.css";
 import { Droppable } from "react-beautiful-dnd";
 
 import Pawn from "./Pawn";
 import { IPawnRenderData } from "../../../interfaces/Pawns/Pawn";
+import { Action } from "../../../interfaces/Action";
 
 interface Props {
   type: "helper" | "leader";
   pawn: null | IPawnRenderData | undefined;
-  action:
-    | "threat"
-    | "hunt"
-    | "build"
-    | "gather"
-    | "explore"
-    | "arrangeCamp"
-    | "rest";
+  action: Action;
   context:
     | "gather"
     | "explore"

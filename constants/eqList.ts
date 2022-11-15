@@ -19,7 +19,3 @@ export interface EqList {
   pistol: string;
   stormGlass: string;
 }
-
-type Entries<T> = {
-  [K in keyof T]: [K, T[K]];
-}[keyof T][];

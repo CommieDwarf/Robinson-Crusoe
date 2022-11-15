@@ -1,6 +1,7 @@
 import { IResourcesAmount } from "../Resources/Resources";
 import { STRUCTURE } from "../Structures/Structure";
 import { ICharacter } from "../Characters/Character";
+import { EVENT_CARD_PL } from "../TRANSLATE_PL/CATEGORIES/EVENT_CARD_PL";
 
 export interface IEventCardRenderData {
   id: number;
@@ -37,7 +38,7 @@ export interface EventEffects {
 export interface IEventCard {
   id: number;
   name: string;
-  namePL: string;
+  namePL: EVENT_CARD_PL;
   renderData: IEventCardRenderData;
   type: EVENT_TYPE;
   pawnsAssigned: number;

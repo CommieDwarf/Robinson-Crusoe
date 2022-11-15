@@ -2,7 +2,7 @@ import {
   TerrainType,
   TileExtras,
   TileResource,
-} from "../../interfaces/Tiles/Tile";
+} from "../interfaces/Tiles/Tile";
 
 export class TileType {
   id: number;
@@ -26,7 +26,7 @@ export class TileType {
   }
 }
 
-const TileTypes: TileType[] = [
+export const tileTypes: TileType[] = [
   new TileType(
     1,
     "hills",
@@ -88,8 +88,6 @@ const TileTypes: TileType[] = [
     { discoveryToken: 1, totem: true, naturalShelter: false }
   ),
 ];
-
-export default TileTypes;
 
 export const starterTile = new TileType(
   0,

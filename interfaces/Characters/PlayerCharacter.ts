@@ -22,5 +22,5 @@ export interface IPlayerCharacter extends ICharacter {
   moraleThresholds: number[];
   skills: IDictionary<ISkill>;
   renderData: IPlayerCharacterRenderData;
-  moraleDrop: boolean;
+  shouldMoraleDrop: boolean;
 }

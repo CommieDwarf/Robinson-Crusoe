@@ -8,7 +8,7 @@ import { ITile, ITileRenderData } from "../Tiles/Tile";
 import {
   IRestArrange,
   IRestArrangeRenderData,
-} from "../AdditionalActivity/RestArrange";
+} from "../ArrangeCampService/ArrangeCampService";
 import { RESOLVE_ITEM_STATUS } from "./IActionResolvableService";
 
 export interface IResolvableItem {

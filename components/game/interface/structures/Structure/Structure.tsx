@@ -3,11 +3,10 @@ import React from "react";
 import ActionSlot from "../../ActionSlot";
 import styles from "./Structure.module.css";
 import {
-  IStructure,
   IStructureRenderData,
   STRUCTURE,
 } from "../../../../../interfaces/Structures/Structure";
-import { IPawn, IPawnRenderData } from "../../../../../interfaces/Pawns/Pawn";
+import { IPawnRenderData } from "../../../../../interfaces/Pawns/Pawn";
 import getHelperActionSlots from "../../../../../utils/getHelperActionSlots";
 
 type Props = {

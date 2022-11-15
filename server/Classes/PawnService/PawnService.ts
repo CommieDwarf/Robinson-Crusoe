@@ -2,10 +2,28 @@ import { IPawnsService } from "../../../interfaces/Pawns/Pawns";
 import { IPawn, IPawnRenderData } from "../../../interfaces/Pawns/Pawn";
 
 import { PawnArrayName } from "../../../interfaces/Pawns/Pawns";
-import { Pawn } from "./Pawn";
+import { Pawn } from "./Pawn/Pawn";
 import { ICharacter } from "../../../interfaces/Characters/Character";
 
 export class PawnsService implements IPawnsService {
+  private _freePawns: IPawn[];
+  private _pawns: IPawn[];
+  private readonly _character: ICharacter;
+  _initialQuantity: number;
+
+  constructor(character: ICharacter, initialQuantity: number) {
+    this._character = character;
+    this._pawns = this.getInitialPawns(initialQuantity);
+    this._freePawns = this._pawns;
+    this._initialQuantity = initialQuantity;
+  }
+
+  get renderData(): IPawnRenderData[] {
+    return this._freePawns.map((pawn) => {
+      return pawn.renderData;
+    });
+  }
+
   set freePawns(value: IPawn[]) {
     this._freePawns = value;
   }
@@ -24,24 +42,6 @@ export class PawnsService implements IPawnsService {
 
   get character(): ICharacter {
     return this._character;
-  }
-
-  get renderData(): IPawnRenderData[] {
-    return this._freePawns.map((pawn) => {
-      return pawn.renderData;
-    });
-  }
-
-  private _freePawns: IPawn[];
-  private _pawns: IPawn[];
-  private readonly _character: ICharacter;
-  _initialQuantity: number;
-
-  constructor(character: ICharacter, initialQuantity: number) {
-    this._character = character;
-    this._pawns = this.getInitialPawns(initialQuantity);
-    this._freePawns = this._pawns;
-    this._initialQuantity = initialQuantity;
   }
 
   addPawn(pawn: IPawn): void {

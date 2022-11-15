@@ -1,4 +1,3 @@
-import { ICharacter } from "../../../interfaces/Characters/Character";
 import {
   IPlayer,
   IPlayerRenderData,
@@ -6,26 +5,6 @@ import {
 import { IPlayerCharacter } from "../../../interfaces/Characters/PlayerCharacter";
 
 export class Player implements IPlayer {
-  get name(): string {
-    return this._name;
-  }
-
-  set name(value: string) {
-    this._name = value;
-  }
-
-  get color(): string {
-    return this._color;
-  }
-
-  set color(value: string) {
-    this._color = value;
-  }
-
-  get id(): number {
-    return this._id;
-  }
-
   private _name: string;
   private _color: string;
   private _character: IPlayerCharacter;
@@ -50,6 +29,26 @@ export class Player implements IPlayer {
       id: this.id,
       character: this.getCharacter().renderData,
     };
+  }
+
+  get name(): string {
+    return this._name;
+  }
+
+  set name(value: string) {
+    this._name = value;
+  }
+
+  get color(): string {
+    return this._color;
+  }
+
+  set color(value: string) {
+    this._color = value;
+  }
+
+  get id(): number {
+    return this._id;
   }
 
   getCharacter(): IPlayerCharacter {

@@ -1,9 +1,6 @@
 import React from "react";
 import styles from "./Equipment.module.css";
-import {
-  IEquipment,
-  IEquipmentRenderData,
-} from "../../../../interfaces/Equipment/Equipment";
+import { IEquipmentRenderData } from "../../../../interfaces/Equipment/Equipment";
 import Item from "./Item";
 
 interface Props {

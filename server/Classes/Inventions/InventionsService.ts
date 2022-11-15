@@ -1,6 +1,5 @@
-import { inventions } from "../../constants/inventionList";
+import { inventions } from "../../../constants/inventionList";
 import shuffle from "../../../utils/shuffleArray";
-import { Invention } from "./Invention";
 import { IInvention } from "../../../interfaces/Inventions/Invention";
 import { IPlayerCharacter } from "../../../interfaces/Characters/PlayerCharacter";
 import {
@@ -8,12 +7,26 @@ import {
   IInventionsServiceRenderData,
   InventionName,
 } from "../../../interfaces/Inventions/Inventions";
-import { SCENARIO } from "../../../interfaces/Scenario/Scenario";
 import { ITilesService } from "../../../interfaces/Tiles/TilesService";
 import { ICharacter } from "../../../interfaces/Characters/Character";
 import { IGame } from "../../../interfaces/Game";
 
 export class InventionsService implements IInventionsService {
+  private _builtInventions: IInvention[] = [];
+  // TODO: fixed for the demo
+  scenario: "castaways";
+  private readonly _inventions: IInvention[];
+  private _tiles: ITilesService;
+  private _game: IGame;
+
+  constructor(scenario: "castaways", tiles: ITilesService, game: IGame) {
+    this.scenario = scenario;
+    this._inventions = this.getInitialInventions(scenario);
+    this._tiles = tiles;
+    this.updateLocks();
+    this._game = game;
+  }
+
   get inventions(): IInvention[] {
     return this._inventions;
   }
@@ -22,27 +35,6 @@ export class InventionsService implements IInventionsService {
     return {
       inventions: this.inventions.map((invention) => invention.renderData),
     };
-  }
-
-  private _builtInventions: IInvention[] = [];
-  scenario: SCENARIO;
-  private readonly _inventions: IInvention[];
-  private _characters: IPlayerCharacter[];
-  private _tiles: ITilesService;
-  private _game: IGame;
-
-  constructor(
-    scenario: SCENARIO,
-    characters: IPlayerCharacter[],
-    tiles: ITilesService,
-    game: IGame
-  ) {
-    this.scenario = scenario;
-    this._characters = characters;
-    this._inventions = this.getInitialInventions(scenario);
-    this._tiles = tiles;
-    this.updateLocks();
-    this._game = game;
   }
 
   private getInitialInventions(scenario: "castaways") {

@@ -3,10 +3,9 @@ import * as React from "react";
 import styles from "./RollDiceWindow.module.css";
 import { AnimationWindow } from "./AnimationWindow";
 import { RollCubeService } from "../../../../server/Classes/RollCubeService/RollCubeService";
-import Image from "next/image";
 import { ActionRollDiceInfo } from "../../../../interfaces/RollDice/RollDice";
 
-const dupa = {
+const test = {
   r1: {
     y: 270,
     x: 360,
@@ -50,9 +49,9 @@ export const RollDiceWindow = (props: Props) => {
     },
   };
 
-  rollDiceInfo.results.success.axes = dupa.r4;
-  rollDiceInfo.results.mystery.axes = dupa.r2;
-  rollDiceInfo.results.hurt.axes = dupa.r2;
+  rollDiceInfo.results.success.axes = test.r4;
+  rollDiceInfo.results.mystery.axes = test.r2;
+  rollDiceInfo.results.hurt.axes = test.r2;
 
   return (
     <div className={styles.container}>

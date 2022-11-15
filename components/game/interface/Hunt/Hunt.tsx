@@ -1,7 +1,7 @@
 import styles from "./Hunt.module.css";
 import Image from "next/image";
 import ActionSlot from "../ActionSlot";
-import { IPawn, IPawnRenderData } from "../../../../interfaces/Pawns/Pawn";
+import { IPawnRenderData } from "../../../../interfaces/Pawns/Pawn";
 
 interface Props {
   actionSlots: Map<string, IPawnRenderData | null>;

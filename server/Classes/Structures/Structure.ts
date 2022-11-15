@@ -4,17 +4,35 @@ import {
   STRUCTURE,
 } from "../../../interfaces/Structures/Structure";
 import {IResources} from "../../../interfaces/Resources/Resources";
-import {Resources} from "../AllResources/Resources";
-
-
-export enum STRUCTURE_PL {
-  shelter = "schronienie",
-  roof = "dach",
-  palisade = "palisada",
-  weapon = "broń",
-}
+import {Resources} from "../ResourceService/Resources";
+import {STRUCTURE_PL} from "../../../interfaces/TRANSLATE_PL/CATEGORIES/STRUCTURE_PL";
 
 export class Structure implements IStructure {
+
+  private _requiredHelpersAmount = 0;
+  private readonly _name: STRUCTURE;
+  private _lvl = 0;
+  private _committedResources: IResources = new Resources();
+  private _cost: IResources;
+  private _locked: boolean;
+
+  constructor(name: STRUCTURE, cost: Resources, locked: boolean) {
+    this._name = name;
+    this._cost = cost;
+    this._locked = locked;
+  }
+
+  get renderData(): IStructureRenderData {
+    return {
+      committedResources: this.committedResources.renderData,
+      cost: this.cost.renderData,
+      locked: this.locked,
+      lvl: this.lvl,
+      name: this.name,
+      requiredHelpersAmount: this.requiredHelpersAmount,
+    };
+  }
+
   set lvl(value: number) {
     this._lvl = value;
   }
@@ -63,29 +81,6 @@ export class Structure implements IStructure {
     this._requiredHelpersAmount = value;
   }
 
-  get renderData(): IStructureRenderData {
-    return {
-      committedResources: this.committedResources.renderData,
-      cost: this.cost.renderData,
-      locked: this.locked,
-      lvl: this.lvl,
-      name: this.name,
-      requiredHelpersAmount: this.requiredHelpersAmount,
-    };
-  }
-
-  private _requiredHelpersAmount = 0;
-  private readonly _name: STRUCTURE;
-  private _lvl = 0;
-  private _committedResources: IResources = new Resources();
-  private _cost: IResources;
-  private _locked: boolean;
-
-  constructor(name: STRUCTURE, cost: Resources, locked: boolean) {
-    this._name = name;
-    this._cost = cost;
-    this._locked = locked;
-  }
 
   incrementLvl(num: number) {
     this._lvl += num;

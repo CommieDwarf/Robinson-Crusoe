@@ -6,16 +6,7 @@ import { Item } from "./Item/Item";
 import { IActionSlotsRenderData } from "../../../../../interfaces/ActionSlots";
 import capitalizeFirstLetter from "../../../../../utils/capitalizeFirstLetter";
 import { Action } from "../../../../../interfaces/Action";
-
-const translateActionPL = {
-  threat: "zagrożenie",
-  hunt: "polowanie",
-  build: "budowanie",
-  gather: "zbieranie",
-  explore: "exploracja",
-  arrangeCamp: "porządkowanie obozu",
-  rest: "odpoczynek",
-};
+import { ACTION_PL } from "../../../../../interfaces/TRANSLATE_PL/CATEGORIES/ACTION_PL";
 
 type Props = {
   actionService: IActionServiceRenderData;
@@ -44,7 +35,7 @@ export const ResolveItems = (props: Props) => {
         }
       >
         {capitalizeFirstLetter(
-          translateActionPL[props.actionService.currentResolve.action]
+          ACTION_PL[props.actionService.currentResolve.action]
         )}
       </div>
       <div className={styles.items}>{items}</div>

@@ -1,14 +1,14 @@
-import { IGame } from "../../interfaces/Game";
-import { IThreat } from "../../interfaces/Threat/Threat";
-import { EVENT_TYPE, IEventCard } from "../../interfaces/Threat/EventCard";
-import { EventCard } from "../Classes/Threat/EventCard";
-import { ICharacter } from "../../interfaces/Characters/Character";
+import { IGame } from "../interfaces/Game";
+import { IThreat } from "../interfaces/Threat/Threat";
+import { EVENT_TYPE, IEventCard } from "../interfaces/Threat/EventCard";
+import { EventCard } from "../server/Classes/EventCard/EventCard";
+import { ICharacter } from "../interfaces/Characters/Character";
 
 export function getWreckageCard(game: IGame, threat: IThreat): IEventCard {
   // TODO: implement more wreckage cards and return random
   return new EventCard(
     "supplyCrates",
-    "skrzynie z jedzeniem",
+
     1,
     EVENT_TYPE.wreckage,
     {

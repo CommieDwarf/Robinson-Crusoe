@@ -3,16 +3,7 @@ import React, { useState } from "react";
 import styles from "./Phase.module.css";
 
 import PhaseDropDownMenu from "./PhaseDropDownMenu/PhaseDropDownMenu";
-
-export const polishPhaseConjugation = {
-  production: "produkcji",
-  night: "nocy",
-  action: "akcji",
-  preAction: "akcji",
-  event: "wydarzenia",
-  morale: "morali",
-  weather: "pogody",
-};
+import { PHASE_CONJUGATION_PL } from "../../../../interfaces/TRANSLATE_PL/CATEGORIES/PHASE_PL";
 
 export type PhaseType =
   | "production"
@@ -42,7 +33,7 @@ export default function Phase(props: Props) {
       <strong>
         Faza{" "}
         <span className={styles[props.phase]}>
-          {polishPhaseConjugation[props.phase]}
+          {PHASE_CONJUGATION_PL[props.phase]}
         </span>
       </strong>
       <div className={styles["phase-icon"]}>

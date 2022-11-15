@@ -1,5 +1,5 @@
 import { IGame } from "../Game";
-import { EqList } from "../../server/constants/eqList";
+import { EqList } from "../../constants/eqList";
 import { IItem, IItemRenderData } from "./Item";
 
 type EqName = keyof EqList;

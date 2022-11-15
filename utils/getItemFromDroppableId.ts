@@ -1,8 +1,7 @@
 import { IGame } from "../interfaces/Game";
 import { InventionName } from "../interfaces/Inventions/Inventions";
 import { StructureName } from "../interfaces/Structures/Structures";
-import { RestArrange } from "../server/Classes/AdditionalActivity/RestArrange";
-import { EventCard } from "../server/Classes/Threat/EventCard";
+import { EventCard } from "../server/Classes/EventCard/EventCard";
 
 export function getItemFromDroppableId(droppableId: string, game: IGame) {
   if (droppableId.includes("threat")) {

@@ -1,16 +1,16 @@
-import { Character } from "./Character";
+import { Character } from "../Character";
 import {
   ISideCharacter,
   ISideCharacterRenderData,
   SideCharacterName,
-} from "../../../interfaces/Characters/SideCharacter";
-import { IDictionary } from "../../../interfaces/IDictionary";
-import { ISkill } from "../../../interfaces/Characters/Skill";
-import { ICharEffects } from "../../../interfaces/Characters/CharEffects";
-import { SideCharEffects } from "./CharEffects";
-import { IPawnsService } from "../../../interfaces/Pawns/Pawns";
-import { PawnsService } from "../PawnService/PawnService";
-import { IGame } from "../../../interfaces/Game";
+} from "../../../../../interfaces/Characters/SideCharacter";
+import { IDictionary } from "../../../../../interfaces/IDictionary";
+import { ISkill } from "../../../../../interfaces/Characters/Skill";
+import { ICharEffects } from "../../../../../interfaces/Characters/CharEffects";
+import { SideCharEffects } from "../../CharEffects/CharEffects";
+import { IPawnsService } from "../../../../../interfaces/Pawns/Pawns";
+import { PawnsService } from "../../../PawnService/PawnService";
+import { IGame } from "../../../../../interfaces/Game";
 
 export class SideCharacter extends Character implements ISideCharacter {
   get pawnService(): IPawnsService {

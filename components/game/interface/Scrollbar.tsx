@@ -1,42 +1,5 @@
-import { ScrollEvent } from "@react-types/shared";
-import React, { useCallback, useRef } from "react";
+import React from "react";
 import { positionValues, Scrollbars } from "react-custom-scrollbars";
-
-// .scrollbar {
-//   width: 100%;
-//   height: 100%;
-//
-// }
-//
-// .trackHorizontal {
-//   height: 15px !important;
-//   width: 100%;
-//   bottom: 0;
-//   background: transparent;
-// }
-//
-// .thumbHorizontal {
-//   background-image: url("../../../../public/interface/map/board.jpg");
-//   background-size: cover;
-//   border-radius: 5px;
-//   border: 1px solid black;
-//   z-index: 999 !important;
-// }
-//
-// .trackVertical {
-//   width: 15px !important;
-//   height: 100%;
-//   right: 0;
-//   background: transparent;
-// }
-//
-// .thumbVertical {
-//   background-image: url("../../../../public/interface/map/boardVert.jpg");
-//   background-size: cover;
-//   border-radius: 5px;
-//   border: 1px solid black;
-//   z-index: 999 !important;
-// }
 
 interface Props {
   children: JSX.Element | JSX.Element[];
@@ -146,3 +109,41 @@ export default class Scrollbar extends React.Component<Props> {
     );
   }
 }
+
+// SCROLLBAR STYLES TEMPLATE
+
+// .scrollbar {
+//   width: 100%;
+//   height: 100%;
+//
+// }
+//
+// .trackHorizontal {
+//   height: 15px !important;
+//   width: 100%;
+//   bottom: 0;
+//   background: transparent;
+// }
+//
+// .thumbHorizontal {
+//   background-image: url("../../../../public/interface/map/board.jpg");
+//   background-size: cover;
+//   border-radius: 5px;
+//   border: 1px solid black;
+//   z-index: 999 !important;
+// }
+//
+// .trackVertical {
+//   width: 15px !important;
+//   height: 100%;
+//   right: 0;
+//   background: transparent;
+// }
+//
+// .thumbVertical {
+//   background-image: url("../../../../public/interface/map/boardVert.jpg");
+//   background-size: cover;
+//   border-radius: 5px;
+//   border: 1px solid black;
+//   z-index: 999 !important;
+// }

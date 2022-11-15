@@ -1,17 +1,16 @@
-import { EventCard } from "../Classes/Threat/EventCard";
-import { IGame } from "../../interfaces/Game";
-import { EVENT_TYPE, IEventCard } from "../../interfaces/Threat/EventCard";
-import { STRUCTURE } from "../../interfaces/Structures/Structure";
-import { IThreat } from "../../interfaces/Threat/Threat";
-import { Beasts } from "../Classes/Beasts/Beasts";
-import { ICharacter } from "../../interfaces/Characters/Character";
-import { Resources } from "../Classes/AllResources/Resources";
+import { EventCard } from "../server/Classes/EventCard/EventCard";
+import { IGame } from "../interfaces/Game";
+import { EVENT_TYPE, IEventCard } from "../interfaces/Threat/EventCard";
+import { STRUCTURE } from "../interfaces/Structures/Structure";
+import { IThreat } from "../interfaces/Threat/Threat";
+import { Beasts } from "../server/Classes/Beasts/Beasts";
+import { ICharacter } from "../interfaces/Characters/Character";
+import { Resources } from "../server/Classes/ResourceService/Resources";
 
 export function getEventCards(game: IGame, threat: IThreat): IEventCard[] {
   return [
     new EventCard(
       "argument",
-      "kłótnia",
       2,
       EVENT_TYPE.book,
       {
@@ -39,7 +38,6 @@ export function getEventCards(game: IGame, threat: IThreat): IEventCard[] {
     ),
     new EventCard(
       "awfulWeather",
-      "okropna pogoda",
       3,
       EVENT_TYPE.explore,
       {
@@ -70,7 +68,6 @@ export function getEventCards(game: IGame, threat: IThreat): IEventCard[] {
     ),
     new EventCard(
       "coldNight",
-      "niezwykle zimna noc",
       4,
       EVENT_TYPE.book,
       {
@@ -102,7 +99,6 @@ export function getEventCards(game: IGame, threat: IThreat): IEventCard[] {
     ),
     new EventCard(
       "dangerousNight",
-      "niebezpieczna noc",
       5,
       EVENT_TYPE.book,
       {
@@ -129,7 +125,6 @@ export function getEventCards(game: IGame, threat: IThreat): IEventCard[] {
     ),
     new EventCard(
       "detachedClouds",
-      "oberwane chmury",
       6,
       EVENT_TYPE.gather,
       {
@@ -167,7 +162,6 @@ export function getEventCards(game: IGame, threat: IThreat): IEventCard[] {
     ),
     new EventCard(
       "fallenTree",
-      "powalone drzewo",
       8,
       EVENT_TYPE.build,
       {
@@ -190,7 +184,6 @@ export function getEventCards(game: IGame, threat: IThreat): IEventCard[] {
     ),
     new EventCard(
       "fire",
-      "pożar",
       9,
       EVENT_TYPE.explore,
       {
@@ -213,7 +206,6 @@ export function getEventCards(game: IGame, threat: IThreat): IEventCard[] {
     ),
     new EventCard(
       "forestHowl",
-      "wycie od strony lasu",
       10,
       EVENT_TYPE.book,
       {
@@ -251,7 +243,6 @@ export function getEventCards(game: IGame, threat: IThreat): IEventCard[] {
     ),
     new EventCard(
       "nightHowl",
-      "nocne wycie z dżungli",
       11,
       EVENT_TYPE.book,
       {
@@ -269,7 +260,11 @@ export function getEventCards(game: IGame, threat: IThreat): IEventCard[] {
         game.beasts.beastStrengthEnchanted = true;
       },
       function triggerThreatEffect() {
-        game.structuresService.lvlDownStruct(STRUCTURE.PALISADE, 1);
+        game.structuresService.lvlDownStruct(
+          STRUCTURE.PALISADE,
+          1,
+          this.namePL
+        );
       },
       function fullFill(character: ICharacter) {
         this.game?.characterService.incrDetermination(
@@ -281,7 +276,6 @@ export function getEventCards(game: IGame, threat: IThreat): IEventCard[] {
     ),
     new EventCard(
       "ragingStorm",
-      "rozszalała burza",
       12,
       EVENT_TYPE.explore,
       {
@@ -305,12 +299,11 @@ export function getEventCards(game: IGame, threat: IThreat): IEventCard[] {
       function fullFill(character: ICharacter) {
         game.characterService.incrDetermination(character, 1, this.namePL);
 
-        game.structuresService.lvlUpStruct(STRUCTURE.WEAPON, 1);
+        game.structuresService.lvlUpStruct(STRUCTURE.WEAPON, 1, this.namePL);
       }
     ),
     new EventCard(
       "rain",
-      "deszcz",
       13,
       EVENT_TYPE.gather,
       {
@@ -338,7 +331,6 @@ export function getEventCards(game: IGame, threat: IThreat): IEventCard[] {
     ),
     new EventCard(
       "sleeplessNight",
-      "bezsenna noc",
       14,
       EVENT_TYPE.book,
       {

@@ -1,4 +1,4 @@
-import { EqList } from "../../constants/eqList";
+import { EqList } from "../../../constants/eqList";
 import { IGame } from "../../../interfaces/Game";
 import { IItem, IItemRenderData } from "../../../interfaces/Equipment/Item";
 

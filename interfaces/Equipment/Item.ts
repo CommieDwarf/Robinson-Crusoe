@@ -1,4 +1,4 @@
-import { EqList } from "../../server/constants/eqList";
+import { EqList } from "../../constants/eqList";
 import { IGame } from "../Game";
 
 export type IItemRenderData = Omit<IItem, "game" | "use" | "renderData">;

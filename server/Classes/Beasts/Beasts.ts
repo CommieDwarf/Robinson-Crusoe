@@ -1,30 +1,21 @@
-import { IResources } from "../../../interfaces/Resources/Resources";
-import { IBeasts, IBeastsRenderData } from "../../../interfaces/Beasts/Beasts";
-import { IBeast } from "../../../interfaces/Beasts/Beast";
-import { ICharacter } from "../../../interfaces/Characters/Character";
-import { beasts } from "../../constants/beasts";
+import {IResources} from "../../../interfaces/Resources/Resources";
+import {IBeasts, IBeastsRenderData} from "../../../interfaces/Beasts/Beasts";
+import {IBeast} from "../../../interfaces/Beasts/Beast";
+import {ICharacter} from "../../../interfaces/Characters/Character";
+import {beasts} from "../../../constants/beasts";
 
 export class Beasts implements IBeasts {
-  get beastStrengthEnchanted(): boolean {
-    return this._beastStrengthEnchanted;
-  }
-
-  set beastStrengthEnchanted(value: boolean) {
-    this._beastStrengthEnchanted = value;
-  }
 
   private _deck: IBeast[] = [];
-
   private _allBeasts: IBeast[] = beasts;
   private _game: unknown;
   private _ownedResources: IResources;
-
   private beastBeingFought: IBeast | null = null;
-
   private _beastStrengthEnchanted = false;
 
-  get deckCount() {
-    return this._deck.length;
+  constructor(game: unknown, ownedResources: IResources) {
+    this._game = game;
+    this._ownedResources = ownedResources;
   }
 
   get renderData(): IBeastsRenderData {
@@ -33,10 +24,21 @@ export class Beasts implements IBeasts {
     };
   }
 
-  constructor(game: unknown, ownedResources: IResources) {
-    this._game = game;
-    this._ownedResources = ownedResources;
+  // --------------------------------------
+  get deckCount() {
+    return this._deck.length;
   }
+
+  get beastStrengthEnchanted(): boolean {
+    return this._beastStrengthEnchanted;
+  }
+
+  set beastStrengthEnchanted(value: boolean) {
+    this._beastStrengthEnchanted = value;
+  }
+
+  // --------------------------------------------
+
 
   getBeastFromDeck(): IBeast {
     if (this.deckCount === 0) {
@@ -83,7 +85,8 @@ export class Beasts implements IBeasts {
   }
 
   //TODO implement killBeast()
-  killBeast() {}
+  killBeast() {
+  }
 
   static getStrongestBeast(beasts: IBeast[]) {
     let strength = 0;

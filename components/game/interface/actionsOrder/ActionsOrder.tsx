@@ -1,16 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import styles from "./ActionsOrder.module.css";
-
-export const actionOrder = [
-  "threat",
-  "hunt",
-  "build",
-  "gather",
-  "explore",
-  "arrangeCamp",
-  "rest",
-];
+import { actionOrder } from "../../../../constants/actionOrder";
 
 export default function ActionsOrder() {
   let actionIcons: JSX.Element[] = [];

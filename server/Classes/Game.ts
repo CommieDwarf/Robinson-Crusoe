@@ -2,20 +2,19 @@ import { Threat } from "./Threat/Threat";
 import { Player } from "./Players/Player";
 import { ActionSlotsService } from "./ActionSlotsService/ActionSlots";
 import { TilesService } from "./Tiles/TileService";
-import { AllResources } from "./AllResources/AllResources";
+import { ResourceService } from "./ResourceService/ResourceService";
 import { StructuresService } from "./Structures/Structures";
 import { InventionsService } from "./Inventions/InventionsService";
 import { Equipment } from "./Equipment/Equipment";
 import { AdditionalActivity } from "./AdditionalActivity/AdditionalActivity";
 import { Beasts } from "./Beasts/Beasts";
-import { PlayerCharacter } from "./Characters/PlayerCharacter";
+import { PlayerCharacter } from "./CharacterService/Character/PlayerCharacter/PlayerCharacter";
 import { IGame, IGameRenderData } from "../../interfaces/Game";
-import { SCENARIO } from "../../interfaces/Scenario/Scenario";
 import { IInventionsService } from "../../interfaces/Inventions/Inventions";
 
 import { IEquipment } from "../../interfaces/Equipment/Equipment";
 import { ICharacterService } from "../../interfaces/CharacterService/CharacterService";
-import { CharacterService } from "./Characters/CharacterService";
+import { CharacterService } from "./CharacterService/CharacterService";
 import { IPawn, IPawnHelper } from "../../interfaces/Pawns/Pawn";
 import { ICharacter } from "../../interfaces/Characters/Character";
 import { ITilesService } from "../../interfaces/Tiles/TilesService";
@@ -42,27 +41,23 @@ import { AlertService } from "./AlertService/AlertService";
 type ScenarioName = "castaways";
 
 export class GameClass implements IGame {
-  get alertService(): IAlertService {
-    return this._alertService;
-  }
-
   private _chatLog: IChatLog = new ChatLog(this);
   private _actionService: ActionService = new ActionService(this);
-  private _playerService: IPlayerService;
-  private _localPlayer: Player;
+  private readonly _playerService: IPlayerService;
+  private readonly _localPlayer: Player;
   private _tilesService: ITilesService = new TilesService(this);
-  private _allResources: IAllResources = new AllResources(this);
+  private _allResources: IAllResources = new ResourceService(this);
   private _structuresService: IStructuresService = new StructuresService(this);
   private _alertService: IAlertService = new AlertService();
 
   // hardcoded for demo version
-  private _inventionsService: IInventionsService;
+  private readonly _inventionsService: IInventionsService;
 
   private _weather: IWeather = new Weather();
   private _threat: IThreat = new Threat(this);
   private _phaseService: IPhaseService = new PhaseService(this);
 
-  private _characterService: ICharacterService;
+  private readonly _characterService: ICharacterService;
   private _equipment: IEquipment = new Equipment(this);
   private _rest = new AdditionalActivity("rest");
   private _arrangeCamp = new AdditionalActivity("arrangeCamp");
@@ -100,8 +95,7 @@ export class GameClass implements IGame {
     );
 
     this._inventionsService = new InventionsService(
-      SCENARIO.CASTAWAYS,
-      [this.localPlayer.getCharacter()],
+      "castaways",
       this._tilesService,
       this
     );
@@ -130,6 +124,10 @@ export class GameClass implements IGame {
       actionService: this.actionService.renderData,
       alertService: this.alertService.renderData,
     };
+  }
+
+  get alertService(): IAlertService {
+    return this._alertService;
   }
 
   get characterService(): ICharacterService {

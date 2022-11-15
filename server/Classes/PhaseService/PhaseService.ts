@@ -6,41 +6,12 @@ import {
 import { IGame } from "../../../interfaces/Game";
 import { MissingLeaderError } from "../Errors/MissingLeaderError";
 import {
-  ACTION_PL,
   Translatable,
   TRANSLATE_PL,
 } from "../../../interfaces/TRANSLATE_PL/TRANSLATE_PL";
-
-const phases: Phase[] = [
-  "event",
-  "morale",
-  "production",
-  "preAction",
-  "action",
-  "weather",
-  "night",
-];
+import { phaseOrder } from "../../../constants/phaseOrder";
 
 export class PhaseService implements IPhaseService {
-  get locked(): boolean {
-    return this._locked;
-  }
-
-  set locked(value: boolean) {
-    this._locked = value;
-  }
-
-  get phase(): Phase {
-    return this._phase;
-  }
-
-  get renderData() {
-    return {
-      phase: this._phase,
-      locked: this.locked,
-    };
-  }
-
   private _phase: Phase = "event";
   private _phaseIndex = 0;
   private _game: IGame;
@@ -61,12 +32,31 @@ export class PhaseService implements IPhaseService {
     };
   }
 
+  get renderData() {
+    return {
+      phase: this._phase,
+      locked: this.locked,
+    };
+  }
+
+  get locked(): boolean {
+    return this._locked;
+  }
+
+  set locked(value: boolean) {
+    this._locked = value;
+  }
+
+  get phase(): Phase {
+    return this._phase;
+  }
+
   goNextPhase() {
     try {
       this.phaseEffects[this._phase]();
       this._phaseIndex =
-        this._phaseIndex === phases.length - 1 ? 0 : ++this._phaseIndex;
-      this._phase = phases[this._phaseIndex];
+        this._phaseIndex === phaseOrder.length - 1 ? 0 : ++this._phaseIndex;
+      this._phase = phaseOrder[this._phaseIndex];
       this._game.alertService.clearAlert();
     } catch (error) {
       if (error instanceof MissingLeaderError) {

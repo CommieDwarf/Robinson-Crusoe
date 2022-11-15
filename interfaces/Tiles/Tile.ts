@@ -2,14 +2,14 @@ export type ITileRenderData = {
   helpersRequired: number;
   id: number;
   show: boolean;
-  structure: TileStructure;
+  position: TilePosition;
   tileType: TileType | null;
 };
 
 export type BuiltTileStructure = "roof" | "palisade" | "shelter";
 
 export interface ITile {
-  structure: TileStructure;
+  position: TilePosition;
   id: number;
   starter: boolean;
   show: boolean;
@@ -56,7 +56,7 @@ export interface TileType {
   extras: TileExtras;
 }
 
-export interface TileStructure {
+export interface TilePosition {
   borderTiles: number[];
   position: {
     left: number;

@@ -5,16 +5,15 @@ import {
 
 import {IPlayerCharacter} from "../../../interfaces/Characters/PlayerCharacter";
 import {ISideCharacter} from "../../../interfaces/Characters/SideCharacter";
-import {PlayerCharacter} from "./PlayerCharacter";
+import {PlayerCharacter} from "./Character/PlayerCharacter/PlayerCharacter";
 import {IGame} from "../../../interfaces/Game";
-import {SideCharacter} from "./SideCharacter";
+import {SideCharacter} from "./Character/SideCharacter/SideCharacter";
 import {ICharacter} from "../../../interfaces/Characters/Character";
 
 export class CharacterService implements ICharacterService {
   dog: ISideCharacter;
   friday: ISideCharacter;
-  private _allCharacters: (ISideCharacter | IPlayerCharacter)[];
-
+  private readonly _allCharacters: (ISideCharacter | IPlayerCharacter)[];
 
   private readonly _game: IGame;
 
@@ -35,6 +34,8 @@ export class CharacterService implements ICharacterService {
     };
   }
 
+  // ------------------------------------------------------------
+
   get allCharacters(): (ISideCharacter | IPlayerCharacter)[] {
     return this._allCharacters;
   }
@@ -45,12 +46,13 @@ export class CharacterService implements ICharacterService {
     ) as IPlayerCharacter[];
   }
 
+  // -------------------------------------------
+
   resetPawns() {
     this._allCharacters.forEach((char) => {
       char.pawnService.resetFreePawns();
-    })
+    });
   }
-
 
   removeFreePawn(charName: string, draggableId: string): void {
     this.getCharacter(charName).pawnService.removePawn(
@@ -94,7 +96,7 @@ export class CharacterService implements ICharacterService {
       );
     }
     if (char instanceof PlayerCharacter) {
-      if (char.moraleDrop) {
+      if (char.shouldMoraleDrop) {
         this._game.morale.lvlDown(1, char.namePL);
       }
     }

@@ -4,19 +4,13 @@ import {
   INVENTION_TYPE,
 } from "../../../interfaces/Inventions/Invention";
 import { TerrainType } from "../../../interfaces/Tiles/Tile";
-import {
-  CharacterName,
-  ICharacter,
-} from "../../../interfaces/Characters/Character";
+import { CharacterName } from "../../../interfaces/Characters/Character";
 import { IResources } from "../../../interfaces/Resources/Resources";
-import { Resources } from "../AllResources/Resources";
+import { Resources } from "../ResourceService/Resources";
+import { INVENTION_PL } from "../../../interfaces/TRANSLATE_PL/CATEGORIES/INVENTION_PL";
 
 export class Invention implements IInvention {
-  get namePL(): string {
-    return this._namePL;
-  }
-
-  private readonly _name: string;
+  private readonly _name: keyof typeof INVENTION_PL;
   private _locked = true;
   private readonly _requirement: {
     invention: string[] | null;
@@ -31,11 +25,10 @@ export class Invention implements IInvention {
   private _built = false;
   private _cost: IResources;
   private readonly _character: CharacterName | null;
-  private readonly _namePL: string;
+  private readonly _namePL = INVENTION_PL[this.name];
 
   constructor(
-    name: string,
-    namePL: string,
+    name: keyof typeof INVENTION_PL,
     requirement: {
       invention: string[] | null;
       terrainType: TerrainType | null;
@@ -46,7 +39,6 @@ export class Invention implements IInvention {
     character: CharacterName | null
   ) {
     this._name = name;
-    this._namePL = namePL;
     this._requirement = requirement;
     this._reward = reward;
     this._type = type;
@@ -81,8 +73,12 @@ export class Invention implements IInvention {
     this._built = value;
   }
 
-  get name(): string {
+  get name(): keyof typeof INVENTION_PL {
     return this._name;
+  }
+
+  get namePL(): INVENTION_PL {
+    return this._namePL;
   }
 
   get locked(): boolean {

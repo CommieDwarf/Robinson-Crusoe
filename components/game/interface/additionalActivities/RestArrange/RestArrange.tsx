@@ -5,17 +5,13 @@ import Scrollbar from "../../Scrollbar";
 import scrollbarStyles from "./Scrollbar.module.css";
 import ActionSlot from "../../ActionSlot";
 import { IPawnRenderData } from "../../../../../interfaces/Pawns/Pawn";
-import { IAdditionalActivity } from "../../../../../interfaces/AdditionalActivity/AdditionalActivity";
+import { IAdditionalActivity } from "../../../../../interfaces/ArrangeCampService/ArrangeCampService";
+import { ACTION_PL } from "../../../../../interfaces/TRANSLATE_PL/CATEGORIES/ACTION_PL";
 
 interface Props {
   activity: IAdditionalActivity;
   actionSlots: Map<string, IPawnRenderData | null>;
 }
-
-const activityPL = {
-  arrangeCamp: "Porządkowanie obozu",
-  rest: "Odpoczynek",
-};
 
 export default function RestArrange(props: Props) {
   let rewardLabel;
@@ -84,7 +80,7 @@ export default function RestArrange(props: Props) {
   return (
     <div className={styles[props.activity.type] + " " + styles.activity}>
       <div className={styles.activityName}>
-        {activityPL[props.activity.type]}
+        {ACTION_PL[props.activity.type]}
       </div>
       {rewardLabel}
       <Scrollbar styleModule={scrollbarStyles}>

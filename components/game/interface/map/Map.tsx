@@ -45,15 +45,6 @@ export default function Map(props: Props) {
 
   const mouseDownHandle = getDragAndScrollHandle(scrollbar, container);
 
-  // function handleMouseDown(event: React.MouseEvent) {
-  //   const target = event.target as HTMLDivElement;
-  //   if (target.closest("." + tileStyles.gatherPlayerSlots)) {
-  //     return;
-  //   } else {
-  //     mouseDownHandle(event);
-  //   }
-  // }
-
   useEffect(() => {
     function handleWheel(event: WheelEvent) {
       const target = event.target as HTMLDivElement;

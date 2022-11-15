@@ -1,11 +1,8 @@
 import React from "react";
 import Structure from "./Structure/Structure";
 import styles from "./Structures.module.css";
-import {
-  IStructure,
-  IStructureRenderData,
-} from "../../../../interfaces/Structures/Structure";
-import { IPawn, IPawnRenderData } from "../../../../interfaces/Pawns/Pawn";
+import { IStructureRenderData } from "../../../../interfaces/Structures/Structure";
+import { IPawnRenderData } from "../../../../interfaces/Pawns/Pawn";
 
 interface Props {
   structures: IStructureRenderData[];

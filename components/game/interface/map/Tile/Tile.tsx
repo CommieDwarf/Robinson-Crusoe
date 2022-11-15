@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { NewLifecycle } from "react";
+import React from "react";
 import ActionSlot from "../../ActionSlot";
 import Scrollbar from "../../Scrollbar";
 import styles from "./Tile.module.css";
@@ -45,7 +45,6 @@ export default function Tile(props: Props) {
     }
 
     const id = `tile-${props.tile.id}-${action}-${sideString}leader-0`;
-    id;
     let pawn = props.actionSlots.get(id);
     pawn = pawn === undefined ? null : pawn;
 

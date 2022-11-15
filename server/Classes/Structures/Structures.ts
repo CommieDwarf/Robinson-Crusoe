@@ -1,4 +1,4 @@
-import { Resources } from "../AllResources/Resources";
+import { Resources } from "../ResourceService/Resources";
 import { STRUCTURE } from "../../../interfaces/Structures/Structure";
 import { Structure } from "./Structure";
 import {
@@ -10,10 +10,6 @@ import { IResources } from "../../../interfaces/Resources/Resources";
 import { IGame } from "../../../interfaces/Game";
 
 export class StructuresService implements IStructuresService {
-  get structures(): Structure[] {
-    return this._structures;
-  }
-
   private _structures = this.getInitialStructures();
   private readonly _game: IGame;
 
@@ -25,6 +21,10 @@ export class StructuresService implements IStructuresService {
     return {
       structures: this._structures.map((structure) => structure.renderData),
     };
+  }
+
+  get structures(): Structure[] {
+    return this._structures;
   }
 
   private getInitialStructures() {

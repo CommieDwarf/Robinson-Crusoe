@@ -4,3 +4,10 @@ export enum RESOURCE_PL {
   wood = "drewno",
   leather = "skóra",
 }
+
+export enum RESOURCE_CONJUGATION_PL {
+  wood = "drewna",
+  food = "jedzenia",
+  dryFood = "suchego jedzenia",
+  leather = "skóry",
+}

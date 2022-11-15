@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./Inventions.module.css";
 import scrollbarStyles from "./Scrollbar.module.css";
 
