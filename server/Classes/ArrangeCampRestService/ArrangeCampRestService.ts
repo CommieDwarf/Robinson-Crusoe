@@ -1,5 +1,3 @@
-import { IAdditionalActivity } from "../../../interfaces/ArrangeCampService/ArrangeCampService";
-
 export class AdditionalActivity implements IAdditionalActivity {
   type: "arrangeCamp" | "rest";
   pawnAmount: number;

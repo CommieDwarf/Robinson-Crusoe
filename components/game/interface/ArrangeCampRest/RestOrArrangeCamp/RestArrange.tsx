@@ -5,11 +5,11 @@ import Scrollbar from "../../Scrollbar";
 import scrollbarStyles from "./Scrollbar.module.css";
 import ActionSlot from "../../ActionSlot";
 import { IPawnRenderData } from "../../../../../interfaces/Pawns/Pawn";
-import { IAdditionalActivity } from "../../../../../interfaces/ArrangeCampService/ArrangeCampService";
 import { ACTION_PL } from "../../../../../interfaces/TRANSLATE_PL/CATEGORIES/ACTION_PL";
+import { IArrangeCampRestServiceRenderData } from "../../../../../interfaces/RestArrangeCampService/ArrangeCampRestService";
 
 interface Props {
-  activity: IAdditionalActivity;
+  arrangeCampRestService: IArrangeCampRestServiceRenderData;
   actionSlots: Map<string, IPawnRenderData | null>;
 }
 

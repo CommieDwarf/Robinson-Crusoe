@@ -2,7 +2,6 @@ import React from "react";
 import styles from "./AdditionalActivities.module.css";
 import RestArrange from "./RestArrange/RestArrange";
 import { IPawnRenderData } from "../../../../interfaces/Pawns/Pawn";
-import { IAdditionalActivity } from "../../../../interfaces/ArrangeCampService/ArrangeCampService";
 
 interface Props {
   activities: {
