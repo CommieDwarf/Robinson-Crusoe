@@ -17,8 +17,8 @@ interface Props {
 
 export default function Tile(props: Props) {
   let style = {
-    top: props.tile.structure.position.top + "%",
-    left: props.tile.structure.position.left + "%",
+    top: props.tile.position.cords.top + "%",
+    left: props.tile.position.cords.left + "%",
   };
 
   function getActionSlots(

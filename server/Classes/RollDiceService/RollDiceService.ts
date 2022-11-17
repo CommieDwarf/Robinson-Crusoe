@@ -13,7 +13,7 @@ const diceStructures = {
   explore,
 };
 
-export class RollCubeService {
+export class RollDiceService {
   private static _resultsAxes = {
     r1: {
       y: 270,

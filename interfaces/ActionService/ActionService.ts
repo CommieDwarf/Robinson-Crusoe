@@ -3,6 +3,7 @@ import {
   IResolvableActionServiceRenderData,
 } from "./IActionResolvableService";
 import { Action } from "../Action";
+import { IResolvableItem, IResolvableItemRenderData } from "./IResolvableItem";
 
 export interface IActionService {
   resolvableActionServices: IResolvableActionServices;
@@ -12,6 +13,7 @@ export interface IActionService {
   setNextAction: () => void;
   resolveItem: (action: Action, droppableId: string) => void;
   updateItems: () => void;
+  lastResolvedItem: IResolvableItem | null;
 }
 
 export interface IResolvableActionServices {
@@ -36,4 +38,5 @@ export interface IActionServiceRenderData {
   };
   finished: boolean;
   currentResolve: IResolvableActionServiceRenderData;
+  lastResolvedItem: IResolvableItemRenderData | null;
 }

@@ -8,10 +8,10 @@ import {
   ITilesService,
   ITilesServiceRenderData,
 } from "../../../interfaces/Tiles/TilesService";
-import { Tile } from "./Tile";
-import { ITile, TerrainType } from "../../../interfaces/Tiles/Tile";
-import { IGame } from "../../../interfaces/Game";
-import { tilePositions } from "../../../constants/tilePositions";
+import {Tile} from "./Tile";
+import {ITile, TerrainType} from "../../../interfaces/Tiles/Tile";
+import {IGame} from "../../../interfaces/Game";
+import {tilePositions} from "../../../constants/tilePositions";
 
 const starterId = 7;
 
@@ -65,9 +65,28 @@ export class TilesService implements ITilesService {
   private getInitialTiles() {
     const tiles = [];
     for (let i = 0; i < 15; i++) {
-      tiles.push(
-        new Tile(tilePositions[i], i, i === starterId, true, starterTile, 0)
-      );
+      if (i === starterId) {
+        tiles.push(
+            new Tile(
+                tilePositions[i],
+                i,
+                true,
+                true,
+                starterTile,
+                0
+            )
+        );
+      } else {
+        tiles.push(
+            new Tile(tilePositions[i],
+                i,
+                false,
+                false,
+                null,
+                0)
+        )
+      }
+
     }
     return tiles;
   }

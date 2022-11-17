@@ -16,7 +16,7 @@ import Players from "../../components/game/interface/players/Players";
 import actionSlotStyles from "../../components/game/interface/ActionSlot.module.css";
 
 import Threat from "../../components/game/interface/threat/Threat";
-import AdditionalActivities from "../../components/game/interface/additionalActivities/AdditionalActivities";
+import ArrangeCampRest from "../../components/game/interface/ArrangeCampRest/ArrangeCampRest";
 import Equipment from "../../components/game/interface/equipment/Equipment";
 
 import { fromJSON, parse, stringify, toJSON } from "flatted";
@@ -39,7 +39,6 @@ import { getPawnCanBeSettled } from "../../utils/canPawnBeSettled";
 import { IGameRenderData } from "../../interfaces/Game";
 import sleep from "../../utils/sleep";
 import { IPawnRenderData } from "../../interfaces/Pawns/Pawn";
-import { IPlayerCharacterRenderData } from "../../interfaces/Characters/PlayerCharacter";
 import unsetPawn, { UnsetPawnData } from "../api/unsetPawn";
 import { NextPhaseButton } from "../../components/game/interface/nextPhaseButton/NextPhaseButton";
 import nextPhase from "../api/nextPhase";
@@ -47,7 +46,6 @@ import { ActionResolveWindow } from "../../components/game/interface/ActionResol
 import { setNextAction } from "../api/setNextAction";
 import { Action } from "../../interfaces/Action";
 import resolveItem from "../api/resolveItem";
-import { RollDiceWindow } from "../../components/game/interface/RollDiceWindow/RollDiceWindow";
 import { Alerts } from "../../components/game/interface/Alerts/Alerts";
 
 interface Props {
@@ -278,11 +276,8 @@ export default function Game(props: Props) {
           actionSlots={actionSlots}
           zIndex={zIndex}
         />
-        <AdditionalActivities
-          activities={{
-            rest: gameRenderData.rest,
-            arrangeCamp: gameRenderData.arrangeCamp,
-          }}
+        <ArrangeCampRest
+          arrangeCampRestService={gameRenderData.arrangeCampRestService}
           actionSlots={actionSlots}
           zIndex={zIndex}
         />

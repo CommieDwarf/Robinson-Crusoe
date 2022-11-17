@@ -1,61 +1,19 @@
 // @flow
 import * as React from "react";
 import styles from "./RollDiceWindow.module.css";
-import { AnimationWindow } from "./AnimationWindow";
-import { RollCubeService } from "../../../../server/Classes/RollCubeService/RollCubeService";
-import { ActionRollDiceInfo } from "../../../../interfaces/RollDice/RollDice";
+import {AnimationWindow} from "./AnimationWindow";
+import {IResolvableItemRenderData} from "../../../../interfaces/ActionService/IResolvableItem";
 
-const test = {
-  r1: {
-    y: 270,
-    x: 360,
-    z: 360,
-  },
-  r2: {
-    y: 450,
-    x: 360,
-    z: 360,
-  },
-  r3: {
-    y: 360,
-    x: 450,
-    z: 360,
-  },
-  r4: {
-    y: 360,
-    x: 270,
-    z: 360,
-  },
-  r5: {
-    y: 360,
-    x: 360,
-    z: 360,
-  },
-  r6: {
-    y: 360,
-    x: 180,
-    z: 180,
-  },
+type Props = {
+    item: IResolvableItemRenderData;
+    setResolved: React.Dispatch<React.SetStateAction<Map<string, boolean>>>;
 };
-
-type Props = {};
 export const RollDiceWindow = (props: Props) => {
-  const rollDiceInfo: ActionRollDiceInfo = {
-    type: "build",
-    results: {
-      hurt: RollCubeService.getRollDiceResult(),
-      mystery: RollCubeService.getRollDiceResult(),
-      success: RollCubeService.getRollDiceResult(),
-    },
-  };
 
-  rollDiceInfo.results.success.axes = test.r4;
-  rollDiceInfo.results.mystery.axes = test.r2;
-  rollDiceInfo.results.hurt.axes = test.r2;
 
-  return (
-    <div className={styles.container}>
-      <AnimationWindow rollDiceInfo={rollDiceInfo} />
-    </div>
-  );
+    return (
+        <div className={styles.container}>
+            <AnimationWindow item={props.item} setResolved={props.setResolved}/>
+        </div>
+    );
 };

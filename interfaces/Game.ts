@@ -2,7 +2,6 @@ import { IThreat, IThreatRenderData } from "./Threat/Threat";
 import { IPawn, IPawnRenderData } from "./Pawns/Pawn";
 import { IBeasts, IBeastsRenderData } from "./Beasts/Beasts";
 import { IPlayerRenderData } from "./PlayerService/Player";
-import { IAdditionalActivity } from "./ArrangeCampService/ArrangeCampService";
 import { ITilesService, ITilesServiceRenderData } from "./Tiles/TilesService";
 import {
   IStructuresService,
@@ -51,6 +50,10 @@ import {
   IAlertService,
   IAlertServiceRenderData,
 } from "./AlertService/AlertService";
+import {
+  IArrangeCampRestService,
+  IArrangeCampRestServiceRenderData,
+} from "./RestArrangeCampService/ArrangeCampRestService";
 
 export interface IGameRenderData {
   players: IPlayerRenderData[];
@@ -63,8 +66,7 @@ export interface IGameRenderData {
   threat: IThreatRenderData;
   equipment: IEquipmentRenderData;
   actionSlotsService: IActionSlotsServiceRenderData;
-  rest: IAdditionalActivity;
-  arrangeCamp: IAdditionalActivity;
+  arrangeCampRestService: IArrangeCampRestServiceRenderData;
   beasts: IBeastsRenderData;
   allPawns: IPawnRenderData[];
   phaseService: IPhaseServiceRenderData;
@@ -86,8 +88,7 @@ export interface IGame {
   threat: IThreat;
   equipment: IEquipment;
   actionSlotsService: IActionSlotsService;
-  rest: IAdditionalActivity;
-  arrangeCamp: IAdditionalActivity;
+  arrangeCampRestService: IArrangeCampRestService;
   beasts: IBeasts;
   allPawns: IPawn[];
   morale: IMorale;

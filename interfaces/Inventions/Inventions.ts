@@ -1,5 +1,4 @@
 import { IInvention, IInventionRenderData } from "./Invention";
-import { SCENARIO } from "../Scenario/Scenario";
 import { ICharacter } from "../Characters/Character";
 
 export interface IInventionsServiceRenderData {
@@ -8,7 +7,7 @@ export interface IInventionsServiceRenderData {
 
 export interface IInventionsService {
   inventions: IInvention[];
-  scenario: SCENARIO;
+  scenario: string;
   build: (name: InventionName, builder: ICharacter) => void;
   destroy: (name: InventionName) => void;
   updateLocks: () => void;

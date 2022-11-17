@@ -1,10 +1,16 @@
-// export type ArrangeCampRestService = {
-//     pawnAmount: {
-//         rest: number,
-//         arrangeCamp: number,
-//     }
-//     arrangeCampBonus: "determination" | "morale" | null;
-//     chooseArrangeCampBonus: (bonus: "determination" | "morale") => void;
-// }
-//
-// export interface IArrangeCampRestServiceRenderData extends Omit<ArrangeCampRestService, "renderData">
+export interface IArrangeCampRestService {
+  pawnAmount: {
+    rest: number;
+    arrangeCamp: number;
+  };
+  arrangeCampBonus: "determination" | "morale" | null;
+  renderData: IArrangeCampRestServiceRenderData;
+}
+
+export interface IArrangeCampRestServiceRenderData {
+  pawnAmount: {
+    rest: number;
+    arrangeCamp: number;
+  };
+  arrangeCampBonus: "determination" | "morale" | null;
+}

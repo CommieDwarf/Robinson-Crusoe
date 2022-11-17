@@ -9,10 +9,10 @@ import { degreesToRadians } from "../../../../utils/degreesToRadians";
 import { Object3D } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
-import { gather } from "./diceStructures/gather";
-import { explore } from "./diceStructures/explore";
-import { build } from "./diceStructures/build";
-import { weather } from "./diceStructures/weather";
+import { gather } from "../../../../constants/diceStructures/gather";
+import { explore } from "../../../../constants/diceStructures/explore";
+import { build } from "../../../../constants/diceStructures/build";
+import { weather } from "../../../../constants/diceStructures/weather";
 
 const structures = {
   gather,
@@ -21,22 +21,22 @@ const structures = {
   weather,
 };
 import {
-  ActionCubeSide,
   ActionDice,
   ActionRollDiceInfo,
-  ActionType,
-  WeatherRollDiceInfo,
+  DiceActionType,
 } from "../../../../interfaces/RollDice/RollDice";
+import { IResolvableItemRenderData } from "../../../../interfaces/ActionService/IResolvableItem";
 
 type Props = {
-  rollDiceInfo: ActionRollDiceInfo;
+  item: IResolvableItemRenderData;
+  setResolved: React.Dispatch<React.SetStateAction<Map<string, boolean>>>;
 };
 
 const actionTypes = ["build", "explore", "gather"];
 const weatherTypes = ["rain", "snow", "animals"];
 
 export const AnimationWindow = (props: Props) => {
-  const containerRef = React.createRef<HTMLCanvasElement>();
+  const containerRef = React.createRef<HTMLDivElement>();
 
   useEffect(() => {
     const { current } = containerRef;
@@ -45,7 +45,7 @@ export const AnimationWindow = (props: Props) => {
     }
     const camera = new THREE.PerspectiveCamera(
       80,
-      current.width / current.height,
+      current.offsetWidth / current.offsetHeight,
       0.01,
       10
     );
@@ -53,30 +53,42 @@ export const AnimationWindow = (props: Props) => {
     camera.position.x = 0;
     camera.position.y = 0;
 
+    const renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      alpha: true,
+    });
+
     const scene = new THREE.Scene();
     const cubeSize = 2;
     const cubeTranslateX = 2.5;
-    const controls = new OrbitControls(camera, current);
+    const controls = new OrbitControls(camera, renderer.domElement);
     controls.target.set(0, 0, 0);
     controls.update();
-    const hurtObjects = getCube(
-      props.rollDiceInfo.type,
-      "hurt",
-      -cubeTranslateX,
-      cubeSize
-    );
-    const mysteryObjects = getCube(
-      props.rollDiceInfo.type,
-      "mystery",
-      0,
-      cubeSize
-    );
-    const successObjects = getCube(
-      props.rollDiceInfo.type,
-      "success",
-      cubeTranslateX,
-      cubeSize
-    );
+
+    let hurtObjects: Object3D[] | undefined;
+    let mysteryObjects: Object3D[] | undefined;
+    let successObjects: Object3D[] | undefined;
+
+    if (props.item?.diceRoll) {
+      hurtObjects = getCube(
+        props.item.diceRoll.type,
+        "hurt",
+        -cubeTranslateX,
+        cubeSize
+      );
+      mysteryObjects = getCube(
+        props.item.diceRoll.type,
+        "mystery",
+        0,
+        cubeSize
+      );
+      successObjects = getCube(
+        props.item.diceRoll.type,
+        "success",
+        cubeTranslateX,
+        cubeSize
+      );
+    }
 
     const backgroundGeometry = new THREE.BoxGeometry(19, 11, 1);
     const backgroundTexture = new THREE.TextureLoader().load(
@@ -93,8 +105,6 @@ export const AnimationWindow = (props: Props) => {
     background.position.x = 0;
     background.position.y = 0;
     background.position.z = -2;
-
-    scene.add(...hurtObjects, ...mysteryObjects, ...successObjects, background);
 
     const directionalLightColor = 0xffffff;
     const directionalLightIntensity = 0.5;
@@ -117,30 +127,51 @@ export const AnimationWindow = (props: Props) => {
     );
     scene.add(ambientLight);
 
-    const renderer = new THREE.WebGLRenderer({
-      antialias: true,
-      alpha: true,
-      canvas: current,
-    });
     renderer.shadowMap.enabled = true;
-    renderer.setAnimationLoop(animation);
+    if (hurtObjects && mysteryObjects && successObjects) {
+      scene.add(...hurtObjects, ...mysteryObjects, ...successObjects);
+      renderer.setAnimationLoop(animation);
+    }
 
-    function animation(time: number) {
-      Object.entries(props.rollDiceInfo.results.hurt.axes).forEach(
+    const finished = {
+      x: false,
+      y: false,
+      z: false,
+    };
+
+    function rotateMesh(
+      objects3D: Object3D[],
+      axis: "x" | "y" | "z",
+      degrees: number
+    ) {
+      let radians = degreesToRadians(degrees);
+      objects3D.forEach((object) => {
+        const diff = radians - object.rotation[axis];
+        if (diff > 0.01) {
+          object.rotation[axis] += diff / 16;
+        } else {
+          finished[axis] = true;
+          if (finished.x && finished.y && finished.z) {
+            props.setResolved((old) => {
+              const copy = new Map(old);
+              copy.set(props.item.droppableId, true);
+              return copy;
+            });
+          }
+        }
+      });
+    }
+
+    function animation() {
+      Object.entries(props.item.diceRoll.results.hurt.axes).forEach(
         ([axis, degrees]) => {
           rotateMesh(hurtObjects, axis as unknown as "y" | "x" | "z", degrees);
         }
       );
-      Object.entries(props.rollDiceInfo.results.mystery.axes).forEach(
-        ([axis, degrees]) => {
-          rotateMesh(
-            mysteryObjects,
-            axis as unknown as "y" | "x" | "z",
-            degrees
-          );
-        }
-      );
-      Object.entries(props.rollDiceInfo.results.success.axes).forEach(
+      Object.entries(item.results.mystery.axes).forEach(([axis, degrees]) => {
+        rotateMesh(mysteryObjects, axis as unknown as "y" | "x" | "z", degrees);
+      });
+      Object.entries(rollDiceInfo.results.success.axes).forEach(
         ([axis, degrees]) => {
           rotateMesh(
             successObjects,
@@ -151,10 +182,16 @@ export const AnimationWindow = (props: Props) => {
       );
       renderer.render(scene, camera);
     }
+
+    current.appendChild(renderer.domElement);
+
+    return () => {
+      current.removeChild(renderer.domElement);
+    };
   });
 
   function getCube(
-    type: ActionType,
+    type: DiceActionType,
     dice: ActionDice,
     x: number,
     size: number
@@ -176,11 +213,11 @@ export const AnimationWindow = (props: Props) => {
     return [mesh];
   }
 
-  function getActionTextures(type: ActionType, dice: ActionDice) {
+  function getActionTextures(type: DiceActionType, dice: ActionDice) {
     const loader = new THREE.TextureLoader();
     const basePath = "/interface/dice";
-    const path = actionTypes.includes(props.rollDiceInfo.type)
-      ? basePath + "/action/" + props.rollDiceInfo.type
+    const path = actionTypes.includes(rollDiceInfo.type)
+      ? basePath + "/action/" + rollDiceInfo.type
       : basePath + "/weather";
     loader.setPath(path);
 
@@ -195,33 +232,5 @@ export const AnimationWindow = (props: Props) => {
     });
   }
 
-  return <canvas ref={containerRef} className={styles.container}></canvas>;
+  return <div ref={containerRef} className={styles.container}></div>;
 };
-
-function rotateMesh(
-  objects3D: Object3D[],
-  axis: "x" | "y" | "z",
-  degrees: number
-) {
-  let radians = degreesToRadians(degrees);
-  objects3D.forEach((object) => {
-    const diff = radians - object.rotation[axis];
-    if (diff > 0.01) {
-      object.rotation[axis] += diff / 16;
-    }
-
-    // if (object.rotation[axis] < radians / 4) {
-    //   object.rotation[axis] += 0.6;
-    // } else if (object.rotation[axis] < radians / 3.5) {
-    //   object.rotation[axis] += 0.5;
-    // } else if (object.rotation[axis] < radians / 2.5) {
-    //   object.rotation[axis] += 0.4;
-    // } else if (object.rotation[axis] < radians / 2) {
-    //   object.rotation[axis] += 0.4;
-    // } else if (object.rotation[axis] < radians / 1.4) {
-    //   object.rotation[axis] += 0.3;
-    // } else if (object.rotation[axis] < radians) {
-    //   object.rotation[axis] += 0.1;
-    // }
-  });
-}

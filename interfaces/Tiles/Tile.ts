@@ -58,7 +58,7 @@ export interface TileType {
 
 export interface TilePosition {
   borderTiles: number[];
-  position: {
+  cords: {
     left: number;
     top: number;
   };

@@ -7,6 +7,9 @@ import { IActionSlotsRenderData } from "../../../../interfaces/ActionSlots";
 import { NextActionButton } from "./NextActionButton/NextActionButton";
 import { Action } from "../../../../interfaces/Action";
 import { RollDiceWindow } from "../RollDiceWindow/RollDiceWindow";
+import { useState } from "react";
+import { ActionRollDiceInfo } from "../../../../interfaces/RollDice/RollDice";
+import { IResolvableItemRenderData } from "../../../../interfaces/ActionService/IResolvableItem";
 
 type Props = {
   actionService: IActionServiceRenderData;
@@ -17,20 +20,22 @@ type Props = {
 };
 export const ActionResolveWindow = (props: Props) => {
   let containerRef = React.createRef<HTMLDivElement>();
-  console.log(props.actionService);
 
-  // useEffect(() => {
-  //   let mouseDownHandle = getMouseDownHandle(containerRef);
-  //   containerRef.current?.addEventListener("mousedown", mouseDownHandle);
-  //
-  //   return () => {
-  //     containerRef.current?.removeEventListener("mousedown", mouseDownHandle);
-  //   };
-  // });
+  const [resolved, setResolved] = useState<Map<string, boolean>>(new Map());
+  const [rollDiceDone, setRollDiceDone] = useState(true);
+
+  const lastItem = props.actionService.lastResolvedItem;
+
+  function resolve(item: IResolvableItemRenderData) {
+    props.resolveItem(item.action, item.droppableId);
+  }
 
   return (
     <div className={styles.container} ref={containerRef}>
-      <RollDiceWindow />
+      <RollDiceWindow
+        item={props.actionService.lastResolvedItem}
+        setResolved={setResolved}
+      />
       <div className={styles.header}>
         <div className={styles.actionIcon}>
           <Image src={"/interface/phase/action.png"} layout={"fill"} />
@@ -51,7 +56,8 @@ export const ActionResolveWindow = (props: Props) => {
       <ResolveItems
         actionService={props.actionService}
         actionSlots={props.actionSlots}
-        resolveItem={props.resolveItem}
+        resolve={resolve}
+        resolved={resolved}
       />
       {props.actionService.currentResolve.finished && (
         <NextActionButton

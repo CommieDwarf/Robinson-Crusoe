@@ -18,7 +18,7 @@ export abstract class ResolvableActionService
     implements IResolvableActionService {
   protected _eventToken = false;
   protected _reRollToken = false;
-  protected _additionalPawnRequired = false;
+  private _helperAmountRequired = 0;
   protected _items: IResolvableItem[] = [];
   protected declare _action: Action;
   protected _game: IGame;
@@ -37,6 +37,14 @@ export abstract class ResolvableActionService
   }
 
   //------------------------------------------
+
+  get helperAmountRequired(): number {
+    return this._helperAmountRequired;
+  }
+
+  set helperAmountRequired(value: number) {
+    this._helperAmountRequired = value;
+  }
 
   get items(): IResolvableItem[] {
     return this._items;
@@ -62,14 +70,6 @@ export abstract class ResolvableActionService
     this._reRollToken = value;
   }
 
-  get additionalPawnRequired(): boolean {
-    return this._additionalPawnRequired;
-  }
-
-  set additionalPawnRequired(value: boolean) {
-    this._additionalPawnRequired = value;
-  }
-
   // -----------------------------------------
 
   getItem(droppableId: string) {
@@ -86,8 +86,9 @@ export abstract class ResolvableActionService
     );
   }
 
+
   resolveItem(droppableId: string) {
-    throw new Error("resolveItem not implemented");
+
   }
 
   public updateItems() {
@@ -111,7 +112,8 @@ export abstract class ResolvableActionService
                 value,
                 getItemFromDroppableId(key, this._game),
                 additionalInfo,
-                this._action
+                this._action,
+                this._game
             )
         );
       }

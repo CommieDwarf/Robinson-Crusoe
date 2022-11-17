@@ -1,4 +1,4 @@
-import { TileStructure } from "../interfaces/Tiles/Tile";
+import { TilePosition } from "../interfaces/Tiles/Tile";
 
 const mapStructure = [
   [
@@ -29,14 +29,14 @@ const mapStructure = [
 ];
 
 function getTilePositions(topStart: number, leftStart: number) {
-  const tileStructures: TileStructure[] = [];
+  const tileStructures: TilePosition[] = [];
   let top = topStart;
   let nextRowStartLeft = leftStart;
   for (let row of mapStructure) {
     let left = nextRowStartLeft;
     for (let hex of row) {
       if (hex) {
-        tileStructures.push({ ...hex, position: { left, top } });
+        tileStructures.push({ ...hex, cords: { left, top } });
       }
       left += 16;
     }

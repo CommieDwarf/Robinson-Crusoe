@@ -16,12 +16,12 @@ export type WeatherCubeSide =
   | "blank";
 
 export type WeatherType = "snow" | "rain" | "animals";
-export type ActionType = "gather" | "explore" | "build";
+export type DiceActionType = "gather" | "explore" | "build";
 export type WeatherDice = "animals" | "snow" | "rain";
 export type ActionDice = "success" | "mystery" | "hurt";
 
 export interface RollDiceResult {
-  result: number;
+  result: ActionCubeSide;
   axes: {
     x: number;
     y: number;
@@ -30,7 +30,7 @@ export interface RollDiceResult {
 }
 
 export interface ActionRollDiceInfo {
-  type: ActionType;
+  type: DiceActionType;
   results: {
     hurt: RollDiceResult;
     success: RollDiceResult;

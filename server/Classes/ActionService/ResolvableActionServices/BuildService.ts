@@ -14,9 +14,18 @@ export class BuildService extends ResolvableActionService {
   }
 
   resolveItem(droppableId: string) {
+    this._game.actionService.lastResolvedItem = this.getItem(droppableId);
     const item = this.getItem(droppableId);
-    let arrDroppable = item.droppableId.split("-");
+    if (item.helpers < this.helperAmountRequired + 1) {
+      // TODO: implement reRoll option
+      item.rollAllDices("build");
+      item.applyRollDiceEffects();
+      if (item.status === RESOLVE_ITEM_STATUS.FAILURE) {
+        return;
+      }
+    }
 
+    let arrDroppable = item.droppableId.split("-");
     if (arrDroppable[0].includes("invention")) {
       this.buildInvention(
         arrDroppable[1] as InventionName,
@@ -25,7 +34,6 @@ export class BuildService extends ResolvableActionService {
     } else {
       this.buildStruct(arrDroppable[1] as StructureName, item.leader.character);
     }
-    item.status = RESOLVE_ITEM_STATUS.SUCCESS;
     this.updateFinished();
   }
 

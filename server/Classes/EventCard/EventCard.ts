@@ -15,7 +15,7 @@ export class EventCard implements IEventCard {
 
   private readonly _id: number;
   private readonly _name: keyof typeof EVENT_CARD_PL;
-  private readonly _namePL: EVENT_CARD_PL = EVENT_CARD_PL[this.name];
+  private readonly _namePL: EVENT_CARD_PL;
   private readonly _type: EVENT_TYPE;
   private _pawnsAssigned = 0;
   private readonly _requirements: Requirements;
@@ -34,6 +34,7 @@ export class EventCard implements IEventCard {
     fullFill: (this: EventCard, leader: ICharacter, helper: boolean) => void
   ) {
     this._name = name;
+    this._namePL = EVENT_CARD_PL[name];
     this._id = id;
     this._type = type;
     this._requirements = requirements;

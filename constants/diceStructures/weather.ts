@@ -1,4 +1,4 @@
-import { WeatherCubeSide } from "../../../../../interfaces/RollDice/RollDice";
+import { WeatherCubeSide } from "../../interfaces/RollDice/RollDice";
 
 const snow: WeatherCubeSide[] = [
   "snow",

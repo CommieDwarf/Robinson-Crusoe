@@ -5,11 +5,19 @@ import { IBeast, IBeastRenderData } from "../Beasts/Beast";
 import { IInvention, IInventionRenderData } from "../Inventions/Invention";
 import { IStructure, IStructureRenderData } from "../Structures/Structure";
 import { ITile, ITileRenderData } from "../Tiles/Tile";
-import {
-  IRestArrange,
-  IRestArrangeRenderData,
-} from "../ArrangeCampService/ArrangeCampService";
+
 import { RESOLVE_ITEM_STATUS } from "./IActionResolvableService";
+import {
+  IArrangeCampRestService,
+  IArrangeCampRestServiceRenderData,
+} from "../RestArrangeCampService/ArrangeCampRestService";
+import {
+  ActionDice,
+  ActionRollDiceInfo,
+  DiceActionType,
+  RollDiceResult,
+} from "../RollDice/RollDice";
+import { RollDiceService } from "../../server/Classes/RollDiceService/RollDiceService";
 
 export interface IResolvableItem {
   droppableId: string;
@@ -20,6 +28,10 @@ export interface IResolvableItem {
   helpers: number;
   incrementHelpers: () => void;
   renderData: IResolvableItemRenderData;
+  diceRoll: ActionRollDiceInfo | null;
+  rollAllDices: (action: DiceActionType) => void;
+  reRoll: (action: DiceActionType, dice: ActionDice) => void;
+  applyRollDiceEffects: () => void;
 }
 
 export type IResolvableItemContentRenderData =
@@ -28,7 +40,7 @@ export type IResolvableItemContentRenderData =
   | IInventionRenderData
   | IStructureRenderData
   | ITileRenderData
-  | IRestArrangeRenderData;
+  | IArrangeCampRestServiceRenderData;
 
 export interface IResolvableItemRenderData {
   droppableId: string;
@@ -37,6 +49,7 @@ export interface IResolvableItemRenderData {
   additionalInfo: IResolvableItemAdditionalInfo;
   status: RESOLVE_ITEM_STATUS;
   leader: IPawnRenderData;
+  diceRoll: ActionRollDiceInfo | null;
 }
 
 export type IResolvableItemContent =
@@ -45,7 +58,7 @@ export type IResolvableItemContent =
   | IInvention
   | IStructure
   | ITile
-  | IRestArrange;
+  | IArrangeCampRestService;
 
 export interface IResolvableItemAdditionalInfo {
   resource?: "left" | "right";

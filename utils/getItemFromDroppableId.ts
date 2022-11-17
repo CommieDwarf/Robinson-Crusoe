@@ -22,9 +22,9 @@ export function getItemFromDroppableId(droppableId: string, game: IGame) {
     let id = droppableId.split("-")[1];
     return game.tilesService.findTile(parseInt(id));
   } else if (droppableId.includes("rest")) {
-    return new RestArrange("rest");
+    return game.arrangeCampRestService;
   } else if (droppableId.includes("arrangeCamp")) {
-    return new RestArrange("arrangeCamp");
+    return game.arrangeCampRestService;
   }
 
   throw new Error("Can't find item from droppableId: " + droppableId);

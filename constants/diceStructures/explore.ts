@@ -1,4 +1,4 @@
-import { ActionCubeSide } from "../../../../../interfaces/RollDice/RollDice";
+import { ActionCubeSide } from "../../interfaces/RollDice/RollDice";
 
 const hurt: ActionCubeSide[] = [
   "hurt",

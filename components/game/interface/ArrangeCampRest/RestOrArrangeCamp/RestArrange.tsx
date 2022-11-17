@@ -6,17 +6,17 @@ import scrollbarStyles from "./Scrollbar.module.css";
 import ActionSlot from "../../ActionSlot";
 import { IPawnRenderData } from "../../../../../interfaces/Pawns/Pawn";
 import { ACTION_PL } from "../../../../../interfaces/TRANSLATE_PL/CATEGORIES/ACTION_PL";
-import { IArrangeCampRestServiceRenderData } from "../../../../../interfaces/RestArrangeCampService/ArrangeCampRestService";
 
 interface Props {
-  arrangeCampRestService: IArrangeCampRestServiceRenderData;
+  pawnAmount: number;
+  type: "rest" | "arrangeCamp";
   actionSlots: Map<string, IPawnRenderData | null>;
 }
 
 export default function RestArrange(props: Props) {
   let rewardLabel;
 
-  if (props.activity.type === "arrangeCamp") {
+  if (props.type === "arrangeCamp") {
     rewardLabel = (
       <div className={styles.activityReward}>
         <div className={styles.determinationReward}>
@@ -55,13 +55,12 @@ export default function RestArrange(props: Props) {
     );
   }
 
-  const slotsQuantity =
-    props.activity.pawnAmount == 0 ? 2 : props.activity.pawnAmount + 1;
+  const slotsQuantity = props.pawnAmount == 0 ? 2 : props.pawnAmount + 1;
 
   const actionSlots = [];
 
   for (let i = 1; i <= slotsQuantity; i++) {
-    const id = props.activity.type + "-" + (i - 1) + "-leader-0";
+    const id = props.type + "-" + (i - 1) + "-leader-0";
     id;
     let pawn = props.actionSlots.get(id);
     pawn = pawn ? pawn : null;
@@ -69,8 +68,8 @@ export default function RestArrange(props: Props) {
       <ActionSlot
         type="leader"
         pawn={pawn}
-        action={props.activity.type}
-        context={props.activity.type}
+        action={props.type}
+        context={props.type}
         id={id}
         key={id}
       />
@@ -78,10 +77,8 @@ export default function RestArrange(props: Props) {
   }
 
   return (
-    <div className={styles[props.activity.type] + " " + styles.activity}>
-      <div className={styles.activityName}>
-        {ACTION_PL[props.activity.type]}
-      </div>
+    <div className={styles[props.type] + " " + styles.activity}>
+      <div className={styles.activityName}>{ACTION_PL[props.type]}</div>
       {rewardLabel}
       <Scrollbar styleModule={scrollbarStyles}>
         <div className={styles.actionSlots}>{actionSlots}</div>

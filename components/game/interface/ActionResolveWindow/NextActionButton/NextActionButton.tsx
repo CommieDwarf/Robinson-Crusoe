@@ -3,7 +3,7 @@ import * as React from "react";
 import { Action } from "../../../../../interfaces/Action";
 import styles from "./NextActionButton.module.css";
 import Image from "next/image";
-import { actionOrder } from "../../actionsOrder/ActionsOrder";
+import { actionOrder } from "../../../../../constants/actionOrder";
 
 type Props = {
   currentAction: Action;

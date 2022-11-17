@@ -6,7 +6,7 @@ export interface IResolvableActionService {
   action: Action;
   eventToken: boolean;
   reRollToken: boolean;
-  additionalPawnRequired: boolean;
+  helperAmountRequired: number;
   items: IResolvableItem[];
   finished: boolean;
   renderData: IResolvableActionServiceRenderData;

@@ -13,12 +13,14 @@ import { IBeastRenderData } from "../../../../../../interfaces/Beasts/Beast";
 import { IResolvableItemRenderData } from "../../../../../../interfaces/ActionService/IResolvableItem";
 import { Action } from "../../../../../../interfaces/Action";
 import { ITEM_STATUS_PL } from "../../../../../../interfaces/TRANSLATE_PL/CATEGORIES/ITEM_STATUS_PL";
+import { ActionRollDiceInfo } from "../../../../../../interfaces/RollDice/RollDice";
 
 type Props = {
   status: RESOLVE_ITEM_STATUS;
   item: IResolvableItemRenderData;
   actionSlots: IActionSlotsRenderData;
-  resolveItem: (action: Action, droppableId: string) => void;
+  resolve: (item: IResolvableItemRenderData) => void;
+  resolved: boolean | undefined;
 };
 export const Item = (props: Props) => {
   let image;
@@ -147,7 +149,7 @@ export const Item = (props: Props) => {
 
   function handleClick() {
     if (props.status === RESOLVE_ITEM_STATUS.PENDING) {
-      props.resolveItem(props.item.action, props.item.droppableId);
+      props.resolve(props.item);
     }
   }
 
@@ -164,9 +166,11 @@ export const Item = (props: Props) => {
         {extraInfoDiv}
       </div>
 
-      <div className={styles.status + " " + styles[itemType + "Status"]}>
-        {ITEM_STATUS_PL[props.status]}
-      </div>
+      {props.resolved !== undefined && (
+        <div className={styles.status + " " + styles[itemType + "Status"]}>
+          {ITEM_STATUS_PL[props.status]}
+        </div>
+      )}
       <div
         className={`${styles.resolveButton} ${lockedButtonClass}`}
         onClick={handleClick}

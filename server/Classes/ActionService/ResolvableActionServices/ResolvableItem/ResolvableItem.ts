@@ -1,12 +1,19 @@
-import {RESOLVE_ITEM_STATUS} from "../../../../../interfaces/ActionService/IActionResolvableService";
-import {IPawn} from "../../../../../interfaces/Pawns/Pawn";
-import {Action} from "../../../../../interfaces/Action";
+import { RESOLVE_ITEM_STATUS } from "../../../../../interfaces/ActionService/IActionResolvableService";
+import { IPawn } from "../../../../../interfaces/Pawns/Pawn";
+import { Action } from "../../../../../interfaces/Action";
 import {
   IResolvableItem,
   IResolvableItemAdditionalInfo,
   IResolvableItemContent,
   IResolvableItemRenderData,
 } from "../../../../../interfaces/ActionService/IResolvableItem";
+import { RollDiceService } from "../../../RollDiceService/RollDiceService";
+import {
+  ActionDice,
+  ActionRollDiceInfo,
+  DiceActionType,
+} from "../../../../../interfaces/RollDice/RollDice";
+import { IGame } from "../../../../../interfaces/Game";
 
 export class ResolvableItem implements IResolvableItem {
   get action(): Action {
@@ -28,19 +35,23 @@ export class ResolvableItem implements IResolvableItem {
   private readonly _content;
   private readonly _additionalInfo;
   private readonly _action;
+  public diceRoll: null | ActionRollDiceInfo = null;
+  private _game: IGame;
 
   constructor(
-      droppableId: string,
-      leader: IPawn,
-      content: IResolvableItemContent,
-      additionalInfo: IResolvableItemAdditionalInfo,
-      action: Action
+    droppableId: string,
+    leader: IPawn,
+    content: IResolvableItemContent,
+    additionalInfo: IResolvableItemAdditionalInfo,
+    action: Action,
+    game: IGame
   ) {
     this._droppableId = droppableId;
     this._leader = leader;
     this._content = content;
     this._additionalInfo = additionalInfo;
     this._action = action;
+    this._game = game;
   }
 
   get renderData(): IResolvableItemRenderData {
@@ -51,6 +62,7 @@ export class ResolvableItem implements IResolvableItem {
       content: this._content.renderData,
       additionalInfo: this._additionalInfo,
       action: this._action,
+      diceRoll: this.diceRoll,
     };
   }
 
@@ -78,11 +90,48 @@ export class ResolvableItem implements IResolvableItem {
     return this._status;
   }
 
+  rollAllDices(action: DiceActionType) {
+    this.diceRoll = {
+      type: action,
+      results: {
+        hurt: RollDiceService.getRollDiceResult(action, "hurt"),
+        mystery: RollDiceService.getRollDiceResult(action, "mystery"),
+        success: RollDiceService.getRollDiceResult(action, "success"),
+      },
+    };
+  }
+
+  reRoll(action: DiceActionType, dice: ActionDice) {
+    const diceRoll = this.diceRoll;
+    if (!diceRoll) {
+      throw new Error("Can't re-roll dice that hasn't been rolled");
+    }
+    diceRoll.results[dice] = RollDiceService.getRollDiceResult(action, dice);
+  }
+
+  public applyRollDiceEffects() {
+    const characterService = this._game.characterService;
+    if (this.diceRoll?.results.hurt?.result === "hurt") {
+      characterService.hurt(this.leader.character, 1, "Rzut kością");
+    }
+    if (this.diceRoll?.results.mystery?.result === "mystery") {
+      // TODO: Implement setting a proper question mark.
+    }
+    if (this.diceRoll?.results.success?.result === "determination") {
+      characterService.incrDetermination(
+        this.leader.character,
+        2,
+        "Rzut kością"
+      );
+      this.status = RESOLVE_ITEM_STATUS.FAILURE;
+    } else {
+      this.status = RESOLVE_ITEM_STATUS.SUCCESS;
+    }
+  }
+
   incrementHelpers() {
     this._helpers++;
   }
 
-  resolveItem(droppableId: string) {
-  }
-
+  resolveItem(droppableId: string) {}
 }

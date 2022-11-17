@@ -1,21 +1,24 @@
-export class AdditionalActivity implements IAdditionalActivity {
-  type: "arrangeCamp" | "rest";
-  pawnAmount: number;
+import { IArrangeCampRestService } from "../../../interfaces/RestArrangeCampService/ArrangeCampRestService";
 
-  constructor(type: "arrangeCamp" | "rest") {
-    this.type = type;
-    this.pawnAmount = 0;
+export class ArrangeCampRestService implements IArrangeCampRestService {
+  get arrangeCampBonus(): "determination" | "morale" | null {
+    return this._arrangeCampBonus;
   }
 
-  incrementPawns() {
-    this.pawnAmount++;
+  get pawnAmount(): { rest: number; arrangeCamp: number } {
+    return this._pawnAmount;
   }
 
-  decrementPawns() {
-    this.pawnAmount--;
-  }
+  private _arrangeCampBonus: "determination" | "morale" | null = null;
+  private _pawnAmount = {
+    rest: 0,
+    arrangeCamp: 0,
+  };
 
-  resetPawns() {
-    this.pawnAmount = 0;
+  get renderData() {
+    return {
+      arrangeCampBonus: this._arrangeCampBonus,
+      pawnAmount: this._pawnAmount,
+    };
   }
 }

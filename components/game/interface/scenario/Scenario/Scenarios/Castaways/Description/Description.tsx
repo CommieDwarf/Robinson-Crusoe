@@ -10,17 +10,12 @@ import Entries from "../../../../../../../../interfaces/Entries";
 
 type Props = {};
 
-export enum BUTTON_PL {
-  mechanics = "Budowa stosu",
-  description = "opis",
-  objective = "cel",
-}
-
 export const Description = (props: Props) => {
   const [extended, setExtended] = useState(false);
-  const [currentInfo, setCurrentInfo] = useState<
-    (keyof typeof BUTTON_PL | string)[]
-  >(["description", castaways.text.description]);
+  const [currentInfo, setCurrentInfo] = useState([
+    "description",
+    castaways.text.description,
+  ]);
   const [selectedButton, setSelectedButton] = useState("");
 
   function handleButtonClick(info: string[]) {
@@ -43,7 +38,7 @@ export const Description = (props: Props) => {
   textEntries.forEach(([key, value], i) => {
     buttons.push(
       <Button
-        buttonText={BUTTON_PL[key]}
+        buttonText={key}
         selected={currentInfo[0] === key && extended}
         text={value}
         buttonClick={handleButtonClick}

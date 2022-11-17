@@ -6,7 +6,6 @@ import { ResourceService } from "./ResourceService/ResourceService";
 import { StructuresService } from "./Structures/Structures";
 import { InventionsService } from "./Inventions/InventionsService";
 import { Equipment } from "./Equipment/Equipment";
-import { AdditionalActivity } from "./AdditionalActivity/AdditionalActivity";
 import { Beasts } from "./Beasts/Beasts";
 import { PlayerCharacter } from "./CharacterService/Character/PlayerCharacter/PlayerCharacter";
 import { IGame, IGameRenderData } from "../../interfaces/Game";
@@ -37,10 +36,16 @@ import { ChatLog } from "./ChatLog/ChatLog";
 import { IChatLog } from "../../interfaces/ChatLog/ChatLog";
 import { IAlertService } from "../../interfaces/AlertService/AlertService";
 import { AlertService } from "./AlertService/AlertService";
+import { ArrangeCampRestService } from "./ArrangeCampRestService/ArrangeCampRestService";
+import { IArrangeCampRestService } from "../../interfaces/RestArrangeCampService/ArrangeCampRestService";
 
 type ScenarioName = "castaways";
 
 export class GameClass implements IGame {
+  get arrangeCampRestService(): ArrangeCampRestService {
+    return this._arrangeCampRestService;
+  }
+
   private _chatLog: IChatLog = new ChatLog(this);
   private _actionService: ActionService = new ActionService(this);
   private readonly _playerService: IPlayerService;
@@ -59,8 +64,7 @@ export class GameClass implements IGame {
 
   private readonly _characterService: ICharacterService;
   private _equipment: IEquipment = new Equipment(this);
-  private _rest = new AdditionalActivity("rest");
-  private _arrangeCamp = new AdditionalActivity("arrangeCamp");
+  private _arrangeCampRestService = new ArrangeCampRestService();
   private _beasts: IBeasts = new Beasts(this, this._allResources.owned);
   private _actionSlotsService = new ActionSlotsService(
     this._structuresService,
@@ -107,13 +111,12 @@ export class GameClass implements IGame {
       characterService: this._characterService.renderData,
       allPawns: this.allPawns.map((pawn) => pawn.renderData),
       allResources: this.allResources.renderData,
-      arrangeCamp: this.arrangeCamp,
+      arrangeCampRestService: this._arrangeCampRestService.renderData,
       beasts: this.beasts.renderData,
       equipment: this.equipment.renderData,
       inventionsService: this.inventionsService.renderData,
       localPlayer: this.localPlayer.renderData,
       players: this._playerService.renderData,
-      rest: this.rest,
       structuresService: this.structuresService.renderData,
       threat: this.threat.renderData,
       tilesService: this.tilesService.renderData,
@@ -190,14 +193,6 @@ export class GameClass implements IGame {
     return this._equipment;
   }
 
-  get rest(): AdditionalActivity {
-    return this._rest;
-  }
-
-  get arrangeCamp(): AdditionalActivity {
-    return this._arrangeCamp;
-  }
-
   get beasts(): IBeasts {
     return this._beasts;
   }
@@ -216,7 +211,6 @@ export class GameClass implements IGame {
       throw new Error("cant find pawn with id: " + draggableId);
     }
     if (!this.canPawnBeSettled(pawn, droppableId)) {
-      console.log("return");
       return;
     }
 
@@ -226,9 +220,9 @@ export class GameClass implements IGame {
       this._actionSlotsService.setPawn(droppableId, pawn);
     }
     if (droppableId.includes("rest")) {
-      this._rest.incrementPawns();
+      this._arrangeCampRestService.pawnAmount.rest++;
     } else if (droppableId.includes("arrangeCamp")) {
-      this._arrangeCamp.incrementPawns();
+      this._arrangeCampRestService.pawnAmount.arrangeCamp++;
     }
   }
 
@@ -241,46 +235,21 @@ export class GameClass implements IGame {
       this._actionSlotsService.unsetPawn(destinationId);
     }
     if (destinationId.includes("rest")) {
-      this._rest.decrementPawns();
+      this._arrangeCampRestService.pawnAmount.rest--;
     } else if (destinationId.includes("arrangeCamp")) {
-      this._arrangeCamp.decrementPawns();
+      this._arrangeCampRestService.pawnAmount.arrangeCamp--;
     }
   }
 
   resetPawns() {
     this.characterService.resetPawns();
     this.actionSlotsService.clearSlots();
+    this._arrangeCampRestService.pawnAmount.rest = 0;
+    this._arrangeCampRestService.pawnAmount.arrangeCamp = 0;
   }
 
   setNextTurn() {
     this._turn++;
-  }
-
-  getPawnFromActionSlot(droppableId: string) {
-    return this._actionSlotsService.getPawn(droppableId);
-  }
-
-  getPawnFromCharacter(draggableId: string) {
-    let searched;
-    this.characterService.allCharacters.forEach((char) => {
-      let pawn = char.pawnService.freePawns.find(
-        (p) => p.draggableId === draggableId
-      );
-      if (pawn) {
-        searched = pawn;
-      }
-    });
-    return searched;
-  }
-
-  getCharacterById(id: number): ICharacter {
-    const char = this.characterService.allCharacters.find(
-      (char) => char.id === id
-    );
-    if (!char) {
-      throw new Error("Can't find character with id: " + id);
-    }
-    return char;
   }
 
   canPawnBeSettled(pawn: null | IPawn, destinationId: string): boolean {

@@ -8,7 +8,6 @@ export function getWreckageCard(game: IGame, threat: IThreat): IEventCard {
   // TODO: implement more wreckage cards and return random
   return new EventCard(
     "supplyCrates",
-
     1,
     EVENT_TYPE.wreckage,
     {
