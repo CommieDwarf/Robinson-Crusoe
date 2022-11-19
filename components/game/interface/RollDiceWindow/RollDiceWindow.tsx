@@ -1,8 +1,7 @@
 import * as React from "react";
 import styles from "./RollDiceWindow.module.css";
-import { AnimationWindow } from "./AnimationWindow";
 import { IResolvableItemRenderData } from "../../../../interfaces/ActionService/IResolvableItem";
-import { Animation } from "./Animation";
+import { AnimationWindow } from "./AnimationWindow";
 
 type Props = {
   item: IResolvableItemRenderData;
@@ -11,7 +10,9 @@ type Props = {
 export const RollDiceWindow = (props: Props) => {
   return (
     <div className={styles.container}>
-      <Animation />
+      {props.item && (
+        <AnimationWindow item={props.item} setResolved={props.setResolved} />
+      )}
     </div>
   );
 };

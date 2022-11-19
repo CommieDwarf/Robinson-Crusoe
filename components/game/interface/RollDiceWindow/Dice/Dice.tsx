@@ -17,8 +17,10 @@ export function Dice(props: Props) {
     "/interface/dice/action/explore/success.png"
   );
 
+  const ref = useRef();
+
   return (
-    <mesh {...props}>
+    <mesh {...props} ref={ref}>
       <RoundedBox args={[2, 2, 2]} radius={0.5}>
         <meshStandardMaterial map={texture} attach="material-0" />
         <meshPhysicalMaterial map={texture} attach="material-1" />

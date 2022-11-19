@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as THREE from "three";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styles from "./AnimationWindow.module.css";
 
 import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeometry";
@@ -24,7 +24,7 @@ import {
   DiceActionType,
 } from "../../../../interfaces/RollDice/RollDice";
 import { IResolvableItemRenderData } from "../../../../interfaces/ActionService/IResolvableItem";
-import { requestAnimationFrame } from "dom-helpers";
+import { cancelAnimationFrame, requestAnimationFrame } from "dom-helpers";
 
 type Props = {
   item: IResolvableItemRenderData;
@@ -36,8 +36,13 @@ const weatherTypes = ["rain", "snow", "animals"];
 
 export const AnimationWindow = (props: Props) => {
   const containerRef = React.createRef<HTMLDivElement>();
-  const item = props.item;
 
+  const [renderer, setRenderer] = useState(
+    new THREE.WebGLRenderer({
+      antialias: true,
+      alpha: true,
+    })
+  );
   useEffect(() => {
     const { current } = containerRef;
     if (!current) {
@@ -53,11 +58,6 @@ export const AnimationWindow = (props: Props) => {
     camera.position.x = 0;
     camera.position.y = 0;
 
-    const renderer = new THREE.WebGLRenderer({
-      antialias: true,
-      alpha: true,
-    });
-
     const scene = new THREE.Scene();
     const cubeSize = 2;
     const cubeTranslateX = 2.5;
@@ -68,10 +68,7 @@ export const AnimationWindow = (props: Props) => {
     const dices = new Map<string, Object3D>();
 
     if (props.item?.diceRoll) {
-      dices.set(
-        "hurt",
-        getCube(props.item.diceRoll.type, "hurt", -cubeTranslateX, cubeSize)
-      );
+      dices.set("hurt", getCube("explore", "hurt", -cubeTranslateX, cubeSize));
 
       dices.set(
         "mystery",
@@ -82,6 +79,8 @@ export const AnimationWindow = (props: Props) => {
         getCube(props.item.diceRoll.type, "success", cubeTranslateX, cubeSize)
       );
     }
+
+    console.log(dices);
 
     const backgroundGeometry = new THREE.BoxGeometry(19, 11, 1);
     const backgroundTexture = new THREE.TextureLoader().load(
@@ -132,7 +131,7 @@ export const AnimationWindow = (props: Props) => {
       z: false,
     };
 
-    requestAnimationFrame(animation);
+    const animationId = requestAnimationFrame(animation);
 
     function rotateMesh(
       objects3D: Object3D[],
@@ -158,45 +157,45 @@ export const AnimationWindow = (props: Props) => {
     }
 
     function animation() {
-      if (props.item?.diceRoll) {
-        Object.entries(props.item.diceRoll.results.hurt.axes).forEach(
-          ([axis, degrees]) => {
-            const hurtDice = dices.get("hurt");
-            if (hurtDice) {
-              rotateMesh(
-                [hurtDice],
-                axis as unknown as "y" | "x" | "z",
-                degrees
-              );
-            }
-          }
-        );
-        Object.entries(props.item.diceRoll.results.mystery.axes).forEach(
-          ([axis, degrees]) => {
-            const mysteryDice = dices.get("mystery");
-            if (mysteryDice) {
-              rotateMesh(
-                [mysteryDice],
-                axis as unknown as "y" | "x" | "z",
-                degrees
-              );
-            }
-          }
-        );
-
-        Object.entries(props.item.diceRoll.results.success.axes).forEach(
-          ([axis, degrees]) => {
-            const successDice = dices.get("success");
-            if (successDice) {
-              rotateMesh(
-                [successDice],
-                axis as unknown as "y" | "x" | "z",
-                degrees
-              );
-            }
-          }
-        );
-      }
+      // if (props.item?.diceRoll) {
+      //   Object.entries(props.item.diceRoll.results.hurt.axes).forEach(
+      //       ([axis, degrees]) => {
+      //         const hurtDice = dices.get("hurt");
+      //         if (hurtDice) {
+      //           rotateMesh(
+      //               [hurtDice],
+      //               axis as unknown as "y" | "x" | "z",
+      //               degrees
+      //           );
+      //         }
+      //       }
+      //   );
+      //   Object.entries(props.item.diceRoll.results.mystery.axes).forEach(
+      //       ([axis, degrees]) => {
+      //         const mysteryDice = dices.get("mystery");
+      //         if (mysteryDice) {
+      //           rotateMesh(
+      //               [mysteryDice],
+      //               axis as unknown as "y" | "x" | "z",
+      //               degrees
+      //           );
+      //         }
+      //       }
+      //   );
+      //
+      //   Object.entries(props.item.diceRoll.results.success.axes).forEach(
+      //       ([axis, degrees]) => {
+      //         const successDice = dices.get("success");
+      //         if (successDice) {
+      //           rotateMesh(
+      //               [successDice],
+      //               axis as unknown as "y" | "x" | "z",
+      //               degrees
+      //           );
+      //         }
+      //       }
+      //   );
+      // }
       renderer.render(scene, camera);
     }
 
@@ -205,8 +204,9 @@ export const AnimationWindow = (props: Props) => {
     return () => {
       scene.children = [];
       current.removeChild(renderer.domElement);
+      // cancelAnimationFrame(animationId);
     };
-  });
+  }, [renderer]);
 
   function getCube(
     type: DiceActionType,
