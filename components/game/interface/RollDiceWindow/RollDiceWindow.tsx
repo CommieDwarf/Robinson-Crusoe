@@ -4,14 +4,19 @@ import { IResolvableItemRenderData } from "../../../../interfaces/ActionService/
 import { AnimationWindow } from "./AnimationWindow";
 
 type Props = {
-  item: IResolvableItemRenderData;
+  item: IResolvableItemRenderData | null;
   setResolved: React.Dispatch<React.SetStateAction<Map<string, boolean>>>;
+  resolved: Map<string, boolean>;
 };
 export const RollDiceWindow = (props: Props) => {
   return (
     <div className={styles.container}>
       {props.item && (
-        <AnimationWindow item={props.item} setResolved={props.setResolved} />
+        <AnimationWindow
+          item={props.item}
+          setResolved={props.setResolved}
+          resolved={props.resolved}
+        />
       )}
     </div>
   );

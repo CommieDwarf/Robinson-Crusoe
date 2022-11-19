@@ -35,6 +35,7 @@ export const ActionResolveWindow = (props: Props) => {
       <RollDiceWindow
         item={props.actionService.lastResolvedItem}
         setResolved={setResolved}
+        resolved={resolved}
       />
       <div className={styles.header}>
         <div className={styles.actionIcon}>
