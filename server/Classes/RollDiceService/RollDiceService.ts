@@ -28,7 +28,7 @@ export class RollDiceService {
     r2: {
       y: 360,
       x: 450,
-      z: 270,
+      z: 360,
     },
     r3: {
       y: 360,
@@ -56,6 +56,11 @@ export class RollDiceService {
       RollDiceService.resultsAxes[
         ("r" + random) as keyof typeof this.resultsAxes
       ];
+    const axisAdder = 360;
+
+    axes.x += axisAdder;
+    axes.y += axisAdder;
+    axes.z += axisAdder;
 
     const result = diceStructures[actionType][dice][random];
     return {
