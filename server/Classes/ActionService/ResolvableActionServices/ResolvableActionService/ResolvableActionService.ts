@@ -17,6 +17,7 @@ import {
   ActionDice,
   DiceActionType,
 } from "../../../../../interfaces/RollDice/RollDice";
+import { MissingPawnError } from "../../../Errors/MissingPawnError";
 
 const diceRollableActions = ["gather", "build", "explore"];
 
@@ -153,6 +154,24 @@ export abstract class ResolvableActionService
         }
       }
     });
+
+    if (this.helperAmountRequired > 0) {
+      items.forEach((item, key) => {
+        let itemName: string | number = key.split("-")[1];
+        console.log(itemName);
+        let itemType = key.split("-")[0];
+        if (itemType === "tile") {
+          itemName = parseInt(itemName);
+        }
+        if (!item.leader || item.helpers < this.helperAmountRequired) {
+          throw new MissingPawnError(
+            "Action requires more pawns",
+            itemName,
+            itemType
+          );
+        }
+      });
+    }
 
     this._items = Array.from(items, ([key, value]) => value);
     this.finished = this._items.length === 0;

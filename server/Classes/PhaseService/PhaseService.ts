@@ -10,6 +10,8 @@ import {
   TRANSLATE_PL,
 } from "../../../interfaces/TRANSLATE_PL/TRANSLATE_PL";
 import { phaseOrder } from "../../../constants/phaseOrder";
+import { MissingPawnError } from "../Errors/MissingPawnError";
+import capitalizeFirstLetter from "../../../utils/capitalizeFirstLetter";
 
 export class PhaseService implements IPhaseService {
   private _phase: Phase = "event";
@@ -51,6 +53,29 @@ export class PhaseService implements IPhaseService {
     return this._phase;
   }
 
+  handleError(error: MissingPawnError | MissingLeaderError) {
+    let itemName = error.itemName ? error.itemName : "";
+    let itemNamePL;
+    if (error.itemType === "tile") {
+      itemNamePL = " nr. " + itemName;
+    } else if (error.itemType === "hunt") {
+      itemNamePL = "";
+    } else {
+      itemNamePL = " - " + TRANSLATE_PL[itemName as Translatable];
+    }
+
+    const message =
+      error instanceof MissingLeaderError
+        ? "Pomocnicze pionki nie mogą samodzielnie wykonywać akcji."
+        : "Brakuje pionka do wykonania tej akcji";
+
+    this._game.alertService.setAlert(
+      `${capitalizeFirstLetter(
+        TRANSLATE_PL[error.itemType as Translatable]
+      )}${itemNamePL}: ${message}`
+    );
+  }
+
   goNextPhase() {
     try {
       this.phaseEffects[this._phase]();
@@ -59,12 +84,11 @@ export class PhaseService implements IPhaseService {
       this._phase = phaseOrder[this._phaseIndex];
       this._game.alertService.clearAlert();
     } catch (error) {
-      if (error instanceof MissingLeaderError) {
-        this._game.alertService.setAlert(
-          `Pomocnicy nie mogą samodzielnie wykonywać akcji. ${[
-            TRANSLATE_PL[error.itemType as Translatable],
-          ]} - ${TRANSLATE_PL[error.itemName as Translatable]}`
-        );
+      if (
+        error instanceof MissingLeaderError ||
+        error instanceof MissingPawnError
+      ) {
+        this.handleError(error);
       } else {
         throw error;
       }

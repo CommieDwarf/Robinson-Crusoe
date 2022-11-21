@@ -1,13 +1,15 @@
-import { ResolvableActionService } from "./ResolvableActionService/ResolvableActionService";
-import { IGame } from "../../../../interfaces/Game";
-import { Action } from "../../../../interfaces/Action";
-import { RESOLVE_ITEM_STATUS } from "../../../../interfaces/ActionService/IActionResolvableService";
+import {ResolvableActionService} from "./ResolvableActionService/ResolvableActionService";
+import {IGame} from "../../../../interfaces/Game";
+import {Action} from "../../../../interfaces/Action";
+import {RESOLVE_ITEM_STATUS} from "../../../../interfaces/ActionService/IActionResolvableService";
 
 export class HuntStatus extends ResolvableActionService {
   protected _action: Action = "hunt";
 
+
   constructor(game: IGame) {
     super(game);
+    this.helperAmountRequired = 1;
   }
 
   resolveItem(droppableId: string) {

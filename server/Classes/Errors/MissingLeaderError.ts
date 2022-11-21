@@ -1,5 +1,3 @@
-import { TRANSLATE_PL } from "../../../interfaces/TRANSLATE_PL/TRANSLATE_PL";
-
 export class MissingLeaderError extends Error {
   private readonly _itemName: string;
   private readonly _itemType: string;
