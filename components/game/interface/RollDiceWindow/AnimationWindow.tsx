@@ -169,7 +169,6 @@ export const AnimationWindow = (props: Props) => {
         rollDiceFinished.mystery &&
         rollDiceFinished.success
       ) {
-        console.log("finished");
         props.setResolved((old) => {
           const copy = new Map(old);
           copy.set(props.item.droppableId, true);

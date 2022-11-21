@@ -3,19 +3,26 @@ import {
   IResolvableActionServiceRenderData,
   RESOLVE_ITEM_STATUS,
 } from "../../../../../interfaces/ActionService/IActionResolvableService";
-import {Action} from "../../../../../interfaces/Action";
-import {IGame} from "../../../../../interfaces/Game";
-import {ResolvableItem} from "../ResolvableItem/ResolvableItem";
-import {getItemFromDroppableId} from "../../../../../utils/getItemFromDroppableId";
-import {ActionSlotsService} from "../../../ActionSlotsService/ActionSlots";
+import { Action } from "../../../../../interfaces/Action";
+import { IGame } from "../../../../../interfaces/Game";
+import { ResolvableItem } from "../ResolvableItem/ResolvableItem";
+import { getItemFromDroppableId } from "../../../../../utils/getItemFromDroppableId";
+import { ActionSlotsService } from "../../../ActionSlotsService/ActionSlots";
 import {
   IResolvableItem,
   IResolvableItemAdditionalInfo,
 } from "../../../../../interfaces/ActionService/IResolvableItem";
-import {MissingLeaderError} from "../../../Errors/MissingLeaderError";
+import { MissingLeaderError } from "../../../Errors/MissingLeaderError";
+import {
+  ActionDice,
+  DiceActionType,
+} from "../../../../../interfaces/RollDice/RollDice";
+
+const diceRollableActions = ["gather", "build", "explore"];
 
 export abstract class ResolvableActionService
-    implements IResolvableActionService {
+  implements IResolvableActionService
+{
   protected _eventToken = false;
   protected _reRollToken = false;
   private _helperAmountRequired = 0;
@@ -82,18 +89,27 @@ export abstract class ResolvableActionService
 
   protected updateFinished() {
     this.finished = !this._items.some(
-        (item) => item.status === RESOLVE_ITEM_STATUS.PENDING
+      (item) => item.status === RESOLVE_ITEM_STATUS.PENDING
     );
   }
 
-
   resolveItem(droppableId: string) {
-
+    const item = this.getItem(droppableId);
+    this._game.actionService.lastResolvedItem = item;
+    if (
+      item.helpers < this.helperAmountRequired + 1 &&
+      diceRollableActions.includes(this.action)
+    ) {
+      // TODO: implement reRoll option
+      item.rollAllDices(this._action as DiceActionType);
+      item.applyRollDiceEffects();
+    }
+    this.updateFinished();
   }
 
   public updateItems() {
     const slots =
-        this._game.actionSlotsService.slotsOccupiedAndCategorized[this._action];
+      this._game.actionSlotsService.slotsOccupiedAndCategorized[this._action];
 
     const items = new Map<string, IResolvableItem>();
     slots.forEach((value, key) => {
@@ -106,15 +122,15 @@ export abstract class ResolvableActionService
 
       if (key.includes("leader")) {
         items.set(
-            id,
-            new ResolvableItem(
-                key,
-                value,
-                getItemFromDroppableId(key, this._game),
-                additionalInfo,
-                this._action,
-                this._game
-            )
+          id,
+          new ResolvableItem(
+            key,
+            value,
+            getItemFromDroppableId(key, this._game),
+            additionalInfo,
+            this._action,
+            this._game
+          )
         );
       }
     });
@@ -127,9 +143,9 @@ export abstract class ResolvableActionService
         if (!item) {
           if (itemType !== "threat") {
             throw new MissingLeaderError(
-                "Can't find item with assigned helper",
-                itemName,
-                itemType
+              "Can't find item with assigned helper",
+              itemName,
+              itemType
             );
           }
         } else {

@@ -14,6 +14,7 @@ export class ThreatService extends ResolvableActionService {
   }
 
   resolveItem(droppableId: string) {
+    super.resolveItem(droppableId);
     const item = this.getItem(droppableId);
     const threatCard = this._game.threat.getCardSlotByDroppableId(
       item.droppableId

@@ -12,17 +12,13 @@ export class ExploreService extends ResolvableActionService {
   }
 
   resolveItem(droppableId: string) {
+    super.resolveItem(droppableId);
     const item = this.getItem(droppableId);
-    if (item.helpers < this.helperAmountRequired + 1) {
-      item.rollAllDices("explore");
-      this.applyRollDiceEffects(item);
-      if (item.status === RESOLVE_ITEM_STATUS.FAILURE) {
-        return;
-      }
+    if (item.status !== RESOLVE_ITEM_STATUS.FAILURE) {
+      const tileId = TilesService.getTileIdFromDroppableId(item.droppableId);
+      this._game.tilesService.explore(tileId);
+      item.status = RESOLVE_ITEM_STATUS.SUCCESS;
+      this.updateFinished();
     }
-    const tileId = TilesService.getTileIdFromDroppableId(item.droppableId);
-    this._game.tilesService.explore(tileId);
-    item.status = RESOLVE_ITEM_STATUS.SUCCESS;
-    this.updateFinished();
   }
 }

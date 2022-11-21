@@ -15,6 +15,7 @@ export class RestService extends ResolvableActionService {
   }
 
   resolveItem(droppableId: string) {
+    super.resolveItem(droppableId);
     const item = this.getItem(droppableId);
     this._game.characterService.heal(item.leader.character, 1, "Odpoczynek");
     item.status = RESOLVE_ITEM_STATUS.SUCCESS;

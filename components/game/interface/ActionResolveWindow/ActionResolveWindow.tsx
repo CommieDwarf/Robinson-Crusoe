@@ -7,7 +7,7 @@ import { IActionSlotsRenderData } from "../../../../interfaces/ActionSlots";
 import { NextActionButton } from "./NextActionButton/NextActionButton";
 import { Action } from "../../../../interfaces/Action";
 import { RollDiceWindow } from "../RollDiceWindow/RollDiceWindow";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ActionRollDiceInfo } from "../../../../interfaces/RollDice/RollDice";
 import { IResolvableItemRenderData } from "../../../../interfaces/ActionService/IResolvableItem";
 
@@ -24,7 +24,17 @@ export const ActionResolveWindow = (props: Props) => {
   const [resolved, setResolved] = useState<Map<string, boolean>>(new Map());
   const [rollDiceDone, setRollDiceDone] = useState(true);
 
-  const lastItem = props.actionService.lastResolvedItem;
+  useEffect(() => {
+    const item = props.actionService.lastResolvedItem;
+    if (item && !item.diceRoll && !resolved.has(item.droppableId)) {
+      console.log("set resolved");
+      setResolved((old) => {
+        const copy = new Map(old);
+        copy.set(item.droppableId, true);
+        return copy;
+      });
+    }
+  }, [props.actionService.lastResolvedItem]);
 
   function resolve(item: IResolvableItemRenderData) {
     props.resolveItem(item.action, item.droppableId);
@@ -60,13 +70,15 @@ export const ActionResolveWindow = (props: Props) => {
         resolve={resolve}
         resolved={resolved}
       />
-      {props.actionService.currentResolve.finished && (
-        <NextActionButton
-          currentAction={props.actionService.currentResolve.action}
-          setNextAction={props.setNextAction}
-          setNextPhase={props.setNextPhase}
-        />
-      )}
+      {props.actionService.currentResolve.finished &&
+        resolved.size === props.actionService.currentResolve.items.length && (
+          <NextActionButton
+            currentAction={props.actionService.currentResolve.action}
+            setNextAction={props.setNextAction}
+            setNextPhase={props.setNextPhase}
+            setResolved={setResolved}
+          />
+        )}
     </div>
   );
 };

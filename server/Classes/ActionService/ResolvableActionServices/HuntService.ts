@@ -11,6 +11,7 @@ export class HuntStatus extends ResolvableActionService {
   }
 
   resolveItem(droppableId: string) {
+    super.resolveItem(droppableId);
     const item = this.getItem(droppableId);
     const leader = item.leader;
     const helper = this._game.actionSlotsService.getPawn("hunt-helper-1");

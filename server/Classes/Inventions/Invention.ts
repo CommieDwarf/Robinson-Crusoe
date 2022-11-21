@@ -25,7 +25,7 @@ export class Invention implements IInvention {
   private _built = false;
   private _cost: IResources;
   private readonly _character: CharacterName | null;
-  private readonly _namePL = INVENTION_PL[this.name];
+  private readonly _namePL: INVENTION_PL;
 
   constructor(
     name: keyof typeof INVENTION_PL,
@@ -39,6 +39,7 @@ export class Invention implements IInvention {
     character: CharacterName | null
   ) {
     this._name = name;
+    this._namePL = INVENTION_PL[name];
     this._requirement = requirement;
     this._reward = reward;
     this._type = type;

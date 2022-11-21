@@ -1,10 +1,10 @@
-import { ResolvableActionService } from "./ResolvableActionService/ResolvableActionService";
-import { Action } from "../../../../interfaces/Action";
-import { IGame } from "../../../../interfaces/Game";
-import { RESOLVE_ITEM_STATUS } from "../../../../interfaces/ActionService/IActionResolvableService";
-import { InventionName } from "../../../../interfaces/Inventions/Inventions";
-import { StructureName } from "../../../../interfaces/Structures/Structures";
-import { ICharacter } from "../../../../interfaces/Characters/Character";
+import {ResolvableActionService} from "./ResolvableActionService/ResolvableActionService";
+import {Action} from "../../../../interfaces/Action";
+import {IGame} from "../../../../interfaces/Game";
+import {RESOLVE_ITEM_STATUS} from "../../../../interfaces/ActionService/IActionResolvableService";
+import {InventionName} from "../../../../interfaces/Inventions/Inventions";
+import {StructureName} from "../../../../interfaces/Structures/Structures";
+import {ICharacter} from "../../../../interfaces/Characters/Character";
 
 export class BuildService extends ResolvableActionService {
   protected _action: Action = "build";
@@ -14,27 +14,22 @@ export class BuildService extends ResolvableActionService {
   }
 
   resolveItem(droppableId: string) {
-    this._game.actionService.lastResolvedItem = this.getItem(droppableId);
+    super.resolveItem(droppableId);
     const item = this.getItem(droppableId);
-    if (item.helpers < this.helperAmountRequired + 1) {
-      // TODO: implement reRoll option
-      item.rollAllDices("build");
-      item.applyRollDiceEffects();
-      if (item.status === RESOLVE_ITEM_STATUS.FAILURE) {
-        return;
+    if (item.status !== RESOLVE_ITEM_STATUS.FAILURE) {
+      let arrDroppable = item.droppableId.split("-");
+      if (arrDroppable[0].includes("invention")) {
+        this.buildInvention(
+            arrDroppable[1] as InventionName,
+            item.leader.character
+        );
+      } else {
+        this.buildStruct(arrDroppable[1] as StructureName, item.leader.character);
       }
+      item.status = RESOLVE_ITEM_STATUS.SUCCESS;
+      this.updateFinished();
     }
 
-    let arrDroppable = item.droppableId.split("-");
-    if (arrDroppable[0].includes("invention")) {
-      this.buildInvention(
-        arrDroppable[1] as InventionName,
-        item.leader.character
-      );
-    } else {
-      this.buildStruct(arrDroppable[1] as StructureName, item.leader.character);
-    }
-    this.updateFinished();
   }
 
   private buildStruct(name: StructureName, builder: ICharacter) {

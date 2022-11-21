@@ -62,7 +62,7 @@ export class InventionsService implements IInventionsService {
     this._builtInventions.push(invention);
     invention.isBuilt = true;
     this._game.chatLog.addMessage(
-      `zbudowano ${invention.namePL}`,
+      `stworzono ${invention.namePL}`,
       "green",
       builder.namePL
     );

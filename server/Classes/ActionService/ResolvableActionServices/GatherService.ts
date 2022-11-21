@@ -13,12 +13,18 @@ export class GatherService extends ResolvableActionService {
   }
 
   resolveItem(droppableId: string) {
+    super.resolveItem(droppableId);
     const item = this.getItem(droppableId);
-    const side = item.droppableId.split("-")[3] as "left" | "right";
-    const tile = item.content as unknown as ITile;
-    console.log(side, tile.id);
-    this._game.tilesService.gather(side, tile.id, item.leader.character.namePL);
-    item.status = RESOLVE_ITEM_STATUS.SUCCESS;
-    this.updateFinished();
+    if (item.status !== RESOLVE_ITEM_STATUS.FAILURE) {
+      const side = item.droppableId.split("-")[3] as "left" | "right";
+      const tile = item.content as unknown as ITile;
+      this._game.tilesService.gather(
+        side,
+        tile.id,
+        item.leader.character.namePL
+      );
+      item.status = RESOLVE_ITEM_STATUS.SUCCESS;
+      this.updateFinished();
+    }
   }
 }

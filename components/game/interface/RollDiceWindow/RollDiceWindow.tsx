@@ -11,7 +11,7 @@ type Props = {
 export const RollDiceWindow = (props: Props) => {
   return (
     <div className={styles.container}>
-      {props.item && (
+      {props.item?.diceRoll && (
         <AnimationWindow
           item={props.item}
           setResolved={props.setResolved}
