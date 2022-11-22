@@ -37,7 +37,6 @@ import { IChatLog } from "../../interfaces/ChatLog/ChatLog";
 import { IAlertService } from "../../interfaces/AlertService/AlertService";
 import { AlertService } from "./AlertService/AlertService";
 import { ArrangeCampRestService } from "./ArrangeCampRestService/ArrangeCampRestService";
-import { IArrangeCampRestService } from "../../interfaces/RestArrangeCampService/ArrangeCampRestService";
 import { Castaways } from "./Scenario/Castaways";
 import { IScenarioService } from "../../interfaces/ScenarioService/ScenarioService";
 
@@ -133,7 +132,7 @@ export class GameClass implements IGame {
       logs: this.chatLog.renderData,
       actionService: this.actionService.renderData,
       alertService: this.alertService.renderData,
-      scenarioService: this._scenarioService,
+      scenarioService: this._scenarioService.renderData,
     };
   }
 
