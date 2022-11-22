@@ -38,10 +38,16 @@ import { IAlertService } from "../../interfaces/AlertService/AlertService";
 import { AlertService } from "./AlertService/AlertService";
 import { ArrangeCampRestService } from "./ArrangeCampRestService/ArrangeCampRestService";
 import { IArrangeCampRestService } from "../../interfaces/RestArrangeCampService/ArrangeCampRestService";
+import { Castaways } from "./Scenario/Castaways";
+import { IScenarioService } from "../../interfaces/ScenarioService/ScenarioService";
 
 type ScenarioName = "castaways";
 
 export class GameClass implements IGame {
+  get scenarioService(): IScenarioService {
+    return this._scenarioService;
+  }
+
   get arrangeCampRestService(): ArrangeCampRestService {
     return this._arrangeCampRestService;
   }
@@ -58,7 +64,7 @@ export class GameClass implements IGame {
   // hardcoded for demo version
   private readonly _inventionsService: IInventionsService;
 
-  private _weather: IWeather = new Weather();
+  private _weather: IWeather = new Weather(this);
   private _threat: IThreat = new Threat(this);
   private _phaseService: IPhaseService = new PhaseService(this);
 
@@ -75,6 +81,7 @@ export class GameClass implements IGame {
 
   private _morale = new Morale(this);
   private _turn = 1;
+  private _scenarioService: IScenarioService = new Castaways(this);
 
   constructor(scenarioName: ScenarioName) {
     // this is hardcoded for demo purpose.
@@ -126,6 +133,7 @@ export class GameClass implements IGame {
       logs: this.chatLog.renderData,
       actionService: this.actionService.renderData,
       alertService: this.alertService.renderData,
+      scenarioService: this._scenarioService,
     };
   }
 

@@ -1,6 +1,6 @@
-import { WeatherCubeSide } from "../../interfaces/RollDice/RollDice";
+import { WeatherDiceSide } from "../../interfaces/RollDice/RollDice";
 
-const snow: WeatherCubeSide[] = [
+const snow: WeatherDiceSide[] = [
   "snow",
   "snow",
   "doubleSnow",
@@ -9,7 +9,7 @@ const snow: WeatherCubeSide[] = [
   "doubleRain",
 ];
 
-const rain: WeatherCubeSide[] = [
+const rain: WeatherDiceSide[] = [
   "doubleRain",
   "doubleRain",
   "rain",
@@ -18,7 +18,7 @@ const rain: WeatherCubeSide[] = [
   "snow",
 ];
 
-const animals: WeatherCubeSide[] = [
+const animals: WeatherDiceSide[] = [
   "beast",
   "palisade",
   "palisade",

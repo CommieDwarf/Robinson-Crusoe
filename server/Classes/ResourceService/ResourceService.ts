@@ -1,4 +1,4 @@
-import {Resources} from "./Resources";
+import { Resources } from "./Resources";
 import {
   IResources,
   IResourcesAmount,
@@ -7,11 +7,10 @@ import {
   IAllResources,
   IAllResourcesRenderData,
 } from "../../../interfaces/Resources/AllResources";
-import {IGame} from "../../../interfaces/Game";
-import {RESOURCE_CONJUGATION_PL} from "../../../interfaces/TRANSLATE_PL/CATEGORIES/RESOURCE_PL";
+import { IGame } from "../../../interfaces/Game";
+import { RESOURCE_CONJUGATION_PL } from "../../../interfaces/TRANSLATE_PL/CATEGORIES/RESOURCE_PL";
 
 export class ResourceService implements IAllResources {
-
   private _future: IResources = new Resources();
   private _owned: IResources = new Resources();
   private _blockedProduction = false;
@@ -48,7 +47,6 @@ export class ResourceService implements IAllResources {
 
   // ------------------------------------
 
-
   public addFutureToOwned = (): void => {
     this._owned.addResources(this.future);
     this._future.resetResources();
@@ -59,28 +57,28 @@ export class ResourceService implements IAllResources {
   };
 
   public addResourceToOwned(
-      resource: keyof IResourcesAmount,
-      amount: number,
-      logSource: string
+    resource: keyof IResourcesAmount,
+    amount: number,
+    logSource: string
   ) {
     this._game.chatLog.addMessage(
-        `Dodano ${amount} ${RESOURCE_CONJUGATION_PL[resource]} do posiadanych surowców`,
-        "green",
-        logSource
+      `Dodano ${amount} ${RESOURCE_CONJUGATION_PL[resource]} do posiadanych surowców`,
+      "green",
+      logSource
     );
     this._owned.addSingleResource(resource, amount);
   }
 
   public addResourceToFuture(
-      resource: keyof IResourcesAmount,
-      amount: number,
-      logSource: string
+    resource: keyof IResourcesAmount,
+    amount: number,
+    logSource: string
   ) {
     this._future.addSingleResource(resource, amount);
     this._game.chatLog.addMessage(
-        `Dodano ${amount} ${RESOURCE_CONJUGATION_PL[resource]} do przyszłych surowców`,
-        "green",
-        logSource
+      `Dodano ${amount} ${RESOURCE_CONJUGATION_PL[resource]} do przyszłych surowców`,
+      "green",
+      logSource
     );
   }
 
@@ -88,7 +86,16 @@ export class ResourceService implements IAllResources {
     return this.owned.canAfford(cost);
   }
 
-  spendFromOwned(cost: IResources) {
-    this.owned;
+  spendFromOwned(
+    resource: keyof IResourcesAmount,
+    amount: number,
+    logSource: string
+  ) {
+    this.owned.spendSingleResource(resource, amount);
+    this._game.chatLog.addMessage(
+      `Odjęto ${amount} ${RESOURCE_CONJUGATION_PL[resource]} z posiadanych surowców`,
+      "red",
+      logSource
+    );
   }
 }

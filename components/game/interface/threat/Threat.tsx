@@ -5,6 +5,7 @@ import ActionSlot from "../ActionSlot";
 import Card from "./Card";
 import { IPawnRenderData } from "../../../../interfaces/Pawns/Pawn";
 import { IThreatRenderData } from "../../../../interfaces/Threat/Threat";
+import { EVENT_TYPE } from "../../../../interfaces/Threat/EventCard";
 
 interface Props {
   threat: IThreatRenderData;
@@ -15,8 +16,12 @@ interface Props {
 export default function Threat(props: Props) {
   function getActionSlots(side: "left" | "right") {
     const actionSlots = [];
-
-    for (let i = 0; i <= 1; i++) {
+    const pawnAmount =
+      props.threat[(side + "Slot") as "leftSlot" | "rightSlot"]?.type ===
+      EVENT_TYPE.wreckage
+        ? 2
+        : 1;
+    for (let i = 0; i < pawnAmount; i++) {
       const role = i === 0 ? "leader" : "helper";
       const id = `threat-${side}-${role}-${i}`;
       let pawn = props.actionSlots.get(id);

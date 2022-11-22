@@ -54,6 +54,10 @@ import {
   IArrangeCampRestService,
   IArrangeCampRestServiceRenderData,
 } from "./RestArrangeCampService/ArrangeCampRestService";
+import {
+  IScenarioService,
+  IScenarioServiceRenderData,
+} from "./ScenarioService/ScenarioService";
 
 export interface IGameRenderData {
   players: IPlayerRenderData[];
@@ -75,6 +79,7 @@ export interface IGameRenderData {
   logs: ILogMessageRenderData[];
   actionService: IActionServiceRenderData;
   alertService: IAlertServiceRenderData;
+  scenarioService: IScenarioServiceRenderData;
 }
 
 export interface IGame {
@@ -97,6 +102,7 @@ export interface IGame {
   actionService: IActionService;
   chatLog: IChatLog;
   alertService: IAlertService;
+  scenarioService: IScenarioService;
 
   turn: number;
   setNextTurn: () => void;

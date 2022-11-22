@@ -2,15 +2,18 @@ import {
   ActionDice,
   DiceActionType,
   RollDiceResult,
+  WeatherDice,
 } from "../../../interfaces/RollDice/RollDice";
 import { gather } from "../../../constants/diceStructures/gather";
 import { build } from "../../../constants/diceStructures/build";
 import { explore } from "../../../constants/diceStructures/explore";
+import { weather } from "../../../constants/diceStructures/weather";
 
 const diceStructures = {
   gather,
   build,
   explore,
+  weather,
 };
 
 export class RollDiceService {
@@ -47,22 +50,37 @@ export class RollDiceService {
     },
   };
 
-  public static getRollDiceResult(
-    actionType: DiceActionType,
-    dice: ActionDice
-  ) {
-    const random = Math.floor(Math.random() * 6);
+  private static getAxes(random: number) {
     const axes =
       RollDiceService.resultsAxes[
         ("r" + random) as keyof typeof this.resultsAxes
       ];
     const axisAdder = 360;
-
     axes.x += axisAdder;
     axes.y += axisAdder;
     axes.z += axisAdder;
+    return axes;
+  }
+
+  public static getActionRollDiceResult(
+    actionType: DiceActionType,
+    dice: ActionDice
+  ) {
+    const random = Math.floor(Math.random() * 6);
+    const axes = this.getAxes(random);
 
     const result = diceStructures[actionType][dice][random];
+    return {
+      result,
+      axes,
+    } as RollDiceResult;
+  }
+
+  public static getWeatherRollDiceResult(dice: WeatherDice) {
+    const random = Math.floor(Math.random() * 6);
+    const axes = this.getAxes(random);
+
+    const result = diceStructures.weather[dice][random];
     return {
       result,
       axes,

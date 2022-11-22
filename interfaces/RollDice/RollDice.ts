@@ -1,11 +1,11 @@
-export type ActionCubeSide =
+export type ActionDiceSide =
   | "hurt"
   | "mystery"
   | "success"
   | "determination"
   | "blank";
 
-export type WeatherCubeSide =
+export type WeatherDiceSide =
   | "rain"
   | "doubleRain"
   | "snow"
@@ -21,7 +21,7 @@ export type WeatherDice = "animals" | "snow" | "rain";
 export type ActionDice = "success" | "mystery" | "hurt";
 
 export interface RollDiceResult {
-  result: ActionCubeSide;
+  result: ActionDiceSide | WeatherDiceSide;
   axes: {
     x: number;
     y: number;
@@ -38,11 +38,12 @@ export interface ActionRollDiceInfo {
   };
 }
 
+export interface WeatherResults {
+  snow: RollDiceResult | null;
+  rain: RollDiceResult | null;
+  animals: RollDiceResult | null;
+}
+
 export interface WeatherRollDiceInfo {
-  dice: WeatherType;
-  results: {
-    snow: RollDiceResult;
-    rain: RollDiceResult;
-    animals: RollDiceResult;
-  };
+  results: WeatherResults;
 }

@@ -23,5 +23,9 @@ export interface IAllResources {
   ) => void;
   productionBlocked: boolean;
   canOwnedAfford: (resources: IResources) => boolean;
-  spendFromOwned: (resources: IResources) => void;
+  spendFromOwned: (
+    resource: keyof IResourcesAmount,
+    amount: number,
+    logSource: string
+  ) => void;
 }

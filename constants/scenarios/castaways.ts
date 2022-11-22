@@ -1,4 +1,4 @@
-import { ScenarioRenderData } from "../../interfaces/Scenario/Scenario";
+import { ScenarioRenderData } from "../../interfaces/ScenarioService/ScenarioService";
 
 const rainDays = [5, 6, 7, 8, 9, 10, 11, 12];
 const animalsDays = [7, 8, 9, 10, 11, 12];
@@ -21,8 +21,8 @@ const mechanics = `Stos ma się składać z 15 znaczników drewna.
   (za pierwszym razem 1 znacznik drewna, następnie max. 2 znaczniki itd.), 
   Drewno odłożone na stos nie może być z niego zabrane.`;
 
-export const castaways: ScenarioRenderData = {
-  weatherDays: {
+export const castaways = {
+  weather: {
     rain: rainDays,
     snow: snowDays,
     animals: animalsDays,

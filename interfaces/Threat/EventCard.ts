@@ -6,6 +6,7 @@ import { EVENT_CARD_PL } from "../TRANSLATE_PL/CATEGORIES/EVENT_CARD_PL";
 export interface IEventCardRenderData {
   id: number;
   name: string;
+  type: EVENT_TYPE;
 }
 
 export enum EVENT_TYPE {

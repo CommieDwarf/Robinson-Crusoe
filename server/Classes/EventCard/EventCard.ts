@@ -47,6 +47,7 @@ export class EventCard implements IEventCard {
     return {
       id: this.id,
       name: this.name,
+      type: this.type,
     };
   }
 

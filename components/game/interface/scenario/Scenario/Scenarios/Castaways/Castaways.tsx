@@ -1,14 +1,14 @@
 import styles from "./Castaways.module.css";
 import Image from "next/image";
-import {RoundSquare} from "./RoundSquare";
-import {Description} from "./Description/Description";
-import {WoodStack} from "./WoodStack/WoodStack";
+import { RoundSquare } from "./RoundSquare";
+import { Description } from "./Description/Description";
+import { WoodStack } from "./WoodStack/WoodStack";
 
 import Invention from "../../../../inventions/Invention/Invention";
 import React from "react";
-import {IInventionRenderData} from "../../../../../../../interfaces/Inventions/Invention";
-import {IPawnRenderData} from "../../../../../../../interfaces/Pawns/Pawn";
-import {castaways} from "../../../../../../../constants/scenarios/castaways";
+import { IInventionRenderData } from "../../../../../../../interfaces/Inventions/Invention";
+import { IPawnRenderData } from "../../../../../../../interfaces/Pawns/Pawn";
+import { castaways } from "../../../../../../../constants/scenarios/castaways";
 
 interface Props {
   inventions: IInventionRenderData[];
@@ -24,19 +24,19 @@ export default function Castaways(props: Props) {
   for (let i = 1; i <= 12; i++) {
     const ship = i >= 10;
     const weather = {
-      rain: castaways.weatherDays.rain.includes(i),
-      snow: castaways.weatherDays.snow.includes(i),
-      hungryAnimal: castaways.weatherDays.animals.includes(i),
+      rain: castaways.weather.rain.includes(i),
+      snow: castaways.weather.snow.includes(i),
+      hungryAnimal: castaways.weather.animals.includes(i),
     };
     const current = i === props.turn;
     rounds.push(
-        <RoundSquare
-            round={i}
-            ship={ship}
-            weather={weather}
-            currentRound={current}
-            key={i}
-        />
+      <RoundSquare
+        round={i}
+        ship={ship}
+        weather={weather}
+        currentRound={current}
+        key={i}
+      />
     );
   }
 
@@ -45,63 +45,63 @@ export default function Castaways(props: Props) {
   }
 
   return (
-      <div className={styles.container}>
-        <div className={styles.hideButton} onClick={handleClick}>
-          X
-        </div>
-        <div className={styles.titleDiv}>
-          <span className={styles.title}>Rozbitkowie</span>
+    <div className={styles.container}>
+      <div className={styles.hideButton} onClick={handleClick}>
+        X
+      </div>
+      <div className={styles.titleDiv}>
+        <span className={styles.title}>Rozbitkowie</span>
+        <Image
+          src="/interface/scenarios/textBackground2.png"
+          className={styles.titleImage}
+          layout={"fill"}
+          alt="tytuł tło"
+        />
+      </div>
+      <div className={styles.rounds}>{rounds}</div>
+      <Description />
+      <div className={styles.eventEffects}>
+        <div className={styles.eventEffect + " " + styles.bookEffect}>
           <Image
-              src="/interface/scenarios/textBackground2.png"
-              className={styles.titleImage}
-              layout={"fill"}
-              alt="tytuł tło"
+            src={"/interface/scenarios/castaways/bookEffectFinal.png"}
+            layout={"fill"}
+            alt={"tokeny"}
           />
         </div>
-        <div className={styles.rounds}>{rounds}</div>
-        <Description/>
-        <div className={styles.eventEffects}>
-          <div className={styles.eventEffect + " " + styles.bookEffect}>
-            <Image
-                src={"/interface/scenarios/castaways/bookEffectFinal.png"}
-                layout={"fill"}
-                alt={"tokeny"}
-            />
-          </div>
 
-          <div className={styles.eventEffect}>
-            <Image
-                src={"/interface/scenarios/castaways/totemEffectFinal.png"}
-                layout={"fill"}
-                alt={"tokeny"}
-            />
-          </div>
-        </div>
-        <WoodStack stackLevel={5} committedWood={0} wood={1}/>
-        <div className={styles.bottomHalf}>
-          <div className={styles.tokens}>
-            <Image
-                src={"/interface/scenarios/castaways/tokens3.png"}
-                layout={"fill"}
-                alt={"tokeny"}
-            />
-          </div>
-          <div className={styles.inventions}>
-            {props.inventions.map((inv, i) => {
-              return (
-                  <Invention
-                      key={inv.name}
-                      invention={inv}
-                      column={i + 1}
-                      row={1}
-                      top={-100}
-                      actionSlots={props.actionSlots}
-                      zIndex={props.zIndex}
-                  />
-              );
-            })}
-          </div>
+        <div className={styles.eventEffect}>
+          <Image
+            src={"/interface/scenarios/castaways/totemEffectFinal.png"}
+            layout={"fill"}
+            alt={"tokeny"}
+          />
         </div>
       </div>
+      <WoodStack stackLevel={5} committedWood={0} wood={1} />
+      <div className={styles.bottomHalf}>
+        <div className={styles.tokens}>
+          <Image
+            src={"/interface/scenarios/castaways/tokens3.png"}
+            layout={"fill"}
+            alt={"tokeny"}
+          />
+        </div>
+        <div className={styles.inventions}>
+          {props.inventions.map((inv, i) => {
+            return (
+              <Invention
+                key={inv.name}
+                invention={inv}
+                column={i + 1}
+                row={1}
+                top={-100}
+                actionSlots={props.actionSlots}
+                zIndex={props.zIndex}
+              />
+            );
+          })}
+        </div>
+      </div>
+    </div>
   );
 }
