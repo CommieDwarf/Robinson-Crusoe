@@ -1,11 +1,10 @@
 import * as React from "react";
 import * as THREE from "three";
 import { useEffect, useState } from "react";
-import styles from "./AnimationWindow.module.css";
+import styles from "./RollDiceAnimation.module.css";
 
 import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeometry";
 import { degreesToRadians } from "../../../../utils/degreesToRadians";
-import { Object3D } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 import { gather } from "../../../../constants/diceStructures/gather";
@@ -21,21 +20,28 @@ const structures = {
 };
 import {
   ActionDice,
+  ActionDiceSide,
+  ActionResults,
   DiceActionType,
+  RollDiceResult,
+  WeatherDice,
+  WeatherDiceSide,
+  WeatherResults,
 } from "../../../../interfaces/RollDice/RollDice";
-import { IResolvableItemRenderData } from "../../../../interfaces/ActionService/IResolvableItem";
 import { cancelAnimationFrame, requestAnimationFrame } from "dom-helpers";
+import { IDice } from "../../../../interfaces/Dice/Dice";
 
 type Props = {
-  item: IResolvableItemRenderData;
-  setResolved: React.Dispatch<React.SetStateAction<Map<string, boolean>>>;
-  resolved: Map<string, boolean>;
+  name: string;
+  results:
+    | Map<keyof WeatherResults, RollDiceResult<WeatherDiceSide>>
+    | Map<keyof ActionResults, RollDiceResult<ActionDiceSide>>;
+  type: "weather" | DiceActionType;
+  setResolved: (name: string) => void;
+  resolved: boolean;
 };
 
-const actionTypes = ["build", "explore", "gather"];
-const weatherTypes = ["rain", "snow", "animals"];
-
-export const AnimationWindow = (props: Props) => {
+export const RollDiceAnimation = (props: Props) => {
   const containerRef = React.createRef<HTMLDivElement>();
   const [renderer, setRenderer] = useState(
     new THREE.WebGLRenderer({
@@ -60,29 +66,10 @@ export const AnimationWindow = (props: Props) => {
     camera.position.y = 0;
 
     const scene = new THREE.Scene();
-    const cubeSize = 2;
-    const cubeTranslateX = 2.5;
+
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.target.set(0, 0, 0);
     controls.update();
-
-    const dices = new Map<string, Object3D>();
-
-    if (props.item?.diceRoll) {
-      dices.set(
-        "hurt",
-        getCube(props.item.diceRoll.type, "hurt", -cubeTranslateX, cubeSize)
-      );
-
-      dices.set(
-        "mystery",
-        getCube(props.item.diceRoll.type, "mystery", 0, cubeSize)
-      );
-      dices.set(
-        "success",
-        getCube(props.item.diceRoll.type, "success", cubeTranslateX, cubeSize)
-      );
-    }
 
     const backgroundGeometry = new THREE.BoxGeometry(19, 11, 1);
     const backgroundTexture = new THREE.TextureLoader().load(
@@ -124,106 +111,52 @@ export const AnimationWindow = (props: Props) => {
 
     renderer.shadowMap.enabled = true;
 
-    dices.forEach((dice) => {
-      scene.add(dice);
-    });
+    let translateX: number[] = [];
 
-    const rollDiceFinished = {
-      hurt: false,
-      mystery: false,
-      success: false,
-    };
-
-    function rotateMeshDecorator() {
-      const axesFinished = {
-        x: false,
-        y: false,
-        z: false,
-      };
-      return function rotateMesh(
-        objects3D: Object3D[],
-        axis: "x" | "y" | "z",
-        degrees: number,
-        diceName: ActionDice
-      ) {
-        let radians = degreesToRadians(degrees);
-        objects3D.forEach((object) => {
-          const diff = radians - object.rotation[axis];
-          if (diff > 0.01) {
-            object.rotation[axis] += diff / 16;
-          } else {
-            axesFinished[axis] = true;
-            if (axesFinished.x && axesFinished.y && axesFinished.z) {
-              rollDiceFinished[diceName] = true;
-            }
-          }
-        });
-      };
+    switch (props.results.size) {
+      case 1:
+        translateX = [0];
+        break;
+      case 2:
+        translateX = [-1.5, 1.5];
+        break;
+      default:
+        translateX = [-3, 0, 3];
     }
 
-    const rotateMesh = rotateMeshDecorator();
+    const cubeSize = 2;
+
+    const dices = new Map<ActionDice | WeatherDice, IDice>();
+    let index = 0;
+    props.results.forEach((value, key) => {
+      dices.set(key, new Dice(value, key, cubeSize, translateX[index]));
+      index++;
+    });
+
+    dices.forEach((dice) => {
+      scene.add(dice.mesh);
+    });
 
     function animation() {
-      if (
-        rollDiceFinished.hurt &&
-        rollDiceFinished.mystery &&
-        rollDiceFinished.success
-      ) {
-        props.setResolved((old) => {
-          const copy = new Map(old);
-          copy.set(props.item.droppableId, true);
-          return copy;
-        });
+      let finished = true;
+      dices.forEach((dice) => {
+        if (!dice.finished) {
+          finished = false;
+          dice.rotate();
+        }
+      });
+
+      if (finished) {
+        props.setResolved(props.name);
+      } else {
+        animationId = requestAnimationFrame(animation);
       }
 
-      if (props.item?.diceRoll) {
-        Object.entries(props.item.diceRoll.results.hurt.axes).forEach(
-          ([axis, degrees]) => {
-            const hurtDice = dices.get("hurt");
-            if (hurtDice) {
-              rotateMesh(
-                [hurtDice],
-                axis as unknown as "y" | "x" | "z",
-                degrees,
-                "hurt"
-              );
-            }
-          }
-        );
-        Object.entries(props.item.diceRoll.results.mystery.axes).forEach(
-          ([axis, degrees]) => {
-            const mysteryDice = dices.get("mystery");
-            if (mysteryDice) {
-              rotateMesh(
-                [mysteryDice],
-                axis as unknown as "y" | "x" | "z",
-                degrees,
-                "mystery"
-              );
-            }
-          }
-        );
-
-        Object.entries(props.item.diceRoll.results.success.axes).forEach(
-          ([axis, degrees]) => {
-            const successDice = dices.get("success");
-            if (successDice) {
-              rotateMesh(
-                [successDice],
-                axis as unknown as "y" | "x" | "z",
-                degrees,
-                "success"
-              );
-            }
-          }
-        );
-      }
       renderer.render(scene, camera);
-      animationId = requestAnimationFrame(animation);
     }
 
     let animationId = 0;
-    if (!props.resolved.get(props.item.droppableId)) {
+    if (!props.resolved) {
       animationId = requestAnimationFrame(animation);
     }
 
@@ -237,9 +170,49 @@ export const AnimationWindow = (props: Props) => {
     };
   });
 
+  class Dice implements IDice {
+    result: RollDiceResult<WeatherDiceSide> | RollDiceResult<ActionDiceSide>;
+    finished = false;
+    axesFinished = {
+      x: false,
+      y: false,
+      z: false,
+    };
+    mesh: THREE.Mesh<RoundedBoxGeometry, THREE.MeshPhysicalMaterial[]>;
+
+    constructor(
+      result: RollDiceResult<WeatherDiceSide> | RollDiceResult<ActionDiceSide>,
+      diceName: WeatherDice | ActionDice,
+      cubeSize: number,
+      translateX: number
+    ) {
+      this.result = result;
+      this.mesh = getCube(props.type, diceName, translateX, cubeSize);
+    }
+
+    private rotateAxis(axis: "x" | "y" | "z", degrees: number) {
+      let radians = degreesToRadians(degrees);
+      const diff = radians - this.mesh.rotation[axis];
+      if (diff > 0.01) {
+        this.mesh.rotation[axis] += diff / 16;
+      } else {
+        this.axesFinished[axis] = true;
+      }
+    }
+
+    rotate() {
+      this.rotateAxis("x", this.result.axes.x);
+      this.rotateAxis("y", this.result.axes.y);
+      this.rotateAxis("z", this.result.axes.z);
+      if (this.axesFinished.x && this.axesFinished.y && this.axesFinished.z) {
+        this.finished = true;
+      }
+    }
+  }
+
   function getCube(
-    type: DiceActionType,
-    dice: ActionDice,
+    type: DiceActionType | "weather",
+    dice: ActionDice | WeatherDice,
     x: number,
     size: number
   ) {
@@ -260,18 +233,24 @@ export const AnimationWindow = (props: Props) => {
     return mesh;
   }
 
-  function getActionTextures(type: DiceActionType, dice: ActionDice) {
-    if (!props.item.diceRoll?.type) {
-      throw new Error("props.item.diceRoll is undefined");
-    }
+  function getActionTextures(
+    type: DiceActionType | "weather",
+    dice: ActionDice | WeatherDice
+  ) {
     const loader = new THREE.TextureLoader();
     const basePath = "/interface/dice";
-    const path = actionTypes.includes(props.item?.diceRoll?.type)
-      ? basePath + "/action/" + props.item.diceRoll.type
-      : basePath + "/weather";
+    const path =
+      type === "weather"
+        ? basePath + "/weather/" + dice
+        : basePath + "/action/" + type;
     loader.setPath(path);
 
-    return Object.entries(structures[type][dice]).map(([key, side]) => {
+    const structure =
+      type === "weather"
+        ? structures.weather[dice as WeatherDice]
+        : structures[type][dice as ActionDice];
+
+    return Object.entries(structure).map(([key, side]) => {
       return new THREE.MeshPhysicalMaterial({
         map: loader.load(`/${side}.png`),
         clearcoat: 0,

@@ -53,10 +53,10 @@ export function getEventCards(game: IGame, threat: IThreat): IEventCard[] {
         },
       },
       function triggerEffect() {
-        game.weather.rainCloud = true;
+        game.weatherService.tokens.rain = true;
       },
       function triggerThreatEffect() {
-        game.weather.snowCloud = true;
+        game.weatherService.tokens.snow = true;
       },
       function fullFill(character: ICharacter) {
         game.characterService.incrDetermination(
@@ -87,7 +87,7 @@ export function getEventCards(game: IGame, threat: IThreat): IEventCard[] {
         if (!game.allResources.canOwnedAfford(resources)) {
           game.characterService.hurtAllPlayerCharacters(1, this.namePL);
         } else {
-          game.allResources.spendFromOwned(resources);
+          game.allResources.spendFromOwned("wood", 2, this.namePL);
         }
       },
       function triggerThreatEffect() {
@@ -320,10 +320,10 @@ export function getEventCards(game: IGame, threat: IThreat): IEventCard[] {
       },
 
       function triggerEffect() {
-        game.weather.rainCloud = true;
+        game.weatherService.tokens.rain = true;
       },
       function triggerThreatEffect() {
-        game.weather.rainCloud = true;
+        game.weatherService.tokens.rain = true;
       },
       function fullFill(character: ICharacter) {
         game.characterService.incrDetermination(character, 1, this.namePL);

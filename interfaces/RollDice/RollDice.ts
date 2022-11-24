@@ -20,8 +20,8 @@ export type DiceActionType = "gather" | "explore" | "build";
 export type WeatherDice = "animals" | "snow" | "rain";
 export type ActionDice = "success" | "mystery" | "hurt";
 
-export interface RollDiceResult {
-  result: ActionDiceSide | WeatherDiceSide;
+export interface RollDiceResult<DiceSide> {
+  result: DiceSide;
   axes: {
     x: number;
     y: number;
@@ -31,19 +31,22 @@ export interface RollDiceResult {
 
 export interface ActionRollDiceInfo {
   type: DiceActionType;
-  results: {
-    hurt: RollDiceResult;
-    success: RollDiceResult;
-    mystery: RollDiceResult;
-  };
+  results: ActionResults;
 }
 
-export interface WeatherResults {
-  snow: RollDiceResult | null;
-  rain: RollDiceResult | null;
-  animals: RollDiceResult | null;
+export interface ActionResults {
+  hurt: RollDiceResult<ActionDiceSide>;
+  success: RollDiceResult<ActionDiceSide>;
+  mystery: RollDiceResult<ActionDiceSide>;
 }
 
 export interface WeatherRollDiceInfo {
+  type: "weather";
   results: WeatherResults;
+}
+
+export interface WeatherResults {
+  snow: RollDiceResult<WeatherDiceSide> | null;
+  rain: RollDiceResult<WeatherDiceSide> | null;
+  animals: RollDiceResult<WeatherDiceSide> | null;
 }

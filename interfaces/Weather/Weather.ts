@@ -1,28 +1,30 @@
-import { WeatherRollDiceInfo, WeatherType } from "../RollDice/RollDice";
+import { WeatherDiceSide, WeatherRollDiceInfo } from "../RollDice/RollDice";
 
-export interface WeatherStatus {
+export interface IWeatherTokens {
   rain: boolean;
   snow: boolean;
-  animals: boolean;
+  storm: boolean;
 }
 
 export interface OverallWeather {
   rain: number;
   snow: number;
-  animals: number;
+  animals: WeatherDiceSide | null;
+  storm: boolean;
 }
 
-export interface IWeather {
-  tokens: WeatherStatus;
+export interface IWeatherService {
+  tokens: IWeatherTokens;
   overallWeather: OverallWeather;
   rollDiceResult: WeatherRollDiceInfo | null;
-  setToken: (type: WeatherType, value: boolean) => void;
+  setToken: (type: keyof IWeatherTokens, value: boolean) => void;
   applyEffects: () => void;
-  renderData: IWeatherRenderData;
+  renderData: IWeatherServiceRenderData;
+  rollDices: () => void;
 }
 
-export interface IWeatherRenderData {
-  tokens: WeatherStatus;
+export interface IWeatherServiceRenderData {
+  tokens: IWeatherTokens;
   overallWeather: OverallWeather;
   rollDiceResult: WeatherRollDiceInfo | null;
 }

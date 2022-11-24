@@ -29,7 +29,9 @@ export class PhaseService implements IPhaseService {
       production: this.productionEffect,
       preAction: this.preActionEffect,
       action: this.actionEffect,
-      weather: () => {},
+      weather: () => {
+        console.log("weather");
+      },
       night: this.nightEffect,
     };
   }

@@ -1,24 +1,19 @@
 import {
-  IWeather,
+  IWeatherService,
   OverallWeather,
-  WeatherStatus,
+  IWeatherTokens,
 } from "../../../interfaces/Weather/Weather";
 import { IGame } from "../../../interfaces/Game";
-import {
-  RollDiceResult,
-  WeatherResults,
-  WeatherRollDiceInfo,
-  WeatherType,
-} from "../../../interfaces/RollDice/RollDice";
+import { WeatherRollDiceInfo } from "../../../interfaces/RollDice/RollDice";
 import Entries from "../../../interfaces/Entries";
 import { RollDiceService } from "../RollDiceService/RollDiceService";
 import { WeatherDays } from "../../../interfaces/ScenarioService/ScenarioService";
 
-export class Weather implements IWeather {
-  private _tokens: WeatherStatus = {
-    snow: false,
-    rain: false,
-    animals: false,
+export class WeatherService implements IWeatherService {
+  private _tokens: IWeatherTokens = {
+    snow: true,
+    rain: true,
+    storm: true,
   };
 
   private readonly _game: IGame;
@@ -36,44 +31,28 @@ export class Weather implements IWeather {
     };
   }
 
-  get overallWeather() {
-    let overallWeather = {
-      snow: 0,
-      rain: 0,
-      animals: 0,
+  get overallWeather(): OverallWeather {
+    const animals = this._rollDiceResult?.results.animals?.result
+      ? this._rollDiceResult?.results.animals?.result
+      : null;
+    return {
+      snow: this.countClouds("snow"),
+      rain: this.countClouds("rain"),
+      storm: this._tokens.storm,
+      animals,
     };
-    if (this._rollDiceResult) {
-      const entries = Object.entries(
-        this._rollDiceResult?.results
-      ) as Entries<WeatherResults>;
-      entries.forEach(([key, value]) => {
-        if (value?.result.includes("double")) {
-          overallWeather[key] += 2;
-        } else if (!value?.result.includes("blank")) {
-          overallWeather[key]++;
-        }
-      });
-    }
-    const entries = Object.entries(this._tokens) as Entries<WeatherStatus>;
-    entries.forEach(([key, value]) => {
-      if (value) {
-        overallWeather[key]++;
-      }
-    });
-
-    return overallWeather;
   }
 
-  get tokens(): WeatherStatus {
+  setToken(token: keyof IWeatherTokens, value: boolean) {
+    this._tokens[token] = value;
+  }
+
+  get tokens(): IWeatherTokens {
     return this._tokens;
   }
 
   get rollDiceResult(): WeatherRollDiceInfo | null {
     return this._rollDiceResult;
-  }
-
-  setToken(type: WeatherType, value: boolean) {
-    this._tokens[type] = value;
   }
 
   public applyEffects() {
@@ -84,9 +63,25 @@ export class Weather implements IWeather {
     this.resetWeather();
   }
 
+  private countClouds(cloudType: "rain" | "snow") {
+    let clouds = 0;
+    if (this._tokens[cloudType]) {
+      clouds++;
+    }
+    if (this.rollDiceResult?.results[cloudType]?.result.includes("double")) {
+      clouds += 2;
+    } else if (
+      !this._rollDiceResult?.results[cloudType]?.result.includes("blank")
+    ) {
+      clouds++;
+    }
+
+    return clouds;
+  }
+
   private resetWeather() {
     this._tokens = {
-      animals: false,
+      storm: false,
       snow: false,
       rain: false,
     };
@@ -179,8 +174,12 @@ export class Weather implements IWeather {
     }
   }
 
-  private rollDices(): void {
+  public rollDices(): void {
+    if (this._rollDiceResult) {
+      return;
+    }
     const weatherRollDiceInfo: WeatherRollDiceInfo = {
+      type: "weather",
       results: {
         snow: null,
         rain: null,
@@ -191,7 +190,7 @@ export class Weather implements IWeather {
       this._game.scenarioService.weather
     ) as Entries<WeatherDays>;
     entries.forEach(([weatherType, dayArray]) => {
-      if (dayArray.includes(this._game.turn)) {
+      if (dayArray.includes(this._game.round)) {
         weatherRollDiceInfo.results[weatherType] =
           RollDiceService.getWeatherRollDiceResult(weatherType);
       }

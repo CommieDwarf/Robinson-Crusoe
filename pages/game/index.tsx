@@ -32,7 +32,7 @@ import {
   resetServerContext,
 } from "react-beautiful-dnd";
 import { GetServerSideProps } from "next";
-import { WeatherAndNight } from "../../components/game/interface/WeatherAndNight/WeatherAndNight";
+import { Weather } from "../../components/game/interface/Weather/Weather";
 import { INVENTION_TYPE } from "../../interfaces/Inventions/Invention";
 import { getPawnCanBeSettled } from "../../utils/canPawnBeSettled";
 
@@ -47,6 +47,8 @@ import { setNextAction } from "../api/setNextAction";
 import { Action } from "../../interfaces/Action";
 import resolveItem from "../api/resolveItem";
 import { Alerts } from "../../components/game/interface/Alerts/Alerts";
+import { WeatherResolveWindow } from "../../components/game/interface/WeatherResolveWindow/WeatherResolveWindow";
+import rollWeatherDices from "../api/rollWeatherDices";
 
 interface Props {
   gameData: IGameRenderData;
@@ -211,6 +213,11 @@ export default function Game(props: Props) {
     setGameRenderData(JSON.parse(getGameRenderData()));
   }
 
+  function rollWeather() {
+    rollWeatherDices();
+    setGameRenderData(JSON.parse(getGameRenderData()));
+  }
+
   return (
     <div className={styles.game}>
       <DragDropContext
@@ -284,7 +291,7 @@ export default function Game(props: Props) {
         <Equipment equipment={gameRenderData.equipment} />
         <ActionsOrder />
         <ChatLog logMessages={gameRenderData.logs} />
-        <WeatherAndNight />
+        <Weather tokens={gameRenderData.weatherService.tokens} />
         <Tokens
           tokens={[
             "additionalFood",
@@ -304,7 +311,7 @@ export default function Game(props: Props) {
           zIndex={zIndex}
           show={showScenario}
           setShow={setShowScenario}
-          turn={gameRenderData.turn}
+          round={gameRenderData.round}
         />
         {/*<Players />*/}
         <NextPhaseButton
@@ -322,6 +329,14 @@ export default function Game(props: Props) {
         />
       )}
       <Alerts message={gameRenderData.alertService.alert} />
+      <WeatherResolveWindow
+        weatherService={gameRenderData.weatherService}
+        round={gameRenderData.round}
+        structuresService={gameRenderData.structuresService}
+        resourcesAmount={gameRenderData.allResources.owned}
+        rollWeatherDices={rollWeather}
+        dices={gameRenderData.scenarioService.weather}
+      />
     </div>
   );
 }

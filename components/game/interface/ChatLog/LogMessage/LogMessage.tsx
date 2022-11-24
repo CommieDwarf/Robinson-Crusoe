@@ -15,7 +15,7 @@ export const LogMessage = (props: Props) => {
   return (
     <div className={styles.container}>
       <RoundSquare
-        round={msg.turn}
+        round={msg.round}
         currentRound={true}
         ship={false}
         weather={{ rain: false, snow: false, hungryAnimal: false }}

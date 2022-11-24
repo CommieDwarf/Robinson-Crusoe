@@ -1,0 +1,30 @@
+.container {
+    width: 100px;
+    height: 50px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+
+.dice {
+    height: 30px;
+    width: 30px;
+    position: relative;
+    border-radius: 6px;
+    border: 1px solid gray;
+}
+
+.rain {
+    background-color: orange;
+}
+
+.snow {
+    background-color: white;
+}
+
+.animals {
+    background-color: red;
+}

@@ -50,11 +50,11 @@ export class Castaways implements IScenarioService {
   checkStatus(): void {
     if (
       this._woodStashLvl === 5 &&
-      this._game.turn >= 10 &&
-      this._game.turn <= 12
+      this._game.round >= 10 &&
+      this._game.round <= 12
     ) {
       this._status = SCENARIO_STATUS.WIN;
-    } else if (this._game.turn > 12) {
+    } else if (this._game.round > 12) {
       this._status = SCENARIO_STATUS.DEFEAT;
     }
   }

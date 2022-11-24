@@ -1,0 +1,8 @@
+.container {
+    position: relative;
+    aspect-ratio: 1;
+    height: 90%;
+    border-radius: 100%;
+    border: 2px solid gray;
+    filter: contrast(150%)
+}

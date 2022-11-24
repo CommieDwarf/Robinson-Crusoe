@@ -12,7 +12,7 @@ interface Props {
   show: boolean;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
   zIndex: string;
-  turn: number;
+  round: number;
 }
 
 export default function Scenario(props: Props) {
@@ -26,7 +26,7 @@ export default function Scenario(props: Props) {
           actionSlots={props.actionSlots}
           setShow={props.setShow}
           zIndex={props.zIndex}
-          turn={props.turn}
+          round={props.round}
         />
       </div>
     </div>

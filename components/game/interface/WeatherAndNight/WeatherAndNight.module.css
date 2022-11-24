@@ -1,8 +1,0 @@
-.container {
-    grid-row: 6 / span 1;
-    grid-column: 3 / span 2;
-    height: 50%;
-    aspect-ratio: 900 / 230;
-    position: absolute;
-    background-image: url("../../../../public/interface/oldPaper.png");
-}

@@ -15,7 +15,6 @@ import { IEquipment } from "../../interfaces/Equipment/Equipment";
 import { ICharacterService } from "../../interfaces/CharacterService/CharacterService";
 import { CharacterService } from "./CharacterService/CharacterService";
 import { IPawn, IPawnHelper } from "../../interfaces/Pawns/Pawn";
-import { ICharacter } from "../../interfaces/Characters/Character";
 import { ITilesService } from "../../interfaces/Tiles/TilesService";
 import { IAllResources } from "../../interfaces/Resources/AllResources";
 import { IStructuresService } from "../../interfaces/Structures/Structures";
@@ -23,8 +22,8 @@ import { IThreat } from "../../interfaces/Threat/Threat";
 import { IBeasts } from "../../interfaces/Beasts/Beasts";
 import { Morale } from "./Morale/Morale";
 import { IMorale } from "../../interfaces/Morale/Morale";
-import { Weather } from "./Weather/Weather";
-import { IWeather } from "../../interfaces/Weather/Weather";
+import { WeatherService } from "./WeatherService/WeatherService";
+import { IWeatherService } from "../../interfaces/Weather/Weather";
 
 import { PlayerService } from "./Players/PlayerService";
 import { IPlayerService } from "../../interfaces/PlayerService/PlayerSevice";
@@ -43,6 +42,10 @@ import { IScenarioService } from "../../interfaces/ScenarioService/ScenarioServi
 type ScenarioName = "castaways";
 
 export class GameClass implements IGame {
+  get weatherService(): IWeatherService {
+    return this._weatherService;
+  }
+
   get scenarioService(): IScenarioService {
     return this._scenarioService;
   }
@@ -63,7 +66,7 @@ export class GameClass implements IGame {
   // hardcoded for demo version
   private readonly _inventionsService: IInventionsService;
 
-  private _weather: IWeather = new Weather(this);
+  private _weatherService: IWeatherService = new WeatherService(this);
   private _threat: IThreat = new Threat(this);
   private _phaseService: IPhaseService = new PhaseService(this);
 
@@ -79,7 +82,7 @@ export class GameClass implements IGame {
   private _allPawns: IPawn[] = [];
 
   private _morale = new Morale(this);
-  private _turn = 1;
+  private _round = 10;
   private _scenarioService: IScenarioService = new Castaways(this);
 
   constructor(scenarioName: ScenarioName) {
@@ -128,11 +131,12 @@ export class GameClass implements IGame {
       tilesService: this.tilesService.renderData,
       phaseService: this._phaseService.renderData,
       morale: this._morale.renderData,
-      turn: this.turn,
+      round: this.round,
       logs: this.chatLog.renderData,
       actionService: this.actionService.renderData,
       alertService: this.alertService.renderData,
       scenarioService: this._scenarioService.renderData,
+      weatherService: this._weatherService.renderData,
     };
   }
 
@@ -148,8 +152,8 @@ export class GameClass implements IGame {
     return this._chatLog;
   }
 
-  get turn(): number {
-    return this._turn;
+  get round(): number {
+    return this._round;
   }
 
   get actionService(): IActionService {
@@ -162,10 +166,6 @@ export class GameClass implements IGame {
 
   get playerService(): IPlayerService {
     return this._playerService;
-  }
-
-  get weather(): IWeather {
-    return this._weather;
   }
 
   get morale(): IMorale {
@@ -255,8 +255,8 @@ export class GameClass implements IGame {
     this._arrangeCampRestService.pawnAmount.arrangeCamp = 0;
   }
 
-  setNextTurn() {
-    this._turn++;
+  setNextRound() {
+    this._round++;
   }
 
   canPawnBeSettled(pawn: null | IPawn, destinationId: string): boolean {

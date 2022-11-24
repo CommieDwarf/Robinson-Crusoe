@@ -1,6 +1,6 @@
-import { ActionCubeSide } from "../../interfaces/RollDice/RollDice";
+import { ActionDiceSide } from "../../interfaces/RollDice/RollDice";
 
-const hurt: ActionCubeSide[] = [
+const hurt: ActionDiceSide[] = [
   "blank",
   "blank",
   "blank",
@@ -8,7 +8,7 @@ const hurt: ActionCubeSide[] = [
   "blank",
   "blank",
 ];
-const mystery: ActionCubeSide[] = [
+const mystery: ActionDiceSide[] = [
   "mystery",
   "mystery",
   "blank",
@@ -16,7 +16,7 @@ const mystery: ActionCubeSide[] = [
   "blank",
   "blank",
 ];
-const success: ActionCubeSide[] = [
+const success: ActionDiceSide[] = [
   "success",
   "success",
   "determination",

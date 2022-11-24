@@ -1,8 +1,6 @@
-import { ScenarioRenderData } from "../../interfaces/ScenarioService/ScenarioService";
-
 const rainDays = [5, 6, 7, 8, 9, 10, 11, 12];
 const animalsDays = [7, 8, 9, 10, 11, 12];
-const snowDays = animalsDays;
+const snowDays = [...animalsDays];
 
 const description = `Jesteście rozbitkami na bezludnej wyspie.
  Jest koniec lata, musicie przygotować się na nadejście zimy

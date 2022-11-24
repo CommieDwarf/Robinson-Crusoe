@@ -25,16 +25,9 @@ import {
   IInventionsService,
   IInventionsServiceRenderData,
 } from "./Inventions/Inventions";
-import {
-  ISideCharacter,
-  ISideCharacterRenderData,
-} from "./Characters/SideCharacter";
-import {
-  IPlayerCharacter,
-  IPlayerCharacterRenderData,
-} from "./Characters/PlayerCharacter";
+
 import { IMorale, IMoraleRenderData } from "./Morale/Morale";
-import { IWeather } from "./Weather/Weather";
+import { IWeatherService, IWeatherServiceRenderData } from "./Weather/Weather";
 import { IPlayerService } from "./PlayerService/PlayerSevice";
 import {
   IPhaseService,
@@ -75,11 +68,12 @@ export interface IGameRenderData {
   allPawns: IPawnRenderData[];
   phaseService: IPhaseServiceRenderData;
   morale: IMoraleRenderData;
-  turn: number;
+  round: number;
   logs: ILogMessageRenderData[];
   actionService: IActionServiceRenderData;
   alertService: IAlertServiceRenderData;
   scenarioService: IScenarioServiceRenderData;
+  weatherService: IWeatherServiceRenderData;
 }
 
 export interface IGame {
@@ -97,15 +91,15 @@ export interface IGame {
   beasts: IBeasts;
   allPawns: IPawn[];
   morale: IMorale;
-  weather: IWeather;
+  weatherService: IWeatherService;
   phaseService: IPhaseService;
   actionService: IActionService;
   chatLog: IChatLog;
   alertService: IAlertService;
   scenarioService: IScenarioService;
 
-  turn: number;
-  setNextTurn: () => void;
+  round: number;
+  setNextRound: () => void;
   setPawn: (droppableId: string, draggableId: string) => void;
   unsetPawn: (destinationId: string, draggableId: string) => void;
   resetPawns: () => void;

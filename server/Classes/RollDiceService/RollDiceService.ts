@@ -1,8 +1,10 @@
 import {
   ActionDice,
+  ActionDiceSide,
   DiceActionType,
   RollDiceResult,
   WeatherDice,
+  WeatherDiceSide,
 } from "../../../interfaces/RollDice/RollDice";
 import { gather } from "../../../constants/diceStructures/gather";
 import { build } from "../../../constants/diceStructures/build";
@@ -73,7 +75,7 @@ export class RollDiceService {
     return {
       result,
       axes,
-    } as RollDiceResult;
+    } as RollDiceResult<ActionDiceSide>;
   }
 
   public static getWeatherRollDiceResult(dice: WeatherDice) {
@@ -84,6 +86,6 @@ export class RollDiceService {
     return {
       result,
       axes,
-    } as RollDiceResult;
+    } as RollDiceResult<WeatherDiceSide>;
   }
 }

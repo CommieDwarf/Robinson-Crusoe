@@ -6,7 +6,7 @@ export interface ILogMessageRenderData {
   message: string;
   source: string;
   color: LogColor;
-  turn: number;
+  round: number;
   phase: Phase;
 }
 
@@ -14,7 +14,7 @@ export interface ILogMessage {
   message: string;
   source: string;
   color: LogColor;
-  turn: number;
+  round: number;
   phase: Phase;
   renderData: ILogMessageRenderData;
 }

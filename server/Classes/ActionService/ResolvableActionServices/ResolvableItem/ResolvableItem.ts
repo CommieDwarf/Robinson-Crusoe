@@ -94,9 +94,9 @@ export class ResolvableItem implements IResolvableItem {
     this.diceRoll = {
       type: action,
       results: {
-        hurt: RollDiceService.getRollDiceResult(action, "hurt"),
-        mystery: RollDiceService.getRollDiceResult(action, "mystery"),
-        success: RollDiceService.getRollDiceResult(action, "success"),
+        hurt: RollDiceService.getActionRollDiceResult(action, "hurt"),
+        mystery: RollDiceService.getActionRollDiceResult(action, "mystery"),
+        success: RollDiceService.getActionRollDiceResult(action, "success"),
       },
     };
     console.log(this.diceRoll);
@@ -107,7 +107,10 @@ export class ResolvableItem implements IResolvableItem {
     if (!diceRoll) {
       throw new Error("Can't re-roll dice that hasn't been rolled");
     }
-    diceRoll.results[dice] = RollDiceService.getRollDiceResult(action, dice);
+    diceRoll.results[dice] = RollDiceService.getActionRollDiceResult(
+      action,
+      dice
+    );
   }
 
   public applyRollDiceEffects() {

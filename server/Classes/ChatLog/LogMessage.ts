@@ -10,7 +10,7 @@ export class LogMessage implements ILogMessage {
     return this._source;
   }
 
-  get turn(): number {
+  get round(): number {
     return this._turn;
   }
 
@@ -30,7 +30,7 @@ export class LogMessage implements ILogMessage {
     return {
       message: this._message,
       color: this._color,
-      turn: this._turn,
+      round: this._turn,
       phase: this._phase,
       source: this._source,
     };
@@ -45,13 +45,13 @@ export class LogMessage implements ILogMessage {
   constructor(
     message: string,
     color: LogColor,
-    turn: number,
+    round: number,
     phase: Phase,
     source = ""
   ) {
     this._message = message;
     this._color = color;
-    this._turn = turn;
+    this._turn = round;
     this._phase = phase;
     this._source = source;
   }

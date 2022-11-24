@@ -6,10 +6,15 @@ import { IActionServiceRenderData } from "../../../../interfaces/ActionService/A
 import { IActionSlotsRenderData } from "../../../../interfaces/ActionSlots";
 import { NextActionButton } from "./NextActionButton/NextActionButton";
 import { Action } from "../../../../interfaces/Action";
-import { RollDiceWindow } from "../RollDiceWindow/RollDiceWindow";
+import { RollDiceWindow } from "./RollDiceWindow/RollDiceWindow";
 import { useEffect, useState } from "react";
-import { ActionRollDiceInfo } from "../../../../interfaces/RollDice/RollDice";
 import { IResolvableItemRenderData } from "../../../../interfaces/ActionService/IResolvableItem";
+import {
+  ActionDiceSide,
+  ActionResults,
+  RollDiceResult,
+} from "../../../../interfaces/RollDice/RollDice";
+import Entries from "../../../../interfaces/Entries";
 
 type Props = {
   actionService: IActionServiceRenderData;
@@ -24,10 +29,20 @@ export const ActionResolveWindow = (props: Props) => {
   const [resolved, setResolved] = useState<Map<string, boolean>>(new Map());
   const [rollDiceDone, setRollDiceDone] = useState(true);
 
+  function setItemResolved(name: string) {
+    setResolved((old) => {
+      if (old.has(name)) {
+        return old;
+      }
+      const copy = new Map(old);
+      copy.set(name, true);
+      return copy;
+    });
+  }
+
   useEffect(() => {
     const item = props.actionService.lastResolvedItem;
     if (item && !item.diceRoll && !resolved.has(item.droppableId)) {
-      console.log("set resolved");
       setResolved((old) => {
         const copy = new Map(old);
         copy.set(item.droppableId, true);
@@ -40,12 +55,37 @@ export const ActionResolveWindow = (props: Props) => {
     props.resolveItem(item.action, item.droppableId);
   }
 
+  const results = new Map<
+    keyof ActionResults,
+    RollDiceResult<ActionDiceSide>
+  >();
+
+  const lastItem = props.actionService.lastResolvedItem;
+  if (lastItem?.diceRoll) {
+    const entries = Object.entries(
+      lastItem.diceRoll.results
+    ) as Entries<ActionResults>;
+    entries.forEach(([key, value]) => {
+      results.set(key, value);
+    });
+  }
+
+  let name = lastItem ? lastItem.droppableId : null;
+  const itemResolved = name ? resolved.has(name) : false;
+
   return (
     <div className={styles.container} ref={containerRef}>
       <RollDiceWindow
-        item={props.actionService.lastResolvedItem}
-        setResolved={setResolved}
-        resolved={resolved}
+        name={name}
+        results={results}
+        type={
+          props.actionService.currentResolve.action as
+            | "build"
+            | "explore"
+            | "gather"
+        }
+        setResolved={setItemResolved}
+        resolved={itemResolved}
       />
       <div className={styles.header}>
         <div className={styles.actionIcon}>

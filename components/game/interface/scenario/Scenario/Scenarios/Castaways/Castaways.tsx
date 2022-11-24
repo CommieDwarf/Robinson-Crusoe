@@ -15,7 +15,7 @@ interface Props {
   actionSlots: Map<string, IPawnRenderData | null>;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
   zIndex: string;
-  turn: number;
+  round: number;
 }
 
 export default function Castaways(props: Props) {
@@ -28,7 +28,7 @@ export default function Castaways(props: Props) {
       snow: castaways.weather.snow.includes(i),
       hungryAnimal: castaways.weather.animals.includes(i),
     };
-    const current = i === props.turn;
+    const current = i === props.round;
     rounds.push(
       <RoundSquare
         round={i}

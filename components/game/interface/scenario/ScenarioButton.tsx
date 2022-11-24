@@ -11,7 +11,7 @@ interface Props {
   zIndex: string;
   show: boolean;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
-  turn: number;
+  round: number;
 }
 
 export default function ScenarioButton(props: Props) {
@@ -35,7 +35,7 @@ export default function ScenarioButton(props: Props) {
         actionSlots={props.actionSlots}
         show={props.show}
         setShow={props.setShow}
-        turn={props.turn}
+        round={props.round}
       />
       <div className={styles.button} onClick={handleClick}>
         <div className={styles.arrowWrapper}>
@@ -48,7 +48,7 @@ export default function ScenarioButton(props: Props) {
           </div>
         </div>
         <div className={styles.label}>
-          Scenariusz: Rozbitkowie --- Tura: {props.turn}
+          Scenariusz: Rozbitkowie --- Tura: {props.round}
         </div>
         <div className={styles.arrowWrapper}>
           <div className={styles.arrow + " " + rotatedArrowClass}>

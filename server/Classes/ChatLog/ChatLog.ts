@@ -22,7 +22,7 @@ export class ChatLog implements IChatLog {
       new LogMessage(
         message,
         color,
-        this._game.turn,
+        this._game.round,
         this._game.phaseService.phase,
         source
       )

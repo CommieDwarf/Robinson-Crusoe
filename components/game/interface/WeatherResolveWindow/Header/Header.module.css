@@ -1,0 +1,50 @@
+.container {
+    height: 50px;
+    text-align: center;
+    margin: auto;
+    margin-top: 5px;
+}
+
+.symbol {
+    display: inline-block;
+    position: relative;
+    height: 50px;
+    aspect-ratio: 1;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.round {
+    top: -15px;
+}
+
+.round > div {
+    height: 55px;
+    width: 55px;
+    font-size: 32px;
+}
+
+
+.title {
+    font-weight: bold;
+    font-size: 30px;
+    color: #068ad4;
+    vertical-align: top;
+    position: relative;
+    top: 5px;
+}
+
+/*.round {*/
+/*    position: absolute;*/
+/*    right: 10px;*/
+/*    top: 10px;*/
+/*}*/
+
+/*.roundText {*/
+/*    display: inline-block;*/
+/*    font-weight: bold;*/
+/*}*/
+
+/*.roundSquare {*/
+/*    display: inline-block;*/
+/*}*/

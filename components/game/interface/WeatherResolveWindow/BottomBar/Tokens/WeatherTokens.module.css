@@ -1,0 +1,11 @@
+.container {
+    width: 25%;
+    height: 50px;
+    margin: auto;
+    display: inline-flex;
+    justify-content: space-between;
+    vertical-align: bottom;
+    position: relative;
+    top: 38px;
+    left: 5px;
+}
