@@ -64,10 +64,16 @@ export const WeatherResolveWindow = (props: Props) => {
       <RollDiceButton rollWeatherDices={props.rollWeatherDices} />
       <div className={styles.bottomBar}>
         <WeatherTokens tokens={props.weatherService.tokens} />
-        <CloudsTotal overallWeather={props.weatherService.overallWeather} />
+        <CloudsTotal
+          weatherService={props.weatherService}
+          resolved={resolved}
+        />
         <Resources
           structuresService={props.structuresService}
           resources={props.resourcesAmount}
+          overallWeather={props.weatherService.overallWeather}
+          storm={props.weatherService.tokens.storm}
+          resolved={resolved}
         />
       </div>
     </div>

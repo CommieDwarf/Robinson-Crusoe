@@ -82,7 +82,7 @@ export class GameClass implements IGame {
   private _allPawns: IPawn[] = [];
 
   private _morale = new Morale(this);
-  private _round = 10;
+  private _round = 4;
   private _scenarioService: IScenarioService = new Castaways(this);
 
   constructor(scenarioName: ScenarioName) {

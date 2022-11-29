@@ -28,4 +28,52 @@
     height: 100%;
     display: inline-block;
     vertical-align: top;
+    text-align: right;
+}
+
+.subtrahends {
+    display: inline-flex;
+    justify-content: end;
+    vertical-align: top;
+    margin-left: 2px;
+    width: 45%;
+    float: right;
+}
+
+.subtrahend {
+    height: 20px;
+    vertical-align: top;
+    width: 40px;
+    color: darkred;
+}
+
+.subtrahendImage {
+    position: relative;
+    height: 20px;
+    width: 20px;
+    display: inline-block;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.subtrahendValue {
+    width: 20px;
+    height: 20px;
+    vertical-align: top;
+}
+
+.surplus {
+    color: limegreen;
+}
+
+.deficit {
+    color: red;
+}
+
+.roofAmount {
+    color: cornflowerblue;
+}
+
+.parenthesis {
+    color: var(--brown);
 }

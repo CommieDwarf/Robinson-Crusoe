@@ -36,8 +36,7 @@ export class WeatherService implements IWeatherService {
       ? this._rollDiceResult?.results.animals?.result
       : null;
     return {
-      snow: this.countClouds("snow"),
-      rain: this.countClouds("rain"),
+      ...this.countClouds(),
       storm: this._tokens.storm,
       animals,
     };
@@ -63,20 +62,42 @@ export class WeatherService implements IWeatherService {
     this.resetWeather();
   }
 
-  private countClouds(cloudType: "rain" | "snow") {
-    let clouds = 0;
-    if (this._tokens[cloudType]) {
-      clouds++;
+  private countClouds() {
+    let rain = 0;
+    let snow = 0;
+    if (this._tokens.rain) {
+      rain++;
     }
-    if (this.rollDiceResult?.results[cloudType]?.result.includes("double")) {
-      clouds += 2;
-    } else if (
-      !this._rollDiceResult?.results[cloudType]?.result.includes("blank")
-    ) {
-      clouds++;
+    if (this._tokens.snow) {
+      snow++;
     }
-
-    return clouds;
+    if (this._rollDiceResult) {
+      const rainResult = this._rollDiceResult.results.rain?.result;
+      const snowResult = this._rollDiceResult.results.snow?.result;
+      const results = [rainResult, snowResult];
+      results.forEach((result) => {
+        if (result) {
+          switch (result) {
+            case "rain":
+              rain += 1;
+              break;
+            case "doubleRain":
+              rain += 2;
+              break;
+            case "snow":
+              snow += 1;
+              break;
+            case "doubleSnow":
+              snow += 2;
+              break;
+          }
+        }
+      });
+    }
+    return {
+      rain,
+      snow,
+    };
   }
 
   private resetWeather() {

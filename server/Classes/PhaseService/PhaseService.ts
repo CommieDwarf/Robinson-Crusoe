@@ -157,6 +157,6 @@ export class PhaseService implements IPhaseService {
   };
 
   private nightEffect = () => {
-    this._game.setNextTurn();
+    this._game.setNextRound();
   };
 }
