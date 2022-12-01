@@ -1,72 +1,50 @@
-import {Character} from "../Character";
+import { Character } from "../Character";
 import {
   IPlayerCharacter,
   IPlayerCharacterRenderData,
   PlayerCharacterName,
 } from "../../../../../interfaces/Characters/PlayerCharacter";
-import {IPlayer} from "../../../../../interfaces/PlayerService/Player";
-import {PawnsService} from "../../../PawnService/PawnService";
-import {IDictionary} from "../../../../../interfaces/IDictionary";
-import {getCookSkills} from "../../../../../constants/getCookSkills";
-import {ISkill} from "../../../../../interfaces/Characters/Skill";
-import {ICharEffects} from "../../../../../interfaces/Characters/CharEffects";
-import {PlayerCharEffects} from "../../CharEffects/CharEffects";
-import {IPawnsService} from "../../../../../interfaces/Pawns/Pawns";
-import {IGame} from "../../../../../interfaces/Game";
+import { IPlayer } from "../../../../../interfaces/PlayerService/Player";
+import { PawnService } from "../../../PawnService/PawnService";
+import { ICharEffects } from "../../../../../interfaces/Characters/CharEffects";
+import { PlayerCharEffects } from "../../CharEffects/CharEffects";
+import { IPawnService } from "../../../../../interfaces/Pawns/Pawns";
+import { IGame } from "../../../../../interfaces/Game";
+import { Gender } from "../../../../../interfaces/Characters/Character";
 
 export class PlayerCharacter extends Character implements IPlayerCharacter {
-
   protected readonly _player: IPlayer;
   protected readonly _moraleThresholds: number[];
-  protected readonly _gender: "male" | "female";
-  protected _pawnService: IPawnsService = new PawnsService(this, 3);
+  protected _pawnService: IPawnService = new PawnService(this, 3);
   protected declare _name: PlayerCharacterName;
-  private _skills: IDictionary<ISkill>;
-  private _effects: ICharEffects;
 
   constructor(
-      name: PlayerCharacterName,
-      id: number,
-      maxHealth: number,
-      game: IGame,
-      gender: "male" | "female",
-      moraleThresholds: number[],
-      player: IPlayer
+    name: PlayerCharacterName,
+    id: number,
+    maxHealth: number,
+    game: IGame,
+    gender: Gender,
+    moraleThresholds: number[],
+    player: IPlayer
   ) {
     super(name, id, maxHealth, game);
     this._player = player;
     this._moraleThresholds = moraleThresholds;
     this._gender = gender;
-    this._pawnService = new PawnsService(this, 3);
-    this._skills = this.getSkills();
+    this._pawnService = new PawnService(this, 3);
     this._effects = new PlayerCharEffects(this);
   }
 
   get renderData(): IPlayerCharacterRenderData {
     return {
+      ...super.getRenderData(),
+      moraleThresholds: this._moraleThresholds,
+      playerId: 0,
       name: this.name,
-      namePL: this.namePL,
-      playerId: this.id,
-      gender: this.gender,
-      moraleThresholds: this.moraleThresholds,
-      skills: this.skills,
-      id: this.id,
-      freePawns: this.pawnService.freePawns.map((pawn) => pawn.renderData),
-      health: this.health,
-      maxHealth: this.maxHealth,
-      determination: this.determination,
     };
   }
 
   // ---------------------------------------------
-
-  get skills(): IDictionary<ISkill> {
-    return this._skills;
-  }
-
-  set skills(value: IDictionary<ISkill>) {
-    this._skills = value;
-  }
 
   get effects(): ICharEffects {
     return this._effects;
@@ -84,7 +62,7 @@ export class PlayerCharacter extends Character implements IPlayerCharacter {
     this._name = value;
   }
 
-  get pawnService(): IPawnsService {
+  get pawnService(): IPawnService {
     return this._pawnService;
   }
 
@@ -105,13 +83,4 @@ export class PlayerCharacter extends Character implements IPlayerCharacter {
   }
 
   // ---------------------------------------------
-
-  private getSkills(): IDictionary<ISkill> {
-    switch (this._name) {
-      case "cook":
-        return getCookSkills(this);
-      default:
-        throw new Error("getSkills is not yet implemented for: " + this._name);
-    }
-  }
 }

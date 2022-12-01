@@ -1,0 +1,22 @@
+.container {
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 0;
+    transition: all 0.5s;
+    overflow: hidden;
+    border: none;
+    z-index: 0;
+}
+
+.open {
+    width: 150px;
+    right: -150px;
+    border: 1px solid var(--brown);
+}
+
+.wrapper {
+    width: 150px;
+    height: 100%;
+}

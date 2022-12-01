@@ -1,11 +1,14 @@
-import { IPawnsService } from "../../../interfaces/Pawns/Pawns";
-import { IPawn, IPawnRenderData } from "../../../interfaces/Pawns/Pawn";
+import {
+  IPawnService,
+  IPawnServiceRenderData,
+} from "../../../interfaces/Pawns/Pawns";
+import { IPawn } from "../../../interfaces/Pawns/Pawn";
 
 import { PawnArrayName } from "../../../interfaces/Pawns/Pawns";
 import { Pawn } from "./Pawn/Pawn";
 import { ICharacter } from "../../../interfaces/Characters/Character";
 
-export class PawnsService implements IPawnsService {
+export class PawnService implements IPawnService {
   private _freePawns: IPawn[];
   private _pawns: IPawn[];
   private readonly _character: ICharacter;
@@ -18,10 +21,10 @@ export class PawnsService implements IPawnsService {
     this._initialQuantity = initialQuantity;
   }
 
-  get renderData(): IPawnRenderData[] {
-    return this._freePawns.map((pawn) => {
-      return pawn.renderData;
-    });
+  get renderData(): IPawnServiceRenderData {
+    return {
+      freePawns: this._freePawns.map((pawn) => pawn.renderData),
+    };
   }
 
   set freePawns(value: IPawn[]) {

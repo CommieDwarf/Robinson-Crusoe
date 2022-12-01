@@ -336,14 +336,17 @@ export default function Game(props: Props) {
         resourcesAmount={gameRenderData.allResources.owned}
         rollWeatherDices={rollWeather}
         dices={gameRenderData.scenarioService.weather}
+        skillService={gameRenderData.localPlayer.character.skillService}
+        determination={gameRenderData.localPlayer.character.determination}
       />
     </div>
   );
 }
 
-// for beautiful DND to work correctly...
 export const getStaticProps: GetServerSideProps = async ({ query }) => {
+  // for beautiful DND to work correctly...
   resetServerContext(); // <-- CALL RESET SERVER CONTEXT, SERVER SIDE
+
   const gameDataJSON = getGameRenderData();
   const gameData = await JSON.parse(gameDataJSON);
   return {

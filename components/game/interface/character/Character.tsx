@@ -13,7 +13,10 @@ import { Droppable } from "react-beautiful-dnd";
 import capitalize from "../../../../utils/capitalizeFirstLetter";
 import { IPlayerCharacterRenderData } from "../../../../interfaces/Characters/PlayerCharacter";
 import { ISideCharacterRenderData } from "../../../../interfaces/Characters/SideCharacter";
-import { ISkill } from "../../../../interfaces/Characters/Skill";
+import {
+  ISkill,
+  ISkillRenderData,
+} from "../../../../interfaces/SkillService/Skill";
 
 interface Props {
   character: IPlayerCharacterRenderData;
@@ -24,17 +27,17 @@ interface Props {
 
 export default function Character(props: Props) {
   const [skillDescription, setSkillDescription] = useState<{
-    skill: ISkill | null;
+    skill: ISkillRenderData | null;
     show: boolean;
   }>({ skill: null, show: false });
 
-  const skills = Object.entries(props.character.skills).map(([key, value]) => {
+  const skills = props.character.skillService.skills.map((skill, i) => {
     return (
       <SkillLabel
-        skill={value}
+        skill={skill}
         setSkillDescription={setSkillDescription}
-        key={key}
-        selected={value === skillDescription.skill && skillDescription.show}
+        key={i}
+        selected={skill === skillDescription.skill && skillDescription.show}
       />
     );
   });
@@ -71,7 +74,7 @@ export default function Character(props: Props) {
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
-              {props.character.freePawns.map((pawn, i) => {
+              {props.character.pawnService.freePawns.map((pawn, i) => {
                 return (
                   <Pawn
                     pawn={pawn}

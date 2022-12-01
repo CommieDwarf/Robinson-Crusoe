@@ -23,8 +23,8 @@ export default function SideCharacters(props: Props) {
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
-              {props.friday.freePawns[0] &&
-                props.friday.freePawns.map((pawn, i) => {
+              {props.friday.pawnService.freePawns[0] &&
+                props.friday.pawnService.freePawns.map((pawn, i) => {
                   return (
                     <Pawn
                       pawn={pawn}
@@ -60,8 +60,8 @@ export default function SideCharacters(props: Props) {
               {...provided.droppableProps}
               id={"dog-droppable"}
             >
-              {props.dog.freePawns[0] &&
-                props.dog.freePawns.map((pawn, i) => {
+              {props.dog.pawnService.freePawns[0] &&
+                props.dog.pawnService.freePawns.map((pawn, i) => {
                   return (
                     <Pawn
                       pawn={pawn}

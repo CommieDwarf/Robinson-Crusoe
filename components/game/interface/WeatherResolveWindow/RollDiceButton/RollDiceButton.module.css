@@ -2,19 +2,25 @@
     height: 60px;
     aspect-ratio: 741 / 566;
     border-radius: 10px;
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
     text-align: center;
     font-weight: 800;
     position: relative;
     cursor: pointer;
     font-size: 30px;
-    margin-top: 20px;
 }
 
-.container:hover {
+.notClicked:hover {
     height: 70px;
     top: -5px;
     font-size: 35px;
+}
+
+.clicked {
+    opacity: 0.5;
+    filter: grayscale(100%);
 }
 
 .dices {

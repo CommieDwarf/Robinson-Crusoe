@@ -1,31 +1,36 @@
 import { ICharEffects } from "./CharEffects";
-import { IPawnsService } from "../Pawns/Pawns";
+import { IPawnService, IPawnServiceRenderData } from "../Pawns/Pawns";
 import { IPawnRenderData } from "../Pawns/Pawn";
+import {
+  ISkillService,
+  ISkillServiceRenderData,
+} from "../SkillService/SkillService";
+import { CHARACTER_PL } from "../TRANSLATE_PL/CATEGORIES/CHARACTER_PL";
 
 export interface ICharacterRenderData {
-  freePawns: IPawnRenderData[];
+  pawnService: IPawnServiceRenderData;
   name: CharacterName;
-  namePL: CHAR_NAME_TRANSLATION;
+  namePL: CHARACTER_PL;
   id: number;
   health: number;
   maxHealth: number;
-  gender: string;
+  gender: Gender;
   determination: number;
+  skillService: ISkillServiceRenderData;
 }
 
-type ICharacterRenderDataNoPawns = Omit<ICharacterRenderData, "freePawns">;
-
 export interface ICharacter {
-  pawnService: IPawnsService;
+  pawnService: IPawnService;
   name: CharacterName;
   id: number;
   maxHealth: number;
   effects: ICharEffects;
-  namePL: CHAR_NAME_TRANSLATION;
+  namePL: CHARACTER_PL;
   health: number;
-  gender: string;
-  renderData: ICharacterRenderData;
+  gender: Gender;
+  getRenderData: () => ICharacterRenderData; // for the super usage I made it into a method.
   determination: number;
+  skillService: ISkillService;
 
   incrDetermination: (by: number) => void;
   decrDetermination: (by: number) => void;
@@ -41,11 +46,4 @@ export type CharacterName =
   | "dog"
   | "friday";
 
-export enum CHAR_NAME_TRANSLATION {
-  explorer = "kucharz",
-  carpenter = "cieśla",
-  cook = "kucharz",
-  soldier = "żołnierz",
-  dog = "pies",
-  friday = "piętaszek",
-}
+export type Gender = "male" | "female";
