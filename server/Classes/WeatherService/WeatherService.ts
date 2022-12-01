@@ -2,18 +2,26 @@ import {
   IWeatherService,
   OverallWeather,
   IWeatherTokens,
+  WeatherModifiers,
 } from "../../../interfaces/Weather/Weather";
-import { IGame } from "../../../interfaces/Game";
-import { WeatherRollDiceInfo } from "../../../interfaces/RollDice/RollDice";
+import {IGame} from "../../../interfaces/Game";
+import {WeatherRollDiceInfo} from "../../../interfaces/RollDice/RollDice";
 import Entries from "../../../interfaces/Entries";
-import { RollDiceService } from "../RollDiceService/RollDiceService";
-import { WeatherDays } from "../../../interfaces/ScenarioService/ScenarioService";
+import {RollDiceService} from "../RollDiceService/RollDiceService";
+import {WeatherDays} from "../../../interfaces/ScenarioService/ScenarioService";
 
 export class WeatherService implements IWeatherService {
+
+
   private _tokens: IWeatherTokens = {
     snow: true,
     rain: true,
     storm: true,
+  };
+
+  private _modifiers: WeatherModifiers = {
+    rain: 0,
+    snow: 0,
   };
 
   private readonly _game: IGame;
@@ -33,10 +41,17 @@ export class WeatherService implements IWeatherService {
 
   get overallWeather(): OverallWeather {
     const animals = this._rollDiceResult?.results.animals?.result
-      ? this._rollDiceResult?.results.animals?.result
-      : null;
+        ? this._rollDiceResult?.results.animals?.result
+        : null;
+
+    let {rain, snow} = this.countClouds();
+    rain += this._modifiers.rain;
+    snow += this._modifiers.snow;
+    rain = rain < 0 ? 0 : rain;
+    snow = snow < 0 ? 0 : snow;
     return {
-      ...this.countClouds(),
+      snow,
+      rain,
       storm: this._tokens.storm,
       animals,
     };
@@ -52,6 +67,14 @@ export class WeatherService implements IWeatherService {
 
   get rollDiceResult(): WeatherRollDiceInfo | null {
     return this._rollDiceResult;
+  }
+
+  get modifiers(): WeatherModifiers {
+    return this._modifiers;
+  }
+
+  incrementModifier(type: keyof WeatherModifiers, value: number) {
+    this._modifiers[type] += value;
   }
 
   public applyEffects() {
@@ -106,6 +129,10 @@ export class WeatherService implements IWeatherService {
       snow: false,
       rain: false,
     };
+    this._modifiers = {
+      rain: 0,
+      snow: 0,
+    };
     this._rollDiceResult = null;
   }
 
@@ -117,19 +144,19 @@ export class WeatherService implements IWeatherService {
     const diff = snow - wood;
     if (diff < 0) {
       this._game.characterService.hurtAllPlayerCharacters(
-        Math.abs(diff),
-        `Śnieg: Brakuje ${Math.abs(diff)} drewna`
+          Math.abs(diff),
+          `Śnieg: Brakuje ${Math.abs(diff)} drewna`
       );
       this._game.allResources.spendFromOwned(
-        "wood",
-        Math.abs(diff),
-        "Śnieg: Ogrzewanie drewnem"
+          "wood",
+          Math.abs(diff),
+          "Śnieg: Ogrzewanie drewnem"
       );
     } else {
       this._game.allResources.spendFromOwned(
-        "wood",
-        wood,
-        "Śnieg: Ogrzewanie drewnem"
+          "wood",
+          wood,
+          "Śnieg: Ogrzewanie drewnem"
       );
     }
   }
@@ -145,21 +172,21 @@ export class WeatherService implements IWeatherService {
   }
 
   private applyResourceRoofEffect(
-    resource: "wood" | "food",
-    amount: number,
-    diff: number
+      resource: "wood" | "food",
+      amount: number,
+      diff: number
   ) {
     const absoluteDiff = Math.abs(diff);
     const messageSource = `Pogoda: Brakuje ${absoluteDiff} poziomów dachu`;
     if (this._game.allResources.owned.getResource(resource) < absoluteDiff) {
       this._game.characterService.hurtAllPlayerCharacters(
-        absoluteDiff,
-        messageSource
+          absoluteDiff,
+          messageSource
       );
       this._game.allResources.spendFromOwned(
-        resource,
-        absoluteDiff,
-        messageSource
+          resource,
+          absoluteDiff,
+          messageSource
       );
     } else {
       this._game.allResources.spendFromOwned(resource, amount, messageSource);
@@ -175,9 +202,9 @@ export class WeatherService implements IWeatherService {
             this._game.characterService.hurtAllPlayerCharacters(1, msgSource);
           } else {
             this._game.structuresService.lvlDownStruct(
-              "palisade",
-              1,
-              msgSource
+                "palisade",
+                1,
+                msgSource
             );
           }
         }
@@ -208,12 +235,12 @@ export class WeatherService implements IWeatherService {
       },
     };
     const entries = Object.entries(
-      this._game.scenarioService.weather
+        this._game.scenarioService.weather
     ) as Entries<WeatherDays>;
     entries.forEach(([weatherType, dayArray]) => {
       if (dayArray.includes(this._game.round)) {
         weatherRollDiceInfo.results[weatherType] =
-          RollDiceService.getWeatherRollDiceResult(weatherType);
+            RollDiceService.getWeatherRollDiceResult(weatherType);
       }
     });
 

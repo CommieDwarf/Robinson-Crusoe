@@ -5,6 +5,7 @@ import { PHASE_PL } from "./CATEGORIES/PHASE_PL";
 import { ACTION_PL } from "./CATEGORIES/ACTION_PL";
 import { STRUCTURE_PL } from "./CATEGORIES/STRUCTURE_PL";
 import { ITEM_TYPE_PL } from "./CATEGORIES/ITEM_TYPE_PL";
+import { TOKEN_PL } from "./CATEGORIES/TOKEN_PL";
 
 export const TRANSLATE_PL = {
   ...CHARACTER_PL,
@@ -14,5 +15,6 @@ export const TRANSLATE_PL = {
   ...RESOURCE_PL,
   ...PHASE_PL,
   ...ITEM_TYPE_PL,
+  ...TOKEN_PL,
 };
 export type Translatable = keyof typeof TRANSLATE_PL;

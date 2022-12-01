@@ -42,7 +42,7 @@ export type PersonalInventionName =
 
 export type StarterInventionName =
   | "bricks"
-  | "cure"
+  | "medicine"
   | "dam"
   | "fire"
   | "knife"

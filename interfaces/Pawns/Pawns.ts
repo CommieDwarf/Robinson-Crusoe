@@ -6,7 +6,7 @@ export interface IPawnService {
   pawns: (IPawn | IPawnHelper)[];
   freePawns: (IPawn | IPawnHelper)[];
   resetFreePawns: () => void;
-  addPawn: (pawn: IPawn, source: PawnArrayName) => void;
+  addPawn: (pawn: IPawn) => void;
   removePawn: (draggableId: string, source: PawnArrayName) => void;
   copyPawnToFreePawns: (draggableId: string) => void;
 

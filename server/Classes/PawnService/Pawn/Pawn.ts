@@ -3,9 +3,9 @@ import { IPawn, IPawnRenderData } from "../../../../interfaces/Pawns/Pawn";
 import { ICharacter } from "../../../../interfaces/Characters/Character";
 
 export class Pawn implements IPawn {
-  constructor(id: number, character: ICharacter) {
-    this._draggableId = character.name + "pawn" + id;
+  constructor(character: ICharacter, id: number) {
     this._character = character;
+    this._draggableId = character.name + "pawn" + id;
   }
 
   get renderData(): IPawnRenderData {

@@ -9,8 +9,8 @@ import { Pawn } from "./Pawn/Pawn";
 import { ICharacter } from "../../../interfaces/Characters/Character";
 
 export class PawnService implements IPawnService {
-  private _freePawns: IPawn[];
-  private _pawns: IPawn[];
+  private _freePawns: IPawn[] = [];
+  private _pawns: IPawn[] = [];
   private readonly _character: ICharacter;
   _initialQuantity: number;
 
@@ -80,7 +80,7 @@ export class PawnService implements IPawnService {
   private getInitialPawns(initialQuantity: number): IPawn[] {
     const pawns: IPawn[] = [];
     for (let i = 0; i < initialQuantity; i++) {
-      pawns.push(new Pawn(i, this.character));
+      pawns.push(new Pawn(this.character, i));
     }
     return pawns;
   }

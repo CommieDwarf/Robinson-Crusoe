@@ -8,12 +8,11 @@ export class HelperPawn extends Pawn implements IPawnHelper {
   disposable: boolean;
 
   constructor(
-    id: number,
     character: IPlayerCharacter,
     disposable: boolean,
     action: HelperAction
   ) {
-    super(id, character);
+    super(character, character.pawnService.pawns.length);
     this.action = action;
     this.disposable = disposable;
   }

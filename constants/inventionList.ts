@@ -16,7 +16,7 @@ export const starters = [
     null
   ),
   new Invention(
-    "cure",
+    "medicine",
     { invention: null, terrainType: "plains" },
     {},
     INVENTION_TYPE.STARTER,

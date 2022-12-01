@@ -13,14 +13,25 @@ export interface OverallWeather {
   storm: boolean;
 }
 
+export interface WeatherModifiers {
+  rain: number;
+  snow: number;
+}
+
 export interface IWeatherService {
   tokens: IWeatherTokens;
+  modifiers: WeatherModifiers;
   overallWeather: OverallWeather;
   rollDiceResult: WeatherRollDiceInfo | null;
   setToken: (type: keyof IWeatherTokens, value: boolean) => void;
+  rollDices: () => void;
+  incrementModifier: (
+    type: keyof WeatherModifiers,
+    value: number,
+    sourceLog: string
+  ) => void;
   applyEffects: () => void;
   renderData: IWeatherServiceRenderData;
-  rollDices: () => void;
 }
 
 export interface IWeatherServiceRenderData {

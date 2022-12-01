@@ -1,14 +1,22 @@
 import { ITokenService } from "../../../interfaces/TokenService/TokenService";
 import { IToken } from "../../../interfaces/TokenService/Token";
 import { IGame } from "../../../interfaces/Game";
+import { IPlayerCharacter } from "../../../interfaces/Characters/PlayerCharacter";
+import { ISideCharacter } from "../../../interfaces/Characters/SideCharacter";
 
 export class TokenService implements ITokenService {
+  get character(): IPlayerCharacter {
+    return this._character;
+  }
+
   private _allTokens: IToken[] = [];
   private _ownedTokens: IToken[] = [];
   private _game: IGame;
+  private _character: IPlayerCharacter;
 
-  constructor(game: IGame) {
+  constructor(game: IGame, character: IPlayerCharacter) {
     this._game = game;
+    this._character = character;
   }
 
   get allTokens(): IToken[] {

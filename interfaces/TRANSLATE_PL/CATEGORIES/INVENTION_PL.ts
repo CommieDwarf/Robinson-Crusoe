@@ -1,7 +1,7 @@
 export enum INVENTION_PL {
   invention = "karta pomysłu",
   bricks = "cegły",
-  cure = "lek",
+  medicine = "lek",
   dam = "tama",
   fire = "ogień",
   knife = "nóż",
