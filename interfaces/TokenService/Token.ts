@@ -14,3 +14,23 @@ export interface ITokenRenderData {
   namePL: TOKEN_PL;
   description: string;
 }
+
+export enum DiscoveryTokenName {
+  candles = "candles",
+  fallenTree = "fallenTree",
+  goat = "goat",
+  herbs = "herbs",
+  healingHerbs = "healingHerbs",
+  largeLeaves = "largeLeaves",
+  nourishingLarvae = "nourishingLarvae",
+  oldMachete = "oldMachete",
+  poison = "poison",
+  thornyBushes = "thornyBushes",
+  tobacco = "tobacco",
+  treasure = "treasure",
+  vegetables = "vegetables",
+  scenario1 = "scenario1",
+  scenario2 = "scenario2",
+  scenario3 = "scenario3",
+  scenario4 = "scenario4",
+}

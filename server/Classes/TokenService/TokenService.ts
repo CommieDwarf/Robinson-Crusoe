@@ -1,36 +1,42 @@
 import { ITokenService } from "../../../interfaces/TokenService/TokenService";
-import { IToken } from "../../../interfaces/TokenService/Token";
+import {
+  DiscoveryTokenName,
+  IToken,
+} from "../../../interfaces/TokenService/Token";
 import { IGame } from "../../../interfaces/Game";
 import { IPlayerCharacter } from "../../../interfaces/Characters/PlayerCharacter";
-import { ISideCharacter } from "../../../interfaces/Characters/SideCharacter";
+import { TokenCreator } from "./TokenCreator/TokenCreator";
+import { doubledDiscoveryTokens } from "../../../constants/doubledDiscoveryTokens";
+import shuffle from "../../../utils/shuffleArray";
+import { ITokenCreator } from "../../../interfaces/TokenCreator/TokenCreator";
 
 export class TokenService implements ITokenService {
   get character(): IPlayerCharacter {
     return this._character;
   }
 
-  private _allTokens: IToken[] = [];
-  private _ownedTokens: IToken[] = [];
+  private _tokenStack: DiscoveryTokenName[];
+
+  private _owned: IToken[] = [];
   private _game: IGame;
-  private _character: IPlayerCharacter;
+  private readonly _character: IPlayerCharacter;
+  private _tokenCreator: ITokenCreator;
 
   constructor(game: IGame, character: IPlayerCharacter) {
     this._game = game;
     this._character = character;
-  }
-
-  get allTokens(): IToken[] {
-    return this._allTokens;
+    this._tokenStack = shuffle(this.getTokenStack());
+    this._tokenCreator = new TokenCreator(game, character);
+    this.testTokens();
   }
 
   get ownedTokens(): IToken[] {
-    return this._ownedTokens;
+    return this._owned;
   }
 
   get renderData() {
     return {
-      allTokens: this._allTokens.map((token) => token.renderData),
-      ownedTokens: this._ownedTokens.map((token) => token.renderData),
+      owned: this._owned.map((token) => token.renderData),
     };
   }
 
@@ -38,12 +44,32 @@ export class TokenService implements ITokenService {
     this.getOwnedToken(name).use();
   }
 
+  public addRandomTokenToOwned() {
+    const tokenName = this._tokenStack.pop();
+    if (tokenName) {
+      this._owned.push(this._tokenCreator.createToken(tokenName));
+    }
+  }
+
   private getOwnedToken(name: string): IToken {
-    const token = this._ownedTokens.find((token) => token.name === name);
+    const token = this._owned.find((token) => token.name === name);
     if (!token) {
       throw new Error("Can't find token with given name: " + name);
     }
-
     return token;
+  }
+
+  private getTokenStack(): DiscoveryTokenName[] {
+    const tokenList = Object.values(DiscoveryTokenName);
+    doubledDiscoveryTokens.forEach((name) => tokenList.push(name));
+    return tokenList;
+  }
+
+  private testTokens() {
+    const length = this._tokenStack.length;
+    for (let i = 0; i < length; i++) {
+      this.addRandomTokenToOwned();
+    }
+    console.log(this._tokenStack.length);
   }
 }

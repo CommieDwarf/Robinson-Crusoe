@@ -11,8 +11,3 @@
     flex-wrap: nowrap;
 }
 
-.token {
-    aspect-ratio: 1;
-    height: 90%;
-    position: relative;
-}

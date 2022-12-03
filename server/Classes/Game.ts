@@ -62,14 +62,10 @@ export class GameClass implements IGame {
   private _allResources: IAllResources = new ResourceService(this);
   private _structuresService: IStructuresService = new StructuresService(this);
   private _alertService: IAlertService = new AlertService();
-
-  // hardcoded for demo version
   private readonly _inventionsService: IInventionsService;
-
   private _weatherService: IWeatherService = new WeatherService(this);
   private _threat: IThreat = new Threat(this);
   private _phaseService: IPhaseService = new PhaseService(this);
-
   private readonly _characterService: ICharacterService;
   private _equipment: IEquipment = new Equipment(this);
   private _arrangeCampRestService = new ArrangeCampRestService();
@@ -79,10 +75,8 @@ export class GameClass implements IGame {
     this.inventionsService,
     this._tilesService
   );
-  private _allPawns: IPawn[] = [];
-
   private _morale = new Morale(this);
-  private _round = 5;
+  private _round = 12;
   private _scenarioService: IScenarioService = new Castaways(this);
 
   constructor(scenarioName: ScenarioName) {
@@ -103,9 +97,6 @@ export class GameClass implements IGame {
       [this.localPlayer.getCharacter()],
       this
     );
-    this._characterService.allCharacters.forEach(
-      (char) => (this._allPawns = this._allPawns.concat(char.pawnService.pawns))
-    );
 
     this._inventionsService = new InventionsService(
       "castaways",
@@ -118,7 +109,6 @@ export class GameClass implements IGame {
     return {
       actionSlotsService: this.actionSlotsService.renderData,
       characterService: this._characterService.renderData,
-      allPawns: this.allPawns.map((pawn) => pawn.renderData),
       allResources: this.allResources.renderData,
       arrangeCampRestService: this._arrangeCampRestService.renderData,
       beasts: this.beasts.renderData,
@@ -137,6 +127,7 @@ export class GameClass implements IGame {
       alertService: this.alertService.renderData,
       scenarioService: this._scenarioService.renderData,
       weatherService: this._weatherService.renderData,
+      allPawns: this.allPawns.map((pawn) => pawn.renderData),
     };
   }
 
@@ -208,8 +199,13 @@ export class GameClass implements IGame {
     return this._actionSlotsService;
   }
 
-  get allPawns(): (IPawn | IPawnHelper)[] {
-    return this._allPawns;
+  get allPawns() {
+    let pawns: IPawn[] = [];
+    console.log(this.characterService);
+    this.characterService.allCharacters.forEach((char) => {
+      pawns = pawns.concat(char.pawnService.pawns);
+    });
+    return pawns;
   }
 
   setPawn(droppableId: string, draggableId: string) {

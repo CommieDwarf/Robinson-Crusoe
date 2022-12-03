@@ -51,6 +51,10 @@ import {
   IScenarioService,
   IScenarioServiceRenderData,
 } from "./ScenarioService/ScenarioService";
+import {
+  ITokenService,
+  ITokenServiceRenderData,
+} from "./TokenService/TokenService";
 
 export interface IGameRenderData {
   players: IPlayerRenderData[];
@@ -65,7 +69,6 @@ export interface IGameRenderData {
   actionSlotsService: IActionSlotsServiceRenderData;
   arrangeCampRestService: IArrangeCampRestServiceRenderData;
   beasts: IBeastsRenderData;
-  allPawns: IPawnRenderData[];
   phaseService: IPhaseServiceRenderData;
   morale: IMoraleRenderData;
   round: number;
@@ -74,6 +77,7 @@ export interface IGameRenderData {
   alertService: IAlertServiceRenderData;
   scenarioService: IScenarioServiceRenderData;
   weatherService: IWeatherServiceRenderData;
+  allPawns: IPawnRenderData[];
 }
 
 export interface IGame {
@@ -89,7 +93,6 @@ export interface IGame {
   actionSlotsService: IActionSlotsService;
   arrangeCampRestService: IArrangeCampRestService;
   beasts: IBeasts;
-  allPawns: IPawn[];
   morale: IMorale;
   weatherService: IWeatherService;
   phaseService: IPhaseService;
@@ -97,7 +100,7 @@ export interface IGame {
   chatLog: IChatLog;
   alertService: IAlertService;
   scenarioService: IScenarioService;
-
+  allPawns: IPawn[];
   round: number;
   setNextRound: () => void;
   setPawn: (droppableId: string, draggableId: string) => void;

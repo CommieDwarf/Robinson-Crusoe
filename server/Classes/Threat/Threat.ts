@@ -178,8 +178,7 @@ export class Threat implements IThreat {
     }
   }
 
-  public async testEventCards(game: IGame) {
-    await sleep(2000);
+  public testEventCards(game: IGame) {
     this._eventCards.forEach((event, i) => {});
 
     const char = game.characterService.getCharacter("cook");

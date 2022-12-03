@@ -2,10 +2,13 @@ import Image from "next/image";
 import React, { useId } from "react";
 import styles from "./Pawn.module.css";
 import { Draggable } from "react-beautiful-dnd";
-import { IPawnRenderData } from "../../../interfaces/Pawns/Pawn";
+import {
+  IPawnHelperRenderData,
+  IPawnRenderData,
+} from "../../../interfaces/Pawns/Pawn";
 
 interface Props {
-  pawn: IPawnRenderData;
+  pawn: IPawnRenderData | IPawnHelperRenderData;
   context:
     | "gather"
     | "explore"
@@ -20,9 +23,15 @@ interface Props {
 }
 
 export default function Pawn(props: Props) {
-  let imageName = props.pawn.character.gender
-    ? props.pawn.character.name + "-" + props.pawn.character.gender
-    : props.pawn.character.name;
+  let imageName: string;
+  let pawnClass: keyof typeof styles;
+  if ("action" in props.pawn) {
+    imageName = "helper";
+    pawnClass = props.pawn.action;
+  } else {
+    pawnClass = props.pawn.character.name;
+    imageName = props.pawn.character.name + "-" + props.pawn.character.gender;
+  }
 
   const context =
     props.pawn.character.name === "dog" ||
@@ -42,7 +51,7 @@ export default function Pawn(props: Props) {
             ref={provided.innerRef}
           >
             <div
-              className={styles.pawn + " " + styles[props.pawn.character.name]}
+              className={styles.pawn + " " + styles[pawnClass]}
               id={props.pawn.draggableId}
             >
               <Image

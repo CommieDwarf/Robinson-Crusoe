@@ -2,19 +2,19 @@ import { Token } from "./Token/Token";
 import { IGame } from "../../../../interfaces/Game";
 import { IPlayerCharacter } from "../../../../interfaces/Characters/PlayerCharacter";
 
-export class Poison extends Token {
+export class HealingHerbs extends Token {
   constructor(game: IGame, character: IPlayerCharacter) {
     super(
       game,
       character,
-      "poison",
-      "Jeśli masz zbudowane Naczynia, otrzymujesz +2 do broni"
+      "healingHerbs",
+      "jeśli zbudowałeś Naczynia, otrzymujesz +1 do morali"
     );
   }
 
   use() {
     if (this._game.inventionsService.getInvention("pot").isBuilt) {
-      this._game.structuresService.lvlUpStruct("weapon", 2, this._sourceLog);
+      this._game.morale.lvlUp(1, this._sourceLog);
       this.discard();
     }
   }

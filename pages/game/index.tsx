@@ -104,11 +104,11 @@ export default function Game(props: Props) {
   }
 
   function onDragUpdate(update: DragUpdate) {
+    console.log(gameRenderData.allPawns);
     unselectActionSlots();
     const pawn = gameRenderData.allPawns.find(
       (p) => p.draggableId === update.draggableId
     );
-
     const destinationId = update.destination?.droppableId;
     if (
       destinationId?.includes("freepawns") ||
@@ -293,15 +293,9 @@ export default function Game(props: Props) {
         <ChatLog logMessages={gameRenderData.logs} />
         <Weather tokens={gameRenderData.weatherService.tokens} />
         <Tokens
-          tokens={[
-            "additionalFood",
-            "basket",
-            "discovery3",
-            "discovery4",
-            "largeLeaves",
-            "oldMachete",
-            "shortcut",
-          ]}
+          discoveryTokens={
+            gameRenderData.localPlayer.character.tokenService.owned
+          }
         />
         <ScenarioButton
           inventions={gameRenderData.inventionsService.inventions.filter(
@@ -329,16 +323,16 @@ export default function Game(props: Props) {
         />
       )}
       <Alerts message={gameRenderData.alertService.alert} />
-      <WeatherResolveWindow
-        weatherService={gameRenderData.weatherService}
-        round={gameRenderData.round}
-        structuresService={gameRenderData.structuresService}
-        resourcesAmount={gameRenderData.allResources.owned}
-        rollWeatherDices={rollWeather}
-        dices={gameRenderData.scenarioService.weather}
-        skillService={gameRenderData.localPlayer.character.skillService}
-        determination={gameRenderData.localPlayer.character.determination}
-      />
+      {/*<WeatherResolveWindow*/}
+      {/*  weatherService={gameRenderData.weatherService}*/}
+      {/*  round={gameRenderData.round}*/}
+      {/*  structuresService={gameRenderData.structuresService}*/}
+      {/*  resourcesAmount={gameRenderData.allResources.owned}*/}
+      {/*  rollWeatherDices={rollWeather}*/}
+      {/*  dices={gameRenderData.scenarioService.weather}*/}
+      {/*  skillService={gameRenderData.localPlayer.character.skillService}*/}
+      {/*  determination={gameRenderData.localPlayer.character.determination}*/}
+      {/*/>*/}
     </div>
   );
 }

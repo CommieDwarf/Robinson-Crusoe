@@ -1,6 +1,6 @@
-import {Token} from "../Token";
-import {IGame} from "../../../../interfaces/Game";
-import {IPlayerCharacter} from "../../../../interfaces/Characters/PlayerCharacter";
+import { Token } from "./Token/Token";
+import { IGame } from "../../../../interfaces/Game";
+import { IPlayerCharacter } from "../../../../interfaces/Characters/PlayerCharacter";
 
 export class Treasure extends Token {
   constructor(game: IGame, character: IPlayerCharacter) {
@@ -11,6 +11,5 @@ export class Treasure extends Token {
     //TODO: implement Mystery cards
   }
 
-  autoDiscard() {
-  }
+  autoDiscard() {}
 }

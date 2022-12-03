@@ -16,4 +16,18 @@ export class HelperPawn extends Pawn implements IPawnHelper {
     this.action = action;
     this.disposable = disposable;
   }
+
+  get renderData() {
+    return {
+      draggableId: this.draggableId,
+      character: {
+        id: this.character.id,
+        name: this.character.name,
+        namePL: this.character.namePL,
+        gender: this.character.gender,
+      },
+      action: this.action,
+      disposable: this.disposable,
+    };
+  }
 }

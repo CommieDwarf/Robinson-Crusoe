@@ -1,4 +1,4 @@
-import { Token } from "../Token";
+import { Token } from "./Token/Token";
 import { IGame } from "../../../../interfaces/Game";
 import { IPlayerCharacter } from "../../../../interfaces/Characters/PlayerCharacter";
 import { HelperPawn } from "../../PawnService/Pawn/HelperPawn";

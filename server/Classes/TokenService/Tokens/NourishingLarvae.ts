@@ -1,8 +1,8 @@
-import { Token } from "../Token";
+import { Token } from "./Token/Token";
 import { IGame } from "../../../../interfaces/Game";
 import { IPlayerCharacter } from "../../../../interfaces/Characters/PlayerCharacter";
 
-export class LargeLeaves extends Token {
+export class NourishingLarvae extends Token {
   constructor(game: IGame, character: IPlayerCharacter) {
     super(
       game,

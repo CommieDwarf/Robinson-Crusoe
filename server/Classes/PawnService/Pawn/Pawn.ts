@@ -8,7 +8,7 @@ export class Pawn implements IPawn {
     this._draggableId = character.name + "pawn" + id;
   }
 
-  get renderData(): IPawnRenderData {
+  public get renderData(): IPawnRenderData {
     return {
       draggableId: this.draggableId,
       character: {

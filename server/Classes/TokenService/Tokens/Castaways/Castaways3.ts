@@ -1,10 +1,10 @@
-import { Token } from "../../Token";
+import { Token } from "../Token/Token";
 import { IGame } from "../../../../../interfaces/Game";
 import { IPlayerCharacter } from "../../../../../interfaces/Characters/PlayerCharacter";
 
 export class Castaways3 extends Token {
   constructor(game: IGame, character: IPlayerCharacter) {
-    super(game, character, "castaways3", "Daje +1 do broni ");
+    super(game, character, "scenario3", "Daje +1 do broni ");
   }
 
   use() {

@@ -1,10 +1,11 @@
 import {
   IToken,
   ITokenRenderData,
-} from "../../../interfaces/TokenService/Token";
-import { TOKEN_PL } from "../../../interfaces/TRANSLATE_PL/CATEGORIES/TOKEN_PL";
-import { IPlayerCharacter } from "../../../interfaces/Characters/PlayerCharacter";
-import { IGame } from "../../../interfaces/Game";
+} from "../../../../../interfaces/TokenService/Token";
+import { TOKEN_PL } from "../../../../../interfaces/TRANSLATE_PL/CATEGORIES/TOKEN_PL";
+import { IPlayerCharacter } from "../../../../../interfaces/Characters/PlayerCharacter";
+import { IGame } from "../../../../../interfaces/Game";
+import { v4 as uuidv4 } from "uuid";
 
 export abstract class Token implements IToken {
   protected _name: keyof typeof TOKEN_PL;
@@ -14,8 +15,9 @@ export abstract class Token implements IToken {
   protected _character: IPlayerCharacter;
   protected _discarded: boolean = false;
   protected _sourceLog: string;
+  private _id = uuidv4();
 
-  constructor(
+  protected constructor(
     game: IGame,
     character: IPlayerCharacter,
     name: keyof typeof TOKEN_PL,
@@ -39,6 +41,10 @@ export abstract class Token implements IToken {
 
   protected discard() {
     this._discarded = true;
+  }
+
+  get id(): string {
+    return this._id;
   }
 
   get name(): keyof typeof TOKEN_PL {

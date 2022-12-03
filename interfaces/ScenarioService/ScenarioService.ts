@@ -5,6 +5,7 @@ export enum SCENARIO_STATUS {
 }
 
 export interface IScenarioService {
+  name: "castaways";
   weather: WeatherDays;
   text: ScenarioText;
   renderData: IScenarioServiceRenderData;

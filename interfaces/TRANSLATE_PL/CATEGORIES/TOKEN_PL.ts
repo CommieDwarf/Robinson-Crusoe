@@ -14,8 +14,8 @@ export enum TOKEN_PL {
   vegetables = "jadalne kłącza",
   oil = "oliwa",
   pirateSaber = "szabla pirata",
-  castaways1 = "zioła",
-  castaways2 = "oliwa",
-  castaways3 = "szabla pirata",
-  castaways4 = "medalik z portretem kobiety",
+  scenario1 = "zioła",
+  scenario2 = "oliwa",
+  scenario3 = "szabla pirata",
+  scenario4 = "medalik z portretem kobiety",
 }

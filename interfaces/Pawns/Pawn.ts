@@ -21,3 +21,8 @@ export interface IPawnHelper extends IPawn {
   disposable: boolean;
   action: HelperAction;
 }
+
+export interface IPawnHelperRenderData extends IPawnRenderData {
+  disposable: boolean;
+  action: HelperAction;
+}

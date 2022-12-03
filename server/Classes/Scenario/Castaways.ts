@@ -9,6 +9,10 @@ import { castaways } from "../../../constants/scenarios/castaways";
 import { IGame } from "../../../interfaces/Game";
 
 export class Castaways implements IScenarioService {
+  get name(): "castaways" {
+    return this._name;
+  }
+
   get woodStashLvl(): number {
     return this._woodStashLvl;
   }
@@ -18,6 +22,7 @@ export class Castaways implements IScenarioService {
   private _weather: WeatherDays = castaways.weather;
   private readonly _game: IGame;
   private _woodStashLvl: number = 1;
+  private _name: "castaways" = "castaways";
 
   constructor(game: IGame) {
     this._game = game;

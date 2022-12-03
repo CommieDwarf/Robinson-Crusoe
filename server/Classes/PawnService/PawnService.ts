@@ -17,7 +17,7 @@ export class PawnService implements IPawnService {
   constructor(character: ICharacter, initialQuantity: number) {
     this._character = character;
     this._pawns = this.getInitialPawns(initialQuantity);
-    this._freePawns = this._pawns;
+    this._freePawns = [...this._pawns];
     this._initialQuantity = initialQuantity;
   }
 

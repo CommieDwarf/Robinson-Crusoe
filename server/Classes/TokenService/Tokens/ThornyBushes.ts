@@ -2,19 +2,19 @@ import { Token } from "./Token/Token";
 import { IGame } from "../../../../interfaces/Game";
 import { IPlayerCharacter } from "../../../../interfaces/Characters/PlayerCharacter";
 
-export class Poison extends Token {
+export class ThornyBushes extends Token {
   constructor(game: IGame, character: IPlayerCharacter) {
     super(
       game,
       character,
-      "poison",
-      "Jeśli masz zbudowane Naczynia, otrzymujesz +2 do broni"
+      "thornyBushes",
+      "Jeśli schronienie jest zbudowane, otrzymujesz +1 do palisady."
     );
   }
 
   use() {
-    if (this._game.inventionsService.getInvention("pot").isBuilt) {
-      this._game.structuresService.lvlUpStruct("weapon", 2, this._sourceLog);
+    if (this._game.structuresService.getStruct("shelter").lvl > 0) {
+      this._game.structuresService.lvlUpStruct("palisade", 1, this._sourceLog);
       this.discard();
     }
   }
