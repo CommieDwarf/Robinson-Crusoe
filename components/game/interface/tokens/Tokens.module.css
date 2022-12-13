@@ -2,6 +2,7 @@
     grid-column: 5 / span 1;
     grid-row: 6 / span 1;
     width: 100%;
+    position: relative;
 }
 
 .content {
