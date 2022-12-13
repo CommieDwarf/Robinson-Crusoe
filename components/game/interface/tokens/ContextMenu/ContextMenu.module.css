@@ -10,9 +10,9 @@
     background-repeat: no-repeat;
     border: 1px solid var(--brown);
     background-position: top;
-    -webkit-box-shadow: inset 0px 0px 5px 2px var(--brown);
-    -moz-box-shadow: inset 0px 0px 5px 2px var(--brown);
-    box-shadow: inset 0px 0px 5px 2px var(--brown);
+    -webkit-box-shadow: inset 0 0 5px 2px var(--brown);
+    -moz-box-shadow: inset 0 0 5px 2px var(--brown);
+    box-shadow: inset 0 0 5px 2px var(--brown);
     text-align: center;
     color: var(--brown);
     padding: 5px;
