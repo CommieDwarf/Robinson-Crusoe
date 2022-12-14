@@ -49,6 +49,7 @@ import resolveItem from "../api/resolveItem";
 import { Alerts } from "../../components/game/interface/Alerts/Alerts";
 import { WeatherResolveWindow } from "../../components/game/interface/WeatherResolveWindow/WeatherResolveWindow";
 import rollWeatherDices from "../api/rollWeatherDices";
+import applyTokenApi from "../api/applyTokenApi";
 
 interface Props {
   gameData: IGameRenderData;
@@ -67,10 +68,15 @@ export default function Game(props: Props) {
 
   // Increase of proper component's z-index is necessary to render dragged pawn above other components
   // and also for proper render of scaled components
-  const [zIndex, setZIndex] = useState("");
+  const [elementZIndexed, setElementZIndexed] = useState("");
 
   function setNextActionHandle() {
     setNextAction();
+    setGameRenderData(JSON.parse(getGameRenderData()));
+  }
+
+  function applyToken(name: string) {
+    applyTokenApi(name);
     setGameRenderData(JSON.parse(getGameRenderData()));
   }
 
@@ -99,7 +105,7 @@ export default function Game(props: Props) {
   }
 
   function onDragStart(start: DragStart) {
-    setZIndex(start.source.droppableId);
+    setElementZIndexed(start.source.droppableId);
     setIsPawnBeingDragged(true);
   }
 
@@ -144,7 +150,7 @@ export default function Game(props: Props) {
   }
 
   async function onDragEnd(result: DropResult) {
-    setZIndex("");
+    setElementZIndexed("");
     setIsPawnBeingDragged(false);
     unselectAllActionSlots();
     const destinationId = result.destination?.droppableId;
@@ -244,12 +250,12 @@ export default function Game(props: Props) {
         <Structures
           structures={gameRenderData.structuresService.structures}
           actionSlots={actionSlots}
-          zIndex={zIndex}
+          zIndex={elementZIndexed}
         />
         <MapComponent
           tiles={gameRenderData.tilesService.tiles}
           actionSlots={actionSlots}
-          zIndex={zIndex}
+          zIndex={elementZIndexed}
           scrollDisabled={isPawnBeingDragged}
           showScenario={showScenario}
           beastCount={gameRenderData.beasts.deckCount}
@@ -261,14 +267,14 @@ export default function Game(props: Props) {
             (inv) => inv.type !== INVENTION_TYPE.SCENARIO
           )}
           isBeingDragged={isPawnBeingDragged}
-          zIndex={zIndex}
+          zIndex={elementZIndexed}
           actionSlots={actionSlots}
         />
         <Character
           character={gameRenderData.localPlayer.character}
           dog={gameRenderData.characterService.dog}
           friday={gameRenderData.characterService.friday}
-          zIndex={zIndex}
+          zIndex={elementZIndexed}
         />
 
         <Health
@@ -281,12 +287,12 @@ export default function Game(props: Props) {
         <Threat
           threat={gameRenderData.threat}
           actionSlots={actionSlots}
-          zIndex={zIndex}
+          zIndex={elementZIndexed}
         />
         <ArrangeCampRest
           arrangeCampRestService={gameRenderData.arrangeCampRestService}
           actionSlots={actionSlots}
-          zIndex={zIndex}
+          zIndex={elementZIndexed}
         />
         <Equipment equipment={gameRenderData.equipment} />
         <ActionsOrder />
@@ -296,13 +302,15 @@ export default function Game(props: Props) {
           discoveryTokens={
             gameRenderData.localPlayer.character.tokenService.owned
           }
+          applyToken={applyToken}
+          menuDisabled={isPawnBeingDragged || elementZIndexed !== ""}
         />
         <ScenarioButton
           inventions={gameRenderData.inventionsService.inventions.filter(
             (inv) => inv.type === INVENTION_TYPE.SCENARIO
           )}
           actionSlots={actionSlots}
-          zIndex={zIndex}
+          zIndex={elementZIndexed}
           show={showScenario}
           setShow={setShowScenario}
           round={gameRenderData.round}

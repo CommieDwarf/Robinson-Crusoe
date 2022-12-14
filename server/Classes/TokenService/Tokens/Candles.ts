@@ -19,7 +19,7 @@ export class Candles extends Token {
     const pawn = new HelperPawn(this._character, true, "build");
     pawnService.addPawn(pawn);
     pawnService.copyPawnToFreePawns(pawn.draggableId);
-    this.discard();
+    this._used = true;
   }
 
   autoDiscard() {}

@@ -1,4 +1,4 @@
-import React, { Ref, useEffect } from "react";
+import React, { Ref, useEffect, useRef } from "react";
 import styles from "./ChatLog.module.css";
 import Scrollbar from "../Scrollbar";
 import scrollStyles from "./Scrollbar.module.css";
@@ -11,7 +11,7 @@ interface Props {
 }
 
 export default function ChatLog(props: Props) {
-  const scrollbarRef = React.createRef<Scrollbars>();
+  const scrollbarRef = useRef<Scrollbars>(null);
 
   useEffect(() => {
     scrollbarRef.current?.scrollToBottom();

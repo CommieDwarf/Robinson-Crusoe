@@ -13,7 +13,7 @@ export class Castaways4 extends Token {
       3,
       this._sourceLog
     );
-    this.discard();
+    this._used = true;
   }
 
   autoDiscard() {}

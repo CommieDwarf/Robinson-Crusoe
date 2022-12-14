@@ -40,15 +40,8 @@ export class TokenService implements ITokenService {
     };
   }
 
-  public useToken(name: string) {
-    this.getOwnedToken(name).use();
-  }
-
-  public addRandomTokenToOwned() {
-    const tokenName = this._tokenStack.pop();
-    if (tokenName) {
-      this._owned.push(this._tokenCreator.createToken(tokenName));
-    }
+  private discardUsedTokens() {
+    this._owned.filter((token) => token.used);
   }
 
   private getOwnedToken(name: string): IToken {
@@ -71,5 +64,21 @@ export class TokenService implements ITokenService {
       this.addRandomTokenToOwned();
     }
     console.log(this._tokenStack.length);
+  }
+
+  public autoUseOwnedTokens() {
+    this._owned.forEach((token) => token.autoUse());
+  }
+
+  public useToken(name: string) {
+    this.getOwnedToken(name).use();
+    this.discardUsedTokens();
+  }
+
+  public addRandomTokenToOwned() {
+    const tokenName = this._tokenStack.pop();
+    if (tokenName) {
+      this._owned.push(this._tokenCreator.createToken(tokenName));
+    }
   }
 }

@@ -15,7 +15,7 @@ export class Vegetables extends Token {
   use() {
     if (this._game.phaseService.phase === "night") {
       this._game.characterService.heal(this._character, 2, this._sourceLog);
-      this.discard();
+      this._used = true;
     }
   }
 

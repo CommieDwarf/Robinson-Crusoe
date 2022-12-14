@@ -13,9 +13,9 @@ export abstract class Token implements IToken {
   protected _description: string;
   protected _game: IGame;
   protected _character: IPlayerCharacter;
-  protected _discarded: boolean = false;
+  protected _used: boolean = false;
   protected _sourceLog: string;
-  private _id = uuidv4();
+  protected _id = uuidv4();
 
   protected constructor(
     game: IGame,
@@ -39,8 +39,8 @@ export abstract class Token implements IToken {
     };
   }
 
-  protected discard() {
-    this._discarded = true;
+  get used(): boolean {
+    return this._used;
   }
 
   get id(): string {
@@ -59,11 +59,11 @@ export abstract class Token implements IToken {
     return this._description;
   }
 
-  use(): void {
+  public use(): void {
     throw new Error("Usage not implemented");
   }
 
-  autoDiscard(): void {
+  public autoUse(): void {
     throw new Error("Auto discard not implemented");
   }
 }

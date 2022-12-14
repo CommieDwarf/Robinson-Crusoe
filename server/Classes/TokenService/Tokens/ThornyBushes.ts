@@ -15,7 +15,7 @@ export class ThornyBushes extends Token {
   use() {
     if (this._game.structuresService.getStruct("shelter").lvl > 0) {
       this._game.structuresService.lvlUpStruct("palisade", 1, this._sourceLog);
-      this.discard();
+      this._used = true;
     }
   }
 

@@ -10,6 +10,8 @@ import TokenStyles from "./Token/Token.module.css";
 
 interface Props {
   discoveryTokens: ITokenRenderData[];
+  applyToken: (name: string) => void;
+  menuDisabled: boolean;
 }
 
 export default function Tokens(props: Props) {
@@ -45,14 +47,17 @@ export default function Tokens(props: Props) {
 
   return (
     <div className={styles.container}>
-      {(mouseOverToken || mouseOverMenu) && selectedToken && (
-        <ContextMenu
-          left={contextMenuLeft - scrollLeft}
-          mouseEnterMenu={mouseEnterMenu}
-          mouseLeaveMenu={mouseLeaveMenu}
-          token={selectedToken}
-        />
-      )}
+      {(mouseOverToken || mouseOverMenu) &&
+        selectedToken &&
+        !props.menuDisabled && (
+          <ContextMenu
+            left={contextMenuLeft - scrollLeft}
+            mouseEnterMenu={mouseEnterMenu}
+            mouseLeaveMenu={mouseLeaveMenu}
+            token={selectedToken}
+            applyToken={props.applyToken}
+          />
+        )}
       <Scrollbar styleModule={scrollbarStyles} setScrollLeft={mouseScroll}>
         <div className={styles.content}>
           {props.discoveryTokens.map((token, i) => {

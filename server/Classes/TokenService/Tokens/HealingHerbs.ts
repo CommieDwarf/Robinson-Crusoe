@@ -15,7 +15,7 @@ export class HealingHerbs extends Token {
   use() {
     if (this._game.inventionsService.getInvention("pot").isBuilt) {
       this._game.morale.lvlUp(1, this._sourceLog);
-      this.discard();
+      this._used = true;
     }
   }
 

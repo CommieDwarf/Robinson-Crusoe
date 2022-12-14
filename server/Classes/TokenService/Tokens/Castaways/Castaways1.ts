@@ -11,7 +11,7 @@ export class Castaways1 extends Token {
   use() {
     if (this._game.phaseService.phase === "night") {
       this._game.characterService.heal(this._character, 1, this._sourceLog);
-      this.discard();
+      this._used = true;
     }
   }
 

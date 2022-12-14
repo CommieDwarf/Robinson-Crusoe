@@ -15,7 +15,7 @@ export class Herbs extends Token {
   use() {
     if (this._game.inventionsService.getInvention("pot").isBuilt) {
       this._game.inventionsService.build("medicine", this._character);
-      this.discard();
+      this._used = true;
     }
   }
 

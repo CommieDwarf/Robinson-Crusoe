@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styles from "./Inventions.module.css";
 import scrollbarStyles from "./Scrollbar.module.css";
 
@@ -16,7 +16,7 @@ interface Props {
 }
 
 export default function Inventions(props: Props) {
-  const scrollbar = React.createRef<Scrollbars>();
+  const scrollbarRef = useRef<Scrollbars>(null);
   const [scrollTop, setScrollTop] = useState(0);
   const [isEnlarged, setIsEnlarged] = useState(false);
   let column = -1;
@@ -51,7 +51,7 @@ export default function Inventions(props: Props) {
     <div className={styles.container + " " + zIndexClass}>
       <Scrollbar
         styleModule={scrollbarStyles}
-        scrollbarRef={scrollbar}
+        scrollbarRef={scrollbarRef}
         setScrollTop={setScrollTop}
         disabled={props.isBeingDragged && isEnlarged}
       >

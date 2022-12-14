@@ -36,6 +36,7 @@ export default function getMouseDownHandle(
   return function (event: React.MouseEvent) {
     const target = event.target as HTMLDivElement;
     const pawn = target.closest("." + pawnStyles.container);
+    console.log(scrollbar);
     if (!scrollbar.current || !container.current || pawn) {
       return;
     }

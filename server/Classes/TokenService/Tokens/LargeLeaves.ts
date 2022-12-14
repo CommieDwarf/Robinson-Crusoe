@@ -10,7 +10,7 @@ export class LargeLeaves extends Token {
   use() {
     if (this._game.phaseService.phase === "weather") {
       this._game.weatherService.incrementModifier("rain", -1, this._sourceLog);
-      this.discard();
+      this._used = true;
     }
   }
 

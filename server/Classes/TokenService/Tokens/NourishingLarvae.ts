@@ -15,13 +15,13 @@ export class NourishingLarvae extends Token {
 
   use() {
     this._game.allResources.addResourceToOwned("food", 2, this._sourceLog);
-    this.discard();
+    this._used = true;
   }
 
   autoDiscard() {
     if (this._game.phaseService.phase === "weather") {
       this._game.allResources.addResourceToOwned("food", 2, this._sourceLog);
-      this.discard();
+      this._used = true;
     }
   }
 }

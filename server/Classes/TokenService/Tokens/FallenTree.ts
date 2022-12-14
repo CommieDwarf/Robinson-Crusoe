@@ -15,7 +15,7 @@ export class FallenTree extends Token {
 
   use() {
     this._game.allResources.addResourceToFuture("wood", 1, this._sourceLog);
-    this.discard();
+    this._used = true;
   }
 
   autoDiscard() {
@@ -25,7 +25,7 @@ export class FallenTree extends Token {
         1,
         "Żeton: " + this._namePL
       );
-      this.discard();
+      this._used = true;
     }
   }
 }

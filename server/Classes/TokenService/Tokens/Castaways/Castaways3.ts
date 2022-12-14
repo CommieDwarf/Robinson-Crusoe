@@ -9,7 +9,7 @@ export class Castaways3 extends Token {
 
   use() {
     this._game.structuresService.lvlUpStruct("weapon", 1, this._sourceLog);
-    this.discard();
+    this._used = true;
   }
 
   autoDiscard() {}

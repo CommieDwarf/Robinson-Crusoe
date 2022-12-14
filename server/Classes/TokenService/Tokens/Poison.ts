@@ -15,7 +15,7 @@ export class Poison extends Token {
   use() {
     if (this._game.inventionsService.getInvention("pot").isBuilt) {
       this._game.structuresService.lvlUpStruct("weapon", 2, this._sourceLog);
-      this.discard();
+      this._used = true;
     }
   }
 

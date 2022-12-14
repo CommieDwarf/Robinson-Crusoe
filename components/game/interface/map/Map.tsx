@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./Map.module.css";
 import { Scrollbars } from "react-custom-scrollbars";
 import Scrollbar from "../Scrollbar";
@@ -40,8 +40,8 @@ export default function Map(props: Props) {
     );
   }
 
-  const scrollbar = React.createRef<Scrollbars>();
-  const container = React.createRef<HTMLDivElement>();
+  const scrollbar = useRef<Scrollbars>(null);
+  const container = useRef<HTMLDivElement>(null);
 
   const mouseDownHandle = getDragAndScrollHandle(scrollbar, container);
 

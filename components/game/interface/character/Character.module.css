@@ -5,7 +5,6 @@
     grid-row: 3 / span 2;
     background-image: url("../../../../public/interface/characters/background.png");
     background-size: cover;
-    background-repeat: true;
     border: 1px dashed #451e14;
     border-bottom: none;
     display: grid;
@@ -15,26 +14,28 @@
     position: relative;
 }
 
-.zIndexIncreased {
-    z-index: 200;
-}
+/*To deletion if no new bugs.*/
 
-.zIndexTransition {
-    animation-name: zIndex;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
-    animation-iteration-count: 1;
-}
+/*.zIndexIncreased {*/
+/*    z-index: 200;*/
+/*}*/
 
-@keyframes zIndex {
+/*.zIndexTransition {*/
+/*    animation-name: zIndex;*/
+/*    animation-duration: 1s;*/
+/*    animation-fill-mode: forwards;*/
+/*    animation-iteration-count: 1;*/
+/*}*/
 
-    from {
-        z-index: 200
-    }
-    to {
-        z-index: 100
-    }
-}
+/*@keyframes zIndex {*/
+
+/*    from {*/
+/*        z-index: 200*/
+/*    }*/
+/*    to {*/
+/*        z-index: 100*/
+/*    }*/
+/*}*/
 
 .characterPicture {
     width: 100%;

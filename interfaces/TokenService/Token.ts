@@ -4,9 +4,10 @@ export interface IToken {
   name: keyof typeof TOKEN_PL;
   namePL: TOKEN_PL;
   description: string;
-  use: () => void;
-  autoDiscard: () => void;
+  used: boolean;
   renderData: ITokenRenderData;
+  use: () => void;
+  autoUse: () => void;
 }
 
 export interface ITokenRenderData {
