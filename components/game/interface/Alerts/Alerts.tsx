@@ -5,10 +5,11 @@ import styles from "./Alerts.module.css";
 type Props = {
   message: string;
 };
-export const Alerts = (props: Props) => {
+
+export function Alerts(props: Props) {
   return (
     <div className={styles.container}>
       <span className={styles.alertMessage}>{props.message}</span>
     </div>
   );
-};
+}

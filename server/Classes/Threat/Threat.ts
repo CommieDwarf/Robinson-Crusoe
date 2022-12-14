@@ -42,7 +42,7 @@ export class Threat implements IThreat {
       getWreckageCard(game, this),
       ...getEventCards(game, this),
     ];
-    // this.testEventCards(game);
+    // this.testEventCards(Play);
   }
 
   get renderData(): IThreatRenderData {

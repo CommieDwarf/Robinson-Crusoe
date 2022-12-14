@@ -1,14 +1,14 @@
-import { ITokenService } from "../../../interfaces/TokenService/TokenService";
+import {ITokenService} from "../../../interfaces/TokenService/TokenService";
 import {
   DiscoveryTokenName,
   IToken,
 } from "../../../interfaces/TokenService/Token";
-import { IGame } from "../../../interfaces/Game";
-import { IPlayerCharacter } from "../../../interfaces/Characters/PlayerCharacter";
-import { TokenCreator } from "./TokenCreator/TokenCreator";
-import { doubledDiscoveryTokens } from "../../../constants/doubledDiscoveryTokens";
+import {IGame} from "../../../interfaces/Game";
+import {IPlayerCharacter} from "../../../interfaces/Characters/PlayerCharacter";
+import {TokenCreator} from "./TokenCreator/TokenCreator";
+import {doubledDiscoveryTokens} from "../../../constants/doubledDiscoveryTokens";
 import shuffle from "../../../utils/shuffleArray";
-import { ITokenCreator } from "../../../interfaces/TokenCreator/TokenCreator";
+import {ITokenCreator} from "../../../interfaces/TokenCreator/TokenCreator";
 
 export class TokenService implements ITokenService {
   get character(): IPlayerCharacter {
@@ -63,6 +63,14 @@ export class TokenService implements ITokenService {
     for (let i = 0; i < length; i++) {
       this.addRandomTokenToOwned();
     }
+    const testSet = new Set<string>();
+
+    this.ownedTokens.forEach((token) => {
+      if (testSet.has(token.id)) {
+        throw new Error("powtarza sie");
+      }
+      testSet.add(token.id);
+    })
   }
 
   public autoUseOwnedTokens() {

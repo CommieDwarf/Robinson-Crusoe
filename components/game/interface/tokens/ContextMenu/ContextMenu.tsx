@@ -3,15 +3,13 @@ import * as React from "react";
 import styles from "./ContextMenu.module.css";
 import { ITokenRenderData } from "../../../../../interfaces/TokenService/Token";
 import capitalizeFirstLetter from "../../../../../utils/capitalizeFirstLetter";
-import { useRef } from "react";
-import Image from "next/image";
 
 type Props = {
   left: number;
   mouseEnterMenu: () => void;
   mouseLeaveMenu: () => void;
   token: ITokenRenderData;
-  applyToken: (id: string) => void;
+  utilizeToken: (id: string) => void;
 };
 export const ContextMenu = (props: Props) => {
   const windowWidth = 200;
@@ -20,7 +18,7 @@ export const ContextMenu = (props: Props) => {
   };
 
   function handleClick() {
-    props.applyToken(props.token.id);
+    props.utilizeToken(props.token.id);
   }
 
   return (

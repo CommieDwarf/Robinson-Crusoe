@@ -229,7 +229,7 @@ export function getEventCards(game: IGame, threat: IThreat): IEventCard[] {
         }
       },
       function triggerThreatEffect() {
-        // game.beasts.fightBeast();
+        // Play.beasts.fightBeast();
       },
       function fullFill(character: ICharacter) {
         game.characterService.incrDetermination(character, 2, this.namePL);

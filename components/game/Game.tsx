@@ -12,7 +12,6 @@ import ActionsOrder from "../../components/game/interface/actionsOrder/ActionsOr
 import ChatLog from "../../components/game/interface/ChatLog/ChatLog";
 import Tokens from "../../components/game/interface/tokens/Tokens";
 import ScenarioButton from "../../components/game/interface/scenario/ScenarioButton";
-import Players from "../../components/game/interface/players/Players";
 import actionSlotStyles from "../../components/game/interface/ActionSlot.module.css";
 
 import Threat from "../../components/game/interface/threat/Threat";
@@ -21,8 +20,6 @@ import Equipment from "../../components/game/interface/equipment/Equipment";
 
 import { fromJSON, parse, stringify, toJSON } from "flatted";
 import { IResourcesAmount } from "../../interfaces/Resources/Resources";
-import getGameRenderData from "../api/getGame";
-import setPawn, { SetPawnData } from "../api/setPawn";
 
 import {
   DragDropContext,
@@ -32,33 +29,32 @@ import {
   resetServerContext,
 } from "react-beautiful-dnd";
 import { GetServerSideProps } from "next";
-import { Weather } from "../../components/game/interface/Weather/Weather";
+import { Weather } from "./interface/Weather/Weather";
 import { INVENTION_TYPE } from "../../interfaces/Inventions/Invention";
 import { getPawnCanBeSettled } from "../../utils/canPawnBeSettled";
 
 import { IGameRenderData } from "../../interfaces/Game";
 import sleep from "../../utils/sleep";
 import { IPawnRenderData } from "../../interfaces/Pawns/Pawn";
-import unsetPawn, { UnsetPawnData } from "../api/unsetPawn";
-import { NextPhaseButton } from "../../components/game/interface/nextPhaseButton/NextPhaseButton";
-import nextPhase from "../api/nextPhase";
-import { ActionResolveWindow } from "../../components/game/interface/ActionResolveWindow/ActionResolveWindow";
-import { setNextAction } from "../api/setNextAction";
+import { NextPhaseButton } from "./interface/nextPhaseButton/NextPhaseButton";
+import { ActionResolveWindow } from "./interface/ActionResolveWindow/ActionResolveWindow";
 import { Action } from "../../interfaces/Action";
-import resolveItem from "../api/resolveItem";
-import { Alerts } from "../../components/game/interface/Alerts/Alerts";
-import { WeatherResolveWindow } from "../../components/game/interface/WeatherResolveWindow/WeatherResolveWindow";
-import rollWeatherDices from "../api/rollWeatherDices";
-import applyTokenApi from "../api/applyTokenApi";
+import { setNextAction } from "../../pages/api/setNextAction";
+import utilizeToken from "../../pages/api/utilizeToken";
+import setNextPhase from "../../pages/api/setNextPhase";
+import resolveActionItem from "../../pages/api/resolveActionItem";
+import rollWeatherDices from "../../pages/api/rollWeatherDices";
+import setPawn, { SetPawnData } from "../../pages/api/setPawn";
+import unsetPawn, { UnsetPawnData } from "../../pages/api/unsetPawn";
+import { Alerts } from "./interface/Alerts/Alerts";
 
 interface Props {
-  // gameData: IGameRenderData;
+  gameRenderData: IGameRenderData;
+  updateGameRenderData: () => void;
 }
 
 export default function Game(props: Props) {
-  const [gameRenderData, setGameRenderData] = useState<IGameRenderData>(
-    JSON.parse(getGameRenderData())
-  );
+  const gameRenderData = props.gameRenderData;
   const actionSlots = new Map<string, IPawnRenderData | null>(
     Object.entries(gameRenderData.actionSlotsService.slots)
   );
@@ -72,14 +68,37 @@ export default function Game(props: Props) {
   // and also for proper render of scaled components
   const [elementZIndexed, setElementZIndexed] = useState("");
 
-  function setNextActionHandle() {
+  function handleSetNextAction() {
     setNextAction();
-    setGameRenderData(JSON.parse(getGameRenderData()));
+    props.updateGameRenderData();
   }
 
-  function applyToken(id: string) {
-    applyTokenApi(id);
-    setGameRenderData(JSON.parse(getGameRenderData()));
+  function handleUtilizeToken(id: string) {
+    utilizeToken(id);
+    props.updateGameRenderData();
+  }
+
+  function handleSetNextPhase() {
+    setNextPhase();
+    props.updateGameRenderData();
+  }
+
+  function handleResolveActionItem(action: Action, droppableId: string) {
+    resolveActionItem(action, droppableId);
+    props.updateGameRenderData();
+  }
+
+  function handleRollWeatherDices() {
+    rollWeatherDices();
+    props.updateGameRenderData();
+  }
+
+  function handleSetPawn(destinationId: string, draggableId: string) {
+    setPawn(destinationId, draggableId);
+  }
+
+  function handleUnsetPawn(destinationId: string, draggableId: string) {
+    unsetPawn(destinationId, draggableId);
   }
 
   function unselectActionSlots() {
@@ -183,46 +202,19 @@ export default function Game(props: Props) {
       return;
     }
 
-    let setPawnData: SetPawnData = {
-      destinationId,
-      draggableId: draggedPawn.draggableId,
-    };
-    setPawn(JSON.stringify(setPawnData));
-    let unsetPawnData: UnsetPawnData = {
-      destinationId: sourceId,
-      draggableId: draggedPawn.draggableId,
-    };
-    unsetPawn(JSON.stringify(unsetPawnData));
+    handleSetPawn(destinationId, draggedPawn.draggableId);
+    handleUnsetPawn(sourceId, draggedPawn.draggableId);
 
-    setGameRenderData(JSON.parse(getGameRenderData()));
+    props.updateGameRenderData();
 
     // Sleep is used here, because if both pawns are switched in the same time,
     // beautiful DND loses draggable.
     await sleep(100);
 
     if (pawnAtActionSlot) {
-      setPawnData = {
-        destinationId: sourceId,
-        draggableId: pawnAtActionSlot.draggableId,
-      };
-      setPawn(JSON.stringify(setPawnData));
-      setGameRenderData(JSON.parse(getGameRenderData()));
+      setPawn(sourceId, pawnAtActionSlot.draggableId);
+      props.updateGameRenderData();
     }
-  }
-
-  function goNextPhase() {
-    nextPhase();
-    setGameRenderData(JSON.parse(getGameRenderData()));
-  }
-
-  function resolveActionItem(action: Action, droppableId: string) {
-    resolveItem(action, droppableId);
-    setGameRenderData(JSON.parse(getGameRenderData()));
-  }
-
-  function rollWeather() {
-    rollWeatherDices();
-    setGameRenderData(JSON.parse(getGameRenderData()));
   }
 
   return (
@@ -303,7 +295,7 @@ export default function Game(props: Props) {
           discoveryTokens={
             gameRenderData.localPlayer.character.tokenService.owned
           }
-          applyToken={applyToken}
+          utilizeToken={handleUtilizeToken}
           menuDisabled={isPawnBeingDragged || elementZIndexed !== ""}
         />
         <ScenarioButton
@@ -318,7 +310,7 @@ export default function Game(props: Props) {
         />
         {/*<Players />*/}
         <NextPhaseButton
-          goNextPhase={goNextPhase}
+          goNextPhase={handleSetNextPhase}
           locked={gameRenderData.phaseService.locked}
         />
       </DragDropContext>
@@ -326,9 +318,9 @@ export default function Game(props: Props) {
         <ActionResolveWindow
           actionService={gameRenderData.actionService}
           actionSlots={actionSlots}
-          setNextAction={setNextActionHandle}
-          resolveItem={resolveActionItem}
-          setNextPhase={goNextPhase}
+          setNextAction={handleSetNextAction}
+          resolveItem={handleResolveActionItem}
+          setNextPhase={handleSetNextPhase}
         />
       )}
       <Alerts message={gameRenderData.alertService.alert} />
@@ -337,7 +329,7 @@ export default function Game(props: Props) {
       {/*  round={gameRenderData.round}*/}
       {/*  structuresService={gameRenderData.structuresService}*/}
       {/*  resourcesAmount={gameRenderData.allResources.owned}*/}
-      {/*  rollWeatherDices={rollWeather}*/}
+      {/*  handleRollWeatherDices={rollWeather}*/}
       {/*  dices={gameRenderData.scenarioService.weather}*/}
       {/*  skillService={gameRenderData.localPlayer.character.skillService}*/}
       {/*  determination={gameRenderData.localPlayer.character.determination}*/}
@@ -345,16 +337,4 @@ export default function Game(props: Props) {
     </div>
   );
 }
-
-export const getStaticProps: GetServerSideProps = async ({ query }) => {
-  // for beautiful DND to work correctly...
-  resetServerContext(); // <-- CALL RESET SERVER CONTEXT, SERVER SIDE
-
-  // const gameDataJSON = getGameRenderData();
-  // const gameData = await JSON.parse(gameDataJSON);
-  return {
-    props: {
-      // gameData,
-    },
-  };
-};
+//

@@ -1,5 +1,5 @@
-import { game } from "../../server/game";
+import { gameService } from "../../server/gameService";
 
 export default function rollWeatherDices() {
-  game.weatherService.rollDices();
+  gameService.game.weatherService.rollDices();
 }

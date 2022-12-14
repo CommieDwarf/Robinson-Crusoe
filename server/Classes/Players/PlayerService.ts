@@ -18,6 +18,6 @@ export class PlayerService implements IPlayerService {
   // TODO: Implement for multiplayer
   addPlayer(player: IPlayer): void {}
 
-  // TODO: Implement for multiplayer game
+  // TODO: Implement for multiplayer Play
   setNextPrimePlayer(): void {}
 }

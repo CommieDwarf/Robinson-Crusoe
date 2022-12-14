@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { game } from "../../server/game";
+import { gameService } from "../../server/gameService";
 
 export default function getGameRenderData() {
-  return JSON.stringify(game.renderData);
+  return JSON.stringify(gameService.renderData);
 }

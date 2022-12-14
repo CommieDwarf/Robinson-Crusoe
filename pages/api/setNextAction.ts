@@ -1,5 +1,5 @@
-import { game } from "../../server/game";
+import { gameService } from "../../server/gameService";
 
 export function setNextAction() {
-  game.actionService.setNextAction();
+  gameService.game.actionService.setNextAction();
 }
