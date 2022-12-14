@@ -201,7 +201,6 @@ export class GameClass implements IGame {
 
   get allPawns() {
     let pawns: IPawn[] = [];
-    console.log(this.characterService);
     this.characterService.allCharacters.forEach((char) => {
       pawns = pawns.concat(char.pawnService.pawns);
     });

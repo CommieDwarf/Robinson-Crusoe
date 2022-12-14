@@ -158,7 +158,6 @@ export abstract class ResolvableActionService
     if (this.helperAmountRequired > 0) {
       items.forEach((item, key) => {
         let itemName: string | number = key.split("-")[1];
-        console.log(itemName);
         let itemType = key.split("-")[0];
         if (itemType === "tile") {
           itemName = parseInt(itemName);

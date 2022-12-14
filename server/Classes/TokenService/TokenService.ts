@@ -41,13 +41,13 @@ export class TokenService implements ITokenService {
   }
 
   private discardUsedTokens() {
-    this._owned.filter((token) => token.used);
+    this._owned = this._owned.filter((token) => !token.used);
   }
 
-  private getOwnedToken(name: string): IToken {
-    const token = this._owned.find((token) => token.name === name);
+  private getOwnedToken(id: string): IToken {
+    const token = this._owned.find((token) => token.id === id);
     if (!token) {
-      throw new Error("Can't find token with given name: " + name);
+      throw new Error("Can't find token with given id: " + id);
     }
     return token;
   }
@@ -63,15 +63,14 @@ export class TokenService implements ITokenService {
     for (let i = 0; i < length; i++) {
       this.addRandomTokenToOwned();
     }
-    console.log(this._tokenStack.length);
   }
 
   public autoUseOwnedTokens() {
     this._owned.forEach((token) => token.autoUse());
   }
 
-  public useToken(name: string) {
-    this.getOwnedToken(name).use();
+  public useToken(id: string) {
+    this.getOwnedToken(id).use();
     this.discardUsedTokens();
   }
 

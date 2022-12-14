@@ -52,11 +52,13 @@ import rollWeatherDices from "../api/rollWeatherDices";
 import applyTokenApi from "../api/applyTokenApi";
 
 interface Props {
-  gameData: IGameRenderData;
+  // gameData: IGameRenderData;
 }
 
 export default function Game(props: Props) {
-  const [gameRenderData, setGameRenderData] = useState(props.gameData);
+  const [gameRenderData, setGameRenderData] = useState<IGameRenderData>(
+    JSON.parse(getGameRenderData())
+  );
   const actionSlots = new Map<string, IPawnRenderData | null>(
     Object.entries(gameRenderData.actionSlotsService.slots)
   );
@@ -75,8 +77,8 @@ export default function Game(props: Props) {
     setGameRenderData(JSON.parse(getGameRenderData()));
   }
 
-  function applyToken(name: string) {
-    applyTokenApi(name);
+  function applyToken(id: string) {
+    applyTokenApi(id);
     setGameRenderData(JSON.parse(getGameRenderData()));
   }
 
@@ -110,7 +112,6 @@ export default function Game(props: Props) {
   }
 
   function onDragUpdate(update: DragUpdate) {
-    console.log(gameRenderData.allPawns);
     unselectActionSlots();
     const pawn = gameRenderData.allPawns.find(
       (p) => p.draggableId === update.draggableId
@@ -195,8 +196,8 @@ export default function Game(props: Props) {
 
     setGameRenderData(JSON.parse(getGameRenderData()));
 
-    // Sleep is used here, because if pawns are switched in the same time,
-    // beautiful DND goes nuts and throws error that it cannot find draggable
+    // Sleep is used here, because if both pawns are switched in the same time,
+    // beautiful DND loses draggable.
     await sleep(100);
 
     if (pawnAtActionSlot) {
@@ -349,11 +350,11 @@ export const getStaticProps: GetServerSideProps = async ({ query }) => {
   // for beautiful DND to work correctly...
   resetServerContext(); // <-- CALL RESET SERVER CONTEXT, SERVER SIDE
 
-  const gameDataJSON = getGameRenderData();
-  const gameData = await JSON.parse(gameDataJSON);
+  // const gameDataJSON = getGameRenderData();
+  // const gameData = await JSON.parse(gameDataJSON);
   return {
     props: {
-      gameData,
+      // gameData,
     },
   };
 };

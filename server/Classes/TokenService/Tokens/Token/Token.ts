@@ -36,6 +36,7 @@ export abstract class Token implements IToken {
       name: this._name,
       namePL: this._namePL,
       description: this._description,
+      id: this._id,
     };
   }
 

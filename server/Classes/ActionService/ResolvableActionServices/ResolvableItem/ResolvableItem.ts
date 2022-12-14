@@ -99,7 +99,6 @@ export class ResolvableItem implements IResolvableItem {
         success: RollDiceService.getActionRollDiceResult(action, "success"),
       },
     };
-    console.log(this.diceRoll);
   }
 
   reRoll(action: DiceActionType, dice: ActionDice) {

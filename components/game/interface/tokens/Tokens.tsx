@@ -10,7 +10,7 @@ import TokenStyles from "./Token/Token.module.css";
 
 interface Props {
   discoveryTokens: ITokenRenderData[];
-  applyToken: (name: string) => void;
+  applyToken: (id: string) => void;
   menuDisabled: boolean;
 }
 

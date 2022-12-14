@@ -11,7 +11,7 @@ type Props = {
   mouseEnterMenu: () => void;
   mouseLeaveMenu: () => void;
   token: ITokenRenderData;
-  applyToken: (name: string) => void;
+  applyToken: (id: string) => void;
 };
 export const ContextMenu = (props: Props) => {
   const windowWidth = 200;
@@ -20,7 +20,7 @@ export const ContextMenu = (props: Props) => {
   };
 
   function handleClick() {
-    props.applyToken(props.token.name);
+    props.applyToken(props.token.id);
   }
 
   return (

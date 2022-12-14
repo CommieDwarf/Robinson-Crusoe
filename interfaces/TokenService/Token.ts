@@ -8,12 +8,14 @@ export interface IToken {
   renderData: ITokenRenderData;
   use: () => void;
   autoUse: () => void;
+  id: string;
 }
 
 export interface ITokenRenderData {
   name: keyof typeof TOKEN_PL;
   namePL: TOKEN_PL;
   description: string;
+  id: string;
 }
 
 export enum DiscoveryTokenName {
