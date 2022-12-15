@@ -25,7 +25,6 @@ export class GameService implements IGameService {
       (inv) => (inv.locked = false)
     );
     this._game.beasts.moveBeastFromStackToDeck();
-    console.log("create");
   }
 
   get renderData() {

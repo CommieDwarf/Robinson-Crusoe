@@ -1,5 +1,5 @@
 import React from "react";
-import { positionValues, Scrollbars } from "react-custom-scrollbars";
+import {positionValues, Scrollbars} from "react-custom-scrollbars";
 
 interface Props {
   children: JSX.Element | JSX.Element[];
@@ -16,24 +16,31 @@ interface Props {
 interface State {
   scrollLeft: number;
   scrollTop: number;
+  ref: React.RefObject<Scrollbars> | null;
 }
 
 export default class Scrollbar extends React.Component<Props, State> {
-  scrollbarRef: React.RefObject<Scrollbars>;
 
   constructor(props: Props) {
     super(props);
     this.state = {
       scrollLeft: 0,
       scrollTop: 0,
+      ref: null,
     };
-    this.scrollbarRef = props.scrollbarRef
-      ? props.scrollbarRef
-      : React.createRef<Scrollbars>();
+  }
+
+  componentDidMount() {
+    const ref = this.props.scrollbarRef ? this.props.scrollbarRef : React.createRef<Scrollbars>();
+    this.setState(() => {
+      return {
+        ref
+      }
+    })
   }
 
   getSnapshotBeforeUpdate(prevProps: Props) {
-    const { current } = this.scrollbarRef;
+    const current = this.state.ref?.current;
     if (!current) {
       return null;
     }
@@ -49,9 +56,9 @@ export default class Scrollbar extends React.Component<Props, State> {
   }
 
   componentDidUpdate(
-    prevProps: Props,
-    prevState: State,
-    snapshot: { width: number; height: number }
+      prevProps: Props,
+      prevState: State,
+      snapshot: { width: number; height: number }
   ) {
     if (this.props.setScrollLeft) {
       this.props.setScrollLeft(this.state.scrollLeft);
@@ -62,16 +69,16 @@ export default class Scrollbar extends React.Component<Props, State> {
 
     // in case of contentScale change
     if (snapshot) {
-      const { current } = this.scrollbarRef;
+      const current = this.state.ref?.current;
       if (!current) {
         return;
       }
       const scrollLeft =
-        current.getScrollLeft() +
-        (current.getScrollWidth() - snapshot.width) / 2;
+          current.getScrollLeft() +
+          (current.getScrollWidth() - snapshot.width) / 2;
       const scrollTop =
-        current.getScrollTop() +
-        (current.getScrollHeight() - snapshot.height) / 2;
+          current.getScrollTop() +
+          (current.getScrollHeight() - snapshot.height) / 2;
       current.scrollLeft(scrollLeft);
       current.scrollTop(scrollTop);
       this.setState(() => {
@@ -84,7 +91,7 @@ export default class Scrollbar extends React.Component<Props, State> {
   }
 
   handleOnScrollFrame = (event: positionValues) => {
-    const current = this.props.scrollbarRef?.current;
+    const current = this.state.ref?.current;
     if (!current) {
       return;
     }
@@ -104,27 +111,27 @@ export default class Scrollbar extends React.Component<Props, State> {
   render() {
     const props = this.props;
     return (
-      <Scrollbars
-        onScrollFrame={this.handleOnScrollFrame}
-        ref={this.scrollbarRef}
-        className={props.styleModule.scrollbar}
-        universal={true}
-        hideTracksWhenNotNeeded={true}
-        renderTrackHorizontal={(pr) => (
-          <div {...pr} className={props.styleModule.trackHorizontal} />
-        )}
-        renderThumbHorizontal={(pr) => (
-          <div {...pr} className={props.styleModule.thumbHorizontal} />
-        )}
-        renderTrackVertical={(pr) => (
-          <div {...pr} className={props.styleModule.trackVertical} />
-        )}
-        renderThumbVertical={(pr) => (
-          <div {...pr} className={props.styleModule.thumbVertical} />
-        )}
-      >
-        {props.children}
-      </Scrollbars>
+        <Scrollbars
+            onScrollFrame={this.handleOnScrollFrame}
+            ref={this.state.ref}
+            className={props.styleModule.scrollbar}
+            universal={true}
+            hideTracksWhenNotNeeded={true}
+            renderTrackHorizontal={(pr) => (
+                <div {...pr} className={props.styleModule.trackHorizontal}/>
+            )}
+            renderThumbHorizontal={(pr) => (
+                <div {...pr} className={props.styleModule.thumbHorizontal}/>
+            )}
+            renderTrackVertical={(pr) => (
+                <div {...pr} className={props.styleModule.trackVertical}/>
+            )}
+            renderThumbVertical={(pr) => (
+                <div {...pr} className={props.styleModule.thumbVertical}/>
+            )}
+        >
+          {props.children}
+        </Scrollbars>
     );
   }
 }

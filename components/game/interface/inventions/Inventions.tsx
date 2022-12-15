@@ -16,7 +16,6 @@ interface Props {
 }
 
 export default function Inventions(props: Props) {
-  const scrollbarRef = useRef<Scrollbars>(null);
   const [scrollTop, setScrollTop] = useState(0);
   const [isEnlarged, setIsEnlarged] = useState(false);
   let column = -1;
@@ -51,7 +50,6 @@ export default function Inventions(props: Props) {
     <div className={styles.container + " " + zIndexClass}>
       <Scrollbar
         styleModule={scrollbarStyles}
-        scrollbarRef={scrollbarRef}
         setScrollTop={setScrollTop}
         disabled={props.isBeingDragged && isEnlarged}
       >
