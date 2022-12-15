@@ -47,6 +47,7 @@ import rollWeatherDices from "../../pages/api/rollWeatherDices";
 import setPawn, { SetPawnData } from "../../pages/api/setPawn";
 import unsetPawn, { UnsetPawnData } from "../../pages/api/unsetPawn";
 import { Alerts } from "./interface/Alerts/Alerts";
+import { WeatherResolveWindow } from "./interface/WeatherResolveWindow/WeatherResolveWindow";
 
 interface Props {
   gameRenderData: IGameRenderData;
