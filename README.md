@@ -52,7 +52,7 @@ Game can be played solo or with max. 4 players.
 * Typescript
 * React
 * Next.js
-* Node.js
+* Vertex.js
 * Additional libraries:
     * react-beautiful-dnd
     * react-custom-scrollbars

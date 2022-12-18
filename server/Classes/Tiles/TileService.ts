@@ -8,10 +8,11 @@ import {
   ITilesService,
   ITilesServiceRenderData,
 } from "../../../interfaces/Tiles/TilesService";
-import {Tile} from "./Tile";
-import {ITile, TerrainType} from "../../../interfaces/Tiles/Tile";
-import {IGame} from "../../../interfaces/Game";
-import {tilePositions} from "../../../constants/tilePositions";
+import { Tile } from "./Tile";
+import { ITile, TerrainType } from "../../../interfaces/Tiles/Tile";
+import { IGame } from "../../../interfaces/Game";
+import { tilePositions } from "../../../constants/tilePositions";
+import { Graph } from "../Utility/Graph/Graph";
 
 const starterId = 7;
 
@@ -34,6 +35,7 @@ export class TilesService implements ITilesService {
     this.tiles = this.getInitialTiles();
     this.showAdjacentTiles(starterId);
     this.currentCampTile = this.getExploredTile(starterId);
+    this.getFewestSteps();
   }
 
   gather(side: "left" | "right", tileId: number, logSource: string) {
@@ -66,27 +68,10 @@ export class TilesService implements ITilesService {
     const tiles = [];
     for (let i = 0; i < 15; i++) {
       if (i === starterId) {
-        tiles.push(
-            new Tile(
-                tilePositions[i],
-                i,
-                true,
-                true,
-                starterTile,
-                0
-            )
-        );
+        tiles.push(new Tile(tilePositions[i], i, true, true, starterTile, 0));
       } else {
-        tiles.push(
-            new Tile(tilePositions[i],
-                i,
-                false,
-                false,
-                null,
-                0)
-        )
+        tiles.push(new Tile(tilePositions[i], i, false, true, null, 0));
       }
-
     }
     return tiles;
   }
@@ -96,8 +81,16 @@ export class TilesService implements ITilesService {
     if (!tileType) {
       throw new Error("Empty tile type stack!");
     }
-    this.findTile(id).reveal(tileType);
+    const tile = this.findTile(id);
+    tile.reveal(tileType);
     this.terrainTypesExplored.add(tileType.terrainType);
+    this.showAdjacentTiles(id);
+    [tile.id, ...tile.position.borderTiles].forEach((id) => {
+      const current = this.findTile(id);
+      if (id === this.currentCampTile.id) {
+        return;
+      }
+    });
   }
 
   setRequiredHelpersAmount(id: number, helpers: number) {
@@ -140,6 +133,51 @@ export class TilesService implements ITilesService {
     }
 
     return tile;
+  }
+
+  // private getFewestSteps(tileId1: number, tileId2: number) {
+  //   let steps = Infinity;
+  //   let count = 0;
+  //   const traverse = (path: number[] = [tileId1]) => {
+  //     const currentTile = this.findTile(path[path.length - 1]);
+  //     count++;
+  //     if (currentTile.id === tileId2) {
+  //       steps = steps > path.length ? path.length - 1 : steps;
+  //       return;
+  //     }
+  //     if (!currentTile.tileType) {
+  //       return;
+  //     }
+  //     currentTile.position.borderTiles.forEach((id) => {
+  //       if (path.includes(id)) {
+  //         return;
+  //       }
+  //       traverse([...path, id]);
+  //     });
+  //   };
+  //   traverse();
+  //   return steps;
+  // }
+
+  private getFewestSteps() {
+    const graph = new Graph<ITile>(false, false);
+    this.tiles.forEach((tile) => {
+      graph.addVertex(tile);
+    });
+    graph.vertices.forEach((vertex) => {
+      vertex.data.position.borderTiles.forEach((id) => {
+        const vertexTwo = graph.vertices.find((v) => v.data.id === id);
+        if (vertexTwo) {
+          vertex.addEdge(vertexTwo, null);
+        }
+      });
+    });
+    const start = graph.vertices.find((v) => v.data.id === 7);
+    const searched = graph.vertices.find((v) => v.data.id === 8);
+    if (start && searched) {
+      console.log(graph.BFS(start, searched));
+      console.log(Graph.getPath(graph.DFS(start, searched)));
+    }
   }
 
   public static getTileIdFromDroppableId(droppableId: string): number {

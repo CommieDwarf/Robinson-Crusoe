@@ -74,9 +74,6 @@ export class Tile implements ITile {
   }
 
   set helpersRequired(value: number) {
-    if (value < 1) {
-      throw new Error("There must be atleast 1 helper required");
-    }
     this._helpersRequired = value;
   }
 

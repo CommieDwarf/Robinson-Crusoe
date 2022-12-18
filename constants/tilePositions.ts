@@ -11,7 +11,7 @@ const mapStructure = [
     { id: 3, borderTiles: [4, 8] },
     { id: 4, borderTiles: [3, 0, 5, 8] },
     { id: 5, borderTiles: [0, 1, 4, 6, 9, 10] },
-    { id: 6, borderTiles: [1, 2, 5, 7, 11] },
+    { id: 6, borderTiles: [1, 2, 5, 7, 10, 11] },
     { id: 7, borderTiles: [2, 6, 11] },
   ],
   [
