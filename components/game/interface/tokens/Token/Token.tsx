@@ -33,8 +33,9 @@ export const Token = (props: Props) => {
       <div className={styles.token}>
         <Image
           src={"/interface/tokens/discovery/" + props.token.name + ".png"}
-          layout={"fill"}
+          fill
           alt={"token"}
+          sizes={styles.token}
         />
       </div>
     </div>

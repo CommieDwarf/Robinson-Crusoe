@@ -53,8 +53,9 @@ export default function Character(props: Props) {
       <div className={styles.characterPicture}>
         <Image
           src={`/interface/characters/characterPictures/${props.character.name}-${props.character.gender}.png`}
-          layout="fill"
+          fill
           alt="character"
+          sizes={styles.characterPicture}
         />
       </div>
       <div className={styles.description}>

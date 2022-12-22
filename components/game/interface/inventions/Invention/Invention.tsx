@@ -55,8 +55,9 @@ export default function Invention(props: Props) {
           <div className={styles.resource} key={i}>
             <Image
               src={`/interface/resources/${key}.png`}
-              layout="fill"
+              fill
               alt="surowiec"
+              sizes={styles.resource}
             />
           </div>
         );
@@ -99,16 +100,18 @@ export default function Invention(props: Props) {
           reverse +
           ".png"
         }
-        layout="fill"
+        fill
         alt={"karta pomysłu"}
         onLoad={handleLoad}
+        sizes={styles.invention}
       />
       {!imageLoaded && (
         <div className={styles.placeholder}>
           <Image
             src={"/interface/actionSlots/build.png"}
-            layout={"fill"}
+            fill
             alt={"loading"}
+            sizes={styles.placeholder}
           />
         </div>
       )}

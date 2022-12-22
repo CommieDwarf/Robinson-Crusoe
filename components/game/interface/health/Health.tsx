@@ -17,8 +17,9 @@ export default function Health(props: Props) {
       <div className={styles.heart} key={i}>
         <Image
           src={"/interface/characters/" + red + "heart.png"}
-          layout="fill"
+          fill
           alt="serce"
+          sizes={styles.heart}
         />
       </div>
     );
@@ -27,8 +28,9 @@ export default function Health(props: Props) {
         <div className={styles.arrow} key={i + 100}>
           <Image
             src="/interface/characters/arrow-left.png"
-            layout="fill"
+            fill
             alt="morale"
+            sizes={styles.arrow}
           />
         </div>
       );
@@ -38,8 +40,9 @@ export default function Health(props: Props) {
     <div className={styles.skull} key={2137}>
       <Image
         src="/interface/characters/skull.png"
-        layout="fill"
+        fill
         alt="czaszka"
+        sizes={styles.skull}
       />
     </div>
   );

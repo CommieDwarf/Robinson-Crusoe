@@ -111,8 +111,9 @@ export default function Map(props: Props) {
         <div className={styles.zoomIcon}>
           <Image
             src="/interface/map/magnifying-glass.png"
-            layout="fill"
+            fill
             alt="zoom"
+            sizes={styles.zoomIcon}
           />
         </div>
         <div className={styles.zoomButton} onClick={zoomIn}>
@@ -138,12 +139,7 @@ export default function Map(props: Props) {
       >
         <div className={`${styles.content}`} style={contentStyle}>
           <div className={styles.map}>
-            <Image
-              src="/interface/map/map.png"
-              layout="fill"
-              alt="map"
-              priority
-            />
+            <Image src="/interface/map/map.png" fill alt="map" priority />
             {tiles}
           </div>
         </div>

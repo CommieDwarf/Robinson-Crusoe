@@ -51,15 +51,17 @@ export default function Threat(props: Props) {
       <div className={styles.arrow}>
         <Image
           src="/interface/cards/red-arrow.png"
-          layout="fill"
+          fill
           alt="strzałka"
+          sizes={styles.arrow}
         />
       </div>
       <div className={styles.curvedArrow}>
         <Image
           src="/interface/cards/red-arrow-curved.png"
-          layout="fill"
+          fill
           alt="strzałka"
+          sizes={styles.curvedArrow}
         />
       </div>
       <div className={styles.actionSlots}>

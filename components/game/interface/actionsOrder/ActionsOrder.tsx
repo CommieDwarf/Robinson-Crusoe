@@ -12,8 +12,9 @@ export default function ActionsOrder() {
         <div className={styles.redArrow} key={i}>
           <Image
             src="/interface/actions/red-arrow.png"
-            layout="fill"
+            fill
             alt="strzałka"
+            sizes={styles.redArrow}
           />
         </div>
       );
@@ -23,8 +24,9 @@ export default function ActionsOrder() {
       <div className={styles.actionIcon} key={i + 100}>
         <Image
           src={"/interface/actions/" + action + ".png"}
-          layout="fill"
+          fill
           alt={action}
+          sizes={styles.actionIcon}
         />
       </div>
     );

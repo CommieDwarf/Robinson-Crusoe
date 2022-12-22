@@ -15,8 +15,9 @@ export const WoodStack = (props: Props) => {
       <div className={styles.fire}>
         <Image
           src={"/interface/scenarios/fire.png"}
-          layout={"fill"}
+          fill
           alt={"ogień"}
+          sizes={styles.fire}
         />
       </div>
       <div
@@ -24,7 +25,8 @@ export const WoodStack = (props: Props) => {
       >
         <Image
           src={`/interface/scenarios/castaways/woodStack${props.stackLevel}.png`}
-          layout={"fill"}
+          fill
+          sizes={styles.woodStack}
           alt={"stos drewna"}
         />
       </div>
@@ -35,8 +37,9 @@ export const WoodStack = (props: Props) => {
         <div className={styles.woodImage}>
           <Image
             src={"/interface/resources/wood.png"}
-            layout={"fill"}
+            fill
             alt={"drewno"}
+            sizes={styles.woodImage}
           />
         </div>
         <div className={styles.woodAmount}>

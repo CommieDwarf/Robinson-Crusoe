@@ -54,8 +54,9 @@ export default function Castaways(props: Props) {
         <Image
           src="/interface/scenarios/textBackground2.png"
           className={styles.titleImage}
-          layout={"fill"}
+          fill
           alt="tytuł tło"
+          sizes={styles.titleDiv}
         />
       </div>
       <div className={styles.rounds}>{rounds}</div>
@@ -64,16 +65,18 @@ export default function Castaways(props: Props) {
         <div className={styles.eventEffect + " " + styles.bookEffect}>
           <Image
             src={"/interface/scenarios/castaways/bookEffectFinal.png"}
-            layout={"fill"}
+            fill
             alt={"tokeny"}
+            sizes={styles.eventEffect}
           />
         </div>
 
         <div className={styles.eventEffect}>
           <Image
             src={"/interface/scenarios/castaways/totemEffectFinal.png"}
-            layout={"fill"}
+            fill
             alt={"tokeny"}
+            sizes={styles.eventEffect}
           />
         </div>
       </div>
@@ -82,8 +85,9 @@ export default function Castaways(props: Props) {
         <div className={styles.tokens}>
           <Image
             src={"/interface/scenarios/castaways/tokens3.png"}
-            layout={"fill"}
+            fill
             alt={"tokeny"}
+            sizes={styles.tokens}
           />
         </div>
         <div className={styles.inventions}>

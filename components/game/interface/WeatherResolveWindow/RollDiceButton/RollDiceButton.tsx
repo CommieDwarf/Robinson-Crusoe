@@ -27,8 +27,9 @@ export const RollDiceButton = (props: Props) => {
       <Image
         className={"dices"}
         src={"/interface/weather/dices.png"}
-        layout={"fill"}
+        fill
         alt={"losuj"}
+        sizes={styles.container}
       />
       <span className={styles.roll}>Losuj!</span>
     </div>

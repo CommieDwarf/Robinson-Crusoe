@@ -15,8 +15,9 @@ export default function Determination(props: Props) {
         <div className={styles.image}>
           <Image
             src="/interface/characters/determination-token.png"
-            layout="fill"
+            fill
             alt="determination icon"
+            sizes={styles.image}
           />
         </div>
       </div>

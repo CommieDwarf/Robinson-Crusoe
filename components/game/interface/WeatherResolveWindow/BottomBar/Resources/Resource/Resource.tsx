@@ -27,8 +27,9 @@ export const Resource = (props: Props) => {
         <div className={styles.subtrahendImage}>
           <Image
             src={"/interface/weather/subtrahends/" + key + ".png"}
-            layout={"fill"}
+            fill
             alt={"wynik"}
+            sizes={styles.subtrahendImage}
           />
         </div>
       </div>
@@ -54,8 +55,9 @@ export const Resource = (props: Props) => {
       <div className={styles.labelImg}>
         <Image
           src={"/interface/weather/resources/" + props.type + ".png"}
-          layout={"fill"}
+          fill
           alt={TRANSLATE_PL[props.type]}
+          sizes={styles.labelImg}
         />
       </div>
       <div className={styles.labelText}>{TRANSLATE_PL[props.type]}</div>

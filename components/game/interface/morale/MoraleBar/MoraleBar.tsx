@@ -24,8 +24,9 @@ export default function MoraleBar(props: Props) {
             <div className={styles.moraleIcon}>
               <Image
                 src="/interface/morale/icon.png"
-                layout="fill"
+                fill
                 alt="morale"
+                sizes={styles.moraleIcon}
               />
             </div>
           )}
@@ -48,15 +49,17 @@ export default function MoraleBar(props: Props) {
           <div className={styles.lastMoraleIcon}>
             <Image
               src="/interface/morale/icon.png"
-              layout="fill"
+              fill
               alt="morale"
+              sizes={styles.lastMoraleBar}
             />
           </div>
           <div className={styles.heart}>
             <Image
               src="/interface/morale/heart.png"
-              layout={"fill"}
-              alt="serce"
+              fill
+              alt="życie"
+              sizes={styles.heart}
             />
           </div>
           <div className={styles.crossLine}></div>

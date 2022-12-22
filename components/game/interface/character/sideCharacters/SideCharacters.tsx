@@ -38,15 +38,14 @@ export default function SideCharacters(props: Props) {
             </div>
           )}
         </Droppable>
-        <div className={`${styles.name} ${styles["friday-name"]}`}>
-          Piętaszek
-        </div>
+        <div className={`${styles.name}`}>Piętaszek</div>
         <FridayHealth health={0} />
         <div className={styles.picture}>
           <Image
-            src="/interface/characters/friday-pic.png"
-            layout="fill"
+            src="/interface/characters/helpers/friday-pic.png"
+            fill
             alt="piętaszek"
+            sizes={styles.picture}
           />
         </div>
       </div>
@@ -76,18 +75,20 @@ export default function SideCharacters(props: Props) {
           )}
         </Droppable>
         <div className={`${styles.name}`}>Pies</div>
-        <div className={styles["dog-usage"]}>
+        <div className={styles.dogUsage}>
           <Image
             src="/interface/characters/dog-usage.png"
-            layout="fill"
+            fill
             alt="umiejetności psa"
+            sizes={styles.dogUsage}
           />
         </div>
-        <div className={`${styles.picture} ${styles["dog-pic"]}`}>
+        <div className={`${styles.picture} ${styles.dogPic}`}>
           <Image
-            src="/interface/characters/dog-pic.png"
-            layout="fill"
+            src="/interface/characters/helpers/dog-pic.png"
+            fill
             alt="pies"
+            sizes={styles.picture}
           />
         </div>
       </div>

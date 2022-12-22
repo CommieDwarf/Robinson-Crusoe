@@ -32,8 +32,9 @@ export default function PhaseDropDownMenu(props: Props) {
         <div className={styles.phasePicture}>
           <Image
             src={"/interface/phase/" + phase + "-pic.png"}
-            layout="fill"
             alt={phase}
+            fill
+            sizes={styles.phasePicture}
           />
         </div>
       </div>

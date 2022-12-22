@@ -107,8 +107,9 @@ export default function Tile(props: Props) {
           <div className={styles.tile}>
             <Image
               src={`/interface/map/tiles/${imgId}.png`}
-              layout="fill"
+              fill
               alt="kafelek"
+              sizes={styles.tile}
             />
           </div>
           {!props.camp && actionSlots}
@@ -116,8 +117,9 @@ export default function Tile(props: Props) {
             <div className={styles.campIcon}>
               <Image
                 src={"/interface/map/camp.png"}
-                layout={"fill"}
+                fill
                 alt={"obóz"}
+                sizes={styles.campIcon}
               />
             </div>
           )}

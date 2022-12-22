@@ -42,8 +42,9 @@ export default function ScenarioButton(props: Props) {
           <div className={styles.arrow + " " + rotatedArrowClass}>
             <Image
               src="/interface/cards/red-arrow.png"
-              layout="fill"
+              fill
               alt="strzałka"
+              sizes={styles.arrow}
             />
           </div>
         </div>
@@ -54,8 +55,9 @@ export default function ScenarioButton(props: Props) {
           <div className={styles.arrow + " " + rotatedArrowClass}>
             <Image
               src="/interface/cards/red-arrow.png"
-              layout="fill"
+              fill
               alt="strzałka"
+              sizes={styles.arrow}
             />
           </div>
         </div>

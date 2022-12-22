@@ -21,8 +21,9 @@ export default function Item(props: Props) {
     <div className={styles.item + " " + enlargedClass} onClick={handleClick}>
       <Image
         src={`/interface/equipment/${props.item.name}.png`}
-        layout="fill"
+        fill
         alt={props.item.name}
+        sizes={styles.item}
       />
       <div className={styles.useButton + " " + buttonClass}>Użyj</div>
       <div className={styles.uses}>

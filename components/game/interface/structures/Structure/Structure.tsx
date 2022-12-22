@@ -24,8 +24,9 @@ export default function Structure(props: Props) {
         <div className={styles.committedResource} key={key}>
           <Image
             src={`/interface/resources/${key}.png`}
-            layout="fill"
+            fill
             alt={key}
+            sizes={styles.committedResource}
           />
         </div>
       );
@@ -43,8 +44,9 @@ export default function Structure(props: Props) {
         <div className={styles.woodImage}>
           <Image
             src="/interface/resources/wood.png"
-            layout="fill"
+            fill
             alt={"wood"}
+            sizes={styles.woodImage}
           />
         </div>
       </div>
@@ -56,8 +58,9 @@ export default function Structure(props: Props) {
         <div className={styles.woodImage}>
           <Image
             src="/interface/resources/wood.png"
-            layout="fill"
+            fill
             alt={"drewno"}
+            sizes={styles.woodImage}
           />
         </div>
         <div className={styles.crossLine}></div>
@@ -67,8 +70,9 @@ export default function Structure(props: Props) {
         <div className={styles.leatherImage}>
           <Image
             src="/interface/resources/leather.png"
-            layout="fill"
-            alt={"drewno"}
+            fill
+            alt={"skóra"}
+            sizes={styles.leatherImage}
           />
         </div>
       </div>
@@ -113,15 +117,19 @@ export default function Structure(props: Props) {
       >
         <Image
           src={`/interface/structures/${props.structure.name}.png`}
-          layout="fill"
+          fill
           alt={props.structure.name}
+          sizes={`${styles[props.structure.name]} ${
+            props.structure.lvl === 0 ? styles.level0 : ""
+          }`}
         />
       </div>
       <div className={styles.structureIcon}>
         <Image
           src={`/interface/structures/${props.structure.name}-icon.png`}
-          layout="fill"
+          fill
           alt={props.structure.name + " icon"}
+          sizes={styles.structureIcon}
         />
       </div>
     </div>

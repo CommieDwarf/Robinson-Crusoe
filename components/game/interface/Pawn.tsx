@@ -56,8 +56,9 @@ export default function Pawn(props: Props) {
             >
               <Image
                 src={`/interface/characters/pawns/${imageName}.png`}
-                layout="fill"
+                fill
                 alt="pionek"
+                sizes={styles.pawn}
               />
             </div>
           </div>

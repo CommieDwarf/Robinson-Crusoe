@@ -32,8 +32,9 @@ export const Item = (props: Props) => {
       <div className={styles.threat}>
         <Image
           src={`/interface/events/${card.name}.png`}
-          layout="fill"
+          fill
           alt={card.name}
+          sizes={styles.threat}
         />
       </div>
     );
@@ -43,8 +44,9 @@ export const Item = (props: Props) => {
       <div className={styles.hunt}>
         <Image
           src={`/interface/beast/${beast.name.en}.png`}
-          layout={"fill"}
+          fill
           alt={beast.name.pl}
+          sizes={styles.hunt}
         />
       </div>
     );
@@ -56,8 +58,9 @@ export const Item = (props: Props) => {
       <div className={styles.invention}>
         <Image
           src={`/interface/inventions/${invention.type}/${invention.name}${reverse}.png`}
-          layout="fill"
+          fill
           alt={invention.name}
+          sizes={styles.invention}
         />
       </div>
     );
@@ -67,8 +70,9 @@ export const Item = (props: Props) => {
       <div className={styles[structure.name] + " " + styles.structure}>
         <Image
           src={`/interface/structures/${structure.name}.png`}
-          layout="fill"
+          fill
           alt={structure.name}
+          sizes={styles.structure}
         />
       </div>
     );
@@ -80,8 +84,9 @@ export const Item = (props: Props) => {
           <div className={styles.arrow}>
             <Image
               src={"/interface/actions/red-arrow.png"}
-              layout={"fill"}
+              fill
               alt="lvl"
+              sizes={styles.arrow}
             />
           </div>
           <span className={styles.nextLvl + " " + styles.lvl}>
@@ -115,8 +120,9 @@ export const Item = (props: Props) => {
       <div className={styles.tile}>
         <Image
           src={`/interface/map/tiles/${id}.png`}
-          layout={"fill"}
+          fill
           alt={"kafelek"}
+          sizes={styles.tile}
         />
       </div>
     );
@@ -129,7 +135,8 @@ export const Item = (props: Props) => {
               src={`/interface/resources/${
                 tile.tileType?.resources[props.item.additionalInfo.resource]
               }.png`}
-              layout={"fill"}
+              fill
+              sizes={styles.resourceIcon}
               alt={"surowiec"}
             />
           </div>
@@ -144,7 +151,8 @@ export const Item = (props: Props) => {
       <div className={styles.restArrange}>
         <Image
           src={`/interface/actions/${props.item.action}Picture.png`}
-          layout={"fill"}
+          fill
+          sizes={styles.restArrange}
           alt={props.item.action}
         />
       </div>
@@ -202,8 +210,9 @@ export const Item = (props: Props) => {
       <div className={styles.character}>
         <Image
           src={`/interface/characters/pawns/${imageName}.png`}
-          layout="fill"
+          fill
           alt="pionek"
+          sizes={styles.character}
         />
       </div>
     </div>

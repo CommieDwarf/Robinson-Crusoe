@@ -24,8 +24,9 @@ export default function Hunt(props: Props) {
       <div className={styles.card + " " + lockedClass}>
         <Image
           src={"/interface/cards/reverse/beast.png"}
-          layout={"fill"}
+          fill
           alt="Bestia"
+          sizes={styles.card}
         />
       </div>
       <div className={styles.beastCount + " " + styles.locked}>

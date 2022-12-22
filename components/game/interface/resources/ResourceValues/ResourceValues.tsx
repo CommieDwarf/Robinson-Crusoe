@@ -20,12 +20,12 @@ export default function ResourceValues(props: Props) {
         <div className={styles.icon}>
           <Image
             src={`/interface/resources/${key}.png`}
-            layout="fill"
+            fill
             alt={RESOURCE_PL[key]}
+            sizes={styles.icon}
           />
         </div>
         <div className={styles.label}>{RESOURCE_PL[key]}:</div>
-
         <div className={styles.value}>{value}</div>
       </div>
     );

@@ -16,40 +16,50 @@ export default function Resources(props: Props) {
       <div className={styles.topBar}>
         <Image
           src="/interface/resources/board.jpg"
-          layout="fill"
+          fill
           alt={"ramka"}
+          sizes={styles.topBar}
         />
       </div>
       <div className={styles.leftBar}>
         <Image
           src="/interface/resources/boardVert.jpg"
-          layout="fill"
+          fill
           alt={"ramka"}
+          sizes={styles.leftBar}
         />
       </div>
       <ResourceValues resources={props.future} type="future" />
       <div className={styles.rightBar}>
         <Image
           src="/interface/resources/boardVert.jpg"
-          layout="fill"
+          fill
           alt={"ramka"}
+          sizes={styles.rightBar}
         />
       </div>
       <div className={styles.botBar}>
-        <Image src="/interface/resources/board.jpg" layout="fill" alt={"tło"} />
+        <Image
+          src="/interface/resources/board.jpg"
+          fill
+          alt={"tło"}
+          sizes={styles.botBar}
+        />
       </div>
       <div className={styles.midBar}>
         <Image
           src="/interface/resources/board.jpg"
-          layout="fill"
+          fill
           alt={"ramka"}
+          sizes={styles.midBar}
         />
         <div className={styles.barDecoration}>
           <div className={styles.productionIcon}>
             <Image
               src="/interface/resources/production.png"
-              layout="fill"
+              fill
               alt={"ikona produkcji"}
+              sizes={styles.productionIcon}
             />
           </div>
         </div>

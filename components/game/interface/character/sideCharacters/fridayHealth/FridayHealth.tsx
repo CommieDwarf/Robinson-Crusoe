@@ -17,8 +17,9 @@ export default function FridayHealth(props: Props) {
         <div className={styles.heart} key={i}>
           <Image
             src="/interface/characters/red-heart.png"
-            layout="fill"
+            fill
             alt="heart"
+            sizes={styles.heart}
           />
         </div>
       );
@@ -27,15 +28,14 @@ export default function FridayHealth(props: Props) {
         <div className={styles.heart} key={i}>
           <Image
             src="/interface/characters/heart.png"
-            layout="fill"
+            fill
             alt="heart"
+            sizes={styles.heart}
           />
         </div>
       );
     }
   }
-
-  
 
   return (
     <div className={styles.health}>
@@ -43,8 +43,9 @@ export default function FridayHealth(props: Props) {
       <div className={styles.skull}>
         <Image
           src="/interface/characters/skull.png"
-          layout="fill"
+          fill
           alt="skull"
+          sizes={styles.skull}
         />
       </div>
     </div>

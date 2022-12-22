@@ -24,8 +24,9 @@ export default function RestArrange(props: Props) {
           <div className={styles.moraleIcon}>
             <Image
               src="/interface/additionalActivities/morale-icon.png"
-              layout="fill"
+              fill
               alt="token determinacji"
+              sizes={styles.moraleIcon}
             />
           </div>
         </div>
@@ -33,7 +34,8 @@ export default function RestArrange(props: Props) {
           <div className={styles.moraleArrow}>
             <Image
               src="/interface/additionalActivities/morale-arrow.png"
-              layout="fill"
+              fill
+              sizes={styles.moraleArrow}
               alt="strzałka morali"
             />
           </div>
@@ -47,7 +49,8 @@ export default function RestArrange(props: Props) {
         <div className={styles.heart}>
           <Image
             src="/interface/additionalActivities/heart.png"
-            layout="fill"
+            fill
+            sizes={styles.heart}
             alt="serce"
           />
         </div>

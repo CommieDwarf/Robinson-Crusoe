@@ -24,8 +24,9 @@ export const LogMessage = (props: Props) => {
       <div className={styles.phaseIcon}>
         <Image
           src={"/interface/phase/" + msg.phase + ".png"}
-          layout={"fill"}
+          fill
           alt={"faza"}
+          sizes={styles.phaseIcon}
         />
       </div>
       {}

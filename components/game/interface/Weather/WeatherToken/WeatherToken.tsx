@@ -12,8 +12,9 @@ export const WeatherToken = (props: Props) => {
     <div className={styles.container}>
       <Image
         src={`/interface/weather/${props.token}.png`}
-        layout={"fill"}
+        fill
         alt={"token pogody"}
+        sizes={styles.container}
       />
     </div>
   );

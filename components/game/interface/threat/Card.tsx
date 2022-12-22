@@ -28,8 +28,9 @@ export default function Card(props: Props) {
       {props.card && (
         <Image
           src={`/interface/events/${props.card.name}.png`}
-          layout="fill"
+          fill
           alt={props.card.name}
+          sizes={styles.cardSlot}
         />
       )}
     </div>
