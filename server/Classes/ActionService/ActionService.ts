@@ -129,6 +129,11 @@ export class ActionService implements IActionService {
     const item = this._currentResolvableActionService.getItem(droppableId);
     if (item.status === RESOLVE_ITEM_STATUS.PENDING) {
       this._currentResolvableActionService.resolveItem(item.droppableId);
+      item.helpers.forEach((pawn) => {
+        if ("disposable" in pawn) {
+          pawn.disposed = true;
+        }
+      });
     } else {
       throw new Error(
         "Trying to resolve already resolved item: " + item.droppableId

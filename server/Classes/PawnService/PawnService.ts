@@ -2,15 +2,15 @@ import {
   IPawnService,
   IPawnServiceRenderData,
 } from "../../../interfaces/Pawns/Pawns";
-import { IPawn } from "../../../interfaces/Pawns/Pawn";
+import { IPawn, IPawnHelper } from "../../../interfaces/Pawns/Pawn";
 
 import { PawnArrayName } from "../../../interfaces/Pawns/Pawns";
 import { Pawn } from "./Pawn/Pawn";
 import { ICharacter } from "../../../interfaces/Characters/Character";
 
 export class PawnService implements IPawnService {
-  private _freePawns: IPawn[] = [];
-  private _pawns: IPawn[] = [];
+  private _freePawns: (IPawn | IPawnHelper)[] = [];
+  private _pawns: (IPawn | IPawnHelper)[] = [];
   private readonly _character: ICharacter;
   _initialQuantity: number;
 
@@ -74,7 +74,13 @@ export class PawnService implements IPawnService {
   }
 
   resetFreePawns(): void {
-    this._freePawns = this._pawns;
+    this._freePawns = this._pawns.filter((pawn) => {
+      if ("disposable" in pawn) {
+        return !pawn.disposed;
+      } else {
+        return true;
+      }
+    });
   }
 
   private getInitialPawns(initialQuantity: number): IPawn[] {

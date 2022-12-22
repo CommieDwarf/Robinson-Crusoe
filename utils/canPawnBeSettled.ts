@@ -1,11 +1,25 @@
-import {IPawnRenderData} from "../interfaces/Pawns/Pawn";
+import {
+  IPawnHelperRenderData,
+  IPawnRenderData,
+} from "../interfaces/Pawns/Pawn";
+import {stubTrue} from "lodash";
 
 export function getPawnCanBeSettled(
-    pawn: null | IPawnRenderData,
+    pawn: null | IPawnRenderData | IPawnHelperRenderData,
     destinationId: string
 ): boolean {
   if (!pawn) {
     return true;
+  }
+  if ("action" in pawn) {
+    switch (pawn.action) {
+      case "build":
+        return destinationId.includes("invention") || destinationId.includes("structure");
+      case "explore":
+        return destinationId.includes("explore");
+      case "gather":
+        return destinationId.includes("gather");
+    }
   }
 
 
@@ -24,7 +38,8 @@ export function getPawnCanBeSettled(
     );
   } else {
     return !(
-        destinationId.includes("freepawns") && !destinationId.includes(pawn.character.name)
+        destinationId.includes("freepawns") &&
+        !destinationId.includes(pawn.character.name)
     );
   }
 }

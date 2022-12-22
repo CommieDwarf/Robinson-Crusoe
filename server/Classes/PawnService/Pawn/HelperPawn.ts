@@ -6,6 +6,7 @@ import { Pawn } from "./Pawn";
 export class HelperPawn extends Pawn implements IPawnHelper {
   action: HelperAction;
   disposable: boolean;
+  disposed = false;
 
   constructor(
     character: IPlayerCharacter,

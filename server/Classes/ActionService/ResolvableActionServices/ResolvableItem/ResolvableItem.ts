@@ -1,5 +1,5 @@
 import { RESOLVE_ITEM_STATUS } from "../../../../../interfaces/ActionService/IActionResolvableService";
-import { IPawn } from "../../../../../interfaces/Pawns/Pawn";
+import { IPawn, IPawnHelper } from "../../../../../interfaces/Pawns/Pawn";
 import { Action } from "../../../../../interfaces/Action";
 import {
   IResolvableItem,
@@ -16,6 +16,10 @@ import {
 import { IGame } from "../../../../../interfaces/Game";
 
 export class ResolvableItem implements IResolvableItem {
+  get helpers(): (IPawn | IPawnHelper)[] {
+    return this._helpers;
+  }
+
   get action(): Action {
     return this._action;
   }
@@ -31,7 +35,7 @@ export class ResolvableItem implements IResolvableItem {
   private readonly _droppableId: string;
   private readonly _leader: IPawn;
   private _status: RESOLVE_ITEM_STATUS = RESOLVE_ITEM_STATUS.PENDING;
-  private _helpers: number = 0;
+  private _helpers: (IPawn | IPawnHelper)[] = [];
   private readonly _content;
   private readonly _additionalInfo;
   private readonly _action;
@@ -72,14 +76,6 @@ export class ResolvableItem implements IResolvableItem {
 
   get leader(): IPawn {
     return this._leader;
-  }
-
-  get helpers(): number {
-    return this._helpers;
-  }
-
-  set helpers(value: number) {
-    this._helpers = value;
   }
 
   set status(value: RESOLVE_ITEM_STATUS) {
@@ -132,8 +128,8 @@ export class ResolvableItem implements IResolvableItem {
     }
   }
 
-  incrementHelpers() {
-    this._helpers++;
+  addHelper(pawn: IPawn | IPawnHelper) {
+    this._helpers.push(pawn);
   }
 
   resolveItem(droppableId: string) {}

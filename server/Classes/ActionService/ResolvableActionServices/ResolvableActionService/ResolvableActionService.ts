@@ -13,10 +13,7 @@ import {
   IResolvableItemAdditionalInfo,
 } from "../../../../../interfaces/ActionService/IResolvableItem";
 import { MissingLeaderError } from "../../../Errors/MissingLeaderError";
-import {
-  ActionDice,
-  DiceActionType,
-} from "../../../../../interfaces/RollDice/RollDice";
+import { DiceActionType } from "../../../../../interfaces/RollDice/RollDice";
 import { MissingPawnError } from "../../../Errors/MissingPawnError";
 
 const diceRollableActions = ["gather", "build", "explore"];
@@ -98,7 +95,7 @@ export abstract class ResolvableActionService
     const item = this.getItem(droppableId);
     this._game.actionService.lastResolvedItem = item;
     if (
-      item.helpers < this.helperAmountRequired + 1 &&
+      item.helpers.length < this.helperAmountRequired + 1 &&
       diceRollableActions.includes(this.action)
     ) {
       // TODO: implement reRoll option
@@ -150,7 +147,7 @@ export abstract class ResolvableActionService
             );
           }
         } else {
-          item.incrementHelpers();
+          item.addHelper(value);
         }
       }
     });
@@ -162,7 +159,7 @@ export abstract class ResolvableActionService
         if (itemType === "tile") {
           itemName = parseInt(itemName);
         }
-        if (!item.leader || item.helpers < this.helperAmountRequired) {
+        if (!item.leader || item.helpers.length < this.helperAmountRequired) {
           throw new MissingPawnError(
             "Action requires more pawns",
             itemName,

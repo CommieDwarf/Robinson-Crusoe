@@ -1,5 +1,5 @@
 import { Action } from "../Action";
-import { IPawn, IPawnRenderData } from "../Pawns/Pawn";
+import { IPawn, IPawnHelper, IPawnRenderData } from "../Pawns/Pawn";
 import { IEventCard, IEventCardRenderData } from "../Threat/EventCard";
 import { IBeast, IBeastRenderData } from "../Beasts/Beast";
 import { IInvention, IInventionRenderData } from "../Inventions/Invention";
@@ -25,8 +25,8 @@ export interface IResolvableItem {
   additionalInfo: IResolvableItemAdditionalInfo;
   status: RESOLVE_ITEM_STATUS;
   leader: IPawn;
-  helpers: number;
-  incrementHelpers: () => void;
+  helpers: (IPawn | IPawnHelper)[];
+  addHelper: (pawn: IPawn | IPawnHelper) => void;
   renderData: IResolvableItemRenderData;
   diceRoll: ActionRollDiceInfo | null;
   rollAllDices: (action: DiceActionType) => void;

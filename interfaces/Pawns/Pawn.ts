@@ -20,6 +20,7 @@ export interface IPawn {
 export interface IPawnHelper extends IPawn {
   disposable: boolean;
   action: HelperAction;
+  disposed: boolean;
 }
 
 export interface IPawnHelperRenderData extends IPawnRenderData {
