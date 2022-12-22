@@ -2,6 +2,7 @@ import { Queue } from "./Queue";
 import { IGraph } from "../../../../interfaces/Graph/Graph";
 import { IVertex } from "../../../../interfaces/Graph/Vertex";
 import { Vertex } from "./Vertex";
+import { v4 as uuid } from "uuid";
 
 export class Graph<Data> implements IGraph<Data> {
   isDirected: boolean;
@@ -14,8 +15,8 @@ export class Graph<Data> implements IGraph<Data> {
     this.vertices = [];
   }
 
-  addVertex(data: Data) {
-    let newVertex = new Vertex<Data>(data);
+  addVertex(data: Data, id: string | number) {
+    let newVertex = new Vertex<Data>(data, id);
     this.vertices.push(newVertex);
     return newVertex;
   }
@@ -63,43 +64,23 @@ export class Graph<Data> implements IGraph<Data> {
     });
   }
 
-  // TODO: PUT DFS INTO WRAPPER METHOD
-  DFS(
-    currentVertex: IVertex<Data>,
-    searched: IVertex<Data>,
-    visitedVertices = [currentVertex]
-  ): IVertex<Data> | null {
-    let found: IVertex<Data> | null = null;
-    let edges = currentVertex.edges;
-    edges.forEach((edge) => {
-      if (!found) {
-        let vertex = edge.end;
-        vertex.prev = currentVertex;
-        if (!visitedVertices.includes(vertex)) {
-          visitedVertices.push(vertex);
-          if (vertex === searched) {
-            found = vertex;
-          } else {
-            this.DFS(vertex, searched, visitedVertices);
-          }
-        }
-      }
-    });
-    return found;
+  DFS(vertex: IVertex<Data>, searched: IVertex<Data>): IVertex<Data>[] {
+    throw new Error("not implemented");
   }
 
-  BFS(vertex: IVertex<Data>, searched: IVertex<Data>): IVertex<Data> | null {
+  BFS(vertex: Vertex<Data>, searched: Vertex<Data>): IVertex<Data>[] {
     let visitedVertices = [vertex];
     let queue = new Queue<Data>();
     let edges = vertex.edges;
     vertex.prev = null;
     queue.enqueue(vertex);
-    let found: null | IVertex<Data>;
+    let found: boolean = null;
     while (queue.getLength() > 0 && !found) {
       const currentVertex = queue.dequeue();
       if (currentVertex) {
         if (currentVertex === searched) {
-          found = vertex;
+          visitedVertices.push(currentVertex);
+          found = true;
         } else {
           edges = currentVertex.edges;
           edges.forEach((edge) => {
@@ -113,11 +94,28 @@ export class Graph<Data> implements IGraph<Data> {
         }
       }
     }
-    return found;
+    return visitedVertices;
   }
 
-  public static getPath<Data>(lastVertex: IVertex<Data>): IVertex<Data>[] {
+  public getShortestPath(
+    startID: string | number,
+    searchedID: string | number
+  ): IVertex<Data>[] {
+    const start = this.getVertex(startID);
+    const searched = this.getVertex(searchedID);
+    const visitedVertices = this.BFS(start, searched);
+    if (visitedVertices.length > 0) {
+      const path = this.backTracePath(searched);
+      this.clearTracks();
+      return path;
+    } else {
+      return [];
+    }
+  }
+
+  private backTracePath(searched: IVertex<Data>) {
     const path = [];
+    let lastVertex = searched;
     while (lastVertex.prev) {
       if (!path.includes(lastVertex)) {
         path.push(lastVertex);
@@ -125,5 +123,17 @@ export class Graph<Data> implements IGraph<Data> {
       lastVertex = lastVertex.prev;
     }
     return path.reverse();
+  }
+
+  private clearTracks() {
+    this.vertices.forEach((vertex) => (vertex.prev = null));
+  }
+
+  getVertex(id: string | number): IVertex<Data> {
+    const vertex = this.vertices.find((vertex) => vertex.id == id);
+    if (!vertex) {
+      throw new Error("Couldn't find vertex with id: " + id);
+    }
+    return vertex;
   }
 }

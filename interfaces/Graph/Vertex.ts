@@ -1,6 +1,7 @@
 import { IEdge } from "./Edge";
 
 export interface IVertex<Data> {
+  id: number | string;
   data: Data;
   edges: IEdge<Data>[];
   prev: IVertex<Data>;

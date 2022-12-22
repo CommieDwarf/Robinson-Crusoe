@@ -7,7 +7,7 @@ import {
   IInventionsServiceRenderData,
   InventionName,
 } from "../../../interfaces/Inventions/Inventions";
-import { ITilesService } from "../../../interfaces/Tiles/TilesService";
+import { ITileService } from "../../../interfaces/TileService/ITileService";
 import { ICharacter } from "../../../interfaces/Characters/Character";
 import { IGame } from "../../../interfaces/Game";
 
@@ -16,10 +16,10 @@ export class InventionsService implements IInventionsService {
   // TODO: fixed for the demo
   scenario: "castaways";
   private readonly _inventions: IInvention[];
-  private _tiles: ITilesService;
+  private _tiles: ITileService;
   private _game: IGame;
 
-  constructor(scenario: "castaways", tiles: ITilesService, game: IGame) {
+  constructor(scenario: "castaways", tiles: ITileService, game: IGame) {
     this.scenario = scenario;
     this._inventions = this.getInitialInventions(scenario);
     this._tiles = tiles;

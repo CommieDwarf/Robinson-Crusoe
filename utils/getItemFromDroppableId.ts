@@ -1,33 +1,33 @@
-import { IGame } from "../interfaces/Game";
-import { InventionName } from "../interfaces/Inventions/Inventions";
-import { StructureName } from "../interfaces/Structures/Structures";
-import { EventCard } from "../server/Classes/EventCard/EventCard";
+import {IGame} from "../interfaces/Game";
+import {InventionName} from "../interfaces/Inventions/Inventions";
+import {StructureName} from "../interfaces/Structures/Structures";
+import {EventCard} from "../server/Classes/EventCard/EventCard";
 
 export function getItemFromDroppableId(droppableId: string, game: IGame) {
-  if (droppableId.includes("threat")) {
-    if (droppableId.includes("left")) {
-      return game.threat.leftSlot as EventCard;
-    } else {
-      return game.threat.rightSlot as EventCard;
+    if (droppableId.includes("threat")) {
+        if (droppableId.includes("left")) {
+            return game.threat.leftSlot as EventCard;
+        } else {
+            return game.threat.rightSlot as EventCard;
+        }
+    } else if (droppableId.includes("hunt")) {
+        return game.beasts.getBeastFromDeck();
+    } else if (droppableId.includes("invention")) {
+        let name = droppableId.split("-")[1] as InventionName;
+        return game.inventionsService.getInvention(name);
+    } else if (droppableId.includes("structure")) {
+        let name = droppableId.split("-")[1] as StructureName;
+        return game.structuresService.getStruct(name);
+    } else if (droppableId.includes("tile")) {
+        let id = droppableId.split("-")[1];
+        return game.tilesService.getTile(parseInt(id));
+    } else if (droppableId.includes("rest")) {
+        return game.arrangeCampRestService;
+    } else if (droppableId.includes("arrangeCamp")) {
+        return game.arrangeCampRestService;
     }
-  } else if (droppableId.includes("hunt")) {
-    return game.beasts.getBeastFromDeck();
-  } else if (droppableId.includes("invention")) {
-    let name = droppableId.split("-")[1] as InventionName;
-    return game.inventionsService.getInvention(name);
-  } else if (droppableId.includes("structure")) {
-    let name = droppableId.split("-")[1] as StructureName;
-    return game.structuresService.getStruct(name);
-  } else if (droppableId.includes("tile")) {
-    let id = droppableId.split("-")[1];
-    return game.tilesService.findTile(parseInt(id));
-  } else if (droppableId.includes("rest")) {
-    return game.arrangeCampRestService;
-  } else if (droppableId.includes("arrangeCamp")) {
-    return game.arrangeCampRestService;
-  }
 
-  throw new Error("Can't find item from droppableId: " + droppableId);
+    throw new Error("Can't find item from droppableId: " + droppableId);
 }
 
 // actionSlots.set("structure-" + structure.name + "-leader", null);

@@ -3,7 +3,7 @@ import React from "react";
 import ActionSlot from "../../ActionSlot";
 import Scrollbar from "../../Scrollbar";
 import styles from "./Tile.module.css";
-import { ITileRenderData } from "../../../../../interfaces/Tiles/Tile";
+import { ITileRenderData } from "../../../../../interfaces/TileService/ITile";
 import { IPawnRenderData } from "../../../../../interfaces/Pawns/Pawn";
 
 interface Props {
@@ -78,12 +78,16 @@ export default function Tile(props: Props) {
     actionSlots = (
       <Scrollbar styleModule={styles}>
         <div className={styles.gatherActionSlots + " " + scrollableClass}>
-          <div className={styles.gatherActionSlotsLeft}>
-            {getActionSlots("gather", "left")}
-          </div>
-          <div className={styles.gatherActionSlotsRight}>
-            {getActionSlots("gather", "right")}
-          </div>
+          {props.tile.tileType.resources.left !== "beast" && (
+            <div className={styles.gatherActionSlotsLeft}>
+              {getActionSlots("gather", "left")}
+            </div>
+          )}
+          {props.tile.tileType.resources.right !== "beast" && (
+            <div className={styles.gatherActionSlotsRight}>
+              {getActionSlots("gather", "right")}
+            </div>
+          )}
         </div>
       </Scrollbar>
     );
@@ -107,7 +111,7 @@ export default function Tile(props: Props) {
               alt="kafelek"
             />
           </div>
-          {actionSlots}
+          {!props.camp && actionSlots}
           {props.camp && (
             <div className={styles.campIcon}>
               <Image

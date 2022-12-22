@@ -1,8 +1,8 @@
 import { ResolvableActionService } from "./ResolvableActionService/ResolvableActionService";
 import { IGame } from "../../../../interfaces/Game";
 import { RESOLVE_ITEM_STATUS } from "../../../../interfaces/ActionService/IActionResolvableService";
-import { TilesService } from "../../Tiles/TileService";
-import { ITile } from "../../../../interfaces/Tiles/Tile";
+import { TileService } from "../../TileService/TileService";
+import { ITile } from "../../../../interfaces/TileService/ITile";
 import { Action } from "../../../../interfaces/Action";
 
 export class GatherService extends ResolvableActionService {

@@ -1,4 +1,4 @@
-import { TilePosition } from "../interfaces/Tiles/Tile";
+import { TilePosition } from "../interfaces/TileService/ITile";
 
 const mapStructure = [
   [

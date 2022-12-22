@@ -13,7 +13,7 @@ export class GameService implements IGameService {
 
   get game(): IGame {
     if (!this._game) {
-      throw new Error("Play isn't instantiated");
+      throw new Error("game isn't instantiated");
     }
     return this._game;
   }
@@ -24,7 +24,6 @@ export class GameService implements IGameService {
     this._game.inventionsService.inventions.forEach(
       (inv) => (inv.locked = false)
     );
-    this._game.beasts.moveBeastFromStackToDeck();
   }
 
   get renderData() {

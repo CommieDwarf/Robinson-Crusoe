@@ -1,34 +1,31 @@
-import {IPawn} from "../../../interfaces/Pawns/Pawn";
+import { IPawn } from "../../../interfaces/Pawns/Pawn";
 import {
   IActionSlotsService,
   IActionSlotsServiceRenderData,
   SlotsOccupied,
 } from "../../../interfaces/ActionSlots";
-import {IStructuresService} from "../../../interfaces/Structures/Structures";
-import {IInventionsService} from "../../../interfaces/Inventions/Inventions";
-import {ITilesService} from "../../../interfaces/Tiles/TilesService";
-import {inventionList} from "../../../constants/inventionList";
+import { IStructuresService } from "../../../interfaces/Structures/Structures";
+import { IInventionsService } from "../../../interfaces/Inventions/Inventions";
+import { ITileService } from "../../../interfaces/TileService/ITileService";
+import { inventionList } from "../../../constants/inventionList";
 import Entries from "../../../interfaces/Entries";
 
 export class ActionSlotsService implements IActionSlotsService {
-
-
   private _slots: Map<string, null | IPawn>;
   private _structuresService: IStructuresService;
   private _inventionsService: IInventionsService;
-  private _tiles: ITilesService;
+  private _tilesService: ITileService;
 
   constructor(
-      structuresService: IStructuresService,
-      inventionsService: IInventionsService,
-      tiles: ITilesService
+    structuresService: IStructuresService,
+    inventionsService: IInventionsService,
+    tilesService: ITileService
   ) {
     this._structuresService = structuresService;
     this._inventionsService = inventionsService;
-    this._tiles = tiles;
+    this._tilesService = tilesService;
     this._slots = this.getInitialSlots();
   }
-
 
   get renderData(): IActionSlotsServiceRenderData {
     const slots: any = {};
@@ -39,7 +36,7 @@ export class ActionSlotsService implements IActionSlotsService {
         slots[slotId] = null;
       }
     });
-    return {slots};
+    return { slots };
   }
 
   // -------------------------------------------------
@@ -69,8 +66,8 @@ export class ActionSlotsService implements IActionSlotsService {
         const entries = Object.entries(categorized) as Entries<SlotsOccupied>;
         entries.forEach(([value, key]) => {
           if (
-              arrDroppableId.includes(value) ||
-              (value === "build" && this.isBuildCategory(droppableId))
+            arrDroppableId.includes(value) ||
+            (value === "build" && this.isBuildCategory(droppableId))
           ) {
             categorized[value].set(droppableId, pawn);
           }
@@ -85,7 +82,7 @@ export class ActionSlotsService implements IActionSlotsService {
 
   isBuildCategory(droppableId: string) {
     return (
-        droppableId.includes("invention") || droppableId.includes("structure")
+      droppableId.includes("invention") || droppableId.includes("structure")
     );
   }
 
@@ -124,7 +121,7 @@ export class ActionSlotsService implements IActionSlotsService {
       actionSlots.set("invention-" + invention + "-helper-2", null);
     });
 
-    this._tiles.tiles.forEach((tile) => {
+    this._tilesService.tiles.forEach((tile) => {
       actionSlots.set(`tile-${tile.id}-gather-left-leader-0`, null);
       actionSlots.set(`tile-${tile.id}-gather-right-helper-1`, null);
       actionSlots.set(`tile-${tile.id}-gather-left-helper-1`, null);

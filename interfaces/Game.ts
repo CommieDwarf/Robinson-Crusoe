@@ -2,7 +2,10 @@ import { IThreat, IThreatRenderData } from "./Threat/Threat";
 import { IPawn, IPawnRenderData } from "./Pawns/Pawn";
 import { IBeasts, IBeastsRenderData } from "./Beasts/Beasts";
 import { IPlayerRenderData } from "./PlayerService/Player";
-import { ITilesService, ITilesServiceRenderData } from "./Tiles/TilesService";
+import {
+  ITileService,
+  ITilesServiceRenderData,
+} from "./TileService/ITileService";
 import {
   IStructuresService,
   IStructuresServiceRenderData,
@@ -84,7 +87,7 @@ export interface IGame {
   playerService: IPlayerService;
   localPlayer: Player;
   characterService: ICharacterService;
-  tilesService: ITilesService;
+  tilesService: ITileService;
   allResources: IAllResources;
   structuresService: IStructuresService;
   inventionsService: IInventionsService;

@@ -4,7 +4,7 @@ import { IEventCard, IEventCardRenderData } from "../Threat/EventCard";
 import { IBeast, IBeastRenderData } from "../Beasts/Beast";
 import { IInvention, IInventionRenderData } from "../Inventions/Invention";
 import { IStructure, IStructureRenderData } from "../Structures/Structure";
-import { ITile, ITileRenderData } from "../Tiles/Tile";
+import { ITile, ITileRenderData } from "../TileService/ITile";
 
 import { RESOLVE_ITEM_STATUS } from "./IActionResolvableService";
 import {

@@ -9,7 +9,7 @@ import getDragAndScrollHandle from "../../../../utils/dragAndScrollHandle";
 import Tile from "./Tile/Tile";
 import Hunt from "../Hunt/Hunt";
 import { IPawnRenderData } from "../../../../interfaces/Pawns/Pawn";
-import { ITileRenderData } from "../../../../interfaces/Tiles/Tile";
+import { ITileRenderData } from "../../../../interfaces/TileService/ITile";
 
 interface Props {
   tiles: ITileRenderData[];

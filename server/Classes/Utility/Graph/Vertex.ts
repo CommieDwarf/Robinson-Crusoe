@@ -6,10 +6,12 @@ export class Vertex<Data> implements IVertex<Data> {
   data: any;
   edges: IEdge<Data>[];
   prev: null | IVertex<Data> = null;
+  id: number | string;
 
-  constructor(data: any) {
+  constructor(data: any, id: number | string) {
     this.data = data;
     this.edges = [];
+    this.id = id;
   }
 
   addEdge(vertex: IVertex<Data>, weight: number | null = null) {

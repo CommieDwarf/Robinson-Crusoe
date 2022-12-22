@@ -1,4 +1,4 @@
-import { TerrainType } from "../Tiles/Tile";
+import { TerrainType } from "../TileService/ITile";
 import { IResources, IResourcesAmount } from "../Resources/Resources";
 
 export interface IInventionRenderData {

@@ -89,7 +89,11 @@ export const ActionResolveWindow = (props: Props) => {
       />
       <div className={styles.header}>
         <div className={styles.actionIcon}>
-          <Image src={"/interface/phase/action.png"} layout={"fill"} />
+          <Image
+            src={"/interface/phase/action.png"}
+            layout={"fill"}
+            alt={"akcja"}
+          />
         </div>
         <div className={styles.title}>Faza Akcji</div>
         <div className={styles.actionIcon}>

@@ -2,7 +2,7 @@ import {
   TerrainType,
   TileExtras,
   TileResource,
-} from "../interfaces/Tiles/Tile";
+} from "../interfaces/TileService/ITile";
 
 export class TileType {
   id: number;

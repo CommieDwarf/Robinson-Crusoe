@@ -3,7 +3,7 @@ import {
   IInventionRenderData,
   INVENTION_TYPE,
 } from "../../../interfaces/Inventions/Invention";
-import { TerrainType } from "../../../interfaces/Tiles/Tile";
+import { TerrainType } from "../../../interfaces/TileService/ITile";
 import { CharacterName } from "../../../interfaces/Characters/Character";
 import { IResources } from "../../../interfaces/Resources/Resources";
 import { Resources } from "../ResourceService/Resources";

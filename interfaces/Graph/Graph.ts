@@ -5,7 +5,7 @@ export interface IGraph<Data> {
   isWeighted: boolean;
   vertices: IVertex<Data>[];
 
-  addVertex: (data: Data) => void;
+  addVertex: (data: Data, id: string | number) => void;
   removeVertex: (vertex: IVertex<Data>) => void;
   addEdge: (
     vertexOne: IVertex<Data>,
@@ -16,8 +16,12 @@ export interface IGraph<Data> {
   print: () => void;
   DFS: (
     currentVertex: IVertex<Data>,
-    searched: IVertex<Data>,
-    visitedVertices: IVertex<Data>[]
-  ) => IVertex<Data> | null;
-  BFS: (vertex: IVertex<Data>, searched: IVertex<Data>) => void;
+    searched: IVertex<Data>
+  ) => IVertex<Data>[];
+  BFS: (vertex: IVertex<Data>, searched: IVertex<Data>) => IVertex<Data>[];
+  getShortestPath: (
+    startID: string | number,
+    searchedID: string | number
+  ) => IVertex<Data>[];
+  getVertex: (id: string | number) => IVertex<Data>;
 }

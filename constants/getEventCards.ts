@@ -149,13 +149,10 @@ export function getEventCards(game: IGame, threat: IThreat): IEventCard[] {
         const previousCampTile = game.tilesService.previousCampTile;
         if (previousCampTile) {
           if (previousCampTile.builtStructures.roof > 0) {
-            game.tilesService.currentCampTile.incrementStructureLvl("roof", 1);
+            game.tilesService.campTile.incrementStructureLvl("roof", 1);
           }
           if (previousCampTile.builtStructures.shelter > 0) {
-            game.tilesService.currentCampTile.incrementStructureLvl(
-              "palisade",
-              1
-            );
+            game.tilesService.campTile.incrementStructureLvl("palisade", 1);
           }
         }
       }

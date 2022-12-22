@@ -123,8 +123,7 @@ export class PhaseService implements IPhaseService {
   };
 
   private productionEffect = () => {
-    const resources =
-      this._game.tilesService.currentCampTile.tileType?.resources;
+    const resources = this._game.tilesService.campTile.tileType?.resources;
     if (!resources) {
       throw new Error("There are no resources in tile");
     }

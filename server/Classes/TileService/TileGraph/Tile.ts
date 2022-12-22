@@ -3,8 +3,8 @@ import {
   ITile,
   ITileRenderData,
   TilePosition,
-} from "../../../interfaces/Tiles/Tile";
-import { TileType } from "../../../constants/tilleTypes";
+} from "../../../../interfaces/TileService/ITile";
+import { TileType } from "../../../../constants/tilleTypes";
 
 export class Tile implements ITile {
   private readonly _position: TilePosition;

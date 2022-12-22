@@ -1,7 +1,7 @@
 import { Threat } from "./Threat/Threat";
 import { Player } from "./Players/Player";
 import { ActionSlotsService } from "./ActionSlotsService/ActionSlots";
-import { TilesService } from "./Tiles/TileService";
+import { TileService } from "./TileService/TileService";
 import { ResourceService } from "./ResourceService/ResourceService";
 import { StructuresService } from "./Structures/Structures";
 import { InventionsService } from "./Inventions/InventionsService";
@@ -15,7 +15,7 @@ import { IEquipment } from "../../interfaces/Equipment/Equipment";
 import { ICharacterService } from "../../interfaces/CharacterService/CharacterService";
 import { CharacterService } from "./CharacterService/CharacterService";
 import { IPawn, IPawnHelper } from "../../interfaces/Pawns/Pawn";
-import { ITilesService } from "../../interfaces/Tiles/TilesService";
+import { ITileService } from "../../interfaces/TileService/ITileService";
 import { IAllResources } from "../../interfaces/Resources/AllResources";
 import { IStructuresService } from "../../interfaces/Structures/Structures";
 import { IThreat } from "../../interfaces/Threat/Threat";
@@ -58,7 +58,7 @@ export class GameClass implements IGame {
   private _actionService: ActionService = new ActionService(this);
   private readonly _playerService: IPlayerService;
   private readonly _localPlayer: Player;
-  private _tilesService: ITilesService = new TilesService(this);
+  private _tilesService: ITileService = new TileService(this, 7);
   private _allResources: IAllResources = new ResourceService(this);
   private _structuresService: IStructuresService = new StructuresService(this);
   private _alertService: IAlertService = new AlertService();
@@ -167,7 +167,7 @@ export class GameClass implements IGame {
     return this._localPlayer;
   }
 
-  get tilesService(): ITilesService {
+  get tilesService(): ITileService {
     return this._tilesService;
   }
 

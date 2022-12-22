@@ -5,7 +5,7 @@ import { RESOLVE_ITEM_STATUS } from "../../../../../../interfaces/ActionService/
 import styles from "./Item.module.css";
 import { IEventCardRenderData } from "../../../../../../interfaces/Threat/EventCard";
 import { IStructure } from "../../../../../../interfaces/Structures/Structure";
-import { ITileRenderData } from "../../../../../../interfaces/Tiles/Tile";
+import { ITileRenderData } from "../../../../../../interfaces/TileService/ITile";
 import { IActionSlotsRenderData } from "../../../../../../interfaces/ActionSlots";
 import Image from "next/image";
 import { IInventionRenderData } from "../../../../../../interfaces/Inventions/Invention";

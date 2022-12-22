@@ -1,7 +1,7 @@
 import { ResolvableActionService } from "./ResolvableActionService/ResolvableActionService";
 import { IGame } from "../../../../interfaces/Game";
 import { RESOLVE_ITEM_STATUS } from "../../../../interfaces/ActionService/IActionResolvableService";
-import { TilesService } from "../../Tiles/TileService";
+import { TileService } from "../../TileService/TileService";
 import { Action } from "../../../../interfaces/Action";
 
 export class ExploreService extends ResolvableActionService {
@@ -15,7 +15,7 @@ export class ExploreService extends ResolvableActionService {
     super.resolveItem(droppableId);
     const item = this.getItem(droppableId);
     if (item.status !== RESOLVE_ITEM_STATUS.FAILURE) {
-      const tileId = TilesService.getTileIdFromDroppableId(item.droppableId);
+      const tileId = TileService.getTileIdFromDroppableId(item.droppableId);
       this._game.tilesService.explore(tileId);
       item.status = RESOLVE_ITEM_STATUS.SUCCESS;
       this.updateFinished();
