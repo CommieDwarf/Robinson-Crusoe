@@ -1,4 +1,8 @@
-import { WeatherDiceSide, WeatherRollDiceInfo } from "../RollDice/RollDice";
+import {
+  AnimalDiceSide,
+  WeatherDiceSide,
+  WeatherRollDiceInfo,
+} from "../RollDice/RollDice";
 
 export interface IWeatherTokens {
   rain: boolean;
@@ -9,7 +13,7 @@ export interface IWeatherTokens {
 export interface OverallWeather {
   rain: number;
   snow: number;
-  animals: WeatherDiceSide | null;
+  animals: AnimalDiceSide | null;
   storm: boolean;
 }
 

@@ -54,7 +54,6 @@ export class Resources implements IResources {
         return false;
       }
     }
-
     return true;
   };
 
@@ -62,10 +61,6 @@ export class Resources implements IResources {
     resources.amount.forEach((value: number, key: keyof IResourcesAmount) => {
       this.setResource(key, this.getResource(key) + resources.getResource(key));
     });
-  }
-
-  public addSingleResource(resource: keyof IResourcesAmount, amount: number) {
-    this._amount.set(resource, this.getResource(resource) + amount);
   }
 
   public spendResources = (cost: IResources): void => {
@@ -79,11 +74,12 @@ export class Resources implements IResources {
     });
   };
 
-  public spendSingleResource(resource: keyof IResourcesAmount, amount: number) {
-    if (this.getResource(resource) < amount) {
-      throw new Error("Not sufficent resources - " + amount + "" + resource);
+  public spendResource(resource: keyof IResourcesAmount, amount: number) {
+    const owned = this._amount.get(resource);
+    if (owned - amount < 0) {
+      throw new Error(`Can't afford ${amount} ${resource}. (${owned})`);
     }
-    this._amount.set(resource, -amount);
+    this._amount.set(resource, owned - amount);
   }
 
   public addResource(resource: keyof IResourcesAmount, amount: number) {

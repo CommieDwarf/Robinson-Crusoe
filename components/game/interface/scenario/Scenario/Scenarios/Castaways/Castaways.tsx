@@ -25,7 +25,7 @@ export default function Castaways(props: Props) {
     const ship = i >= 10;
     const weather = {
       rain: castaways.weather.rain.includes(i),
-      snow: castaways.weather.snow.includes(i),
+      snow: castaways.weather.winter.includes(i),
       hungryAnimal: castaways.weather.animals.includes(i),
     };
     const current = i === props.round;

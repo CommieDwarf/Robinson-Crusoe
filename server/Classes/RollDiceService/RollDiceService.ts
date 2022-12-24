@@ -78,14 +78,14 @@ export class RollDiceService {
     } as RollDiceResult<ActionDiceSide>;
   }
 
-  public static getWeatherRollDiceResult(dice: WeatherDice) {
+  public static getWeatherRollDiceResult<DiceSide>(dice: WeatherDice) {
     const random = Math.floor(Math.random() * 6);
     const axes = this.getAxes(random);
 
-    const result = diceStructures.weather[dice][random];
+    const result = diceStructures.weather[dice][random] as unknown as DiceSide;
     return {
       result,
       axes,
-    } as RollDiceResult<WeatherDiceSide>;
+    } as RollDiceResult<DiceSide>;
   }
 }

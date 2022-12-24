@@ -1,3 +1,5 @@
+export type DiceActionType = "gather" | "explore" | "build";
+export type ActionDice = "success" | "mystery" | "hurt";
 export type ActionDiceSide =
   | "hurt"
   | "mystery"
@@ -5,20 +7,12 @@ export type ActionDiceSide =
   | "determination"
   | "blank";
 
-export type WeatherDiceSide =
-  | "rain"
-  | "doubleRain"
-  | "snow"
-  | "doubleSnow"
-  | "food"
-  | "beast"
-  | "palisade"
-  | "blank";
+export type WeatherDice = "animals" | "winter" | "rain";
 
-export type WeatherType = "snow" | "rain" | "animals";
-export type DiceActionType = "gather" | "explore" | "build";
-export type WeatherDice = "animals" | "snow" | "rain";
-export type ActionDice = "success" | "mystery" | "hurt";
+export type AnimalDiceSide = "beast" | "palisade" | "food" | "blank";
+export type RainDiceSide = "rain" | "doubleRain" | "snow" | "blank";
+export type WinterDiceSide = "doubleRain" | "snow" | "doubleSnow" | "blank";
+export type WeatherDiceSide = AnimalDiceSide | RainDiceSide | WinterDiceSide;
 
 export interface RollDiceResult<DiceSide> {
   result: DiceSide;
@@ -46,7 +40,7 @@ export interface WeatherRollDiceInfo {
 }
 
 export interface WeatherResults {
-  snow: RollDiceResult<WeatherDiceSide> | null;
-  rain: RollDiceResult<WeatherDiceSide> | null;
-  animals: RollDiceResult<WeatherDiceSide> | null;
+  winter: RollDiceResult<WinterDiceSide> | null;
+  rain: RollDiceResult<RainDiceSide> | null;
+  animals: RollDiceResult<AnimalDiceSide> | null;
 }

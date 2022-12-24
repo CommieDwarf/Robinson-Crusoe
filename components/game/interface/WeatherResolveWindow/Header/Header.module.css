@@ -1,7 +1,8 @@
 .container {
     height: 50px;
     text-align: center;
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
     margin-top: 5px;
 }
 
@@ -34,17 +35,23 @@
     top: 5px;
 }
 
-/*.round {*/
-/*    position: absolute;*/
-/*    right: 10px;*/
-/*    top: 10px;*/
-/*}*/
+.nextPhaseButton {
+    position: absolute;
+    width: 170px;
+    right: 10px;
+    top: 5px;
+}
 
-/*.roundText {*/
-/*    display: inline-block;*/
-/*    font-weight: bold;*/
-/*}*/
+.arrow {
+    height: 50px;
+    width: 100px;
+    display: inline-block;
+    position: relative;
+}
 
-/*.roundSquare {*/
-/*    display: inline-block;*/
-/*}*/
+.night {
+    height: 50px;
+    width: 50px;
+    display: inline-block;
+    position: relative;
+}

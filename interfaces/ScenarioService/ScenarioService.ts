@@ -16,7 +16,7 @@ export interface IScenarioService {
 
 export interface WeatherDays {
   rain: number[];
-  snow: number[];
+  winter: number[];
   animals: number[];
 }
 

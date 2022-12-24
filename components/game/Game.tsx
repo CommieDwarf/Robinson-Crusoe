@@ -26,9 +26,7 @@ import {
   DragStart,
   DragUpdate,
   DropResult,
-  resetServerContext,
 } from "react-beautiful-dnd";
-import { GetServerSideProps } from "next";
 import { Weather } from "./interface/Weather/Weather";
 import { INVENTION_TYPE } from "../../interfaces/Inventions/Invention";
 import { getPawnCanBeSettled } from "../../utils/canPawnBeSettled";
@@ -48,6 +46,7 @@ import setPawn, { SetPawnData } from "../../pages/api/setPawn";
 import unsetPawn, { UnsetPawnData } from "../../pages/api/unsetPawn";
 import { Alerts } from "./interface/Alerts/Alerts";
 import { WeatherResolveWindow } from "./interface/WeatherResolveWindow/WeatherResolveWindow";
+import { NightTip } from "./interface/NightTip/NightTip";
 
 interface Props {
   gameRenderData: IGameRenderData;
@@ -69,6 +68,8 @@ export default function Game(props: Props) {
   // and also for proper render of scaled components
   const [elementZIndexed, setElementZIndexed] = useState("");
 
+  const [showNightTip, setShowNightTip] = useState(true);
+
   function handleSetNextAction() {
     setNextAction();
     props.updateGameRenderData();
@@ -82,6 +83,7 @@ export default function Game(props: Props) {
   function handleSetNextPhase() {
     setNextPhase();
     props.updateGameRenderData();
+    setShowNightTip(true);
   }
 
   function handleResolveActionItem(action: Action, droppableId: string) {
@@ -100,6 +102,10 @@ export default function Game(props: Props) {
 
   function handleUnsetPawn(destinationId: string, draggableId: string) {
     unsetPawn(destinationId, draggableId);
+  }
+
+  function hideNightTip() {
+    setShowNightTip(false);
   }
 
   function unselectActionSlots() {
@@ -325,16 +331,22 @@ export default function Game(props: Props) {
         />
       )}
       <Alerts message={gameRenderData.alertService.alert} />
-      {/*<WeatherResolveWindow*/}
-      {/*  weatherService={gameRenderData.weatherService}*/}
-      {/*  round={gameRenderData.round}*/}
-      {/*  structuresService={gameRenderData.structuresService}*/}
-      {/*  resourcesAmount={gameRenderData.allResources.owned}*/}
-      {/*  handleRollWeatherDices={rollWeather}*/}
-      {/*  dices={gameRenderData.scenarioService.weather}*/}
-      {/*  skillService={gameRenderData.localPlayer.character.skillService}*/}
-      {/*  determination={gameRenderData.localPlayer.character.determination}*/}
-      {/*/>*/}
+      {gameRenderData.phaseService.phase === "weather" && (
+        <WeatherResolveWindow
+          weatherService={gameRenderData.weatherService}
+          round={gameRenderData.round}
+          structuresService={gameRenderData.structuresService}
+          resourcesAmount={gameRenderData.allResources.owned}
+          rollWeatherDices={handleRollWeatherDices}
+          dices={gameRenderData.scenarioService.weather}
+          skillService={gameRenderData.localPlayer.character.skillService}
+          determination={gameRenderData.localPlayer.character.determination}
+          setNextPhase={handleSetNextPhase}
+        />
+      )}
+      {gameRenderData.phaseService.phase === "night" && showNightTip && (
+        <NightTip hideNightTip={hideNightTip} />
+      )}
     </div>
   );
 }

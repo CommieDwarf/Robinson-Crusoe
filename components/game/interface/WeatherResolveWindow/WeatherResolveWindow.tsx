@@ -28,9 +28,14 @@ type Props = {
   dices: WeatherDays;
   skillService: ISkillServiceRenderData;
   determination: number;
+  setNextPhase: () => void;
 };
 export const WeatherResolveWindow = (props: Props) => {
-  const [resolved, setResolved] = useState(false);
+  const [resolved, setResolved] = useState(
+    !props.dices.animals.includes(props.round) &&
+      !props.dices.rain.includes(props.round) &&
+      !props.dices.winter.includes(props.round)
+  );
   const [isUtilityOpen, setIsUtilityOpen] = useState(false);
 
   function setWeatherResolved() {
@@ -72,11 +77,15 @@ export const WeatherResolveWindow = (props: Props) => {
         setResolved={setWeatherResolved}
         resolved={resolved}
       />
-      <Header round={props.round} />
+      <Header
+        round={props.round}
+        resolved={resolved}
+        setNextPhase={props.setNextPhase}
+      />
       <Dices
         animals={props.dices.animals.includes(props.round)}
         rain={props.dices.rain.includes(props.round)}
-        snow={props.dices.snow.includes(props.round)}
+        snow={props.dices.winter.includes(props.round)}
       />
       <RollDiceButton rollWeatherDices={props.rollWeatherDices} />
       <div className={styles.bottomBar}>

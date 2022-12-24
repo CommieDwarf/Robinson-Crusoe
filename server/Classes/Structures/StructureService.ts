@@ -60,6 +60,17 @@ export class StructuresService implements IStructuresService {
     );
   }
 
+  lvlDownOrSuffer(name: StructureName, by: number, logSource: string) {
+    const structure = this.getStruct(name);
+    const diff = structure.lvl - by;
+    if (diff < 0) {
+      this.lvlDownStruct(name, by - structure.lvl, logSource);
+      this._game.characterService.hurtAllPlayerCharacters(diff, logSource);
+    } else if (diff !== 0) {
+      this.lvlDownStruct(name, diff, logSource);
+    }
+  }
+
   setLvl(name: StructureName, lvl: number) {
     this.getStruct(name).lvl = lvl;
   }

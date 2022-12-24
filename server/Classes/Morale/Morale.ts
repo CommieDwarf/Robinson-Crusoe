@@ -1,6 +1,6 @@
-import {IGame} from "../../../interfaces/Game";
-import {IMorale} from "../../../interfaces/Morale/Morale";
-import {ICharacter} from "../../../interfaces/Characters/Character";
+import { IGame } from "../../../interfaces/Game";
+import { IMorale } from "../../../interfaces/Morale/Morale";
+import { ICharacter } from "../../../interfaces/Characters/Character";
 
 export class Morale implements IMorale {
   private _lvl = 0;
@@ -10,7 +10,6 @@ export class Morale implements IMorale {
   constructor(game: IGame) {
     this._game = game;
   }
-
 
   get renderData() {
     return {
@@ -22,14 +21,13 @@ export class Morale implements IMorale {
     return this._lvl;
   }
 
-
   lvlUp(by: number, logSource: string) {
     if (this._lvl < 3) {
       this._lvl += by;
       this._game.chatLog.addMessage(
-          "podwyższenie morali o " + by,
-          "green",
-          logSource
+        "podwyższenie morali o " + by,
+        "green",
+        logSource
       );
     }
   }
@@ -39,16 +37,11 @@ export class Morale implements IMorale {
     if (this._lvl > -3) {
       this._lvl -= by;
       this._game.chatLog.addMessage(
-          "obniżenie morali o " + by,
-          "red",
-          logSource
+        "obniżenie morali o " + by,
+        "red",
+        logSource
       );
     }
-    this._game.chatLog.addMessage(
-        "Jan Paweł Drugi Zajebał mi szlugi",
-        "red",
-        "dasrfgd"
-    );
   }
 
   getDetermination(primeCharacter: ICharacter) {

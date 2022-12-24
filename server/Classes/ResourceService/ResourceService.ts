@@ -9,6 +9,7 @@ import {
 } from "../../../interfaces/Resources/AllResources";
 import { IGame } from "../../../interfaces/Game";
 import { RESOURCE_CONJUGATION_PL } from "../../../interfaces/TRANSLATE_PL/CATEGORIES/RESOURCE_PL";
+import { ICharacter } from "../../../interfaces/Characters/Character";
 
 export class ResourceService implements IAllResources {
   private _future: IResources = new Resources();
@@ -66,7 +67,7 @@ export class ResourceService implements IAllResources {
       "green",
       logSource
     );
-    this._owned.addSingleResource(resource, amount);
+    this._owned.addResource(resource, amount);
   }
 
   public addResourceToFuture(
@@ -74,7 +75,7 @@ export class ResourceService implements IAllResources {
     amount: number,
     logSource: string
   ) {
-    this._future.addSingleResource(resource, amount);
+    this._future.addResource(resource, amount);
     this._game.chatLog.addMessage(
       `Dodano ${amount} ${RESOURCE_CONJUGATION_PL[resource]} do przyszłych surowców`,
       "green",
@@ -91,11 +92,38 @@ export class ResourceService implements IAllResources {
     amount: number,
     logSource: string
   ) {
-    this.owned.spendSingleResource(resource, amount);
+    if (amount === 0) {
+      return;
+    }
+    this.owned.spendResource(resource, amount);
+
     this._game.chatLog.addMessage(
       `Odjęto ${amount} ${RESOURCE_CONJUGATION_PL[resource]} z posiadanych surowców`,
       "red",
       logSource
     );
+  }
+
+  spendOrSuffer(
+    resource: keyof IResourcesAmount,
+    amount: number,
+    logSource: string
+  ) {
+    if (amount === 0) {
+      return;
+    }
+    const owned = this._owned.getResource(resource);
+    const diff = owned - amount;
+    if (diff < 0) {
+      this.spendFromOwned(resource, owned, logSource);
+      this._game.characterService.hurtAllPlayerCharacters(
+        Math.abs(diff),
+        `Zabrakło ${Math.abs(diff)} ${
+          RESOURCE_CONJUGATION_PL[resource]
+        } do odrzucenia.`
+      );
+    } else {
+      this.spendFromOwned(resource, amount, logSource);
+    }
   }
 }

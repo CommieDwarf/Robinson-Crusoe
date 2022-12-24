@@ -1,4 +1,5 @@
 import { IResources, IResourcesAmount } from "./Resources";
+import { ICharacter } from "../Characters/Character";
 
 export interface IAllResourcesRenderData {
   future: IResourcesAmount;
@@ -24,6 +25,11 @@ export interface IAllResources {
   productionBlocked: boolean;
   canOwnedAfford: (resources: IResources) => boolean;
   spendFromOwned: (
+    resource: keyof IResourcesAmount,
+    amount: number,
+    logSource: string
+  ) => void;
+  spendOrSuffer: (
     resource: keyof IResourcesAmount,
     amount: number,
     logSource: string

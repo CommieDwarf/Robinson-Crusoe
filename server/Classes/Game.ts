@@ -1,43 +1,43 @@
-import {Threat} from "./Threat/Threat";
-import {Player} from "./Players/Player";
-import {ActionSlotsService} from "./ActionSlotsService/ActionSlots";
-import {TileService} from "./TileService/TileService";
-import {ResourceService} from "./ResourceService/ResourceService";
-import {StructuresService} from "./Structures/Structures";
-import {InventionsService} from "./Inventions/InventionsService";
-import {Equipment} from "./Equipment/Equipment";
-import {Beasts} from "./Beasts/Beasts";
-import {PlayerCharacter} from "./CharacterService/Character/PlayerCharacter/PlayerCharacter";
-import {IGame, IGameRenderData} from "../../interfaces/Game";
-import {IInventionsService} from "../../interfaces/Inventions/Inventions";
+import { Threat } from "./Threat/Threat";
+import { Player } from "./Players/Player";
+import { ActionSlotsService } from "./ActionSlotsService/ActionSlots";
+import { TileService } from "./TileService/TileService";
+import { ResourceService } from "./ResourceService/ResourceService";
+import { StructuresService } from "./Structures/StructureService";
+import { InventionsService } from "./Inventions/InventionsService";
+import { Equipment } from "./Equipment/Equipment";
+import { Beasts } from "./Beasts/Beasts";
+import { PlayerCharacter } from "./CharacterService/Character/PlayerCharacter/PlayerCharacter";
+import { IGame, IGameRenderData } from "../../interfaces/Game";
+import { IInventionsService } from "../../interfaces/Inventions/Inventions";
 
-import {IEquipment} from "../../interfaces/Equipment/Equipment";
-import {ICharacterService} from "../../interfaces/CharacterService/CharacterService";
-import {CharacterService} from "./CharacterService/CharacterService";
-import {IPawn, IPawnHelper} from "../../interfaces/Pawns/Pawn";
-import {ITileService} from "../../interfaces/TileService/ITileService";
-import {IAllResources} from "../../interfaces/Resources/AllResources";
-import {IStructuresService} from "../../interfaces/Structures/Structures";
-import {IThreat} from "../../interfaces/Threat/Threat";
-import {IBeasts} from "../../interfaces/Beasts/Beasts";
-import {Morale} from "./Morale/Morale";
-import {IMorale} from "../../interfaces/Morale/Morale";
-import {WeatherService} from "./WeatherService/WeatherService";
-import {IWeatherService} from "../../interfaces/Weather/Weather";
+import { IEquipment } from "../../interfaces/Equipment/Equipment";
+import { ICharacterService } from "../../interfaces/CharacterService/CharacterService";
+import { CharacterService } from "./CharacterService/CharacterService";
+import { IPawn, IPawnHelper } from "../../interfaces/Pawns/Pawn";
+import { ITileService } from "../../interfaces/TileService/ITileService";
+import { IAllResources } from "../../interfaces/Resources/AllResources";
+import { IStructuresService } from "../../interfaces/Structures/Structures";
+import { IThreat } from "../../interfaces/Threat/Threat";
+import { IBeasts } from "../../interfaces/Beasts/Beasts";
+import { Morale } from "./Morale/Morale";
+import { IMorale } from "../../interfaces/Morale/Morale";
+import { WeatherService } from "./WeatherService/WeatherService";
+import { IWeatherService } from "../../interfaces/Weather/Weather";
 
-import {PlayerService} from "./Players/PlayerService";
-import {IPlayerService} from "../../interfaces/PlayerService/PlayerSevice";
-import {ActionService} from "./ActionService/ActionService";
-import {PhaseService} from "./PhaseService/PhaseService";
-import {IActionService} from "../../interfaces/ActionService/ActionService";
-import {IPhaseService} from "../../interfaces/PhaseService/PhaseService";
-import {ChatLog} from "./ChatLog/ChatLog";
-import {IChatLog} from "../../interfaces/ChatLog/ChatLog";
-import {IAlertService} from "../../interfaces/AlertService/AlertService";
-import {AlertService} from "./AlertService/AlertService";
-import {ArrangeCampRestService} from "./ArrangeCampRestService/ArrangeCampRestService";
-import {Castaways} from "./Scenario/Castaways";
-import {IScenarioService} from "../../interfaces/ScenarioService/ScenarioService";
+import { PlayerService } from "./Players/PlayerService";
+import { IPlayerService } from "../../interfaces/PlayerService/PlayerSevice";
+import { ActionService } from "./ActionService/ActionService";
+import { PhaseService } from "./PhaseService/PhaseService";
+import { IActionService } from "../../interfaces/ActionService/ActionService";
+import { IPhaseService } from "../../interfaces/PhaseService/PhaseService";
+import { ChatLog } from "./ChatLog/ChatLog";
+import { IChatLog } from "../../interfaces/ChatLog/ChatLog";
+import { IAlertService } from "../../interfaces/AlertService/AlertService";
+import { AlertService } from "./AlertService/AlertService";
+import { ArrangeCampRestService } from "./ArrangeCampRestService/ArrangeCampRestService";
+import { Castaways } from "./Scenario/Castaways";
+import { IScenarioService } from "../../interfaces/ScenarioService/ScenarioService";
 
 type ScenarioName = "castaways";
 
@@ -71,37 +71,37 @@ export class GameClass implements IGame {
   private _arrangeCampRestService = new ArrangeCampRestService();
   private _beasts: IBeasts = new Beasts(this, this._allResources.owned);
   private _actionSlotsService = new ActionSlotsService(
-      this._structuresService,
-      this.inventionsService,
-      this._tilesService
+    this._structuresService,
+    this.inventionsService,
+    this._tilesService
   );
   private _morale = new Morale(this);
-  private _round = 12;
+  private _round = 1;
   private _scenarioService: IScenarioService = new Castaways(this);
 
   constructor(scenarioName: ScenarioName) {
     // this is hardcoded for demo purpose.
     const cook = new PlayerCharacter(
-        "cook",
-        2,
-        13,
-        this,
-        "male",
-        [2, 4, 6, 9],
-        this.localPlayer
+      "cook",
+      2,
+      13,
+      this,
+      "male",
+      [2, 4, 6, 9],
+      this.localPlayer
     );
     this._localPlayer = new Player("Konrad", "orange", 0, cook);
 
     this._playerService = new PlayerService([this.localPlayer]);
     this._characterService = new CharacterService(
-        [this.localPlayer.getCharacter()],
-        this
+      [this.localPlayer.getCharacter()],
+      this
     );
 
     this._inventionsService = new InventionsService(
-        "castaways",
-        this._tilesService,
-        this
+      "castaways",
+      this._tilesService,
+      this
     );
   }
 
@@ -254,21 +254,26 @@ export class GameClass implements IGame {
     this._round++;
   }
 
-  canPawnBeSettled(pawn: null | IPawn | IPawnHelper, destinationId: string): boolean {
+  canPawnBeSettled(
+    pawn: null | IPawn | IPawnHelper,
+    destinationId: string
+  ): boolean {
     if (!pawn) {
       return true;
     }
     if ("action" in pawn) {
       switch (pawn.action) {
         case "build":
-          return destinationId.includes("invention") || destinationId.includes("structure");
+          return (
+            destinationId.includes("invention") ||
+            destinationId.includes("structure")
+          );
         case "explore":
           return destinationId.includes("explore");
         case "gather":
           return destinationId.includes("gather");
       }
     }
-    
 
     if (pawn.draggableId.includes("dog")) {
       if (destinationId.includes("leader")) {
@@ -280,13 +285,13 @@ export class GameClass implements IGame {
       return destinationId.includes("freepawns-dog");
     } else if (pawn.draggableId === "friday") {
       return !(
-          destinationId.includes("freepawns") &&
-          !destinationId.includes("freepawns-friday")
+        destinationId.includes("freepawns") &&
+        !destinationId.includes("freepawns-friday")
       );
     } else {
       return !(
-          destinationId.includes("freepawns") &&
-          !destinationId.includes(pawn.character.name)
+        destinationId.includes("freepawns") &&
+        !destinationId.includes(pawn.character.name)
       );
     }
   }

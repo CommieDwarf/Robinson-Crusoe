@@ -29,7 +29,7 @@ export class PhaseService implements IPhaseService {
       production: this.productionEffect,
       preAction: this.preActionEffect,
       action: this.actionEffect,
-      weather: () => {},
+      weather: this.weatherEffect,
       night: this.nightEffect,
     };
   }
@@ -151,6 +151,10 @@ export class PhaseService implements IPhaseService {
     this._game.actionService.setNextAction();
     this._game.actionService.finished = false;
     this._game.resetPawns();
+  };
+
+  private weatherEffect = () => {
+    this._game.weatherService.applyEffects();
   };
 
   private nightEffect = () => {

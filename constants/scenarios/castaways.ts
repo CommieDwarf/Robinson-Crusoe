@@ -22,7 +22,7 @@ const mechanics = `Stos ma się składać z 15 znaczników drewna.
 export const castaways = {
   weather: {
     rain: rainDays,
-    snow: snowDays,
+    winter: snowDays,
     animals: animalsDays,
   },
   text: {

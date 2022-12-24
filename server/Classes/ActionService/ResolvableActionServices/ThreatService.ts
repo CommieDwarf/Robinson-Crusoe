@@ -22,7 +22,7 @@ export class ThreatService extends ResolvableActionService {
     this._game.threat.fullFill(
       threatCard.id,
       item.leader.character,
-      item.helpers > 0
+      item.helpers.length > 0
     );
     item.status = RESOLVE_ITEM_STATUS.SUCCESS;
     this.updateFinished();
