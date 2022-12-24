@@ -4,6 +4,8 @@ export type ITileRenderData = {
   show: boolean;
   position: TilePosition;
   tileType: TileType | null;
+  canCampBeSettled: boolean;
+  camp: boolean;
 };
 
 export type BuiltTileStructure = "roof" | "palisade" | "shelter";
@@ -11,7 +13,7 @@ export type BuiltTileStructure = "roof" | "palisade" | "shelter";
 export interface ITile {
   position: TilePosition;
   id: number;
-  starter: boolean;
+  camp: boolean;
   show: boolean;
   tileType: TileType | null;
   helpersRequired: number;
@@ -28,6 +30,7 @@ export interface ITile {
     structure: BuiltTileStructure,
     amount: number
   ) => void;
+  canCampBeSettled: boolean;
 }
 
 export interface ITileBuiltStructures {

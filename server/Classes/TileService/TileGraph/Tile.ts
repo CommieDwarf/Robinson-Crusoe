@@ -5,14 +5,18 @@ import {
   TilePosition,
 } from "../../../../interfaces/TileService/ITile";
 import { TileType } from "../../../../constants/tilleTypes";
+import { IGame } from "../../../../interfaces/Game";
 
 export class Tile implements ITile {
   private readonly _position: TilePosition;
   private readonly _id: number;
-  private readonly _starter: boolean;
   private _show: boolean;
   private _type: TileType | null;
   private _helpersRequired: number;
+  private _canCampBeSettled = false;
+  private readonly _game: IGame;
+  private _camp: boolean;
+
   builtStructures = {
     roof: 0,
     shelter: 0,
@@ -22,17 +26,16 @@ export class Tile implements ITile {
   constructor(
     position: TilePosition,
     id: number,
-    starter: boolean,
-    show: boolean,
+    camp: boolean,
     tileType: TileType | null,
-    helpersRequired: number
+    game: IGame
   ) {
     this._position = position;
     this._id = id;
-    this._starter = starter;
-    this._show = show;
+    this._camp = camp;
     this._type = tileType;
-    this._helpersRequired = helpersRequired;
+    this._game = game;
+    this._show = camp;
   }
 
   get renderData(): ITileRenderData {
@@ -42,7 +45,25 @@ export class Tile implements ITile {
       show: this.show,
       position: this.position,
       tileType: this.tileType,
+      canCampBeSettled: this.canCampBeSettled,
+      camp: this.camp,
     };
+  }
+
+  get camp(): boolean {
+    return this._camp;
+  }
+
+  set camp(value: boolean) {
+    this._camp = value;
+  }
+
+  get canCampBeSettled(): boolean {
+    return this._canCampBeSettled && this._game.phaseService.phase === "night";
+  }
+
+  set canCampBeSettled(value: boolean) {
+    this._canCampBeSettled = value;
   }
 
   get position(): TilePosition {
@@ -51,10 +72,6 @@ export class Tile implements ITile {
 
   get id(): number {
     return this._id;
-  }
-
-  get starter(): boolean {
-    return this._starter;
   }
 
   get show(): boolean {

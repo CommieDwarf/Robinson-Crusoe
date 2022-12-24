@@ -14,6 +14,30 @@
     height: 95%;
     top: 3px;
     left: 1px;
+    filter: contrast(100%);
+}
+
+.tileConstantHighlight {
+    filter: contrast(150%) !important;
+}
+
+.tileHighlightAnimation {
+    animation-name: highlightAnimation;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    cursor: pointer !important;
+}
+
+@keyframes highlightAnimation {
+    0% {
+        filter: contrast(100%)
+    }
+    50% {
+        filter: contrast(250%)
+    }
+    100% {
+        filter: contrast(100%)
+    }
 }
 
 .explorePlayerSlots {
@@ -48,10 +72,6 @@
     display: flex;
     flex-direction: column;
     float: right;
-}
-
-.actionSlotsScrollable {
-    color: blue;
 }
 
 
@@ -94,3 +114,4 @@
     border-radius: 5px;
     border: 1px solid black;
 }
+

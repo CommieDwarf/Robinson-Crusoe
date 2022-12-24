@@ -20,10 +20,13 @@ export class GameService implements IGameService {
 
   public createGame() {
     this._game = new GameClass("castaways");
-    this._game.structuresService.unlockAllStructs();
-    this._game.inventionsService.inventions.forEach(
-      (inv) => (inv.locked = false)
-    );
+    // this._game.structuresService.unlockAllStructs();
+    // this._game.inventionsService.inventions.forEach(
+    //   (inv) => (inv.locked = false)
+    // );
+    // this._game.tilesService.explore(6);
+    // this._game.tilesService.explore(11);
+    // this._game.tilesService.explore(2);
   }
 
   get renderData() {

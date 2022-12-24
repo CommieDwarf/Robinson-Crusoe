@@ -5,46 +5,51 @@ import { tilePositions } from "../../../../constants/tilePositions";
 import { starterTile } from "../../../../constants/tilleTypes";
 import { ITileGraph } from "../../../../interfaces/TileService/ITileGraph";
 import { IVertex } from "../../../../interfaces/Graph/Vertex";
+import { IGame } from "../../../../interfaces/Game";
 
 export class TileGraph extends Graph<ITile> implements ITileGraph {
-  campTileID: number;
-  previousCampTileID: number | null = null;
+  campTileVertex: IVertex<ITile>;
+  previousCampTileVertex: IVertex<ITile> | null = null;
+  private readonly _game: IGame;
 
-  constructor(campTileID: number) {
+  constructor(campTileID: number, game: IGame) {
     super();
-    this.campTileID = campTileID;
+    this._game = game;
     this.initVertices(campTileID);
+    this.campTileVertex = this.getVertex(campTileID);
     this.addEdges(campTileID);
     this.updateRequiredHelpers();
   }
 
-  get campTileVertex(): IVertex<ITile> {
-    return this.getVertex(this.campTileID);
-  }
-
-  get previousCampTileVertex(): IVertex<ITile> | null {
-    if (this.previousCampTileID) {
-      return this.getVertex(this.previousCampTileID);
-    } else {
-      return null;
-    }
-  }
-
-  moveCamp(tileID) {
-    this.previousCampTileID = this.campTileID;
-    this.campTileID = tileID;
+  public moveCamp(tileID: number) {
+    this.previousCampTileVertex = this.campTileVertex;
+    this.previousCampTileVertex.data.camp = false;
+    this.campTileVertex = this.getVertex(tileID);
+    this.campTileVertex.data.camp = true;
     this.updateRequiredHelpers();
+    this.updateCanCampBeSettled();
+  }
+
+  private updateCanCampBeSettled() {
+    this.vertices.forEach((vertex) => {
+      vertex.data.canCampBeSettled = vertex.edges.some(
+        (edge) => edge.end === this.campTileVertex
+      );
+    });
   }
 
   private initVertices(campTileID) {
     for (let i = 0; i < 15; i++) {
       if (i === campTileID) {
         this.addVertex(
-          new Tile(tilePositions[i], i, true, true, starterTile, 0),
+          new Tile(tilePositions[i], i, true, starterTile, this._game),
           i
         );
       } else {
-        this.addVertex(new Tile(tilePositions[i], i, false, false, null, 0), i);
+        this.addVertex(
+          new Tile(tilePositions[i], i, false, null, this._game),
+          i
+        );
       }
     }
   }
@@ -59,7 +64,10 @@ export class TileGraph extends Graph<ITile> implements ITileGraph {
 
   public updateRequiredHelpers() {
     this.vertices.forEach(({ data }) => {
-      const shortestPath = this.getShortestPath(this.campTileID, data.id);
+      const shortestPath = this.getShortestPath(
+        this.campTileVertex.id,
+        data.id
+      );
       if (shortestPath.length > 0) {
         data.helpersRequired = shortestPath.length - 1;
       }

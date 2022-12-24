@@ -1,0 +1,46 @@
+.container {
+    width: 50%;
+    height: 30%;
+    z-index: 999999999;
+    position: absolute;
+    cursor: pointer;
+}
+
+.container:hover {
+    filter: brightness(750%) contrast(200%);
+}
+
+.left {
+    left: -10%;
+    top: 35%;
+    transform: rotate(180deg);
+}
+
+.right {
+    right: -10%;
+    top: 35%;
+}
+
+.topLeft {
+    left: 0;
+    top: 0;
+    transform: rotate(235deg);
+}
+
+.topRight {
+    right: 0;
+    top: 0;
+    transform: rotate(-45deg);
+}
+
+.botRight {
+    right: 0;
+    bottom: 0;
+    transform: rotate(45deg)
+}
+
+.botLeft {
+    left: 0;
+    bottom: 0;
+    transform: rotate(125deg)
+}

@@ -13,26 +13,34 @@ export class TileService implements ITileService {
   _tileGraph: ITileGraph;
   _tileTypeStack: TileType[];
   private readonly _terrainTypesExplored: Set<TerrainType>;
-
   private _campTransition = {
     status: false,
     forced: false,
   };
   _game: IGame;
+  private _campJustMoved = false;
 
   constructor(game: IGame, campTileID: number) {
     this._game = game;
     this._tileTypeStack = shuffle(tileTypes);
     this._terrainTypesExplored = new Set<TerrainType>(["beach"]);
-    this._tileGraph = new TileGraph(campTileID);
+    this._tileGraph = new TileGraph(campTileID, game);
     this.showAdjacentTiles(campTileID);
   }
 
   get renderData(): ITilesServiceRenderData {
     return {
       tiles: this._tileGraph.vertices.map((vertex) => vertex.data.renderData),
-      campTileId: this.campTile.id,
+      campJustMoved: this.campJustMoved,
     };
+  }
+
+  get campJustMoved(): boolean {
+    return this._campJustMoved;
+  }
+
+  set campJustMoved(value: boolean) {
+    this._campJustMoved = value;
   }
 
   get tiles() {
@@ -48,12 +56,7 @@ export class TileService implements ITileService {
   }
 
   get previousCampTile(): ITile | null {
-    const vertex = this._tileGraph.previousCampTileVertex;
-    if (vertex) {
-      return vertex.data;
-    } else {
-      return null;
-    }
+    return this._tileGraph.previousCampTileVertex.data;
   }
 
   get campTile() {
@@ -89,6 +92,9 @@ export class TileService implements ITileService {
     }
     const tile = this.getTile(id);
     tile.reveal(tileType);
+    if (tile.position.borderTiles.includes(this.campTile.id)) {
+      tile.canCampBeSettled = true;
+    }
     this.terrainTypesExplored.add(tileType.terrainType);
     this.showAdjacentTiles(id);
     this._tileGraph.addEdges(id);
@@ -99,13 +105,26 @@ export class TileService implements ITileService {
     return this._tileGraph.getVertex(id).data;
   }
 
-  public forceCampTransition() {
-    this.campTransition.forced = true;
-    this.campTransition.status = true;
+  public moveCamp(tileID: number) {
+    if (
+      this._game.phaseService.phase === "night" &&
+      this.getTile(tileID).canCampBeSettled
+    ) {
+      this._tileGraph.moveCamp(tileID);
+      this.campJustMoved = true;
+      this._game.chatLog.addMessage(
+        "Obóz został przeniesiony.",
+        "green",
+        "Noc"
+      );
+    } else {
+      throw Error(`Cant transfer camp. tileID: ${tileID}`);
+    }
   }
 
-  public isCampTransitionAvailable(): boolean {
-    return true; // TODO: implement this
+  public forceCampMovement() {
+    this.campTransition.forced = true;
+    this.campTransition.status = true;
   }
 
   public static getTileIdFromDroppableId(droppableId: string): number {

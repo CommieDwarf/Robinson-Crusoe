@@ -5,6 +5,7 @@ import Scrollbar from "../../Scrollbar";
 import styles from "./Tile.module.css";
 import { ITileRenderData } from "../../../../../interfaces/TileService/ITile";
 import { IPawnRenderData } from "../../../../../interfaces/Pawns/Pawn";
+import { MoveCampArrow } from "./MoveCampArrow/MoveCampArrow";
 
 interface Props {
   tile: ITileRenderData;
@@ -12,7 +13,8 @@ interface Props {
   actionSlots: Map<string, IPawnRenderData | null>;
   isDragDisabled: boolean;
   zIndex: string;
-  camp: boolean;
+  campSettableTiles: ITileRenderData[];
+  showCampMoveConfirm: (tile: ITileRenderData) => void;
 }
 
 export default function Tile(props: Props) {
@@ -100,8 +102,21 @@ export default function Tile(props: Props) {
     props.zIndex.includes("-" + props.tile.id + "-")
       ? styles.zIndexIncreased
       : "";
+
+  const arrows = props.campSettableTiles.map((tile, i) => {
+    return (
+      <MoveCampArrow
+        tile={tile}
+        campTile={props.tile}
+        key={i}
+        showCampMoveConfirm={props.showCampMoveConfirm}
+      />
+    );
+  });
+
   return (
     <div className={styles.container + " " + zIndexClass} style={style}>
+      {arrows}
       {props.tile.show && (
         <>
           <div className={styles.tile}>
@@ -112,8 +127,8 @@ export default function Tile(props: Props) {
               sizes={styles.tile}
             />
           </div>
-          {!props.camp && actionSlots}
-          {props.camp && (
+          {!props.tile.camp && actionSlots}
+          {props.tile.camp && (
             <div className={styles.campIcon}>
               <Image
                 src={"/interface/map/camp.png"}

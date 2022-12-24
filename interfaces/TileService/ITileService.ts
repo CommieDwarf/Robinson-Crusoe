@@ -3,7 +3,7 @@ import { IGraph } from "../Graph/Graph";
 
 export interface ITilesServiceRenderData {
   tiles: ITileRenderData[];
-  campTileId: number;
+  campJustMoved: boolean;
 }
 
 export interface ITileService {
@@ -13,8 +13,9 @@ export interface ITileService {
   explore: (id: number) => void;
   terrainTypesExplored: Set<TerrainType>;
   renderData: ITilesServiceRenderData;
-  forceCampTransition: () => void;
-  isCampTransitionAvailable: () => boolean;
+  forceCampMovement: () => void;
   gather: (side: "left" | "right", tileId: number, logSource: string) => void;
   getTile: (id: number) => ITile;
+  moveCamp: (tileID: number) => void;
+  campJustMoved: boolean;
 }

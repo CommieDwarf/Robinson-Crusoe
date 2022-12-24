@@ -159,5 +159,6 @@ export class PhaseService implements IPhaseService {
 
   private nightEffect = () => {
     this._game.setNextRound();
+    this._game.tilesService.campJustMoved = false;
   };
 }

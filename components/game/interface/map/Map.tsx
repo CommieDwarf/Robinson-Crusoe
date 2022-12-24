@@ -10,35 +10,43 @@ import Tile from "./Tile/Tile";
 import Hunt from "../Hunt/Hunt";
 import { IPawnRenderData } from "../../../../interfaces/Pawns/Pawn";
 import { ITileRenderData } from "../../../../interfaces/TileService/ITile";
+import { ITilesServiceRenderData } from "../../../../interfaces/TileService/ITileService";
 
 interface Props {
-  tiles: ITileRenderData[];
+  tileService: ITilesServiceRenderData;
   actionSlots: Map<string, IPawnRenderData | null>;
   scrollDisabled: boolean;
   beastCount: number;
   showScenario: boolean;
   zIndex: string;
-  campTileId: number;
+  night: boolean;
+  showCampMoveConfirm: (tile: ITileRenderData) => void;
 }
 
 export default function Map(props: Props) {
   const [contentScale, setContentScale] = useState(100);
-
   const tiles = [];
 
-  for (let i = 0; i < props.tiles.length; i++) {
+  const campSettableTiles = props.tileService.tiles.filter(
+    (tile) => tile.canCampBeSettled
+  );
+
+  props.tileService.tiles.forEach((tile, i) => {
     tiles.push(
       <Tile
-        tile={props.tiles[i]}
+        tile={tile}
         key={i}
         contentScale={contentScale}
         actionSlots={props.actionSlots}
         isDragDisabled={props.showScenario}
         zIndex={props.zIndex}
-        camp={props.tiles[i].id === props.campTileId}
+        showCampMoveConfirm={props.showCampMoveConfirm}
+        campSettableTiles={
+          tile.camp && !props.tileService.campJustMoved ? campSettableTiles : []
+        }
       />
     );
-  }
+  });
 
   const scrollbar = useRef<Scrollbars>(null);
   const container = useRef<HTMLDivElement>(null);

@@ -47,6 +47,9 @@ import unsetPawn, { UnsetPawnData } from "../../pages/api/unsetPawn";
 import { Alerts } from "./interface/Alerts/Alerts";
 import { WeatherResolveWindow } from "./interface/WeatherResolveWindow/WeatherResolveWindow";
 import { NightTip } from "./interface/NightTip/NightTip";
+import moveCamp from "../../pages/api/moveCamp";
+import { ITileRenderData } from "../../interfaces/TileService/ITile";
+import { ConfirmCampMove } from "./interface/ConfirmCampMove/ConfirmCampMove";
 
 interface Props {
   gameRenderData: IGameRenderData;
@@ -67,8 +70,8 @@ export default function Game(props: Props) {
   // Increase of proper component's z-index is necessary to render dragged pawn above other components
   // and also for proper render of scaled components
   const [elementZIndexed, setElementZIndexed] = useState("");
-
   const [showNightTip, setShowNightTip] = useState(true);
+  const [nextCamp, setNextCamp] = useState<ITileRenderData | null>(null);
 
   function handleSetNextAction() {
     setNextAction();
@@ -102,6 +105,19 @@ export default function Game(props: Props) {
 
   function handleUnsetPawn(destinationId: string, draggableId: string) {
     unsetPawn(destinationId, draggableId);
+  }
+
+  function handleMoveCamp(tileID: number) {
+    moveCamp(tileID);
+    props.updateGameRenderData();
+  }
+
+  function showCampMoveConfirm(tile: ITileRenderData) {
+    setNextCamp(tile);
+  }
+
+  function hideCampMoveConfirm() {
+    setNextCamp(null);
   }
 
   function hideNightTip() {
@@ -226,6 +242,16 @@ export default function Game(props: Props) {
 
   return (
     <div className={styles.game}>
+      {props.gameRenderData.phaseService.phase === "night" && nextCamp && (
+        <ConfirmCampMove
+          currentCamp={props.gameRenderData.tilesService.tiles.find(
+            (tile) => tile.camp
+          )}
+          nextCamp={nextCamp}
+          moveCamp={handleMoveCamp}
+          hide={hideCampMoveConfirm}
+        />
+      )}
       <DragDropContext
         onDragEnd={onDragEnd}
         onDragUpdate={onDragUpdate}
@@ -253,13 +279,14 @@ export default function Game(props: Props) {
           zIndex={elementZIndexed}
         />
         <MapComponent
-          tiles={gameRenderData.tilesService.tiles}
+          tileService={gameRenderData.tilesService}
           actionSlots={actionSlots}
           zIndex={elementZIndexed}
           scrollDisabled={isPawnBeingDragged}
           showScenario={showScenario}
           beastCount={gameRenderData.beasts.deckCount}
-          campTileId={gameRenderData.tilesService.campTileId}
+          night={gameRenderData.phaseService.phase === "night"}
+          showCampMoveConfirm={showCampMoveConfirm}
         />
 
         <Inventions
