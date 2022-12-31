@@ -1,9 +1,9 @@
-import { DiscoveryTokenName } from "../interfaces/TokenService/Token";
+import { DISCOVERY_TOKEN } from "../interfaces/TokenService/Token";
 
 export const doubledDiscoveryTokens = [
-  DiscoveryTokenName.fallenTree,
-  DiscoveryTokenName.nourishingLarvae,
-  DiscoveryTokenName.goat,
-  DiscoveryTokenName.treasure,
-  DiscoveryTokenName.candles,
+  DISCOVERY_TOKEN.FALLEN_TREE,
+  DISCOVERY_TOKEN.NOURISHING_LARVAE,
+  DISCOVERY_TOKEN.GOAT,
+  DISCOVERY_TOKEN.TREASURE,
+  DISCOVERY_TOKEN.CANDLES,
 ];

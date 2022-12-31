@@ -1,5 +1,4 @@
-import { ICharacter, ICharacterRenderData } from "../Characters/Character";
-import { HelperAction } from "../Action";
+import { ICharacter } from "../Characters/Character";
 
 export interface IPawnRenderData {
   draggableId: string;
@@ -19,11 +18,19 @@ export interface IPawn {
 
 export interface IPawnHelper extends IPawn {
   disposable: boolean;
-  action: HelperAction;
+  action: PAWN_HELPER_ACTION;
   disposed: boolean;
 }
 
 export interface IPawnHelperRenderData extends IPawnRenderData {
   disposable: boolean;
-  action: HelperAction;
+  action: PAWN_HELPER_ACTION;
+}
+
+export enum PAWN_HELPER_ACTION {
+  GATHER = "gather",
+  EXPLORE = "explore",
+  BUILD = "build",
+  HUNT = "hunt",
+  GATHER_EXPLORE = "gather explore",
 }

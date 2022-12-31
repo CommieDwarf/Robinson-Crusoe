@@ -1,0 +1,31 @@
+.scrollbar {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    grid-column: 2 / span 1 !important;
+    grid-row: 2 / span 1 !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.trackHorizontal {
+    display: none;
+}
+
+.thumbHorizontal {
+    display: none;
+}
+
+.trackVertical {
+    width: 5px !important;
+    height: 100%;
+    right: 2px;
+    background: transparent;
+}
+
+.thumbVertical {
+    width: 7px !important;
+    background-image: url("../../../../public/UI/misc/board-vert.jpg");
+    background-size: cover;
+    border-radius: 5px;
+    border: 1px solid #451e14;
+}

@@ -6,7 +6,7 @@ import {
   IPlayerCharacter,
   IPlayerCharacterRenderData,
 } from "../Characters/PlayerCharacter";
-import { ICharacter, ICharacterRenderData } from "../Characters/Character";
+import { ICharacter } from "../Characters/Character";
 
 export interface ICharacterServiceRenderData {
   playerCharacters: IPlayerCharacterRenderData[];

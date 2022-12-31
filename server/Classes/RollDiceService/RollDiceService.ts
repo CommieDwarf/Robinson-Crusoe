@@ -4,7 +4,6 @@ import {
   DiceActionType,
   RollDiceResult,
   WeatherDice,
-  WeatherDiceSide,
 } from "../../../interfaces/RollDice/RollDice";
 import { gather } from "../../../constants/diceStructures/gather";
 import { build } from "../../../constants/diceStructures/build";

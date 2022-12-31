@@ -1,0 +1,80 @@
+.container {
+    width: 100%;
+    height: 100%;
+    grid-column: 5 / span 1;
+    grid-row: 3 / span 2;
+    background-image: url("../../../../public/UI/characters/background.png");
+    background-size: cover;
+    border: 1px dashed #451e14;
+    border-bottom: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 2fr 3fr;
+    z-index: 100;
+    position: relative;
+}
+
+/*To deletion if no new bugs.*/
+
+/*.zIndexIncreased {*/
+/*    z-index: 200;*/
+/*}*/
+
+/*.zIndexTransition {*/
+/*    animation-name: zIndex;*/
+/*    animation-duration: 1s;*/
+/*    animation-fill-mode: forwards;*/
+/*    animation-iteration-count: 1;*/
+/*}*/
+
+/*@keyframes zIndex {*/
+
+/*    from {*/
+/*        z-index: 200*/
+/*    }*/
+/*    to {*/
+/*        z-index: 100*/
+/*    }*/
+/*}*/
+
+.characterPicture {
+    width: 100%;
+    height: 100%;
+    grid-column: 1 / span 1;
+    grid-row: 3 / span 1;
+    position: relative;
+}
+
+.description {
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 2;
+    width: 100%;
+    height: 100%;
+}
+
+.characterName {
+    width: 80%;
+    height: 20%;
+    text-align: center;
+    background-image: url("../../../../public/UI/darkwood.png");
+    background-size: cover;
+    color: white;
+    margin: auto;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.skills {
+    height: 80%;
+    width: 100%;
+    position: relative;
+}
+
+
+.pawns {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+}
+

@@ -1,10 +1,10 @@
-import {SkillService} from "./SkillService/SkillService";
-import {ISkillService} from "../../../../interfaces/SkillService/SkillService";
-import {IGame} from "../../../../interfaces/Game";
-import {ICharacter} from "../../../../interfaces/Characters/Character";
-import {ISkill} from "../../../../interfaces/SkillService/Skill";
-import {Skill} from "../Skill";
-import {SkillInfo} from "../SkillInfo";
+import { SkillService } from "./SkillService/SkillService";
+import { ISkillService } from "../../../../interfaces/SkillService/SkillService";
+import { IGame } from "../../../../interfaces/Game";
+import { ICharacter } from "../../../../interfaces/Characters/Character";
+import { ISkill } from "../../../../interfaces/SkillService/Skill";
+import { Skill } from "../Skill";
+import { SkillInfo } from "../SkillInfo";
 
 export class Cook extends SkillService implements ISkillService {
   constructor(game: IGame, character: ICharacter) {
@@ -13,17 +13,13 @@ export class Cook extends SkillService implements ISkillService {
   }
 
   // TODO: implement usages
-  private useRecipe() {
-  }
+  private useRecipe() {}
 
-  private useReRoll() {
-  }
+  private useReRoll() {}
 
-  private useStoneSoup() {
-  }
+  private useStoneSoup() {}
 
-  private useBooze() {
-  }
+  private useBooze() {}
 
   private getSkills() {
     const skills = new Map<string, ISkill>();
@@ -36,35 +32,35 @@ export class Cook extends SkillService implements ISkillService {
 }
 
 const recipeInfo = new SkillInfo(
-    "recipe",
-    "Babcina Receptura",
-    "Odrzuć 2 $determination$ aby uleczyć 2 $heart$ odrzucając 1 $food$",
-    "Po zupie mojej babci na pewno poczujesz się lepiej.",
-    "all",
-    "none"
+  "recipe",
+  "Babcina Receptura",
+  "Odrzuć 2 $determination$ aby uleczyć 2 $heart$ odrzucając 1 $food$",
+  "Po zupie mojej babci na pewno poczujesz się lepiej.",
+  "all",
+  "none"
 );
 
 const reRollInfo = new SkillInfo(
-    "reRoll",
-    "Bystre oko",
-    "Odrzuć 2 $determination$, aby $reroll$ dowolną szarą kość podczas swojej Akcji.",
-    "Gdy mówię, że się znajdzie to się znajdzie. Trzeba tylko wiedzieć, gdzie szukać!",
-    "action",
-    "none"
+  "reRoll",
+  "Bystre oko",
+  "Odrzuć 2 $determination$, aby $reroll$ dowolną szarą kość podczas swojej Akcji.",
+  "Gdy mówię, że się znajdzie to się znajdzie. Trzeba tylko wiedzieć, gdzie szukać!",
+  "action",
+  "none"
 );
 const stoneSoupInfo = new SkillInfo(
-    "stoneSoup",
-    "Zupa z gwoździa",
-    "Odrzuć 3 $determination$, aby otrzymać 1 $food$.",
-    "Brak składników to nie przeszkoda, to wyzwanie. Dobry kucharz poradzi sobie w każdej sytuacji!",
-    "all",
-    "action"
+  "stoneSoup",
+  "Zupa z gwoździa",
+  "Odrzuć 3 $determination$, aby otrzymać 1 $food$.",
+  "Brak składników to nie przeszkoda, to wyzwanie. Dobry kucharz poradzi sobie w każdej sytuacji!",
+  "all",
+  "action"
 );
 const boozeInfo = new SkillInfo(
-    "booze",
-    "Samogon",
-    "Odrzuć 3 $determination$, aby usunąć 1 $rainCloud$ lub zamienić 1 $snowCloud$ w 1 $rainCloud$",
-    "Wiem, że jest zimno i w ogóle, ale mam tu coś co ogrzeje ciało i rozjaśni umysł.",
-    "weather",
-    "none"
+  "booze",
+  "Samogon",
+  "Odrzuć 3 $determination$, aby usunąć 1 $rain-cloud$ lub zamienić 1 $snow-cloud$ w 1 $rain-cloud$",
+  "Wiem, że jest zimno i w ogóle, ale mam tu coś co ogrzeje ciało i rozjaśni umysł.",
+  "weather",
+  "none"
 );

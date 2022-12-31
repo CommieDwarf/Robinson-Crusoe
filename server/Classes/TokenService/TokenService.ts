@@ -1,32 +1,26 @@
-import {ITokenService} from "../../../interfaces/TokenService/TokenService";
+import { ITokenService } from "../../../interfaces/TokenService/TokenService";
 import {
-  DiscoveryTokenName,
+  DISCOVERY_TOKEN,
   IToken,
 } from "../../../interfaces/TokenService/Token";
-import {IGame} from "../../../interfaces/Game";
-import {IPlayerCharacter} from "../../../interfaces/Characters/PlayerCharacter";
-import {TokenCreator} from "./TokenCreator/TokenCreator";
-import {doubledDiscoveryTokens} from "../../../constants/doubledDiscoveryTokens";
+import { IGame } from "../../../interfaces/Game";
+import { TokenCreator } from "./TokenCreator/TokenCreator";
+import { doubledDiscoveryTokens } from "../../../constants/doubledDiscoveryTokens";
 import shuffle from "../../../utils/shuffleArray";
-import {ITokenCreator} from "../../../interfaces/TokenCreator/TokenCreator";
+import { ICreator } from "../../../interfaces/Creator/Creator";
+import { IPlayerCharacter } from "../../../interfaces/Characters/PlayerCharacter";
 
 export class TokenService implements ITokenService {
-  get character(): IPlayerCharacter {
-    return this._character;
-  }
-
-  private _tokenStack: DiscoveryTokenName[];
+  private _tokenStack: DISCOVERY_TOKEN[];
 
   private _owned: IToken[] = [];
   private _game: IGame;
-  private readonly _character: IPlayerCharacter;
-  private _tokenCreator: ITokenCreator;
+  private _tokenCreator: ICreator<IToken, DISCOVERY_TOKEN>;
 
-  constructor(game: IGame, character: IPlayerCharacter) {
+  constructor(game: IGame) {
     this._game = game;
-    this._character = character;
     this._tokenStack = shuffle(this.getTokenStack());
-    this._tokenCreator = new TokenCreator(game, character);
+    this._tokenCreator = new TokenCreator(game);
     this.testTokens();
   }
 
@@ -52,8 +46,8 @@ export class TokenService implements ITokenService {
     return token;
   }
 
-  private getTokenStack(): DiscoveryTokenName[] {
-    const tokenList = Object.values(DiscoveryTokenName);
+  private getTokenStack(): DISCOVERY_TOKEN[] {
+    const tokenList = Object.values(DISCOVERY_TOKEN);
     doubledDiscoveryTokens.forEach((name) => tokenList.push(name));
     return tokenList;
   }
@@ -70,22 +64,32 @@ export class TokenService implements ITokenService {
         throw new Error("powtarza sie");
       }
       testSet.add(token.id);
-    })
+    });
   }
 
   public autoUseOwnedTokens() {
-    this._owned.forEach((token) => token.autoUse());
+    this._owned.forEach((token) => token.autoDiscard());
   }
 
-  public useToken(id: string) {
-    this.getOwnedToken(id).use();
+  public useToken(
+    userName: string,
+    id: string,
+    targetName: string | null = null
+  ) {
+    const user = this._game.characterService.getCharacter(
+      userName
+    ) as IPlayerCharacter;
+    const target = targetName
+      ? this._game.characterService.getCharacter(targetName)
+      : null;
+    this.getOwnedToken(id).use(user, target);
     this.discardUsedTokens();
   }
 
   public addRandomTokenToOwned() {
     const tokenName = this._tokenStack.pop();
     if (tokenName) {
-      this._owned.push(this._tokenCreator.createToken(tokenName));
+      this._owned.push(this._tokenCreator.create(tokenName));
     }
   }
 }

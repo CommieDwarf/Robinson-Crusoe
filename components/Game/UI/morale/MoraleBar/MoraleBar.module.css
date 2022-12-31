@@ -1,0 +1,82 @@
+.moraleBar {
+    width: 15.5%;
+    border-right: 1px solid black;
+    height: 100%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.current {
+    -webkit-box-shadow: inset 0px 0px 40px -16px rgba(96, 201, 75, 1);
+    -moz-box-shadow: inset 0px 0px 40px -16px rgba(96, 201, 75, 1);
+    box-shadow: inset 0px 0px 40px -16px rgba(96, 201, 75, 1);
+}
+
+.moraleBar0 {
+    width: 7%;
+    border-right: 1px solid black;
+    height: 100%;
+    display: inline-block;
+    text-align: center;
+}
+
+.lastMoraleBar {
+    border: none;
+}
+
+.moraleLabel {
+    width: 80%;
+    height: 20px;
+    margin: 6px auto auto;
+    position: relative;
+}
+
+.moraleIcon {
+    width: 17px;
+    height: 17px;
+    position: relative;
+    display: inline-block;
+}
+
+.moraleValue {
+    position: relative;
+    top: -3px;
+    display: inline-block;
+    font-weight: bold;
+    width: 15px;
+    text-align: center;
+}
+
+.crossLine {
+    height: 35px;
+    width: 35px;
+    border-right: 1px solid black;
+    transform: rotate(45deg);
+    margin: auto;
+    position: absolute;
+    left: -12px;
+    top: -21px;
+}
+
+.lastMoraleBarValue {
+    position: absolute;
+    font-weight: bold;
+    font-size: 12px;
+    top: -28%;
+}
+
+.lastMoraleIcon {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    left: 20%;
+    top: -15%;
+}
+
+.heart {
+    position: absolute;
+    top: 18%;
+    left: 55%;
+    width: 18px;
+    height: 18px;
+}

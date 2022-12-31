@@ -1,21 +1,27 @@
-import { ITile, ITileRenderData, TerrainType, TileType } from "./ITile";
-import { IGraph } from "../Graph/Graph";
+import { ITile, ITileRenderData, TERRAIN_TYPE } from "./ITile";
 
 export interface ITilesServiceRenderData {
   tiles: ITileRenderData[];
   campJustMoved: boolean;
+  campTile: ITileRenderData;
 }
 
 export interface ITileService {
   tiles: ITile[];
   campTile: ITile;
   previousCampTile: ITile | null;
-  explore: (id: number) => void;
-  terrainTypesExplored: Set<TerrainType>;
-  renderData: ITilesServiceRenderData;
+  campJustMoved: boolean;
+  terrainTypesExplored: Set<TERRAIN_TYPE>;
+  canCampBeMoved: () => boolean;
+  basket: boolean;
+  sack: boolean;
+  axe: boolean;
+
   forceCampMovement: () => void;
   gather: (side: "left" | "right", tileId: number, logSource: string) => void;
   getTile: (id: number) => ITile;
   moveCamp: (tileID: number) => void;
-  campJustMoved: boolean;
+  explore: (id: number) => void;
+
+  renderData: ITilesServiceRenderData;
 }

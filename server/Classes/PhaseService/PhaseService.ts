@@ -96,44 +96,52 @@ export class PhaseService implements IPhaseService {
   }
 
   private eventEffect = () => {
-    this._game.threat.moveCardsLeft();
-    this._game.threat.pullCard();
+    this._game.eventService.moveCardsLeft();
+    this._game.eventService.pullCard();
   };
 
   private moraleEffect = () => {
-    if (this._game.morale.lvl === 0) {
+    if (this._game.moraleService.lvl === 0) {
       return;
     }
     // TODO: implement player choice when lvl 3 whenever he wants determination or health
     const primePlayerCharacter =
       this._game.playerService.primePlayer.getCharacter();
-    if (this._game.morale.lvl > 0) {
+    if (this._game.moraleService.lvl > 0) {
       this._game.characterService.incrDetermination(
         primePlayerCharacter,
-        this._game.morale.lvl,
+        this._game.moraleService.lvl,
         "Faza morali"
       );
     } else {
       this._game.characterService.decrDetermination(
         primePlayerCharacter,
-        Math.abs(this._game.morale.lvl),
+        Math.abs(this._game.moraleService.lvl),
         "Faza morali"
       );
     }
   };
 
   private productionEffect = () => {
-    const resources = this._game.tilesService.campTile.tileType?.resources;
+    const resources = this._game.tileService.campTile.tileType?.resources;
     if (!resources) {
       throw new Error("There are no resources in tile");
     }
     const res1 = resources.left;
     const res2 = resources.right;
     if (res1 !== "beast") {
-      this._game.allResources.addResourceToOwned(res1, 1, "kafelek z obozem");
+      this._game.resourceService.addResourceToOwned(
+        res1,
+        1,
+        "kafelek z obozem"
+      );
     }
     if (res2 !== "beast") {
-      this._game.allResources.addResourceToOwned(res2, 1, "kafelek z obozem");
+      this._game.resourceService.addResourceToOwned(
+        res2,
+        1,
+        "kafelek z obozem"
+      );
     }
   };
 
@@ -143,6 +151,7 @@ export class PhaseService implements IPhaseService {
     } catch (error) {
       throw error;
     }
+
     this.locked = true;
   };
 
@@ -159,6 +168,6 @@ export class PhaseService implements IPhaseService {
 
   private nightEffect = () => {
     this._game.setNextRound();
-    this._game.tilesService.campJustMoved = false;
+    this._game.tileService.campJustMoved = false;
   };
 }

@@ -1,11 +1,11 @@
-import { Action } from "../interfaces/Action";
+import { ACTION } from "../interfaces/ACTION";
 
-export const actionOrder: Action[] = [
-  "threat",
-  "hunt",
-  "build",
-  "gather",
-  "explore",
-  "arrangeCamp",
-  "rest",
+export const actionOrder: ACTION[] = [
+  ACTION.THREAT,
+  ACTION.HUNT,
+  ACTION.BUILD,
+  ACTION.GATHER,
+  ACTION.EXPLORE,
+  ACTION.ARRANGE_CAMP,
+  ACTION.REST,
 ];

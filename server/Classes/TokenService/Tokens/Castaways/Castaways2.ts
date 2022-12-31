@@ -1,15 +1,24 @@
-import { Token } from "../Token/Token";
-import { IGame } from "../../../../../interfaces/Game";
-import { IPlayerCharacter } from "../../../../../interfaces/Characters/PlayerCharacter";
-import { WrongPhaseError } from "../../../Errors/WrongPhaseError";
+import {Token} from "../Token/Token";
+import {IGame} from "../../../../../interfaces/Game";
+import {DISCOVERY_TOKEN} from "../../../../../interfaces/TokenService/Token";
+import {IPlayerCharacter} from "../../../../../interfaces/Characters/PlayerCharacter";
+import {ICharacter} from "../../../../../interfaces/Characters/Character";
 
 export class Castaways2 extends Token {
-  constructor(game: IGame, character: IPlayerCharacter) {
-    super(game, character, "scenario2", "2 drewna tylko do odłożenia na stos.");
+  constructor(game: IGame) {
+    super(
+        game,
+        DISCOVERY_TOKEN.SCENARIO_2,
+        "2 drewna tylko do odłożenia na stos."
+    );
   }
 
   //TODO: implement usage. Implement scenario stash.
-  use() {}
+  use(user: IPlayerCharacter, target: ICharacter | null) {
 
-  autoDiscard() {}
+  }
+
+  autoDiscard() {
+    return;
+  }
 }

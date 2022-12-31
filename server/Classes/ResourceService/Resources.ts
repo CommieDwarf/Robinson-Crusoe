@@ -48,13 +48,11 @@ export class Resources implements IResources {
   };
   public setResources = (amount: IResourcesAmount) => {};
 
-  public canAfford = (cost: IResources): boolean => {
-    for (let key of this._amount.keys()) {
-      if (this.getResource(key) < cost.getResource(key)) {
-        return false;
-      }
-    }
-    return true;
+  public canAfford = (
+    resource: keyof IResourcesAmount,
+    amount: number
+  ): boolean => {
+    return this.getResource(resource) - amount >= 0;
   };
 
   public addResources(resources: IResources): void {
@@ -63,19 +61,11 @@ export class Resources implements IResources {
     });
   }
 
-  public spendResources = (cost: IResources): void => {
-    if (!this.canAfford(cost)) {
-      throw new Error(
-        `Cant afford. Cost: ${cost.amount}. Resources: ${this._amount}`
-      );
-    }
-    this._amount.forEach((value: number, key: keyof IResourcesAmount) => {
-      this.setResource(key, this.getResource(key) - cost.getResource(key));
-    });
-  };
-
   public spendResource(resource: keyof IResourcesAmount, amount: number) {
     const owned = this._amount.get(resource);
+    if (!owned) {
+      throw new Error("owned is undefined");
+    }
     if (owned - amount < 0) {
       throw new Error(`Can't afford ${amount} ${resource}. (${owned})`);
     }

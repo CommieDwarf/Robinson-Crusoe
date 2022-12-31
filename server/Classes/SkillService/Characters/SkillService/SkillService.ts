@@ -11,7 +11,7 @@ export abstract class SkillService implements ISkillService {
   protected readonly _character: ICharacter;
   protected declare _skills: Map<string, ISkill>;
 
-  constructor(game: IGame, character: ICharacter) {
+  protected constructor(game: IGame, character: ICharacter) {
     this._game = game;
     this._character = character;
   }

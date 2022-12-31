@@ -1,8 +1,4 @@
-import {
-  AnimalDiceSide,
-  WeatherDiceSide,
-  WeatherRollDiceInfo,
-} from "../RollDice/RollDice";
+import { AnimalDiceSide, WeatherRollDiceInfo } from "../RollDice/RollDice";
 
 export interface IWeatherTokens {
   rain: boolean;
@@ -27,6 +23,7 @@ export interface IWeatherService {
   modifiers: WeatherModifiers;
   overallWeather: OverallWeather;
   rollDiceResult: WeatherRollDiceInfo | null;
+  furnace: boolean;
   setToken: (type: keyof IWeatherTokens, value: boolean) => void;
   rollDices: () => void;
   incrementModifier: (

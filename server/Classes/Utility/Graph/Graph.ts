@@ -2,7 +2,6 @@ import { Queue } from "./Queue";
 import { IGraph } from "../../../../interfaces/Graph/Graph";
 import { IVertex } from "../../../../interfaces/Graph/Vertex";
 import { Vertex } from "./Vertex";
-import { v4 as uuid } from "uuid";
 
 export class Graph<Data> implements IGraph<Data> {
   isDirected: boolean;
@@ -74,7 +73,7 @@ export class Graph<Data> implements IGraph<Data> {
     let edges = vertex.edges;
     vertex.prev = null;
     queue.enqueue(vertex);
-    let found: boolean = null;
+    let found: boolean = false;
     while (queue.getLength() > 0 && !found) {
       const currentVertex = queue.dequeue();
       if (currentVertex) {
@@ -114,7 +113,7 @@ export class Graph<Data> implements IGraph<Data> {
   }
 
   private backTracePath(searched: IVertex<Data>) {
-    const path = [];
+    const path: IVertex<Data>[] = [];
     let lastVertex = searched;
     while (lastVertex.prev) {
       if (!path.includes(lastVertex)) {

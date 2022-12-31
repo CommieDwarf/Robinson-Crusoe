@@ -41,7 +41,13 @@ export interface ITileBuiltStructures {
 
 export type TileResource = "food" | "wood" | "beast";
 
-export type TerrainType = "beach" | "hills" | "mountains" | "river" | "plains";
+export enum TERRAIN_TYPE {
+  BEACH = "beach",
+  HILLS = "hills",
+  MOUNTAINS = "mountains",
+  RIVER = "river",
+  PLAINS = "plains",
+}
 
 export interface TileExtras {
   discoveryToken: number;
@@ -51,7 +57,7 @@ export interface TileExtras {
 
 export interface TileType {
   id: number;
-  terrainType: TerrainType;
+  terrainType: TERRAIN_TYPE;
   resources: {
     left: TileResource;
     right: TileResource;

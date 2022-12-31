@@ -1,12 +1,12 @@
 import { ISkillInfo, SkillPhase } from "../../../interfaces/SkillService/Skill";
 
 export class SkillInfo implements ISkillInfo {
-  private _name: string;
-  private _namePL: string;
-  private _quote: string;
-  private _description: string;
-  private _phase: SkillPhase;
-  private _phaseExcluded: SkillPhase | "none";
+  private readonly _name: string;
+  private readonly _namePL: string;
+  private readonly _quote: string;
+  private readonly _description: string;
+  private readonly _phase: SkillPhase;
+  private readonly _phaseExcluded: SkillPhase | "none";
 
   constructor(
     name: string,

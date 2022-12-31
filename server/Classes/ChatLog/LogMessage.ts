@@ -6,26 +6,6 @@ import {
 import { Phase } from "../../../interfaces/PhaseService/PhaseService";
 
 export class LogMessage implements ILogMessage {
-  get source(): string {
-    return this._source;
-  }
-
-  get round(): number {
-    return this._turn;
-  }
-
-  get phase(): Phase {
-    return this._phase;
-  }
-
-  get message(): string {
-    return this._message;
-  }
-
-  get color(): LogColor {
-    return this._color;
-  }
-
   get renderData(): ILogMessageRenderData {
     return {
       message: this._message,
@@ -54,5 +34,25 @@ export class LogMessage implements ILogMessage {
     this._turn = round;
     this._phase = phase;
     this._source = source;
+  }
+
+  get source(): string {
+    return this._source;
+  }
+
+  get round(): number {
+    return this._turn;
+  }
+
+  get phase(): Phase {
+    return this._phase;
+  }
+
+  get message(): string {
+    return this._message;
+  }
+
+  get color(): LogColor {
+    return this._color;
   }
 }

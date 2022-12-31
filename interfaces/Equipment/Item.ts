@@ -1,13 +1,28 @@
-import { EqList } from "../../constants/eqList";
 import { IGame } from "../Game";
+import { IPlayerCharacter } from "../Characters/PlayerCharacter";
+import { ICharacter } from "../Characters/Character";
 
-export type IItemRenderData = Omit<IItem, "game" | "use" | "renderData">;
+export interface IItemRenderData {
+  name: ITEM;
+  uses: number;
+}
+
+export enum ITEM {
+  BIBLE = "bible",
+  BISCUITS = "biscuits",
+  EMPTY_BOTTLE = "empty bottle",
+  FLASK_OF_RUM = "flask of rum",
+  HAMMER = "hammer",
+  PISTOL = "pistol",
+  STORM_GLASS = "storm glass",
+  TOBACCO = "tobacco",
+}
 
 export interface IItem {
-  name: keyof EqList;
-  namePL: string;
+  name: ITEM;
   uses: number;
   game: IGame;
-  use: () => void;
+  hasUses: boolean;
+  use: (user: IPlayerCharacter, target: ICharacter) => void;
   renderData: IItemRenderData;
 }

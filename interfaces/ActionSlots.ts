@@ -1,20 +1,15 @@
 import { IPawn, IPawnRenderData } from "./Pawns/Pawn";
+import { ACTION } from "./ACTION";
 
 export interface IActionSlotsServiceRenderData {
   slots: Object;
 }
 
-export interface SlotsOccupied {
-  threat: Map<string, IPawn>;
-  hunt: Map<string, IPawn>;
-  build: Map<string, IPawn>;
-  gather: Map<string, IPawn>;
-  explore: Map<string, IPawn>;
-  arrangeCamp: Map<string, IPawn>;
-  rest: Map<string, IPawn>;
-}
+export type SlotsOccupied = {
+  [key in ACTION]: Map<string, IPawn>;
+};
 
-export interface IActionSlotsService {
+export interface IActionSlotService {
   slots: Map<string, IPawn | null>;
   setPawn: (droppableId: string, pawn: IPawn) => void;
   unsetPawn: (droppableId: string) => void;

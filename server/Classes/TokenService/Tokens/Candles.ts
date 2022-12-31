@@ -2,24 +2,26 @@ import { Token } from "./Token/Token";
 import { IGame } from "../../../../interfaces/Game";
 import { IPlayerCharacter } from "../../../../interfaces/Characters/PlayerCharacter";
 import { HelperPawn } from "../../PawnService/Pawn/HelperPawn";
-import sleep from "../../../../utils/sleep";
+import { PAWN_HELPER_ACTION } from "../../../../interfaces/Pawns/Pawn";
+import { DISCOVERY_TOKEN } from "../../../../interfaces/TokenService/Token";
+import { ICharacter } from "../../../../interfaces/Characters/Character";
 
 export class Candles extends Token {
-  constructor(game: IGame, character: IPlayerCharacter) {
+  constructor(game: IGame) {
     super(
       game,
-      character,
-      "candles",
+      DISCOVERY_TOKEN.CANDLES,
       "Jednorazowy brązowy pionek dodatkowy do Akcji Budowy"
     );
   }
 
-  use() {
-    const pawnService = this._character.pawnService;
-    const pawn = new HelperPawn(this._character, true, "build");
+  use(user: IPlayerCharacter, target: ICharacter | null = null) {
+    const pawnService = user.pawnService;
+    const pawn = new HelperPawn(user, true, PAWN_HELPER_ACTION.BUILD);
     pawnService.addPawn(pawn);
     pawnService.copyPawnToFreePawns(pawn.draggableId);
     this._used = true;
+    super.use(user);
   }
 
   autoDiscard() {}

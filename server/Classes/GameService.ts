@@ -13,7 +13,7 @@ export class GameService implements IGameService {
 
   get game(): IGame {
     if (!this._game) {
-      throw new Error("game isn't instantiated");
+      throw new Error("Game isn't instantiated");
     }
     return this._game;
   }

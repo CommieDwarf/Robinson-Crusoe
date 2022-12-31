@@ -11,19 +11,12 @@ import { PlayerCharEffects } from "../../CharEffects/CharEffects";
 import { IPawnService } from "../../../../../interfaces/Pawns/Pawns";
 import { IGame } from "../../../../../interfaces/Game";
 import { Gender } from "../../../../../interfaces/Characters/Character";
-import { ITokenService } from "../../../../../interfaces/TokenService/TokenService";
-import { TokenService } from "../../../TokenService/TokenService";
 
 export class PlayerCharacter extends Character implements IPlayerCharacter {
-  get tokenService(): ITokenService {
-    return this._tokenService;
-  }
-
   protected readonly _player: IPlayer;
   protected readonly _moraleThresholds: number[];
   protected _pawnService: IPawnService = new PawnService(this, 3);
   protected declare _name: PlayerCharacterName;
-  private _tokenService: ITokenService;
 
   constructor(
     name: PlayerCharacterName,
@@ -40,7 +33,6 @@ export class PlayerCharacter extends Character implements IPlayerCharacter {
     this._gender = gender;
     this._pawnService = new PawnService(this, 3);
     this._effects = new PlayerCharEffects(this);
-    this._tokenService = new TokenService(game, this);
   }
 
   get renderData(): IPlayerCharacterRenderData {
@@ -49,7 +41,6 @@ export class PlayerCharacter extends Character implements IPlayerCharacter {
       moraleThresholds: this._moraleThresholds,
       playerId: 0,
       name: this.name,
-      tokenService: this._tokenService.renderData,
     };
   }
 

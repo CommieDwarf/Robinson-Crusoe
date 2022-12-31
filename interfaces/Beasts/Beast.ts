@@ -1,10 +1,30 @@
 export interface IBeastRenderData {
-  name: { pl: string; en: string };
+  name: string;
 }
 
 export interface IBeast {
-  name: { pl: string; en: string };
+  name: string;
   strength: number;
   weaponLoss: number;
   renderData: IBeastRenderData;
+  applySpecialEffect: () => void;
+}
+
+export enum BEAST {
+  ALLIGATOR = "alligator",
+  BEAR = "bear",
+  BIRDS = "birds",
+  BOA = "boa",
+  CHAMOIS = "chamois",
+  CHEETAH = "cheetah",
+  FOX = "fox",
+  GOATS = "goats",
+  GORILLA = "gorilla",
+  IGUANA = "iguana",
+  JAGUAR = "jaguar",
+  PUMA = "puma",
+  TAPIR = "tapir",
+  TIGER = "tiger",
+  WILD_DOG = "wild dog",
+  WILD_PIG = "wild pig",
 }

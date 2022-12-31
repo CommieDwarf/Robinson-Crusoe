@@ -1,7 +1,7 @@
 import {
   IWeatherService,
-  OverallWeather,
   IWeatherTokens,
+  OverallWeather,
   WeatherModifiers,
 } from "../../../interfaces/Weather/Weather";
 import { IGame } from "../../../interfaces/Game";
@@ -13,6 +13,7 @@ import {
   WinterDiceSide,
 } from "../../../interfaces/RollDice/RollDice";
 import { RollDiceService } from "../RollDiceService/RollDiceService";
+import { CONSTRUCTION } from "../../../interfaces/ConstructionService/Construction";
 
 export class WeatherService implements IWeatherService {
   private _tokens: IWeatherTokens = {
@@ -25,6 +26,8 @@ export class WeatherService implements IWeatherService {
     rain: 0,
     snow: 0,
   };
+
+  private _furnace: boolean = false;
 
   private readonly _game: IGame;
   private _rollDiceResult: WeatherRollDiceInfo | null = null;
@@ -63,6 +66,14 @@ export class WeatherService implements IWeatherService {
     this._tokens[token] = value;
   }
 
+  get furnace(): boolean {
+    return this._furnace;
+  }
+
+  set furnace(value: boolean) {
+    this._furnace = value;
+  }
+
   get tokens(): IWeatherTokens {
     return this._tokens;
   }
@@ -83,7 +94,9 @@ export class WeatherService implements IWeatherService {
     const weather = this.overallWeather;
     this.applySnowEffect(weather.snow);
     this.applySnowAndRain(weather.snow, weather.rain);
-    this.applyAnimalsEffect(weather.animals);
+    if (weather.animals) {
+      this.applyAnimalsEffect(weather.animals);
+    }
     this.resetWeather();
   }
 
@@ -139,15 +152,29 @@ export class WeatherService implements IWeatherService {
   }
 
   private applySnowEffect(snow: number) {
-    this._game.allResources.spendOrSuffer("wood", snow, "Drewno na opał");
+    this._game.resourceService.spendResourceOrGetHurt(
+      "wood",
+      snow,
+      "Drewno na opał"
+    );
   }
 
   private applySnowAndRain(snow: number, rain: number) {
     const sum = snow + rain;
-    const diff = this._game.structuresService.getStruct("roof").lvl - sum;
+    const diff =
+      this._game.constructionService.getConstruction(CONSTRUCTION.ROOF).lvl -
+      sum;
     if (diff < 0) {
-      this._game.allResources.spendOrSuffer("wood", Math.abs(diff), "Opady");
-      this._game.allResources.spendOrSuffer("food", Math.abs(diff), "Opady");
+      this._game.resourceService.spendResourceOrGetHurt(
+        "wood",
+        Math.abs(diff),
+        "Opady"
+      );
+      this._game.resourceService.spendResourceOrGetHurt(
+        "food",
+        Math.abs(diff),
+        "Opady"
+      );
     }
   }
 
@@ -155,14 +182,20 @@ export class WeatherService implements IWeatherService {
     const logSource = "Wygłodniałe zwierzęta";
     switch (diceSide) {
       case "palisade":
-        this._game.structuresService.lvlDownOrSuffer("palisade", 1, logSource);
+        this._game.constructionService.lvlDownOrSuffer(
+          CONSTRUCTION.PALISADE,
+          1,
+          logSource
+        );
         break;
       case "food":
-        this._game.allResources.spendOrSuffer("food", 1, logSource);
+        this._game.resourceService.spendResourceOrGetHurt("food", 1, logSource);
         break;
       case "beast":
         //TODO: implement fighting beast.
         break;
+      case "blank":
+        return;
     }
   }
 

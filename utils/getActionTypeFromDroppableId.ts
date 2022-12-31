@@ -1,24 +1,22 @@
-import { IPawn } from "../interfaces/Pawns/Pawn";
-import { inventionList } from "../constants/inventionList";
-import { Action } from "../interfaces/Action";
+import { ACTION } from "../interfaces/ACTION";
 
-export function getActionTypeFromDroppableId(droppableId: string): Action {
+export function getActionTypeFromDroppableId(droppableId: string): ACTION {
   if (droppableId.includes("structure") || droppableId.includes("invention")) {
-    return "build";
+    return ACTION.BUILD;
   } else if (droppableId.includes("gather")) {
-    return "gather";
-  } else if (droppableId.includes("expore")) {
-    return "explore";
+    return ACTION.GATHER;
+  } else if (droppableId.includes("explore")) {
+    return ACTION.EXPLORE;
   } else if (droppableId.includes("hunt")) {
-    return "hunt";
+    return ACTION.HUNT;
   } else if (droppableId.includes("rest")) {
-    return "rest";
+    return ACTION.REST;
   } else if (droppableId.includes("arrangeCamp")) {
-    return "arrangeCamp";
+    return ACTION.ARRANGE_CAMP;
   } else if (droppableId.includes("threat")) {
-    return "threat";
+    return ACTION.THREAT;
   } else if (droppableId.includes("hunt")) {
-    return "hunt";
+    return ACTION.HUNT;
   }
 
   throw new Error("Droppable id is invalid: " + droppableId);

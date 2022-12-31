@@ -8,4 +8,5 @@ export interface ITileGraph extends IGraph<ITile> {
   campTileVertex: IVertex<ITile>;
   previousCampTileVertex: IVertex<ITile> | null;
   updateRequiredHelpers: () => void;
+  canCampBeMoved: () => boolean;
 }

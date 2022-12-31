@@ -1,20 +1,31 @@
-import { Resources } from "./Resources";
+import {Resources} from "./Resources";
 import {
   IResources,
   IResourcesAmount,
 } from "../../../interfaces/Resources/Resources";
 import {
-  IAllResources,
-  IAllResourcesRenderData,
+  IResourceService,
+  IResourceServiceRenderData,
 } from "../../../interfaces/Resources/AllResources";
-import { IGame } from "../../../interfaces/Game";
-import { RESOURCE_CONJUGATION_PL } from "../../../interfaces/TRANSLATE_PL/CATEGORIES/RESOURCE_PL";
-import { ICharacter } from "../../../interfaces/Characters/Character";
+import {IGame} from "../../../interfaces/Game";
+import {RESOURCE_CONJUGATION_PL} from "../../../interfaces/TRANSLATE_PL/CATEGORIES/RESOURCE_PL";
+import Entries from "../../../interfaces/Entries";
 
-export class ResourceService implements IAllResources {
+export class ResourceService implements IResourceService {
   private _future: IResources = new Resources();
   private _owned: IResources = new Resources();
-  private _blockedProduction = false;
+  private _cellar: boolean = false;
+  private _pit: boolean = false;
+
+  get blockedProductionRound(): number | null {
+    return this._blockedProductionRound;
+  }
+
+  set blockedProductionRound(value: number | null) {
+    this._blockedProductionRound = value;
+  }
+
+  private _blockedProductionRound: null | number = null;
   private readonly _game: IGame;
 
   constructor(game: IGame) {
@@ -23,19 +34,19 @@ export class ResourceService implements IAllResources {
 
   // ------------------------------------------------
 
-  get renderData(): IAllResourcesRenderData {
+  get renderData(): IResourceServiceRenderData {
     return {
       future: this.future.renderData,
       owned: this.owned.renderData,
     };
   }
 
-  get productionBlocked(): boolean {
-    return this._blockedProduction;
+  get pit(): boolean {
+    return this._pit;
   }
 
-  set productionBlocked(value: boolean) {
-    this._blockedProduction = value;
+  set pit(value: boolean) {
+    this._pit = value;
   }
 
   get future(): IResources {
@@ -44,6 +55,14 @@ export class ResourceService implements IAllResources {
 
   get owned(): IResources {
     return this._owned;
+  }
+
+  get cellar(): boolean {
+    return this._cellar;
+  }
+
+  set cellar(value: boolean) {
+    this._cellar = value;
   }
 
   // ------------------------------------
@@ -58,72 +77,103 @@ export class ResourceService implements IAllResources {
   };
 
   public addResourceToOwned(
-    resource: keyof IResourcesAmount,
-    amount: number,
-    logSource: string
+      resource: keyof IResourcesAmount,
+      amount: number,
+      logSource: string
   ) {
     this._game.chatLog.addMessage(
-      `Dodano ${amount} ${RESOURCE_CONJUGATION_PL[resource]} do posiadanych surowców`,
-      "green",
-      logSource
+        `Dodano ${amount} ${RESOURCE_CONJUGATION_PL[resource]} do posiadanych surowców`,
+        "green",
+        logSource
     );
     this._owned.addResource(resource, amount);
   }
 
   public addResourceToFuture(
-    resource: keyof IResourcesAmount,
-    amount: number,
-    logSource: string
+      resource: keyof IResourcesAmount,
+      amount: number,
+      logSource: string
   ) {
     this._future.addResource(resource, amount);
     this._game.chatLog.addMessage(
-      `Dodano ${amount} ${RESOURCE_CONJUGATION_PL[resource]} do przyszłych surowców`,
-      "green",
-      logSource
+        `Dodano ${amount} ${RESOURCE_CONJUGATION_PL[resource]} do przyszłych surowców`,
+        "green",
+        logSource
     );
   }
 
-  canOwnedAfford(cost: IResources) {
-    return this.owned.canAfford(cost);
+  public canAffordResource(resource: keyof IResourcesAmount, amount: number) {
+    return this.owned.canAfford(resource, amount);
   }
 
-  spendFromOwned(
-    resource: keyof IResourcesAmount,
-    amount: number,
-    logSource: string
+  public canAffordResources(resources: IResources) {
+    let canAfford = true;
+    resources.amount.forEach((amount, resource) => {
+      if (!this.canAffordResource(resource, amount)) {
+        canAfford = false;
+      }
+    })
+    return canAfford;
+  }
+
+  spendResourceIfPossible(
+      resource: keyof IResourcesAmount,
+      amount: number,
+      logSource: string = ""
   ) {
     if (amount === 0) {
       return;
     }
-    this.owned.spendResource(resource, amount);
-
-    this._game.chatLog.addMessage(
-      `Odjęto ${amount} ${RESOURCE_CONJUGATION_PL[resource]} z posiadanych surowców`,
-      "red",
-      logSource
-    );
-  }
-
-  spendOrSuffer(
-    resource: keyof IResourcesAmount,
-    amount: number,
-    logSource: string
-  ) {
-    if (amount === 0) {
-      return;
-    }
-    const owned = this._owned.getResource(resource);
-    const diff = owned - amount;
+    const diff = this._owned.getResource(resource) - amount;
     if (diff < 0) {
-      this.spendFromOwned(resource, owned, logSource);
+      this._owned.setResource(resource, 0);
+    } else {
+      this._owned.spendResource(resource, amount);
+    }
+    if (logSource.length > 0) {
+      this._game.chatLog.addMessage(
+          `Odjęto ${amount} ${RESOURCE_CONJUGATION_PL[resource]} z posiadanych surowców`,
+          "red",
+          logSource
+      );
+    }
+  }
+
+  spendResourcesIfPossible(resources: IResources, logSource: string = "") {
+    const entries = Object.entries(
+        resources.amount
+    ) as Entries<IResourcesAmount>;
+    entries.forEach(([resource, amount]) => {
+      this.spendResourceIfPossible(resource, amount, logSource);
+    });
+  }
+
+  spendResourceOrGetHurt(
+      resource: keyof IResourcesAmount,
+      amount: number,
+      logSource: string
+  ) {
+    if (amount === 0) {
+      return;
+    }
+    const diff = this._owned.getResource(resource) - amount;
+    if (diff < 0) {
+      this._owned.setResource(resource, 0);
       this._game.characterService.hurtAllPlayerCharacters(
-        Math.abs(diff),
-        `Zabrakło ${Math.abs(diff)} ${
-          RESOURCE_CONJUGATION_PL[resource]
-        } do odrzucenia.`
+          Math.abs(diff),
+          logSource
       );
     } else {
-      this.spendFromOwned(resource, amount, logSource);
+      this._owned.spendResource(resource, amount);
     }
+  }
+
+  spendResourcesOrGetHurt(resources: IResources, logSource: string) {
+    const entries = Object.entries(
+        resources.amount
+    ) as Entries<IResourcesAmount>;
+    entries.forEach(([resource, amount]) => {
+      this.spendResourceOrGetHurt(resource, amount, logSource);
+    });
   }
 }

@@ -1,10 +1,10 @@
 import shuffle from "../../../utils/shuffleArray";
-import { tileTypes, TileType } from "../../../constants/tilleTypes";
+import { TileType, tileTypes } from "../../../constants/tilleTypes";
 import {
   ITileService,
   ITilesServiceRenderData,
 } from "../../../interfaces/TileService/ITileService";
-import { ITile, TerrainType } from "../../../interfaces/TileService/ITile";
+import { ITile, TERRAIN_TYPE } from "../../../interfaces/TileService/ITile";
 import { IGame } from "../../../interfaces/Game";
 import { TileGraph } from "./TileGraph/TileGraph";
 import { ITileGraph } from "../../../interfaces/TileService/ITileGraph";
@@ -12,18 +12,21 @@ import { ITileGraph } from "../../../interfaces/TileService/ITileGraph";
 export class TileService implements ITileService {
   _tileGraph: ITileGraph;
   _tileTypeStack: TileType[];
-  private readonly _terrainTypesExplored: Set<TerrainType>;
+  private readonly _terrainTypesExplored: Set<TERRAIN_TYPE>;
   private _campTransition = {
     status: false,
     forced: false,
   };
   _game: IGame;
   private _campJustMoved = false;
+  basket: boolean = false;
+  sack: boolean = false;
+  axe: boolean = false;
 
   constructor(game: IGame, campTileID: number) {
     this._game = game;
     this._tileTypeStack = shuffle(tileTypes);
-    this._terrainTypesExplored = new Set<TerrainType>(["beach"]);
+    this._terrainTypesExplored = new Set<TERRAIN_TYPE>([TERRAIN_TYPE.BEACH]);
     this._tileGraph = new TileGraph(campTileID, game);
     this.showAdjacentTiles(campTileID);
   }
@@ -32,6 +35,7 @@ export class TileService implements ITileService {
     return {
       tiles: this._tileGraph.vertices.map((vertex) => vertex.data.renderData),
       campJustMoved: this.campJustMoved,
+      campTile: this.campTile.renderData,
     };
   }
 
@@ -47,7 +51,7 @@ export class TileService implements ITileService {
     return this._tileGraph.vertices.map((vertex) => vertex.data);
   }
 
-  get terrainTypesExplored(): Set<TerrainType> {
+  get terrainTypesExplored(): Set<TERRAIN_TYPE> {
     return this._terrainTypesExplored;
   }
 
@@ -56,7 +60,12 @@ export class TileService implements ITileService {
   }
 
   get previousCampTile(): ITile | null {
-    return this._tileGraph.previousCampTileVertex.data;
+    const tile = this._tileGraph.previousCampTileVertex?.data;
+    if (tile) {
+      return tile;
+    } else {
+      return null;
+    }
   }
 
   get campTile() {
@@ -82,7 +91,7 @@ export class TileService implements ITileService {
     if (!resource || resource === "beast") {
       throw new Error("can't gather" + resource);
     }
-    this._game.allResources.addResourceToFuture(resource, 1, logSource);
+    this._game.resourceService.addResourceToFuture(resource, 1, logSource);
   }
 
   explore(id: number) {
@@ -99,6 +108,10 @@ export class TileService implements ITileService {
     this.showAdjacentTiles(id);
     this._tileGraph.addEdges(id);
     this._tileGraph.updateRequiredHelpers();
+  }
+
+  public canCampBeMoved(): boolean {
+    return this._tileGraph.canCampBeMoved();
   }
 
   public getTile(id: number) {

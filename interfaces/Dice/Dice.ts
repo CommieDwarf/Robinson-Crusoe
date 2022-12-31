@@ -1,9 +1,7 @@
 import {
   ActionDiceSide,
-  ActionResults,
   RollDiceResult,
   WeatherDiceSide,
-  WeatherResults,
 } from "../RollDice/RollDice";
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeometry";

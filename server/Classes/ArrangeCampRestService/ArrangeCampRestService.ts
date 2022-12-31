@@ -1,6 +1,9 @@
 import { IArrangeCampRestService } from "../../../interfaces/RestArrangeCampService/ArrangeCampRestService";
 
 export class ArrangeCampRestService implements IArrangeCampRestService {
+  // TODO: IMPLEMENT CHOICE BETWEEN BED EFFECT OR NORMAL EFFECT.
+  private _bed = false;
+
   get arrangeCampBonus(): "determination" | "morale" | null {
     return this._arrangeCampBonus;
   }
@@ -20,5 +23,13 @@ export class ArrangeCampRestService implements IArrangeCampRestService {
       arrangeCampBonus: this._arrangeCampBonus,
       pawnAmount: this._pawnAmount,
     };
+  }
+
+  get bed(): boolean {
+    return this._bed;
+  }
+
+  set bed(value: boolean) {
+    this._bed = value;
   }
 }

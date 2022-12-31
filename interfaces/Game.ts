@@ -1,21 +1,24 @@
-import { IThreat, IThreatRenderData } from "./Threat/Threat";
+import {
+  IEventService,
+  IEventServiceRenderData,
+} from "./EventService/EventService";
 import { IPawn, IPawnRenderData } from "./Pawns/Pawn";
-import { IBeasts, IBeastsRenderData } from "./Beasts/Beasts";
+import { IBeastService, IBeastServiceRenderData } from "./Beasts/BeastService";
 import { IPlayerRenderData } from "./PlayerService/Player";
 import {
   ITileService,
   ITilesServiceRenderData,
 } from "./TileService/ITileService";
 import {
-  IStructuresService,
-  IStructuresServiceRenderData,
-} from "./Structures/Structures";
+  IConstructionService,
+  IConstructionServiceRenderData,
+} from "./ConstructionService/IConstructionService";
 import {
-  IAllResources,
-  IAllResourcesRenderData,
+  IResourceService,
+  IResourceServiceRenderData,
 } from "./Resources/AllResources";
 import {
-  IActionSlotsService,
+  IActionSlotService,
   IActionSlotsServiceRenderData,
 } from "./ActionSlots";
 import {
@@ -25,9 +28,9 @@ import {
 import { IEquipment, IEquipmentRenderData } from "./Equipment/Equipment";
 import { Player } from "../server/Classes/Players/Player";
 import {
-  IInventionsService,
-  IInventionsServiceRenderData,
-} from "./Inventions/Inventions";
+  IInventionService,
+  IInventionServiceRenderData,
+} from "./InventionService/InventionService";
 
 import { IMorale, IMoraleRenderData } from "./Morale/Morale";
 import { IWeatherService, IWeatherServiceRenderData } from "./Weather/Weather";
@@ -62,18 +65,18 @@ import {
 export interface IGameRenderData {
   players: IPlayerRenderData[];
   localPlayer: IPlayerRenderData;
-  tilesService: ITilesServiceRenderData;
+  tileService: ITilesServiceRenderData;
   characterService: ICharacterServiceRenderData;
-  allResources: IAllResourcesRenderData;
-  structuresService: IStructuresServiceRenderData;
-  inventionsService: IInventionsServiceRenderData;
-  threat: IThreatRenderData;
-  equipment: IEquipmentRenderData;
-  actionSlotsService: IActionSlotsServiceRenderData;
+  resourceService: IResourceServiceRenderData;
+  constructionService: IConstructionServiceRenderData;
+  inventionService: IInventionServiceRenderData;
+  eventService: IEventServiceRenderData;
+  equipmentService: IEquipmentRenderData;
+  actionSlotService: IActionSlotsServiceRenderData;
   arrangeCampRestService: IArrangeCampRestServiceRenderData;
-  beasts: IBeastsRenderData;
+  beastService: IBeastServiceRenderData;
   phaseService: IPhaseServiceRenderData;
-  morale: IMoraleRenderData;
+  moraleService: IMoraleRenderData;
   round: number;
   logs: ILogMessageRenderData[];
   actionService: IActionServiceRenderData;
@@ -81,22 +84,24 @@ export interface IGameRenderData {
   scenarioService: IScenarioServiceRenderData;
   weatherService: IWeatherServiceRenderData;
   allPawns: IPawnRenderData[];
+  tokenService: ITokenServiceRenderData;
 }
 
 export interface IGame {
   playerService: IPlayerService;
   localPlayer: Player;
   characterService: ICharacterService;
-  tilesService: ITileService;
-  allResources: IAllResources;
-  structuresService: IStructuresService;
-  inventionsService: IInventionsService;
-  threat: IThreat;
-  equipment: IEquipment;
-  actionSlotsService: IActionSlotsService;
+  tileService: ITileService;
+  resourceService: IResourceService;
+  constructionService: IConstructionService;
+  inventionService: IInventionService;
+  eventService: IEventService;
+  equipmentService: IEquipment;
+  actionSlotService: IActionSlotService;
   arrangeCampRestService: IArrangeCampRestService;
-  beasts: IBeasts;
-  morale: IMorale;
+  beastService: IBeastService;
+  moraleService: IMorale;
+  tokenService: ITokenService;
   weatherService: IWeatherService;
   phaseService: IPhaseService;
   actionService: IActionService;

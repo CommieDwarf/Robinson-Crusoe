@@ -1,11 +1,11 @@
 # Board Game
 
-### by Konrad Czaczkowski
+### By Konrad Czaczkowski
 
 ## Purpose
 
 <strong>This is not a commercial product.</strong>
-<br> I've created this for learning purpouses and to play it with my close friends online since i liked this board game
+<br> I've created this for learning purposes and to play it with my close friends online since i liked this board game
 very much.
 
 ## About

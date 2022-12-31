@@ -4,9 +4,8 @@ import { useEffect, useState } from "react";
 import { IGameRenderData } from "../../interfaces/Game";
 import createGame from "../api/createGame";
 import getGameRenderData from "../api/getGame";
-import Game from "../../components/game/Game";
-import { GetServerSideProps, NextPage } from "next";
-import { resetServerContext } from "react-beautiful-dnd";
+import Game from "../../components/Game/Game";
+import { NextPage } from "next";
 
 type Props = {};
 const Play: NextPage = (props: Props) => {

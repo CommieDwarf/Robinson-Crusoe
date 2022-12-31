@@ -1,6 +1,3 @@
-import { ISideCharacter } from "../Characters/SideCharacter";
-import { IPlayerCharacter } from "../Characters/PlayerCharacter";
-
 export interface ISkillInfo {
   name: string;
   namePL: string;

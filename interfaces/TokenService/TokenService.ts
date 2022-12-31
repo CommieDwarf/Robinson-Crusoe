@@ -1,11 +1,9 @@
 import { IToken, ITokenRenderData } from "./Token";
-import { IPlayerCharacter } from "../Characters/PlayerCharacter";
 
 export interface ITokenService {
   ownedTokens: IToken[];
   renderData: ITokenServiceRenderData;
-  character: IPlayerCharacter;
-  useToken: (name: string) => void;
+  useToken: (userName: string, id: string, targetName: string | null) => void;
   autoUseOwnedTokens: () => void;
   addRandomTokenToOwned: () => void;
 }

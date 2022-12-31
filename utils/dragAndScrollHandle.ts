@@ -1,5 +1,5 @@
-import React, { MouseEvent as ReactMouseEvent, ReactEventHandler } from "react";
-import pawnStyles from "../components/game/interface/Pawn.module.css";
+import React from "react";
+import pawnStyles from "../components/Game/UI/Pawn.module.css";
 
 import { Scrollbars } from "react-custom-scrollbars";
 

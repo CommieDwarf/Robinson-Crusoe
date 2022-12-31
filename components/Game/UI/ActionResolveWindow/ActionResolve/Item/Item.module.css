@@ -1,0 +1,181 @@
+.container {
+    height: 200px !important;
+    aspect-ratio: 404 / 617 !important;
+    width: auto !important;
+    position: relative;
+    top: 30px !important;
+}
+
+.item {
+    aspect-ratio: var(--eventCardAspectRatio);
+    width: 100%;
+    position: relative;
+}
+
+.tile {
+    aspect-ratio: 1;
+    width: 100%;
+    position: relative;
+}
+
+.threat {
+    width: 100%;
+    height: 100%;
+}
+
+.construction {
+    width: 100%;
+    position: relative;
+}
+
+
+.structureLvl {
+    width: 100%;
+    font-size: 25px;
+    font-weight: bold;
+    position: absolute;
+    bottom: 0;
+}
+
+.lvl {
+    color: var(--build);
+    width: 100%;
+}
+
+.lvlSpan {
+    font-size: 20px;
+    font-weight: 500;
+    color: black;
+
+}
+
+.arrow {
+    width: 40px;
+    transform: rotate(90deg);
+    height: 40px;
+    position: relative;
+    margin: auto;
+
+}
+
+.shelter {
+    aspect-ratio: var(--shelterAspectRatio);
+    position: relative;
+}
+
+.roof {
+    aspect-ratio: var(--roofAspectRatio)
+
+}
+
+.palisade {
+    aspect-ratio: var(--palisadeAspectRatio)
+}
+
+.weapon {
+    aspect-ratio: var(--weaponAspectRatio);
+    width: 37%;
+    margin: auto;
+}
+
+.restArrange {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 447 / 559;
+}
+
+
+.gather {
+    width: 100%;
+}
+
+.gatherAmount {
+    display: inline-block;
+    vertical-align: top;
+    font-weight: bold;
+    position: relative;
+    top: 15px;
+    font-size: 20px;
+}
+
+
+.resourceIcon {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+}
+
+.status {
+    position: absolute;
+    height: 50px;
+    top: 60px;
+    left: 0;
+    z-index: 999999999;
+    font-weight: bold;
+    font-size: 40px;
+    transform: rotate(45deg);
+
+}
+
+.success {
+    -webkit-text-stroke: 2px darkgreen;
+    color: limegreen;
+
+}
+
+.failure {
+    -webkit-text-stroke: 2px darkred;
+    color: orangered;
+    /*left: -10px;*/
+}
+
+
+.structureStatus {
+    top: 20px;
+}
+
+.tileStatus {
+    top: 36px;
+
+}
+
+
+.resolveButton {
+    height: 25px !important;
+    top: 100%;
+    font-size: 15px;
+    font-weight: bold;
+    color: var(--brown);
+    border: 2px solid var(--brown);
+    border-radius: 5px;
+    margin: auto;
+    line-height: 10px;
+    padding: 5px;
+    -webkit-box-shadow: 4px 4px 5px -4px var(--brown);
+    -moz-box-shadow: 4px 4px 5px -4px var(--brown);
+    box-shadow: 4px 4px 5px -4px var(--brown);
+}
+
+.clickableButton:hover {
+    color: green;
+    border: 2px solid darkgreen;
+    transform: scale(110%);
+    cursor: pointer;
+}
+
+.locked {
+    opacity: 0.4;
+}
+
+
+.character {
+    width: 50px !important;
+    height: 50px !important;
+    position: relative;
+    border: 2px solid orange;
+    border-radius: 100% !important;
+    overflow: hidden;
+    margin: 5px auto auto;
+    background-color: bisque;
+}

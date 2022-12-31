@@ -1,23 +1,35 @@
-import ActionSlot from "../components/game/interface/ActionSlot";
+import ActionSlot from "../components/Game/UI/ActionSlot";
 
-import { IPawn, IPawnRenderData } from "../interfaces/Pawns/Pawn";
-import { IInventionRenderData } from "../interfaces/Inventions/Invention";
-import { IStructureRenderData } from "../interfaces/Structures/Structure";
+import { IPawnRenderData } from "../interfaces/Pawns/Pawn";
+import { IInventionRenderData } from "../interfaces/InventionService/Invention";
+import { IConstructionRenderData } from "../interfaces/ConstructionService/Construction";
+import { ACTION_ITEM, getDroppableID } from "./getDroppableID";
+import { ACTION } from "../interfaces/ACTION";
 
 export default function getHelperActionSlots(
-  object: IInventionRenderData | IStructureRenderData,
+  object: IInventionRenderData | IConstructionRenderData,
   actionSlots: Map<string, IPawnRenderData | null>
 ) {
   const helperActionSlots = [];
   for (let i = 0; i < object.requiredHelpersAmount + 1; i++) {
     let actionSlotId;
-    let context: "invention" | "structure";
+    let context;
     if ("lvl" in object) {
-      actionSlotId = "structure-" + object.name + "-helper-" + (i + 1);
-      context = "structure";
+      actionSlotId = getDroppableID(
+        ACTION_ITEM.CONSTRUCTION,
+        object.name,
+        "",
+        i + 1
+      );
+      context = ACTION_ITEM.CONSTRUCTION;
     } else {
-      actionSlotId = "invention-" + object.name + "-helper-" + (i + 1);
-      context = "invention";
+      actionSlotId = getDroppableID(
+        ACTION_ITEM.INVENTION,
+        object.name,
+        "",
+        i + 1
+      );
+      context = ACTION_ITEM.INVENTION;
     }
     let helperPawn = actionSlots.get(actionSlotId);
     helperPawn = helperPawn ? helperPawn : null;
@@ -25,7 +37,7 @@ export default function getHelperActionSlots(
       <ActionSlot
         type={"helper"}
         pawn={helperPawn}
-        action={"build"}
+        action={ACTION.BUILD}
         context={context}
         id={actionSlotId}
         key={actionSlotId}

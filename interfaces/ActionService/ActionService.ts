@@ -1,42 +1,32 @@
 import {
-  IResolvableActionService,
-  IResolvableActionServiceRenderData,
+  ISpecificActionService,
+  ISpecificActionServiceRenderData,
 } from "./IActionResolvableService";
-import { Action } from "../Action";
+import { ACTION } from "../ACTION";
 import { IResolvableItem, IResolvableItemRenderData } from "./IResolvableItem";
 
 export interface IActionService {
-  resolvableActionServices: IResolvableActionServices;
+  specificActionServices: ISpecificActionServices;
   finished: boolean;
-  currentResolvableActionService: IResolvableActionService;
+  currentResolvableActionService: ISpecificActionService;
   renderData: IActionServiceRenderData;
   setNextAction: () => void;
-  resolveItem: (action: Action, droppableId: string) => void;
+  resolveItem: (action: ACTION, droppableId: string) => void;
   updateItems: () => void;
   lastResolvedItem: IResolvableItem | null;
 }
 
-export interface IResolvableActionServices {
-  threat: IResolvableActionService;
-  hunt: IResolvableActionService;
-  build: IResolvableActionService;
-  gather: IResolvableActionService;
-  explore: IResolvableActionService;
-  arrangeCamp: IResolvableActionService;
-  rest: IResolvableActionService;
-}
+export type ISpecificActionServices = {
+  [key in ACTION]: ISpecificActionService;
+};
+
+export type ISpecificActionServicesRenderData = {
+  [key in ACTION]: ISpecificActionServiceRenderData;
+};
 
 export interface IActionServiceRenderData {
-  resolvableActionServices: {
-    threat: IResolvableActionServiceRenderData;
-    hunt: IResolvableActionServiceRenderData;
-    build: IResolvableActionServiceRenderData;
-    gather: IResolvableActionServiceRenderData;
-    explore: IResolvableActionServiceRenderData;
-    arrangeCamp: IResolvableActionServiceRenderData;
-    rest: IResolvableActionServiceRenderData;
-  };
+  specificActionServices: ISpecificActionServicesRenderData;
   finished: boolean;
-  currentResolve: IResolvableActionServiceRenderData;
+  currentResolve: ISpecificActionServiceRenderData;
   lastResolvedItem: IResolvableItemRenderData | null;
 }

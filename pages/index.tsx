@@ -3,7 +3,7 @@ import { IGameRenderData } from "../interfaces/Game";
 import { useEffect, useState } from "react";
 import createGame from "./api/createGame";
 import getGameRenderData from "./api/getGame";
-import Game from "../components/game/Game";
+import Game from "../components/Game/Game";
 
 const Home: NextPage = () => {
   const [gameRenderData, setGameRenderData] = useState<IGameRenderData>();

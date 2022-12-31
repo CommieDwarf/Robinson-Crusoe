@@ -1,6 +1,5 @@
 import { ICharEffects } from "./CharEffects";
 import { IPawnService, IPawnServiceRenderData } from "../Pawns/Pawns";
-import { IPawnRenderData } from "../Pawns/Pawn";
 import {
   ISkillService,
   ISkillServiceRenderData,
@@ -9,7 +8,7 @@ import { CHARACTER_PL } from "../TRANSLATE_PL/CATEGORIES/CHARACTER_PL";
 
 export interface ICharacterRenderData {
   pawnService: IPawnServiceRenderData;
-  name: CharacterName;
+  name: CHARACTER;
   namePL: CHARACTER_PL;
   id: number;
   health: number;
@@ -21,7 +20,7 @@ export interface ICharacterRenderData {
 
 export interface ICharacter {
   pawnService: IPawnService;
-  name: CharacterName;
+  name: CHARACTER;
   id: number;
   maxHealth: number;
   effects: ICharEffects;
@@ -38,12 +37,13 @@ export interface ICharacter {
   heal: (by: number) => void;
 }
 
-export type CharacterName =
-  | "explorer"
-  | "carpenter"
-  | "cook"
-  | "soldier"
-  | "dog"
-  | "friday";
+export enum CHARACTER {
+  EXPLORER = "explorer",
+  CARPENTER = "carpenter",
+  COOK = "cook",
+  SOLDIER = "soldier",
+  DOG = "dog",
+  FRIDAY = "friday",
+}
 
 export type Gender = "male" | "female";

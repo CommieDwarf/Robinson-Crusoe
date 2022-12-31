@@ -1,17 +1,18 @@
 import { IResources, IResourcesAmount } from "./Resources";
-import { ICharacter } from "../Characters/Character";
 
-export interface IAllResourcesRenderData {
+export interface IResourceServiceRenderData {
   future: IResourcesAmount;
   owned: IResourcesAmount;
 }
 
-export interface IAllResources {
+export interface IResourceService {
   future: IResources;
   owned: IResources;
   addFutureToOwned: () => void;
   addToOwned: (resources: IResources) => void;
-  renderData: IAllResourcesRenderData;
+  renderData: IResourceServiceRenderData;
+  cellar: boolean;
+  pit: boolean;
   addResourceToOwned: (
     resource: keyof IResourcesAmount,
     amount: number,
@@ -22,16 +23,23 @@ export interface IAllResources {
     amount: number,
     logSource: string
   ) => void;
-  productionBlocked: boolean;
-  canOwnedAfford: (resources: IResources) => boolean;
-  spendFromOwned: (
+  blockedProductionRound: number | null;
+  canAffordResource: (
+    resource: keyof IResourcesAmount,
+    amount: number
+  ) => boolean;
+  canAffordResources: (resources: IResources) => boolean;
+  spendResourceIfPossible: (
     resource: keyof IResourcesAmount,
     amount: number,
     logSource: string
   ) => void;
-  spendOrSuffer: (
+  spendResourceOrGetHurt: (
     resource: keyof IResourcesAmount,
     amount: number,
     logSource: string
   ) => void;
+
+  spendResourcesIfPossible: (resources: IResources, logSource: string) => void;
+  spendResourcesOrGetHurt: (resources: IResources, logSource: string) => void;
 }

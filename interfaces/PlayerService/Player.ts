@@ -1,4 +1,3 @@
-import { ICharacter, ICharacterRenderData } from "../Characters/Character";
 import {
   IPlayerCharacter,
   IPlayerCharacterRenderData,

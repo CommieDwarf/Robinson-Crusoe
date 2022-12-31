@@ -1,13 +1,14 @@
 import shuffle from "../../../utils/shuffleArray";
-import Entries from "../../../interfaces/Entries";
 import {
   IEquipment,
   IEquipmentRenderData,
 } from "../../../interfaces/Equipment/Equipment";
-import { IItem } from "../../../interfaces/Equipment/Item";
+import { IItem, ITEM } from "../../../interfaces/Equipment/Item";
 import { IGame } from "../../../interfaces/Game";
-import { Item } from "./Item";
 import { EqList, equipmentList } from "../../../constants/eqList";
+import { ItemCreator } from "./ItemCreator/ItemCreator";
+import { IPlayerCharacter } from "../../../interfaces/Characters/PlayerCharacter";
+import { ICharacter } from "../../../interfaces/Characters/Character";
 
 export class Equipment implements IEquipment {
   get renderData(): IEquipmentRenderData {
@@ -18,39 +19,39 @@ export class Equipment implements IEquipment {
 
   items: IItem[];
   game: IGame;
+  private _itemCreator;
 
   constructor(game: IGame) {
     this.game = game;
+    this._itemCreator = new ItemCreator(game);
     this.items = this.getInitialItems(equipmentList);
   }
 
   getInitialItems(itemList: EqList): IItem[] {
-    const items = Object.entries(itemList) as Entries<EqList>;
+    const items = Object.values(ITEM);
     const random2Items = shuffle(items).slice(0, 2);
-    return random2Items.map(([name, plName]) => {
-      return new Item(name, plName, this.game);
+    return random2Items.map((item) => this._itemCreator.create(item));
+  }
+
+  useItem(item: ITEM, user: IPlayerCharacter, target: ICharacter = user) {
+    this.getItem(item).use(user, target);
+  }
+
+  hasUses(item: ITEM) {
+    return this.getItem(item).hasUses;
+  }
+
+  getUses(item: ITEM) {
+    return this.getItem(item).uses;
+  }
+
+  private getItem(item: ITEM) {
+    const found = this.items.find((it) => {
+      return it.name === item;
     });
-  }
-
-  useItem(name: keyof EqList) {
-    this.getItem(name).use();
-  }
-
-  hasUses(name: keyof EqList) {
-    return this.getItem(name).use();
-  }
-
-  getUses(name: keyof EqList) {
-    return this.getItem(name).uses;
-  }
-
-  private getItem(name: keyof EqList) {
-    const item = this.items.find((item) => {
-      return item.name === name;
-    });
-    if (!item) {
-      throw new Error("You don't have equipment item with such name: " + name);
+    if (!found) {
+      throw new Error("You don't have equipment item with such name: " + item);
     }
-    return item;
+    return found;
   }
 }

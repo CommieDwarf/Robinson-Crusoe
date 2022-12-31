@@ -109,34 +109,14 @@ export abstract class Character implements ICharacter {
 
   incrDetermination(by: number) {
     this._determination += by;
-    // this._game.chatLog.addMessage(
-    //   `${this.namePL} otrzymuje ${by} determinacji`,
-    //   "green",
-    //   logSource
-    // );
   }
 
   decrDetermination(by: number) {
-    // if (logSource) {
-    //   this._game.chatLog.addMessage(
-    //     `${this.namePL} odrzuca ${by} determinacji`,
-    //     "red",
-    //     logSource
-    //   );
-    // }
-
     this._determination -= by;
   }
 
   hurt(by: number) {
     this._health -= by;
-    // if (logSource) {
-    //   this._game.chatLog.addMessage(
-    //     `${this.namePL} dostaje ${by} obrażeń`,
-    //     "red",
-    //     logSource
-    //   );
-    // }
   }
 
   heal(by: number) {

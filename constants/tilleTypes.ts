@@ -1,12 +1,12 @@
 import {
-  TerrainType,
+  TERRAIN_TYPE,
   TileExtras,
   TileResource,
 } from "../interfaces/TileService/ITile";
 
 export class TileType {
   id: number;
-  terrainType: TerrainType;
+  terrainType: TERRAIN_TYPE;
   resources: {
     left: TileResource;
     right: TileResource;
@@ -15,7 +15,7 @@ export class TileType {
 
   constructor(
     id: number,
-    terrainType: TerrainType,
+    terrainType: TERRAIN_TYPE,
     resources: { left: TileResource; right: TileResource },
     extras: TileExtras
   ) {
@@ -29,61 +29,61 @@ export class TileType {
 export const tileTypes: TileType[] = [
   new TileType(
     1,
-    "hills",
+    TERRAIN_TYPE.HILLS,
     { left: "wood", right: "food" },
     { discoveryToken: 1, totem: true, naturalShelter: false }
   ),
   new TileType(
     2,
-    "river",
+    TERRAIN_TYPE.RIVER,
     { left: "beast", right: "food" },
     { discoveryToken: 3, totem: false, naturalShelter: false }
   ),
   new TileType(
     3,
-    "plains",
+    TERRAIN_TYPE.PLAINS,
     { left: "wood", right: "beast" },
     { discoveryToken: 2, totem: false, naturalShelter: false }
   ),
   new TileType(
     4,
-    "plains",
+    TERRAIN_TYPE.PLAINS,
     { left: "food", right: "beast" },
     { discoveryToken: 3, totem: false, naturalShelter: false }
   ),
   new TileType(
     5,
-    "mountains",
+    TERRAIN_TYPE.MOUNTAINS,
     { left: "wood", right: "beast" },
     { discoveryToken: 1, totem: false, naturalShelter: true }
   ),
   new TileType(
     6,
-    "hills",
+    TERRAIN_TYPE.HILLS,
     { left: "wood", right: "beast" },
     { discoveryToken: 2, totem: true, naturalShelter: false }
   ),
   new TileType(
     7,
-    "mountains",
+    TERRAIN_TYPE.MOUNTAINS,
     { left: "food", right: "wood" },
     { discoveryToken: 1, totem: true, naturalShelter: false }
   ),
   new TileType(
     8,
-    "mountains",
+    TERRAIN_TYPE.MOUNTAINS,
     { left: "food", right: "beast" },
     { discoveryToken: 1, totem: true, naturalShelter: true }
   ),
   new TileType(
     9,
-    "river",
+    TERRAIN_TYPE.RIVER,
     { left: "wood", right: "food" },
     { discoveryToken: 1, totem: true, naturalShelter: false }
   ),
   new TileType(
     10,
-    "plains",
+    TERRAIN_TYPE.PLAINS,
     { left: "food", right: "wood" },
     { discoveryToken: 1, totem: true, naturalShelter: false }
   ),
@@ -91,7 +91,7 @@ export const tileTypes: TileType[] = [
 
 export const starterTile = new TileType(
   0,
-  "beach",
+  TERRAIN_TYPE.BEACH,
   { left: "wood", right: "food" },
   { discoveryToken: 0, totem: false, naturalShelter: false }
 );

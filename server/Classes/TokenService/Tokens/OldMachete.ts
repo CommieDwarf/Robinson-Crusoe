@@ -1,14 +1,22 @@
 import { Token } from "./Token/Token";
 import { IGame } from "../../../../interfaces/Game";
+import { CONSTRUCTION } from "../../../../interfaces/ConstructionService/Construction";
+import { DISCOVERY_TOKEN } from "../../../../interfaces/TokenService/Token";
 import { IPlayerCharacter } from "../../../../interfaces/Characters/PlayerCharacter";
+import { ICharacter } from "../../../../interfaces/Characters/Character";
 
 export class OldMachete extends Token {
-  constructor(game: IGame, character: IPlayerCharacter) {
-    super(game, character, "oldMachete", "Otrzymujesz +1 do broni");
+  constructor(game: IGame) {
+    super(game, DISCOVERY_TOKEN.OLD_MACHETE, "Otrzymujesz +1 do broni");
   }
 
-  use() {
-    this._game.structuresService.lvlUpStruct("weapon", 1, this._sourceLog);
+  use(user: IPlayerCharacter, target: ICharacter | null = null) {
+    super.use(user);
+    this._game.constructionService.lvlUpConstruction(
+      CONSTRUCTION.WEAPON,
+      1,
+      this._sourceLog
+    );
     this._used = true;
   }
 

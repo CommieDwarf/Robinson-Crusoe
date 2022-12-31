@@ -5,6 +5,7 @@ export interface IArrangeCampRestService {
   };
   arrangeCampBonus: "determination" | "morale" | null;
   renderData: IArrangeCampRestServiceRenderData;
+  bed: boolean;
 }
 
 export interface IArrangeCampRestServiceRenderData {
@@ -12,5 +13,6 @@ export interface IArrangeCampRestServiceRenderData {
     rest: number;
     arrangeCamp: number;
   };
+
   arrangeCampBonus: "determination" | "morale" | null;
 }

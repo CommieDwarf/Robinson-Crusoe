@@ -1,9 +1,9 @@
 type ComponentName =
   | "map"
   | "inventions"
-  | "structures"
+  | "constructions"
   | "additionalActivities"
-  | "threat"
+  | "event"
   | "hunt"
   | "scenario"
   | "character";
@@ -24,16 +24,16 @@ export default function getComponentNameFromSourceId(
 ): ComponentName {
   if (sourceId.includes("tile")) {
     return "map";
-  } else if (sourceId.includes("structure")) {
-    return "structures";
+  } else if (sourceId.includes("construction")) {
+    return "constructions";
   } else if (stringIncludesSomeArrayElement(scenarioCards, sourceId)) {
     return "scenario";
   } else if (sourceId.includes("invention")) {
     return "inventions";
   } else if (sourceId.includes("hunt")) {
     return "hunt";
-  } else if (sourceId.includes("threat")) {
-    return "threat";
+  } else if (sourceId.includes("event")) {
+    return "event";
   } else {
     return "character";
   }

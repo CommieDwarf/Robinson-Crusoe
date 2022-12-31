@@ -30,6 +30,10 @@ export class TileGraph extends Graph<ITile> implements ITileGraph {
     this.updateCanCampBeSettled();
   }
 
+  public canCampBeMoved(): boolean {
+    return this.vertices.some((vertex) => vertex.data.canCampBeSettled);
+  }
+
   private updateCanCampBeSettled() {
     this.vertices.forEach((vertex) => {
       vertex.data.canCampBeSettled = vertex.edges.some(
@@ -38,7 +42,7 @@ export class TileGraph extends Graph<ITile> implements ITileGraph {
     });
   }
 
-  private initVertices(campTileID) {
+  private initVertices(campTileID: number) {
     for (let i = 0; i < 15; i++) {
       if (i === campTileID) {
         this.addVertex(

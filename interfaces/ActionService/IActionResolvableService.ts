@@ -1,15 +1,15 @@
-import { Action } from "../Action";
+import { ACTION } from "../ACTION";
 
 import { IResolvableItem, IResolvableItemRenderData } from "./IResolvableItem";
 
-export interface IResolvableActionService {
-  action: Action;
+export interface ISpecificActionService {
+  action: ACTION;
   eventToken: boolean;
   reRollToken: boolean;
   helperAmountRequired: number;
   items: IResolvableItem[];
   finished: boolean;
-  renderData: IResolvableActionServiceRenderData;
+  renderData: ISpecificActionServiceRenderData;
   updateItems: () => void;
   clearItems: () => void;
   resolveItem: (droppableId: string) => void;
@@ -22,8 +22,8 @@ export enum RESOLVE_ITEM_STATUS {
   PENDING = "PENDING",
 }
 
-export interface IResolvableActionServiceRenderData {
+export interface ISpecificActionServiceRenderData {
   items: IResolvableItemRenderData[];
   finished: boolean;
-  action: Action;
+  action: ACTION;
 }

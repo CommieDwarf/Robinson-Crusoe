@@ -1,39 +1,39 @@
-import { TOKEN_PL } from "../TRANSLATE_PL/CATEGORIES/TOKEN_PL";
+import { ICharacter } from "../Characters/Character";
+import { IPlayerCharacter } from "../Characters/PlayerCharacter";
 
 export interface IToken {
-  name: keyof typeof TOKEN_PL;
-  namePL: TOKEN_PL;
+  name: DISCOVERY_TOKEN;
   description: string;
   used: boolean;
   renderData: ITokenRenderData;
-  use: () => void;
-  autoUse: () => void;
+  //TODO: ADD TARGET PARAMETER
+  use: (user: IPlayerCharacter, target: ICharacter | null) => void;
+  autoDiscard: () => void;
   id: string;
 }
 
 export interface ITokenRenderData {
-  name: keyof typeof TOKEN_PL;
-  namePL: TOKEN_PL;
+  name: DISCOVERY_TOKEN;
   description: string;
   id: string;
 }
 
-export enum DiscoveryTokenName {
-  candles = "candles",
-  fallenTree = "fallenTree",
-  goat = "goat",
-  herbs = "herbs",
-  healingHerbs = "healingHerbs",
-  largeLeaves = "largeLeaves",
-  nourishingLarvae = "nourishingLarvae",
-  oldMachete = "oldMachete",
-  poison = "poison",
-  thornyBushes = "thornyBushes",
-  tobacco = "tobacco",
-  treasure = "treasure",
-  vegetables = "vegetables",
-  scenario1 = "scenario1",
-  scenario2 = "scenario2",
-  scenario3 = "scenario3",
-  scenario4 = "scenario4",
+export enum DISCOVERY_TOKEN {
+  CANDLES = "candles",
+  FALLEN_TREE = "fallen tree",
+  GOAT = "goat",
+  HERBS = "herbs",
+  HEALING_HERBS = "healing herbs",
+  LARGE_LEAVES = "large leaves",
+  NOURISHING_LARVAE = "nourishing larvae",
+  OLD_MACHETE = "old machete",
+  POISON = "poison",
+  TREASURE = "treasure",
+  THORNY_BUSHES = "thorny bushes",
+  TOBACCO = "tobacco",
+  VEGETABLES = "vegetables",
+  SCENARIO_1 = "scenario 1",
+  SCENARIO_2 = "scenario 2",
+  SCENARIO_3 = "scenario 3",
+  SCENARIO_4 = "scenario 4",
 }

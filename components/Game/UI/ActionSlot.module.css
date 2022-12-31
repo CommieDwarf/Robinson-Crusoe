@@ -1,0 +1,78 @@
+.container {
+    border-radius: 100%;
+    background-color: white;
+    border: 1px dashed #451e14;
+    position: relative;
+    aspect-ratio: 1;
+    background-size: contain;
+    z-index: 50;
+}
+
+.actionSlot {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 2;
+}
+
+.canBeSettled {
+    background-color: lightgreen !important;
+    z-index: 0;
+}
+
+.cantBeSettled {
+    background-color: red !important;
+}
+
+
+.gather {
+    width: 99%;
+    background-image: url("../../../public/UI/actionSlots/gather.png");
+}
+
+.explore {
+    width: 50%;
+    background-image: url("../../../public/UI/actionSlots/explore.png");
+}
+
+.construction {
+    width: 33%;
+    height: 100%;
+    background-image: url("../../../public/UI/actionSlots/build.png");
+}
+
+.event {
+    height: 33px;
+    width: 33px;
+    background-image: url("../../../public/UI/actionSlots/threat.png");
+}
+
+.invention {
+    width: 33%;
+    height: 100%;
+    background-image: url("../../../public/UI/actionSlots/build.png");
+}
+
+.hunt {
+    width: 50%;
+    height: 100%;
+    display: inline-block;
+    background-image: url("../../../public/UI/actionSlots/hunt.png");
+}
+
+.arrange-camp {
+    width: 25px;
+    height: 25px;
+    background-image: url("../../../public/UI/actionSlots/arrange-camp.png");
+}
+
+.rest {
+    width: 25px;
+    height: 25px;
+    background-image: url("../../../public/UI/actionSlots/rest.png");
+}
+
+.helper {
+    /* if action is type of helper it overrides action's background image*/
+    background-image: url("../../../public/UI/actionSlots/helper.png") !important;
+}

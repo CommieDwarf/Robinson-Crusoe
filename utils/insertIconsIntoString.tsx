@@ -1,4 +1,4 @@
-import styles from "../components/game/interface/character/SkillMenu/SkillMenu.module.css";
+import styles from "../components/Game/UI/character/SkillMenu/SkillMenu.module.css";
 import Image from "next/image";
 import React from "react";
 
@@ -6,27 +6,28 @@ const icons = [
   "determination",
   "heart",
   "reroll",
-  "rainCloud",
-  "snowCloud",
+  "rain-cloud",
+  "snow-cloud",
   "food",
 ];
 
 export function insertIconsIntoString(string: string) {
   const array = string.split("$");
 
-  return array.map((st) => {
-    if (icons.includes(st)) {
+  return array.map((str, i) => {
+    if (icons.includes(str)) {
       return (
-        <div className={styles.icon}>
+        <div className={styles.icon} key={i}>
           <Image
-            src={`/interface/characters/icons/${st}.png`}
-            layout="fill"
-            alt={st}
+            src={`/UI/icons/${str}.png`}
+            fill
+            sizes={styles.icon}
+            alt={str}
           />
         </div>
       );
     } else {
-      return st;
+      return <span key={i}>{str}</span>;
     }
   });
 }

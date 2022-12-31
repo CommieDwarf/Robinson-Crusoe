@@ -12,7 +12,7 @@ export class Tile implements ITile {
   private readonly _id: number;
   private _show: boolean;
   private _type: TileType | null;
-  private _helpersRequired: number;
+  private _helpersRequired: number = 0;
   private _canCampBeSettled = false;
   private readonly _game: IGame;
   private _camp: boolean;

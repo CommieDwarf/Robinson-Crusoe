@@ -1,9 +1,15 @@
-import { Action } from "../Action";
+import { ACTION } from "../ACTION";
 import { IPawn, IPawnHelper, IPawnRenderData } from "../Pawns/Pawn";
-import { IEventCard, IEventCardRenderData } from "../Threat/EventCard";
+import { IEventCard, IEventCardRenderData } from "../EventService/EventCard";
 import { IBeast, IBeastRenderData } from "../Beasts/Beast";
-import { IInvention, IInventionRenderData } from "../Inventions/Invention";
-import { IStructure, IStructureRenderData } from "../Structures/Structure";
+import {
+  IInvention,
+  IInventionRenderData,
+} from "../InventionService/Invention";
+import {
+  IConstruction,
+  IConstructionRenderData,
+} from "../ConstructionService/Construction";
 import { ITile, ITileRenderData } from "../TileService/ITile";
 
 import { RESOLVE_ITEM_STATUS } from "./IActionResolvableService";
@@ -15,13 +21,11 @@ import {
   ActionDice,
   ActionRollDiceInfo,
   DiceActionType,
-  RollDiceResult,
 } from "../RollDice/RollDice";
-import { RollDiceService } from "../../server/Classes/RollDiceService/RollDiceService";
 
-export interface IResolvableItem {
+export interface IResolvableItem<Content> {
   droppableId: string;
-  content: IResolvableItemContent;
+  content: Content;
   additionalInfo: IResolvableItemAdditionalInfo;
   status: RESOLVE_ITEM_STATUS;
   leader: IPawn;
@@ -38,14 +42,14 @@ export type IResolvableItemContentRenderData =
   | IEventCardRenderData
   | IBeastRenderData
   | IInventionRenderData
-  | IStructureRenderData
+  | IConstructionRenderData
   | ITileRenderData
   | IArrangeCampRestServiceRenderData;
 
 export interface IResolvableItemRenderData {
   droppableId: string;
   content: IResolvableItemContentRenderData;
-  action: Action;
+  action: ACTION;
   additionalInfo: IResolvableItemAdditionalInfo;
   status: RESOLVE_ITEM_STATUS;
   leader: IPawnRenderData;
@@ -56,7 +60,7 @@ export type IResolvableItemContent =
   | IEventCard
   | IBeast
   | IInvention
-  | IStructure
+  | IConstruction
   | ITile
   | IArrangeCampRestService;
 
