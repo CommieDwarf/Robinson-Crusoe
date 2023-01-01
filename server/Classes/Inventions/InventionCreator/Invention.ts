@@ -1,6 +1,7 @@
 import {
   IInvention,
   IInventionRenderData,
+  INVENTION,
   INVENTION_TYPE,
   InventionRequirements,
 } from "../../../../interfaces/InventionService/Invention";
@@ -13,7 +14,7 @@ import { Resources } from "../../ResourceService/Resources";
 import { IGame } from "../../../../interfaces/Game";
 
 export class Invention implements IInvention {
-  protected readonly _name: string;
+  protected readonly _name: INVENTION;
   protected _locked = true;
   protected readonly _requirements: InventionRequirements;
   protected readonly _resourceChoice: boolean = false;
@@ -29,7 +30,7 @@ export class Invention implements IInvention {
   protected _used: boolean = false;
 
   constructor(
-    name: string,
+    name: INVENTION,
     requirements: InventionRequirements,
     type: INVENTION_TYPE,
     cost: IResources | null,
@@ -83,7 +84,7 @@ export class Invention implements IInvention {
     this._built = value;
   }
 
-  get name(): string {
+  get name(): INVENTION {
     return this._name;
   }
 

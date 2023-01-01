@@ -12,6 +12,10 @@ import {
 import { phaseOrder } from "../../../constants/phaseOrder";
 import { MissingPawnError } from "../Errors/MissingPawnError";
 import capitalizeFirstLetter from "../../../utils/capitalizeFirstLetter";
+import { SlotsOccupied } from "../../../interfaces/ActionSlots";
+import Entries from "../../../interfaces/Entries";
+import { ACTION } from "../../../interfaces/ACTION";
+import { getItemFromDroppableId } from "../../../utils/getItemFromDroppableId";
 
 export class PhaseService implements IPhaseService {
   private _phase: Phase = "event";
@@ -77,6 +81,11 @@ export class PhaseService implements IPhaseService {
   }
 
   goNextPhase() {
+    if (this._phase === "action") {
+      if (!this._game.actionService.finished) {
+        return;
+      }
+    }
     try {
       this.phaseEffects[this._phase]();
       this._phaseIndex =
@@ -147,12 +156,10 @@ export class PhaseService implements IPhaseService {
 
   private preActionEffect = () => {
     try {
-      this._game.actionService.updateItems();
-    } catch (error) {
-      throw error;
-    }
-
-    this.locked = true;
+      this._game.actionSlotService.checkMissingPawns();
+      this._game.actionService.loadItems();
+      this.locked = true;
+    } catch {}
   };
 
   private actionEffect = () => {
@@ -170,4 +177,25 @@ export class PhaseService implements IPhaseService {
     this._game.setNextRound();
     this._game.tileService.campJustMoved = false;
   };
+
+  private checkPreActionForMissingPawns() {
+    const slots = this._game.actionSlotService.slotsOccupiedAndCategorized;
+
+    const entries = Object.entries(slots) as Entries<SlotsOccupied>;
+
+    entries.forEach(([action, slotMap]) => {
+      if (action === ACTION.REST || action === ACTION.ARRANGE_CAMP) {
+        return;
+      }
+      const items: any[] = [];
+      slotMap.forEach((pawn, droppableID) => {
+        items.push(getItemFromDroppableId(droppableID, this._game));
+      });
+
+      items.forEach((item) => {
+        switch (true) {
+        }
+      });
+    });
+  }
 }

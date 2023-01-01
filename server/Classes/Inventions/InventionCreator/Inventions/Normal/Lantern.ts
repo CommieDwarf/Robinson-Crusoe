@@ -1,5 +1,6 @@
 import {
   IInvention,
+  INVENTION_NORMAL,
   INVENTION_STARTER,
   INVENTION_TYPE,
 } from "../../../../../../interfaces/InventionService/Invention";
@@ -11,7 +12,7 @@ import { PAWN_HELPER_ACTION } from "../../../../../../interfaces/Pawns/Pawn";
 export class Lantern extends HelperPawnInvention implements IInvention {
   constructor(game: IGame) {
     super(
-      "lantern",
+      INVENTION_NORMAL.LANTERN,
       { terrainType: TERRAIN_TYPE.HILLS, inventions: [INVENTION_STARTER.FIRE] },
       INVENTION_TYPE.NORMAL,
       null,

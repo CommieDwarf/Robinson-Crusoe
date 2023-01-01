@@ -1,6 +1,7 @@
 import { Invention } from "../../Invention";
 import {
   IInvention,
+  INVENTION_PERSONAL,
   INVENTION_STARTER,
   INVENTION_TYPE,
 } from "../../../../../../interfaces/InventionService/Invention";
@@ -11,7 +12,7 @@ import { CONSTRUCTION } from "../../../../../../interfaces/ConstructionService/C
 export class Spear extends Invention implements IInvention {
   constructor(game: IGame) {
     super(
-      "spear",
+      INVENTION_PERSONAL.SPEAR,
       { terrainType: null, inventions: [INVENTION_STARTER.KNIFE] },
       INVENTION_TYPE.NORMAL,
       new Resources(0, 0, 1, 0),

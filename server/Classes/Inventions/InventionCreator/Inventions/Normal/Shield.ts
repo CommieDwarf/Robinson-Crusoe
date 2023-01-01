@@ -1,6 +1,7 @@
 import { HelperPawnInvention } from "../../HelperPawnInvention";
 import {
   IInvention,
+  INVENTION_NORMAL,
   INVENTION_STARTER,
   INVENTION_TYPE,
 } from "../../../../../../interfaces/InventionService/Invention";
@@ -11,7 +12,7 @@ import { PAWN_HELPER_ACTION } from "../../../../../../interfaces/Pawns/Pawn";
 export class Shield extends HelperPawnInvention implements IInvention {
   constructor(game: IGame) {
     super(
-      "shield",
+      INVENTION_NORMAL.SHIELD,
       { terrainType: null, inventions: [INVENTION_STARTER.ROPE] },
       INVENTION_TYPE.NORMAL,
       new Resources(0, 0, 1, 0),

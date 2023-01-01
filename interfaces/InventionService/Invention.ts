@@ -6,17 +6,17 @@ export interface IInventionRenderData {
   name: string;
   locked: boolean;
   requiredHelpersModifier: number;
-  requiredHelpersAmount: number;
+  requiredHelperAmount: number;
   type: INVENTION_TYPE;
   committedResources: IResourcesAmount;
   isBuilt: boolean;
 }
 
 export interface IInvention {
-  name: string;
+  name: INVENTION;
   locked: boolean;
   requiredHelpersModifier: number;
-  requiredHelpersAmount: number;
+  requiredHelperAmount: number;
   type: INVENTION_TYPE;
   committedResources: IResources;
   isBuilt: boolean;

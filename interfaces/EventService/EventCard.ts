@@ -7,7 +7,7 @@ export interface IEventCardRenderData {
   id: string;
   name: string;
   type: EVENT_TYPE;
-  requiredPawns: number;
+  requiredHelperAmount: number;
 }
 
 export enum EVENT_TYPE {
@@ -61,6 +61,7 @@ export interface IEventCard {
   renderData: IEventCardRenderData;
   type: EVENT_TYPE;
   requirements: EventResolveRequirements;
+  requiredHelperAmount: number;
 
   triggerEffect(): void;
 

@@ -2,6 +2,7 @@ import { IGame } from "../interfaces/Game";
 import { EventCard } from "../server/Classes/EventService/EventCardCreator/EventCard";
 import { CONSTRUCTION } from "../interfaces/ConstructionService/Construction";
 import { INVENTION } from "../interfaces/InventionService/Invention";
+import { ACTION } from "../interfaces/ACTION";
 
 export function getItemFromDroppableId(droppableId: string, game: IGame) {
   if (droppableId.includes("threat")) {
@@ -22,9 +23,9 @@ export function getItemFromDroppableId(droppableId: string, game: IGame) {
     let id = droppableId.split("-")[1];
     return game.tileService.getTile(parseInt(id));
   } else if (droppableId.includes("rest")) {
-    return game.arrangeCampRestService;
+    return ACTION.REST;
   } else if (droppableId.includes("arrangeCamp")) {
-    return game.arrangeCampRestService;
+    return ACTION.ARRANGE_CAMP;
   }
 
   throw new Error("Can't find item from droppableId: " + droppableId);

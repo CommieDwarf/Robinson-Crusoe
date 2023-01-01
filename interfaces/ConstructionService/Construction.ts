@@ -6,7 +6,7 @@ export interface IConstructionRenderData {
   committedResources: IResourcesAmount;
   cost: IResourcesAmount;
   locked: boolean;
-  requiredHelpersAmount: number;
+  requiredHelperAmount: number;
 }
 
 export interface IConstruction {
@@ -16,7 +16,7 @@ export interface IConstruction {
   committedResources: IResources;
   cost: IResources;
   locked: boolean;
-  requiredHelpersAmount: number;
+  requiredHelperAmount: number;
   renderData: IConstructionRenderData;
   resourceChoice: boolean;
 }

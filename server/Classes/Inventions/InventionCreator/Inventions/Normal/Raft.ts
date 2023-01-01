@@ -1,6 +1,7 @@
 import { HelperPawnInvention } from "../../HelperPawnInvention";
 import {
   IInvention,
+  INVENTION_NORMAL,
   INVENTION_STARTER,
   INVENTION_TYPE,
 } from "../../../../../../interfaces/InventionService/Invention";
@@ -11,7 +12,7 @@ import { Resources } from "../../../../ResourceService/Resources";
 export class Raft extends HelperPawnInvention implements IInvention {
   constructor(game: IGame) {
     super(
-      "raft",
+      INVENTION_NORMAL.RAFT,
       { terrainType: null, inventions: [INVENTION_STARTER.ROPE] },
       INVENTION_TYPE.NORMAL,
       new Resources(0, 0, 2, 0),

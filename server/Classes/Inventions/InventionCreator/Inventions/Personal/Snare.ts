@@ -1,6 +1,7 @@
 import { Invention } from "../../Invention";
 import {
   IInvention,
+  INVENTION_PERSONAL,
   INVENTION_STARTER,
   INVENTION_TYPE,
 } from "../../../../../../interfaces/InventionService/Invention";
@@ -11,7 +12,7 @@ export class Snare extends Invention implements IInvention {
 
   constructor(game: IGame) {
     super(
-      "snare",
+      INVENTION_PERSONAL.SNARE,
       { terrainType: null, inventions: [INVENTION_STARTER.ROPE] },
       INVENTION_TYPE.PERSONAL,
       null,

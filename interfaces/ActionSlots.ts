@@ -17,6 +17,7 @@ export interface IActionSlotService {
   getPawn: (droppableId: string) => IPawn | null;
   renderData: IActionSlotsServiceRenderData;
   slotsOccupiedAndCategorized: SlotsOccupied;
+  checkMissingPawns: () => void | never;
 }
 
 export type IActionSlotsRenderData = Map<string, IPawnRenderData | null>;

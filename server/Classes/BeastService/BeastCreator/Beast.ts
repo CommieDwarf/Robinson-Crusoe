@@ -31,6 +31,10 @@ export class Beast implements IBeast {
 
   // ----------------------------------------------
 
+  get requiredHelperAmount() {
+    return 2;
+  }
+
   get name(): string {
     return this._name;
   }

@@ -1,6 +1,7 @@
 import { Invention } from "../../Invention";
 import {
   IInvention,
+  INVENTION_NORMAL,
   INVENTION_STARTER,
   INVENTION_TYPE,
 } from "../../../../../../interfaces/InventionService/Invention";
@@ -10,7 +11,7 @@ import { CONSTRUCTION } from "../../../../../../interfaces/ConstructionService/C
 export class Wall extends Invention implements IInvention {
   constructor(game: IGame) {
     super(
-      "wall",
+      INVENTION_NORMAL.WALL,
       { terrainType: null, inventions: [INVENTION_STARTER.BRICKS] },
       INVENTION_TYPE.NORMAL,
       null,

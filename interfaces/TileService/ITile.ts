@@ -1,5 +1,5 @@
 export type ITileRenderData = {
-  helpersRequired: number;
+  requiredHelperAmount: number;
   id: number;
   show: boolean;
   position: TilePosition;
@@ -16,7 +16,7 @@ export interface ITile {
   camp: boolean;
   show: boolean;
   tileType: TileType | null;
-  helpersRequired: number;
+  requiredHelperAmount: number;
   reveal: (type: TileType) => void;
   renderData: ITileRenderData;
   builtStructures: ITileBuiltStructures;

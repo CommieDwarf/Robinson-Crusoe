@@ -1,4 +1,5 @@
 import { IArrangeCampRestService } from "../../../interfaces/RestArrangeCampService/ArrangeCampRestService";
+import { ICharacter } from "../../../interfaces/Characters/Character";
 
 export class ArrangeCampRestService implements IArrangeCampRestService {
   // TODO: IMPLEMENT CHOICE BETWEEN BED EFFECT OR NORMAL EFFECT.
@@ -32,4 +33,8 @@ export class ArrangeCampRestService implements IArrangeCampRestService {
   set bed(value: boolean) {
     this._bed = value;
   }
+
+  public rest(character: ICharacter) {}
+
+  public arrangeCamp(character: ICharacter) {}
 }

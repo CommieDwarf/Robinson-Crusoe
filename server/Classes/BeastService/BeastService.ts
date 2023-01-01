@@ -76,7 +76,7 @@ export class BeastService implements IBeastService {
     return beasts;
   }
 
-  fightBeast(leader: ICharacter, helper: ICharacter) {
+  fightBeast(leader: ICharacter) {
     const beast = this._deck[0];
     if (beast) {
       this.beastBeingFought = beast;
@@ -84,7 +84,7 @@ export class BeastService implements IBeastService {
   }
 
   //TODO implement killBeast()
-  killBeast() {}
+  killBeast(leader: ICharacter) {}
 
   static getStrongestBeast(beasts: IBeast[]) {
     let strength = 0;

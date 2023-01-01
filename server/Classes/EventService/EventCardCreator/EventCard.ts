@@ -16,6 +16,7 @@ export class EventCard implements IEventCard {
   private readonly _type: EVENT_TYPE;
   private readonly _requirements: EventResolveRequirements;
   protected _game: IGame;
+  private _requiredHelperAmount: number;
 
   constructor(
     name: string,
@@ -27,6 +28,7 @@ export class EventCard implements IEventCard {
     this._type = type;
     this._requirements = requirements;
     this._game = game;
+    this._requiredHelperAmount = this._requirements.pawns;
   }
 
   get renderData(): IEventCardRenderData {
@@ -34,7 +36,7 @@ export class EventCard implements IEventCard {
       id: this.id,
       name: this.name,
       type: this.type,
-      requiredPawns: this.requirements.pawns,
+      requiredHelperAmount: this._requiredHelperAmount,
     };
   }
 
@@ -48,6 +50,10 @@ export class EventCard implements IEventCard {
 
   get type(): EVENT_TYPE {
     return this._type;
+  }
+
+  get requiredHelperAmount(): number {
+    return this._requiredHelperAmount;
   }
 
   protected getLeaderPawn(): IPawn {

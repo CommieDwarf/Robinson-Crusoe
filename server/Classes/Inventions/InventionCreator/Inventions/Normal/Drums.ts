@@ -1,6 +1,7 @@
 import { Invention } from "../../Invention";
 import {
   IInvention,
+  INVENTION_NORMAL,
   INVENTION_TYPE,
 } from "../../../../../../interfaces/InventionService/Invention";
 import { IGame } from "../../../../../../interfaces/Game";
@@ -10,7 +11,7 @@ import { Resources } from "../../../../ResourceService/Resources";
 export class Drums extends Invention implements IInvention {
   constructor(game: IGame) {
     super(
-      "drums",
+      INVENTION_NORMAL.DRUMS,
       { terrainType: TERRAIN_TYPE.HILLS, inventions: null },
       INVENTION_TYPE.NORMAL,
       new Resources(0, 0, 0, 1),

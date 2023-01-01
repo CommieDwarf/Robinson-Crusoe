@@ -1,6 +1,7 @@
 import { Invention } from "../../Invention";
 import {
   IInvention,
+  INVENTION_PERSONAL,
   INVENTION_STARTER,
   INVENTION_TYPE,
 } from "../../../../../../interfaces/InventionService/Invention";
@@ -13,7 +14,7 @@ export class Fireplace extends Invention implements IInvention {
 
   constructor(game: IGame) {
     super(
-      "fireplace",
+      INVENTION_PERSONAL.FIREPLACE,
       { terrainType: null, inventions: [INVENTION_STARTER.FIRE] },
       INVENTION_TYPE.PERSONAL,
       new Resources(0, 0, 0, 1),

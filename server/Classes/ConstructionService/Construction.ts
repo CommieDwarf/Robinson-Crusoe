@@ -8,7 +8,7 @@ import { Resources } from "../ResourceService/Resources";
 import { STRUCTURE_PL } from "../../../interfaces/TRANSLATE_PL/CATEGORIES/STRUCTURE_PL";
 
 export class Construction implements IConstruction {
-  private _requiredHelpersAmount = 0;
+  private _requiredHelperAmount = 0;
   private readonly _name: CONSTRUCTION;
   private _lvl = 0;
   private _committedResources: IResources = new Resources();
@@ -29,7 +29,7 @@ export class Construction implements IConstruction {
       locked: this.locked,
       lvl: this.lvl,
       name: this.name,
-      requiredHelpersAmount: this.requiredHelpersAmount,
+      requiredHelperAmount: this.requiredHelperAmount,
     };
   }
 
@@ -77,12 +77,12 @@ export class Construction implements IConstruction {
     this._locked = value;
   }
 
-  get requiredHelpersAmount(): number {
-    return this._requiredHelpersAmount;
+  get requiredHelperAmount(): number {
+    return this._requiredHelperAmount;
   }
 
-  set requiredHelpersAmount(value: number) {
-    this._requiredHelpersAmount = value;
+  set requiredHelperAmount(value: number) {
+    this._requiredHelperAmount = value;
   }
 
   incrementLvl(num: number) {

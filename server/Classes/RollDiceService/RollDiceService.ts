@@ -1,8 +1,10 @@
 import {
   ActionDice,
+  ActionDiceResult,
+  ActionDiceResults,
   ActionDiceSide,
-  DiceActionType,
-  RollDiceResult,
+  DICE_ACTION_TYPE,
+  ResultAxes,
   WeatherDice,
 } from "../../../interfaces/RollDice/RollDice";
 import { gather } from "../../../constants/diceStructures/gather";
@@ -10,15 +12,22 @@ import { build } from "../../../constants/diceStructures/build";
 import { explore } from "../../../constants/diceStructures/explore";
 import { weather } from "../../../constants/diceStructures/weather";
 
-const diceStructures = {
+const diceStructures: ActionDiceStructures = {
   gather,
   build,
   explore,
-  weather,
+};
+
+export type ActionDiceStructures = {
+  [key in DICE_ACTION_TYPE]: {
+    hurt: ActionDiceSide[];
+    mystery: ActionDiceSide[];
+    success: ActionDiceSide[];
+  };
 };
 
 export class RollDiceService {
-  public static resultsAxes = {
+  public static resultsAxes: ResultAxes = {
     r0: {
       y: 270,
       x: 360,
@@ -53,38 +62,46 @@ export class RollDiceService {
 
   private static getAxes(random: number) {
     const axes =
-      RollDiceService.resultsAxes[
-        ("r" + random) as keyof typeof this.resultsAxes
-      ];
-    const axisAdder = 360;
-    axes.x += axisAdder;
-    axes.y += axisAdder;
-    axes.z += axisAdder;
+      RollDiceService.resultsAxes[("r" + random) as keyof ResultAxes];
+    const axisIncr = 360;
+    axes.x += axisIncr;
+    axes.y += axisIncr;
+    axes.z += axisIncr;
     return axes;
   }
 
   public static getActionRollDiceResult(
-    actionType: DiceActionType,
+    action: DICE_ACTION_TYPE,
     dice: ActionDice
-  ) {
+  ): ActionDiceResult {
     const random = Math.floor(Math.random() * 6);
     const axes = this.getAxes(random);
 
-    const result = diceStructures[actionType][dice][random];
+    const result = diceStructures[action][dice][random];
     return {
       result,
       axes,
-    } as RollDiceResult<ActionDiceSide>;
+    };
   }
 
-  public static getWeatherRollDiceResult<DiceSide>(dice: WeatherDice) {
+  public static getActionRollDiceResults(
+    actionType: DICE_ACTION_TYPE
+  ): ActionDiceResults {
+    return {
+      success: this.getActionRollDiceResult(actionType, "success"),
+      mystery: this.getActionRollDiceResult(actionType, "mystery"),
+      hurt: this.getActionRollDiceResult(actionType, "hurt"),
+    };
+  }
+
+  public static getWeatherRollDiceResult(dice: WeatherDice) {
     const random = Math.floor(Math.random() * 6);
     const axes = this.getAxes(random);
 
-    const result = diceStructures.weather[dice][random] as unknown as DiceSide;
+    const result = weather[dice][random];
     return {
       result,
       axes,
-    } as RollDiceResult<DiceSide>;
+    };
   }
 }

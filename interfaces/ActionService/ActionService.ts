@@ -1,32 +1,17 @@
-import {
-  ISpecificActionService,
-  ISpecificActionServiceRenderData,
-} from "./IActionResolvableService";
-import { ACTION } from "../ACTION";
 import { IResolvableItem, IResolvableItemRenderData } from "./IResolvableItem";
+import { ACTION } from "../ACTION";
 
 export interface IActionService {
-  specificActionServices: ISpecificActionServices;
+  resolvableItems: IResolvableItem[];
+  action: ACTION;
   finished: boolean;
-  currentResolvableActionService: ISpecificActionService;
-  renderData: IActionServiceRenderData;
   setNextAction: () => void;
-  resolveItem: (action: ACTION, droppableId: string) => void;
-  updateItems: () => void;
-  lastResolvedItem: IResolvableItem | null;
+  loadItems: () => void;
+  resolve: (resolvableItemID: string) => void;
 }
 
-export type ISpecificActionServices = {
-  [key in ACTION]: ISpecificActionService;
-};
-
-export type ISpecificActionServicesRenderData = {
-  [key in ACTION]: ISpecificActionServiceRenderData;
-};
-
 export interface IActionServiceRenderData {
-  specificActionServices: ISpecificActionServicesRenderData;
+  resolvableItems: IResolvableItemRenderData[];
+  action: ACTION;
   finished: boolean;
-  currentResolve: ISpecificActionServiceRenderData;
-  lastResolvedItem: IResolvableItemRenderData | null;
 }

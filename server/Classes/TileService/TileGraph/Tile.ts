@@ -12,7 +12,7 @@ export class Tile implements ITile {
   private readonly _id: number;
   private _show: boolean;
   private _type: TileType | null;
-  private _helpersRequired: number = 0;
+  private _requiredHelperAmount: number = 0;
   private _canCampBeSettled = false;
   private readonly _game: IGame;
   private _camp: boolean;
@@ -40,7 +40,7 @@ export class Tile implements ITile {
 
   get renderData(): ITileRenderData {
     return {
-      helpersRequired: this.helpersRequired,
+      requiredHelperAmount: this.requiredHelperAmount,
       id: this.id,
       show: this.show,
       position: this.position,
@@ -86,12 +86,12 @@ export class Tile implements ITile {
     return this._type;
   }
 
-  get helpersRequired(): number {
-    return this._helpersRequired;
+  get requiredHelperAmount(): number {
+    return this._requiredHelperAmount;
   }
 
-  set helpersRequired(value: number) {
-    this._helpersRequired = value;
+  set requiredHelperAmount(value: number) {
+    this._requiredHelperAmount = value;
   }
 
   reveal(type: TileType) {

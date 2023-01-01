@@ -1,6 +1,7 @@
 import { Invention } from "../../Invention";
 import {
   IInvention,
+  INVENTION_NORMAL,
   INVENTION_STARTER,
   INVENTION_TYPE,
 } from "../../../../../../interfaces/InventionService/Invention";
@@ -10,7 +11,7 @@ import { Resources } from "../../../../ResourceService/Resources";
 export class Pit extends Invention implements IInvention {
   constructor(game: IGame) {
     super(
-      "pit",
+      INVENTION_NORMAL.PIT,
       {
         terrainType: null,
         inventions: [INVENTION_STARTER.SHOVEL],

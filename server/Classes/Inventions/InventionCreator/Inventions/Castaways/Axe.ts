@@ -1,5 +1,6 @@
 import {
   IInvention,
+  INVENTION_CASTAWAYS,
   INVENTION_TYPE,
 } from "../../../../../../interfaces/InventionService/Invention";
 import { IGame } from "../../../../../../interfaces/Game";
@@ -10,7 +11,7 @@ import { Invention } from "../../Invention";
 export class Axe extends Invention implements IInvention {
   constructor(game: IGame) {
     super(
-      "axe",
+      INVENTION_CASTAWAYS.AXE,
       { terrainType: TERRAIN_TYPE.MOUNTAINS, inventions: null },
       INVENTION_TYPE.SCENARIO,
       new Resources(0, 0, 1, 0),

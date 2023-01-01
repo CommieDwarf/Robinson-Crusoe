@@ -1,5 +1,6 @@
 import {
   IInvention,
+  INVENTION_NORMAL,
   INVENTION_STARTER,
   INVENTION_TYPE,
 } from "../../../../../../interfaces/InventionService/Invention";
@@ -10,7 +11,7 @@ import { PAWN_HELPER_ACTION } from "../../../../../../interfaces/Pawns/Pawn";
 export class Belts extends HelperPawnInvention implements IInvention {
   constructor(game: IGame) {
     super(
-      "belts",
+      INVENTION_NORMAL.BELTS,
       { terrainType: null, inventions: [INVENTION_STARTER.KNIFE] },
       INVENTION_TYPE.NORMAL,
       null,

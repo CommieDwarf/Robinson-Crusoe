@@ -6,6 +6,8 @@ export interface IBeast {
   name: string;
   strength: number;
   weaponLoss: number;
+  requiredHelperAmount: number;
+
   renderData: IBeastRenderData;
   applySpecialEffect: () => void;
 }

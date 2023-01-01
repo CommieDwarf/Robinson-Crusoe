@@ -1,6 +1,7 @@
 import { Invention } from "../../Invention";
 import {
   IInvention,
+  INVENTION_NORMAL,
   INVENTION_TYPE,
 } from "../../../../../../interfaces/InventionService/Invention";
 import { IGame } from "../../../../../../interfaces/Game";
@@ -12,7 +13,7 @@ export class Sling extends Invention implements IInvention {
 
   constructor(game: IGame) {
     super(
-      "sling",
+      INVENTION_NORMAL.SLING,
       { terrainType: null, inventions: null },
       INVENTION_TYPE.NORMAL,
       new Resources(0, 0, 1, 1),
