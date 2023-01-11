@@ -13,7 +13,6 @@ import { Droppable } from "react-beautiful-dnd";
 import capitalize from "../../../../utils/capitalizeFirstLetter";
 import { IPlayerCharacterRenderData } from "../../../../interfaces/Characters/PlayerCharacter";
 import { ISideCharacterRenderData } from "../../../../interfaces/Characters/SideCharacter";
-import { ISkillRenderData } from "../../../../interfaces/SkillService/Skill";
 
 interface Props {
   character: IPlayerCharacterRenderData;
@@ -28,7 +27,7 @@ export default function Character(props: Props) {
     show: boolean;
   }>({ skill: null, show: false });
 
-  const skills = props.character.skillService.skills.map((skill, i) => {
+  const skills = props.character.skills.map((skill, i) => {
     return (
       <SkillLabel
         skill={skill}

@@ -2,14 +2,14 @@
 import * as React from "react";
 import styles from "./UtilityUsageWindow.module.css";
 import { Skills } from "./Skills/Skills";
-import { SkillPhase } from "../../../../interfaces/SkillService/Skill";
 import { useState } from "react";
-import { ISkillServiceRenderData } from "../../../../interfaces/SkillService/SkillService";
+import { ISkillRenderData } from "../../../../interfaces/Skill/Skill";
+import { PHASE } from "../../../../interfaces/PhaseService/Phase";
 
 type Props = {
-  skillService: ISkillServiceRenderData;
+  skills: ISkillRenderData[];
   determination: number;
-  phase: SkillPhase;
+  phase: PHASE;
 };
 export const UtilityUsageWindow = (props: Props) => {
   const [selected, setSelected] = useState("");
@@ -24,7 +24,7 @@ export const UtilityUsageWindow = (props: Props) => {
         <div className={styles.useButton}>Użyj</div>
       </header>
       <Skills
-        skillService={props.skillService}
+        skills={props.skills}
         phase={props.phase}
         selected={selected}
         select={select}

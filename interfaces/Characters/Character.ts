@@ -1,9 +1,5 @@
 import { ICharEffects } from "./CharEffects";
 import { IPawnService, IPawnServiceRenderData } from "../Pawns/Pawns";
-import {
-  ISkillService,
-  ISkillServiceRenderData,
-} from "../SkillService/SkillService";
 
 export interface ICharacterRenderData {
   pawnService: IPawnServiceRenderData;
@@ -14,7 +10,6 @@ export interface ICharacterRenderData {
   maxHealth: number;
   gender: Gender;
   determination: number;
-  skillService: ISkillServiceRenderData;
 }
 
 export interface ICharacter {
@@ -26,10 +21,8 @@ export interface ICharacter {
   namePL: string;
   health: number;
   gender: Gender;
-  getRenderData: () => ICharacterRenderData; // for the super usage I made it into a method.
+  getRenderData: () => ICharacterRenderData;
   determination: number;
-  skillService: ISkillService;
-
   incrDetermination: (by: number) => void;
   decrDetermination: (by: number) => void;
   hurt: (by: number) => void;

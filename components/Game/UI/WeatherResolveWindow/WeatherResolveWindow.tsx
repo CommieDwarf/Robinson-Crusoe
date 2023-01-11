@@ -14,9 +14,9 @@ import Entries from "../../../../interfaces/Entries";
 import { RollDiceWindow } from "./RollDiceWindow/RollDiceWindow";
 import { WeatherDays } from "../../../../interfaces/ScenarioService/ScenarioService";
 import { Utility } from "./Utility/Utility";
-import { ISkillServiceRenderData } from "../../../../interfaces/SkillService/SkillService";
 import { UtilityDropDownButton } from "./UtilityDropDownButton/UtilityDropDownButton";
 import { WeatherDiceResults } from "../../../../interfaces/RollDice/RollDice";
+import { ISkillRenderData } from "../../../../interfaces/Skill/Skill";
 
 type Props = {
   weatherService: IWeatherServiceRenderData;
@@ -25,7 +25,7 @@ type Props = {
   resourcesAmount: IResourcesAmount;
   rollWeatherDices: () => void;
   dices: WeatherDays;
-  skillService: ISkillServiceRenderData;
+  skills: ISkillRenderData[];
   determination: number;
   setNextPhase: () => void;
 };
@@ -67,7 +67,7 @@ export const WeatherResolveWindow = (props: Props) => {
         toggleOpen={toggleUtilityOpen}
       />
       <Utility
-        skillService={props.skillService}
+        skills={props.skills}
         determination={props.determination}
         isOpen={isUtilityOpen}
       />

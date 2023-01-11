@@ -1,8 +1,8 @@
 export enum PHASE {
-  event = "EVENT",
-  morale = "MORALE",
-  production = "PRODUCTION",
-  action = "ACTION",
-  weather = "WEATHER",
-  night = "NIGHT",
+  EVENT = "event",
+  MORALE = "morale",
+  PRODUCTION = "production",
+  ACTION = "action",
+  WEATHER = "weather",
+  NIGHT = "night",
 }

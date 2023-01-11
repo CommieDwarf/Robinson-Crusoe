@@ -2,15 +2,13 @@ import {
   Gender,
   ICharacter,
   ICharacterRenderData,
-} from "../../../../interfaces/Characters/Character";
+} from "../../../../../interfaces/Characters/Character";
 
-import { PlayerCharacterName } from "../../../../interfaces/Characters/PlayerCharacter";
-import { SideCharacterName } from "../../../../interfaces/Characters/SideCharacter";
-import { IGame } from "../../../../interfaces/Game";
-import { ICharEffects } from "../../../../interfaces/Characters/CharEffects";
-import { IPawnService } from "../../../../interfaces/Pawns/Pawns";
-import { ISkillService } from "../../../../interfaces/SkillService/SkillService";
-import { skillServices } from "../../SkillService/AllServices";
+import { PlayerCharacterName } from "../../../../../interfaces/Characters/PlayerCharacter";
+import { SideCharacterName } from "../../../../../interfaces/Characters/SideCharacter";
+import { IGame } from "../../../../../interfaces/Game";
+import { ICharEffects } from "../../../../../interfaces/Characters/CharEffects";
+import { IPawnService } from "../../../../../interfaces/Pawns/Pawns";
 
 export abstract class Character implements ICharacter {
   protected _namePL: string;
@@ -23,7 +21,6 @@ export abstract class Character implements ICharacter {
   protected _game: IGame;
   protected declare _effects: ICharEffects;
   protected declare _pawnService: IPawnService;
-  protected _skillService: ISkillService;
 
   protected constructor(
     name: PlayerCharacterName | SideCharacterName,
@@ -38,7 +35,6 @@ export abstract class Character implements ICharacter {
     this._maxHealth = maxHealth;
     this._health = this._maxHealth;
     this._game = game;
-    this._skillService = new skillServices[name](game, this);
   }
 
   getRenderData(): ICharacterRenderData {
@@ -51,12 +47,7 @@ export abstract class Character implements ICharacter {
       maxHealth: this._maxHealth,
       name: this._name,
       namePL: this._namePL,
-      skillService: this._skillService.renderData,
     };
-  }
-
-  get skillService(): ISkillService {
-    return this._skillService;
   }
 
   get effects(): ICharEffects {

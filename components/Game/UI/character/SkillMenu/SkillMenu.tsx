@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./SkillMenu.module.css";
-import { ISkillRenderData } from "../../../../../interfaces/SkillService/Skill";
 import { insertIconsIntoString } from "../../../../../utils/insertIconsIntoString";
+import { ISkillRenderData } from "../../../../../interfaces/Skill/Skill";
 
 interface Props {
   skillDescription: {

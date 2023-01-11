@@ -2,10 +2,10 @@
 import * as React from "react";
 import styles from "./Utility.module.css";
 import { UtilityUsageWindow } from "../../UtilityUsageWindow/UtilityUsageWindow";
-import { ISkillServiceRenderData } from "../../../../../interfaces/SkillService/SkillService";
+import { ISkillRenderData } from "../../../../../interfaces/Skill/Skill";
 
 type Props = {
-  skillService: ISkillServiceRenderData;
+  skills: ISkillRenderData[];
   determination: number;
   isOpen: boolean;
 };
@@ -15,7 +15,7 @@ export const Utility = (props: Props) => {
     <div className={styles.container + " " + openClass}>
       <div className={styles.wrapper}>
         <UtilityUsageWindow
-          skillService={props.skillService}
+          skills={props.skills}
           determination={props.determination}
           phase={"weather"}
         />

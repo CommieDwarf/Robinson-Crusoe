@@ -7,7 +7,6 @@ import { ConstructionService } from "./ConstructionService/ConstructionService";
 import { InventionsService } from "./Inventions/InventionsService";
 import { Equipment } from "./Equipment/Equipment";
 import { BeastService } from "./BeastService/BeastService";
-import { PlayerCharacter } from "./CharacterService/Character/PlayerCharacter/PlayerCharacter";
 import { IGame, IGameRenderData } from "../../interfaces/Game";
 import { IInventionService } from "../../interfaces/InventionService/InventionService";
 
@@ -40,6 +39,7 @@ import { IScenarioService } from "../../interfaces/ScenarioService/ScenarioServi
 import { IBeastService } from "../../interfaces/Beasts/BeastService";
 import { TokenService } from "./TokenService/TokenService";
 import { CHARACTER } from "../../interfaces/Characters/Character";
+import { Cook } from "./CharacterService/Characters/Cook";
 
 type ScenarioName = "castaways";
 
@@ -90,16 +90,7 @@ export class GameClass implements IGame {
 
   constructor(scenarioName: ScenarioName) {
     // this is hardcoded for demo purpose.
-    const cook = new PlayerCharacter(
-      CHARACTER.COOK,
-      "kucharz",
-      2,
-      13,
-      this,
-      "male",
-      [2, 4, 6, 9],
-      this.localPlayer
-    );
+    const cook = new Cook("male", this, this.localPlayer);
     this._localPlayer = new Player("Konrad", "orange", 0, cook);
 
     this._playerService = new PlayerService([this.localPlayer]);

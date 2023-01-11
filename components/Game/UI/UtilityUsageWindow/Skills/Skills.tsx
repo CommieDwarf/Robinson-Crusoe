@@ -2,18 +2,18 @@
 import * as React from "react";
 import styles from "./Skills.module.css";
 import { Skill } from "./Skill/Skill";
-import { SkillPhase } from "../../../../../interfaces/SkillService/Skill";
-import { ISkillServiceRenderData } from "../../../../../interfaces/SkillService/SkillService";
+import { PHASE } from "../../../../../interfaces/PhaseService/Phase";
+import { ISkillRenderData } from "../../../../../interfaces/Skill/Skill";
 
 type Props = {
-  skillService: ISkillServiceRenderData;
-  phase: SkillPhase;
+  skills: ISkillRenderData[];
+  phase: PHASE;
   selected: string;
   select: (name: string) => void;
 };
 export const Skills = (props: Props) => {
-  const skills = props.skillService.skills.filter((skill) => {
-    return skill.phase === props.phase || skill.phase === "all";
+  const skills = props.skills.filter((skill) => {
+    return skill.phasesAllowed.includes(props.phase);
   });
 
   return (

@@ -3,10 +3,10 @@ import {
   ISideCharacter,
   ISideCharacterRenderData,
   SideCharacterName,
-} from "../../../../../interfaces/Characters/SideCharacter";
-import { SideCharEffects } from "../../CharEffects/CharEffects";
-import { PawnService } from "../../../PawnService/PawnService";
-import { IGame } from "../../../../../interfaces/Game";
+} from "../../../../../../interfaces/Characters/SideCharacter";
+import { SideCharEffects } from "../../../CharEffects/CharEffects";
+import { PawnService } from "../../../../PawnService/PawnService";
+import { IGame } from "../../../../../../interfaces/Game";
 
 export class SideCharacter extends Character implements ISideCharacter {
   get name(): SideCharacterName {

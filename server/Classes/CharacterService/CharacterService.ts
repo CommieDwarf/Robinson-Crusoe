@@ -5,9 +5,9 @@ import {
 
 import { IPlayerCharacter } from "../../../interfaces/Characters/PlayerCharacter";
 import { ISideCharacter } from "../../../interfaces/Characters/SideCharacter";
-import { PlayerCharacter } from "./Character/PlayerCharacter/PlayerCharacter";
+import { PlayerCharacter } from "./Characters/Character/PlayerCharacter/PlayerCharacter";
 import { IGame } from "../../../interfaces/Game";
-import { SideCharacter } from "./Character/SideCharacter/SideCharacter";
+import { SideCharacter } from "./Characters/Character/SideCharacter/SideCharacter";
 import {
   CHARACTER,
   ICharacter,

@@ -1,7 +1,7 @@
 // @flow
 import * as React from "react";
 import styles from "./ReRoll.module.css";
-import {ISkillRenderData} from "../../../../../interfaces/SkillService/Skill";
+import {ISkillRenderData} from "../../../../../interfaces/Skill/Skill";
 
 type Props = {
     skill: ISkillRenderData;

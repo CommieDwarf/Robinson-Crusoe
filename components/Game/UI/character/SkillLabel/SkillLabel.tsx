@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction } from "react";
 
 import styles from "./SkillLabel.module.css";
-import { ISkillRenderData } from "../../../../../interfaces/SkillService/Skill";
+import { ISkillRenderData } from "../../../../../interfaces/Skill/Skill";
 
 interface Props {
   skill: ISkillRenderData;

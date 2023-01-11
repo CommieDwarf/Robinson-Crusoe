@@ -3,22 +3,30 @@ import {
   IPlayerCharacter,
   IPlayerCharacterRenderData,
   PlayerCharacterName,
-} from "../../../../../interfaces/Characters/PlayerCharacter";
-import { IPlayer } from "../../../../../interfaces/PlayerService/Player";
-import { PawnService } from "../../../PawnService/PawnService";
-import { ICharEffects } from "../../../../../interfaces/Characters/CharEffects";
-import { PlayerCharEffects } from "../../CharEffects/CharEffects";
-import { IPawnService } from "../../../../../interfaces/Pawns/Pawns";
-import { IGame } from "../../../../../interfaces/Game";
-import { Gender } from "../../../../../interfaces/Characters/Character";
+} from "../../../../../../interfaces/Characters/PlayerCharacter";
+import { IPlayer } from "../../../../../../interfaces/PlayerService/Player";
+import { PawnService } from "../../../../PawnService/PawnService";
+import { ICharEffects } from "../../../../../../interfaces/Characters/CharEffects";
+import { PlayerCharEffects } from "../../../CharEffects/CharEffects";
+import { IPawnService } from "../../../../../../interfaces/Pawns/Pawns";
+import { IGame } from "../../../../../../interfaces/Game";
+import {
+  Gender,
+  ICharacter,
+} from "../../../../../../interfaces/Characters/Character";
+import { ISkill } from "../../../../../../interfaces/Skill/Skill";
 
-export class PlayerCharacter extends Character implements IPlayerCharacter {
+export abstract class PlayerCharacter
+  extends Character
+  implements IPlayerCharacter
+{
   protected readonly _player: IPlayer;
   protected readonly _moraleThresholds: number[];
   protected _pawnService: IPawnService = new PawnService(this, 3);
   protected declare _name: PlayerCharacterName;
+  protected declare _skills: ISkill[];
 
-  constructor(
+  protected constructor(
     name: PlayerCharacterName,
     namePL: string,
     id: number,
@@ -42,10 +50,15 @@ export class PlayerCharacter extends Character implements IPlayerCharacter {
       moraleThresholds: this._moraleThresholds,
       playerId: 0,
       name: this.name,
+      skills: this._skills.map((skill) => skill.renderData),
     };
   }
 
   // ---------------------------------------------
+
+  get skills(): ISkill[] {
+    return this._skills;
+  }
 
   get effects(): ICharEffects {
     return this._effects;
@@ -81,6 +94,25 @@ export class PlayerCharacter extends Character implements IPlayerCharacter {
 
   get shouldMoraleDrop(): boolean {
     return this._moraleThresholds.includes(this.health);
+  }
+
+  public getSkill(name: string) {
+    const skill = this._skills.find((skill) => (skill.name = name));
+    if (!skill) {
+      throw new Error(`Can't find skill with name: ${name}`);
+    }
+    return skill;
+  }
+
+  public useSkill(name: string, target: ICharacter | null) {
+    const skill = this.getSkill(name);
+    if (this._determination >= skill.cost) {
+      skill.use(target);
+    } else {
+      this._game.alertService.setAlert(
+        "Za mało determinacji, żeby użyć tej umiejętności"
+      );
+    }
   }
 
   // ---------------------------------------------
