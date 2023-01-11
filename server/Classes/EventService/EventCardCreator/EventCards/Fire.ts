@@ -5,12 +5,17 @@ import {
 } from "../../../../../interfaces/EventService/EventCard";
 import { IGame } from "../../../../../interfaces/Game";
 import { INVENTION_STARTER } from "../../../../../interfaces/InventionService/Invention";
+import { EVENT_CARD } from "../../../../../interfaces/EventService/EVENT_CARD";
+import { ACTION } from "../../../../../interfaces/ACTION";
 
 export class Fire extends EventCard implements IEventCard {
+  protected readonly _namePL = "fire";
+  protected readonly _resolutionPL = "walka z ogniem";
+
   constructor(game: IGame) {
     super(
-      "fire",
-      EVENT_TYPE.EXPLORE,
+      EVENT_CARD.FIRE,
+      ACTION.EXPLORE,
       {
         pawns: 1,
         invention: INVENTION_STARTER.SHOVEL,
@@ -30,7 +35,7 @@ export class Fire extends EventCard implements IEventCard {
   }
 
   fullFill() {
-    const leader = this.getLeaderPawn().character;
+    const leader = this.getLeaderCharacter();
     this._game.characterService.incrDetermination(leader, 2, this.name);
   }
 }

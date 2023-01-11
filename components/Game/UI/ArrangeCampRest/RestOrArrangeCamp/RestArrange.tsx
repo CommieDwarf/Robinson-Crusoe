@@ -14,6 +14,7 @@ import {
 import moraleArrowRightImg from "/public/UI/icons/morale-arrow-right.png";
 import heartImg from "/public/UI/icons/heart.png";
 import moraleIconImg from "/public/UI/icons/morale.png";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   pawnAmount: number;
@@ -84,9 +85,11 @@ export default function RestArrange(props: Props) {
     );
   }
 
+  const [t] = useTranslation();
+
   return (
     <div className={styles[props.type] + " " + styles.activity}>
-      <div className={styles.activityName}>{props.type}</div>
+      <div className={styles.activityName}>{t(`action.${props.type}`)}</div>
       {rewardLabel}
       <Scrollbar styleModule={scrollbarStyles}>
         <div className={styles.actionSlots}>{actionSlots}</div>

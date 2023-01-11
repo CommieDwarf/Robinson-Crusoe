@@ -15,6 +15,8 @@ import { ITileService } from "../../../interfaces/TileService/ITileService";
 import { ICharacter } from "../../../interfaces/Characters/Character";
 import { IGame } from "../../../interfaces/Game";
 import { InventionCreator } from "./InventionCreator/InventionCreator";
+import i18next from "i18next";
+import capitalizeFirstLetter from "../../../utils/capitalizeFirstLetter";
 
 export class InventionsService implements IInventionService {
   private _builtInventions: IInvention[] = [];
@@ -47,6 +49,10 @@ export class InventionsService implements IInventionService {
     return this._builtInventions;
   }
 
+  isBuilt(invention: INVENTION) {
+    return this.getInvention(invention).isBuilt;
+  }
+
   private getInitialInventions(scenario: "castaways") {
     const starters = Object.values(INVENTION_STARTER);
     const normal = shuffle(Object.values(INVENTION_NORMAL)).slice(0, 5);
@@ -68,7 +74,7 @@ export class InventionsService implements IInventionService {
     this._builtInventions.push(invention);
     invention.isBuilt = true;
     this._game.chatLog.addMessage(
-      `stworzono ${invention.name}`,
+      `stworzono: ${capitalizeFirstLetter(invention.namePL)}`,
       "green",
       builder.namePL
     );

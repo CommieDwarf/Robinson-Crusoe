@@ -13,5 +13,5 @@
 }
 
 .locked {
-    filter: grayscale(50%) !important;
+    opacity: 0.5;
 }

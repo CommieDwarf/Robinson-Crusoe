@@ -1,0 +1,15 @@
+.container {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    top: -20px;
+    justify-content: center;
+}
+
+.token {
+    position: relative;
+    width: 25px;
+    height: 25px;
+    margin-left: 5px;
+    margin-right: 5px;
+}

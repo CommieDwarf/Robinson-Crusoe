@@ -21,8 +21,8 @@ export class CharacterService implements ICharacterService {
   private readonly _game: IGame;
 
   constructor(characters: IPlayerCharacter[], game: IGame) {
-    this.dog = new SideCharacter(CHARACTER.DOG, 1, Infinity, game);
-    this.friday = new SideCharacter(CHARACTER.FRIDAY, 0, 4, game);
+    this.dog = new SideCharacter(CHARACTER.DOG, "pies", 1, Infinity, game);
+    this.friday = new SideCharacter(CHARACTER.FRIDAY, "Piętaszek", 0, 4, game);
     this._game = game;
     this._allCharacters = [this.dog, this.friday, ...characters];
   }

@@ -11,7 +11,7 @@ export default function getHelperActionSlots(
   actionSlots: Map<string, IPawnRenderData | null>
 ) {
   const helperActionSlots = [];
-  for (let i = 0; i < object.requiredHelpersAmount + 1; i++) {
+  for (let i = 0; i < object.requiredHelperAmount + 1; i++) {
     let actionSlotId;
     let context;
     if ("lvl" in object) {

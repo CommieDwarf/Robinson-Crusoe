@@ -4,12 +4,17 @@ import {
   IEventCard,
 } from "../../../../../interfaces/EventService/EventCard";
 import { IGame } from "../../../../../interfaces/Game";
+import { EVENT_CARD } from "../../../../../interfaces/EventService/EVENT_CARD";
+import { ACTION } from "../../../../../interfaces/ACTION";
 
 export class CloudBurst extends EventCard implements IEventCard {
+  protected readonly _namePL = "oberwane chmury";
+  protected readonly _resolutionPL = "przeprowadzka";
+
   constructor(game: IGame) {
     super(
-      "it will rain",
-      EVENT_TYPE.GATHER,
+      EVENT_CARD.CLOUDBURST,
+      ACTION.GATHER,
       {
         pawns: 1,
         invention: null,

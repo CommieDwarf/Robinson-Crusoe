@@ -24,9 +24,7 @@ export class GameService implements IGameService {
     // this._game.inventionsService.inventions.forEach(
     //   (inv) => (inv.locked = false)
     // );
-    // this._game.tilesService.explore(6);
-    // this._game.tilesService.explore(11);
-    // this._game.tilesService.explore(2);
+    this._game.actionService.setReRollToken("explore", true, "test");
   }
 
   get renderData() {

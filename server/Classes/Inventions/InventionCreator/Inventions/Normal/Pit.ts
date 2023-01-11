@@ -9,6 +9,8 @@ import { IGame } from "../../../../../../interfaces/Game";
 import { Resources } from "../../../../ResourceService/Resources";
 
 export class Pit extends Invention implements IInvention {
+  protected readonly _namePL = "wilczy dół";
+
   constructor(game: IGame) {
     super(
       INVENTION_NORMAL.PIT,

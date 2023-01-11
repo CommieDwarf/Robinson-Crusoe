@@ -10,11 +10,10 @@ import { IGame } from "../../../../interfaces/Game";
 import { ICharEffects } from "../../../../interfaces/Characters/CharEffects";
 import { IPawnService } from "../../../../interfaces/Pawns/Pawns";
 import { ISkillService } from "../../../../interfaces/SkillService/SkillService";
-import { CHARACTER_PL } from "../../../../interfaces/TRANSLATE_PL/CATEGORIES/CHARACTER_PL";
 import { skillServices } from "../../SkillService/AllServices";
 
 export abstract class Character implements ICharacter {
-  protected _namePL: CHARACTER_PL;
+  protected _namePL: string;
   protected _name: PlayerCharacterName | SideCharacterName;
   protected _gender: Gender = "male";
   protected _determination = 0;
@@ -28,11 +27,12 @@ export abstract class Character implements ICharacter {
 
   protected constructor(
     name: PlayerCharacterName | SideCharacterName,
+    namePL: string,
     id: number,
     maxHealth: number,
     game: IGame
   ) {
-    this._namePL = CHARACTER_PL[name];
+    this._namePL = namePL;
     this._name = name;
     this._id = id;
     this._maxHealth = maxHealth;
@@ -83,11 +83,11 @@ export abstract class Character implements ICharacter {
     return this._id;
   }
 
-  get namePL(): CHARACTER_PL {
+  get namePL(): string {
     return this._namePL;
   }
 
-  set namePL(value: CHARACTER_PL) {
+  set namePL(value: string) {
     this._namePL = value;
   }
 

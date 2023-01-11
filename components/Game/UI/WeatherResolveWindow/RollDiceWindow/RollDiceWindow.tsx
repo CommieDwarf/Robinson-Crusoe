@@ -2,14 +2,13 @@ import * as React from "react";
 import styles from "./RollDiceWindow.module.css";
 import { RollDiceAnimation } from "../../RollDiceAnimation/RollDiceAnimation";
 import {
-  RollDiceResult,
-  WeatherDiceSide,
-  WeatherResults,
+  WeatherDice,
+  WeatherDiceResult,
 } from "../../../../../interfaces/RollDice/RollDice";
 
 type Props = {
-  results: Map<keyof WeatherResults, RollDiceResult<WeatherDiceSide>>;
-  setResolved: () => void;
+  results: Map<keyof WeatherDice, WeatherDiceResult>;
+  setResolved: (name: string) => void;
   resolved: boolean;
 };
 export const RollDiceWindow = (props: Props) => {
@@ -20,8 +19,7 @@ export const RollDiceWindow = (props: Props) => {
           name={"weather"}
           results={props.results}
           type={"weather"}
-          setResolved={props.setResolved}
-          resolved={props.resolved}
+          onFinish={props.setResolved}
         />
       )}
     </div>

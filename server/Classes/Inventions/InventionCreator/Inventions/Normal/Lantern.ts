@@ -10,6 +10,8 @@ import { HelperPawnInvention } from "../../HelperPawnInvention";
 import { PAWN_HELPER_ACTION } from "../../../../../../interfaces/Pawns/Pawn";
 
 export class Lantern extends HelperPawnInvention implements IInvention {
+  protected readonly _namePL = "latarnia";
+
   constructor(game: IGame) {
     super(
       INVENTION_NORMAL.LANTERN,

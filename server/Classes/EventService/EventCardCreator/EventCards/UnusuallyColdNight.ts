@@ -4,22 +4,22 @@ import {
   IEventCard,
 } from "../../../../../interfaces/EventService/EventCard";
 import { IGame } from "../../../../../interfaces/Game";
+import { EVENT_CARD } from "../../../../../interfaces/EventService/EVENT_CARD";
+import { Resources } from "../../../ResourceService/Resources";
 
 export class UnusuallyColdNight extends EventCard implements IEventCard {
+  protected readonly _namePL = "niezwykle zimna noc";
+  protected readonly _resolutionPL = "ocieplenie obozowiska";
+
   constructor(game: IGame) {
     super(
-      "unusually cold night",
+      EVENT_CARD.UNUSUALLY_COLD_NIGHT,
       EVENT_TYPE.BOOK,
       {
         pawns: 1,
         invention: null,
         construction: null,
-        resource: {
-          wood: 1,
-          leather: 1,
-          food: 0,
-          dryFood: 0,
-        },
+        resource: new Resources(0, 0, 1, 0),
       },
       game
     );
@@ -35,7 +35,7 @@ export class UnusuallyColdNight extends EventCard implements IEventCard {
 
   fullFill() {
     this._game.characterService.incrDetermination(
-      this.getLeaderPawn().character,
+      this.getLeaderCharacter(),
       1,
       this.name
     );

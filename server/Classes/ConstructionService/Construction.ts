@@ -5,19 +5,25 @@ import {
 } from "../../../interfaces/ConstructionService/Construction";
 import { IResources } from "../../../interfaces/Resources/Resources";
 import { Resources } from "../ResourceService/Resources";
-import { STRUCTURE_PL } from "../../../interfaces/TRANSLATE_PL/CATEGORIES/STRUCTURE_PL";
 
 export class Construction implements IConstruction {
   private _requiredHelperAmount = 0;
   private readonly _name: CONSTRUCTION;
+  private readonly _namePL: string;
   private _lvl = 0;
   private _committedResources: IResources = new Resources();
   private _cost: IResources;
   private _locked: boolean;
   private _resourceChoice: boolean = true;
 
-  constructor(name: CONSTRUCTION, cost: Resources, locked: boolean) {
+  constructor(
+    name: CONSTRUCTION,
+    namePL: string,
+    cost: Resources,
+    locked: boolean
+  ) {
     this._name = name;
+    this._namePL = namePL;
     this._cost = cost;
     this._locked = locked;
   }
@@ -46,7 +52,7 @@ export class Construction implements IConstruction {
   }
 
   get namePL(): string {
-    return STRUCTURE_PL[this.name];
+    return this._namePL;
   }
 
   get lvl(): number {

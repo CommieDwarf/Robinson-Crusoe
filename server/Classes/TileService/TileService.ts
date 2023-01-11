@@ -1,13 +1,13 @@
 import shuffle from "../../../utils/shuffleArray";
-import { TileType, tileTypes } from "../../../constants/tilleTypes";
+import {TileType, tileTypes} from "../../../constants/tilleTypes";
 import {
   ITileService,
   ITilesServiceRenderData,
 } from "../../../interfaces/TileService/ITileService";
-import { ITile, TERRAIN_TYPE } from "../../../interfaces/TileService/ITile";
-import { IGame } from "../../../interfaces/Game";
-import { TileGraph } from "./TileGraph/TileGraph";
-import { ITileGraph } from "../../../interfaces/TileService/ITileGraph";
+import {ITile, TERRAIN_TYPE} from "../../../interfaces/TileService/ITile";
+import {IGame} from "../../../interfaces/Game";
+import {TileGraph} from "./TileGraph/TileGraph";
+import {ITileGraph} from "../../../interfaces/TileService/ITileGraph";
 
 export class TileService implements ITileService {
   _tileGraph: ITileGraph;
@@ -22,6 +22,7 @@ export class TileService implements ITileService {
   basket: boolean = false;
   sack: boolean = false;
   axe: boolean = false;
+  resourceAmountToDeplete: number = 0;
 
   constructor(game: IGame, campTileID: number) {
     this._game = game;
@@ -36,6 +37,7 @@ export class TileService implements ITileService {
       tiles: this._tileGraph.vertices.map((vertex) => vertex.data.renderData),
       campJustMoved: this.campJustMoved,
       campTile: this.campTile.renderData,
+      resourceAmountToDeplete: this.resourceAmountToDeplete,
     };
   }
 
@@ -72,6 +74,52 @@ export class TileService implements ITileService {
     return this._tileGraph.campTileVertex.data;
   }
 
+  get tilesAroundCamp() {
+    return this._tileGraph
+        .getBorderVertices(this.campTile.id)
+        .map((vertex) => vertex.data);
+  }
+
+  public clearMarkedForDepletion() {
+    this.tiles.forEach((tile) => tile.clearMarkedForDepletion());
+  }
+
+  markTileForAnyResourceDepletion(tileID: number) {
+    this.getTile(tileID).markForDepletion("left");
+    this.getTile(tileID).markForDepletion("right");
+  }
+
+  markTilesAroundCampForResourceDepletion() {
+    this.tilesAroundCamp.forEach((tile) => {
+      tile.markForDepletion("left");
+      tile.markForDepletion("right");
+    });
+  }
+
+  markClosestResourceForDepletion(resource: "food" | "wood") {
+    const closestTiles = this._tileGraph.getClosestTilesWIthResource(resource);
+    closestTiles.forEach((tile) => {
+      const side = tile.getSideByResource(resource);
+      if (!side) {
+        throw new Error(`there is no ${resource} on tile: ${tile.id}`);
+      }
+      tile.markForDepletion(side);
+    });
+  }
+
+  countMarkedResourceForDepletion() {
+    let counter = 0;
+    this.tiles.forEach((tile) => {
+      if (tile.tileType?.resources.left.markedForDepletion) {
+        counter++;
+      }
+      if (tile.tileType?.resources.right.markedForDepletion) {
+        counter++;
+      }
+    });
+    return counter;
+  }
+
   gather(side: "left" | "right", tileID: number, logSource: string) {
     if (tileID === this.campTile.id) {
       throw new Error("Can't gather from camp tile");
@@ -86,7 +134,7 @@ export class TileService implements ITileService {
       throw new Error("Tile has no tileType");
     }
 
-    const resource = tile.tileType?.resources[side];
+    const resource = tile.tileType?.resources[side].resource;
 
     if (!resource || resource === "beast") {
       throw new Error("can't gather" + resource);
@@ -120,15 +168,15 @@ export class TileService implements ITileService {
 
   public moveCamp(tileID: number) {
     if (
-      this._game.phaseService.phase === "night" &&
-      this.getTile(tileID).canCampBeSettled
+        this._game.phaseService.phase === "night" &&
+        this.getTile(tileID).canCampBeSettled
     ) {
       this._tileGraph.moveCamp(tileID);
       this.campJustMoved = true;
       this._game.chatLog.addMessage(
-        "Obóz został przeniesiony.",
-        "green",
-        "Noc"
+          "Obóz został przeniesiony.",
+          "green",
+          "Noc"
       );
     } else {
       throw Error(`Cant transfer camp. tileID: ${tileID}`);
@@ -138,6 +186,14 @@ export class TileService implements ITileService {
   public forceCampMovement() {
     this.campTransition.forced = true;
     this.campTransition.status = true;
+  }
+
+  public depleteResource(tileID: number, side: "left" | "right") {
+    this.getTile(tileID).depleteResource(side);
+    this.resourceAmountToDeplete--;
+    if (this.resourceAmountToDeplete === 0) {
+      this.clearMarkedForDepletion();
+    }
   }
 
   public static getTileIdFromDroppableId(droppableId: string): number {

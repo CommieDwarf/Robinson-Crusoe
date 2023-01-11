@@ -1,0 +1,24 @@
+import { ExploreAdventureCard } from "./ExploreAdventureCard/ExploreAdventureCard";
+import { IAdventureCard } from "../../../../../../interfaces/AdventureService/AdventureCard";
+import { IGame } from "../../../../../../interfaces/Game";
+import { ADVENTURE_CARD_EXPLORE } from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
+
+export class Carcass extends ExploreAdventureCard implements IAdventureCard {
+  protected _eventNamePL = "biegunka";
+
+  constructor(game: IGame) {
+    super(ADVENTURE_CARD_EXPLORE.CARCASS, "padlina", true, game);
+  }
+
+  option1() {}
+
+  option2() {
+    this._game.resourceService.addResourceToOwned("food", 2, this._namePL);
+    this._game.resourceService.addResourceToOwned("leather", 1, this._namePL);
+    this.shuffleIntoEventDeck();
+  }
+
+  eventEffect() {
+    this._game.characterService.hurtAllPlayerCharacters(1, this._eventNamePL);
+  }
+}

@@ -10,13 +10,13 @@ import { RollDiceButton } from "./RollDiceButton/RollDiceButton";
 import { IConstructionServiceRenderData } from "../../../../interfaces/ConstructionService/IConstructionService";
 import { IResourcesAmount } from "../../../../interfaces/Resources/Resources";
 import { useState } from "react";
-import { WeatherResults } from "../../../../interfaces/RollDice/RollDice";
 import Entries from "../../../../interfaces/Entries";
 import { RollDiceWindow } from "./RollDiceWindow/RollDiceWindow";
 import { WeatherDays } from "../../../../interfaces/ScenarioService/ScenarioService";
 import { Utility } from "./Utility/Utility";
 import { ISkillServiceRenderData } from "../../../../interfaces/SkillService/SkillService";
 import { UtilityDropDownButton } from "./UtilityDropDownButton/UtilityDropDownButton";
+import { WeatherDiceResults } from "../../../../interfaces/RollDice/RollDice";
 
 type Props = {
   weatherService: IWeatherServiceRenderData;
@@ -51,8 +51,8 @@ export const WeatherResolveWindow = (props: Props) => {
 
   if (props.weatherService.rollDiceResult) {
     const entries = Object.entries(
-      props.weatherService.rollDiceResult.results
-    ) as Entries<WeatherResults>;
+      props.weatherService.rollDiceResult
+    ) as Entries<WeatherDiceResults>;
     entries.forEach(([key, value]) => {
       if (value) {
         results.set(key, value);

@@ -1,16 +1,23 @@
-import { IActionService } from "../../../interfaces/ActionService/ActionService";
+import {
+  ActionTokens,
+  IActionService,
+  IActionServiceRenderData,
+} from "../../../interfaces/ActionService/ActionService";
 import { IGame } from "../../../interfaces/Game";
 
-import { ACTION } from "../../../interfaces/ACTION";
-import { IResolvableItem } from "../../../interfaces/ActionService/IResolvableItem";
+import { ACTION, AdventureAction } from "../../../interfaces/ACTION";
+import {
+  IResolvableItem,
+  RESOLVE_ITEM_STATUS,
+} from "../../../interfaces/ActionService/IResolvableItem";
 import { getItemFromDroppableId } from "../../../utils/getItemFromDroppableId";
 import { ResolvableItem } from "./ResolvableItem";
 import { actionOrder } from "../../../constants/actionOrder";
-import { EventCard } from "../EventService/EventCardCreator/EventCard";
-import { Beast } from "../BeastService/BeastCreator/Beast";
-import { RollDiceService } from "../RollDiceService/RollDiceService";
-import { ActionDiceResults } from "../../../interfaces/RollDice/RollDice";
 import { IPawn } from "../../../interfaces/Pawns/Pawn";
+import { ActionSlotService } from "../ActionSlotsService/ActionSlotService";
+import { MissingLeaderError } from "../Errors/MissingLeaderError";
+import { isAdventureAction } from "../../../utils/isAdventureAction";
+import i18n from "../../../I18n/I18n";
 
 export class ActionService implements IActionService {
   private readonly _game: IGame;
@@ -19,10 +26,73 @@ export class ActionService implements IActionService {
   private _actionIndex = 0;
   private _finished: boolean = false;
   private _occupiedSlots: Map<string, IPawn> = new Map();
-  private _rollDiceResult: ActionDiceResults | null = null;
+  private _lastRolledItem: IResolvableItem | null = null;
+  private _adventureTokens: ActionTokens = {
+    build: false,
+    explore: false,
+    gather: false,
+  };
+  private _reRollTokens: ActionTokens = {
+    build: false,
+    explore: false,
+    gather: false,
+  };
+
+  setAdventureToken(
+    action: AdventureAction,
+    value: boolean,
+    logSource: string
+  ) {
+    if (this._adventureTokens[action] === value) {
+      return;
+    }
+    if (value) {
+      this._game.chatLog.addMessage(
+        `Położono token na akcji: ${i18n.t(`action.${action}`, {
+          context: "genitive",
+        })}`,
+        "red",
+        logSource
+      );
+    }
+    this._adventureTokens[action] = value;
+  }
 
   constructor(game: IGame) {
     this._game = game;
+  }
+
+  get renderData(): IActionServiceRenderData {
+    return {
+      action: this.action,
+      currentActionResolved: this.currentActionResolved,
+      finished: this.finished,
+      resolvableItems: this.resolvableItems.map(
+        (resItem) => resItem.renderData
+      ),
+      lastRolledItem: this._lastRolledItem?.renderData || null,
+      adventureTokens: this._adventureTokens,
+      reRollTokens: this.reRollTokens,
+    };
+  }
+
+  get reRollTokens(): ActionTokens {
+    return this._reRollTokens;
+  }
+
+  get currentActionResolved() {
+    return !this._resolvableItems.some(
+      (resolvableItem) =>
+        resolvableItem.resolveStatus === RESOLVE_ITEM_STATUS.PENDING
+    );
+  }
+
+  get adventureTokens(): ActionTokens {
+    return this._adventureTokens;
+  }
+
+  set finished(value: boolean) {
+    this._finished = value;
   }
 
   get resolvableItems(): IResolvableItem[] {
@@ -37,68 +107,104 @@ export class ActionService implements IActionService {
     return this._finished;
   }
 
+  get lastRolledItem(): IResolvableItem | null {
+    return this._lastRolledItem;
+  }
+
   public setNextAction() {
-    if (this._resolvableItems.some((item) => !item.resolved)) {
+    if (!this.currentActionResolved) {
       return;
     }
-    this._rollDiceResult = null;
-    this._actionIndex++;
-    if (actionOrder.length - 1 < this._actionIndex) {
+    this._lastRolledItem = null;
+    if (this.action !== ACTION.REST) {
+      this._actionIndex++;
       this._action = actionOrder[this._actionIndex];
       this.loadItems();
     } else {
       this._finished = true;
-      this._action = actionOrder[0];
       this._actionIndex = 0;
+      this._action = actionOrder[this._actionIndex];
       this._resolvableItems = [];
     }
   }
 
+  public setReRollToken(
+    action: AdventureAction,
+    value: boolean,
+    logSource: string
+  ) {
+    if (this._reRollTokens[action] === value) {
+      return;
+    }
+    if (value) {
+      this._game.chatLog.addMessage(
+        `Żeton przerzutu sukcesu został umieszczony na akcji ${i18n.t(
+          `action.${action}`,
+          { context: "genitive" }
+        )}`,
+        "red",
+        logSource
+      );
+    }
+    this._reRollTokens[action] = value;
+  }
+
   public loadItems() {
     this._occupiedSlots =
-      this._game.actionSlotService.slotsOccupiedAndCategorized[this._action];
+      this._game.actionSlotService.getOccupiedActionSlots()[this.action];
     const resolvableItems: IResolvableItem[] = [];
+    const helpers: string[] = [];
     this._occupiedSlots.forEach((pawn, droppableID) => {
-      const item = getItemFromDroppableId(droppableID, this._game);
-      resolvableItems.push(
-        new ResolvableItem(item, this._action, pawn, this._game, droppableID)
-      );
+      if (droppableID.includes("helper")) {
+        const resolvableItem = this.getResolvableItemByDroppableID(
+          droppableID,
+          resolvableItems
+        );
+        if (resolvableItem) {
+          resolvableItem.helperAmount++;
+        } else {
+          helpers.push(droppableID);
+        }
+      } else {
+        const item = getItemFromDroppableId(droppableID, this._game);
+        resolvableItems.push(
+          new ResolvableItem(item, this._action, pawn, this._game, droppableID)
+        );
+      }
     });
 
+    helpers.forEach((droppableID) => {
+      const item = this.getResolvableItemByDroppableID(
+        droppableID,
+        resolvableItems
+      );
+      if (!item) {
+        throw new MissingLeaderError("das", "Xx", "qq");
+      } else {
+        item.helperAmount++;
+      }
+    });
     this._resolvableItems = resolvableItems;
+  }
+
+  public rollDices(resolvableItemID: string) {
+    const resolvableItem = this.getResolvableItem(resolvableItemID);
+    resolvableItem.rollDices();
+    this._lastRolledItem = resolvableItem;
+  }
+
+  public reRollSuccess(resolvableItemID: string) {
+    if (isAdventureAction(this._action)) {
+      this.getResolvableItem(resolvableItemID).reRollSuccess();
+      this.setReRollToken(this._action, false, "");
+    }
   }
 
   public resolve(resolvableItemID: string) {
     const resolvableItem = this.getResolvableItem(resolvableItemID);
-    const shouldRollDices = this.shouldRollDices(resolvableItem);
-    const action = resolvableItem.action;
-    if (
-      (shouldRollDices &&
-        !resolvableItem.rolled &&
-        action === ACTION.EXPLORE) ||
-      action === ACTION.BUILD ||
-      action === ACTION.GATHER
-    ) {
-      this._rollDiceResult = RollDiceService.getActionRollDiceResults(action);
-      resolvableItem.rolled = true;
-      this.applyRollDiceEffects(resolvableItem);
-    } else {
-      resolvableItem.resolve();
-    }
-  }
-
-  private applyRollDiceEffects(resolvableItem: IResolvableItem) {
-    const character = resolvableItem.leaderPawn.character;
-    if (this._rollDiceResult?.hurt.result === "hurt") {
-      this._game.characterService.hurt(character, 1, this._action);
-    }
-    if (this._rollDiceResult?.success.result === "success") {
-      resolvableItem.resolve();
-    } else {
-      this._game.characterService.incrDetermination(character, 2, this._action);
-    }
-    if (this._rollDiceResult?.mystery.result === "mystery") {
-      //TODO: pull mystery card.
+    resolvableItem.resolve();
+    if (resolvableItem.shouldRollDices) {
+      this._lastRolledItem = resolvableItem;
     }
   }
 
@@ -111,36 +217,21 @@ export class ActionService implements IActionService {
     return resolvableItem;
   }
 
-  private shouldRollDices(resolvableItem: IResolvableItem) {
-    const item = resolvableItem.item;
-    if (
-      item === ACTION.REST ||
-      item === ACTION.ARRANGE_CAMP ||
-      item instanceof EventCard ||
-      item instanceof Beast
-    ) {
-      return false;
-    }
-    return (
-      item.requiredHelperAmount >=
-      this.getHelperAmount(resolvableItem.droppableID)
+  private getResolvableItemByDroppableID(
+    droppableID: string,
+    resolvableItems: IResolvableItem[]
+  ) {
+    const droppableIDRoleRemoved =
+      ActionSlotService.rmvRoleInfoFromDroppableId(droppableID);
+    const resolvableItem = resolvableItems.find((resItem) =>
+      resItem.droppableID.includes(droppableIDRoleRemoved)
     );
-  }
-
-  private getHelperAmount(droppableID: string): number {
-    let helperAmount = 0;
-    const droppableIDWithoutRole = droppableID.slice(0, -8);
-    if (this._occupiedSlots) {
-      this._occupiedSlots.forEach((pawn, dropID) => {
-        if (
-          dropID.includes(droppableIDWithoutRole) &&
-          dropID.includes("helper")
-        ) {
-          helperAmount++;
-        }
-      });
+    if (!resolvableItem) {
+      throw new Error(
+        `Resolvable item with droppableID: ${droppableIDRoleRemoved} not found.`
+      );
     }
 
-    return helperAmount;
+    return resolvableItem;
   }
 }

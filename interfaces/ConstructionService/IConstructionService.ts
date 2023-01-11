@@ -31,6 +31,7 @@ export interface IConstructionService {
     by: number,
     logSource: string
   ) => void;
+  setDividedLvlByTwo: (construction: CONSTRUCTION, sourceLog: string) => void;
   setLvl: (construction: CONSTRUCTION, lvl: number) => void;
   unlockConstruction: (construction: CONSTRUCTION) => void;
   lockConstruction: (construction: CONSTRUCTION) => void;
@@ -38,5 +39,6 @@ export interface IConstructionService {
   commitResources: (construction: CONSTRUCTION, resources: IResources) => void;
   rollBackCommittedResources: (construction: CONSTRUCTION) => void;
   getConstruction: (construction: CONSTRUCTION) => IConstruction;
+  isBuilt: (construction: CONSTRUCTION) => boolean;
   renderData: IConstructionServiceRenderData;
 }

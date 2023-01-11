@@ -15,6 +15,7 @@ import { IGame } from "../../../../interfaces/Game";
 
 export class Invention implements IInvention {
   protected readonly _name: INVENTION;
+  protected declare readonly _namePL: string;
   protected _locked = true;
   protected readonly _requirements: InventionRequirements;
   protected readonly _resourceChoice: boolean = false;
@@ -28,6 +29,8 @@ export class Invention implements IInvention {
   protected readonly _game: IGame;
   protected readonly _usable: boolean = false;
   protected _used: boolean = false;
+  private _requiredHelperAmount = 0;
+  protected readonly _logSource = `karta pomysłu: ${this.namePL}`;
 
   constructor(
     name: INVENTION,
@@ -51,13 +54,12 @@ export class Invention implements IInvention {
       type: this.type,
       committedResources: this._committedResources.renderData,
       isBuilt: this.isBuilt,
-      requiredHelpersAmount: this.requiredHelpersAmount,
+      requiredHelperAmount: this.requiredHelperAmount,
     };
   }
 
-  get requiredHelpersAmount() {
-    //TODO: implement
-    return 0;
+  get requiredHelperAmount(): number {
+    return this._requiredHelperAmount;
   }
 
   get resourceChoice(): boolean {
@@ -130,6 +132,10 @@ export class Invention implements IInvention {
 
   get requirements(): InventionRequirements {
     return this._requirements;
+  }
+
+  get namePL(): string {
+    return this._namePL;
   }
 
   protected getLeader(): ICharacter {

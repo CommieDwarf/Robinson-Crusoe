@@ -20,6 +20,7 @@ export class PlayerCharacter extends Character implements IPlayerCharacter {
 
   constructor(
     name: PlayerCharacterName,
+    namePL: string,
     id: number,
     maxHealth: number,
     game: IGame,
@@ -27,7 +28,7 @@ export class PlayerCharacter extends Character implements IPlayerCharacter {
     moraleThresholds: number[],
     player: IPlayer
   ) {
-    super(name, id, maxHealth, game);
+    super(name, namePL, id, maxHealth, game);
     this._player = player;
     this._moraleThresholds = moraleThresholds;
     this._gender = gender;

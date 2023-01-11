@@ -6,17 +6,17 @@ import Image from "next/image";
 import { actionOrder } from "../../../../../constants/actionOrder";
 import redArrowImg from "/public/UI/misc/red-arrow.png";
 import { getImgName } from "../../../../../utils/getImgName";
+import { IActionServiceRenderData } from "../../../../../interfaces/ActionService/ActionService";
 
 type Props = {
-  currentAction: ACTION;
   setNextAction: () => void;
   setNextPhase: () => void;
-  setResolved: React.Dispatch<React.SetStateAction<Map<string, boolean>>>;
+  actionService: IActionServiceRenderData;
 };
 
 export const NextActionButton = (props: Props) => {
   const currentActionIndex = actionOrder.findIndex(
-    (action) => props.currentAction === action
+    (action) => props.actionService.action === action
   );
   const nextActionIndex = currentActionIndex + 1;
   const nextAction =
@@ -25,12 +25,7 @@ export const NextActionButton = (props: Props) => {
       : "next-turn";
 
   function clickHandle() {
-    props.setResolved(new Map());
-    if (props.currentAction === "rest") {
-      props.setNextPhase();
-    } else {
-      props.setNextAction();
-    }
+    props.setNextAction();
   }
 
   return (

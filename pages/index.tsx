@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import createGame from "./api/createGame";
 import getGameRenderData from "./api/getGame";
 import Game from "../components/Game/Game";
+import "../I18n/I18n";
 
 const Home: NextPage = () => {
   const [gameRenderData, setGameRenderData] = useState<IGameRenderData>();

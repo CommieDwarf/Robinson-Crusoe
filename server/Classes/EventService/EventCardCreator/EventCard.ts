@@ -1,26 +1,34 @@
 import {
   EVENT_TYPE,
+  EventResolveRequirements,
   IEventCard,
   IEventCardRenderData,
-  EventResolveRequirements,
 } from "../../../../interfaces/EventService/EventCard";
 import { IGame } from "../../../../interfaces/Game";
 import { v4 as uuidv4 } from "uuid";
 import { IPawn } from "../../../../interfaces/Pawns/Pawn";
+import {
+  EVENT_CARD,
+  WRECKAGE_CARD,
+} from "../../../../interfaces/EventService/EVENT_CARD";
+import { ICharacter } from "../../../../interfaces/Characters/Character";
+import { ACTION, AdventureAction } from "../../../../interfaces/ACTION";
 
 //TODO: implement name translations
 
-export class EventCard implements IEventCard {
-  private readonly _id = uuidv4();
-  private readonly _name: string;
-  private readonly _type: EVENT_TYPE;
-  private readonly _requirements: EventResolveRequirements;
+export abstract class EventCard implements IEventCard {
+  protected declare _namePL: string;
+  protected declare _resolutionPL: string;
+  protected readonly _id = uuidv4();
+  protected readonly _name: string;
+  protected readonly _type: AdventureAction | EVENT_TYPE;
+  protected readonly _requirements: EventResolveRequirements;
   protected _game: IGame;
-  private _requiredHelperAmount: number;
+  protected _requiredHelperAmount: number;
 
-  constructor(
-    name: string,
-    type: EVENT_TYPE,
+  protected constructor(
+    name: EVENT_CARD | WRECKAGE_CARD,
+    type: AdventureAction | EVENT_TYPE,
     requirements: EventResolveRequirements,
     game: IGame
   ) {
@@ -48,7 +56,15 @@ export class EventCard implements IEventCard {
     return this._name;
   }
 
-  get type(): EVENT_TYPE {
+  get namePL(): string {
+    return this._namePL;
+  }
+
+  get resolutionPL(): string {
+    return this._resolutionPL;
+  }
+
+  get type(): EVENT_TYPE | AdventureAction {
     return this._type;
   }
 
@@ -56,7 +72,7 @@ export class EventCard implements IEventCard {
     return this._requiredHelperAmount;
   }
 
-  protected getLeaderPawn(): IPawn {
+  protected getLeaderCharacter(): ICharacter {
     const slot = this._game.eventService.getSlotByCardID(this.id);
     const pawn = this._game.actionSlotService.getPawn(
       `threat-${slot}-leader-0`
@@ -64,7 +80,7 @@ export class EventCard implements IEventCard {
     if (!pawn) {
       throw new Error("Can't find leader pawn");
     }
-    return pawn;
+    return pawn.character;
   }
 
   protected getHelperPawn(): IPawn | null {
@@ -76,9 +92,17 @@ export class EventCard implements IEventCard {
     return this._requirements;
   }
 
-  triggerEffect() {
-    throw new Error("triggerEffect() not implemented");
+  public setAdventureToken() {
+    if (
+      this._type === ACTION.BUILD ||
+      this._type === ACTION.EXPLORE ||
+      this._type === ACTION.GATHER
+    ) {
+      this._game.actionService.setAdventureToken(this._type, true, this.namePL);
+    }
   }
+
+  triggerEffect() {}
 
   triggerThreatEffect() {
     throw new Error("triggerThreatEffect() not implemented");
@@ -86,5 +110,13 @@ export class EventCard implements IEventCard {
 
   fullFill() {
     throw new Error("fullFill() not implemented");
+  }
+
+  protected incrDetermination(amount: number) {
+    this._game.characterService.incrDetermination(
+      this.getLeaderCharacter(),
+      amount,
+      this._resolutionPL
+    );
   }
 }

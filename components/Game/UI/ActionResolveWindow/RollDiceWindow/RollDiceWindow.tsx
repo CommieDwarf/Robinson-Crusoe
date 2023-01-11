@@ -1,30 +1,32 @@
 import * as React from "react";
 import styles from "./RollDiceWindow.module.css";
-import { RollDiceAnimation } from "../../RollDiceAnimation/RollDiceAnimation";
-import {
-  ActionDiceSide,
-  ActionResults,
-  DiceActionType,
-  RollDiceResult,
-} from "../../../../../interfaces/RollDice/RollDice";
+import RollDiceAnimation from "../../RollDiceAnimation/RollDiceAnimation";
+import { ActionDiceResults } from "../../../../../interfaces/RollDice/RollDice";
+import { IResolvableItemRenderData } from "../../../../../interfaces/ActionService/IResolvableItem";
+import Entries from "../../../../../interfaces/Entries";
+import { AdventureAction } from "../../../../../interfaces/ACTION";
 
 type Props = {
-  name: string | null;
-  results: Map<keyof ActionResults, RollDiceResult<ActionDiceSide>>;
-  type: DiceActionType;
-  setResolved: (name: string) => void;
-  resolved: boolean;
+  resolvableItem: IResolvableItemRenderData | null;
+  type: AdventureAction;
+  setItemAnimationDone: (id: string) => void;
 };
 export const RollDiceWindow = (props: Props) => {
   return (
     <div className={styles.container}>
-      {props.name && props.results.size > 0 && (
+      {props.resolvableItem && props.resolvableItem.rollDiceResults && (
         <RollDiceAnimation
-          name={props.name}
-          results={props.results}
+          name={props.resolvableItem.id}
+          results={
+            new Map(
+              Object.entries(
+                props.resolvableItem.rollDiceResults
+              ) as Entries<ActionDiceResults>
+            )
+          }
           type={props.type}
-          setResolved={props.setResolved}
-          resolved={props.resolved}
+          onFinish={props.setItemAnimationDone}
+          reRolledDice={props.resolvableItem.reRolledSuccess ? "success" : ""}
         />
       )}
     </div>

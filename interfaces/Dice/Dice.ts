@@ -1,13 +1,15 @@
 import {
+  ActionDiceResult,
   ActionDiceSide,
-  RollDiceResult,
+  WeatherDiceResult,
   WeatherDiceSide,
 } from "../RollDice/RollDice";
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeometry";
+import { DirectionalLight, SpotLight } from "three";
 
 export interface IDice {
-  result: RollDiceResult<WeatherDiceSide> | RollDiceResult<ActionDiceSide>;
+  result: ActionDiceResult | WeatherDiceResult;
   finished: boolean;
   axesFinished: {
     x: boolean;
@@ -15,5 +17,9 @@ export interface IDice {
     z: boolean;
   };
   mesh: THREE.Mesh<RoundedBoxGeometry, THREE.MeshPhysicalMaterial[]>;
+  light: SpotLight;
   rotate: () => void;
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
+  fixed: boolean;
 }

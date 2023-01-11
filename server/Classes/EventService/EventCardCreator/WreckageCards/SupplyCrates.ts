@@ -4,11 +4,18 @@ import {
   IEventCard,
 } from "../../../../../interfaces/EventService/EventCard";
 import { IGame } from "../../../../../interfaces/Game";
+import {
+  EVENT_CARD,
+  WRECKAGE_CARD,
+} from "../../../../../interfaces/EventService/EVENT_CARD";
 
 export class SupplyCrates extends EventCard implements IEventCard {
+  protected readonly _namePL = "skrzynie z jedzeniem";
+  protected readonly _resolutionPL = "wyprawa po jedzenie";
+
   constructor(game: IGame) {
     super(
-      "supply crates",
+      WRECKAGE_CARD.SUPPLY_CRATES,
       EVENT_TYPE.WRECKAGE,
       {
         pawns: 1,

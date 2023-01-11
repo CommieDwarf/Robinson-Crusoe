@@ -8,8 +8,16 @@ export class TileType {
   id: number;
   terrainType: TERRAIN_TYPE;
   resources: {
-    left: TileResource;
-    right: TileResource;
+    left: {
+      resource: TileResource;
+      depleted: boolean;
+      markedForDepletion: boolean;
+    };
+    right: {
+      resource: TileResource;
+      depleted: boolean;
+      markedForDepletion: boolean;
+    };
   };
   extras: TileExtras;
 
@@ -22,7 +30,18 @@ export class TileType {
     this.id = id;
     this.terrainType = terrainType;
     this.extras = extras;
-    this.resources = resources;
+    this.resources = {
+      left: {
+        resource: resources.left,
+        depleted: false,
+        markedForDepletion: false,
+      },
+      right: {
+        resource: resources.right,
+        depleted: false,
+        markedForDepletion: false,
+      },
+    };
   }
 }
 

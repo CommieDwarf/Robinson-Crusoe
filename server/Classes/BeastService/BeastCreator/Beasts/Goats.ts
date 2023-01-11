@@ -5,6 +5,6 @@ import { Resources } from "../../../ResourceService/Resources";
 
 export class Goats extends Beast implements IBeast {
   constructor(game: IGame) {
-    super("goats", 4, 1, new Resources(3, 0, 0, 1), game);
+    super("goats", "kozły", 4, 1, new Resources(3, 0, 0, 1), game);
   }
 }

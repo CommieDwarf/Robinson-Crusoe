@@ -6,11 +6,9 @@ import {
 } from "../../../interfaces/Weather/Weather";
 import { IGame } from "../../../interfaces/Game";
 import {
-  AnimalDiceSide,
-  RainDiceSide,
   WeatherDice,
-  WeatherRollDiceInfo,
-  WinterDiceSide,
+  WeatherDiceResults,
+  WeatherDiceSide,
 } from "../../../interfaces/RollDice/RollDice";
 import { RollDiceService } from "../RollDiceService/RollDiceService";
 import { CONSTRUCTION } from "../../../interfaces/ConstructionService/Construction";
@@ -30,7 +28,7 @@ export class WeatherService implements IWeatherService {
   private _furnace: boolean = false;
 
   private readonly _game: IGame;
-  private _rollDiceResult: WeatherRollDiceInfo | null = null;
+  private _rollDiceResult: WeatherDiceResults | null = null;
 
   constructor(game: IGame) {
     this._game = game;
@@ -45,9 +43,7 @@ export class WeatherService implements IWeatherService {
   }
 
   get overallWeather(): OverallWeather {
-    const animals = this._rollDiceResult?.results.animals?.result
-      ? this._rollDiceResult?.results.animals?.result
-      : null;
+    const animals = this._rollDiceResult?.animals;
 
     let { rain, snow } = this.countClouds();
     rain += this._modifiers.rain;
@@ -58,7 +54,7 @@ export class WeatherService implements IWeatherService {
       snow,
       rain,
       storm: this._tokens.storm,
-      animals,
+      animals: animals || null,
     };
   }
 
@@ -78,7 +74,7 @@ export class WeatherService implements IWeatherService {
     return this._tokens;
   }
 
-  get rollDiceResult(): WeatherRollDiceInfo | null {
+  get rollDiceResult(): WeatherDiceResults | null {
     return this._rollDiceResult;
   }
 
@@ -95,7 +91,7 @@ export class WeatherService implements IWeatherService {
     this.applySnowEffect(weather.snow);
     this.applySnowAndRain(weather.snow, weather.rain);
     if (weather.animals) {
-      this.applyAnimalsEffect(weather.animals);
+      this.applyAnimalsEffect(weather.animals.result);
     }
     this.resetWeather();
   }
@@ -110,12 +106,12 @@ export class WeatherService implements IWeatherService {
       snow++;
     }
     if (this._rollDiceResult) {
-      const rainResult = this._rollDiceResult.results.rain?.result;
-      const snowResult = this._rollDiceResult.results.winter?.result;
+      const rainResult = this._rollDiceResult.rain;
+      const snowResult = this._rollDiceResult.winter;
       const results = [rainResult, snowResult];
       results.forEach((result) => {
         if (result) {
-          switch (result) {
+          switch (result.result) {
             case "rain":
               rain += 1;
               break;
@@ -178,7 +174,7 @@ export class WeatherService implements IWeatherService {
     }
   }
 
-  private applyAnimalsEffect(diceSide: AnimalDiceSide) {
+  private applyAnimalsEffect(diceSide: WeatherDiceSide) {
     const logSource = "Wygłodniałe zwierzęta";
     switch (diceSide) {
       case "palisade":
@@ -203,30 +199,26 @@ export class WeatherService implements IWeatherService {
     if (this._rollDiceResult) {
       return;
     }
-    const weatherRollDiceInfo: WeatherRollDiceInfo = {
-      type: "weather",
-      results: {
-        winter: null,
-        rain: null,
-        animals: null,
-      },
-    };
+    let winter = null;
+    let rain = null;
+    let animals = null;
 
     if (this.shouldRollDice("winter")) {
-      weatherRollDiceInfo.results.winter =
-        RollDiceService.getWeatherRollDiceResult<WinterDiceSide>("winter");
+      winter = RollDiceService.getWeatherRollDiceResult("winter");
     }
     if (this.shouldRollDice("rain")) {
-      weatherRollDiceInfo.results.rain =
-        RollDiceService.getWeatherRollDiceResult<RainDiceSide>("rain");
+      rain = RollDiceService.getWeatherRollDiceResult("rain");
     }
 
     if (this.shouldRollDice("animals")) {
-      weatherRollDiceInfo.results.animals =
-        RollDiceService.getWeatherRollDiceResult<AnimalDiceSide>("animals");
+      animals = RollDiceService.getWeatherRollDiceResult("animals");
     }
 
-    this._rollDiceResult = weatherRollDiceInfo;
+    this._rollDiceResult = {
+      winter,
+      rain,
+      animals,
+    };
   }
 
   private shouldRollDice(dice: WeatherDice) {

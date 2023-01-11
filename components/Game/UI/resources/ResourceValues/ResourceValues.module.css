@@ -4,11 +4,18 @@
     text-align: right;
     left: 17px;
 }
+
+.resource {
+    position: relative;
+    left: 15px;
+}
+
 .label {
     display: inline-block;
     height: 20px;
     margin-right: 5px;
 }
+
 .icon {
     display: inline-block;
     height: 20px;
@@ -16,6 +23,7 @@
     position: relative;
     margin-bottom: -5px;
 }
+
 .value {
     display: inline-block;
     height: 20px;

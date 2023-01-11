@@ -8,6 +8,8 @@ import { IGame } from "../../../../../../interfaces/Game";
 import { Resources } from "../../../../ResourceService/Resources";
 
 export class Diary extends Invention implements IInvention {
+  protected readonly _namePL = "dziennik";
+
   constructor(game: IGame) {
     super(
       INVENTION_NORMAL.DIARY,

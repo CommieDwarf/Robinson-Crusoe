@@ -1,6 +1,7 @@
 import { Invention } from "./Invention";
 import {
   IInvention,
+  INVENTION,
   INVENTION_TYPE,
   InventionRequirements,
 } from "../../../../interfaces/InventionService/Invention";
@@ -17,7 +18,7 @@ export class HelperPawnInvention extends Invention implements IInvention {
   protected _pawnID = "";
 
   constructor(
-    name: string,
+    name: INVENTION,
     requirements: InventionRequirements,
     type: INVENTION_TYPE,
     cost: IResources | null,

@@ -10,6 +10,7 @@ import { CONSTRUCTION } from "../../../../../../interfaces/ConstructionService/C
 
 export class Sling extends Invention implements IInvention {
   protected _resourceChoice = true;
+  protected readonly _namePL = "proca";
 
   constructor(game: IGame) {
     super(
@@ -25,7 +26,7 @@ export class Sling extends Invention implements IInvention {
     this._game.constructionService.lvlUpConstruction(
       CONSTRUCTION.WEAPON,
       2,
-      this.name
+      this._logSource
     );
   }
 
@@ -33,7 +34,7 @@ export class Sling extends Invention implements IInvention {
     this._game.constructionService.lvlDownIfPossible(
       CONSTRUCTION.WEAPON,
       2,
-      this.name
+      this._logSource
     );
   }
 }

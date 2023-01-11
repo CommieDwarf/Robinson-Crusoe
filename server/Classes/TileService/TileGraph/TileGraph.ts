@@ -42,6 +42,26 @@ export class TileGraph extends Graph<ITile> implements ITileGraph {
     });
   }
 
+  public getClosestTilesWIthResource(resource: "wood" | "food") {
+    let closest = Infinity;
+    let tiles: ITile[] = [];
+    this.vertices.forEach((vertex) => {
+      if (vertex.data.id === this.campTileVertex.id) {
+        return;
+      }
+      if (vertex.data.hasResource(resource)) {
+        let path = this.getShortestPath(this.campTileVertex.id, vertex.id);
+        if (path.length < closest) {
+          closest = path.length;
+          tiles = [vertex.data];
+        } else if (path.length === closest) {
+          tiles.push(vertex.data);
+        }
+      }
+    });
+    return tiles;
+  }
+
   private initVertices(campTileID: number) {
     for (let i = 0; i < 15; i++) {
       if (i === campTileID) {
@@ -73,8 +93,14 @@ export class TileGraph extends Graph<ITile> implements ITileGraph {
         data.id
       );
       if (shortestPath.length > 0) {
-        data.helpersRequired = shortestPath.length - 1;
+        data.requiredHelperAmount = shortestPath.length - 1;
       }
     });
+  }
+
+  public getBorderVertices(id: number) {
+    return this.vertices.filter((vertex) =>
+      vertex.edges.filter((edge) => edge.end.id === id)
+    );
   }
 }

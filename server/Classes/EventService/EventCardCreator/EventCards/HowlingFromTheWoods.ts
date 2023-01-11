@@ -6,22 +6,22 @@ import {
 import { IGame } from "../../../../../interfaces/Game";
 import { BeastService } from "../../../BeastService/BeastService";
 import { INVENTION_STARTER } from "../../../../../interfaces/InventionService/Invention";
+import { EVENT_CARD } from "../../../../../interfaces/EventService/EVENT_CARD";
+import { Resources } from "../../../ResourceService/Resources";
 
 export class HowlingFromTheWoods extends EventCard implements IEventCard {
+  protected readonly _namePL = "wycie od strony lasu";
+  protected readonly _resolutionPL = "wyprawa";
+
   constructor(game: IGame) {
     super(
-      "howling from the woods",
+      EVENT_CARD.HOWLING_FROM_THE_WOODS,
       EVENT_TYPE.BOOK,
       {
         pawns: 1,
         invention: INVENTION_STARTER.FIRE,
         construction: null,
-        resource: {
-          wood: 1,
-          leather: 1,
-          food: 0,
-          dryFood: 0,
-        },
+        resource: null,
       },
       game
     );
@@ -45,7 +45,7 @@ export class HowlingFromTheWoods extends EventCard implements IEventCard {
   }
 
   fullFill() {
-    const leader = this.getLeaderPawn().character;
+    const leader = this.getLeaderCharacter();
     this._game.characterService.incrDetermination(leader, 2, this.name);
     this._game.beastService.swapDeckTopToBottom();
     this._game.chatLog.addMessage(

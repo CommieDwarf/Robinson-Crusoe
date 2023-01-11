@@ -1,0 +1,74 @@
+.container {
+    width: 200px;
+    aspect-ratio: var(--eventCardAspectRatio);
+    background-size: contain;
+    position: absolute;
+    z-index: 99999999;
+    left: calc(50% - 100px);
+
+}
+
+.card {
+    width: 200px;
+    aspect-ratio: var(--eventCardAspectRatio);
+    position: relative;
+    margin: auto;
+    cursor: grab;
+    transition: all;
+    transition-duration: 0.3s
+}
+
+.enlarged {
+    transform: scale(160%);
+}
+
+.zoomButton {
+    z-index: 99999999;
+    width: 50%;
+    aspect-ratio: 1;
+    position: absolute;
+    top: -1%;
+    right: -15%;
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.zoomButton:hover {
+    opacity: 1;
+}
+
+.magnifyingGlass {
+    width: 75%;
+    height: 75%;
+    position: relative;
+    margin: 12% auto auto;
+}
+
+.actions {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    position: absolute;
+    bottom: -30px;
+}
+
+
+.action {
+    width: 40%;
+    height: 30px;
+    border: 1px solid black;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    z-index: 9999999;
+    background-image: url("../../../../public/UI/scenarios/background.png");
+    background-position-x: -40px;
+    background-position-y: -40px;
+    cursor: pointer;
+}
+
+.action:hover {
+    transform: scale(110%);
+    filter: contrast(120%)
+}

@@ -14,5 +14,6 @@ export interface IInventionService {
   updateLocks: () => void;
   getInvention: (invention: INVENTION) => IInvention;
   fireplace: boolean;
+  isBuilt: (invention: INVENTION) => boolean;
   renderData: IInventionServiceRenderData;
 }

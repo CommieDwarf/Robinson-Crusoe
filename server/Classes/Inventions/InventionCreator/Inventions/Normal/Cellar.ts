@@ -8,6 +8,8 @@ import {
 import { IGame } from "../../../../../../interfaces/Game";
 
 export class Cellar extends Invention implements IInvention {
+  protected readonly _namePL = "piwnica";
+
   constructor(game: IGame) {
     super(
       INVENTION_NORMAL.CELLAR,

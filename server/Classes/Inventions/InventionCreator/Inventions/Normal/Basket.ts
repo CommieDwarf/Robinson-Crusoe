@@ -8,6 +8,8 @@ import { IGame } from "../../../../../../interfaces/Game";
 import { TERRAIN_TYPE } from "../../../../../../interfaces/TileService/ITile";
 
 export class Basket extends Invention implements IInvention {
+  protected readonly _namePL = "kosz";
+
   constructor(game: IGame) {
     super(
       INVENTION_NORMAL.BASKET,

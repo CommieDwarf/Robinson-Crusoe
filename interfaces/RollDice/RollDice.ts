@@ -27,8 +27,6 @@ export type WeatherDiceSide =
   | "palisade"
   | "food";
 
-export type DICE_ACTION_TYPE = ACTION.EXPLORE | ACTION.GATHER | ACTION.BUILD;
-
 export type ActionDice = "mystery" | "hurt" | "success";
 export type WeatherDice = "winter" | "rain" | "animals";
 
@@ -37,6 +35,15 @@ export interface ActionDiceResult {
   axes: diceAxes;
 }
 
+export interface WeatherDiceResult {
+  result: WeatherDiceSide;
+  axes: diceAxes;
+}
+
 export type ActionDiceResults = {
   [key in ActionDice]: ActionDiceResult;
+};
+
+export type WeatherDiceResults = {
+  [key in WeatherDice]: WeatherDiceResult | null;
 };

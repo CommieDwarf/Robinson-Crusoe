@@ -9,6 +9,8 @@ import { TERRAIN_TYPE } from "../../../../../../interfaces/TileService/ITile";
 import { Resources } from "../../../../ResourceService/Resources";
 
 export class Drums extends Invention implements IInvention {
+  protected readonly _namePL = "bębny";
+
   constructor(game: IGame) {
     super(
       INVENTION_NORMAL.DRUMS,

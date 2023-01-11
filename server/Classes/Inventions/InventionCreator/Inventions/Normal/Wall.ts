@@ -9,6 +9,8 @@ import { IGame } from "../../../../../../interfaces/Game";
 import { CONSTRUCTION } from "../../../../../../interfaces/ConstructionService/Construction";
 
 export class Wall extends Invention implements IInvention {
+  protected readonly _namePL = "mur";
+
   constructor(game: IGame) {
     super(
       INVENTION_NORMAL.WALL,
@@ -23,7 +25,7 @@ export class Wall extends Invention implements IInvention {
     this._game.constructionService.lvlUpConstruction(
       CONSTRUCTION.PALISADE,
       2,
-      this.name
+      this._logSource
     );
   }
 
@@ -31,7 +33,7 @@ export class Wall extends Invention implements IInvention {
     this._game.constructionService.lvlDownIfPossible(
       CONSTRUCTION.PALISADE,
       2,
-      this.name
+      this._logSource
     );
   }
 }

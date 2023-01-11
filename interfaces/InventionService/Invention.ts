@@ -14,6 +14,7 @@ export interface IInventionRenderData {
 
 export interface IInvention {
   name: INVENTION;
+  namePL: string;
   locked: boolean;
   requiredHelpersModifier: number;
   requiredHelperAmount: number;

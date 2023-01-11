@@ -8,6 +8,8 @@ import { IGame } from "../../../../../../interfaces/Game";
 import { Resources } from "../../../../ResourceService/Resources";
 
 export class Sack extends Invention implements IInvention {
+  protected readonly _namePL = "wór";
+
   constructor(game: IGame) {
     super(
       INVENTION_NORMAL.SACK,

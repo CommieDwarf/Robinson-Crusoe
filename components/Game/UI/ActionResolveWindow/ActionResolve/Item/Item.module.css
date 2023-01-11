@@ -131,30 +131,42 @@
 }
 
 
-.structureStatus {
+.constructionStatus {
     top: 20px;
 }
 
 .tileStatus {
     top: 36px;
-
 }
 
 
 .resolveButton {
-    height: 25px !important;
+    width: 95%;
     top: 100%;
-    font-size: 15px;
+    font-size: 18px;
+    height: 30px;
     font-weight: bold;
     color: var(--brown);
     border: 2px solid var(--brown);
     border-radius: 5px;
     margin: auto;
-    line-height: 10px;
+    line-height: 15px;
     padding: 5px;
     -webkit-box-shadow: 4px 4px 5px -4px var(--brown);
     -moz-box-shadow: 4px 4px 5px -4px var(--brown);
     box-shadow: 4px 4px 5px -4px var(--brown);
+    display: flex;
+    justify-content: center;
+}
+
+
+.reRollToken {
+    position: relative;
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    top: -5px;
+    left: 5px;
 }
 
 .clickableButton:hover {
@@ -179,3 +191,4 @@
     margin: 5px auto auto;
     background-color: bisque;
 }
+

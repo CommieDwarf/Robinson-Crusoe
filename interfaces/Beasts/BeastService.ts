@@ -14,6 +14,7 @@ export interface IBeastService {
   getBeastsFromStack: (amount: number) => IBeast[];
   killBeast: (leader: ICharacter) => void;
   fightBeast: (leader: ICharacter) => void;
+  removeBeastFromDeck: () => void;
   swapDeckTopToBottom: () => void;
   beastStrengthEnchanted: boolean;
 }

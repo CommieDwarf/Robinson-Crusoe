@@ -1,0 +1,59 @@
+{
+  "pl": {
+    "translation": {
+      "phase": {
+        "event": "wydarzenia",
+        "morale": "morali",
+        "production": "produkcji",
+        "preAction": "akcji",
+        "action": "akcji",
+        "weather": "pogody",
+        "night": "nocy"
+      },
+      "resource": {
+        "food": "pożywienie",
+        "food_many": "pożywień",
+        "food_few": "pożywienia",
+        "dryFood": "suchy prowiant",
+        "dryFood_many": "suchych prowiantów",
+        "dryFood_few": "suche prowianty",
+        "wood": "drewno",
+        "wood_many": "drewien",
+        "wood_few": "drewna",
+        "leather": "skóra",
+        "leather_many": "skór",
+        "leather_few": "skóry"
+      },
+      "action": {
+        "threat": "zagrożenie",
+        "threat_genitive": "zagrożenia",
+        "hunt": "polowanie",
+        "hunt_genitive": "polowania",
+        "build": "budowanie",
+        "build_genitive": "budowania",
+        "gather": "zbieranie",
+        "gather_genitive": "zbierania",
+        "explore": "eksploracja",
+        "explore_genitive": "eksploracji",
+        "arrange camp": "porządkowanie obozu",
+        "arrange camp_genitive": "porządkowania obozu",
+        "rest": "odpoczynek",
+        "rest_genitive": "odpoczynku"
+      },
+      "construction": {
+        "shelter": "schronienie",
+        "shelter_genitive": "schronienia",
+        "shelter_accusative": "schronienie",
+        "palisade": "palisada",
+        "palisade_genitive": "palisady",
+        "palisade_accusative": "palisadę",
+        "roof": "dach",
+        "roof_genitive": "dachu",
+        "roof_accusative": "dach",
+        "weapon": "broń",
+        "weapon_genitive": "broni",
+        "weapon_accusative": "broń"
+      }
+    }
+  }
+}

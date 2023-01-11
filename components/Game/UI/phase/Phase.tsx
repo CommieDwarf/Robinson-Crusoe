@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import styles from "./Phase.module.css";
 
 import PhaseDropDownMenu from "./PhaseDropDownMenu/PhaseDropDownMenu";
-import { PHASE_CONJUGATION_PL } from "../../../../interfaces/TRANSLATE_PL/CATEGORIES/PHASE_PL";
+import { useTranslation } from "react-i18next";
 
 export type PhaseType =
   | "production"
@@ -27,14 +27,14 @@ export default function Phase(props: Props) {
     });
   }
 
+  const [t] = useTranslation();
+
   const iconSize = 32;
   return (
     <div className={styles.phase} onClick={toggleShowMenu}>
       <strong>
         Faza{" "}
-        <span className={styles[props.phase]}>
-          {PHASE_CONJUGATION_PL[props.phase]}
-        </span>
+        <span className={styles[props.phase]}>{t(`phase.${props.phase}`)}</span>
       </strong>
       <div className={styles.phaseIcon}>
         <Image

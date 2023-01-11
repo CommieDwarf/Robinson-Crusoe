@@ -2,8 +2,7 @@ import { IConstruction } from "../../../interfaces/ConstructionService/Construct
 import { IInvention } from "../../../interfaces/InventionService/Invention";
 import { ITile } from "../../../interfaces/TileService/ITile";
 import { IEventCard } from "../../../interfaces/EventService/EventCard";
-import { IBeast } from "../../../interfaces/Beasts/Beast";
-import { IPawn, IPawnRenderData } from "../../../interfaces/Pawns/Pawn";
+import { IPawn } from "../../../interfaces/Pawns/Pawn";
 import { ACTION } from "../../../interfaces/ACTION";
 import { Construction } from "../ConstructionService/Construction";
 import { IGame } from "../../../interfaces/Game";
@@ -14,8 +13,15 @@ import { Beast } from "../BeastService/BeastCreator/Beast";
 import {
   IResolvableItem,
   Item,
+  RESOLVE_ITEM_STATUS,
 } from "../../../interfaces/ActionService/IResolvableItem";
 import { v4 as uuidv4 } from "uuid";
+import {
+  ActionDice,
+  ActionDiceResults,
+} from "../../../interfaces/RollDice/RollDice";
+import { RollDiceService } from "../RollDiceService/RollDiceService";
+import { isAdventureAction } from "../../../utils/isAdventureAction";
 
 export class ResolvableItem implements IResolvableItem {
   private readonly _item: Item;
@@ -24,8 +30,12 @@ export class ResolvableItem implements IResolvableItem {
   private readonly _game: IGame;
   private _resolved: boolean = false;
   private readonly _id = uuidv4();
-  private _rolled = false;
+  private _helperAmount: number = 0;
+  private _reRolledSuccess = false;
+
   private readonly _droppableID: string;
+  private _resolveStatus: RESOLVE_ITEM_STATUS = RESOLVE_ITEM_STATUS.PENDING;
+  private _rollDiceResults: ActionDiceResults | null = null;
 
   constructor(
     item: Item,
@@ -42,29 +52,54 @@ export class ResolvableItem implements IResolvableItem {
   }
 
   get renderData() {
+    let itemRenderData;
+    if (this._item === ACTION.REST || this._item === ACTION.ARRANGE_CAMP) {
+      itemRenderData = this._item;
+    } else {
+      itemRenderData = this._item.renderData;
+    }
+
     return {
       itemName: "xD",
+      item: itemRenderData,
       id: this._id,
       leaderPawn: this._leaderPawn.renderData,
       resolved: this._resolved,
       action: this._action,
-      rolled: this._rolled,
+      droppableID: this._droppableID,
+      resolveStatus: this._resolveStatus,
+      shouldRollDices: this.shouldRollDices,
+      rollDiceResults: this.rollDiceResults,
+      shouldReRollSuccess: this.shouldReRollSuccess,
+      reRolledSuccess: this._reRolledSuccess,
     };
+  }
+
+  get rollDiceResults(): ActionDiceResults | null {
+    return this._rollDiceResults;
+  }
+
+  get helperAmount(): number {
+    return this._helperAmount;
+  }
+
+  set helperAmount(value: number) {
+    this._helperAmount = value;
+  }
+
+  set resolveStatus(value: RESOLVE_ITEM_STATUS) {
+    this._resolveStatus = value;
+  }
+
+  get resolveStatus(): RESOLVE_ITEM_STATUS {
+    return this._resolveStatus;
   }
 
   get droppableID(): string {
     return this._droppableID;
   }
 
-  get rolled(): boolean {
-    return this._rolled;
-  }
-
-  set rolled(value: boolean) {
-    this._rolled = value;
-  }
-
-  get action(): ACTION {
+  get action() {
     return this._action;
   }
 
@@ -88,7 +123,61 @@ export class ResolvableItem implements IResolvableItem {
     this._resolved = value;
   }
 
+  get reRolledSuccess(): boolean {
+    return this._reRolledSuccess;
+  }
+
+  get shouldReRollSuccess() {
+    if (
+      this._rollDiceResults?.success.result === "success" &&
+      isAdventureAction(this._action) &&
+      this._game.actionService.reRollTokens[this._action] &&
+      !this._reRolledSuccess
+    ) {
+      {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  rollDices() {
+    if (!isAdventureAction(this._action) || !this.shouldRollDices) {
+      return;
+    }
+    this._rollDiceResults = RollDiceService.getActionRollDiceResults(
+      this._action
+    );
+  }
+
+  reRoll(dice: ActionDice) {}
+
+  reRollSuccess() {
+    if (!this.shouldReRollSuccess) {
+      return;
+    }
+    if (isAdventureAction(this._action) && this._rollDiceResults) {
+      this._rollDiceResults.success = RollDiceService.getActionRollDiceResult(
+        this._action,
+        "success"
+      );
+      this._reRolledSuccess = true;
+    }
+  }
+
   resolve() {
+    if (this.shouldReRollSuccess) {
+      return;
+    }
+    if (this._rollDiceResults) {
+      this.applyRollDiceEffects();
+    }
+
+    if (this.resolveStatus === RESOLVE_ITEM_STATUS.FAILURE) {
+      return;
+    }
+
+    this.resolveStatus = RESOLVE_ITEM_STATUS.SUCCESS;
     const item = this._item;
     switch (true) {
       case item instanceof Construction:
@@ -134,6 +223,36 @@ export class ResolvableItem implements IResolvableItem {
           this._leaderPawn.character
         );
         break;
+    }
+  }
+
+  get shouldRollDices() {
+    const item = this._item;
+    if (
+      item === ACTION.REST ||
+      item === ACTION.ARRANGE_CAMP ||
+      item instanceof EventCard ||
+      item instanceof Beast ||
+      this._rollDiceResults
+    ) {
+      return false;
+    }
+    return item.requiredHelperAmount >= this._helperAmount;
+  }
+
+  private applyRollDiceEffects() {
+    const character = this.leaderPawn.character;
+    if (this._rollDiceResults?.hurt.result === "hurt") {
+      this._game.characterService.hurt(character, 1, this._action);
+    }
+    if (this._rollDiceResults?.success.result === "success") {
+      this.resolveStatus = RESOLVE_ITEM_STATUS.SUCCESS;
+    } else {
+      this._game.characterService.incrDetermination(character, 2, this._action);
+      this.resolveStatus = RESOLVE_ITEM_STATUS.FAILURE;
+    }
+    if (this._rollDiceResults?.mystery.result === "mystery") {
+      //TODO: pull mystery card.
     }
   }
 }

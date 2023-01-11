@@ -94,6 +94,59 @@ export class Tile implements ITile {
     this._requiredHelperAmount = value;
   }
 
+  public clearMarkedForDepletion() {
+    if (this.tileType) {
+      this.tileType.resources.right.markedForDepletion = false;
+      this.tileType.resources.left.markedForDepletion = false;
+    }
+  }
+
+  public canResourceBeDepleted(side: "left" | "right") {
+    return !(
+      this.tileType?.resources[side].depleted ||
+      this.tileType?.resources[side].resource === "beast"
+    );
+  }
+
+  public getSideByResource(resource: "wood" | "food") {
+    if (this.tileType?.resources.right.resource === resource) {
+      return "right";
+    } else if (this.tileType?.resources.left.resource === resource) {
+      return "left";
+    } else {
+      return null;
+    }
+  }
+
+  depleteResource(side: "left" | "right") {
+    if (this.tileType) {
+      this.tileType.resources[side].depleted = true;
+      this.tileType.resources[side].markedForDepletion = false;
+    }
+  }
+
+  reverseDepleteResource(side: "left" | "right") {
+    if (this.tileType) {
+      this.tileType.resources[side].depleted = false;
+    }
+  }
+
+  markForDepletion(side: "left" | "right") {
+    if (!this.tileType) {
+      throw new Error(`depleting on tile without tileType. id: ${this.id}`);
+    }
+    if (this.canResourceBeDepleted(side)) {
+      this.tileType.resources[side].markedForDepletion = true;
+    }
+  }
+
+  hasResource(resource: "wood" | "food") {
+    return (
+      this.tileType?.resources.left.resource === resource ||
+      this.tileType?.resources.right.resource === resource
+    );
+  }
+
   reveal(type: TileType) {
     this._type = type;
   }

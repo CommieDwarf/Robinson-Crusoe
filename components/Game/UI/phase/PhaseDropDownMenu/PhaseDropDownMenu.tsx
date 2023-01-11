@@ -1,9 +1,9 @@
 import Image from "next/image";
 import React from "react";
 import styles from "./PhaseDropDownMenu.module.css";
+import { useTranslation } from "react-i18next";
 
 import { PhaseType } from "../Phase";
-import { PHASE_CONJUGATION_PL } from "../../../../../interfaces/TRANSLATE_PL/CATEGORIES/PHASE_PL";
 
 interface Props {
   currentPhase: PhaseType;
@@ -11,6 +11,8 @@ interface Props {
 }
 
 export default function PhaseDropDownMenu(props: Props) {
+  const [t] = useTranslation();
+
   const phases: PhaseType[] = [
     "event",
     "morale",
@@ -27,7 +29,7 @@ export default function PhaseDropDownMenu(props: Props) {
     return (
       <div className={`${styles.phase} ${currentPhaseClass}`} key={i}>
         <div className={`${styles.phaseLabel} ${styles[phase]}`}>
-          {i + 1}. Faza {PHASE_CONJUGATION_PL[phase]}
+          {i + 1}. Faza {t(`phase.${phase}`)}
         </div>
         <div className={styles.phasePicture}>
           <Image

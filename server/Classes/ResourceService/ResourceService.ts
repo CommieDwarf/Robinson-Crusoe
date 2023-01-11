@@ -1,4 +1,4 @@
-import {Resources} from "./Resources";
+import { Resources } from "./Resources";
 import {
   IResources,
   IResourcesAmount,
@@ -7,9 +7,9 @@ import {
   IResourceService,
   IResourceServiceRenderData,
 } from "../../../interfaces/Resources/AllResources";
-import {IGame} from "../../../interfaces/Game";
-import {RESOURCE_CONJUGATION_PL} from "../../../interfaces/TRANSLATE_PL/CATEGORIES/RESOURCE_PL";
+import { IGame } from "../../../interfaces/Game";
 import Entries from "../../../interfaces/Entries";
+import i18n from "../../../I18n/I18n";
 
 export class ResourceService implements IResourceService {
   private _future: IResources = new Resources();
@@ -77,28 +77,32 @@ export class ResourceService implements IResourceService {
   };
 
   public addResourceToOwned(
-      resource: keyof IResourcesAmount,
-      amount: number,
-      logSource: string
+    resource: keyof IResourcesAmount,
+    amount: number,
+    logSource: string
   ) {
     this._game.chatLog.addMessage(
-        `Dodano ${amount} ${RESOURCE_CONJUGATION_PL[resource]} do posiadanych surowców`,
-        "green",
-        logSource
+      `Dodano ${amount} ${i18n.t(`resource.${resource}`, {
+        count: amount,
+      })} do posiadanych surowców`,
+      "green",
+      logSource
     );
     this._owned.addResource(resource, amount);
   }
 
   public addResourceToFuture(
-      resource: keyof IResourcesAmount,
-      amount: number,
-      logSource: string
+    resource: keyof IResourcesAmount,
+    amount: number,
+    logSource: string
   ) {
     this._future.addResource(resource, amount);
     this._game.chatLog.addMessage(
-        `Dodano ${amount} ${RESOURCE_CONJUGATION_PL[resource]} do przyszłych surowców`,
-        "green",
-        logSource
+      `Dodano ${amount} ${i18n.t(`resource.${resource}`, {
+        count: amount,
+      })} do przyszłych surowców`,
+      "green",
+      logSource
     );
   }
 
@@ -112,14 +116,14 @@ export class ResourceService implements IResourceService {
       if (!this.canAffordResource(resource, amount)) {
         canAfford = false;
       }
-    })
+    });
     return canAfford;
   }
 
   spendResourceIfPossible(
-      resource: keyof IResourcesAmount,
-      amount: number,
-      logSource: string = ""
+    resource: keyof IResourcesAmount,
+    amount: number,
+    logSource: string = ""
   ) {
     if (amount === 0) {
       return;
@@ -132,16 +136,18 @@ export class ResourceService implements IResourceService {
     }
     if (logSource.length > 0) {
       this._game.chatLog.addMessage(
-          `Odjęto ${amount} ${RESOURCE_CONJUGATION_PL[resource]} z posiadanych surowców`,
-          "red",
-          logSource
+        `Odjęto ${amount} ${i18n.t(`resource.${resource}`, {
+          count: amount,
+        })} z posiadanych surowców`,
+        "red",
+        logSource
       );
     }
   }
 
   spendResourcesIfPossible(resources: IResources, logSource: string = "") {
     const entries = Object.entries(
-        resources.amount
+      resources.amount
     ) as Entries<IResourcesAmount>;
     entries.forEach(([resource, amount]) => {
       this.spendResourceIfPossible(resource, amount, logSource);
@@ -149,9 +155,9 @@ export class ResourceService implements IResourceService {
   }
 
   spendResourceOrGetHurt(
-      resource: keyof IResourcesAmount,
-      amount: number,
-      logSource: string
+    resource: keyof IResourcesAmount,
+    amount: number,
+    logSource: string
   ) {
     if (amount === 0) {
       return;
@@ -160,8 +166,8 @@ export class ResourceService implements IResourceService {
     if (diff < 0) {
       this._owned.setResource(resource, 0);
       this._game.characterService.hurtAllPlayerCharacters(
-          Math.abs(diff),
-          logSource
+        Math.abs(diff),
+        logSource
       );
     } else {
       this._owned.spendResource(resource, amount);
@@ -170,7 +176,7 @@ export class ResourceService implements IResourceService {
 
   spendResourcesOrGetHurt(resources: IResources, logSource: string) {
     const entries = Object.entries(
-        resources.amount
+      resources.amount
     ) as Entries<IResourcesAmount>;
     entries.forEach(([resource, amount]) => {
       this.spendResourceOrGetHurt(resource, amount, logSource);

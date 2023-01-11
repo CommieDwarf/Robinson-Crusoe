@@ -1,6 +1,7 @@
 import { Invention } from "../../Invention";
 import {
   IInvention,
+  INVENTION_STARTER,
   INVENTION_TYPE,
 } from "../../../../../../interfaces/InventionService/Invention";
 import { IGame } from "../../../../../../interfaces/Game";
@@ -8,9 +9,11 @@ import { TERRAIN_TYPE } from "../../../../../../interfaces/TileService/ITile";
 import { CONSTRUCTION } from "../../../../../../interfaces/ConstructionService/Construction";
 
 export class Bricks extends Invention implements IInvention {
+  protected readonly _namePL = "cegły";
+
   constructor(game: IGame) {
     super(
-      "bricks",
+      INVENTION_STARTER.BRICKS,
       { terrainType: TERRAIN_TYPE.HILLS, inventions: null },
       INVENTION_TYPE.STARTER,
       null,
@@ -22,7 +25,7 @@ export class Bricks extends Invention implements IInvention {
     this._game.constructionService.lvlUpConstruction(
       CONSTRUCTION.PALISADE,
       1,
-      this.name
+      this._logSource
     );
   }
 
@@ -30,7 +33,7 @@ export class Bricks extends Invention implements IInvention {
     this._game.constructionService.lvlDownIfPossible(
       CONSTRUCTION.PALISADE,
       1,
-      this.name
+      this._logSource
     );
   }
 }

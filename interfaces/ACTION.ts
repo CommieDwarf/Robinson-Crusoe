@@ -8,6 +8,14 @@ export enum ACTION {
   REST = "rest",
 }
 
+export type Action =
+  | "arrange camp"
+  | "rest"
+  | "hunt"
+  | "threat"
+  | AdventureAction;
+export type AdventureAction = "build" | "explore" | "gather";
+
 export type ACTION_HELPER = Exclude<
   ACTION,
   ACTION.THREAT | ACTION.REST | ACTION.ARRANGE_CAMP

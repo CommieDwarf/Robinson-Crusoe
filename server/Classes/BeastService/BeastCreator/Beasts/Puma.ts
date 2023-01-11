@@ -6,7 +6,7 @@ import { INVENTION_STARTER } from "../../../../../interfaces/InventionService/In
 
 export class Puma extends Beast implements IBeast {
   constructor(game: IGame) {
-    super("puma", 5, 0, new Resources(2, 0, 0, 1), game);
+    super("puma", "puma", 5, 0, new Resources(2, 0, 0, 1), game);
   }
 
   applySpecialEffect() {

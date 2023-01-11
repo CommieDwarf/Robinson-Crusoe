@@ -6,7 +6,7 @@ import { INVENTION_STARTER } from "../../../../../interfaces/InventionService/In
 
 export class Jaguar extends Beast implements IBeast {
   constructor(game: IGame) {
-    super("jaguar", 5, 0, new Resources(4, 0, 0, 1), game);
+    super("jaguar", "jaguar", 5, 0, new Resources(4, 0, 0, 1), game);
   }
 
   applySpecialEffect() {

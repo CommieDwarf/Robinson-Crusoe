@@ -7,6 +7,14 @@ import {
 import { IResources } from "../../../interfaces/Resources/Resources";
 import { IGame } from "../../../interfaces/Game";
 import { Construction } from "./Construction";
+import i18n from "../../../I18n/I18n";
+
+const constructionPL = {
+  shelter: "schronienie",
+  roof: "dach",
+  palisade: "palisada",
+  weapon: "broń",
+};
 
 export class ConstructionService implements IConstructionService {
   private _constructions = this.initConstructions();
@@ -37,7 +45,12 @@ export class ConstructionService implements IConstructionService {
         cost.setResource("wood", 3);
         cost.setResource("leather", 2);
       }
-      return new Construction(value, cost, value !== "shelter");
+      return new Construction(
+        value,
+        constructionPL[value],
+        cost,
+        value !== "shelter"
+      );
     });
   }
 
@@ -45,7 +58,9 @@ export class ConstructionService implements IConstructionService {
     const construct = this.getConstruction(construction);
     construct.incrementLvl(by);
     this._game.chatLog.addMessage(
-      `ulepszono ${construct.name} do poziomu ${construct.lvl}-ego`,
+      `ulepszono ${i18n.t(`construction.${construct.name}`, {
+        context: "accusative",
+      })} do poziomu ${construct.lvl}-ego`,
       "green",
       logSource
     );
@@ -59,7 +74,9 @@ export class ConstructionService implements IConstructionService {
     const construct = this.getConstruction(construction);
     construct.decrementLvl(by);
     this._game.chatLog.addMessage(
-      `Poziom ${construct.name} spadł do poziomu ${construct.lvl}-ego`,
+      `Poziom ${i18n.t(`construction.${construct.name}`, {
+        context: "genitive",
+      })} spadł do poziomu ${construct.lvl}-ego`,
       "red",
       logSource
     );
@@ -74,7 +91,9 @@ export class ConstructionService implements IConstructionService {
       construct.decrementLvl(Math.abs(diff));
     }
     this._game.chatLog.addMessage(
-      `Poziom ${construct.name} spadł do poziomu ${construct.lvl}-ego`,
+      `Poziom ${i18n.t(`construction.${construct.name}`, {
+        context: "genitive",
+      })} spadł do poziomu ${construct.lvl}-ego`,
       "red",
       logSource
     );
@@ -95,6 +114,11 @@ export class ConstructionService implements IConstructionService {
     this.getConstruction(construction).lvl = lvl;
   }
 
+  setDividedLvlByTwo(construction: CONSTRUCTION) {
+    const construct = this.getConstruction(construction);
+    construct.lvl = Math.floor(construct.lvl / 2);
+  }
+
   unlockConstruction(construction: CONSTRUCTION) {
     this.getConstruction(construction).locked = false;
   }
@@ -107,6 +131,10 @@ export class ConstructionService implements IConstructionService {
     this._constructions.forEach(
       (construction) => (construction.locked = false)
     );
+  }
+
+  isBuilt(construction: CONSTRUCTION) {
+    return this.getConstruction(construction).lvl > 0;
   }
 
   commitResources(construction: CONSTRUCTION, resources: IResources) {

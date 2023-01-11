@@ -3,25 +3,17 @@ import {
   Phase,
   PhaseEffects,
 } from "../../../interfaces/PhaseService/PhaseService";
-import { IGame } from "../../../interfaces/Game";
-import { MissingLeaderError } from "../Errors/MissingLeaderError";
-import {
-  Translatable,
-  TRANSLATE_PL,
-} from "../../../interfaces/TRANSLATE_PL/TRANSLATE_PL";
-import { phaseOrder } from "../../../constants/phaseOrder";
-import { MissingPawnError } from "../Errors/MissingPawnError";
+import {IGame} from "../../../interfaces/Game";
+import {MissingLeaderError} from "../Errors/MissingLeaderError";
+
+import {phaseOrder} from "../../../constants/phaseOrder";
+import {MissingPawnError} from "../Errors/MissingPawnError";
 import capitalizeFirstLetter from "../../../utils/capitalizeFirstLetter";
-import { SlotsOccupied } from "../../../interfaces/ActionSlots";
-import Entries from "../../../interfaces/Entries";
-import { ACTION } from "../../../interfaces/ACTION";
-import { getItemFromDroppableId } from "../../../utils/getItemFromDroppableId";
 
 export class PhaseService implements IPhaseService {
   private _phase: Phase = "event";
   private _phaseIndex = 0;
   private _game: IGame;
-  private _locked: boolean = false;
 
   phaseEffects: PhaseEffects;
 
@@ -45,16 +37,19 @@ export class PhaseService implements IPhaseService {
     };
   }
 
-  get locked(): boolean {
-    return this._locked;
-  }
-
-  set locked(value: boolean) {
-    this._locked = value;
-  }
-
   get phase(): Phase {
     return this._phase;
+  }
+
+  get locked() {
+    if (this._phase === "action" && !this._game.actionService.finished) {
+      return true;
+    }
+    if (this._game.tileService.resourceAmountToDeplete > 0) {
+      return true;
+    }
+
+    return false;
   }
 
   handleError(error: MissingPawnError | MissingLeaderError) {
@@ -65,18 +60,16 @@ export class PhaseService implements IPhaseService {
     } else if (error.itemType === "hunt") {
       itemNamePL = "";
     } else {
-      itemNamePL = " - " + TRANSLATE_PL[itemName as Translatable];
+      itemNamePL = " - " + itemName;
     }
 
     const message =
-      error instanceof MissingLeaderError
-        ? "Pomocnicze pionki nie mogą samodzielnie wykonywać akcji."
-        : "Brakuje pionka do wykonania tej akcji";
+        error instanceof MissingLeaderError
+            ? "Pomocnicze pionki nie mogą samodzielnie wykonywać akcji."
+            : "Brakuje pionka do wykonania tej akcji";
 
     this._game.alertService.setAlert(
-      `${capitalizeFirstLetter(
-        TRANSLATE_PL[error.itemType as Translatable]
-      )}${itemNamePL}: ${message}`
+        `${capitalizeFirstLetter(error.itemType)}${itemNamePL}: ${message}`
     );
   }
 
@@ -89,13 +82,13 @@ export class PhaseService implements IPhaseService {
     try {
       this.phaseEffects[this._phase]();
       this._phaseIndex =
-        this._phaseIndex === phaseOrder.length - 1 ? 0 : ++this._phaseIndex;
+          this._phaseIndex === phaseOrder.length - 1 ? 0 : ++this._phaseIndex;
       this._phase = phaseOrder[this._phaseIndex];
       this._game.alertService.clearAlert();
     } catch (error) {
       if (
-        error instanceof MissingLeaderError ||
-        error instanceof MissingPawnError
+          error instanceof MissingLeaderError ||
+          error instanceof MissingPawnError
       ) {
         this.handleError(error);
       } else {
@@ -115,18 +108,18 @@ export class PhaseService implements IPhaseService {
     }
     // TODO: implement player choice when lvl 3 whenever he wants determination or health
     const primePlayerCharacter =
-      this._game.playerService.primePlayer.getCharacter();
+        this._game.playerService.primePlayer.getCharacter();
     if (this._game.moraleService.lvl > 0) {
       this._game.characterService.incrDetermination(
-        primePlayerCharacter,
-        this._game.moraleService.lvl,
-        "Faza morali"
+          primePlayerCharacter,
+          this._game.moraleService.lvl,
+          "Faza morali"
       );
     } else {
       this._game.characterService.decrDetermination(
-        primePlayerCharacter,
-        Math.abs(this._game.moraleService.lvl),
-        "Faza morali"
+          primePlayerCharacter,
+          Math.abs(this._game.moraleService.lvl),
+          "Faza morali"
       );
     }
   };
@@ -136,37 +129,25 @@ export class PhaseService implements IPhaseService {
     if (!resources) {
       throw new Error("There are no resources in tile");
     }
-    const res1 = resources.left;
-    const res2 = resources.right;
-    if (res1 !== "beast") {
-      this._game.resourceService.addResourceToOwned(
-        res1,
-        1,
-        "kafelek z obozem"
-      );
-    }
-    if (res2 !== "beast") {
-      this._game.resourceService.addResourceToOwned(
-        res2,
-        1,
-        "kafelek z obozem"
-      );
-    }
+    const resourceArr = [resources.left, resources.right];
+
+    resourceArr.forEach((res) => {
+      if (!res.depleted && res.resource !== "beast") {
+        this._game.resourceService.addResourceToOwned(res.resource, 1, "Produkcja");
+      }
+    })
   };
 
   private preActionEffect = () => {
-    try {
-      this._game.actionSlotService.checkMissingPawns();
-      this._game.actionService.loadItems();
-      this.locked = true;
-    } catch {}
+    this._game.actionSlotService.checkMissingPawns();
+    this._game.actionService.loadItems();
   };
 
   private actionEffect = () => {
-    this.locked = false;
     this._game.actionService.setNextAction();
     this._game.actionService.finished = false;
     this._game.resetPawns();
+    this._game.resourceService.addFutureToOwned();
   };
 
   private weatherEffect = () => {
@@ -179,23 +160,23 @@ export class PhaseService implements IPhaseService {
   };
 
   private checkPreActionForMissingPawns() {
-    const slots = this._game.actionSlotService.slotsOccupiedAndCategorized;
-
-    const entries = Object.entries(slots) as Entries<SlotsOccupied>;
-
-    entries.forEach(([action, slotMap]) => {
-      if (action === ACTION.REST || action === ACTION.ARRANGE_CAMP) {
-        return;
-      }
-      const items: any[] = [];
-      slotMap.forEach((pawn, droppableID) => {
-        items.push(getItemFromDroppableId(droppableID, this._game));
-      });
-
-      items.forEach((item) => {
-        switch (true) {
-        }
-      });
-    });
+    // const slots = this._game.actionSlotService.slotsOccupiedAndCategorized;
+    //
+    // const entries = Object.entries(slots) as Entries<SlotsOccupied>;
+    //
+    // entries.forEach(([action, slotMap]) => {
+    //   if (action === ACTION.REST || action === ACTION.ARRANGE_CAMP) {
+    //     return;
+    //   }
+    //   const items: any[] = [];
+    //   slotMap.forEach((pawn, droppableID) => {
+    //     items.push(getItemFromDroppableId(droppableID, this._game));
+    //   });
+    //
+    //   items.forEach((item) => {
+    //     switch (true) {
+    //     }
+    //   });
+    // });
   }
 }

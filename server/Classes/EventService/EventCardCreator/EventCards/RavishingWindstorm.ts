@@ -5,12 +5,17 @@ import {
 } from "../../../../../interfaces/EventService/EventCard";
 import { IGame } from "../../../../../interfaces/Game";
 import { CONSTRUCTION } from "../../../../../interfaces/ConstructionService/Construction";
+import { EVENT_CARD } from "../../../../../interfaces/EventService/EVENT_CARD";
+import { ACTION } from "../../../../../interfaces/ACTION";
 
 export class RavishingWindstorm extends EventCard implements IEventCard {
+  protected readonly _namePL = "rozszalała wichura";
+  protected readonly _resolutionPL = "nowa broń";
+
   constructor(game: IGame) {
     super(
-      "ravishing windstorm",
-      EVENT_TYPE.EXPLORE,
+      EVENT_CARD.RAVISHING_WINDSTORM,
+      ACTION.EXPLORE,
       {
         pawns: 1,
         invention: null,
@@ -35,7 +40,7 @@ export class RavishingWindstorm extends EventCard implements IEventCard {
   }
 
   fullFill() {
-    const leader = this.getLeaderPawn().character;
+    const leader = this.getLeaderCharacter();
     this._game.characterService.incrDetermination(leader, 1, this.name);
 
     this._game.constructionService.lvlUpConstruction(
@@ -45,10 +50,3 @@ export class RavishingWindstorm extends EventCard implements IEventCard {
     );
   }
 }
-
-
-
-
-
-
-

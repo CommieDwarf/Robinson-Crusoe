@@ -4,12 +4,11 @@ import {
   ISkillService,
   ISkillServiceRenderData,
 } from "../SkillService/SkillService";
-import { CHARACTER_PL } from "../TRANSLATE_PL/CATEGORIES/CHARACTER_PL";
 
 export interface ICharacterRenderData {
   pawnService: IPawnServiceRenderData;
   name: CHARACTER;
-  namePL: CHARACTER_PL;
+  namePL: string;
   id: number;
   health: number;
   maxHealth: number;
@@ -24,7 +23,7 @@ export interface ICharacter {
   id: number;
   maxHealth: number;
   effects: ICharEffects;
-  namePL: CHARACTER_PL;
+  namePL: string;
   health: number;
   gender: Gender;
   getRenderData: () => ICharacterRenderData; // for the super usage I made it into a method.

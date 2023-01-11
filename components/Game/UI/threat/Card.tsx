@@ -12,6 +12,9 @@ export default function Card(props: Props) {
   const [enlarged, setEnlarged] = useState(false);
 
   function handleClick() {
+    if (!props.card) {
+      return;
+    }
     setEnlarged((prev) => !prev);
   }
 

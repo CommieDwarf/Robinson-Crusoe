@@ -4,22 +4,23 @@ import {
   IEventCard,
 } from "../../../../../interfaces/EventService/EventCard";
 import { IGame } from "../../../../../interfaces/Game";
+import { EVENT_CARD } from "../../../../../interfaces/EventService/EVENT_CARD";
+import { Resources } from "../../../ResourceService/Resources";
+import { ACTION } from "../../../../../interfaces/ACTION";
 
 export class AwfulWeather extends EventCard implements IEventCard {
+  _namePL = "okropna pogoda";
+  _resolutionPL = "wiatrochron";
+
   constructor(game: IGame) {
     super(
-      "awful weather",
-      EVENT_TYPE.EXPLORE,
+      EVENT_CARD.AWFUL_WEATHER,
+      ACTION.EXPLORE,
       {
         pawns: 1,
         invention: null,
         construction: null,
-        resource: {
-          wood: 1,
-          leather: 0,
-          food: 0,
-          dryFood: 0,
-        },
+        resource: new Resources(0, 0, 1, 0),
       },
       game
     );
@@ -34,7 +35,7 @@ export class AwfulWeather extends EventCard implements IEventCard {
   }
 
   fullFill() {
-    const character = this.getLeaderPawn().character;
+    const character = this.getLeaderCharacter();
     this._game.characterService.incrDetermination(
       character,
       1,

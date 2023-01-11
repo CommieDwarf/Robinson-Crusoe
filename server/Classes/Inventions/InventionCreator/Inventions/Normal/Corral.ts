@@ -9,6 +9,8 @@ import { IGame } from "../../../../../../interfaces/Game";
 import { Resources } from "../../../../ResourceService/Resources";
 
 export class Corral extends Invention implements IInvention {
+  protected readonly _namePL = "zagroda";
+
   constructor(game: IGame) {
     super(
       INVENTION_NORMAL.CORRAL,

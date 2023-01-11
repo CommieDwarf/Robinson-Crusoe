@@ -2,7 +2,6 @@
 import * as React from "react";
 import styles from "./Resource.module.css";
 import Image from "next/image";
-import { TRANSLATE_PL } from "../../../../../../../interfaces/TRANSLATE_PL/TRANSLATE_PL";
 import { OverallWeather } from "../../../../../../../interfaces/Weather/Weather";
 import { Subtrahend } from "../Resources";
 
@@ -56,11 +55,11 @@ export const Resource = (props: Props) => {
         <Image
           src={`/UI/weather/resources/${props.type}.png`}
           fill
-          alt={TRANSLATE_PL[props.type]}
+          alt={props.type}
           sizes={styles.labelImg}
         />
       </div>
-      <div className={styles.labelText}>{TRANSLATE_PL[props.type]}</div>
+      <div className={styles.labelText}>{props.type}</div>
       {amount}
       {props.subtrahends.size > 0 && props.resolved && (
         <div className={styles.subtrahends}>{subtrahends}</div>

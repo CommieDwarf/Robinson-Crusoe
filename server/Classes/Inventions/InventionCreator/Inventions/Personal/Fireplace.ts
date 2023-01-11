@@ -11,6 +11,7 @@ import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 
 export class Fireplace extends Invention implements IInvention {
   protected _usable = true;
+  protected readonly _namePL = "palenisko";
 
   constructor(game: IGame) {
     super(
@@ -26,13 +27,13 @@ export class Fireplace extends Invention implements IInvention {
     const canAfford = this._game.resourceService.canAffordResource("food", 1);
     if (!canAfford) {
       this._game.alertService.setAlert(
-        `${this.name}: nie masz wystarczająco jedzenia żeby użyc tej karty.`
+        `${this._logSource}: nie masz wystarczająco jedzenia żeby użyc tej karty.`
       );
       return;
     }
     if (this._game.phaseService.phase !== "night") {
       this._game.alertService.setAlert(
-        `${this.name}: Tej karty pomysłu można użyć tylko w nocy`
+        `${this._logSource}: Tej karty pomysłu można użyć tylko w nocy`
       );
       return;
     }
@@ -42,7 +43,7 @@ export class Fireplace extends Invention implements IInvention {
     }
 
     this._game.resourceService.owned.spendResource("food", 1);
-    this._game.characterService.heal(character, 2, this.name);
+    this._game.characterService.heal(character, 2, this._logSource);
     this.used = true;
   }
 

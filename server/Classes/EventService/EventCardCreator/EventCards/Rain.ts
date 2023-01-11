@@ -4,22 +4,23 @@ import {
   IEventCard,
 } from "../../../../../interfaces/EventService/EventCard";
 import { IGame } from "../../../../../interfaces/Game";
+import { EVENT_CARD } from "../../../../../interfaces/EventService/EVENT_CARD";
+import { ACTION } from "../../../../../interfaces/ACTION";
+import { Resources } from "../../../ResourceService/Resources";
 
 export class Rain extends EventCard implements IEventCard {
+  protected readonly _namePL = "deszcz";
+  protected readonly _resolutionPL = "wzmocniony dach";
+
   constructor(game: IGame) {
     super(
-      "rain",
-      EVENT_TYPE.GATHER,
+      EVENT_CARD.RAIN,
+      ACTION.GATHER,
       {
         pawns: 1,
         invention: null,
         construction: null,
-        resource: {
-          wood: 0,
-          leather: 1,
-          dryFood: 0,
-          food: 0,
-        },
+        resource: new Resources(0, 0, 0, 1),
       },
       game
     );
@@ -34,10 +35,7 @@ export class Rain extends EventCard implements IEventCard {
   }
 
   fullFill() {
-    const leader = this.getLeaderPawn().character;
+    const leader = this.getLeaderCharacter();
     this._game.characterService.incrDetermination(leader, 1, this.name);
   }
 }
-
-
-

@@ -13,6 +13,7 @@ import { ITileRenderData } from "../../../../interfaces/TileService/ITile";
 import { ITilesServiceRenderData } from "../../../../interfaces/TileService/ITileService";
 import magnifyingGlass from "/public/UI/map/magnifying-glass.png";
 import map from "/public/UI/map/map.png";
+import redArrowImg from "/public/UI/misc/red-arrow.png";
 
 interface Props {
   tileService: ITilesServiceRenderData;
@@ -23,6 +24,7 @@ interface Props {
   zIndex: string;
   night: boolean;
   showCampMoveConfirm: (tile: ITileRenderData) => void;
+  depleteResource: (tileID: number, side: "left" | "right") => void;
 }
 
 export default function Map(props: Props) {
@@ -46,6 +48,7 @@ export default function Map(props: Props) {
         campSettableTiles={
           tile.camp && !props.tileService.campJustMoved ? campSettableTiles : []
         }
+        depleteResource={props.depleteResource}
       />
     );
   });
@@ -107,16 +110,28 @@ export default function Map(props: Props) {
     height: contentScale + "%",
   };
 
-  const zIndexClass = props.zIndex.includes("tile")
-    ? styles.zIndexIncreased
-    : "";
+  const zIndexClass =
+    props.zIndex.includes("tile") ||
+    props.tileService.resourceAmountToDeplete > 0
+      ? styles.zIndexIncreased
+      : "";
 
   return (
     <div
-      className={styles.container + " " + zIndexClass}
+      className={`${styles.container} ${zIndexClass}`}
       ref={container}
       onMouseDown={mouseDownHandle}
     >
+      {props.tileService.resourceAmountToDeplete > 0 && (
+        <div className={styles.depleteTipArrow}>
+          <Image
+            src={redArrowImg}
+            alt={""}
+            fill
+            sizes={styles.depleteTipArrow}
+          />
+        </div>
+      )}
       <div className={styles.zoom}>
         <div className={styles.zoomIcon}>
           <Image

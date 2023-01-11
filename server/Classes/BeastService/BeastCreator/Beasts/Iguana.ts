@@ -5,7 +5,7 @@ import { Resources } from "../../../ResourceService/Resources";
 
 export class Iguana extends Beast implements IBeast {
   constructor(game: IGame) {
-    super("iguana", 4, 1, new Resources(3, 0, 0, 1), game);
+    super("iguana", "legwan", 4, 1, new Resources(3, 0, 0, 1), game);
   }
 
   applySpecialEffect() {

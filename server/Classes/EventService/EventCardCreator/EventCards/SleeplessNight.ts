@@ -4,11 +4,15 @@ import {
   IEventCard,
 } from "../../../../../interfaces/EventService/EventCard";
 import { IGame } from "../../../../../interfaces/Game";
+import { EVENT_CARD } from "../../../../../interfaces/EventService/EVENT_CARD";
 
 export class SleeplessNight extends EventCard implements IEventCard {
+  protected readonly _namePL = "bezsenna noc";
+  protected readonly _resolutionPL = "odpoczynek";
+
   constructor(game: IGame) {
     super(
-      "sleepless night",
+      EVENT_CARD.SLEEPLESS_NIGHT,
       EVENT_TYPE.BOOK,
       {
         pawns: 1,
@@ -21,19 +25,18 @@ export class SleeplessNight extends EventCard implements IEventCard {
   }
 
   triggerEffect() {
-    this._game.actionService.specificActionServices.gather.reRollToken = true;
-    this._game.actionService.specificActionServices.build.reRollToken = true;
-    this._game.actionService.specificActionServices.explore.reRollToken = true;
+    //TODO: implement
   }
 
   triggerThreatEffect() {
-    this._game.actionService.specificActionServices.explore.eventToken = true;
-    this._game.actionService.specificActionServices.gather.eventToken = true;
+    //TODO: implement token.
+    // this._game.actionService.eventToken = true;
+    // this._game.actionService.specificActionServices.gather.eventToken = true;
   }
 
   fullFill() {
     this._game.characterService.incrDetermination(
-      this.getLeaderPawn().character,
+      this.getLeaderCharacter(),
       1,
       this.name
     );

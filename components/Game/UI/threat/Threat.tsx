@@ -26,21 +26,25 @@ export default function Threat(props: Props) {
     let pawnAmount = 0;
     if (side === "left" && leftCard) {
       pawnAmount =
-        leftCard.type === EVENT_TYPE.WRECKAGE ? 2 : leftCard.requiredPawns;
+        leftCard.type === EVENT_TYPE.WRECKAGE
+          ? 2
+          : leftCard.requiredHelperAmount;
     } else if (side === "right" && rightCard) {
       pawnAmount =
-        rightCard.type === EVENT_TYPE.WRECKAGE ? 2 : rightCard.requiredPawns;
+        rightCard.type === EVENT_TYPE.WRECKAGE
+          ? 2
+          : rightCard.requiredHelperAmount;
     }
     for (let i = 0; i < pawnAmount; i++) {
-      const id = getDroppableID(ACTION_ITEM.EVENT, "", side, i);
+      const id = getDroppableID(ACTION_ITEM.THREAT, "", side, i);
       let pawn = props.actionSlots.get(id);
       pawn = pawn ? pawn : null;
       actionSlots.push(
         <ActionSlot
-          type="leader"
+          type={i === 0 ? "leader" : "helper"}
           pawn={pawn}
           action={ACTION.THREAT}
-          context={ACTION_ITEM.EVENT}
+          context={ACTION_ITEM.THREAT}
           id={id}
           key={id}
         />

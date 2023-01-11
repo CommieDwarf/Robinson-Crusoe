@@ -10,6 +10,8 @@ import { PAWN_HELPER_ACTION } from "../../../../../../interfaces/Pawns/Pawn";
 import { Resources } from "../../../../ResourceService/Resources";
 
 export class Raft extends HelperPawnInvention implements IInvention {
+  protected readonly _namePL = "tratwa";
+
   constructor(game: IGame) {
     super(
       INVENTION_NORMAL.RAFT,

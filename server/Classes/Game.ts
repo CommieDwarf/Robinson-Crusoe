@@ -82,13 +82,9 @@ export class GameClass implements IGame {
   private _equipmentService: IEquipment = new Equipment(this);
   private _arrangeCampRestService = new ArrangeCampRestService();
   private _beastService: IBeastService = new BeastService(this);
-  private _actionSlotsService = new ActionSlotService(
-    this._constructionService,
-    this.inventionService,
-    this._tileService
-  );
+  private _actionSlotsService = new ActionSlotService(this);
   private _moraleService = new MoraleService(this);
-  private _round = 1;
+  private _round = 10;
   private _scenarioService: IScenarioService = new Castaways(this);
   private _tokenService = new TokenService(this);
 
@@ -96,6 +92,7 @@ export class GameClass implements IGame {
     // this is hardcoded for demo purpose.
     const cook = new PlayerCharacter(
       CHARACTER.COOK,
+      "kucharz",
       2,
       13,
       this,
@@ -207,10 +204,6 @@ export class GameClass implements IGame {
 
   get beastService(): IBeastService {
     return this._beastService;
-  }
-
-  get actionSlotService(): ActionSlotService {
-    return this._actionSlotsService;
   }
 
   get allPawns() {

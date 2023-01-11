@@ -1,35 +1,43 @@
 // @flow
 import * as React from "react";
-import { RESOLVE_ITEM_STATUS } from "../../../../../../interfaces/ActionService/IActionResolvableService";
+import { useState } from "react";
 
 import styles from "./Item.module.css";
 import { IEventCardRenderData } from "../../../../../../interfaces/EventService/EventCard";
 import { IConstruction } from "../../../../../../interfaces/ConstructionService/Construction";
 import { ITileRenderData } from "../../../../../../interfaces/TileService/ITile";
-import { IActionSlotsRenderData } from "../../../../../../interfaces/ActionSlots";
 import Image from "next/image";
 import { IInventionRenderData } from "../../../../../../interfaces/InventionService/Invention";
 import { IBeastRenderData } from "../../../../../../interfaces/Beasts/Beast";
-import { IResolvableItemRenderData } from "../../../../../../interfaces/ActionService/IResolvableItem";
-import { ITEM_STATUS_PL } from "../../../../../../interfaces/TRANSLATE_PL/CATEGORIES/ITEM_STATUS_PL";
+import {
+  IResolvableItemRenderData,
+  RESOLVE_ITEM_STATUS,
+} from "../../../../../../interfaces/ActionService/IResolvableItem";
 import { getImgName } from "../../../../../../utils/getImgName";
 import redArrowImg from "/public/UI/misc/red-arrow.png";
+import { ACTION } from "../../../../../../interfaces/ACTION";
+import { IActionServiceRenderData } from "../../../../../../interfaces/ActionService/ActionService";
+import { Tokens } from "./Tokens/Tokens";
+import reRollTokenImg from "/public/UI/tokens/reroll.png";
 
 type Props = {
-  status: RESOLVE_ITEM_STATUS;
-  item: IResolvableItemRenderData;
-  actionSlots: IActionSlotsRenderData;
-  resolve: (item: IResolvableItemRenderData) => void;
-  resolved: boolean | undefined;
-  resolveLocked: boolean;
+  resolvableItem: IResolvableItemRenderData;
+  resolve: (ResolvableItemID: string) => void;
+  locked: boolean;
+  rollDices: (resolvableItemID: string) => void;
+  reRoll: (resolvableItemID: string) => void;
+  actionService: IActionServiceRenderData;
+  resolved: boolean;
 };
 export const Item = (props: Props) => {
   let image;
   let extraInfoDiv;
-  const droppableId = props.item.droppableId;
+  let itemTypeStatusClass = "";
 
-  if (droppableId.includes("threat")) {
-    const card = props.item.content as unknown as IEventCardRenderData;
+  const [used, setUsed] = useState(false);
+
+  if (props.resolvableItem.action === ACTION.THREAT) {
+    const card = props.resolvableItem.item as unknown as IEventCardRenderData;
     image = (
       <div className={styles.threat}>
         <Image
@@ -40,8 +48,8 @@ export const Item = (props: Props) => {
         />
       </div>
     );
-  } else if (droppableId.includes("hunt")) {
-    const beast = props.item.content as unknown as IBeastRenderData;
+  } else if (props.resolvableItem.action === ACTION.HUNT) {
+    const beast = props.resolvableItem.item as unknown as IBeastRenderData;
     image = (
       <div className={styles.hunt}>
         <Image
@@ -52,8 +60,9 @@ export const Item = (props: Props) => {
         />
       </div>
     );
-  } else if (droppableId.includes("invention")) {
-    const invention = props.item.content as unknown as IInventionRenderData;
+  } else if (props.resolvableItem.droppableID.includes("invention")) {
+    const invention = props.resolvableItem
+      .item as unknown as IInventionRenderData;
     const reverse =
       invention.isBuilt && invention.type !== "scenario" ? "-reverse" : "";
     image = (
@@ -68,8 +77,9 @@ export const Item = (props: Props) => {
         />
       </div>
     );
-  } else if (droppableId.includes("construction")) {
-    const construction = props.item.content as unknown as IConstruction;
+  } else if (props.resolvableItem.droppableID.includes("construction")) {
+    itemTypeStatusClass = styles.constructionStatus;
+    const construction = props.resolvableItem.item as unknown as IConstruction;
     image = (
       <div className={styles[construction.name] + " " + styles.construction}>
         <Image
@@ -81,7 +91,7 @@ export const Item = (props: Props) => {
       </div>
     );
     const arrowAndNextLvl =
-      props.item.status !== RESOLVE_ITEM_STATUS.PENDING ? (
+      props.resolvableItem.resolveStatus === RESOLVE_ITEM_STATUS.PENDING ? (
         ""
       ) : (
         <>
@@ -104,36 +114,37 @@ export const Item = (props: Props) => {
       </div>
     );
   } else if (
-    droppableId.includes("gather") ||
-    droppableId.includes("explore")
+    props.resolvableItem.action === ACTION.GATHER ||
+    props.resolvableItem.action === ACTION.EXPLORE
   ) {
-    const tile = props.item.content as unknown as ITileRenderData;
-
+    const tile = props.resolvableItem.item as unknown as ITileRenderData;
+    itemTypeStatusClass = styles.tileStatus;
     const id =
       tile.tileType?.id != null &&
-      (props.resolved || droppableId.includes("gather"))
+      (props.resolved || props.resolvableItem.action === ACTION.GATHER)
         ? tile.tileType.id
         : 11;
 
     image = (
       <div className={styles.tile}>
         <Image
-          src={`/interface/map/tiles/${id}.png`}
+          src={`/UI/map/tiles/${id}.png`}
           fill
           alt={"kafelek"}
           sizes={styles.tile}
         />
       </div>
     );
-    if (props.item.additionalInfo.resource) {
+    if (props.resolvableItem.action === ACTION.GATHER) {
+      const side = props.resolvableItem.droppableID.includes("left")
+        ? "left"
+        : "right";
       extraInfoDiv = (
         <div className={styles.gather}>
           <span className={styles.gatherAmount}>1</span>
           <div className={styles.resourceIcon}>
             <Image
-              src={`/interface/resources/${
-                tile.tileType?.resources[props.item.additionalInfo.resource]
-              }.png`}
+              src={`/interface/resources/${tile.tileType?.resources[side]}.png`}
               fill
               sizes={styles.resourceIcon}
               alt={"surowiec"}
@@ -142,69 +153,97 @@ export const Item = (props: Props) => {
         </div>
       );
     }
-  } else if (
-    droppableId.includes("rest") ||
-    droppableId.includes("arrangeCamp")
-  ) {
+  } else {
     image = (
       <div className={styles.restArrange}>
         <Image
-          src={`/interface/actions/${props.item.action}-picture.png`}
+          src={`/UI/actions/${getImgName(
+            props.resolvableItem.action
+          )}-picture.png`}
           fill
           sizes={styles.restArrange}
-          alt={props.item.action}
+          alt={props.resolvableItem.action}
         />
       </div>
     );
   }
 
   function handleClick() {
-    if (
-      props.status === RESOLVE_ITEM_STATUS.PENDING &&
-      !props.resolveLocked &&
-      !props.resolved
-    ) {
-      props.resolve(props.item);
+    if (used || props.locked) {
+      return;
     }
+    if (props.resolvableItem.shouldReRollSuccess) {
+      props.reRoll(props.resolvableItem.id);
+      console.log("reRoll");
+    } else if (
+      props.resolvableItem.shouldRollDices &&
+      props.resolvableItem.resolveStatus === RESOLVE_ITEM_STATUS.PENDING
+    ) {
+      console.log("roll dices");
+      props.rollDices(props.resolvableItem.id);
+    } else {
+      console.log("resolve");
+      props.resolve(props.resolvableItem.id);
+      setUsed(true);
+    }
+
+    console.log(props.resolvableItem.rollDiceResults);
   }
 
   const lockedButtonClass =
-    props.status === RESOLVE_ITEM_STATUS.PENDING &&
-    !props.resolveLocked &&
-    !props.resolved
-      ? styles.clickableButton
-      : styles.locked;
-  const imageName = `${props.item.leader.character.name}-${props.item.leader.character.gender}`;
-  const itemType = props.item.droppableId.split("-")[0];
+    used || props.locked ? styles.locked : styles.clickableButton;
+  const imageName = `${props.resolvableItem.leaderPawn.character.name}-${props.resolvableItem.leaderPawn.character.gender}`;
   const statusClass =
-    props.status === RESOLVE_ITEM_STATUS.SUCCESS
+    props.resolvableItem.resolveStatus === RESOLVE_ITEM_STATUS.SUCCESS
       ? styles.success
       : styles.failure;
+
+  const action = props.resolvableItem.action;
+  let buttonText: string | (JSX.Element | string)[] = "";
+  if (props.resolvableItem.shouldReRollSuccess && !props.locked) {
+    buttonText = [
+      "Przerzuć",
+      <div className={styles.reRollToken} key={"1"}>
+        <Image
+          src={reRollTokenImg}
+          alt={"przerzut sukcesu"}
+          sizes={styles.reRollToken}
+          fill
+        />
+      </div>,
+    ];
+  } else if (props.resolvableItem.shouldRollDices) {
+    buttonText = "Rzuć kośćmi";
+  } else {
+    buttonText = "Wykonaj";
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.item}>
+        <Tokens
+          action={action}
+          reRollTokens={props.actionService.reRollTokens}
+          adventureTokens={props.actionService.adventureTokens}
+        />
         {image}
         {extraInfoDiv}
       </div>
 
       {props.resolved && (
         <div
-          className={
-            styles.status +
-            " " +
-            styles[itemType + "Status"] +
-            " " +
-            statusClass
-          }
+          className={`${styles.status} ${itemTypeStatusClass} ${statusClass}`}
         >
-          {ITEM_STATUS_PL[props.status]}
+          {props.resolvableItem.resolveStatus === RESOLVE_ITEM_STATUS.FAILURE
+            ? "porażka!"
+            : "sukces!"}
         </div>
       )}
       <div
         className={`${styles.resolveButton} ${lockedButtonClass}`}
         onClick={handleClick}
       >
-        Wykonaj
+        {buttonText}
       </div>
       <div className={styles.character}>
         <Image

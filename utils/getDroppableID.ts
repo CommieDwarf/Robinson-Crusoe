@@ -5,7 +5,7 @@ export enum ACTION_ITEM {
   EXPLORE = "explore",
   REST = "rest",
   ARRANGE_CAMP = "arrange camp",
-  EVENT = "event",
+  THREAT = "threat",
   HUNT = "hunt",
 }
 
@@ -28,9 +28,9 @@ export function getDroppableID(
     case ACTION_ITEM.REST:
       return `rest-leader-${id}`;
     case ACTION_ITEM.ARRANGE_CAMP:
-      return `arrangeCamp-leader-${id}`;
-    case ACTION_ITEM.EVENT:
-      return `event-${side}-${role}-${id}`;
+      return `arrange camp-leader-${id}`;
+    case ACTION_ITEM.THREAT:
+      return `threat-${side}-${role}-${id}`;
     case ACTION_ITEM.HUNT:
       return `hunt-${role}-${id}`;
   }

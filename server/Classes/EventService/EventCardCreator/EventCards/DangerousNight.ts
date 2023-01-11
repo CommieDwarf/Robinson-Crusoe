@@ -5,11 +5,15 @@ import {
 } from "../../../../../interfaces/EventService/EventCard";
 import { IGame } from "../../../../../interfaces/Game";
 import { CONSTRUCTION } from "../../../../../interfaces/ConstructionService/Construction";
+import { EVENT_CARD } from "../../../../../interfaces/EventService/EVENT_CARD";
 
 export class DangerousNight extends EventCard implements IEventCard {
+  protected readonly _namePL = "niebezpieczna noc";
+  protected readonly _resolutionPL = "budowa zabezpieczeń";
+
   constructor(game: IGame) {
     super(
-      "dangerous night",
+      EVENT_CARD.DANGEROUS_NIGHT,
       EVENT_TYPE.BOOK,
       {
         pawns: 1,

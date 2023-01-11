@@ -24,7 +24,7 @@ export function getItemFromDroppableId(droppableId: string, game: IGame) {
     return game.tileService.getTile(parseInt(id));
   } else if (droppableId.includes("rest")) {
     return ACTION.REST;
-  } else if (droppableId.includes("arrangeCamp")) {
+  } else if (droppableId.includes("arrange camp")) {
     return ACTION.ARRANGE_CAMP;
   }
 

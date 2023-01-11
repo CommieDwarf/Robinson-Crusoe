@@ -8,7 +8,8 @@
 
 
 .zIndexIncreased {
-    z-index: 10000;
+    z-index: 100;
+    overflow: visible;
 }
 
 .content {
@@ -16,7 +17,6 @@
     width: 100%;
     background-size: cover;
     position: relative;
-
 }
 
 .map {
@@ -24,8 +24,6 @@
     aspect-ratio: 425 / 416;
     display: inline-block;
     height: 99%;
-
-
 }
 
 .zoom {
@@ -61,4 +59,29 @@
 
     position: relative;
     display: inline-block;
+}
+
+
+.depleteTipArrow {
+    width: 250px;
+    height: 80px;
+    position: absolute;
+    transform: scaleX(-1);
+    top: 150px;
+    right: -230px;
+    animation-name: depleteArrowAnimation;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes depleteArrowAnimation {
+    0% {
+        right: -260px
+    }
+    50% {
+        right: -230px
+    }
+    100% {
+        right: -260px
+    }
 }

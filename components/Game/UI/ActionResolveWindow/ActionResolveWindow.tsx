@@ -1,90 +1,85 @@
 import * as React from "react";
+import { useState } from "react";
 import styles from "./ActionResolveWindow.module.css";
 import Image from "next/image";
-import { ResolveItems } from "./ActionResolve/ResolveItems";
+import { ResolvableItems } from "./ActionResolve/ResolvableItems";
 import { IActionServiceRenderData } from "../../../../interfaces/ActionService/ActionService";
 import { IActionSlotsRenderData } from "../../../../interfaces/ActionSlots";
 import { NextActionButton } from "./NextActionButton/NextActionButton";
-import { ACTION } from "../../../../interfaces/ACTION";
 import { RollDiceWindow } from "./RollDiceWindow/RollDiceWindow";
-import { useEffect, useState } from "react";
-import { IResolvableItemRenderData } from "../../../../interfaces/ActionService/IResolvableItem";
-import {
-  ActionDiceSide,
-  ActionResults,
-  DiceActionType,
-  RollDiceResult,
-} from "../../../../interfaces/RollDice/RollDice";
-import Entries from "../../../../interfaces/Entries";
 import actionIconImg from "/public/UI/phase/action.png";
 import { getImgName } from "../../../../utils/getImgName";
+import { RESOLVE_ITEM_STATUS } from "../../../../interfaces/ActionService/IResolvableItem";
+import { isAdventureAction } from "../../../../utils/isAdventureAction";
+import { ReRoll } from "./ReRoll/ReRoll";
 
 type Props = {
   actionService: IActionServiceRenderData;
   actionSlots: IActionSlotsRenderData;
   setNextAction: () => void;
-  resolveItem: (action: ACTION, droppableId: string) => void;
+  resolveItem: (resolvableItemID: string) => void;
+  rollDices: (resolvableItemID: string) => void;
   setNextPhase: () => void;
+  reRoll: (resolvableItemID: string) => void;
 };
 export const ActionResolveWindow = (props: Props) => {
   let containerRef = React.createRef<HTMLDivElement>();
 
-  const [resolved, setResolved] = useState<Map<string, boolean>>(new Map());
-  const [rollDiceDone, setRollDiceDone] = useState(true);
+  const [resolvedItems, setResolvedItems] = useState<Map<string, boolean>>(
+    new Map()
+  );
+  const [resItemAnimationDoneID, setResItemAnimationDoneID] = useState<
+    string | null
+  >(null);
 
-  function setItemResolved(name: string) {
-    setResolved((old) => {
-      if (old.has(name)) {
-        return old;
-      }
-      const copy = new Map(old);
-      copy.set(name, true);
+  function setItemAnimationDone(id: string) {
+    setResItemAnimationDoneID(id);
+  }
+
+  function setNextAction() {
+    setResolvedItems(new Map());
+    props.setNextAction();
+  }
+
+  function rollDices(resolvableItemID: string) {
+    const item = getResolvableItem(resolvableItemID);
+    if (
+      item.shouldRollDices &&
+      item.resolveStatus === RESOLVE_ITEM_STATUS.PENDING
+    ) {
+      props.rollDices(resolvableItemID);
+    }
+  }
+
+  function setItemResolved(resolvableItemID: string) {
+    props.resolveItem(resolvableItemID);
+    setResolvedItems((prevState) => {
+      const copy = new Map(prevState);
+      copy.set(resolvableItemID, true);
       return copy;
     });
   }
 
-  useEffect(() => {
-    const item = props.actionService.lastResolvedItem;
-    if (item && !item.diceRoll && !resolved.has(item.droppableId)) {
-      setResolved((old) => {
-        const copy = new Map(old);
-        copy.set(item.droppableId, true);
-        return copy;
-      });
+  function getResolvableItem(id: string) {
+    const item = props.actionService.resolvableItems.find(
+      (resItem) => resItem.id === id
+    );
+    if (!item) {
+      throw Error(`Can't find item with id: ${id}`);
     }
-  }, [props.actionService.lastResolvedItem]);
-
-  function resolve(item: IResolvableItemRenderData) {
-    props.resolveItem(item.action, item.droppableId);
+    return item;
   }
-
-  const results = new Map<
-    keyof ActionResults,
-    RollDiceResult<ActionDiceSide>
-  >();
-
-  const lastItem = props.actionService.lastResolvedItem;
-  if (lastItem?.diceRoll) {
-    const entries = Object.entries(
-      lastItem.diceRoll.results
-    ) as Entries<ActionResults>;
-    entries.forEach(([key, value]) => {
-      results.set(key, value);
-    });
-  }
-
-  let name = lastItem ? lastItem.droppableId : null;
-  const itemResolved = name ? resolved.has(name) : false;
 
   return (
     <div className={styles.container} ref={containerRef}>
-      <RollDiceWindow
-        name={name}
-        results={results}
-        type={props.actionService.currentResolve.action as DiceActionType}
-        setResolved={setItemResolved}
-        resolved={itemResolved}
-      />
+      {props.actionService.lastRolledItem &&
+        isAdventureAction(props.actionService.action) && (
+          <RollDiceWindow
+            resolvableItem={props.actionService.lastRolledItem}
+            type={props.actionService.action}
+            setItemAnimationDone={setItemAnimationDone}
+          />
+        )}
       <div className={styles.header}>
         <div className={styles.actionIcon}>
           <Image
@@ -98,30 +93,33 @@ export const ActionResolveWindow = (props: Props) => {
         <div className={styles.title}>Faza Akcji</div>
         <div className={styles.actionIcon}>
           <Image
-            src={`/UI/actions/${getImgName(
-              props.actionService.currentResolve.action
-            )}.png`}
+            src={`/UI/actions/${getImgName(props.actionService.action)}.png`}
             fill
             sizes={styles.actionIcon}
             alt={"akcja"}
           />
         </div>
       </div>
-      <ResolveItems
+      <ResolvableItems
         actionService={props.actionService}
         actionSlots={props.actionSlots}
-        resolve={resolve}
-        resolved={resolved}
+        resolve={setItemResolved}
+        resolvedItems={resolvedItems}
+        locked={
+          props.actionService.lastRolledItem
+            ? props.actionService.lastRolledItem.id !== resItemAnimationDoneID
+            : false
+        }
+        rollDices={rollDices}
+        reRoll={props.reRoll}
       />
-      {props.actionService.currentResolve.finished &&
-        resolved.size === props.actionService.currentResolve.items.length && (
-          <NextActionButton
-            currentAction={props.actionService.currentResolve.action}
-            setNextAction={props.setNextAction}
-            setNextPhase={props.setNextPhase}
-            setResolved={setResolved}
-          />
-        )}
+      {props.actionService.resolvableItems.length === resolvedItems.size && (
+        <NextActionButton
+          setNextAction={setNextAction}
+          setNextPhase={props.setNextPhase}
+          actionService={props.actionService}
+        />
+      )}
     </div>
   );
 };

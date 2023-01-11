@@ -8,6 +8,8 @@ import { IGame } from "../../../../../../interfaces/Game";
 import { TERRAIN_TYPE } from "../../../../../../interfaces/TileService/ITile";
 
 export class Bed extends Invention implements IInvention {
+  protected readonly _namePL = "łóżko";
+
   constructor(game: IGame) {
     super(
       INVENTION_NORMAL.BED,

@@ -50,6 +50,10 @@ import moveCamp from "../../pages/api/moveCamp";
 import { ITileRenderData } from "../../interfaces/TileService/ITile";
 import { ConfirmCampMove } from "./UI/ConfirmCampMove/ConfirmCampMove";
 import { sleep } from "../../utils/sleep";
+import rollActionDices from "../../pages/api/rollActionDices";
+import { Adventure } from "./UI/Adventure/Adventure";
+import depleteResource from "../../pages/api/depleteResource";
+import reRollActionDice from "../../pages/api/reRollActionDice";
 
 interface Props {
   gameRenderData: IGameRenderData;
@@ -78,6 +82,11 @@ export default function Game(props: Props) {
     props.updateGameRenderData();
   }
 
+  function handleReRollActionDice(resolvableItemID: string) {
+    reRollActionDice(resolvableItemID);
+    props.updateGameRenderData();
+  }
+
   function handleUtilizeToken(
     userName: string,
     id: string,
@@ -93,8 +102,13 @@ export default function Game(props: Props) {
     setShowNightTip(true);
   }
 
-  function handleResolveActionItem(action: ACTION, droppableId: string) {
-    resolveActionItem(action, droppableId);
+  function handleRollActionDices(resolvableItemID: string) {
+    rollActionDices(resolvableItemID);
+    props.updateGameRenderData();
+  }
+
+  function handleResolveActionItem(resolvableItemID: string) {
+    resolveActionItem(resolvableItemID);
     props.updateGameRenderData();
   }
 
@@ -113,6 +127,11 @@ export default function Game(props: Props) {
 
   function handleMoveCamp(tileID: number) {
     moveCamp(tileID);
+    props.updateGameRenderData();
+  }
+
+  function handleDepleteResource(tileID: number, side: "left" | "right") {
+    depleteResource(tileID, side);
     props.updateGameRenderData();
   }
 
@@ -158,7 +177,6 @@ export default function Game(props: Props) {
   }
 
   function onDragUpdate(update: DragUpdate) {
-    console.log(update.destination?.droppableId);
     unselectActionSlots();
     const pawn = gameRenderData.allPawns.find(
       (p) => p.draggableId === update.draggableId
@@ -245,8 +263,14 @@ export default function Game(props: Props) {
     }
   }
 
+  const reRollSkill =
+    gameRenderData.localPlayer.character.skillService.skills.find(
+      (skill) => skill.name === "reRoll"
+    );
+  console.log(reRollSkill);
   return (
     <div className={styles.game}>
+      {/*<Adventure />*/}
       {props.gameRenderData.phaseService.phase === "night" && nextCamp && (
         <ConfirmCampMove
           currentCamp={props.gameRenderData.tileService.campTile}
@@ -288,6 +312,7 @@ export default function Game(props: Props) {
           beastCount={gameRenderData.beastService.deckCount}
           night={gameRenderData.phaseService.phase === "night"}
           showCampMoveConfirm={showCampMoveConfirm}
+          depleteResource={handleDepleteResource}
         />
 
         <Inventions
@@ -323,7 +348,10 @@ export default function Game(props: Props) {
           zIndex={elementZIndexed}
         />
         <Equipment equipment={gameRenderData.equipmentService} />
-        <ActionsOrder />
+        <ActionsOrder
+          adventureTokens={gameRenderData.actionService.adventureTokens}
+          reRollTokens={gameRenderData.actionService.reRollTokens}
+        />
         <ChatLog logMessages={gameRenderData.logs} />
         <Weather tokens={gameRenderData.weatherService.tokens} />
         <Tokens
@@ -347,15 +375,18 @@ export default function Game(props: Props) {
           locked={gameRenderData.phaseService.locked}
         />
       </DragDropContext>
-      {gameRenderData.phaseService.phase === "action" && (
-        <ActionResolveWindow
-          actionService={gameRenderData.actionService}
-          actionSlots={actionSlots}
-          setNextAction={handleSetNextAction}
-          resolveItem={handleResolveActionItem}
-          setNextPhase={handleSetNextPhase}
-        />
-      )}
+      {gameRenderData.phaseService.phase === "action" &&
+        !gameRenderData.actionService.finished && (
+          <ActionResolveWindow
+            actionService={gameRenderData.actionService}
+            actionSlots={actionSlots}
+            setNextAction={handleSetNextAction}
+            resolveItem={handleResolveActionItem}
+            setNextPhase={handleSetNextPhase}
+            rollDices={handleRollActionDices}
+            reRoll={handleReRollActionDice}
+          />
+        )}
       <Alerts message={gameRenderData.alertService.alert} />
       {gameRenderData.phaseService.phase === "weather" && (
         <WeatherResolveWindow

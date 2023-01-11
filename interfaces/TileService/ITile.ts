@@ -31,6 +31,13 @@ export interface ITile {
     amount: number
   ) => void;
   canCampBeSettled: boolean;
+  depleteResource: (side: "left" | "right") => void;
+  reverseDepleteResource: (side: "left" | "right") => void;
+  markForDepletion: (side: "left" | "right") => void;
+  clearMarkedForDepletion: () => void;
+  canResourceBeDepleted: (side: "left" | "right") => boolean;
+  hasResource: (resource: "wood" | "food") => boolean;
+  getSideByResource: (resource: "wood" | "food") => "left" | "right" | null;
 }
 
 export interface ITileBuiltStructures {
@@ -59,8 +66,16 @@ export interface TileType {
   id: number;
   terrainType: TERRAIN_TYPE;
   resources: {
-    left: TileResource;
-    right: TileResource;
+    left: {
+      resource: TileResource;
+      depleted: boolean;
+      markedForDepletion: boolean;
+    };
+    right: {
+      resource: TileResource;
+      depleted: boolean;
+      markedForDepletion: boolean;
+    };
   };
   extras: TileExtras;
 }

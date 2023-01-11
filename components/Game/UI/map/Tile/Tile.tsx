@@ -12,6 +12,9 @@ import {
   getDroppableID,
 } from "../../../../../utils/getDroppableID";
 
+import xMarkImg from "/public/UI/misc/x-mark.png";
+import { ResourceDepletionButton } from "./ResourceDepletionButton/ResourceDepletionButton";
+
 interface Props {
   tile: ITileRenderData;
   contentScale: number;
@@ -20,6 +23,7 @@ interface Props {
   zIndex: string;
   campSettableTiles: ITileRenderData[];
   showCampMoveConfirm: (tile: ITileRenderData) => void;
+  depleteResource: (tileID: number, side: "left" | "right") => void;
 }
 
 export default function Tile(props: Props) {
@@ -36,7 +40,7 @@ export default function Tile(props: Props) {
     const context =
       action === ACTION.GATHER ? ACTION_ITEM.GATHER : ACTION_ITEM.EXPLORE;
     const sideString = side ? side + "-" : "";
-    for (let i = 0; i < props.tile.helpersRequired + 1; i++) {
+    for (let i = 0; i < props.tile.requiredHelperAmount + 1; i++) {
       const id = getDroppableID(context, props.tile.id, side, i + 1);
       let pawn = props.actionSlots.get(id);
       pawn = pawn === undefined ? null : pawn;
@@ -82,21 +86,25 @@ export default function Tile(props: Props) {
     );
   } else {
     let scrollableClass =
-      props.tile.helpersRequired >= 1 ? styles.gatherActionSlotsScrollable : "";
+      props.tile.requiredHelperAmount >= 1
+        ? styles.gatherActionSlotsScrollable
+        : "";
 
     actionSlots = (
       <Scrollbar styleModule={styles}>
         <div className={styles.gatherActionSlots + " " + scrollableClass}>
-          {props.tile.tileType.resources.left !== "beast" && (
-            <div className={styles.gatherActionSlotsLeft}>
-              {getActionSlots(ACTION.GATHER, "left")}
-            </div>
-          )}
-          {props.tile.tileType.resources.right !== "beast" && (
-            <div className={styles.gatherActionSlotsRight}>
-              {getActionSlots(ACTION.GATHER, "right")}
-            </div>
-          )}
+          {props.tile.tileType.resources.left.resource !== "beast" &&
+            !props.tile.tileType.resources.left.depleted && (
+              <div className={styles.gatherActionSlotsLeft}>
+                {getActionSlots(ACTION.GATHER, "left")}
+              </div>
+            )}
+          {props.tile.tileType.resources.right.resource !== "beast" &&
+            !props.tile.tileType.resources.right.depleted && (
+              <div className={styles.gatherActionSlotsRight}>
+                {getActionSlots(ACTION.GATHER, "right")}
+              </div>
+            )}
         </div>
       </Scrollbar>
     );
@@ -144,6 +152,44 @@ export default function Tile(props: Props) {
                 sizes={styles.campIcon}
               />
             </div>
+          )}
+          {props.tile.tileType?.resources.left.depleted && (
+            <div
+              className={`${styles.depletedMark} ${styles.depletedMarkLeft}`}
+            >
+              <Image
+                src={xMarkImg}
+                alt={"źródło wyczerpane"}
+                fill
+                sizes={styles.xMark}
+              />
+            </div>
+          )}
+          {props.tile.tileType?.resources.right.depleted && (
+            <div
+              className={`${styles.depletedMark} ${styles.depletedMarkRight}`}
+            >
+              <Image
+                src={xMarkImg}
+                alt={"źródło wyczerpane"}
+                fill
+                sizes={styles.xMark}
+              />
+            </div>
+          )}
+          {props.tile.tileType?.resources.right.markedForDepletion && (
+            <ResourceDepletionButton
+              side={"right"}
+              tileID={props.tile.id}
+              depleteResource={props.depleteResource}
+            />
+          )}
+          {props.tile.tileType?.resources.left.markedForDepletion && (
+            <ResourceDepletionButton
+              side={"left"}
+              tileID={props.tile.id}
+              depleteResource={props.depleteResource}
+            />
           )}
         </>
       )}

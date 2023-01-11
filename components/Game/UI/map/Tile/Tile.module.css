@@ -17,6 +17,23 @@
     filter: contrast(100%);
 }
 
+.depletedMark {
+    width: 22%;
+    height: 22%;
+    position: absolute;
+    bottom: 22%;
+    opacity: 0.7;
+}
+
+.depletedMarkLeft {
+    left: 18%;
+}
+
+.depletedMarkRight {
+    right: 23%;
+}
+
+
 .tileConstantHighlight {
     filter: contrast(150%) !important;
 }

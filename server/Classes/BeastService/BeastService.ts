@@ -46,6 +46,10 @@ export class BeastService implements IBeastService {
     return this._deck[this.deckCount - 1];
   }
 
+  removeBeastFromDeck() {
+    this._deck.pop();
+  }
+
   moveBeastFromStackToDeck() {
     const beast = this._allBeasts.pop();
     if (!beast) {

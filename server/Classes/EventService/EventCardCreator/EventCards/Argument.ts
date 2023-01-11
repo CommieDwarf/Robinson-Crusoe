@@ -4,11 +4,15 @@ import {
   IEventCard,
 } from "../../../../../interfaces/EventService/EventCard";
 import { IGame } from "../../../../../interfaces/Game";
+import { EVENT_CARD } from "../../../../../interfaces/EventService/EVENT_CARD";
 
 export class Argument extends EventCard implements IEventCard {
+  protected _namePL = "kłótnia";
+  protected _resolutionPL = "pogodzenie się";
+
   constructor(game: IGame) {
     super(
-      "argument",
+      EVENT_CARD.ARGUMENT,
       EVENT_TYPE.BOOK,
       {
         pawns: 2,
@@ -33,7 +37,7 @@ export class Argument extends EventCard implements IEventCard {
   }
 
   fullFill() {
-    const leader = this.getLeaderPawn().character;
+    const leader = this.getLeaderCharacter();
 
     this._game.moraleService.lvlUp(1, this.name);
     this._game.characterService.incrDetermination(leader, 1, this.name);

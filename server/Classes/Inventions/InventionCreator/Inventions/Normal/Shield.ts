@@ -10,6 +10,8 @@ import { Resources } from "../../../../ResourceService/Resources";
 import { PAWN_HELPER_ACTION } from "../../../../../../interfaces/Pawns/Pawn";
 
 export class Shield extends HelperPawnInvention implements IInvention {
+  protected readonly _namePL = "tarcza";
+
   constructor(game: IGame) {
     super(
       INVENTION_NORMAL.SHIELD,

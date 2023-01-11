@@ -10,6 +10,8 @@ import { Resources } from "../../../../ResourceService/Resources";
 import { CONSTRUCTION } from "../../../../../../interfaces/ConstructionService/Construction";
 
 export class Moat extends Invention implements IInvention {
+  protected readonly _namePL = "ogrodzenie";
+
   constructor(game: IGame) {
     super(
       INVENTION_NORMAL.MOAT,
@@ -24,7 +26,7 @@ export class Moat extends Invention implements IInvention {
     this._game.constructionService.lvlUpConstruction(
       CONSTRUCTION.PALISADE,
       2,
-      this.name
+      this._logSource
     );
   }
 
@@ -32,7 +34,7 @@ export class Moat extends Invention implements IInvention {
     this._game.constructionService.lvlDownIfPossible(
       CONSTRUCTION.PALISADE,
       2,
-      this.name
+      this._logSource
     );
   }
 }

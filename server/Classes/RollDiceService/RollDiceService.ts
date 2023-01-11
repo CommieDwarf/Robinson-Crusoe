@@ -3,7 +3,6 @@ import {
   ActionDiceResult,
   ActionDiceResults,
   ActionDiceSide,
-  DICE_ACTION_TYPE,
   ResultAxes,
   WeatherDice,
 } from "../../../interfaces/RollDice/RollDice";
@@ -11,6 +10,7 @@ import { gather } from "../../../constants/diceStructures/gather";
 import { build } from "../../../constants/diceStructures/build";
 import { explore } from "../../../constants/diceStructures/explore";
 import { weather } from "../../../constants/diceStructures/weather";
+import { AdventureAction } from "../../../interfaces/ACTION";
 
 const diceStructures: ActionDiceStructures = {
   gather,
@@ -19,7 +19,7 @@ const diceStructures: ActionDiceStructures = {
 };
 
 export type ActionDiceStructures = {
-  [key in DICE_ACTION_TYPE]: {
+  [key in AdventureAction]: {
     hurt: ActionDiceSide[];
     mystery: ActionDiceSide[];
     success: ActionDiceSide[];
@@ -71,7 +71,7 @@ export class RollDiceService {
   }
 
   public static getActionRollDiceResult(
-    action: DICE_ACTION_TYPE,
+    action: AdventureAction,
     dice: ActionDice
   ): ActionDiceResult {
     const random = Math.floor(Math.random() * 6);
@@ -85,7 +85,7 @@ export class RollDiceService {
   }
 
   public static getActionRollDiceResults(
-    actionType: DICE_ACTION_TYPE
+    actionType: AdventureAction
   ): ActionDiceResults {
     return {
       success: this.getActionRollDiceResult(actionType, "success"),

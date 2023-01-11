@@ -8,6 +8,8 @@ import {
 import { IGame } from "../../../../../../interfaces/Game";
 
 export class Shortcut extends Invention implements IInvention {
+  protected readonly _namePL = "skrót";
+
   constructor(game: IGame) {
     super(
       INVENTION_PERSONAL.SHORTCUT,

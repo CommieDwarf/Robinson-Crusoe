@@ -1,7 +1,4 @@
-import {
-  EVENT_CARD,
-  IEventCard,
-} from "../../../interfaces/EventService/EventCard";
+import { IEventCard } from "../../../interfaces/EventService/EventCard";
 import {
   IEventService,
   IEventServiceRenderData,
@@ -9,6 +6,7 @@ import {
 } from "../../../interfaces/EventService/EventService";
 import { IGame } from "../../../interfaces/Game";
 import { EventCardCreator } from "./EventCardCreator/EventCardCreator";
+import { EVENT_CARD } from "../../../interfaces/EventService/EVENT_CARD";
 
 interface EventSlots {
   left: null | IEventCard;
@@ -89,12 +87,13 @@ export class EventService implements IEventService {
   }
 
   public pullCard() {
-    let card = this._eventCards.shift();
+    let card = this._eventCards.pop();
     if (!card) {
       throw new Error("There is no card to pull");
     }
     this._eventSlots.right = card;
     card.triggerEffect();
+    card.setAdventureToken();
   }
 
   public moveCardsLeft() {
@@ -138,8 +137,8 @@ export class EventService implements IEventService {
 
   private initEventCards(): IEventCard[] {
     const creator = new EventCardCreator(this._game);
-
-    return Object.values(EVENT_CARD).map((card) => creator.create(card));
+    const cards = Object.values(EVENT_CARD).map((card) => creator.create(card));
+    return [...cards, creator.create(EVENT_CARD.OTTERS)];
   }
 
   public testEventCards(game: IGame) {

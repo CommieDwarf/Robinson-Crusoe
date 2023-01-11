@@ -10,6 +10,8 @@ import { Resources } from "../../../../ResourceService/Resources";
 import { CONSTRUCTION } from "../../../../../../interfaces/ConstructionService/Construction";
 
 export class Spear extends Invention implements IInvention {
+  protected readonly _namePL = "dzida";
+
   constructor(game: IGame) {
     super(
       INVENTION_PERSONAL.SPEAR,
@@ -24,7 +26,7 @@ export class Spear extends Invention implements IInvention {
     this._game.constructionService.lvlUpConstruction(
       CONSTRUCTION.WEAPON,
       3,
-      this.name
+      this._logSource
     );
   }
 
@@ -32,7 +34,7 @@ export class Spear extends Invention implements IInvention {
     this._game.constructionService.lvlDownIfPossible(
       CONSTRUCTION.WEAPON,
       3,
-      this.name
+      this._logSource
     );
   }
 }

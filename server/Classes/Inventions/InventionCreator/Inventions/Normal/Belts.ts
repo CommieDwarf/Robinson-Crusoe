@@ -9,6 +9,8 @@ import { HelperPawnInvention } from "../../HelperPawnInvention";
 import { PAWN_HELPER_ACTION } from "../../../../../../interfaces/Pawns/Pawn";
 
 export class Belts extends HelperPawnInvention implements IInvention {
+  protected readonly _namePL = "pasy";
+
   constructor(game: IGame) {
     super(
       INVENTION_NORMAL.BELTS,
