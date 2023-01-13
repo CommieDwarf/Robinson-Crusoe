@@ -9,6 +9,8 @@ import { SideCharacterName } from "../../../../../interfaces/Characters/SideChar
 import { IGame } from "../../../../../interfaces/Game";
 import { ICharEffects } from "../../../../../interfaces/Characters/CharEffects";
 import { IPawnService } from "../../../../../interfaces/Pawns/Pawns";
+import { ISkill } from "../../../../../interfaces/Skill/Skill";
+import { ActionDice } from "../../../../../interfaces/RollDice/RollDice";
 
 export abstract class Character implements ICharacter {
   protected _namePL: string;
@@ -21,6 +23,7 @@ export abstract class Character implements ICharacter {
   protected _game: IGame;
   protected declare _effects: ICharEffects;
   protected declare _pawnService: IPawnService;
+  protected declare _skills: ISkill[];
 
   protected constructor(
     name: PlayerCharacterName | SideCharacterName,
@@ -47,7 +50,12 @@ export abstract class Character implements ICharacter {
       maxHealth: this._maxHealth,
       name: this._name,
       namePL: this._namePL,
+      skills: this._skills.map((skill) => skill.renderData),
     };
+  }
+
+  get skills(): ISkill[] {
+    return this._skills;
   }
 
   get effects(): ICharEffects {
@@ -116,5 +124,33 @@ export abstract class Character implements ICharacter {
     } else {
       this._health += by;
     }
+  }
+
+  public getSkill(name: string) {
+    const skill = this._skills.find((skill) => skill.name === name);
+    if (!skill) {
+      throw new Error(`Can't find skill with name: ${name}`);
+    }
+    return skill;
+  }
+
+  public useSkill(name: string, target: ICharacter | ActionDice | null) {
+    const skill = this.getSkill(name);
+    if (skill.used) {
+      this._game.alertService.setAlert("Ta umiejętność została już użyta");
+      return;
+    }
+    if (this._determination >= skill.cost) {
+      skill.use(target);
+      this.decrDetermination(skill.cost);
+    } else {
+      this._game.alertService.setAlert(
+        "Za mało determinacji, żeby użyć tej umiejętności"
+      );
+    }
+  }
+
+  refreshSkills() {
+    this._skills.forEach((skill) => (skill.used = false));
   }
 }

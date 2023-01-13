@@ -36,3 +36,26 @@
     height: 50px;
     display: inline-block;
 }
+
+.reRollArrowTip {
+    position: absolute;
+    width: 130px;
+    height: 50px;
+    left: -150px;
+    top: -25px;
+    animation-name: tipArrowAnimation;
+    animation-iteration-count: infinite;
+    animation-duration: 1s;
+}
+
+@keyframes tipArrowAnimation {
+    0% {
+        left: -150px
+    }
+    50% {
+        left: -140px
+    }
+    100% {
+        left: -150px
+    }
+}

@@ -3,15 +3,15 @@ import { WeatherDiceSide } from "../../interfaces/RollDice/RollDice";
 const winter: WeatherDiceSide[] = [
   "snow",
   "snow",
-  "doubleSnow",
-  "doubleSnow",
-  "doubleRain",
-  "doubleRain",
+  "double snow",
+  "double snow",
+  "double rain",
+  "double rain",
 ];
 
 const rain: WeatherDiceSide[] = [
-  "doubleRain",
-  "doubleRain",
+  "double rain",
+  "double rain",
   "rain",
   "rain",
   "rain",

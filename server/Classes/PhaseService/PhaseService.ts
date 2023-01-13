@@ -79,6 +79,12 @@ export class PhaseService implements IPhaseService {
         return;
       }
     }
+    if (this._phase === "weather" &&
+        this._game.weatherService.shouldRollDices &&
+        !this._game.weatherService.rollDiceResult) {
+      return;
+    }
+
     try {
       this.phaseEffects[this._phase]();
       this._phaseIndex =
@@ -133,9 +139,13 @@ export class PhaseService implements IPhaseService {
 
     resourceArr.forEach((res) => {
       if (!res.depleted && res.resource !== "beast") {
-        this._game.resourceService.addResourceToOwned(res.resource, 1, "Produkcja");
+        this._game.resourceService.addResourceToOwned(
+            res.resource,
+            1,
+            "Produkcja"
+        );
       }
-    })
+    });
   };
 
   private preActionEffect = () => {
@@ -157,6 +167,9 @@ export class PhaseService implements IPhaseService {
   private nightEffect = () => {
     this._game.setNextRound();
     this._game.tileService.campJustMoved = false;
+    this._game.characterService.allCharacters.forEach((char) =>
+        char.refreshSkills()
+    );
   };
 
   private checkPreActionForMissingPawns() {

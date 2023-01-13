@@ -78,6 +78,7 @@ export class RollDiceService {
     const axes = this.getAxes(random);
 
     const result = diceStructures[action][dice][random];
+
     return {
       result,
       axes,

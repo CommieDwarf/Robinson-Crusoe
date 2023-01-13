@@ -144,7 +144,7 @@ export const Item = (props: Props) => {
           <span className={styles.gatherAmount}>1</span>
           <div className={styles.resourceIcon}>
             <Image
-              src={`/interface/resources/${tile.tileType?.resources[side]}.png`}
+              src={`/UI/resources/${tile.tileType?.resources[side].resource}.png`}
               fill
               sizes={styles.resourceIcon}
               alt={"surowiec"}

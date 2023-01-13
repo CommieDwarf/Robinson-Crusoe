@@ -24,21 +24,25 @@ import {
   ActionDiceResults,
   WeatherDice,
   WeatherDiceResult,
+  WeatherDiceResults,
 } from "../../../../interfaces/RollDice/RollDice";
 import { cancelAnimationFrame, requestAnimationFrame } from "dom-helpers";
 import { IDice } from "../../../../interfaces/Dice/Dice";
 import { SpotLight } from "three";
 import { AdventureAction } from "../../../../interfaces/ACTION";
+import { isActionDice } from "../../../../utils/isActionDice";
+import { getImgName } from "../../../../utils/getImgName";
 
 type Props = {
   name: string;
   results:
-    | Map<keyof WeatherDice, WeatherDiceResult>
+    | Map<WeatherDice, WeatherDiceResult | null>
     | Map<keyof ActionDiceResults, ActionDiceResult>;
   type: "weather" | AdventureAction;
   onFinish: (name: string) => void;
-  // animationLocked: boolean;
-  reRolledDice: string;
+  reRolledDice: ActionDice | null;
+  fixed: boolean;
+  reRoll: (dice: ActionDice) => void | ((dice: WeatherDice) => void);
 };
 
 export const RollDiceAnimation = (props: Props) => {
@@ -129,7 +133,8 @@ export const RollDiceAnimation = (props: Props) => {
     const dices = new Map<ActionDice | WeatherDice, IDice>();
     let index = 0;
     props.results.forEach((value: any, key: any) => {
-      let fixed = !!(props.reRolledDice && key !== props.reRolledDice);
+      let fixed =
+        (props.reRolledDice && key !== props.reRolledDice) || props.fixed;
       dices.set(key, new Dice(value, key, cubeSize, translateX[index], fixed));
       index++;
     });
@@ -170,23 +175,32 @@ export const RollDiceAnimation = (props: Props) => {
     const diceArr: IDice[] = [];
     dices.forEach((dice) => diceArr.push(dice));
 
-    function handleMouseMove(event: MouseEvent) {
-      if (!current) {
-        return;
-      }
-      const width = current.offsetWidth / dices.size;
+    function getDiceFromOffset(
+      current: HTMLDivElement,
+      dices: IDice[],
+      event: MouseEvent
+    ) {
+      const width = current.offsetWidth / dices.length;
       const height = current.offsetHeight / 3;
       dices.forEach((dice) => dice.onMouseLeave());
       if (event.offsetY < height || event.offsetY > height * 2) {
+        return null;
+      }
+
+      if (event.offsetX < width) {
+        return diceArr[0];
+      } else if (event.offsetX < width * 2) {
+        return diceArr[1];
+      } else {
+        return diceArr[2];
+      }
+    }
+
+    function handleMouseMove(event: MouseEvent) {
+      if (!current || !props.fixed) {
         return;
       }
-      if (event.offsetX < width) {
-        diceArr[0].onMouseEnter();
-      } else if (event.offsetX < width * 2) {
-        diceArr[1].onMouseEnter();
-      } else {
-        diceArr[2].onMouseEnter();
-      }
+      getDiceFromOffset(current, diceArr, event)?.onMouseEnter();
     }
 
     function handleMouseLeave(event: MouseEvent) {
@@ -195,13 +209,25 @@ export const RollDiceAnimation = (props: Props) => {
       });
     }
 
+    function handleMouseClick(event: MouseEvent) {
+      if (!current || !props.fixed) {
+        return;
+      }
+      const dice = getDiceFromOffset(current, diceArr, event);
+      if (dice && isActionDice(dice.name)) {
+        props.reRoll(dice.name);
+      }
+    }
+
     current.addEventListener("mousemove", handleMouseMove);
     current.addEventListener("mouseleave", handleMouseLeave);
+    current.addEventListener("click", handleMouseClick);
 
     return () => {
       scene.children = [];
       current.removeEventListener("mousemove", handleMouseMove);
       current.removeEventListener("mouseleave", handleMouseLeave);
+      current.removeEventListener("click", handleMouseClick);
       current.removeChild(renderer.domElement);
       cancelAnimationFrame(animationId);
     };
@@ -238,6 +264,8 @@ export const RollDiceAnimation = (props: Props) => {
       });
     }
 
+    name: WeatherDice | ActionDice;
+
     constructor(
       result: WeatherDiceResult | ActionDiceResult,
       diceName: WeatherDice | ActionDice,
@@ -246,6 +274,7 @@ export const RollDiceAnimation = (props: Props) => {
       fixed: boolean
     ) {
       this.result = result;
+      this.name = diceName;
       this.mesh = getCube(props.type, diceName, translateX, cubeSize);
       this._light.position.set(translateX * 0.9, 0, 3);
       this._light.target = this.mesh;
@@ -287,7 +316,7 @@ export const RollDiceAnimation = (props: Props) => {
     x: number,
     size: number
   ) {
-    const textureCube = getActionTextures(type, dice);
+    const textureCube = getCubeTextures(type, dice);
     const geometry = new RoundedBoxGeometry(size, size, size, 2, 0.4);
 
     const edges = new THREE.EdgesGeometry(geometry);
@@ -304,7 +333,7 @@ export const RollDiceAnimation = (props: Props) => {
     return mesh;
   }
 
-  function getActionTextures(
+  function getCubeTextures(
     type: AdventureAction | "weather",
     dice: ActionDice | WeatherDice
   ) {
@@ -316,14 +345,14 @@ export const RollDiceAnimation = (props: Props) => {
         : basePath + "/action/" + type;
     loader.setPath(path);
 
-    const construction =
+    const structure =
       type === "weather"
         ? structures.weather[dice as WeatherDice]
         : structures[type][dice as ActionDice];
 
-    return Object.entries(construction).map(([key, side]) => {
+    return Object.entries(structure).map(([key, side]) => {
       return new THREE.MeshPhysicalMaterial({
-        map: loader.load(`/${side}.png`),
+        map: loader.load(`/${getImgName(side)}.png`),
         clearcoat: 0,
         clearcoatRoughness: 0,
         metalness: 0,
@@ -338,7 +367,8 @@ export const RollDiceAnimation = (props: Props) => {
 function areEqual(prevProps: Props, nextProps: Props) {
   return (
     prevProps.name === nextProps.name &&
-    prevProps.reRolledDice === nextProps.reRolledDice
+    prevProps.reRolledDice === nextProps.reRolledDice &&
+    prevProps.fixed === nextProps.fixed
   );
 }
 

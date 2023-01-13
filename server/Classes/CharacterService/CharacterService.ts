@@ -12,6 +12,8 @@ import {
   CHARACTER,
   ICharacter,
 } from "../../../interfaces/Characters/Character";
+import { Dog } from "./Characters/Dog";
+import { Friday } from "./Characters/Friday";
 
 export class CharacterService implements ICharacterService {
   dog: ISideCharacter;
@@ -21,8 +23,8 @@ export class CharacterService implements ICharacterService {
   private readonly _game: IGame;
 
   constructor(characters: IPlayerCharacter[], game: IGame) {
-    this.dog = new SideCharacter(CHARACTER.DOG, "pies", 1, Infinity, game);
-    this.friday = new SideCharacter(CHARACTER.FRIDAY, "Piętaszek", 0, 4, game);
+    this.dog = new Dog("male", game);
+    this.friday = new Friday("male", game);
     this._game = game;
     this._allCharacters = [this.dog, this.friday, ...characters];
   }

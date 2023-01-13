@@ -10,8 +10,8 @@ import {
 import { ITile, ITileRenderData } from "../TileService/ITile";
 import { IEventCard, IEventCardRenderData } from "../EventService/EventCard";
 import { IBeast, IBeastRenderData } from "../Beasts/Beast";
-import { ACTION, Action } from "../ACTION";
-import { ActionDiceResults } from "../RollDice/RollDice";
+import { ACTION, Action, AdventureAction } from "../ACTION";
+import { ActionDice, ActionDiceResults } from "../RollDice/RollDice";
 
 export type Item =
   | IConstruction
@@ -33,11 +33,12 @@ export interface IResolvableItem {
   renderData: IResolvableItemRenderData;
   helperAmount: number;
   reRolledSuccess: boolean;
-
+  reRolledDice: ActionDice | null;
   shouldRollDices: boolean;
   shouldReRollSuccess: boolean;
   rollDiceResults: ActionDiceResults | null;
   reRollSuccess: () => void;
+  reRollDice: (dice: ActionDice, action: AdventureAction) => void;
 
   rollDices: () => void;
   resolve: () => void;
@@ -67,6 +68,6 @@ export interface IResolvableItemRenderData {
   shouldRollDices: boolean;
   shouldReRollSuccess: boolean;
   reRolledSuccess: boolean;
-
+  reRolledDice: ActionDice | null;
   rollDiceResults: ActionDiceResults | null;
 }

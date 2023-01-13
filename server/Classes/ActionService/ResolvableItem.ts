@@ -3,7 +3,7 @@ import { IInvention } from "../../../interfaces/InventionService/Invention";
 import { ITile } from "../../../interfaces/TileService/ITile";
 import { IEventCard } from "../../../interfaces/EventService/EventCard";
 import { IPawn } from "../../../interfaces/Pawns/Pawn";
-import { ACTION } from "../../../interfaces/ACTION";
+import { ACTION, AdventureAction } from "../../../interfaces/ACTION";
 import { Construction } from "../ConstructionService/Construction";
 import { IGame } from "../../../interfaces/Game";
 import { Invention } from "../Inventions/InventionCreator/Invention";
@@ -32,6 +32,7 @@ export class ResolvableItem implements IResolvableItem {
   private readonly _id = uuidv4();
   private _helperAmount: number = 0;
   private _reRolledSuccess = false;
+  private _reRolledDice = null;
 
   private readonly _droppableID: string;
   private _resolveStatus: RESOLVE_ITEM_STATUS = RESOLVE_ITEM_STATUS.PENDING;
@@ -72,7 +73,12 @@ export class ResolvableItem implements IResolvableItem {
       rollDiceResults: this.rollDiceResults,
       shouldReRollSuccess: this.shouldReRollSuccess,
       reRolledSuccess: this._reRolledSuccess,
+      reRolledDice: this._reRolledDice,
     };
+  }
+
+  get reRolledDice(): ActionDice | null {
+    return this._reRolledDice;
   }
 
   get rollDiceResults(): ActionDiceResults | null {
@@ -150,7 +156,14 @@ export class ResolvableItem implements IResolvableItem {
     );
   }
 
-  reRoll(dice: ActionDice) {}
+  reRollDice(dice: ActionDice, action: AdventureAction) {
+    if (this._rollDiceResults) {
+      this._rollDiceResults[dice] = RollDiceService.getActionRollDiceResult(
+        action,
+        dice
+      );
+    }
+  }
 
   reRollSuccess() {
     if (!this.shouldReRollSuccess) {

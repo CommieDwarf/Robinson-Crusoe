@@ -3,6 +3,7 @@ import { AdventureAction } from "../../../../../../interfaces/ACTION";
 import { IGame } from "../../../../../../interfaces/Game";
 import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 import { ISkill } from "../../../../../../interfaces/Skill/Skill";
+import { ActionDice } from "../../../../../../interfaces/RollDice/RollDice";
 
 export abstract class Skill implements ISkill {
   protected readonly _name: string;
@@ -15,7 +16,8 @@ export abstract class Skill implements ISkill {
   protected readonly _game: IGame;
   protected _used = false;
   protected _cost: number;
-  declare use: (target: ICharacter | null) => void;
+
+  abstract use(target: ICharacter | ActionDice | null): void;
 
   protected constructor(
     name: string,
@@ -80,5 +82,9 @@ export abstract class Skill implements ISkill {
 
   get used(): boolean {
     return this._used;
+  }
+
+  set used(value: boolean) {
+    this._used = value;
   }
 }

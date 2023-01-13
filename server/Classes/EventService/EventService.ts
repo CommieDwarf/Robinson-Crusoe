@@ -138,7 +138,7 @@ export class EventService implements IEventService {
   private initEventCards(): IEventCard[] {
     const creator = new EventCardCreator(this._game);
     const cards = Object.values(EVENT_CARD).map((card) => creator.create(card));
-    return [...cards, creator.create(EVENT_CARD.OTTERS)];
+    return [...cards];
   }
 
   public testEventCards(game: IGame) {

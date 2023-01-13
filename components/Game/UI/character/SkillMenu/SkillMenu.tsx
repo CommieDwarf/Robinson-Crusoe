@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./SkillMenu.module.css";
-import { insertIconsIntoString } from "../../../../../utils/insertIconsIntoString";
+import { insertIconsIntoText } from "../../../../../utils/insertIconsIntoText";
 import { ISkillRenderData } from "../../../../../interfaces/Skill/Skill";
 
 interface Props {
@@ -14,10 +14,8 @@ export default function SkillMenu(props: Props) {
   let description;
   let quote;
   if (props.skillDescription.skill) {
-    description = insertIconsIntoString(
-      props.skillDescription.skill.description
-    );
-    quote = insertIconsIntoString(props.skillDescription.skill.quote);
+    description = insertIconsIntoText(props.skillDescription.skill.description);
+    quote = insertIconsIntoText(props.skillDescription.skill.quote);
   }
   const visibilityClass = props.skillDescription.show
     ? styles.skillDescriptionVisible

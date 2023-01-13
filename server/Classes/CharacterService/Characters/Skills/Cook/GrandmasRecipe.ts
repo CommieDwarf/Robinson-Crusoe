@@ -4,6 +4,7 @@ import { grandmasRecipe } from "../../../../../../constants/SkillDescriptions/Co
 import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 import { IPlayerCharacter } from "../../../../../../interfaces/Characters/PlayerCharacter";
 import { ISkill } from "../../../../../../interfaces/Skill/Skill";
+import { ActionDice } from "../../../../../../interfaces/RollDice/RollDice";
 
 export class GrandmasRecipe extends Skill implements ISkill {
   private _character: IPlayerCharacter;
@@ -22,7 +23,7 @@ export class GrandmasRecipe extends Skill implements ISkill {
     this._character = character;
   }
 
-  use(target: ICharacter | null = null) {
+  use(target: ICharacter | ActionDice | null = null) {
     if (!target) {
       return;
     }
@@ -30,6 +31,7 @@ export class GrandmasRecipe extends Skill implements ISkill {
       this._character.decrDetermination(this.cost);
       this._game.characterService.heal(target, 2, this._namePL);
       this._game.resourceService.spendResourceIfPossible("food", 1, "");
+      this._used = true;
     } else {
       this._game.alertService.setAlert(
         "Niewystarczająco jedzenia aby użyć tej umiejętności"

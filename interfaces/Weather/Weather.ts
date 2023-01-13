@@ -23,6 +23,7 @@ export interface IWeatherService {
   modifiers: WeatherModifiers;
   overallWeather: OverallWeather;
   rollDiceResult: WeatherDiceResults | null;
+  shouldRollDices: boolean;
   furnace: boolean;
   setToken: (
     type: keyof IWeatherTokens,
@@ -43,4 +44,5 @@ export interface IWeatherServiceRenderData {
   tokens: IWeatherTokens;
   overallWeather: OverallWeather;
   rollDiceResult: WeatherDiceResults | null;
+  shouldRollDices: boolean;
 }

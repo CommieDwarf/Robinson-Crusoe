@@ -11,7 +11,11 @@ import actionIconImg from "/public/UI/phase/action.png";
 import { getImgName } from "../../../../utils/getImgName";
 import { RESOLVE_ITEM_STATUS } from "../../../../interfaces/ActionService/IResolvableItem";
 import { isAdventureAction } from "../../../../utils/isAdventureAction";
+import { ICharacterRenderData } from "../../../../interfaces/Characters/Character";
 import { ReRoll } from "./ReRoll/ReRoll";
+import redArrowImg from "/public/UI/misc/red-arrow.png";
+import { ActionDice } from "../../../../interfaces/RollDice/RollDice";
+import { sleep } from "../../../../utils/sleep";
 
 type Props = {
   actionService: IActionServiceRenderData;
@@ -21,6 +25,7 @@ type Props = {
   rollDices: (resolvableItemID: string) => void;
   setNextPhase: () => void;
   reRoll: (resolvableItemID: string) => void;
+  useReRollSkill: (dice: ActionDice) => void;
 };
 export const ActionResolveWindow = (props: Props) => {
   let containerRef = React.createRef<HTMLDivElement>();
@@ -31,6 +36,31 @@ export const ActionResolveWindow = (props: Props) => {
   const [resItemAnimationDoneID, setResItemAnimationDoneID] = useState<
     string | null
   >(null);
+
+  const [reRollButtonClicked, setReRollButtonClicked] = useState(false);
+  const [reRolledDice, setReRolledDice] = useState<ActionDice | null>(null);
+  const [reRollSkillUsed, setReRollSkillUsed] = useState(false);
+
+  function onReRollButtonClick() {
+    setReRollButtonClicked(true);
+  }
+
+  function onReRollSkillUse(dice: ActionDice) {
+    setResItemAnimationDoneID(null);
+    props.useReRollSkill(dice);
+    setReRollButtonClicked(false);
+    setReRolledDice(dice);
+    setReRollSkillUsed(true);
+  }
+
+  async function onReRollSuccess(resolvableItemID: string) {
+    if (reRolledDice === "success") {
+      setReRolledDice(null);
+      await sleep(10);
+    }
+    props.reRoll(resolvableItemID);
+    setReRolledDice("success");
+  }
 
   function setItemAnimationDone(id: string) {
     setResItemAnimationDoneID(id);
@@ -43,6 +73,7 @@ export const ActionResolveWindow = (props: Props) => {
 
   function rollDices(resolvableItemID: string) {
     const item = getResolvableItem(resolvableItemID);
+    setReRolledDice(null);
     if (
       item.shouldRollDices &&
       item.resolveStatus === RESOLVE_ITEM_STATUS.PENDING
@@ -52,12 +83,16 @@ export const ActionResolveWindow = (props: Props) => {
   }
 
   function setItemResolved(resolvableItemID: string) {
+    if (resolvableItemID !== props.actionService.lastRolledItem?.id) {
+      setReRolledDice(null);
+    }
     props.resolveItem(resolvableItemID);
     setResolvedItems((prevState) => {
       const copy = new Map(prevState);
       copy.set(resolvableItemID, true);
       return copy;
     });
+    setReRollButtonClicked(false);
   }
 
   function getResolvableItem(id: string) {
@@ -72,12 +107,35 @@ export const ActionResolveWindow = (props: Props) => {
 
   return (
     <div className={styles.container} ref={containerRef}>
+      {reRollButtonClicked && (
+        <div className={styles.reRollArrowTip}>
+          <Image
+            src={redArrowImg}
+            alt={"przerzuć kość"}
+            fill
+            sizes={styles.tipArrow}
+          />
+        </div>
+      )}
+      {props.actionService.lastRolledItem &&
+        !resolvedItems.has(props.actionService.lastRolledItem.id) &&
+        !props.actionService.lastRolledItem.shouldReRollSuccess &&
+        !reRollSkillUsed && (
+          <ReRoll
+            actionService={props.actionService}
+            onReRollButtonClick={onReRollButtonClick}
+          />
+        )}
+
       {props.actionService.lastRolledItem &&
         isAdventureAction(props.actionService.action) && (
           <RollDiceWindow
             resolvableItem={props.actionService.lastRolledItem}
             type={props.actionService.action}
             setItemAnimationDone={setItemAnimationDone}
+            reRollClicked={reRollButtonClicked}
+            reRoll={onReRollSkillUse}
+            reRolledDice={reRolledDice}
           />
         )}
       <div className={styles.header}>
@@ -111,7 +169,7 @@ export const ActionResolveWindow = (props: Props) => {
             : false
         }
         rollDices={rollDices}
-        reRoll={props.reRoll}
+        reRoll={onReRollSuccess}
       />
       {props.actionService.resolvableItems.length === resolvedItems.size && (
         <NextActionButton

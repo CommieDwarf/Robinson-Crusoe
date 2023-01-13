@@ -2,18 +2,21 @@ import { Skill } from "../Skill/Skill";
 import { IPlayerCharacter } from "../../../../../../interfaces/Characters/PlayerCharacter";
 import { IGame } from "../../../../../../interfaces/Game";
 import { ICharacter } from "../../../../../../interfaces/Characters/Character";
-import { hooch } from "../../../../../../constants/SkillDescriptions/Cook";
+import { scrounger } from "../../../../../../constants/SkillDescriptions/Cook";
 import { PHASE } from "../../../../../../interfaces/PhaseService/Phase";
+import { ISkill } from "../../../../../../interfaces/Skill/Skill";
+import { ACTION } from "../../../../../../interfaces/ACTION";
+import { ActionDice } from "../../../../../../interfaces/RollDice/RollDice";
 
 export class Scrounger extends Skill implements ISkill {
   private _character: IPlayerCharacter;
 
   constructor(game: IGame, character: IPlayerCharacter) {
     super(
-      hooch.name,
-      hooch.namePL,
-      hooch.description,
-      hooch.quote,
+      scrounger.name,
+      scrounger.namePL,
+      scrounger.description,
+      scrounger.quote,
       [PHASE.ACTION],
       "gather",
       2,
@@ -22,10 +25,22 @@ export class Scrounger extends Skill implements ISkill {
     this._character = character;
   }
 
-  use(target: ICharacter | null = null) {
-    if (!target) {
+  use(target: ICharacter | ActionDice | null = null) {
+    if (
+      !target ||
+      (target !== "mystery" && target !== "success" && target !== "hurt")
+    ) {
       return;
     }
-    //TODO: implement reRoll
+    if (this._game.actionService.action !== ACTION.GATHER) {
+      this._game.alertService.setAlert(
+        "Tej umiejętności można użyc tylko na kostkach zbierania"
+      );
+    }
+
+    if (this._game.actionService.lastRolledItem) {
+      this._game.actionService.lastRolledItem.reRollDice(target, "gather");
+      this._used = true;
+    }
   }
 }

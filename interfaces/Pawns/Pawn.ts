@@ -1,4 +1,5 @@
 import { ICharacter } from "../Characters/Character";
+import { ISkillRenderData } from "../Skill/Skill";
 
 export interface IPawnRenderData {
   draggableId: string;
@@ -7,6 +8,8 @@ export interface IPawnRenderData {
     namePL: string;
     gender: string;
     id: number;
+    skills: ISkillRenderData[];
+    determination: number;
   };
 }
 

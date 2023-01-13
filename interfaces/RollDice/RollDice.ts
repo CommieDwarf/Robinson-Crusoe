@@ -20,9 +20,9 @@ export type ActionDiceSide =
 export type WeatherDiceSide =
   | "blank"
   | "snow"
-  | "doubleSnow"
+  | "double snow"
   | "rain"
-  | "doubleRain"
+  | "double rain"
   | "beast"
   | "palisade"
   | "food";

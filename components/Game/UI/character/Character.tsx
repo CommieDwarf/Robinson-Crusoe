@@ -13,6 +13,7 @@ import { Droppable } from "react-beautiful-dnd";
 import capitalize from "../../../../utils/capitalizeFirstLetter";
 import { IPlayerCharacterRenderData } from "../../../../interfaces/Characters/PlayerCharacter";
 import { ISideCharacterRenderData } from "../../../../interfaces/Characters/SideCharacter";
+import { ISkillRenderData } from "../../../../interfaces/Skill/Skill";
 
 interface Props {
   character: IPlayerCharacterRenderData;

@@ -39,6 +39,7 @@ export class WeatherService implements IWeatherService {
       tokens: this._tokens,
       rollDiceResult: this._rollDiceResult,
       overallWeather: this.overallWeather,
+      shouldRollDices: this.shouldRollDices,
     };
   }
 
@@ -82,6 +83,14 @@ export class WeatherService implements IWeatherService {
     return this._modifiers;
   }
 
+  get shouldRollDices() {
+    return (
+      this.shouldRollDice("winter") ||
+      this.shouldRollDice("rain") ||
+      this.shouldRollDice("animals")
+    );
+  }
+
   incrementModifier(type: keyof WeatherModifiers, value: number) {
     this._modifiers[type] += value;
   }
@@ -115,13 +124,13 @@ export class WeatherService implements IWeatherService {
             case "rain":
               rain += 1;
               break;
-            case "doubleRain":
+            case "double rain":
               rain += 2;
               break;
             case "snow":
               snow += 1;
               break;
-            case "doubleSnow":
+            case "double snow":
               snow += 2;
               break;
           }
@@ -213,7 +222,6 @@ export class WeatherService implements IWeatherService {
     if (this.shouldRollDice("animals")) {
       animals = RollDiceService.getWeatherRollDiceResult("animals");
     }
-
     this._rollDiceResult = {
       winter,
       rain,

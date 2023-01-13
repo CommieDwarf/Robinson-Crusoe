@@ -16,6 +16,8 @@ export class Pawn implements IPawn {
         name: this.character.name,
         namePL: this.character.namePL,
         gender: this.character.gender,
+        skills: this.character.skills.map((skill) => skill.renderData),
+        determination: this.character.determination,
       },
     };
   }

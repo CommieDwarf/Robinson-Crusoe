@@ -4,24 +4,42 @@ import { RollDiceAnimation } from "../../RollDiceAnimation/RollDiceAnimation";
 import {
   WeatherDice,
   WeatherDiceResult,
+  WeatherDiceResults,
 } from "../../../../../interfaces/RollDice/RollDice";
+import { IWeatherServiceRenderData } from "../../../../../interfaces/Weather/Weather";
+import Entries from "../../../../../interfaces/Entries";
 
 type Props = {
-  results: Map<keyof WeatherDice, WeatherDiceResult>;
+  weatherService: IWeatherServiceRenderData;
   setResolved: (name: string) => void;
   resolved: boolean;
 };
 export const RollDiceWindow = (props: Props) => {
   return (
     <div className={styles.container}>
-      {props.results.size > 0 && (
+      {props.weatherService.rollDiceResult && (
         <RollDiceAnimation
           name={"weather"}
-          results={props.results}
+          results={
+            new Map<WeatherDice, WeatherDiceResult | null>(
+              Object.entries(
+                props.weatherService.rollDiceResult
+              ) as Entries<WeatherDiceResults>
+            )
+          }
           type={"weather"}
           onFinish={props.setResolved}
+          reRoll={() => {}}
+          reRolledDice={null}
+          fixed={props.resolved}
         />
       )}
     </div>
   );
 };
+
+// function areEqual() {
+//   return true;
+// }
+//
+// export default React.memo(RollDiceWindow, areEqual);

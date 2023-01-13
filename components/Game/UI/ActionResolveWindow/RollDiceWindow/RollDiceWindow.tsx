@@ -1,7 +1,11 @@
 import * as React from "react";
 import styles from "./RollDiceWindow.module.css";
 import RollDiceAnimation from "../../RollDiceAnimation/RollDiceAnimation";
-import { ActionDiceResults } from "../../../../../interfaces/RollDice/RollDice";
+import {
+  ActionDice,
+  ActionDiceResults,
+  WeatherDice,
+} from "../../../../../interfaces/RollDice/RollDice";
 import { IResolvableItemRenderData } from "../../../../../interfaces/ActionService/IResolvableItem";
 import Entries from "../../../../../interfaces/Entries";
 import { AdventureAction } from "../../../../../interfaces/ACTION";
@@ -10,6 +14,9 @@ type Props = {
   resolvableItem: IResolvableItemRenderData | null;
   type: AdventureAction;
   setItemAnimationDone: (id: string) => void;
+  reRollClicked: boolean;
+  reRoll: (dice: ActionDice) => void;
+  reRolledDice: ActionDice | null;
 };
 export const RollDiceWindow = (props: Props) => {
   return (
@@ -26,7 +33,9 @@ export const RollDiceWindow = (props: Props) => {
           }
           type={props.type}
           onFinish={props.setItemAnimationDone}
-          reRolledDice={props.resolvableItem.reRolledSuccess ? "success" : ""}
+          reRolledDice={props.reRolledDice}
+          fixed={props.reRollClicked}
+          reRoll={props.reRoll}
         />
       )}
     </div>

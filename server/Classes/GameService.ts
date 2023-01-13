@@ -25,6 +25,12 @@ export class GameService implements IGameService {
     //   (inv) => (inv.locked = false)
     // );
     this._game.actionService.setReRollToken("explore", true, "test");
+    this._game.actionService.setReRollToken("gather", true, "test");
+    this._game.actionService.setReRollToken("build", true, "test");
+    this._game.tileService.explore(6);
+    this._game.tileService.explore(2);
+    this._game.tileService.explore(11);
+    this._game.localPlayer.getCharacter().incrDetermination(10);
   }
 
   get renderData() {

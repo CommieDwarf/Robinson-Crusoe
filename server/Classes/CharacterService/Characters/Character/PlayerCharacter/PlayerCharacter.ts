@@ -96,24 +96,5 @@ export abstract class PlayerCharacter
     return this._moraleThresholds.includes(this.health);
   }
 
-  public getSkill(name: string) {
-    const skill = this._skills.find((skill) => (skill.name = name));
-    if (!skill) {
-      throw new Error(`Can't find skill with name: ${name}`);
-    }
-    return skill;
-  }
-
-  public useSkill(name: string, target: ICharacter | null) {
-    const skill = this.getSkill(name);
-    if (this._determination >= skill.cost) {
-      skill.use(target);
-    } else {
-      this._game.alertService.setAlert(
-        "Za mało determinacji, żeby użyć tej umiejętności"
-      );
-    }
-  }
-
   // ---------------------------------------------
 }

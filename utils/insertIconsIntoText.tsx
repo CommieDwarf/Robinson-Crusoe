@@ -11,7 +11,7 @@ const icons = [
   "food",
 ];
 
-export function insertIconsIntoString(string: string) {
+export function insertIconsIntoText(string: string) {
   const array = string.split("$");
 
   return array.map((str, i) => {
