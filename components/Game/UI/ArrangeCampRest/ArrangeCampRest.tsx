@@ -7,7 +7,6 @@ import { ACTION } from "../../../../interfaces/ACTION";
 
 interface Props {
   arrangeCampRestService: IArrangeCampRestServiceRenderData;
-  actionSlots: Map<string, IPawnRenderData | null>;
   zIndex: string;
 }
 
@@ -21,12 +20,10 @@ export default function ArrangeCampRest(props: Props) {
     <div className={styles.container + " " + zIndexClass}>
       <RestArrange
         pawnAmount={props.arrangeCampRestService.pawnAmount.rest}
-        actionSlots={props.actionSlots}
         type={ACTION.REST}
       />
       <RestArrange
         pawnAmount={props.arrangeCampRestService.pawnAmount.arrangeCamp}
-        actionSlots={props.actionSlots}
         type={ACTION.ARRANGE_CAMP}
       />
     </div>

@@ -17,7 +17,6 @@ import redArrowImg from "/public/UI/misc/red-arrow.png";
 
 interface Props {
   tileService: ITilesServiceRenderData;
-  actionSlots: Map<string, IPawnRenderData | null>;
   scrollDisabled: boolean;
   beastCount: number;
   showScenario: boolean;
@@ -41,7 +40,6 @@ export default function Map(props: Props) {
         tile={tile}
         key={i}
         contentScale={contentScale}
-        actionSlots={props.actionSlots}
         isDragDisabled={props.showScenario}
         zIndex={props.zIndex}
         showCampMoveConfirm={props.showCampMoveConfirm}
@@ -151,7 +149,6 @@ export default function Map(props: Props) {
         </div>
       </div>
       <Hunt
-        actionSlots={props.actionSlots}
         beastCount={props.beastCount}
         isDragDisabled={props.showScenario}
         zIndex={props.zIndex}

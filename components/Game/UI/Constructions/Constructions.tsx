@@ -6,7 +6,6 @@ import { IPawnRenderData } from "../../../../interfaces/Pawns/Pawn";
 
 interface Props {
   constructions: IConstructionRenderData[];
-  actionSlots: Map<string, IPawnRenderData | null>;
   zIndex: string;
 }
 
@@ -14,11 +13,7 @@ export default function Constructions(props: Props) {
   const constructions = [];
   for (let i = 0; i < 4; i++) {
     constructions.push(
-      <Construction
-        construction={props.constructions[i]}
-        key={i}
-        actionSlots={props.actionSlots}
-      />
+      <Construction construction={props.constructions[i]} key={i} />
     );
   }
 

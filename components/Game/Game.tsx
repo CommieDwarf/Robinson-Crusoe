@@ -56,6 +56,7 @@ import depleteResource from "../../pages/api/depleteResource";
 import reRollActionDice from "../../pages/api/reRollActionDice";
 import useSkill from "../../pages/api/useSkill";
 import { ActionDice } from "../../interfaces/RollDice/RollDice";
+import { useAppSelector } from "../../store/hooks";
 
 interface Props {
   gameRenderData: IGameRenderData;
@@ -64,10 +65,6 @@ interface Props {
 
 export default function Game(props: Props) {
   const gameRenderData = props.gameRenderData;
-  const actionSlots = new Map<string, IPawnRenderData | null>(
-    Object.entries(gameRenderData.actionSlotService.slots)
-  );
-
   const [isPawnBeingDragged, setIsPawnBeingDragged] = useState(false);
 
   gameRenderData.localPlayer.character.health;
@@ -78,6 +75,8 @@ export default function Game(props: Props) {
   const [elementZIndexed, setElementZIndexed] = useState("");
   const [showNightTip, setShowNightTip] = useState(true);
   const [nextCamp, setNextCamp] = useState<ITileRenderData | null>(null);
+
+  const actionSlots = useAppSelector((state) => state.actionSlots.slots);
 
   function useReRollSkill(dice: ActionDice) {
     // Fixed for now
@@ -156,8 +155,8 @@ export default function Game(props: Props) {
   }
 
   function unselectActionSlots() {
-    actionSlots.forEach((value, key) => {
-      const actionSlot = document.getElementById(key);
+    Object.entries(actionSlots).forEach(([droppableID, pawn]) => {
+      const actionSlot = document.getElementById(droppableID);
       if (actionSlot) {
         actionSlot.classList.remove(actionSlotStyles.canBeSettled);
         actionSlot.classList.remove(actionSlotStyles.cantBeSettled);
@@ -204,7 +203,7 @@ export default function Game(props: Props) {
       } else {
         destinationSlotElement?.classList.add(actionSlotStyles.cantBeSettled);
       }
-      const pawnAtDestination = actionSlots.get(destinationId);
+      const pawnAtDestination = actionSlots[destinationId];
       const sourceSlotElement = document.getElementById(
         update.source.droppableId
       );
@@ -244,7 +243,7 @@ export default function Game(props: Props) {
     }
     let pawnAtActionSlot = null;
     if (!destinationId.includes("freepawns")) {
-      pawnAtActionSlot = actionSlots.get(destinationId);
+      pawnAtActionSlot = actionSlots[destinationId];
       pawnAtActionSlot =
         pawnAtActionSlot === undefined ? null : pawnAtActionSlot;
     }
@@ -303,12 +302,10 @@ export default function Game(props: Props) {
         />
         <Constructions
           constructions={gameRenderData.constructionService.constructions}
-          actionSlots={actionSlots}
           zIndex={elementZIndexed}
         />
         <MapComponent
           tileService={gameRenderData.tileService}
-          actionSlots={actionSlots}
           zIndex={elementZIndexed}
           scrollDisabled={isPawnBeingDragged}
           showScenario={showScenario}
@@ -324,7 +321,6 @@ export default function Game(props: Props) {
           )}
           isBeingDragged={isPawnBeingDragged}
           zIndex={elementZIndexed}
-          actionSlots={actionSlots}
         />
         <Character
           character={gameRenderData.localPlayer.character}
@@ -340,14 +336,9 @@ export default function Game(props: Props) {
             gameRenderData.localPlayer.character.moraleThresholds
           }
         />
-        <Threat
-          threat={gameRenderData.eventService}
-          actionSlots={actionSlots}
-          zIndex={elementZIndexed}
-        />
+        <Threat threat={gameRenderData.eventService} zIndex={elementZIndexed} />
         <ArrangeCampRest
           arrangeCampRestService={gameRenderData.arrangeCampRestService}
-          actionSlots={actionSlots}
           zIndex={elementZIndexed}
         />
         <Equipment equipment={gameRenderData.equipmentService} />
@@ -366,7 +357,6 @@ export default function Game(props: Props) {
           inventions={gameRenderData.inventionService.inventions.filter(
             (inv) => inv.type === INVENTION_TYPE.SCENARIO
           )}
-          actionSlots={actionSlots}
           zIndex={elementZIndexed}
           show={showScenario}
           setShow={setShowScenario}
@@ -382,7 +372,6 @@ export default function Game(props: Props) {
         !gameRenderData.actionService.finished && (
           <ActionResolveWindow
             actionService={gameRenderData.actionService}
-            actionSlots={actionSlots}
             setNextAction={handleSetNextAction}
             resolveItem={handleResolveActionItem}
             setNextPhase={handleSetNextPhase}

@@ -11,7 +11,6 @@ interface Props {
   inventions: IInventionRenderData[];
   isBeingDragged: boolean;
   zIndex: string;
-  actionSlots: Map<string, IPawnRenderData | null>;
 }
 
 export default function Inventions(props: Props) {
@@ -22,18 +21,18 @@ export default function Inventions(props: Props) {
   const starters = props.inventions.map((invention, i) => {
     column = column == 2 ? 0 : column + 1;
     row = column == 0 ? row + 1 : row;
-
     return (
-      <Invention
-        top={scrollTop}
-        column={column}
-        row={row}
-        invention={invention}
-        key={i}
-        actionSlots={props.actionSlots}
-        zIndex={props.zIndex}
-        setIsEnlarged={setIsEnlarged}
-      />
+      <>
+        <Invention
+          top={scrollTop}
+          column={column}
+          row={row}
+          invention={invention}
+          key={i}
+          zIndex={props.zIndex}
+          setIsEnlarged={setIsEnlarged}
+        />
+      </>
     );
   });
 

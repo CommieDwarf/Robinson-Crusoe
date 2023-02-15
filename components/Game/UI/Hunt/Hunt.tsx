@@ -7,16 +7,12 @@ import { ACTION_ITEM, getDroppableID } from "../../../../utils/getDroppableID";
 import beastReverseImg from "/public/UI/cards/reverse/beast.png";
 
 interface Props {
-  actionSlots: Map<string, IPawnRenderData | null>;
   zIndex: string;
   beastCount: number;
   isDragDisabled: boolean;
 }
 
 export default function Hunt(props: Props) {
-  const leaderPawn = props.actionSlots.get("hunt-leader-0");
-  const helperPawn = props.actionSlots.get("hunt-helper-1");
-
   const zIndexClass = props.zIndex.includes("hunt")
     ? styles.zIndexIncreased
     : "";
@@ -35,7 +31,6 @@ export default function Hunt(props: Props) {
         <div className={styles.actionSlots}>
           <ActionSlot
             type={"leader"}
-            pawn={leaderPawn}
             action={ACTION.HUNT}
             context={ACTION_ITEM.HUNT}
             id={getDroppableID(ACTION_ITEM.HUNT, "", "", 0)}
@@ -43,7 +38,6 @@ export default function Hunt(props: Props) {
           />
           <ActionSlot
             type={"helper"}
-            pawn={helperPawn}
             action={ACTION.HUNT}
             context={ACTION_ITEM.HUNT}
             id={getDroppableID(ACTION_ITEM.HUNT, "", "", 1)}

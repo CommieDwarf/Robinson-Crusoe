@@ -7,8 +7,7 @@ import { ACTION_ITEM, getDroppableID } from "./getDroppableID";
 import { ACTION } from "../interfaces/ACTION";
 
 export default function getHelperActionSlots(
-  object: IInventionRenderData | IConstructionRenderData,
-  actionSlots: Map<string, IPawnRenderData | null>
+  object: IInventionRenderData | IConstructionRenderData
 ) {
   const helperActionSlots = [];
   for (let i = 0; i < object.requiredHelperAmount + 1; i++) {
@@ -31,12 +30,9 @@ export default function getHelperActionSlots(
       );
       context = ACTION_ITEM.INVENTION;
     }
-    let helperPawn = actionSlots.get(actionSlotId);
-    helperPawn = helperPawn ? helperPawn : null;
     helperActionSlots.push(
       <ActionSlot
         type={"helper"}
-        pawn={helperPawn}
         action={ACTION.BUILD}
         context={context}
         id={actionSlotId}

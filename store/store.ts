@@ -1,22 +1,12 @@
-import thunk from "redux-thunk";
-import { createWrapper } from "next-redux-wrapper";
 import { configureStore } from "@reduxjs/toolkit";
-import actionSlots from "./reducers/actionSlots";
+import { actionSlotsSlice } from "./actionSlots";
 
-// initial states here
-const initalState = {};
-
-// middleware
-const middleware = [thunk];
-
-// creating store
 export const store = configureStore({
   reducer: {
-    actionSlots,
+    [actionSlotsSlice.name]: actionSlotsSlice.reducer,
   },
+  devTools: true,
 });
 
-// assigning store to next wrapper
-const makeStore = () => store;
-
-export const wrapper = createWrapper(makeStore);
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

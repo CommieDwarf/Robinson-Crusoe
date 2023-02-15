@@ -15,7 +15,6 @@ type Props = {
   column: number;
   row: number;
   top: number;
-  actionSlots: Map<string, IPawnRenderData | null>;
   zIndex: string;
   setIsEnlarged?: React.Dispatch<React.SetStateAction<boolean>>;
   hideActionSlots?: boolean;
@@ -52,26 +51,22 @@ export default function Invention(props: Props) {
 
   const resources: JSX.Element[] = [];
 
-  Object.entries(props.invention.committedResources).forEach(
-    ([key, value], i) => {
-      for (let i = 0; i < value; i++) {
-        resources.push(
-          <div className={styles.resource} key={i}>
-            <Image
-              src={`/UI/resources/${key}.png`}
-              fill
-              alt="surowiec"
-              sizes={styles.resource}
-            />
-          </div>
-        );
-      }
+  Object.entries(props.invention.committedResources).forEach(([key, value]) => {
+    for (let i = 0; i < value; i++) {
+      resources.push(
+        <div className={styles.resource} key={i}>
+          <Image
+            src={`/UI/resources/${key}.png`}
+            fill
+            alt="surowiec"
+            sizes={styles.resource}
+          />
+        </div>
+      );
     }
-  );
+  });
 
   const leaderId = "invention-" + props.invention.name + "-leader-0";
-  let leaderPawn = props.actionSlots.get(leaderId);
-  leaderPawn = leaderPawn ? leaderPawn : null;
 
   const zIndexClass = props.zIndex.includes(props.invention.name)
     ? styles.zIndexIncreased
@@ -118,10 +113,9 @@ export default function Invention(props: Props) {
         !props.invention.locked &&
         !props?.hideActionSlots && (
           <div className={styles.actionSlots}>
-            {getHelperActionSlots(props.invention, props.actionSlots)}
+            {getHelperActionSlots(props.invention)}
             <ActionSlot
               type="leader"
-              pawn={leaderPawn}
               action={ACTION.BUILD}
               context={ACTION_ITEM.INVENTION}
               id={leaderId}

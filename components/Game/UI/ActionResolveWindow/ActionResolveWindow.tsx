@@ -19,7 +19,6 @@ import { sleep } from "../../../../utils/sleep";
 
 type Props = {
   actionService: IActionServiceRenderData;
-  actionSlots: IActionSlotsRenderData;
   setNextAction: () => void;
   resolveItem: (resolvableItemID: string) => void;
   rollDices: (resolvableItemID: string) => void;
@@ -160,7 +159,6 @@ export const ActionResolveWindow = (props: Props) => {
       </div>
       <ResolvableItems
         actionService={props.actionService}
-        actionSlots={props.actionSlots}
         resolve={setItemResolved}
         resolvedItems={resolvedItems}
         locked={

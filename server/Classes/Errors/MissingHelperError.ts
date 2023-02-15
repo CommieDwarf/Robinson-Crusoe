@@ -1,10 +1,10 @@
 import { MissingPawnError } from "../../../interfaces/Error/MissingPawnError";
 
-export class MissingLeaderError extends Error implements MissingPawnError {
+export class MissingHelperError extends Error implements MissingPawnError {
   private readonly _droppableID: string;
 
   constructor(droppableID: string) {
-    super();
+    super("Assigned helpers to this action aren't enough");
     this._droppableID = droppableID;
   }
 

@@ -18,7 +18,6 @@ import { ResourceDepletionButton } from "./ResourceDepletionButton/ResourceDeple
 interface Props {
   tile: ITileRenderData;
   contentScale: number;
-  actionSlots: Map<string, IPawnRenderData | null>;
   isDragDisabled: boolean;
   zIndex: string;
   campSettableTiles: ITileRenderData[];
@@ -39,16 +38,12 @@ export default function Tile(props: Props) {
     const actionSlots = [];
     const context =
       action === ACTION.GATHER ? ACTION_ITEM.GATHER : ACTION_ITEM.EXPLORE;
-    const sideString = side ? side + "-" : "";
     for (let i = 0; i < props.tile.requiredHelperAmount + 1; i++) {
       const id = getDroppableID(context, props.tile.id, side, i + 1);
-      let pawn = props.actionSlots.get(id);
-      pawn = pawn === undefined ? null : pawn;
 
       actionSlots.push(
         <ActionSlot
           type={"helper"}
-          pawn={pawn}
           action={action}
           context={context}
           id={id}
@@ -59,13 +54,10 @@ export default function Tile(props: Props) {
     }
 
     const id = getDroppableID(context, props.tile.id, side, 0);
-    let pawn = props.actionSlots.get(id);
-    pawn = pawn === undefined ? null : pawn;
 
     actionSlots.unshift(
       <ActionSlot
         type={"leader"}
-        pawn={pawn}
         action={action}
         context={context}
         id={id}

@@ -3,12 +3,14 @@ import {
   Phase,
   PhaseEffects,
 } from "../../../interfaces/PhaseService/PhaseService";
-import {IGame} from "../../../interfaces/Game";
-import {MissingLeaderError} from "../Errors/MissingLeaderError";
+import { IGame } from "../../../interfaces/Game";
+import { MissingLeaderError } from "../Errors/MissingLeaderError";
 
-import {phaseOrder} from "../../../constants/phaseOrder";
-import {MissingPawnError} from "../Errors/MissingPawnError";
+import { phaseOrder } from "../../../constants/phaseOrder";
 import capitalizeFirstLetter from "../../../utils/capitalizeFirstLetter";
+import { ActionSlotService } from "../ActionSlotsService/ActionSlotService";
+import { MissingHelperError } from "../Errors/MissingHelperError";
+import { getItemFromDroppableId } from "../../../utils/getItemFromDroppableId";
 
 export class PhaseService implements IPhaseService {
   private _phase: Phase = "event";
@@ -52,25 +54,15 @@ export class PhaseService implements IPhaseService {
     return false;
   }
 
-  handleError(error: MissingPawnError | MissingLeaderError) {
-    let itemName = error.itemName ? error.itemName : "";
-    let itemNamePL;
-    if (error.itemType === "tile") {
-      itemNamePL = " nr. " + itemName;
-    } else if (error.itemType === "hunt") {
-      itemNamePL = "";
-    } else {
-      itemNamePL = " - " + itemName;
-    }
-
+  handleMissingPawnError(error: MissingHelperError | MissingLeaderError) {
     const message =
-        error instanceof MissingLeaderError
-            ? "Pomocnicze pionki nie mogą samodzielnie wykonywać akcji."
-            : "Brakuje pionka do wykonania tej akcji";
+      error instanceof MissingLeaderError
+        ? "Pomocnicze pionki nie mogą samodzielnie wykonywać akcji."
+        : "Brakuje pionka do wykonania tej akcji";
 
-    this._game.alertService.setAlert(
-        `${capitalizeFirstLetter(error.itemType)}${itemNamePL}: ${message}`
-    );
+    console.log(message);
+    this._game.alertService.setAlert(message);
+    this._game.actionSlotService.pawnDropIDAlert = error.droppableID;
   }
 
   goNextPhase() {
@@ -79,26 +71,26 @@ export class PhaseService implements IPhaseService {
         return;
       }
     }
-    if (this._phase === "weather" &&
-        this._game.weatherService.shouldRollDices &&
-        !this._game.weatherService.rollDiceResult) {
+    if (
+      this._phase === "weather" &&
+      this._game.weatherService.shouldRollDices &&
+      !this._game.weatherService.rollDiceResult
+    ) {
       return;
     }
-
     try {
       this.phaseEffects[this._phase]();
       this._phaseIndex =
-          this._phaseIndex === phaseOrder.length - 1 ? 0 : ++this._phaseIndex;
+        this._phaseIndex === phaseOrder.length - 1 ? 0 : ++this._phaseIndex;
       this._phase = phaseOrder[this._phaseIndex];
       this._game.alertService.clearAlert();
+      this._game.actionSlotService.pawnDropIDAlert = null;
     } catch (error) {
       if (
-          error instanceof MissingLeaderError ||
-          error instanceof MissingPawnError
+        error instanceof MissingLeaderError ||
+        error instanceof MissingHelperError
       ) {
-        this.handleError(error);
-      } else {
-        throw error;
+        this.handleMissingPawnError(error);
       }
     }
   }
@@ -114,18 +106,18 @@ export class PhaseService implements IPhaseService {
     }
     // TODO: implement player choice when lvl 3 whenever he wants determination or health
     const primePlayerCharacter =
-        this._game.playerService.primePlayer.getCharacter();
+      this._game.playerService.primePlayer.getCharacter();
     if (this._game.moraleService.lvl > 0) {
       this._game.characterService.incrDetermination(
-          primePlayerCharacter,
-          this._game.moraleService.lvl,
-          "Faza morali"
+        primePlayerCharacter,
+        this._game.moraleService.lvl,
+        "Faza morali"
       );
     } else {
       this._game.characterService.decrDetermination(
-          primePlayerCharacter,
-          Math.abs(this._game.moraleService.lvl),
-          "Faza morali"
+        primePlayerCharacter,
+        Math.abs(this._game.moraleService.lvl),
+        "Faza morali"
       );
     }
   };
@@ -140,21 +132,22 @@ export class PhaseService implements IPhaseService {
     resourceArr.forEach((res) => {
       if (!res.depleted && res.resource !== "beast") {
         this._game.resourceService.addResourceToOwned(
-            res.resource,
-            1,
-            "Produkcja"
+          res.resource,
+          1,
+          "Produkcja"
         );
       }
     });
   };
 
   private preActionEffect = () => {
-    this._game.actionSlotService.checkMissingPawns();
+    const occupiedSlots = this._game.actionSlotService.getOccupiedActionSlots();
+    ActionSlotService.checkMissingPawns(occupiedSlots, this._game);
     this._game.actionService.loadItems();
+    this._game.actionSlotService.pawnDropIDAlert = null;
   };
 
   private actionEffect = () => {
-    this._game.actionService.setNextAction();
     this._game.actionService.finished = false;
     this._game.resetPawns();
     this._game.resourceService.addFutureToOwned();
@@ -168,28 +161,7 @@ export class PhaseService implements IPhaseService {
     this._game.setNextRound();
     this._game.tileService.campJustMoved = false;
     this._game.characterService.allCharacters.forEach((char) =>
-        char.refreshSkills()
+      char.refreshSkills()
     );
   };
-
-  private checkPreActionForMissingPawns() {
-    // const slots = this._game.actionSlotService.slotsOccupiedAndCategorized;
-    //
-    // const entries = Object.entries(slots) as Entries<SlotsOccupied>;
-    //
-    // entries.forEach(([action, slotMap]) => {
-    //   if (action === ACTION.REST || action === ACTION.ARRANGE_CAMP) {
-    //     return;
-    //   }
-    //   const items: any[] = [];
-    //   slotMap.forEach((pawn, droppableID) => {
-    //     items.push(getItemFromDroppableId(droppableID, this._game));
-    //   });
-    //
-    //   items.forEach((item) => {
-    //     switch (true) {
-    //     }
-    //   });
-    // });
-  }
 }

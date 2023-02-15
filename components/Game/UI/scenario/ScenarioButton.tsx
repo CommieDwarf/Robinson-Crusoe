@@ -9,7 +9,6 @@ import redArrowImg from "/public/UI/misc/red-arrow.png";
 
 interface Props {
   inventions: IInventionRenderData[];
-  actionSlots: Map<string, IPawnRenderData | null>;
   zIndex: string;
   show: boolean;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
@@ -34,7 +33,6 @@ export default function ScenarioButton(props: Props) {
       <Scenario
         zIndex={props.zIndex}
         inventions={props.inventions}
-        actionSlots={props.actionSlots}
         show={props.show}
         setShow={props.setShow}
         round={props.round}

@@ -17,7 +17,6 @@ import scenarioTokensImg from "/public/UI/scenarios/castaways/tokens.png";
 
 interface Props {
   inventions: IInventionRenderData[];
-  actionSlots: Map<string, IPawnRenderData | null>;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
   zIndex: string;
   round: number;
@@ -104,7 +103,6 @@ export default function Castaways(props: Props) {
                 column={i + 1}
                 row={1}
                 top={-100}
-                actionSlots={props.actionSlots}
                 zIndex={props.zIndex}
               />
             );

@@ -6,17 +6,23 @@ import createGame from "../api/createGame";
 import getGameRenderData from "../api/getGame";
 import Game from "../../components/Game/Game";
 import { NextPage } from "next";
+import { useAppDispatch } from "../../store/hooks";
+import { setActionSlots } from "../../store/actionSlots";
 
 type Props = {};
 const Play: NextPage = (props: Props) => {
   const [gameRenderData, setGameRenderData] = useState<IGameRenderData>();
   useEffect(() => {
     createGame();
-    setGameRenderData(JSON.parse(getGameRenderData()));
+    updateGameRenderData();
   }, []);
 
+  const dispatch = useAppDispatch();
+
   function updateGameRenderData() {
-    setGameRenderData(JSON.parse(getGameRenderData()));
+    const renderData = JSON.parse(getGameRenderData()) as IGameRenderData;
+    setGameRenderData(renderData);
+    dispatch(setActionSlots(renderData.actionSlotService.slots));
   }
 
   return (

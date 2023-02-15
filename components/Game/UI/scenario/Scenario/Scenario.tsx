@@ -8,7 +8,6 @@ import { IPawnRenderData } from "../../../../../interfaces/Pawns/Pawn";
 
 interface Props {
   inventions: IInventionRenderData[];
-  actionSlots: Map<string, IPawnRenderData | null>;
   show: boolean;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
   zIndex: string;
@@ -23,7 +22,6 @@ export default function Scenario(props: Props) {
       <div className={styles.content}>
         <Castaways
           inventions={props.inventions}
-          actionSlots={props.actionSlots}
           setShow={props.setShow}
           zIndex={props.zIndex}
           round={props.round}

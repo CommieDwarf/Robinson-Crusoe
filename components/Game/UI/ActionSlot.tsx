@@ -7,10 +7,10 @@ import { IPawnRenderData } from "../../../interfaces/Pawns/Pawn";
 import { ACTION } from "../../../interfaces/ACTION";
 import { ACTION_ITEM } from "../../../utils/getDroppableID";
 import { getImgName } from "../../../utils/getImgName";
+import { useAppSelector } from "../../../store/hooks";
 
 interface Props {
   type: "helper" | "leader";
-  pawn: null | IPawnRenderData | undefined;
   action: ACTION;
   context: ACTION_ITEM;
   id: string;
@@ -19,11 +19,12 @@ interface Props {
 
 export default function PlayerSlot(props: Props) {
   let element: JSX.Element;
+  const actionSlots = useAppSelector((state) => state.actionSlots.slots);
 
-  if (props.pawn) {
-    element = <Pawn pawn={props.pawn} context={props.context} index={1} />;
+  const pawn = actionSlots[props.id];
+  if (pawn) {
+    element = <Pawn pawn={pawn} context={props.context} index={1} />;
   }
-
   const helperClass = props.type == "helper" ? styles.helper : "";
 
   return (

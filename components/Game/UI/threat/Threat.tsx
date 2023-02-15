@@ -13,7 +13,6 @@ import redArrowCurvedImg from "/public/UI/misc/red-arrow-curved.png";
 
 interface Props {
   threat: IEventServiceRenderData;
-  actionSlots: Map<string, IPawnRenderData | null>;
   zIndex: string;
 }
 
@@ -37,12 +36,9 @@ export default function Threat(props: Props) {
     }
     for (let i = 0; i < pawnAmount; i++) {
       const id = getDroppableID(ACTION_ITEM.THREAT, "", side, i);
-      let pawn = props.actionSlots.get(id);
-      pawn = pawn ? pawn : null;
       actionSlots.push(
         <ActionSlot
           type={i === 0 ? "leader" : "helper"}
-          pawn={pawn}
           action={ACTION.THREAT}
           context={ACTION_ITEM.THREAT}
           id={id}

@@ -6,7 +6,6 @@ import {
   IConstructionRenderData,
   CONSTRUCTION,
 } from "../../../../../interfaces/ConstructionService/Construction";
-import { IPawnRenderData } from "../../../../../interfaces/Pawns/Pawn";
 import getHelperActionSlots from "../../../../../utils/getHelperActionSlots";
 import { ACTION } from "../../../../../interfaces/ACTION";
 import { ACTION_ITEM } from "../../../../../utils/getDroppableID";
@@ -15,7 +14,6 @@ import leatherImg from "/public/UI/resources/leather.png";
 
 type Props = {
   construction: IConstructionRenderData;
-  actionSlots: Map<string, IPawnRenderData | null>;
   hideActionSlots?: boolean;
 };
 
@@ -79,15 +77,7 @@ export default function Construction(props: Props) {
     );
   }
 
-  let leaderPawn = props.actionSlots.get(
-    "construction-" + props.construction.name + "-leader-0"
-  );
-  leaderPawn = leaderPawn ? leaderPawn : null;
-
-  let helperActionSlots = getHelperActionSlots(
-    props.construction,
-    props.actionSlots
-  );
+  let helperActionSlots = getHelperActionSlots(props.construction);
 
   return (
     <div className={styles.construction}>
@@ -100,7 +90,6 @@ export default function Construction(props: Props) {
               {helperActionSlots}
               <ActionSlot
                 type={"leader"}
-                pawn={leaderPawn}
                 action={ACTION.BUILD}
                 context={ACTION_ITEM.CONSTRUCTION}
                 id={"construction-" + props.construction.name + "-leader-0"}

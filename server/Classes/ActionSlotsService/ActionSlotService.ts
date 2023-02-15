@@ -2,7 +2,7 @@ import { IPawn } from "../../../interfaces/Pawns/Pawn";
 import {
   IActionSlotService,
   IActionSlotsServiceRenderData,
-  SlotsOccupied,
+  OccupiedSlots,
 } from "../../../interfaces/ActionSlots";
 import Entries from "../../../interfaces/Entries";
 import { ACTION_ITEM, getDroppableID } from "../../../utils/getDroppableID";
@@ -13,10 +13,14 @@ import {
 } from "../../../interfaces/InventionService/Invention";
 import { ACTION } from "../../../interfaces/ACTION";
 import { IGame } from "../../../interfaces/Game";
+import { getItemFromDroppableId } from "../../../utils/getItemFromDroppableId";
+import { MissingLeaderError } from "../Errors/MissingLeaderError";
+import { MissingHelperError } from "../Errors/MissingHelperError";
 
 export class ActionSlotService implements IActionSlotService {
   private _slots: Map<string, null | IPawn>;
   private _game: IGame;
+  private _pawnDropIDAlert: string | null = null;
 
   constructor(game: IGame) {
     this._game = game;
@@ -32,7 +36,10 @@ export class ActionSlotService implements IActionSlotService {
         slots[slotId] = null;
       }
     });
-    return { slots };
+    return {
+      slots,
+      pawnDropIDAlert: this._pawnDropIDAlert,
+    };
   }
 
   // -------------------------------------------------
@@ -45,16 +52,24 @@ export class ActionSlotService implements IActionSlotService {
     return this._slots;
   }
 
-  getOccupiedActionSlots(): SlotsOccupied {
+  get pawnDropIDAlert(): string | null {
+    return this._pawnDropIDAlert;
+  }
+
+  set pawnDropIDAlert(value: string | null) {
+    this._pawnDropIDAlert = value;
+  }
+
+  getOccupiedActionSlots(): OccupiedSlots {
     const entries = Object.values(ACTION).map((value) => [value, new Map()]);
-    const categorized: SlotsOccupied = Object.fromEntries(entries);
+    const categorized: OccupiedSlots = Object.fromEntries(entries);
 
     this.slots.forEach((pawn, droppableId) => {
       if (!pawn) {
         return;
       }
       const arrDroppableId = droppableId.split("-");
-      const entries = Object.entries(categorized) as Entries<SlotsOccupied>;
+      const entries = Object.entries(categorized) as Entries<OccupiedSlots>;
       entries.forEach(([value, key]) => {
         if (
           arrDroppableId.includes(value) ||
@@ -69,6 +84,7 @@ export class ActionSlotService implements IActionSlotService {
   }
 
   // -------------------------------------------------------
+  private static items: any;
 
   public setPawn(id: string, pawn: IPawn | null) {
     this._slots.set(id, pawn);
@@ -152,16 +168,46 @@ export class ActionSlotService implements IActionSlotService {
     );
   }
 
-  public static rmvRoleInfoFromDroppableId(droppableId: string): string {
-    return droppableId.slice(0, -9);
+  public static rmvRoleInfoFromDroppableId(droppableID: string): string {
+    return droppableID.slice(0, -9);
   }
 
-  public checkMissingPawns(): void | never {}
-
-  private checkMissingLeaders() {
-    Object.entries(this.getOccupiedActionSlots()).forEach(([category, map]) => {
+  static checkMissingPawns(occupiedSlots: OccupiedSlots, game: IGame) {
+    Object.entries(occupiedSlots).forEach(([category, map]) => {
+      let helperItems = new Set<string>();
+      let leaderItems = new Set<string>();
       map.forEach((pawn, droppableID) => {
-        //TODO: finish implementing
+        if (droppableID.includes("helper")) {
+          helperItems.add(this.rmvRoleInfoFromDroppableId(droppableID));
+        } else {
+          leaderItems.add(this.rmvRoleInfoFromDroppableId(droppableID));
+        }
+      });
+
+      console.log(helperItems);
+      console.log(leaderItems);
+      //leader check
+      helperItems.forEach((droppableID) => {
+        if (!leaderItems.has(droppableID)) {
+          throw new MissingLeaderError(droppableID);
+        }
+      });
+
+      //helper check
+      leaderItems.forEach((droppableID) => {
+        const item = getItemFromDroppableId(droppableID, game);
+        if (item === ACTION.ARRANGE_CAMP || item === ACTION.REST) {
+          return false;
+        }
+        let helperCount = 0;
+        helperItems.forEach((hDroppableID) => {
+          if (hDroppableID === droppableID) {
+            helperCount++;
+          }
+        });
+        if (helperCount < item.requiredHelperAmount) {
+          throw new MissingHelperError(droppableID);
+        }
       });
     });
   }

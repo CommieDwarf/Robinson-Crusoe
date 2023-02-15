@@ -18,11 +18,14 @@ import { ActionSlotService } from "../ActionSlotsService/ActionSlotService";
 import { MissingLeaderError } from "../Errors/MissingLeaderError";
 import { isAdventureAction } from "../../../utils/isAdventureAction";
 import i18n from "../../../I18n/I18n";
+import { PHASE } from "../../../interfaces/PhaseService/Phase";
+import { OccupiedSlots } from "../../../interfaces/ActionSlots";
 
 export class ActionService implements IActionService {
   private readonly _game: IGame;
   private _resolvableItems: IResolvableItem[] = [];
   private _action: ACTION = ACTION.THREAT;
+  private _skippableActions: ACTION[] = [];
   private _actionIndex = 0;
   private _finished: boolean = false;
   private _occupiedSlots: Map<string, IPawn> = new Map();
@@ -73,11 +76,16 @@ export class ActionService implements IActionService {
       lastRolledItem: this._lastRolledItem?.renderData || null,
       adventureTokens: this._adventureTokens,
       reRollTokens: this.reRollTokens,
+      skippableActions: this._skippableActions,
     };
   }
 
   get reRollTokens(): ActionTokens {
     return this._reRollTokens;
+  }
+
+  get skippableActions(): ACTION[] {
+    return this._skippableActions;
   }
 
   get currentActionResolved() {
@@ -111,21 +119,30 @@ export class ActionService implements IActionService {
     return this._lastRolledItem;
   }
 
+  private finishPhase() {
+    this._finished = true;
+    this._actionIndex = 0;
+    this._action = actionOrder[this._actionIndex];
+    this._resolvableItems = [];
+    this._skippableActions = [];
+  }
+
   public setNextAction() {
     if (!this.currentActionResolved) {
       return;
     }
     this._lastRolledItem = null;
-    if (this.action !== ACTION.REST) {
-      this._actionIndex++;
-      this._action = actionOrder[this._actionIndex];
-      this.loadItems();
-    } else {
-      this._finished = true;
-      this._actionIndex = 0;
-      this._action = actionOrder[this._actionIndex];
-      this._resolvableItems = [];
-    }
+    do {
+      if (this.action !== ACTION.REST) {
+        this._actionIndex++;
+        this._action = actionOrder[this._actionIndex];
+        if (this.action !== ACTION.THREAT) {
+          this.loadItems();
+        }
+      } else {
+        this.finishPhase();
+      }
+    } while (this._skippableActions.includes(this._action) && !this._finished);
   }
 
   public setReRollToken(
@@ -149,9 +166,22 @@ export class ActionService implements IActionService {
     this._reRollTokens[action] = value;
   }
 
+  private setCanBeSkipped(slots: OccupiedSlots) {
+    return Object.entries(slots).map(([action, map]) => {
+      if (map.size === 0) {
+        this._skippableActions.push(action as ACTION);
+      }
+    });
+  }
+
   public loadItems() {
-    this._occupiedSlots =
-      this._game.actionSlotService.getOccupiedActionSlots()[this.action];
+    const allSlots = this._game.actionSlotService.getOccupiedActionSlots();
+    if (this._actionIndex === 0) {
+      this.setCanBeSkipped(allSlots);
+    }
+
+    this._occupiedSlots = allSlots[this._action];
+
     const resolvableItems: IResolvableItem[] = [];
     const helpers: string[] = [];
     this._occupiedSlots.forEach((pawn, droppableID) => {
@@ -179,7 +209,7 @@ export class ActionService implements IActionService {
         resolvableItems
       );
       if (!item) {
-        throw new MissingLeaderError("das", "Xx", "qq");
+        throw new MissingLeaderError(droppableID);
       } else {
         item.helperAmount++;
       }

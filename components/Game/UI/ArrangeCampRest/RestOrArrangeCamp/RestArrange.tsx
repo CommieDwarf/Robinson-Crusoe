@@ -19,7 +19,6 @@ import { useTranslation } from "react-i18next";
 interface Props {
   pawnAmount: number;
   type: ACTION.ARRANGE_CAMP | ACTION.REST;
-  actionSlots: Map<string, IPawnRenderData | null>;
 }
 
 export default function RestArrange(props: Props) {
@@ -70,13 +69,10 @@ export default function RestArrange(props: Props) {
     const context =
       props.type === ACTION.REST ? ACTION_ITEM.REST : ACTION_ITEM.ARRANGE_CAMP;
     const id = getDroppableID(context, "", "", i - 1);
-    let pawn = props.actionSlots.get(id);
-    pawn = pawn ? pawn : null;
 
     actionSlots.push(
       <ActionSlot
         type="leader"
-        pawn={pawn}
         action={props.type}
         context={context}
         id={id}

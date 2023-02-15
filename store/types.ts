@@ -1,2 +1,0 @@
-
-export const ADD_ACTION_SLOT = 'ADD_ACTION_SLOT';

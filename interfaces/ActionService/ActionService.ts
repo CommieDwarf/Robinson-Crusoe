@@ -16,6 +16,7 @@ export interface IActionService {
   resolve: (resolvableItemID: string) => void;
   rollDices: (resolvableItemID: string) => void;
   reRollSuccess: (resolvableItemID: string) => void;
+  skippableActions: ACTION[];
   setAdventureToken: (
     action: AdventureAction,
     value: boolean,
@@ -41,4 +42,5 @@ export interface IActionServiceRenderData {
   lastRolledItem: IResolvableItemRenderData | null;
   adventureTokens: ActionTokens;
   reRollTokens: ActionTokens;
+  skippableActions: ACTION[];
 }
