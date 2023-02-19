@@ -7,15 +7,13 @@ import { IGame } from "../../../interfaces/Game";
 import { MissingLeaderError } from "../Errors/MissingLeaderError";
 
 import { phaseOrder } from "../../../constants/phaseOrder";
-import capitalizeFirstLetter from "../../../utils/capitalizeFirstLetter";
 import { ActionSlotService } from "../ActionSlotsService/ActionSlotService";
 import { MissingHelperError } from "../Errors/MissingHelperError";
-import { getItemFromDroppableId } from "../../../utils/getItemFromDroppableId";
 
 export class PhaseService implements IPhaseService {
   private _phase: Phase = "event";
   private _phaseIndex = 0;
-  private _game: IGame;
+  private readonly _game: IGame;
 
   phaseEffects: PhaseEffects;
 
@@ -47,11 +45,7 @@ export class PhaseService implements IPhaseService {
     if (this._phase === "action" && !this._game.actionService.finished) {
       return true;
     }
-    if (this._game.tileService.resourceAmountToDeplete > 0) {
-      return true;
-    }
-
-    return false;
+    return this._game.tileService.resourceAmountToDeplete > 0;
   }
 
   handleMissingPawnError(error: MissingHelperError | MissingLeaderError) {
@@ -60,7 +54,6 @@ export class PhaseService implements IPhaseService {
         ? "Pomocnicze pionki nie mogą samodzielnie wykonywać akcji."
         : "Brakuje pionka do wykonania tej akcji";
 
-    console.log(message);
     this._game.alertService.setAlert(message);
     this._game.actionSlotService.pawnDropIDAlert = error.droppableID;
   }
@@ -85,6 +78,7 @@ export class PhaseService implements IPhaseService {
       this._phase = phaseOrder[this._phaseIndex];
       this._game.alertService.clearAlert();
       this._game.actionSlotService.pawnDropIDAlert = null;
+      console.log(this._phase);
     } catch (error) {
       if (
         error instanceof MissingLeaderError ||

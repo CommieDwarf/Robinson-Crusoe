@@ -29,7 +29,7 @@ import {
 } from "react-beautiful-dnd";
 import { Weather } from "./UI/Weather/Weather";
 import { INVENTION_TYPE } from "../../interfaces/InventionService/Invention";
-import { getPawnCanBeSettled } from "../../utils/canPawnBeSettled";
+import { canPawnBeSettled } from "../../utils/canPawnBeSettled";
 
 import { IGameRenderData } from "../../interfaces/Game";
 import { IPawnRenderData } from "../../interfaces/Pawns/Pawn";
@@ -198,7 +198,7 @@ export default function Game(props: Props) {
 
     if (destinationId && pawn) {
       const destinationSlotElement = document.getElementById(destinationId);
-      if (getPawnCanBeSettled(pawn, destinationId)) {
+      if (canPawnBeSettled(pawn, destinationId)) {
         destinationSlotElement?.classList.add(actionSlotStyles.canBeSettled);
       } else {
         destinationSlotElement?.classList.add(actionSlotStyles.cantBeSettled);
@@ -214,7 +214,7 @@ export default function Game(props: Props) {
         return;
       }
 
-      if (getPawnCanBeSettled(pawnAtDestination, update.source.droppableId)) {
+      if (canPawnBeSettled(pawnAtDestination, update.source.droppableId)) {
         sourceSlotElement?.classList.add(actionSlotStyles.canBeSettled);
       } else {
         sourceSlotElement?.classList.add(actionSlotStyles.cantBeSettled);
@@ -249,8 +249,8 @@ export default function Game(props: Props) {
     }
 
     if (
-      !getPawnCanBeSettled(draggedPawn, destinationId) ||
-      !getPawnCanBeSettled(pawnAtActionSlot, sourceId)
+      !canPawnBeSettled(draggedPawn, destinationId) ||
+      !canPawnBeSettled(pawnAtActionSlot, sourceId)
     ) {
       return;
     }
@@ -269,6 +269,10 @@ export default function Game(props: Props) {
       props.updateGameRenderData();
     }
   }
+
+  const scenarioInventions = gameRenderData.inventionService.inventions.filter(
+    (inv) => inv.type === INVENTION_TYPE.SCENARIO
+  );
 
   return (
     <div className={styles.game}>
@@ -339,7 +343,10 @@ export default function Game(props: Props) {
         <Threat threat={gameRenderData.eventService} zIndex={elementZIndexed} />
         <ArrangeCampRest
           arrangeCampRestService={gameRenderData.arrangeCampRestService}
-          zIndex={elementZIndexed}
+          zIndex={
+            elementZIndexed.includes("rest") ||
+            elementZIndexed.includes("arrange camp")
+          }
         />
         <Equipment equipment={gameRenderData.equipmentService} />
         <ActionsOrder
@@ -354,9 +361,7 @@ export default function Game(props: Props) {
           menuDisabled={isPawnBeingDragged || elementZIndexed !== ""}
         />
         <ScenarioButton
-          inventions={gameRenderData.inventionService.inventions.filter(
-            (inv) => inv.type === INVENTION_TYPE.SCENARIO
-          )}
+          inventions={scenarioInventions}
           zIndex={elementZIndexed}
           show={showScenario}
           setShow={setShowScenario}

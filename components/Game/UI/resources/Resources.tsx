@@ -8,13 +8,14 @@ import { IResourcesAmount } from "../../../../interfaces/Resources/Resources";
 import boardImg from "/public/UI/misc/board.jpg";
 import boardVertImg from "/public/UI/misc/board-vert.jpg";
 import productionImg from "/public/UI/phase/production.png";
+import { compareMapValues } from "../../../../utils/compareMapValues";
 
 interface Props {
   owned: Map<keyof IResourcesAmount, number>;
   future: Map<keyof IResourcesAmount, number>;
 }
 
-export default function Resources(props: Props) {
+function Resources(props: Props) {
   return (
     <div className={styles.container}>
       <div className={styles.topBar}>
@@ -47,3 +48,12 @@ export default function Resources(props: Props) {
     </div>
   );
 }
+
+function areEqual(prevProps: Props, nextProps: Props) {
+  const futureEqual = compareMapValues(prevProps.future, nextProps.future);
+  const ownedEqual = compareMapValues(prevProps.owned, nextProps.owned);
+
+  return futureEqual && ownedEqual;
+}
+
+export default React.memo(Resources, areEqual);

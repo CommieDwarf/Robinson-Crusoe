@@ -1,6 +1,6 @@
 import styles from "./Castaways.module.css";
 import Image from "next/image";
-import { RoundSquare } from "./RoundSquare";
+import { RoundSquare } from "./Rounds/RoundSquare";
 import { Description } from "./Description/Description";
 import { WoodStack } from "./WoodStack/WoodStack";
 
@@ -14,6 +14,7 @@ import scenarioBackgroundImg from "/public/UI/scenarios/background.png";
 import bookEffectImg from "/public/UI/scenarios/castaways/book-effect.png";
 import totemEffectImg from "/public/UI/scenarios/castaways/totem-effect.png";
 import scenarioTokensImg from "/public/UI/scenarios/castaways/tokens.png";
+import Rounds from "./Rounds/Rounds";
 
 interface Props {
   inventions: IInventionRenderData[];
@@ -23,27 +24,6 @@ interface Props {
 }
 
 export default function Castaways(props: Props) {
-  let rounds = [];
-
-  for (let i = 1; i <= 12; i++) {
-    const ship = i >= 10;
-    const weather = {
-      rain: castaways.weather.rain.includes(i),
-      snow: castaways.weather.winter.includes(i),
-      hungryAnimal: castaways.weather.animals.includes(i),
-    };
-    const current = i === props.round;
-    rounds.push(
-      <RoundSquare
-        round={i}
-        ship={ship}
-        weather={weather}
-        currentRound={current}
-        key={i}
-      />
-    );
-  }
-
   function handleClick() {
     props.setShow(false);
   }
@@ -63,7 +43,7 @@ export default function Castaways(props: Props) {
           sizes={styles.titleDiv}
         />
       </div>
-      <div className={styles.rounds}>{rounds}</div>
+      <Rounds current={props.round} />
       <Description />
       <div className={styles.eventEffects}>
         <div className={styles.eventEffect + " " + styles.bookEffect}>

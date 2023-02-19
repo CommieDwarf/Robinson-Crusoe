@@ -19,7 +19,7 @@ import {
 } from "./Resources/AllResources";
 import {
   IActionSlotService,
-  IActionSlotsServiceRenderData,
+  IActionSlotServiceRenderData,
 } from "./ActionSlots";
 import {
   ICharacterService,
@@ -72,7 +72,6 @@ export interface IGameRenderData {
   inventionService: IInventionServiceRenderData;
   eventService: IEventServiceRenderData;
   equipmentService: IEquipmentRenderData;
-  actionSlotService: IActionSlotsServiceRenderData;
   arrangeCampRestService: IArrangeCampRestServiceRenderData;
   beastService: IBeastServiceRenderData;
   phaseService: IPhaseServiceRenderData;
@@ -114,6 +113,6 @@ export interface IGame {
   setPawn: (droppableId: string, draggableId: string) => void;
   unsetPawn: (destinationId: string, draggableId: string) => void;
   resetPawns: () => void;
-
+  actionSlotRenderData: IActionSlotServiceRenderData;
   renderData: IGameRenderData;
 }

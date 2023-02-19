@@ -11,13 +11,14 @@ import { ACTION } from "../../../../../interfaces/ACTION";
 import { ACTION_ITEM } from "../../../../../utils/getDroppableID";
 import woodImg from "/public/UI/resources/wood.png";
 import leatherImg from "/public/UI/resources/leather.png";
+import { objectsEqual } from "../../../../../utils/objectsEqual";
 
 type Props = {
   construction: IConstructionRenderData;
   hideActionSlots?: boolean;
 };
 
-export default function Construction(props: Props) {
+function Construction(props: Props) {
   const resources: JSX.Element[] = [];
 
   Object.entries(props.construction.committedResources).forEach(
@@ -91,7 +92,7 @@ export default function Construction(props: Props) {
               <ActionSlot
                 type={"leader"}
                 action={ACTION.BUILD}
-                context={ACTION_ITEM.CONSTRUCTION}
+                actionItem={ACTION_ITEM.CONSTRUCTION}
                 id={"construction-" + props.construction.name + "-leader-0"}
               />
             </>
@@ -124,3 +125,9 @@ export default function Construction(props: Props) {
     </div>
   );
 }
+
+function areEqual(prevProps: Props, nextProps: Props) {
+  return objectsEqual(prevProps, nextProps);
+}
+
+export default React.memo(Construction, areEqual);

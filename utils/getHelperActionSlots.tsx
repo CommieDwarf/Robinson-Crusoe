@@ -1,6 +1,5 @@
 import ActionSlot from "../components/Game/UI/ActionSlot";
 
-import { IPawnRenderData } from "../interfaces/Pawns/Pawn";
 import { IInventionRenderData } from "../interfaces/InventionService/Invention";
 import { IConstructionRenderData } from "../interfaces/ConstructionService/Construction";
 import { ACTION_ITEM, getDroppableID } from "./getDroppableID";
@@ -34,7 +33,7 @@ export default function getHelperActionSlots(
       <ActionSlot
         type={"helper"}
         action={ACTION.BUILD}
-        context={context}
+        actionItem={context}
         id={actionSlotId}
         key={actionSlotId}
       />

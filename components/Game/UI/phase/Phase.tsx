@@ -18,7 +18,7 @@ type Props = {
   phase: PhaseType;
 };
 
-export default function Phase(props: Props) {
+function Phase(props: Props) {
   const [showMenu, setShowMenu] = useState(false);
 
   function toggleShowMenu() {
@@ -51,3 +51,5 @@ export default function Phase(props: Props) {
     </div>
   );
 }
+
+export default React.memo(Phase)

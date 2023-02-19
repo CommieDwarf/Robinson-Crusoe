@@ -10,13 +10,15 @@ import { ACTION_ITEM, getDroppableID } from "../../../../utils/getDroppableID";
 import { ACTION } from "../../../../interfaces/ACTION";
 import redArrowImg from "/public/UI/misc/red-arrow.png";
 import redArrowCurvedImg from "/public/UI/misc/red-arrow-curved.png";
+import { arraysEqual } from "../../../../utils/arraysEqual";
+import { objectsEqual } from "../../../../utils/objectsEqual";
 
 interface Props {
   threat: IEventServiceRenderData;
   zIndex: string;
 }
 
-export default function Threat(props: Props) {
+function Threat(props: Props) {
   const leftCard = props.threat.leftSlot;
   const rightCard = props.threat.rightSlot;
 
@@ -40,7 +42,7 @@ export default function Threat(props: Props) {
         <ActionSlot
           type={i === 0 ? "leader" : "helper"}
           action={ACTION.THREAT}
-          context={ACTION_ITEM.THREAT}
+          actionItem={ACTION_ITEM.THREAT}
           id={id}
           key={id}
         />
@@ -77,3 +79,13 @@ export default function Threat(props: Props) {
     </div>
   );
 }
+
+function areEqual(prevProps: Props, nextProps: Props) {
+  return (
+    prevProps.zIndex.includes("threat") ===
+      nextProps.zIndex.includes("threat") &&
+    objectsEqual(prevProps.threat, nextProps.threat)
+  );
+}
+
+export default React.memo(Threat, areEqual);

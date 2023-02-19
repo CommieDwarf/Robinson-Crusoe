@@ -2,7 +2,7 @@ import { IPawn, IPawnRenderData } from "./Pawns/Pawn";
 import { ACTION } from "./ACTION";
 import { IGame } from "./Game";
 
-export interface IActionSlotsServiceRenderData {
+export interface IActionSlotServiceRenderData {
   slots: Object;
   pawnDropIDAlert: string | null;
 }
@@ -17,7 +17,7 @@ export interface IActionSlotService {
   unsetPawn: (droppableId: string) => void;
   clearSlots: () => void;
   getPawn: (droppableId: string) => IPawn | null;
-  renderData: IActionSlotsServiceRenderData;
+  renderData: IActionSlotServiceRenderData;
   getOccupiedActionSlots: () => OccupiedSlots;
   pawnDropIDAlert: string | null;
 }

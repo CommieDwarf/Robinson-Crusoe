@@ -12,7 +12,7 @@ interface Props {
   moraleThresholds: number[];
 }
 
-export default function Health(props: Props) {
+function Health(props: Props) {
   let marks: JSX.Element[] = [];
 
   for (let i = props.maxHealth; i > 0; i--) {
@@ -50,3 +50,5 @@ export default function Health(props: Props) {
     </div>
   );
 }
+
+export default React.memo(Health);

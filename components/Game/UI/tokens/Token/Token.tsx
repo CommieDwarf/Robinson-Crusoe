@@ -5,6 +5,7 @@ import styles from "./Token.module.css";
 import Image from "next/image";
 import { useRef } from "react";
 import { getImgName } from "../../../../../utils/getImgName";
+import { objectsEqual } from "../../../../../utils/objectsEqual";
 
 type Props = {
   token: ITokenRenderData;
@@ -12,22 +13,18 @@ type Props = {
   mouseLeaveToken: () => void;
 };
 
-export const Token = (props: Props) => {
-  const ref = useRef<HTMLDivElement>(null);
-
-  function handleMouseEnter() {
-    if (ref.current) {
-      props.mouseEnterToken(
-        props.token,
-        ref.current?.offsetLeft + ref.current.offsetWidth / 2
-      );
-    }
+const Token = (props: Props) => {
+  function handleMouseEnter(event: React.MouseEvent) {
+    const target = event.currentTarget as HTMLDivElement;
+    props.mouseEnterToken(
+      props.token,
+      target.offsetLeft + target.offsetWidth / 2
+    );
   }
 
   return (
     <div
       className={styles.container}
-      ref={ref}
       onMouseEnter={handleMouseEnter}
       onMouseOutCapture={props.mouseLeaveToken}
     >
@@ -42,3 +39,9 @@ export const Token = (props: Props) => {
     </div>
   );
 };
+
+function areEqual(prevProps: Props, nextProps: Props) {
+  return objectsEqual(prevProps.token, nextProps.token);
+}
+
+export default React.memo(Token, areEqual);

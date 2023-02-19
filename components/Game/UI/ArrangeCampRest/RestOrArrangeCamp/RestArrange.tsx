@@ -69,12 +69,11 @@ export default function RestArrange(props: Props) {
     const context =
       props.type === ACTION.REST ? ACTION_ITEM.REST : ACTION_ITEM.ARRANGE_CAMP;
     const id = getDroppableID(context, "", "", i - 1);
-
     actionSlots.push(
       <ActionSlot
         type="leader"
         action={props.type}
-        context={context}
+        actionItem={context}
         id={id}
         key={id}
       />

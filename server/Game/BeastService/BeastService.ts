@@ -2,20 +2,23 @@ import {
   IBeastService,
   IBeastServiceRenderData,
 } from "../../../interfaces/Beasts/BeastService";
-import { IBeast } from "../../../interfaces/Beasts/Beast";
+import { BEAST, IBeast } from "../../../interfaces/Beasts/Beast";
 import { ICharacter } from "../../../interfaces/Characters/Character";
 import { IGame } from "../../../interfaces/Game";
+import { BeastCreator } from "./BeastCreator/BeastCreator";
 
 export class BeastService implements IBeastService {
   private _deck: IBeast[] = [];
   // TODO: implement init
-  private _allBeasts: IBeast[] = [];
   private _game: IGame;
+  private _beastStack: IBeast[] = [];
+
   private beastBeingFought: IBeast | null = null;
   private _beastStrengthEnchanted = false;
 
   constructor(game: IGame) {
     this._game = game;
+    this._beastStack.push(new BeastCreator(game).create(BEAST.TIGER));
   }
 
   get renderData(): IBeastServiceRenderData {
@@ -51,7 +54,7 @@ export class BeastService implements IBeastService {
   }
 
   moveBeastFromStackToDeck() {
-    const beast = this._allBeasts.pop();
+    const beast = this._beastStack.pop();
     if (!beast) {
       throw new Error("There is no more beasts to push into the deck");
     }
@@ -72,7 +75,7 @@ export class BeastService implements IBeastService {
   getBeastsFromStack(amount: number) {
     let beasts: IBeast[] = [];
     for (let i = 0; i < amount; i++) {
-      let beast = this._allBeasts.pop();
+      let beast = this._beastStack.pop();
       if (beast) {
         beasts.push(beast);
       }

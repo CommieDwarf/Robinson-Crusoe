@@ -7,7 +7,18 @@ import getGameRenderData from "../api/getGame";
 import Game from "../../components/Game/Game";
 import { NextPage } from "next";
 import { useAppDispatch } from "../../store/hooks";
-import { setActionSlots } from "../../store/actionSlots";
+import {
+  actionSlotsUpdated,
+  markedSlotUpdated,
+} from "../../components/Game/features/actionSlots";
+import getActionSlotService from "../api/getActionSlotService";
+import { IActionSlotServiceRenderData } from "../../interfaces/ActionSlots";
+import {
+  dogPawnsUpdated,
+  fridayPawnsUpdated,
+  localCharacterPawnsUpdated,
+} from "../../components/Game/features/freePawns";
+import { batch } from "react-redux";
 
 type Props = {};
 const Play: NextPage = (props: Props) => {
@@ -21,8 +32,27 @@ const Play: NextPage = (props: Props) => {
 
   function updateGameRenderData() {
     const renderData = JSON.parse(getGameRenderData()) as IGameRenderData;
+    const actionSlotService = JSON.parse(
+      getActionSlotService()
+    ) as IActionSlotServiceRenderData;
     setGameRenderData(renderData);
-    dispatch(setActionSlots(renderData.actionSlotService.slots));
+    batch(() => {
+      dispatch(actionSlotsUpdated(actionSlotService.slots));
+      dispatch(markedSlotUpdated(actionSlotService.pawnDropIDAlert));
+      dispatch(
+        localCharacterPawnsUpdated(
+          renderData.localPlayer.character.pawnService.freePawns
+        )
+      );
+      dispatch(
+        dogPawnsUpdated(renderData.characterService.dog.pawnService.freePawns)
+      );
+      dispatch(
+        fridayPawnsUpdated(
+          renderData.characterService.friday.pawnService.freePawns
+        )
+      );
+    });
   }
 
   return (

@@ -31,6 +31,7 @@ export class GameService implements IGameService {
     this._game.tileService.explore(2);
     this._game.tileService.explore(11);
     this._game.localPlayer.getCharacter().incrDetermination(10);
+    this._game.beastService.moveBeastFromStackToDeck();
   }
 
   get renderData() {

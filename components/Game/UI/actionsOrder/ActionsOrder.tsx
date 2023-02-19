@@ -8,13 +8,14 @@ import redArrowImg from "/public/UI/misc/red-arrow.png";
 import reRollImg from "/public/UI/tokens/reroll.png";
 import { ActionTokens } from "../../../../interfaces/ActionService/ActionService";
 import { isAdventureAction } from "../../../../utils/isAdventureAction";
+import { objectsEqual } from "../../../../utils/objectsEqual";
 
 interface Props {
   adventureTokens: ActionTokens;
   reRollTokens: ActionTokens;
 }
 
-export default function ActionsOrder(props: Props) {
+function ActionsOrder(props: Props) {
   let actionIcons: JSX.Element[] = [];
 
   actionOrder.forEach((action, i) => {
@@ -70,3 +71,5 @@ export default function ActionsOrder(props: Props) {
     </div>
   );
 }
+
+export default React.memo(ActionsOrder, objectsEqual);

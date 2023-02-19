@@ -1,53 +1,75 @@
 import React from "react";
 import styles from "./ActionSlot.module.css";
-import { Droppable } from "react-beautiful-dnd";
+import {Droppable} from "react-beautiful-dnd";
 
 import Pawn from "./Pawn";
-import { IPawnRenderData } from "../../../interfaces/Pawns/Pawn";
-import { ACTION } from "../../../interfaces/ACTION";
-import { ACTION_ITEM } from "../../../utils/getDroppableID";
-import { getImgName } from "../../../utils/getImgName";
-import { useAppSelector } from "../../../store/hooks";
+import {IPawnRenderData} from "../../../interfaces/Pawns/Pawn";
+import {ACTION} from "../../../interfaces/ACTION";
+import {ACTION_ITEM} from "../../../utils/getDroppableID";
+import {getImgName} from "../../../utils/getImgName";
+import {RootState} from "../../../store/store";
+import {connect} from "react-redux";
 
-interface Props {
+interface OwnProps {
   type: "helper" | "leader";
   action: ACTION;
-  context: ACTION_ITEM;
+  actionItem: ACTION_ITEM;
   id: string;
   isDragDisabled?: boolean;
 }
 
-export default function PlayerSlot(props: Props) {
-  let element: JSX.Element;
-  const actionSlots = useAppSelector((state) => state.actionSlots.slots);
+interface Props extends OwnProps {
+  pawn: IPawnRenderData | undefined | null;
+  marked: boolean;
+}
 
-  const pawn = actionSlots[props.id];
+function ActionSlot(props: Props) {
+  let element: JSX.Element;
+
+  const pawn = props.pawn;
   if (pawn) {
-    element = <Pawn pawn={pawn} context={props.context} index={1} />;
+    element = <Pawn pawn={pawn} context={props.actionItem} index={1}/>;
   }
   const helperClass = props.type == "helper" ? styles.helper : "";
 
   return (
-    <div
-      className={`${styles.container} ${
-        styles[getImgName(props.context)]
-      } ${helperClass}`}
-      id={props.id}
-    >
-      <Droppable droppableId={props.id} isDropDisabled={props.isDragDisabled}>
-        {(provided) => {
-          return (
-            <div
-              className={styles.actionSlot}
-              ref={provided.innerRef}
-              {...provided.droppableProps}
-            >
-              {element}
-              <div style={{ display: "none" }}>{provided.placeholder}</div>
-            </div>
-          );
-        }}
-      </Droppable>
-    </div>
+      <div
+          className={`${styles.container} ${
+              styles[getImgName(props.actionItem)]
+          } ${helperClass}`}
+          id={props.id}
+      >
+
+        <Droppable droppableId={props.id} isDropDisabled={props.isDragDisabled}>
+          {(provided) => {
+            return (
+                <div
+                    className={styles.actionSlot}
+                    ref={provided.innerRef}
+                    {...provided.droppableProps}
+                >      {props.marked && <div className={styles.marked}></div>}
+
+                  {element}
+                  <div style={{display: "none"}}>{provided.placeholder}</div>
+                </div>
+            );
+          }}
+        </Droppable>
+      </div>
   );
 }
+
+function mapStateToProps(state: RootState, ownProps: OwnProps): Props {
+  const pawn = state.actionSlots.slots[ownProps.id];
+  let marked =
+      (state.actionSlots.markedActionSlot &&
+          ownProps.id.includes(state.actionSlots.markedActionSlot)) ||
+      false;
+  return {
+    pawn,
+    ...ownProps,
+    marked,
+  };
+}
+
+export default connect(mapStateToProps)(ActionSlot);

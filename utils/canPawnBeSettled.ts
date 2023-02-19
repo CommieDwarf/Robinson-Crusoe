@@ -3,7 +3,7 @@ import {
   IPawnRenderData,
 } from "../interfaces/Pawns/Pawn";
 
-export function getPawnCanBeSettled(
+export function canPawnBeSettled(
   pawn: null | IPawnRenderData | IPawnHelperRenderData,
   destinationId: string
 ): boolean {

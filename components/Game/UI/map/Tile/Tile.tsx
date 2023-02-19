@@ -45,7 +45,7 @@ export default function Tile(props: Props) {
         <ActionSlot
           type={"helper"}
           action={action}
-          context={context}
+          actionItem={context}
           id={id}
           key={id}
           isDragDisabled={props.isDragDisabled}
@@ -59,7 +59,7 @@ export default function Tile(props: Props) {
       <ActionSlot
         type={"leader"}
         action={action}
-        context={context}
+        actionItem={context}
         id={id}
         key={id}
         isDragDisabled={props.isDragDisabled}
@@ -84,7 +84,13 @@ export default function Tile(props: Props) {
 
     actionSlots = (
       <Scrollbar styleModule={styles}>
-        <div className={styles.gatherActionSlots + " " + scrollableClass}>
+        <div
+          className={`${styles.gatherActionSlots} ${scrollableClass} ${
+            props.tile.requiredHelperAmount <= 1
+              ? styles.gatherActionSlotsFew
+              : ""
+          }`}
+        >
           {props.tile.tileType.resources.left.resource !== "beast" &&
             !props.tile.tileType.resources.left.depleted && (
               <div className={styles.gatherActionSlotsLeft}>

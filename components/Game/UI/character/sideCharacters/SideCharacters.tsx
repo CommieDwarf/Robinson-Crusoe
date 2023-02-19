@@ -8,13 +8,26 @@ import { ISideCharacterRenderData } from "../../../../../interfaces/Characters/S
 import fridayPicImg from "/public/UI/characters/side-characters/friday-pic.png";
 import dogPicImg from "/public/UI/characters/side-characters/dog-pic.png";
 import dogUsageImg from "/public/UI/characters/dog-usage.png";
+import { useAppSelector } from "../../../../../store/hooks";
+import { objectsEqual } from "../../../../../utils/objectsEqual";
 
 interface Props {
   friday: ISideCharacterRenderData;
   dog: ISideCharacterRenderData;
 }
 
-export default function SideCharacters(props: Props) {
+// interface Props extends OwnProps {
+//   fridayPawns: IPawnRenderData[];
+//   dogPawns: IPawnRenderData[];
+// }
+
+function SideCharacters(props: Props) {
+  const dogPawns = useAppSelector((state) => state.freePawns.dog, objectsEqual);
+  const fridayPawns = useAppSelector(
+    (state) => state.freePawns.friday,
+    objectsEqual
+  );
+
   return (
     <div className={styles.container}>
       <div className={styles.friday}>
@@ -26,8 +39,8 @@ export default function SideCharacters(props: Props) {
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
-              {props.friday.pawnService.freePawns[0] &&
-                props.friday.pawnService.freePawns.map((pawn, i) => {
+              {fridayPawns[0] &&
+                fridayPawns.map((pawn, i) => {
                   return (
                     <Pawn
                       pawn={pawn}
@@ -62,8 +75,8 @@ export default function SideCharacters(props: Props) {
               {...provided.droppableProps}
               id={"dog-droppable"}
             >
-              {props.dog.pawnService.freePawns[0] &&
-                props.dog.pawnService.freePawns.map((pawn, i) => {
+              {dogPawns[0] &&
+                dogPawns.map((pawn, i) => {
                   return (
                     <Pawn
                       pawn={pawn}
@@ -93,3 +106,11 @@ export default function SideCharacters(props: Props) {
     </div>
   );
 }
+
+// function mapStateToProps(state: RootState, ownProps: OwnProps) {
+//   const dogPawns = state.freePawns.dog;
+//   const fridayPawns = state.freePawns.friday;
+//   return { dogPawns, fridayPawns, ...ownProps };
+// }
+
+export default React.memo(SideCharacters, objectsEqual);

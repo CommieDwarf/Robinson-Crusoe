@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IPawn } from "../interfaces/Pawns/Pawn";
+import { IPawnRenderData } from "../../../interfaces/Pawns/Pawn";
+import { RootState } from "../../../store/store";
 
 export interface ActionSlots {
-  [key: string]: IPawn;
+  [key: string]: IPawnRenderData;
 }
 
 export interface ActionSlotsState {
@@ -19,15 +20,23 @@ export const actionSlotsSlice = createSlice({
   name: "actionSlots",
   initialState,
   reducers: {
-    setActionSlots(state, action) {
+    actionSlotsUpdated(state, action) {
       state.slots = action.payload;
     },
-    setMarkedActionSlot(state, action) {
+    markedSlotUpdated(state, action) {
       state.markedActionSlot = action.payload;
     },
   },
 });
 
-export const { setActionSlots, setMarkedActionSlot } = actionSlotsSlice.actions;
+export const getActionSlotByDropId = (
+  state: RootState,
+  droppableId: string
+) => {
+  return state.actionSlots.slots[droppableId];
+};
+
+export const { actionSlotsUpdated, markedSlotUpdated } =
+  actionSlotsSlice.actions;
 
 export default actionSlotsSlice.reducer;

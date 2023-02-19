@@ -9,7 +9,7 @@ interface Props {
   current: number;
 }
 
-export default function Morale(props: Props) {
+function Morale(props: Props) {
   const moraleBars = [];
 
   for (let i = -3; i <= 3; i++) {
@@ -44,3 +44,5 @@ export default function Morale(props: Props) {
     </div>
   );
 }
+
+export default React.memo(Morale);

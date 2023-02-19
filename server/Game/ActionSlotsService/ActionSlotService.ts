@@ -1,7 +1,7 @@
 import { IPawn } from "../../../interfaces/Pawns/Pawn";
 import {
   IActionSlotService,
-  IActionSlotsServiceRenderData,
+  IActionSlotServiceRenderData,
   OccupiedSlots,
 } from "../../../interfaces/ActionSlots";
 import Entries from "../../../interfaces/Entries";
@@ -27,7 +27,7 @@ export class ActionSlotService implements IActionSlotService {
     this._slots = this.initActionSlots();
   }
 
-  get renderData(): IActionSlotsServiceRenderData {
+  get renderData(): IActionSlotServiceRenderData {
     const slots: any = {};
     this.slots.forEach((pawn, slotId) => {
       if (pawn) {
@@ -184,8 +184,6 @@ export class ActionSlotService implements IActionSlotService {
         }
       });
 
-      console.log(helperItems);
-      console.log(leaderItems);
       //leader check
       helperItems.forEach((droppableID) => {
         if (!leaderItems.has(droppableID)) {

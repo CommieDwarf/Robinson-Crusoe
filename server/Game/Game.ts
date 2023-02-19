@@ -38,14 +38,14 @@ import { Castaways } from "./Scenario/Castaways";
 import { IScenarioService } from "../../interfaces/ScenarioService/ScenarioService";
 import { IBeastService } from "../../interfaces/Beasts/BeastService";
 import { TokenService } from "./TokenService/TokenService";
-import { CHARACTER } from "../../interfaces/Characters/Character";
 import { Cook } from "./CharacterService/Characters/Cook";
+import { IActionSlotServiceRenderData } from "../../interfaces/ActionSlots";
 
 type ScenarioName = "castaways";
 
 export class GameClass implements IGame {
   get actionSlotService(): ActionSlotService {
-    return this._actionSlotsService;
+    return this._actionSlotService;
   }
 
   get tokenService(): TokenService {
@@ -82,7 +82,7 @@ export class GameClass implements IGame {
   private _equipmentService: IEquipment = new Equipment(this);
   private _arrangeCampRestService = new ArrangeCampRestService();
   private _beastService: IBeastService = new BeastService(this);
-  private _actionSlotsService = new ActionSlotService(this);
+  private _actionSlotService = new ActionSlotService(this);
   private _moraleService = new MoraleService(this);
   private _round = 10;
   private _scenarioService: IScenarioService = new Castaways(this);
@@ -108,7 +108,6 @@ export class GameClass implements IGame {
 
   get renderData(): IGameRenderData {
     return {
-      actionSlotService: this.actionSlotService.renderData,
       characterService: this._characterService.renderData,
       resourceService: this.resourceService.renderData,
       arrangeCampRestService: this._arrangeCampRestService.renderData,
@@ -130,7 +129,12 @@ export class GameClass implements IGame {
       weatherService: this._weatherService.renderData,
       allPawns: this.allPawns.map((pawn) => pawn.renderData),
       tokenService: this._tokenService.renderData,
+      actionSlotService: this._actionSlotService.renderData,
     };
+  }
+
+  get actionSlotRenderData(): IActionSlotServiceRenderData {
+    return this._actionSlotService.renderData;
   }
 
   get alertService(): IAlertService {
@@ -217,7 +221,7 @@ export class GameClass implements IGame {
     if (droppableId.includes("freepawns")) {
       pawn.character.pawnService.copyPawnToFreePawns(pawn.draggableId);
     } else {
-      this._actionSlotsService.setPawn(droppableId, pawn);
+      this._actionSlotService.setPawn(droppableId, pawn);
     }
     if (droppableId.includes("rest")) {
       this._arrangeCampRestService.pawnAmount.rest++;
@@ -232,7 +236,7 @@ export class GameClass implements IGame {
       const character = this._characterService.getCharacter(charName);
       character.pawnService.removePawn(draggableId, "freePawns");
     } else {
-      this._actionSlotsService.unsetPawn(destinationId);
+      this._actionSlotService.unsetPawn(destinationId);
     }
     if (destinationId.includes("rest")) {
       this._arrangeCampRestService.pawnAmount.rest--;

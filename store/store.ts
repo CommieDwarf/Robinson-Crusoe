@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { actionSlotsSlice } from "./actionSlots";
+import { actionSlotsSlice } from "../components/Game/features/actionSlots";
+import { freePawnsSlice } from "../components/Game/features/freePawns";
 
 export const store = configureStore({
   reducer: {
     [actionSlotsSlice.name]: actionSlotsSlice.reducer,
+    [freePawnsSlice.name]: freePawnsSlice.reducer,
   },
   devTools: true,
 });

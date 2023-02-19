@@ -13,6 +13,7 @@ interface Props {
 }
 
 export default function Hunt(props: Props) {
+  console.log(props.isDragDisabled, "DRAG DISABLED");
   const zIndexClass = props.zIndex.includes("hunt")
     ? styles.zIndexIncreased
     : "";
@@ -32,14 +33,14 @@ export default function Hunt(props: Props) {
           <ActionSlot
             type={"leader"}
             action={ACTION.HUNT}
-            context={ACTION_ITEM.HUNT}
+            actionItem={ACTION_ITEM.HUNT}
             id={getDroppableID(ACTION_ITEM.HUNT, "", "", 0)}
             isDragDisabled={props.isDragDisabled}
           />
           <ActionSlot
             type={"helper"}
             action={ACTION.HUNT}
-            context={ACTION_ITEM.HUNT}
+            actionItem={ACTION_ITEM.HUNT}
             id={getDroppableID(ACTION_ITEM.HUNT, "", "", 1)}
             isDragDisabled={props.isDragDisabled}
           />

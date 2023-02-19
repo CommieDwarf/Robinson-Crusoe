@@ -1,20 +1,17 @@
 import React from "react";
 import styles from "./ArrangeCampRest.module.css";
 import RestArrange from "./RestOrArrangeCamp/RestArrange";
-import { IPawnRenderData } from "../../../../interfaces/Pawns/Pawn";
 import { IArrangeCampRestServiceRenderData } from "../../../../interfaces/RestArrangeCampService/ArrangeCampRestService";
 import { ACTION } from "../../../../interfaces/ACTION";
+import { objectsEqual } from "../../../../utils/objectsEqual";
 
 interface Props {
   arrangeCampRestService: IArrangeCampRestServiceRenderData;
-  zIndex: string;
+  zIndex: boolean;
 }
 
-export default function ArrangeCampRest(props: Props) {
-  const zIndexClass =
-    props.zIndex.includes("rest") || props.zIndex.includes("arrangeCamp")
-      ? styles.zIndexIncreased
-      : "";
+function ArrangeCampRest(props: Props) {
+  const zIndexClass = props.zIndex ? styles.zIndexIncreased : "";
 
   return (
     <div className={styles.container + " " + zIndexClass}>
@@ -29,3 +26,5 @@ export default function ArrangeCampRest(props: Props) {
     </div>
   );
 }
+
+export default React.memo(ArrangeCampRest, objectsEqual);

@@ -14,6 +14,7 @@ import { ITilesServiceRenderData } from "../../../../interfaces/TileService/ITil
 import magnifyingGlass from "/public/UI/map/magnifying-glass.png";
 import map from "/public/UI/map/map.png";
 import redArrowImg from "/public/UI/misc/red-arrow.png";
+import { objectsEqual } from "../../../../utils/objectsEqual";
 
 interface Props {
   tileService: ITilesServiceRenderData;
@@ -26,7 +27,7 @@ interface Props {
   depleteResource: (tileID: number, side: "left" | "right") => void;
 }
 
-export default function Map(props: Props) {
+function Map(props: Props) {
   const [contentScale, setContentScale] = useState(100);
   const tiles: JSX.Element[] = [];
 
@@ -169,3 +170,19 @@ export default function Map(props: Props) {
     </div>
   );
 }
+
+function areEqual(prevProps: Props, nextProps: Props) {
+  const start = Date.now();
+  let equal = objectsEqual(
+    { ...prevProps, zIndex: prevProps.zIndex.includes("tile") },
+    {
+      ...nextProps,
+      zIndex: nextProps.zIndex.includes("tile"),
+    }
+  );
+  const end = Date.now();
+  console.log("map equal duration", end - start);
+  return equal;
+}
+
+export default React.memo(Map, areEqual);

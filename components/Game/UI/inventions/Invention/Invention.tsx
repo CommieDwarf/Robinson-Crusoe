@@ -9,18 +9,19 @@ import { getImgName } from "../../../../../utils/getImgName";
 import { ACTION } from "../../../../../interfaces/ACTION";
 import { ACTION_ITEM } from "../../../../../utils/getDroppableID";
 import actionSlotBuildImg from "/public/UI/actionSlots/build.png";
+import { objectsEqual } from "../../../../../utils/objectsEqual";
 
 type Props = {
   invention: IInventionRenderData;
   column: number;
   row: number;
   top: number;
-  zIndex: string;
+  zIndexIncreased: boolean;
   setIsEnlarged?: React.Dispatch<React.SetStateAction<boolean>>;
   hideActionSlots?: boolean;
 };
 
-export default function Invention(props: Props) {
+function Invention(props: Props) {
   const [enlarge, setEnlarge] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
 
@@ -68,9 +69,7 @@ export default function Invention(props: Props) {
 
   const leaderId = "invention-" + props.invention.name + "-leader-0";
 
-  const zIndexClass = props.zIndex.includes(props.invention.name)
-    ? styles.zIndexIncreased
-    : "";
+  const zIndexClass = props.zIndexIncreased ? styles.zIndexIncreased : "";
 
   const reverse =
     props.invention.isBuilt && props.invention.type !== "scenario"
@@ -117,7 +116,7 @@ export default function Invention(props: Props) {
             <ActionSlot
               type="leader"
               action={ACTION.BUILD}
-              context={ACTION_ITEM.INVENTION}
+              actionItem={ACTION_ITEM.INVENTION}
               id={leaderId}
             />
           </div>
@@ -129,3 +128,9 @@ export default function Invention(props: Props) {
     </div>
   );
 }
+
+function areEqual(prevProps: Props, nextProps: Props) {
+  return objectsEqual({ ...prevProps }, { ...nextProps });
+}
+
+export default React.memo(Invention, areEqual);

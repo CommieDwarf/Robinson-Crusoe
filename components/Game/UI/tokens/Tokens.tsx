@@ -3,8 +3,9 @@ import styles from "./Tokens.module.css";
 import scrollbarStyles from "./Scollbar.module.css";
 import Scrollbar from "../Scrollbar";
 import { ITokenRenderData } from "../../../../interfaces/TokenService/Token";
-import { Token } from "./Token/Token";
+import Token from "./Token/Token";
 import { ContextMenu } from "./ContextMenu/ContextMenu";
+import { objectsEqual } from "../../../../utils/objectsEqual";
 
 interface Props {
   discoveryTokens: ITokenRenderData[];
@@ -12,7 +13,7 @@ interface Props {
   menuDisabled: boolean;
 }
 
-export default function Tokens(props: Props) {
+function Tokens(props: Props) {
   const [mouseOverToken, setMouseOverToken] = useState(false);
   const [mouseOverMenu, setMouseOverMenu] = useState(false);
   const [scrollLeft, setScrollLeft] = useState(0);
@@ -79,3 +80,5 @@ export default function Tokens(props: Props) {
     </div>
   );
 }
+
+export default React.memo(Tokens, objectsEqual);
