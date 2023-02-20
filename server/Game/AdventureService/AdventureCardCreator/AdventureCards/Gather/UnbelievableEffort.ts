@@ -14,7 +14,9 @@ export class UnbelievableEffort
       ADVENTURE_CARD_GATHER.UNBELIEVABLE_EFFORT,
       "niewiarygodny wysiłek",
       true,
-      game
+      game,
+      "discard",
+      "shuffle"
     );
   }
 
@@ -25,7 +27,7 @@ export class UnbelievableEffort
     //TODO: put wound.
   }
 
-  eventEffect() {
+  triggerEffect() {
     //TODO: character with wound gets hurt.
     //TODO: discard wound.
   }

@@ -1,7 +1,6 @@
 import styles from "./Hunt.module.css";
 import Image from "next/image";
 import ActionSlot from "../ActionSlot";
-import { IPawnRenderData } from "../../../../interfaces/Pawns/Pawn";
 import { ACTION } from "../../../../interfaces/ACTION";
 import { ACTION_ITEM, getDroppableID } from "../../../../utils/getDroppableID";
 import beastReverseImg from "/public/UI/cards/reverse/beast.png";

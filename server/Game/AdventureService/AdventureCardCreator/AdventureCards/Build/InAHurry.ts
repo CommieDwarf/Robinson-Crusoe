@@ -8,7 +8,14 @@ export class InAHurry extends BuildAdventureCard implements IAdventureCard {
   protected _eventNamePL = "trzask!";
 
   constructor(game: IGame) {
-    super(ADVENTURE_CARD_BUILD.IN_A_HURRY, "w pośpiechu", true, game);
+    super(
+      ADVENTURE_CARD_BUILD.IN_A_HURRY,
+      "w pośpiechu",
+      true,
+      game,
+      "discard",
+      "shuffle"
+    );
   }
 
   option1() {}
@@ -17,7 +24,7 @@ export class InAHurry extends BuildAdventureCard implements IAdventureCard {
     // todo: add 2 discovery tokens
   }
 
-  eventEffect() {
+  triggerEffect() {
     this._game.constructionService.lvlDownOrSuffer(
       CONSTRUCTION.SHELTER,
       1,

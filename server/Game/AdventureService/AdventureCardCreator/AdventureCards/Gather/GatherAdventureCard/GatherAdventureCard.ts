@@ -1,11 +1,8 @@
 import { AdventureCard } from "../../../AdventureCard";
 import { ACTION } from "../../../../../../../interfaces/ACTION";
-import {
-  ADVENTURE_CARD_BUILD,
-  ADVENTURE_CARD_EXPLORE,
-  ADVENTURE_CARD_GATHER,
-} from "../../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
+import { ADVENTURE_CARD_GATHER } from "../../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
 import { IGame } from "../../../../../../../interfaces/Game";
+import { AdventureOptionLabel } from "../../../../../../../interfaces/AdventureService/AdventureCard";
 
 export abstract class GatherAdventureCard extends AdventureCard {
   protected readonly _action = ACTION.GATHER;
@@ -14,9 +11,11 @@ export abstract class GatherAdventureCard extends AdventureCard {
     name: ADVENTURE_CARD_GATHER,
     namePL: string,
     decide: boolean,
-    game: IGame
+    game: IGame,
+    option1Label: AdventureOptionLabel,
+    option2Label: AdventureOptionLabel
   ) {
-    super(name, namePL, decide, game);
+    super(name, namePL, decide, game, option1Label, option2Label);
   }
 
   get action(): ACTION.GATHER {

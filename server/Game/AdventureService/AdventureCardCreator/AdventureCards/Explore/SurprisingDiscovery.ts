@@ -14,7 +14,9 @@ export class SurprisingDiscovery
       ADVENTURE_CARD_EXPLORE.SURPRISING_DISCOVERY,
       "zaskakujące znalezisko",
       false,
-      game
+      game,
+      "keep",
+      ""
     );
   }
 

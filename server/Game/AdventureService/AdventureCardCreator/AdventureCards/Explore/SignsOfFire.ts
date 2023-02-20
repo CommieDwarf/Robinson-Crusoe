@@ -10,7 +10,14 @@ export class SignsOfFire
   protected _eventNamePL = "";
 
   constructor(game: IGame) {
-    super(ADVENTURE_CARD_EXPLORE.SIGNS_OF_FIRE, "ślady ognia", false, game);
+    super(
+      ADVENTURE_CARD_EXPLORE.SIGNS_OF_FIRE,
+      "ślady ognia",
+      false,
+      game,
+      "discard",
+      ""
+    );
   }
 
   option1() {

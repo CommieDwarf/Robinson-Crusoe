@@ -8,14 +8,21 @@ export class Construction extends BuildAdventureCard implements IAdventureCard {
   protected _eventNamePL = "mocniejsza konstrukcja";
 
   constructor(game: IGame) {
-    super(ADVENTURE_CARD_BUILD.CONSTRUCTION, "konstrukcja", false, game);
+    super(
+      ADVENTURE_CARD_BUILD.CONSTRUCTION,
+      "konstrukcja",
+      false,
+      game,
+      "shuffle",
+      ""
+    );
   }
 
   option1() {
     this.shuffleIntoEventDeck();
   }
 
-  eventEffect() {
+  triggerEffect() {
     if (
       this._game.constructionService.getConstruction(CONSTRUCTION.SHELTER).lvl >
       0

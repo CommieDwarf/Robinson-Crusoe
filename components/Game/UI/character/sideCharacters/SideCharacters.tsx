@@ -60,7 +60,7 @@ function SideCharacters(props: Props) {
           <Image
             src={fridayPicImg}
             fill
-            alt="piętaszek"
+            alt="Piętaszek"
             sizes={styles.picture}
           />
         </div>
@@ -95,7 +95,7 @@ function SideCharacters(props: Props) {
           <Image
             src={dogUsageImg}
             fill
-            alt="umiejetności psa"
+            alt="umiejętności psa"
             sizes={styles.dogUsage}
           />
         </div>

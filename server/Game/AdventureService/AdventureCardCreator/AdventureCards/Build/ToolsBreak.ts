@@ -7,7 +7,14 @@ export class ToolsBreak extends BuildAdventureCard implements IAdventureCard {
   protected _eventNamePL = "";
 
   constructor(game: IGame) {
-    super(ADVENTURE_CARD_BUILD.TOOLS_BREAK, "pęknięte narzędzie", false, game);
+    super(
+      ADVENTURE_CARD_BUILD.TOOLS_BREAK,
+      "pęknięte narzędzie",
+      false,
+      game,
+      "discard",
+      ""
+    );
   }
 
   option1() {

@@ -14,7 +14,9 @@ export class ToolsInspection
       ADVENTURE_CARD_BUILD.TOOLS_INSPECTION,
       "kontrola narzędzi",
       false,
-      game
+      game,
+      "shuffle",
+      ""
     );
   }
 
@@ -22,7 +24,7 @@ export class ToolsInspection
     //TODO: implement marks on 2 inventions
   }
 
-  eventEffect() {
+  triggerEffect() {
     //TODO: implement flip marked inventions
   }
 }

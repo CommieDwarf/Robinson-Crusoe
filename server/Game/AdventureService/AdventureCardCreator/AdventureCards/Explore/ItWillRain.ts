@@ -11,7 +11,9 @@ export class ItWillRain extends ExploreAdventureCard implements IAdventureCard {
       ADVENTURE_CARD_EXPLORE.IT_WILL_RAIN,
       "niebo zaciąga się",
       false,
-      game
+      game,
+      "shuffle",
+      ""
     );
   }
 
@@ -19,7 +21,7 @@ export class ItWillRain extends ExploreAdventureCard implements IAdventureCard {
     this.shuffleIntoEventDeck();
   }
 
-  eventEffect() {
+  triggerEffect() {
     this._game.weatherService.setToken("rain", true, this._eventNamePL);
   }
 }

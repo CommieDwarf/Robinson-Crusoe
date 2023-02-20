@@ -14,7 +14,9 @@ export class WinterIsComing
       ADVENTURE_CARD_GATHER.WINTER_IS_COMING,
       "nadchodzi zima",
       false,
-      game
+      game,
+      "shuffle",
+      ""
     );
   }
 
@@ -22,7 +24,7 @@ export class WinterIsComing
     this.shuffleIntoEventDeck();
   }
 
-  eventEffect() {
+  triggerEffect() {
     this._game.weatherService.setToken("snow", true, this._eventNamePL);
   }
 }

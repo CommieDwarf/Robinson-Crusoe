@@ -6,9 +6,9 @@ import Image from "next/image";
 import scenarioBackgroundImg from "/public/UI/scenarios/background.png";
 
 export enum BUTTON_PL {
+  description = "Opis",
+  objective = "Cel",
   mechanics = "Budowa stosu",
-  description = "opis",
-  objective = "cel",
 }
 
 type Props = {

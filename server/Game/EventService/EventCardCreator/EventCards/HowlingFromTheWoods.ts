@@ -7,7 +7,6 @@ import { IGame } from "../../../../../interfaces/Game";
 import { BeastService } from "../../../BeastService/BeastService";
 import { INVENTION_STARTER } from "../../../../../interfaces/InventionService/Invention";
 import { EVENT_CARD } from "../../../../../interfaces/EventService/EVENT_CARD";
-import { Resources } from "../../../ResourceService/Resources";
 
 export class HowlingFromTheWoods extends EventCard implements IEventCard {
   protected readonly _namePL = "wycie od strony lasu";

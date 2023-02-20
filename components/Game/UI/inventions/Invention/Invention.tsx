@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import ActionSlot from "../../ActionSlot";
 import styles from "./Invention.module.css";
 import getHelperActionSlots from "../../../../../utils/getHelperActionSlots";
-import { IPawnRenderData } from "../../../../../interfaces/Pawns/Pawn";
 import { IInventionRenderData } from "../../../../../interfaces/InventionService/Invention";
 import { getImgName } from "../../../../../utils/getImgName";
 import { ACTION } from "../../../../../interfaces/ACTION";

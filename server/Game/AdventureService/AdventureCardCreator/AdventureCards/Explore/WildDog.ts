@@ -7,7 +7,14 @@ export class WildDog extends ExploreAdventureCard implements IAdventureCard {
   protected _eventNamePL = "stary znajomy";
 
   constructor(game: IGame) {
-    super(ADVENTURE_CARD_EXPLORE.WILD_BERRIES, "dziki znajomy", false, game);
+    super(
+      ADVENTURE_CARD_EXPLORE.WILD_BERRIES,
+      "dziki znajomy",
+      false,
+      game,
+      "shuffle",
+      ""
+    );
   }
 
   option1() {
@@ -16,7 +23,7 @@ export class WildDog extends ExploreAdventureCard implements IAdventureCard {
     this.shuffleIntoEventDeck();
   }
 
-  eventEffect() {
+  triggerEffect() {
     //TODO: implement decision
   }
 }

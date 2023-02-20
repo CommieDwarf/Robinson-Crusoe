@@ -1,5 +1,5 @@
 import i18next from "i18next";
-import { useTranslation, initReactI18next } from "react-i18next";
+import { initReactI18next } from "react-i18next";
 import resources from "./resources.json";
 
 i18next

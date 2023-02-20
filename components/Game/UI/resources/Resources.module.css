@@ -1,6 +1,5 @@
 .container {
-    width: 200px;
-    height: 300px;
+
     position: relative;
     background-image: url("../../../../public/UI/resources/background.jpg");
     background-size: contain;

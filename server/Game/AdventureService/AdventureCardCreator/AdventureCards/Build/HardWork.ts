@@ -7,7 +7,14 @@ export class HardWork extends BuildAdventureCard implements IAdventureCard {
   protected _eventNamePL = "";
 
   constructor(game: IGame) {
-    super(ADVENTURE_CARD_BUILD.HARD_WORK, "ciężka praca", false, game);
+    super(
+      ADVENTURE_CARD_BUILD.HARD_WORK,
+      "ciężka praca",
+      false,
+      game,
+      "discard",
+      ""
+    );
   }
 
   option1() {

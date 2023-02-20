@@ -1,4 +1,4 @@
-import { Action, ACTION } from "../interfaces/ACTION";
+import { ACTION } from "../interfaces/ACTION";
 
 export const actionOrder: ACTION[] = [
   ACTION.THREAT,

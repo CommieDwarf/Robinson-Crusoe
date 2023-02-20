@@ -8,7 +8,14 @@ export class Nestlings extends GatherAdventureCard implements IAdventureCard {
   protected _eventNamePL = "wściekłe ptaszysko";
 
   constructor(game: IGame) {
-    super(ADVENTURE_CARD_GATHER.NESTLINGS, "pisklaki", true, game);
+    super(
+      ADVENTURE_CARD_GATHER.NESTLINGS,
+      "pisklaki",
+      true,
+      game,
+      "discard",
+      "shuffle"
+    );
   }
 
   option1() {}
@@ -23,7 +30,7 @@ export class Nestlings extends GatherAdventureCard implements IAdventureCard {
     this.shuffleIntoEventDeck();
   }
 
-  eventEffect() {
+  triggerEffect() {
     this._game.constructionService.lvlDownOrSuffer(
       CONSTRUCTION.ROOF,
       1,

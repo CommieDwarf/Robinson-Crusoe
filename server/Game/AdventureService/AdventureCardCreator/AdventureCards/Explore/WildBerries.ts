@@ -10,7 +10,14 @@ export class WildBerries
   protected _eventNamePL = "niestrawność";
 
   constructor(game: IGame) {
-    super(ADVENTURE_CARD_EXPLORE.WILD_BERRIES, "dzikie jagody", false, game);
+    super(
+      ADVENTURE_CARD_EXPLORE.WILD_BERRIES,
+      "dzikie jagody",
+      false,
+      game,
+      "shuffle",
+      ""
+    );
   }
 
   option1() {
@@ -18,7 +25,7 @@ export class WildBerries
     this.shuffleIntoEventDeck();
   }
 
-  eventEffect() {
+  triggerEffect() {
     //TODO: implement.
   }
 }

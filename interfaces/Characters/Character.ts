@@ -36,10 +36,7 @@ export interface ICharacter {
 }
 
 export enum CHARACTER {
-  EXPLORER = "explorer",
-  CARPENTER = "carpenter",
   COOK = "cook",
-  SOLDIER = "soldier",
   DOG = "dog",
   FRIDAY = "friday",
 }

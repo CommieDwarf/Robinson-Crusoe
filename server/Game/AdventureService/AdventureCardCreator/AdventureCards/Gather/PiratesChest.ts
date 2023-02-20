@@ -2,7 +2,6 @@ import { GatherAdventureCard } from "./GatherAdventureCard/GatherAdventureCard";
 import { IAdventureCard } from "../../../../../../interfaces/AdventureService/AdventureCard";
 import { IGame } from "../../../../../../interfaces/Game";
 import { ADVENTURE_CARD_GATHER } from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
-import { INVENTION_STARTER } from "../../../../../../interfaces/InventionService/Invention";
 
 export class PiratesChest
   extends GatherAdventureCard
@@ -11,7 +10,14 @@ export class PiratesChest
   protected _eventNamePL = "klątwa";
 
   constructor(game: IGame) {
-    super(ADVENTURE_CARD_GATHER.PIRATES_CHEST, "skrzynia piratów", true, game);
+    super(
+      ADVENTURE_CARD_GATHER.PIRATES_CHEST,
+      "skrzynia piratów",
+      true,
+      game,
+      "discard",
+      "shuffle"
+    );
   }
 
   option1() {}
@@ -20,7 +26,7 @@ export class PiratesChest
     //TODO: implement mystery cards
   }
 
-  eventEffect() {
+  triggerEffect() {
     //TODO: every play can use only 1 pawn.
   }
 }

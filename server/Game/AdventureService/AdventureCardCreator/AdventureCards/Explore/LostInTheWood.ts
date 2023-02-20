@@ -14,7 +14,9 @@ export class LostInTheWood
       ADVENTURE_CARD_EXPLORE.LOST_IN_THE_WOOD,
       "zagubiony w lesie",
       false,
-      game
+      game,
+      "discard",
+      ""
     );
   }
 

@@ -7,7 +7,14 @@ export class Unmotivated extends BuildAdventureCard implements IAdventureCard {
   protected _eventNamePL = "narzędzia sie psują";
 
   constructor(game: IGame) {
-    super(ADVENTURE_CARD_BUILD.UNMOTIVATED, "zdemotywowany", false, game);
+    super(
+      ADVENTURE_CARD_BUILD.UNMOTIVATED,
+      "zdemotywowany",
+      false,
+      game,
+      "shuffle",
+      ""
+    );
   }
 
   option1() {
@@ -19,7 +26,7 @@ export class Unmotivated extends BuildAdventureCard implements IAdventureCard {
     this.shuffleIntoEventDeck();
   }
 
-  eventEffect() {
+  triggerEffect() {
     this._game.characterService.decrDeterminationAllPlayerCharacters(
       1,
       this._eventNamePL

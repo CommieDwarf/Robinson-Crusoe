@@ -1,11 +1,7 @@
 import { EventCard } from "../EventCard";
-import {
-  EVENT_TYPE,
-  IEventCard,
-} from "../../../../../interfaces/EventService/EventCard";
+import { IEventCard } from "../../../../../interfaces/EventService/EventCard";
 import { IGame } from "../../../../../interfaces/Game";
 import { EVENT_CARD } from "../../../../../interfaces/EventService/EVENT_CARD";
-import { INVENTION_STARTER } from "../../../../../interfaces/InventionService/Invention";
 import { ACTION } from "../../../../../interfaces/ACTION";
 
 export class Catastrophe extends EventCard implements IEventCard {

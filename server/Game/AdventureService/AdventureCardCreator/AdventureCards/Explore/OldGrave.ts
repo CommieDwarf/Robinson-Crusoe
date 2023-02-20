@@ -7,7 +7,14 @@ export class OldGrave extends ExploreAdventureCard implements IAdventureCard {
   protected _eventNamePL = "wspomnienia o martwym rozbitku";
 
   constructor(game: IGame) {
-    super(ADVENTURE_CARD_EXPLORE.OLD_GRAVE, "stary grób", false, game);
+    super(
+      ADVENTURE_CARD_EXPLORE.OLD_GRAVE,
+      "stary grób",
+      false,
+      game,
+      "shuffle",
+      ""
+    );
   }
 
   option1() {
@@ -16,7 +23,7 @@ export class OldGrave extends ExploreAdventureCard implements IAdventureCard {
     this.shuffleIntoEventDeck();
   }
 
-  eventEffect() {
+  triggerEffect() {
     const character = this.getPrimeCharacter();
     this._game.characterService.decrDetermination(
       character,

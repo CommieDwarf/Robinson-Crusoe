@@ -7,7 +7,14 @@ export class Breakdown extends BuildAdventureCard implements IAdventureCard {
   protected _eventNamePL = "dobrze idzie";
 
   constructor(game: IGame) {
-    super(ADVENTURE_CARD_BUILD.BREAKDOWN, "załamanie", false, game);
+    super(
+      ADVENTURE_CARD_BUILD.BREAKDOWN,
+      "załamanie",
+      false,
+      game,
+      "shuffle",
+      ""
+    );
   }
 
   option1() {
@@ -15,7 +22,7 @@ export class Breakdown extends BuildAdventureCard implements IAdventureCard {
     this.shuffleIntoEventDeck();
   }
 
-  eventEffect() {
+  triggerEffect() {
     const character = this._game.playerService.primePlayer.getCharacter();
     this._game.characterService.incrDetermination(
       character,

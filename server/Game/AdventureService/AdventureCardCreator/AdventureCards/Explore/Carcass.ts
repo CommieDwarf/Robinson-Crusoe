@@ -7,7 +7,14 @@ export class Carcass extends ExploreAdventureCard implements IAdventureCard {
   protected _eventNamePL = "biegunka";
 
   constructor(game: IGame) {
-    super(ADVENTURE_CARD_EXPLORE.CARCASS, "padlina", true, game);
+    super(
+      ADVENTURE_CARD_EXPLORE.CARCASS,
+      "padlina",
+      true,
+      game,
+      "discard",
+      "shuffle"
+    );
   }
 
   option1() {}
@@ -18,7 +25,7 @@ export class Carcass extends ExploreAdventureCard implements IAdventureCard {
     this.shuffleIntoEventDeck();
   }
 
-  eventEffect() {
+  triggerEffect() {
     this._game.characterService.hurtAllPlayerCharacters(1, this._eventNamePL);
   }
 }

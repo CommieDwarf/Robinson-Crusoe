@@ -10,10 +10,7 @@ import { ICharEffects } from "../../../../../../interfaces/Characters/CharEffect
 import { PlayerCharEffects } from "../../../CharEffects/CharEffects";
 import { IPawnService } from "../../../../../../interfaces/Pawns/Pawns";
 import { IGame } from "../../../../../../interfaces/Game";
-import {
-  Gender,
-  ICharacter,
-} from "../../../../../../interfaces/Characters/Character";
+import { Gender } from "../../../../../../interfaces/Characters/Character";
 import { ISkill } from "../../../../../../interfaces/Skill/Skill";
 
 export abstract class PlayerCharacter

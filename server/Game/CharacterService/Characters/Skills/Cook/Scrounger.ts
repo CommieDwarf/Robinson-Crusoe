@@ -34,7 +34,7 @@ export class Scrounger extends Skill implements ISkill {
     }
     if (this._game.actionService.action !== ACTION.GATHER) {
       this._game.alertService.setAlert(
-        "Tej umiejętności można użyc tylko na kostkach zbierania"
+        "Tej umiejętności można użyć tylko na kostkach zbierania"
       );
     }
 

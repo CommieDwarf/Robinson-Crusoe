@@ -4,7 +4,6 @@ import ActionSlot from "../../ActionSlot";
 import Scrollbar from "../../Scrollbar";
 import styles from "./Tile.module.css";
 import { ITileRenderData } from "../../../../../interfaces/TileService/ITile";
-import { IPawnRenderData } from "../../../../../interfaces/Pawns/Pawn";
 import { MoveCampArrow } from "./MoveCampArrow/MoveCampArrow";
 import { ACTION } from "../../../../../interfaces/ACTION";
 import {

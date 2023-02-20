@@ -4,7 +4,6 @@ import React from "react";
 
 import Castaways from "./Scenarios/Castaways/Castaways";
 import { IInventionRenderData } from "../../../../../interfaces/InventionService/Invention";
-import { IPawnRenderData } from "../../../../../interfaces/Pawns/Pawn";
 
 interface Props {
   inventions: IInventionRenderData[];

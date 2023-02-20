@@ -7,14 +7,21 @@ export class WrongTrack extends ExploreAdventureCard implements IAdventureCard {
   protected _eventNamePL = "";
 
   constructor(game: IGame) {
-    super(ADVENTURE_CARD_EXPLORE.WRONG_TRACK, "pomylone ścieżki", false, game);
+    super(
+      ADVENTURE_CARD_EXPLORE.WRONG_TRACK,
+      "pomylone ścieżki",
+      false,
+      game,
+      "discard",
+      ""
+    );
   }
 
   option1() {
     //TODO: night out of camp
   }
 
-  eventEffect() {
+  triggerEffect() {
     this._game.resourceService.addResourceToOwned("wood", 2, this._eventNamePL);
   }
 }

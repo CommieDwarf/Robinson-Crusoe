@@ -3,7 +3,6 @@ import * as React from "react";
 import { ITokenRenderData } from "../../../../../interfaces/TokenService/Token";
 import styles from "./Token.module.css";
 import Image from "next/image";
-import { useRef } from "react";
 import { getImgName } from "../../../../../utils/getImgName";
 import { objectsEqual } from "../../../../../utils/objectsEqual";
 

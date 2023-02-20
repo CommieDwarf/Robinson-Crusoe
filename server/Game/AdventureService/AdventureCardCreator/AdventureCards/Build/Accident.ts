@@ -8,10 +8,11 @@ export class Accident extends BuildAdventureCard implements IAdventureCard {
   protected _eventNamePL = "gangrena";
 
   constructor(game: IGame) {
-    super(ADVENTURE_CARD_BUILD.ACCIDENT, "wypadek", false, game);
+    super(ADVENTURE_CARD_BUILD.ACCIDENT, "wypadek", false, game, "shuffle", "");
   }
 
   option1() {
     //TODO: implement wound
+    this.shuffleIntoEventDeck();
   }
 }

@@ -3,14 +3,12 @@ import React from "react";
 import styles from "./Threat.module.css";
 import ActionSlot from "../ActionSlot";
 import Card from "./Card";
-import { IPawnRenderData } from "../../../../interfaces/Pawns/Pawn";
 import { IEventServiceRenderData } from "../../../../interfaces/EventService/EventService";
 import { EVENT_TYPE } from "../../../../interfaces/EventService/EventCard";
 import { ACTION_ITEM, getDroppableID } from "../../../../utils/getDroppableID";
 import { ACTION } from "../../../../interfaces/ACTION";
 import redArrowImg from "/public/UI/misc/red-arrow.png";
 import redArrowCurvedImg from "/public/UI/misc/red-arrow-curved.png";
-import { arraysEqual } from "../../../../utils/arraysEqual";
 import { objectsEqual } from "../../../../utils/objectsEqual";
 
 interface Props {

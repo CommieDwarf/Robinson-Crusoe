@@ -4,7 +4,6 @@ import RollDiceAnimation from "../../RollDiceAnimation/RollDiceAnimation";
 import {
   ActionDice,
   ActionDiceResults,
-  WeatherDice,
 } from "../../../../../interfaces/RollDice/RollDice";
 import { IResolvableItemRenderData } from "../../../../../interfaces/ActionService/IResolvableItem";
 import Entries from "../../../../../interfaces/Entries";

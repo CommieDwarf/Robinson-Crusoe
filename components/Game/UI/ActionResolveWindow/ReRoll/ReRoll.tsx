@@ -1,7 +1,6 @@
 // @flow
 import * as React from "react";
 import styles from "./ReRoll.module.css";
-import { ICharacterRenderData } from "../../../../../interfaces/Characters/Character";
 import { IActionServiceRenderData } from "../../../../../interfaces/ActionService/ActionService";
 import { insertIconsIntoText } from "../../../../../utils/insertIconsIntoText";
 import { ACTION } from "../../../../../interfaces/ACTION";

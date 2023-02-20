@@ -8,7 +8,14 @@ export class BrokenLever extends BuildAdventureCard implements IAdventureCard {
   protected _eventNamePL = "";
 
   constructor(game: IGame) {
-    super(ADVENTURE_CARD_BUILD.BROKEN_LEVER, "złamana dźwignia", false, game);
+    super(
+      ADVENTURE_CARD_BUILD.BROKEN_LEVER,
+      "złamana dźwignia",
+      false,
+      game,
+      "discard",
+      ""
+    );
   }
 
   option1() {

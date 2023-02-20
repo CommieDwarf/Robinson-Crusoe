@@ -15,7 +15,9 @@ export class HungryPredator
       ADVENTURE_CARD_BUILD.HUNGRY_PREDATOR,
       "wygłodniały drapieżnik",
       true,
-      game
+      game,
+      "discard",
+      "shuffle"
     );
   }
 
@@ -36,7 +38,7 @@ export class HungryPredator
     this.shuffleIntoEventDeck();
   }
 
-  eventEffect() {
+  triggerEffect() {
     //todo: implement fighting beast by prime player
   }
 }

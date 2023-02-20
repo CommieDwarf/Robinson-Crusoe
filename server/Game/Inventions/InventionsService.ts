@@ -15,7 +15,6 @@ import { ITileService } from "../../../interfaces/TileService/ITileService";
 import { ICharacter } from "../../../interfaces/Characters/Character";
 import { IGame } from "../../../interfaces/Game";
 import { InventionCreator } from "./InventionCreator/InventionCreator";
-import i18next from "i18next";
 import capitalizeFirstLetter from "../../../utils/capitalizeFirstLetter";
 
 export class InventionsService implements IInventionService {

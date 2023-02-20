@@ -2,7 +2,6 @@ import React from "react";
 import Construction from "./Construction/Construction";
 import styles from "./Constructions.module.css";
 import { IConstructionRenderData } from "../../../../interfaces/ConstructionService/Construction";
-import { IPawnRenderData } from "../../../../interfaces/Pawns/Pawn";
 
 interface Props {
   constructions: IConstructionRenderData[];

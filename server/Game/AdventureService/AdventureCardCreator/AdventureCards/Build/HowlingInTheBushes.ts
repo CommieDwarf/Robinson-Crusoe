@@ -14,7 +14,9 @@ export class HowlingInTheBushes
       ADVENTURE_CARD_BUILD.HOWLING_IN_THE_BUSHES,
       "wycie w buszu",
       false,
-      game
+      game,
+      "shuffle",
+      ""
     );
   }
 
@@ -22,7 +24,7 @@ export class HowlingInTheBushes
     this.shuffleIntoEventDeck();
   }
 
-  eventEffect() {
+  triggerEffect() {
     //todo: implement fighting beast by prime player
   }
 }

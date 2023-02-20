@@ -14,7 +14,9 @@ export class DangerousWork
       ADVENTURE_CARD_BUILD.DANGEROUS_WORK,
       "niebezpieczna praca",
       false,
-      game
+      game,
+      "discard",
+      ""
     );
   }
 

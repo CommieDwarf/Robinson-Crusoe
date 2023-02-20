@@ -14,7 +14,9 @@ export class DangerousTerrain
       ADVENTURE_CARD_EXPLORE.DANGEROUS_TERRAIN,
       "niebezpieczny teren",
       false,
-      game
+      game,
+      "discard",
+      ""
     );
   }
 

@@ -5,7 +5,7 @@
 ## Purpose
 
 <strong>This is not a commercial product.</strong>
-<br> I've created this for learning purposes and to play it with my close friends online since i liked this board game
+<br> I've created this for learning purposes and to play it with my close friends online since I liked this board game
 very much.
 
 ## About
@@ -22,7 +22,7 @@ to survive and fulfill scenario's objective by exploring,
 gathering resources, building and upgrading camp and building inventions.
 At the beginning you own 2 random utility items for e.g. pistol.
 <br>
-The game contains with different phases in which different things happen  (for e.g weather phase where you are disposed
+The game contains with different phases in which different things happen  (for e.g. weather phase where you are disposed
 to weather effects)
 Game can be played solo or with max. 4 players.
 

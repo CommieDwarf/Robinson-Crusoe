@@ -53,6 +53,11 @@
         "weapon": "broń",
         "weapon_genitive": "broni",
         "weapon_accusative": "broń"
+      },
+      "adventureOptionLabel": {
+        "shuffle": "wtasuj",
+        "discard": "odrzuć",
+        "keep": "zatrzymaj"
       }
     }
   }

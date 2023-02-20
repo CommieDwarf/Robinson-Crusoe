@@ -7,7 +7,7 @@ export class Fruit extends GatherAdventureCard implements IAdventureCard {
   protected _eventNamePL = "ból brzucha";
 
   constructor(game: IGame) {
-    super(ADVENTURE_CARD_GATHER.FRUIT, "owoce", false, game);
+    super(ADVENTURE_CARD_GATHER.FRUIT, "owoce", false, game, "shuffle", "");
   }
 
   option1() {
@@ -15,7 +15,7 @@ export class Fruit extends GatherAdventureCard implements IAdventureCard {
     this.shuffleIntoEventDeck();
   }
 
-  eventEffect() {
+  triggerEffect() {
     //TODO: implement
   }
 }

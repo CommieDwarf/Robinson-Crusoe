@@ -3,6 +3,7 @@ import * as React from "react";
 import styles from "./Utility.module.css";
 import { UtilityUsageWindow } from "../../UtilityUsageWindow/UtilityUsageWindow";
 import { ISkillRenderData } from "../../../../../interfaces/Skill/Skill";
+import { PHASE } from "../../../../../interfaces/PhaseService/Phase";
 
 type Props = {
   skills: ISkillRenderData[];
@@ -17,7 +18,7 @@ export const Utility = (props: Props) => {
         <UtilityUsageWindow
           skills={props.skills}
           determination={props.determination}
-          phase={"weather"}
+          phase={PHASE.WEATHER}
         />
       </div>
     </div>

@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IPawnRenderData } from "../../../interfaces/Pawns/Pawn";
-import { RootState } from "../../../store/store";
 
 export interface ActionSlots {
   [key: string]: IPawnRenderData;
@@ -28,13 +27,6 @@ export const actionSlotsSlice = createSlice({
     },
   },
 });
-
-export const getActionSlotByDropId = (
-  state: RootState,
-  droppableId: string
-) => {
-  return state.actionSlots.slots[droppableId];
-};
 
 export const { actionSlotsUpdated, markedSlotUpdated } =
   actionSlotsSlice.actions;

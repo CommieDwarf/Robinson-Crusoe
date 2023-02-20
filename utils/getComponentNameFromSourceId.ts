@@ -1,4 +1,4 @@
-type ComponentName =
+export type ComponentName =
   | "map"
   | "inventions"
   | "constructions"
@@ -10,7 +10,7 @@ type ComponentName =
 
 const scenarioCards = ["mast", "axe"];
 
-function stringIncludesSomeArrayElement(array: string[], str: string) {
+export function stringIncludesSomeArrayElement(array: string[], str: string) {
   for (let element of array) {
     if (str.includes(element)) {
       return true;
@@ -19,9 +19,7 @@ function stringIncludesSomeArrayElement(array: string[], str: string) {
   return false;
 }
 
-export default function getComponentNameFromSourceId(
-  sourceId: string
-): ComponentName {
+export function getComponentNameFromSourceId(sourceId: string): ComponentName {
   if (sourceId.includes("tile")) {
     return "map";
   } else if (sourceId.includes("construction")) {

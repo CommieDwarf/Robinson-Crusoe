@@ -15,7 +15,9 @@ export class DarkCloudsInTheSky
       ADVENTURE_CARD_BUILD.DARK_CLOUDS_IN_THE_SKY,
       "zachmurzone niebo",
       false,
-      game
+      game,
+      "shuffle",
+      ""
     );
   }
 
@@ -24,7 +26,7 @@ export class DarkCloudsInTheSky
     this.shuffleIntoEventDeck();
   }
 
-  eventEffect() {
+  triggerEffect() {
     if (this._game.constructionService.isBuilt(CONSTRUCTION.SHELTER)) {
       this._game.constructionService.lvlUpConstruction(
         CONSTRUCTION.PALISADE,

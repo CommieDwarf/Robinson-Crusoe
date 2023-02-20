@@ -1,15 +1,15 @@
 import { IGame } from "../interfaces/Game";
-import { EventCard } from "../server/Classes/EventService/EventCardCreator/EventCard";
 import { CONSTRUCTION } from "../interfaces/ConstructionService/Construction";
 import { INVENTION } from "../interfaces/InventionService/Invention";
 import { ACTION } from "../interfaces/ACTION";
+import { IEventCard } from "../interfaces/EventService/EventCard";
 
 export function getItemFromDroppableId(droppableId: string, game: IGame) {
   if (droppableId.includes("threat")) {
     if (droppableId.includes("left")) {
-      return game.eventService.leftSlot as EventCard;
+      return game.eventService.leftSlot as IEventCard;
     } else {
-      return game.eventService.rightSlot as EventCard;
+      return game.eventService.rightSlot as IEventCard;
     }
   } else if (droppableId.includes("hunt")) {
     return game.beastService.getBeastFromDeck();

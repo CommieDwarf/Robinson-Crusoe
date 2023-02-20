@@ -8,14 +8,14 @@ export class Viper extends GatherAdventureCard implements IAdventureCard {
   protected _eventNamePL = "ukąszenie";
 
   constructor(game: IGame) {
-    super(ADVENTURE_CARD_GATHER.VIPER, "żmija", false, game);
+    super(ADVENTURE_CARD_GATHER.VIPER, "żmija", false, game, "shuffle", "");
   }
 
   option1() {
     this.shuffleIntoEventDeck();
   }
 
-  eventEffect() {
+  triggerEffect() {
     if (this._game.inventionService.isBuilt(INVENTION_STARTER.MEDICINE)) {
       this._game.characterService.hurt(
         this.getPrimeCharacter(),

@@ -4,7 +4,6 @@ import styles from "./RestArrange.module.css";
 import Scrollbar from "../../Scrollbar";
 import scrollbarStyles from "./Scrollbar.module.css";
 import ActionSlot from "../../ActionSlot";
-import { IPawnRenderData } from "../../../../../interfaces/Pawns/Pawn";
 import { ACTION } from "../../../../../interfaces/ACTION";
 import {
   ACTION_ITEM,

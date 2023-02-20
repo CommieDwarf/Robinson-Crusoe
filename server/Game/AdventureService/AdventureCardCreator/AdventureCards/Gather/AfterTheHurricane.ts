@@ -14,7 +14,9 @@ export class AfterTheHurricane
       ADVENTURE_CARD_GATHER.AFTER_THE_HURRICANE,
       "po huraganie",
       false,
-      game
+      game,
+      "shuffle",
+      ""
     );
   }
 
@@ -23,7 +25,7 @@ export class AfterTheHurricane
     //TODO: put additional helper pawn at the tile.
   }
 
-  eventEffect() {
+  triggerEffect() {
     //TODO: make the tile unavailable.
   }
 }

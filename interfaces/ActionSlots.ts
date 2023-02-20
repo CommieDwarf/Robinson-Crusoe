@@ -1,6 +1,5 @@
 import { IPawn, IPawnRenderData } from "./Pawns/Pawn";
 import { ACTION } from "./ACTION";
-import { IGame } from "./Game";
 
 export interface IActionSlotServiceRenderData {
   slots: Object;

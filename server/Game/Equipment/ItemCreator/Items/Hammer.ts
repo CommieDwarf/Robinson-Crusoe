@@ -3,7 +3,7 @@ import { IItem, ITEM } from "../../../../../interfaces/Equipment/Item";
 import { IGame } from "../../../../../interfaces/Game";
 import { IPlayerCharacter } from "../../../../../interfaces/Characters/PlayerCharacter";
 import { ICharacter } from "../../../../../interfaces/Characters/Character";
-import { HelperPawn } from "../../../PawnService/Pawn/HelperPawn";
+import { PawnHelper } from "../../../PawnService/Pawn/PawnHelper";
 import { PAWN_HELPER_ACTION } from "../../../../../interfaces/Pawns/Pawn";
 
 export class Hammer extends Item implements IItem {
@@ -14,7 +14,7 @@ export class Hammer extends Item implements IItem {
   use(user: IPlayerCharacter, target: ICharacter) {
     super.use(user);
     user.pawnService.addPawn(
-      new HelperPawn(user, true, PAWN_HELPER_ACTION.BUILD)
+      new PawnHelper(user, true, PAWN_HELPER_ACTION.BUILD)
     );
   }
 }

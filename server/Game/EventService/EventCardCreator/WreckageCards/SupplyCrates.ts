@@ -4,10 +4,7 @@ import {
   IEventCard,
 } from "../../../../../interfaces/EventService/EventCard";
 import { IGame } from "../../../../../interfaces/Game";
-import {
-  EVENT_CARD,
-  WRECKAGE_CARD,
-} from "../../../../../interfaces/EventService/EVENT_CARD";
+import { WRECKAGE_CARD } from "../../../../../interfaces/EventService/EVENT_CARD";
 
 export class SupplyCrates extends EventCard implements IEventCard {
   protected readonly _namePL = "skrzynie z jedzeniem";

@@ -7,7 +7,14 @@ export class Tiger extends ExploreAdventureCard implements IAdventureCard {
   protected _eventNamePL = "tygrys was odnajduje";
 
   constructor(game: IGame) {
-    super(ADVENTURE_CARD_EXPLORE.TIGER, "tygrys!", true, game);
+    super(
+      ADVENTURE_CARD_EXPLORE.TIGER,
+      "tygrys!",
+      true,
+      game,
+      "discard",
+      "shuffle"
+    );
   }
 
   option1() {
@@ -18,7 +25,7 @@ export class Tiger extends ExploreAdventureCard implements IAdventureCard {
     this.shuffleIntoEventDeck();
   }
 
-  eventEffect() {
+  triggerEffect() {
     //TODO: JUMP, JUMP
     //TODO: JUMP ON THE TIGER
   }

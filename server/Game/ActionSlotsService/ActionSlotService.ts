@@ -70,7 +70,7 @@ export class ActionSlotService implements IActionSlotService {
       }
       const arrDroppableId = droppableId.split("-");
       const entries = Object.entries(categorized) as Entries<OccupiedSlots>;
-      entries.forEach(([value, key]) => {
+      entries.forEach(([value]) => {
         if (
           arrDroppableId.includes(value) ||
           (value === ACTION.BUILD &&
@@ -84,7 +84,6 @@ export class ActionSlotService implements IActionSlotService {
   }
 
   // -------------------------------------------------------
-  private static items: any;
 
   public setPawn(id: string, pawn: IPawn | null) {
     this._slots.set(id, pawn);

@@ -15,7 +15,9 @@ export class MonkeysWatchYou
       ADVENTURE_CARD_BUILD.MONKEYS_WATCH_YOU,
       "małpy Cię obserwują",
       false,
-      game
+      game,
+      "shuffle",
+      ""
     );
   }
 
@@ -23,16 +25,9 @@ export class MonkeysWatchYou
     this.shuffleIntoEventDeck();
   }
 
-  eventEffect() {
+  triggerEffect() {
     this._game.constructionService.setDividedLvlByTwo(
       CONSTRUCTION.ROOF,
-      this._eventNamePL
-    );
-  }
-
-  eventEffect2() {
-    this._game.constructionService.setDividedLvlByTwo(
-      CONSTRUCTION.PALISADE,
       this._eventNamePL
     );
   }

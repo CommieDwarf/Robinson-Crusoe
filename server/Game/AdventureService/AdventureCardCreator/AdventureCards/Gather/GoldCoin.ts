@@ -7,14 +7,21 @@ export class GoldCoin extends GatherAdventureCard implements IAdventureCard {
   protected _eventNamePL = "przeklęta moneta";
 
   constructor(game: IGame) {
-    super(ADVENTURE_CARD_GATHER.GOLD_COIN, "złota moneta!", false, game);
+    super(
+      ADVENTURE_CARD_GATHER.GOLD_COIN,
+      "złota moneta!",
+      false,
+      game,
+      "shuffle",
+      ""
+    );
   }
 
   option1() {
     this.shuffleIntoEventDeck();
   }
 
-  eventEffect() {
+  triggerEffect() {
     //TODO: put reRoll token
   }
 }

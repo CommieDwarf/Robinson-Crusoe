@@ -7,6 +7,9 @@ import {
 import { IGame } from "../../../interfaces/Game";
 import { EventCardCreator } from "./EventCardCreator/EventCardCreator";
 import { EVENT_CARD } from "../../../interfaces/EventService/EVENT_CARD";
+import { IAdventureCard } from "../../../interfaces/AdventureService/AdventureCard";
+import { EventCard } from "./EventCardCreator/EventCard";
+import shuffle from "../../../utils/shuffleArray";
 
 interface EventSlots {
   left: null | IEventCard;
@@ -14,7 +17,7 @@ interface EventSlots {
 }
 
 export class EventService implements IEventService {
-  private _eventCards: IEventCard[];
+  private _eventCardDeck: (IEventCard | IAdventureCard)[];
 
   private readonly _game: IGame;
   private _eventSlots: EventSlots = {
@@ -28,7 +31,7 @@ export class EventService implements IEventService {
 
   constructor(game: IGame) {
     this._game = game;
-    this._eventCards = this.initEventCards();
+    this._eventCardDeck = this.initEventCards();
     // this.testEventCards(Play);
   }
 
@@ -71,7 +74,9 @@ export class EventService implements IEventService {
     if (card) {
       return card;
     }
-    throw new Error("Couldnt find card in slot with droppable: " + droppableId);
+    throw new Error(
+      "Couldn't find card in slot with droppable: " + droppableId
+    );
   }
 
   public fullFill(id: string) {
@@ -87,13 +92,15 @@ export class EventService implements IEventService {
   }
 
   public pullCard() {
-    let card = this._eventCards.pop();
+    let card = this._eventCardDeck.pop();
     if (!card) {
       throw new Error("There is no card to pull");
     }
-    this._eventSlots.right = card;
     card.triggerEffect();
-    card.setAdventureToken();
+    if (card instanceof EventCard) {
+      this._eventSlots.right = card;
+      card.setAdventureToken();
+    }
   }
 
   public moveCardsLeft() {
@@ -106,7 +113,10 @@ export class EventService implements IEventService {
 
   public addCardToTopOfStack(card: unknown) {}
 
-  public shuffleCardInToStack(card: unknown) {}
+  public shuffleCardInToDeck(card: IAdventureCard) {
+    this._eventCardDeck.push(card);
+    this._eventCardDeck = shuffle(this._eventCardDeck);
+  }
 
   public switchCardFromTopToBottomOfStack() {}
 
@@ -139,18 +149,5 @@ export class EventService implements IEventService {
     const creator = new EventCardCreator(this._game);
     const cards = Object.values(EVENT_CARD).map((card) => creator.create(card));
     return [...cards];
-  }
-
-  public testEventCards(game: IGame) {
-    this._eventCards.forEach((event, i) => {});
-
-    const char = game.characterService.getCharacter("cook");
-
-    this._eventCards.forEach((card) => {
-      this._eventSlots.left = card;
-      card.triggerThreatEffect();
-      card.triggerEffect();
-      card.fullFill();
-    });
   }
 }

@@ -1,8 +1,5 @@
 import { EventCard } from "../EventCard";
-import {
-  EVENT_TYPE,
-  IEventCard,
-} from "../../../../../interfaces/EventService/EventCard";
+import { IEventCard } from "../../../../../interfaces/EventService/EventCard";
 import { IGame } from "../../../../../interfaces/Game";
 import { EVENT_CARD } from "../../../../../interfaces/EventService/EVENT_CARD";
 import { CONSTRUCTION } from "../../../../../interfaces/ConstructionService/Construction";

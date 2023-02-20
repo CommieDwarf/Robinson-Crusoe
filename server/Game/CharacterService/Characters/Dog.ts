@@ -3,7 +3,6 @@ import { ISideCharacter } from "../../../../interfaces/Characters/SideCharacter"
 import { ISkill } from "../../../../interfaces/Skill/Skill";
 import { CHARACTER, Gender } from "../../../../interfaces/Characters/Character";
 import { IGame } from "../../../../interfaces/Game";
-import { ReRoll } from "./Skills/Friday/ReRoll";
 
 export class Dog extends SideCharacter implements ISideCharacter {
   protected readonly _skills: ISkill[] = [];

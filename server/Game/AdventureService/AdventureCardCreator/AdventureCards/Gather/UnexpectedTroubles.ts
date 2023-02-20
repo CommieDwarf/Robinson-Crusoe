@@ -14,7 +14,9 @@ export class UnexpectedTroubles
       ADVENTURE_CARD_GATHER.UNEXPECTED_TROUBLES,
       "niespodziewane trudności",
       false,
-      game
+      game,
+      "discard",
+      ""
     );
   }
 

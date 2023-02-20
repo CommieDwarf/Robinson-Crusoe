@@ -15,7 +15,9 @@ export class ConstructionIsWeak
       ADVENTURE_CARD_BUILD.CONSTRUCTION_IS_WEAK,
       "marna konstrukcja",
       false,
-      game
+      game,
+      "shuffle",
+      ""
     );
   }
 
@@ -23,7 +25,7 @@ export class ConstructionIsWeak
     this.shuffleIntoEventDeck();
   }
 
-  eventEffect() {
+  triggerEffect() {
     const construction = this._game.constructionService.getConstruction(
       CONSTRUCTION.ROOF
     );

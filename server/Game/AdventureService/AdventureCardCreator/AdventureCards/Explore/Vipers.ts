@@ -7,7 +7,7 @@ export class Vipers extends ExploreAdventureCard implements IAdventureCard {
   protected _eventNamePL = "gorączka";
 
   constructor(game: IGame) {
-    super(ADVENTURE_CARD_EXPLORE.VIPERS, "żmije!", false, game);
+    super(ADVENTURE_CARD_EXPLORE.VIPERS, "żmije!", false, game, "shuffle", "");
   }
 
   option1() {
@@ -15,7 +15,7 @@ export class Vipers extends ExploreAdventureCard implements IAdventureCard {
     this.shuffleIntoEventDeck();
   }
 
-  eventEffect() {
+  triggerEffect() {
     //TODO: implement.
   }
 }

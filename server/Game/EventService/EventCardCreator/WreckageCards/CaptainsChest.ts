@@ -4,10 +4,7 @@ import {
   IEventCard,
 } from "../../../../../interfaces/EventService/EventCard";
 import { IGame } from "../../../../../interfaces/Game";
-import {
-  EVENT_CARD,
-  WRECKAGE_CARD,
-} from "../../../../../interfaces/EventService/EVENT_CARD";
+import { WRECKAGE_CARD } from "../../../../../interfaces/EventService/EVENT_CARD";
 
 export class CaptainsChest extends EventCard implements IEventCard {
   protected _namePL = "kufer kapitana";

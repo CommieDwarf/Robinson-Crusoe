@@ -1,16 +1,9 @@
 import { IEventCard, IEventCardRenderData } from "./EventCard";
-import { ICharacter } from "../Characters/Character";
+import { IAdventureCard } from "../AdventureService/AdventureCard";
 
 export interface IEventServiceRenderData {
   leftSlot: IEventCardRenderData | null;
   rightSlot: IEventCardRenderData | null;
-}
-
-export interface EventAssignedCharacters {
-  left1: null | ICharacter;
-  left2: null | ICharacter;
-  right1: null | ICharacter;
-  right2: null | ICharacter;
 }
 
 export interface ThreatSpecialEffects {
@@ -24,7 +17,7 @@ export interface IEventService {
   specialEffects: ThreatSpecialEffects;
 
   addCardToTopOfStack: (card: unknown) => void;
-  shuffleCardInToStack: (card: unknown) => void;
+  shuffleCardInToDeck: (card: IAdventureCard) => void;
   switchCardFromTopToBottomOfStack: () => void;
   moveCardsLeft: () => void;
   pullCard: () => void;

@@ -14,16 +14,18 @@ export class TheresSomethingInTheAir
       ADVENTURE_CARD_EXPLORE.THERES_SOMETHING_IN_THE_AIR,
       "coś się szykuje",
       false,
-      game
+      game,
+      "shuffle",
+      ""
     );
   }
 
   option1() {
-    //TODO: put explore question mark.
+    this._game.actionService.setAdventureToken("explore", true, this._namePL);
     this.shuffleIntoEventDeck();
   }
 
-  eventEffect() {
-    //TODO: same as option1
+  triggerEffect() {
+    this._game.actionService.setAdventureToken("explore", true, this._namePL);
   }
 }

@@ -199,7 +199,7 @@ export const Item = (props: Props) => {
       : styles.failure;
 
   const action = props.resolvableItem.action;
-  let buttonText: string | (JSX.Element | string)[] = "";
+  let buttonText: string | (JSX.Element | string)[];
   if (props.resolvableItem.shouldReRollSuccess && !props.locked) {
     buttonText = [
       "Przerzuć",

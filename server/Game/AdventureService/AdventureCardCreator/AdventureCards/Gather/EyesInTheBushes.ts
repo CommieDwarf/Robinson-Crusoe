@@ -14,7 +14,9 @@ export class EyesInTheBushes
       ADVENTURE_CARD_GATHER.EYES_IN_THE_BUSHES,
       "oczy w ciemności",
       false,
-      game
+      game,
+      "shuffle",
+      ""
     );
   }
 
@@ -22,7 +24,7 @@ export class EyesInTheBushes
     this.shuffleIntoEventDeck();
   }
 
-  eventEffect() {
+  triggerEffect() {
     //TODO: set hungry animal in weather.
   }
 }

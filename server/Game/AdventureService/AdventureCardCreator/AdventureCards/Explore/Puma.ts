@@ -1,24 +1,31 @@
-import {ExploreAdventureCard} from "./ExploreAdventureCard/ExploreAdventureCard";
-import {IAdventureCard} from "../../../../../../interfaces/AdventureService/AdventureCard";
-import {IGame} from "../../../../../../interfaces/Game";
-import {ADVENTURE_CARD_EXPLORE} from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
+import { ExploreAdventureCard } from "./ExploreAdventureCard/ExploreAdventureCard";
+import { IAdventureCard } from "../../../../../../interfaces/AdventureService/AdventureCard";
+import { IGame } from "../../../../../../interfaces/Game";
+import { ADVENTURE_CARD_EXPLORE } from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
 
 export class Puma extends ExploreAdventureCard implements IAdventureCard {
-    protected _eventNamePL = "atak pumy!";
+  protected _eventNamePL = "atak pumy!";
 
-    constructor(game: IGame) {
-        super(ADVENTURE_CARD_EXPLORE.PUMA, "puma!", true, game);
-    }
+  constructor(game: IGame) {
+    super(
+      ADVENTURE_CARD_EXPLORE.PUMA,
+      "puma!",
+      true,
+      game,
+      "discard",
+      "shuffle"
+    );
+  }
 
-    option1() {
-        //TODO: implement night out of camp.
-    }
+  option1() {
+    //TODO: implement night out of camp.
+  }
 
-    option2() {
-        this.shuffleIntoEventDeck();
-    }
+  option2() {
+    this.shuffleIntoEventDeck();
+  }
 
-    eventEffect() {
-        //TODO: fight puma
-    }
+  triggerEffect() {
+    //TODO: fight puma
+  }
 }

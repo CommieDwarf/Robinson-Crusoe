@@ -7,7 +7,7 @@ export class Swamp extends ExploreAdventureCard implements IAdventureCard {
   protected _eventNamePL = "";
 
   constructor(game: IGame) {
-    super(ADVENTURE_CARD_EXPLORE.SWAMP, "bagniska", false, game);
+    super(ADVENTURE_CARD_EXPLORE.SWAMP, "bagniska", false, game, "discard", "");
   }
 
   option1() {

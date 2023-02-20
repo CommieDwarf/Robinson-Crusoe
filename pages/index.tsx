@@ -3,7 +3,6 @@ import { IGameRenderData } from "../interfaces/Game";
 import { useEffect, useState } from "react";
 import createGame from "./api/createGame";
 import getGameRenderData from "./api/getGame";
-import Game from "../components/Game/Game";
 import "../I18n/I18n";
 import Link from "next/link";
 import styles from "./index.module.css";

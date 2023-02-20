@@ -2,7 +2,7 @@ import { IConstruction } from "../../../interfaces/ConstructionService/Construct
 import { IInvention } from "../../../interfaces/InventionService/Invention";
 import { ITile } from "../../../interfaces/TileService/ITile";
 import { IEventCard } from "../../../interfaces/EventService/EventCard";
-import { IPawn } from "../../../interfaces/Pawns/Pawn";
+import { IPawn, IPawnHelper } from "../../../interfaces/Pawns/Pawn";
 import { ACTION, AdventureAction } from "../../../interfaces/ACTION";
 import { Construction } from "../ConstructionService/Construction";
 import { IGame } from "../../../interfaces/Game";
@@ -41,7 +41,7 @@ export class ResolvableItem implements IResolvableItem {
   constructor(
     item: Item,
     action: ACTION,
-    leaderPawn: IPawn,
+    leaderPawn: IPawn | IPawnHelper,
     game: IGame,
     droppableID: string
   ) {

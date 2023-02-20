@@ -54,10 +54,6 @@ export class Beast implements IBeast {
     return this._weaponLoss;
   }
 
-  get reward(): IResources {
-    return this._reward;
-  }
-
   protected getLeader() {
     const pawn = this._game.actionSlotService.getPawn("hunt-leader-0");
     if (!pawn) {

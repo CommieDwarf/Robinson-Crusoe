@@ -14,7 +14,9 @@ export class LostInTheThicket
       ADVENTURE_CARD_EXPLORE.LOST_IN_THE_THICKET,
       "zagubiony w gęstwinie",
       false,
-      game
+      game,
+      "discard",
+      ""
     );
   }
 

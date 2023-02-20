@@ -13,12 +13,11 @@ import {
 import { getItemFromDroppableId } from "../../../utils/getItemFromDroppableId";
 import { ResolvableItem } from "./ResolvableItem";
 import { actionOrder } from "../../../constants/actionOrder";
-import { IPawn } from "../../../interfaces/Pawns/Pawn";
+import { IPawn, IPawnHelper } from "../../../interfaces/Pawns/Pawn";
 import { ActionSlotService } from "../ActionSlotsService/ActionSlotService";
 import { MissingLeaderError } from "../Errors/MissingLeaderError";
 import { isAdventureAction } from "../../../utils/isAdventureAction";
 import i18n from "../../../I18n/I18n";
-import { PHASE } from "../../../interfaces/PhaseService/Phase";
 import { OccupiedSlots } from "../../../interfaces/ActionSlots";
 
 export class ActionService implements IActionService {
@@ -28,7 +27,7 @@ export class ActionService implements IActionService {
   private _skippableActions: ACTION[] = [];
   private _actionIndex = 0;
   private _finished: boolean = false;
-  private _occupiedSlots: Map<string, IPawn> = new Map();
+  private _occupiedSlots: Map<string, IPawn | IPawnHelper> = new Map();
   private _lastRolledItem: IResolvableItem | null = null;
   private _adventureTokens: ActionTokens = {
     build: false,
@@ -231,10 +230,25 @@ export class ActionService implements IActionService {
   }
 
   public resolve(resolvableItemID: string) {
+    if (this._game.adventureService.currentCard) {
+      return;
+    }
     const resolvableItem = this.getResolvableItem(resolvableItemID);
     resolvableItem.resolve();
     if (resolvableItem.shouldRollDices) {
       this._lastRolledItem = resolvableItem;
+    }
+    if (
+      isAdventureAction(resolvableItem.action) &&
+      (resolvableItem.rollDiceResults?.mystery.result === "mystery" ||
+        this._adventureTokens[resolvableItem.action])
+    ) {
+      this._game.adventureService.setCurrentCard(resolvableItem.action);
+      this.setAdventureToken(
+        resolvableItem.action,
+        false,
+        resolvableItem.action
+      );
     }
   }
 

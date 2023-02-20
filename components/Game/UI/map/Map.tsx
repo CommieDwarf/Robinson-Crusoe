@@ -8,7 +8,6 @@ import tileStyles from "./Tile/Tile.module.css";
 import getDragAndScrollHandle from "../../../../utils/dragAndScrollHandle";
 import Tile from "./Tile/Tile";
 import Hunt from "../Hunt/Hunt";
-import { IPawnRenderData } from "../../../../interfaces/Pawns/Pawn";
 import { ITileRenderData } from "../../../../interfaces/TileService/ITile";
 import { ITilesServiceRenderData } from "../../../../interfaces/TileService/ITileService";
 import magnifyingGlass from "/public/UI/map/magnifying-glass.png";

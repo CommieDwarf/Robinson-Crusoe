@@ -1,14 +1,11 @@
 import styles from "./Castaways.module.css";
 import Image from "next/image";
-import { RoundSquare } from "./Rounds/RoundSquare";
 import { Description } from "./Description/Description";
 import { WoodStack } from "./WoodStack/WoodStack";
 
 import Invention from "../../../../inventions/Invention/Invention";
 import React from "react";
 import { IInventionRenderData } from "../../../../../../../interfaces/InventionService/Invention";
-import { IPawnRenderData } from "../../../../../../../interfaces/Pawns/Pawn";
-import { castaways } from "../../../../../../../constants/scenarios/castaways";
 
 import scenarioBackgroundImg from "/public/UI/scenarios/background.png";
 import bookEffectImg from "/public/UI/scenarios/castaways/book-effect.png";
@@ -83,7 +80,7 @@ export default function Castaways(props: Props) {
                 column={i + 1}
                 row={1}
                 top={-100}
-                zIndex={props.zIndex}
+                zIndexIncreased={props.zIndex.includes(inv.name)}
               />
             );
           })}

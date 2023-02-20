@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as THREE from "three";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./RollDiceAnimation.module.css";
 
 import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeometry";
@@ -24,7 +24,6 @@ import {
   ActionDiceResults,
   WeatherDice,
   WeatherDiceResult,
-  WeatherDiceResults,
 } from "../../../../interfaces/RollDice/RollDice";
 import { cancelAnimationFrame, requestAnimationFrame } from "dom-helpers";
 import { IDice } from "../../../../interfaces/Dice/Dice";
@@ -143,8 +142,6 @@ export const RollDiceAnimation = (props: Props) => {
       scene.add(dice.mesh);
       scene.add(dice.light);
       scene.add(dice.light.target);
-      const helper = new THREE.SpotLightHelper(dice.light);
-      // scene.add(helper);
     });
 
     function animation() {
@@ -204,7 +201,7 @@ export const RollDiceAnimation = (props: Props) => {
     }
 
     function handleMouseLeave(event: MouseEvent) {
-      dices.forEach((dice, string) => {
+      dices.forEach((dice) => {
         dice.onMouseLeave();
       });
     }

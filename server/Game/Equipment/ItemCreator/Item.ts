@@ -34,10 +34,6 @@ export class Item implements IItem {
     return this._game;
   }
 
-  get discarded(): boolean {
-    return this._discarded;
-  }
-
   get hasUses() {
     return this._uses > 0;
   }

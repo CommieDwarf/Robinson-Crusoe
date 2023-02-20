@@ -10,7 +10,14 @@ export class VisitOfAPredator
   protected _eventNamePL = "nocna wizyta";
 
   constructor(game: IGame) {
-    super(ADVENTURE_CARD_BUILD.UNMOTIVATED, "wizyta bestii", false, game);
+    super(
+      ADVENTURE_CARD_BUILD.UNMOTIVATED,
+      "wizyta bestii",
+      false,
+      game,
+      "shuffle",
+      ""
+    );
   }
 
   option1() {
@@ -18,7 +25,7 @@ export class VisitOfAPredator
     this.shuffleIntoEventDeck();
   }
 
-  eventEffect() {
+  triggerEffect() {
     //TODO: implement throw animals weather dice.
   }
 }

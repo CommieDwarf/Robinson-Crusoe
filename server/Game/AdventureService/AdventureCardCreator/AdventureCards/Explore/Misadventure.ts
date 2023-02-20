@@ -14,7 +14,9 @@ export class Misadventure
       ADVENTURE_CARD_EXPLORE.MISADVENTURE,
       "nieszczęśliwy wypadek",
       false,
-      game
+      game,
+      "shuffle",
+      ""
     );
   }
 
@@ -23,7 +25,7 @@ export class Misadventure
     this.shuffleIntoEventDeck();
   }
 
-  eventEffect() {
+  triggerEffect() {
     //TODO: implement action reduction
     // to rest, arrange camp, build.
     // Discard wound

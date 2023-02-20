@@ -7,9 +7,9 @@
 }
 
 .current {
-    -webkit-box-shadow: inset 0px 0px 40px -16px rgba(96, 201, 75, 1);
-    -moz-box-shadow: inset 0px 0px 40px -16px rgba(96, 201, 75, 1);
-    box-shadow: inset 0px 0px 40px -16px rgba(96, 201, 75, 1);
+    -webkit-box-shadow: inset 0 0 40px -16px rgba(96, 201, 75, 1);
+    -moz-box-shadow: inset 0 0 40px -16px rgba(96, 201, 75, 1);
+    box-shadow: inset 0 0 40px -16px rgba(96, 201, 75, 1);
 }
 
 .moraleBar0 {

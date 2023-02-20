@@ -7,7 +7,14 @@ export class ThornyBush extends ExploreAdventureCard implements IAdventureCard {
   protected _eventNamePL = "spuchnięte ramię";
 
   constructor(game: IGame) {
-    super(ADVENTURE_CARD_EXPLORE.THORNY_BUSH, "kolczasty krzew", false, game);
+    super(
+      ADVENTURE_CARD_EXPLORE.THORNY_BUSH,
+      "kolczasty krzew",
+      false,
+      game,
+      "shuffle",
+      ""
+    );
   }
 
   option1() {
@@ -15,7 +22,7 @@ export class ThornyBush extends ExploreAdventureCard implements IAdventureCard {
     this.shuffleIntoEventDeck();
   }
 
-  eventEffect() {
+  triggerEffect() {
     //TODO: implement
   }
 }

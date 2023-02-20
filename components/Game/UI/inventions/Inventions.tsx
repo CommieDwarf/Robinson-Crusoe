@@ -6,7 +6,6 @@ import Invention from "./Invention/Invention";
 import Scrollbar from "../Scrollbar";
 import { IInventionRenderData } from "../../../../interfaces/InventionService/Invention";
 import { objectsEqual } from "../../../../utils/objectsEqual";
-import { sleep } from "../../../../utils/sleep";
 
 interface Props {
   inventions: IInventionRenderData[];

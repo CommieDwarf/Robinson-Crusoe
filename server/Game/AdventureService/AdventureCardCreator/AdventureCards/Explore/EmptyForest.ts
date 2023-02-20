@@ -10,14 +10,21 @@ export class EmptyForest
   protected _eventNamePL = "głodne drapieżniki";
 
   constructor(game: IGame) {
-    super(ADVENTURE_CARD_EXPLORE.EMPTY_FOREST, "pusty las", false, game);
+    super(
+      ADVENTURE_CARD_EXPLORE.EMPTY_FOREST,
+      "pusty las",
+      false,
+      game,
+      "shuffle",
+      ""
+    );
   }
 
   option1() {
     this.shuffleIntoEventDeck();
   }
 
-  eventEffect() {
+  triggerEffect() {
     //TODO: implement token at hunt which makes beast stronger.
   }
 }

@@ -1,14 +1,12 @@
 import {
   ActionDice,
   ActionDiceResult,
-  ActionDiceSide,
   WeatherDice,
   WeatherDiceResult,
-  WeatherDiceSide,
 } from "../RollDice/RollDice";
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeometry";
-import { DirectionalLight, SpotLight } from "three";
+import { SpotLight } from "three";
 
 export interface IDice {
   result: ActionDiceResult | WeatherDiceResult;

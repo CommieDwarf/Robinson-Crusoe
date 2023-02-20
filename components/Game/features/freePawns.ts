@@ -34,5 +34,3 @@ export const {
   fridayPawnsUpdated,
   dogPawnsUpdated,
 } = freePawnsSlice.actions;
-
-export default freePawnsSlice.reducer;

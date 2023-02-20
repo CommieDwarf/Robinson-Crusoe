@@ -7,7 +7,14 @@ export class ColdWind extends ExploreAdventureCard implements IAdventureCard {
   protected _eventNamePL = "Śnieg";
 
   constructor(game: IGame) {
-    super(ADVENTURE_CARD_EXPLORE.COLD_WIND, "zimny wiatr", false, game);
+    super(
+      ADVENTURE_CARD_EXPLORE.COLD_WIND,
+      "zimny wiatr",
+      false,
+      game,
+      "shuffle",
+      ""
+    );
   }
 
   option1() {
@@ -16,7 +23,7 @@ export class ColdWind extends ExploreAdventureCard implements IAdventureCard {
 
   option2() {}
 
-  eventEffect() {
+  triggerEffect() {
     this._game.weatherService.setToken("snow", true, this._eventNamePL);
   }
 }

@@ -7,7 +7,14 @@ export class Tired extends BuildAdventureCard implements IAdventureCard {
   protected _eventNamePL = "spór";
 
   constructor(game: IGame) {
-    super(ADVENTURE_CARD_BUILD.TIRED, "wyczerpany", true, game);
+    super(
+      ADVENTURE_CARD_BUILD.TIRED,
+      "wyczerpany",
+      true,
+      game,
+      "shuffle",
+      "discard"
+    );
   }
 
   option1() {}
@@ -17,7 +24,7 @@ export class Tired extends BuildAdventureCard implements IAdventureCard {
     this.shuffleIntoEventDeck();
   }
 
-  eventEffect() {
+  triggerEffect() {
     this._game.moraleService.lvlDown(1, this._eventNamePL);
   }
 }

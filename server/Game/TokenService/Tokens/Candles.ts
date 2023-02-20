@@ -1,7 +1,7 @@
 import { Token } from "./Token/Token";
 import { IGame } from "../../../../interfaces/Game";
 import { IPlayerCharacter } from "../../../../interfaces/Characters/PlayerCharacter";
-import { HelperPawn } from "../../PawnService/Pawn/HelperPawn";
+import { PawnHelper } from "../../PawnService/Pawn/PawnHelper";
 import { PAWN_HELPER_ACTION } from "../../../../interfaces/Pawns/Pawn";
 import { DISCOVERY_TOKEN } from "../../../../interfaces/TokenService/Token";
 import { ICharacter } from "../../../../interfaces/Characters/Character";
@@ -17,7 +17,7 @@ export class Candles extends Token {
 
   use(user: IPlayerCharacter, target: ICharacter | null = null) {
     const pawnService = user.pawnService;
-    const pawn = new HelperPawn(user, true, PAWN_HELPER_ACTION.BUILD);
+    const pawn = new PawnHelper(user, true, PAWN_HELPER_ACTION.BUILD);
     pawnService.addPawn(pawn);
     pawnService.copyPawnToFreePawns(pawn.draggableId);
     this._used = true;

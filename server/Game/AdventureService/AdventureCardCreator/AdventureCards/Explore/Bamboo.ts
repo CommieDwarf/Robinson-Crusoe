@@ -7,7 +7,14 @@ export class Bamboo extends ExploreAdventureCard implements IAdventureCard {
   protected _eventNamePL = "trzask łamanego drewna!";
 
   constructor(game: IGame) {
-    super(ADVENTURE_CARD_EXPLORE.BAMBOO, "bambus", true, game);
+    super(
+      ADVENTURE_CARD_EXPLORE.BAMBOO,
+      "bambus",
+      true,
+      game,
+      "discard",
+      "shuffle"
+    );
   }
 
   option1() {}
@@ -17,7 +24,7 @@ export class Bamboo extends ExploreAdventureCard implements IAdventureCard {
     this.shuffleIntoEventDeck();
   }
 
-  eventEffect() {
+  triggerEffect() {
     //TODO: implement choice between -1 roof and -1 palisade.
   }
 }

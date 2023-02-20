@@ -8,7 +8,14 @@ export class Mushrooms extends GatherAdventureCard implements IAdventureCard {
   protected _eventNamePL = "rozwolnienie";
 
   constructor(game: IGame) {
-    super(ADVENTURE_CARD_GATHER.MUSHROOMS, "grzyby", true, game);
+    super(
+      ADVENTURE_CARD_GATHER.MUSHROOMS,
+      "grzyby",
+      true,
+      game,
+      "discard",
+      "shuffle"
+    );
   }
 
   option1() {}
@@ -17,7 +24,7 @@ export class Mushrooms extends GatherAdventureCard implements IAdventureCard {
     this._game.resourceService.addResourceToOwned("food", 1, this._namePL);
   }
 
-  eventEffect() {
+  triggerEffect() {
     if (!this._game.inventionService.isBuilt(INVENTION_STARTER.MEDICINE)) {
       this._game.characterService.hurtAllPlayerCharacters(1, this._eventNamePL);
     }

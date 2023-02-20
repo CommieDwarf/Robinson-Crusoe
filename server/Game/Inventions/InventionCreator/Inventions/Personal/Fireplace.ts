@@ -27,7 +27,7 @@ export class Fireplace extends Invention implements IInvention {
     const canAfford = this._game.resourceService.canAffordResource("food", 1);
     if (!canAfford) {
       this._game.alertService.setAlert(
-        `${this._logSource}: nie masz wystarczająco jedzenia żeby użyc tej karty.`
+        `${this._logSource}: nie masz wystarczająco jedzenia żeby użyć tej karty.`
       );
       return;
     }

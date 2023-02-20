@@ -1,13 +1,13 @@
 import shuffle from "../../../utils/shuffleArray";
-import {TileType, tileTypes} from "../../../constants/tilleTypes";
+import { TileType, tileTypes } from "../../../constants/tilleTypes";
 import {
   ITileService,
   ITilesServiceRenderData,
 } from "../../../interfaces/TileService/ITileService";
-import {ITile, TERRAIN_TYPE} from "../../../interfaces/TileService/ITile";
-import {IGame} from "../../../interfaces/Game";
-import {TileGraph} from "./TileGraph/TileGraph";
-import {ITileGraph} from "../../../interfaces/TileService/ITileGraph";
+import { ITile, TERRAIN_TYPE } from "../../../interfaces/TileService/ITile";
+import { IGame } from "../../../interfaces/Game";
+import { TileGraph } from "./TileGraph/TileGraph";
+import { ITileGraph } from "../../../interfaces/TileService/ITileGraph";
 
 export class TileService implements ITileService {
   _tileGraph: ITileGraph;
@@ -76,8 +76,8 @@ export class TileService implements ITileService {
 
   get tilesAroundCamp() {
     return this._tileGraph
-        .getBorderVertices(this.campTile.id)
-        .map((vertex) => vertex.data);
+      .getBorderVertices(this.campTile.id)
+      .map((vertex) => vertex.data);
   }
 
   public clearMarkedForDepletion() {
@@ -168,15 +168,15 @@ export class TileService implements ITileService {
 
   public moveCamp(tileID: number) {
     if (
-        this._game.phaseService.phase === "night" &&
-        this.getTile(tileID).canCampBeSettled
+      this._game.phaseService.phase === "night" &&
+      this.getTile(tileID).canCampBeSettled
     ) {
       this._tileGraph.moveCamp(tileID);
       this.campJustMoved = true;
       this._game.chatLog.addMessage(
-          "Obóz został przeniesiony.",
-          "green",
-          "Noc"
+        "Obóz został przeniesiony.",
+        "green",
+        "Noc"
       );
     } else {
       throw Error(`Cant transfer camp. tileID: ${tileID}`);
@@ -194,15 +194,6 @@ export class TileService implements ITileService {
     if (this.resourceAmountToDeplete === 0) {
       this.clearMarkedForDepletion();
     }
-  }
-
-  public static getTileIdFromDroppableId(droppableId: string): number {
-    const droppableArr = droppableId.split("-");
-    const id = parseInt(droppableArr[1]);
-    if (!id) {
-      throw new Error("Couldnt find tile id from " + droppableId);
-    }
-    return id;
   }
 
   private showAdjacentTiles(id: number) {

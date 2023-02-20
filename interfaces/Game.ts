@@ -26,7 +26,6 @@ import {
   ICharacterServiceRenderData,
 } from "./CharacterService/CharacterService";
 import { IEquipment, IEquipmentRenderData } from "./Equipment/Equipment";
-import { Player } from "../server/Classes/Players/Player";
 import {
   IInventionService,
   IInventionServiceRenderData,
@@ -61,6 +60,11 @@ import {
   ITokenService,
   ITokenServiceRenderData,
 } from "./TokenService/TokenService";
+import {
+  IAdventureService,
+  IAdventureServiceRenderData,
+} from "./AdventureService/AdventureService";
+import { Player } from "../server/Game/Players/Player";
 
 export interface IGameRenderData {
   players: IPlayerRenderData[];
@@ -84,6 +88,7 @@ export interface IGameRenderData {
   weatherService: IWeatherServiceRenderData;
   allPawns: IPawnRenderData[];
   tokenService: ITokenServiceRenderData;
+  adventureService: IAdventureServiceRenderData;
 }
 
 export interface IGame {
@@ -114,5 +119,6 @@ export interface IGame {
   unsetPawn: (destinationId: string, draggableId: string) => void;
   resetPawns: () => void;
   actionSlotRenderData: IActionSlotServiceRenderData;
+  adventureService: IAdventureService;
   renderData: IGameRenderData;
 }

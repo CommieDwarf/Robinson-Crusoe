@@ -7,7 +7,7 @@ export class Furs extends GatherAdventureCard implements IAdventureCard {
   protected _eventNamePL = "insekty";
 
   constructor(game: IGame) {
-    super(ADVENTURE_CARD_GATHER.FURS, "skóry", true, game);
+    super(ADVENTURE_CARD_GATHER.FURS, "skóry", true, game, "discard", "");
   }
 
   option1() {}
@@ -16,7 +16,7 @@ export class Furs extends GatherAdventureCard implements IAdventureCard {
     this._game.resourceService.addResourceToOwned("leather", 2, this._namePL);
   }
 
-  eventEffect() {
+  triggerEffect() {
     //TODO: decrement 1 food in production phase if possible
   }
 }

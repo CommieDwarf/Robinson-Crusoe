@@ -7,11 +7,7 @@ import { IPlayerCharacter } from "../../../interfaces/Characters/PlayerCharacter
 import { ISideCharacter } from "../../../interfaces/Characters/SideCharacter";
 import { PlayerCharacter } from "./Characters/Character/PlayerCharacter/PlayerCharacter";
 import { IGame } from "../../../interfaces/Game";
-import { SideCharacter } from "./Characters/Character/SideCharacter/SideCharacter";
-import {
-  CHARACTER,
-  ICharacter,
-} from "../../../interfaces/Characters/Character";
+import { ICharacter } from "../../../interfaces/Characters/Character";
 import { Dog } from "./Characters/Dog";
 import { Friday } from "./Characters/Friday";
 

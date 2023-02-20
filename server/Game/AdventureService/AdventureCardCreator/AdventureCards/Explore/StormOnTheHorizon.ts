@@ -14,7 +14,9 @@ export class StormOnTheHorizon
       ADVENTURE_CARD_EXPLORE.STORM_ON_THE_HORIZON,
       "nadciąga sztorm",
       false,
-      game
+      game,
+      "shuffle",
+      ""
     );
   }
 
@@ -22,7 +24,7 @@ export class StormOnTheHorizon
     this.shuffleIntoEventDeck();
   }
 
-  eventEffect() {
+  triggerEffect() {
     this._game.weatherService.setToken("storm", true, this._eventNamePL);
   }
 }

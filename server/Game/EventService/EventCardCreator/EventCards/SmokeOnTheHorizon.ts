@@ -5,7 +5,6 @@ import {
 } from "../../../../../interfaces/EventService/EventCard";
 import { IGame } from "../../../../../interfaces/Game";
 import { EVENT_CARD } from "../../../../../interfaces/EventService/EVENT_CARD";
-import { CONSTRUCTION } from "../../../../../interfaces/ConstructionService/Construction";
 
 export class SmokeOnTheHorizon extends EventCard implements IEventCard {
   protected readonly _namePL = "dym na horyzoncie";

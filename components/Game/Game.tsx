@@ -32,10 +32,8 @@ import { INVENTION_TYPE } from "../../interfaces/InventionService/Invention";
 import { canPawnBeSettled } from "../../utils/canPawnBeSettled";
 
 import { IGameRenderData } from "../../interfaces/Game";
-import { IPawnRenderData } from "../../interfaces/Pawns/Pawn";
 import { NextPhaseButton } from "./UI/nextPhaseButton/NextPhaseButton";
 import { ActionResolveWindow } from "./UI/ActionResolveWindow/ActionResolveWindow";
-import { ACTION } from "../../interfaces/ACTION";
 import { setNextAction } from "../../pages/api/setNextAction";
 import utilizeToken from "../../pages/api/utilizeToken";
 import setNextPhase from "../../pages/api/setNextPhase";
@@ -51,12 +49,13 @@ import { ITileRenderData } from "../../interfaces/TileService/ITile";
 import { ConfirmCampMove } from "./UI/ConfirmCampMove/ConfirmCampMove";
 import { sleep } from "../../utils/sleep";
 import rollActionDices from "../../pages/api/rollActionDices";
-import { Adventure } from "./UI/Adventure/Adventure";
+import Adventure from "./UI/Adventure/Adventure";
 import depleteResource from "../../pages/api/depleteResource";
 import reRollActionDice from "../../pages/api/reRollActionDice";
 import useSkill from "../../pages/api/useSkill";
 import { ActionDice } from "../../interfaces/RollDice/RollDice";
 import { useAppSelector } from "../../store/hooks";
+import resolveAdventureCard from "../../pages/api/resolveAdventureCard";
 
 interface Props {
   gameRenderData: IGameRenderData;
@@ -81,6 +80,11 @@ export default function Game(props: Props) {
   function useReRollSkill(dice: ActionDice) {
     // Fixed for now
     useSkill("scrounger", "cook", dice);
+    props.updateGameRenderData();
+  }
+
+  function handleResolveAdventureCard(option: 1 | 2) {
+    resolveAdventureCard(option);
     props.updateGameRenderData();
   }
 
@@ -276,7 +280,13 @@ export default function Game(props: Props) {
 
   return (
     <div className={styles.game}>
-      {/*<Adventure />*/}
+      {props.gameRenderData.adventureService.currentCard && (
+        <Adventure
+          card={props.gameRenderData.adventureService.currentCard}
+          resolve={handleResolveAdventureCard}
+        />
+      )}
+
       {props.gameRenderData.phaseService.phase === "night" && nextCamp && (
         <ConfirmCampMove
           currentCamp={props.gameRenderData.tileService.campTile}

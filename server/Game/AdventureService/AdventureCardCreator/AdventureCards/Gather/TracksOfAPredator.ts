@@ -15,7 +15,9 @@ export class TracksOfAPredator
       ADVENTURE_CARD_GATHER.TRACKS_OF_A_PREDATOR,
       "niebezpieczne ślady",
       false,
-      game
+      game,
+      "shuffle",
+      ""
     );
   }
 
@@ -23,7 +25,7 @@ export class TracksOfAPredator
     this.shuffleIntoEventDeck();
   }
 
-  eventEffect() {
+  triggerEffect() {
     if (
       this._game.constructionService.getConstruction(CONSTRUCTION.WEAPON).lvl <
       3

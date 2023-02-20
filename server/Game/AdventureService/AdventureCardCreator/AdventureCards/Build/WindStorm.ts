@@ -8,7 +8,14 @@ export class WindStorm extends BuildAdventureCard implements IAdventureCard {
   protected _eventNamePL = "naturalna palisada";
 
   constructor(game: IGame) {
-    super(ADVENTURE_CARD_BUILD.WIND_STORM, "wichura", false, game);
+    super(
+      ADVENTURE_CARD_BUILD.WIND_STORM,
+      "wichura",
+      false,
+      game,
+      "shuffle",
+      ""
+    );
   }
 
   option1() {
@@ -20,7 +27,7 @@ export class WindStorm extends BuildAdventureCard implements IAdventureCard {
     this.shuffleIntoEventDeck();
   }
 
-  eventEffect() {
+  triggerEffect() {
     if (this._game.constructionService.isBuilt(CONSTRUCTION.SHELTER)) {
       this._game.constructionService.lvlUpConstruction(
         CONSTRUCTION.PALISADE,

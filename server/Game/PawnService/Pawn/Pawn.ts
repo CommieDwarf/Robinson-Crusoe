@@ -8,7 +8,19 @@ export class Pawn implements IPawn {
     this._draggableId = character.name + "pawn" + id;
   }
 
-  public get renderData(): IPawnRenderData {
+  get renderData(): IPawnRenderData {
+    return this.getRenderData();
+  }
+
+  get draggableId(): string {
+    return this._draggableId;
+  }
+
+  get character(): ICharacter {
+    return this._character;
+  }
+
+  protected getRenderData(): IPawnRenderData {
     return {
       draggableId: this.draggableId,
       character: {
@@ -20,14 +32,6 @@ export class Pawn implements IPawn {
         determination: this.character.determination,
       },
     };
-  }
-
-  get draggableId(): string {
-    return this._draggableId;
-  }
-
-  get character(): ICharacter {
-    return this._character;
   }
 
   private readonly _draggableId: string;

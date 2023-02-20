@@ -1,8 +1,5 @@
 import { PlayerCharacter } from "./Character/PlayerCharacter/PlayerCharacter";
-import {
-  IPlayerCharacter,
-  PlayerCharacterName,
-} from "../../../../interfaces/Characters/PlayerCharacter";
+import { IPlayerCharacter } from "../../../../interfaces/Characters/PlayerCharacter";
 import { IGame } from "../../../../interfaces/Game";
 import { CHARACTER, Gender } from "../../../../interfaces/Characters/Character";
 import { IPlayer } from "../../../../interfaces/PlayerService/Player";

@@ -14,7 +14,9 @@ export class PredatorInTheCamp
       ADVENTURE_CARD_BUILD.PREDATOR_IN_THE_CAMP,
       "bestia w obozie",
       false,
-      game
+      game,
+      "shuffle",
+      ""
     );
   }
 
@@ -23,7 +25,7 @@ export class PredatorInTheCamp
     this.shuffleIntoEventDeck();
   }
 
-  eventEffect() {
+  triggerEffect() {
     this._game.resourceService.addResourceToOwned("food", 2, this.eventNamePL);
     this._game.resourceService.addResourceToOwned(
       "leather",

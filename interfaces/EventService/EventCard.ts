@@ -1,6 +1,5 @@
-import { IResources, IResourcesAmount } from "../Resources/Resources";
+import { IResources } from "../Resources/Resources";
 import { CONSTRUCTION } from "../ConstructionService/Construction";
-import { ICharacter } from "../Characters/Character";
 import { INVENTION_STARTER } from "../InventionService/Invention";
 import { AdventureAction } from "../ACTION";
 
@@ -24,14 +23,6 @@ export interface EventResolveRequirements {
     lvl: number;
   } | null;
   resource: IResources | null;
-}
-
-export interface EventEffects {
-  triggerEffect(): void;
-
-  fullFill(character: ICharacter, helper: boolean): void;
-
-  triggerThreatEffect(): void;
 }
 
 export interface IEventCard {

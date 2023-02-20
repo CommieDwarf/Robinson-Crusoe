@@ -11,7 +11,14 @@ export class NiceSurprise
   protected _eventNamePL = "zapadnięty dach";
 
   constructor(game: IGame) {
-    super(ADVENTURE_CARD_GATHER.NICE_SURPRISE, "okazja", true, game);
+    super(
+      ADVENTURE_CARD_GATHER.NICE_SURPRISE,
+      "okazja",
+      true,
+      game,
+      "discard",
+      "shuffle"
+    );
   }
 
   option1() {}
@@ -20,7 +27,7 @@ export class NiceSurprise
     this._game.resourceService.addResourceToOwned("wood", 3, this._namePL);
   }
 
-  eventEffect() {
+  triggerEffect() {
     this._game.constructionService.setDividedLvlByTwo(
       CONSTRUCTION.ROOF,
       this._eventNamePL

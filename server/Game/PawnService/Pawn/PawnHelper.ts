@@ -1,11 +1,12 @@
 import {
   IPawnHelper,
+  IPawnHelperRenderData,
   PAWN_HELPER_ACTION,
 } from "../../../../interfaces/Pawns/Pawn";
 import { IPlayerCharacter } from "../../../../interfaces/Characters/PlayerCharacter";
 import { Pawn } from "./Pawn";
 
-export class HelperPawn extends Pawn implements IPawnHelper {
+export class PawnHelper extends Pawn implements IPawnHelper {
   action: PAWN_HELPER_ACTION;
   disposable: boolean;
   disposed = false;
@@ -20,15 +21,9 @@ export class HelperPawn extends Pawn implements IPawnHelper {
     this.disposable = disposable;
   }
 
-  get renderData() {
+  get renderData(): IPawnHelperRenderData {
     return {
-      draggableId: this.draggableId,
-      character: {
-        id: this.character.id,
-        name: this.character.name,
-        namePL: this.character.namePL,
-        gender: this.character.gender,
-      },
+      ...super.getRenderData(),
       action: this.action,
       disposable: this.disposable,
     };

@@ -7,14 +7,14 @@ export class Sting extends BuildAdventureCard implements IAdventureCard {
   protected _eventNamePL = "dreszcze";
 
   constructor(game: IGame) {
-    super(ADVENTURE_CARD_BUILD.STING, "użądlenie", false, game);
+    super(ADVENTURE_CARD_BUILD.STING, "użądlenie", false, game, "shuffle", "");
   }
 
   option1() {
     //TODO: set wound
   }
 
-  eventEffect() {
+  triggerEffect() {
     //TODO: implement
   }
 }

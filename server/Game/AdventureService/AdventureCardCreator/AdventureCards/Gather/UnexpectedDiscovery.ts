@@ -14,7 +14,9 @@ export class UnexpectedDiscovery
       ADVENTURE_CARD_GATHER.UNEXPECTED_DISCOVERY,
       "niespodziewane znalezisko",
       false,
-      game
+      game,
+      "discard",
+      ""
     );
   }
 

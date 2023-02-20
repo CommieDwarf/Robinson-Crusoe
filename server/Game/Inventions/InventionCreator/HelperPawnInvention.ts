@@ -8,7 +8,7 @@ import {
 import { IGame } from "../../../../interfaces/Game";
 import { IResources } from "../../../../interfaces/Resources/Resources";
 import { PAWN_HELPER_ACTION } from "../../../../interfaces/Pawns/Pawn";
-import { HelperPawn } from "../../PawnService/Pawn/HelperPawn";
+import { PawnHelper } from "../../PawnService/Pawn/PawnHelper";
 import { ICharacter } from "../../../../interfaces/Characters/Character";
 import { IPlayerCharacter } from "../../../../interfaces/Characters/PlayerCharacter";
 
@@ -35,7 +35,7 @@ export class HelperPawnInvention extends Invention implements IInvention {
       this._character = this._game.playerService.primePlayer.getCharacter();
     }
 
-    const helperPawn = new HelperPawn(
+    const helperPawn = new PawnHelper(
       this._character as IPlayerCharacter,
       false,
       this._pawnHelperAction

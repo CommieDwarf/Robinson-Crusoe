@@ -6,10 +6,16 @@ import { CONSTRUCTION } from "../../../../../../interfaces/ConstructionService/C
 
 export class FastWork extends BuildAdventureCard implements IAdventureCard {
   protected _eventNamePL = "co nagle to po diable";
-  decideEvent = true;
 
   constructor(game: IGame) {
-    super(ADVENTURE_CARD_BUILD.FAST_WORK, "pośpiech", true, game);
+    super(
+      ADVENTURE_CARD_BUILD.FAST_WORK,
+      "pośpiech",
+      true,
+      game,
+      "discard",
+      "shuffle"
+    );
   }
 
   option1() {}
@@ -18,15 +24,7 @@ export class FastWork extends BuildAdventureCard implements IAdventureCard {
     //TODO: implement building another item + rolling dices for it
   }
 
-  eventEffect() {
-    this._game.constructionService.lvlDownOrSuffer(
-      CONSTRUCTION.PALISADE,
-      1,
-      this._eventNamePL
-    );
-  }
-
-  eventEffect2() {
+  triggerEffect() {
     this._game.constructionService.lvlDownOrSuffer(
       CONSTRUCTION.PALISADE,
       1,

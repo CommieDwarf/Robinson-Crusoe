@@ -40,10 +40,16 @@ import { IBeastService } from "../../interfaces/Beasts/BeastService";
 import { TokenService } from "./TokenService/TokenService";
 import { Cook } from "./CharacterService/Characters/Cook";
 import { IActionSlotServiceRenderData } from "../../interfaces/ActionSlots";
+import { AdventureService } from "./AdventureService/AdventureService";
+import { IAdventureService } from "../../interfaces/AdventureService/AdventureService";
 
 type ScenarioName = "castaways";
 
 export class GameClass implements IGame {
+  get adventureService(): IAdventureService {
+    return this._adventureService;
+  }
+
   get actionSlotService(): ActionSlotService {
     return this._actionSlotService;
   }
@@ -87,6 +93,7 @@ export class GameClass implements IGame {
   private _round = 10;
   private _scenarioService: IScenarioService = new Castaways(this);
   private _tokenService = new TokenService(this);
+  private _adventureService = new AdventureService(this);
 
   constructor(scenarioName: ScenarioName) {
     // this is hardcoded for demo purpose.
@@ -129,7 +136,7 @@ export class GameClass implements IGame {
       weatherService: this._weatherService.renderData,
       allPawns: this.allPawns.map((pawn) => pawn.renderData),
       tokenService: this._tokenService.renderData,
-      actionSlotService: this._actionSlotService.renderData,
+      adventureService: this._adventureService.renderData,
     };
   }
 

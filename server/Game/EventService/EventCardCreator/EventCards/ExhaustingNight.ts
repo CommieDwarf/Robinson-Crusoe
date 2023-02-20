@@ -5,7 +5,6 @@ import {
 } from "../../../../../interfaces/EventService/EventCard";
 import { IGame } from "../../../../../interfaces/Game";
 import { EVENT_CARD } from "../../../../../interfaces/EventService/EVENT_CARD";
-import { INVENTION_STARTER } from "../../../../../interfaces/InventionService/Invention";
 
 export class ExhaustingNight extends EventCard implements IEventCard {
   protected readonly _namePL = "wyczerpująca noc";

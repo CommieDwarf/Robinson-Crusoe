@@ -2,7 +2,6 @@ import { GatherAdventureCard } from "./GatherAdventureCard/GatherAdventureCard";
 import { IAdventureCard } from "../../../../../../interfaces/AdventureService/AdventureCard";
 import { IGame } from "../../../../../../interfaces/Game";
 import { ADVENTURE_CARD_GATHER } from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
-import { INVENTION_STARTER } from "../../../../../../interfaces/InventionService/Invention";
 
 export class SignsOfAPredator
   extends GatherAdventureCard
@@ -15,7 +14,9 @@ export class SignsOfAPredator
       ADVENTURE_CARD_GATHER.SIGNS_OF_A_PREDATOR,
       "ślady drapieżnika",
       false,
-      game
+      game,
+      "discard",
+      ""
     );
   }
 
