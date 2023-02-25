@@ -2,6 +2,7 @@ import { ExploreAdventureCard } from "./ExploreAdventureCard/ExploreAdventureCar
 import { IAdventureCard } from "../../../../../../interfaces/AdventureService/AdventureCard";
 import { IGame } from "../../../../../../interfaces/Game";
 import { ADVENTURE_CARD_EXPLORE } from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
+import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 
 export class DangerousTerrain
   extends ExploreAdventureCard
@@ -20,7 +21,7 @@ export class DangerousTerrain
     );
   }
 
-  option1() {
+  option1(resolver: ICharacter) {
     //TODO: implement beast token on tile and requirement 1 weapon or get hurt on any action on this tile.
   }
 }

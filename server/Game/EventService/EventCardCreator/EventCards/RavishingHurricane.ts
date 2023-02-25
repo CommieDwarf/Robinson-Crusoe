@@ -25,7 +25,7 @@ export class RavishingHurricane extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //TODO: if possible
     //TODO: deplete resources of border tile.
   }

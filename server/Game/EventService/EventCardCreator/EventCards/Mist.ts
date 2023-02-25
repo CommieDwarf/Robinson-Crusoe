@@ -24,12 +24,12 @@ export class Mist extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //TODO: put +1 required helper on explore action
   }
 
   triggerThreatEffect() {
-    this.triggerEffect();
+    this.triggerEventEffect();
     //TODO put question mark on explore action.
   }
 

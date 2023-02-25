@@ -71,18 +71,15 @@ export class TokenService implements ITokenService {
     this._owned.forEach((token) => token.autoDiscard());
   }
 
-  public useToken(
-    userName: string,
-    id: string,
-    targetName: string | null = null
-  ) {
-    const user = this._game.characterService.getCharacter(
-      userName
-    ) as IPlayerCharacter;
+  public useToken(id: string, targetName: string | null = null) {
+    const user = this._game.localPlayer.getCharacter();
     const target = targetName
       ? this._game.characterService.getCharacter(targetName)
       : null;
-    this.getOwnedToken(id).use(user, target);
+
+    //target fixed for now.
+    //TODO: make targeting other characters.
+    this.getOwnedToken(id).use(user, user);
     this.discardUsedTokens();
   }
 

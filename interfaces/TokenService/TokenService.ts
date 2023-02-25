@@ -3,7 +3,7 @@ import { IToken, ITokenRenderData } from "./Token";
 export interface ITokenService {
   ownedTokens: IToken[];
   renderData: ITokenServiceRenderData;
-  useToken: (userName: string, id: string, targetName: string | null) => void;
+  useToken: (id: string, targetName: string | null) => void;
   autoUseOwnedTokens: () => void;
   addRandomTokenToOwned: () => void;
 }

@@ -25,7 +25,7 @@ export class Despondency extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //TODO: next player becomes prime.
   }
 

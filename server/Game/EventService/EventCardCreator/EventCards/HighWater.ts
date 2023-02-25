@@ -26,7 +26,7 @@ export class HighWater extends EventCard implements IEventCard {
 
   //TODO: implement if shovel is built, no wood required.
 
-  triggerEffect() {
+  triggerEventEffect() {
     //TODO: set exploration question mark.
   }
 

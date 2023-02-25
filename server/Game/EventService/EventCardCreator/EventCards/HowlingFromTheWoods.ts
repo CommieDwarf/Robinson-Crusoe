@@ -26,7 +26,7 @@ export class HowlingFromTheWoods extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     const beasts = this._game.beastService.getBeastsFromStack(3);
     const strongestBeast = BeastService.getStrongestBeast(beasts);
     if (strongestBeast) {

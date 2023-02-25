@@ -2,6 +2,7 @@ import { ExploreAdventureCard } from "./ExploreAdventureCard/ExploreAdventureCar
 import { IAdventureCard } from "../../../../../../interfaces/AdventureService/AdventureCard";
 import { IGame } from "../../../../../../interfaces/Game";
 import { ADVENTURE_CARD_EXPLORE } from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
+import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 
 export class OldGrave extends ExploreAdventureCard implements IAdventureCard {
   protected _eventNamePL = "wspomnienia o martwym rozbitku";
@@ -17,13 +18,13 @@ export class OldGrave extends ExploreAdventureCard implements IAdventureCard {
     );
   }
 
-  option1() {
+  option1(resolver: ICharacter) {
     const character = this.getPrimeCharacter();
     this._game.characterService.decrDetermination(character, 1, this._namePL);
     this.shuffleIntoEventDeck();
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     const character = this.getPrimeCharacter();
     this._game.characterService.decrDetermination(
       character,

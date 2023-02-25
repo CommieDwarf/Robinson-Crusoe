@@ -24,7 +24,7 @@ export class ExhaustingNight extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //TODO: put reroll token on build action.
   }
 

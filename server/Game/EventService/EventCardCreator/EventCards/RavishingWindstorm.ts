@@ -23,7 +23,7 @@ export class RavishingWindstorm extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     this._game.constructionService.lvlDownIfPossible(
       CONSTRUCTION.WEAPON,
       1,

@@ -25,12 +25,12 @@ export class Termites extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     this._game.resourceService.spendResourceIfPossible("wood", 1, this._namePL);
   }
 
   triggerThreatEffect() {
-    this.triggerEffect();
+    this.triggerEventEffect();
   }
 
   fullFill() {

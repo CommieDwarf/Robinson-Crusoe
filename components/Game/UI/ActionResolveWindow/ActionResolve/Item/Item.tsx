@@ -174,20 +174,15 @@ export const Item = (props: Props) => {
     }
     if (props.resolvableItem.shouldReRollSuccess) {
       props.reRoll(props.resolvableItem.id);
-      console.log("reRoll");
     } else if (
       props.resolvableItem.shouldRollDices &&
       props.resolvableItem.resolveStatus === RESOLVE_ITEM_STATUS.PENDING
     ) {
-      console.log("roll dices");
       props.rollDices(props.resolvableItem.id);
     } else {
-      console.log("resolve");
       props.resolve(props.resolvableItem.id);
       setUsed(true);
     }
-
-    console.log(props.resolvableItem.rollDiceResults);
   }
 
   const lockedButtonClass =

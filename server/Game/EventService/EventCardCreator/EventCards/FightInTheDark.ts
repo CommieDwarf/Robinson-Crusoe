@@ -28,7 +28,7 @@ export class FightInTheDark extends EventCard implements IEventCard {
         );
     }
 
-    triggerEffect() {
+    triggerEventEffect() {
 
 
         if (this._game.beastService.deckCount > 0) {

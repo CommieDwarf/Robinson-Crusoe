@@ -23,7 +23,7 @@ export class Disaster extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //TODO: choose -1 roof or -1 palisade
   }
 

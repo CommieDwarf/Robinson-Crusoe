@@ -65,6 +65,10 @@ import {
   IAdventureServiceRenderData,
 } from "./AdventureService/AdventureService";
 import { Player } from "../server/Game/Players/Player";
+import {
+  IMysteryService,
+  IMysteryServiceRenderData,
+} from "./MysteryService/MysteryService";
 
 export interface IGameRenderData {
   players: IPlayerRenderData[];
@@ -89,6 +93,7 @@ export interface IGameRenderData {
   allPawns: IPawnRenderData[];
   tokenService: ITokenServiceRenderData;
   adventureService: IAdventureServiceRenderData;
+  mysteryService: IMysteryServiceRenderData;
 }
 
 export interface IGame {
@@ -120,5 +125,6 @@ export interface IGame {
   resetPawns: () => void;
   actionSlotRenderData: IActionSlotServiceRenderData;
   adventureService: IAdventureService;
+  mysteryService: IMysteryService;
   renderData: IGameRenderData;
 }

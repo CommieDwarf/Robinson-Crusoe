@@ -23,7 +23,7 @@ export class BrokenTree extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     this._game.characterService.hurtAllPlayerCharacters(1, this.name);
   }
 

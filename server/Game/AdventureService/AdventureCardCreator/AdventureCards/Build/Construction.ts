@@ -3,6 +3,7 @@ import { IAdventureCard } from "../../../../../../interfaces/AdventureService/Ad
 import { IGame } from "../../../../../../interfaces/Game";
 import { ADVENTURE_CARD_BUILD } from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
 import { CONSTRUCTION } from "../../../../../../interfaces/ConstructionService/Construction";
+import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 
 export class Construction extends BuildAdventureCard implements IAdventureCard {
   protected _eventNamePL = "mocniejsza konstrukcja";
@@ -18,11 +19,11 @@ export class Construction extends BuildAdventureCard implements IAdventureCard {
     );
   }
 
-  option1() {
+  option1(resolver: ICharacter) {
     this.shuffleIntoEventDeck();
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     if (
       this._game.constructionService.getConstruction(CONSTRUCTION.SHELTER).lvl >
       0

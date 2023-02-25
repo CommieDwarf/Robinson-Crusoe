@@ -25,7 +25,7 @@ export class Devastation extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //TODO: deplete 2 chosen resources around camp.
   }
 

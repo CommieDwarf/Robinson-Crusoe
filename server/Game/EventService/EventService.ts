@@ -96,7 +96,7 @@ export class EventService implements IEventService {
     if (!card) {
       throw new Error("There is no card to pull");
     }
-    card.triggerEffect();
+    card.triggerEventEffect();
     if (card instanceof EventCard) {
       this._eventSlots.right = card;
       card.setAdventureToken();

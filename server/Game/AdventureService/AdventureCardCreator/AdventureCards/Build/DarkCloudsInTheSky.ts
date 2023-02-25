@@ -3,6 +3,7 @@ import { IAdventureCard } from "../../../../../../interfaces/AdventureService/Ad
 import { IGame } from "../../../../../../interfaces/Game";
 import { ADVENTURE_CARD_BUILD } from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
 import { CONSTRUCTION } from "../../../../../../interfaces/ConstructionService/Construction";
+import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 
 export class DarkCloudsInTheSky
   extends BuildAdventureCard
@@ -21,12 +22,12 @@ export class DarkCloudsInTheSky
     );
   }
 
-  option1() {
+  option1(resolver: ICharacter) {
     this._game.weatherService.setToken("rain", true, this.namePL);
     this.shuffleIntoEventDeck();
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     if (this._game.constructionService.isBuilt(CONSTRUCTION.SHELTER)) {
       this._game.constructionService.lvlUpConstruction(
         CONSTRUCTION.PALISADE,

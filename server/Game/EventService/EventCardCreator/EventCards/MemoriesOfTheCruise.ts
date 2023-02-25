@@ -22,7 +22,7 @@ export class MemoriesOfTheCruise extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     this._game.moraleService.lvlDown(1, this._namePL);
   }
 

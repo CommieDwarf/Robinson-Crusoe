@@ -24,7 +24,7 @@ export class MessInTheCamp extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //TODO: put +1 required helper on arrange camp
   }
 

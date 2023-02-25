@@ -24,7 +24,7 @@ export class WreckedLifeboat extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //nothing
   }
 

@@ -27,7 +27,7 @@ export interface ICharacter {
   namePL: string;
   health: number;
   gender: Gender;
-  getRenderData: () => ICharacterRenderData;
+  renderData: ICharacterRenderData;
   determination: number;
   incrDetermination: (by: number) => void;
   decrDetermination: (by: number) => void;

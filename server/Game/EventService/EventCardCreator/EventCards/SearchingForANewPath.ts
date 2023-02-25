@@ -24,7 +24,7 @@ export class SearchingForANewPath extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //TODO: put reRoll on explore action.
   }
 

@@ -25,7 +25,7 @@ export class NaturalDamBreaks extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //TODO: +1 wood but no food in production phase.
     //TODO: put explore question mark.
   }

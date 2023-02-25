@@ -34,14 +34,15 @@ export class AdventureService implements IAdventureService {
     return this._currentCard;
   }
 
-  resolveAdventureCard(option: 1 | 2) {
+  resolveAdventureCard(option: 1 | 2, resolverName: string) {
     if (!this._currentCard) {
       throw new Error("There is no current card to resolve");
     }
+    const resolver = this._game.characterService.getCharacter(resolverName);
     if (option === 1 || !this._currentCard.shouldDecide) {
-      this._currentCard.option1();
+      this._currentCard.option1(resolver);
     } else {
-      this._currentCard.option2();
+      this._currentCard.option2(resolver);
     }
     this.unsetCurrentCard();
   }

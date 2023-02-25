@@ -2,6 +2,7 @@ import { ExploreAdventureCard } from "./ExploreAdventureCard/ExploreAdventureCar
 import { IAdventureCard } from "../../../../../../interfaces/AdventureService/AdventureCard";
 import { IGame } from "../../../../../../interfaces/Game";
 import { ADVENTURE_CARD_EXPLORE } from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
+import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 
 export class RuinedHut extends ExploreAdventureCard implements IAdventureCard {
   protected _eventNamePL = "niespokojne sny";
@@ -17,14 +18,14 @@ export class RuinedHut extends ExploreAdventureCard implements IAdventureCard {
     );
   }
 
-  option1() {}
+  option1(resolver: ICharacter) {}
 
-  option2() {
+  option2(resolver: ICharacter) {
     //TODO: implement free invention build (knife, rope, shovel or medicine)
     this.shuffleIntoEventDeck();
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     this._game.moraleService.lvlDown(1, this._eventNamePL);
   }
 }

@@ -3,6 +3,7 @@ import { IAdventureCard } from "../../../../../../interfaces/AdventureService/Ad
 import { IGame } from "../../../../../../interfaces/Game";
 import { ADVENTURE_CARD_GATHER } from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
 import { CONSTRUCTION } from "../../../../../../interfaces/ConstructionService/Construction";
+import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 
 export class Nestlings extends GatherAdventureCard implements IAdventureCard {
   protected _eventNamePL = "wściekłe ptaszysko";
@@ -18,9 +19,9 @@ export class Nestlings extends GatherAdventureCard implements IAdventureCard {
     );
   }
 
-  option1() {}
+  option1(resolver: ICharacter) {}
 
-  option2() {
+  option2(resolver: ICharacter) {
     const playerAmount = this._game.playerService.players.length;
     this._game.resourceService.addResourceToOwned(
       "food",
@@ -30,7 +31,7 @@ export class Nestlings extends GatherAdventureCard implements IAdventureCard {
     this.shuffleIntoEventDeck();
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     this._game.constructionService.lvlDownOrSuffer(
       CONSTRUCTION.ROOF,
       1,

@@ -32,6 +32,15 @@ export class GameService implements IGameService {
     this._game.tileService.explore(11);
     this._game.localPlayer.getCharacter().incrDetermination(10);
     this._game.beastService.moveBeastFromStackToDeck();
+    this._game.actionService.setAdventureToken("build", true, "test");
+    this._game.actionService.setAdventureToken("explore", true, "test");
+    this._game.actionService.setAdventureToken("gather", true, "test");
+    this._game.mysteryService.startDrawingCards(
+      1,
+      1,
+      1,
+      this._game.localPlayer.getCharacter()
+    );
   }
 
   get renderData() {

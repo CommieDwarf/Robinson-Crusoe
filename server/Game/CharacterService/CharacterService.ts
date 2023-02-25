@@ -139,6 +139,9 @@ export class CharacterService implements ICharacterService {
     by: number,
     logSource: string
   ) {
+    if (by === 0) {
+      return;
+    }
     const char =
       typeof charOrName === "string"
         ? this.getCharacter(charOrName)
@@ -160,14 +163,25 @@ export class CharacterService implements ICharacterService {
     }
   }
 
-  decrDeterminationAllPlayerCharacters(by: number, logSource: string) {
+  decrDeterminationAllPlayerCharacters(amount: number, logSource: string) {
     this._game.chatLog.addMessage(
-      `Wszyscy gracze tracą ${by} determinację.`,
-      "red",
+      `Wszyscy gracze tracą ${amount} determinację.`,
+      "green",
       logSource
     );
     this.playerCharacters.forEach((char) => {
-      this.decrDetermination(char, by, "");
+      this.decrDetermination(char, amount, "");
     });
+  }
+
+  incrDeterminationAllCharacters(amount: number, logSource: string) {
+    this._game.chatLog.addMessage(
+      `Wszystkie postaci zyskują ${amount} determinacji.`,
+      "red",
+      logSource
+    );
+    this._allCharacters.forEach((char) =>
+      this.incrDetermination(char, amount, "")
+    );
   }
 }

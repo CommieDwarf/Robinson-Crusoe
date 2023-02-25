@@ -26,7 +26,7 @@ export class RavenousPredators extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //TODO: set beast strength +1.
   }
 

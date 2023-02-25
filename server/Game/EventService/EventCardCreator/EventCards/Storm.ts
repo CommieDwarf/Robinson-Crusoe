@@ -25,7 +25,7 @@ export class Storm extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     this._game.weatherService.setToken("storm", true, this._namePL);
   }
 

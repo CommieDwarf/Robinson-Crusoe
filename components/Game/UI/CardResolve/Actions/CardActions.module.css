@@ -1,0 +1,34 @@
+.container {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    position: absolute;
+    bottom: -30px;
+}
+
+
+.action {
+    width: 40%;
+    height: 30px;
+    border: 1px solid black;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    z-index: 9999999;
+    background-image: url("../../../../../public/UI/scenarios/background.png");
+    background-position-x: -40px;
+    background-position-y: -40px;
+    cursor: pointer;
+}
+
+.action:hover {
+    transform: scale(110%);
+    filter: contrast(120%)
+}
+
+.actionLocked {
+    cursor: default !important;
+    filter: opacity(70%) !important;
+    transform: none !important;;
+}

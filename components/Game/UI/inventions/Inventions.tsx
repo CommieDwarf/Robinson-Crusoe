@@ -62,7 +62,6 @@ function areEqual(prevProps: Props, nextProps: Props) {
   const start = Date.now();
   let equal = objectsEqual(prevProps, nextProps);
   const end = Date.now();
-  console.log("Inventions", end - start);
   return equal;
 }
 

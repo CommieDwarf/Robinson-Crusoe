@@ -12,7 +12,6 @@ interface Props {
 }
 
 export default function Hunt(props: Props) {
-  console.log(props.isDragDisabled, "DRAG DISABLED");
   const zIndexClass = props.zIndex.includes("hunt")
     ? styles.zIndexIncreased
     : "";

@@ -23,7 +23,7 @@ export class ColdRain extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     this._game.weatherService.setToken("rain", true, this._namePL);
   }
 

@@ -71,9 +71,6 @@ function areEqual(prevProps: Props, nextProps: Props) {
     nextProps.inventions
   );
 
-  console.log("zIndex", oldZIndex, nextZIndex);
-  console.log("inventions", inventionsEqual);
-
   return (
     oldZIndex === nextZIndex &&
     prevProps.show === nextProps.show &&

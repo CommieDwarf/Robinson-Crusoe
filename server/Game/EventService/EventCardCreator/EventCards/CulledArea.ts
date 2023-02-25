@@ -26,7 +26,7 @@ export class CulledArea extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //TODO: no food from production in this round
   }
 

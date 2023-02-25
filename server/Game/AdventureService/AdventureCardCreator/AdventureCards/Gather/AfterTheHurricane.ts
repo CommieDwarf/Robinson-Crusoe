@@ -2,6 +2,7 @@ import { IAdventureCard } from "../../../../../../interfaces/AdventureService/Ad
 import { IGame } from "../../../../../../interfaces/Game";
 import { ADVENTURE_CARD_GATHER } from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
 import { GatherAdventureCard } from "./GatherAdventureCard/GatherAdventureCard";
+import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 
 export class AfterTheHurricane
   extends GatherAdventureCard
@@ -20,12 +21,12 @@ export class AfterTheHurricane
     );
   }
 
-  option1() {
+  option1(resolver: ICharacter) {
     this._game.resourceService.addResourceToOwned("wood", 2, this._namePL);
     //TODO: put additional helper pawn at the tile.
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //TODO: make the tile unavailable.
   }
 }

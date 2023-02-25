@@ -22,7 +22,7 @@ export class CloudBurst extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     if (this._game.tileService.canCampBeMoved()) {
       this._game.tileService.forceCampMovement();
     } else {

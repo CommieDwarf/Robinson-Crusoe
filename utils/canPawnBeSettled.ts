@@ -11,11 +11,16 @@ export function canPawnBeSettled(
     return true;
   }
   if ("action" in pawn) {
+    if (destinationId.includes("freepawns")) {
+      return true;
+    } else if (destinationId.includes("leader")) {
+      return false;
+    }
     switch (pawn.action) {
       case "build":
         return (
           destinationId.includes("invention") ||
-          destinationId.includes("structure")
+          destinationId.includes("construction")
         );
       case "explore":
         return destinationId.includes("explore");

@@ -25,7 +25,7 @@ export class Drought extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //TODO: if possible cover river terrain on some tile.
     //TODO: treat as unexplored terrain.
   }

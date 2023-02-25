@@ -24,7 +24,7 @@ export class SleeplessNight extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //TODO: implement
   }
 

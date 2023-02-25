@@ -23,7 +23,7 @@ export class StormDamage extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //TODO: choose lvl down half roof or palisade.
   }
 

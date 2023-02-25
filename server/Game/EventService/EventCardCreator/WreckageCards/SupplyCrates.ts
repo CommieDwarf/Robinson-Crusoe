@@ -24,7 +24,7 @@ export class SupplyCrates extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     return;
   }
 

@@ -2,6 +2,7 @@ import { GatherAdventureCard } from "./GatherAdventureCard/GatherAdventureCard";
 import { IAdventureCard } from "../../../../../../interfaces/AdventureService/AdventureCard";
 import { IGame } from "../../../../../../interfaces/Game";
 import { ADVENTURE_CARD_GATHER } from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
+import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 
 export class EyesInTheBushes
   extends GatherAdventureCard
@@ -20,11 +21,11 @@ export class EyesInTheBushes
     );
   }
 
-  option1() {
+  option1(resolver: ICharacter) {
     this.shuffleIntoEventDeck();
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //TODO: set hungry animal in weather.
   }
 }

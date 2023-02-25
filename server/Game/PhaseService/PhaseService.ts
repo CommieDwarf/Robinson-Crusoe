@@ -59,6 +59,9 @@ export class PhaseService implements IPhaseService {
   }
 
   goNextPhase() {
+    if (this._game.mysteryService.isDrawingOn) {
+      return;
+    }
     if (this._phase === "action") {
       if (!this._game.actionService.finished) {
         return;
@@ -78,13 +81,14 @@ export class PhaseService implements IPhaseService {
       this._phase = phaseOrder[this._phaseIndex];
       this._game.alertService.clearAlert();
       this._game.actionSlotService.pawnDropIDAlert = null;
-      console.log(this._phase);
     } catch (error) {
       if (
         error instanceof MissingLeaderError ||
         error instanceof MissingHelperError
       ) {
         this.handleMissingPawnError(error);
+      } else {
+        throw error;
       }
     }
   }

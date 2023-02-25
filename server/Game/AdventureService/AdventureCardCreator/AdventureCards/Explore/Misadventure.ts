@@ -2,6 +2,7 @@ import { ExploreAdventureCard } from "./ExploreAdventureCard/ExploreAdventureCar
 import { IAdventureCard } from "../../../../../../interfaces/AdventureService/AdventureCard";
 import { IGame } from "../../../../../../interfaces/Game";
 import { ADVENTURE_CARD_EXPLORE } from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
+import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 
 export class Misadventure
   extends ExploreAdventureCard
@@ -20,12 +21,12 @@ export class Misadventure
     );
   }
 
-  option1() {
+  option1(resolver: ICharacter) {
     //TODO: implement wound
     this.shuffleIntoEventDeck();
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //TODO: implement action reduction
     // to rest, arrange camp, build.
     // Discard wound

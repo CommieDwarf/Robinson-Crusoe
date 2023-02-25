@@ -23,7 +23,7 @@ export class Rain extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     this._game.weatherService.tokens.rain = true;
   }
 

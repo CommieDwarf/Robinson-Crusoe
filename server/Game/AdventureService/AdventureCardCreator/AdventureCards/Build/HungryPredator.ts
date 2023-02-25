@@ -2,6 +2,7 @@ import { BuildAdventureCard } from "./BuildAdventureCard/BuildAdventureCard";
 import { IAdventureCard } from "../../../../../../interfaces/AdventureService/AdventureCard";
 import { IGame } from "../../../../../../interfaces/Game";
 import { ADVENTURE_CARD_BUILD } from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
+import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 import { CONSTRUCTION } from "../../../../../../interfaces/ConstructionService/Construction";
 
 export class HungryPredator
@@ -21,14 +22,14 @@ export class HungryPredator
     );
   }
 
-  option1() {
+  option1(resolver: ICharacter) {
     const character = this.getPrimeCharacter();
     this._game.characterService.hurt(character, 2, this._namePL);
     this._game.resourceService.addResourceToOwned("food", 2, this.namePL);
     this._game.resourceService.addResourceToOwned("leather", 1, this.namePL);
   }
 
-  option2() {
+  option2(resolver: ICharacter) {
     this._game.resourceService.spendResourceOrGetHurt("food", 1, this.namePL);
     this._game.constructionService.lvlDownOrSuffer(
       CONSTRUCTION.PALISADE,
@@ -38,7 +39,7 @@ export class HungryPredator
     this.shuffleIntoEventDeck();
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //todo: implement fighting beast by prime player
   }
 }

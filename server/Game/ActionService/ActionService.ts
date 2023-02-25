@@ -127,7 +127,7 @@ export class ActionService implements IActionService {
   }
 
   public setNextAction() {
-    if (!this.currentActionResolved) {
+    if (!this.currentActionResolved || this._game.mysteryService.isDrawingOn) {
       return;
     }
     this._lastRolledItem = null;
@@ -230,7 +230,10 @@ export class ActionService implements IActionService {
   }
 
   public resolve(resolvableItemID: string) {
-    if (this._game.adventureService.currentCard) {
+    if (
+      this._game.adventureService.currentCard ||
+      this._game.mysteryService.isDrawingOn
+    ) {
       return;
     }
     const resolvableItem = this.getResolvableItem(resolvableItemID);

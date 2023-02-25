@@ -3,6 +3,7 @@ import { IAdventureCard } from "../../../../../../interfaces/AdventureService/Ad
 import { IGame } from "../../../../../../interfaces/Game";
 import { ADVENTURE_CARD_GATHER } from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
 import { INVENTION_STARTER } from "../../../../../../interfaces/InventionService/Invention";
+import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 
 export class Mushrooms extends GatherAdventureCard implements IAdventureCard {
   protected _eventNamePL = "rozwolnienie";
@@ -18,13 +19,13 @@ export class Mushrooms extends GatherAdventureCard implements IAdventureCard {
     );
   }
 
-  option1() {}
+  option1(resolver: ICharacter) {}
 
-  option2() {
+  option2(resolver: ICharacter) {
     this._game.resourceService.addResourceToOwned("food", 1, this._namePL);
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     if (!this._game.inventionService.isBuilt(INVENTION_STARTER.MEDICINE)) {
       this._game.characterService.hurtAllPlayerCharacters(1, this._eventNamePL);
     }

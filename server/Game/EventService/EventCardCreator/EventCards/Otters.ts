@@ -28,7 +28,7 @@ export class Otters extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     this._game.tileService.markClosestResourceForDepletion("food");
     if (this._game.tileService.countMarkedResourceForDepletion() === 0) {
       this._game.characterService.hurtAllPlayerCharacters(1, this._namePL);

@@ -24,7 +24,7 @@ export class LossOfHope extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //TODO: In this round prime player can use only rest, arrange camp and build
   }
 

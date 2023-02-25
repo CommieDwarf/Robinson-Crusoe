@@ -26,7 +26,7 @@ export class PredatorsInTheWoods extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //TODO: put beast token on explore action.
   }
 

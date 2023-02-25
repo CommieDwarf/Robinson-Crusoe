@@ -24,12 +24,12 @@ export class RoughPassage extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //TODO: if possible cover hills terrain on chosen tile.
   }
 
   triggerThreatEffect() {
-    this.triggerEffect();
+    this.triggerEventEffect();
   }
 
   fullFill() {

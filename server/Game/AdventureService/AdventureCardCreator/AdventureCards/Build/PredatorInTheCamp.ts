@@ -2,6 +2,7 @@ import { BuildAdventureCard } from "./BuildAdventureCard/BuildAdventureCard";
 import { IAdventureCard } from "../../../../../../interfaces/AdventureService/AdventureCard";
 import { IGame } from "../../../../../../interfaces/Game";
 import { ADVENTURE_CARD_BUILD } from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
+import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 
 export class PredatorInTheCamp
   extends BuildAdventureCard
@@ -20,12 +21,12 @@ export class PredatorInTheCamp
     );
   }
 
-  option1() {
+  option1(resolver: ICharacter) {
     //TODO: fight beast
     this.shuffleIntoEventDeck();
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     this._game.resourceService.addResourceToOwned("food", 2, this.eventNamePL);
     this._game.resourceService.addResourceToOwned(
       "leather",

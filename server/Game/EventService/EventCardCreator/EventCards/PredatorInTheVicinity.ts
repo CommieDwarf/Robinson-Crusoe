@@ -26,12 +26,12 @@ export class PredatorInTheVicinity extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //TODO: set animal dice at weather
   }
 
   triggerThreatEffect() {
-    this.triggerEffect();
+    this.triggerEventEffect();
   }
 
   fullFill() {

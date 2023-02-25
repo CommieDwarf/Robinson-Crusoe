@@ -24,7 +24,7 @@ export class Vertigo extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //TODO: prime player can use only 1 pawn
   }
 

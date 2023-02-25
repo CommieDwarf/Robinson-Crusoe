@@ -49,13 +49,16 @@ import { ITileRenderData } from "../../interfaces/TileService/ITile";
 import { ConfirmCampMove } from "./UI/ConfirmCampMove/ConfirmCampMove";
 import { sleep } from "../../utils/sleep";
 import rollActionDices from "../../pages/api/rollActionDices";
-import Adventure from "./UI/Adventure/Adventure";
 import depleteResource from "../../pages/api/depleteResource";
 import reRollActionDice from "../../pages/api/reRollActionDice";
 import useSkill from "../../pages/api/useSkill";
 import { ActionDice } from "../../interfaces/RollDice/RollDice";
 import { useAppSelector } from "../../store/hooks";
 import resolveAdventureCard from "../../pages/api/resolveAdventureCard";
+
+import CardResolve from "./UI/CardResolve/CardResolve";
+import drawMysteryCard from "../../pages/api/drawMysteryCard";
+import finishDrawingMysteryCards from "../../pages/api/finishDrawingMysteryCards";
 
 interface Props {
   gameRenderData: IGameRenderData;
@@ -84,7 +87,16 @@ export default function Game(props: Props) {
   }
 
   function handleResolveAdventureCard(option: 1 | 2) {
-    resolveAdventureCard(option);
+    resolveAdventureCard(option, gameRenderData.localPlayer.character.name);
+    props.updateGameRenderData();
+  }
+
+  function handleDrawOrFinishMysteryCard(action: 1 | 2) {
+    if (action === 1) {
+      drawMysteryCard();
+    } else if (action === 2) {
+      finishDrawingMysteryCards();
+    }
     props.updateGameRenderData();
   }
 
@@ -98,12 +110,8 @@ export default function Game(props: Props) {
     props.updateGameRenderData();
   }
 
-  function handleUtilizeToken(
-    userName: string,
-    id: string,
-    targetName: string | null = null
-  ) {
-    utilizeToken(userName, id, targetName);
+  function handleUtilizeToken(id: string, targetName: string | null = null) {
+    utilizeToken(id, targetName);
     props.updateGameRenderData();
   }
 
@@ -281,12 +289,18 @@ export default function Game(props: Props) {
   return (
     <div className={styles.game}>
       {props.gameRenderData.adventureService.currentCard && (
-        <Adventure
-          card={props.gameRenderData.adventureService.currentCard}
+        <CardResolve
+          renderData={props.gameRenderData.adventureService.currentCard}
           resolve={handleResolveAdventureCard}
         />
       )}
-
+      {props.gameRenderData.mysteryService.isDrawingOn && (
+        <CardResolve
+          renderData={props.gameRenderData.mysteryService}
+          resolve={handleDrawOrFinishMysteryCard}
+        />
+      )}
+      `
       {props.gameRenderData.phaseService.phase === "night" && nextCamp && (
         <ConfirmCampMove
           currentCamp={props.gameRenderData.tileService.campTile}
@@ -367,7 +381,7 @@ export default function Game(props: Props) {
         <Weather tokens={gameRenderData.weatherService.tokens} />
         <Tokens
           discoveryTokens={gameRenderData.tokenService.owned}
-          utilizeToken={(id: string) => {}}
+          utilizeToken={handleUtilizeToken}
           menuDisabled={isPawnBeingDragged || elementZIndexed !== ""}
         />
         <ScenarioButton

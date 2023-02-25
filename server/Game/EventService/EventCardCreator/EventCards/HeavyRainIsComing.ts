@@ -23,12 +23,12 @@ export class HeavyRainIsComing extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     this._game.weatherService.setToken("rain", true, this._namePL);
   }
 
   triggerThreatEffect() {
-    this.triggerEffect();
+    this.triggerEventEffect();
   }
 
   fullFill() {

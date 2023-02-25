@@ -25,7 +25,7 @@ export class UnusuallyColdNight extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     this._game.resourceService.spendResourceOrGetHurt("wood", 2, this.name);
   }
 

@@ -26,7 +26,7 @@ export class NightAttack extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     this._game.characterService.hurtAllPlayerCharacters(1, this._name);
     //TODO: if possible peek beast from hunting deck.
   }

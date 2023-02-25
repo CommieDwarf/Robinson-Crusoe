@@ -1,5 +1,6 @@
 import { ACTION } from "../ACTION";
 import { ADVENTURE_CARD } from "./ADVENTURE_CARD";
+import { ICharacter } from "../Characters/Character";
 
 export type AdventureOptionLabel = "" | "discard" | "shuffle" | "keep";
 
@@ -12,9 +13,9 @@ export interface IAdventureCard {
   option1Label: string;
   option2Label: string;
 
-  option1: () => void;
-  option2: () => void;
-  triggerEffect: () => void;
+  option1: (resolver: ICharacter) => void;
+  option2: (resolver: ICharacter) => void;
+  triggerEventEffect: () => void;
 
   renderData: IAdventureCardRenderData;
 }

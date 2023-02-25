@@ -26,12 +26,12 @@ export class Poisoning extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     this._game.characterService.hurtAllPlayerCharacters(1, this._namePL);
   }
 
   triggerThreatEffect() {
-    this.triggerEffect();
+    this.triggerEventEffect();
   }
 
   fullFill() {

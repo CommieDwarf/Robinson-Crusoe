@@ -24,7 +24,7 @@ export class Council extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //TODO: discard 3 inventions
   }
 

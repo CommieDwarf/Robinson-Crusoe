@@ -3,6 +3,7 @@ import { IAdventureCard } from "../../../../../../interfaces/AdventureService/Ad
 import { IGame } from "../../../../../../interfaces/Game";
 import { ADVENTURE_CARD_BUILD } from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
 import { CONSTRUCTION } from "../../../../../../interfaces/ConstructionService/Construction";
+import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 
 export class InAHurry extends BuildAdventureCard implements IAdventureCard {
   protected _eventNamePL = "trzask!";
@@ -18,13 +19,13 @@ export class InAHurry extends BuildAdventureCard implements IAdventureCard {
     );
   }
 
-  option1() {}
+  option1(resolver: ICharacter) {}
 
-  option2() {
+  option2(resolver: ICharacter) {
     // todo: add 2 discovery tokens
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     this._game.constructionService.lvlDownOrSuffer(
       CONSTRUCTION.SHELTER,
       1,

@@ -2,6 +2,7 @@ import { ExploreAdventureCard } from "./ExploreAdventureCard/ExploreAdventureCar
 import { IAdventureCard } from "../../../../../../interfaces/AdventureService/AdventureCard";
 import { IGame } from "../../../../../../interfaces/Game";
 import { ADVENTURE_CARD_EXPLORE } from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
+import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 
 export class Tiger extends ExploreAdventureCard implements IAdventureCard {
   protected _eventNamePL = "tygrys was odnajduje";
@@ -17,15 +18,15 @@ export class Tiger extends ExploreAdventureCard implements IAdventureCard {
     );
   }
 
-  option1() {
+  option1(resolver: ICharacter) {
     //TODO: night out of camp.
   }
 
-  option2() {
+  option2(resolver: ICharacter) {
     this.shuffleIntoEventDeck();
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //TODO: JUMP, JUMP
     //TODO: JUMP ON THE TIGER
   }

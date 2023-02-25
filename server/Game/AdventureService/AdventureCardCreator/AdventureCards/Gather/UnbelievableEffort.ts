@@ -2,6 +2,7 @@ import { GatherAdventureCard } from "./GatherAdventureCard/GatherAdventureCard";
 import { IAdventureCard } from "../../../../../../interfaces/AdventureService/AdventureCard";
 import { IGame } from "../../../../../../interfaces/Game";
 import { ADVENTURE_CARD_GATHER } from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
+import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 
 export class UnbelievableEffort
   extends GatherAdventureCard
@@ -20,14 +21,14 @@ export class UnbelievableEffort
     );
   }
 
-  option1() {}
+  option1(resolver: ICharacter) {}
 
-  option2() {
+  option2(resolver: ICharacter) {
     this._game.resourceService.addResourceToOwned("wood", 2, this._namePL);
     //TODO: put wound.
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //TODO: character with wound gets hurt.
     //TODO: discard wound.
   }

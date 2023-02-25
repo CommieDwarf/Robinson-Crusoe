@@ -5,6 +5,7 @@ import {
   AdventureOptionLabel,
   IAdventureCard,
 } from "../../../../interfaces/AdventureService/AdventureCard";
+import { ICharacter } from "../../../../interfaces/Characters/Character";
 
 export abstract class AdventureCard implements IAdventureCard {
   protected readonly _name: ADVENTURE_CARD;
@@ -73,11 +74,32 @@ export abstract class AdventureCard implements IAdventureCard {
     return this._eventNamePL;
   }
 
-  option1() {}
+  option1(resolver: ICharacter) {}
 
-  option2() {}
+  option2(resolver: ICharacter) {
+    if (!this._shouldDecide) {
+      throw new Error(
+        "Option2 method is triggered but card is marked as shouldn't decide" +
+          this._name
+      );
+    }
+  }
 
-  triggerEffect() {}
+  protected startDrawingMysteryCards(
+    creature: number,
+    trap: number,
+    treasure: number,
+    resolver: ICharacter
+  ) {
+    this._game.mysteryService.startDrawingCards(
+      creature,
+      trap,
+      treasure,
+      resolver
+    );
+  }
+
+  triggerEventEffect() {}
 
   protected shuffleIntoEventDeck() {
     this._game.eventService.shuffleCardInToDeck(this);

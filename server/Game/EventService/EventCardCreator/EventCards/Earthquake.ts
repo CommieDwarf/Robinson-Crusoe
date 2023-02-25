@@ -25,7 +25,7 @@ export class Earthquake extends EventCard implements IEventCard {
         );
     }
 
-    triggerEffect() {
+    triggerEventEffect() {
 
 
         //TODO: if possible flip chosen tile around camp.

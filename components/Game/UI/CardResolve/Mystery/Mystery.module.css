@@ -1,0 +1,16 @@
+.mysteryCountBackground {
+    width: 100%;
+    height: 100px;
+    position: absolute;
+    top: -100px;
+    border-radius: 8%;
+    overflow: hidden;
+}
+
+.mysteryCount {
+
+}
+
+.zoomButton {
+
+}

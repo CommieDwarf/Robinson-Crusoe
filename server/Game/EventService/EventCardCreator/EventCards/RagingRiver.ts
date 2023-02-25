@@ -23,7 +23,7 @@ export class RagingRiver extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //TODO: this round in production phase get Math.floor(1/2) of resources.
   }
 

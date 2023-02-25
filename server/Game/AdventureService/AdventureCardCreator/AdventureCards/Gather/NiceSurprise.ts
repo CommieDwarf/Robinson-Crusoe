@@ -3,6 +3,7 @@ import { IAdventureCard } from "../../../../../../interfaces/AdventureService/Ad
 import { IGame } from "../../../../../../interfaces/Game";
 import { ADVENTURE_CARD_GATHER } from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
 import { CONSTRUCTION } from "../../../../../../interfaces/ConstructionService/Construction";
+import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 
 export class NiceSurprise
   extends GatherAdventureCard
@@ -21,13 +22,13 @@ export class NiceSurprise
     );
   }
 
-  option1() {}
+  option1(resolver: ICharacter) {}
 
-  option2() {
+  option2(resolver: ICharacter) {
     this._game.resourceService.addResourceToOwned("wood", 3, this._namePL);
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     this._game.constructionService.setDividedLvlByTwo(
       CONSTRUCTION.ROOF,
       this._eventNamePL

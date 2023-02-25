@@ -40,7 +40,11 @@ export abstract class Character implements ICharacter {
     this._game = game;
   }
 
-  getRenderData(): ICharacterRenderData {
+  get renderData(): ICharacterRenderData {
+    return this.getRenderData();
+  }
+
+  protected getRenderData(): ICharacterRenderData {
     return {
       determination: this._determination,
       pawnService: this._pawnService.renderData,

@@ -2,6 +2,7 @@ import { BuildAdventureCard } from "./BuildAdventureCard/BuildAdventureCard";
 import { IAdventureCard } from "../../../../../../interfaces/AdventureService/AdventureCard";
 import { IGame } from "../../../../../../interfaces/Game";
 import { ADVENTURE_CARD_BUILD } from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
+import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 
 export class CutHead extends BuildAdventureCard implements IAdventureCard {
   protected _eventNamePL = "ból głowy";
@@ -17,7 +18,7 @@ export class CutHead extends BuildAdventureCard implements IAdventureCard {
     );
   }
 
-  option1() {
+  option1(resolver: ICharacter) {
     const character = this.getPrimeCharacter();
     this._game.characterService.incrDetermination(character, 2, this._namePL);
     this._game.characterService.hurt(character, 1, this._namePL);
@@ -25,7 +26,7 @@ export class CutHead extends BuildAdventureCard implements IAdventureCard {
     this.shuffleIntoEventDeck();
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //todo: implement
   }
 }

@@ -29,7 +29,7 @@ export class CallOfTheWild extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //TODO: put beast token on hunt action.
   }
 

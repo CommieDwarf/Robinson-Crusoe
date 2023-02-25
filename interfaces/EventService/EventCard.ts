@@ -35,7 +35,7 @@ export interface IEventCard {
   requirements: EventResolveRequirements;
   requiredHelperAmount: number;
 
-  triggerEffect(): void;
+  triggerEventEffect(): void;
 
   fullFill(): void;
 

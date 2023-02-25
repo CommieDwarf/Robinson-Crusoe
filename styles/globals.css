@@ -39,7 +39,7 @@ a {
     --roofAspectRatio: 361 / 199;
     --palisadeAspectRatio: 640 / 481;
     --weaponAspectRatio: 366 / 681;
-
+    --goldenRatio: 1.618;
 }
 
 body::-webkit-scrollbar-track {

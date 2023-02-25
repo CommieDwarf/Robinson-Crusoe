@@ -28,9 +28,8 @@ export class SideCharacter extends Character implements ISideCharacter {
   }
 
   get renderData(): ISideCharacterRenderData {
-    const renderData = super.getRenderData();
     return {
-      ...renderData,
+      ...super.getRenderData(),
       name: this._name, // overriding CharacterName type into SideCharacterName type.
     };
   }

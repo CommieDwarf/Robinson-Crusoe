@@ -3,6 +3,7 @@ import { IAdventureCard } from "../../../../../../interfaces/AdventureService/Ad
 import { IGame } from "../../../../../../interfaces/Game";
 import { ADVENTURE_CARD_BUILD } from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
 import { CONSTRUCTION } from "../../../../../../interfaces/ConstructionService/Construction";
+import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 
 export class MonkeysWatchYou
   extends BuildAdventureCard
@@ -21,11 +22,11 @@ export class MonkeysWatchYou
     );
   }
 
-  option1() {
+  option1(resolver: ICharacter) {
     this.shuffleIntoEventDeck();
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     this._game.constructionService.setDividedLvlByTwo(
       CONSTRUCTION.ROOF,
       this._eventNamePL

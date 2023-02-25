@@ -3,6 +3,7 @@ import { IAdventureCard } from "../../../../../../interfaces/AdventureService/Ad
 import { IGame } from "../../../../../../interfaces/Game";
 import { ADVENTURE_CARD_BUILD } from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
 import { CONSTRUCTION } from "../../../../../../interfaces/ConstructionService/Construction";
+import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 
 export class BrokenLever extends BuildAdventureCard implements IAdventureCard {
   protected _eventNamePL = "";
@@ -18,7 +19,7 @@ export class BrokenLever extends BuildAdventureCard implements IAdventureCard {
     );
   }
 
-  option1() {
+  option1(resolver: ICharacter) {
     this._game.constructionService.lvlDownOrSuffer(
       CONSTRUCTION.WEAPON,
       1,

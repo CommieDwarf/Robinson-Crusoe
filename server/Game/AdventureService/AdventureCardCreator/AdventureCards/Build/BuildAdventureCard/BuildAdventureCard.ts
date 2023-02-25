@@ -2,9 +2,15 @@ import { AdventureCard } from "../../../AdventureCard";
 import { ADVENTURE_CARD_BUILD } from "../../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
 import { IGame } from "../../../../../../../interfaces/Game";
 import { ACTION } from "../../../../../../../interfaces/ACTION";
-import { AdventureOptionLabel } from "../../../../../../../interfaces/AdventureService/AdventureCard";
+import {
+  AdventureOptionLabel,
+  IAdventureCard,
+} from "../../../../../../../interfaces/AdventureService/AdventureCard";
 
-export abstract class BuildAdventureCard extends AdventureCard {
+export abstract class BuildAdventureCard
+  extends AdventureCard
+  implements IAdventureCard
+{
   protected readonly _action = ACTION.BUILD;
 
   protected constructor(

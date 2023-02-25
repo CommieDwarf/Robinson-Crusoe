@@ -28,7 +28,7 @@ export class NightHowling extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     this._game.beastService.beastStrengthEnchanted = true;
   }
 

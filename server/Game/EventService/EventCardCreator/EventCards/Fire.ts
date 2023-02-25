@@ -23,7 +23,7 @@ export class Fire extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     this._game.resourceService.blockedProductionRound = this._game.round;
   }
 

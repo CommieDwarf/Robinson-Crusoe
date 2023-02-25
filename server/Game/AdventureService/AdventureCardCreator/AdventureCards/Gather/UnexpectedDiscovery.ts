@@ -2,6 +2,7 @@ import { GatherAdventureCard } from "./GatherAdventureCard/GatherAdventureCard";
 import { IAdventureCard } from "../../../../../../interfaces/AdventureService/AdventureCard";
 import { IGame } from "../../../../../../interfaces/Game";
 import { ADVENTURE_CARD_GATHER } from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
+import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 
 export class UnexpectedDiscovery
   extends GatherAdventureCard
@@ -20,7 +21,7 @@ export class UnexpectedDiscovery
     );
   }
 
-  option1() {
+  option1(resolver: ICharacter) {
     //TODO pull a discovery token
   }
 }

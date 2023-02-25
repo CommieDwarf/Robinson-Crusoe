@@ -25,7 +25,11 @@ export interface ICharacterService {
   addFreePawn: (charName: string, draggableId: string) => void;
   getCharacter: (charName: string) => ISideCharacter | IPlayerCharacter;
   hurtAllPlayerCharacters: (by: number, source: string) => void;
-  decrDeterminationAllPlayerCharacters: (by: number, logSource: string) => void;
+  decrDeterminationAllPlayerCharacters: (
+    amount: number,
+    logSource: string
+  ) => void;
+  incrDeterminationAllCharacters: (amount: number, logSource: string) => void;
   renderData: ICharacterServiceRenderData;
   hurt: (
     charOrName: string | ICharacter,

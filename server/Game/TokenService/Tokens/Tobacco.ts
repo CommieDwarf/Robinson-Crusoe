@@ -12,6 +12,7 @@ export class Tobacco extends Token {
   use(user: IPlayerCharacter, target: ICharacter | null = null) {
     super.use(user);
     this._game.moraleService.lvlUp(1, this._sourceLog);
+    this._used = true;
   }
 
   autoDiscard() {}

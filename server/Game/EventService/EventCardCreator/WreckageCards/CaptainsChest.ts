@@ -24,7 +24,7 @@ export class CaptainsChest extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     // nothing is happening
   }
 

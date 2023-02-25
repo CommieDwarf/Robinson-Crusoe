@@ -24,7 +24,7 @@ export class TheIslandFightsBack extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //TODO: check guide
   }
 

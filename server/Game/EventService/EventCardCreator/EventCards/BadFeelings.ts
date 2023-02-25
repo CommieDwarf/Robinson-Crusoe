@@ -24,7 +24,7 @@ export class BadFeelings extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //TODO: put reRoll token on gather action.
   }
 

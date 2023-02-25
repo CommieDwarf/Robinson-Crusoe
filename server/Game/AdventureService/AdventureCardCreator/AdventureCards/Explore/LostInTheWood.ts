@@ -2,6 +2,7 @@ import { ExploreAdventureCard } from "./ExploreAdventureCard/ExploreAdventureCar
 import { IAdventureCard } from "../../../../../../interfaces/AdventureService/AdventureCard";
 import { IGame } from "../../../../../../interfaces/Game";
 import { ADVENTURE_CARD_EXPLORE } from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
+import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 
 export class LostInTheWood
   extends ExploreAdventureCard
@@ -20,7 +21,7 @@ export class LostInTheWood
     );
   }
 
-  option1() {
+  option1(resolver: ICharacter) {
     const character = this.getPrimeCharacter();
     this._game.characterService.decrDetermination(character, 2, this._namePL);
   }

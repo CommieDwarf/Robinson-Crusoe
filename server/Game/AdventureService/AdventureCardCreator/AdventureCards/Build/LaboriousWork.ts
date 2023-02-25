@@ -2,6 +2,7 @@ import { BuildAdventureCard } from "./BuildAdventureCard/BuildAdventureCard";
 import { IAdventureCard } from "../../../../../../interfaces/AdventureService/AdventureCard";
 import { IGame } from "../../../../../../interfaces/Game";
 import { ADVENTURE_CARD_BUILD } from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
+import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 
 export class LaboriousWork
   extends BuildAdventureCard
@@ -20,7 +21,7 @@ export class LaboriousWork
     );
   }
 
-  option1() {
+  option1(resolver: ICharacter) {
     //todo: implement increased helper amount on build
   }
 }

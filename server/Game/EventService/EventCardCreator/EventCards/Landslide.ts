@@ -23,7 +23,7 @@ export class Landslide extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //TODO: move camp, check guide
   }
 

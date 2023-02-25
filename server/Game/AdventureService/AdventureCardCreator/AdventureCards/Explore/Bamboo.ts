@@ -2,6 +2,7 @@ import { IAdventureCard } from "../../../../../../interfaces/AdventureService/Ad
 import { IGame } from "../../../../../../interfaces/Game";
 import { ADVENTURE_CARD_EXPLORE } from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
 import { ExploreAdventureCard } from "./ExploreAdventureCard/ExploreAdventureCard";
+import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 
 export class Bamboo extends ExploreAdventureCard implements IAdventureCard {
   protected _eventNamePL = "trzask łamanego drewna!";
@@ -17,14 +18,14 @@ export class Bamboo extends ExploreAdventureCard implements IAdventureCard {
     );
   }
 
-  option1() {}
+  option1(resolver: ICharacter) {}
 
-  option2() {
+  option2(resolver: ICharacter) {
     this._game.resourceService.addResourceToOwned("wood", 2, this._namePL);
     this.shuffleIntoEventDeck();
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //TODO: implement choice between -1 roof and -1 palisade.
   }
 }

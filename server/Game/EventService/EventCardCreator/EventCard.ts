@@ -102,7 +102,7 @@ export abstract class EventCard implements IEventCard {
     }
   }
 
-  triggerEffect() {}
+  triggerEventEffect() {}
 
   triggerThreatEffect() {
     throw new Error("triggerThreatEffect() not implemented");

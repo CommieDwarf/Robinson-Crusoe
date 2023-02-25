@@ -2,6 +2,7 @@ import { BuildAdventureCard } from "./BuildAdventureCard/BuildAdventureCard";
 import { IAdventureCard } from "../../../../../../interfaces/AdventureService/AdventureCard";
 import { IGame } from "../../../../../../interfaces/Game";
 import { ADVENTURE_CARD_BUILD } from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
+import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 
 export class Sting extends BuildAdventureCard implements IAdventureCard {
   protected _eventNamePL = "dreszcze";
@@ -10,11 +11,11 @@ export class Sting extends BuildAdventureCard implements IAdventureCard {
     super(ADVENTURE_CARD_BUILD.STING, "użądlenie", false, game, "shuffle", "");
   }
 
-  option1() {
+  option1(resolver: ICharacter) {
     //TODO: set wound
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //TODO: implement
   }
 }

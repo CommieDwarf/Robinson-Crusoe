@@ -1,8 +1,9 @@
-import { BuildAdventureCard } from "./BuildAdventureCard/BuildAdventureCard";
-import { IAdventureCard } from "../../../../../../interfaces/AdventureService/AdventureCard";
-import { IGame } from "../../../../../../interfaces/Game";
-import { ADVENTURE_CARD_BUILD } from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
-import { CONSTRUCTION } from "../../../../../../interfaces/ConstructionService/Construction";
+import {BuildAdventureCard} from "./BuildAdventureCard/BuildAdventureCard";
+import {IAdventureCard} from "../../../../../../interfaces/AdventureService/AdventureCard";
+import {IGame} from "../../../../../../interfaces/Game";
+import {ADVENTURE_CARD_BUILD} from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
+import {CONSTRUCTION} from "../../../../../../interfaces/ConstructionService/Construction";
+import {ICharacter} from "../../../../../../interfaces/Characters/Character";
 
 export class FastWork extends BuildAdventureCard implements IAdventureCard {
   protected _eventNamePL = "co nagle to po diable";
@@ -18,13 +19,13 @@ export class FastWork extends BuildAdventureCard implements IAdventureCard {
     );
   }
 
-  option1() {}
+  option1(resolver: ICharacter) {}
 
-  option2() {
+  option2(resolver: ICharacter) {
     //TODO: implement building another item + rolling dices for it
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     this._game.constructionService.lvlDownOrSuffer(
       CONSTRUCTION.PALISADE,
       1,

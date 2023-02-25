@@ -22,7 +22,7 @@ export class StrokeOfFate extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //TODO: remove event cards and trigger their threat effects.
   }
 

@@ -2,6 +2,7 @@ import { GatherAdventureCard } from "./GatherAdventureCard/GatherAdventureCard";
 import { IAdventureCard } from "../../../../../../interfaces/AdventureService/AdventureCard";
 import { IGame } from "../../../../../../interfaces/Game";
 import { ADVENTURE_CARD_GATHER } from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
+import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 
 export class Skeleton extends GatherAdventureCard implements IAdventureCard {
   protected _eventNamePL = "wspomnienia martwego odkrywcy";
@@ -17,11 +18,11 @@ export class Skeleton extends GatherAdventureCard implements IAdventureCard {
     );
   }
 
-  option1() {
+  option1(resolver: ICharacter) {
     this.shuffleIntoEventDeck();
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //TODO: add random invention.
     this._game.moraleService.lvlUp(1, this._eventNamePL);
   }

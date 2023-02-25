@@ -2,6 +2,7 @@ import { ExploreAdventureCard } from "./ExploreAdventureCard/ExploreAdventureCar
 import { IAdventureCard } from "../../../../../../interfaces/AdventureService/AdventureCard";
 import { IGame } from "../../../../../../interfaces/Game";
 import { ADVENTURE_CARD_EXPLORE } from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
+import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 
 export class Lost extends ExploreAdventureCard implements IAdventureCard {
   protected _eventNamePL = "";
@@ -10,7 +11,7 @@ export class Lost extends ExploreAdventureCard implements IAdventureCard {
     super(ADVENTURE_CARD_EXPLORE.LOST, "zagubiony", false, game, "discard", "");
   }
 
-  option1() {
+  option1(resolver: ICharacter) {
     //TODO: implement night out of camp and morale down just before event phase
   }
 }

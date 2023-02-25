@@ -2,6 +2,7 @@ import { GatherAdventureCard } from "./GatherAdventureCard/GatherAdventureCard";
 import { IAdventureCard } from "../../../../../../interfaces/AdventureService/AdventureCard";
 import { IGame } from "../../../../../../interfaces/Game";
 import { ADVENTURE_CARD_GATHER } from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
+import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 
 export class TwistedAnkle
   extends GatherAdventureCard
@@ -20,12 +21,12 @@ export class TwistedAnkle
     );
   }
 
-  option1() {
+  option1(resolver: ICharacter) {
     //TODO: set wound
     this.shuffleIntoEventDeck();
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //TODO: character with wound can only rest, arrange camp and build.
     //TODO: discard wound
   }

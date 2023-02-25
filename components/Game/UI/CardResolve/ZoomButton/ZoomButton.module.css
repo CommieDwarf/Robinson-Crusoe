@@ -1,0 +1,33 @@
+
+.container {
+    z-index: 99999999;
+    width: 50%;
+    aspect-ratio: 1;
+    position: absolute;
+
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.mystery {
+    left: calc(50%);
+    transform: translateX(-40%);
+    top: 5%;
+}
+
+.adventure {
+    width: 80% !important;
+    top: 6%;
+    right: 14%;
+}
+
+.container:hover {
+    opacity: 1;
+}
+
+.magnifyingGlass {
+    width: 75%;
+    height: 75%;
+    position: relative;
+    margin: 12% auto auto;
+}

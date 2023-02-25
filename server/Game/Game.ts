@@ -42,34 +42,12 @@ import { Cook } from "./CharacterService/Characters/Cook";
 import { IActionSlotServiceRenderData } from "../../interfaces/ActionSlots";
 import { AdventureService } from "./AdventureService/AdventureService";
 import { IAdventureService } from "../../interfaces/AdventureService/AdventureService";
+import { canPawnBeSettled } from "../../utils/canPawnBeSettled";
+import { MysteryService } from "./MysteryService/MysteryService";
 
 type ScenarioName = "castaways";
 
 export class GameClass implements IGame {
-  get adventureService(): IAdventureService {
-    return this._adventureService;
-  }
-
-  get actionSlotService(): ActionSlotService {
-    return this._actionSlotService;
-  }
-
-  get tokenService(): TokenService {
-    return this._tokenService;
-  }
-
-  get weatherService(): IWeatherService {
-    return this._weatherService;
-  }
-
-  get scenarioService(): IScenarioService {
-    return this._scenarioService;
-  }
-
-  get arrangeCampRestService(): ArrangeCampRestService {
-    return this._arrangeCampRestService;
-  }
-
   private _chatLog: IChatLog = new ChatLog(this);
   private _actionService: ActionService = new ActionService(this);
   private readonly _playerService: IPlayerService;
@@ -94,6 +72,7 @@ export class GameClass implements IGame {
   private _scenarioService: IScenarioService = new Castaways(this);
   private _tokenService = new TokenService(this);
   private _adventureService = new AdventureService(this);
+  private _mysteryService = new MysteryService(this);
 
   constructor(scenarioName: ScenarioName) {
     // this is hardcoded for demo purpose.
@@ -137,7 +116,36 @@ export class GameClass implements IGame {
       allPawns: this.allPawns.map((pawn) => pawn.renderData),
       tokenService: this._tokenService.renderData,
       adventureService: this._adventureService.renderData,
+      mysteryService: this._mysteryService.renderData,
     };
+  }
+
+  get mysteryService(): MysteryService {
+    return this._mysteryService;
+  }
+
+  get adventureService(): IAdventureService {
+    return this._adventureService;
+  }
+
+  get actionSlotService(): ActionSlotService {
+    return this._actionSlotService;
+  }
+
+  get tokenService(): TokenService {
+    return this._tokenService;
+  }
+
+  get weatherService(): IWeatherService {
+    return this._weatherService;
+  }
+
+  get scenarioService(): IScenarioService {
+    return this._scenarioService;
+  }
+
+  get arrangeCampRestService(): ArrangeCampRestService {
+    return this._arrangeCampRestService;
   }
 
   get actionSlotRenderData(): IActionSlotServiceRenderData {
@@ -221,7 +229,7 @@ export class GameClass implements IGame {
     if (!pawn) {
       throw new Error("cant find pawn with id: " + draggableId);
     }
-    if (!this.canPawnBeSettled(pawn, droppableId)) {
+    if (!canPawnBeSettled(pawn, droppableId)) {
       return;
     }
 

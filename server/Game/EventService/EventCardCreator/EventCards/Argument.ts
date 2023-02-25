@@ -24,7 +24,7 @@ export class Argument extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     this._game.eventService.setSpecialEffect("argument", true, this.name);
   }
 

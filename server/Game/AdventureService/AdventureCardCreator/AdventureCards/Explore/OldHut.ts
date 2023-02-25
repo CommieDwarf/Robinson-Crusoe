@@ -2,6 +2,7 @@ import { ExploreAdventureCard } from "./ExploreAdventureCard/ExploreAdventureCar
 import { IAdventureCard } from "../../../../../../interfaces/AdventureService/AdventureCard";
 import { IGame } from "../../../../../../interfaces/Game";
 import { ADVENTURE_CARD_EXPLORE } from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
+import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 
 export class OldHut extends ExploreAdventureCard implements IAdventureCard {
   protected _eventNamePL = "duch rozbitka";
@@ -17,13 +18,14 @@ export class OldHut extends ExploreAdventureCard implements IAdventureCard {
     );
   }
 
-  option1() {}
+  option1(resolver: ICharacter) {}
 
-  option2() {
-    //TODO: implement pulling mystery cards.
+  option2(resolver: ICharacter) {
+    this.startDrawingMysteryCards(1, 0, 1, resolver);
+    this.shuffleIntoEventDeck();
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     this._game.characterService.decrDeterminationAllPlayerCharacters(
       1,
       this._eventNamePL

@@ -2,6 +2,7 @@ import { ExploreAdventureCard } from "./ExploreAdventureCard/ExploreAdventureCar
 import { IAdventureCard } from "../../../../../../interfaces/AdventureService/AdventureCard";
 import { IGame } from "../../../../../../interfaces/Game";
 import { ADVENTURE_CARD_EXPLORE } from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
+import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 
 export class Shrine extends ExploreAdventureCard implements IAdventureCard {
   protected _eventNamePL = "koszmary";
@@ -17,14 +18,14 @@ export class Shrine extends ExploreAdventureCard implements IAdventureCard {
     );
   }
 
-  option1() {}
+  option1(resolver: ICharacter) {}
 
-  option2() {
-    //TODO: implement mystery card pull.
+  option2(resolver: ICharacter) {
+    this.startDrawingMysteryCards(0, 0, 1, resolver);
     this.shuffleIntoEventDeck();
   }
 
-  triggerEffect() {
-    //TODO: implement reRoll action.
+  triggerEventEffect() {
+    this._game.actionService.setReRollToken("explore", true, this._eventNamePL);
   }
 }

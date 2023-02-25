@@ -23,7 +23,7 @@ export class Precipice extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //TODO: if possible make tile next to camp unavailable
   }
 

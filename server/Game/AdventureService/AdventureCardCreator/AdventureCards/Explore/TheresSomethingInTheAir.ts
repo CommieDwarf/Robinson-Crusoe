@@ -2,6 +2,7 @@ import { ExploreAdventureCard } from "./ExploreAdventureCard/ExploreAdventureCar
 import { IAdventureCard } from "../../../../../../interfaces/AdventureService/AdventureCard";
 import { IGame } from "../../../../../../interfaces/Game";
 import { ADVENTURE_CARD_EXPLORE } from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
+import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 
 export class TheresSomethingInTheAir
   extends ExploreAdventureCard
@@ -20,12 +21,12 @@ export class TheresSomethingInTheAir
     );
   }
 
-  option1() {
+  option1(resolver: ICharacter) {
     this._game.actionService.setAdventureToken("explore", true, this._namePL);
     this.shuffleIntoEventDeck();
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     this._game.actionService.setAdventureToken("explore", true, this._namePL);
   }
 }

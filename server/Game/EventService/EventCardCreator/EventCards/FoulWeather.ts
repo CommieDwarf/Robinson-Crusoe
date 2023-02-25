@@ -25,7 +25,7 @@ export class FoulWeather extends EventCard implements IEventCard {
     );
   }
 
-  triggerEffect() {
+  triggerEventEffect() {
     //TODO: put +1 helper on gather action.
   }
 

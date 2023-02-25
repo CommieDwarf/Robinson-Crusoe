@@ -10,7 +10,7 @@ import Tile from "./Tile/Tile";
 import Hunt from "../Hunt/Hunt";
 import { ITileRenderData } from "../../../../interfaces/TileService/ITile";
 import { ITilesServiceRenderData } from "../../../../interfaces/TileService/ITileService";
-import magnifyingGlass from "/public/UI/map/magnifying-glass.png";
+import magnifyingGlass from "/public/UI/misc/magnifying-glass.png";
 import map from "/public/UI/map/map.png";
 import redArrowImg from "/public/UI/misc/red-arrow.png";
 import { objectsEqual } from "../../../../utils/objectsEqual";
@@ -180,7 +180,6 @@ function areEqual(prevProps: Props, nextProps: Props) {
     }
   );
   const end = Date.now();
-  console.log("map equal duration", end - start);
   return equal;
 }
 
