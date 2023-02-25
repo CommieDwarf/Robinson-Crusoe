@@ -1,21 +1,13 @@
+// @flow
+import * as React from "react";
+import styles from "./Frame.module.css";
 import Image from "next/image";
-import React from "react";
-import styles from "./Resources.module.css";
-
-import ResourceValues from "./ResourceValues/ResourceValues";
-import { IResourcesAmount } from "../../../../interfaces/Resources/Resources";
-
 import boardImg from "/public/UI/misc/board.jpg";
 import boardVertImg from "/public/UI/misc/board-vert.jpg";
 import productionImg from "/public/UI/phase/production.png";
-import { compareMapValues } from "../../../../utils/compareMapValues";
 
-interface Props {
-  owned: Map<keyof IResourcesAmount, number>;
-  future: Map<keyof IResourcesAmount, number>;
-}
-
-function Resources(props: Props) {
+type Props = {};
+export const Frame = (props: Props) => {
   return (
     <div className={styles.container}>
       <div className={styles.topBar}>
@@ -24,7 +16,7 @@ function Resources(props: Props) {
       <div className={styles.leftBar}>
         <Image src={boardVertImg} fill alt={"ramka"} sizes={styles.leftBar} />
       </div>
-      <ResourceValues resources={props.future} type="future" />
+
       <div className={styles.rightBar}>
         <Image src={boardVertImg} fill alt={"ramka"} sizes={styles.rightBar} />
       </div>
@@ -44,16 +36,6 @@ function Resources(props: Props) {
           </div>
         </div>
       </div>
-      <ResourceValues resources={props.owned} type={"owned"} />
     </div>
   );
-}
-
-function areEqual(prevProps: Props, nextProps: Props) {
-  const futureEqual = compareMapValues(prevProps.future, nextProps.future);
-  const ownedEqual = compareMapValues(prevProps.owned, nextProps.owned);
-
-  return futureEqual && ownedEqual;
-}
-
-export default React.memo(Resources, areEqual);
+};

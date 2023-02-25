@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Phase from "./UI/phase/Phase";
 import Morale from "./UI/morale/Morale";
 import styles from "./Game.module.css";
-import Resources from "./UI/resources/Resources";
+import AllResources from "./UI/AllResources/AllResources";
 import Constructions from "./UI/Constructions/Constructions";
 import MapComponent from "./UI/map/Map";
 import Inventions from "./UI/inventions/Inventions";
@@ -316,7 +316,7 @@ export default function Game(props: Props) {
       >
         <Phase phase={gameRenderData.phaseService.phase} />
         <Morale current={gameRenderData.moraleService.lvl} />
-        <Resources
+        <AllResources
           future={
             new Map(
               Object.entries(gameRenderData.resourceService.future)
