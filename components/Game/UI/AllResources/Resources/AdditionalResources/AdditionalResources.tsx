@@ -4,7 +4,7 @@ import * as React from "react";
 import styles from "../BasicResources/BasicResources.module.css";
 import Image from "next/image";
 import tokenImg from "public/UI/tokens/discovery/discovery-token.png";
-import treasureImg from "public/UI/misc/treasure-modified.png";
+import treasureImg from "public/UI/misc/treasure.png";
 
 type Props = {
   tokens: number;

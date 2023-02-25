@@ -1,4 +1,3 @@
-import { IPlayerCharacter } from "../Characters/PlayerCharacter";
 import { ICharacter } from "../Characters/Character";
 
 export enum MYSTERY_CARD_TYPE {

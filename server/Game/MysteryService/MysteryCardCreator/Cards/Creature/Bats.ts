@@ -1,7 +1,5 @@
-import { MysteryCard } from "../MysteryCard";
 import { IMysteryCard } from "../../../../../../interfaces/MysteryService/MysteryCard";
 import { IGame } from "../../../../../../interfaces/Game";
-import { IPlayerCharacter } from "../../../../../../interfaces/Characters/PlayerCharacter";
 import { CreatureMysteryCard } from "./CreatureMysteryCard/CreatureMysteryCard";
 import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 

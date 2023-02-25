@@ -1,4 +1,3 @@
-import { MysteryCard } from "../MysteryCard";
 import { IMysteryCard } from "../../../../../../interfaces/MysteryService/MysteryCard";
 import { IGame } from "../../../../../../interfaces/Game";
 import { CreatureMysteryCard } from "./CreatureMysteryCard/CreatureMysteryCard";

@@ -1,8 +1,4 @@
-import { TrapMysteryCard } from "../Trap/TrapMysteryCard/TrapMysteryCard";
-import {
-  IMysteryCard,
-  ITreasureMysteryCard,
-} from "../../../../../../interfaces/MysteryService/MysteryCard";
+import { ITreasureMysteryCard } from "../../../../../../interfaces/MysteryService/MysteryCard";
 import { IGame } from "../../../../../../interfaces/Game";
 import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 import { TreasureMysteryCard } from "./TreasureMysteryCard/TreasureMysteryCard";

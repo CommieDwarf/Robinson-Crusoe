@@ -1,6 +1,5 @@
 import { AdventureAction } from "../ACTION";
 import { IAdventureCard, IAdventureCardRenderData } from "./AdventureCard";
-import { ICharacter } from "../Characters/Character";
 
 export type AdventureCardStacks = {
   [key in AdventureAction]: IAdventureCard[];

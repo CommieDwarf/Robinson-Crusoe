@@ -8,7 +8,6 @@ import { TokenCreator } from "./TokenCreator/TokenCreator";
 import { doubledDiscoveryTokens } from "../../../constants/doubledDiscoveryTokens";
 import shuffle from "../../../utils/shuffleArray";
 import { ICreator } from "../../../interfaces/Creator/Creator";
-import { IPlayerCharacter } from "../../../interfaces/Characters/PlayerCharacter";
 
 export class TokenService implements ITokenService {
   private _tokenStack: DISCOVERY_TOKEN[];

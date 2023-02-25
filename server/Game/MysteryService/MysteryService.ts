@@ -12,7 +12,7 @@ import { ICharacter } from "../../../interfaces/Characters/Character";
 
 export class MysteryService implements IMysteryService {
   private readonly _game: IGame;
-  private readonly _ownedTreasureCards: ITreasureMysteryCard[] = [];
+  private _ownedTreasureCards: ITreasureMysteryCard[] = [];
   private _cardStack: IMysteryCard[];
   private _cardDrawer: null | IMysteryCardDrawer = null;
   private _currentResolve: null | IMysteryCard = null;
@@ -34,6 +34,7 @@ export class MysteryService implements IMysteryService {
         trap: this._cardDrawer?.trap || 0,
         treasure: this._cardDrawer?.treasure || 0,
       },
+      ownedTreasureCards: this._ownedTreasureCards,
     };
   }
 

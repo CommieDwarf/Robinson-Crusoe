@@ -5,7 +5,6 @@ import styles from "./Game.module.css";
 import AllResources from "./UI/AllResources/AllResources";
 import Constructions from "./UI/Constructions/Constructions";
 import MapComponent from "./UI/map/Map";
-import Inventions from "./UI/inventions/Inventions";
 import Character from "./UI/character/Character";
 import Health from "./UI/health/Health";
 import ActionsOrder from "./UI/actionsOrder/ActionsOrder";
@@ -59,6 +58,7 @@ import resolveAdventureCard from "../../pages/api/resolveAdventureCard";
 import CardResolve from "./UI/CardResolve/CardResolve";
 import drawMysteryCard from "../../pages/api/drawMysteryCard";
 import finishDrawingMysteryCards from "../../pages/api/finishDrawingMysteryCards";
+import { CardList } from "./UI/CardList/CardList";
 
 interface Props {
   gameRenderData: IGameRenderData;
@@ -343,10 +343,11 @@ export default function Game(props: Props) {
           depleteResource={handleDepleteResource}
         />
 
-        <Inventions
+        <CardList
           inventions={gameRenderData.inventionService.inventions.filter(
             (inv) => inv.type !== INVENTION_TYPE.SCENARIO
           )}
+          mysteryCards={gameRenderData.mysteryService.ownedTreasureCards}
           isBeingDragged={isPawnBeingDragged}
           zIndex={elementZIndexed}
         />

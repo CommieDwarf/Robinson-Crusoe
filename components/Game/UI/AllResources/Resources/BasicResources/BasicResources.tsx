@@ -2,7 +2,6 @@ import Image from "next/image";
 import React from "react";
 import styles from "./BasicResources.module.css";
 import { IResourcesAmount } from "../../../../../../interfaces/Resources/Resources";
-import { useTranslation } from "react-i18next";
 
 interface Props {
   resources: Map<keyof IResourcesAmount, number>;

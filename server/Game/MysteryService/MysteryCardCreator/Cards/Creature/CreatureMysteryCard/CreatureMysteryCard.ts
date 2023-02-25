@@ -3,7 +3,6 @@ import {
   MYSTERY_CARD_TYPE,
 } from "../../../../../../../interfaces/MysteryService/MysteryCard";
 import { IGame } from "../../../../../../../interfaces/Game";
-import { IPlayerCharacter } from "../../../../../../../interfaces/Characters/PlayerCharacter";
 import { MysteryCard } from "../../MysteryCard";
 
 export abstract class CreatureMysteryCard

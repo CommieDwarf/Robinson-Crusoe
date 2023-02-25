@@ -1,14 +1,13 @@
 import Image from "next/image";
 import React, { useState } from "react";
-import ActionSlot from "../../ActionSlot";
+import ActionSlot from "../../../ActionSlot";
 import styles from "./Invention.module.css";
-import getHelperActionSlots from "../../../../../utils/getHelperActionSlots";
-import { IInventionRenderData } from "../../../../../interfaces/InventionService/Invention";
-import { getImgName } from "../../../../../utils/getImgName";
-import { ACTION } from "../../../../../interfaces/ACTION";
-import { ACTION_ITEM } from "../../../../../utils/getDroppableID";
-import actionSlotBuildImg from "/public/UI/actionSlots/build.png";
-import { objectsEqual } from "../../../../../utils/objectsEqual";
+import getHelperActionSlots from "../../../../../../utils/getHelperActionSlots";
+import { IInventionRenderData } from "../../../../../../interfaces/InventionService/Invention";
+import { getImgName } from "../../../../../../utils/getImgName";
+import { ACTION } from "../../../../../../interfaces/ACTION";
+import { ACTION_ITEM } from "../../../../../../utils/getDroppableID";
+import { objectsEqual } from "../../../../../../utils/objectsEqual";
 
 type Props = {
   invention: IInventionRenderData;
@@ -16,12 +15,12 @@ type Props = {
   row: number;
   top: number;
   zIndexIncreased: boolean;
-  setIsEnlarged?: React.Dispatch<React.SetStateAction<boolean>>;
+  toggleZoom?: () => void;
   hideActionSlots?: boolean;
 };
 
 function Invention(props: Props) {
-  const [enlarge, setEnlarge] = useState(false);
+  const [zoomed, setZoomed] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
 
   function handleLoad() {
@@ -31,9 +30,9 @@ function Invention(props: Props) {
   const inventionRef = React.createRef<HTMLDivElement>();
 
   function handleClick() {
-    setEnlarge((prev) => !prev);
-    if (props.setIsEnlarged) {
-      props.setIsEnlarged((prev) => !prev);
+    setZoomed((prev) => !prev);
+    if (props.toggleZoom) {
+      props.toggleZoom();
     }
   }
 
@@ -42,12 +41,12 @@ function Invention(props: Props) {
     top: props.row * 140,
   };
 
-  const enlargedClass = enlarge
+  const enlargedClass = zoomed
     ? styles.inventionEnlarged
     : styles.zIndexTransition;
 
-  wrapperStyle.top = enlarge ? props.top + 10 : wrapperStyle.top;
-  wrapperStyle.left = enlarge ? 60 : wrapperStyle.left;
+  wrapperStyle.top = zoomed ? props.top + 3 : wrapperStyle.top;
+  wrapperStyle.left = zoomed ? 60 : wrapperStyle.left;
 
   const resources: JSX.Element[] = [];
 
@@ -94,19 +93,19 @@ function Invention(props: Props) {
         )}${reverse}.png`}
         fill
         alt={"karta pomysłu"}
-        onLoad={handleLoad}
         sizes={styles.invention}
       />
-      {!imageLoaded && (
-        <div className={styles.placeholder}>
-          <Image
-            src={actionSlotBuildImg}
-            fill
-            alt={"loading"}
-            sizes={styles.placeholder}
-          />
-        </div>
-      )}
+      {
+        // <div className={styles.placeholder}>
+        //   <Image
+        //     src={actionSlotBuildImg}
+        //     fill
+        //     alt={"loading"}
+        //     sizes={styles.placeholder}
+        //     placeholder={"blur"}
+        //   />
+        // </div>
+      }
       {!props.invention.isBuilt &&
         !props.invention.locked &&
         !props?.hideActionSlots && (
@@ -128,8 +127,4 @@ function Invention(props: Props) {
   );
 }
 
-function areEqual(prevProps: Props, nextProps: Props) {
-  return objectsEqual({ ...prevProps }, { ...nextProps });
-}
-
-export default React.memo(Invention, areEqual);
+export default React.memo(Invention, objectsEqual);

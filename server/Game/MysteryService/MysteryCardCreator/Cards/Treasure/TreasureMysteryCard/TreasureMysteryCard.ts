@@ -1,6 +1,5 @@
 import { MysteryCard } from "../../MysteryCard";
 import {
-  IMysteryCard,
   ITreasureMysteryCard,
   MYSTERY_CARD_TYPE,
 } from "../../../../../../../interfaces/MysteryService/MysteryCard";

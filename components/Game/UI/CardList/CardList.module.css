@@ -4,8 +4,10 @@
     grid-column: 6 / span 1;
     grid-row: 1 / span 2;
     border: 1px solid black;
+    border-bottom: none;
     border-left: none;
     overflow: hidden;
+    position: relative;
 }
 
 .zIndexIncreased {
@@ -18,12 +20,4 @@
     background-size: cover;
     overflow: hidden;
 }
-
-.scrollCover {
-    width: 100%;
-    height: 30%;
-    position: absolute;
-    background-color: red;
-}
-
 

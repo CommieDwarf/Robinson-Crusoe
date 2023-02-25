@@ -36,4 +36,5 @@ export interface IMysteryServiceRenderData {
   canFinish: boolean;
   drawer: ICharacterRenderData | null;
   cardsLeft: MysteryCardsAmount;
+  ownedTreasureCards: ITreasureMysteryCard[];
 }
