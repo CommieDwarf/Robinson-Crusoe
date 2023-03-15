@@ -1,19 +1,40 @@
-export interface IResourcesAmount {
+import {
+  IMysteryCard,
+  IMysteryCardRenderData,
+} from "../MysteryService/MysteryCard";
+import { IToken, ITokenRenderData } from "../TokenService/Token";
+
+export interface IResources {
+  basic: IBasicResources;
+  treasures: IMysteryCard[];
+  tokens: IToken[];
+}
+
+export interface IResourcesRenderData {
+  basic: IBasicResourcesAmount;
+  treasures: IMysteryCardRenderData[];
+  tokens: ITokenRenderData[];
+}
+
+export interface IBasicResourcesAmount {
   food: number;
   dryFood: number;
   wood: number;
   leather: number;
 }
 
-export interface IResources {
-  amount: Map<keyof IResourcesAmount, number>;
-  getResource: (key: keyof IResourcesAmount) => number;
-  setResource: (key: keyof IResourcesAmount, value: number) => void;
-  setResources: (amount: IResourcesAmount) => void;
-  canAfford: (resource: keyof IResourcesAmount, amount: number) => boolean;
-  addResource: (resource: keyof IResourcesAmount, amount: number) => void;
-  addResources: (resources: IResources) => void;
-  spendResource: (resource: keyof IResourcesAmount, amount: number) => void;
+export interface IBasicResources {
+  amount: Map<keyof IBasicResourcesAmount, number>;
+  getResource: (key: keyof IBasicResourcesAmount) => number;
+  setResource: (key: keyof IBasicResourcesAmount, value: number) => void;
+  setResources: (amount: IBasicResourcesAmount) => void;
+  canAfford: (resource: keyof IBasicResourcesAmount, amount: number) => boolean;
+  addResource: (resource: keyof IBasicResourcesAmount, amount: number) => void;
+  addResources: (resources: IBasicResources) => void;
+  spendResource: (
+    resource: keyof IBasicResourcesAmount,
+    amount: number
+  ) => void;
   resetResources: () => void;
-  renderData: IResourcesAmount;
+  renderData: IBasicResourcesAmount;
 }

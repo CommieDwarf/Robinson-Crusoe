@@ -1,7 +1,9 @@
-import { Resources } from "./Resources";
+import { BasicResources } from "./BasicResources";
 import {
+  IBasicResources,
+  IBasicResourcesAmount,
   IResources,
-  IResourcesAmount,
+  IResourcesRenderData,
 } from "../../../interfaces/Resources/Resources";
 import {
   IResourceService,
@@ -10,10 +12,21 @@ import {
 import { IGame } from "../../../interfaces/Game";
 import Entries from "../../../interfaces/Entries";
 import i18n from "../../../I18n/I18n";
+import { IToken } from "../../../interfaces/TokenService/Token";
+import { IMysteryCard } from "../../../interfaces/MysteryService/MysteryCard";
 
 export class ResourceService implements IResourceService {
-  private _future: IResources = new Resources();
-  private _owned: IResources = new Resources();
+  private _future: IResources = {
+    basic: new BasicResources(),
+    treasures: [],
+    tokens: [],
+  };
+  private _owned: IResources = {
+    basic: new BasicResources(),
+    treasures: [],
+    tokens: [],
+  };
+
   private _cellar: boolean = false;
   private _pit: boolean = false;
 
@@ -36,8 +49,8 @@ export class ResourceService implements IResourceService {
 
   get renderData(): IResourceServiceRenderData {
     return {
-      future: this.future.renderData,
-      owned: this.owned.renderData,
+      future: this.unpackRenderData(this._future),
+      owned: this.unpackRenderData(this._owned),
     };
   }
 
@@ -67,17 +80,53 @@ export class ResourceService implements IResourceService {
 
   // ------------------------------------
 
+  public addTokenToFuture(token: IToken) {
+    this._future.tokens.push(token);
+  }
+
+  public addTreasureToFuture(treasureCard: IMysteryCard) {
+    this._future.treasures.push(treasureCard);
+  }
+
+  public addTokenToOwned(token: IToken) {
+    this._owned.tokens.push(token);
+  }
+
+  public addTreasureToOwned(treasureCard: IMysteryCard) {
+    this._owned.treasures.push(treasureCard);
+  }
+
+  private unpackRenderData(resources: IResources): IResourcesRenderData {
+    return {
+      basic: resources.basic.renderData,
+      tokens: resources.tokens.map((token) => token.renderData),
+      treasures: resources.treasures.map((treasure) => treasure.renderData),
+    };
+  }
+
   public addFutureToOwned = (): void => {
-    this._owned.addResources(this.future);
-    this._future.resetResources();
+    this._owned.basic.addResources(this._future.basic);
+    this._owned.tokens = this._owned.tokens.concat(this._future.tokens);
+    this._owned.treasures = this._owned.treasures.concat(
+      this._future.treasures
+    );
+    this.resetFutureResources();
   };
 
-  public addToOwned = (resources: IResources): void => {
-    this._owned.addResources(resources);
+  private resetFutureResources() {
+    this._future = {
+      basic: new BasicResources(),
+      tokens: [],
+      treasures: [],
+    };
+  }
+
+  public addBasicResourcesToOwned = (resources: IBasicResources): void => {
+    this._owned.basic.addResources(resources);
   };
 
-  public addResourceToOwned(
-    resource: keyof IResourcesAmount,
+  public addBasicResourceToOwned(
+    resource: keyof IBasicResourcesAmount,
     amount: number,
     logSource: string
   ) {
@@ -88,15 +137,15 @@ export class ResourceService implements IResourceService {
       "green",
       logSource
     );
-    this._owned.addResource(resource, amount);
+    this._owned.basic.addResource(resource, amount);
   }
 
-  public addResourceToFuture(
-    resource: keyof IResourcesAmount,
+  public addBasicResourceToFuture(
+    resource: keyof IBasicResourcesAmount,
     amount: number,
     logSource: string
   ) {
-    this._future.addResource(resource, amount);
+    this._future.basic.addResource(resource, amount);
     this._game.chatLog.addMessage(
       `Dodano ${amount} ${i18n.t(`resource.${resource}`, {
         count: amount,
@@ -106,11 +155,14 @@ export class ResourceService implements IResourceService {
     );
   }
 
-  public canAffordResource(resource: keyof IResourcesAmount, amount: number) {
-    return this.owned.canAfford(resource, amount);
+  public canAffordResource(
+    resource: keyof IBasicResourcesAmount,
+    amount: number
+  ) {
+    return this.owned.basic.canAfford(resource, amount);
   }
 
-  public canAffordResources(resources: IResources) {
+  public canAffordResources(resources: IBasicResources) {
     let canAfford = true;
     resources.amount.forEach((amount, resource) => {
       if (!this.canAffordResource(resource, amount)) {
@@ -120,19 +172,19 @@ export class ResourceService implements IResourceService {
     return canAfford;
   }
 
-  spendResourceIfPossible(
-    resource: keyof IResourcesAmount,
+  spendBasicResourceIfPossible(
+    resource: keyof IBasicResourcesAmount,
     amount: number,
     logSource: string = ""
   ) {
     if (amount === 0) {
       return;
     }
-    const diff = this._owned.getResource(resource) - amount;
+    const diff = this._owned.basic.getResource(resource) - amount;
     if (diff < 0) {
-      this._owned.setResource(resource, 0);
+      this._owned.basic.setResource(resource, 0);
     } else {
-      this._owned.spendResource(resource, amount);
+      this._owned.basic.spendResource(resource, amount);
     }
     if (logSource.length > 0) {
       this._game.chatLog.addMessage(
@@ -145,41 +197,44 @@ export class ResourceService implements IResourceService {
     }
   }
 
-  spendResourcesIfPossible(resources: IResources, logSource: string = "") {
+  spendBasicResourcesIfPossible(
+    resources: IBasicResources,
+    logSource: string = ""
+  ) {
     const entries = Object.entries(
       resources.amount
-    ) as Entries<IResourcesAmount>;
+    ) as Entries<IBasicResourcesAmount>;
     entries.forEach(([resource, amount]) => {
-      this.spendResourceIfPossible(resource, amount, logSource);
+      this.spendBasicResourceIfPossible(resource, amount, logSource);
     });
   }
 
-  spendResourceOrGetHurt(
-    resource: keyof IResourcesAmount,
+  spendBasicResourceOrGetHurt(
+    resource: keyof IBasicResourcesAmount,
     amount: number,
     logSource: string
   ) {
     if (amount === 0) {
       return;
     }
-    const diff = this._owned.getResource(resource) - amount;
+    const diff = this._owned.basic.getResource(resource) - amount;
     if (diff < 0) {
-      this._owned.setResource(resource, 0);
+      this._owned.basic.setResource(resource, 0);
       this._game.characterService.hurtAllPlayerCharacters(
         Math.abs(diff),
         logSource
       );
     } else {
-      this._owned.spendResource(resource, amount);
+      this._owned.basic.spendResource(resource, amount);
     }
   }
 
-  spendResourcesOrGetHurt(resources: IResources, logSource: string) {
+  spendResourcesOrGetHurt(resources: IBasicResources, logSource: string) {
     const entries = Object.entries(
       resources.amount
-    ) as Entries<IResourcesAmount>;
+    ) as Entries<IBasicResourcesAmount>;
     entries.forEach(([resource, amount]) => {
-      this.spendResourceOrGetHurt(resource, amount, logSource);
+      this.spendBasicResourceOrGetHurt(resource, amount, logSource);
     });
   }
 }

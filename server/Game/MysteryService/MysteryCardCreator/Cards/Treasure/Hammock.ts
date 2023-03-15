@@ -1,15 +1,13 @@
-import {TreasureMysteryCard} from "./TreasureMysteryCard/TreasureMysteryCard";
-import {ITreasureMysteryCard} from "../../../../../../interfaces/MysteryService/MysteryCard";
-import {IGame} from "../../../../../../interfaces/Game";
+import { TreasureMysteryCard } from "./TreasureMysteryCard/TreasureMysteryCard";
+import { IGame } from "../../../../../../interfaces/Game";
+import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 
-export class Hammock
-    extends TreasureMysteryCard
-    implements ITreasureMysteryCard {
+export class Hammock extends TreasureMysteryCard {
   constructor(game: IGame) {
-    super(game, "hammock", "hamak", false, "", Infinity);
+    super(game, "hammock", "hamak", false, "", 0);
   }
 
-  use() {
-    //TODO: implement
+  triggerDrawEffect(drawer: ICharacter) {
+    this.addCardAsReminder();
   }
 }

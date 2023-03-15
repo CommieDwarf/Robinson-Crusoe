@@ -25,12 +25,20 @@ export class HungryPredator
   option1(resolver: ICharacter) {
     const character = this.getPrimeCharacter();
     this._game.characterService.hurt(character, 2, this._namePL);
-    this._game.resourceService.addResourceToOwned("food", 2, this.namePL);
-    this._game.resourceService.addResourceToOwned("leather", 1, this.namePL);
+    this._game.resourceService.addBasicResourceToOwned("food", 2, this.namePL);
+    this._game.resourceService.addBasicResourceToOwned(
+      "leather",
+      1,
+      this.namePL
+    );
   }
 
   option2(resolver: ICharacter) {
-    this._game.resourceService.spendResourceOrGetHurt("food", 1, this.namePL);
+    this._game.resourceService.spendBasicResourceOrGetHurt(
+      "food",
+      1,
+      this.namePL
+    );
     this._game.constructionService.lvlDownOrSuffer(
       CONSTRUCTION.PALISADE,
       1,

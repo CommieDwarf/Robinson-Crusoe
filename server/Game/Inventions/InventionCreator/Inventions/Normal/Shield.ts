@@ -6,7 +6,7 @@ import {
   INVENTION_TYPE,
 } from "../../../../../../interfaces/InventionService/Invention";
 import { IGame } from "../../../../../../interfaces/Game";
-import { Resources } from "../../../../ResourceService/Resources";
+import { BasicResources } from "../../../../ResourceService/BasicResources";
 import { PAWN_HELPER_ACTION } from "../../../../../../interfaces/Pawns/Pawn";
 
 export class Shield extends HelperPawnInvention implements IInvention {
@@ -17,7 +17,7 @@ export class Shield extends HelperPawnInvention implements IInvention {
       INVENTION_NORMAL.SHIELD,
       { terrainType: null, inventions: [INVENTION_STARTER.ROPE] },
       INVENTION_TYPE.NORMAL,
-      new Resources(0, 0, 1, 0),
+      new BasicResources(0, 0, 1, 0),
       game,
       PAWN_HELPER_ACTION.HUNT
     );

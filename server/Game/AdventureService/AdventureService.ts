@@ -1,12 +1,18 @@
-import { IGame } from "../../../interfaces/Game";
-import { IAdventureCard } from "../../../interfaces/AdventureService/AdventureCard";
-import { AdventureAction } from "../../../interfaces/ACTION";
+import {IGame} from "../../../interfaces/Game";
+import {IAdventureCard} from "../../../interfaces/AdventureService/AdventureCard";
+import {AdventureAction} from "../../../interfaces/ACTION";
 import {
   AdventureCardStacks,
+  AdventureRelatedActionInfo,
+  CurrentAdventure,
   IAdventureService,
   IAdventureServiceRenderData,
 } from "../../../interfaces/AdventureService/AdventureService";
-import { AdventureCardCreator } from "./AdventureCardCreator/Creators/AdventureCardCreator";
+import {AdventureCardCreator} from "./AdventureCardCreator/Creators/AdventureCardCreator";
+import {IResolvableItem} from "../../../interfaces/ActionService/IResolvableItem";
+import {Tile} from "../TileService/TileGraph/Tile";
+import {TileService} from "../TileService/TileService";
+import {isAdventureAction} from "../../../utils/isAdventureAction";
 
 export class AdventureService implements IAdventureService {
   private readonly _game: IGame;
@@ -17,7 +23,8 @@ export class AdventureService implements IAdventureService {
     gather: [],
   };
 
-  private _currentCard: IAdventureCard | null = null;
+
+  private _currentAdventure: CurrentAdventure | null = null;
 
   constructor(game: IGame) {
     this._game = game;
@@ -26,37 +33,72 @@ export class AdventureService implements IAdventureService {
 
   get renderData(): IAdventureServiceRenderData {
     return {
-      currentCard: this._currentCard ? this._currentCard.renderData : null,
+      currentCard: this._currentAdventure
+          ? this._currentAdventure.card.renderData
+          : null,
     };
   }
 
-  get currentCard(): IAdventureCard | null {
-    return this._currentCard;
+  get currentAdventure() {
+    return this._currentAdventure;
   }
 
   resolveAdventureCard(option: 1 | 2, resolverName: string) {
-    if (!this._currentCard) {
+    if (!this._currentAdventure) {
       throw new Error("There is no current card to resolve");
     }
     const resolver = this._game.characterService.getCharacter(resolverName);
-    if (option === 1 || !this._currentCard.shouldDecide) {
-      this._currentCard.option1(resolver);
+    if (option === 1 || !this._currentAdventure.card.shouldDecide) {
+      this._currentAdventure.card.option1(resolver);
     } else {
-      this._currentCard.option2(resolver);
+      this._currentAdventure.card.option2(resolver);
     }
-    this.unsetCurrentCard();
+    this.unsetCurrentAdventure();
   }
 
-  setCurrentCard(adventureType: AdventureAction) {
-    const card = this._stacks[adventureType].pop();
+  setCurrentAdventure(resolvableItem: IResolvableItem) {
+    if (!isAdventureAction(resolvableItem.action)) {
+      throw new Error(`${resolvableItem.action} action isn't adventure type`);
+    }
+    const card = this.popAdventureCardFromStack(resolvableItem.action);
+    let relatedActionInfo = this.getRelatedActionInfo(resolvableItem);
+
+    //Adventure Service must remember the action,
+    // that triggered it for some  adventure cards effects.
+    this._currentAdventure = {
+      card,
+      relatedActionInfo,
+    };
+    console.log(this._currentAdventure);
+  }
+
+  private getRelatedActionInfo(
+      resolvableItem: IResolvableItem
+  ): AdventureRelatedActionInfo | null {
+    if (resolvableItem.item instanceof Tile) {
+      return {
+        tileId: resolvableItem.item.id,
+        source: TileService.getSourceSideFromDroppableId(
+            resolvableItem.droppableID
+        ),
+      };
+    } else {
+      return null;
+    }
+  }
+
+  private popAdventureCardFromStack(
+      adventure: AdventureAction
+  ): IAdventureCard {
+    const card = this._stacks[adventure].pop();
     if (!card) {
-      throw new Error(`Card popped from ${adventureType} stack is ${card}`);
+      throw new Error(`${adventure} stack is empty`);
     }
-    this._currentCard = card;
+    return card;
   }
 
-  unsetCurrentCard() {
-    this._currentCard = null;
+  private unsetCurrentAdventure() {
+    this._currentAdventure = null;
   }
 
   private initCards() {

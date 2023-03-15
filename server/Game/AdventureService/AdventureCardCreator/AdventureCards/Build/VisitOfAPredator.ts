@@ -22,7 +22,11 @@ export class VisitOfAPredator
   }
 
   option1(resolver: ICharacter) {
-    this._game.resourceService.spendResourceOrGetHurt("food", 1, this._namePL);
+    this._game.resourceService.spendBasicResourceOrGetHurt(
+      "food",
+      1,
+      this._namePL
+    );
     this.shuffleIntoEventDeck();
   }
 

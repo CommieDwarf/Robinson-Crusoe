@@ -23,6 +23,10 @@ export class WrongTrack extends ExploreAdventureCard implements IAdventureCard {
   }
 
   triggerEventEffect() {
-    this._game.resourceService.addResourceToOwned("wood", 2, this._eventNamePL);
+    this._game.resourceService.addBasicResourceToOwned(
+      "wood",
+      2,
+      this._eventNamePL
+    );
   }
 }

@@ -5,7 +5,7 @@ import {
   INVENTION_TYPE,
 } from "../../../../../../interfaces/InventionService/Invention";
 import { IGame } from "../../../../../../interfaces/Game";
-import { Resources } from "../../../../ResourceService/Resources";
+import { BasicResources } from "../../../../ResourceService/BasicResources";
 
 export class Sack extends Invention implements IInvention {
   protected readonly _namePL = "wór";
@@ -15,7 +15,7 @@ export class Sack extends Invention implements IInvention {
       INVENTION_NORMAL.SACK,
       { terrainType: null, inventions: null },
       INVENTION_TYPE.NORMAL,
-      new Resources(0, 0, 0, 1),
+      new BasicResources(0, 0, 0, 1),
       game
     );
   }

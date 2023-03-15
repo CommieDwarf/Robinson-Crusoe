@@ -14,7 +14,11 @@ export class Furs extends GatherAdventureCard implements IAdventureCard {
   option1(resolver: ICharacter) {}
 
   option2(resolver: ICharacter) {
-    this._game.resourceService.addResourceToOwned("leather", 2, this._namePL);
+    this._game.resourceService.addBasicResourceToOwned(
+      "leather",
+      2,
+      this._namePL
+    );
   }
 
   triggerEventEffect() {

@@ -23,7 +23,7 @@ export class Nestlings extends GatherAdventureCard implements IAdventureCard {
 
   option2(resolver: ICharacter) {
     const playerAmount = this._game.playerService.players.length;
-    this._game.resourceService.addResourceToOwned(
+    this._game.resourceService.addBasicResourceToOwned(
       "food",
       playerAmount,
       this._namePL

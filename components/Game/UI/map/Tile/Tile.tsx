@@ -69,13 +69,14 @@ export default function Tile(props: Props) {
 
   let actionSlots;
 
-  if (!props.tile.tileType) {
+  if (!props.tile.tileResourceService) {
     actionSlots = (
       <div className={styles.explorePlayerSlots}>
         {getActionSlots(ACTION.EXPLORE, "")}
       </div>
     );
   } else {
+    console.log(props.tile.tileResourceService);
     let scrollableClass =
       props.tile.requiredHelperAmount >= 1
         ? styles.gatherActionSlotsScrollable
@@ -90,14 +91,15 @@ export default function Tile(props: Props) {
               : ""
           }`}
         >
-          {props.tile.tileType.resources.left.resource !== "beast" &&
-            !props.tile.tileType.resources.left.depleted && (
+          {props.tile.tileResourceService.resources.left.resource !== "beast" &&
+            !props.tile.tileResourceService.resources.left.depleted && (
               <div className={styles.gatherActionSlotsLeft}>
                 {getActionSlots(ACTION.GATHER, "left")}
               </div>
             )}
-          {props.tile.tileType.resources.right.resource !== "beast" &&
-            !props.tile.tileType.resources.right.depleted && (
+          {props.tile.tileResourceService.resources.right.resource !==
+            "beast" &&
+            !props.tile.tileResourceService.resources.right.depleted && (
               <div className={styles.gatherActionSlotsRight}>
                 {getActionSlots(ACTION.GATHER, "right")}
               </div>
@@ -107,7 +109,10 @@ export default function Tile(props: Props) {
     );
   }
 
-  const imgId = props.tile.tileType == null ? 11 : props.tile.tileType.id;
+  const imgId =
+    props.tile.tileResourceService == null
+      ? 11
+      : props.tile.tileResourceService.id;
 
   const zIndexClass =
     props.zIndex.includes("tile") &&
@@ -150,7 +155,7 @@ export default function Tile(props: Props) {
               />
             </div>
           )}
-          {props.tile.tileType?.resources.left.depleted && (
+          {props.tile.tileResourceService?.resources.left.depleted && (
             <div
               className={`${styles.depletedMark} ${styles.depletedMarkLeft}`}
             >
@@ -162,7 +167,7 @@ export default function Tile(props: Props) {
               />
             </div>
           )}
-          {props.tile.tileType?.resources.right.depleted && (
+          {props.tile.tileResourceService?.resources.right.depleted && (
             <div
               className={`${styles.depletedMark} ${styles.depletedMarkRight}`}
             >
@@ -174,14 +179,16 @@ export default function Tile(props: Props) {
               />
             </div>
           )}
-          {props.tile.tileType?.resources.right.markedForDepletion && (
+          {props.tile.tileResourceService?.resources.right
+            .markedForDepletion && (
             <ResourceDepletionButton
               side={"right"}
               tileID={props.tile.id}
               depleteResource={props.depleteResource}
             />
           )}
-          {props.tile.tileType?.resources.left.markedForDepletion && (
+          {props.tile.tileResourceService?.resources.left
+            .markedForDepletion && (
             <ResourceDepletionButton
               side={"left"}
               tileID={props.tile.id}

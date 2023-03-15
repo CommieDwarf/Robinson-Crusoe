@@ -5,7 +5,7 @@ import {
 } from "../../../../../interfaces/EventService/EventCard";
 import { IGame } from "../../../../../interfaces/Game";
 import { EVENT_CARD } from "../../../../../interfaces/EventService/EVENT_CARD";
-import { Resources } from "../../../ResourceService/Resources";
+import { BasicResources } from "../../../ResourceService/BasicResources";
 
 export class WinterDepression extends EventCard implements IEventCard {
   protected readonly _namePL = "zimowa depresja";
@@ -19,7 +19,7 @@ export class WinterDepression extends EventCard implements IEventCard {
         pawns: 1,
         invention: null,
         construction: null,
-        resource: new Resources(1, 0, 0, 0),
+        resource: new BasicResources(1, 0, 0, 0),
       },
       game
     );

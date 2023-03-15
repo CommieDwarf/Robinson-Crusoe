@@ -6,7 +6,7 @@ import {
   INVENTION_TYPE,
 } from "../../../../../../interfaces/InventionService/Invention";
 import { IGame } from "../../../../../../interfaces/Game";
-import { Resources } from "../../../../ResourceService/Resources";
+import { BasicResources } from "../../../../ResourceService/BasicResources";
 import { CONSTRUCTION } from "../../../../../../interfaces/ConstructionService/Construction";
 
 export class Bow extends Invention implements IInvention {
@@ -20,7 +20,7 @@ export class Bow extends Invention implements IInvention {
         inventions: [INVENTION_STARTER.KNIFE, INVENTION_STARTER.ROPE],
       },
       INVENTION_TYPE.NORMAL,
-      new Resources(0, 0, 1, 0),
+      new BasicResources(0, 0, 1, 0),
       game
     );
   }

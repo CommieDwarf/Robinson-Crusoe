@@ -3,23 +3,23 @@ import {
   IConstruction,
   IConstructionRenderData,
 } from "../../../interfaces/ConstructionService/Construction";
-import { IResources } from "../../../interfaces/Resources/Resources";
-import { Resources } from "../ResourceService/Resources";
+import { IBasicResources } from "../../../interfaces/Resources/Resources";
+import { BasicResources } from "../ResourceService/BasicResources";
 
 export class Construction implements IConstruction {
   private _requiredHelperAmount = 0;
   private readonly _name: CONSTRUCTION;
   private readonly _namePL: string;
   private _lvl = 0;
-  private _committedResources: IResources = new Resources();
-  private _cost: IResources;
+  private _committedResources: IBasicResources = new BasicResources();
+  private _cost: IBasicResources;
   private _locked: boolean;
   private _resourceChoice: boolean = true;
 
   constructor(
     name: CONSTRUCTION,
     namePL: string,
-    cost: Resources,
+    cost: BasicResources,
     locked: boolean
   ) {
     this._name = name;
@@ -59,19 +59,19 @@ export class Construction implements IConstruction {
     return this._lvl;
   }
 
-  get committedResources(): IResources {
+  get committedResources(): IBasicResources {
     return this._committedResources;
   }
 
-  set committedResources(resources: IResources) {
+  set committedResources(resources: IBasicResources) {
     this._committedResources = resources;
   }
 
-  get cost(): IResources {
+  get cost(): IBasicResources {
     return this._cost;
   }
 
-  set cost(value: IResources) {
+  set cost(value: IBasicResources) {
     this._cost = value;
   }
 

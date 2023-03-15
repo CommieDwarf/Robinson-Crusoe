@@ -33,10 +33,14 @@ export class SupplyCrates extends EventCard implements IEventCard {
   }
 
   fullFill() {
-    this._game.resourceService.addResourceToOwned("food", 1, this.name);
+    this._game.resourceService.addBasicResourceToOwned("food", 1, this.name);
     const helper = this.getHelperPawn();
     if (helper) {
-      this._game.resourceService.addResourceToOwned("dryFood", 1, this.name);
+      this._game.resourceService.addBasicResourceToOwned(
+        "dryFood",
+        1,
+        this.name
+      );
     }
   }
 }

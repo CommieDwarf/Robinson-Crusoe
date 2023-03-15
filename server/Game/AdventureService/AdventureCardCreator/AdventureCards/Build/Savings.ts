@@ -21,7 +21,7 @@ export class Savings extends BuildAdventureCard implements IAdventureCard {
   option1(resolver: ICharacter) {}
 
   option2(resolver: ICharacter) {
-    this._game.resourceService.addResourceToOwned("wood", 2, this._namePL);
+    this._game.resourceService.addBasicResourceToOwned("wood", 2, this._namePL);
     this.shuffleIntoEventDeck();
   }
 

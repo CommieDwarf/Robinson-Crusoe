@@ -22,7 +22,7 @@ export class Mushrooms extends GatherAdventureCard implements IAdventureCard {
   option1(resolver: ICharacter) {}
 
   option2(resolver: ICharacter) {
-    this._game.resourceService.addResourceToOwned("food", 1, this._namePL);
+    this._game.resourceService.addBasicResourceToOwned("food", 1, this._namePL);
   }
 
   triggerEventEffect() {

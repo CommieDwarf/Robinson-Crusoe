@@ -3,7 +3,7 @@ import { IEventCard } from "../../../../../interfaces/EventService/EventCard";
 import { IGame } from "../../../../../interfaces/Game";
 import { EVENT_CARD } from "../../../../../interfaces/EventService/EVENT_CARD";
 import { ACTION } from "../../../../../interfaces/ACTION";
-import { Resources } from "../../../ResourceService/Resources";
+import { BasicResources } from "../../../ResourceService/BasicResources";
 
 export class Rain extends EventCard implements IEventCard {
   protected readonly _namePL = "deszcz";
@@ -17,7 +17,7 @@ export class Rain extends EventCard implements IEventCard {
         pawns: 1,
         invention: null,
         construction: null,
-        resource: new Resources(0, 0, 0, 1),
+        resource: new BasicResources(0, 0, 0, 1),
       },
       game
     );

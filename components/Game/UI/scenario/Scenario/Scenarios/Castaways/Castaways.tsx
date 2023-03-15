@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Description } from "./Description/Description";
 import { WoodStack } from "./WoodStack/WoodStack";
 
-import Invention from "../../../../CardList/Cards/Invention/Invention";
+import Invention from "../../../../CardList/Cards/Card/Invention/Invention";
 import React from "react";
 import { IInventionRenderData } from "../../../../../../../interfaces/InventionService/Invention";
 

@@ -19,6 +19,10 @@ export class HardWork extends BuildAdventureCard implements IAdventureCard {
   }
 
   option1(resolver: ICharacter) {
-    this._game.resourceService.spendResourceIfPossible("food", 1, this._namePL);
+    this._game.resourceService.spendBasicResourceIfPossible(
+      "food",
+      1,
+      this._namePL
+    );
   }
 }

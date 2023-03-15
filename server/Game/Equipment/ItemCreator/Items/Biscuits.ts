@@ -11,6 +11,6 @@ export class Biscuits extends Item implements IItem {
 
   use(user: IPlayerCharacter, target: ICharacter) {
     super.use(user);
-    this._game.resourceService.addResourceToOwned("dryFood", 1, this.name);
+    this._game.resourceService.addBasicResourceToOwned("dryFood", 1, this.name);
   }
 }

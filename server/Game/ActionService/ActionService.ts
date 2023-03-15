@@ -19,6 +19,7 @@ import { MissingLeaderError } from "../Errors/MissingLeaderError";
 import { isAdventureAction } from "../../../utils/isAdventureAction";
 import i18n from "../../../I18n/I18n";
 import { OccupiedSlots } from "../../../interfaces/ActionSlots";
+import { Tile } from "../TileService/TileGraph/Tile";
 
 export class ActionService implements IActionService {
   private readonly _game: IGame;
@@ -229,11 +230,15 @@ export class ActionService implements IActionService {
     }
   }
 
-  public resolve(resolvableItemID: string) {
-    if (
-      this._game.adventureService.currentCard ||
+  get canResolve() {
+    return !(
+      this._game.adventureService.currentAdventure ||
       this._game.mysteryService.isDrawingOn
-    ) {
+    );
+  }
+
+  public resolve(resolvableItemID: string) {
+    if (!this.canResolve) {
       return;
     }
     const resolvableItem = this.getResolvableItem(resolvableItemID);
@@ -243,10 +248,9 @@ export class ActionService implements IActionService {
     }
     if (
       isAdventureAction(resolvableItem.action) &&
-      (resolvableItem.rollDiceResults?.mystery.result === "mystery" ||
-        this._adventureTokens[resolvableItem.action])
+      this.shouldSetAdventureCard(resolvableItem)
     ) {
-      this._game.adventureService.setCurrentCard(resolvableItem.action);
+      this._game.adventureService.setCurrentAdventure(resolvableItem);
       this.setAdventureToken(
         resolvableItem.action,
         false,
@@ -255,13 +259,24 @@ export class ActionService implements IActionService {
     }
   }
 
-  private getResolvableItem(id: string) {
-    const resolvableItem = this._resolvableItems.find((item) => item.id == id);
-    if (!resolvableItem) {
-      throw new Error(`Resolvable item with id: ${id} not found.`);
-    }
+  private shouldSetAdventureCard(resolvableItem: IResolvableItem): boolean {
+    return (
+      isAdventureAction(resolvableItem.action) &&
+      (resolvableItem.rollDiceResults?.mystery.result === "mystery" ||
+        this._adventureTokens[resolvableItem.action])
+    );
+  }
 
-    return resolvableItem;
+  private getResolvableItem(resolvableItemID: string) {
+    const resItem = this._resolvableItems.find(
+      (resItem) => resItem.id === resolvableItemID
+    );
+    if (!resItem) {
+      throw new Error(
+        "Couldn't find resolvable item with id: " + resolvableItemID
+      );
+    }
+    return resItem;
   }
 
   private getResolvableItemByDroppableID(

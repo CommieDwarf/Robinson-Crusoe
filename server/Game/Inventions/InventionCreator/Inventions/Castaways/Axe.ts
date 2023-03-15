@@ -5,7 +5,7 @@ import {
 } from "../../../../../../interfaces/InventionService/Invention";
 import { IGame } from "../../../../../../interfaces/Game";
 import { TERRAIN_TYPE } from "../../../../../../interfaces/TileService/ITile";
-import { Resources } from "../../../../ResourceService/Resources";
+import { BasicResources } from "../../../../ResourceService/BasicResources";
 import { Invention } from "../../Invention";
 
 export class Axe extends Invention implements IInvention {
@@ -16,7 +16,7 @@ export class Axe extends Invention implements IInvention {
       INVENTION_CASTAWAYS.AXE,
       { terrainType: TERRAIN_TYPE.MOUNTAINS, inventions: null },
       INVENTION_TYPE.SCENARIO,
-      new Resources(0, 0, 1, 0),
+      new BasicResources(0, 0, 1, 0),
       game
     );
   }

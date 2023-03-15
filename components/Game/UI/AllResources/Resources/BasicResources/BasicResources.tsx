@@ -1,10 +1,10 @@
 import Image from "next/image";
 import React from "react";
 import styles from "./BasicResources.module.css";
-import { IResourcesAmount } from "../../../../../../interfaces/Resources/Resources";
+import { IBasicResourcesAmount } from "../../../../../../interfaces/Resources/Resources";
 
 interface Props {
-  resources: Map<keyof IResourcesAmount, number>;
+  resources: Map<keyof IBasicResourcesAmount, number>;
 }
 
 export default function BasicResources(props: Props) {

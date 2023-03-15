@@ -6,7 +6,7 @@ import {
   InventionRequirements,
 } from "../../../../interfaces/InventionService/Invention";
 import { IGame } from "../../../../interfaces/Game";
-import { IResources } from "../../../../interfaces/Resources/Resources";
+import { IBasicResources } from "../../../../interfaces/Resources/Resources";
 import { PAWN_HELPER_ACTION } from "../../../../interfaces/Pawns/Pawn";
 import { PawnHelper } from "../../PawnService/Pawn/PawnHelper";
 import { ICharacter } from "../../../../interfaces/Characters/Character";
@@ -21,7 +21,7 @@ export class HelperPawnInvention extends Invention implements IInvention {
     name: INVENTION,
     requirements: InventionRequirements,
     type: INVENTION_TYPE,
-    cost: IResources | null,
+    cost: IBasicResources | null,
     game: IGame,
     pawnHelperAction: PAWN_HELPER_ACTION
   ) {

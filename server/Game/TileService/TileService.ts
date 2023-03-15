@@ -1,5 +1,4 @@
 import shuffle from "../../../utils/shuffleArray";
-import { TileType, tileTypes } from "../../../constants/tilleTypes";
 import {
   ITileService,
   ITilesServiceRenderData,
@@ -8,16 +7,19 @@ import { ITile, TERRAIN_TYPE } from "../../../interfaces/TileService/ITile";
 import { IGame } from "../../../interfaces/Game";
 import { TileGraph } from "./TileGraph/TileGraph";
 import { ITileGraph } from "../../../interfaces/TileService/ITileGraph";
+import { ITileResourceService } from "../../../interfaces/TileService/TileResourceService";
+import { FixedTileResources } from "../../../interfaces/TileService/TileResourceInfo";
+import { fixedTileResources } from "../../../constants/tileResourceServices";
 
 export class TileService implements ITileService {
-  _tileGraph: ITileGraph;
-  _tileTypeStack: TileType[];
+  private _tileGraph: ITileGraph;
+  private _fixedTileResourcesStack: FixedTileResources[];
   private readonly _terrainTypesExplored: Set<TERRAIN_TYPE>;
   private _campTransition = {
     status: false,
     forced: false,
   };
-  _game: IGame;
+  private _game: IGame;
   private _campJustMoved = false;
   basket: boolean = false;
   sack: boolean = false;
@@ -26,7 +28,7 @@ export class TileService implements ITileService {
 
   constructor(game: IGame, campTileID: number) {
     this._game = game;
-    this._tileTypeStack = shuffle(tileTypes);
+    this._fixedTileResourcesStack = shuffle(fixedTileResources);
     this._terrainTypesExplored = new Set<TERRAIN_TYPE>([TERRAIN_TYPE.BEACH]);
     this._tileGraph = new TileGraph(campTileID, game);
     this.showAdjacentTiles(campTileID);
@@ -84,6 +86,8 @@ export class TileService implements ITileService {
     this.tiles.forEach((tile) => tile.clearMarkedForDepletion());
   }
 
+  depleteSource(tileID: number, side: "left" | "right") {}
+
   markTileForAnyResourceDepletion(tileID: number) {
     this.getTile(tileID).markForDepletion("left");
     this.getTile(tileID).markForDepletion("right");
@@ -110,10 +114,10 @@ export class TileService implements ITileService {
   countMarkedResourceForDepletion() {
     let counter = 0;
     this.tiles.forEach((tile) => {
-      if (tile.tileType?.resources.left.markedForDepletion) {
+      if (tile.tileResourceService?.resources.left.markedForDepletion) {
         counter++;
       }
-      if (tile.tileType?.resources.right.markedForDepletion) {
+      if (tile.tileResourceService?.resources.right.markedForDepletion) {
         counter++;
       }
     });
@@ -121,31 +125,21 @@ export class TileService implements ITileService {
   }
 
   gather(side: "left" | "right", tileID: number, logSource: string) {
-    if (tileID === this.campTile.id) {
-      throw new Error("Can't gather from camp tile");
-    }
     const tile = this.getTile(tileID);
-    const tileType = tile.tileType;
-    if (!tile) {
-      throw new Error("Can't find tile to gather. id " + tileID);
+    const resourceAmount = tile.getGatherableResourceAmount(side);
+    if (resourceAmount) {
+      this._game.resourceService.addBasicResourceToFuture(
+        resourceAmount.resource,
+        resourceAmount.amount,
+        logSource
+      );
     }
-
-    if (!tileType) {
-      throw new Error("Tile has no tileType");
-    }
-
-    const resource = tile.tileType?.resources[side].resource;
-
-    if (!resource || resource === "beast") {
-      throw new Error("can't gather" + resource);
-    }
-    this._game.resourceService.addResourceToFuture(resource, 1, logSource);
   }
 
   explore(id: number) {
-    const tileType = this._tileTypeStack.pop();
-    if (!tileType) {
-      throw new Error("Empty tile type stack!");
+    const tileFixedResources = this._fixedTileResourcesStack.pop();
+    if (!tileFixedResources) {
+      throw new Error("Empty tileFixedResources stack!");
     }
     const tile = this.getTile(id);
     tile.reveal(tileType);
@@ -201,5 +195,18 @@ export class TileService implements ITileService {
     tile.position.borderTiles.forEach((id) => {
       this.getTile(id).show = true;
     });
+  }
+
+  static getSourceSideFromDroppableId(
+    droppableId: string
+  ): "left" | "right" | null {
+    switch (true) {
+      case droppableId.includes("left"):
+        return "left";
+      case droppableId.includes("right"):
+        return "right";
+      default:
+        return null;
+    }
   }
 }

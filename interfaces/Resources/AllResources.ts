@@ -1,45 +1,63 @@
-import { IResources, IResourcesAmount } from "./Resources";
+import {
+  IBasicResources,
+  IBasicResourcesAmount,
+  IResources,
+  IResourcesRenderData,
+} from "./Resources";
+import { IToken } from "../TokenService/Token";
+import { IMysteryCard } from "../MysteryService/MysteryCard";
 
 export interface IResourceServiceRenderData {
-  future: IResourcesAmount;
-  owned: IResourcesAmount;
+  future: IResourcesRenderData;
+  owned: IResourcesRenderData;
 }
 
 export interface IResourceService {
   future: IResources;
   owned: IResources;
   addFutureToOwned: () => void;
-  addToOwned: (resources: IResources) => void;
+  addBasicResourcesToOwned: (resources: IBasicResources) => void;
   renderData: IResourceServiceRenderData;
   cellar: boolean;
   pit: boolean;
-  addResourceToOwned: (
-    resource: keyof IResourcesAmount,
+  addBasicResourceToOwned: (
+    resource: keyof IBasicResourcesAmount,
     amount: number,
     logSource: string
   ) => void;
-  addResourceToFuture: (
-    resource: keyof IResourcesAmount,
+  addBasicResourceToFuture: (
+    resource: keyof IBasicResourcesAmount,
     amount: number,
     logSource: string
   ) => void;
+  addTokenToFuture: (token: IToken) => void;
+  addTreasureToFuture: (treasureCard: IMysteryCard) => void;
+  addTokenToOwned: (token: IToken) => void;
+  addTreasureToOwned: (treasureCard: IMysteryCard) => void;
+
   blockedProductionRound: number | null;
   canAffordResource: (
-    resource: keyof IResourcesAmount,
+    resource: keyof IBasicResourcesAmount,
     amount: number
   ) => boolean;
-  canAffordResources: (resources: IResources) => boolean;
-  spendResourceIfPossible: (
-    resource: keyof IResourcesAmount,
+  canAffordResources: (resources: IBasicResources) => boolean;
+  spendBasicResourceIfPossible: (
+    resource: keyof IBasicResourcesAmount,
     amount: number,
     logSource: string
   ) => void;
-  spendResourceOrGetHurt: (
-    resource: keyof IResourcesAmount,
+  spendBasicResourceOrGetHurt: (
+    resource: keyof IBasicResourcesAmount,
     amount: number,
     logSource: string
   ) => void;
 
-  spendResourcesIfPossible: (resources: IResources, logSource: string) => void;
-  spendResourcesOrGetHurt: (resources: IResources, logSource: string) => void;
+  spendBasicResourcesIfPossible: (
+    resources: IBasicResources,
+    logSource: string
+  ) => void;
+  spendResourcesOrGetHurt: (
+    resources: IBasicResources,
+    logSource: string
+  ) => void;
 }

@@ -1,4 +1,4 @@
-import { IResources } from "../../../../interfaces/Resources/Resources";
+import { IBasicResources } from "../../../../interfaces/Resources/Resources";
 import { IBeast, IBeastRenderData } from "../../../../interfaces/Beasts/Beast";
 import { IGame } from "../../../../interfaces/Game";
 
@@ -9,7 +9,7 @@ export class Beast implements IBeast {
 
   protected readonly _strength: number;
   protected readonly _weaponLoss: number;
-  protected readonly _reward: IResources;
+  protected readonly _reward: IBasicResources;
   protected readonly _name: string;
   protected readonly _game: IGame;
   protected readonly _namePL: string;
@@ -19,7 +19,7 @@ export class Beast implements IBeast {
     namePL: string,
     strength: number,
     weaponLoss: number,
-    reward: IResources,
+    reward: IBasicResources,
     game: IGame
   ) {
     this._name = name;

@@ -25,9 +25,17 @@ export class StoneSoup extends Skill implements ISkill {
 
   use(target: ICharacter | ActionDice | null = null) {
     if (this._game.phaseService.phase === "action") {
-      this._game.resourceService.addResourceToFuture("food", 1, this._namePL);
+      this._game.resourceService.addBasicResourceToFuture(
+        "food",
+        1,
+        this._namePL
+      );
     } else {
-      this._game.resourceService.addResourceToOwned("food", 1, this._namePL);
+      this._game.resourceService.addBasicResourceToOwned(
+        "food",
+        1,
+        this._namePL
+      );
     }
     this._used = true;
   }

@@ -1,13 +1,13 @@
 import Image from "next/image";
 import React, { useState } from "react";
-import ActionSlot from "../../../ActionSlot";
+import ActionSlot from "../../../../ActionSlot";
 import styles from "./Invention.module.css";
-import getHelperActionSlots from "../../../../../../utils/getHelperActionSlots";
-import { IInventionRenderData } from "../../../../../../interfaces/InventionService/Invention";
-import { getImgName } from "../../../../../../utils/getImgName";
-import { ACTION } from "../../../../../../interfaces/ACTION";
-import { ACTION_ITEM } from "../../../../../../utils/getDroppableID";
-import { objectsEqual } from "../../../../../../utils/objectsEqual";
+import getHelperActionSlots from "../../../../../../../utils/getHelperActionSlots";
+import { IInventionRenderData } from "../../../../../../../interfaces/InventionService/Invention";
+import { getImgName } from "../../../../../../../utils/getImgName";
+import { ACTION } from "../../../../../../../interfaces/ACTION";
+import { ACTION_ITEM } from "../../../../../../../utils/getDroppableID";
+import { objectsEqual } from "../../../../../../../utils/objectsEqual";
 
 type Props = {
   invention: IInventionRenderData;

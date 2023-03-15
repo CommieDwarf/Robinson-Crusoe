@@ -1,5 +1,5 @@
 import { TERRAIN_TYPE } from "../TileService/ITile";
-import { IResources, IResourcesAmount } from "../Resources/Resources";
+import { IBasicResources, IBasicResourcesAmount } from "../Resources/Resources";
 import { CHARACTER, ICharacter } from "../Characters/Character";
 
 export interface IInventionRenderData {
@@ -8,7 +8,7 @@ export interface IInventionRenderData {
   requiredHelpersModifier: number;
   requiredHelperAmount: number;
   type: INVENTION_TYPE;
-  committedResources: IResourcesAmount;
+  committedResources: IBasicResourcesAmount;
   isBuilt: boolean;
 }
 
@@ -19,9 +19,9 @@ export interface IInvention {
   requiredHelpersModifier: number;
   requiredHelperAmount: number;
   type: INVENTION_TYPE;
-  committedResources: IResources;
+  committedResources: IBasicResources;
   isBuilt: boolean;
-  cost: IResources | null;
+  cost: IBasicResources | null;
   requirements: InventionRequirements;
   belongsTo: CHARACTER | null;
   resourceChoice: boolean;

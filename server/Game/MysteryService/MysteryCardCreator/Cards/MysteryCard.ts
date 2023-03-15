@@ -12,6 +12,8 @@ export abstract class MysteryCard implements IMysteryCard {
   private readonly _eventName: string;
   protected readonly _game: IGame;
   protected declare readonly _type: MYSTERY_CARD_TYPE;
+  protected readonly _requiresTargeting: boolean = false;
+  protected _uses = 1;
 
   protected constructor(
     game: IGame,
@@ -40,6 +42,10 @@ export abstract class MysteryCard implements IMysteryCard {
     return this.getRenderData();
   }
 
+  get uses(): number {
+    return this._uses;
+  }
+
   get eventName(): string {
     return this._eventName;
   }
@@ -60,7 +66,15 @@ export abstract class MysteryCard implements IMysteryCard {
     return this._shuffleable;
   }
 
-  shuffleIntoEventDeck() {
+  get requiresTarget(): boolean {
+    return this._requiresTargeting;
+  }
+
+  protected addCardAsReminder() {
+    this._game.mysteryService.addCardAsReminder(this);
+  }
+
+  protected shuffleIntoEventDeck() {
     if (!this._shuffleable) {
       throw new Error(
         "shuffleIntoEventDeck method is used but card is marked as unshuffleable. " +
@@ -68,6 +82,10 @@ export abstract class MysteryCard implements IMysteryCard {
       );
     }
     //TODO: implement
+  }
+
+  use(...args: any[]): void {
+    this._uses--;
   }
 
   triggerDrawEffect(drawer: ICharacter) {}

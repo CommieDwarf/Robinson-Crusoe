@@ -1,10 +1,12 @@
-import { CreatureMysteryCard } from "./CreatureMysteryCard/CreatureMysteryCard";
-import { IMysteryCard } from "../../../../../../interfaces/MysteryService/MysteryCard";
-import { IGame } from "../../../../../../interfaces/Game";
-import { ICharacter } from "../../../../../../interfaces/Characters/Character";
-import { CONSTRUCTION } from "../../../../../../interfaces/ConstructionService/Construction";
+import {CreatureMysteryCard} from "./CreatureMysteryCard/CreatureMysteryCard";
+import {IMysteryCard} from "../../../../../../interfaces/MysteryService/MysteryCard";
+import {IGame} from "../../../../../../interfaces/Game";
+import {ICharacter} from "../../../../../../interfaces/Characters/Character";
+import {CONSTRUCTION} from "../../../../../../interfaces/ConstructionService/Construction";
 
-export class Gorilla extends CreatureMysteryCard implements IMysteryCard {
+export class Gorilla
+    extends CreatureMysteryCard
+    implements IMysteryCard {
   constructor(game: IGame) {
     super(game, "gorilla", "goryl", true, "goryl w obozie");
   }
@@ -16,9 +18,9 @@ export class Gorilla extends CreatureMysteryCard implements IMysteryCard {
 
   triggerEventEffect() {
     this._game.constructionService.lvlDownOrSuffer(
-      CONSTRUCTION.WEAPON,
-      2,
-      this._namePL
+        CONSTRUCTION.WEAPON,
+        2,
+        this._namePL
     );
   }
 }

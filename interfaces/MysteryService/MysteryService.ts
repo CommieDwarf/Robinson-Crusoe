@@ -1,21 +1,21 @@
-import {
-  IMysteryCard,
-  IMysteryCardRenderData,
-  ITreasureMysteryCard,
-} from "./MysteryCard";
+import { IMysteryCard, IMysteryCardRenderData } from "./MysteryCard";
 import { ICharacter, ICharacterRenderData } from "../Characters/Character";
 
 export interface IMysteryService {
-  ownedTreasureCards: ITreasureMysteryCard[];
+  cardsAsReminders: IMysteryCard[];
   cardStack: IMysteryCard[];
   shuffleBackIntoStack: (cards: IMysteryCard[]) => void;
   isDrawingOn: boolean;
+
   startDrawingCards: (
     creature: number,
     trap: number,
     treasure: number,
     drawer: ICharacter
   ) => void;
+  addCardAsReminder: (card: IMysteryCard) => void;
+  addTreasureToFutureResources: (card: IMysteryCard) => void;
+  addTreasureToOwnedResources: (card: IMysteryCard) => void;
 
   drawCard: () => void;
   finish: () => void;
@@ -36,5 +36,5 @@ export interface IMysteryServiceRenderData {
   canFinish: boolean;
   drawer: ICharacterRenderData | null;
   cardsLeft: MysteryCardsAmount;
-  ownedTreasureCards: ITreasureMysteryCard[];
+  cardsAsReminders: IMysteryCard[];
 }

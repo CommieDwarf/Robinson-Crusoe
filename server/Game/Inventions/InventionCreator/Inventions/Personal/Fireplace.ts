@@ -6,7 +6,7 @@ import {
   INVENTION_TYPE,
 } from "../../../../../../interfaces/InventionService/Invention";
 import { IGame } from "../../../../../../interfaces/Game";
-import { Resources } from "../../../../ResourceService/Resources";
+import { BasicResources } from "../../../../ResourceService/BasicResources";
 import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 
 export class Fireplace extends Invention implements IInvention {
@@ -18,7 +18,7 @@ export class Fireplace extends Invention implements IInvention {
       INVENTION_PERSONAL.FIREPLACE,
       { terrainType: null, inventions: [INVENTION_STARTER.FIRE] },
       INVENTION_TYPE.PERSONAL,
-      new Resources(0, 0, 0, 1),
+      new BasicResources(0, 0, 0, 1),
       game
     );
   }
@@ -42,7 +42,7 @@ export class Fireplace extends Invention implements IInvention {
       return;
     }
 
-    this._game.resourceService.owned.spendResource("food", 1);
+    this._game.resourceService.owned.basic.spendResource("food", 1);
     this._game.characterService.heal(character, 2, this._logSource);
     this.used = true;
   }

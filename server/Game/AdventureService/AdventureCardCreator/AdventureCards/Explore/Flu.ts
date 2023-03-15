@@ -19,7 +19,11 @@ export class Flu extends ExploreAdventureCard implements IAdventureCard {
   }
 
   option1(resolver: ICharacter) {
-    this._game.resourceService.spendResourceOrGetHurt("food", 1, this._namePL);
+    this._game.resourceService.spendBasicResourceOrGetHurt(
+      "food",
+      1,
+      this._namePL
+    );
   }
 
   option2(resolver: ICharacter) {

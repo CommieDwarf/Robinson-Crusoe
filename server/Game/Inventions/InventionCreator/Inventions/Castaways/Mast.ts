@@ -6,7 +6,7 @@ import {
   INVENTION_TYPE,
 } from "../../../../../../interfaces/InventionService/Invention";
 import { IGame } from "../../../../../../interfaces/Game";
-import { Resources } from "../../../../ResourceService/Resources";
+import { BasicResources } from "../../../../ResourceService/BasicResources";
 
 export class Mast extends Invention implements IInvention {
   protected readonly _namePL = "maszt";
@@ -16,7 +16,7 @@ export class Mast extends Invention implements IInvention {
       INVENTION_CASTAWAYS.MAST,
       { terrainType: null, inventions: [INVENTION_STARTER.ROPE] },
       INVENTION_TYPE.SCENARIO,
-      new Resources(0, 0, 1, 1),
+      new BasicResources(0, 0, 1, 1),
       game
     );
   }

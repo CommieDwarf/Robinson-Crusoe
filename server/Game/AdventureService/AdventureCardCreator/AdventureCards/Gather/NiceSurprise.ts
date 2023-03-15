@@ -25,7 +25,7 @@ export class NiceSurprise
   option1(resolver: ICharacter) {}
 
   option2(resolver: ICharacter) {
-    this._game.resourceService.addResourceToOwned("wood", 3, this._namePL);
+    this._game.resourceService.addBasicResourceToOwned("wood", 3, this._namePL);
   }
 
   triggerEventEffect() {

@@ -19,12 +19,16 @@ export class Goat extends Token {
       this._game.constructionService.getConstruction(CONSTRUCTION.WEAPON).lvl >
       0
     ) {
-      this._game.resourceService.addResourceToOwned(
+      this._game.resourceService.addBasicResourceToOwned(
         "leather",
         1,
         this._sourceLog
       );
-      this._game.resourceService.addResourceToOwned("food", 1, this._sourceLog);
+      this._game.resourceService.addBasicResourceToOwned(
+        "food",
+        1,
+        this._sourceLog
+      );
       this._used = true;
       super.use(user);
     }

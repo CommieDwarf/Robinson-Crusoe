@@ -52,4 +52,8 @@ export interface ICharacterService {
     logSource: string
   ) => void;
   resetPawns: () => void;
+  removeMoraleThreshold: (
+    char: IPlayerCharacter | string,
+    threshold: number
+  ) => void;
 }

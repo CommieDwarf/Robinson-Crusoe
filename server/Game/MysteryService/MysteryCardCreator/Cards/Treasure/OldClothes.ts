@@ -1,15 +1,13 @@
-import {TreasureMysteryCard} from "./TreasureMysteryCard/TreasureMysteryCard";
-import {ITreasureMysteryCard} from "../../../../../../interfaces/MysteryService/MysteryCard";
-import {IGame} from "../../../../../../interfaces/Game";
+import { TreasureMysteryCard } from "./TreasureMysteryCard/TreasureMysteryCard";
+import { IGame } from "../../../../../../interfaces/Game";
+import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 
-export class OldClothes
-    extends TreasureMysteryCard
-    implements ITreasureMysteryCard {
+export class OldClothes extends TreasureMysteryCard {
   constructor(game: IGame) {
-    super(game, "old clothes", "komplet starych ubrań", false, "", Infinity);
+    super(game, "old clothes", "komplet starych ubrań", false, "", 0);
   }
 
-  use() {
-    //TODO implement
+  triggerDrawEffect(drawer: ICharacter) {
+    this.addCardAsReminder();
   }
 }

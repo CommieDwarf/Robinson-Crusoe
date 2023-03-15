@@ -1,17 +1,17 @@
-import {IMysteryCard} from "./MysteryCard";
-import {ICharacter} from "../Characters/Character";
+import { IMysteryCard } from "./MysteryCard";
+import { ICharacter } from "../Characters/Character";
 
 export interface IMysteryCardDrawer {
-    creature: number;
-    trap: number;
-    treasure: number;
+  creature: number;
+  trap: number;
+  treasure: number;
 
-    drawer: ICharacter;
+  drawer: ICharacter;
 
-    canDraw: boolean;
-    finished: boolean;
-    canFinish: boolean;
+  canDraw: boolean;
+  finished: boolean;
+  canFinish: boolean;
 
-    finish: () => void;
-    drawCard: () => IMysteryCard;
+  finish: () => void;
+  drawCard: () => IMysteryCard;
 }

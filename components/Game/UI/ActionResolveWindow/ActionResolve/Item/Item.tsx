@@ -120,9 +120,9 @@ export const Item = (props: Props) => {
     const tile = props.resolvableItem.item as unknown as ITileRenderData;
     itemTypeStatusClass = styles.tileStatus;
     const id =
-      tile.tileType?.id != null &&
+      tile.tileResourceService?.id != null &&
       (props.resolved || props.resolvableItem.action === ACTION.GATHER)
-        ? tile.tileType.id
+        ? tile.tileResourceService.id
         : 11;
 
     image = (
@@ -144,7 +144,7 @@ export const Item = (props: Props) => {
           <span className={styles.gatherAmount}>1</span>
           <div className={styles.resourceIcon}>
             <Image
-              src={`/UI/resources/${tile.tileType?.resources[side].resource}.png`}
+              src={`/UI/resources/${tile.tileResourceService?.resources[side].resource}.png`}
               fill
               sizes={styles.resourceIcon}
               alt={"surowiec"}

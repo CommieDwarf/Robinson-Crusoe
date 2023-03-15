@@ -3,7 +3,7 @@ import { IEventCard } from "../../../../../interfaces/EventService/EventCard";
 import { IGame } from "../../../../../interfaces/Game";
 import { EVENT_CARD } from "../../../../../interfaces/EventService/EVENT_CARD";
 import { INVENTION_STARTER } from "../../../../../interfaces/InventionService/Invention";
-import { Resources } from "../../../ResourceService/Resources";
+import { BasicResources } from "../../../ResourceService/BasicResources";
 import { CONSTRUCTION } from "../../../../../interfaces/ConstructionService/Construction";
 import { ACTION } from "../../../../../interfaces/ACTION";
 
@@ -19,7 +19,7 @@ export class Storm extends EventCard implements IEventCard {
         pawns: 1,
         invention: INVENTION_STARTER.SHOVEL,
         construction: null,
-        resource: new Resources(0, 0, 1, 0),
+        resource: new BasicResources(0, 0, 1, 0),
       },
       game
     );

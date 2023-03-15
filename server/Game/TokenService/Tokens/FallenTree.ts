@@ -14,14 +14,22 @@ export class FallenTree extends Token {
   }
 
   use(user: IPlayerCharacter, target: ICharacter | null = null) {
-    this._game.resourceService.addResourceToFuture("wood", 1, this._sourceLog);
+    this._game.resourceService.addBasicResourceToFuture(
+      "wood",
+      1,
+      this._sourceLog
+    );
     this._used = true;
     super.use(user);
   }
 
   autoDiscard() {
     if (this._game.phaseService.phase === "weather") {
-      this._game.resourceService.addResourceToOwned("wood", 1, this._sourceLog);
+      this._game.resourceService.addBasicResourceToOwned(
+        "wood",
+        1,
+        this._sourceLog
+      );
       this._used = true;
       super.autoDiscard();
     }

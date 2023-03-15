@@ -1,15 +1,9 @@
 import { MysteryCard } from "../../MysteryCard";
-import {
-  ITreasureMysteryCard,
-  MYSTERY_CARD_TYPE,
-} from "../../../../../../../interfaces/MysteryService/MysteryCard";
+import { MYSTERY_CARD_TYPE } from "../../../../../../../interfaces/MysteryService/MysteryCard";
 import { IGame } from "../../../../../../../interfaces/Game";
 import { ICharacter } from "../../../../../../../interfaces/Characters/Character";
 
-export abstract class TreasureMysteryCard
-  extends MysteryCard
-  implements ITreasureMysteryCard
-{
+export abstract class TreasureMysteryCard extends MysteryCard {
   protected _type = MYSTERY_CARD_TYPE.TREASURE;
   protected _uses: number;
 
@@ -36,7 +30,15 @@ export abstract class TreasureMysteryCard
     return this._uses;
   }
 
-  use(target: ICharacter | null) {
+  use(...args: any[]): void {
     this._uses--;
+  }
+
+  addToResources() {
+    if (this._game.phaseService.phase === "action") {
+      this._game.resourceService.addTreasureToFuture(this);
+    } else {
+      this._game.resourceService.addTreasureToOwned(this);
+    }
   }
 }

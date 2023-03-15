@@ -34,6 +34,6 @@ export class BrokenTree extends EventCard implements IEventCard {
   fullFill() {
     const leader = this.getLeaderCharacter();
     this._game.characterService.incrDetermination(leader, 1, this.name);
-    this._game.resourceService.addResourceToOwned("wood", 1, this.name);
+    this._game.resourceService.addBasicResourceToOwned("wood", 1, this.name);
   }
 }

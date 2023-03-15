@@ -1,10 +1,10 @@
 import { Beast } from "../Beast";
 import { IBeast } from "../../../../../interfaces/Beasts/Beast";
 import { IGame } from "../../../../../interfaces/Game";
-import { Resources } from "../../../ResourceService/Resources";
+import { BasicResources } from "../../../ResourceService/BasicResources";
 
 export class Tapir extends Beast implements IBeast {
   constructor(game: IGame) {
-    super("tapir", "tapir", 3, 1, new Resources(2, 0, 0, 1), game);
+    super("tapir", "tapir", 3, 1, new BasicResources(2, 0, 0, 1), game);
   }
 }

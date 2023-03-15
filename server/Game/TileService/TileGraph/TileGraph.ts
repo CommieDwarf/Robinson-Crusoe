@@ -2,7 +2,7 @@ import { Graph } from "../../Utility/Graph/Graph";
 import { ITile } from "../../../../interfaces/TileService/ITile";
 import { Tile } from "./Tile";
 import { tilePositions } from "../../../../constants/tilePositions";
-import { starterTile } from "../../../../constants/tilleTypes";
+import { starterTile } from "../../../../constants/tileResourceServices";
 import { ITileGraph } from "../../../../interfaces/TileService/ITileGraph";
 import { IVertex } from "../../../../interfaces/Graph/Vertex";
 import { IGame } from "../../../../interfaces/Game";
@@ -49,7 +49,7 @@ export class TileGraph extends Graph<ITile> implements ITileGraph {
       if (vertex.data.id === this.campTileVertex.id) {
         return;
       }
-      if (vertex.data.hasResource(resource)) {
+      if (vertex.data.hasBasicResource(resource)) {
         let path = this.getShortestPath(this.campTileVertex.id, vertex.id);
         if (path.length < closest) {
           closest = path.length;

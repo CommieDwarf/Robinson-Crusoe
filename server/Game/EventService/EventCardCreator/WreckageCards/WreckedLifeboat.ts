@@ -35,13 +35,13 @@ export class WreckedLifeboat extends EventCard implements IEventCard {
   fullFill() {
     const helperPawn = this.getHelperPawn();
     if (helperPawn) {
-      this._game.resourceService.addResourceToFuture(
+      this._game.resourceService.addBasicResourceToFuture(
         "wood",
         2,
         this.resolutionPL
       );
     } else {
-      this._game.resourceService.addResourceToOwned(
+      this._game.resourceService.addBasicResourceToOwned(
         "wood",
         1,
         this.resolutionPL

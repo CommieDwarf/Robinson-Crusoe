@@ -1,65 +1,62 @@
-import {IGame} from "../../../../interfaces/Game";
+import { IGame } from "../../../../interfaces/Game";
 import {
   CREATURE_MYSTERY_CARD,
   TRAP_MYSTERY_CARD,
   TREASURE_MYSTERY_CARD,
 } from "../../../../interfaces/MysteryService/MYSTERY_CARD";
-import {BlowGun} from "./Cards/Trap/BlowGun";
-import {
-  IMysteryCard,
-  ITreasureMysteryCard,
-} from "../../../../interfaces/MysteryService/MysteryCard";
-import {BluntSpear} from "./Cards/Trap/BluntSpear";
-import {Collapse} from "./Cards/Trap/Collapse";
-import {Confused} from "./Cards/Trap/Confused";
-import {HiddenRope} from "./Cards/Trap/HiddenRope";
-import {Net} from "./Cards/Trap/Net";
-import {Poison} from "./Cards/Trap/Poison";
-import {SharpBlade} from "./Cards/Trap/SharpBlade";
-import {SpiderWeb} from "./Cards/Trap/SpiderWeb";
-import {StrangeDisease} from "./Cards/Trap/StrangeDisease";
-import {TerribleScream} from "./Cards/Trap/TerribleScream";
-import {TrapDoor} from "./Cards/Trap/TrapDoor";
-import {UnfortunateAdventure} from "./Cards/Trap/UnfortunateAdventure";
-import {AShinyJewel} from "./Cards/Creature/AShinyJewel";
-import {Bats} from "./Cards/Creature/Bats";
-import {BigApe} from "./Cards/Creature/BigApe";
-import {Bite} from "./Cards/Creature/Bite";
-import {FuriousTiger} from "./Cards/Creature/FuriousTiger";
-import {GiantSnake} from "./Cards/Creature/GiantSnake";
-import {Gorilla} from "./Cards/Creature/Gorilla";
-import {Gremlins} from "./Cards/Creature/Gremlins";
-import {Savage} from "./Cards/Creature/Savage";
-import {Scorpion} from "./Cards/Creature/Scorpion";
-import {Snake} from "./Cards/Creature/Snake";
-import {Spiders} from "./Cards/Creature/Spiders";
-import {UnleashedBeast} from "./Cards/Creature/UnleashedBeast";
-import {AmuletWithPortraitOfBeautifulLady} from "./Cards/Treasure/AmuletWithPortraitOfBeautifulLady";
-import {AntiqueRapier} from "./Cards/Treasure/AntiqueRapier";
-import {Backpack} from "./Cards/Treasure/Backpack";
-import {Barrel} from "./Cards/Treasure/Barrel";
-import {Blankets} from "./Cards/Treasure/Blankets";
-import {BottleOfWine} from "./Cards/Treasure/BottleOfWine";
-import {Boxes} from "./Cards/Treasure/Boxes";
-import {Candles} from "./Cards/Treasure/Candles";
-import {CaptainStonesSpyglass} from "./Cards/Treasure/CaptainStonesSpyglass";
-import {Crocks} from "./Cards/Treasure/Crocks";
-import {Gold} from "./Cards/Treasure/Gold";
-import {Hammock} from "./Cards/Treasure/Hammock";
-import {Hatched} from "./Cards/Treasure/Hatched";
-import {Helmet} from "./Cards/Treasure/Helmet";
-import {HerbalMixture} from "./Cards/Treasure/HerbalMixture";
-import {OldClothes} from "./Cards/Treasure/OldClothes";
-import {OldMap} from "./Cards/Treasure/OldMap";
-import {OldRifle} from "./Cards/Treasure/OldRifle";
-import {ProtectiveAmulet} from "./Cards/Treasure/ProtectiveAmulet";
-import {Ropes} from "./Cards/Treasure/Ropes";
-import {Sabre} from "./Cards/Treasure/Sabre";
-import {TreasureMap} from "./Cards/Treasure/TreasureMap";
-import {CeremonialBowl} from "./Cards/Treasure/CeremonialBowl";
-import {Compass} from "./Cards/Treasure/Compass";
-import {CaveWithFurs} from "./Cards/Treasure/CaveWithFurs";
-import {IMysteryCardCreator} from "../../../../interfaces/MysteryService/MysteryCardCreator";
+import { BlowGun } from "./Cards/Trap/BlowGun";
+import { IMysteryCard } from "../../../../interfaces/MysteryService/MysteryCard";
+import { BluntSpear } from "./Cards/Trap/BluntSpear";
+import { Collapse } from "./Cards/Trap/Collapse";
+import { Confused } from "./Cards/Trap/Confused";
+import { HiddenRope } from "./Cards/Trap/HiddenRope";
+import { Net } from "./Cards/Trap/Net";
+import { Poison } from "./Cards/Trap/Poison";
+import { SharpBlade } from "./Cards/Trap/SharpBlade";
+import { SpiderWeb } from "./Cards/Trap/SpiderWeb";
+import { StrangeDisease } from "./Cards/Trap/StrangeDisease";
+import { TerribleScream } from "./Cards/Trap/TerribleScream";
+import { TrapDoor } from "./Cards/Trap/TrapDoor";
+import { UnfortunateAdventure } from "./Cards/Trap/UnfortunateAdventure";
+import { AShinyJewel } from "./Cards/Creature/AShinyJewel";
+import { Bats } from "./Cards/Creature/Bats";
+import { BigApe } from "./Cards/Creature/BigApe";
+import { Bite } from "./Cards/Creature/Bite";
+import { FuriousTiger } from "./Cards/Creature/FuriousTiger";
+import { GiantSnake } from "./Cards/Creature/GiantSnake";
+import { Gorilla } from "./Cards/Creature/Gorilla";
+import { Gremlins } from "./Cards/Creature/Gremlins";
+import { Savage } from "./Cards/Creature/Savage";
+import { Scorpion } from "./Cards/Creature/Scorpion";
+import { Snake } from "./Cards/Creature/Snake";
+import { Spiders } from "./Cards/Creature/Spiders";
+import { UnleashedBeast } from "./Cards/Creature/UnleashedBeast";
+import { AmuletWithPortraitOfBeautifulLady } from "./Cards/Treasure/AmuletWithPortraitOfBeautifulLady";
+import { AntiqueRapier } from "./Cards/Treasure/AntiqueRapier";
+import { Backpack } from "./Cards/Treasure/Backpack";
+import { Barrel } from "./Cards/Treasure/Barrel";
+import { Blankets } from "./Cards/Treasure/Blankets";
+import { BottleOfWine } from "./Cards/Treasure/BottleOfWine";
+import { Boxes } from "./Cards/Treasure/Boxes";
+import { Candles } from "./Cards/Treasure/Candles";
+import { CaptainStonesSpyglass } from "./Cards/Treasure/CaptainStonesSpyglass";
+import { Crocks } from "./Cards/Treasure/Crocks";
+import { Gold } from "./Cards/Treasure/Gold";
+import { Hammock } from "./Cards/Treasure/Hammock";
+import { Hatched } from "./Cards/Treasure/Hatched";
+import { Helmet } from "./Cards/Treasure/Helmet";
+import { HerbalMixture } from "./Cards/Treasure/HerbalMixture";
+import { OldClothes } from "./Cards/Treasure/OldClothes";
+import { OldMap } from "./Cards/Treasure/OldMap";
+import { OldRifle } from "./Cards/Treasure/OldRifle";
+import { ProtectiveAmulet } from "./Cards/Treasure/ProtectiveAmulet";
+import { Ropes } from "./Cards/Treasure/Ropes";
+import { Sabre } from "./Cards/Treasure/Sabre";
+import { TreasureMap } from "./Cards/Treasure/TreasureMap";
+import { CeremonialBowl } from "./Cards/Treasure/CeremonialBowl";
+import { Compass } from "./Cards/Treasure/Compass";
+import { CaveWithFurs } from "./Cards/Treasure/CaveWithFurs";
+import { IMysteryCardCreator } from "../../../../interfaces/MysteryService/MysteryCardCreator";
 
 export class MysteryCardCreator implements IMysteryCardCreator {
   private readonly _game: IGame;
@@ -69,7 +66,11 @@ export class MysteryCardCreator implements IMysteryCardCreator {
   }
 
   public createAllMysteryCards(): IMysteryCard[] {
-    return [...this.createAllTrapCards(), ...this.createAllCreatureCards(), ...this.createAllTreasureCards()]
+    return [
+      ...this.createAllTrapCards(),
+      ...this.createAllCreatureCards(),
+      ...this.createAllTreasureCards(),
+    ];
   }
 
   public createAllCreatureCards(): IMysteryCard[] {
@@ -84,7 +85,7 @@ export class MysteryCardCreator implements IMysteryCardCreator {
     });
   }
 
-  public createAllTreasureCards(): ITreasureMysteryCard[] {
+  public createAllTreasureCards(): IMysteryCard[] {
     return Object.values(TREASURE_MYSTERY_CARD).map((card) => {
       return this.createTreasureCard(card);
     });
@@ -154,7 +155,7 @@ export class MysteryCardCreator implements IMysteryCardCreator {
     }
   }
 
-  public createTreasureCard(card: TREASURE_MYSTERY_CARD): ITreasureMysteryCard {
+  public createTreasureCard(card: TREASURE_MYSTERY_CARD): IMysteryCard {
     const game = this._game;
     switch (card) {
       case TREASURE_MYSTERY_CARD.AMULET_WITH_PORTRAIT_OF_BEAUTIFUL_LADY:

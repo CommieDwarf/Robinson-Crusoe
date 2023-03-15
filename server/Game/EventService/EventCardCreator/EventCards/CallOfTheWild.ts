@@ -38,7 +38,7 @@ export class CallOfTheWild extends EventCard implements IEventCard {
   }
 
   fullFill() {
-    this._game.resourceService.addResourceToFuture(
+    this._game.resourceService.addBasicResourceToFuture(
       "food",
       1,
       this._resolutionPL

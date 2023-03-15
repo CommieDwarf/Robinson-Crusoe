@@ -1,13 +1,9 @@
 import { TreasureMysteryCard } from "./TreasureMysteryCard/TreasureMysteryCard";
-import { ITreasureMysteryCard } from "../../../../../../interfaces/MysteryService/MysteryCard";
 import { IGame } from "../../../../../../interfaces/Game";
 import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 import { INVENTION_STARTER } from "../../../../../../interfaces/InventionService/Invention";
 
-export class Crocks
-  extends TreasureMysteryCard
-  implements ITreasureMysteryCard
-{
+export class Crocks extends TreasureMysteryCard {
   constructor(game: IGame) {
     super(game, "crocks", "gliniane naczynia", false, "", 0);
   }

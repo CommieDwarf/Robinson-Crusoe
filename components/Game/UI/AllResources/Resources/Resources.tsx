@@ -2,12 +2,14 @@
 import * as React from "react";
 import styles from "./Resources.module.css";
 import BasicResources from "./BasicResources/BasicResources";
-import { IResourcesAmount } from "../../../../../interfaces/Resources/Resources";
+import { IBasicResourcesAmount } from "../../../../../interfaces/Resources/Resources";
 import { AdditionalResources } from "./AdditionalResources/AdditionalResources";
 
 type Props = {
   type: "future" | "owned";
-  resources: Map<keyof IResourcesAmount, number>;
+  basic: Map<keyof IBasicResourcesAmount, number>;
+  tokenAmount: number;
+  treasureAmount: number;
 };
 export const Resources = (props: Props) => {
   return (
@@ -15,8 +17,11 @@ export const Resources = (props: Props) => {
       <div className={styles.label}>
         {props.type === "future" ? "Przyszłe" : "Posiadane"}
       </div>
-      <BasicResources resources={props.resources} />
-      <AdditionalResources tokens={5} treasures={2} />
+      <BasicResources resources={props.basic} />
+      <AdditionalResources
+        tokens={props.tokenAmount}
+        treasures={props.treasureAmount}
+      />
     </div>
   );
 };

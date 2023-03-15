@@ -1,10 +1,10 @@
-import { IResources, IResourcesAmount } from "../Resources/Resources";
+import { IBasicResources, IBasicResourcesAmount } from "../Resources/Resources";
 
 export interface IConstructionRenderData {
   name: string;
   lvl: number;
-  committedResources: IResourcesAmount;
-  cost: IResourcesAmount;
+  committedResources: IBasicResourcesAmount;
+  cost: IBasicResourcesAmount;
   locked: boolean;
   requiredHelperAmount: number;
 }
@@ -13,8 +13,8 @@ export interface IConstruction {
   name: CONSTRUCTION;
   namePL: string;
   lvl: number;
-  committedResources: IResources;
-  cost: IResources;
+  committedResources: IBasicResources;
+  cost: IBasicResources;
   locked: boolean;
   requiredHelperAmount: number;
   renderData: IConstructionRenderData;

@@ -12,15 +12,12 @@ export interface IMysteryCard {
   type: MYSTERY_CARD_TYPE;
   shuffleable: boolean;
   eventName: string;
+  requiresTarget: boolean;
   triggerDrawEffect: (drawer: ICharacter) => void;
   triggerEventEffect: () => void;
-  renderData: IMysteryCardRenderData;
-}
-
-export interface ITreasureMysteryCard extends IMysteryCard {
   uses: number;
-  use: (target: ICharacter | null) => void;
-  renderData: ITreasureMysteryCardRenderData;
+  use: (...args: any[]) => void;
+  renderData: IMysteryCardRenderData;
 }
 
 export interface IMysteryCardRenderData {
@@ -28,8 +25,4 @@ export interface IMysteryCardRenderData {
   namePL: string;
   type: MYSTERY_CARD_TYPE;
   shuffleable: boolean;
-}
-
-export interface ITreasureMysteryCardRenderData extends IMysteryCardRenderData {
-  uses: number;
 }

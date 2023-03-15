@@ -1,7 +1,4 @@
-import {
-  IMysteryCard,
-  ITreasureMysteryCard,
-} from "../../../interfaces/MysteryService/MysteryCard";
+import { IMysteryCard } from "../../../interfaces/MysteryService/MysteryCard";
 import { MysteryCardCreator } from "./MysteryCardCreator/MysteryCardCreator";
 import { IGame } from "../../../interfaces/Game";
 import shuffle from "../../../utils/shuffleArray";
@@ -12,10 +9,11 @@ import { ICharacter } from "../../../interfaces/Characters/Character";
 
 export class MysteryService implements IMysteryService {
   private readonly _game: IGame;
-  private _ownedTreasureCards: ITreasureMysteryCard[] = [];
+  private _cardsAsReminders: IMysteryCard[] = [];
   private _cardStack: IMysteryCard[];
   private _cardDrawer: null | IMysteryCardDrawer = null;
   private _currentResolve: null | IMysteryCard = null;
+  private _currentCardThatRequiresTarget: null | IMysteryCard = null;
 
   constructor(game: IGame) {
     this._game = game;
@@ -34,24 +32,62 @@ export class MysteryService implements IMysteryService {
         trap: this._cardDrawer?.trap || 0,
         treasure: this._cardDrawer?.treasure || 0,
       },
-      ownedTreasureCards: this._ownedTreasureCards,
+      cardsAsReminders: this._cardsAsReminders,
     };
+  }
+
+  get currentCardThatRequiresTarget(): IMysteryCard | null {
+    return this._currentCardThatRequiresTarget;
+  }
+
+  set currentCardThatRequiresTarget(value: IMysteryCard | null) {
+    this._currentCardThatRequiresTarget = value;
   }
 
   get isDrawingOn(): boolean {
     return Boolean(this._cardDrawer);
   }
 
-  get ownedTreasureCards(): ITreasureMysteryCard[] {
-    return this._ownedTreasureCards;
+  get cardsAsReminders(): IMysteryCard[] {
+    return this._cardsAsReminders;
   }
 
   get cardStack(): IMysteryCard[] {
     return this._cardStack;
   }
 
-  addTreasureCardToOwned(card: ITreasureMysteryCard) {
-    this._ownedTreasureCards.push(card);
+  getCard(cardName: string) {
+    let card =
+      this._game.resourceService.owned.treasures.find(
+        (card) => card.name === cardName
+      ) || this._cardsAsReminders.find((card) => card.name === cardName);
+    if (!card) {
+      throw new Error("Can't find card with given name: " + cardName);
+    }
+    return card;
+  }
+
+  startTargeting() {}
+
+  useCard(user: ICharacter, cardName: string, target1?: any, target2?: any) {
+    const card = this.getCard(cardName);
+    if (card.requiresTarget && this._currentCardThatRequiresTarget !== card) {
+      this._currentCardThatRequiresTarget = card;
+    } else {
+      card.use(user, target1, target2);
+    }
+  }
+
+  public addTreasureToFutureResources(card: IMysteryCard) {
+    this._game.resourceService.addTreasureToFuture(card);
+  }
+
+  public addTreasureToOwnedResources(card: IMysteryCard) {
+    this._game.resourceService.addTreasureToOwned(card);
+  }
+
+  addCardAsReminder(card: IMysteryCard) {
+    this._cardsAsReminders.push(card);
   }
 
   private initCards() {

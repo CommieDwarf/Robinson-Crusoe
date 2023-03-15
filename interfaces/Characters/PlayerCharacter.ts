@@ -8,6 +8,7 @@ export interface IPlayerCharacter extends ICharacter {
   player: IPlayer;
   name: PlayerCharacterName;
   moraleThresholds: number[];
+  moraleThresholdsRemoved: number[];
   renderData: IPlayerCharacterRenderData;
   shouldMoraleDrop: boolean;
   skills: ISkill[];
@@ -17,5 +18,6 @@ export interface IPlayerCharacterRenderData extends ICharacterRenderData {
   playerId: number;
   name: PlayerCharacterName;
   moraleThresholds: number[];
+  moraleThresholdsRemoved: number[];
   skills: ISkillRenderData[];
 }

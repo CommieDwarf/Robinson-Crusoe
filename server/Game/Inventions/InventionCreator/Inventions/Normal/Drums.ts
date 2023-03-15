@@ -6,7 +6,7 @@ import {
 } from "../../../../../../interfaces/InventionService/Invention";
 import { IGame } from "../../../../../../interfaces/Game";
 import { TERRAIN_TYPE } from "../../../../../../interfaces/TileService/ITile";
-import { Resources } from "../../../../ResourceService/Resources";
+import { BasicResources } from "../../../../ResourceService/BasicResources";
 
 export class Drums extends Invention implements IInvention {
   protected readonly _namePL = "bębny";
@@ -16,7 +16,7 @@ export class Drums extends Invention implements IInvention {
       INVENTION_NORMAL.DRUMS,
       { terrainType: TERRAIN_TYPE.HILLS, inventions: null },
       INVENTION_TYPE.NORMAL,
-      new Resources(0, 0, 0, 1),
+      new BasicResources(0, 0, 0, 1),
       game
     );
   }

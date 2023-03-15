@@ -121,7 +121,8 @@ export class PhaseService implements IPhaseService {
   };
 
   private productionEffect = () => {
-    const resources = this._game.tileService.campTile.tileType?.resources;
+    const resources =
+      this._game.tileService.campTile.tileResourceService?.resources;
     if (!resources) {
       throw new Error("There are no resources in tile");
     }
@@ -129,7 +130,7 @@ export class PhaseService implements IPhaseService {
 
     resourceArr.forEach((res) => {
       if (!res.depleted && res.resource !== "beast") {
-        this._game.resourceService.addResourceToOwned(
+        this._game.resourceService.addBasicResourceToOwned(
           res.resource,
           1,
           "Produkcja"

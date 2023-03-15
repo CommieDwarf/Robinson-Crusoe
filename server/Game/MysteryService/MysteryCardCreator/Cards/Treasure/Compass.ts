@@ -1,18 +1,13 @@
 import { TreasureMysteryCard } from "./TreasureMysteryCard/TreasureMysteryCard";
-import { ITreasureMysteryCard } from "../../../../../../interfaces/MysteryService/MysteryCard";
 import { IGame } from "../../../../../../interfaces/Game";
 import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 
-export class Compass
-  extends TreasureMysteryCard
-  implements ITreasureMysteryCard
-{
+export class Compass extends TreasureMysteryCard {
   constructor(game: IGame) {
-    super(game, "compass", "kompas", false, "", 1);
+    super(game, "compass", "kompas", false, "", 0);
   }
 
-  use(target: ICharacter | null) {
-    super.use(target);
-    //TODO: implement helper pawn
+  triggerDrawEffect(drawer: ICharacter) {
+    this.addToResources();
   }
 }

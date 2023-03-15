@@ -2,7 +2,7 @@
 import * as React from "react";
 import styles from "../Invention/Invention.module.css";
 import Image from "next/image";
-import { IMysteryCardRenderData } from "../../../../../../interfaces/MysteryService/MysteryCard";
+import { IMysteryCardRenderData } from "../../../../../../../interfaces/MysteryService/MysteryCard";
 import { useState } from "react";
 
 type Props = {

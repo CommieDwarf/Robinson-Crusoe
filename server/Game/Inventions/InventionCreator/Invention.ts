@@ -9,8 +9,8 @@ import {
   CHARACTER,
   ICharacter,
 } from "../../../../interfaces/Characters/Character";
-import { IResources } from "../../../../interfaces/Resources/Resources";
-import { Resources } from "../../ResourceService/Resources";
+import { IBasicResources } from "../../../../interfaces/Resources/Resources";
+import { BasicResources } from "../../ResourceService/BasicResources";
 import { IGame } from "../../../../interfaces/Game";
 
 export class Invention implements IInvention {
@@ -22,9 +22,9 @@ export class Invention implements IInvention {
   //temporary fixed value
   protected _requiredHelpersModifier = 0;
   protected readonly _type: INVENTION_TYPE;
-  protected _committedResources: IResources = new Resources();
+  protected _committedResources: IBasicResources = new BasicResources();
   protected _built = false;
-  protected _cost: IResources | null;
+  protected _cost: IBasicResources | null;
   protected readonly _belongsTo: CHARACTER | null = null;
   protected readonly _game: IGame;
   protected readonly _usable: boolean = false;
@@ -36,7 +36,7 @@ export class Invention implements IInvention {
     name: INVENTION,
     requirements: InventionRequirements,
     type: INVENTION_TYPE,
-    cost: IResources | null,
+    cost: IBasicResources | null,
     game: IGame
   ) {
     this._name = name;
@@ -70,11 +70,11 @@ export class Invention implements IInvention {
     return this._belongsTo;
   }
 
-  get cost(): IResources | null {
+  get cost(): IBasicResources | null {
     return this._cost;
   }
 
-  set cost(value: IResources | null) {
+  set cost(value: IBasicResources | null) {
     this._cost = value;
   }
 
@@ -122,11 +122,11 @@ export class Invention implements IInvention {
     return this._type;
   }
 
-  get committedResources(): IResources {
+  get committedResources(): IBasicResources {
     return this._committedResources;
   }
 
-  set committedResources(resources: IResources) {
+  set committedResources(resources: IBasicResources) {
     this._committedResources = resources;
   }
 

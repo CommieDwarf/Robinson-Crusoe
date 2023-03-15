@@ -1,18 +1,18 @@
 import { TreasureMysteryCard } from "./TreasureMysteryCard/TreasureMysteryCard";
-import { ITreasureMysteryCard } from "../../../../../../interfaces/MysteryService/MysteryCard";
 import { IGame } from "../../../../../../interfaces/Game";
 import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 
-export class Barrel
-  extends TreasureMysteryCard
-  implements ITreasureMysteryCard
-{
+export class Barrel extends TreasureMysteryCard {
   constructor(game: IGame) {
     super(game, "barrel", "beczka", false, "", 1);
   }
 
-  use(target: ICharacter | null) {
-    super.use(target);
-    //TODO: implement
+  triggerDrawEffect(drawer: ICharacter) {
+    this.addToResources();
   }
+
+  // use(target): void {
+  //   super.use(target);
+  //   //TODO: implement
+  // }
 }

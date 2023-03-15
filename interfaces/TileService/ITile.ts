@@ -1,25 +1,37 @@
-export type ITileRenderData = {
-  requiredHelperAmount: number;
-  id: number;
-  show: boolean;
-  position: TilePosition;
-  tileType: TileType | null;
-  canCampBeSettled: boolean;
-  camp: boolean;
-};
-
-export type BuiltTileStructure = "roof" | "palisade" | "shelter";
+import {
+  GatherableResourceAmount,
+  ITileResourceService,
+  ITileResourceServiceRenderData,
+  Side,
+  TILE_RESOURCE_ACTION,
+} from "./TileResourceService";
+import { FixedTileResources } from "./TileResourceInfo";
 
 export interface ITile {
   position: TilePosition;
   id: number;
   camp: boolean;
   show: boolean;
-  tileType: TileType | null;
+  tileResourceService: ITileResourceService | null;
   requiredHelperAmount: number;
-  reveal: (type: TileType) => void;
-  renderData: ITileRenderData;
+  modifiers: TileModifiers;
+  markedForAction: MarkedForAction | null;
   builtStructures: ITileBuiltStructures;
+
+  renderData: ITileRenderData;
+
+  isMarkedForAction: () => boolean;
+  canCampBeSettled: boolean;
+  canResourceBeDepleted: (side: "left" | "right") => boolean;
+  hasBasicResource: (resource: "wood" | "food") => boolean;
+  canBeGathered: (side: "left" | "right") => boolean;
+
+  getSideByResource: (resource: TileResource) => "left" | "right" | null;
+  getGatherableResourceAmount: (
+    side: "left" | "right"
+  ) => GatherableResourceAmount | null;
+
+  reveal: (resources: FixedTileResources) => void;
   resetStructures: () => void;
   setStructureLvl: (structure: BuiltTileStructure, amount: number) => void;
   incrementStructureLvl: (
@@ -30,14 +42,40 @@ export interface ITile {
     structure: BuiltTileStructure,
     amount: number
   ) => void;
+
+  depleteResource: (side: "left" | "right", source: string) => void;
+  unDepleteResource: (side: "left" | "right", source: string) => void;
+  addResourceModifier: (side: Side, source: string) => void;
+  removeResourceModifier: (side: Side, source: string) => void;
+  setTileModifier: (
+    modifier: keyof TileModifiers,
+    value: boolean,
+    source: string
+  ) => void;
+  clearResourceModifiers: () => void;
+  markResourceForAction: (
+    side: Side,
+    actionName: TILE_RESOURCE_ACTION,
+    source: string
+  ) => void;
+  triggerResourceAction: (side: Side, source: string) => void;
+}
+
+export type ITileRenderData = {
+  requiredHelperAmount: number;
+  id: number;
+  show: boolean;
+  position: TilePosition;
+  tileResourceService: ITileResourceServiceRenderData | null;
   canCampBeSettled: boolean;
-  depleteResource: (side: "left" | "right") => void;
-  reverseDepleteResource: (side: "left" | "right") => void;
-  markForDepletion: (side: "left" | "right") => void;
-  clearMarkedForDepletion: () => void;
-  canResourceBeDepleted: (side: "left" | "right") => boolean;
-  hasResource: (resource: "wood" | "food") => boolean;
-  getSideByResource: (resource: "wood" | "food") => "left" | "right" | null;
+  camp: boolean;
+  modifiers: TileModifiers;
+};
+
+export interface MarkedForAction {
+  action: TILE_RESOURCE_ACTION;
+  source: string;
+  trigger: (this: ITileResourceService, source: string) => void;
 }
 
 export interface ITileBuiltStructures {
@@ -62,28 +100,25 @@ export interface TileExtras {
   naturalShelter: boolean;
 }
 
-export interface TileType {
-  id: number;
-  terrainType: TERRAIN_TYPE;
-  resources: {
-    left: {
-      resource: TileResource;
-      depleted: boolean;
-      markedForDepletion: boolean;
-    };
-    right: {
-      resource: TileResource;
-      depleted: boolean;
-      markedForDepletion: boolean;
-    };
-  };
-  extras: TileExtras;
-}
-
 export interface TilePosition {
   borderTiles: number[];
   cords: {
     left: number;
     top: number;
   };
+}
+
+export type BuiltTileStructure = "roof" | "palisade" | "shelter";
+
+export enum TILE_ACTION {
+  SET_TIME_CONSUMING_ACTION = "set time consuming action",
+  UNSET_TIME_CONSUMING_ACTON = "unset time consuming action",
+  SET_GREATER_DANGER = "set greater danger",
+  UNSET_GREATER_DANGER = "unset greater danger",
+  UNSET_TERRAIN_TYPE = "unset terrain type",
+}
+
+export interface TileModifiers {
+  greaterDanger: boolean;
+  timeConsumingAction: boolean;
 }

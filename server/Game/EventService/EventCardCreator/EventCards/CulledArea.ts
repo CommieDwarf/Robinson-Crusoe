@@ -35,7 +35,7 @@ export class CulledArea extends EventCard implements IEventCard {
   }
 
   fullFill() {
-    this._game.resourceService.addResourceToFuture(
+    this._game.resourceService.addBasicResourceToFuture(
       "food",
       2,
       this._resolutionPL

@@ -22,7 +22,7 @@ export class AfterTheHurricane
   }
 
   option1(resolver: ICharacter) {
-    this._game.resourceService.addResourceToOwned("wood", 2, this._namePL);
+    this._game.resourceService.addBasicResourceToOwned("wood", 2, this._namePL);
     //TODO: put additional helper pawn at the tile.
   }
 

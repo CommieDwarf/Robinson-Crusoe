@@ -6,7 +6,7 @@ import {
   INVENTION_TYPE,
 } from "../../../../../../interfaces/InventionService/Invention";
 import { IGame } from "../../../../../../interfaces/Game";
-import { Resources } from "../../../../ResourceService/Resources";
+import { BasicResources } from "../../../../ResourceService/BasicResources";
 import { CONSTRUCTION } from "../../../../../../interfaces/ConstructionService/Construction";
 
 export class Spear extends Invention implements IInvention {
@@ -17,7 +17,7 @@ export class Spear extends Invention implements IInvention {
       INVENTION_PERSONAL.SPEAR,
       { terrainType: null, inventions: [INVENTION_STARTER.KNIFE] },
       INVENTION_TYPE.NORMAL,
-      new Resources(0, 0, 1, 0),
+      new BasicResources(0, 0, 1, 0),
       game
     );
   }

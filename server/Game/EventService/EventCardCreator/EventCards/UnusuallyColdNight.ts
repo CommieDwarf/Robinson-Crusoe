@@ -5,7 +5,7 @@ import {
 } from "../../../../../interfaces/EventService/EventCard";
 import { IGame } from "../../../../../interfaces/Game";
 import { EVENT_CARD } from "../../../../../interfaces/EventService/EVENT_CARD";
-import { Resources } from "../../../ResourceService/Resources";
+import { BasicResources } from "../../../ResourceService/BasicResources";
 
 export class UnusuallyColdNight extends EventCard implements IEventCard {
   protected readonly _namePL = "niezwykle zimna noc";
@@ -19,14 +19,18 @@ export class UnusuallyColdNight extends EventCard implements IEventCard {
         pawns: 1,
         invention: null,
         construction: null,
-        resource: new Resources(0, 0, 1, 0),
+        resource: new BasicResources(0, 0, 1, 0),
       },
       game
     );
   }
 
   triggerEventEffect() {
-    this._game.resourceService.spendResourceOrGetHurt("wood", 2, this.name);
+    this._game.resourceService.spendBasicResourceOrGetHurt(
+      "wood",
+      2,
+      this.name
+    );
   }
 
   triggerThreatEffect() {

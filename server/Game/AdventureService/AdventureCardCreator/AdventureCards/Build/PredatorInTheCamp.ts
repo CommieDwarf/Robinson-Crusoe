@@ -27,8 +27,12 @@ export class PredatorInTheCamp
   }
 
   triggerEventEffect() {
-    this._game.resourceService.addResourceToOwned("food", 2, this.eventNamePL);
-    this._game.resourceService.addResourceToOwned(
+    this._game.resourceService.addBasicResourceToOwned(
+      "food",
+      2,
+      this.eventNamePL
+    );
+    this._game.resourceService.addBasicResourceToOwned(
       "leather",
       1,
       this.eventNamePL

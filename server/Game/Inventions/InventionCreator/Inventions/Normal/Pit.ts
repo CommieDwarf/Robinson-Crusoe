@@ -6,7 +6,7 @@ import {
   INVENTION_TYPE,
 } from "../../../../../../interfaces/InventionService/Invention";
 import { IGame } from "../../../../../../interfaces/Game";
-import { Resources } from "../../../../ResourceService/Resources";
+import { BasicResources } from "../../../../ResourceService/BasicResources";
 
 export class Pit extends Invention implements IInvention {
   protected readonly _namePL = "wilczy dół";
@@ -19,7 +19,7 @@ export class Pit extends Invention implements IInvention {
         inventions: [INVENTION_STARTER.SHOVEL],
       },
       INVENTION_TYPE.NORMAL,
-      new Resources(0, 0, 1, 0),
+      new BasicResources(0, 0, 1, 0),
       game
     );
   }

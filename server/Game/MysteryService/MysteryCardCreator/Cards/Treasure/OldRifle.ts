@@ -1,20 +1,20 @@
 import { TreasureMysteryCard } from "./TreasureMysteryCard/TreasureMysteryCard";
-import { ITreasureMysteryCard } from "../../../../../../interfaces/MysteryService/MysteryCard";
 import { IGame } from "../../../../../../interfaces/Game";
 import { ICharacter } from "../../../../../../interfaces/Characters/Character";
 
-export class OldRifle
-  extends TreasureMysteryCard
-  implements ITreasureMysteryCard
-{
+export class OldRifle extends TreasureMysteryCard {
   constructor(game: IGame) {
     super(game, "old rifle", "stara strzelba", false, "", 1);
   }
 
-  use(user: ICharacter | null) {
-    if (user) {
-      super.use(user);
+  use(target): void {
+    if (target) {
+      super.use(target);
       //TODO: implement temporal weapon boost
     }
+  }
+
+  triggerDrawEffect(drawer: ICharacter) {
+    this.addToResources();
   }
 }

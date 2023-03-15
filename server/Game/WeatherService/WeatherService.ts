@@ -157,7 +157,7 @@ export class WeatherService implements IWeatherService {
   }
 
   private applySnowEffect(snow: number) {
-    this._game.resourceService.spendResourceOrGetHurt(
+    this._game.resourceService.spendBasicResourceOrGetHurt(
       "wood",
       snow,
       "Drewno na opał"
@@ -170,12 +170,12 @@ export class WeatherService implements IWeatherService {
       this._game.constructionService.getConstruction(CONSTRUCTION.ROOF).lvl -
       sum;
     if (diff < 0) {
-      this._game.resourceService.spendResourceOrGetHurt(
+      this._game.resourceService.spendBasicResourceOrGetHurt(
         "wood",
         Math.abs(diff),
         "Opady"
       );
-      this._game.resourceService.spendResourceOrGetHurt(
+      this._game.resourceService.spendBasicResourceOrGetHurt(
         "food",
         Math.abs(diff),
         "Opady"
@@ -194,7 +194,11 @@ export class WeatherService implements IWeatherService {
         );
         break;
       case "food":
-        this._game.resourceService.spendResourceOrGetHurt("food", 1, logSource);
+        this._game.resourceService.spendBasicResourceOrGetHurt(
+          "food",
+          1,
+          logSource
+        );
         break;
       case "beast":
         //TODO: implement fighting beast.

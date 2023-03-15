@@ -32,7 +32,7 @@ export const Tabs = (props: Props) => {
         }`}
         onClick={handleTreasuresClick}
       >
-        Skarby
+        K. Tajemnic
       </div>
     </div>
   );

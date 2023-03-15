@@ -6,7 +6,7 @@ import {
   INVENTION_TYPE,
 } from "../../../../../../interfaces/InventionService/Invention";
 import { IGame } from "../../../../../../interfaces/Game";
-import { Resources } from "../../../../ResourceService/Resources";
+import { BasicResources } from "../../../../ResourceService/BasicResources";
 
 export class Corral extends Invention implements IInvention {
   protected readonly _namePL = "zagroda";
@@ -16,7 +16,7 @@ export class Corral extends Invention implements IInvention {
       INVENTION_NORMAL.CORRAL,
       { terrainType: null, inventions: [INVENTION_STARTER.ROPE] },
       INVENTION_TYPE.NORMAL,
-      new Resources(0, 0, 1, 0),
+      new BasicResources(0, 0, 1, 0),
       game
     );
   }

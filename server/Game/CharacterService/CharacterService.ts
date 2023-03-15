@@ -49,6 +49,22 @@ export class CharacterService implements ICharacterService {
 
   // -------------------------------------------
 
+  removeMoraleThreshold(
+    character: IPlayerCharacter | string,
+    threshold: number
+  ) {
+    const char =
+      typeof character === "string"
+        ? this.getPlayerCharacter(character)
+        : character;
+    if (!char.moraleThresholds.includes(threshold)) {
+      throw new Error(
+        `Character ${char.name} doesn't have morale threshold: ${threshold}`
+      );
+    }
+    char.moraleThresholdsRemoved.push(threshold);
+  }
+
   resetPawns() {
     this._allCharacters.forEach((char) => {
       char.pawnService.resetFreePawns();
@@ -71,6 +87,16 @@ export class CharacterService implements ICharacterService {
   }
 
   addPawn(charName: string, draggableId: string): void {}
+
+  getPlayerCharacter(charName: string): IPlayerCharacter {
+    const char = this.getCharacter(charName);
+    if (!(char instanceof PlayerCharacter)) {
+      throw new Error(
+        "Couldn't find PlayerCharacter with given name: " + charName
+      );
+    }
+    return char;
+  }
 
   getCharacter(charName: string): IPlayerCharacter | ISideCharacter {
     const character = this._allCharacters.find(

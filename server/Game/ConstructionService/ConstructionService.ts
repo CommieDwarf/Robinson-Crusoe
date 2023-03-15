@@ -1,10 +1,10 @@
-import { Resources } from "../ResourceService/Resources";
+import { BasicResources } from "../ResourceService/BasicResources";
 import { CONSTRUCTION } from "../../../interfaces/ConstructionService/Construction";
 import {
   IConstructionService,
   IConstructionServiceRenderData,
 } from "../../../interfaces/ConstructionService/IConstructionService";
-import { IResources } from "../../../interfaces/Resources/Resources";
+import { IBasicResources } from "../../../interfaces/Resources/Resources";
 import { IGame } from "../../../interfaces/Game";
 import { Construction } from "./Construction";
 import i18n from "../../../I18n/I18n";
@@ -38,7 +38,7 @@ export class ConstructionService implements IConstructionService {
 
   private initConstructions() {
     return Object.entries(CONSTRUCTION).map(([key, value]) => {
-      const cost = new Resources();
+      const cost = new BasicResources();
       if (value === CONSTRUCTION.WEAPON) {
         cost.setResource("wood", 1);
       } else {
@@ -137,12 +137,13 @@ export class ConstructionService implements IConstructionService {
     return this.getConstruction(construction).lvl > 0;
   }
 
-  commitResources(construction: CONSTRUCTION, resources: IResources) {
+  commitResources(construction: CONSTRUCTION, resources: IBasicResources) {
     this.getConstruction(construction).committedResources = resources;
   }
 
   rollBackCommittedResources(construction: CONSTRUCTION) {
-    this.getConstruction(construction).committedResources = new Resources();
+    this.getConstruction(construction).committedResources =
+      new BasicResources();
   }
 
   getConstruction(construction: CONSTRUCTION) {

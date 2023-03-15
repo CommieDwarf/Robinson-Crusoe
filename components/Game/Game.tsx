@@ -18,7 +18,7 @@ import ArrangeCampRest from "./UI/ArrangeCampRest/ArrangeCampRest";
 import Equipment from "./UI/equipment/Equipment";
 
 import { fromJSON, parse, stringify, toJSON } from "flatted";
-import { IResourcesAmount } from "../../interfaces/Resources/Resources";
+import { IBasicResourcesAmount } from "../../interfaces/Resources/Resources";
 
 import {
   DragDropContext,
@@ -317,16 +317,22 @@ export default function Game(props: Props) {
         <Phase phase={gameRenderData.phaseService.phase} />
         <Morale current={gameRenderData.moraleService.lvl} />
         <AllResources
-          future={
-            new Map(
-              Object.entries(gameRenderData.resourceService.future)
-            ) as Map<keyof IResourcesAmount, number>
-          }
-          owned={
-            new Map(
-              Object.entries(gameRenderData.resourceService.owned)
-            ) as Map<keyof IResourcesAmount, number>
-          }
+          future={{
+            tokenAmount: gameRenderData.resourceService.future.tokens.length,
+            treasureAmount:
+              gameRenderData.resourceService.future.treasures.length,
+            basic: new Map(
+              Object.entries(gameRenderData.resourceService.future.basic)
+            ) as Map<keyof IBasicResourcesAmount, number>,
+          }}
+          owned={{
+            tokenAmount: gameRenderData.resourceService.owned.tokens.length,
+            treasureAmount:
+              gameRenderData.resourceService.owned.treasures.length,
+            basic: new Map(
+              Object.entries(gameRenderData.resourceService.owned.basic)
+            ) as Map<keyof IBasicResourcesAmount, number>,
+          }}
         />
         <Constructions
           constructions={gameRenderData.constructionService.constructions}
@@ -347,7 +353,7 @@ export default function Game(props: Props) {
           inventions={gameRenderData.inventionService.inventions.filter(
             (inv) => inv.type !== INVENTION_TYPE.SCENARIO
           )}
-          mysteryCards={gameRenderData.mysteryService.ownedTreasureCards}
+          mysteryCards={gameRenderData.resourceService.owned.treasures}
           isBeingDragged={isPawnBeingDragged}
           zIndex={elementZIndexed}
         />
@@ -416,7 +422,7 @@ export default function Game(props: Props) {
           weatherService={gameRenderData.weatherService}
           round={gameRenderData.round}
           constructionService={gameRenderData.constructionService}
-          resourcesAmount={gameRenderData.resourceService.owned}
+          resourcesAmount={gameRenderData.resourceService.owned.basic}
           rollWeatherDices={handleRollWeatherDices}
           dices={gameRenderData.scenarioService.weather}
           skills={gameRenderData.localPlayer.character.skills}

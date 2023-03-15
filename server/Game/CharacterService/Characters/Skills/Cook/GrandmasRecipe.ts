@@ -30,7 +30,7 @@ export class GrandmasRecipe extends Skill implements ISkill {
     if (this._game.resourceService.canAffordResource("food", 1)) {
       this._character.decrDetermination(this.cost);
       this._game.characterService.heal(target, 2, this._namePL);
-      this._game.resourceService.spendResourceIfPossible("food", 1, "");
+      this._game.resourceService.spendBasicResourceIfPossible("food", 1, "");
       this._used = true;
     } else {
       this._game.alertService.setAlert(

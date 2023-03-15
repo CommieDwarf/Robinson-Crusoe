@@ -1,4 +1,4 @@
-import { IResources } from "../Resources/Resources";
+import { IBasicResources } from "../Resources/Resources";
 import { CONSTRUCTION } from "../ConstructionService/Construction";
 import { INVENTION_STARTER } from "../InventionService/Invention";
 import { AdventureAction } from "../ACTION";
@@ -22,7 +22,7 @@ export interface EventResolveRequirements {
     type: CONSTRUCTION;
     lvl: number;
   } | null;
-  resource: IResources | null;
+  resource: IBasicResources | null;
 }
 
 export interface IEventCard {

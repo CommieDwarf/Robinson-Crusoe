@@ -1,12 +1,11 @@
 import React from "react";
 import styles from "./Cards.module.css";
 
-import Invention from "./Invention/Invention";
 import { IInventionRenderData } from "../../../../../interfaces/InventionService/Invention";
 import { objectsEqual } from "../../../../../utils/objectsEqual";
 import { IMysteryCardRenderData } from "../../../../../interfaces/MysteryService/MysteryCard";
 import { Tab } from "../CardList";
-import { MysteryCard } from "./MysteryCard/MysteryCard";
+import { Card } from "./Card/Card";
 
 interface Props {
   inventions: IInventionRenderData[];
@@ -19,51 +18,36 @@ interface Props {
 }
 
 function Cards(props: Props) {
-  let column = -1;
-  let row = -1;
-  let cards;
-  if (props.tab === "inventions") {
-    cards = props.inventions.map((card) => {
-      column = column == 2 ? 0 : column + 1;
-      row = column == 0 ? row + 1 : row;
-      return (
-        <Invention
-          top={props.scrollTop}
-          column={column}
-          row={row}
-          invention={card}
-          key={card.name}
-          zIndexIncreased={props.zIndex.includes(card.name)}
-          toggleZoom={props.toggleZoom}
-        />
-      );
-    });
-  } else {
-    cards = props.mysteryCards.map((card) => {
-      column = column == 2 ? 0 : column + 1;
-      row = column == 0 ? row + 1 : row;
-      return (
-        <MysteryCard
-          top={props.scrollTop}
-          column={column}
-          row={row}
-          mysteryCard={card}
-          key={card.name}
-          zIndexIncreased={props.zIndex.includes(card.name)}
-          toggleZoom={props.toggleZoom}
-        />
-      );
-    });
-  }
-
-  const contentStyle = {
-    height: (row + 1) * 140,
-  };
-
   const zIndexClass =
     props.zIndex.includes("invention") || props.zIndex.includes("mystery")
       ? styles.zIndexIncreased
       : "";
+
+  let cardsSelected =
+    props.tab === "inventions" ? props.inventions : props.mysteryCards;
+
+  let column = -1;
+  let row = -1;
+
+  const cards = cardsSelected.map((card) => {
+    column = column == 2 ? 0 : column + 1;
+    row = column == 0 ? row + 1 : row;
+    return (
+      <Card
+        top={props.scrollTop}
+        column={column}
+        row={row}
+        card={card}
+        key={card.name}
+        zIndexIncreased={props.zIndex.includes(card.name)}
+        toggleZoom={props.toggleZoom}
+      />
+    );
+  });
+
+  const contentStyle = {
+    height: (row + 1) * 140,
+  };
 
   return (
     <div className={`${styles.container} ${zIndexClass}`} style={contentStyle}>
