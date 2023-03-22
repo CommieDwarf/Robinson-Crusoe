@@ -1,7 +1,7 @@
 .container {
     border-radius: 100%;
     background-color: white;
-    border: 1px dashed #451e14;
+    /*border: 1px dashed #451e14;*/
     position: relative;
     aspect-ratio: 1;
     background-size: contain;
@@ -67,12 +67,12 @@
 
 
 .gather {
-    width: 80%;
+    width: 60%;
     background-image: url("../../../public/UI/actionSlots/gather.png");
 }
 
 .explore {
-    width: 50%;
+    width: 40%;
     background-image: url("../../../public/UI/actionSlots/explore.png");
 }
 
@@ -116,4 +116,5 @@
 .helper {
     /* if action is type of helper it overrides action's background image*/
     background-image: url("../../../public/UI/actionSlots/helper.png") !important;
+    background-position-y: 2px;
 }

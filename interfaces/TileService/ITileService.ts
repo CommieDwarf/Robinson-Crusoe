@@ -5,6 +5,8 @@ export interface ITilesServiceRenderData {
     campJustMoved: boolean;
     campTile: ITileRenderData;
     resourceAmountToDeplete: number;
+    isTileMarkedForAction: boolean;
+
 }
 
 export interface ITileService {
@@ -12,6 +14,8 @@ export interface ITileService {
     campTile: ITile;
     previousCampTile: ITile | null;
     campJustMoved: boolean;
+
+    isTileMarkedForAction: boolean;
     terrainTypesExplored: Set<TERRAIN_TYPE>;
     canCampBeMoved: () => boolean;
     depleteResource: (tileID: number, side: "left" | "right") => void;
@@ -20,6 +24,8 @@ export interface ITileService {
     axe: boolean;
     resourceAmountToDeplete: number;
     forceCampMovement: () => void;
+
+    resetSideAssignedPawns: () => void;
     gather: (side: "left" | "right", tileId: number, logSource: string) => void;
     getTile: (id: number) => ITile;
     moveCamp: (tileID: number) => void;

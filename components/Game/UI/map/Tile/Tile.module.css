@@ -17,6 +17,38 @@
     filter: contrast(100%);
 }
 
+.markedForAction {
+    position: absolute;
+    border-radius: 100%;
+    border: 2px solid red;
+    animation-name: markedForActionAnimation;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    z-index: 9999;
+    cursor: pointer;
+}
+
+@keyframes markedForActionAnimation {
+    0% {
+        width: 90%;
+        height: 90%;
+        top: 5%;
+        left: 5%;
+    }
+    50% {
+        width: 70%;
+        height: 70%;
+        top: 15%;
+        left: 15%;
+    }
+    100% {
+        width: 90%;
+        height: 90%;
+        top: 5%;
+        left: 5%;
+    }
+}
+
 .depletedMark {
     width: 22%;
     height: 22%;
@@ -33,6 +65,15 @@
     right: 23%;
 }
 
+.terrainDepleted {
+    width: 20%;
+    height: 20%;
+    position: absolute;
+    bottom: 24%;
+    left: 38%;
+    opacity: 0.6;
+}
+
 
 .tileConstantHighlight {
     filter: contrast(150%) !important;
@@ -47,13 +88,13 @@
 
 @keyframes highlightAnimation {
     0% {
-        filter: contrast(100%)
+        filter: sepia(0%)
     }
     50% {
-        filter: contrast(250%)
+        filter: sepia(50%)
     }
     100% {
-        filter: contrast(100%)
+        filter: sepia(0)
     }
 }
 
@@ -66,7 +107,7 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    top: 15%;
+    top: 25%;
     right: 2%;
     z-index: 1;
 }
@@ -76,11 +117,11 @@
     width: 100%;
     z-index: 10;
     position: relative;
+    margin-top: -5%;
 }
 
 .gatherActionSlotsLeft {
     width: 45%;
-
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -111,16 +152,34 @@
     height: 20%;
     position: relative;
     margin: auto;
-    top: 20%;
+    top: 25%;
+}
+
+.modifiers {
+    width: 50%;
+    height: 15%;
+    position: absolute;
+    top: 10%;
+    left: 23%;
+    display: flex;
+    justify-content: center;
+}
+
+.modifier {
+    aspect-ratio: 1;
+    height: 100%;
+    position: relative;
+
 }
 
 .scrollbar {
     width: 60% !important;
-    height: 60% !important;
+    height: 35% !important;
     z-index: 1;
     margin: auto;
     position: relative;
     right: 2%;
+    top: 25%;
 }
 
 .trackHorizontal {

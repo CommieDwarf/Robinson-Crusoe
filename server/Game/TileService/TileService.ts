@@ -37,7 +37,12 @@ export class TileService implements ITileService {
             campJustMoved: this.campJustMoved,
             campTile: this.campTile.renderData,
             resourceAmountToDeplete: this.resourceAmountToDeplete,
+            isTileMarkedForAction: this.isTileMarkedForAction,
         };
+    }
+
+    get isTileMarkedForAction() {
+        return this._tileGraph.vertices.some((vertex) => vertex.data.isMarkedForAction())
     }
 
     get campJustMoved(): boolean {
@@ -83,7 +88,8 @@ export class TileService implements ITileService {
         this.tiles.forEach((tile) => tile.markedForAction = null);
     }
 
-    depleteSource(tileID: number, side: "left" | "right") {
+    resetSideAssignedPawns() {
+        this.tiles.forEach((tile) => tile.resetSideAssignedPawns);
     }
 
     markTileForAnyResourceDepletion(tileID: number, sourceLog: string) {

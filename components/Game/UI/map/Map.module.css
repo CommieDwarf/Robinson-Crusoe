@@ -56,25 +56,24 @@
 .zoomIcon {
     width: 30px;
     height: 30px;
-
     position: relative;
     display: inline-block;
 }
 
 
-.depleteTipArrow {
+.tipArrow {
     width: 250px;
     height: 80px;
     position: absolute;
     transform: scaleX(-1);
     top: 150px;
     right: -230px;
-    animation-name: depleteArrowAnimation;
+    animation-name: tipArrowAnimation;
     animation-duration: 1s;
     animation-iteration-count: infinite;
 }
 
-@keyframes depleteArrowAnimation {
+@keyframes tipArrowAnimation {
     0% {
         right: -260px
     }

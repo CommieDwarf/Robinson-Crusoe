@@ -7,6 +7,9 @@ export interface TileResourceInfo {
     depleted: boolean;
     modifiers: string[];
     markedForAction: MarkedForAction | null;
+
+    assignedPawns: number;
+    
 }
 
 export interface MarkedForAction {
