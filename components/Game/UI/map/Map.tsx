@@ -72,9 +72,24 @@ function Map(props: Props) {
 
             if (event.deltaY < 0) {
                 zoomIn();
+                if (scrollbar.current) {
+                    scrollbar.current.scrollBy({
+                        left: 60,
+                        top: 60,
+                        behavior: "smooth"
+                    })
+                }
+
 
             } else {
                 zoomOut();
+                if (scrollbar.current) {
+                    scrollbar.current.scrollBy({
+                        left: -60,
+                        top: -60,
+                        behavior: "smooth"
+                    })
+                }
             }
             return false;
         }

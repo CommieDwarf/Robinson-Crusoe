@@ -196,26 +196,3 @@
     border: 1px solid var(--brown);
 }
 
-
-.trackHorizontal {
-    display: none;
-}
-
-.thumbHorizontal {
-    display: none;
-}
-
-.trackVertical {
-    width: 10% !important;
-    height: 100%;
-    right: 0;
-    background: transparent;
-}
-
-.thumbVertical {
-    background-image: url("../../../../../public/UI/map/boardVert.jpg");
-    background-size: cover;
-    border-radius: 5px;
-    border: 1px solid black;
-}
-

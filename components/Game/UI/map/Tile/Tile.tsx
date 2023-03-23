@@ -74,6 +74,10 @@ export default function Tile(props: Props) {
     }
 
     let actionSlots;
+    let preventMapScrollClass =
+        props.tile.requiredHelperAmount >= 1 && props.tile.tileResourceService
+            ? "preventMapScroll"
+            : "";
 
     if (!props.tile.tileResourceService) {
         actionSlots = (
@@ -85,7 +89,7 @@ export default function Tile(props: Props) {
 
 
         actionSlots = (
-            <div className={styles.scroll}>
+            <div className={`${styles.scroll} ${preventMapScrollClass}`}>
                 <div
                     className={`${styles.gatherActionSlots}${
                         props.tile.requiredHelperAmount <= 1
@@ -137,14 +141,9 @@ export default function Tile(props: Props) {
         props.triggerTileAction(props.tile.id);
     }
 
-    let preventMapScrollClass =
-        props.tile.requiredHelperAmount >= 1 && props.tile.tileResourceService
-            ? "preventMapScroll"
-            : "";
-
 
     return (
-        <div className={`${styles.container} ${zIndexClass} ${preventMapScrollClass}`} style={style}>
+        <div className={`${styles.container} ${zIndexClass}`} style={style}>
             {arrows}
             {props.tile.show && (
                 <>
