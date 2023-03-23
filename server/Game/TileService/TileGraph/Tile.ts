@@ -82,7 +82,7 @@ export class Tile implements ITile {
         if (this._tileResourceService) {
             return this._tileResourceService.resources[side].assignedPawns > this.requiredHelperAmount
         } else {
-            return false;
+            return true;
         }
     }
 

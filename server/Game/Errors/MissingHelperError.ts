@@ -1,14 +1,15 @@
-import { MissingPawnError } from "../../../interfaces/Error/MissingPawnError";
+import {MissingPawnError} from "../../../interfaces/Error/MissingPawnError";
 
 export class MissingHelperError extends Error implements MissingPawnError {
-  private readonly _droppableID: string;
+    private readonly _droppableID: string;
 
-  constructor(droppableID: string) {
-    super("Assigned helpers to this action aren't enough");
-    this._droppableID = droppableID;
-  }
+    constructor(droppableID: string) {
+        super("Assigned helpers to this action aren't enough");
+        this._droppableID = droppableID;
+        console.log(this.stack);
+    }
 
-  get droppableID() {
-    return this._droppableID;
-  }
+    get droppableID() {
+        return this._droppableID;
+    }
 }

@@ -1,9 +1,6 @@
 import Image from "next/image";
 import React, {useEffect, useRef, useState} from "react";
 import styles from "./Map.module.css";
-import {Scrollbars} from "react-custom-scrollbars";
-import Scrollbar from "../Scrollbar";
-import scrollbarStyles from "./Scrollbar.module.css";
 import tileStyles from "./Tile/Tile.module.css";
 import getDragAndScrollHandle from "../../../../utils/dragAndScrollHandle";
 import Tile from "./Tile/Tile";
@@ -53,16 +50,17 @@ function Map(props: Props) {
         );
     });
 
-    const scrollbar = useRef<Scrollbars>(null);
+    const scrollbar = useRef<HTMLDivElement>(null);
     const container = useRef<HTMLDivElement>(null);
 
     const mouseDownHandle = getDragAndScrollHandle(scrollbar, container);
+
 
     useEffect(() => {
         function handleWheel(event: WheelEvent) {
             const target = event.target as HTMLDivElement;
             const actionSlotsScrollable = target.closest(
-                "." + tileStyles.gatherActionSlotsScrollable
+                ".preventMapScroll"
             );
 
             if (actionSlotsScrollable) {
@@ -70,11 +68,15 @@ function Map(props: Props) {
             }
 
             event.preventDefault();
+
+
             if (event.deltaY < 0) {
                 zoomIn();
+
             } else {
                 zoomOut();
             }
+            return false;
         }
 
         const element = container.current;
@@ -86,6 +88,7 @@ function Map(props: Props) {
     });
 
     function zoomIn() {
+
         setContentScale((prev) => {
             if (prev < 300) {
                 return prev + 15;
@@ -115,6 +118,8 @@ function Map(props: Props) {
         props.tileService.isTileMarkedForAction
             ? styles.zIndexIncreased
             : "";
+
+    const scrollDisabledClass = props.scrollDisabled ? styles.scrollDisabled : "";
 
     return (
         <div
@@ -155,19 +160,15 @@ function Map(props: Props) {
                 isDragDisabled={props.showScenario}
                 zIndex={props.zIndex}
             />
-            <Scrollbar
-                scrollbarRef={scrollbar}
-                styleModule={scrollbarStyles}
-                contentScale={contentScale}
-                disabled={props.scrollDisabled}
-            >
+            <div className={`${styles.scroll} ${scrollDisabledClass}`} ref={scrollbar}>
                 <div className={`${styles.content}`} style={contentStyle}>
                     <div className={styles.map}>
                         <Image src={map} fill alt="mapa" priority sizes={styles.map}/>
                         {tiles}
                     </div>
                 </div>
-            </Scrollbar>
+            </div>
+
         </div>
     );
 }

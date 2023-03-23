@@ -6,7 +6,9 @@
     left: 5px;
     display: flex;
     column-gap: 10px;
-    z-index: 9;
+    z-index: 95235423;
+    grid-column: 6 / span 1;
+    grid-row: 1 / span 2;
 }
 
 .tab {

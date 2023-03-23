@@ -1,7 +1,6 @@
 import Image from "next/image";
 import React from "react";
 import ActionSlot from "../../ActionSlot";
-import Scrollbar from "../../Scrollbar";
 import styles from "./Tile.module.css";
 import {ITileRenderData} from "../../../../../interfaces/TileService/ITile";
 import {MoveCampArrow} from "./MoveCampArrow/MoveCampArrow";
@@ -83,15 +82,12 @@ export default function Tile(props: Props) {
             </div>
         );
     } else {
-        let scrollableClass =
-            props.tile.requiredHelperAmount >= 1
-                ? styles.gatherActionSlotsScrollable
-                : "";
+
 
         actionSlots = (
-            <Scrollbar styleModule={styles}>
+            <div className={styles.scroll}>
                 <div
-                    className={`${styles.gatherActionSlots} ${scrollableClass} ${
+                    className={`${styles.gatherActionSlots}${
                         props.tile.requiredHelperAmount <= 1
                             ? styles.gatherActionSlotsFew
                             : ""
@@ -111,7 +107,7 @@ export default function Tile(props: Props) {
                             </div>
                         )}
                 </div>
-            </Scrollbar>
+            </div>
         );
     }
 
@@ -141,9 +137,14 @@ export default function Tile(props: Props) {
         props.triggerTileAction(props.tile.id);
     }
 
+    let preventMapScrollClass =
+        props.tile.requiredHelperAmount >= 1 && props.tile.tileResourceService
+            ? "preventMapScroll"
+            : "";
+
 
     return (
-        <div className={`${styles.container} ${zIndexClass}`} style={style}>
+        <div className={`${styles.container} ${zIndexClass} ${preventMapScrollClass}`} style={style}>
             {arrows}
             {props.tile.show && (
                 <>

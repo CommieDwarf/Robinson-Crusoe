@@ -6,9 +6,38 @@
     border: 1px solid black;
     border-bottom: none;
     border-left: none;
-    overflow: hidden;
     position: relative;
+    overflow-y: scroll;
 }
+
+/* width */
+.container::-webkit-scrollbar {
+    width: 20px;
+
+}
+
+/* Track */
+.container::-webkit-scrollbar-track {
+}
+
+/* Handle */
+.container::-webkit-scrollbar-thumb {
+    background-image: url("../../../../public/UI/misc/board-vert.jpg");
+    background-size: cover;
+    border-radius: 5px;
+    border: 1px solid var(--brown);
+}
+
+/* Handle on hover */
+.container::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.disabledScroll {
+    overflow: hidden !important;
+    scroll-behavior: smooth;
+}
+
 
 .zIndexIncreased {
     z-index: 200;
@@ -18,6 +47,6 @@
     width: 91%;
     background-image: url("../../../../public/UI/old-paper.png");
     background-size: cover;
-    overflow: hidden;
+    height: 500px;
 }
 

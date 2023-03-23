@@ -7,7 +7,6 @@ import scrollbarStyles from "./Scrollbar.module.css";
 import Determination from "./determination/Determination";
 import SkillLabel from "./SkillLabel/SkillLabel";
 import SkillMenu from "./SkillMenu/SkillMenu";
-import Scrollbar from "../Scrollbar";
 import Pawn from "../Pawn";
 import {Droppable} from "react-beautiful-dnd";
 import capitalize from "../../../../utils/capitalizeFirstLetter";
@@ -68,7 +67,7 @@ export default function Character(props: Props) {
                 </div>
             </div>
             <Determination value={props.character.determination}/>
-            <Scrollbar styleModule={scrollbarStyles}>
+            <div className={styles.scroll}>
                 <Droppable droppableId={"freepawns-" + props.character.name}>
                     {(provided) => (
                         <div
@@ -93,7 +92,7 @@ export default function Character(props: Props) {
                         </div>
                     )}
                 </Droppable>
-            </Scrollbar>
+            </div>
             <SideCharacters friday={props.friday} dog={props.dog}/>
         </div>
     );

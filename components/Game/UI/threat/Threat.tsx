@@ -3,87 +3,89 @@ import React from "react";
 import styles from "./Threat.module.css";
 import ActionSlot from "../ActionSlot";
 import Card from "./Card";
-import { IEventServiceRenderData } from "../../../../interfaces/EventService/EventService";
-import { EVENT_TYPE } from "../../../../interfaces/EventService/EventCard";
-import { ACTION_ITEM, getDroppableID } from "../../../../utils/getDroppableID";
-import { ACTION } from "../../../../interfaces/ACTION";
+import {IEventServiceRenderData} from "../../../../interfaces/EventService/EventService";
+import {EVENT_TYPE} from "../../../../interfaces/EventService/EventCard";
+import {ACTION_ITEM, getDroppableID} from "../../../../utils/getDroppableID";
+import {ACTION} from "../../../../interfaces/ACTION";
 import redArrowImg from "/public/UI/misc/red-arrow.png";
 import redArrowCurvedImg from "/public/UI/misc/red-arrow-curved.png";
-import { objectsEqual } from "../../../../utils/objectsEqual";
+import {objectsEqual} from "../../../../utils/objectsEqual";
 
 interface Props {
-  threat: IEventServiceRenderData;
-  zIndex: string;
+    threat: IEventServiceRenderData;
+    zIndex: string;
 }
 
 function Threat(props: Props) {
-  const leftCard = props.threat.leftSlot;
-  const rightCard = props.threat.rightSlot;
+    const leftCard = props.threat.leftSlot;
+    const rightCard = props.threat.rightSlot;
 
-  function getActionSlots(side: "left" | "right") {
-    const actionSlots = [];
-    let pawnAmount = 0;
-    if (side === "left" && leftCard) {
-      pawnAmount =
-        leftCard.type === EVENT_TYPE.WRECKAGE
-          ? 2
-          : leftCard.requiredHelperAmount;
-    } else if (side === "right" && rightCard) {
-      pawnAmount =
-        rightCard.type === EVENT_TYPE.WRECKAGE
-          ? 2
-          : rightCard.requiredHelperAmount;
+    function getActionSlots(side: "left" | "right") {
+        const actionSlots = [];
+        let pawnAmount = 0;
+        if (side === "left" && leftCard) {
+            pawnAmount =
+                leftCard.type === EVENT_TYPE.WRECKAGE
+                    ? 2
+                    : leftCard.requiredHelperAmount + 1;
+        } else if (side === "right" && rightCard) {
+            pawnAmount =
+                rightCard.type === EVENT_TYPE.WRECKAGE
+                    ? 2
+                    : rightCard.requiredHelperAmount + 1;
+        }
+
+
+        for (let i = 0; i < pawnAmount; i++) {
+            const id = getDroppableID(ACTION_ITEM.THREAT, "", side, i);
+            actionSlots.push(
+                <ActionSlot
+                    type={i === 0 ? "leader" : "helper"}
+                    action={ACTION.THREAT}
+                    actionItem={ACTION_ITEM.THREAT}
+                    id={id}
+                    key={id}
+                />
+            );
+        }
+        return actionSlots;
     }
-    for (let i = 0; i < pawnAmount; i++) {
-      const id = getDroppableID(ACTION_ITEM.THREAT, "", side, i);
-      actionSlots.push(
-        <ActionSlot
-          type={i === 0 ? "leader" : "helper"}
-          action={ACTION.THREAT}
-          actionItem={ACTION_ITEM.THREAT}
-          id={id}
-          key={id}
-        />
-      );
-    }
-    return actionSlots;
-  }
 
-  const zIndexClass = props.zIndex.includes("threat")
-    ? styles.zIndexIncreased
-    : "";
+    const zIndexClass = props.zIndex.includes("threat")
+        ? styles.zIndexIncreased
+        : "";
 
-  return (
-    <div className={styles.container + " " + zIndexClass}>
-      <Card card={props.threat.leftSlot} />
-      <Card card={props.threat.rightSlot} />
-      <div className={styles.arrow}>
-        <Image src={redArrowImg} fill alt="strzałka" sizes={styles.arrow} />
-      </div>
-      <div className={styles.curvedArrow}>
-        <Image
-          src={redArrowCurvedImg}
-          fill
-          alt="strzałka"
-          sizes={styles.curvedArrow}
-        />
-      </div>
-      <div className={styles.actionSlots}>
-        {props.threat.leftSlot && getActionSlots("left")}
-      </div>
-      <div className={styles.actionSlots}>
-        {props.threat.rightSlot && getActionSlots("right")}
-      </div>
-    </div>
-  );
+    return (
+        <div className={styles.container + " " + zIndexClass}>
+            <Card card={props.threat.leftSlot}/>
+            <Card card={props.threat.rightSlot}/>
+            <div className={styles.arrow}>
+                <Image src={redArrowImg} fill alt="strzałka" sizes={styles.arrow}/>
+            </div>
+            <div className={styles.curvedArrow}>
+                <Image
+                    src={redArrowCurvedImg}
+                    fill
+                    alt="strzałka"
+                    sizes={styles.curvedArrow}
+                />
+            </div>
+            <div className={styles.actionSlots}>
+                {props.threat.leftSlot && getActionSlots("left")}
+            </div>
+            <div className={styles.actionSlots}>
+                {props.threat.rightSlot && getActionSlots("right")}
+            </div>
+        </div>
+    );
 }
 
 function areEqual(prevProps: Props, nextProps: Props) {
-  return (
-    prevProps.zIndex.includes("threat") ===
-      nextProps.zIndex.includes("threat") &&
-    objectsEqual(prevProps.threat, nextProps.threat)
-  );
+    return (
+        prevProps.zIndex.includes("threat") ===
+        nextProps.zIndex.includes("threat") &&
+        objectsEqual(prevProps.threat, nextProps.threat)
+    );
 }
 
 export default React.memo(Threat, areEqual);

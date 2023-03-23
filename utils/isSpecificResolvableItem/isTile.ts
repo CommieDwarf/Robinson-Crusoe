@@ -2,9 +2,9 @@ import {Action, AdventureAction} from "../../interfaces/ACTION";
 import {ITile} from "../../interfaces/TileService/ITile";
 
 export const isTile = (
-    candidate: Object
+    candidate: any
 ): candidate is ITile => {
     return (
-        "hasBasicResource" in candidate
+        candidate instanceof Object && "hasBasicResource" in candidate
     );
 };

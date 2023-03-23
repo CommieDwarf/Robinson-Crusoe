@@ -78,3 +78,28 @@
     height: 100%;
 }
 
+.scroll {
+    grid-column: 2 / span 1;
+    grid-row: 2 / span 1;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.scroll::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+.scroll::-webkit-scrollbar-track {
+}
+
+/* Handle */
+.scroll::-webkit-scrollbar-thumb {
+    width: 10px;
+    background-image: url("../../../../public/UI/misc/board-vert.jpg");
+    background-size: cover;
+    border-radius: 5px;
+    border: 1px solid var(--brown);
+}
+

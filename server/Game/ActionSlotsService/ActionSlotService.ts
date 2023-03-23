@@ -91,16 +91,28 @@ export class ActionSlotService implements IActionSlotService {
     public setPawn(droppableId: string, pawn: IPawn | null) {
         const assignedPawn = this._slots.get(droppableId);
         this._slots.set(droppableId, pawn);
-        if (droppableId.includes("gather") && !assignedPawn) {
+        if (assignedPawn) {
+            return;
+        }
+        if (droppableId.includes("gather")) {
             Boolean(pawn) ? this.incrDecrGatherTileAssignedPawns(droppableId, 1) : this.incrDecrGatherTileAssignedPawns(droppableId, -1)
+        } else if (droppableId.includes("rest")) {
+            Boolean(pawn) ? this._game.arrangeCampRestService.incrPawnAmount("rest") : this._game.arrangeCampRestService.decrPawnAmount("rest");
+        } else if (droppableId.includes("arrange camp")) {
+            Boolean(pawn) ? this._game.arrangeCampRestService.incrPawnAmount("arrangeCamp") : this._game.arrangeCampRestService.decrPawnAmount("arrangeCamp");
         }
     }
 
 
     public unsetPawn(droppableId: string) {
         this._slots.set(droppableId, null);
-        console.log("UNSET")
-        this.incrDecrGatherTileAssignedPawns(droppableId, -1);
+        if (droppableId.includes("gather")) {
+            this.incrDecrGatherTileAssignedPawns(droppableId, -1);
+        } else if (droppableId.includes("rest")) {
+            this._game.arrangeCampRestService.decrPawnAmount("rest");
+        } else if (droppableId.includes("arrange camp")) {
+            this._game.arrangeCampRestService.decrPawnAmount("arrangeCamp");
+        }
     }
 
     public clearSlots() {
@@ -200,6 +212,7 @@ export class ActionSlotService implements IActionSlotService {
                 }
             });
 
+
             //helper check
             leaderItems.forEach((droppableID) => {
                 const item = getItemFromDroppableId(droppableID, game);
@@ -213,7 +226,8 @@ export class ActionSlotService implements IActionSlotService {
                     }
                 });
 
-                if (helperCount < item.requiredHelperAmount || !(isTile(item) && item.isAnySideRequiredPawnsSatisfied)) {
+
+                if (helperCount < item.requiredHelperAmount || isTile(item) && !item.isAnySideRequiredPawnsSatisfied) {
                     throw new MissingHelperError(droppableID);
                 }
             });
@@ -221,11 +235,14 @@ export class ActionSlotService implements IActionSlotService {
     }
 
     private incrDecrGatherTileAssignedPawns(droppableId: string, amount: number) {
-        const tile = getItemFromDroppableId(droppableId, this._game) as ITile;
+        const item = getItemFromDroppableId(droppableId, this._game);
+        if (!isTile(item)) {
+            return;
+        }
         if (droppableId.includes("left")) {
-            tile.incrDecrSideAssignedPawn("left", amount)
+            item.incrDecrSideAssignedPawn("left", amount)
         } else {
-            tile.incrDecrSideAssignedPawn("right", amount)
+            item.incrDecrSideAssignedPawn("right", amount)
         }
     }
 }

@@ -142,7 +142,6 @@
     justify-content: center;
     position: relative;
     float: right;
-    left: -5%;
     top: 5%;
 }
 
@@ -172,15 +171,31 @@
 
 }
 
-.scrollbar {
+.scroll {
     width: 60% !important;
     height: 35% !important;
     z-index: 1;
     margin: auto;
     position: relative;
-    right: 2%;
     top: 25%;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
+
+
+/* width */
+.scroll::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Handle */
+.scroll::-webkit-scrollbar-thumb {
+    background-image: url("../../../../../public/UI/misc/board-vert.jpg");
+    background-size: cover;
+    border-radius: 5px;
+    border: 1px solid var(--brown);
+}
+
 
 .trackHorizontal {
     display: none;

@@ -3,6 +3,56 @@
     height: 50%;
 }
 
+.scroll {
+    width: 65% !important;
+    height: 75% !important;
+    display: inline-block !important;
+    overflow-y: scroll;
+}
+
+/* width */
+.scroll::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+.scroll::-webkit-scrollbar-track {
+}
+
+/* Handle */
+.scroll::-webkit-scrollbar-thumb {
+    background-image: url("../../../../../public/UI/misc/board-vert.jpg");
+    background-size: cover;
+    border-radius: 5px;
+    border: 1px solid var(--brown);
+}
+
+
+.trackHorizontal {
+    display: none;
+}
+
+.thumbHorizontal {
+    display: none;
+}
+
+.trackVertical {
+    width: 8px !important;
+    height: 100%;
+    right: 0;
+    background: transparent;
+}
+
+.thumbVertical {
+    width: 8px !important;
+    background-image: url("../../../../../public/UI/misc/board-vert.jpg");
+    background-size: cover;
+    border-radius: 5px;
+    border: 1px solid black;
+    z-index: 100 !important;
+}
+
+
 .activityName {
     text-align: center;
     height: 25%;
