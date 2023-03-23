@@ -29,10 +29,11 @@
 }
 
 .scrollDisabled {
-    overflow: hidden;
+    overflow: hidden !important;
     scroll-behavior: smooth;
     padding-right: 15px;
     padding-bottom: 15px;
+    height: 100%;
 }
 
 .scroll::-webkit-scrollbar {

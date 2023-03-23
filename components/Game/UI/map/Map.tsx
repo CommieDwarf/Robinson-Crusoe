@@ -62,13 +62,11 @@ function Map(props: Props) {
             const actionSlotsScrollable = target.closest(
                 ".preventMapScroll"
             );
-
-            if (actionSlotsScrollable) {
-                return;
+            if (actionSlotsScrollable || props.scrollDisabled) {
+                return false
             }
-
             event.preventDefault();
-
+            
 
             if (event.deltaY < 0) {
                 zoomIn();
@@ -135,6 +133,7 @@ function Map(props: Props) {
             : "";
 
     const scrollDisabledClass = props.scrollDisabled ? styles.scrollDisabled : "";
+
 
     return (
         <div

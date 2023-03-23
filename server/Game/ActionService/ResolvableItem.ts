@@ -1,4 +1,4 @@
-import {IConstruction} from "../../../interfaces/ConstructionService/Construction";
+import {CONSTRUCTION, IConstruction} from "../../../interfaces/ConstructionService/Construction";
 import {IInvention} from "../../../interfaces/InventionService/Invention";
 import {ITile} from "../../../interfaces/TileService/ITile";
 import {IEventCard} from "../../../interfaces/EventService/EventCard";
@@ -10,16 +10,9 @@ import {Invention} from "../Inventions/InventionCreator/Invention";
 import {Tile} from "../TileService/TileGraph/Tile";
 import {EventCard} from "../EventService/EventCardCreator/EventCard";
 import {Beast} from "../BeastService/BeastCreator/Beast";
-import {
-    IResolvableItem,
-    Item,
-    RESOLVE_ITEM_STATUS,
-} from "../../../interfaces/ActionService/IResolvableItem";
+import {IResolvableItem, Item, RESOLVE_ITEM_STATUS,} from "../../../interfaces/ActionService/IResolvableItem";
 import {v4 as uuidv4} from "uuid";
-import {
-    ActionDice,
-    ActionDiceResults,
-} from "../../../interfaces/RollDice/RollDice";
+import {ActionDice, ActionDiceResults,} from "../../../interfaces/RollDice/RollDice";
 import {RollDiceService} from "../RollDiceService/RollDiceService";
 import {isAdventureAction} from "../../../utils/isAdventureAction";
 import {isTile} from "../../../utils/isSpecificResolvableItem/isTile";
@@ -188,8 +181,10 @@ export class ResolvableItem implements IResolvableItem {
         }
         const item = this._item
 
-        if (isTile(item)) {
-            item.setTileModifier("timeConsumingAction", false, this._action);
+        if (isTile(item) && item.modifiers.greaterDanger) {
+            if (this._game.constructionService.getConstruction(CONSTRUCTION.WEAPON).lvl === 0) {
+                this._game.characterService.hurt(this._leaderPawn.character, 1, "Zagrożenie na kafelku - brak broni.")
+            }
         }
 
         if (this.resolveStatus === RESOLVE_ITEM_STATUS.FAILURE) {

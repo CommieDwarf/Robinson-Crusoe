@@ -391,6 +391,7 @@ export default function Game(props: Props) {
                 <ActionsOrder
                     adventureTokens={gameRenderData.actionService.adventureTokens}
                     reRollTokens={gameRenderData.actionService.reRollTokens}
+                    timeConsumingAction={gameRenderData.actionService.timeConsumingAction}
                 />
                 <ChatLog logMessages={gameRenderData.logs}/>
                 <Weather tokens={gameRenderData.weatherService.tokens}/>

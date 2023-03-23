@@ -7,6 +7,7 @@ import {ITileGraph} from "../../../interfaces/TileService/ITileGraph";
 import {TILE_RESOURCE_ACTION} from "../../../interfaces/TileService/TileResourceService";
 import {FixedTileResources} from "../../../interfaces/TileService/TileResourceInfo";
 import {fixedTileResources} from "../../../constants/tileResourceServices";
+import {CONSTRUCTION} from "../../../interfaces/ConstructionService/Construction";
 
 export class TileService implements ITileService {
     private _tileGraph: ITileGraph;

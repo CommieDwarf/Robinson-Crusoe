@@ -47,9 +47,15 @@ export class GameService implements IGameService {
         this._game.localPlayer.getCharacter().pawnService.addPawn(new Pawn(this._game.localPlayer.getCharacter(), 9))
         this._game.localPlayer.getCharacter().pawnService.addPawn(new Pawn(this._game.localPlayer.getCharacter(), 10))
         this._game.localPlayer.getCharacter().pawnService.resetFreePawns();
+        this._game.tileService.getTile(6).setTileModifier("greaterDanger", true, "testyy")
         // console.log((2.4 * 2) + (0.9 * 0.8))
         // 7m^2
-
+        // this._game.actionService.setTimeConsumingAction("arrange camp", true, "testy")
+        // this._game.actionService.setTimeConsumingAction("rest", true, "testy")
+        // this._game.actionService.setTimeConsumingAction("gather", true, "testy")
+        // this._game.actionService.setTimeConsumingAction("explore", true, "testy")
+        // this._game.actionService.setTimeConsumingAction("build", true, "testy")
+        // this._game.actionService.setTimeConsumingAction("build", true, "testy")
     }
 
     get renderData() {

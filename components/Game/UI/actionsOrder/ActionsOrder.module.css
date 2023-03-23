@@ -34,11 +34,17 @@
     color: darkred;
 }
 
-.reRoll {
-    width: 18px;
-    height: 18px;
+.tokens {
+    display: flex;
     position: absolute;
+    width: 30px;
     right: -5px;
-    top: -5px;
+    top: -10px;
+}
+
+.token {
+    width: 20px;
+    height: 20px;
+    margin-right: -10px;
     filter: contrast(110%);
 }

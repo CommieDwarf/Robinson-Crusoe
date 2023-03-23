@@ -15,7 +15,6 @@ import greaterDangerToken from "/public/UI/tokens/greater-danger.png"
 import timeConsumingActionToken from "/public/UI/tokens/time-consuming-action.png"
 
 import {ResourceDepletionButton} from "./ResourceDepletionButton/ResourceDepletionButton";
-import {reverseSide} from "../../../../../utils/reverseSide";
 
 interface Props {
     tile: ITileRenderData;
@@ -39,16 +38,16 @@ export default function Tile(props: Props) {
         action: ACTION.GATHER | ACTION.EXPLORE,
         side: "left" | "right" | "",
     ): JSX.Element[] {
-        const pawnAmountModifier = props.tile.modifiers.timeConsumingAction && side && props.tile.requiredPawnsSatisfied[reverseSide(side)] ? -1 : 0;
         const actionSlots = [];
         const context =
             action === ACTION.GATHER ? ACTION_ITEM.GATHER : ACTION_ITEM.EXPLORE;
-        for (let i = 0; i < props.tile.requiredHelperAmount + 1 + pawnAmountModifier; i++) {
-            const id = getDroppableID(context, props.tile.id, side, i + 1);
-
+        const totalPawns = props.tile.requiredHelperAmount + 1;
+        for (let i = 0; i <= totalPawns; i++) {
+            const id = getDroppableID(context, props.tile.id, side, i);
+            const role = i === 0 ? "leader" : "helper";
             actionSlots.push(
                 <ActionSlot
-                    type={"helper"}
+                    type={role}
                     action={action}
                     actionItem={context}
                     id={id}
@@ -58,18 +57,6 @@ export default function Tile(props: Props) {
             );
         }
 
-        const id = getDroppableID(context, props.tile.id, side, 0);
-
-        actionSlots.unshift(
-            <ActionSlot
-                type={"leader"}
-                action={action}
-                actionItem={context}
-                id={id}
-                key={id}
-                isDragDisabled={props.isDragDisabled}
-            />
-        );
         return actionSlots;
     }
 
