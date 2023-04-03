@@ -12,8 +12,6 @@ very much.
 
 This project my browser version of existing board
 game.
-<br>
-Game requires a password which I reveal myself.
 
 ## Game concepts
 
