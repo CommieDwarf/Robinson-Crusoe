@@ -11,9 +11,7 @@ very much.
 ## About
 
 This project my browser version of existing board
-game which name I'd rather not to reveal for legal concerns.
-<br>
-Game requires a password which I reveal myself.
+game.
 
 ## Game concepts
 
@@ -53,9 +51,9 @@ Game can be played solo or with max. 4 players.
 * React
 * Next.js
 * Vertex.js
+* Redux
 * Additional libraries:
     * react-beautiful-dnd
-    * react-custom-scrollbars
     * web-sockets
 
 ## What I've learned:
@@ -63,15 +61,10 @@ Game can be played solo or with max. 4 players.
 * Became more skilled at OOP concept
 * Improved knowledge of Typescript and React.
 * Next.js framework.
+* React Redux
 
 ## What I'll learn in the future:
 
-* React Redux
 * MongoDB
-* Tests
+* Unit tests
 
-## Problems I've encountered:
-
-* Unfortunately react-beautiful-dnd and
-  react-custom-scrollbars don't let to lock scrollbar
-  which I solved by fixing scroll value but the effect Isn't perfect.
