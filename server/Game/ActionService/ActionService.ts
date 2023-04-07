@@ -1,7 +1,7 @@
 import {
-    ActionTokens,
+    ActionTokens, GlobalCostModifiers,
     IActionService,
-    IActionServiceRenderData, Modifiers,
+    IActionServiceRenderData,
 } from "../../../interfaces/ActionService/ActionService";
 import {IGame} from "../../../interfaces/Game";
 
@@ -19,8 +19,13 @@ import {MissingLeaderError} from "../Errors/MissingLeaderError";
 import {isAdventureAction} from "../../../utils/isAdventureAction";
 import i18n from "../../../I18n/I18n";
 import {OccupiedSlots} from "../../../interfaces/ActionSlots";
+import {IGlobalCostModifierRenderData} from "../../../interfaces/ActionService/GlobalCostModifier";
+import {IBasicResourcesAmount} from "../../../interfaces/Resources/Resources";
+import {GlobalCostModifier} from "./GlobalCostModifier/GlobalCostModifier";
+import Entries from "../../../interfaces/Entries";
 
 export class ActionService implements IActionService {
+
 
     private readonly _game: IGame;
     private _resolvableItems: IResolvableItem[] = [];
@@ -41,14 +46,14 @@ export class ActionService implements IActionService {
         gather: false,
     };
 
-    private _timeConsumingAction: Modifiers = {
-        [ACTION.BUILD]: false,
-        [ACTION.EXPLORE]: false,
-        [ACTION.GATHER]: false,
-        [ACTION.ARRANGE_CAMP]: false,
-        [ACTION.THREAT]: false,
-        [ACTION.REST]: false,
-        [ACTION.HUNT]: false,
+    private _globalCostModifiers: GlobalCostModifiers = {
+        [ACTION.THREAT]: [],
+        [ACTION.HUNT]: [],
+        [ACTION.BUILD]: [],
+        [ACTION.GATHER]: [],
+        [ACTION.EXPLORE]: [],
+        [ACTION.ARRANGE_CAMP]: [],
+        [ACTION.REST]: [],
     }
 
 
@@ -57,6 +62,10 @@ export class ActionService implements IActionService {
     }
 
     get renderData(): IActionServiceRenderData {
+        const globalCostModifiers = Object.fromEntries(Object.entries(this._globalCostModifiers)
+            .map(([key, value]) =>
+                [key, value.map((mod) => mod.renderData)])) as Record<ACTION, IGlobalCostModifierRenderData[]>
+
         return {
             action: this.action,
             currentActionResolved: this.currentActionResolved,
@@ -68,13 +77,15 @@ export class ActionService implements IActionService {
             adventureTokens: this._adventureTokens,
             reRollTokens: this.reRollTokens,
             skippableActions: this._skippableActions,
-            timeConsumingAction: this._timeConsumingAction,
+            globalCostModifiers
         };
     }
 
-    get timeConsumingAction(): Modifiers {
-        return this._timeConsumingAction;
+
+    get globalCostModifiers(): GlobalCostModifiers {
+        return this._globalCostModifiers;
     }
+
 
     get reRollTokens(): ActionTokens {
         return this._reRollTokens;
@@ -115,23 +126,35 @@ export class ActionService implements IActionService {
         return this._lastRolledItem;
     }
 
-    setTimeConsumingAction(action: keyof Modifiers, value: boolean, sourceLog: string) {
-        if (this._timeConsumingAction[action] === value) {
-            return;
-        }
-        this._timeConsumingAction[action] = value;
-        if (value) {
-            this._game.chatLog.addMessage(
-                `Położono token dodatkowego pionka na akcji: ${i18n.t(`action.${action}`, {
-                    context: "genitive",
-                })}`, "red", sourceLog)
-        } else {
-            this._game.chatLog.addMessage(
-                `Zabrano token dodatkowego pionka z akcji: ${i18n.t(`action.${action}`, {
-                    context: "genitive",
-                })}`, "green", sourceLog)
-        }
+    hasGlobalModifier(action: ACTION, resource: "helper" | keyof IBasicResourcesAmount): boolean {
+        return this._globalCostModifiers[action].some((modifier) => modifier.resource === resource);
     }
+
+    addGlobalCostModifier(action: ACTION, resource: "helper" | keyof IBasicResourcesAmount, disposable: boolean, source: string) {
+        this._globalCostModifiers[action].push(new GlobalCostModifier(resource, disposable, source));
+    }
+
+    removeGlobalCostModifier(action: ACTION, source: string) {
+        this._globalCostModifiers[action] = this._globalCostModifiers[action].filter((modifier) => modifier.source === source);
+    }
+
+    // setTimeConsumingAction(action: keyof Modifiers, value: boolean, sourceLog: string) {
+    //     if (this._timeConsumingAction[action] === value) {
+    //         return;
+    //     }
+    //     this._timeConsumingAction[action] = value;
+    //     if (value) {
+    //         this._game.chatLog.addMessage(
+    //             `Położono token dodatkowego pionka na akcji: ${i18n.t(`action.${action}`, {
+    //                 context: "genitive",
+    //             })}`, "red", sourceLog)
+    //     } else {
+    //         this._game.chatLog.addMessage(
+    //             `Zabrano token dodatkowego pionka z akcji: ${i18n.t(`action.${action}`, {
+    //                 context: "genitive",
+    //             })}`, "green", sourceLog)
+    //     }
+    // }
 
     setAdventureToken(
         action: AdventureAction,
@@ -201,9 +224,10 @@ export class ActionService implements IActionService {
     }
 
     private setCanBeSkipped(slots: OccupiedSlots) {
-        return Object.entries(slots).map(([action, map]) => {
+        const entries = Object.entries(slots) as Entries<OccupiedSlots>;
+        return entries.map(([action, map]) => {
             if (map.size === 0) {
-                this._skippableActions.push(action as ACTION);
+                this._skippableActions.push(action);
             }
         });
     }

@@ -1,101 +1,99 @@
 import {
-  CONSTRUCTION,
-  IConstruction,
-  IConstructionRenderData,
+    CONSTRUCTION,
+    IConstruction,
+    IConstructionRenderData,
 } from "../../../interfaces/ConstructionService/Construction";
-import { IBasicResources } from "../../../interfaces/Resources/Resources";
-import { BasicResources } from "../ResourceService/BasicResources";
+import {IBasicResources} from "../../../interfaces/Resources/Resources";
+import {BasicResources} from "../ResourceService/BasicResources";
+import {AssignablePawnsItem} from "../AssignablePawnsItem/AssignablePawnsItem";
+import {ACTION, ACTION_ITEM} from "../../../interfaces/ACTION";
+import {IGame} from "../../../interfaces/Game";
 
-export class Construction implements IConstruction {
-  private _requiredHelperAmount = 0;
-  private readonly _name: CONSTRUCTION;
-  private readonly _namePL: string;
-  private _lvl = 0;
-  private _committedResources: IBasicResources = new BasicResources();
-  private _cost: IBasicResources;
-  private _locked: boolean;
-  private _resourceChoice: boolean = true;
+export class Construction extends AssignablePawnsItem implements IConstruction {
 
-  constructor(
-    name: CONSTRUCTION,
-    namePL: string,
-    cost: BasicResources,
-    locked: boolean
-  ) {
-    this._name = name;
-    this._namePL = namePL;
-    this._cost = cost;
-    this._locked = locked;
-  }
+    private readonly _name: CONSTRUCTION;
+    private readonly _namePL: string;
+    private _lvl = 0;
+    private _committedResources: IBasicResources = new BasicResources();
+    private _cost: IBasicResources;
+    private _locked: boolean;
+    private _resourceChoice: boolean = true;
 
-  get renderData(): IConstructionRenderData {
-    return {
-      committedResources: this.committedResources.renderData,
-      cost: this.cost.renderData,
-      locked: this.locked,
-      lvl: this.lvl,
-      name: this.name,
-      requiredHelperAmount: this.requiredHelperAmount,
-    };
-  }
+    constructor(
+        name: CONSTRUCTION,
+        namePL: string,
+        cost: BasicResources,
+        locked: boolean,
+        game: IGame,
+    ) {
+        super(ACTION.BUILD, ACTION_ITEM.CONSTRUCTION, game);
+        this._name = name;
+        this._namePL = namePL;
+        this._cost = cost;
+        this._locked = locked;
+    }
 
-  get resourceChoice(): boolean {
-    return this._resourceChoice;
-  }
+    get renderData(): IConstructionRenderData {
+        return {
+            committedResources: this.committedResources.renderData,
+            cost: this.cost.renderData,
+            locked: this.locked,
+            lvl: this.lvl,
+            name: this.name,
+            ...super.getRenderData(),
+        };
+    }
 
-  set lvl(value: number) {
-    this._lvl = value;
-  }
+    get resourceChoice(): boolean {
+        return this._resourceChoice;
+    }
 
-  get name(): CONSTRUCTION {
-    return this._name;
-  }
+    set lvl(value: number) {
+        this._lvl = value;
+    }
 
-  get namePL(): string {
-    return this._namePL;
-  }
+    get name(): CONSTRUCTION {
+        return this._name;
+    }
 
-  get lvl(): number {
-    return this._lvl;
-  }
+    get namePL(): string {
+        return this._namePL;
+    }
 
-  get committedResources(): IBasicResources {
-    return this._committedResources;
-  }
+    get lvl(): number {
+        return this._lvl;
+    }
 
-  set committedResources(resources: IBasicResources) {
-    this._committedResources = resources;
-  }
+    get committedResources(): IBasicResources {
+        return this._committedResources;
+    }
 
-  get cost(): IBasicResources {
-    return this._cost;
-  }
+    set committedResources(resources: IBasicResources) {
+        this._committedResources = resources;
+    }
 
-  set cost(value: IBasicResources) {
-    this._cost = value;
-  }
+    get cost(): IBasicResources {
+        return this._cost;
+    }
 
-  get locked(): boolean {
-    return this._locked;
-  }
+    set cost(value: IBasicResources) {
+        this._cost = value;
+    }
 
-  set locked(value: boolean) {
-    this._locked = value;
-  }
+    get locked(): boolean {
+        return this._locked;
+    }
 
-  get requiredHelperAmount(): number {
-    return this._requiredHelperAmount;
-  }
+    set locked(value: boolean) {
+        this._locked = value;
+    }
 
-  set requiredHelperAmount(value: number) {
-    this._requiredHelperAmount = value;
-  }
 
-  incrementLvl(num: number) {
-    this._lvl += num;
-  }
+    incrementLvl(num: number) {
+        this._lvl += num;
+    }
 
-  decrementLvl(num: number) {
-    this._lvl -= num;
-  }
+    decrementLvl(num: number) {
+        this._lvl -= num;
+    }
 }

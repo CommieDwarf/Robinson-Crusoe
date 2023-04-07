@@ -7,24 +7,20 @@ import {
 import {IGame} from "../../../../interfaces/Game";
 import {v4 as uuidv4} from "uuid";
 import {IPawn} from "../../../../interfaces/Pawns/Pawn";
-import {
-    EVENT_CARD,
-    WRECKAGE_CARD,
-} from "../../../../interfaces/EventService/EVENT_CARD";
+import {EVENT_CARD, WRECKAGE_CARD,} from "../../../../interfaces/EventService/EVENT_CARD";
 import {ICharacter} from "../../../../interfaces/Characters/Character";
-import {ACTION, AdventureAction} from "../../../../interfaces/ACTION";
+import {ACTION, ACTION_ITEM, AdventureAction} from "../../../../interfaces/ACTION";
+import {AssignablePawnsItem} from "../../AssignablePawnsItem/AssignablePawnsItem";
 
 //TODO: implement name translations
 
-export abstract class EventCard implements IEventCard {
+export abstract class EventCard extends AssignablePawnsItem implements IEventCard {
     protected declare _namePL: string;
     protected declare _resolutionPL: string;
     protected readonly _id = uuidv4();
     protected readonly _name: string;
-    protected readonly _type: AdventureAction | EVENT_TYPE;
+    protected readonly _cardType: AdventureAction | EVENT_TYPE;
     protected readonly _requirements: EventResolveRequirements;
-    protected _game: IGame;
-    protected _requiredHelperAmount: number;
 
     protected constructor(
         name: EVENT_CARD | WRECKAGE_CARD,
@@ -32,19 +28,19 @@ export abstract class EventCard implements IEventCard {
         requirements: EventResolveRequirements,
         game: IGame
     ) {
+        super(ACTION.THREAT, ACTION_ITEM.THREAT, game);
         this._name = name;
-        this._type = type;
+        this._cardType = type;
         this._requirements = requirements;
-        this._game = game;
-        this._requiredHelperAmount = this._requirements.pawns - 1;
+        this._requiredPawnAmount = this._requirements.pawns;
     }
 
     get renderData(): IEventCardRenderData {
         return {
             id: this.id,
             name: this.name,
-            type: this.type,
-            requiredHelperAmount: this._requiredHelperAmount,
+            cardType: this._cardType,
+            ...super.getRenderData(),
         };
     }
 
@@ -64,13 +60,10 @@ export abstract class EventCard implements IEventCard {
         return this._resolutionPL;
     }
 
-    get type(): EVENT_TYPE | AdventureAction {
-        return this._type;
+    get cardType(): EVENT_TYPE | AdventureAction {
+        return this._cardType;
     }
 
-    get requiredHelperAmount(): number {
-        return this._requiredHelperAmount;
-    }
 
     protected getLeaderCharacter(): ICharacter {
         const slot = this._game.eventService.getSlotByCardID(this.id);
@@ -94,11 +87,11 @@ export abstract class EventCard implements IEventCard {
 
     public setAdventureToken() {
         if (
-            this._type === ACTION.BUILD ||
-            this._type === ACTION.EXPLORE ||
-            this._type === ACTION.GATHER
+            this._cardType === ACTION.BUILD ||
+            this._cardType === ACTION.EXPLORE ||
+            this._cardType === ACTION.GATHER
         ) {
-            this._game.actionService.setAdventureToken(this._type, true, this.namePL);
+            this._game.actionService.setAdventureToken(this._cardType, true, this.namePL);
         }
     }
 

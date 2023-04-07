@@ -2,9 +2,7 @@ import Image from "next/image";
 import React from "react";
 import styles from "./RestArrange.module.css";
 import ActionSlot from "../../ActionSlot";
-import {ACTION} from "../../../../../interfaces/ACTION";
 import {
-    ACTION_ITEM,
     getDroppableID,
 } from "../../../../../utils/getDroppableID";
 
@@ -12,6 +10,7 @@ import moraleArrowRightImg from "/public/UI/icons/morale-arrow-right.png";
 import heartImg from "/public/UI/icons/heart.png";
 import moraleIconImg from "/public/UI/icons/morale.png";
 import {useTranslation} from "react-i18next";
+import {ACTION, ACTION_ITEM} from "../../../../../interfaces/ACTION";
 
 interface Props {
     pawnAmount: number;
@@ -63,14 +62,14 @@ export default function RestArrange(props: Props) {
     const actionSlots = [];
 
     for (let i = 0; i < slotsQuantity; i++) {
-        const context =
+        const actionItem =
             props.type === ACTION.REST ? ACTION_ITEM.REST : ACTION_ITEM.ARRANGE_CAMP;
-        const id = getDroppableID(context, "", "", i);
+        const id = getDroppableID(props.type, "", "", i);
         actionSlots.push(
             <ActionSlot
                 type="leader"
                 action={props.type}
-                actionItem={context}
+                uniqueAction={props.type}
                 id={id}
                 key={id}
             />

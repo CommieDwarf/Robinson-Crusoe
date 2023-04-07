@@ -1,37 +1,37 @@
-import { EventCard } from "../EventCard";
-import { IEventCard } from "../../../../../interfaces/EventService/EventCard";
-import { IGame } from "../../../../../interfaces/Game";
-import { EVENT_CARD } from "../../../../../interfaces/EventService/EVENT_CARD";
-import { INVENTION_STARTER } from "../../../../../interfaces/InventionService/Invention";
-import { ACTION } from "../../../../../interfaces/ACTION";
+import {EventCard} from "../EventCard";
+import {IEventCard} from "../../../../../interfaces/EventService/EventCard";
+import {IGame} from "../../../../../interfaces/Game";
+import {EVENT_CARD} from "../../../../../interfaces/EventService/EVENT_CARD";
+import {INVENTION_STARTER} from "../../../../../interfaces/InventionService/Invention";
+import {ACTION} from "../../../../../interfaces/ACTION";
 
 export class Landslide extends EventCard implements IEventCard {
-  protected readonly _namePL = "osuwisko";
-  protected readonly _resolutionPL = "zabezpieczenie obozowiska";
+    protected readonly _namePL = "osuwisko";
+    protected readonly _resolutionPL = "zabezpieczenie obozowiska";
 
-  constructor(game: IGame) {
-    super(
-      EVENT_CARD.LANDSLIDE,
-      ACTION.BUILD,
-      {
-        pawns: 1,
-        invention: INVENTION_STARTER.SHOVEL,
-        construction: null,
-        resource: null,
-      },
-      game
-    );
-  }
+    constructor(game: IGame) {
+        super(
+            EVENT_CARD.LANDSLIDE,
+            ACTION.BUILD,
+            {
+                pawns: 1,
+                invention: INVENTION_STARTER.SHOVEL,
+                construction: null,
+                resource: null,
+            },
+            game
+        );
+    }
 
-  triggerEventEffect() {
-    //TODO: move camp, check guide
-  }
+    triggerEventEffect() {
+        //TODO: move camp, check guide
+    }
 
-  triggerThreatEffect() {
-    //TODO: no resources in production phase.
-  }
+    triggerThreatEffect() {
+        //TODO: no resources in production phase.
+    }
 
-  fullFill() {
-    this.incrDetermination(1);
-  }
+    fullFill() {
+        this.incrDetermination(1);
+    }
 }

@@ -58,7 +58,11 @@ export class GameClass implements IGame {
         this
     );
     private _alertService: IAlertService = new AlertService();
-    private readonly _inventionService: IInventionService;
+    private readonly _inventionService: IInventionService = new InventionsService(
+        "castaways",
+        this._tileService,
+        this
+    );
     private _weatherService: IWeatherService = new WeatherService(this);
     private _eventService: IEventService = new EventService(this);
     private _phaseService: IPhaseService = new PhaseService(this);
@@ -82,12 +86,6 @@ export class GameClass implements IGame {
         this._playerService = new PlayerService([this.localPlayer]);
         this._characterService = new CharacterService(
             [this.localPlayer.getCharacter()],
-            this
-        );
-
-        this._inventionService = new InventionsService(
-            "castaways",
-            this._tileService,
             this
         );
     }

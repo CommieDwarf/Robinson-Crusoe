@@ -6,14 +6,15 @@ import {
     TILE_RESOURCE_ACTION,
 } from "./TileResourceService";
 import {FixedTileResources} from "./TileResourceInfo";
+import {IAssignablePawnsItem, IAssignablePawnsItemRenderData} from "../AssignablePawnsItem/AssignablePawnsItem";
 
-export interface ITile {
+export interface ITile extends IAssignablePawnsItem {
     position: TilePosition;
     id: number;
+    distance: number | null;
     camp: boolean;
     show: boolean;
     tileResourceService: ITileResourceService | null;
-    requiredHelperAmount: number;
     modifiers: TileModifiers;
     markedForAction: MarkedForAction | null;
     builtStructures: ITileBuiltStructures;
@@ -41,9 +42,7 @@ export interface ITile {
     resetStructures: () => void;
     setStructureLvl: (structure: BuiltTileStructure, amount: number) => void;
 
-    incrDecrSideAssignedPawn: (side: Side, amount: number) => void;
 
-    resetSideAssignedPawns: () => void;
     incrementStructureLvl: (
         structure: BuiltTileStructure,
         amount: number
@@ -53,7 +52,10 @@ export interface ITile {
         amount: number
     ) => void;
 
+    resetResourceAssignedPawns: () => void;
+
     markTileForActon: (actionName: TILE_ACTION, source: string) => void;
+
 
     depleteResource: (side: "left" | "right", source: string) => void;
     unDepleteResource: (side: "left" | "right", source: string) => void;
@@ -65,16 +67,26 @@ export interface ITile {
         source: string
     ) => void;
     clearResourceModifiers: () => void;
+
+
+    canResourceActionBePerformed: (action: TILE_RESOURCE_ACTION, side: Side, source: string) => boolean
+
+
+    canActionBePerformed: (action: TILE_ACTION) => boolean
     markResourceForAction: (
         side: Side,
         actionName: TILE_RESOURCE_ACTION,
         source: string
     ) => void;
+
+    resetTileActionMark: () => void;
+
+    resetTileResourceActionMarks: () => void;
+
     triggerResourceAction: (side: Side, source: string) => void;
 }
 
-export type ITileRenderData = {
-    requiredHelperAmount: number;
+export interface ITileRenderData extends IAssignablePawnsItemRenderData {
     id: number;
     show: boolean;
     position: TilePosition;
@@ -88,7 +100,9 @@ export type ITileRenderData = {
         left: boolean,
         right: boolean,
     }
-};
+
+    requiredPawnAmount: number;
+}
 
 export interface MarkedForAction {
     action: TILE_ACTION;

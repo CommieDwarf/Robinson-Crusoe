@@ -4,5 +4,5 @@ export default function triggerTileResourceAction(
     tileID: number,
     side: "left" | "right"
 ) {
-    gameService.game.tileService.getTile(tileID).triggerResourceAction(side, "");
+    gameService.game.tileService.triggerMarkedTileResourceAction(tileID, side);
 }

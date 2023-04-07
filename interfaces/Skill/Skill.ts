@@ -1,28 +1,28 @@
-import { PHASE } from "../PhaseService/Phase";
-import { AdventureAction } from "../ACTION";
-import { ICharacter } from "../Characters/Character";
-import { ActionDice } from "../RollDice/RollDice";
+import {PHASE} from "../PhaseService/Phase";
+import {AdventureAction} from "../ACTION";
+import {ICharacter} from "../Characters/Character";
+import {ActionDice} from "../RollDice/RollDice";
 
 export interface ISkill {
-  name: string;
-  namePL: string;
-  description: string;
-  quote: string;
-  phasesAllowed: PHASE[];
-  actionAllowed: AdventureAction | null;
-  use: (target: ICharacter | ActionDice | null) => void;
-  used: boolean;
-  cost: number;
-  renderData: ISkillRenderData;
+    name: string;
+    namePL: string;
+    description: string;
+    quote: string;
+    phasesAllowed: PHASE[];
+    actionAllowed: AdventureAction | null;
+    use: (target: ICharacter | ActionDice | null) => void;
+    used: boolean;
+    cost: number;
+    renderData: ISkillRenderData;
 }
 
 export interface ISkillRenderData {
-  name: string;
-  namePL: string;
-  description: string;
-  quote: string;
-  phasesAllowed: PHASE[];
-  actionAllowed: AdventureAction | null;
-  cost: number;
-  used: boolean;
+    name: string;
+    namePL: string;
+    description: string;
+    quote: string;
+    phasesAllowed: PHASE[];
+    actionAllowed: AdventureAction | null;
+    cost: number;
+    used: boolean;
 }

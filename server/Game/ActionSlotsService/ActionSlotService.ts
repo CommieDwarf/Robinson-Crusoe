@@ -5,13 +5,13 @@ import {
     OccupiedSlots,
 } from "../../../interfaces/ActionSlots";
 import Entries from "../../../interfaces/Entries";
-import {ACTION_ITEM, getDroppableID} from "../../../utils/getDroppableID";
+import {getDroppableID} from "../../../utils/getDroppableID";
 import {
     INVENTION_NORMAL,
     INVENTION_PERSONAL,
     INVENTION_STARTER,
 } from "../../../interfaces/InventionService/Invention";
-import {ACTION} from "../../../interfaces/ACTION";
+import {ACTION, ACTION_ITEM} from "../../../interfaces/ACTION";
 import {IGame} from "../../../interfaces/Game";
 import {getItemFromDroppableId} from "../../../utils/getItemFromDroppableId";
 import {MissingLeaderError} from "../Errors/MissingLeaderError";
@@ -102,6 +102,10 @@ export class ActionSlotService implements IActionSlotService {
         }
     }
 
+    private incrPawnAmountInItem(droppableId: string) {
+        const item = getItemFromDroppableId(droppableId, this._game);
+    }
+
 
     public unsetPawn(droppableId: string) {
         this._slots.set(droppableId, null);
@@ -152,30 +156,30 @@ export class ActionSlotService implements IActionSlotService {
         this._game.tileService.tiles.forEach((tile) => {
             for (let i = 0; i < 8; i++) {
                 actionSlots.set(
-                    getDroppableID(ACTION_ITEM.GATHER, tile.id, "left", i),
+                    getDroppableID(ACTION.GATHER, tile.id, "left", i),
                     null
                 );
                 actionSlots.set(
-                    getDroppableID(ACTION_ITEM.GATHER, tile.id, "right", i),
+                    getDroppableID(ACTION.GATHER, tile.id, "right", i),
                     null
                 );
                 actionSlots.set(
-                    getDroppableID(ACTION_ITEM.EXPLORE, tile.id, "", i),
+                    getDroppableID(ACTION.EXPLORE, tile.id, "", i),
                     null
                 );
             }
         });
         for (let i = 0; i < 10; i++) {
-            actionSlots.set(getDroppableID(ACTION_ITEM.REST, "", "", i), null);
+            actionSlots.set(getDroppableID(ACTION.REST, "", "", i), null);
             actionSlots.set(
-                getDroppableID(ACTION_ITEM.ARRANGE_CAMP, "", "", i),
+                getDroppableID(ACTION.ARRANGE_CAMP, "", "", i),
                 null
             );
         }
         for (let i = 0; i < 2; i++) {
-            actionSlots.set(getDroppableID(ACTION_ITEM.THREAT, "", "left", i), null);
-            actionSlots.set(getDroppableID(ACTION_ITEM.THREAT, "", "right", i), null);
-            actionSlots.set(getDroppableID(ACTION_ITEM.HUNT, "", "", i), null);
+            actionSlots.set(getDroppableID(ACTION.THREAT, "", "left", i), null);
+            actionSlots.set(getDroppableID(ACTION.THREAT, "", "right", i), null);
+            actionSlots.set(getDroppableID(ACTION.HUNT, "", "", i), null);
         }
 
         return actionSlots;
@@ -225,7 +229,7 @@ export class ActionSlotService implements IActionSlotService {
                 });
 
 
-                if (helperCount < item.requiredHelperAmount) {
+                if (helperCount < item.requiredPawnAmount - 1) {
                     throw new MissingHelperError(droppableID);
                 }
             });

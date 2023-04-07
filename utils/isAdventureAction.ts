@@ -1,9 +1,10 @@
-import { Action, AdventureAction } from "../interfaces/ACTION";
+import {ACTION, AdventureAction} from "../interfaces/ACTION";
+
 
 export const isAdventureAction = (
-  candidate: Action
+    candidate: ACTION
 ): candidate is AdventureAction => {
-  return (
-    candidate === "build" || candidate === "explore" || candidate === "gather"
-  );
+    return (
+        candidate === ACTION.BUILD || candidate === ACTION.EXPLORE || candidate === ACTION.GATHER
+    );
 };

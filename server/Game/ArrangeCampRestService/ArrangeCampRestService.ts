@@ -1,6 +1,6 @@
 import {IArrangeCampRestService} from "../../../interfaces/RestArrangeCampService/ArrangeCampRestService";
 import {ICharacter} from "../../../interfaces/Characters/Character";
-import {ACTION} from "../../../interfaces/ACTION";
+import {AssignablePawnsItem} from "../AssignablePawnsItem/AssignablePawnsItem";
 
 export class ArrangeCampRestService implements IArrangeCampRestService {
     // TODO: IMPLEMENT CHOICE BETWEEN BED EFFECT OR NORMAL EFFECT.

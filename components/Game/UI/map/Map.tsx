@@ -44,7 +44,7 @@ function Map(props: Props) {
                 campSettableTiles={
                     tile.camp && !props.tileService.campJustMoved ? campSettableTiles : []
                 }
-                depleteResource={props.triggerTileResourceAction}
+                triggerTileResourceAction={props.triggerTileResourceAction}
                 triggerTileAction={props.triggerTileAction}
             />
         );
@@ -66,7 +66,7 @@ function Map(props: Props) {
                 return false
             }
             event.preventDefault();
-            
+
 
             if (event.deltaY < 0) {
                 zoomIn();

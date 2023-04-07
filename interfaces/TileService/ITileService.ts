@@ -1,4 +1,5 @@
-import {ITile, ITileRenderData, TERRAIN_TYPE} from "./ITile";
+import {ITile, ITileRenderData, TERRAIN_TYPE, TILE_ACTION} from "./ITile";
+import {Side, TILE_RESOURCE_ACTION} from "./TileResourceService";
 
 export interface ITilesServiceRenderData {
     tiles: ITileRenderData[];
@@ -14,27 +15,26 @@ export interface ITileService {
     campTile: ITile;
     previousCampTile: ITile | null;
     campJustMoved: boolean;
-
+    tilesAroundCamp: ITile[]
     isTileMarkedForAction: boolean;
     terrainTypesExplored: Set<TERRAIN_TYPE>;
     canCampBeMoved: () => boolean;
-    depleteResource: (tileID: number, side: "left" | "right") => void;
     basket: boolean;
     sack: boolean;
     axe: boolean;
-    resourceAmountToDeplete: number;
     forceCampMovement: () => void;
 
-    resetSideAssignedPawns: () => void;
+    triggerMarkedTileResourceAction: (tileId: number, side: Side) => void;
+    markTilesForAction: (tiles: ITile[], action: TILE_ACTION, requiredCount: number, source: string) => void;
+    markTileResourcesForAction: (tiles: ITile[], action: TILE_RESOURCE_ACTION, source: string, concreteResource: "food" | "wood" | null) => void;
+    markResourceTilesForActionOrGetHurt: (tiles: ITile[], action: TILE_RESOURCE_ACTION, requiredMarkCount: number, source: string, concreteResource: "food" | "wood" | null) => void;
+    countHowManyResourcesCanBeMarkedForAction: (tiles: ITile[], action: TILE_RESOURCE_ACTION, source: string, concreteResource?: "wood" | "food" | null) => number;
+    resetResourceAssignedPawns: () => void;
     gather: (side: "left" | "right", tileId: number, logSource: string) => void;
     getTile: (id: number) => ITile;
     moveCamp: (tileID: number) => void;
     explore: (id: number) => void;
-    markTileForAnyResourceDepletion: (tileID: number, sourceLog: string) => void;
-    markClosestResourceForDepletion: (resource: "food" | "wood") => void;
-    markTilesAroundCampForResourceDepletion: () => void;
-    countMarkedResourceForDepletion: () => number;
-    clearMarkedForDepletion: () => void;
+
 
     renderData: ITilesServiceRenderData;
 }

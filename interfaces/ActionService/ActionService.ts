@@ -1,6 +1,7 @@
 import {IResolvableItem, IResolvableItemRenderData} from "./IResolvableItem";
 import {ACTION, AdventureAction} from "../ACTION";
-import {Dictionary} from "@reduxjs/toolkit";
+import {IGlobalCostModifier, IGlobalCostModifierRenderData} from "./GlobalCostModifier";
+import {IBasicResourcesAmount} from "../Resources/Resources";
 
 export interface ActionTokens {
     build: boolean;
@@ -8,9 +9,18 @@ export interface ActionTokens {
     explore: boolean;
 }
 
-export type Modifiers = Record<ACTION, boolean>;
+export interface Modifier {
+    active: boolean,
+    satisfiedByItem: {
+        droppableId: string
+    } | null;
+}
+
+export type GlobalCostModifiers = Record<ACTION, IGlobalCostModifier[]>;
 
 export interface IActionService {
+
+    globalCostModifiers: GlobalCostModifiers;
     resolvableItems: IResolvableItem[];
     action: ACTION;
     finished: boolean;
@@ -31,14 +41,17 @@ export interface IActionService {
         sourceLog: string
     ) => void;
 
-    setTimeConsumingAction: (action: keyof Modifiers, value: boolean, sourceLog: string) => void;
+
+    hasGlobalModifier: (action: ACTION, resource: "helper" | keyof IBasicResourcesAmount) => boolean;
+    addGlobalCostModifier: (action: ACTION, resource: "helper" | keyof IBasicResourcesAmount, disposable: boolean, source: string) => void;
+    removeGlobalCostModifier: (action: ACTION, source: string) => void;
+
     currentActionResolved: boolean;
     lastRolledItem: IResolvableItem | null;
     renderData: IActionServiceRenderData;
     adventureTokens: ActionTokens;
     reRollTokens: ActionTokens;
 
-    timeConsumingAction: Modifiers;
 }
 
 export interface IActionServiceRenderData {
@@ -50,7 +63,8 @@ export interface IActionServiceRenderData {
     adventureTokens: ActionTokens;
     reRollTokens: ActionTokens;
 
-    timeConsumingAction: Modifiers;
+    globalCostModifiers: Record<ACTION, IGlobalCostModifierRenderData[]>
+
     skippableActions: ACTION[];
 
 }

@@ -4,17 +4,15 @@ import ActionSlot from "../../ActionSlot";
 import styles from "./Tile.module.css";
 import {ITileRenderData} from "../../../../../interfaces/TileService/ITile";
 import {MoveCampArrow} from "./MoveCampArrow/MoveCampArrow";
-import {ACTION} from "../../../../../interfaces/ACTION";
-import {
-    ACTION_ITEM,
-    getDroppableID,
-} from "../../../../../utils/getDroppableID";
+import {ACTION, ACTION_ITEM} from "../../../../../interfaces/ACTION";
+import {getDroppableID,} from "../../../../../utils/getDroppableID";
 
 import xMarkImg from "/public/UI/misc/x-mark.png";
 import greaterDangerToken from "/public/UI/tokens/greater-danger.png"
 import timeConsumingActionToken from "/public/UI/tokens/time-consuming-action.png"
 
-import {ResourceDepletionButton} from "./ResourceDepletionButton/ResourceDepletionButton";
+import {ResourceActionButton} from "./ResourceDepletionButton/ResourceActionButton";
+import getActionSlots from "../../getActionSlots";
 
 interface Props {
     tile: ITileRenderData;
@@ -23,7 +21,7 @@ interface Props {
     zIndex: string;
     campSettableTiles: ITileRenderData[];
     showCampMoveConfirm: (tile: ITileRenderData) => void;
-    depleteResource: (tileID: number, side: "left" | "right") => void;
+    triggerTileResourceAction: (tileID: number, side: "left" | "right") => void;
     triggerTileAction: (tileID: number) => void;
 }
 
@@ -34,52 +32,24 @@ export default function Tile(props: Props) {
     };
 
 
-    function getActionSlots(
-        action: ACTION.GATHER | ACTION.EXPLORE,
-        side: "left" | "right" | "",
-    ): JSX.Element[] {
-        const actionSlots = [];
-        const context =
-            action === ACTION.GATHER ? ACTION_ITEM.GATHER : ACTION_ITEM.EXPLORE;
-        const totalPawns = props.tile.requiredHelperAmount + 1;
-        for (let i = 0; i <= totalPawns; i++) {
-            const id = getDroppableID(context, props.tile.id, side, i);
-            const role = i === 0 ? "leader" : "helper";
-            actionSlots.push(
-                <ActionSlot
-                    type={role}
-                    action={action}
-                    actionItem={context}
-                    id={id}
-                    key={id}
-                    isDragDisabled={props.isDragDisabled}
-                />
-            );
-        }
-
-        return actionSlots;
-    }
-
     let actionSlots;
     let preventMapScrollClass =
-        props.tile.requiredHelperAmount >= 1 && props.tile.tileResourceService
+        props.tile.requiredPawnAmount >= 1 && props.tile.tileResourceService
             ? "preventMapScroll"
             : "";
 
     if (!props.tile.tileResourceService) {
         actionSlots = (
             <div className={styles.explorePlayerSlots}>
-                {getActionSlots(ACTION.EXPLORE, "")}
+                {getActionSlots(props.tile, props.tile.requiredPawnAmount)}
             </div>
         );
     } else {
-
-
         actionSlots = (
             <div className={`${styles.scroll} ${preventMapScrollClass}`}>
                 <div
                     className={`${styles.gatherActionSlots}${
-                        props.tile.requiredHelperAmount <= 1
+                        props.tile.requiredPawnAmount <= 1
                             ? styles.gatherActionSlotsFew
                             : ""
                     }`}
@@ -87,14 +57,14 @@ export default function Tile(props: Props) {
                     {props.tile.tileResourceService.resources.left.resource !== "beast" &&
                         !props.tile.tileResourceService.resources.left.depleted && (
                             <div className={styles.gatherActionSlotsLeft}>
-                                {getActionSlots(ACTION.GATHER, "left")}
+                                {getActionSlots(props.tile, props.tile.requiredPawnAmount, "left")}
                             </div>
                         )}
                     {props.tile.tileResourceService.resources.right.resource !==
                         "beast" &&
                         !props.tile.tileResourceService.resources.right.depleted && (
                             <div className={styles.gatherActionSlotsRight}>
-                                {getActionSlots(ACTION.GATHER, "right")}
+                                {getActionSlots(props.tile, props.tile.requiredPawnAmount, "right")}
                             </div>
                         )}
                 </div>
@@ -142,6 +112,7 @@ export default function Tile(props: Props) {
                             sizes={styles.tile}
                         />
                     </div>
+
                     {!props.tile.camp && actionSlots}
                     {props.tile.camp && (
                         <div className={styles.campIcon}>
@@ -179,18 +150,18 @@ export default function Tile(props: Props) {
                     )}
                     {props.tile.tileResourceService?.resources.right
                         .markedForAction && (
-                        <ResourceDepletionButton
+                        <ResourceActionButton
                             side={"right"}
                             tileID={props.tile.id}
-                            depleteResource={props.depleteResource}
+                            triggerResourceAction={props.triggerTileResourceAction}
                         />
                     )}
                     {props.tile.tileResourceService?.resources.left
                         .markedForAction && (
-                        <ResourceDepletionButton
+                        <ResourceActionButton
                             side={"left"}
                             tileID={props.tile.id}
-                            depleteResource={props.depleteResource}
+                            triggerResourceAction={props.triggerTileResourceAction}
                         />
                     )}
                     {props.tile.markedForAction &&

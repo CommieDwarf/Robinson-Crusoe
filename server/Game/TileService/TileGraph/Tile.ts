@@ -19,16 +19,18 @@ import {
 } from "../../../../interfaces/TileService/TileResourceService";
 import {FixedTileResources} from "../../../../interfaces/TileService/TileResourceInfo";
 import {TileResourceService} from "./TileResourceService/TileResourceService";
+import {AssignablePawnsItem} from "../../AssignablePawnsItem/AssignablePawnsItem";
+import {ACTION, ACTION_ITEM} from "../../../../interfaces/ACTION";
 
-export class Tile implements ITile {
+export class Tile extends AssignablePawnsItem implements ITile {
+
     private readonly _position: TilePosition;
     private readonly _id: number;
+
+    private _distance: number | null = null;
     private _show: boolean;
     private _tileResourceService: ITileResourceService | null;
-    private _requiredHelperAmount: number = 0;
-    private _assignedPawns: number = 0;
     private _canCampBeSettled = false;
-    private readonly _game: IGame;
     private _camp: boolean;
     private _modifiers: TileModifiers = {
         greaterDanger: false,
@@ -52,17 +54,17 @@ export class Tile implements ITile {
         tileType: ITileResourceService | null,
         game: IGame
     ) {
+        super(ACTION.EXPLORE, ACTION_ITEM.TILE, game);
         this._position = position;
         this._id = id;
         this._camp = camp;
         this._tileResourceService = tileType;
-        this._game = game;
         this._show = camp;
     }
 
     get renderData(): ITileRenderData {
         return {
-            requiredHelperAmount: this.requiredHelperAmount,
+            ...super.getRenderData(),
             id: this.id,
             show: this.show,
             position: this.position,
@@ -75,12 +77,21 @@ export class Tile implements ITile {
             camp: this.camp,
             modifiers: this._modifiers,
             markedForAction: Boolean(this._markedForAction),
+            requiredPawnAmount: this.requiredPawnAmount,
         };
+    }
+
+    get distance(): number | null {
+        return this._distance;
+    }
+
+    set distance(value: number | null) {
+        this._distance = value;
     }
 
     public isSideRequiredPawnsSatisfied(side: Side): boolean {
         if (this._tileResourceService) {
-            return this._tileResourceService.resources[side].assignedPawns > this.requiredHelperAmount
+            return this._tileResourceService.resources[side].assignedPawns > this.requiredPawnAmount
         } else {
             return true;
         }
@@ -88,6 +99,15 @@ export class Tile implements ITile {
 
     public isAnySideRequiredPawnsSatisfied() {
         return this.isSideRequiredPawnsSatisfied("left") || this.isSideRequiredPawnsSatisfied("right")
+    }
+
+    get requiredPawnAmount() {
+        const pawnAmount = this._modifiers.timeConsumingAction ? this.getComputedRequiredPawnAmount() + 1 : this.getComputedRequiredPawnAmount();
+        if (this._distance) {
+            return pawnAmount + this._distance;
+        } else {
+            return pawnAmount;
+        }
     }
 
 
@@ -135,28 +155,16 @@ export class Tile implements ITile {
         return this._tileResourceService;
     }
 
-    get requiredHelperAmount(): number {
-        let requiredHelperAmount: number;
-        requiredHelperAmount = this._modifiers.timeConsumingAction
-            ? this._requiredHelperAmount + 1
-            : this._requiredHelperAmount;
-        return requiredHelperAmount;
-    }
-
-    set requiredHelperAmount(value: number) {
-        this._requiredHelperAmount = value;
-    }
 
     public incrDecrSideAssignedPawn(side: "left" | "right", amount: number) {
         if (this._tileResourceService) {
             this._tileResourceService.resources[side].assignedPawns += amount;
-            console.log(amount);
         } else {
             throw new Error("Can't assign gather pawn because tileResourceService is undefined. tileId: " + this._id)
         }
     }
 
-    public resetSideAssignedPawns() {
+    public resetResourceAssignedPawns() {
         if (this._tileResourceService) {
             this._tileResourceService.resources.left.assignedPawns = 0;
             this._tileResourceService.resources.right.assignedPawns = 0;
@@ -224,6 +232,26 @@ export class Tile implements ITile {
         this.tileResourceService.markResourceForAction(source, actionName, side);
     }
 
+    public canResourceActionBePerformed(action: TILE_RESOURCE_ACTION, side: Side, source: string) {
+        return Boolean(this._tileResourceService?.canActionBePerformed(action, side, source));
+    }
+
+
+    public canActionBePerformed(action: TILE_ACTION): boolean {
+        switch (action) {
+            case TILE_ACTION.SET_TIME_CONSUMING_ACTION:
+                return !this._modifiers.timeConsumingAction;
+            case TILE_ACTION.UNSET_TIME_CONSUMING_ACTON:
+                return this._modifiers.timeConsumingAction;
+            case TILE_ACTION.DEPLETE_TERRAIN_TYPE:
+                return Boolean(this._tileResourceService?.terrainType);
+            case TILE_ACTION.SET_GREATER_DANGER:
+                return !this._modifiers.greaterDanger;
+            case TILE_ACTION.UNSET_GREATER_DANGER:
+                return this._modifiers.greaterDanger;
+        }
+    }
+
     public markTileForActon(
         actionName: TILE_ACTION,
         source: string,
@@ -231,19 +259,19 @@ export class Tile implements ITile {
         let trigger;
         switch (actionName) {
             case TILE_ACTION.SET_GREATER_DANGER:
-                trigger = this.getSetFixedTileModifier("greaterDanger", true, source);
+                trigger = this.getTileModifierTrigger("greaterDanger", true, source);
                 break;
             case TILE_ACTION.UNSET_GREATER_DANGER:
-                trigger = this.getSetFixedTileModifier("greaterDanger", false, source);
+                trigger = this.getTileModifierTrigger("greaterDanger", false, source);
                 break;
             case TILE_ACTION.SET_TIME_CONSUMING_ACTION:
-                trigger = this.getSetFixedTileModifier("timeConsumingAction", true, source);
+                trigger = this.getTileModifierTrigger("timeConsumingAction", true, source);
                 break;
             case TILE_ACTION.UNSET_TIME_CONSUMING_ACTON:
-                trigger = this.getSetFixedTileModifier("timeConsumingAction", false, source);
+                trigger = this.getTileModifierTrigger("timeConsumingAction", false, source);
                 break;
             case TILE_ACTION.DEPLETE_TERRAIN_TYPE:
-                trigger = this.getSetFixedTileModifier("terrainDepleted", true, source);
+                trigger = this.getTileModifierTrigger("terrainDepleted", true, source);
                 break;
         }
 
@@ -252,6 +280,14 @@ export class Tile implements ITile {
             source,
             trigger,
         }
+    }
+
+    resetTileActionMark() {
+        this._markedForAction = null;
+    }
+
+    resetTileResourceActionMarks() {
+        this._tileResourceService?.resetActionMarks();
     }
 
 
@@ -267,6 +303,7 @@ export class Tile implements ITile {
             resources.resources,
             resources.extras
         );
+        this._action = ACTION.GATHER;
     }
 
     public setStructureLvl(
@@ -315,9 +352,9 @@ export class Tile implements ITile {
     }
 
 
-    private getSetFixedTileModifier(modifier: keyof TileModifiers,
-                                    value: boolean,
-                                    source: string) {
+    private getTileModifierTrigger(modifier: keyof TileModifiers,
+                                   value: boolean,
+                                   source: string) {
         return () => {
             this.setTileModifier(modifier, value, source);
         }

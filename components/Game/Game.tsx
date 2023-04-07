@@ -290,7 +290,7 @@ export default function Game(props: Props) {
     }
 
     const scenarioInventions = gameRenderData.inventionService.inventions.filter(
-        (inv) => inv.type === INVENTION_TYPE.SCENARIO
+        (inv) => inv.inventionType === INVENTION_TYPE.SCENARIO
     );
 
     return (
@@ -359,7 +359,7 @@ export default function Game(props: Props) {
 
                 <CardList
                     inventions={gameRenderData.inventionService.inventions.filter(
-                        (inv) => inv.type !== INVENTION_TYPE.SCENARIO
+                        (inv) => inv.inventionType !== INVENTION_TYPE.SCENARIO
                     )}
                     mysteryCards={gameRenderData.resourceService.owned.treasures}
                     isBeingDragged={isPawnBeingDragged}
@@ -391,7 +391,7 @@ export default function Game(props: Props) {
                 <ActionsOrder
                     adventureTokens={gameRenderData.actionService.adventureTokens}
                     reRollTokens={gameRenderData.actionService.reRollTokens}
-                    timeConsumingAction={gameRenderData.actionService.timeConsumingAction}
+                    globalCostModifiers={gameRenderData.actionService.globalCostModifiers}
                 />
                 <ChatLog logMessages={gameRenderData.logs}/>
                 <Weather tokens={gameRenderData.weatherService.tokens}/>

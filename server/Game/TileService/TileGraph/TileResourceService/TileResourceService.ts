@@ -4,11 +4,7 @@ import {
     TILE_RESOURCE_ACTION,
     TileResourceInfo,
 } from "../../../../../interfaces/TileService/TileResourceService";
-import {
-    TERRAIN_TYPE,
-    TileExtras,
-    TileResource,
-} from "../../../../../interfaces/TileService/ITile";
+import {TERRAIN_TYPE, TileExtras, TileResource,} from "../../../../../interfaces/TileService/ITile";
 import {IGame} from "../../../../../interfaces/Game";
 
 export class TileResourceService implements ITileResourceService {
@@ -117,6 +113,19 @@ export class TileResourceService implements ITileResourceService {
         );
     }
 
+    public canActionBePerformed(action: TILE_RESOURCE_ACTION, side: Side, source: string) {
+        switch (action) {
+            case TILE_RESOURCE_ACTION.ADD_MODIFIER:
+                return true;
+            case TILE_RESOURCE_ACTION.REMOVE_MODIFIER:
+                return this._resources[side].modifiers.some((mod) => mod === source);
+            case TILE_RESOURCE_ACTION.UN_DEPLETE:
+                return this._resources[side].depleted;
+            case TILE_RESOURCE_ACTION.DEPLETE:
+                return this.canBeDepleted(side);
+        }
+    }
+
     public markResourceForAction(
         source: string,
         actionName: TILE_RESOURCE_ACTION,
@@ -143,6 +152,11 @@ export class TileResourceService implements ITileResourceService {
             actionName,
             trigger,
         };
+    }
+
+    public resetActionMarks() {
+        this._resources.left.markedForAction = null;
+        this._resources.right.markedForAction = null;
     }
 
     public deplete(side: Side, source: string) {
@@ -201,6 +215,7 @@ export class TileResourceService implements ITileResourceService {
     public triggerAction(side: Side, source: string) {
         if (this._resources[side].markedForAction) {
             this._resources[side].markedForAction?.trigger.call(this, side, source);
+            this._resources[side].markedForAction = null;
         }
     }
 

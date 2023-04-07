@@ -1,9 +1,6 @@
 import React from "react";
 import pawnStyles from "../components/Game/UI/Pawn.module.css";
 
-import {Scrollbars} from "react-custom-scrollbars";
-
-// set handler to container component
 
 export default function getMouseDownHandle(
     scrollbar: React.RefObject<HTMLDivElement>,

@@ -6,7 +6,6 @@ export class MissingHelperError extends Error implements MissingPawnError {
     constructor(droppableID: string) {
         super("Assigned helpers to this action aren't enough");
         this._droppableID = droppableID;
-        console.log(this.stack);
     }
 
     get droppableID() {

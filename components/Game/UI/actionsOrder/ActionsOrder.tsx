@@ -6,15 +6,17 @@ import {getImgName} from "../../../../utils/getImgName";
 import redArrowImg from "/public/UI/misc/red-arrow.png";
 
 import reRollImg from "/public/UI/tokens/reroll.png";
-import {ActionTokens, Modifiers} from "../../../../interfaces/ActionService/ActionService";
+import {ActionTokens, GlobalCostModifiers} from "../../../../interfaces/ActionService/ActionService";
 import {isAdventureAction} from "../../../../utils/isAdventureAction";
 import {objectsEqual} from "../../../../utils/objectsEqual";
+import {ACTION} from "../../../../interfaces/ACTION";
+import {IGlobalCostModifierRenderData} from "../../../../interfaces/ActionService/GlobalCostModifier";
 import timeConsumingActionToken from "/public/UI/tokens/time-consuming-action.png";
 
 interface Props {
     adventureTokens: ActionTokens;
     reRollTokens: ActionTokens;
-    timeConsumingAction: Modifiers;
+    globalCostModifiers: Record<ACTION, IGlobalCostModifierRenderData[]>;
 }
 
 function ActionsOrder(props: Props) {
@@ -55,7 +57,7 @@ function ActionsOrder(props: Props) {
             }
         }
         let timeConsumingActionIcon;
-        if (props.timeConsumingAction[action]) {
+        if (props.globalCostModifiers[action].some((modifier) => modifier.resource === "helper")) {
             timeConsumingActionIcon = <div className={styles.token}>
                 <Image
                     src={timeConsumingActionToken}

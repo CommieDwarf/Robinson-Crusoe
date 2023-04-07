@@ -19,7 +19,7 @@ export class TileGraph extends Graph<ITile> implements ITileGraph {
         this.initVertices(campTileID);
         this.campTileVertex = this.getVertex(campTileID);
         this.addEdges(campTileID);
-        this.updateRequiredHelpers();
+        this.updateDistance();
     }
 
     public moveCamp(tileID: number) {
@@ -27,7 +27,7 @@ export class TileGraph extends Graph<ITile> implements ITileGraph {
         this.previousCampTileVertex.data.camp = false;
         this.campTileVertex = this.getVertex(tileID);
         this.campTileVertex.data.camp = true;
-        this.updateRequiredHelpers();
+        this.updateDistance();
         this.updateCanCampBeSettled();
     }
 
@@ -87,21 +87,27 @@ export class TileGraph extends Graph<ITile> implements ITileGraph {
         });
     }
 
-    public updateRequiredHelpers() {
+    public updateDistance() {
         this.vertices.forEach(({data}) => {
             const shortestPath = this.getShortestPath(
                 this.campTileVertex.id,
                 data.id
             );
             if (shortestPath.length > 0) {
-                data.requiredHelperAmount = shortestPath.length - 1;
+                data.distance = shortestPath.length - 1;
             }
         });
     }
 
     public getBorderVertices(id: number) {
-        return this.vertices.filter((vertex) =>
-            vertex.edges.filter((edge) => edge.end.id === id)
-        );
+        const vertex = this.getVertex(id);
+        return vertex.edges.map((edge) => {
+                if (edge.end === vertex) {
+                    return edge.start;
+                } else {
+                    return edge.end;
+                }
+            }
+        )
     }
 }

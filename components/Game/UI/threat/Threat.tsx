@@ -5,11 +5,12 @@ import ActionSlot from "../ActionSlot";
 import Card from "./Card";
 import {IEventServiceRenderData} from "../../../../interfaces/EventService/EventService";
 import {EVENT_TYPE} from "../../../../interfaces/EventService/EventCard";
-import {ACTION_ITEM, getDroppableID} from "../../../../utils/getDroppableID";
-import {ACTION} from "../../../../interfaces/ACTION";
+import {getDroppableID} from "../../../../utils/getDroppableID";
+import {ACTION, ACTION_ITEM} from "../../../../interfaces/ACTION";
 import redArrowImg from "/public/UI/misc/red-arrow.png";
 import redArrowCurvedImg from "/public/UI/misc/red-arrow-curved.png";
 import {objectsEqual} from "../../../../utils/objectsEqual";
+import getActionSlots from "../getActionSlots";
 
 interface Props {
     threat: IEventServiceRenderData;
@@ -20,36 +21,6 @@ function Threat(props: Props) {
     const leftCard = props.threat.leftSlot;
     const rightCard = props.threat.rightSlot;
 
-    function getActionSlots(side: "left" | "right") {
-        const actionSlots = [];
-        let pawnAmount = 0;
-        if (side === "left" && leftCard) {
-            pawnAmount =
-                leftCard.type === EVENT_TYPE.WRECKAGE
-                    ? 2
-                    : leftCard.requiredHelperAmount + 1;
-        } else if (side === "right" && rightCard) {
-            pawnAmount =
-                rightCard.type === EVENT_TYPE.WRECKAGE
-                    ? 2
-                    : rightCard.requiredHelperAmount + 1;
-        }
-
-
-        for (let i = 0; i < pawnAmount; i++) {
-            const id = getDroppableID(ACTION_ITEM.THREAT, "", side, i);
-            actionSlots.push(
-                <ActionSlot
-                    type={i === 0 ? "leader" : "helper"}
-                    action={ACTION.THREAT}
-                    actionItem={ACTION_ITEM.THREAT}
-                    id={id}
-                    key={id}
-                />
-            );
-        }
-        return actionSlots;
-    }
 
     const zIndexClass = props.zIndex.includes("threat")
         ? styles.zIndexIncreased
@@ -71,10 +42,10 @@ function Threat(props: Props) {
                 />
             </div>
             <div className={styles.actionSlots}>
-                {props.threat.leftSlot && getActionSlots("left")}
+                {props.threat.leftSlot && getActionSlots(props.threat.leftSlot, 0, "left")}
             </div>
             <div className={styles.actionSlots}>
-                {props.threat.rightSlot && getActionSlots("right")}
+                {props.threat.rightSlot && getActionSlots(props.threat.rightSlot, 0, "left")}
             </div>
         </div>
     );
