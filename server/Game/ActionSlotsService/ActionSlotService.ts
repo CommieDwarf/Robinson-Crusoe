@@ -228,6 +228,7 @@ export class ActionSlotService implements IActionSlotService {
                     }
                 });
 
+                console.log(droppableID)
 
                 if (helperCount < item.requiredPawnAmount - 1) {
                     throw new MissingHelperError(droppableID);

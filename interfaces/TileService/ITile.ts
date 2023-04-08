@@ -63,9 +63,11 @@ export interface ITile extends IAssignablePawnsItem {
     removeResourceModifier: (side: Side, source: string) => void;
     setTileModifier: (
         modifier: keyof TileModifiers,
-        value: boolean,
         source: string
     ) => void;
+
+    unsetTileModifier: (modifier: keyof TileModifiers,
+                        source: string) => void;
     clearResourceModifiers: () => void;
 
 
@@ -152,7 +154,7 @@ export enum TILE_ACTION {
 
 
 export interface TileModifiers {
-    greaterDanger: boolean;
-    timeConsumingAction: boolean;
-    terrainDepleted: boolean;
+    greaterDanger: string;
+    timeConsumingAction: string;
+    terrainDepleted: string;
 }

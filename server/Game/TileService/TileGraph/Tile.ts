@@ -33,9 +33,9 @@ export class Tile extends AssignablePawnsItem implements ITile {
     private _canCampBeSettled = false;
     private _camp: boolean;
     private _modifiers: TileModifiers = {
-        greaterDanger: false,
-        timeConsumingAction: false,
-        terrainDepleted: false,
+        greaterDanger: "",
+        timeConsumingAction: "",
+        terrainDepleted: "",
     };
 
 
@@ -242,13 +242,13 @@ export class Tile extends AssignablePawnsItem implements ITile {
             case TILE_ACTION.SET_TIME_CONSUMING_ACTION:
                 return !this._modifiers.timeConsumingAction;
             case TILE_ACTION.UNSET_TIME_CONSUMING_ACTON:
-                return this._modifiers.timeConsumingAction;
+                return Boolean(this._modifiers.timeConsumingAction);
             case TILE_ACTION.DEPLETE_TERRAIN_TYPE:
                 return Boolean(this._tileResourceService?.terrainType);
             case TILE_ACTION.SET_GREATER_DANGER:
                 return !this._modifiers.greaterDanger;
             case TILE_ACTION.UNSET_GREATER_DANGER:
-                return this._modifiers.greaterDanger;
+                return Boolean(this._modifiers.greaterDanger);
         }
     }
 
@@ -352,54 +352,57 @@ export class Tile extends AssignablePawnsItem implements ITile {
     }
 
 
-    private getTileModifierTrigger(modifier: keyof TileModifiers,
-                                   value: boolean,
+    private getTileModifierTrigger(modifier: keyof TileModifiers, value: boolean,
                                    source: string) {
         return () => {
-            this.setTileModifier(modifier, value, source);
+            if (value) {
+                this.setTileModifier(modifier, source);
+            } else {
+                this.unsetTileModifier(modifier, source);
+            }
         }
     }
 
-    public setTileModifier(
-        modifier: keyof TileModifiers,
-        value: boolean,
-        source: string
-    ) {
-        if (this.modifiers[modifier] === value) {
-            return;
-        }
-
-        this.modifiers[modifier] = value;
-
-        switch (true) {
-            case value && modifier === "greaterDanger":
-                this._game.chatLog.addMessage(
-                    "Na kafelek położono żeton zagrożenia.",
-                    "red",
-                    source
-                );
-                break;
-            case value && modifier === "timeConsumingAction":
-                this._game.chatLog.addMessage(
-                    "Na kafelek położono żeton wymaganego dodatkowego pionka",
-                    "red",
-                    source
-                );
-                break;
-            case !value && modifier === "greaterDanger":
+    public unsetTileModifier(modifier: keyof TileModifiers, source: string) {
+        this._modifiers[modifier] = "";
+        switch (modifier) {
+            case "greaterDanger":
                 this._game.chatLog.addMessage(
                     "Na kafelku usunięto żeton zagrożenia",
                     "green",
                     source
                 );
                 break;
-            case !value && modifier === "timeConsumingAction":
+            case "timeConsumingAction":
                 this._game.chatLog.addMessage(
                     "Na kafelku usunięto żeton wymaganego dodatkowego pionka",
                     "green",
                     source
                 );
                 break;
+        }
+    }
+
+    public setTileModifier(
+        modifier: keyof TileModifiers,
+        source: string
+    ) {
+        this.modifiers[modifier] = source;
+        switch (modifier) {
+            case "greaterDanger":
+                this._game.chatLog.addMessage(
+                    "Na kafelek położono żeton zagrożenia.",
+                    "red",
+                    source
+                );
+                break;
+            case "timeConsumingAction":
+                this._game.chatLog.addMessage(
+                    "Na kafelek położono żeton wymaganego dodatkowego pionka",
+                    "red",
+                    source
+                );
+
         }
     }
 }

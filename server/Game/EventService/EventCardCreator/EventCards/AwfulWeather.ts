@@ -24,11 +24,11 @@ export class AwfulWeather extends EventCard implements IEventCard {
     }
 
     triggerEventEffect() {
-        this._game.weatherService.tokens.rain = true;
+        this._game.weatherService.setToken("rain", true, this._namePL);
     }
 
     triggerThreatEffect() {
-        this._game.weatherService.tokens.snow = true;
+        this._game.weatherService.setToken("snow", true, this._namePL)
     }
 
     fullFill() {

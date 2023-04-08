@@ -97,6 +97,7 @@ export class TileService implements ITileService {
         if (tile.markedForAction) {
             tile.triggerAction();
         }
+        this.decrRequiredActionCount();
         if (this._requiredActionCount === 0) {
             this.finishMarkedTileActions();
         }
@@ -131,10 +132,17 @@ export class TileService implements ITileService {
     markTilesForAction(tiles: ITile[], action: TILE_ACTION, requiredCount: number, source: string) {
         tiles.forEach((tile) => {
             if (tile.canActionBePerformed(action)) {
-                tile.markTileForActon(action, source);
+                const mark = () => {
+                    this._requiredActionCount = requiredCount;
+                    tile.markTileForActon(action, source);
+                }
+                if (this._actionQueue.length > 0) {
+                    this._actionQueue.push(mark);
+                } else {
+                    mark();
+                }
             }
         })
-
     }
 
     markTileResourcesForAction(tiles: ITile[], action: TILE_RESOURCE_ACTION, source: string, concreteResource: "food" | "wood" | null = null) {

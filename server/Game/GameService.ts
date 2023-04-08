@@ -47,7 +47,7 @@ export class GameService implements IGameService {
         this._game.localPlayer.getCharacter().pawnService.addPawn(new Pawn(this._game.localPlayer.getCharacter(), 9))
         this._game.localPlayer.getCharacter().pawnService.addPawn(new Pawn(this._game.localPlayer.getCharacter(), 10))
         this._game.localPlayer.getCharacter().pawnService.resetFreePawns();
-        this._game.tileService.getTile(6).setTileModifier("greaterDanger", true, "testyy")
+        this._game.tileService.getTile(6).setTileModifier("greaterDanger", "test");
 
 
         this._game.actionService.addGlobalCostModifier(ACTION.BUILD, "helper", false, "test");

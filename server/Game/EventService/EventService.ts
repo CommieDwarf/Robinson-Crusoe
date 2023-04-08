@@ -81,6 +81,11 @@ export class EventService implements IEventService {
 
     public fullFill(id: string) {
         this._eventSlots[this.getSlotByCardID(id)]?.fullFill();
+        this.discardCard(id);
+    }
+
+    private discardCard(id: string) {
+        this._eventSlots[this.getSlotByCardID(id)] = null;
     }
 
     private setInitialCard(eventCards: IEventCard[]) {
@@ -150,9 +155,7 @@ export class EventService implements IEventService {
     private initEventCards(): IEventCard[] {
         const creator = new EventCardCreator(this._game);
         const cards = Object.values(EVENT_CARD).map((card) => creator.create(card));
-        cards.push(creator.create(EVENT_CARD.DEVASTATION));
-        cards.push(creator.create(EVENT_CARD.BROKEN_TREE));
-        cards.push(creator.create(EVENT_CARD.DEVASTATION));
+        cards.push(creator.create(EVENT_CARD.DROUGHT));
         return [...cards];
     }
 }

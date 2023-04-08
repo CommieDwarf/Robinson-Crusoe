@@ -24,6 +24,7 @@ export interface ITileService {
     axe: boolean;
     forceCampMovement: () => void;
 
+    triggerMarkedTileAction: (tileId: number) => void;
     triggerMarkedTileResourceAction: (tileId: number, side: Side) => void;
     markTilesForAction: (tiles: ITile[], action: TILE_ACTION, requiredCount: number, source: string) => void;
     markTileResourcesForAction: (tiles: ITile[], action: TILE_RESOURCE_ACTION, source: string, concreteResource: "food" | "wood" | null) => void;
