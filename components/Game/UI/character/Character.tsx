@@ -2,7 +2,6 @@ import Image from "next/image";
 import React, {useState} from "react";
 import styles from "./Character.module.css";
 import SideCharacters from "./sideCharacters/SideCharacters";
-import scrollbarStyles from "./Scrollbar.module.css";
 
 import Determination from "./determination/Determination";
 import SkillLabel from "./SkillLabel/SkillLabel";
@@ -10,10 +9,13 @@ import SkillMenu from "./SkillMenu/SkillMenu";
 import Pawn from "../Pawn";
 import {Droppable} from "react-beautiful-dnd";
 import capitalize from "../../../../utils/capitalizeFirstLetter";
-import {IPlayerCharacterRenderData} from "../../../../interfaces/Characters/PlayerCharacter";
+import {IPlayerCharacterRenderData, Wounds} from "../../../../interfaces/Characters/PlayerCharacter";
 import {ISideCharacterRenderData} from "../../../../interfaces/Characters/SideCharacter";
 import {ISkillRenderData} from "../../../../interfaces/Skill/Skill";
 import {useAppSelector} from "../../../../store/hooks";
+import Wound from "./Wound/Wound";
+import {ACTION} from "../../../../interfaces/ACTION";
+import Entries from "../../../../interfaces/Entries";
 
 interface Props {
     character: IPlayerCharacterRenderData;
@@ -49,6 +51,16 @@ export default function Character(props: Props) {
 
     const pawns = useAppSelector((state) => state.freePawns.localCharacter);
 
+    const wounds: JSX.Element[] = [];
+
+    const woundEntries = Object.entries(props.character.wounds) as Entries<Wounds>;
+    woundEntries.forEach(([bodyPart, actions], i) => {
+        actions.forEach((action, j) => {
+            wounds.push(<Wound character={props.character} bodyPart={bodyPart}
+                               action={action} count={j} key={i + j * 10}/>)
+        })
+    })
+
     return (
         <div className={styles.container + " " + zIndexClass}>
             <div className={styles.characterPicture}>
@@ -59,6 +71,7 @@ export default function Character(props: Props) {
                     sizes={styles.characterPicture}
                 />
             </div>
+            {wounds}
             <div className={styles.description}>
                 <div className={styles.characterName}>{nameCapitalized}</div>
                 <div className={styles.skills}>

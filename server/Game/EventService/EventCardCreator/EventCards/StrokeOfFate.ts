@@ -16,14 +16,21 @@ export class StrokeOfFate extends EventCard implements IEventCard {
                 pawns: 1,
                 invention: null,
                 construction: null,
-                resource: null,
+                resource: null, optionalResource: null,
             },
             game
         );
     }
 
     triggerEventEffect() {
-        //TODO: remove event cards and trigger their threat effects.
+        if (this._game.eventService.leftSlot) {
+            this._game.eventService.leftSlot.triggerThreatEffect();
+            this._game.eventService.leftSlot = null;
+        }
+        if (this._game.eventService.rightSlot) {
+            this._game.eventService.rightSlot.triggerThreatEffect();
+            this._game.eventService.rightSlot = null;
+        }
     }
 
     triggerThreatEffect() {

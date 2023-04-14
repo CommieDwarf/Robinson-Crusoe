@@ -255,9 +255,12 @@ export class ActionService implements IActionService {
                 }
             } else {
                 const item = getItemFromDroppableId(droppableID, this._game);
-                resolvableItems.push(
-                    new ResolvableItem(item, this._action, pawn, this._game, droppableID)
-                );
+                if (item) {
+                    resolvableItems.push(
+                        new ResolvableItem(item, this._action, pawn, this._game, droppableID)
+                    );
+                }
+
             }
         });
 

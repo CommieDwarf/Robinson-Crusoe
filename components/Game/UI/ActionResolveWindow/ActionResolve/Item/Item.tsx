@@ -68,7 +68,7 @@ export const Item = (props: Props) => {
         image = (
             <div className={styles.invention}>
                 <Image
-                    src={`/UI/inventions/${invention.action}/${getImgName(
+                    src={`/UI/inventions/${invention.inventionType}/${getImgName(
                         invention.name
                     )}${reverse}.png`}
                     fill

@@ -1,30 +1,29 @@
-import { Invention } from "../../Invention";
+import {Invention} from "../../Invention";
 import {
-  IInvention,
-  INVENTION_NORMAL,
-  INVENTION_STARTER,
-  INVENTION_TYPE,
+    IInvention,
+    INVENTION_NORMAL,
+    INVENTION_STARTER,
+    INVENTION_TYPE,
 } from "../../../../../../interfaces/InventionService/Invention";
-import { IGame } from "../../../../../../interfaces/Game";
+import {IGame} from "../../../../../../interfaces/Game";
 
 export class Cellar extends Invention implements IInvention {
-  protected readonly _namePL = "piwnica";
+    protected readonly _namePL = "piwnica";
 
-  constructor(game: IGame) {
-    super(
-      INVENTION_NORMAL.CELLAR,
-      { terrainType: null, inventions: [INVENTION_STARTER.SHOVEL] },
-      INVENTION_TYPE.NORMAL,
-      null,
-      game
-    );
-  }
+    constructor(game: IGame) {
+        super(
+            INVENTION_NORMAL.CELLAR,
+            {terrainType: null, inventions: [INVENTION_STARTER.SHOVEL]},
+            INVENTION_TYPE.NORMAL,
+            game
+        );
+    }
 
-  onBuild() {
-    this._game.resourceService.cellar = true;
-  }
+    onBuild() {
+        this._game.resourceService.cellar = true;
+    }
 
-  onDestruction() {
-    this._game.resourceService.cellar = false;
-  }
+    onDestruction() {
+        this._game.resourceService.cellar = false;
+    }
 }

@@ -18,6 +18,7 @@ export class BrokenTree extends EventCard implements IEventCard {
                 invention: INVENTION_STARTER.ROPE,
                 construction: null,
                 resource: null,
+                optionalResource: null,
             },
             game
         );

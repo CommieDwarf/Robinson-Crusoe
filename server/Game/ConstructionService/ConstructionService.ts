@@ -4,10 +4,11 @@ import {
     IConstructionService,
     IConstructionServiceRenderData,
 } from "../../../interfaces/ConstructionService/IConstructionService";
-import {IBasicResources} from "../../../interfaces/Resources/Resources";
+import {IBasicResources, IBasicResourcesAmount} from "../../../interfaces/Resources/Resources";
 import {IGame} from "../../../interfaces/Game";
 import {Construction} from "./Construction";
 import i18n from "../../../I18n/I18n";
+import {SingleResourceRequirement} from "../../../interfaces/ResourceCommitableItem/ResourceCommittableItem";
 
 const constructionPL = {
     shelter: "schronienie",
@@ -39,19 +40,30 @@ export class ConstructionService implements IConstructionService {
 
     private initConstructions() {
         return Object.entries(CONSTRUCTION).map(([key, value]) => {
-            const cost = new BasicResources();
+            let resource: SingleResourceRequirement;
+            let optionalResource: SingleResourceRequirement | null = null;
             if (value === CONSTRUCTION.WEAPON) {
-                cost.setResource("wood", 1);
+                resource = {
+                    type: "wood",
+                    amount: 1
+                }
             } else {
-                cost.setResource("wood", 3);
-                cost.setResource("leather", 2);
+                resource = {
+                    type: "wood",
+                    amount: 3,
+                }
+                optionalResource = {
+                    type: "leather",
+                    amount: 2,
+                }
             }
             return new Construction(
                 value,
                 constructionPL[value],
-                cost,
                 value !== "shelter",
                 this._game,
+                resource,
+                optionalResource,
             );
         });
     }
@@ -139,14 +151,6 @@ export class ConstructionService implements IConstructionService {
         return this.getConstruction(construction).lvl > 0;
     }
 
-    commitResources(construction: CONSTRUCTION, resources: IBasicResources) {
-        this.getConstruction(construction).committedResources = resources;
-    }
-
-    rollBackCommittedResources(construction: CONSTRUCTION) {
-        this.getConstruction(construction).committedResources =
-            new BasicResources();
-    }
 
     getConstruction(construction: CONSTRUCTION) {
         const construct = this._constructions.find(

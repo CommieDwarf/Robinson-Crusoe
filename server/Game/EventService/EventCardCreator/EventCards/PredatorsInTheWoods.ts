@@ -20,7 +20,7 @@ export class PredatorsInTheWoods extends EventCard implements IEventCard {
                     type: CONSTRUCTION.WEAPON,
                     lvl: 1,
                 },
-                resource: null,
+                resource: null, optionalResource: null,
             },
             game
         );

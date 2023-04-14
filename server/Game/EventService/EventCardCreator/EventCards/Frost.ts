@@ -17,7 +17,9 @@ export class Frost extends EventCard implements IEventCard {
                 pawns: 1,
                 invention: null,
                 construction: null,
-                resource: new BasicResources(0, 0, 1, 1),
+                resource: "leather",
+                optionalResource: null,
+                
             },
             game
         );

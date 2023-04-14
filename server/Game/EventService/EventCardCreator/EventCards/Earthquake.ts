@@ -1,11 +1,9 @@
 import {EventCard} from "../EventCard";
-import {
-    EVENT_TYPE,
-    IEventCard,
-} from "../../../../../interfaces/EventService/EventCard";
+import {EVENT_TYPE, IEventCard,} from "../../../../../interfaces/EventService/EventCard";
 import {IGame} from "../../../../../interfaces/Game";
 import {EVENT_CARD} from "../../../../../interfaces/EventService/EVENT_CARD";
 import {INVENTION_STARTER} from "../../../../../interfaces/InventionService/Invention";
+import {TILE_ACTION} from "../../../../../interfaces/TileService/ITile";
 
 export class Earthquake extends EventCard implements IEventCard {
     protected readonly _namePL = "trzęsienie ziemi";
@@ -20,16 +18,18 @@ export class Earthquake extends EventCard implements IEventCard {
                 invention: INVENTION_STARTER.SHOVEL,
                 construction: null,
                 resource: null,
+                optionalResource: null,
             },
             game
         );
     }
 
     triggerEventEffect() {
+        const tiles = this._game.tileService.tilesAroundCamp;
+        if (this._game.tileService.countHowManyTilesCanBeMarkedForAction(tiles, TILE_ACTION.FLIP) > 0) {
+            this._game.tileService.markTilesForAction(tiles, TILE_ACTION.FLIP, 1, this._namePL);
+        }
 
-
-        //TODO: if possible flip chosen tile around camp.
-        //TODO: treat as unavailable.
     }
 
     triggerThreatEffect() {
@@ -37,6 +37,9 @@ export class Earthquake extends EventCard implements IEventCard {
     }
 
     fullFill() {
-        //TODO: flip back tile
+        const tile = this._game.tileService.tiles.find((t) => t.modifiers.flipped === this._namePL);
+        if (tile) {
+            tile.unsetTileModifier("flipped", this._resolutionPL);
+        }
     }
 }

@@ -4,6 +4,7 @@ import {IGame} from "../../../../../interfaces/Game";
 import {EVENT_CARD} from "../../../../../interfaces/EventService/EVENT_CARD";
 import {BasicResources} from "../../../ResourceService/BasicResources";
 import {ACTION} from "../../../../../interfaces/ACTION";
+import {TILE_ACTION} from "../../../../../interfaces/TileService/ITile";
 
 export class Precipice extends EventCard implements IEventCard {
     protected readonly _namePL = "przepaść";
@@ -17,13 +18,17 @@ export class Precipice extends EventCard implements IEventCard {
                 pawns: 1,
                 invention: null,
                 construction: null,
-                resource: new BasicResources(0, 0, 2, 0),
+                resource: "wood",
+                optionalResource: "wood",
+
             },
             game
         );
     }
 
     triggerEventEffect() {
+        const tiles = this._game.tileService.tilesAroundCamp;
+        this._game.tileService.markTilesForAction(tiles, TILE_ACTION.FLIP, 1, this._namePL);
         //TODO: if possible make tile next to camp unavailable
     }
 
@@ -32,7 +37,10 @@ export class Precipice extends EventCard implements IEventCard {
     }
 
     fullFill() {
-        //TODO: tile becomes available.
+        const tile = this._game.tileService.tiles.find((tile) => tile.modifiers.flipped === this._namePL);
+        if (tile) {
+            tile.unsetTileModifier("flipped", this._resolutionPL);
+        }
         this.incrDetermination(3);
     }
 }

@@ -58,6 +58,12 @@
         "shuffle": "wtasuj",
         "discard": "odrzuć",
         "keep": "zatrzymaj"
+      },
+      "bodyPart": {
+        "head_locative": "głowie",
+        "stomach_locative": "brzuchu",
+        "arm_locative": "ramieniu",
+        "leg_locative": "nodze"
       }
     }
   }

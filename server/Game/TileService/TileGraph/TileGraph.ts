@@ -94,7 +94,9 @@ export class TileGraph extends Graph<ITile> implements ITileGraph {
                 data.id
             );
             if (shortestPath.length > 0) {
-                data.distance = shortestPath.length - 1;
+                data.distance = shortestPath.length;
+            } else {
+                data.distance = null;
             }
         });
     }

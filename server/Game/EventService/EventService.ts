@@ -6,10 +6,10 @@ import {
 } from "../../../interfaces/EventService/EventService";
 import {IGame} from "../../../interfaces/Game";
 import {EventCardCreator} from "./EventCardCreator/EventCardCreator";
-import {EVENT_CARD} from "../../../interfaces/EventService/EVENT_CARD";
 import {IAdventureCard} from "../../../interfaces/AdventureService/AdventureCard";
 import {EventCard} from "./EventCardCreator/EventCard";
 import shuffle from "../../../utils/shuffleArray";
+import {implementedEventCards} from "../../../constants/cards/EventCards";
 
 interface EventSlots {
     left: null | IEventCard;
@@ -154,8 +154,12 @@ export class EventService implements IEventService {
 
     private initEventCards(): IEventCard[] {
         const creator = new EventCardCreator(this._game);
-        const cards = Object.values(EVENT_CARD).map((card) => creator.create(card));
-        cards.push(creator.create(EVENT_CARD.DROUGHT));
+        // const cards = Object.values(EVENT_CARD).map((card) => creator.create(card));
+        // cards.push(creator.create(EVENT_CARD.DROUGHT));
+        // cards.push(creator.create(EVENT_CARD.DEVASTATION));
+        let implemented = implementedEventCards.slice(0, implementedEventCards.length - 1);
+        console.log(implemented);
+        const cards = implemented.map((card) => creator.create(card));
         return [...cards];
     }
 }

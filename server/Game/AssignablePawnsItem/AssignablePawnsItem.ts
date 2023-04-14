@@ -10,7 +10,7 @@ export abstract class AssignablePawnsItem implements IAssignablePawnsItem {
 
 
     protected _assignedPawnAmount: number = 0;
-    protected _requiredPawnAmount: number = 2;
+    protected _requiredPawnAmount: number | null = 2;
 
     protected _action: ACTION;
     protected _actionItem: ACTION_ITEM;
@@ -40,15 +40,15 @@ export abstract class AssignablePawnsItem implements IAssignablePawnsItem {
         return this._assignedPawnAmount;
     }
 
-    get requiredPawnAmount(): number {
+    get requiredPawnAmount(): number | null {
         return this.getComputedRequiredPawnAmount();
     }
 
-    set requiredPawnAmount(value: number) {
+    set requiredPawnAmount(value: number | null) {
         this._requiredPawnAmount = value;
     }
 
-    protected getRenderData(): IAssignablePawnsItemRenderData {
+    protected getAssignablePawnsRenderData(): IAssignablePawnsItemRenderData {
         return {
             assignedPawnAmount: this._assignedPawnAmount,
             requiredPawnAmount: this.getComputedRequiredPawnAmount(),
@@ -59,6 +59,9 @@ export abstract class AssignablePawnsItem implements IAssignablePawnsItem {
     }
 
     public getComputedRequiredPawnAmount() {
+        if (!this._requiredPawnAmount) {
+            return null;
+        }
         if (this._game.actionService.hasGlobalModifier(this._action, "helper")) {
             return this._requiredPawnAmount + 1
         } else {

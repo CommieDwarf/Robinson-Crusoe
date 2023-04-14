@@ -1,28 +1,32 @@
-import { GatherAdventureCard } from "./GatherAdventureCard/GatherAdventureCard";
-import { IAdventureCard } from "../../../../../../interfaces/AdventureService/AdventureCard";
-import { IGame } from "../../../../../../interfaces/Game";
-import { ADVENTURE_CARD_GATHER } from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
-import { ICharacter } from "../../../../../../interfaces/Characters/Character";
+import {GatherAdventureCard} from "./GatherAdventureCard/GatherAdventureCard";
+import {IAdventureCard} from "../../../../../../interfaces/AdventureService/AdventureCard";
+import {IGame} from "../../../../../../interfaces/Game";
+import {ADVENTURE_CARD_GATHER} from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
+import {ICharacter} from "../../../../../../interfaces/Characters/Character";
+import {ACTION} from "../../../../../../interfaces/ACTION";
 
 export class GoldCoin extends GatherAdventureCard implements IAdventureCard {
-  protected _eventNamePL = "przeklęta moneta";
+    protected _eventNamePL = "przeklęta moneta";
 
-  constructor(game: IGame) {
-    super(
-      ADVENTURE_CARD_GATHER.GOLD_COIN,
-      "złota moneta!",
-      false,
-      game,
-      "shuffle",
-      ""
-    );
-  }
+    constructor(game: IGame) {
+        super(
+            ADVENTURE_CARD_GATHER.GOLD_COIN,
+            "złota moneta!",
+            false,
+            game,
+            "shuffle",
+            ""
+        );
+    }
 
-  option1(resolver: ICharacter) {
-    this.shuffleIntoEventDeck();
-  }
+    option1(resolver: ICharacter) {
+        this.shuffleIntoEventDeck();
+    }
 
-  triggerEventEffect() {
-    //TODO: put reRoll token
-  }
+    triggerEventEffect() {
+        //TODO: put reRoll token
+        this._game.actionService.setReRollToken(ACTION.GATHER, true, this._eventNamePL);
+        this._game.actionService.setReRollToken(ACTION.EXPLORE, true, this._eventNamePL);
+        this._game.actionService.setReRollToken(ACTION.BUILD, true, this._eventNamePL);
+    }
 }

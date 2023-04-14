@@ -20,7 +20,7 @@ export class NightAttack extends EventCard implements IEventCard {
                     type: CONSTRUCTION.WEAPON,
                     lvl: 3,
                 },
-                resource: null,
+                resource: null, optionalResource: null,
             },
             game
         );

@@ -1,6 +1,5 @@
 import {IGame, IGameRenderData} from "../../interfaces/Game";
 import {GameClass} from "./Game";
-import {TILE_ACTION} from "../../interfaces/TileService/ITile";
 import {Pawn} from "./PawnService/Pawn/Pawn";
 import {ACTION} from "../../interfaces/ACTION";
 
@@ -40,7 +39,8 @@ export class GameService implements IGameService {
         this._game.tileService.explore(2);
         this._game.tileService.tilesAroundCamp.forEach((tile) => this._game?.tileService.explore(tile.id));
 
-
+        this._game.tileService.explore(13);
+        this._game.tileService.explore(9);
         // this._game.tileService.getTile(6).markTileForActon(TILE_ACTION.SET_TIME_CONSUMING_ACTION, "testy")
         this._game.localPlayer.getCharacter().pawnService.addPawn(new Pawn(this._game.localPlayer.getCharacter(), 7))
         this._game.localPlayer.getCharacter().pawnService.addPawn(new Pawn(this._game.localPlayer.getCharacter(), 8))
@@ -48,10 +48,17 @@ export class GameService implements IGameService {
         this._game.localPlayer.getCharacter().pawnService.addPawn(new Pawn(this._game.localPlayer.getCharacter(), 10))
         this._game.localPlayer.getCharacter().pawnService.resetFreePawns();
         this._game.tileService.getTile(6).setTileModifier("greaterDanger", "test");
-
-
         this._game.actionService.addGlobalCostModifier(ACTION.BUILD, "helper", false, "test");
-
+        this._game.resourceService.addBasicResourceToOwned("wood", 4, "TESTY");
+        this._game.localPlayer.getCharacter().setWound("stomach", ACTION.GATHER, "test");
+        this._game.localPlayer.getCharacter().setWound("head", ACTION.EXPLORE, "test");
+        this._game.localPlayer.getCharacter().setWound("leg", ACTION.BUILD, "test");
+        this._game.localPlayer.getCharacter().setWound("arm", ACTION.EXPLORE, "test");
+        this._game.localPlayer.getCharacter().setWound("arm", ACTION.GATHER, "test");
+        this._game.localPlayer.getCharacter().setWound("arm", ACTION.BUILD, "test");
+        this._game.localPlayer.getCharacter().setWound("arm", ACTION.BUILD, "test");
+        console.log(this._game.localPlayer.getCharacter().wounds.arm)
+        console.log(this._game.localPlayer.getCharacter().wounds.arm)
     }
 
     get renderData() {

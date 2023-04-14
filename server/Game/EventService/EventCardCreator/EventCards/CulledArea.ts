@@ -21,6 +21,7 @@ export class CulledArea extends EventCard implements IEventCard {
                     lvl: 2,
                 },
                 resource: null,
+                optionalResource: null,
             },
             game
         );

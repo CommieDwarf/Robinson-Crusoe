@@ -17,7 +17,8 @@ export class Disaster extends EventCard implements IEventCard {
                 pawns: 1,
                 invention: null,
                 construction: null,
-                resource: new BasicResources(0, 0, 1, 0),
+                resource: "wood",
+                optionalResource: null,
             },
             game
         );

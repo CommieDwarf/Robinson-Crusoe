@@ -16,7 +16,7 @@ export class MemoriesOfTheCruise extends EventCard implements IEventCard {
                 pawns: 2,
                 invention: null,
                 construction: null,
-                resource: null,
+                resource: null, optionalResource: null,
             },
             game
         );

@@ -11,10 +11,11 @@ import {EVENT_CARD, WRECKAGE_CARD,} from "../../../../interfaces/EventService/EV
 import {ICharacter} from "../../../../interfaces/Characters/Character";
 import {ACTION, ACTION_ITEM, AdventureAction} from "../../../../interfaces/ACTION";
 import {AssignablePawnsItem} from "../../AssignablePawnsItem/AssignablePawnsItem";
+import {ResourceCommittableItem} from "../../ResourceCommittableItem/ResourceCommittableItem";
 
 //TODO: implement name translations
 
-export abstract class EventCard extends AssignablePawnsItem implements IEventCard {
+export abstract class EventCard extends ResourceCommittableItem implements IEventCard {
     protected declare _namePL: string;
     protected declare _resolutionPL: string;
     protected readonly _id = uuidv4();
@@ -28,7 +29,8 @@ export abstract class EventCard extends AssignablePawnsItem implements IEventCar
         requirements: EventResolveRequirements,
         game: IGame
     ) {
-        super(ACTION.THREAT, ACTION_ITEM.THREAT, game);
+        const resourceRequirement = requirements.resource ? {type: requirements.resource, amount: 1} : null;
+        super(ACTION.THREAT, ACTION_ITEM.THREAT, game, resourceRequirement);
         this._name = name;
         this._cardType = type;
         this._requirements = requirements;
@@ -40,7 +42,7 @@ export abstract class EventCard extends AssignablePawnsItem implements IEventCar
             id: this.id,
             name: this.name,
             cardType: this._cardType,
-            ...super.getRenderData(),
+            ...super.getResourceCommittableRenderData(),
         };
     }
 

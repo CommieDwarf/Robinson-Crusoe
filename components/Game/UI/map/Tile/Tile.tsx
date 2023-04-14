@@ -34,17 +34,18 @@ export default function Tile(props: Props) {
 
     let actionSlots;
     let preventMapScrollClass =
-        props.tile.requiredPawnAmount >= 1 && props.tile.tileResourceService
+        props.tile.requiredPawnAmount !== null && props.tile.requiredPawnAmount >= 1 && props.tile.tileResourceService
             ? "preventMapScroll"
             : "";
-
-    if (!props.tile.tileResourceService) {
+    if (props.tile.requiredPawnAmount === null) {
+        actionSlots = <div></div>
+    } else if (!props.tile.tileResourceService && !props.tile.modifiers.flipped) {
         actionSlots = (
             <div className={styles.explorePlayerSlots}>
                 {getActionSlots(props.tile, props.tile.requiredPawnAmount)}
             </div>
         );
-    } else {
+    } else if (!props.tile.modifiers.flipped && props.tile.tileResourceService) {
         actionSlots = (
             <div className={`${styles.scroll} ${preventMapScrollClass}`}>
                 <div
@@ -73,7 +74,7 @@ export default function Tile(props: Props) {
     }
 
     const imgId =
-        props.tile.tileResourceService == null
+        props.tile.tileResourceService == null || props.tile.modifiers.flipped
             ? 11
             : props.tile.tileResourceService.id;
 
@@ -98,9 +99,10 @@ export default function Tile(props: Props) {
         props.triggerTileAction(props.tile.id);
     }
 
+    const flippedClass = props.tile.modifiers.flipped ? styles.flipped : "";
 
     return (
-        <div className={`${styles.container} ${zIndexClass}`} style={style}>
+        <div className={`${styles.container} ${zIndexClass} ${flippedClass}`} style={style}>
             {arrows}
             {props.tile.show && (
                 <>

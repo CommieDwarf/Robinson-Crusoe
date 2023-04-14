@@ -17,6 +17,7 @@ export class ChronicTiredness extends EventCard implements IEventCard {
                 invention: null,
                 construction: null,
                 resource: null,
+                optionalResource: null,
             },
             game
         );

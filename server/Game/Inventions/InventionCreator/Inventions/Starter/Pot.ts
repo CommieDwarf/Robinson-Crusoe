@@ -1,31 +1,30 @@
-import { Invention } from "../../Invention";
+import {Invention} from "../../Invention";
 import {
-  IInvention,
-  INVENTION_STARTER,
-  INVENTION_TYPE,
+    IInvention,
+    INVENTION_STARTER,
+    INVENTION_TYPE,
 } from "../../../../../../interfaces/InventionService/Invention";
-import { IGame } from "../../../../../../interfaces/Game";
-import { TERRAIN_TYPE } from "../../../../../../interfaces/TileService/ITile";
+import {IGame} from "../../../../../../interfaces/Game";
+import {TERRAIN_TYPE} from "../../../../../../interfaces/TileService/ITile";
 
 export class Pot extends Invention implements IInvention {
-  protected readonly _namePL = "naczynia";
+    protected readonly _namePL = "naczynia";
 
-  constructor(game: IGame) {
-    super(
-      INVENTION_STARTER.POT,
-      { terrainType: TERRAIN_TYPE.HILLS, inventions: null },
-      INVENTION_TYPE.STARTER,
-      null,
-      game
-    );
-  }
+    constructor(game: IGame) {
+        super(
+            INVENTION_STARTER.POT,
+            {terrainType: TERRAIN_TYPE.HILLS, inventions: null},
+            INVENTION_TYPE.STARTER,
+            game
+        );
+    }
 
-  // TODO: implement somewhere healing from food.
-  onBuild() {
-    return;
-  }
+    // TODO: implement somewhere healing from food.
+    onBuild() {
+        return;
+    }
 
-  onDestruction() {
-    return;
-  }
+    onDestruction() {
+        return;
+    }
 }

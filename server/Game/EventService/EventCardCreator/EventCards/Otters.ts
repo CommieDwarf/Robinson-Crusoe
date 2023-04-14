@@ -22,19 +22,14 @@ export class Otters extends EventCard implements IEventCard {
                     type: CONSTRUCTION.WEAPON,
                     lvl: 1,
                 },
-                resource: null,
+                resource: null, optionalResource: null,
             },
             game
         );
     }
 
     triggerEventEffect() {
-        this._game.tileService.markClosestResourceForDepletion("food");
-        if (this._game.tileService.getMarkedResourceForActionAmount() === 0) {
-            this._game.characterService.hurtAllPlayerCharacters(1, this._namePL);
-        } else {
-            this._game.tileService.resourceAmountToDeplete = 1;
-        }
+        //TODO: dasdas
     }
 
     triggerThreatEffect() {

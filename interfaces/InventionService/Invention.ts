@@ -2,24 +2,18 @@ import {TERRAIN_TYPE} from "../TileService/ITile";
 import {IBasicResources, IBasicResourcesAmount} from "../Resources/Resources";
 import {CHARACTER, ICharacter} from "../Characters/Character";
 import {IAssignablePawnsItem, IAssignablePawnsItemRenderData} from "../AssignablePawnsItem/AssignablePawnsItem";
+import {
+    IResourceCommittableItem,
+    IResourceCommittableItemRenderData
+} from "../ResourceCommitableItem/ResourceCommittableItem";
 
-export interface IInventionRenderData extends IAssignablePawnsItemRenderData {
-    name: string;
-    locked: boolean;
-    assignedPawnAmount: number;
-    inventionType: INVENTION_TYPE;
-    committedResources: IBasicResourcesAmount;
-    isBuilt: boolean;
-}
 
-export interface IInvention extends IAssignablePawnsItem {
+export interface IInvention extends IResourceCommittableItem {
     name: INVENTION;
     namePL: string;
     locked: boolean;
     inventionType: INVENTION_TYPE;
-    committedResources: IBasicResources;
     isBuilt: boolean;
-    cost: IBasicResources | null;
     requirements: InventionRequirements;
     belongsTo: CHARACTER | null;
     resourceChoice: boolean;
@@ -32,6 +26,14 @@ export interface IInvention extends IAssignablePawnsItem {
     use: (character: ICharacter) => void;
 
     renderData: IInventionRenderData;
+}
+
+export interface IInventionRenderData extends IResourceCommittableItemRenderData {
+    name: string;
+    locked: boolean;
+    assignedPawnAmount: number;
+    inventionType: INVENTION_TYPE;
+    isBuilt: boolean;
 }
 
 export interface InventionRequirements {

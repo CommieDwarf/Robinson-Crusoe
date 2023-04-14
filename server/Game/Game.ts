@@ -44,6 +44,14 @@ import {AdventureService} from "./AdventureService/AdventureService";
 import {IAdventureService} from "../../interfaces/AdventureService/AdventureService";
 import {canPawnBeSettled} from "../../utils/canPawnBeSettled";
 import {MysteryService} from "./MysteryService/MysteryService";
+import {getItemFromDroppableId} from "../../utils/getItemFromDroppableId";
+import {EventCard} from "./EventService/EventCardCreator/EventCard";
+import {IEventCard} from "../../interfaces/EventService/EventCard";
+import {IConstruction} from "../../interfaces/ConstructionService/Construction";
+import {IInvention} from "../../interfaces/InventionService/Invention";
+import {ResourceCommittableItem} from "./ResourceCommittableItem/ResourceCommittableItem";
+import {IResourceCommittableItem} from "../../interfaces/ResourceCommitableItem/ResourceCommittableItem";
+import {isCommittableResourcesItem} from "../../utils/isCommittableResourcesItem";
 
 type ScenarioName = "castaways";
 
@@ -224,27 +232,54 @@ export class GameClass implements IGame {
 
     setPawn(droppableId: string, draggableId: string) {
         const pawn = this.allPawns.find((p) => p.draggableId === draggableId);
+        const item = getItemFromDroppableId(droppableId, this);
         if (!pawn) {
             throw new Error("cant find pawn with id: " + draggableId);
         }
-        if (!canPawnBeSettled(pawn, droppableId)) {
+        if (!canPawnBeSettled(pawn, droppableId) || (this.shouldCommitResources(droppableId) && !this.canCommitResources(droppableId))) {
             return;
         }
 
         if (droppableId.includes("freepawns")) {
             pawn.character.pawnService.copyPawnToFreePawns(pawn.draggableId);
         } else {
+            if (this.shouldCommitResources(droppableId) && this.canCommitResources(droppableId)) {
+                const item = getItemFromDroppableId(droppableId, this) as IResourceCommittableItem;
+                item.commitResource(false);
+            }
             this._actionSlotService.setPawn(droppableId, pawn);
         }
     }
 
-    unsetPawn(destinationId: string, draggableId: string) {
-        if (destinationId.includes("freepawns")) {
-            const charName = destinationId.split("-")[1];
+    public shouldCommitResources(droppableId: string): boolean {
+        const item = getItemFromDroppableId(droppableId, this);
+        return isCommittableResourcesItem(item) && Boolean(item.resourceCost) && droppableId.includes("leader");
+    }
+
+    public canCommitResources(droppableId: string): boolean {
+        const item = getItemFromDroppableId(droppableId, this);
+        // if (!droppableId.includes("leader")) {
+        //     return true;
+        // }
+        if (isCommittableResourcesItem(item)) {
+            return item.canCommitResource(false);
+        } else {
+            return false;
+        }
+    }
+
+    unsetPawn(droppableId: string, draggableId: string) {
+        const item = getItemFromDroppableId(droppableId, this);
+        if (item && item instanceof ResourceCommittableItem && droppableId.includes("leader")) {
+            item.unCommitResources();
+        }
+
+        if (droppableId.includes("freepawns")) {
+            const charName = droppableId.split("-")[1];
             const character = this._characterService.getCharacter(charName);
             character.pawnService.removePawn(draggableId, "freePawns");
         } else {
-            this._actionSlotService.unsetPawn(destinationId);
+            this._actionSlotService.unsetPawn(droppableId);
         }
 
     }
@@ -260,46 +295,4 @@ export class GameClass implements IGame {
         this._round++;
     }
 
-    canPawnBeSettled(
-        pawn: null | IPawn | IPawnHelper,
-        destinationId: string
-    ): boolean {
-        if (!pawn) {
-            return true;
-        }
-
-        if ("action" in pawn) {
-            switch (pawn.action) {
-                case "build":
-                    return (
-                        destinationId.includes("invention") ||
-                        destinationId.includes("structure")
-                    );
-                case "explore":
-                    return destinationId.includes("explore");
-                case "gather":
-                    return destinationId.includes("gather");
-            }
-        }
-
-        if (pawn.draggableId.includes("dog")) {
-            if (destinationId.includes("leader")) {
-                return false;
-            }
-            if (destinationId.includes("hunt") || destinationId.includes("explore")) {
-                return true;
-            }
-            return destinationId.includes("freepawns-dog");
-        } else if (pawn.draggableId === "friday") {
-            return !(
-                destinationId.includes("freepawns") &&
-                !destinationId.includes("freepawns-friday")
-            );
-        } else {
-            return !(
-                destinationId.includes("freepawns") &&
-                !destinationId.includes(pawn.character.name)
-            );
-        }
-    }
 }

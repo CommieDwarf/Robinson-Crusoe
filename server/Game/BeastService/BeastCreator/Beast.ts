@@ -36,7 +36,7 @@ export class Beast extends AssignablePawnsItem implements IBeast {
     get renderData(): IBeastRenderData {
         return {
             name: this.name,
-            ...super.getRenderData(),
+            ...super.getAssignablePawnsRenderData(),
         };
     }
 

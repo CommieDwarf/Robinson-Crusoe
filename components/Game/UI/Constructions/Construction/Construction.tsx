@@ -1,13 +1,11 @@
 import Image from "next/image";
 import React from "react";
-import ActionSlot from "../../ActionSlot";
 import styles from "./Construction.module.css";
 import {
     IConstructionRenderData,
     CONSTRUCTION,
 } from "../../../../../interfaces/ConstructionService/Construction";
 import getActionSlots from "../../getActionSlots";
-import {ACTION, ACTION_ITEM} from "../../../../../interfaces/ACTION";
 import woodImg from "/public/UI/resources/wood.png";
 import leatherImg from "/public/UI/resources/leather.png";
 import {objectsEqual} from "../../../../../utils/objectsEqual";
@@ -20,22 +18,22 @@ type Props = {
 function Construction(props: Props) {
     const resources: JSX.Element[] = [];
 
-    Object.entries(props.construction.committedResources).forEach(
-        ([key, value]) => {
-            for (let i = 0; i < value; i++) {
-                resources.push(
-                    <div className={styles.committedResource} key={key}>
-                        <Image
-                            src={`/UI/resources/${key}.png`}
-                            fill
-                            alt={key}
-                            sizes={styles.committedResource}
-                        />
-                    </div>
-                );
-            }
+    if (props.construction.committedResources) {
+        const resType = props.construction.committedResources.type;
+        for (let i = 0; i < props.construction.committedResources?.amount; i++) {
+            resources.push(
+                <div className={styles.committedResource} key={i}>
+                    <Image
+                        src={`/UI/resources/${resType}.png`}
+                        fill
+                        alt={resType}
+                        sizes={styles.committedResource}
+                    />
+                </div>
+            );
         }
-    );
+    }
+
 
     const lockedClass = props.construction.locked ? styles.locked : "";
 
@@ -45,7 +43,7 @@ function Construction(props: Props) {
         costIcon = (
             <div className={styles.costIcon}>
                 <div className={styles.costWoodValue}>
-                    {props.construction.cost.wood}
+                    {props.construction.resourceCost?.amount}
                 </div>
                 <div className={styles.woodImage}>
                     <Image src={woodImg} fill alt={"wood"} sizes={styles.woodImage}/>
@@ -56,14 +54,14 @@ function Construction(props: Props) {
         costIcon = (
             <div className={styles.costIcon}>
                 <div className={styles.costWoodValue}>
-                    {props.construction.cost.wood}
+                    {props.construction.resourceCost?.amount}
                 </div>
                 <div className={styles.woodImage}>
                     <Image src={woodImg} fill alt={"drewno"} sizes={styles.woodImage}/>
                 </div>
                 <div className={styles.crossLine}></div>
                 <div className={styles.costLeatherValue}>
-                    {props.construction.cost.leather}
+                    {props.construction.optionalResourceCost?.amount}
                 </div>
                 <div className={styles.leatherImage}>
                     <Image
@@ -76,8 +74,10 @@ function Construction(props: Props) {
             </div>
         );
     }
-
-    const actionSlots = getActionSlots(props.construction, props.construction.requiredPawnAmount);
+    let actionSlots;
+    if (props.construction.requiredPawnAmount) {
+        actionSlots = getActionSlots(props.construction, props.construction.requiredPawnAmount);
+    }
 
 
     return (

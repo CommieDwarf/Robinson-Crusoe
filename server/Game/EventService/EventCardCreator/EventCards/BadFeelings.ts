@@ -20,6 +20,7 @@ export class BadFeelings extends EventCard implements IEventCard {
                 invention: null,
                 construction: null,
                 resource: null,
+                optionalResource: null,
             },
             game
         );

@@ -24,6 +24,7 @@ import {ACTION, ACTION_ITEM} from "../../../../interfaces/ACTION";
 
 export class Tile extends AssignablePawnsItem implements ITile {
 
+
     private readonly _position: TilePosition;
     private readonly _id: number;
 
@@ -36,6 +37,7 @@ export class Tile extends AssignablePawnsItem implements ITile {
         greaterDanger: "",
         timeConsumingAction: "",
         terrainDepleted: "",
+        flipped: "",
     };
 
 
@@ -64,7 +66,7 @@ export class Tile extends AssignablePawnsItem implements ITile {
 
     get renderData(): ITileRenderData {
         return {
-            ...super.getRenderData(),
+            ...super.getAssignablePawnsRenderData(),
             id: this.id,
             show: this.show,
             position: this.position,
@@ -81,6 +83,7 @@ export class Tile extends AssignablePawnsItem implements ITile {
         };
     }
 
+
     get distance(): number | null {
         return this._distance;
     }
@@ -90,7 +93,7 @@ export class Tile extends AssignablePawnsItem implements ITile {
     }
 
     public isSideRequiredPawnsSatisfied(side: Side): boolean {
-        if (this._tileResourceService) {
+        if (this._tileResourceService && this.requiredPawnAmount !== null) {
             return this._tileResourceService.resources[side].assignedPawns > this.requiredPawnAmount
         } else {
             return true;
@@ -101,12 +104,16 @@ export class Tile extends AssignablePawnsItem implements ITile {
         return this.isSideRequiredPawnsSatisfied("left") || this.isSideRequiredPawnsSatisfied("right")
     }
 
-    get requiredPawnAmount() {
-        const pawnAmount = this._modifiers.timeConsumingAction ? this.getComputedRequiredPawnAmount() + 1 : this.getComputedRequiredPawnAmount();
-        if (this._distance) {
-            return pawnAmount + this._distance;
+    get requiredPawnAmount(): number | null {
+        const basePawnAmount = this.getComputedRequiredPawnAmount();
+        if (basePawnAmount === null) {
+            return null;
+        }
+        let pawnAmount = this._modifiers.timeConsumingAction ? basePawnAmount + 1 : basePawnAmount;
+        if (this._distance != null && this._distance >= 0) {
+            return pawnAmount + this._distance - 1;
         } else {
-            return pawnAmount;
+            return null;
         }
     }
 
@@ -249,6 +256,10 @@ export class Tile extends AssignablePawnsItem implements ITile {
                 return !this._modifiers.greaterDanger;
             case TILE_ACTION.UNSET_GREATER_DANGER:
                 return Boolean(this._modifiers.greaterDanger);
+            case TILE_ACTION.FLIP:
+                return Boolean(this._tileResourceService && !this._modifiers.flipped);
+            case TILE_ACTION.UN_FLIP:
+                return Boolean(this._modifiers.flipped);
         }
     }
 
@@ -273,6 +284,11 @@ export class Tile extends AssignablePawnsItem implements ITile {
             case TILE_ACTION.DEPLETE_TERRAIN_TYPE:
                 trigger = this.getTileModifierTrigger("terrainDepleted", true, source);
                 break;
+            case TILE_ACTION.FLIP:
+                trigger = this.getTileModifierTrigger("flipped", true, source);
+                break;
+            case TILE_ACTION.UN_FLIP:
+                trigger = this.getTileModifierTrigger("flipped", false, source);
         }
 
         this._markedForAction = {
@@ -365,6 +381,9 @@ export class Tile extends AssignablePawnsItem implements ITile {
 
     public unsetTileModifier(modifier: keyof TileModifiers, source: string) {
         this._modifiers[modifier] = "";
+        if (modifier === "flipped") {
+            this._game.tileService.updateDistance();
+        }
         switch (modifier) {
             case "greaterDanger":
                 this._game.chatLog.addMessage(
@@ -388,6 +407,9 @@ export class Tile extends AssignablePawnsItem implements ITile {
         source: string
     ) {
         this.modifiers[modifier] = source;
+        if (modifier === "flipped") {
+            this._game.tileService.updateDistance();
+        }
         switch (modifier) {
             case "greaterDanger":
                 this._game.chatLog.addMessage(

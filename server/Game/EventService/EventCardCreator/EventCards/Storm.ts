@@ -19,7 +19,9 @@ export class Storm extends EventCard implements IEventCard {
                 pawns: 1,
                 invention: INVENTION_STARTER.SHOVEL,
                 construction: null,
-                resource: new BasicResources(0, 0, 1, 0),
+                resource: "wood",
+                optionalResource: null,
+                
             },
             game
         );

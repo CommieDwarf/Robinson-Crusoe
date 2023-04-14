@@ -22,7 +22,7 @@ export class PredatorIsNear extends EventCard implements IEventCard {
           type: CONSTRUCTION.WEAPON,
           lvl: 2,
         },
-        resource: null,
+        resource: null, optionalResource: null,
       },
       game
     );

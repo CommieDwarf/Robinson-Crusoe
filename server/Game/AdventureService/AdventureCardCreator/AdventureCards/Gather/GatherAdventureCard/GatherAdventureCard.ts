@@ -21,4 +21,22 @@ export abstract class GatherAdventureCard extends AdventureCard {
     get action(): ACTION.GATHER {
         return this._action;
     }
+
+    protected getTile() {
+        const id = this._game.adventureService.currentAdventure?.relatedActionInfo?.tileId;
+        if (id) {
+            return this._game.tileService.getTile(id);
+        } else {
+            throw new Error("Can't find related tile. Id: " + id);
+        }
+    }
+
+    protected getSide() {
+        const side = this._game.adventureService.currentAdventure?.relatedActionInfo?.source;
+        if (side) {
+            return side
+        } else {
+            throw new Error("Can't get side from adventureService.");
+        }
+    }
 }

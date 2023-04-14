@@ -28,5 +28,5 @@ export function getItemFromDroppableId(droppableId: string, game: IGame) {
         return ACTION.ARRANGE_CAMP;
     }
 
-    throw new Error("Can't find item from droppableId: " + droppableId);
+    return null;
 }

@@ -19,7 +19,7 @@ export class NaturalDamBreaks extends EventCard implements IEventCard {
         pawns: 1,
         invention: INVENTION_STARTER.SHOVEL,
         construction: null,
-        resource: null,
+        resource: null, optionalResource: null,
       },
       game
     );

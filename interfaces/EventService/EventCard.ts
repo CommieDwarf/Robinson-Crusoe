@@ -1,11 +1,15 @@
-import {IBasicResources} from "../Resources/Resources";
+import {IBasicResources, IBasicResourcesAmount} from "../Resources/Resources";
 import {CONSTRUCTION} from "../ConstructionService/Construction";
 import {INVENTION_STARTER} from "../InventionService/Invention";
 import {AdventureAction} from "../ACTION";
 import {IAssignablePawnsItem, IAssignablePawnsItemRenderData} from "../AssignablePawnsItem/AssignablePawnsItem";
+import {
+    IResourceCommittableItem,
+    IResourceCommittableItemRenderData
+} from "../ResourceCommitableItem/ResourceCommittableItem";
 
 
-export interface IEventCard extends IAssignablePawnsItem {
+export interface IEventCard extends IResourceCommittableItem {
     id: string;
     name: string;
     namePL: string;
@@ -13,7 +17,7 @@ export interface IEventCard extends IAssignablePawnsItem {
     renderData: IEventCardRenderData;
     cardType: AdventureAction | EVENT_TYPE;
     requirements: EventResolveRequirements;
-    requiredPawnAmount: number;
+
 
     triggerEventEffect(): void;
 
@@ -25,11 +29,10 @@ export interface IEventCard extends IAssignablePawnsItem {
 }
 
 
-export interface IEventCardRenderData extends IAssignablePawnsItemRenderData {
+export interface IEventCardRenderData extends IResourceCommittableItemRenderData {
     id: string;
     name: string;
     cardType: AdventureAction | EVENT_TYPE;
-    requiredPawnAmount: number;
 }
 
 export enum EVENT_TYPE {
@@ -44,6 +47,7 @@ export interface EventResolveRequirements {
         type: CONSTRUCTION;
         lvl: number;
     } | null;
-    resource: IBasicResources | null;
+    resource: keyof IBasicResourcesAmount | null;
+    optionalResource: keyof IBasicResourcesAmount | null;
 }
 

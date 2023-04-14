@@ -18,6 +18,7 @@ export class Devastation extends EventCard implements IEventCard {
                 invention: INVENTION_STARTER.SHOVEL,
                 construction: null,
                 resource: null,
+                optionalResource: null,
             },
             game
         );

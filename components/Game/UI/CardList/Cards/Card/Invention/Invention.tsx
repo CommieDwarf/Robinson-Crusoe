@@ -50,13 +50,13 @@ function Invention(props: Props) {
     wrapperStyle.left = zoomed ? 60 : wrapperStyle.left;
 
     const resources: JSX.Element[] = [];
-
-    Object.entries(props.invention.committedResources).forEach(([key, value]) => {
-        for (let i = 0; i < value; i++) {
+    const resource = props.invention.committedResources?.type;
+    if (resource && props.invention.committedResources?.amount) {
+        for (let i = 0; i < props.invention.committedResources?.amount; i++) {
             resources.push(
                 <div className={styles.resource} key={i}>
                     <Image
-                        src={`/UI/resources/${key}.png`}
+                        src={`/UI/resources/${resource}.png`}
                         fill
                         alt="surowiec"
                         sizes={styles.resource}
@@ -64,7 +64,8 @@ function Invention(props: Props) {
                 </div>
             );
         }
-    });
+
+    }
 
     const leaderId = "invention-" + props.invention.name + "-leader-0";
 

@@ -1,47 +1,43 @@
 import {
-  IConstruction,
-  IConstructionRenderData,
-  CONSTRUCTION,
+    IConstruction,
+    IConstructionRenderData,
+    CONSTRUCTION,
 } from "./Construction";
-import { IBasicResources } from "../Resources/Resources";
+import {IBasicResources} from "../Resources/Resources";
 
 export interface IConstructionServiceRenderData {
-  constructions: IConstructionRenderData[];
+    constructions: IConstructionRenderData[];
 }
 
 export interface IConstructionService {
-  constructions: IConstruction[];
-  lvlUpConstruction: (
-    construction: CONSTRUCTION,
-    by: number,
-    logSource: string
-  ) => void;
-  lvlDownConstruction: (
-    construction: CONSTRUCTION,
-    by: number,
-    logSource: string
-  ) => void;
-  lvlDownOrSuffer: (
-    construction: CONSTRUCTION,
-    by: number,
-    logSource: string
-  ) => void;
-  lvlDownIfPossible: (
-    construction: CONSTRUCTION,
-    by: number,
-    logSource: string
-  ) => void;
-  setDividedLvlByTwo: (construction: CONSTRUCTION, sourceLog: string) => void;
-  setLvl: (construction: CONSTRUCTION, lvl: number) => void;
-  unlockConstruction: (construction: CONSTRUCTION) => void;
-  lockConstruction: (construction: CONSTRUCTION) => void;
-  unlockAllConstructions: () => void;
-  commitResources: (
-    construction: CONSTRUCTION,
-    resources: IBasicResources
-  ) => void;
-  rollBackCommittedResources: (construction: CONSTRUCTION) => void;
-  getConstruction: (construction: CONSTRUCTION) => IConstruction;
-  isBuilt: (construction: CONSTRUCTION) => boolean;
-  renderData: IConstructionServiceRenderData;
+    constructions: IConstruction[];
+    lvlUpConstruction: (
+        construction: CONSTRUCTION,
+        by: number,
+        logSource: string
+    ) => void;
+    lvlDownConstruction: (
+        construction: CONSTRUCTION,
+        by: number,
+        logSource: string
+    ) => void;
+    lvlDownOrSuffer: (
+        construction: CONSTRUCTION,
+        by: number,
+        logSource: string
+    ) => void;
+    lvlDownIfPossible: (
+        construction: CONSTRUCTION,
+        by: number,
+        logSource: string
+    ) => void;
+    setDividedLvlByTwo: (construction: CONSTRUCTION, sourceLog: string) => void;
+    setLvl: (construction: CONSTRUCTION, lvl: number) => void;
+    unlockConstruction: (construction: CONSTRUCTION) => void;
+    lockConstruction: (construction: CONSTRUCTION) => void;
+    unlockAllConstructions: () => void;
+  
+    getConstruction: (construction: CONSTRUCTION) => IConstruction;
+    isBuilt: (construction: CONSTRUCTION) => boolean;
+    renderData: IConstructionServiceRenderData;
 }

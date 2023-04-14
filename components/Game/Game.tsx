@@ -60,6 +60,8 @@ import drawMysteryCard from "../../pages/api/drawMysteryCard";
 import finishDrawingMysteryCards from "../../pages/api/finishDrawingMysteryCards";
 import {CardList} from "./UI/CardList/CardList";
 import triggerTileAction from "../../pages/api/triggerTileAction";
+import canAffordItem from "../../pages/api/canAffordItem";
+import shouldCommitResources from "../../pages/api/shouldCommitResources";
 
 interface Props {
     gameRenderData: IGameRenderData;
@@ -141,8 +143,8 @@ export default function Game(props: Props) {
         setPawn(destinationId, draggableId);
     }
 
-    function handleUnsetPawn(destinationId: string, draggableId: string) {
-        unsetPawn(destinationId, draggableId);
+    function handleUnsetPawn(droppableId: string, draggableId: string) {
+        unsetPawn(droppableId, draggableId);
     }
 
     function handleMoveCamp(tileID: number) {
@@ -272,6 +274,12 @@ export default function Game(props: Props) {
             !canPawnBeSettled(pawnAtActionSlot, sourceId)
         ) {
             return;
+        }
+
+        if (shouldCommitResources(destinationId)) {
+            if (!canAffordItem(destinationId)) {
+                return;
+            }
         }
 
         handleSetPawn(destinationId, draggedPawn.draggableId);

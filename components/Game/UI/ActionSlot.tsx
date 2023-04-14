@@ -30,7 +30,6 @@ function ActionSlot(props: Props) {
         element = <Pawn pawn={pawn} context={props.action} index={1}/>;
     }
     const helperClass = props.type == "helper" ? styles.helper : "";
-    console.log(props.action, props.uniqueAction)
     return (
         <div
             className={`${styles.container} ${

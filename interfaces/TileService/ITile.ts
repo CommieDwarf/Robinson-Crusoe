@@ -56,7 +56,6 @@ export interface ITile extends IAssignablePawnsItem {
 
     markTileForActon: (actionName: TILE_ACTION, source: string) => void;
 
-
     depleteResource: (side: "left" | "right", source: string) => void;
     unDepleteResource: (side: "left" | "right", source: string) => void;
     addResourceModifier: (side: Side, source: string) => void;
@@ -103,7 +102,7 @@ export interface ITileRenderData extends IAssignablePawnsItemRenderData {
         right: boolean,
     }
 
-    requiredPawnAmount: number;
+    requiredPawnAmount: number | null;
 }
 
 export interface MarkedForAction {
@@ -150,6 +149,9 @@ export enum TILE_ACTION {
     SET_GREATER_DANGER = "set greater danger",
     UNSET_GREATER_DANGER = "unset greater danger",
     DEPLETE_TERRAIN_TYPE = "unset terrain type",
+
+    FLIP = "flip",
+    UN_FLIP = "un flip",
 }
 
 
@@ -157,4 +159,5 @@ export interface TileModifiers {
     greaterDanger: string;
     timeConsumingAction: string;
     terrainDepleted: string;
+    flipped: string;
 }

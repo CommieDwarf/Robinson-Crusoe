@@ -20,7 +20,7 @@ export class Poisoning extends EventCard implements IEventCard {
         pawns: 1,
         invention: INVENTION_STARTER.KNIFE,
         construction: null,
-        resource: null,
+        resource: null, optionalResource: null,
       },
       game
     );

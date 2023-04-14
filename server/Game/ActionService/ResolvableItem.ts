@@ -16,6 +16,7 @@ import {ActionDice, ActionDiceResults,} from "../../../interfaces/RollDice/RollD
 import {RollDiceService} from "../RollDiceService/RollDiceService";
 import {isAdventureAction} from "../../../utils/isAdventureAction";
 import {isTile} from "../../../utils/isSpecificResolvableItem/isTile";
+import {isCommittableResourcesItem} from "../../../utils/isCommittableResourcesItem";
 
 export class ResolvableItem implements IResolvableItem {
     private readonly _item: Item;
@@ -186,7 +187,9 @@ export class ResolvableItem implements IResolvableItem {
                 this._game.characterService.hurt(this._leaderPawn.character, 1, "Zagrożenie na kafelku - brak broni.")
             }
         }
-
+        if (isCommittableResourcesItem(item)) {
+            item.consumeCommittedResources();
+        }
         if (this.resolveStatus === RESOLVE_ITEM_STATUS.FAILURE) {
             return;
         }
@@ -224,7 +227,6 @@ export class ResolvableItem implements IResolvableItem {
             case item instanceof EventCard:
                 const eventCard = item as IEventCard;
                 this._game.eventService.fullFill(eventCard.id);
-                console.log("FULLFILED")
                 break;
             case item instanceof Beast:
                 this._game.beastService.killBeast(this._leaderPawn.character);
@@ -242,7 +244,7 @@ export class ResolvableItem implements IResolvableItem {
 
     get shouldRollDices() {
         const item = this._item;
-        if (
+        if (!item ||
             item === ACTION.REST ||
             item === ACTION.ARRANGE_CAMP ||
             item instanceof EventCard ||
@@ -251,7 +253,8 @@ export class ResolvableItem implements IResolvableItem {
         ) {
             return false;
         }
-        return item.requiredPawnAmount >= this._helperAmount;
+
+        return Boolean(item.requiredPawnAmount && item.requiredPawnAmount >= this._helperAmount);
     }
 
     private applyRollDiceEffects() {

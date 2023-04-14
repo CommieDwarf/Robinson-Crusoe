@@ -18,7 +18,7 @@ export class Weakness extends EventCard implements IEventCard {
         pawns: 1,
         invention: null,
         construction: null,
-        resource: null,
+        resource: null, optionalResource: null,
       },
       game
     );

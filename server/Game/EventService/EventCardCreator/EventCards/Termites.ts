@@ -19,7 +19,7 @@ export class Termites extends EventCard implements IEventCard {
         pawns: 1,
         invention: INVENTION_STARTER.FIRE,
         construction: null,
-        resource: null,
+        resource: null, optionalResource: null,
       },
       game
     );

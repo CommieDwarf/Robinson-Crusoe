@@ -7,12 +7,12 @@ export interface IAssignablePawnsItem {
     action: ACTION;
     actionItem: ACTION_ITEM;
     assignedPawnAmount: number;
-    requiredPawnAmount: number;
+    requiredPawnAmount: number | null;
     incrPawnAmount: () => void;
     decrPawnAmount: () => void;
     resetPawnAmount: () => void;
 
-    getComputedRequiredPawnAmount: () => number;
+    getComputedRequiredPawnAmount: () => number | null;
 
     uniqueAction: UniqueAction;
 }
@@ -21,7 +21,7 @@ export interface IAssignablePawnsItemRenderData {
     action: ACTION;
     actionItem: ACTION_ITEM;
     assignedPawnAmount: number;
-    requiredPawnAmount: number;
+    requiredPawnAmount: number | null;
 
     uniqueAction: UniqueAction
 }

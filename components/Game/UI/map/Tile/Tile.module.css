@@ -49,6 +49,10 @@
     }
 }
 
+.flipped {
+    filter: brightness(70%) !important;
+}
+
 .depletedMark {
     width: 22%;
     height: 22%;

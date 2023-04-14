@@ -91,6 +91,10 @@ export class TileService implements ITileService {
             .map((vertex) => vertex.data);
     }
 
+    public updateDistance() {
+        this._tileGraph.updateDistance();
+    }
+
 
     triggerMarkedTileAction(tileId: number) {
         const tile = this.getTile(tileId);
@@ -164,7 +168,7 @@ export class TileService implements ITileService {
 
     }
 
-    private countHowManyTilesCanBeMarkedForAction(tiles: ITile[], action: TILE_ACTION) {
+    public countHowManyTilesCanBeMarkedForAction(tiles: ITile[], action: TILE_ACTION) {
         let count = 0;
         tiles.forEach((tile) => {
             if (tile.canActionBePerformed(action)) {
@@ -274,8 +278,9 @@ export class TileService implements ITileService {
     }
 
     public forceCampMovement() {
-        this.campTransition.forced = true;
-        this.campTransition.status = true;
+        if (this.tilesAroundCamp.some((tile) => tile.canCampBeSettled)) {
+
+        }
     }
 
 

@@ -11,8 +11,10 @@ import {BasicResources} from "../../ResourceService/BasicResources";
 import {IGame} from "../../../../interfaces/Game";
 import {AssignablePawnsItem} from "../../AssignablePawnsItem/AssignablePawnsItem";
 import {ACTION, ACTION_ITEM} from "../../../../interfaces/ACTION";
+import {ResourceCommittableItem} from "../../ResourceCommittableItem/ResourceCommittableItem";
+import {SingleResourceRequirement} from "../../../../interfaces/ResourceCommitableItem/ResourceCommittableItem";
 
-export class Invention extends AssignablePawnsItem implements IInvention {
+export class Invention extends ResourceCommittableItem implements IInvention {
     protected readonly _name: INVENTION;
     protected declare readonly _namePL: string;
     protected _locked = true;
@@ -20,9 +22,7 @@ export class Invention extends AssignablePawnsItem implements IInvention {
     protected readonly _resourceChoice: boolean = false;
     //temporary fixed value
     protected readonly _inventionType: INVENTION_TYPE;
-    protected _committedResources: IBasicResources = new BasicResources();
     protected _built = false;
-    protected _cost: IBasicResources | null;
     protected readonly _belongsTo: CHARACTER | null = null;
     protected readonly _usable: boolean = false;
     protected _used: boolean = false;
@@ -32,14 +32,15 @@ export class Invention extends AssignablePawnsItem implements IInvention {
         name: INVENTION,
         requirements: InventionRequirements,
         inventionType: INVENTION_TYPE,
-        cost: IBasicResources | null,
-        game: IGame
+        game: IGame,
+        resourceCost: SingleResourceRequirement | null = null,
+        optionalResource: SingleResourceRequirement | null = null,
     ) {
-        super(ACTION.BUILD, ACTION_ITEM.INVENTION, game);
+
+        super(ACTION.BUILD, ACTION_ITEM.INVENTION, game, resourceCost, optionalResource);
         this._name = name;
         this._requirements = requirements;
         this._inventionType = inventionType;
-        this._cost = cost;
 
     }
 
@@ -48,15 +49,11 @@ export class Invention extends AssignablePawnsItem implements IInvention {
             name: this.name,
             locked: this.locked,
             inventionType: this._inventionType,
-            committedResources: this._committedResources.renderData,
             isBuilt: this.isBuilt,
-            ...super.getRenderData(),
+            ...super.getResourceCommittableRenderData(),
         };
     }
 
-    get requiredPawnAmount(): number {
-        return this._requiredPawnAmount;
-    }
 
     get resourceChoice(): boolean {
         return this._resourceChoice;
@@ -66,13 +63,6 @@ export class Invention extends AssignablePawnsItem implements IInvention {
         return this._belongsTo;
     }
 
-    get cost(): IBasicResources | null {
-        return this._cost;
-    }
-
-    set cost(value: IBasicResources | null) {
-        this._cost = value;
-    }
 
     get isBuilt(): boolean {
         return this._built;
@@ -111,13 +101,6 @@ export class Invention extends AssignablePawnsItem implements IInvention {
         return this._inventionType;
     }
 
-    get committedResources(): IBasicResources {
-        return this._committedResources;
-    }
-
-    set committedResources(resources: IBasicResources) {
-        this._committedResources = resources;
-    }
 
     get requirements(): InventionRequirements {
         return this._requirements;
