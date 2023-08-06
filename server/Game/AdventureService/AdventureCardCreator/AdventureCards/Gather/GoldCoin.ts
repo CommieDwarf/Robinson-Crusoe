@@ -2,7 +2,8 @@ import {GatherAdventureCard} from "./GatherAdventureCard/GatherAdventureCard";
 import {IAdventureCard} from "../../../../../../interfaces/AdventureService/AdventureCard";
 import {IGame} from "../../../../../../interfaces/Game";
 import {ADVENTURE_CARD_GATHER} from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
-import {ICharacter} from "../../../../../../interfaces/Characters/Character";
+import {IPlayerCharacter} from "../../../../../../interfaces/Characters/PlayerCharacter";
+
 import {ACTION} from "../../../../../../interfaces/ACTION";
 
 export class GoldCoin extends GatherAdventureCard implements IAdventureCard {
@@ -19,12 +20,11 @@ export class GoldCoin extends GatherAdventureCard implements IAdventureCard {
         );
     }
 
-    option1(resolver: ICharacter) {
+    option1(resolver: IPlayerCharacter) {
         this.shuffleIntoEventDeck();
     }
 
     triggerEventEffect() {
-        //TODO: put reRoll token
         this._game.actionService.setReRollToken(ACTION.GATHER, true, this._eventNamePL);
         this._game.actionService.setReRollToken(ACTION.EXPLORE, true, this._eventNamePL);
         this._game.actionService.setReRollToken(ACTION.BUILD, true, this._eventNamePL);

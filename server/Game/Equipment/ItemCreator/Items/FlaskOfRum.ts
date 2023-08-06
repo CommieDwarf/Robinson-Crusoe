@@ -2,14 +2,14 @@ import { Item } from "../Item";
 import { IItem, ITEM } from "../../../../../interfaces/Equipment/Item";
 import { IGame } from "../../../../../interfaces/Game";
 import { IPlayerCharacter } from "../../../../../interfaces/Characters/PlayerCharacter";
-import { ICharacter } from "../../../../../interfaces/Characters/Character";
+import { IPlayerCharacter } from "../../../../../interfaces/Characters/Character";
 
 export class FlaskOfRum extends Item implements IItem {
   constructor(game: IGame) {
     super(ITEM.FLASK_OF_RUM, game);
   }
 
-  use(user: IPlayerCharacter, target: ICharacter) {
+  use(user: IPlayerCharacter, target: IPlayerCharacter) {
     if (!target) {
       throw Error("target is null");
     }

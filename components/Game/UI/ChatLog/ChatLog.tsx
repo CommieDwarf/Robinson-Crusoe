@@ -9,19 +9,18 @@ interface Props {
 
 export default function ChatLog(props: Props) {
 
-    const scroll = useRef<HTMLDivElement>(null);
-
+    const scrollRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
-        if (scroll.current) {
-            scroll.current.scrollTo(Infinity, Infinity)
+        if (scrollRef.current) {
+            scrollRef.current.scrollBy({behavior: "smooth", top: scrollRef.current.offsetTop})
         }
-    });
+    })
 
 
     return (
         <div className={styles.container}>
             <div className={styles.scrollWrapper}>
-                <div className={styles.scroll} ref={scroll}>
+                <div className={styles.scroll} ref={scrollRef}>
                     <div className={styles.messages}>
                         {props.logMessages.map((msg, i) => {
                             return <LogMessage message={msg} key={i}/>;

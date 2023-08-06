@@ -1,7 +1,7 @@
 import { MysteryCard } from "../../MysteryCard";
 import { MYSTERY_CARD_TYPE } from "../../../../../../../interfaces/MysteryService/MysteryCard";
 import { IGame } from "../../../../../../../interfaces/Game";
-import { ICharacter } from "../../../../../../../interfaces/Characters/Character";
+import { IPlayerCharacter } from "../../../../../../../interfaces/Characters/Character";
 
 export abstract class TreasureMysteryCard extends MysteryCard {
   protected _type = MYSTERY_CARD_TYPE.TREASURE;

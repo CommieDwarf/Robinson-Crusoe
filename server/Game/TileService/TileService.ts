@@ -29,12 +29,14 @@ export class TileService implements ITileService {
     sack: boolean = false;
     axe: boolean = false;
     resourceAmountToDeplete: number = 0;
+    private readonly _startCamp = 7;
+
 
     constructor(game: IGame, campTileID: number) {
         this._game = game;
         this._fixedTileResourcesStack = shuffle(fixedTileResources);
         this._terrainTypesExplored = new Set<TERRAIN_TYPE>([TERRAIN_TYPE.BEACH]);
-        this._tileGraph = new TileGraph(6, game);
+        this._tileGraph = new TileGraph(this._startCamp, game);
         this.showAdjacentTiles(campTileID);
     }
 
@@ -135,11 +137,12 @@ export class TileService implements ITileService {
 
     markTilesForAction(tiles: ITile[], action: TILE_ACTION, requiredCount: number, source: string) {
         tiles.forEach((tile) => {
+            const mark = () => {
+                this._requiredActionCount = requiredCount;
+                tile.markTileForActon(action, source);
+            }
             if (tile.canActionBePerformed(action)) {
-                const mark = () => {
-                    this._requiredActionCount = requiredCount;
-                    tile.markTileForActon(action, source);
-                }
+
                 if (this._actionQueue.length > 0) {
                     this._actionQueue.push(mark);
                 } else {
@@ -149,7 +152,7 @@ export class TileService implements ITileService {
         })
     }
 
-    markTileResourcesForAction(tiles: ITile[], action: TILE_RESOURCE_ACTION, source: string, concreteResource: "food" | "wood" | null = null) {
+    markTileResourcesForAction(tiles: ITile[], action: TILE_RESOURCE_ACTION, source: string, concreteResource: "food" | "wood" | null) {
         tiles.forEach((tile) => {
             if (concreteResource && tile.hasBasicResource(concreteResource)) {
                 const side = tile.getSideByResource(concreteResource) as Side;

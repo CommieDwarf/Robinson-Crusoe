@@ -1,7 +1,7 @@
 import {TrapMysteryCard} from "./TrapMysteryCard/TrapMysteryCard";
 import {IMysteryCard} from "../../../../../../interfaces/MysteryService/MysteryCard";
 import {IGame} from "../../../../../../interfaces/Game";
-import {ICharacter} from "../../../../../../interfaces/Characters/Character";
+import {IPlayerCharacter} from "../../../../../../interfaces/Characters/Character";
 
 export class SharpBlade
     extends TrapMysteryCard
@@ -10,7 +10,7 @@ export class SharpBlade
     super(game, "sharp blade", "ostrze");
   }
 
-  triggerDrawEffect(drawer: ICharacter) {
+  triggerDrawEffect(drawer: IPlayerCharacter) {
     this._game.characterService.hurt(drawer, 2, this._namePL);
   }
 }

@@ -17,4 +17,13 @@ export abstract class ExploreAdventureCard extends AdventureCard {
     ) {
         super(name, namePL, decide, game, option1Label, option2Label);
     }
+
+    protected getTile() {
+        const id = this._game.adventureService.currentAdventure?.relatedActionInfo?.tileId;
+        if (id) {
+            return this._game.tileService.getTile(id);
+        } else {
+            throw new Error("Can't find related tile. Id: " + id);
+        }
+    }
 }

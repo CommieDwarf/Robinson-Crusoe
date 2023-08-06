@@ -5,7 +5,7 @@ import {
   ITEM,
 } from "../../../../interfaces/Equipment/Item";
 import { IPlayerCharacter } from "../../../../interfaces/Characters/PlayerCharacter";
-import { ICharacter } from "../../../../interfaces/Characters/Character";
+import { IPlayerCharacter } from "../../../../interfaces/Characters/Character";
 
 export class Item implements IItem {
   protected readonly _name: ITEM;
@@ -45,7 +45,7 @@ export class Item implements IItem {
     }
   }
 
-  use(user: IPlayerCharacter, target: ICharacter = user) {
+  use(user: IPlayerCharacter, target: IPlayerCharacter = user) {
     this.decrementUses();
   }
 }

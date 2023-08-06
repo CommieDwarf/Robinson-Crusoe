@@ -1,6 +1,6 @@
 import { TreasureMysteryCard } from "./TreasureMysteryCard/TreasureMysteryCard";
 import { IGame } from "../../../../../../interfaces/Game";
-import { ICharacter } from "../../../../../../interfaces/Characters/Character";
+import { IPlayerCharacter } from "../../../../../../interfaces/Characters/Character";
 
 export class Blankets extends TreasureMysteryCard {
   constructor(game: IGame) {
@@ -13,7 +13,7 @@ export class Blankets extends TreasureMysteryCard {
   //   //TODO: implement
   // }
 
-  triggerDrawEffect(drawer: ICharacter) {
+  triggerDrawEffect(drawer: IPlayerCharacter) {
     this.addToResources();
   }
 }

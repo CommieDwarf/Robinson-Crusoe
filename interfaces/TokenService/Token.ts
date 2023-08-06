@@ -1,4 +1,4 @@
-import { ICharacter } from "../Characters/Character";
+import { IPlayerCharacter } from "../Characters/Character";
 import { IPlayerCharacter } from "../Characters/PlayerCharacter";
 
 export interface IToken {
@@ -7,7 +7,7 @@ export interface IToken {
   used: boolean;
   renderData: ITokenRenderData;
   //TODO: ADD TARGET PARAMETER
-  use: (user: IPlayerCharacter, target: ICharacter | null) => void;
+  use: (user: IPlayerCharacter, target: IPlayerCharacter | null) => void;
   autoDiscard: () => void;
   id: string;
 }

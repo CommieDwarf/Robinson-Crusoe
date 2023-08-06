@@ -1,9 +1,9 @@
 import { IPawn, IPawnRenderData } from "../../../../interfaces/Pawns/Pawn";
 
-import { ICharacter } from "../../../../interfaces/Characters/Character";
+import { IPlayerCharacter } from "../../../../interfaces/Characters/Character";
 
 export class Pawn implements IPawn {
-  constructor(character: ICharacter, id: number) {
+  constructor(character: IPlayerCharacter, id: number) {
     this._character = character;
     this._draggableId = character.name + "pawn" + id;
   }
@@ -16,7 +16,7 @@ export class Pawn implements IPawn {
     return this._draggableId;
   }
 
-  get character(): ICharacter {
+  get character(): IPlayerCharacter {
     return this._character;
   }
 
@@ -35,5 +35,5 @@ export class Pawn implements IPawn {
   }
 
   private readonly _draggableId: string;
-  private readonly _character: ICharacter;
+  private readonly _character: IPlayerCharacter;
 }

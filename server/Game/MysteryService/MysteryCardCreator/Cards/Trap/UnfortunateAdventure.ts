@@ -1,7 +1,7 @@
 import { TrapMysteryCard } from "./TrapMysteryCard/TrapMysteryCard";
 import { IMysteryCard } from "../../../../../../interfaces/MysteryService/MysteryCard";
 import { IGame } from "../../../../../../interfaces/Game";
-import { ICharacter } from "../../../../../../interfaces/Characters/Character";
+import { IPlayerCharacter } from "../../../../../../interfaces/Characters/Character";
 
 export class UnfortunateAdventure
   extends TrapMysteryCard
@@ -11,7 +11,7 @@ export class UnfortunateAdventure
     super(game, "unfortunate adventure", "nieszczęśliwa przygoda");
   }
 
-  triggerDrawEffect(drawer: ICharacter) {
+  triggerDrawEffect(drawer: IPlayerCharacter) {
     //TODO: implement book effect.
   }
 }

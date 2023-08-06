@@ -65,7 +65,7 @@ export enum EVENT_CARD {
     TERMITES = "termites",
     THE_ISLAND_FIGHTS_BACK = "the island fights back",
     THUNDERSTORM = "thunderstorm",
-    UNUSUALLY_COLD_NIGHT = "usually cold night",
+    UNUSUALLY_COLD_NIGHT = "unusually cold night",
     VERTIGO = "vertigo",
     WEAKNESS = "weakness",
     WINTER_DEPRESSION = "winter depression",

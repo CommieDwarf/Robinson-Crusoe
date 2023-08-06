@@ -68,7 +68,7 @@ import {Flu} from "../AdventureCards/Explore/Flu";
 import {ItWillRain} from "../AdventureCards/Explore/ItWillRain";
 import {Lost} from "../AdventureCards/Explore/Lost";
 import {LostInTheThicket} from "../AdventureCards/Explore/LostInTheThicket";
-import {LostInTheWood} from "../AdventureCards/Explore/LostInTheWood";
+import {LostInTheWoods} from "../AdventureCards/Explore/LostInTheWoods";
 import {Misadventure} from "../AdventureCards/Explore/Misadventure";
 import {OldGrave} from "../AdventureCards/Explore/OldGrave";
 import {OldHut} from "../AdventureCards/Explore/OldHut";
@@ -271,8 +271,8 @@ export class AdventureCardCreator {
                 return new Lost(game);
             case ADVENTURE_CARD_EXPLORE.LOST_IN_THE_THICKET:
                 return new LostInTheThicket(game);
-            case ADVENTURE_CARD_EXPLORE.LOST_IN_THE_WOOD:
-                return new LostInTheWood(game);
+            case ADVENTURE_CARD_EXPLORE.LOST_IN_THE_WOODS:
+                return new LostInTheWoods(game);
             case ADVENTURE_CARD_EXPLORE.MISADVENTURE:
                 return new Misadventure(game);
             case ADVENTURE_CARD_EXPLORE.OLD_GRAVE:

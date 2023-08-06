@@ -2,7 +2,8 @@ import {GatherAdventureCard} from "./GatherAdventureCard/GatherAdventureCard";
 import {IAdventureCard} from "../../../../../../interfaces/AdventureService/AdventureCard";
 import {IGame} from "../../../../../../interfaces/Game";
 import {ADVENTURE_CARD_GATHER} from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
-import {ICharacter} from "../../../../../../interfaces/Characters/Character";
+import {IPlayerCharacter} from "../../../../../../interfaces/Characters/PlayerCharacter";
+
 
 export class SurpriseInTheBushes
     extends GatherAdventureCard
@@ -20,12 +21,11 @@ export class SurpriseInTheBushes
         );
     }
 
-    option1(resolver: ICharacter) {
+    option1(resolver: IPlayerCharacter) {
     }
 
-    option2(resolver: ICharacter) {
+    option2(resolver: IPlayerCharacter) {
         //TODO: implement picking starting equipment item.
-        //I don't think i can manage to fit extra item in the UI for now.
     }
 
     triggerEventEffect() {

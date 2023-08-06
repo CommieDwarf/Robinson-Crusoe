@@ -2,7 +2,8 @@ import {ExploreAdventureCard} from "./ExploreAdventureCard/ExploreAdventureCard"
 import {IAdventureCard} from "../../../../../../interfaces/AdventureService/AdventureCard";
 import {IGame} from "../../../../../../interfaces/Game";
 import {ADVENTURE_CARD_EXPLORE} from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
-import {ICharacter} from "../../../../../../interfaces/Characters/Character";
+import {IPlayerCharacter} from "../../../../../../interfaces/Characters/PlayerCharacter";
+
 import {ACTION} from "../../../../../../interfaces/ACTION";
 
 export class TheresSomethingInTheAir
@@ -21,7 +22,7 @@ export class TheresSomethingInTheAir
         );
     }
 
-    option1(resolver: ICharacter) {
+    option1(resolver: IPlayerCharacter) {
         this._game.actionService.setAdventureToken(ACTION.EXPLORE, true, this._namePL);
         this.shuffleIntoEventDeck();
     }

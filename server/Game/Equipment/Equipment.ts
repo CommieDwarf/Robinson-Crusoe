@@ -8,7 +8,7 @@ import { IGame } from "../../../interfaces/Game";
 import { EqList, equipmentList } from "../../../constants/eqList";
 import { ItemCreator } from "./ItemCreator/ItemCreator";
 import { IPlayerCharacter } from "../../../interfaces/Characters/PlayerCharacter";
-import { ICharacter } from "../../../interfaces/Characters/Character";
+import { IPlayerCharacter } from "../../../interfaces/Characters/Character";
 
 export class Equipment implements IEquipment {
   get renderData(): IEquipmentRenderData {
@@ -33,7 +33,7 @@ export class Equipment implements IEquipment {
     return random2Items.map((item) => this._itemCreator.create(item));
   }
 
-  useItem(item: ITEM, user: IPlayerCharacter, target: ICharacter = user) {
+  useItem(item: ITEM, user: IPlayerCharacter, target: IPlayerCharacter = user) {
     this.getItem(item).use(user, target);
   }
 

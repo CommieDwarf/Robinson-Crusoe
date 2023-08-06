@@ -1,4 +1,4 @@
-import { ICharacter } from "../Characters/Character";
+import { IPlayerCharacter } from "../Characters/Character";
 
 export enum MYSTERY_CARD_TYPE {
   CREATURE = "creature",
@@ -13,7 +13,7 @@ export interface IMysteryCard {
   shuffleable: boolean;
   eventName: string;
   requiresTarget: boolean;
-  triggerDrawEffect: (drawer: ICharacter) => void;
+  triggerDrawEffect: (drawer: IPlayerCharacter) => void;
   triggerEventEffect: () => void;
   uses: number;
   use: (...args: any[]) => void;

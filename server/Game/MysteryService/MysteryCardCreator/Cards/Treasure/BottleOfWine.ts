@@ -1,6 +1,6 @@
 import { TreasureMysteryCard } from "./TreasureMysteryCard/TreasureMysteryCard";
 import { IGame } from "../../../../../../interfaces/Game";
-import { ICharacter } from "../../../../../../interfaces/Characters/Character";
+import { IPlayerCharacter } from "../../../../../../interfaces/Characters/Character";
 
 export class BottleOfWine extends TreasureMysteryCard {
   constructor(game: IGame) {
@@ -18,7 +18,7 @@ export class BottleOfWine extends TreasureMysteryCard {
   //   this._game.characterService.heal(target, 2, this._namePL);
   // }
 
-  triggerDrawEffect(drawer: ICharacter) {
+  triggerDrawEffect(drawer: IPlayerCharacter) {
     this.addToResources();
   }
 }

@@ -8,7 +8,7 @@ import {IGame} from "../../../../interfaces/Game";
 import {v4 as uuidv4} from "uuid";
 import {IPawn} from "../../../../interfaces/Pawns/Pawn";
 import {EVENT_CARD, WRECKAGE_CARD,} from "../../../../interfaces/EventService/EVENT_CARD";
-import {ICharacter} from "../../../../interfaces/Characters/Character";
+import {IPlayerCharacter} from "../../../../interfaces/Characters/Character";
 import {ACTION, ACTION_ITEM, AdventureAction} from "../../../../interfaces/ACTION";
 import {AssignablePawnsItem} from "../../AssignablePawnsItem/AssignablePawnsItem";
 import {ResourceCommittableItem} from "../../ResourceCommittableItem/ResourceCommittableItem";
@@ -67,7 +67,7 @@ export abstract class EventCard extends ResourceCommittableItem implements IEven
     }
 
 
-    protected getLeaderCharacter(): ICharacter {
+    protected getLeaderCharacter(): IPlayerCharacter {
         const slot = this._game.eventService.getSlotByCardID(this.id);
         const pawn = this._game.actionSlotService.getPawn(
             `threat-${slot}-leader-0`

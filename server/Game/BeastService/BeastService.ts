@@ -3,7 +3,7 @@ import {
     IBeastServiceRenderData,
 } from "../../../interfaces/Beasts/BeastService";
 import {BEAST, IBeast} from "../../../interfaces/Beasts/Beast";
-import {ICharacter} from "../../../interfaces/Characters/Character";
+import {IPlayerCharacter} from "../../../interfaces/Characters/Character";
 import {IGame} from "../../../interfaces/Game";
 import {BeastCreator} from "./BeastCreator/BeastCreator";
 import {AssignablePawnsItem} from "../AssignablePawnsItem/AssignablePawnsItem";
@@ -84,7 +84,7 @@ export class BeastService implements IBeastService {
         return beasts;
     }
 
-    fightBeast(leader: ICharacter) {
+    fightBeast(leader: IPlayerCharacter) {
         const beast = this._deck[0];
         if (beast) {
             this.beastBeingFought = beast;
@@ -92,7 +92,7 @@ export class BeastService implements IBeastService {
     }
 
     //TODO implement killBeast()
-    killBeast(leader: ICharacter) {
+    killBeast(leader: IPlayerCharacter) {
     }
 
     static getStrongestBeast(beasts: IBeast[]) {

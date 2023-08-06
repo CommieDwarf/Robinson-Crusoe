@@ -2,7 +2,7 @@ import { Skill } from "../Skill/Skill";
 import { IPlayerCharacter } from "../../../../../../interfaces/Characters/PlayerCharacter";
 import { IGame } from "../../../../../../interfaces/Game";
 import { hooch } from "../../../../../../constants/SkillDescriptions/Cook";
-import { ICharacter } from "../../../../../../interfaces/Characters/Character";
+import { IPlayerCharacter } from "../../../../../../interfaces/Characters/Character";
 import { PHASE } from "../../../../../../interfaces/PhaseService/Phase";
 import { ISkill } from "../../../../../../interfaces/Skill/Skill";
 import { ActionDice } from "../../../../../../interfaces/RollDice/RollDice";
@@ -24,7 +24,7 @@ export class Hooch extends Skill implements ISkill {
     this._character = character;
   }
 
-  use(target: ICharacter | ActionDice | null = null) {
+  use(target: IPlayerCharacter | ActionDice | null = null) {
     //TODO: implement
   }
 }

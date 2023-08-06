@@ -1,44 +1,44 @@
-import { EventCard } from "../EventCard";
+import {EventCard} from "../EventCard";
 import {
-  EVENT_TYPE,
-  IEventCard,
+    EVENT_TYPE,
+    IEventCard,
 } from "../../../../../interfaces/EventService/EventCard";
-import { IGame } from "../../../../../interfaces/Game";
-import { EVENT_CARD } from "../../../../../interfaces/EventService/EVENT_CARD";
-import { INVENTION_STARTER } from "../../../../../interfaces/InventionService/Invention";
-import { CONSTRUCTION } from "../../../../../interfaces/ConstructionService/Construction";
+import {IGame} from "../../../../../interfaces/Game";
+import {EVENT_CARD} from "../../../../../interfaces/EventService/EVENT_CARD";
+import {INVENTION_STARTER} from "../../../../../interfaces/InventionService/Invention";
+import {CONSTRUCTION} from "../../../../../interfaces/ConstructionService/Construction";
 
 export class RavenousPredators extends EventCard implements IEventCard {
-  protected readonly _namePL = "wygłodniałe drapieżniki";
-  protected readonly _resolutionPL = "przeganianie zwierząt";
+    protected readonly _namePL = "wygłodniałe drapieżniki";
+    protected readonly _resolutionPL = "przeganianie zwierząt";
 
-  constructor(game: IGame) {
-    super(
-      EVENT_CARD.RAVENOUS_PREDATORS,
-      EVENT_TYPE.BOOK,
-      {
-        pawns: 1,
-        invention: INVENTION_STARTER.FIRE,
-        construction: null,
-        resource: null, optionalResource: null,
-      },
-      game
-    );
-  }
+    constructor(game: IGame) {
+        super(
+            EVENT_CARD.RAVENOUS_PREDATORS,
+            EVENT_TYPE.BOOK,
+            {
+                pawns: 1,
+                invention: INVENTION_STARTER.FIRE,
+                construction: null,
+                resource: null, optionalResource: null,
+            },
+            game
+        );
+    }
 
-  triggerEventEffect() {
-    //TODO: set beast strength +1.
-  }
+    triggerEventEffect() {
+        //TODO: set beast strength +1.
+    }
 
-  triggerThreatEffect() {
-    this._game.constructionService.lvlDownOrSuffer(
-      CONSTRUCTION.PALISADE,
-      1,
-      this._namePL
-    );
-  }
+    triggerThreatEffect() {
+        this._game.constructionService.lvlDownOrGetHurt(
+            CONSTRUCTION.PALISADE,
+            1,
+            this._namePL
+        );
+    }
 
-  fullFill() {
-    this.incrDetermination(1);
-  }
+    fullFill() {
+        this.incrDetermination(1);
+    }
 }

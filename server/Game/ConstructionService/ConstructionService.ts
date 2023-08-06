@@ -113,14 +113,17 @@ export class ConstructionService implements IConstructionService {
         );
     }
 
-    lvlDownOrSuffer(construction: CONSTRUCTION, by: number, logSource: string) {
+    lvlDownOrGetHurt(construction: CONSTRUCTION, by: number, logSource: string) {
         const construct = this.getConstruction(construction);
         const diff = construct.lvl - by;
-        if (diff < 0) {
-            this.lvlDownConstruction(construction, by - construct.lvl, logSource);
-            this._game.characterService.hurtAllPlayerCharacters(diff, logSource);
-        } else if (diff !== 0) {
-            this.lvlDownConstruction(construction, diff, logSource);
+
+        if (diff >= 0) {
+            this.lvlDownConstruction(construction, by, logSource);
+        } else {
+            if (construct.lvl !== 0) {
+                this.lvlDownConstruction(construction, construct.lvl, logSource);
+            }
+            this._game.characterService.hurtAllPlayerCharacters(by - construct.lvl, logSource);
         }
     }
 
@@ -128,9 +131,19 @@ export class ConstructionService implements IConstructionService {
         this.getConstruction(construction).lvl = lvl;
     }
 
-    setDividedLvlByTwo(construction: CONSTRUCTION) {
+    setDividedLvlByTwo(construction: CONSTRUCTION, logSource: string) {
         const construct = this.getConstruction(construction);
-        construct.lvl = Math.floor(construct.lvl / 2);
+        const prevValue = construct.lvl;
+        construct.lvl = Math.floor(prevValue / 2);
+        if (construct.lvl !== prevValue) {
+            this._game.chatLog.addMessage(
+                `Poziom ${i18n.t(`construction.${construct.name}`, {
+                    context: "genitive",
+                })} spadł do poziomu ${construct.lvl}-ego`,
+                "red",
+                logSource
+            );
+        }
     }
 
     unlockConstruction(construction: CONSTRUCTION) {

@@ -2,7 +2,7 @@ import { Token } from "./Token/Token";
 import { IGame } from "../../../../interfaces/Game";
 import { DISCOVERY_TOKEN } from "../../../../interfaces/TokenService/Token";
 import { IPlayerCharacter } from "../../../../interfaces/Characters/PlayerCharacter";
-import { ICharacter } from "../../../../interfaces/Characters/Character";
+import { IPlayerCharacter } from "../../../../interfaces/Characters/Character";
 
 export class LargeLeaves extends Token {
   constructor(game: IGame) {
@@ -13,7 +13,7 @@ export class LargeLeaves extends Token {
     );
   }
 
-  use(user: IPlayerCharacter, target: ICharacter | null = null) {
+  use(user: IPlayerCharacter, target: IPlayerCharacter | null = null) {
     if (this._game.phaseService.phase === "weather") {
       super.use(user);
       this._game.weatherService.incrementModifier("rain", -1, this._sourceLog);

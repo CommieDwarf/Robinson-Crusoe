@@ -2,8 +2,8 @@ import {IAdventureCard} from "../../../../../../interfaces/AdventureService/Adve
 import {IGame} from "../../../../../../interfaces/Game";
 import {ADVENTURE_CARD_GATHER} from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
 import {GatherAdventureCard} from "./GatherAdventureCard/GatherAdventureCard";
-import {ICharacter} from "../../../../../../interfaces/Characters/Character";
 import {ITile} from "../../../../../../interfaces/TileService/ITile";
+import {IPlayerCharacter} from "../../../../../../interfaces/Characters/PlayerCharacter";
 
 export class AfterTheHurricane
     extends GatherAdventureCard
@@ -22,8 +22,8 @@ export class AfterTheHurricane
         );
     }
 
-    option1(resolver: ICharacter) {
-        this._game.resourceService.addBasicResourceToOwned("wood", 2, this._namePL);
+    option1(resolver: IPlayerCharacter) {
+        this._game.resourceService.addBasicResourceToFuture("wood", 2, this._namePL);
         const tile = this.getTile();
         tile.setTileModifier("timeConsumingAction", this._namePL);
         this._tile = tile;

@@ -4,7 +4,7 @@ import { IPlayerCharacter } from "../../../../interfaces/Characters/PlayerCharac
 import { PawnHelper } from "../../PawnService/Pawn/PawnHelper";
 import { PAWN_HELPER_ACTION } from "../../../../interfaces/Pawns/Pawn";
 import { DISCOVERY_TOKEN } from "../../../../interfaces/TokenService/Token";
-import { ICharacter } from "../../../../interfaces/Characters/Character";
+import { IPlayerCharacter } from "../../../../interfaces/Characters/Character";
 
 export class Candles extends Token {
   constructor(game: IGame) {
@@ -15,7 +15,7 @@ export class Candles extends Token {
     );
   }
 
-  use(user: IPlayerCharacter, target: ICharacter | null = null) {
+  use(user: IPlayerCharacter, target: IPlayerCharacter | null = null) {
     const pawnService = user.pawnService;
     const pawn = new PawnHelper(user, true, PAWN_HELPER_ACTION.BUILD);
     pawnService.addPawn(pawn);

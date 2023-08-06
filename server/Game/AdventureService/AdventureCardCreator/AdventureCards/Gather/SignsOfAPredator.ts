@@ -2,7 +2,8 @@ import {GatherAdventureCard} from "./GatherAdventureCard/GatherAdventureCard";
 import {IAdventureCard} from "../../../../../../interfaces/AdventureService/AdventureCard";
 import {IGame} from "../../../../../../interfaces/Game";
 import {ADVENTURE_CARD_GATHER} from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
-import {ICharacter} from "../../../../../../interfaces/Characters/Character";
+import {IPlayerCharacter} from "../../../../../../interfaces/Characters/PlayerCharacter";
+
 
 export class SignsOfAPredator
     extends GatherAdventureCard
@@ -20,8 +21,7 @@ export class SignsOfAPredator
         );
     }
 
-    option1(resolver: ICharacter) {
-        //TODO place beast token on the tile
+    option1(resolver: IPlayerCharacter) {
         const tile = this.getTile();
         tile.setTileModifier("greaterDanger", this._namePL);
     }

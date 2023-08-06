@@ -1,6 +1,6 @@
 import {PHASE} from "../PhaseService/Phase";
 import {AdventureAction} from "../ACTION";
-import {ICharacter} from "../Characters/Character";
+import {IPlayerCharacter} from "../Characters/Character";
 import {ActionDice} from "../RollDice/RollDice";
 
 export interface ISkill {
@@ -10,7 +10,7 @@ export interface ISkill {
     quote: string;
     phasesAllowed: PHASE[];
     actionAllowed: AdventureAction | null;
-    use: (target: ICharacter | ActionDice | null) => void;
+    use: (target: IPlayerCharacter | ActionDice | null) => void;
     used: boolean;
     cost: number;
     renderData: ISkillRenderData;

@@ -1,12 +1,12 @@
 import { IMysteryCard } from "./MysteryCard";
-import { ICharacter } from "../Characters/Character";
+import { IPlayerCharacter } from "../Characters/Character";
 
 export interface IMysteryCardDrawer {
   creature: number;
   trap: number;
   treasure: number;
 
-  drawer: ICharacter;
+  drawer: IPlayerCharacter;
 
   canDraw: boolean;
   finished: boolean;

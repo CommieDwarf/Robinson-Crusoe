@@ -1,5 +1,5 @@
 import { IMysteryCard, IMysteryCardRenderData } from "./MysteryCard";
-import { ICharacter, ICharacterRenderData } from "../Characters/Character";
+import { IPlayerCharacter, ICharacterRenderData } from "../Characters/Character";
 
 export interface IMysteryService {
   cardsAsReminders: IMysteryCard[];
@@ -11,7 +11,8 @@ export interface IMysteryService {
     creature: number,
     trap: number,
     treasure: number,
-    drawer: ICharacter
+    drawer: IPlayerCharacter,
+    max: number
   ) => void;
   addCardAsReminder: (card: IMysteryCard) => void;
   addTreasureToFutureResources: (card: IMysteryCard) => void;

@@ -2,10 +2,15 @@ import {TERRAIN_TYPE, TileExtras, TileResource} from "./ITile";
 
 export type Side = "left" | "right";
 
+export interface TileResourceModifier {
+    source: string,
+    resource: "food" | "wood";
+}
+
 export interface TileResourceInfo {
     resource: TileResource;
     depleted: boolean;
-    modifiers: string[];
+    modifiers: TileResourceModifier[];
     markedForAction: MarkedForAction | null;
 
     assignedPawns: number;

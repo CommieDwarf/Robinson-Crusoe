@@ -4,7 +4,7 @@ import { DISCOVERY_TOKEN } from "../../../../interfaces/TokenService/Token";
 import { INVENTION_STARTER } from "../../../../interfaces/InventionService/Invention";
 import { CONSTRUCTION } from "../../../../interfaces/ConstructionService/Construction";
 import { IPlayerCharacter } from "../../../../interfaces/Characters/PlayerCharacter";
-import { ICharacter } from "../../../../interfaces/Characters/Character";
+import { IPlayerCharacter } from "../../../../interfaces/Characters/Character";
 
 export class Poison extends Token {
   constructor(game: IGame) {
@@ -15,7 +15,7 @@ export class Poison extends Token {
     );
   }
 
-  use(user: IPlayerCharacter, target: ICharacter | null = null) {
+  use(user: IPlayerCharacter, target: IPlayerCharacter | null = null) {
     if (
       this._game.inventionService.getInvention(INVENTION_STARTER.POT).isBuilt
     ) {

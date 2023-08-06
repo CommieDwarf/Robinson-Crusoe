@@ -1,7 +1,7 @@
 import {CreatureMysteryCard} from "./CreatureMysteryCard/CreatureMysteryCard";
 import {IMysteryCard} from "../../../../../../interfaces/MysteryService/MysteryCard";
 import {IGame} from "../../../../../../interfaces/Game";
-import {ICharacter} from "../../../../../../interfaces/Characters/Character";
+import {IPlayerCharacter} from "../../../../../../interfaces/Characters/Character";
 import {CONSTRUCTION} from "../../../../../../interfaces/ConstructionService/Construction";
 
 export class Savage
@@ -11,7 +11,7 @@ export class Savage
     super(game, "savage", "dzikus", true, "nieudane polowanie");
   }
 
-  triggerDrawEffect(drawer: ICharacter) {
+  triggerDrawEffect(drawer: IPlayerCharacter) {
     const weapon = this._game.constructionService.getConstruction(
         CONSTRUCTION.WEAPON
     );

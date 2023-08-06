@@ -1,6 +1,6 @@
 import { IMysteryCard } from "../../../../../../interfaces/MysteryService/MysteryCard";
 import { IGame } from "../../../../../../interfaces/Game";
-import { ICharacter } from "../../../../../../interfaces/Characters/Character";
+import { IPlayerCharacter } from "../../../../../../interfaces/Characters/Character";
 import { TrapMysteryCard } from "./TrapMysteryCard/TrapMysteryCard";
 
 export class BlowGun extends TrapMysteryCard implements IMysteryCard {
@@ -8,7 +8,7 @@ export class BlowGun extends TrapMysteryCard implements IMysteryCard {
     super(game, "blow gun", "dmuchawka");
   }
 
-  triggerDrawEffect(drawer: ICharacter) {
+  triggerDrawEffect(drawer: IPlayerCharacter) {
     //TODO: implement 1 pawn off action.
   }
 }

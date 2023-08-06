@@ -7,7 +7,7 @@ import {
 } from "../../../../../../interfaces/InventionService/Invention";
 import {IGame} from "../../../../../../interfaces/Game";
 import {BasicResources} from "../../../../ResourceService/BasicResources";
-import {ICharacter} from "../../../../../../interfaces/Characters/Character";
+import {IPlayerCharacter} from "../../../../../../interfaces/Characters/Character";
 
 export class Fireplace extends Invention implements IInvention {
     protected _usable = true;
@@ -22,7 +22,7 @@ export class Fireplace extends Invention implements IInvention {
         );
     }
 
-    use(character: ICharacter) {
+    use(character: IPlayerCharacter) {
         const canAfford = this._game.resourceService.canAffordResource("food", 1);
         if (!canAfford) {
             this._game.alertService.setAlert(

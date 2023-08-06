@@ -6,6 +6,7 @@ import {
 } from "../../../../../interfaces/TileService/TileResourceService";
 import {TERRAIN_TYPE, TileExtras, TileResource,} from "../../../../../interfaces/TileService/ITile";
 import {IGame} from "../../../../../interfaces/Game";
+import {reverseSide} from "../../../../../utils/reverseSide";
 
 export class TileResourceService implements ITileResourceService {
     private readonly _game: IGame;
@@ -118,7 +119,7 @@ export class TileResourceService implements ITileResourceService {
             case TILE_RESOURCE_ACTION.ADD_MODIFIER:
                 return true;
             case TILE_RESOURCE_ACTION.REMOVE_MODIFIER:
-                return this._resources[side].modifiers.some((mod) => mod === source);
+                return this._resources[side].modifiers.some((mod) => mod.source === source);
             case TILE_RESOURCE_ACTION.UN_DEPLETE:
                 return this._resources[side].depleted;
             case TILE_RESOURCE_ACTION.DEPLETE:
@@ -182,15 +183,25 @@ export class TileResourceService implements ITileResourceService {
     }
 
     public addModifier(side: Side, source: string) {
+        const resource = this._resources[side].resource;
         if (this._resources[side].modifiers.length === 0) {
-            const resource = this._resources[side].resource;
             this._game.chatLog.addMessage(
                 `Żródło z ${resource} daje teraz dodatkowy surowiec`,
                 "green",
                 source
             );
         }
-        this._resources[side].modifiers.push(source);
+        if (resource !== "beast") {
+            this._resources[side].modifiers.push({source, resource});
+        } else {
+            const otherResource = this._resources[reverseSide(side)].resource;
+            if (otherResource === "wood") {
+                this._resources[side].modifiers.push({source, resource: "food"})
+            } else {
+                this._resources[side].modifiers.push({source, resource: "wood"})
+            }
+        }
+
     }
 
     public removeModifier(side: Side, source: string) {
@@ -203,7 +214,7 @@ export class TileResourceService implements ITileResourceService {
             );
         }
         this._resources[side].modifiers = this._resources[side].modifiers.filter(
-            (mod) => mod === source
+            (mod) => mod.resource === source
         );
     }
 

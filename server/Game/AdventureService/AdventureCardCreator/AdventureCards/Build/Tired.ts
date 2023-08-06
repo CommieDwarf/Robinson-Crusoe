@@ -1,31 +1,33 @@
-import { BuildAdventureCard } from "./BuildAdventureCard/BuildAdventureCard";
-import { IAdventureCard } from "../../../../../../interfaces/AdventureService/AdventureCard";
-import { IGame } from "../../../../../../interfaces/Game";
-import { ADVENTURE_CARD_BUILD } from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
-import { ICharacter } from "../../../../../../interfaces/Characters/Character";
+import {BuildAdventureCard} from "./BuildAdventureCard/BuildAdventureCard";
+import {IAdventureCard} from "../../../../../../interfaces/AdventureService/AdventureCard";
+import {IGame} from "../../../../../../interfaces/Game";
+import {ADVENTURE_CARD_BUILD} from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
+import {IPlayerCharacter} from "../../../../../../interfaces/Characters/PlayerCharacter";
 
 export class Tired extends BuildAdventureCard implements IAdventureCard {
-  protected _eventNamePL = "spór";
+    protected _eventNamePL = "spór";
 
-  constructor(game: IGame) {
-    super(
-      ADVENTURE_CARD_BUILD.TIRED,
-      "wyczerpany",
-      true,
-      game,
-      "shuffle",
-      "discard"
-    );
-  }
+    constructor(game: IGame) {
+        super(
+            ADVENTURE_CARD_BUILD.TIRED,
+            "wyczerpany",
+            true,
+            game,
+            "shuffle",
+            "discard"
+        );
+    }
 
-  option1(resolver: ICharacter) {}
+    option1(resolver: IPlayerCharacter) {
+        console.log(resolver);
+        this._game.characterService.heal(resolver, 2, this.namePL);
+        this.shuffleIntoEventDeck();
+    }
 
-  option2(resolver: ICharacter) {
-    this._game.characterService.heal(this.getPrimeCharacter(), 2, this.namePL);
-    this.shuffleIntoEventDeck();
-  }
+    option2(resolver: IPlayerCharacter) {
+    }
 
-  triggerEventEffect() {
-    this._game.moraleService.lvlDown(1, this._eventNamePL);
-  }
+    triggerEventEffect() {
+        this._game.moraleService.lvlDown(1, this._eventNamePL);
+    }
 }

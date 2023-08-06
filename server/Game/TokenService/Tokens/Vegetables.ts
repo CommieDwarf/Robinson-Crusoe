@@ -1,7 +1,7 @@
 import { Token } from "./Token/Token";
 import { IGame } from "../../../../interfaces/Game";
 import { DISCOVERY_TOKEN } from "../../../../interfaces/TokenService/Token";
-import { ICharacter } from "../../../../interfaces/Characters/Character";
+import { IPlayerCharacter } from "../../../../interfaces/Characters/Character";
 import { IPlayerCharacter } from "../../../../interfaces/Characters/PlayerCharacter";
 
 export class Vegetables extends Token {
@@ -13,7 +13,7 @@ export class Vegetables extends Token {
     );
   }
 
-  use(user: IPlayerCharacter, target: ICharacter | null) {
+  use(user: IPlayerCharacter, target: IPlayerCharacter | null) {
     if (!target) {
       throw Error("no target specified");
     }

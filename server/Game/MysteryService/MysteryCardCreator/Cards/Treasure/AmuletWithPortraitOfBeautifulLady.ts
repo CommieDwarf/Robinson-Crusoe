@@ -1,5 +1,5 @@
 import { IGame } from "../../../../../../interfaces/Game";
-import { ICharacter } from "../../../../../../interfaces/Characters/Character";
+import { IPlayerCharacter } from "../../../../../../interfaces/Characters/Character";
 import { TreasureMysteryCard } from "./TreasureMysteryCard/TreasureMysteryCard";
 import { IPlayerCharacter } from "../../../../../../interfaces/Characters/PlayerCharacter";
 import { IMysteryCard } from "../../../../../../interfaces/MysteryService/MysteryCard";
@@ -21,7 +21,7 @@ export class AmuletWithPortraitOfBeautifulLady
     );
   }
 
-  triggerDrawEffect(drawer: ICharacter) {
+  triggerDrawEffect(drawer: IPlayerCharacter) {
     this.addToResources();
   }
 

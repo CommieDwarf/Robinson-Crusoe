@@ -29,7 +29,7 @@ export class Flood extends EventCard implements IEventCard {
     }
 
     triggerThreatEffect() {
-        this._game.constructionService.lvlDownOrSuffer(
+        this._game.constructionService.lvlDownOrGetHurt(
             CONSTRUCTION.PALISADE,
             1,
             this._namePL

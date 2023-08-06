@@ -17,6 +17,22 @@
     filter: contrast(100%);
 }
 
+.resourceModifier {
+    aspect-ratio: 1;
+    height: 17%;
+    position: absolute;
+    bottom: 25%;
+}
+
+.resourceModifierLeft {
+    left: 15%;
+}
+
+.resourceModifierRight {
+    right: 20%;
+}
+
+
 .markedForAction {
     position: absolute;
     border-radius: 100%;

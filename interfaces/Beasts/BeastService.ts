@@ -1,5 +1,5 @@
 import { IBeast } from "./Beast";
-import { ICharacter } from "../Characters/Character";
+import { IPlayerCharacter } from "../Characters/Character";
 
 export interface IBeastServiceRenderData {
   deckCount: number;
@@ -12,8 +12,8 @@ export interface IBeastService {
   moveBeastFromStackToDeck: () => void;
   addBeastToDeck: (beast: IBeast) => void;
   getBeastsFromStack: (amount: number) => IBeast[];
-  killBeast: (leader: ICharacter) => void;
-  fightBeast: (leader: ICharacter) => void;
+  killBeast: (leader: IPlayerCharacter) => void;
+  fightBeast: (leader: IPlayerCharacter) => void;
   removeBeastFromDeck: () => void;
   swapDeckTopToBottom: () => void;
   beastStrengthEnchanted: boolean;

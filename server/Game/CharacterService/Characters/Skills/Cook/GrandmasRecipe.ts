@@ -1,7 +1,7 @@
 import { Skill } from "../Skill/Skill";
 import { IGame } from "../../../../../../interfaces/Game";
 import { grandmasRecipe } from "../../../../../../constants/SkillDescriptions/Cook";
-import { ICharacter } from "../../../../../../interfaces/Characters/Character";
+import { IPlayerCharacter } from "../../../../../../interfaces/Characters/Character";
 import { IPlayerCharacter } from "../../../../../../interfaces/Characters/PlayerCharacter";
 import { ISkill } from "../../../../../../interfaces/Skill/Skill";
 import { ActionDice } from "../../../../../../interfaces/RollDice/RollDice";
@@ -23,7 +23,7 @@ export class GrandmasRecipe extends Skill implements ISkill {
     this._character = character;
   }
 
-  use(target: ICharacter | ActionDice | null = null) {
+  use(target: IPlayerCharacter | ActionDice | null = null) {
     if (!target) {
       return;
     }

@@ -3,14 +3,14 @@ import { IGame } from "../../../../../interfaces/Game";
 import { DISCOVERY_TOKEN } from "../../../../../interfaces/TokenService/Token";
 import { CONSTRUCTION } from "../../../../../interfaces/ConstructionService/Construction";
 import { IPlayerCharacter } from "../../../../../interfaces/Characters/PlayerCharacter";
-import { ICharacter } from "../../../../../interfaces/Characters/Character";
+import { IPlayerCharacter } from "../../../../../interfaces/Characters/Character";
 
 export class Castaways3 extends Token {
   constructor(game: IGame) {
     super(game, DISCOVERY_TOKEN.SCENARIO_3, "Daje +1 do broni ");
   }
 
-  use(user: IPlayerCharacter, target: ICharacter | null = null) {
+  use(user: IPlayerCharacter, target: IPlayerCharacter | null = null) {
     this._game.constructionService.lvlUpConstruction(
       CONSTRUCTION.WEAPON,
       1,

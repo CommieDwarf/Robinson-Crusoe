@@ -71,11 +71,8 @@ export class BasicResources implements IBasicResources {
 
   public spendResource(resource: keyof IBasicResourcesAmount, amount: number) {
     const owned = this._amount.get(resource);
-    if (!owned) {
-      throw new Error("owned is undefined");
-    }
-    if (owned - amount < 0) {
-      throw new Error(`Can't afford ${amount} ${resource}. (${owned})`);
+    if (owned === undefined) {
+      throw new Error("owned is undefined")
     }
     this._amount.set(resource, owned - amount);
   }

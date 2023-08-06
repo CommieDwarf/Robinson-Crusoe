@@ -9,7 +9,6 @@ import {
     TileResource,
 } from "../../../../interfaces/TileService/ITile";
 import {IGame} from "../../../../interfaces/Game";
-import {ICharacter} from "../../../../interfaces/Characters/Character";
 import {CONSTRUCTION} from "../../../../interfaces/ConstructionService/Construction";
 import {
     GatherableResourceAmount,
@@ -21,6 +20,7 @@ import {FixedTileResources} from "../../../../interfaces/TileService/TileResourc
 import {TileResourceService} from "./TileResourceService/TileResourceService";
 import {AssignablePawnsItem} from "../../AssignablePawnsItem/AssignablePawnsItem";
 import {ACTION, ACTION_ITEM} from "../../../../interfaces/ACTION";
+import {ICharacter} from "../../../../interfaces/Characters/Character";
 
 export class Tile extends AssignablePawnsItem implements ITile {
 
@@ -34,10 +34,10 @@ export class Tile extends AssignablePawnsItem implements ITile {
     private _canCampBeSettled = false;
     private _camp: boolean;
     private _modifiers: TileModifiers = {
-        greaterDanger: "",
-        timeConsumingAction: "",
-        terrainDepleted: "",
-        flipped: "",
+        greaterDanger: null,
+        timeConsumingAction: null,
+        terrainDepleted: null,
+        flipped: null,
     };
 
 
@@ -92,6 +92,7 @@ export class Tile extends AssignablePawnsItem implements ITile {
         this._distance = value;
     }
 
+
     public isSideRequiredPawnsSatisfied(side: Side): boolean {
         if (this._tileResourceService && this.requiredPawnAmount !== null) {
             return this._tileResourceService.resources[side].assignedPawns > this.requiredPawnAmount
@@ -109,7 +110,8 @@ export class Tile extends AssignablePawnsItem implements ITile {
         if (basePawnAmount === null) {
             return null;
         }
-        let pawnAmount = this._modifiers.timeConsumingAction ? basePawnAmount + 1 : basePawnAmount;
+        const mod = this._modifiers.timeConsumingAction;
+        let pawnAmount = mod && mod.setInRound !== this._game.round ? basePawnAmount + 1 : basePawnAmount;
         if (this._distance != null && this._distance >= 0) {
             return pawnAmount + this._distance - 1;
         } else {
@@ -219,6 +221,7 @@ export class Tile extends AssignablePawnsItem implements ITile {
     }
 
     public depleteResource(side: "left" | "right", source: string) {
+        console.log(source);
         this._tileResourceService?.deplete(side, source);
     }
 
@@ -291,12 +294,15 @@ export class Tile extends AssignablePawnsItem implements ITile {
                 trigger = this.getTileModifierTrigger("flipped", false, source);
         }
 
+
         this._markedForAction = {
             action: actionName,
             source,
             trigger,
-        }
+        };
+
     }
+
 
     resetTileActionMark() {
         this._markedForAction = null;
@@ -320,6 +326,7 @@ export class Tile extends AssignablePawnsItem implements ITile {
             resources.extras
         );
         this._action = ACTION.GATHER;
+
     }
 
     public setStructureLvl(
@@ -380,7 +387,7 @@ export class Tile extends AssignablePawnsItem implements ITile {
     }
 
     public unsetTileModifier(modifier: keyof TileModifiers, source: string) {
-        this._modifiers[modifier] = "";
+        this._modifiers[modifier] = null;
         if (modifier === "flipped") {
             this._game.tileService.updateDistance();
         }
@@ -399,6 +406,19 @@ export class Tile extends AssignablePawnsItem implements ITile {
                     source
                 );
                 break;
+            case "terrainDepleted":
+                this._game.chatLog.addMessage(
+                    "Teren na kafelku został odkryty",
+                    "green",
+                    source
+                );
+            case "flipped":
+                this._game.chatLog.addMessage(
+                    "Kafelek został przywrócony",
+                    "green",
+                    source,
+                )
+
         }
     }
 
@@ -406,7 +426,7 @@ export class Tile extends AssignablePawnsItem implements ITile {
         modifier: keyof TileModifiers,
         source: string
     ) {
-        this.modifiers[modifier] = source;
+        this.modifiers[modifier] = {source, setInRound: this._game.round};
         if (modifier === "flipped") {
             this._game.tileService.updateDistance();
         }
@@ -424,7 +444,20 @@ export class Tile extends AssignablePawnsItem implements ITile {
                     "red",
                     source
                 );
-
+                    break;
+            case "terrainDepleted":
+                this._game.chatLog.addMessage(
+                    "Teren na kafelku został zasłonięty",
+                    "red",
+                    source
+                )
+                break;
+            case "flipped":
+                this._game.chatLog.addMessage(
+                    "Kafelek został przewrócony na drugą stronę",
+                    "red",
+                    source
+                )
         }
     }
 }

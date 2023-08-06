@@ -21,7 +21,7 @@ export interface IConstructionService {
         by: number,
         logSource: string
     ) => void;
-    lvlDownOrSuffer: (
+    lvlDownOrGetHurt: (
         construction: CONSTRUCTION,
         by: number,
         logSource: string
@@ -36,7 +36,7 @@ export interface IConstructionService {
     unlockConstruction: (construction: CONSTRUCTION) => void;
     lockConstruction: (construction: CONSTRUCTION) => void;
     unlockAllConstructions: () => void;
-  
+
     getConstruction: (construction: CONSTRUCTION) => IConstruction;
     isBuilt: (construction: CONSTRUCTION) => boolean;
     renderData: IConstructionServiceRenderData;

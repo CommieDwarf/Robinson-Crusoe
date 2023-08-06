@@ -1,6 +1,6 @@
 import { IGame } from "../../../interfaces/Game";
 import { IMorale } from "../../../interfaces/Morale/Morale";
-import { ICharacter } from "../../../interfaces/Characters/Character";
+import { IPlayerCharacter } from "../../../interfaces/Characters/Character";
 
 export class MoraleService implements IMorale {
   private _lvl = 0;
@@ -62,7 +62,7 @@ export class MoraleService implements IMorale {
     }
   }
 
-  getDetermination(primeCharacter: ICharacter) {
+  getDetermination(primeCharacter: IPlayerCharacter) {
     if (this._lvl === 0) {
       return;
     }

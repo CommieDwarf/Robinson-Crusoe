@@ -1,7 +1,7 @@
 import { Token } from "../Token/Token";
 import { IGame } from "../../../../../interfaces/Game";
 import { IPlayerCharacter } from "../../../../../interfaces/Characters/PlayerCharacter";
-import { ICharacter } from "../../../../../interfaces/Characters/Character";
+import { IPlayerCharacter } from "../../../../../interfaces/Characters/Character";
 import { DISCOVERY_TOKEN } from "../../../../../interfaces/TokenService/Token";
 
 export class Castaways1 extends Token {
@@ -9,7 +9,7 @@ export class Castaways1 extends Token {
     super(game, DISCOVERY_TOKEN.SCENARIO_1, "Leczy 1 ranę w nocy.");
   }
 
-  use(user: IPlayerCharacter, target: ICharacter | null) {
+  use(user: IPlayerCharacter, target: IPlayerCharacter | null) {
     if (!target) {
       throw new Error("No target specified");
     }

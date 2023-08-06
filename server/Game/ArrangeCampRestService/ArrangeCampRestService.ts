@@ -1,5 +1,5 @@
 import {IArrangeCampRestService} from "../../../interfaces/RestArrangeCampService/ArrangeCampRestService";
-import {ICharacter} from "../../../interfaces/Characters/Character";
+import {IPlayerCharacter} from "../../../interfaces/Characters/Character";
 import {AssignablePawnsItem} from "../AssignablePawnsItem/AssignablePawnsItem";
 
 export class ArrangeCampRestService implements IArrangeCampRestService {
@@ -45,10 +45,10 @@ export class ArrangeCampRestService implements IArrangeCampRestService {
         this._pawnAmount[action]--;
     }
 
-    public rest(character: ICharacter) {
+    public rest(character: IPlayerCharacter) {
     }
 
 
-    public arrangeCamp(character: ICharacter) {
+    public arrangeCamp(character: IPlayerCharacter) {
     }
 }

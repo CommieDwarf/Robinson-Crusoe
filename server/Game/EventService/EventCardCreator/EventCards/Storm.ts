@@ -21,7 +21,7 @@ export class Storm extends EventCard implements IEventCard {
                 construction: null,
                 resource: "wood",
                 optionalResource: null,
-                
+
             },
             game
         );
@@ -32,7 +32,7 @@ export class Storm extends EventCard implements IEventCard {
     }
 
     triggerThreatEffect() {
-        this._game.constructionService.lvlDownOrSuffer(
+        this._game.constructionService.lvlDownOrGetHurt(
             CONSTRUCTION.PALISADE,
             1,
             this._namePL

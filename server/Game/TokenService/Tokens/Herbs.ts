@@ -1,7 +1,7 @@
 import { Token } from "./Token/Token";
 import { IGame } from "../../../../interfaces/Game";
 import { INVENTION_STARTER } from "../../../../interfaces/InventionService/Invention";
-import { ICharacter } from "../../../../interfaces/Characters/Character";
+import { IPlayerCharacter } from "../../../../interfaces/Characters/Character";
 import { DISCOVERY_TOKEN } from "../../../../interfaces/TokenService/Token";
 import { IPlayerCharacter } from "../../../../interfaces/Characters/PlayerCharacter";
 
@@ -14,7 +14,7 @@ export class Herbs extends Token {
     );
   }
 
-  use(user: IPlayerCharacter, target: ICharacter | null = null) {
+  use(user: IPlayerCharacter, target: IPlayerCharacter | null = null) {
     if (
       this._game.inventionService.getInvention(INVENTION_STARTER.POT).isBuilt
     ) {

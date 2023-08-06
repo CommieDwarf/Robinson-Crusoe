@@ -1,36 +1,36 @@
-import { ExploreAdventureCard } from "./ExploreAdventureCard/ExploreAdventureCard";
-import { IAdventureCard } from "../../../../../../interfaces/AdventureService/AdventureCard";
-import { IGame } from "../../../../../../interfaces/Game";
-import { ADVENTURE_CARD_EXPLORE } from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
-import { ICharacter } from "../../../../../../interfaces/Characters/Character";
+import {ExploreAdventureCard} from "./ExploreAdventureCard/ExploreAdventureCard";
+import {IAdventureCard} from "../../../../../../interfaces/AdventureService/AdventureCard";
+import {IGame} from "../../../../../../interfaces/Game";
+import {ADVENTURE_CARD_EXPLORE} from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
+import {IPlayerCharacter} from "../../../../../../interfaces/Characters/PlayerCharacter";
 
 export class Flu extends ExploreAdventureCard implements IAdventureCard {
-  protected _eventNamePL = "ból gardła";
+    protected _eventNamePL = "ból gardła";
 
-  constructor(game: IGame) {
-    super(
-      ADVENTURE_CARD_EXPLORE.FLU,
-      "grypa",
-      true,
-      game,
-      "discard",
-      "shuffle"
-    );
-  }
+    constructor(game: IGame) {
+        super(
+            ADVENTURE_CARD_EXPLORE.FLU,
+            "grypa",
+            true,
+            game,
+            "discard",
+            "shuffle"
+        );
+    }
 
-  option1(resolver: ICharacter) {
-    this._game.resourceService.spendBasicResourceOrGetHurt(
-      "food",
-      1,
-      this._namePL
-    );
-  }
+    option1(resolver: IPlayerCharacter) {
+        this._game.resourceService.spendBasicResourceOrGetHurt(
+            "food",
+            1,
+            this._namePL
+        );
+    }
 
-  option2(resolver: ICharacter) {
-    this.shuffleIntoEventDeck();
-  }
+    option2(resolver: IPlayerCharacter) {
+        this.shuffleIntoEventDeck();
+    }
 
-  triggerEventEffect() {
-    //TODO: implement double food consumption or get hurt.
-  }
+    triggerEventEffect() {
+        //TODO: implement double food consumption or get hurt.
+    }
 }

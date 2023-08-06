@@ -25,7 +25,6 @@ export interface ITile extends IAssignablePawnsItem {
     isSideRequiredPawnsSatisfied: (side: Side) => boolean;
     isAnySideRequiredPawnsSatisfied: () => boolean;
 
-
     canCampBeSettled: boolean;
     canResourceBeDepleted: (side: "left" | "right") => boolean;
     hasBasicResource: (resource: "wood" | "food") => boolean;
@@ -154,10 +153,14 @@ export enum TILE_ACTION {
     UN_FLIP = "un flip",
 }
 
+export interface TileModifier {
+    source: string,
+    setInRound: number,
+}
 
 export interface TileModifiers {
-    greaterDanger: string;
-    timeConsumingAction: string;
-    terrainDepleted: string;
-    flipped: string;
+    greaterDanger: TileModifier | null;
+    timeConsumingAction: TileModifier | null;
+    terrainDepleted: TileModifier | null;
+    flipped: TileModifier | null;
 }

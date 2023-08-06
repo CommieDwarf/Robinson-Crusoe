@@ -1,13 +1,13 @@
 import { TreasureMysteryCard } from "./TreasureMysteryCard/TreasureMysteryCard";
 import { IGame } from "../../../../../../interfaces/Game";
-import { ICharacter } from "../../../../../../interfaces/Characters/Character";
+import { IPlayerCharacter } from "../../../../../../interfaces/Characters/Character";
 
 export class Barrel extends TreasureMysteryCard {
   constructor(game: IGame) {
     super(game, "barrel", "beczka", false, "", 1);
   }
 
-  triggerDrawEffect(drawer: ICharacter) {
+  triggerDrawEffect(drawer: IPlayerCharacter) {
     this.addToResources();
   }
 

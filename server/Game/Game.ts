@@ -80,7 +80,7 @@ export class GameClass implements IGame {
     private _beastService: IBeastService = new BeastService(this);
     private _actionSlotService = new ActionSlotService(this);
     private _moraleService = new MoraleService(this);
-    private _round = 10;
+    private _round = 1;
     private _scenarioService: IScenarioService = new Castaways(this);
     private _tokenService = new TokenService(this);
     private _adventureService = new AdventureService(this);

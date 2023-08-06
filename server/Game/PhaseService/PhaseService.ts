@@ -44,6 +44,8 @@ export class PhaseService implements IPhaseService {
     get locked() {
         if (this._phase === "action" && !this._game.actionService.finished) {
             return true;
+        } else if (this._phase === "event" && this._game.eventService.adventureNeedsToBeResolved) {
+            return true;
         }
         return this._game.tileService.resourceAmountToDeplete > 0;
     }
@@ -76,6 +78,9 @@ export class PhaseService implements IPhaseService {
         }
         try {
             this.phaseEffects[this._phase]();
+            if (this._phase === "event" && this._game.eventService.currentAdventureCard) {
+                return;
+            }
             this._phaseIndex =
                 this._phaseIndex === phaseOrder.length - 1 ? 0 : ++this._phaseIndex;
             this._phase = phaseOrder[this._phaseIndex];
@@ -94,7 +99,6 @@ export class PhaseService implements IPhaseService {
     }
 
     private eventEffect = () => {
-        this._game.eventService.moveCardsLeft();
         this._game.eventService.pullCard();
     };
 

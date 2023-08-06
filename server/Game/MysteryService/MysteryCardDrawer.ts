@@ -4,7 +4,7 @@ import {
 } from "../../../interfaces/MysteryService/MysteryCard";
 import {IMysteryService} from "../../../interfaces/MysteryService/MysteryService";
 import {IMysteryCardDrawer} from "../../../interfaces/MysteryService/MysteryCardDrawer";
-import {ICharacter} from "../../../interfaces/Characters/Character";
+import {IPlayerCharacter} from "../../../interfaces/Characters/Character";
 
 export class MysteryCardDrawer implements IMysteryCardDrawer {
     private _creature: number;
@@ -15,20 +15,25 @@ export class MysteryCardDrawer implements IMysteryCardDrawer {
     private _cardsExcluded: IMysteryCard[] = [];
     private _canFinish: boolean = false;
     private _finished: boolean = false;
-    private readonly _drawer: ICharacter;
+    private _max: number;
+    private readonly _drawer: IPlayerCharacter;
+    private _cardDrewCount: number = 0;
 
     constructor(
         mysteryService: IMysteryService,
         creature: number,
         trap: number,
         treasure: number,
-        drawer: ICharacter
+        drawer: IPlayerCharacter,
+        max: number
     ) {
         this._mysteryService = mysteryService;
         this._creature = creature;
         this._trap = trap;
         this._treasure = treasure;
         this._drawer = drawer;
+        this._max = max
+        console.log(max, "MAX")
     }
 
     get canFinish(): boolean {
@@ -48,10 +53,10 @@ export class MysteryCardDrawer implements IMysteryCardDrawer {
     }
 
     get canDraw() {
-        return this._trap > 0 || this._creature > 0 || this._treasure > 0;
+        return (this._trap > 0 || this._creature > 0 || this._treasure > 0) && this._max > this._cardDrewCount;
     }
 
-    get drawer(): ICharacter {
+    get drawer(): IPlayerCharacter {
         return this._drawer;
     }
 
@@ -100,6 +105,7 @@ export class MysteryCardDrawer implements IMysteryCardDrawer {
         const types = this.getCardTypes();
         const card = this.getMysteryCard(types);
         this.decrCardType(card.type);
+        this._cardDrewCount ++;
         return card;
     }
 
@@ -125,4 +131,6 @@ export class MysteryCardDrawer implements IMysteryCardDrawer {
             this._finished = true;
         }
     }
+
+  
 }

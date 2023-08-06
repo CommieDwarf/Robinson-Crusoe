@@ -9,13 +9,13 @@ import {IGame} from "../../../../interfaces/Game";
 import {IBasicResources} from "../../../../interfaces/Resources/Resources";
 import {PAWN_HELPER_ACTION} from "../../../../interfaces/Pawns/Pawn";
 import {PawnHelper} from "../../PawnService/Pawn/PawnHelper";
-import {ICharacter} from "../../../../interfaces/Characters/Character";
+import {IPlayerCharacter} from "../../../../interfaces/Characters/Character";
 import {IPlayerCharacter} from "../../../../interfaces/Characters/PlayerCharacter";
 import {SingleResourceRequirement} from "../../../../interfaces/ResourceCommitableItem/ResourceCommittableItem";
 
 export class HelperPawnInvention extends Invention implements IInvention {
     protected _pawnHelperAction: PAWN_HELPER_ACTION;
-    protected _character: ICharacter | null = null;
+    protected _character: IPlayerCharacter | null = null;
     protected _pawnID = "";
 
     constructor(

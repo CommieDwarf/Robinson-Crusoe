@@ -2,7 +2,8 @@ import {GatherAdventureCard} from "./GatherAdventureCard/GatherAdventureCard";
 import {IAdventureCard} from "../../../../../../interfaces/AdventureService/AdventureCard";
 import {IGame} from "../../../../../../interfaces/Game";
 import {ADVENTURE_CARD_GATHER} from "../../../../../../interfaces/AdventureService/ADVENTURE_CARD";
-import {ICharacter} from "../../../../../../interfaces/Characters/Character";
+import {IPlayerCharacter} from "../../../../../../interfaces/Characters/PlayerCharacter";
+
 
 export class EyesInTheBushes
     extends GatherAdventureCard
@@ -20,12 +21,12 @@ export class EyesInTheBushes
         );
     }
 
-    option1(resolver: ICharacter) {
+    option1(resolver: IPlayerCharacter) {
         this.shuffleIntoEventDeck();
     }
 
     triggerEventEffect() {
         //TODO: set hungry animal in weather.
-        this._game.weatherService.setToken()
+        // this._game.weatherService.setToken()
     }
 }

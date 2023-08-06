@@ -6,15 +6,15 @@ import { IPawn, IPawnHelper } from "../../../interfaces/Pawns/Pawn";
 
 import { PawnArrayName } from "../../../interfaces/Pawns/Pawns";
 import { Pawn } from "./Pawn/Pawn";
-import { ICharacter } from "../../../interfaces/Characters/Character";
+import { IPlayerCharacter } from "../../../interfaces/Characters/Character";
 
 export class PawnService implements IPawnService {
   private _freePawns: (IPawn | IPawnHelper)[] = [];
   private _pawns: (IPawn | IPawnHelper)[] = [];
-  private readonly _character: ICharacter;
+  private readonly _character: IPlayerCharacter;
   _initialQuantity: number;
 
-  constructor(character: ICharacter, initialQuantity: number) {
+  constructor(character: IPlayerCharacter, initialQuantity: number) {
     this._character = character;
     this._pawns = this.getInitialPawns(initialQuantity);
     this._freePawns = [...this._pawns];
@@ -43,7 +43,7 @@ export class PawnService implements IPawnService {
     return this._pawns;
   }
 
-  get character(): ICharacter {
+  get character(): IPlayerCharacter {
     return this._character;
   }
 

@@ -6,7 +6,7 @@ import {
 import { IPlayerCharacter } from "../../../../../interfaces/Characters/PlayerCharacter";
 import { IGame } from "../../../../../interfaces/Game";
 import { v4 as uuidv4 } from "uuid";
-import { ICharacter } from "../../../../../interfaces/Characters/Character";
+import { IPlayerCharacter } from "../../../../../interfaces/Characters/Character";
 
 export abstract class Token implements IToken {
   protected _name: DISCOVERY_TOKEN;
@@ -51,7 +51,7 @@ export abstract class Token implements IToken {
     return this._description;
   }
 
-  public use(user: IPlayerCharacter, target: ICharacter | null = null): void {
+  public use(user: IPlayerCharacter, target: IPlayerCharacter | null = null): void {
     this._game.chatLog.addMessage(
       `postać ${user.name} użyła ${this.name}`,
       "neutral",

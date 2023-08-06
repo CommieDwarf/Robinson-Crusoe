@@ -180,15 +180,15 @@ export class ResourceService implements IResourceService {
     if (amount === 0) {
       return;
     }
-    const diff = this._owned.basic.getResource(resource) - amount;
-    if (diff < 0) {
-      this._owned.basic.setResource(resource, 0);
-    } else {
-      this._owned.basic.spendResource(resource, amount);
-    }
-    if (logSource.length > 0) {
+    const owned = this._owned.basic.getResource(resource)
+    const realAmountToSpend = amount >= owned ? owned : amount;
+    console.log(realAmountToSpend, "REAL");
+    console.log("owned", owned);
+    console.log("amount", amount)
+    this._owned.basic.spendResource(resource, realAmountToSpend);
+    if (logSource.length > 0 && realAmountToSpend !== 0) {
       this._game.chatLog.addMessage(
-        `Odjęto ${amount} ${i18n.t(`resource.${resource}`, {
+        `Odjęto ${realAmountToSpend} ${i18n.t(`resource.${resource}`, {
           count: amount,
         })} z posiadanych surowców`,
         "red",

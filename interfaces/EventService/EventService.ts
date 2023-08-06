@@ -1,9 +1,10 @@
 import { IEventCard, IEventCardRenderData } from "./EventCard";
-import { IAdventureCard } from "../AdventureService/AdventureCard";
+import { IAdventureCard, IAdventureCardRenderData } from "../AdventureService/AdventureCard";
 
 export interface IEventServiceRenderData {
   leftSlot: IEventCardRenderData | null;
   rightSlot: IEventCardRenderData | null;
+  currentAdventureCard: IAdventureCardRenderData | null;
 }
 
 export interface ThreatSpecialEffects {
@@ -13,13 +14,14 @@ export interface ThreatSpecialEffects {
 export interface IEventService {
   leftSlot: IEventCard | null;
   rightSlot: IEventCard | null;
+  currentAdventureCard: IAdventureCard | null;
+  adventureNeedsToBeResolved: boolean;
   renderData: IEventServiceRenderData;
   specialEffects: ThreatSpecialEffects;
 
   addCardToTopOfStack: (card: unknown) => void;
   shuffleCardInToDeck: (card: IAdventureCard) => void;
   switchCardFromTopToBottomOfStack: () => void;
-  moveCardsLeft: () => void;
   pullCard: () => void;
   setSpecialEffect: (
     effect: keyof ThreatSpecialEffects,
@@ -27,6 +29,7 @@ export interface IEventService {
     logSource: string
   ) => void;
   fullFill: (cardID: string) => void;
+  resolveEventAdventure: (option: 1 | 2) => void;
   getSlotByCardID: (cardID: string) => "left" | "right";
   getCardSlotByDroppableId: (droppableId: string) => IEventCard;
 }

@@ -10,6 +10,9 @@ import {IAdventureCard} from "../../../interfaces/AdventureService/AdventureCard
 import {EventCard} from "./EventCardCreator/EventCard";
 import shuffle from "../../../utils/shuffleArray";
 import {implementedEventCards} from "../../../constants/cards/EventCards";
+import { AdventureCardCreator } from "../AdventureService/AdventureCardCreator/Creators/AdventureCardCreator";
+import { buildAdventureCards } from "../../../constants/cards/AdventureCards/build";
+import { isEventCard } from "../../../utils/isEventCard";
 
 interface EventSlots {
     left: null | IEventCard;
@@ -18,6 +21,8 @@ interface EventSlots {
 
 export class EventService implements IEventService {
     private _eventCardDeck: (IEventCard | IAdventureCard)[];
+    private _currentAdventureCard: IAdventureCard | null = null;
+    private _adventureNeedsToBeResolved: boolean = false;
 
     private readonly _game: IGame;
     private _eventSlots: EventSlots = {
@@ -36,11 +41,10 @@ export class EventService implements IEventService {
     }
 
     get renderData(): IEventServiceRenderData {
-        const leftSlot = this.leftSlot ? this.leftSlot.renderData : null;
-        const rightSlot = this.rightSlot ? this.rightSlot.renderData : null;
         return {
-            leftSlot,
-            rightSlot,
+            leftSlot: this.leftSlot?.renderData || null,
+            rightSlot: this.rightSlot?.renderData || null, 
+            currentAdventureCard: this._currentAdventureCard?.renderData || null
         };
     }
 
@@ -62,6 +66,14 @@ export class EventService implements IEventService {
 
     get rightSlot() {
         return this._eventSlots.right;
+    }
+
+    get currentAdventureCard() {
+        return this._currentAdventureCard;
+    }
+
+    get adventureNeedsToBeResolved() {
+        return this._adventureNeedsToBeResolved;
     }
 
     public getCardSlotByDroppableId(droppableId: string) {
@@ -102,13 +114,31 @@ export class EventService implements IEventService {
             throw new Error("There is no card to pull");
         }
         card.triggerEventEffect();
-        if (card instanceof EventCard) {
+        if (isEventCard(card)) {
+            this.moveCardsLeft();
             this._eventSlots.right = card;
+            this._currentAdventureCard = null;
             card.setAdventureToken();
+
+        } else {
+            this._currentAdventureCard = card;
+            if (card.eventOptions?.every((card => card.canBeResolved()))) {
+                this._adventureNeedsToBeResolved = true;
+            } else if (card.eventOptions) {
+                const resolvable = card.eventOptions.find((option) => option.canBeResolved());
+                console.log(resolvable, "RESOLVABLE")
+                if (resolvable) {
+                    resolvable.resolve()
+                } else {
+                    console.log("NOT RESOLVABLE")
+                    // this._game.localPlayer.getCharacter().hurt(1);
+                }
+            }
         }
     }
 
-    public moveCardsLeft() {
+
+    private moveCardsLeft() {
         this.leftSlot?.triggerThreatEffect();
         this.leftSlot = null;
 
@@ -121,7 +151,9 @@ export class EventService implements IEventService {
 
     public shuffleCardInToDeck(card: IAdventureCard) {
         this._eventCardDeck.push(card);
-        this._eventCardDeck = shuffle(this._eventCardDeck);
+
+        // TEMPORARY COMMENTED FOR ADVENTURE CARD TESTING PURPOUSES
+        // this._eventCardDeck = shuffle(this._eventCardDeck);
     }
 
     public switchCardFromTopToBottomOfStack() {
@@ -150,6 +182,16 @@ export class EventService implements IEventService {
                 : 'przy zagrożeniu nie muszą już być użyte pionki 2 innych postaci"';
             this._game.chatLog.addMessage(msg, color, logSource);
         }
+    }
+
+    public resolveEventAdventure(option: 1 | 2) {
+        const options = this._currentAdventureCard?.eventOptions;
+        if (!options) {
+            throw new Error("No options to resolve or currentAdventureCard is null")
+        }
+        options[option - 1].resolve();
+        this._currentAdventureCard = null;
+        this._adventureNeedsToBeResolved = false;
     }
 
     private initEventCards(): IEventCard[] {

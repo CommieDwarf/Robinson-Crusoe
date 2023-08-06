@@ -1,4 +1,4 @@
-import { ICharacter } from "../Characters/Character";
+import { IPlayerCharacter } from "../Characters/Character";
 import { ISkillRenderData } from "../Skill/Skill";
 
 export interface IPawnRenderData {
@@ -15,7 +15,7 @@ export interface IPawnRenderData {
 
 export interface IPawn {
   draggableId: string;
-  character: ICharacter;
+  character: IPlayerCharacter;
   renderData: IPawnRenderData;
 }
 

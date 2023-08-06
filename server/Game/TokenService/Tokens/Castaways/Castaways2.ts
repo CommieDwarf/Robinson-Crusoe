@@ -2,7 +2,7 @@ import {Token} from "../Token/Token";
 import {IGame} from "../../../../../interfaces/Game";
 import {DISCOVERY_TOKEN} from "../../../../../interfaces/TokenService/Token";
 import {IPlayerCharacter} from "../../../../../interfaces/Characters/PlayerCharacter";
-import {ICharacter} from "../../../../../interfaces/Characters/Character";
+import {IPlayerCharacter} from "../../../../../interfaces/Characters/Character";
 
 export class Castaways2 extends Token {
   constructor(game: IGame) {
@@ -14,7 +14,7 @@ export class Castaways2 extends Token {
   }
 
   //TODO: implement usage. Implement scenario stash.
-  use(user: IPlayerCharacter, target: ICharacter | null) {
+  use(user: IPlayerCharacter, target: IPlayerCharacter | null) {
 
   }
 

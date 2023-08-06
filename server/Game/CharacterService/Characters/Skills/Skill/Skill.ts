@@ -1,7 +1,7 @@
 import {PHASE} from "../../../../../../interfaces/PhaseService/Phase";
 import {AdventureAction} from "../../../../../../interfaces/ACTION";
 import {IGame} from "../../../../../../interfaces/Game";
-import {ICharacter} from "../../../../../../interfaces/Characters/Character";
+import {IPlayerCharacter} from "../../../../../../interfaces/Characters/Character";
 import {ISkill} from "../../../../../../interfaces/Skill/Skill";
 import {ActionDice} from "../../../../../../interfaces/RollDice/RollDice";
 
@@ -17,7 +17,7 @@ export abstract class Skill implements ISkill {
     protected _used = false;
     protected _cost: number;
 
-    abstract use(target: ICharacter | ActionDice | null): void;
+    abstract use(target: IPlayerCharacter | ActionDice | null): void;
 
     protected constructor(
         name: string,

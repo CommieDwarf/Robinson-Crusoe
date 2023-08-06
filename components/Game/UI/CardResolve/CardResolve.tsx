@@ -12,6 +12,7 @@ import { Mystery } from "./Mystery/Mystery";
 type Props = {
   renderData: IAdventureCardRenderData | IMysteryServiceRenderData;
   resolve: (option: 1 | 2) => void;
+  eventStage: boolean;
 };
 const CardResolve = (props: Props) => {
   const [enlarged, setEnlarged] = useState(false);
@@ -29,6 +30,7 @@ const CardResolve = (props: Props) => {
               card={props.renderData}
               resolve={props.resolve}
               toggleZoom={toggleZoom}
+              eventStage={props.eventStage}
             />
           ) : (
             <Mystery

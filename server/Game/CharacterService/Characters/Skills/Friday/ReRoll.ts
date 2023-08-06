@@ -2,7 +2,7 @@ import { Skill } from "../Skill/Skill";
 import { ISkill } from "../../../../../../interfaces/Skill/Skill";
 import { IGame } from "../../../../../../interfaces/Game";
 import { PHASE } from "../../../../../../interfaces/PhaseService/Phase";
-import { ICharacter } from "../../../../../../interfaces/Characters/Character";
+import { IPlayerCharacter } from "../../../../../../interfaces/Characters/Character";
 import { ISideCharacter } from "../../../../../../interfaces/Characters/SideCharacter";
 import { ActionDice } from "../../../../../../interfaces/RollDice/RollDice";
 
@@ -23,7 +23,7 @@ export class ReRoll extends Skill implements ISkill {
     this._character = character;
   }
 
-  use(target: ICharacter | ActionDice | null) {
+  use(target: IPlayerCharacter | ActionDice | null) {
     //TODO: implement
   }
 }

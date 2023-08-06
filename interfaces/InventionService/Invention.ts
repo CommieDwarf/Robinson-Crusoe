@@ -1,6 +1,6 @@
 import {TERRAIN_TYPE} from "../TileService/ITile";
 import {IBasicResources, IBasicResourcesAmount} from "../Resources/Resources";
-import {CHARACTER, ICharacter} from "../Characters/Character";
+import {CHARACTER, IPlayerCharacter} from "../Characters/Character";
 import {IAssignablePawnsItem, IAssignablePawnsItemRenderData} from "../AssignablePawnsItem/AssignablePawnsItem";
 import {
     IResourceCommittableItem,
@@ -23,7 +23,7 @@ export interface IInvention extends IResourceCommittableItem {
     onBuild: () => void;
     onDestruction: () => void;
     onNextRound: () => void;
-    use: (character: ICharacter) => void;
+    use: (character: IPlayerCharacter) => void;
 
     renderData: IInventionRenderData;
 }

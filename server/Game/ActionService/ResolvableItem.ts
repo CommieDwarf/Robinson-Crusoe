@@ -183,7 +183,7 @@ export class ResolvableItem implements IResolvableItem {
         const item = this._item
 
         if (isTile(item) && item.modifiers.greaterDanger) {
-            if (this._game.constructionService.getConstruction(CONSTRUCTION.WEAPON).lvl === 0) {
+            if (this._game.constructionService.getConstruction(CONSTRUCTION.WEAPON).lvl === 0 && item.modifiers.greaterDanger.setInRound !== this._game.round) {
                 this._game.characterService.hurt(this._leaderPawn.character, 1, "Zagrożenie na kafelku - brak broni.")
             }
         }
@@ -253,8 +253,8 @@ export class ResolvableItem implements IResolvableItem {
         ) {
             return false;
         }
-
-        return Boolean(item.requiredPawnAmount && item.requiredPawnAmount >= this._helperAmount);
+        console.log(item.requiredPawnAmount, this._helperAmount, "SHOULD ROLL")
+        return Boolean(item.requiredPawnAmount && item.requiredPawnAmount > this._helperAmount + 1);
     }
 
     private applyRollDiceEffects() {

@@ -3,7 +3,7 @@ import {
   MYSTERY_CARD_TYPE,
 } from "../../../../../interfaces/MysteryService/MysteryCard";
 import { IGame } from "../../../../../interfaces/Game";
-import { ICharacter } from "../../../../../interfaces/Characters/Character";
+import { IPlayerCharacter } from "../../../../../interfaces/Characters/Character";
 
 export abstract class MysteryCard implements IMysteryCard {
   protected readonly _name: string;
@@ -88,7 +88,7 @@ export abstract class MysteryCard implements IMysteryCard {
     this._uses--;
   }
 
-  triggerDrawEffect(drawer: ICharacter) {}
+  triggerDrawEffect(drawer: IPlayerCharacter) {}
 
   triggerEventEffect() {}
 }

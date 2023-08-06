@@ -5,7 +5,7 @@ import shuffle from "../../../utils/shuffleArray";
 import { IMysteryService } from "../../../interfaces/MysteryService/MysteryService";
 import { IMysteryCardDrawer } from "../../../interfaces/MysteryService/MysteryCardDrawer";
 import { MysteryCardDrawer } from "./MysteryCardDrawer";
-import { ICharacter } from "../../../interfaces/Characters/Character";
+import { IPlayerCharacter } from "../../../interfaces/Characters/Character";
 
 export class MysteryService implements IMysteryService {
   private readonly _game: IGame;
@@ -69,7 +69,7 @@ export class MysteryService implements IMysteryService {
 
   startTargeting() {}
 
-  useCard(user: ICharacter, cardName: string, target1?: any, target2?: any) {
+  useCard(user: IPlayerCharacter, cardName: string, target1?: any, target2?: any) {
     const card = this.getCard(cardName);
     if (card.requiresTarget && this._currentCardThatRequiresTarget !== card) {
       this._currentCardThatRequiresTarget = card;
@@ -103,14 +103,16 @@ export class MysteryService implements IMysteryService {
     creature: number,
     trap: number,
     treasure: number,
-    drawer: ICharacter
+    drawer: IPlayerCharacter,
+    max: number = Infinity,
   ) {
     this._cardDrawer = new MysteryCardDrawer(
       this,
       creature,
       trap,
       treasure,
-      drawer
+      drawer,
+      max
     );
   }
 

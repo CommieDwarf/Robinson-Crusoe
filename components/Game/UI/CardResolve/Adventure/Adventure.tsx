@@ -12,6 +12,7 @@ type Props = {
   card: IAdventureCardRenderData;
   resolve: (option: 1 | 2) => void;
   toggleZoom: () => void;
+  eventStage: boolean;
 };
 export const Adventure = (props: Props) => {
   function handleZoomClick() {
@@ -31,7 +32,8 @@ export const Adventure = (props: Props) => {
       <div className={styles.zoomButton}>
         <ZoomButton onClick={handleZoomClick} cardType={"adventure"} />
       </div>
-      <CardActions
+      {!props.eventStage && (
+        <CardActions
         label1={i18n.t(`adventureOptionLabel.${props.card.option1Label}`)}
         label2={
           props.card.shouldDecide
@@ -43,6 +45,18 @@ export const Adventure = (props: Props) => {
         action1Locked={false}
         action2Locked={!props.card.shouldDecide}
       />
+      )}
+      {props.eventStage && props.card.eventOptions && props.card.eventOptions.every((card) => card.canBeResolved) && (
+        <CardActions
+        label1={props.card.eventOptions[0].label}
+        label2={props.card.eventOptions[1].label}
+        triggerAction1={handleOption1Click}
+        triggerAction2={handleOption2Click}
+        action1Locked={false}
+        action2Locked={false}
+      />
+      )}
+      
       <Image
         src={`/UI/cards/adventure/${props.card.action}/${getImgName(
           props.card.name

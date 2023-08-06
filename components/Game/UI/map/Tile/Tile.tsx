@@ -11,7 +11,7 @@ import xMarkImg from "/public/UI/misc/x-mark.png";
 import greaterDangerToken from "/public/UI/tokens/greater-danger.png"
 import timeConsumingActionToken from "/public/UI/tokens/time-consuming-action.png"
 
-import {ResourceActionButton} from "./ResourceDepletionButton/ResourceActionButton";
+import {ResourceActionButton} from "./ResourceActionButton/ResourceActionButton";
 import getActionSlots from "../../getActionSlots";
 
 interface Props {
@@ -100,10 +100,13 @@ export default function Tile(props: Props) {
     }
 
     const flippedClass = props.tile.modifiers.flipped ? styles.flipped : "";
+    const resourceModifierLeft = props.tile.tileResourceService?.resources.left.modifiers[0];
+    const resourceModifierRight = props.tile.tileResourceService?.resources.right.modifiers[0];
 
     return (
         <div className={`${styles.container} ${zIndexClass} ${flippedClass}`} style={style}>
             {arrows}
+
             {props.tile.show && (
                 <>
                     <div className={styles.tile}>
@@ -181,6 +184,18 @@ export default function Tile(props: Props) {
                     {props.tile.modifiers.terrainDepleted && <div className={styles.terrainDepleted}>
                         <Image src={xMarkImg} fill alt={"teren zakryty"}/>
                     </div>}
+                    {resourceModifierLeft &&
+                        <div className={`${styles.resourceModifier} ${styles.resourceModifierLeft}`}>
+                            <Image src={`/UI/tokens/modifiers/${resourceModifierLeft.resource}.png`}
+                                   alt={"dodatkowy zasób"} fill/>
+                        </div>
+                    }
+                    {resourceModifierRight &&
+                        <div className={`${styles.resourceModifier} ${styles.resourceModifierRight}`}>
+                            <Image src={`/UI/tokens/modifiers/${resourceModifierRight.resource}.png`}
+                                   alt={"dodatkowy zasób"} fill/>
+                        </div>
+                    }
                 </>
             )}
         </div>

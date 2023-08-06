@@ -1,44 +1,44 @@
-import { ICharEffects } from "./CharEffects";
-import { IPawnService, IPawnServiceRenderData } from "../Pawns/Pawns";
-import { ISkill, ISkillRenderData } from "../Skill/Skill";
-import { ActionDice } from "../RollDice/RollDice";
+import {ICharEffects} from "./CharEffects";
+import {IPawnService, IPawnServiceRenderData} from "../Pawns/Pawns";
+import {ISkill, ISkillRenderData} from "../Skill/Skill";
+import {ActionDice} from "../RollDice/RollDice";
 
 export interface ICharacterRenderData {
-  pawnService: IPawnServiceRenderData;
-  name: CHARACTER;
-  namePL: string;
-  id: number;
-  health: number;
-  maxHealth: number;
-  gender: Gender;
-  determination: number;
-  skills: ISkillRenderData[];
+    pawnService: IPawnServiceRenderData;
+    name: CHARACTER;
+    namePL: string;
+    id: number;
+    health: number;
+    maxHealth: number;
+    gender: Gender;
+    determination: number;
+    skills: ISkillRenderData[];
 }
 
 export interface ICharacter {
-  pawnService: IPawnService;
-  name: CHARACTER;
-  id: number;
-  maxHealth: number;
-  effects: ICharEffects;
-  skills: ISkill[];
-  useSkill: (name: string, target: ICharacter | ActionDice | null) => void;
-  refreshSkills: () => void;
-  namePL: string;
-  health: number;
-  gender: Gender;
-  renderData: ICharacterRenderData;
-  determination: number;
-  incrDetermination: (by: number) => void;
-  decrDetermination: (by: number) => void;
-  hurt: (by: number) => void;
-  heal: (by: number) => void;
+    pawnService: IPawnService;
+    name: CHARACTER;
+    id: number;
+    maxHealth: number;
+    effects: ICharEffects;
+    skills: ISkill[];
+    useSkill: (name: string, target: ICharacter | ActionDice | null) => void;
+    refreshSkills: () => void;
+    namePL: string;
+    health: number;
+    gender: Gender;
+    renderData: ICharacterRenderData;
+    determination: number;
+    incrDetermination: (by: number) => void;
+    decrDetermination: (by: number) => void;
+    hurt: (by: number) => void;
+    heal: (by: number) => void;
 }
 
 export enum CHARACTER {
-  COOK = "cook",
-  DOG = "dog",
-  FRIDAY = "friday",
+    COOK = "cook",
+    DOG = "dog",
+    FRIDAY = "friday",
 }
 
 export type Gender = "male" | "female";
