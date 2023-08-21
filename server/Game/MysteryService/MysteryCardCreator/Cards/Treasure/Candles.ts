@@ -8,6 +8,6 @@ export class Candles extends TreasureMysteryCard {
   }
 
   triggerDrawEffect(drawer: IPlayerCharacter) {
-    this.addCardAsReminder();
+    this.addToResources();
   }
 }

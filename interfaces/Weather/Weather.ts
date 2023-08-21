@@ -21,10 +21,10 @@ export interface WeatherModifiers {
 export interface IWeatherService {
   tokens: IWeatherTokens;
   modifiers: WeatherModifiers;
-  overallWeather: OverallWeather;
   rollDiceResult: WeatherDiceResults | null;
   shouldRollDices: boolean;
   furnace: boolean;
+  getOverallWeather: () => OverallWeather;
   setToken: (
     type: keyof IWeatherTokens,
     value: boolean,

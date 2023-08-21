@@ -9,6 +9,10 @@ import {ACTION, ACTION_ITEM} from "../../../../../../../interfaces/ACTION";
 import {objectsEqual} from "../../../../../../../utils/objectsEqual";
 import {useAppSelector} from "../../../../../../../store/hooks";
 import {selectModifiersByAction} from "../../../../../features/globalCostModifiers";
+import Pawn from "../../../../Pawn";
+import {Droppable} from "react-beautiful-dnd";
+import {getCardPawnDraggableId} from "../../../../../../../utils/getCardPawnDraggableId";
+import {getCardPawnDroppableId} from "../../../../../../../utils/getCardPawnDroppableId";
 
 type Props = {
     invention: IInventionRenderData;
@@ -18,36 +22,52 @@ type Props = {
     zIndexIncreased: boolean;
     toggleZoom?: () => void;
     hideActionSlots?: boolean;
+
+    use: (name: string) => void;
+
+    handleEnlarge: (value: boolean) => void;
+    enlarged: boolean;
+    handleMouseOverButtons: (value: boolean) => void;
 };
 
 function Invention(props: Props) {
-    const [zoomed, setZoomed] = useState(false);
     const [imageLoaded, setImageLoaded] = useState(false);
 
     function handleLoad() {
         setImageLoaded(true);
     }
 
+    function handleMouseEnter() {
+        props.handleMouseOverButtons(true);
+    }
+
+    function handleMouseLeave() {
+        props.handleMouseOverButtons(false);
+    }
+
     const inventionRef = React.createRef<HTMLDivElement>();
 
     function handleClick() {
-        setZoomed((prev) => !prev);
-        if (props.toggleZoom) {
-            props.toggleZoom();
-        }
+        props.handleEnlarge(!props.enlarged)
     }
+
+    function handleUseButtonClick() {
+        props.use(props.invention.name);
+        props.handleMouseOverButtons(false);
+    }
+
 
     const wrapperStyle = {
         left: props.column * 95,
         top: props.row * 140,
     };
 
-    const enlargedClass = zoomed
+    const enlargedClass = props.enlarged
         ? styles.inventionEnlarged
         : styles.zIndexTransition;
 
-    wrapperStyle.top = zoomed ? props.top + 3 : wrapperStyle.top;
-    wrapperStyle.left = zoomed ? 60 : wrapperStyle.left;
+    wrapperStyle.top = props.enlarged ? props.top + 3 : wrapperStyle.top;
+    wrapperStyle.left = props.enlarged ? 60 : wrapperStyle.left;
 
     const resources: JSX.Element[] = [];
     const resource = props.invention.committedResources?.type;
@@ -64,7 +84,6 @@ function Invention(props: Props) {
                 </div>
             );
         }
-
     }
 
     const leaderId = "invention-" + props.invention.name + "-leader-0";
@@ -84,7 +103,13 @@ function Invention(props: Props) {
 
     const state = useAppSelector((state) => state.globalCostModifiers);
     const modifiers = selectModifiersByAction(state, ACTION.BUILD);
-    const extraPawnNeeded = modifiers.some((mod) => mod.resource === "helper") ? 1 : 0;
+    const extraPawnNeeded = modifiers.some((mod) => mod.resource === "helper")
+        ? 1
+        : 0;
+
+    const helperPawn = props.invention.helperPawn;
+
+
     return (
         <div
             ref={inventionRef}
@@ -122,6 +147,29 @@ function Invention(props: Props) {
                 props.invention.isBuilt &&
                 scenarioBuiltDiv}
             <div className={styles.committedResources}>{resources}</div>
+            {props.invention.isBuilt && props.invention.usable &&
+                (<div className={styles.useButton} onClick={handleUseButtonClick}
+                      onMouseEnter={handleMouseEnter}
+                      onMouseLeave={handleMouseLeave}
+                >
+                    Użyj
+                </div>)}
+            {props.invention.helperPawn && (
+                <div className={`${styles.cardPawn} ${zIndexClass}`}
+                >
+                    <ActionSlot
+                        type={"helper"}
+                        action={ACTION.EXPLORE}
+                        uniqueAction={ACTION.EXPLORE}
+                        id={getCardPawnDroppableId(props.invention.name, "invention")}
+                        pawn={helperPawn?.pawn}
+                        marked={false}
+                        ownedByCard={true}
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
+                    />
+                </div>
+            )}
         </div>
     );
 }

@@ -88,15 +88,65 @@ import {Vipers} from "../AdventureCards/Explore/Vipers";
 import {WildBerries} from "../AdventureCards/Explore/WildBerries";
 import {WildDog} from "../AdventureCards/Explore/WildDog";
 import {WrongTrack} from "../AdventureCards/Explore/WrongTrack";
-import {BuildAdventureCard} from "../AdventureCards/Build/BuildAdventureCard/BuildAdventureCard";
-import {ExploreAdventureCard} from "../AdventureCards/Explore/ExploreAdventureCard/ExploreAdventureCard";
-import {GatherAdventureCard} from "../AdventureCards/Gather/GatherAdventureCard/GatherAdventureCard";
 import {AdventureCardStacks} from "../../../../../interfaces/AdventureService/AdventureService";
-import {ACTION} from "../../../../../interfaces/ACTION";
 import {IAdventureCard} from "../../../../../interfaces/AdventureService/AdventureCard";
 
 export class AdventureCardCreator {
     private readonly _game: IGame;
+
+    public implemented = {
+        build: [ADVENTURE_CARD_BUILD.ACCIDENT,
+            ADVENTURE_CARD_BUILD.BREAKDOWN,
+            ADVENTURE_CARD_BUILD.BROKEN_LEVER,
+            ADVENTURE_CARD_BUILD.CONSTRUCTION,
+            ADVENTURE_CARD_BUILD.CONSTRUCTION_IS_WEAK,
+            ADVENTURE_CARD_BUILD.CUT_HEAD,
+            ADVENTURE_CARD_BUILD.DANGEROUS_WORK,
+            ADVENTURE_CARD_BUILD.DARK_CLOUDS_IN_THE_SKY,
+            ADVENTURE_CARD_BUILD.HARD_WORK,
+            ADVENTURE_CARD_BUILD.IN_A_HURRY,
+            ADVENTURE_CARD_BUILD.LABORIOUS_WORK,
+            ADVENTURE_CARD_BUILD.MONKEYS_WATCH_YOU,
+            ADVENTURE_CARD_BUILD.NASTY_WOUND,
+            ADVENTURE_CARD_BUILD.SAVINGS,
+            ADVENTURE_CARD_BUILD.TIRED,
+            ADVENTURE_CARD_BUILD.UNMOTIVATED,
+            ADVENTURE_CARD_BUILD.WIND_STORM
+        ],
+        explore: [
+            ADVENTURE_CARD_EXPLORE.CARCASS,
+            ADVENTURE_CARD_EXPLORE.COLD_WIND,
+            ADVENTURE_CARD_EXPLORE.DANGEROUS_TERRAIN,
+            ADVENTURE_CARD_EXPLORE.IT_WILL_RAIN,
+            ADVENTURE_CARD_EXPLORE.LOST_IN_THE_WOODS,
+            ADVENTURE_CARD_EXPLORE.OLD_GRAVE,
+            ADVENTURE_CARD_EXPLORE.OLD_HUT,
+            ADVENTURE_CARD_EXPLORE.REMAINS_OF_A_SETTLEMENT,
+            ADVENTURE_CARD_EXPLORE.SHRINE,
+            ADVENTURE_CARD_EXPLORE.STORM_ON_THE_HORIZON,
+            ADVENTURE_CARD_EXPLORE.SWAMP,
+            ADVENTURE_CARD_EXPLORE.THERES_SOMETHING_IN_THE_AIR,
+        ],
+        gather: [
+            ADVENTURE_CARD_GATHER.AFTER_THE_HURRICANE,
+            ADVENTURE_CARD_GATHER.END_OF_SOURCE,
+            ADVENTURE_CARD_GATHER.GOLD_COIN,
+            ADVENTURE_CARD_GATHER.MUSHROOMS,
+            ADVENTURE_CARD_GATHER.NESTLINGS,
+            ADVENTURE_CARD_GATHER.NEW_FLOCK,
+            ADVENTURE_CARD_GATHER.NICE_SURPRISE,
+            ADVENTURE_CARD_GATHER.SHORTAGE,
+            ADVENTURE_CARD_GATHER.SIGNS_OF_A_PREDATOR,
+            ADVENTURE_CARD_GATHER.TRACKS_OF_A_PREDATOR,
+            ADVENTURE_CARD_GATHER.UNBELIEVABLE_EFFORT,
+            ADVENTURE_CARD_GATHER.UNEXPECTED_DISCOVERY,
+            ADVENTURE_CARD_GATHER.UNEXPECTED_TROUBLES,
+            ADVENTURE_CARD_GATHER.VIPER,
+            ADVENTURE_CARD_GATHER.WEATHER_BREAKDOWN,
+            ADVENTURE_CARD_GATHER.WINTER_FREEZING,
+            ADVENTURE_CARD_GATHER.WINTER_IS_COMING,
+        ]
+    }
 
     constructor(game: IGame) {
         this._game = game;

@@ -19,9 +19,6 @@ export interface ITileService {
     isTileMarkedForAction: boolean;
     terrainTypesExplored: Set<TERRAIN_TYPE>;
     canCampBeMoved: () => boolean;
-    basket: boolean;
-    sack: boolean;
-    axe: boolean;
     forceCampMovement: () => void;
     updateDistance: () => void;
     triggerMarkedTileAction: (tileId: number) => void;

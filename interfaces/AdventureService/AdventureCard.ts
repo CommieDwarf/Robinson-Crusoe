@@ -1,6 +1,6 @@
 import {ACTION} from "../ACTION";
 import {ADVENTURE_CARD} from "./ADVENTURE_CARD";
-import {IPlayerCharacter} from "../Characters/Character";
+import {IPlayerCharacter} from "../Characters/PlayerCharacter";
 
 export type AdventureOptionLabel = "" | "discard" | "shuffle" | "keep";
 

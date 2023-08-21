@@ -19,7 +19,7 @@ export class Unmotivated extends BuildAdventureCard implements IAdventureCard {
     }
 
     option1(resolver: IPlayerCharacter) {
-        this._game.characterService.decrDetermination(
+        this._game.characterService.decrDeterminationOrGetHurt(
             resolver,
             1,
             this._namePL

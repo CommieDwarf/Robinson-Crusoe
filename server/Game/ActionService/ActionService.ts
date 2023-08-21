@@ -23,6 +23,7 @@ import {IGlobalCostModifierRenderData} from "../../../interfaces/ActionService/G
 import {IBasicResourcesAmount} from "../../../interfaces/Resources/Resources";
 import {GlobalCostModifier} from "./GlobalCostModifier/GlobalCostModifier";
 import Entries from "../../../interfaces/Entries";
+import { Beast } from "../BeastService/BeastCreator/Beast";
 
 export class ActionService implements IActionService {
 

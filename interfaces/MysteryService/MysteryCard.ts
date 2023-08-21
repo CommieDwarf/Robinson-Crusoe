@@ -1,4 +1,5 @@
-import { IPlayerCharacter } from "../Characters/Character";
+import { IPlayerCharacter } from "../Characters/PlayerCharacter";
+import { IBasicResourcesAmount } from "../Resources/Resources";
 
 export enum MYSTERY_CARD_TYPE {
   CREATURE = "creature",
@@ -13,11 +14,13 @@ export interface IMysteryCard {
   shuffleable: boolean;
   eventName: string;
   requiresTarget: boolean;
+  drawLabel: string;
+  drawResolved: boolean;
   triggerDrawEffect: (drawer: IPlayerCharacter) => void;
   triggerEventEffect: () => void;
   uses: number;
   use: (...args: any[]) => void;
-  renderData: IMysteryCardRenderData;
+  getRenderData(): IMysteryCardRenderData;
 }
 
 export interface IMysteryCardRenderData {
@@ -25,4 +28,10 @@ export interface IMysteryCardRenderData {
   namePL: string;
   type: MYSTERY_CARD_TYPE;
   shuffleable: boolean;
+  drawLabel: string;
+  drawResolved: boolean;
+  eventLabel: string;
+  uses: number;
+  usedCount: number;
+  stored?: IBasicResourcesAmount;
 }

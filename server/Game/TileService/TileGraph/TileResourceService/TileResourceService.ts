@@ -4,7 +4,12 @@ import {
     TILE_RESOURCE_ACTION,
     TileResourceInfo,
 } from "../../../../../interfaces/TileService/TileResourceService";
-import {TERRAIN_TYPE, TileExtras, TileResource,} from "../../../../../interfaces/TileService/ITile";
+import {
+    TERRAIN_TYPE,
+    TileExtras,
+    TileGatherableResource,
+    TileResource,
+} from "../../../../../interfaces/TileService/ITile";
 import {IGame} from "../../../../../interfaces/Game";
 import {reverseSide} from "../../../../../utils/reverseSide";
 
@@ -128,12 +133,11 @@ export class TileResourceService implements ITileResourceService {
     }
 
     public markResourceForAction(
-        source: string,
+        side: Side,
         actionName: TILE_RESOURCE_ACTION,
-        side: Side
+        source: string,
     ) {
         let trigger;
-
         switch (actionName) {
             case TILE_RESOURCE_ACTION.DEPLETE:
                 trigger = this.deplete;
@@ -142,7 +146,7 @@ export class TileResourceService implements ITileResourceService {
                 trigger = this.unDeplete;
                 break;
             case TILE_RESOURCE_ACTION.ADD_MODIFIER:
-                trigger = this.addModifier;
+                trigger = this.addModifierBySide;
                 break;
             case TILE_RESOURCE_ACTION.REMOVE_MODIFIER:
                 trigger = this.removeModifier;
@@ -182,26 +186,27 @@ export class TileResourceService implements ITileResourceService {
         );
     }
 
-    public addModifier(side: Side, source: string) {
+    public addModifierBySide(side: Side, source: string) {
         const resource = this._resources[side].resource;
-        if (this._resources[side].modifiers.length === 0) {
+        if (resource !== "beast") {
+            this._resources[side].modifiers.push({resource, source})
             this._game.chatLog.addMessage(
                 `Żródło z ${resource} daje teraz dodatkowy surowiec`,
                 "green",
                 source
             );
         }
-        if (resource !== "beast") {
-            this._resources[side].modifiers.push({source, resource});
-        } else {
-            const otherResource = this._resources[reverseSide(side)].resource;
-            if (otherResource === "wood") {
-                this._resources[side].modifiers.push({source, resource: "food"})
-            } else {
-                this._resources[side].modifiers.push({source, resource: "wood"})
-            }
-        }
 
+    }
+
+    public addModifierByResource(resource: TileGatherableResource, source: string) {
+        const side = this.getSideByResource(resource);
+        if (!side) {
+            const beastSide = this.getSideByResource("beast") as Side;
+            this._resources[beastSide].modifiers.push({resource, source});
+        } else {
+            this._resources[side].modifiers.push({resource, source})
+        }
     }
 
     public removeModifier(side: Side, source: string) {
@@ -223,9 +228,9 @@ export class TileResourceService implements ITileResourceService {
         this._resources.right.modifiers = [];
     }
 
-    public triggerAction(side: Side, source: string) {
+    public triggerAction(side: Side) {
         if (this._resources[side].markedForAction) {
-            this._resources[side].markedForAction?.trigger.call(this, side, source);
+            this._resources[side].markedForAction?.trigger.call(this, side, this._resources[side].markedForAction?.source || "");
             this._resources[side].markedForAction = null;
         }
     }

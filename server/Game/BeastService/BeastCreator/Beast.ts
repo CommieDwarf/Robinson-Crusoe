@@ -5,15 +5,11 @@ import {AssignablePawnsItem} from "../../AssignablePawnsItem/AssignablePawnsItem
 import {ACTION, ACTION_ITEM} from "../../../../interfaces/ACTION";
 
 export class Beast extends AssignablePawnsItem implements IBeast {
-    get namePL(): string {
-        return this._namePL;
-    }
 
     protected readonly _strength: number;
     protected readonly _weaponLoss: number;
     protected readonly _reward: IBasicResources;
     protected readonly _name: string;
-    protected readonly _game: IGame;
     protected readonly _namePL: string;
 
     constructor(
@@ -24,18 +20,18 @@ export class Beast extends AssignablePawnsItem implements IBeast {
         reward: IBasicResources,
         game: IGame
     ) {
-        super(ACTION.HUNT, ACTION_ITEM.HUNT);
+        super(ACTION.HUNT, ACTION_ITEM.HUNT, game);
         this._name = name;
         this._namePL = namePL;
         this._strength = strength;
         this._weaponLoss = weaponLoss;
         this._reward = reward;
-        this._game = game;
     }
 
     get renderData(): IBeastRenderData {
         return {
             name: this.name,
+            namePL: this.namePL,
             ...super.getAssignablePawnsRenderData(),
         };
     }
@@ -50,12 +46,21 @@ export class Beast extends AssignablePawnsItem implements IBeast {
         return this._name;
     }
 
+    get namePL(): string {
+        return this._namePL;
+    }
+
+
     get strength(): number {
         return this._strength;
     }
 
     get weaponLoss(): number {
         return this._weaponLoss;
+    }
+
+    get reward(): IBasicResources {
+        return this._reward;
     }
 
     protected getLeader() {

@@ -1,4 +1,4 @@
-import {TERRAIN_TYPE, TileExtras, TileResource} from "./ITile";
+import {TERRAIN_TYPE, TileExtras, TileGatherableResource, TileResource} from "./ITile";
 
 export type Side = "left" | "right";
 
@@ -66,14 +66,15 @@ export interface ITileResourceService {
 
     deplete: (side: Side, source: string) => void;
     unDeplete: (side: Side, source: string) => void;
-    addModifier: (side: Side, source: string) => void;
+    addModifierBySide: (side: Side, source: string) => void;
+    addModifierByResource: (resource: TileGatherableResource, source: string) => void;
     removeModifier: (side: Side, source: string) => void;
     clearModifiers: () => void;
 
     markResourceForAction: (
-        source: string,
+        side: Side,
         actionName: TILE_RESOURCE_ACTION,
-        side: Side
+        source: string
     ) => void;
 
     resetActionMarks: () => void;

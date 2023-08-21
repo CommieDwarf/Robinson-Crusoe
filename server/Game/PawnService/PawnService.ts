@@ -6,7 +6,7 @@ import { IPawn, IPawnHelper } from "../../../interfaces/Pawns/Pawn";
 
 import { PawnArrayName } from "../../../interfaces/Pawns/Pawns";
 import { Pawn } from "./Pawn/Pawn";
-import { IPlayerCharacter } from "../../../interfaces/Characters/Character";
+import { IPlayerCharacter } from "../../../interfaces/Characters/PlayerCharacter";
 
 export class PawnService implements IPawnService {
   private _freePawns: (IPawn | IPawnHelper)[] = [];
@@ -16,7 +16,7 @@ export class PawnService implements IPawnService {
 
   constructor(character: IPlayerCharacter, initialQuantity: number) {
     this._character = character;
-    this._pawns = this.getInitialPawns(initialQuantity);
+    this._pawns = this.initPawns(initialQuantity);
     this._freePawns = [...this._pawns];
     this._initialQuantity = initialQuantity;
   }
@@ -83,7 +83,7 @@ export class PawnService implements IPawnService {
     });
   }
 
-  private getInitialPawns(initialQuantity: number): IPawn[] {
+  private initPawns(initialQuantity: number): IPawn[] {
     const pawns: IPawn[] = [];
     for (let i = 0; i < initialQuantity; i++) {
       pawns.push(new Pawn(this.character, i));

@@ -1,19 +1,18 @@
-import {
-    IPhaseService,
-    Phase,
-    PhaseEffects,
-} from "../../../interfaces/PhaseService/PhaseService";
+import {IPhaseService, Phase, PhaseEffects,} from "../../../interfaces/PhaseService/PhaseService";
 import {IGame} from "../../../interfaces/Game";
 import {MissingLeaderError} from "../Errors/MissingLeaderError";
 
 import {phaseOrder} from "../../../constants/phaseOrder";
 import {ActionSlotService} from "../ActionSlotsService/ActionSlotService";
 import {MissingHelperError} from "../Errors/MissingHelperError";
+import {TREASURE_MYSTERY_CARD} from "../../../interfaces/MysteryService/MYSTERY_CARD";
+import {INVENTION_NORMAL} from "../../../interfaces/InventionService/Invention";
 
 export class PhaseService implements IPhaseService {
-    private _phase: Phase = "event";
-    private _phaseIndex = 0;
+    private _phase: Phase = "morale";
+    private _phaseIndex = 1;
     private readonly _game: IGame;
+    private _gainedPhaseEffects: Function[] = []
 
     phaseEffects: PhaseEffects;
 
@@ -33,7 +32,7 @@ export class PhaseService implements IPhaseService {
     get renderData() {
         return {
             phase: this._phase,
-            locked: this.locked,
+            locked: !this.canGoNextPhase(),
         };
     }
 
@@ -41,13 +40,30 @@ export class PhaseService implements IPhaseService {
         return this._phase;
     }
 
-    get locked() {
-        if (this._phase === "action" && !this._game.actionService.finished) {
-            return true;
-        } else if (this._phase === "event" && this._game.eventService.adventureNeedsToBeResolved) {
-            return true;
+
+    public addPhaseEffect(effect: Function) {
+        this._gainedPhaseEffects.push(effect);
+    }
+
+    public removePhaseEffect(effect: Function) {
+        this._gainedPhaseEffects = this._gainedPhaseEffects.filter((func) => func !== effect);
+    }
+
+    public canGoNextPhase() {
+        if (this._game.mysteryService.isDrawingOn) {
+            return false;
         }
-        return this._game.tileService.resourceAmountToDeplete > 0;
+        switch (this._phase) {
+            case "event":
+                return this._game.eventService.canGoNextPhase();
+            case "action":
+                return this._game.actionService.finished;
+            case "weather":
+                return this._game.weatherService.shouldRollDices &&
+                !this._game.weatherService.rollDiceResult ? false : true;
+        }
+
+        return true;
     }
 
     handleMissingPawnError(error: MissingHelperError | MissingLeaderError) {
@@ -61,26 +77,12 @@ export class PhaseService implements IPhaseService {
     }
 
     goNextPhase() {
-        if (this._game.mysteryService.isDrawingOn) {
-            return;
-        }
-        if (this._phase === "action") {
-            if (!this._game.actionService.finished) {
-                return;
-            }
-        }
-        if (
-            this._phase === "weather" &&
-            this._game.weatherService.shouldRollDices &&
-            !this._game.weatherService.rollDiceResult
-        ) {
+        if (!this.canGoNextPhase()) {
             return;
         }
         try {
             this.phaseEffects[this._phase]();
-            if (this._phase === "event" && this._game.eventService.currentAdventureCard) {
-                return;
-            }
+            this._gainedPhaseEffects.forEach((func) => func());
             this._phaseIndex =
                 this._phaseIndex === phaseOrder.length - 1 ? 0 : ++this._phaseIndex;
             this._phase = phaseOrder[this._phaseIndex];
@@ -99,48 +101,17 @@ export class PhaseService implements IPhaseService {
     }
 
     private eventEffect = () => {
-        this._game.eventService.pullCard();
     };
 
     private moraleEffect = () => {
-        if (this._game.moraleService.lvl === 0) {
-            return;
-        }
         // TODO: implement player choice when lvl 3 whenever he wants determination or health
-        const primePlayerCharacter =
-            this._game.playerService.primePlayer.getCharacter();
-        if (this._game.moraleService.lvl > 0) {
-            this._game.characterService.incrDetermination(
-                primePlayerCharacter,
-                this._game.moraleService.lvl,
-                "Faza morali"
-            );
-        } else {
-            this._game.characterService.decrDetermination(
-                primePlayerCharacter,
-                Math.abs(this._game.moraleService.lvl),
-                "Faza morali"
-            );
-        }
+        this._game.moraleService.triggerPhaseEffect();
     };
 
     private productionEffect = () => {
-        const resources =
-            this._game.tileService.campTile.tileResourceService?.resources;
-        if (!resources) {
-            throw new Error("There are no resources in tile");
-        }
-        const resourceArr = [resources.left, resources.right];
-
-        resourceArr.forEach((res) => {
-            if (!res.depleted && res.resource !== "beast") {
-                this._game.resourceService.addBasicResourceToOwned(
-                    res.resource,
-                    1,
-                    "Produkcja"
-                );
-            }
-        });
+        const id = this._game.tileService.campTile.id;
+        this._game.tileService.gather("left", id, "produkcja");
+        this._game.tileService.gather("right", id, "produkcja");
     };
 
     private preActionEffect = () => {
@@ -154,6 +125,7 @@ export class PhaseService implements IPhaseService {
         this._game.actionService.finished = false;
         this._game.resetPawns();
         this._game.tileService.resetResourceAssignedPawns();
+        this._game.inventionService.resetCardPawns();
         this._game.resourceService.addFutureToOwned();
     };
 
@@ -167,5 +139,15 @@ export class PhaseService implements IPhaseService {
         this._game.characterService.allCharacters.forEach((char) =>
             char.refreshSkills()
         );
+        //TODO: IMPLEMENT EATING;
+        if (!this._game.mysteryService.hasTresureCard(TREASURE_MYSTERY_CARD.BOXES) &&
+            !this._game.inventionService.isBuilt(INVENTION_NORMAL.CELLAR)
+        ) {
+            this._game.resourceService.spendBasicResourceIfPossible("food", Infinity, "Jedzenie gnije");
+        }
+
+        this._game.eventService.pullCard();
     };
+
+
 }

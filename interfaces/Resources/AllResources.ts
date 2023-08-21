@@ -16,7 +16,8 @@ export interface IResourceService {
   future: IResources;
   owned: IResources;
   addFutureToOwned: () => void;
-  addBasicResourcesToOwned: (resources: IBasicResources) => void;
+  addBasicResourcesToOwned: (resources: IBasicResources, logSource?: string) => void;
+  addBasicResourcesToFuture: (resources: IBasicResources, logSource?: string) => void;
   renderData: IResourceServiceRenderData;
   cellar: boolean;
   pit: boolean;
@@ -60,4 +61,7 @@ export interface IResourceService {
     resources: IBasicResources,
     logSource: string
   ) => void;
+  removeTreasureFromOwned: (card: IMysteryCard) => void;
+  removeTreasureFromFuture: (card: IMysteryCard) => void;
+  getOwnedTreasureMysteryCard: (cardName: string) => IMysteryCard;
 }

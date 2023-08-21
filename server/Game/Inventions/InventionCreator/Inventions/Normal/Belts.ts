@@ -5,11 +5,10 @@ import {
     INVENTION_TYPE,
 } from "../../../../../../interfaces/InventionService/Invention";
 import {IGame} from "../../../../../../interfaces/Game";
-import {HelperPawnInvention} from "../../HelperPawnInvention";
 import {PAWN_HELPER_ACTION} from "../../../../../../interfaces/Pawns/Pawn";
-import {SingleResourceRequirement} from "../../../../../../interfaces/ResourceCommitableItem/ResourceCommittableItem";
+import {Invention} from "../../Invention";
 
-export class Belts extends HelperPawnInvention implements IInvention {
+export class Belts extends Invention implements IInvention {
     protected readonly _namePL = "pasy";
 
     constructor(game: IGame) {
@@ -18,16 +17,15 @@ export class Belts extends HelperPawnInvention implements IInvention {
             {terrainType: null, inventions: [INVENTION_STARTER.KNIFE]},
             INVENTION_TYPE.NORMAL,
             game,
-            PAWN_HELPER_ACTION.GATHER,
             {type: "leather", amount: 1}
         );
     }
 
     onBuild() {
-        super.onBuild();
+        this.initHelperPawn(PAWN_HELPER_ACTION.GATHER);
     }
 
     onDestruction() {
-        super.onDestruction();
+        this.destroyPawn();
     }
 }

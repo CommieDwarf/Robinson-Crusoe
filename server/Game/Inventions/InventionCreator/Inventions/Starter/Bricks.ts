@@ -21,11 +21,11 @@ export class Bricks extends Invention implements IInvention {
     }
 
     onBuild() {
-        this._game.constructionService.lvlUpConstruction(
-            CONSTRUCTION.PALISADE,
-            1,
-            this._logSource
-        );
+            this._game.constructionService.lvlUpConstruction(
+                CONSTRUCTION.PALISADE,
+                1,
+                this._logSource
+            );
     }
 
     onDestruction() {

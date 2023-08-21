@@ -1,8 +1,10 @@
+import { IPlayerCharacter } from "../../../../interfaces/Characters/PlayerCharacter";
 import { IPawn, IPawnRenderData } from "../../../../interfaces/Pawns/Pawn";
 
-import { IPlayerCharacter } from "../../../../interfaces/Characters/Character";
 
 export class Pawn implements IPawn {
+  protected _draggableId: string;
+  protected readonly _character: IPlayerCharacter;
   constructor(character: IPlayerCharacter, id: number) {
     this._character = character;
     this._draggableId = character.name + "pawn" + id;
@@ -34,6 +36,5 @@ export class Pawn implements IPawn {
     };
   }
 
-  private readonly _draggableId: string;
-  private readonly _character: IPlayerCharacter;
+
 }

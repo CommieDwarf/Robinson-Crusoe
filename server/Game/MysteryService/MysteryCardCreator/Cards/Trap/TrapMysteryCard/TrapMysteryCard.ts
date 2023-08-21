@@ -10,7 +10,7 @@ export abstract class TrapMysteryCard
     implements IMysteryCard {
   protected _type = MYSTERY_CARD_TYPE.TRAP;
 
-  protected constructor(game: IGame, name: string, namePL: string) {
-    super(game, name, namePL, false, "");
+  protected constructor(game: IGame, name: string, namePL: string, eventLabel: string = "", drawLabel: string = "") {
+    super(game, name, namePL, false, "", eventLabel, drawLabel);
   }
 }

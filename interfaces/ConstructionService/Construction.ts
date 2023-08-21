@@ -9,6 +9,8 @@ export interface IConstructionRenderData extends IResourceCommittableItemRenderD
     name: string;
     lvl: number;
     locked: boolean;
+
+    temporaryBoost: number;
 }
 
 export interface IConstruction extends IResourceCommittableItem {
@@ -18,6 +20,13 @@ export interface IConstruction extends IResourceCommittableItem {
     locked: boolean;
     renderData: IConstructionRenderData;
     resourceChoice: boolean;
+
+    temporaryBoost: number;
+
+    boostedLvl: number;
+
+    incrTemporaryBoost: (value: number) => void;
+    resetTemporaryBoost: () => void;
 }
 
 export enum CONSTRUCTION {

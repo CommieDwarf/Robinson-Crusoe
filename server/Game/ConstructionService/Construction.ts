@@ -10,11 +10,14 @@ import {SingleResourceRequirement} from "../../../interfaces/ResourceCommitableI
 
 export class Construction extends ResourceCommittableItem implements IConstruction {
 
+
     private readonly _name: CONSTRUCTION;
     private readonly _namePL: string;
     private _lvl = 0;
     private _locked: boolean;
     private _resourceChoice: boolean = true;
+
+    private _temporaryBoost: number = 0;
 
     constructor(
         name: CONSTRUCTION,
@@ -35,12 +38,21 @@ export class Construction extends ResourceCommittableItem implements IConstructi
             locked: this.locked,
             lvl: this.lvl,
             name: this.name,
+            temporaryBoost: this._temporaryBoost,
             ...super.getResourceCommittableRenderData(),
         };
     }
 
+    get boostedLvl(): number {
+        return this._lvl + this._temporaryBoost;
+    }
+
     get resourceChoice(): boolean {
         return this._resourceChoice;
+    }
+
+    get temporaryBoost(): number {
+        return this._temporaryBoost;
     }
 
     set lvl(value: number) {
@@ -66,6 +78,14 @@ export class Construction extends ResourceCommittableItem implements IConstructi
 
     set locked(value: boolean) {
         this._locked = value;
+    }
+
+    public incrTemporaryBoost(value: number) {
+        this._temporaryBoost += value;
+    }
+
+    public resetTemporaryBoost() {
+        this._temporaryBoost = 0;
     }
 
 

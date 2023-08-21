@@ -15,8 +15,10 @@ export abstract class CreatureMysteryCard
       name: string,
       namePL: string,
       shuffleable: boolean,
-      eventName: string
+      eventName: string,
+      eventLabel: string = "",
+      drawLabel: string = "",
   ) {
-    super(game, name, namePL, shuffleable, eventName);
+    super(game, name, namePL, shuffleable, eventName, eventLabel, drawLabel);
   }
 }

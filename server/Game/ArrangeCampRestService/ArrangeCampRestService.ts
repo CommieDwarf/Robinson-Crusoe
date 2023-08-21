@@ -1,10 +1,12 @@
 import {IArrangeCampRestService} from "../../../interfaces/RestArrangeCampService/ArrangeCampRestService";
-import {IPlayerCharacter} from "../../../interfaces/Characters/Character";
-import {AssignablePawnsItem} from "../AssignablePawnsItem/AssignablePawnsItem";
+import {IGame} from "../../../interfaces/Game";
+import {TREASURE_MYSTERY_CARD} from "../../../interfaces/MysteryService/MYSTERY_CARD";
+import {IPlayerCharacter} from "../../../interfaces/Characters/PlayerCharacter";
+import {INVENTION_NORMAL} from "../../../interfaces/InventionService/Invention";
 
 export class ArrangeCampRestService implements IArrangeCampRestService {
     // TODO: IMPLEMENT CHOICE BETWEEN BED EFFECT OR NORMAL EFFECT.
-    private _bed = false;
+    private readonly _game: IGame;
 
 
     private _arrangeCampBonus: "determination" | "morale" | null = null;
@@ -12,6 +14,10 @@ export class ArrangeCampRestService implements IArrangeCampRestService {
         rest: 0,
         arrangeCamp: 0,
     };
+
+    constructor(game: IGame) {
+        this._game = game;
+    }
 
     get renderData() {
         return {
@@ -29,14 +35,6 @@ export class ArrangeCampRestService implements IArrangeCampRestService {
         return this._pawnAmount;
     }
 
-    get bed(): boolean {
-        return this._bed;
-    }
-
-    set bed(value: boolean) {
-        this._bed = value;
-    }
-
     public incrPawnAmount(action: "rest" | "arrangeCamp") {
         this._pawnAmount[action]++;
     }
@@ -46,6 +44,13 @@ export class ArrangeCampRestService implements IArrangeCampRestService {
     }
 
     public rest(character: IPlayerCharacter) {
+        const bedBuilt = this._game.inventionService.isBuilt(INVENTION_NORMAL.BED);
+        const hammockOwned = this._game.mysteryService.hasTresureCard(TREASURE_MYSTERY_CARD.HAMMOCK);
+        let healAmount = bedBuilt ? 2 : 1;
+        this._game.characterService.heal(character, healAmount, "Odpoczynek");
+        if (bedBuilt || hammockOwned) {
+            this._game.characterService.incrDetermination(character, 1, "Odpoczynek");
+        }
     }
 
 

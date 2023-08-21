@@ -6,7 +6,6 @@ import {
     INVENTION_TYPE,
 } from "../../../../../../interfaces/InventionService/Invention";
 import {IGame} from "../../../../../../interfaces/Game";
-import {BasicResources} from "../../../../ResourceService/BasicResources";
 
 export class Pit extends Invention implements IInvention {
     protected readonly _namePL = "wilczy dół";

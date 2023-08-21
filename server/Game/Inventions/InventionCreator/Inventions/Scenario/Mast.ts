@@ -22,7 +22,7 @@ export class Mast extends Invention implements IInvention {
     }
 
     onBuild() {
-        //TODO: put 3 wood on the stash
+        this._game.scenarioService.onMastBuild();
     }
 
     onDestruction() {

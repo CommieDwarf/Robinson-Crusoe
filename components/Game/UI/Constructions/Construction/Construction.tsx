@@ -82,7 +82,11 @@ function Construction(props: Props) {
 
     return (
         <div className={styles.construction}>
-            <div className={styles.lvlLabel}>Poziom {props.construction.lvl}</div>
+            <div className={styles.lvlLabel}>Poziom {props.construction.lvl}
+                {props.construction.temporaryBoost > 0 &&
+                    <span className={styles.lvlBoosted}>(+{props.construction.temporaryBoost})</span>
+                }
+            </div>
             <div className={styles.cost}>{costIcon}</div>
             <div className={styles.build}>
                 <div className={styles.actionSlots}>

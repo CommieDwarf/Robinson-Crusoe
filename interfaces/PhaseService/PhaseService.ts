@@ -27,5 +27,6 @@ export interface IPhaseService {
   goNextPhase: () => void;
   renderData: IPhaseServiceRenderData;
   phaseEffects: PhaseEffects;
-  locked: boolean;
+  addPhaseEffect: (effect: Function) => void;
+  removePhaseEffect: (effect: Function) => void;
 }

@@ -6,6 +6,7 @@ import {
 } from "../../../../../../interfaces/InventionService/Invention";
 import {IGame} from "../../../../../../interfaces/Game";
 import {TERRAIN_TYPE} from "../../../../../../interfaces/TileService/ITile";
+import {IPlayerCharacter} from "../../../../../../interfaces/Characters/PlayerCharacter";
 
 export class Medicine extends Invention implements IInvention {
     protected readonly _namePL = "lek";
@@ -18,6 +19,7 @@ export class Medicine extends Invention implements IInvention {
             game
         );
     }
+
 
     onBuild() {
         return;

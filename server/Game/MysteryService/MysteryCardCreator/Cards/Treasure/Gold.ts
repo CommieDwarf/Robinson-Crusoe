@@ -8,6 +8,6 @@ export class Gold extends TreasureMysteryCard {
   }
 
   triggerDrawEffect(drawer: IPlayerCharacter) {
-    this.addCardAsReminder();
+    this.addToResources();
   }
 }

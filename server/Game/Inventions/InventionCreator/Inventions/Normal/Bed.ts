@@ -20,10 +20,8 @@ export class Bed extends Invention implements IInvention {
     }
 
     onBuild() {
-        this._game.arrangeCampRestService.bed = true;
     }
 
     onDestruction() {
-        this._game.arrangeCampRestService.bed = false;
     }
 }

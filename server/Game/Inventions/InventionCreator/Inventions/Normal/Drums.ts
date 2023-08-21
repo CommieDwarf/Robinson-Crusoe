@@ -22,10 +22,8 @@ export class Drums extends Invention implements IInvention {
     }
 
     onBuild() {
-        this._game.moraleService.drums = true;
     }
 
     onDestruction() {
-        this._game.moraleService.drums = false;
     }
 }

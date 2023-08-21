@@ -57,8 +57,9 @@ export interface ITile extends IAssignablePawnsItem {
 
     depleteResource: (side: "left" | "right", source: string) => void;
     unDepleteResource: (side: "left" | "right", source: string) => void;
-    addResourceModifier: (side: Side, source: string) => void;
-    removeResourceModifier: (side: Side, source: string) => void;
+    addModifierBySide: (side: Side, source: string) => void;
+    addModifierByResource: (resource: TileGatherableResource, source: string) => void;
+    removeResourceModifier: (side: Side | null, resource: "wood" | "food", source: string) => void;
     setTileModifier: (
         modifier: keyof TileModifiers,
         source: string
@@ -117,6 +118,7 @@ export interface ITileBuiltStructures {
 }
 
 export type TileResource = "food" | "wood" | "beast";
+export type TileGatherableResource = "food" | "wood";
 
 export enum TERRAIN_TYPE {
     BEACH = "beach",

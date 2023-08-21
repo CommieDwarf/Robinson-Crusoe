@@ -19,13 +19,13 @@ export class OldGrave extends ExploreAdventureCard implements IAdventureCard {
     }
 
     option1(resolver: IPlayerCharacter) {
-        this._game.characterService.decrDetermination(resolver, 1, this._namePL);
+        this._game.characterService.decrDeterminationOrGetHurt(resolver, 1, this._namePL);
         this.shuffleIntoEventDeck();
     }
 
     triggerEventEffect() {
         const character = this.getPrimeCharacter();
-        this._game.characterService.decrDetermination(
+        this._game.characterService.decrDeterminationOrGetHurt(
             character,
             2,
             this._eventNamePL

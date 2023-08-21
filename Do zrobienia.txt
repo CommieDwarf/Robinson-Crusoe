@@ -1,1 +1,5 @@
 Żeton dodatkowego pionka na akcji
+
+Refaktoryzacja CardResolve.tsx az wstyd
+
+mystery trap - trap door

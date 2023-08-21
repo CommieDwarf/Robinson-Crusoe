@@ -2,7 +2,7 @@ import {
     IEventService,
     IEventServiceRenderData,
 } from "./EventService/EventService";
-import {IPawn, IPawnRenderData} from "./Pawns/Pawn";
+import {IPawn, IPawnHelper, IPawnRenderData} from "./Pawns/Pawn";
 import {IBeastService, IBeastServiceRenderData} from "./Beasts/BeastService";
 import {IPlayerRenderData} from "./PlayerService/Player";
 import {
@@ -119,6 +119,7 @@ export interface IGame {
     scenarioService: IScenarioService;
     allPawns: IPawn[];
     round: number;
+    otherPawns: IPawnHelper[];
     setNextRound: () => void;
     setPawn: (droppableId: string, draggableId: string) => void;
     unsetPawn: (droppableId: string, draggableId: string) => void;

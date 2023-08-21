@@ -21,6 +21,6 @@ export class LostInTheWoods
     }
 
     option1(resolver: IPlayerCharacter) {
-        this._game.characterService.decrDetermination(resolver, 2, this._namePL);
+        this._game.characterService.decrDeterminationOrGetHurt(resolver, 2, this._namePL);
     }
 }

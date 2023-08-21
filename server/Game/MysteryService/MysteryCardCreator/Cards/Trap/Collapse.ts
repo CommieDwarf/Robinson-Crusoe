@@ -9,6 +9,6 @@ export class Collapse extends TrapMysteryCard implements IMysteryCard {
   }
 
   triggerDrawEffect(drawer: IPlayerCharacter) {
-    //TODO: implement stop drawing cards
+    this._game.mysteryService.disableFurtherCardDraw();
   }
 }

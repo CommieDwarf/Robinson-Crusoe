@@ -16,6 +16,7 @@ export class CharacterService implements ICharacterService {
     dog: ISideCharacter;
     friday: ISideCharacter;
     private readonly _allCharacters: ICharacter[];
+    private _thresholdAmountForRemoval: number = 0;
 
     private readonly _game: IGame;
 
@@ -33,6 +34,7 @@ export class CharacterService implements ICharacterService {
             ),
             dog: this.dog.renderData,
             friday: this.friday.renderData,
+            thresholdAmountForRemoval: this._thresholdAmountForRemoval,
         };
     }
 
@@ -46,6 +48,10 @@ export class CharacterService implements ICharacterService {
         return this._allCharacters.filter(
             (char) => char instanceof PlayerCharacter
         ) as IPlayerCharacter[];
+    }
+
+    get thresholdAmountForRemoval() {
+        return this._thresholdAmountForRemoval;
     }
 
     // -------------------------------------------
@@ -63,7 +69,18 @@ export class CharacterService implements ICharacterService {
                 `Character ${char.name} doesn't have morale threshold: ${threshold}`
             );
         }
-        char.moraleThresholdsRemoved.push(threshold);
+        if (this._thresholdAmountForRemoval > 0) {
+            char.moraleThresholdsRemoved.push(threshold);
+            this._thresholdAmountForRemoval--;
+        }
+    }
+
+    markThresholdsForRemoval(amount: number) {
+        this._thresholdAmountForRemoval = amount;
+    }
+
+    unMarkThresholdsForRemoval(amount: number) {
+        this._thresholdAmountForRemoval = amount;
     }
 
     resetPawns() {
@@ -152,6 +169,17 @@ export class CharacterService implements ICharacterService {
         );
     }
 
+    public healAllCharacters(amount: number, logSource: string): void {
+        this._allCharacters.forEach((char) => char.heal(amount));
+        if (logSource) {
+            this._game.chatLog.addMessage(
+                "Wszystkie postaci są leczone o " + amount,
+                "green",
+                logSource,
+            )
+        }
+    }
+
     incrDetermination(
         charOrName: string | ICharacter,
         by: number,
@@ -171,7 +199,7 @@ export class CharacterService implements ICharacterService {
         char.incrDetermination(by);
     }
 
-    decrDetermination(
+    decrDeterminationOrGetHurt(
         charOrName: string | ICharacter,
         by: number,
         logSource: string
@@ -207,14 +235,14 @@ export class CharacterService implements ICharacterService {
             logSource
         );
         this.playerCharacters.forEach((char) => {
-            this.decrDetermination(char, amount, "");
+            this.decrDeterminationOrGetHurt(char, amount, "");
         });
     }
 
     incrDeterminationAllCharacters(amount: number, logSource: string) {
         this._game.chatLog.addMessage(
             `Wszystkie postaci zyskują ${amount} determinacji.`,
-            "red",
+            "green",
             logSource
         );
         this._allCharacters.forEach((char) =>

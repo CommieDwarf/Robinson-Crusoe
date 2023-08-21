@@ -1,12 +1,24 @@
 import {TERRAIN_TYPE} from "../TileService/ITile";
 import {IBasicResources, IBasicResourcesAmount} from "../Resources/Resources";
-import {CHARACTER, IPlayerCharacter} from "../Characters/Character";
+import {CHARACTER} from "../Characters/Character";
 import {IAssignablePawnsItem, IAssignablePawnsItemRenderData} from "../AssignablePawnsItem/AssignablePawnsItem";
 import {
     IResourceCommittableItem,
     IResourceCommittableItemRenderData
 } from "../ResourceCommitableItem/ResourceCommittableItem";
+import {IPlayerCharacter} from "../Characters/PlayerCharacter";
+import {ACTION} from "../ACTION";
+import {IPawnHelper, IPawnHelperRenderData, PAWN_HELPER_ACTION} from "../Pawns/Pawn";
 
+export interface CardPawnHelper {
+    action: PAWN_HELPER_ACTION,
+    pawn: IPawnHelper | null;
+}
+
+export interface CardPawnHelperRenderData {
+    action: PAWN_HELPER_ACTION,
+    pawn: IPawnHelperRenderData | null;
+}
 
 export interface IInvention extends IResourceCommittableItem {
     name: INVENTION;
@@ -19,12 +31,16 @@ export interface IInvention extends IResourceCommittableItem {
     resourceChoice: boolean;
     usable: boolean;
     used: boolean;
+    helperPawn: CardPawnHelper | null;
 
     onBuild: () => void;
     onDestruction: () => void;
     onNextRound: () => void;
     use: (character: IPlayerCharacter) => void;
 
+    unsetPawn: () => void;
+
+    resetHelperPawn: () => void;
     renderData: IInventionRenderData;
 }
 
@@ -34,6 +50,9 @@ export interface IInventionRenderData extends IResourceCommittableItemRenderData
     assignedPawnAmount: number;
     inventionType: INVENTION_TYPE;
     isBuilt: boolean;
+
+    usable: boolean;
+    helperPawn: CardPawnHelperRenderData | null;
 }
 
 export interface InventionRequirements {

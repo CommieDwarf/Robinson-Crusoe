@@ -1,7 +1,4 @@
-import {dupa} from "./test";
 
-
-console.log(dupa);
 
 export enum ADVENTURE_CARD_EXPLORE {
     BAMBOO = "bamboo",

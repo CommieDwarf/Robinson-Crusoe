@@ -14,6 +14,8 @@ import Entries from "../../../interfaces/Entries";
 import i18n from "../../../I18n/I18n";
 import { IToken } from "../../../interfaces/TokenService/Token";
 import { IMysteryCard } from "../../../interfaces/MysteryService/MysteryCard";
+import { t } from "i18next";
+import capitalizeFirstLetter from "../../../utils/capitalizeFirstLetter";
 
 export class ResourceService implements IResourceService {
   private _future: IResources = {
@@ -100,8 +102,16 @@ export class ResourceService implements IResourceService {
     return {
       basic: resources.basic.renderData,
       tokens: resources.tokens.map((token) => token.renderData),
-      treasures: resources.treasures.map((treasure) => treasure.renderData),
+      treasures: resources.treasures.map((treasure) => treasure.getRenderData()),
     };
+  }
+
+  public removeTreasureFromOwned(card: IMysteryCard) {
+    this._owned.treasures = this._owned.treasures.filter((c) => c !== card);
+  }
+
+  public removeTreasureFromFuture(card: IMysteryCard) {
+    this._future.treasures = this._future.treasures.filter((c) => c !== card);
   }
 
   public addFutureToOwned = (): void => {
@@ -121,8 +131,12 @@ export class ResourceService implements IResourceService {
     };
   }
 
-  public addBasicResourcesToOwned = (resources: IBasicResources): void => {
+
+  public addBasicResourcesToOwned = (resources: IBasicResources, logSource: string = ""): void => {
     this._owned.basic.addResources(resources);
+    if (logSource) {
+      this._game.chatLog.addMessage(`Dodano do posiadanych surowców: ${this.getResourcesMsgString(resources)}`, "green", logSource)
+    }
   };
 
   public addBasicResourceToOwned(
@@ -130,14 +144,17 @@ export class ResourceService implements IResourceService {
     amount: number,
     logSource: string
   ) {
-    this._game.chatLog.addMessage(
-      `Dodano ${amount} ${i18n.t(`resource.${resource}`, {
-        count: amount,
-      })} do posiadanych surowców`,
-      "green",
-      logSource
-    );
     this._owned.basic.addResource(resource, amount);
+
+    if (logSource) {
+      this._game.chatLog.addMessage(
+        `Dodano ${amount} ${i18n.t(`resource.${resource}`, {
+          count: amount,
+        })} do posiadanych surowców`,
+        "green",
+        logSource
+      );
+    }
   }
 
   public addBasicResourceToFuture(
@@ -153,6 +170,13 @@ export class ResourceService implements IResourceService {
       "green",
       logSource
     );
+  }
+
+  public addBasicResourcesToFuture(resources: IBasicResources, logSource: string = "") {
+    this._future.basic.addResources(resources);
+    if (logSource) {
+      this._game.chatLog.addMessage(`Dodano do przyszłych surowców: ${this.getResourcesMsgString(resources)}`, "green", logSource)
+    }
   }
 
   public canAffordResource(
@@ -236,5 +260,21 @@ export class ResourceService implements IResourceService {
     entries.forEach(([resource, amount]) => {
       this.spendBasicResourceOrGetHurt(resource, amount, logSource);
     });
+  }
+
+
+
+  public getOwnedTreasureMysteryCard(cardName: string) {
+    const card = this._owned.treasures.find((card) => card.name === cardName);
+    if (!card) {
+      throw new Error(`There is no ${cardName} in owned treasures`);
+    }
+    return card;
+  }
+
+  private getResourcesMsgString(resources: IBasicResources) {
+    
+    return Array.from(resources.amount.entries()).filter(([res, amount]) => amount !== 0)
+      .map(([res, amount]) => `${capitalizeFirstLetter(i18n.t("resource." + res))}(${amount})`).join(", ");
   }
 }

@@ -6,16 +6,17 @@ import {IPlayerCharacter} from "../../../../../../interfaces/Characters/Characte
 export class GiantSnake
     extends CreatureMysteryCard
     implements IMysteryCard {
-  constructor(game: IGame) {
-    super(game, "giant snake", "ogromny wąż", false, "");
-  }
+    constructor(game: IGame) {
+        super(game, "giant snake", "ogromny wąż", false, "");
+    }
 
-  triggerDrawEffect(drawer: IPlayerCharacter) {
-    //TODO: implement stop drawing cards
-    this._game.characterService.decrDetermination(
-        drawer,
-        drawer.determination,
-        this._namePL
-    );
-  }
+    triggerDrawEffect(drawer: IPlayerCharacter) {
+        //TODO: implement stop drawing cards
+        this._game.characterService.decrDeterminationOrGetHurt(
+            drawer,
+            drawer.determination,
+            this._namePL
+        );
+        this._game.mysteryService.disableFurtherCardDraw();
+    }
 }

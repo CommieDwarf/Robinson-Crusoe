@@ -22,9 +22,10 @@ export class Savage
           this._namePL
       );
     }
+    this.shuffleIntoEventDeck();
   }
 
   triggerEventEffect() {
-    //TODO:  implement draw mystery card
+    this._game.mysteryService.startDrawingCards(0, 0, 1, this._game.playerService.primePlayer.getCharacter())
   }
 }

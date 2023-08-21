@@ -7,6 +7,7 @@ import {
 import Entries from "../../../interfaces/Entries";
 import {getDroppableID} from "../../../utils/getDroppableID";
 import {
+    INVENTION_CASTAWAYS,
     INVENTION_NORMAL,
     INVENTION_PERSONAL,
     INVENTION_STARTER,
@@ -42,7 +43,7 @@ export class ActionSlotService implements IActionSlotService {
             slots,
             pawnDropIDAlert: this._pawnDropIDAlert,
         };
-       
+
     }
 
     // -------------------------------------------------
@@ -145,6 +146,7 @@ export class ActionSlotService implements IActionSlotService {
             ...Object.values(INVENTION_STARTER),
             ...Object.values(INVENTION_NORMAL),
             ...Object.values(INVENTION_PERSONAL),
+            ...Object.values(INVENTION_CASTAWAYS),
         ];
         inventions.forEach((invention) => {
             for (let i = 0; i < 4; i++) {

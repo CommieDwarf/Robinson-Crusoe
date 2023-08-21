@@ -6,12 +6,12 @@ import {
     INVENTION_TYPE,
 } from "../../../../../../interfaces/InventionService/Invention";
 import {IGame} from "../../../../../../interfaces/Game";
-import {BasicResources} from "../../../../ResourceService/BasicResources";
-import {IPlayerCharacter} from "../../../../../../interfaces/Characters/Character";
+import {IPlayerCharacter} from "../../../../../../interfaces/Characters/PlayerCharacter";
 
 export class Fireplace extends Invention implements IInvention {
     protected _usable = true;
     protected readonly _namePL = "palenisko";
+    private usedInRound: number = 0;
 
     constructor(game: IGame) {
         super(
@@ -24,29 +24,11 @@ export class Fireplace extends Invention implements IInvention {
 
     use(character: IPlayerCharacter) {
         const canAfford = this._game.resourceService.canAffordResource("food", 1);
-        if (!canAfford) {
-            this._game.alertService.setAlert(
-                `${this._logSource}: nie masz wystarczająco jedzenia żeby użyć tej karty.`
-            );
+        if (!canAfford || this._game.phaseService.phase !== "night" || this.usedInRound === this._game.round) {
             return;
         }
-        if (this._game.phaseService.phase !== "night") {
-            this._game.alertService.setAlert(
-                `${this._logSource}: Tej karty pomysłu można użyć tylko w nocy`
-            );
-            return;
-        }
-
-        if (this.used) {
-            return;
-        }
-
         this._game.resourceService.owned.basic.spendResource("food", 1);
-        this._game.characterService.heal(character, 2, this._logSource);
-        this.used = true;
-    }
-
-    onNextRound() {
-        this.used = false;
+        this._game.characterService.heal(character, 2, this._namePL);
+        this.usedInRound = this._game.round;
     }
 }

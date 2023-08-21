@@ -118,3 +118,7 @@
     background-image: url("../../../public/UI/actionSlots/helper.png") !important;
     background-position-y: 2px;
 }
+
+.helperCard {
+    background-image: url("../../../public/UI/characters/pawns/helper.png") !important;
+}

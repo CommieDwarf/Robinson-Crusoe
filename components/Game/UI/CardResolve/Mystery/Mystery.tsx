@@ -16,23 +16,37 @@ type Props = {
   currentResolve: IMysteryCardRenderData | null;
   canFinish: boolean;
   drawer: ICharacterRenderData | null;
-  resolve: (option: 1 | 2) => void;
+  draw: (option: 1 | 2) => void;
+  resolve: () => void;
   cardsLeft: MysteryCardsAmount;
   toggleZoom: () => void;
 };
 
 export const Mystery = (props: Props) => {
   function handleDrawClick() {
-    if (props.canDraw) {
-      props.resolve(1);
+    if (props.currentResolve?.drawResolved === false) {
+      props.resolve();
+    } else if (props.canDraw) {
+      props.draw(1);
     }
   }
 
   function handleFinishClick() {
     if (props.canFinish) {
-      props.resolve(2);
+      props.draw(2);
     }
   }
+
+  let label1 = "Ciągnij";
+  let label2 = "Skończ"
+  let action1Locked = !props.canDraw
+  if (props.currentResolve && !props.currentResolve.drawResolved) {
+    label1 = props.currentResolve.drawLabel;
+    label2 = "";
+    action1Locked = false;
+  }
+
+  console.log(props.currentResolve?.drawResolved, "RESOLVED")
 
   const cardImgSrc = props.currentResolve
     ? `/UI/cards/mystery/${props.currentResolve.type}/${getImgName(
@@ -55,11 +69,11 @@ export const Mystery = (props: Props) => {
         draggable={"false"}
       />
       <CardActions
-        label1={"Ciągnij"}
-        label2={"Skończ"}
+        label1={label1}
+        label2={label2}
         triggerAction1={handleDrawClick}
         triggerAction2={handleFinishClick}
-        action1Locked={!props.canDraw}
+        action1Locked={action1Locked}
         action2Locked={!props.canFinish}
       />
     </>

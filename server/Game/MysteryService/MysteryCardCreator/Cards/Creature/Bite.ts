@@ -13,6 +13,5 @@ export class Bite extends CreatureMysteryCard implements IMysteryCard {
   }
 
   triggerEventEffect() {
-    //TODO: implement custom beast fight.
   }
 }

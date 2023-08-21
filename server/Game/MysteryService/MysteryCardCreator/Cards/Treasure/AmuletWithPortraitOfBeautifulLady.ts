@@ -1,8 +1,7 @@
 import { IGame } from "../../../../../../interfaces/Game";
-import { IPlayerCharacter } from "../../../../../../interfaces/Characters/Character";
 import { TreasureMysteryCard } from "./TreasureMysteryCard/TreasureMysteryCard";
-import { IPlayerCharacter } from "../../../../../../interfaces/Characters/PlayerCharacter";
 import { IMysteryCard } from "../../../../../../interfaces/MysteryService/MysteryCard";
+import { IPlayerCharacter } from "../../../../../../interfaces/Characters/PlayerCharacter";
 
 export class AmuletWithPortraitOfBeautifulLady
   extends TreasureMysteryCard
@@ -17,19 +16,12 @@ export class AmuletWithPortraitOfBeautifulLady
       "medalion z portretem pięknej damy",
       false,
       "",
-      2
+      0
     );
   }
 
   triggerDrawEffect(drawer: IPlayerCharacter) {
-    this.addToResources();
+    this._game.characterService.markThresholdsForRemoval(2);
   }
 
-  use(character: IPlayerCharacter, moraleThreshold: number): void {
-    this._game.characterService.removeMoraleThreshold(
-      character,
-      moraleThreshold
-    );
-    super.use();
-  }
 }

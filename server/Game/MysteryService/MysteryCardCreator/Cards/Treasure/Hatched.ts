@@ -1,6 +1,6 @@
 import { TreasureMysteryCard } from "./TreasureMysteryCard/TreasureMysteryCard";
 import { IGame } from "../../../../../../interfaces/Game";
-import { IPlayerCharacter } from "../../../../../../interfaces/Characters/Character";
+import { IPlayerCharacter } from "../../../../../../interfaces/Characters/PlayerCharacter";
 
 export class Hatched extends TreasureMysteryCard {
   constructor(game: IGame) {
@@ -12,6 +12,7 @@ export class Hatched extends TreasureMysteryCard {
   }
 
   use() {
-    //TODO: implement
+    this._game.tileService.campTile.addModifierByResource("wood", this.namePL);
+    this.removeFromOwnedResources();
   }
 }

@@ -20,10 +20,8 @@ export class Cellar extends Invention implements IInvention {
     }
 
     onBuild() {
-        this._game.resourceService.cellar = true;
     }
 
     onDestruction() {
-        this._game.resourceService.cellar = false;
     }
 }

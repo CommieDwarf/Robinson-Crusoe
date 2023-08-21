@@ -1,7 +1,7 @@
 import {TrapMysteryCard} from "./TrapMysteryCard/TrapMysteryCard";
 import {IMysteryCard} from "../../../../../../interfaces/MysteryService/MysteryCard";
 import {IGame} from "../../../../../../interfaces/Game";
-import {IPlayerCharacter} from "../../../../../../interfaces/Characters/Character";
+import { IPlayerCharacter } from "../../../../../../interfaces/Characters/PlayerCharacter";
 
 export class TrapDoor extends TrapMysteryCard implements IMysteryCard {
   constructor(game: IGame) {
@@ -9,6 +9,7 @@ export class TrapDoor extends TrapMysteryCard implements IMysteryCard {
   }
 
   triggerDrawEffect(drawer: IPlayerCharacter) {
-    //TODO: discard all treasures gained by this action.
+    this._game.mysteryService.dropTreasures();
+    this._game.chatLog.addMessage("Utracono obecnie zdobyte skarby", "red", this._namePL);
   }
 }

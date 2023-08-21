@@ -53,7 +53,7 @@ export const Item = (props: Props) => {
         image = (
             <div className={styles.hunt}>
                 <Image
-                    src={`/UI/cards/beast/${getImgName(beast.name)}.png`}
+                    src={`/UI/cards/beasts/${getImgName(beast.name)}.png`}
                     fill
                     alt={beast.name}
                     sizes={styles.hunt}

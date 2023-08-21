@@ -4,7 +4,8 @@ import {
 } from "../../../interfaces/MysteryService/MysteryCard";
 import {IMysteryService} from "../../../interfaces/MysteryService/MysteryService";
 import {IMysteryCardDrawer} from "../../../interfaces/MysteryService/MysteryCardDrawer";
-import {IPlayerCharacter} from "../../../interfaces/Characters/Character";
+import { TreasureMysteryCard } from "./MysteryCardCreator/Cards/Treasure/TreasureMysteryCard/TreasureMysteryCard";
+import { IPlayerCharacter } from "../../../interfaces/Characters/PlayerCharacter";
 
 export class MysteryCardDrawer implements IMysteryCardDrawer {
     private _creature: number;
@@ -18,6 +19,8 @@ export class MysteryCardDrawer implements IMysteryCardDrawer {
     private _max: number;
     private readonly _drawer: IPlayerCharacter;
     private _cardDrewCount: number = 0;
+    private _acquiredTreasures: IMysteryCard[] = [];
+
 
     constructor(
         mysteryService: IMysteryService,
@@ -33,7 +36,6 @@ export class MysteryCardDrawer implements IMysteryCardDrawer {
         this._treasure = treasure;
         this._drawer = drawer;
         this._max = max
-        console.log(max, "MAX")
     }
 
     get canFinish(): boolean {
@@ -62,6 +64,10 @@ export class MysteryCardDrawer implements IMysteryCardDrawer {
 
     get finished(): boolean {
         return this._finished;
+    }
+
+    get acquiredTreasures(): IMysteryCard[] {
+        return this._acquiredTreasures;
     }
 
     private getCardTypes() {
@@ -104,6 +110,9 @@ export class MysteryCardDrawer implements IMysteryCardDrawer {
         this._canFinish = true;
         const types = this.getCardTypes();
         const card = this.getMysteryCard(types);
+        if (card instanceof TreasureMysteryCard) {
+            this._acquiredTreasures.push(card);
+        }
         this.decrCardType(card.type);
         this._cardDrewCount ++;
         return card;
@@ -123,6 +132,10 @@ export class MysteryCardDrawer implements IMysteryCardDrawer {
             default:
                 throw new Error("wrong mystery card type: " + type);
         }
+    }
+
+    public disableDrawingCards() {
+        this._max = 0;
     }
 
     public finish() {

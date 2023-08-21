@@ -20,7 +20,6 @@ export interface IAdventureService {
     currentAdventure: CurrentAdventure | null;
     resolveAdventureCard: (option: 1 | 2, resolverName: string) => void;
     setCurrentAdventure: (resolvableItem: IResolvableItem) => void;
-
     renderData: IAdventureServiceRenderData;
 }
 

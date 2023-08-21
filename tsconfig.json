@@ -24,7 +24,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "constants/cards/MysteryCards.ts"  ],
   "exclude": [
     "node_modules"
   ]

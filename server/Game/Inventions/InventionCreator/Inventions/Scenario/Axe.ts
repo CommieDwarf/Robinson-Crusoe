@@ -5,7 +5,6 @@ import {
 } from "../../../../../../interfaces/InventionService/Invention";
 import {IGame} from "../../../../../../interfaces/Game";
 import {TERRAIN_TYPE} from "../../../../../../interfaces/TileService/ITile";
-import {BasicResources} from "../../../../ResourceService/BasicResources";
 import {Invention} from "../../Invention";
 
 export class Axe extends Invention implements IInvention {
@@ -22,10 +21,10 @@ export class Axe extends Invention implements IInvention {
     }
 
     onBuild() {
-        this._game.tileService.axe = true;
+        this._game.tileService.campTile.addModifierByResource("wood", this._namePL);
     }
 
     onDestruction() {
-        this._game.tileService.axe = false;
+        this._game.tileService.campTile.removeResourceModifier(null, "wood", this._namePL);
     }
 }

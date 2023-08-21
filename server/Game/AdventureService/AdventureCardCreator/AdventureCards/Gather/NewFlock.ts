@@ -27,7 +27,7 @@ export class NewFlock extends GatherAdventureCard implements IAdventureCard {
         const tile = this.getTile();
         const foodSide = tile.getSideByResource("food");
         if (foodSide) {
-            tile.tileResourceService?.addModifier(foodSide, this._namePL)
+            tile.tileResourceService?.addModifierBySide(foodSide, this._namePL)
             this._tile = tile;
         }
         

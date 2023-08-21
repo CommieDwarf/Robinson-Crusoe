@@ -15,11 +15,14 @@ interface OwnProps {
     uniqueAction: UniqueAction;
     id: string;
     isDragDisabled?: boolean;
+    ownedByCard?: boolean;
 }
 
 interface Props extends OwnProps {
     pawn: IPawnRenderData | undefined | null;
     marked: boolean;
+    onMouseEnter?: () => void;
+    onMouseLeave?: () => void;
 }
 
 function ActionSlot(props: Props) {
@@ -29,13 +32,22 @@ function ActionSlot(props: Props) {
     if (pawn) {
         element = <Pawn pawn={pawn} context={props.action} index={1}/>;
     }
-    const helperClass = props.type == "helper" ? styles.helper : "";
+    let helperClass = "";
+
+    if (props.ownedByCard) {
+        helperClass = styles.helperCard;
+    } else if (props.type === "helper") {
+        helperClass = styles.helper;
+    }
+
     return (
         <div
             className={`${styles.container} ${
                 styles[getImgName(props.uniqueAction)]
             } ${helperClass}`}
             id={props.id}
+            onMouseEnter={props.onMouseEnter}
+            onMouseLeave={props.onMouseLeave}
         >
 
             <Droppable droppableId={props.id} isDropDisabled={props.isDragDisabled}>

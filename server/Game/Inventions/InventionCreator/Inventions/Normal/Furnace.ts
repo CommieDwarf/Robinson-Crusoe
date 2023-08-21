@@ -20,10 +20,8 @@ export class Furnace extends Invention implements IInvention {
     }
 
     onBuild() {
-        this._game.weatherService.furnace = true;
     }
 
     onDestruction() {
-        this._game.weatherService.furnace = false;
     }
 }

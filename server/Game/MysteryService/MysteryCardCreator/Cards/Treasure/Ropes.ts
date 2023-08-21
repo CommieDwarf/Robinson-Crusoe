@@ -8,6 +8,5 @@ export class Ropes extends TreasureMysteryCard {
   }
 
   triggerDrawEffect(drawer: IPlayerCharacter) {
-    //TODO: implement
   }
 }

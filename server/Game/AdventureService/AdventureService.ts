@@ -13,9 +13,6 @@ import {IResolvableItem} from "../../../interfaces/ActionService/IResolvableItem
 import {Tile} from "../TileService/TileGraph/Tile";
 import {TileService} from "../TileService/TileService";
 import {isAdventureAction} from "../../../utils/isAdventureAction";
-import {buildAdventureCards} from "../../../constants/cards/AdventureCards/build";
-import {gatherAdventureCards} from "../../../constants/cards/AdventureCards/gather";
-import {exploreAdventureCards} from "../../../constants/cards/AdventureCards/explore";
 
 export class AdventureService implements IAdventureService {
     private readonly _game: IGame;
@@ -105,26 +102,12 @@ export class AdventureService implements IAdventureService {
     }
 
     private initCards() {
-        const adventureCardCreator = new AdventureCardCreator(this._game);
-        const build = buildAdventureCards;
-        const gather = gatherAdventureCards;
-        const explore = exploreAdventureCards
-
-        const testy = [build, gather, explore];
-
-        // explore = 11;
-        // build = 16;
-        // gather = 16
-        testy.forEach((cards) => {
-            for (let i = 0; i <  11; i++) {
-                cards.pop();
-            }
-        })
-
+        const creator = new AdventureCardCreator(this._game);
+        const implemented = creator.implemented;
         return {
-            build: testy[0].map((card) => adventureCardCreator.createBuildCard(card)),
-            gather: testy[1].map((card) => adventureCardCreator.createGatherCard(card)),
-            explore: testy[2].map((card) => adventureCardCreator.createExploreCard(card))
+            build: implemented.build.map((card) => creator.createBuildCard(card)),
+            explore: implemented.explore.map((card) => creator.createExploreCard(card)),
+            gather: implemented.gather.map((card) => creator.createGatherCard(card))
         }
     }
 }

@@ -21,10 +21,8 @@ export class Diary extends Invention implements IInvention {
     }
 
     onBuild() {
-        this._game.moraleService.diary = true;
     }
 
     onDestruction() {
-        this._game.moraleService.diary = false;
     }
 }

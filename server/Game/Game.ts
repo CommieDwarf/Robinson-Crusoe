@@ -52,6 +52,7 @@ import {IInvention} from "../../interfaces/InventionService/Invention";
 import {ResourceCommittableItem} from "./ResourceCommittableItem/ResourceCommittableItem";
 import {IResourceCommittableItem} from "../../interfaces/ResourceCommitableItem/ResourceCommittableItem";
 import {isCommittableResourcesItem} from "../../utils/isCommittableResourcesItem";
+import {Invention} from "./Inventions/InventionCreator/Invention";
 
 type ScenarioName = "castaways";
 
@@ -76,7 +77,7 @@ export class GameClass implements IGame {
     private _phaseService: IPhaseService = new PhaseService(this);
     private readonly _characterService: ICharacterService;
     private _equipmentService: IEquipment = new Equipment(this);
-    private _arrangeCampRestService = new ArrangeCampRestService();
+    private _arrangeCampRestService = new ArrangeCampRestService(this);
     private _beastService: IBeastService = new BeastService(this);
     private _actionSlotService = new ActionSlotService(this);
     private _moraleService = new MoraleService(this);
@@ -85,6 +86,7 @@ export class GameClass implements IGame {
     private _tokenService = new TokenService(this);
     private _adventureService = new AdventureService(this);
     private _mysteryService = new MysteryService(this);
+    private _otherPawns: IPawnHelper[] = [];
 
     constructor(scenarioName: ScenarioName) {
         // this is hardcoded for demo purpose.
@@ -227,7 +229,12 @@ export class GameClass implements IGame {
         this.characterService.allCharacters.forEach((char) => {
             pawns = pawns.concat(char.pawnService.pawns);
         });
+        pawns = pawns.concat(this._otherPawns);
         return pawns;
+    }
+
+    get otherPawns() {
+        return this._otherPawns;
     }
 
     setPawn(droppableId: string, draggableId: string) {
@@ -247,7 +254,12 @@ export class GameClass implements IGame {
                 const item = getItemFromDroppableId(droppableId, this) as IResourceCommittableItem;
                 item.commitResource(false);
             }
-            this._actionSlotService.setPawn(droppableId, pawn);
+            if (droppableId.includes("card") && item instanceof Invention) {
+                item.resetHelperPawn()
+            } else {
+                this._actionSlotService.setPawn(droppableId, pawn);
+                
+            }
         }
     }
 
@@ -272,8 +284,11 @@ export class GameClass implements IGame {
         const item = getItemFromDroppableId(droppableId, this);
         if (item && item instanceof ResourceCommittableItem && droppableId.includes("leader")) {
             item.unCommitResources();
+        } else if (item instanceof Invention) {
+            if (droppableId.includes("card")) {
+                item.unsetPawn();
+            }
         }
-
         if (droppableId.includes("freepawns")) {
             const charName = droppableId.split("-")[1];
             const character = this._characterService.getCharacter(charName);

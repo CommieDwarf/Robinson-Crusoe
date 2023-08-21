@@ -1,7 +1,6 @@
 import { MysteryCard } from "../../MysteryCard";
 import { MYSTERY_CARD_TYPE } from "../../../../../../../interfaces/MysteryService/MysteryCard";
 import { IGame } from "../../../../../../../interfaces/Game";
-import { IPlayerCharacter } from "../../../../../../../interfaces/Characters/Character";
 
 export abstract class TreasureMysteryCard extends MysteryCard {
   protected _type = MYSTERY_CARD_TYPE.TREASURE;
@@ -13,13 +12,15 @@ export abstract class TreasureMysteryCard extends MysteryCard {
     namePL: string,
     shuffleable: boolean,
     eventName: string,
-    uses: number
+    uses: number,
+    eventLabel: string = "",
+    drawLabel: string = ""
   ) {
-    super(game, name, namePL, shuffleable, eventName);
+    super(game, name, namePL, shuffleable, eventName, eventLabel, drawLabel);
     this._uses = uses;
   }
 
-  get renderData() {
+  getRenderData() {
     return {
       ...super.getRenderData(),
       uses: this.uses,
@@ -30,9 +31,7 @@ export abstract class TreasureMysteryCard extends MysteryCard {
     return this._uses;
   }
 
-  use(...args: any[]): void {
-    this._uses--;
-  }
+
 
   addToResources() {
     if (this._game.phaseService.phase === "action") {
@@ -40,5 +39,9 @@ export abstract class TreasureMysteryCard extends MysteryCard {
     } else {
       this._game.resourceService.addTreasureToOwned(this);
     }
+  }
+
+  removeFromOwnedResources() {
+    this._game.resourceService.removeTreasureFromOwned(this);
   }
 }

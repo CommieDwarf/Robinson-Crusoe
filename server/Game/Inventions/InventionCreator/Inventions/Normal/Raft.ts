@@ -1,4 +1,3 @@
-import {HelperPawnInvention} from "../../HelperPawnInvention";
 import {
     IInvention,
     INVENTION_NORMAL,
@@ -6,10 +5,10 @@ import {
     INVENTION_TYPE,
 } from "../../../../../../interfaces/InventionService/Invention";
 import {IGame} from "../../../../../../interfaces/Game";
+import {Invention} from "../../Invention";
 import {PAWN_HELPER_ACTION} from "../../../../../../interfaces/Pawns/Pawn";
-import {BasicResources} from "../../../../ResourceService/BasicResources";
 
-export class Raft extends HelperPawnInvention implements IInvention {
+export class Raft extends Invention implements IInvention {
     protected readonly _namePL = "tratwa";
 
     constructor(game: IGame) {
@@ -18,16 +17,15 @@ export class Raft extends HelperPawnInvention implements IInvention {
             {terrainType: null, inventions: [INVENTION_STARTER.ROPE]},
             INVENTION_TYPE.NORMAL,
             game,
-            PAWN_HELPER_ACTION.GATHER_EXPLORE,
             {type: "wood", amount: 2}
         );
     }
 
     onBuild() {
-        super.onBuild();
+        this.initHelperPawn(PAWN_HELPER_ACTION.GATHER_EXPLORE)
     }
 
     onDestruction() {
-        super.onDestruction();
+        this.destroyPawn();
     }
 }

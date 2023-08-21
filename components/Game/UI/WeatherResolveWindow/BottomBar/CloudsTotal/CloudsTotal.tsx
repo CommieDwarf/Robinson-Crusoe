@@ -11,8 +11,6 @@ type Props = {
   resolved: boolean;
 };
 export const CloudsTotal = (props: Props) => {
-  let rain = props.weatherService.tokens.rain ? 1 : 0;
-  let snow = props.weatherService.tokens.snow ? 1 : 0;
 
   return (
     <div className={styles.container}>
@@ -20,7 +18,7 @@ export const CloudsTotal = (props: Props) => {
       <div className={styles.background}>
         <div className={styles.cloud}>
           <span className={styles.cloudCount}>
-            {props.resolved ? props.weatherService.overallWeather.snow : snow}
+            {props.weatherService.overallWeather.snow}
           </span>
           <Image
             src={snowCloudImg}
@@ -33,7 +31,7 @@ export const CloudsTotal = (props: Props) => {
       <div className={styles.background}>
         <div className={styles.cloud}>
           <span className={styles.cloudCount}>
-            {props.resolved ? props.weatherService.overallWeather.rain : rain}
+            {props.weatherService.overallWeather.rain}
           </span>
           <Image
             src={rainCloudImg}

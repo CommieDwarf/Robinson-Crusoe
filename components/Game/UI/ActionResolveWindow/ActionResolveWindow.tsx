@@ -14,6 +14,7 @@ import { ReRoll } from "./ReRoll/ReRoll";
 import redArrowImg from "/public/UI/misc/red-arrow.png";
 import { ActionDice } from "../../../../interfaces/RollDice/RollDice";
 import { sleep } from "../../../../utils/sleep";
+import Draggable from "react-draggable";
 
 type Props = {
   actionService: IActionServiceRenderData;
@@ -103,6 +104,8 @@ export const ActionResolveWindow = (props: Props) => {
   }
 
   return (
+    <Draggable bounds="parent">
+
     <div className={styles.container} ref={containerRef}>
       {reRollButtonClicked && (
         <div className={styles.reRollArrowTip}>
@@ -175,5 +178,7 @@ export const ActionResolveWindow = (props: Props) => {
         />
       )}
     </div>
+    </Draggable>
+
   );
 };

@@ -4,6 +4,7 @@ import {
     ITileRenderData,
     MarkedForAction,
     TILE_ACTION,
+    TileGatherableResource,
     TileModifiers,
     TilePosition,
     TileResource,
@@ -21,6 +22,7 @@ import {TileResourceService} from "./TileResourceService/TileResourceService";
 import {AssignablePawnsItem} from "../../AssignablePawnsItem/AssignablePawnsItem";
 import {ACTION, ACTION_ITEM} from "../../../../interfaces/ACTION";
 import {ICharacter} from "../../../../interfaces/Characters/Character";
+import {SideCharacter} from "../../CharacterService/Characters/Character/SideCharacter/SideCharacter";
 
 export class Tile extends AssignablePawnsItem implements ITile {
 
@@ -239,7 +241,7 @@ export class Tile extends AssignablePawnsItem implements ITile {
         if (!this.tileResourceService) {
             throw new Error(`tile is not revealed. id: ${this.id}`);
         }
-        this.tileResourceService.markResourceForAction(source, actionName, side);
+        this.tileResourceService.markResourceForAction(side, actionName, source);
     }
 
     public canResourceActionBePerformed(action: TILE_RESOURCE_ACTION, side: Side, source: string) {
@@ -362,13 +364,25 @@ export class Tile extends AssignablePawnsItem implements ITile {
         }
     }
 
-    public addResourceModifier(side: Side, source: string): void {
-        this._tileResourceService?.addModifier(side, source);
+    public addModifierBySide(side: Side, source: string): void {
+        this._tileResourceService?.addModifierBySide(side, source);
     }
 
-    public removeResourceModifier(side: Side, source: string): void {
-        this._tileResourceService?.removeModifier(side, source);
+    public addModifierByResource(resource: TileGatherableResource, source: string) {
+        this._tileResourceService?.addModifierByResource(resource, source);
     }
+
+    public removeResourceModifier(side: Side | null, resource: "wood" | "food", source: string): void {
+        const resSide = side ? side : this.getSideByResource(resource);
+        if (!side) {
+            const resSide = this.getSideByResource("beast") as Side;
+        }
+        if (!resSide) {
+            throw new Error("Can't deduce resource side");
+        }
+        this._tileResourceService?.removeModifier(resSide, source);
+    }
+
 
     public clearResourceModifiers() {
         this._tileResourceService?.clearModifiers();
@@ -444,7 +458,7 @@ export class Tile extends AssignablePawnsItem implements ITile {
                     "red",
                     source
                 );
-                    break;
+                break;
             case "terrainDepleted":
                 this._game.chatLog.addMessage(
                     "Teren na kafelku został zasłonięty",

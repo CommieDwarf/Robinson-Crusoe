@@ -12,6 +12,7 @@ export interface ICharacterServiceRenderData {
     playerCharacters: IPlayerCharacterRenderData[];
     dog: ISideCharacterRenderData;
     friday: ISideCharacterRenderData;
+    thresholdAmountForRemoval: number;
 }
 
 export interface ICharacterService {
@@ -19,12 +20,14 @@ export interface ICharacterService {
 
     dog: ISideCharacter;
     friday: ISideCharacter;
+    thresholdAmountForRemoval: number;
     removeFreePawn: (charName: string, draggableId: string) => void;
     removePawn: (charName: string, draggableId: string) => void;
     addPawn: (charName: string, draggableId: string) => void;
     addFreePawn: (charName: string, draggableId: string) => void;
     getCharacter: (charName: string) => ICharacter;
     hurtAllPlayerCharacters: (by: number, source: string) => void;
+    healAllCharacters: (amount: number, sourceLog: string) => void;
     decrDeterminationAllPlayerCharacters: (
         amount: number,
         logSource: string
@@ -41,7 +44,7 @@ export interface ICharacterService {
         by: number,
         logSource: string
     ) => void;
-    decrDetermination: (
+    decrDeterminationOrGetHurt: (
         charOrName: string | ICharacter,
         by: number,
         logSource: string
@@ -56,4 +59,6 @@ export interface ICharacterService {
         char: IPlayerCharacter | string,
         threshold: number
     ) => void;
+    markThresholdsForRemoval: (amount: number) => void;
+    unMarkThresholdsForRemoval: (amount: number) => void;
 }

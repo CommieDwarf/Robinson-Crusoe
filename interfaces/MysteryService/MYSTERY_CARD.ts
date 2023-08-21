@@ -14,6 +14,9 @@ export enum CREATURE_MYSTERY_CARD {
   UNLEASHED_BEAST = "unleashed beast",
 }
 
+
+
+
 export enum TRAP_MYSTERY_CARD {
   BLOW_GUN = "blow gun",
   BLUNT_SPEAR = "blunt spear",

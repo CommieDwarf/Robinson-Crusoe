@@ -17,6 +17,7 @@ import {RollDiceService} from "../RollDiceService/RollDiceService";
 import {isAdventureAction} from "../../../utils/isAdventureAction";
 import {isTile} from "../../../utils/isSpecificResolvableItem/isTile";
 import {isCommittableResourcesItem} from "../../../utils/isCommittableResourcesItem";
+import { IBeast } from "../../../interfaces/Beasts/Beast";
 
 export class ResolvableItem implements IResolvableItem {
     private readonly _item: Item;
@@ -229,7 +230,8 @@ export class ResolvableItem implements IResolvableItem {
                 this._game.eventService.fullFill(eventCard.id);
                 break;
             case item instanceof Beast:
-                this._game.beastService.killBeast(this._leaderPawn.character);
+                this._game.beastService.fightBeast(this._leaderPawn.character, item as IBeast);
+                this._game.beastService.removeBeastFromDeck();
                 break;
             case item === ACTION.REST:
                 this._game.arrangeCampRestService.rest(this._leaderPawn.character);

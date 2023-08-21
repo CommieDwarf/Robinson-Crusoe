@@ -18,12 +18,32 @@ import { Tapir } from "./Beasts/Tapir";
 import { Tiger } from "./Beasts/Tiger";
 import { WildDog } from "./Beasts/WildDog";
 import { WildPig } from "./Beasts/WildPig";
+import { IBasicResources } from "../../../../interfaces/Resources/Resources";
+
+export interface BeastStats {
+  name: string,
+  namePL: string,
+  strenght: number,
+  weaponLoss: number,
+  reward: IBasicResources,
+}
 
 export class BeastCreator implements ICreator<Beast, BEAST> {
   private readonly _game: IGame;
 
   constructor(game: IGame) {
     this._game = game;
+  }
+
+  createCustomBeast(stats: BeastStats) {
+    return new Beast(
+      stats.name,
+      stats.namePL,
+      stats.strenght,
+      stats.weaponLoss,
+      stats.reward,
+      this._game
+    );
   }
 
   create(name: BEAST) {

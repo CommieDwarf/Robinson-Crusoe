@@ -7,6 +7,7 @@ import {ITileGraph} from "../../../interfaces/TileService/ITileGraph";
 import {Side, TILE_RESOURCE_ACTION} from "../../../interfaces/TileService/TileResourceService";
 import {FixedTileResources} from "../../../interfaces/TileService/TileResourceInfo";
 import {fixedTileResources} from "../../../constants/tileResourceServices";
+import {INVENTION_NORMAL} from "../../../interfaces/InventionService/Invention";
 
 export class TileService implements ITileService {
 
@@ -25,8 +26,8 @@ export class TileService implements ITileService {
     private _actionQueue: Function[] = [];
 
     private readonly _sides: Side[] = ["left", "right"];
-    basket: boolean = false;
-    sack: boolean = false;
+    private _roundBasketUsed: number = 0;
+    private _roundSackUsed: number = 0;
     axe: boolean = false;
     resourceAmountToDeplete: number = 0;
     private readonly _startCamp = 7;
@@ -229,11 +230,15 @@ export class TileService implements ITileService {
 
     gather(side: "left" | "right", tileID: number, logSource: string) {
         const tile = this.getTile(tileID);
-        const resourceAmount = tile.getGatherableResourceAmount(side);
-        if (resourceAmount) {
+        const resource = tile.getGatherableResourceAmount(side);
+
+        if (resource) {
+            if (this._game.phaseService.phase === "action") {
+                resource.amount = this.addResourceAmountFromItems(resource.amount);
+            }
             this._game.resourceService.addBasicResourceToFuture(
-                resourceAmount.resource,
-                resourceAmount.amount,
+                resource.resource,
+                resource.amount,
                 logSource
             );
         }
@@ -253,6 +258,20 @@ export class TileService implements ITileService {
         this.showAdjacentTiles(id);
         this._tileGraph.addEdges(id);
         this._tileGraph.updateDistance();
+    }
+
+    private addResourceAmountFromItems(amount: number) {
+        let newAmount = amount;
+        const inventionService = this._game.inventionService;
+        if (inventionService.isBuilt(INVENTION_NORMAL.BASKET) && this._roundBasketUsed !== this._game.round) {
+            newAmount++;
+            this._roundBasketUsed = this._game.round;
+        }
+        if (inventionService.isBuilt(INVENTION_NORMAL.SACK) && this._roundSackUsed !== this._game.round) {
+            this._roundSackUsed = this._game.round;
+            newAmount++;
+        }
+        return newAmount;
     }
 
     public canCampBeMoved(): boolean {

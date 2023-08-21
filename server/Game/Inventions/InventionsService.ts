@@ -7,19 +7,15 @@ import {
     INVENTION_PERSONAL,
     INVENTION_STARTER,
 } from "../../../interfaces/InventionService/Invention";
-import {
-    IInventionService,
-    IInventionServiceRenderData,
-} from "../../../interfaces/InventionService/InventionService";
+import {IInventionService, IInventionServiceRenderData,} from "../../../interfaces/InventionService/InventionService";
 import {ITileService} from "../../../interfaces/TileService/ITileService";
-import {IPlayerCharacter} from "../../../interfaces/Characters/Character";
 import {IGame} from "../../../interfaces/Game";
 import {InventionCreator} from "./InventionCreator/InventionCreator";
 import capitalizeFirstLetter from "../../../utils/capitalizeFirstLetter";
+import {IPlayerCharacter} from "../../../interfaces/Characters/PlayerCharacter";
 
 export class InventionsService implements IInventionService {
     private _builtInventions: IInvention[] = [];
-    // TODO: fixed for the demo
     scenario: "castaways";
     private readonly _inventions: IInvention[];
     private _tiles: ITileService;
@@ -52,14 +48,14 @@ export class InventionsService implements IInventionService {
         return this.getInvention(invention).isBuilt;
     }
 
-    private getInitialInventions(scenario: "castaways") {
+    private getInitialInventions(scenarioName: "castaways") {
         const starters = Object.values(INVENTION_STARTER);
-        const normal = shuffle(Object.values(INVENTION_NORMAL)).slice(0, 5);
-        const scenarioInv = Object.values(INVENTION_CASTAWAYS);
+        const normal = shuffle(Object.values(INVENTION_NORMAL))
+        const scenario = Object.values(INVENTION_CASTAWAYS);
         const creator = new InventionCreator(this._game);
         const personal = INVENTION_PERSONAL.FIREPLACE;
 
-        return [...starters, ...normal, ...scenarioInv, personal].map((invention) =>
+        return [...starters, ...normal, ...scenario, personal].map((invention) =>
             creator.create(invention)
         );
     }
@@ -69,14 +65,16 @@ export class InventionsService implements IInventionService {
         if (this._builtInventions.includes(invention)) {
             throw new Error("Invention is already has been built " + invention.name);
         }
-
-        this._builtInventions.push(invention);
-        invention.isBuilt = true;
+        if (name !== INVENTION_CASTAWAYS.MAST) {
+            this._builtInventions.push(invention);
+            invention.isBuilt = true;
+        }
         this._game.chatLog.addMessage(
             `stworzono: ${capitalizeFirstLetter(invention.namePL)}`,
             "green",
             builder.namePL
         );
+        invention.onBuild();
         this.updateLocks();
         this.sortInventionsByBuilt();
     }
@@ -102,6 +100,11 @@ export class InventionsService implements IInventionService {
         });
     }
 
+    public useInvention(name: string): void {
+        const char = this._game.localPlayer.getCharacter();
+        this.getInvention(name).use(char);
+    }
+
     private isInvRequirementMet(invention: IInvention) {
         if (!invention.requirements || !invention.requirements.inventions) {
             return true;
@@ -125,9 +128,12 @@ export class InventionsService implements IInventionService {
         );
     }
 
+    public resetCardPawns() {
+        this._builtInventions.forEach((invention) => invention.resetHelperPawn());
+    }
+
     getInvention(name: string): IInvention {
         const invention = this._inventions.find((inv) => inv.name === name);
-
         if (!invention) {
             throw new Error("Can find invention with specific name: " + name);
         }

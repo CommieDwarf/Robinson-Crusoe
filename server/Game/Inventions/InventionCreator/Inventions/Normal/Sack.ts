@@ -21,10 +21,8 @@ export class Sack extends Invention implements IInvention {
     }
 
     onBuild() {
-        this._game.tileService.sack = true;
     }
 
     onDestruction() {
-        this._game.tileService.sack = false;
     }
 }

@@ -6,9 +6,12 @@ import {
 } from "../../../../../../interfaces/InventionService/Invention";
 import {IGame} from "../../../../../../interfaces/Game";
 import {TERRAIN_TYPE} from "../../../../../../interfaces/TileService/ITile";
+import {IPlayerCharacter} from "../../../../../../interfaces/Characters/PlayerCharacter";
 
 export class Pot extends Invention implements IInvention {
     protected readonly _namePL = "naczynia";
+    protected _usable = true;
+    
 
     constructor(game: IGame) {
         super(
@@ -19,7 +22,15 @@ export class Pot extends Invention implements IInvention {
         );
     }
 
-    // TODO: implement somewhere healing from food.
+    use(user: IPlayerCharacter) {
+        if (this._game.phaseService.phase === "night") {
+            if (this._game.resourceService.canAffordResource("food", 1)) {
+                this._game.resourceService.spendBasicResourceIfPossible("food", 1, "");
+                this._game.characterService.heal(user, 1, this._namePL);
+            }
+        }
+    }
+
     onBuild() {
         return;
     }

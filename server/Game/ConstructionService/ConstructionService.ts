@@ -70,6 +70,12 @@ export class ConstructionService implements IConstructionService {
 
     lvlUpConstruction(construction: CONSTRUCTION, by: number, logSource: string) {
         const construct = this.getConstruction(construction);
+        if ((construction === CONSTRUCTION.ROOF 
+            || construction === CONSTRUCTION.PALISADE)
+            && !this.isBuilt(CONSTRUCTION.SHELTER)
+            ) { 
+                return;
+        }
         construct.incrementLvl(by);
         this._game.chatLog.addMessage(
             `ulepszono ${i18n.t(`construction.${construct.name}`, {

@@ -1,17 +1,10 @@
-import {
-    IWeatherService,
-    IWeatherTokens,
-    OverallWeather,
-    WeatherModifiers,
-} from "../../../interfaces/Weather/Weather";
+import {IWeatherService, IWeatherTokens, OverallWeather, WeatherModifiers,} from "../../../interfaces/Weather/Weather";
 import {IGame} from "../../../interfaces/Game";
-import {
-    WeatherDice,
-    WeatherDiceResults,
-    WeatherDiceSide,
-} from "../../../interfaces/RollDice/RollDice";
+import {WeatherDice, WeatherDiceResults, WeatherDiceSide,} from "../../../interfaces/RollDice/RollDice";
 import {RollDiceService} from "../RollDiceService/RollDiceService";
 import {CONSTRUCTION} from "../../../interfaces/ConstructionService/Construction";
+import {INVENTION_NORMAL} from "../../../interfaces/InventionService/Invention";
+import {TREASURE_MYSTERY_CARD} from "../../../interfaces/MysteryService/MYSTERY_CARD";
 
 export class WeatherService implements IWeatherService {
     private _tokens: IWeatherTokens = {
@@ -38,12 +31,12 @@ export class WeatherService implements IWeatherService {
         return {
             tokens: this._tokens,
             rollDiceResult: this._rollDiceResult,
-            overallWeather: this.overallWeather,
+            overallWeather: this.getOverallWeather(),
             shouldRollDices: this.shouldRollDices,
         };
     }
 
-    get overallWeather(): OverallWeather {
+    getOverallWeather(): OverallWeather {
         const animals = this._rollDiceResult?.animals;
 
         let {rain, snow} = this.countClouds();
@@ -51,6 +44,15 @@ export class WeatherService implements IWeatherService {
         snow += this._modifiers.snow;
         rain = rain < 0 ? 0 : rain;
         snow = snow < 0 ? 0 : snow;
+
+        if (snow > 0 && this._game.inventionService.isBuilt(INVENTION_NORMAL.FURNACE)) {
+            snow--;
+        }
+        if (snow > 0 && this._game.mysteryService.hasTresureCard(TREASURE_MYSTERY_CARD.OLD_CLOTHES)) {
+            snow--;
+            rain++;
+        }
+
         return {
             snow,
             rain,
@@ -96,7 +98,7 @@ export class WeatherService implements IWeatherService {
     }
 
     public applyEffects() {
-        const weather = this.overallWeather;
+        const weather = this.getOverallWeather();
         this.applySnowEffect(weather.snow);
         this.applySnowAndRain(weather.snow, weather.rain);
         if (weather.animals) {

@@ -6,10 +6,10 @@ import {
 } from "../../../../../../interfaces/InventionService/Invention";
 import {IGame} from "../../../../../../interfaces/Game";
 import {TERRAIN_TYPE} from "../../../../../../interfaces/TileService/ITile";
-import {HelperPawnInvention} from "../../HelperPawnInvention";
+import {Invention} from "../../Invention";
 import {PAWN_HELPER_ACTION} from "../../../../../../interfaces/Pawns/Pawn";
 
-export class Lantern extends HelperPawnInvention implements IInvention {
+export class Lantern extends Invention implements IInvention {
     protected readonly _namePL = "latarnia";
 
     constructor(game: IGame) {
@@ -18,15 +18,14 @@ export class Lantern extends HelperPawnInvention implements IInvention {
             {terrainType: TERRAIN_TYPE.HILLS, inventions: [INVENTION_STARTER.FIRE]},
             INVENTION_TYPE.NORMAL,
             game,
-            PAWN_HELPER_ACTION.BUILD
         );
     }
 
     onBuild() {
-        super.onBuild();
+        this.initHelperPawn(PAWN_HELPER_ACTION.BUILD);
     }
 
     onDestruction() {
-        super.onDestruction();
+        this.destroyPawn();
     }
 }

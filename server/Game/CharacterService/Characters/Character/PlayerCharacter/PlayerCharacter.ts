@@ -118,6 +118,7 @@ export abstract class PlayerCharacter
 
     // ---------------------------------------------
 
+
     setWound(part: keyof Wounds, action: AdventureAction, source: string) {
         this._game.chatLog.addMessage(`${this._namePL} odniósł ranę na ${i18n.t(`bodyPart.${part}`, {
             context: "locative"

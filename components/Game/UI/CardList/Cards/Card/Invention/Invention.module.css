@@ -4,7 +4,7 @@
     position: absolute;
     transition: all 0.5s;
     z-index: 0;
-    cursor: pointer;
+    cursor: zoom-in;
     font-size: 20px;
 }
 
@@ -45,7 +45,7 @@
 }
 
 .zIndexIncreased {
-    z-index: 11 !important;
+    z-index: 55 !important;
 }
 
 .zIndexTransition {
@@ -101,4 +101,34 @@
     height: 100%;
     background-color: white;
     border-radius: 100%;
+}
+
+.cardPawn {
+    position: relative;
+    top: 30%;
+    height: 50%;
+    aspect-ratio: 1;
+    margin: auto;
+    z-index: 999999;
+}
+
+.cardPawn > div {
+    margin: auto;
+}
+
+.useButton {
+    position: relative;
+    top: 30%;
+    height: 20%;
+    width: 50%;
+    text-align: center;
+    background-image: url("../../../../../../../public/UI/old-paper.png");
+    line-height: 100%;
+    margin: auto;
+    font-weight: bold;
+    border-radius: 15%;
+    color: var(--brown);
+    scale: 70%;
+    border: 1px solid var(--brown);
+    cursor: pointer;
 }

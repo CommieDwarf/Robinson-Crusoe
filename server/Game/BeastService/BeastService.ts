@@ -1,12 +1,10 @@
-import {
-    IBeastService,
-    IBeastServiceRenderData,
-} from "../../../interfaces/Beasts/BeastService";
+import {IBeastService, IBeastServiceRenderData,} from "../../../interfaces/Beasts/BeastService";
 import {BEAST, IBeast} from "../../../interfaces/Beasts/Beast";
-import {IPlayerCharacter} from "../../../interfaces/Characters/Character";
 import {IGame} from "../../../interfaces/Game";
-import {BeastCreator} from "./BeastCreator/BeastCreator";
-import {AssignablePawnsItem} from "../AssignablePawnsItem/AssignablePawnsItem";
+import {BeastCreator, BeastStats} from "./BeastCreator/BeastCreator";
+import {CONSTRUCTION} from "../../../interfaces/ConstructionService/Construction";
+import {IPlayerCharacter} from "../../../interfaces/Characters/PlayerCharacter";
+import {TREASURE_MYSTERY_CARD} from "../../../interfaces/MysteryService/MYSTERY_CARD";
 
 export class BeastService implements IBeastService {
     private _deck: IBeast[] = [];
@@ -14,12 +12,12 @@ export class BeastService implements IBeastService {
     private _game: IGame;
     private _beastStack: IBeast[] = [];
 
-    private beastBeingFought: IBeast | null = null;
-    private _beastStrengthEnchanted = false;
+    private _beastCreator: BeastCreator;
 
     constructor(game: IGame) {
         this._game = game;
         this._beastStack.push(new BeastCreator(game).create(BEAST.TIGER));
+        this._beastCreator = new BeastCreator(game);
     }
 
     get renderData(): IBeastServiceRenderData {
@@ -33,17 +31,10 @@ export class BeastService implements IBeastService {
         return this._deck.length;
     }
 
-    get beastStrengthEnchanted(): boolean {
-        return this._beastStrengthEnchanted;
-    }
-
-    set beastStrengthEnchanted(value: boolean) {
-        this._beastStrengthEnchanted = value;
-    }
 
     // --------------------------------------------
 
-    getBeastFromDeck(): IBeast {
+    peekBeastFromDeck(): IBeast {
         if (this.deckCount === 0) {
             throw new Error("There is no more beasts in the deck");
         }
@@ -84,16 +75,30 @@ export class BeastService implements IBeastService {
         return beasts;
     }
 
-    fightBeast(leader: IPlayerCharacter) {
-        const beast = this._deck[0];
-        if (beast) {
-            this.beastBeingFought = beast;
+    fightBeast(leader: IPlayerCharacter, beast: IBeast) {
+        const modifiedStrength = this.getStrengthWithModifiers(beast);
+        const weapon = this._game.constructionService.getConstruction(CONSTRUCTION.WEAPON);
+        const weaponLvl = weapon.boostedLvl;
+        const diff = weaponLvl - modifiedStrength;
+        this._game.chatLog.addMessage("Bestia upolowana!", "green", beast.namePL);
+        if (diff < 0) {
+            this._game.characterService.hurt(leader, Math.abs(diff), "polowanie");
         }
+        this._game.constructionService.lvlDownOrGetHurt(CONSTRUCTION.WEAPON, beast.weaponLoss, "polowanie");
+        beast.applySpecialEffect();
+        if (this._game.phaseService.phase === "action") {
+            this._game.resourceService.addBasicResourcesToFuture(beast.reward, "polowanie");
+        } else {
+            this._game.resourceService.addBasicResourcesToOwned(beast.reward);
+        }
+        weapon.resetTemporaryBoost();
     }
 
-    //TODO implement killBeast()
-    killBeast(leader: IPlayerCharacter) {
+    fightCustomBeast(leader: IPlayerCharacter, beastStats: BeastStats) {
+        const beast = this._beastCreator.createCustomBeast(beastStats);
+        this.fightBeast(leader, beast);
     }
+
 
     static getStrongestBeast(beasts: IBeast[]) {
         let strength = 0;
@@ -105,5 +110,14 @@ export class BeastService implements IBeastService {
         });
 
         return current;
+    }
+
+
+    private getStrengthWithModifiers(beast: IBeast) {
+        let strength = beast.strength;
+        if (this._game.mysteryService.hasTresureCard(TREASURE_MYSTERY_CARD.HELMET)) {
+            strength--;
+        }
+        return strength;
     }
 }
