@@ -56,14 +56,14 @@ export class TokenService implements ITokenService {
         for (let i = 0; i < length; i++) {
             this.addRandomTokenToOwned();
         }
-        const testSet = new Set<string>();
-
-        this.ownedTokens.forEach((token) => {
-            if (testSet.has(token.id)) {
-                throw new Error("powtarza sie");
-            }
-            testSet.add(token.id);
-        });
+        // const testSet = new Set<string>();
+        //
+        // this.ownedTokens.forEach((token) => {
+        //     if (testSet.has(token.id)) {
+        //         throw new Error("powtarza sie");
+        //     }
+        //     testSet.add(token.id);
+        // });
     }
 
     public autoUseOwnedTokens() {

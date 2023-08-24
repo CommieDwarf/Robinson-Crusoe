@@ -39,5 +39,8 @@ export interface IConstructionService {
 
     getConstruction: (construction: CONSTRUCTION) => IConstruction;
     isBuilt: (construction: CONSTRUCTION) => boolean;
+
+    switchCommittedResources: (construction: CONSTRUCTION) => void;
+    updateLocks: () => void;
     renderData: IConstructionServiceRenderData;
 }

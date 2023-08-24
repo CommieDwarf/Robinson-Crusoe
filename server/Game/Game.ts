@@ -252,13 +252,13 @@ export class GameClass implements IGame {
         } else {
             if (this.shouldCommitResources(droppableId) && this.canCommitResources(droppableId)) {
                 const item = getItemFromDroppableId(droppableId, this) as IResourceCommittableItem;
-                item.commitResource(false);
+                item.commitResource();
             }
             if (droppableId.includes("card") && item instanceof Invention) {
                 item.resetHelperPawn()
             } else {
                 this._actionSlotService.setPawn(droppableId, pawn);
-                
+
             }
         }
     }
@@ -274,7 +274,7 @@ export class GameClass implements IGame {
         //     return true;
         // }
         if (isCommittableResourcesItem(item)) {
-            return item.canCommitResource(false);
+            return item.canCommitResource(false) || item.canCommitResource(true);
         } else {
             return false;
         }

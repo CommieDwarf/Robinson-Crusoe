@@ -1,10 +1,8 @@
-import {BasicResources} from "../ResourceService/BasicResources";
 import {CONSTRUCTION} from "../../../interfaces/ConstructionService/Construction";
 import {
     IConstructionService,
     IConstructionServiceRenderData,
 } from "../../../interfaces/ConstructionService/IConstructionService";
-import {IBasicResources, IBasicResourcesAmount} from "../../../interfaces/Resources/Resources";
 import {IGame} from "../../../interfaces/Game";
 import {Construction} from "./Construction";
 import i18n from "../../../I18n/I18n";
@@ -70,11 +68,11 @@ export class ConstructionService implements IConstructionService {
 
     lvlUpConstruction(construction: CONSTRUCTION, by: number, logSource: string) {
         const construct = this.getConstruction(construction);
-        if ((construction === CONSTRUCTION.ROOF 
-            || construction === CONSTRUCTION.PALISADE)
+        if ((construction === CONSTRUCTION.ROOF
+                || construction === CONSTRUCTION.PALISADE)
             && !this.isBuilt(CONSTRUCTION.SHELTER)
-            ) { 
-                return;
+        ) {
+            return;
         }
         construct.incrementLvl(by);
         this._game.chatLog.addMessage(
@@ -135,12 +133,14 @@ export class ConstructionService implements IConstructionService {
 
     setLvl(construction: CONSTRUCTION, lvl: number) {
         this.getConstruction(construction).lvl = lvl;
+        this.updateLocks()
+
     }
 
     setDividedLvlByTwo(construction: CONSTRUCTION, logSource: string) {
         const construct = this.getConstruction(construction);
         const prevValue = construct.lvl;
-        construct.lvl = Math.floor(prevValue / 2);
+        this.setLvl(construction, Math.floor(prevValue / 2))
         if (construct.lvl !== prevValue) {
             this._game.chatLog.addMessage(
                 `Poziom ${i18n.t(`construction.${construct.name}`, {
@@ -166,6 +166,16 @@ export class ConstructionService implements IConstructionService {
         );
     }
 
+    updateLocks() {
+        if (this.getConstruction(CONSTRUCTION.SHELTER).lvl > 0) {
+            this.unlockAllConstructions()
+        } else {
+            [CONSTRUCTION.PALISADE, CONSTRUCTION.ROOF].forEach((construction) => {
+                this.lockConstruction(construction)
+            })
+        }
+    }
+
     isBuilt(construction: CONSTRUCTION) {
         return this.getConstruction(construction).lvl > 0;
     }
@@ -181,5 +191,9 @@ export class ConstructionService implements IConstructionService {
             );
         }
         return construct;
+    }
+
+    public switchCommittedResources(construction: CONSTRUCTION) {
+        this.getConstruction(construction).switchCommittedResourceType();
     }
 }

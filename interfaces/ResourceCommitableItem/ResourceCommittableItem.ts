@@ -17,7 +17,7 @@ export interface IResourceCommittableItem extends IAssignablePawnsItem {
     optionalResourceCost: SingleResourceRequirement | null;
     committedResources: SingleResourceRequirement | null;
 
-    commitResource: (optional: boolean) => void;
+    commitResource: () => void;
     unCommitResources: () => void;
 
     consumeCommittedResources: () => void;

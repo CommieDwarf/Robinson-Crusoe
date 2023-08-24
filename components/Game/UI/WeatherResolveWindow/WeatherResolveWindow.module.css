@@ -9,8 +9,12 @@
     top: calc(50% - 148px);
     color: var(--brown);
     left: 249px;
+    cursor: grab;
 }
 
+.dragging {
+    cursor: grabbing;
+}
 
 .bottomBar {
     width: 100%;

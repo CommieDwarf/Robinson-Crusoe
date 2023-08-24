@@ -13,10 +13,17 @@ import {objectsEqual} from "../../../../../utils/objectsEqual";
 type Props = {
     construction: IConstructionRenderData;
     hideActionSlots?: boolean;
+    switchCommittedResources: (construction: CONSTRUCTION) => void;
 };
 
 function Construction(props: Props) {
     const resources: JSX.Element[] = [];
+
+    function handleResourceClick() {
+        if (props.construction.canResourceBeSwitched) {
+            props.switchCommittedResources(props.construction.name);
+        }
+    }
 
     if (props.construction.committedResources) {
         const resType = props.construction.committedResources.type;
@@ -37,6 +44,8 @@ function Construction(props: Props) {
 
     const lockedClass = props.construction.locked ? styles.locked : "";
 
+    const nonSelectableResourceCostClass = !props.construction.canResourceBeSwitched && props.construction.committedResources ? styles.nonSelectable : "";
+
     let costIcon;
 
     if (props.construction.name == CONSTRUCTION.WEAPON) {
@@ -56,14 +65,20 @@ function Construction(props: Props) {
                 <div className={styles.costWoodValue}>
                     {props.construction.resourceCost?.amount}
                 </div>
-                <div className={styles.woodImage}>
+                <div className={`${styles.woodImage}
+                 ${props.construction.committedResources?.type === "wood" ? styles.selected : nonSelectableResourceCostClass}`}
+                     onClick={handleResourceClick}
+                >
                     <Image src={woodImg} fill alt={"drewno"} sizes={styles.woodImage}/>
                 </div>
                 <div className={styles.crossLine}></div>
                 <div className={styles.costLeatherValue}>
                     {props.construction.optionalResourceCost?.amount}
                 </div>
-                <div className={styles.leatherImage}>
+                <div className={`${styles.leatherImage}
+                    ${props.construction.committedResources?.type === "leather" ? styles.selected : nonSelectableResourceCostClass}`}
+                     onClick={handleResourceClick}
+                >
                     <Image
                         src={leatherImg}
                         fill

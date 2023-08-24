@@ -16,7 +16,6 @@ export class Construction extends ResourceCommittableItem implements IConstructi
     private _lvl = 0;
     private _locked: boolean;
     private _resourceChoice: boolean = true;
-
     private _temporaryBoost: number = 0;
 
     constructor(
@@ -39,6 +38,7 @@ export class Construction extends ResourceCommittableItem implements IConstructi
             lvl: this.lvl,
             name: this.name,
             temporaryBoost: this._temporaryBoost,
+            canResourceBeSwitched: this.canResourceBeSwitched(),
             ...super.getResourceCommittableRenderData(),
         };
     }
@@ -91,9 +91,42 @@ export class Construction extends ResourceCommittableItem implements IConstructi
 
     incrementLvl(num: number) {
         this._lvl += num;
+        this._game.constructionService.updateLocks();
     }
 
     decrementLvl(num: number) {
         this._lvl -= num;
+        this._game.constructionService.updateLocks();
+    }
+
+    public switchCommittedResourceType() {
+        if (!this._optionalResourceCost || !this._resourceCost) {
+            return;
+        }
+        if (this.committedResources?.type === this._resourceCost.type) {
+            this.switchResourceType(this._resourceCost, this._optionalResourceCost);
+        } else {
+            this.switchResourceType(this._optionalResourceCost, this._resourceCost);
+        }
+    }
+
+    private switchResourceType(old: SingleResourceRequirement, newResource: SingleResourceRequirement) {
+        if (!this._committedResources) {
+            return;
+        }
+        const resourceService = this._game.resourceService;
+        if (resourceService.canAffordResource(newResource.type, newResource.amount)) {
+            resourceService.addBasicResourceToOwned(old.type, old.amount, "");
+            resourceService.spendBasicResourceIfPossible(newResource.type, newResource.amount, "");
+            this._committedResources = newResource;
+        }
+    }
+
+    private canResourceBeSwitched() {
+        if (!this._committedResources || !this._resourceCost || !this._optionalResourceCost) {
+            return false;
+        }
+        const cost = this._committedResources.type === this._resourceCost.type ? this._optionalResourceCost : this._resourceCost;
+        return this._game.resourceService.canAffordResource(cost.type, cost.amount);
     }
 }

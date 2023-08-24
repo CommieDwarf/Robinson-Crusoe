@@ -22,7 +22,7 @@ export class Mast extends Invention implements IInvention {
     }
 
     onBuild() {
-        this._game.scenarioService.onMastBuild();
+        this._game.scenarioService.onItemUse();
     }
 
     onDestruction() {

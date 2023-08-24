@@ -51,7 +51,7 @@ function ScenarioButton(props: Props) {
                     </div>
                 </div>
                 <div className={styles.label}>
-                    Scenariusz: Rozbitkowie --- Tura: {props.round}
+                    Scenariusz: Rozbitkowie -- Runda: {props.round}
                 </div>
                 <div className={styles.arrowWrapper}>
                     <div className={`${styles.arrow} ${rotatedArrowClass}`}>

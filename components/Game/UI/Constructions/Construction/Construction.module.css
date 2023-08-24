@@ -76,6 +76,18 @@
     width: 28px;
     height: 28px;
     left: 10px;
+    cursor: pointer;
+    z-index: 1;
+
+}
+
+.selected {
+    border-radius: 100%;
+    border: 2px solid limegreen;
+}
+
+.nonSelectable {
+    filter: opacity(40%);
 }
 
 .leatherImage {
@@ -84,6 +96,7 @@
     height: 28px;
     right: 0;
     bottom: 0;
+    cursor: pointer;
 }
 
 .crossLine {

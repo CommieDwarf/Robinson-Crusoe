@@ -8,8 +8,8 @@
     grid-template-columns: 1fr 3fr 0.9fr 1.1fr 2fr 3fr;
     /* grid-template-rows: 1fr 5fr 4fr 1fr; */
     grid-template-rows: 50px 235px 125px 75px 25px 50px;
-    background-image: url("../../public/UI/old-paper.png");
-    background-size: contain;
+    /*background-image: url("../../public/UI/old-paper.png");*/
+    /*background-size: contain;*/
     position: relative;
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -20,5 +20,5 @@
     /* Non-prefixed version, currently
                                      supported by Chrome, Edge, Opera and Firefox */
     overflow: hidden;
-    
+
 }

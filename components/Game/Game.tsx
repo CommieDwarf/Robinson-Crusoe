@@ -71,6 +71,9 @@ import {StorageAction} from "../../interfaces/MysteryService/StorageCard";
 import useInvention from "../../pages/api/utilizeInvention";
 import utilizeInvention from "../../pages/api/utilizeInvention";
 import addWoodToStash from "../../pages/api/addWoodToStash";
+import {CONSTRUCTION} from "../../interfaces/ConstructionService/Construction";
+import switchCommittedResources from "../../pages/api/switchCommittedResources";
+import {Background} from "./UI/Background/Background";
 
 interface Props {
     gameRenderData: IGameRenderData;
@@ -208,7 +211,11 @@ export default function Game(props: Props) {
 
     function handleUseInvention(name: string) {
         utilizeInvention(name);
-        console.log("USE");
+        props.updateGameRenderData();
+    }
+
+    function handleSwitchCommittedResources(construction: CONSTRUCTION) {
+        switchCommittedResources(construction);
         props.updateGameRenderData();
     }
 
@@ -351,9 +358,19 @@ export default function Game(props: Props) {
     const scenarioInventions = gameRenderData.inventionService.inventions.filter(
         (inv) => inv.inventionType === INVENTION_TYPE.SCENARIO
     );
+    // rid-column: 3 / span 2;
+    // grid-row: 3 / span 1;
 
     return (
         <div className={styles.game}>
+            <Background columnStart={3} columnEnd={5} rowStart={3} rowEnd={5}/>
+            <Background columnStart={1} columnEnd={3} rowStart={1} rowEnd={2}/>
+            <Background columnStart={1} columnEnd={3} rowStart={2} rowEnd={5}/>
+            <Background columnStart={1} columnEnd={3} rowStart={5} rowEnd={7}/>
+            <Background columnStart={5} columnEnd={6} rowStart={1} rowEnd={3}/>
+            <Background columnStart={6} columnEnd={7} rowStart={1} rowEnd={3}/>
+            <Background columnStart={6} columnEnd={7} rowStart={3} rowEnd={7}/>
+            <Background columnStart={3} columnEnd={6} rowStart={6} rowEnd={7}/>
             {props.gameRenderData.adventureService.currentCard && (
                 <CardResolve
                     renderData={props.gameRenderData.adventureService.currentCard}
@@ -426,6 +443,7 @@ export default function Game(props: Props) {
                 <Constructions
                     constructions={gameRenderData.constructionService.constructions}
                     zIndex={elementZIndexed}
+                    switchCommittedResources={handleSwitchCommittedResources}
                 />
                 <MapComponent
                     tileService={gameRenderData.tileService}

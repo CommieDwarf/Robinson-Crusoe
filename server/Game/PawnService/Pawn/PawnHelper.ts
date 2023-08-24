@@ -21,7 +21,7 @@ export class PawnHelper extends Pawn implements IPawnHelper {
         action: PAWN_HELPER_ACTION,
         card?: IInvention,
     ) {
-        super(character, character.pawnService.pawns.length);
+        super(character, character.pawnService.pawns.length + 1);
         if (card) {
             this._draggableId = getCardPawnDraggableId(card.name, "invention");
             this._card = card;

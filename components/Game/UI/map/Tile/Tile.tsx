@@ -41,7 +41,7 @@ export default function Tile(props: Props) {
         actionSlots = <div></div>
     } else if (!props.tile.tileResourceService && !props.tile.modifiers.flipped) {
         actionSlots = (
-            <div className={styles.explorePlayerSlots}>
+            <div className={`${styles.explorePlayerSlots}`}>
                 {getActionSlots(props.tile, props.tile.requiredPawnAmount)}
             </div>
         );

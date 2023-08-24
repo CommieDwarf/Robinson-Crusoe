@@ -1,7 +1,6 @@
 import {IGame, IGameRenderData} from "../../interfaces/Game";
 import {GameClass} from "./Game";
 import {Pawn} from "./PawnService/Pawn/Pawn";
-import {ACTION} from "../../interfaces/ACTION";
 import {CONSTRUCTION} from "../../interfaces/ConstructionService/Construction";
 import {INVENTION_NORMAL, INVENTION_PERSONAL, INVENTION_STARTER} from "../../interfaces/InventionService/Invention";
 
@@ -42,10 +41,10 @@ export class GameService implements IGameService {
         this._game.tileService.tilesAroundCamp.forEach((tile) => this._game?.tileService.explore(tile.id));
 
         // this._game.tileService.getTile(6).markTileForActon(TILE_ACTION.SET_TIME_CONSUMING_ACTION, "testy")
-        this._game.localPlayer.getCharacter().pawnService.addPawn(new Pawn(this._game.localPlayer.getCharacter(), 7))
-        this._game.localPlayer.getCharacter().pawnService.addPawn(new Pawn(this._game.localPlayer.getCharacter(), 8))
-        this._game.localPlayer.getCharacter().pawnService.addPawn(new Pawn(this._game.localPlayer.getCharacter(), 9))
-        this._game.localPlayer.getCharacter().pawnService.addPawn(new Pawn(this._game.localPlayer.getCharacter(), 10))
+        this._game.localPlayer.getCharacter().pawnService.addPawn(new Pawn(this._game.localPlayer.getCharacter()))
+        this._game.localPlayer.getCharacter().pawnService.addPawn(new Pawn(this._game.localPlayer.getCharacter()))
+        this._game.localPlayer.getCharacter().pawnService.addPawn(new Pawn(this._game.localPlayer.getCharacter()))
+        this._game.localPlayer.getCharacter().pawnService.addPawn(new Pawn(this._game.localPlayer.getCharacter()))
         this._game.localPlayer.getCharacter().pawnService.resetFreePawns();
         this._game.weatherService.setToken("snow", true, "TESTY")
         this._game.inventionService.build(INVENTION_STARTER.MAP, this._game.localPlayer.getCharacter());
@@ -73,13 +72,16 @@ export class GameService implements IGameService {
         this._game.constructionService.lvlUpConstruction(CONSTRUCTION.PALISADE, 3, "test");
         this._game.tileService.explore(6)
 
-        // this._game.mysteryService.startDrawingCards(0, 0, 1, this._game.localPlayer.getCharacter(), Infinity);
+        this._game.mysteryService.startDrawingCards(3, 3, 4, this._game.localPlayer.getCharacter(), Infinity);
         this._game.resourceService.addBasicResourceToOwned("food", 2, "TEST");
+
 
         // this._game.actionSlotService.setPawn(getDroppableID(ACTION.EXPLORE, "6", "right", 0), this._game.localPlayer.getCharacter().pawnService.pawns[0])
         // this._game.actionSlotService.setPawn(getDroppableID(ACTION.EXPLORE, "6", "right", 1), this._game.localPlayer.getCharacter().pawnService.pawns[0])
         // this._game.actionSlotService.setPawn(getDroppableID(ACTION.GATHER, "6", "left", 0), this._game.localPlayer.getCharacter().pawnService.pawns[0])
         // this._game.actionSlotService.setPawn(getDroppableID(ACTION.GATHER, "6", "left", 1), this._game.localPlayer.getCharacter().pawnService.pawns[0])
+
+        this._game.tokenService.addRandomTokenToOwned();
     }
 
     get renderData() {

@@ -58,11 +58,14 @@ export abstract class ResourceCommittableItem extends AssignablePawnsItem implem
         }
     }
 
-    public commitResource(optional: boolean) {
-        if (!optional && this.resourceCost) {
+    public commitResource() {
+        if (!this.resourceCost) {
+            return;
+        }
+        if (this._game.resourceService.canAffordResource(this.resourceCost.type, this.resourceCost.amount)) {
             this._game.resourceService.spendBasicResourceIfPossible(this.resourceCost.type, this.resourceCost.amount, "");
             this._committedResources = this.resourceCost;
-        } else if (this.optionalResourceCost) {
+        } else if (this.optionalResourceCost && this._game.resourceService.canAffordResource(this.optionalResourceCost?.type, this.optionalResourceCost?.amount)) {
             this._game.resourceService.spendBasicResourceIfPossible(this.optionalResourceCost.type, this.optionalResourceCost.amount, "");
             this._committedResources = this.optionalResourceCost;
         }
@@ -90,7 +93,6 @@ export abstract class ResourceCommittableItem extends AssignablePawnsItem implem
         if (!requirement) {
             return true;
         }
-        console.log(requirement)
         return this._game.resourceService.owned.basic.canAfford(requirement.type, requirement.amount);
 
     }

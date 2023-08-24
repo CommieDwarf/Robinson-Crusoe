@@ -6,10 +6,10 @@ import {
 } from "../ResourceCommitableItem/ResourceCommittableItem";
 
 export interface IConstructionRenderData extends IResourceCommittableItemRenderData {
-    name: string;
+    name: CONSTRUCTION;
     lvl: number;
     locked: boolean;
-
+    canResourceBeSwitched: boolean;
     temporaryBoost: number;
 }
 

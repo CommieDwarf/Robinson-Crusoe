@@ -16,7 +16,7 @@ export interface IScenarioService {
     committedWood: number;
 
     addWood: () => void;
-    onMastBuild: () => void;
+    onItemUse: (amount: number, sourceLog: string) => void;
 }
 
 export interface WeatherDays {

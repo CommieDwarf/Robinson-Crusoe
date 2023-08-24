@@ -75,24 +75,26 @@ export class Castaways implements IScenarioService {
     }
 
     public addWood() {
-        console.log(this.canAddWood(), " CAN ADD WOOD")
         if (this.canAddWood()) {
             this._committedWood++;
             this._game.resourceService.spendBasicResourceIfPossible("wood", 1, "");
+            this.addLogMessage(1, this._game.localPlayer.getCharacter().namePL);
             if (this._committedWood === this._woodStashLvl) {
                 this.lvlUpStash();
             }
         }
     }
 
-    public onMastBuild() {
+    public onItemUse(amount: number, sourceLog: string) {
         if (this._lastRoundStashUpgraded !== this._game.round) {
-            const sum = this._committedWood + 3;
+            const sum = this._committedWood + amount;
             if (sum >= this._woodStashLvl) {
-                this._committedWood = this._woodStashLvl;
+                const realAmountAdded = this._woodStashLvl - this._committedWood;
+                this.addLogMessage(realAmountAdded, sourceLog);
                 this.lvlUpStash()
             } else {
-                this._committedWood += 3;
+                this.addLogMessage(sum, sourceLog)
+                this._committedWood += amount;
             }
         }
     }
@@ -120,5 +122,9 @@ export class Castaways implements IScenarioService {
         } else if (this._game.round > this._lastRound) {
             this._status = SCENARIO_STATUS.DEFEAT;
         }
+    }
+
+    private addLogMessage(woodAdded: number, sourceLog: string) {
+        this._game.chatLog.addMessage(`Dodano ${woodAdded} drewna na stos`, "green", sourceLog)
     }
 }

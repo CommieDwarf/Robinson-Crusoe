@@ -45,3 +45,7 @@ a {
 body::-webkit-scrollbar-track {
     background-color: black;
 }
+
+.grabbing {
+    cursor: grabbing;
+}

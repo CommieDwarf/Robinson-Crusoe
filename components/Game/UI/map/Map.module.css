@@ -4,6 +4,7 @@
     position: relative;
     overflow: hidden;
     z-index: 1;
+    border-bottom: 1px solid var(--brown);
 }
 
 
@@ -19,13 +20,16 @@
     position: relative;
     overflow: hidden;
     transition: 0.2s;
+
 }
 
 .scroll {
+
     height: 100%;
     width: 100%;
     position: relative;
     overflow: scroll;
+
 }
 
 .scrollDisabled {
@@ -68,6 +72,7 @@
     aspect-ratio: 425 / 416;
     display: inline-block;
     height: 99%;
+
 }
 
 .zoom {
