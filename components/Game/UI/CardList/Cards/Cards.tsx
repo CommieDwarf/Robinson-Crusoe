@@ -7,15 +7,16 @@ import {IMysteryCardRenderData} from "../../../../../interfaces/MysteryService/M
 import {Tab} from "../CardList";
 import {Card} from "./Card/Card";
 import {StorageAction} from "../../../../../interfaces/MysteryService/StorageCard";
+import {IItemRenderData} from "../../../../../interfaces/Equipment/Item";
 
 interface Props {
     inventions: IInventionRenderData[];
     mysteryCards: IMysteryCardRenderData[];
+    items: IItemRenderData[];
     tab: Tab;
     isBeingDragged: boolean;
     zIndex: string;
     scrollTop: number;
-    toggleZoom: () => void;
     useMysteryCard: (cardName: string) => void;
     useInventionCard: (cardName: string) => void;
     manageStorage: (cardName: string, type: "mystery", action: StorageAction) => void;
@@ -27,12 +28,10 @@ function Cards(props: Props) {
             ? styles.zIndexIncreased
             : "";
 
-    let cardsSelected =
-        props.tab === "inventions" ? props.inventions : props.mysteryCards;
+    let cardsSelected = props[props.tab];
 
     let column = -1;
     let row = -1;
-    console.log(props.zIndex);
 
     const cards = cardsSelected.map((card) => {
         column = column == 2 ? 0 : column + 1;
@@ -45,7 +44,6 @@ function Cards(props: Props) {
                 card={card}
                 key={card.name}
                 zIndexIncreased={props.zIndex.includes(card.name)}
-                toggleZoom={props.toggleZoom}
                 useMysteryCard={props.useMysteryCard}
                 useInventionCard={props.useInventionCard}
                 manageStorage={props.manageStorage}
@@ -64,12 +62,5 @@ function Cards(props: Props) {
     );
 }
 
-// function areEqual(prevProps: Props, nextProps: Props) {
-//   const start = Date.now();
-//   let equal = objectsEqual(prevProps, nextProps);
-//   const end = Date.now();
-//   console.log(end - start);
-//   return equal;
-// }
 
 export default React.memo(Cards, objectsEqual);

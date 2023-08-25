@@ -7,9 +7,13 @@ import Invention from "./Invention/Invention";
 import {MysteryCard} from "./MysteryCard/MysteryCard";
 import {StorageAction} from "../../../../../../interfaces/MysteryService/StorageCard";
 import {useState} from "react";
+import {IItemRenderData} from "../../../../../../interfaces/Equipment/Item";
+import {isMysteryCard} from "../../../../../../utils/isMysteryCard";
+import Item from "./Item/Item";
+import styles from "./Card.module.css";
 
 type Props = {
-    card: IMysteryCardRenderData | IInventionRenderData;
+    card: IMysteryCardRenderData | IInventionRenderData | IItemRenderData
     column: number;
     row: number;
     top: number;
@@ -25,12 +29,11 @@ type Props = {
 };
 export const Card = (props: Props) => {
     const [mouseOnButtons, setMouseOnButtons] = useState(false);
-    const [enlarge, setEnlarge] = useState(false);
+    const [enlarged, setEnlarged] = useState(false);
 
-    function handleEnlarge(value: boolean) {
+    function handleEnlarge() {
         if (!mouseOnButtons) {
-            setEnlarge(value);
-            console.log("ENLARGE")
+            setEnlarged(!enlarged);
         }
     }
 
@@ -38,25 +41,48 @@ export const Card = (props: Props) => {
         setMouseOnButtons(value);
     }
 
+    let card;
+
+    const wrapperStyle = {
+        left: props.column * 95,
+        top: props.row * 140,
+        cursor: enlarged ? "zoom-out" : "zoom-in",
+    };
+
+    const enlargedClass = enlarged
+        ? styles.enlarged
+        : styles.zIndexTransition;
+
+    wrapperStyle.top = enlarged ? props.top : wrapperStyle.top;
+    wrapperStyle.left = enlarged ? 60 : wrapperStyle.left;
+
+    const zIndexClass = props.zIndexIncreased ? styles.zIndexIncreased : "";
 
     if (isCardInvention(props.card)) {
-        return <Invention invention={props.card} {...props} use={props.useInventionCard}
-                          handleEnlarge={handleEnlarge}
-                          enlarged={enlarge}
+        card = <Invention invention={props.card} use={props.useInventionCard}
                           handleMouseOverButtons={handleMouseOverButtons}
         />;
-    } else {
-
-        return (
+    } else if (isMysteryCard(props.card)) {
+        card = (
             <MysteryCard
                 mysteryCard={props.card}
                 use={props.useMysteryCard}
-                {...props}
                 manageStorage={props.manageStorage}
-                handleEnlarge={handleEnlarge}
-                enlarged={enlarge}
                 handleMouseOverButtons={handleMouseOverButtons}
             />
         );
+    } else {
+        card = (
+            <Item item={props.card} use={() => {
+            }}
+                  handleMouseOverButtons={handleMouseOverButtons}/>
+        )
     }
-};
+
+    return <div className={`${styles.card} ${styles.zIndexIncreased} ${enlargedClass} ${zIndexClass}`}
+                style={wrapperStyle}
+                onClick={handleEnlarge}
+    >
+        {card}
+    </div>
+}

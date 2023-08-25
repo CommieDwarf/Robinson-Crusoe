@@ -5,37 +5,20 @@ import styles from "./Invention.module.css";
 import getActionSlots from "../../../../getActionSlots";
 import {IInventionRenderData} from "../../../../../../../interfaces/InventionService/Invention";
 import {getImgName} from "../../../../../../../utils/getImgName";
-import {ACTION, ACTION_ITEM} from "../../../../../../../interfaces/ACTION";
+import {ACTION} from "../../../../../../../interfaces/ACTION";
 import {objectsEqual} from "../../../../../../../utils/objectsEqual";
 import {useAppSelector} from "../../../../../../../store/hooks";
 import {selectModifiersByAction} from "../../../../../features/globalCostModifiers";
-import Pawn from "../../../../Pawn";
-import {Droppable} from "react-beautiful-dnd";
-import {getCardPawnDraggableId} from "../../../../../../../utils/getCardPawnDraggableId";
 import {getCardPawnDroppableId} from "../../../../../../../utils/getCardPawnDroppableId";
 
 type Props = {
     invention: IInventionRenderData;
-    column: number;
-    row: number;
-    top: number;
-    zIndexIncreased: boolean;
-    toggleZoom?: () => void;
     hideActionSlots?: boolean;
-
     use: (name: string) => void;
-
-    handleEnlarge: (value: boolean) => void;
-    enlarged: boolean;
     handleMouseOverButtons: (value: boolean) => void;
 };
 
 function Invention(props: Props) {
-    const [imageLoaded, setImageLoaded] = useState(false);
-
-    function handleLoad() {
-        setImageLoaded(true);
-    }
 
     function handleMouseEnter() {
         props.handleMouseOverButtons(true);
@@ -45,29 +28,12 @@ function Invention(props: Props) {
         props.handleMouseOverButtons(false);
     }
 
-    const inventionRef = React.createRef<HTMLDivElement>();
-
-    function handleClick() {
-        props.handleEnlarge(!props.enlarged)
-    }
 
     function handleUseButtonClick() {
         props.use(props.invention.name);
         props.handleMouseOverButtons(false);
     }
 
-
-    const wrapperStyle = {
-        left: props.column * 95,
-        top: props.row * 140,
-    };
-
-    const enlargedClass = props.enlarged
-        ? styles.inventionEnlarged
-        : styles.zIndexTransition;
-
-    wrapperStyle.top = props.enlarged ? props.top + 3 : wrapperStyle.top;
-    wrapperStyle.left = props.enlarged ? 60 : wrapperStyle.left;
 
     const resources: JSX.Element[] = [];
     const resource = props.invention.committedResources?.type;
@@ -86,9 +52,6 @@ function Invention(props: Props) {
         }
     }
 
-    const leaderId = "invention-" + props.invention.name + "-leader-0";
-
-    const zIndexClass = props.zIndexIncreased ? styles.zIndexIncreased : "";
 
     const reverse =
         props.invention.isBuilt && props.invention.inventionType !== "scenario"
@@ -109,13 +72,9 @@ function Invention(props: Props) {
 
     const helperPawn = props.invention.helperPawn;
 
-
     return (
         <div
-            ref={inventionRef}
-            className={`${styles.invention} ${enlargedClass} ${zIndexClass}`}
-            onClick={handleClick}
-            style={wrapperStyle}
+            className={`${styles.container}`}
         >
             <Image
                 src={`/UI/inventions/${props.invention.inventionType}/${getImgName(
@@ -155,7 +114,7 @@ function Invention(props: Props) {
                     Użyj
                 </div>)}
             {props.invention.helperPawn && (
-                <div className={`${styles.cardPawn} ${zIndexClass}`}
+                <div className={`${styles.cardPawn} `}
                 >
                     <ActionSlot
                         type={"helper"}

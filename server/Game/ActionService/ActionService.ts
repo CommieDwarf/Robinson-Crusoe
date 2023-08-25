@@ -1,15 +1,13 @@
 import {
-    ActionTokens, GlobalCostModifiers,
+    ActionTokens,
+    GlobalCostModifiers,
     IActionService,
     IActionServiceRenderData,
 } from "../../../interfaces/ActionService/ActionService";
 import {IGame} from "../../../interfaces/Game";
 
 import {ACTION, AdventureAction} from "../../../interfaces/ACTION";
-import {
-    IResolvableItem,
-    RESOLVE_ITEM_STATUS,
-} from "../../../interfaces/ActionService/IResolvableItem";
+import {IResolvableItem, RESOLVE_ITEM_STATUS,} from "../../../interfaces/ActionService/IResolvableItem";
 import {getItemFromDroppableId} from "../../../utils/getItemFromDroppableId";
 import {ResolvableItem} from "./ResolvableItem";
 import {actionOrder} from "../../../constants/actionOrder";
@@ -23,7 +21,7 @@ import {IGlobalCostModifierRenderData} from "../../../interfaces/ActionService/G
 import {IBasicResourcesAmount} from "../../../interfaces/Resources/Resources";
 import {GlobalCostModifier} from "./GlobalCostModifier/GlobalCostModifier";
 import Entries from "../../../interfaces/Entries";
-import { Beast } from "../BeastService/BeastCreator/Beast";
+import {ITEM} from "../../../interfaces/Equipment/Item";
 
 export class ActionService implements IActionService {
 
@@ -57,6 +55,7 @@ export class ActionService implements IActionService {
         [ACTION.REST]: [],
     }
 
+    private _bibleUses: number = 0;
 
     constructor(game: IGame) {
         this._game = game;
@@ -125,6 +124,14 @@ export class ActionService implements IActionService {
 
     get lastRolledItem(): IResolvableItem | null {
         return this._lastRolledItem;
+    }
+
+    get bibleUses(): number {
+        return this._bibleUses;
+    }
+
+    set bibleUses(value: number) {
+        this._bibleUses = value;
     }
 
     hasGlobalModifier(action: ACTION, resource: "helper" | keyof IBasicResourcesAmount): boolean {
@@ -234,6 +241,7 @@ export class ActionService implements IActionService {
     }
 
     public loadItems() {
+        this._bibleUses = this._game.equipmentService.hasItem(ITEM.BIBLE) ? this._game.equipmentService.getUses(ITEM.BIBLE) : 0;
         const allSlots = this._game.actionSlotService.getOccupiedActionSlots();
         if (this._actionIndex === 0) {
             this.setCanBeSkipped(allSlots);
@@ -359,4 +367,7 @@ export class ActionService implements IActionService {
         return resolvableItem;
     }
 
+    setBibleUsage(resolvableItemId: string, value: boolean) {
+        this.getResolvableItem(resolvableItemId).bibleChecked = value;
+    }
 }

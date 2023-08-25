@@ -41,7 +41,7 @@ export interface IActionService {
         sourceLog: string
     ) => void;
 
-
+    bibleUses: number;
     hasGlobalModifier: (action: ACTION, resource: "helper" | keyof IBasicResourcesAmount) => boolean;
     addGlobalCostModifier: (action: ACTION, resource: "helper" | keyof IBasicResourcesAmount, disposable: boolean, source: string) => void;
     removeGlobalCostModifier: (action: ACTION, source: string) => void;
@@ -52,6 +52,7 @@ export interface IActionService {
     adventureTokens: ActionTokens;
     reRollTokens: ActionTokens;
 
+    setBibleUsage: (resolvableItemId: string, value: boolean) => void;
 }
 
 export interface IActionServiceRenderData {

@@ -1,4 +1,4 @@
-import { IPlayerCharacter } from "../Characters/PlayerCharacter";
+import {IPlayerCharacter} from "../Characters/PlayerCharacter";
 
 export interface IArrangeCampRestService {
     pawnAmount: {
@@ -8,7 +8,7 @@ export interface IArrangeCampRestService {
     arrangeCampBonus: "determination" | "morale" | null;
     renderData: IArrangeCampRestServiceRenderData;
     rest: (character: IPlayerCharacter) => void;
-    arrangeCamp: (character: IPlayerCharacter) => void;
+    arrangeCamp: (character: IPlayerCharacter, useBible: boolean) => void;
 
     incrPawnAmount: (action: "rest" | "arrangeCamp") => void;
     decrPawnAmount: (action: "rest" | "arrangeCamp") => void;

@@ -17,7 +17,8 @@ import {RollDiceService} from "../RollDiceService/RollDiceService";
 import {isAdventureAction} from "../../../utils/isAdventureAction";
 import {isTile} from "../../../utils/isSpecificResolvableItem/isTile";
 import {isCommittableResourcesItem} from "../../../utils/isCommittableResourcesItem";
-import { IBeast } from "../../../interfaces/Beasts/Beast";
+import {IBeast} from "../../../interfaces/Beasts/Beast";
+import {ITEM} from "../../../interfaces/Equipment/Item";
 
 export class ResolvableItem implements IResolvableItem {
     private readonly _item: Item;
@@ -33,6 +34,8 @@ export class ResolvableItem implements IResolvableItem {
     private readonly _droppableID: string;
     private _resolveStatus: RESOLVE_ITEM_STATUS = RESOLVE_ITEM_STATUS.PENDING;
     private _rollDiceResults: ActionDiceResults | null = null;
+
+    private _bibleChecked: boolean = false;
 
     constructor(
         item: Item,
@@ -56,6 +59,8 @@ export class ResolvableItem implements IResolvableItem {
             itemRenderData = this._item.renderData;
         }
 
+        console.log("CAN BE USED", this._item, this.canBibleBeUsed(), this._game.actionService.bibleUses)
+
         return {
             itemName: "xD",
             item: itemRenderData,
@@ -70,6 +75,8 @@ export class ResolvableItem implements IResolvableItem {
             shouldReRollSuccess: this.shouldReRollSuccess,
             reRolledSuccess: this._reRolledSuccess,
             reRolledDice: this._reRolledDice,
+            bibleChecked: this._bibleChecked,
+            canBibleBeUsed: this.canBibleBeUsed()
         };
     }
 
@@ -238,7 +245,7 @@ export class ResolvableItem implements IResolvableItem {
                 break;
             case item === ACTION.ARRANGE_CAMP:
                 this._game.arrangeCampRestService.arrangeCamp(
-                    this._leaderPawn.character
+                    this._leaderPawn.character, this._bibleChecked
                 );
                 break;
         }
@@ -274,4 +281,21 @@ export class ResolvableItem implements IResolvableItem {
             //TODO: pull mystery card.
         }
     }
+
+    canBibleBeUsed() {
+        return this._action === "arrange camp" && this._game.actionService.bibleUses > 0;
+    }
+
+    set bibleChecked(value: boolean) {
+        if (value) {
+            if (this.canBibleBeUsed()) {
+                this._game.actionService.bibleUses--;
+                this._bibleChecked = true;
+            }
+        } else {
+            this._game.actionService.bibleUses++;
+            this._bibleChecked = false;
+        }
+    }
+
 }

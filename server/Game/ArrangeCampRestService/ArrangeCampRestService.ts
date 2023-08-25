@@ -3,6 +3,7 @@ import {IGame} from "../../../interfaces/Game";
 import {TREASURE_MYSTERY_CARD} from "../../../interfaces/MysteryService/MYSTERY_CARD";
 import {IPlayerCharacter} from "../../../interfaces/Characters/PlayerCharacter";
 import {INVENTION_NORMAL} from "../../../interfaces/InventionService/Invention";
+import {ITEM} from "../../../interfaces/Equipment/Item";
 
 export class ArrangeCampRestService implements IArrangeCampRestService {
     // TODO: IMPLEMENT CHOICE BETWEEN BED EFFECT OR NORMAL EFFECT.
@@ -54,6 +55,16 @@ export class ArrangeCampRestService implements IArrangeCampRestService {
     }
 
 
-    public arrangeCamp(character: IPlayerCharacter) {
+    public arrangeCamp(character: IPlayerCharacter, useBible: boolean) {
+        const characterService = this._game.characterService;
+        let determination = 2;
+        let logSource = "Porządkowanie obozu"
+        if (useBible) {
+            logSource += " (Biblia)"
+            determination = 3;
+            characterService.heal(character, 1, logSource);
+            this._game.equipmentService.useItem(ITEM.BIBLE, character, character)
+        }
+        characterService.incrDetermination(character, determination, logSource);
     }
 }

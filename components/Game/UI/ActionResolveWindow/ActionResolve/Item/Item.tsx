@@ -27,6 +27,7 @@ type Props = {
     rollDices: (resolvableItemID: string) => void;
     reRoll: (resolvableItemID: string) => void;
     actionService: IActionServiceRenderData;
+    setBibleUsage: (resolvableItemId: string, value: boolean) => void;
     resolved: boolean;
 };
 export const Item = (props: Props) => {
@@ -35,6 +36,11 @@ export const Item = (props: Props) => {
     let itemTypeStatusClass = "";
 
     const [used, setUsed] = useState(false);
+
+
+    function handleBibleCheckBoxClick() {
+        props.setBibleUsage(props.resolvableItem.id, !props.resolvableItem.bibleChecked)
+    }
 
     if (props.resolvableItem.action === ACTION.THREAT) {
         const card = props.resolvableItem.item as unknown as IEventCardRenderData;
@@ -234,6 +240,12 @@ export const Item = (props: Props) => {
                         : "sukces!"}
                 </div>
             )}
+            {(props.resolvableItem.canBibleBeUsed || props.resolvableItem.bibleChecked) &&
+                <div className={styles.itemUseCheckBox}>Użyć Biblii? <input type="checkbox"
+                                                                            className={styles.checkbox}
+                                                                            checked={props.resolvableItem.bibleChecked}
+                                                                            onClick={handleBibleCheckBoxClick}
+                ></input></div>}
             <div
                 className={`${styles.resolveButton} ${lockedButtonClass}`}
                 onClick={handleClick}

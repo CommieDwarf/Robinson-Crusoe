@@ -25,6 +25,7 @@ type Props = {
     setNextPhase: () => void;
     reRoll: (resolvableItemID: string) => void;
     useReRollSkill: (dice: ActionDice) => void;
+    setBibleUsage: (resolvableItemId: string, value: boolean) => void;
 };
 export const ActionResolveWindow = (props: Props) => {
     let containerRef = React.createRef<HTMLDivElement>();
@@ -170,6 +171,7 @@ export const ActionResolveWindow = (props: Props) => {
                     }
                     rollDices={rollDices}
                     reRoll={onReRollSuccess}
+                    setBibleUsage={props.setBibleUsage}
                 />
                 {props.actionService.resolvableItems.length === resolvedItems.size && (
                     <NextActionButton

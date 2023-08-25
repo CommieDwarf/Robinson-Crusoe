@@ -169,6 +169,22 @@
     left: 5px;
 }
 
+.itemUseCheckBox {
+    position: absolute;
+    bottom: 10%;
+    width: 100%;
+    height: 8%;
+}
+
+.checkbox {
+    position: relative;
+    top: 20%;
+    background-color: red;
+    cursor: pointer;
+    aspect-ratio: 1;
+    height: 100%;
+}
+
 .clickableButton:hover {
     color: green;
     border: 2px solid darkgreen;

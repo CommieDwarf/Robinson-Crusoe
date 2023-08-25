@@ -1,39 +1,47 @@
 // @flow
 import * as React from "react";
 import styles from "./Tabs.module.css";
-import { Tab } from "../CardList";
+import {Tab} from "../CardList";
 
 type Props = {
-  switchTab: (tab: "inventions" | "treasures") => void;
-  currentTab: Tab;
+    switchTab: (tab: Tab) => void;
+    currentTab: Tab;
 };
 export const Tabs = (props: Props) => {
-  function handleInventionsClick() {
-    props.switchTab("inventions");
-  }
+    function handleInventionsClick() {
+        props.switchTab("inventions");
+    }
 
-  function handleTreasuresClick() {
-    props.switchTab("treasures");
-  }
+    function handleMysteryClick() {
+        props.switchTab("mysteryCards");
+    }
 
-  return (
-    <div className={styles.container}>
-      <div
-        className={`${styles.tab} ${
-          props.currentTab === "inventions" && styles.selected
-        }`}
-        onClick={handleInventionsClick}
-      >
-        Pomysły
-      </div>
-      <div
-        className={`${styles.tab} ${
-          props.currentTab === "treasures" && styles.selected
-        }`}
-        onClick={handleTreasuresClick}
-      >
-        K. Tajemnic
-      </div>
-    </div>
-  );
+    function handleItemsClick() {
+        props.switchTab("items");
+    }
+
+    return (
+        <div className={styles.container}>
+            <div
+                className={`${styles.tab} ${
+                    props.currentTab === "inventions" && styles.selected
+                }`}
+                onClick={handleInventionsClick}
+            >
+                Pomysły
+            </div>
+            <div
+                className={`${styles.tab} ${
+                    props.currentTab === "mysteryCards" && styles.selected
+                }`}
+                onClick={handleMysteryClick}
+            >
+                K. Tajemnic
+            </div>
+            <div className={`${styles.tab} ${props.currentTab === "items" && styles.selected}`}
+                 onClick={handleItemsClick}>
+                Przedmioty
+            </div>
+        </div>
+    );
 };

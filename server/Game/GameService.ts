@@ -3,6 +3,8 @@ import {GameClass} from "./Game";
 import {Pawn} from "./PawnService/Pawn/Pawn";
 import {CONSTRUCTION} from "../../interfaces/ConstructionService/Construction";
 import {INVENTION_NORMAL, INVENTION_PERSONAL, INVENTION_STARTER} from "../../interfaces/InventionService/Invention";
+import {ItemCreator} from "./Equipment/ItemCreator/ItemCreator";
+import {ITEM} from "../../interfaces/Equipment/Item";
 
 interface IGameService {
     game: IGame | null;
@@ -72,9 +74,10 @@ export class GameService implements IGameService {
         this._game.constructionService.lvlUpConstruction(CONSTRUCTION.PALISADE, 3, "test");
         this._game.tileService.explore(6)
 
-        this._game.mysteryService.startDrawingCards(3, 3, 4, this._game.localPlayer.getCharacter(), Infinity);
+        this._game.mysteryService.startDrawingCards(0, 0, 4, this._game.localPlayer.getCharacter(), Infinity);
         this._game.resourceService.addBasicResourceToOwned("food", 2, "TEST");
-
+        const itemCreator = new ItemCreator(this._game);
+        this._game.equipmentService.items.push(itemCreator.create(ITEM.BIBLE));
 
         // this._game.actionSlotService.setPawn(getDroppableID(ACTION.EXPLORE, "6", "right", 0), this._game.localPlayer.getCharacter().pawnService.pawns[0])
         // this._game.actionSlotService.setPawn(getDroppableID(ACTION.EXPLORE, "6", "right", 1), this._game.localPlayer.getCharacter().pawnService.pawns[0])

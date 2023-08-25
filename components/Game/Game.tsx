@@ -15,7 +15,6 @@ import actionSlotStyles from "./UI/ActionSlot.module.css";
 
 import Threat from "./UI/threat/Threat";
 import ArrangeCampRest from "./UI/ArrangeCampRest/ArrangeCampRest";
-import Equipment from "./UI/equipment/Equipment";
 
 import {IBasicResourcesAmount} from "../../interfaces/Resources/Resources";
 
@@ -74,6 +73,7 @@ import addWoodToStash from "../../pages/api/addWoodToStash";
 import {CONSTRUCTION} from "../../interfaces/ConstructionService/Construction";
 import switchCommittedResources from "../../pages/api/switchCommittedResources";
 import {Background} from "./UI/Background/Background";
+import setBibleUsage from "../../pages/api/setBibleUsage";
 
 interface Props {
     gameRenderData: IGameRenderData;
@@ -216,6 +216,11 @@ export default function Game(props: Props) {
 
     function handleSwitchCommittedResources(construction: CONSTRUCTION) {
         switchCommittedResources(construction);
+        props.updateGameRenderData();
+    }
+
+    function handleSetBibleUsage(resolvableItemId: string, value: boolean) {
+        setBibleUsage(resolvableItemId, value);
         props.updateGameRenderData();
     }
 
@@ -462,6 +467,7 @@ export default function Game(props: Props) {
                         (inv) => inv.inventionType !== INVENTION_TYPE.SCENARIO
                     )}
                     mysteryCards={[...gameRenderData.resourceService.owned.treasures, ...gameRenderData.mysteryService.cardsAsReminders]}
+                    items={gameRenderData.equipmentService.items}
                     isBeingDragged={isPawnBeingDragged}
                     zIndex={elementZIndexed}
                     useMysteryCard={handleUseMysteryCard}
@@ -494,7 +500,6 @@ export default function Game(props: Props) {
                         elementZIndexed.includes("arrange camp")
                     }
                 />
-                <Equipment equipment={gameRenderData.equipmentService}/>
                 <ActionsOrder
                     adventureTokens={gameRenderData.actionService.adventureTokens}
                     reRollTokens={gameRenderData.actionService.reRollTokens}
@@ -532,6 +537,7 @@ export default function Game(props: Props) {
                         rollDices={handleRollActionDices}
                         reRoll={handleReRollActionDice}
                         useReRollSkill={useReRollSkill}
+                        setBibleUsage={handleSetBibleUsage}
                     />
                 )}
             <Alerts message={gameRenderData.alertService.alert}/>

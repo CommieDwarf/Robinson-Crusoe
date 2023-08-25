@@ -42,6 +42,10 @@ export interface IResolvableItem {
 
     rollDices: () => void;
     resolve: () => void;
+
+    bibleChecked: boolean;
+
+
 }
 
 export enum RESOLVE_ITEM_STATUS {
@@ -70,4 +74,7 @@ export interface IResolvableItemRenderData {
     reRolledSuccess: boolean;
     reRolledDice: ActionDice | null;
     rollDiceResults: ActionDiceResults | null;
+
+    canBibleBeUsed: boolean;
+    bibleChecked: boolean;
 }
