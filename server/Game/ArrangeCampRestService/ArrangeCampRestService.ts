@@ -63,7 +63,7 @@ export class ArrangeCampRestService implements IArrangeCampRestService {
             logSource += " (Biblia)"
             determination = 3;
             characterService.heal(character, 1, logSource);
-            this._game.equipmentService.useItem(ITEM.BIBLE, character, character)
+            this._game.equipmentService.useItem(ITEM.BIBLE)
         }
         characterService.incrDetermination(character, determination, logSource);
     }

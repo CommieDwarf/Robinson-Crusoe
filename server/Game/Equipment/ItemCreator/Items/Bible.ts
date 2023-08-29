@@ -5,10 +5,10 @@ import {IPlayerCharacter} from "../../../../../interfaces/Characters/PlayerChara
 
 export class Bible extends Item implements IItem {
     constructor(game: IGame) {
-        super(ITEM.BIBLE, game);
+        super(ITEM.BIBLE, "Biblia", game);
     }
 
-    use(user: IPlayerCharacter, target: IPlayerCharacter) {
+    use(user: IPlayerCharacter, target: IPlayerCharacter = user) {
         super.use(user, target);
     }
 }

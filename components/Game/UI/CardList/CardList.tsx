@@ -7,7 +7,7 @@ import {Tabs} from "./Tabs/Tabs";
 import Cards from "./Cards/Cards";
 import {IMysteryCardRenderData} from "../../../../interfaces/MysteryService/MysteryCard";
 import {StorageAction} from "../../../../interfaces/MysteryService/StorageCard";
-import {IItem, IItemRenderData} from "../../../../interfaces/Equipment/Item";
+import {IItem, IItemRenderData, ITEM} from "../../../../interfaces/Equipment/Item";
 
 type Props = {
     zIndex: string;
@@ -18,6 +18,8 @@ type Props = {
     useMysteryCard: (cardName: string) => void;
     manageStorage: (cardName: string, type: "mystery", action: StorageAction) => void;
     useInventionCard: (cardName: string) => void;
+
+    useItem: (item: ITEM) => void;
 };
 
 export type Tab = "inventions" | "mysteryCards" | "items";
@@ -58,6 +60,7 @@ export const CardList = (props: Props) => {
                     zIndex={props.zIndex}
                     scrollTop={scrollTop}
                     useMysteryCard={props.useMysteryCard}
+                    useItem={props.useItem}
                     manageStorage={props.manageStorage}
                     useInventionCard={props.useInventionCard}
                 />

@@ -77,7 +77,6 @@ export class GameService implements IGameService {
         this._game.mysteryService.startDrawingCards(0, 0, 4, this._game.localPlayer.getCharacter(), Infinity);
         this._game.resourceService.addBasicResourceToOwned("food", 2, "TEST");
         const itemCreator = new ItemCreator(this._game);
-        this._game.equipmentService.items.push(itemCreator.create(ITEM.BIBLE));
 
         // this._game.actionSlotService.setPawn(getDroppableID(ACTION.EXPLORE, "6", "right", 0), this._game.localPlayer.getCharacter().pawnService.pawns[0])
         // this._game.actionSlotService.setPawn(getDroppableID(ACTION.EXPLORE, "6", "right", 1), this._game.localPlayer.getCharacter().pawnService.pawns[0])

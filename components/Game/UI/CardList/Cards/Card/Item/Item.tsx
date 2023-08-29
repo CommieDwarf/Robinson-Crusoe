@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import React from "react";
 import styles from "./Item.module.css";
 import Image from "next/image";
-import {IItemRenderData} from "../../../../../../../interfaces/Equipment/Item";
+import {IItemRenderData, ITEM} from "../../../../../../../interfaces/Equipment/Item";
 import {getImgName} from "../../../../../../../utils/getImgName";
 import useImg from "/public/UI/icons/use-mark.png";
 
@@ -10,7 +10,7 @@ interface Props {
 
     hideActionSlots?: boolean;
 
-    use: (name: string) => void;
+    use: (item: ITEM) => void;
 
     handleMouseOverButtons: (value: boolean) => void;
 }
@@ -20,6 +20,13 @@ export default function Item(props: Props) {
 
     const buttons = [];
 
+    function handleButtonClick() {
+        if (props.item.name !== ITEM.BIBLE) {
+            props.use(props.item.name);
+            handleMouseLeave();
+        }
+    }
+
     function handleMouseEnter() {
         props.handleMouseOverButtons(true);
     }
@@ -28,10 +35,13 @@ export default function Item(props: Props) {
         props.handleMouseOverButtons(false);
     }
 
+    const buttonDisabledClass = props.item.name === ITEM.BIBLE ? styles.buttonDisabled : "";
+
     for (let i = 0; i < props.item.uses; i++) {
-        buttons.push(<div className={styles.button}
+        buttons.push(<div className={`${styles.button} ${buttonDisabledClass}`}
                           onMouseEnter={handleMouseEnter}
                           onMouseLeave={handleMouseLeave}
+                          onClick={handleButtonClick}
         >
             <Image src={useImg} alt={"użyj"} fill/>
         </div>)

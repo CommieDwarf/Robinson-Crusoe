@@ -29,3 +29,12 @@
 .button:hover {
     scale: 1.2;
 }
+
+.buttonDisabled {
+    filter: brightness(70%);
+    cursor: default;
+}
+
+.buttonDisabled:hover {
+    scale: none;
+}

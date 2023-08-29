@@ -74,6 +74,8 @@ import {CONSTRUCTION} from "../../interfaces/ConstructionService/Construction";
 import switchCommittedResources from "../../pages/api/switchCommittedResources";
 import {Background} from "./UI/Background/Background";
 import setBibleUsage from "../../pages/api/setBibleUsage";
+import {ITEM} from "../../interfaces/Equipment/Item";
+import utilizeItem from "../../pages/api/utilizeItem";
 
 interface Props {
     gameRenderData: IGameRenderData;
@@ -221,6 +223,11 @@ export default function Game(props: Props) {
 
     function handleSetBibleUsage(resolvableItemId: string, value: boolean) {
         setBibleUsage(resolvableItemId, value);
+        props.updateGameRenderData();
+    }
+
+    function handleUseItem(item: ITEM) {
+        utilizeItem(item);
         props.updateGameRenderData();
     }
 
@@ -472,6 +479,7 @@ export default function Game(props: Props) {
                     zIndex={elementZIndexed}
                     useMysteryCard={handleUseMysteryCard}
                     useInventionCard={handleUseInvention}
+                    useItem={handleUseItem}
                     manageStorage={handleCardStorage}
                 />
                 <Character

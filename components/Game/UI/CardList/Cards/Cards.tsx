@@ -7,7 +7,7 @@ import {IMysteryCardRenderData} from "../../../../../interfaces/MysteryService/M
 import {Tab} from "../CardList";
 import {Card} from "./Card/Card";
 import {StorageAction} from "../../../../../interfaces/MysteryService/StorageCard";
-import {IItemRenderData} from "../../../../../interfaces/Equipment/Item";
+import {IItemRenderData, ITEM} from "../../../../../interfaces/Equipment/Item";
 
 interface Props {
     inventions: IInventionRenderData[];
@@ -20,6 +20,7 @@ interface Props {
     useMysteryCard: (cardName: string) => void;
     useInventionCard: (cardName: string) => void;
     manageStorage: (cardName: string, type: "mystery", action: StorageAction) => void;
+    useItem: (item: ITEM) => void;
 }
 
 function Cards(props: Props) {
@@ -47,6 +48,7 @@ function Cards(props: Props) {
                 useMysteryCard={props.useMysteryCard}
                 useInventionCard={props.useInventionCard}
                 manageStorage={props.manageStorage}
+                useItem={props.useItem}
             />
         );
     });

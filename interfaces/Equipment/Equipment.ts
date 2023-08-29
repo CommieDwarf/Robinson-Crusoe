@@ -11,7 +11,7 @@ export interface IEquipmentRenderData {
 export interface IEquipment {
     items: IItem[];
     game: IGame;
-    useItem: (item: ITEM, user: IPlayerCharacter, target: IPlayerCharacter) => void;
+    useItem: (item: ITEM) => void;
     hasUses: (item: ITEM) => boolean;
 
     hasItem: (item: ITEM) => boolean;

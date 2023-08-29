@@ -1,16 +1,15 @@
-import { Item } from "../Item";
-import { IItem, ITEM } from "../../../../../interfaces/Equipment/Item";
-import { IGame } from "../../../../../interfaces/Game";
-import { IPlayerCharacter } from "../../../../../interfaces/Characters/PlayerCharacter";
-import { IPlayerCharacter } from "../../../../../interfaces/Characters/Character";
+import {Item} from "../Item";
+import {IItem, ITEM} from "../../../../../interfaces/Equipment/Item";
+import {IGame} from "../../../../../interfaces/Game";
+import {IPlayerCharacter} from "../../../../../interfaces/Characters/PlayerCharacter";
 
 export class Biscuits extends Item implements IItem {
-  constructor(game: IGame) {
-    super(ITEM.BISCUITS, game);
-  }
+    constructor(game: IGame) {
+        super(ITEM.BISCUITS, "Suchary", game);
+    }
 
-  use(user: IPlayerCharacter, target: IPlayerCharacter) {
-    super.use(user);
-    this._game.resourceService.addBasicResourceToOwned("dryFood", 1, this.name);
-  }
+    use(user: IPlayerCharacter, target: IPlayerCharacter = user) {
+        super.use(user);
+        this._game.resourceService.addBasicResourceToOwned("dryFood", 1, this.namePL);
+    }
 }

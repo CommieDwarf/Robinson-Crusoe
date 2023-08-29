@@ -7,7 +7,6 @@ import {IItem, ITEM} from "../../../interfaces/Equipment/Item";
 import {IGame} from "../../../interfaces/Game";
 import {EqList, equipmentList} from "../../../constants/eqList";
 import {ItemCreator} from "./ItemCreator/ItemCreator";
-import {IPlayerCharacter} from "../../../interfaces/Characters/PlayerCharacter";
 
 export class Equipment implements IEquipment {
     get renderData(): IEquipmentRenderData {
@@ -27,13 +26,14 @@ export class Equipment implements IEquipment {
     }
 
     getInitialItems(itemList: EqList): IItem[] {
-        const items = Object.values(ITEM);
+        const items = Object.values(ITEM).filter(item => item !== ITEM.STORM_GLASS);
         const random2Items = shuffle(items).slice(0, 2);
         return random2Items.map((item) => this._itemCreator.create(item));
     }
 
-    useItem(item: ITEM, user: IPlayerCharacter, target: IPlayerCharacter = user) {
-        this.getItem(item).use(user, target);
+    useItem(item: ITEM) {
+        const user = this.game.localPlayer.getCharacter();
+        this.getItem(item).use(user);
     }
 
     hasUses(item: ITEM) {

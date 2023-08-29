@@ -22,6 +22,6 @@ export interface IItem {
     uses: number;
     game: IGame;
     hasUses: boolean;
-    use: (user: IPlayerCharacter, target: IPlayerCharacter) => void;
+    use: (user: IPlayerCharacter, target?: IPlayerCharacter) => void;
     renderData: IItemRenderData;
 }

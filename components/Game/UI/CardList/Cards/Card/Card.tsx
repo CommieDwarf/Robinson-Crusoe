@@ -7,7 +7,7 @@ import Invention from "./Invention/Invention";
 import {MysteryCard} from "./MysteryCard/MysteryCard";
 import {StorageAction} from "../../../../../../interfaces/MysteryService/StorageCard";
 import {useState} from "react";
-import {IItemRenderData} from "../../../../../../interfaces/Equipment/Item";
+import {IItemRenderData, ITEM} from "../../../../../../interfaces/Equipment/Item";
 import {isMysteryCard} from "../../../../../../utils/isMysteryCard";
 import Item from "./Item/Item";
 import styles from "./Card.module.css";
@@ -21,6 +21,7 @@ type Props = {
     hideActionSlots?: boolean;
     useMysteryCard: (cardName: string) => void;
     useInventionCard: (cardName: string) => void;
+    useItem: (item: ITEM) => void;
     manageStorage: (
         cardName: string,
         type: "mystery",
@@ -73,8 +74,7 @@ export const Card = (props: Props) => {
         );
     } else {
         card = (
-            <Item item={props.card} use={() => {
-            }}
+            <Item item={props.card} use={props.useItem}
                   handleMouseOverButtons={handleMouseOverButtons}/>
         )
     }
