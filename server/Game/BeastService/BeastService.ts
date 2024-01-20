@@ -11,13 +11,12 @@ export class BeastService implements IBeastService {
     // TODO: implement init
     private _game: IGame;
     private _beastStack: IBeast[] = [];
-
     private _beastCreator: BeastCreator;
 
     constructor(game: IGame) {
         this._game = game;
-        this._beastStack.push(new BeastCreator(game).create(BEAST.TIGER));
         this._beastCreator = new BeastCreator(game);
+        this.initBeasts();
     }
 
     get renderData(): IBeastServiceRenderData {
@@ -119,5 +118,9 @@ export class BeastService implements IBeastService {
             strength--;
         }
         return strength;
+    }
+
+    private initBeasts() {
+        this._beastStack = Object.values(BEAST).map((beast) => this._beastCreator.create(beast));
     }
 }

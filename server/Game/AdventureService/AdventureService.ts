@@ -93,7 +93,6 @@ export class AdventureService implements IAdventureService {
         if (!card) {
             throw new Error(`${adventure} stack is empty`);
         }
-        console.log(card);
         return card;
     }
 

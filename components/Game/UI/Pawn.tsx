@@ -7,6 +7,7 @@ import {
     IPawnRenderData,
 } from "../../../interfaces/Pawns/Pawn";
 import {ACTION} from "../../../interfaces/ACTION";
+import {useAppSelector} from "../../../store/hooks";
 
 interface Props {
     pawn: IPawnRenderData | IPawnHelperRenderData;
@@ -31,8 +32,9 @@ export default function Pawn(props: Props) {
             ? props.context + "ContextSideCharacter"
             : props.context + "Context";
 
+    const disabled = useAppSelector(state => state.phase.current) !== "preAction";
     return (
-        <Draggable draggableId={props.pawn.draggableId} index={props.index}>
+        <Draggable draggableId={props.pawn.draggableId} index={props.index} isDragDisabled={disabled}>
             {(provided, snapshot) => {
                 return (
                     <div

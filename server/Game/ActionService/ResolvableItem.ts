@@ -18,7 +18,6 @@ import {isAdventureAction} from "../../../utils/isAdventureAction";
 import {isTile} from "../../../utils/isSpecificResolvableItem/isTile";
 import {isCommittableResourcesItem} from "../../../utils/isCommittableResourcesItem";
 import {IBeast} from "../../../interfaces/Beasts/Beast";
-import {ITEM} from "../../../interfaces/Equipment/Item";
 
 export class ResolvableItem implements IResolvableItem {
     private readonly _item: Item;
@@ -59,7 +58,6 @@ export class ResolvableItem implements IResolvableItem {
             itemRenderData = this._item.renderData;
         }
 
-        console.log("CAN BE USED", this._item, this.canBibleBeUsed(), this._game.actionService.bibleUses)
 
         return {
             itemName: "xD",
@@ -262,7 +260,6 @@ export class ResolvableItem implements IResolvableItem {
         ) {
             return false;
         }
-        console.log(item.requiredPawnAmount, this._helperAmount, "SHOULD ROLL")
         return Boolean(item.requiredPawnAmount && item.requiredPawnAmount > this._helperAmount + 1);
     }
 

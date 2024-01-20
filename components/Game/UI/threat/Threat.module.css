@@ -5,8 +5,8 @@
     flex-wrap: wrap;
     justify-content: center;
     column-gap: 30px;
-    border-bottom: 1px dashed #451e14;
-    border-left: 1px dashed #451e14;
+    border-bottom: 1px solid var(--brown);
+    border-left: 1px solid var(--brown);
     position: relative;
     grid-column: 3 / span 2;
     grid-row: 3 / span 1;

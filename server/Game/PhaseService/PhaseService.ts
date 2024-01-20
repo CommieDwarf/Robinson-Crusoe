@@ -9,8 +9,8 @@ import {TREASURE_MYSTERY_CARD} from "../../../interfaces/MysteryService/MYSTERY_
 import {INVENTION_NORMAL} from "../../../interfaces/InventionService/Invention";
 
 export class PhaseService implements IPhaseService {
-    private _phase: Phase = "morale";
-    private _phaseIndex = 1;
+    private _phase: Phase = "event";
+    private _phaseIndex = 0;
     private readonly _game: IGame;
     private _gainedPhaseEffects: Function[] = []
 
@@ -110,8 +110,8 @@ export class PhaseService implements IPhaseService {
 
     private productionEffect = () => {
         const id = this._game.tileService.campTile.id;
-        this._game.tileService.gather("left", id, "produkcja");
-        this._game.tileService.gather("right", id, "produkcja");
+        this._game.tileService.gather("left", id, "produkcja", true);
+        this._game.tileService.gather("right", id, "produkcja", true);
     };
 
     private preActionEffect = () => {
@@ -136,10 +136,19 @@ export class PhaseService implements IPhaseService {
     private nightEffect = () => {
         this._game.setNextRound();
         this._game.tileService.campJustMoved = false;
-        this._game.characterService.allCharacters.forEach((char) =>
-            char.refreshSkills()
-        );
         //TODO: IMPLEMENT EATING;
+        this._game.playerService.players.forEach((player) => {
+            const character = player.getCharacter();
+            if (this._game.resourceService.canAffordResource("food", 1)) {
+                this._game.resourceService.spendBasicResourceIfPossible(
+                    "food",
+                    1,
+                    "")
+                this._game.chatLog.addMessage(`${character.namePL} spożywa 1 pożywienie`, "neutral", "noc");
+            } else {
+                this._game.characterService.hurt(character, 1, "Brak pożywienia");
+            }
+        })
         if (!this._game.mysteryService.hasTresureCard(TREASURE_MYSTERY_CARD.BOXES) &&
             !this._game.inventionService.isBuilt(INVENTION_NORMAL.CELLAR)
         ) {

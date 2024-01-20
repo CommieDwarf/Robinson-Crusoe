@@ -7,15 +7,13 @@ import {
 import {IGame} from "../../../interfaces/Game";
 import {EventCardCreator} from "./EventCardCreator/EventCardCreator";
 import {IAdventureCard} from "../../../interfaces/AdventureService/AdventureCard";
-import {EventCard} from "./EventCardCreator/EventCard";
-import shuffle from "../../../utils/shuffleArray";
 import {implementedEventCards} from "../../../constants/cards/EventCards";
-import { AdventureCardCreator } from "../AdventureService/AdventureCardCreator/Creators/AdventureCardCreator";
-import { buildAdventureCards } from "../../../constants/cards/AdventureCards/build";
-import { isEventCard } from "../../../utils/isEventCard";
-import { IMysteryCard } from "../../../interfaces/MysteryService/MysteryCard";
-import { isMysteryCard } from "../../../utils/isMysteryCard";
-import { isAdventureCard } from "../../../utils/isAdventureCard";
+import {isEventCard} from "../../../utils/isEventCard";
+import {IMysteryCard} from "../../../interfaces/MysteryService/MysteryCard";
+import {isMysteryCard} from "../../../utils/isMysteryCard";
+import {isAdventureCard} from "../../../utils/isAdventureCard";
+import {WRECKAGE_CARD} from "../../../interfaces/EventService/EVENT_CARD";
+import shuffle from "../../../utils/shuffleArray";
 
 interface EventSlots {
     left: null | IEventCard;
@@ -48,7 +46,7 @@ export class EventService implements IEventService {
     get renderData(): IEventServiceRenderData {
         return {
             leftSlot: this.leftSlot?.renderData || null,
-            rightSlot: this.rightSlot?.renderData || null, 
+            rightSlot: this.rightSlot?.renderData || null,
             currentAdventureCard: this._currentAdventureCard?.renderData || null,
             currentMysteryCard: this._currentMysteryCard?.getRenderData() || null,
         };
@@ -152,8 +150,7 @@ export class EventService implements IEventService {
     public shuffleCardInToDeck(card: IAdventureCard | IMysteryCard) {
         this._eventCardDeck.push(card);
 
-        // TODO: TEMPORARY COMMENTED FOR ADVENTURE CARD TESTING PURPOUSES
-        // this._eventCardDeck = shuffle(this._eventCardDeck);
+        this._eventCardDeck = shuffle(this._eventCardDeck);
     }
 
     public switchCardFromTopToBottomOfStack() {
@@ -189,9 +186,8 @@ export class EventService implements IEventService {
         if (options && options[option - 1].canBeResolved()) {
             options[option - 1].resolve();
         } else {
-            throw new Error("cant be resolved.")
+            this._currentAdventureCard?.triggerEventEffect();
         }
-  
         this._currentAdventureCard = null;
         this._adventureNeedsToBeResolved = false;
         this.pullCard();
@@ -215,12 +211,11 @@ export class EventService implements IEventService {
 
     private initEventCards(): IEventCard[] {
         const creator = new EventCardCreator(this._game);
-        // const cards = Object.values(EVENT_CARD).map((card) => creator.create(card));
-        // cards.push(creator.create(EVENT_CARD.DROUGHT));
-        // cards.push(creator.create(EVENT_CARD.DEVASTATION));
-        let implemented = implementedEventCards.slice(0, implementedEventCards.length - 1);
-        console.log(implemented);
-        const cards = implemented.map((card) => creator.create(card));
+        this._eventSlots.right = creator.create(WRECKAGE_CARD.SUPPLY_CRATES);
+        let cards = implementedEventCards.map((card) => creator.create(card));
+        cards = shuffle(cards).slice(0, 12)
+        // 29 kart ogólnie
+
         return [...cards];
     }
 

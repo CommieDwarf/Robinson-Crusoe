@@ -61,8 +61,13 @@ export class WeatherService implements IWeatherService {
         };
     }
 
-    setToken(token: keyof IWeatherTokens, value: boolean) {
+    setToken(token: keyof IWeatherTokens, value: boolean, logSource: string) {
         this._tokens[token] = value;
+        if (logSource) {
+            if (value) {
+                this._game.chatLog.addMessage("Na polu pogodu położono żeton " + token, "red", logSource)
+            }
+        }
     }
 
     get furnace(): boolean {

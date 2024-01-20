@@ -1,0 +1,52 @@
+.container {
+    position: absolute;
+    min-width: 200px;
+    max-width: 300px;
+    z-index: 998999;
+    left: calc(50% - 100px);
+    top: 20%;
+    border: 2px solid var(--brown);
+    background-image: url("../../../../public/UI/old-paper.png");
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.title {
+    color: red;
+}
+
+.text {
+    margin: 5px;
+}
+
+.buttonsRow {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: center;
+    column-gap: 50px;
+}
+
+.button {
+    font-weight: bold;
+    border: 2px solid var(--brown);
+    padding: 2%;
+    width: 30%;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.accept {
+    border: 2px solid limegreen;
+    color: green;
+}
+
+.refuse {
+    border: 2px solid indianred;
+    color: red;
+}
+
+.button:hover {
+    scale: 1.1;
+}

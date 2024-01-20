@@ -31,7 +31,6 @@ export default function Tile(props: Props) {
         left: props.tile.position.cords.left + "%",
     };
 
-
     let actionSlots;
     let preventMapScrollClass =
         props.tile.requiredPawnAmount !== null && props.tile.requiredPawnAmount >= 1 && props.tile.tileResourceService

@@ -13,6 +13,7 @@ export interface ICharacterServiceRenderData {
     dog: ISideCharacterRenderData;
     friday: ISideCharacterRenderData;
     thresholdAmountForRemoval: number;
+    areSomePawnsUnassigned: boolean;
 }
 
 export interface ICharacterService {

@@ -34,6 +34,7 @@ export class Equipment implements IEquipment {
     useItem(item: ITEM) {
         const user = this.game.localPlayer.getCharacter();
         this.getItem(item).use(user);
+        this.items = this.filterOutUsed(this.items);
     }
 
     hasUses(item: ITEM) {
@@ -56,5 +57,9 @@ export class Equipment implements IEquipment {
             throw new Error("You don't have equipment item with such name: " + item);
         }
         return found;
+    }
+
+    public filterOutUsed(items: IItem[]): IItem[] {
+        return items.filter((item) => item.hasUses)
     }
 }

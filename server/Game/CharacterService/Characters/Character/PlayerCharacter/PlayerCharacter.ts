@@ -50,7 +50,7 @@ export abstract class PlayerCharacter
         this._player = player;
         this._moraleThresholds = moraleThresholds;
         this._gender = gender;
-        this._pawnService = new PawnService(this, 3);
+        this._pawnService = new PawnService(this, 2);
         this._effects = new PlayerCharEffects(this);
     }
 

@@ -103,18 +103,23 @@ export class ConstructionService implements IConstructionService {
     lvlDownIfPossible(construction: CONSTRUCTION, by: number, logSource: string) {
         const construct = this.getConstruction(construction);
         const diff = construct.lvl - by;
+        const oldLvl = construct.lvl;
         if (diff > 0) {
             construct.decrementLvl(by);
         } else {
-            construct.decrementLvl(Math.abs(diff));
+            construct.decrementLvl(construct.lvl);
         }
-        this._game.chatLog.addMessage(
-            `Poziom ${i18n.t(`construction.${construct.name}`, {
-                context: "genitive",
-            })} spadł do poziomu ${construct.lvl}-ego`,
-            "red",
-            logSource
-        );
+        const newLvl = construct.lvl;
+        if (newLvl !== oldLvl) {
+            this._game.chatLog.addMessage(
+                `Poziom ${i18n.t(`construction.${construct.name}`, {
+                    context: "genitive",
+                })} spadł do poziomu ${construct.lvl}-ego`,
+                "red",
+                logSource
+            );
+        }
+
     }
 
     lvlDownOrGetHurt(construction: CONSTRUCTION, by: number, logSource: string) {

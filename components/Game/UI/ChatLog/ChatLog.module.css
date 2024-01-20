@@ -30,7 +30,7 @@
 .scrollWrapper {
     height: 85%;
     width: 100%;
-    border: 1px solid var(--brown);
+    border-bottom: 1px solid var(--brown);
 }
 
 .tabButton {
@@ -38,6 +38,7 @@
     margin-top: 1%;
     width: 15%;
     border: 1px solid var(--brown);
+    margin-right: 5px;
     display: inline-block;
     border-radius: 6px;
     text-align: center;

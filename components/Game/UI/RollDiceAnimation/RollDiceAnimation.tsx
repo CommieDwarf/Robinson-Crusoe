@@ -70,9 +70,9 @@ export const RollDiceAnimation = (props: Props) => {
 
         const scene = new THREE.Scene();
 
-        const controls = new OrbitControls(camera, renderer.domElement);
-        controls.target.set(0, 0, 0);
-        controls.update();
+        // const controls = new OrbitControls(camera, renderer.domElement);
+        // controls.target.set(0, 0, 0);
+        // controls.update();
 
         const backgroundGeometry = new THREE.BoxGeometry(19, 11, 1);
         const backgroundTexture = new THREE.TextureLoader().load(
@@ -134,8 +134,11 @@ export const RollDiceAnimation = (props: Props) => {
         props.results.forEach((value: any, key: any) => {
             let fixed =
                 (props.reRolledDice && key !== props.reRolledDice) || props.fixed;
-            dices.set(key, new Dice(value, key, cubeSize, translateX[index], fixed));
-            index++;
+            if (value && key) {
+                dices.set(key, new Dice(value, key, cubeSize, translateX[index], fixed));
+                index++;
+            }
+
         });
 
         dices.forEach((dice) => {
@@ -143,6 +146,7 @@ export const RollDiceAnimation = (props: Props) => {
             scene.add(dice.light);
             scene.add(dice.light.target);
         });
+
 
         function animation() {
             let finished = true;

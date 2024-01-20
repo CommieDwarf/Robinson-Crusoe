@@ -1,7 +1,6 @@
 import {Skill} from "../Skill/Skill";
 import {IPlayerCharacter} from "../../../../../../interfaces/Characters/PlayerCharacter";
 import {IGame} from "../../../../../../interfaces/Game";
-import {IPlayerCharacter} from "../../../../../../interfaces/Characters/Character";
 import {scrounger} from "../../../../../../constants/SkillDescriptions/Cook";
 import {PHASE} from "../../../../../../interfaces/PhaseService/Phase";
 import {ISkill} from "../../../../../../interfaces/Skill/Skill";
@@ -40,7 +39,9 @@ export class Scrounger extends Skill implements ISkill {
 
         if (this._game.actionService.lastRolledItem) {
             this._game.actionService.lastRolledItem.reRollDice(target, ACTION.GATHER);
-            this._used = true;
+            this.updateLastRoundUsed()
+
+            this.addLogMsg(this._character.namePL);
         }
     }
 }

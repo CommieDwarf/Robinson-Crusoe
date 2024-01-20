@@ -228,7 +228,7 @@ export class TileService implements ITileService {
     }
 
 
-    gather(side: "left" | "right", tileID: number, logSource: string) {
+    gather(side: "left" | "right", tileID: number, logSource: string, production?: boolean) {
         const tile = this.getTile(tileID);
         const resource = tile.getGatherableResourceAmount(side);
 
@@ -236,11 +236,20 @@ export class TileService implements ITileService {
             if (this._game.phaseService.phase === "action") {
                 resource.amount = this.addResourceAmountFromItems(resource.amount);
             }
-            this._game.resourceService.addBasicResourceToFuture(
-                resource.resource,
-                resource.amount,
-                logSource
-            );
+            if (!production) {
+                this._game.resourceService.addBasicResourceToFuture(
+                    resource.resource,
+                    resource.amount,
+                    logSource
+                );
+            } else {
+                this._game.resourceService.addBasicResourceToOwned(
+                    resource.resource,
+                    resource.amount,
+                    logSource
+                );
+            }
+
         }
     }
 
@@ -258,6 +267,14 @@ export class TileService implements ITileService {
         this.showAdjacentTiles(id);
         this._tileGraph.addEdges(id);
         this._tileGraph.updateDistance();
+        if (tile.tileResourceService?.extras.discoveryToken) {
+            this._game.tokenService.addRandomTokenToOwned();
+        }
+        if (tile.tileResourceService?.resources.left.resource === "beast" ||
+            tile.tileResourceService?.resources.right.resource === "beast"
+        ) {
+            this._game.beastService.moveBeastFromStackToDeck();
+        }
     }
 
     private addResourceAmountFromItems(amount: number) {

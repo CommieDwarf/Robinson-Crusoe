@@ -24,7 +24,7 @@ export class ExhaustingNight extends EventCard implements IEventCard {
     }
 
     triggerEventEffect() {
-        this._game.actionService.setAdventureToken(ACTION.BUILD, true, this._namePL);
+        this._game.actionService.setReRollToken(ACTION.BUILD, true, this._namePL)
     }
 
     triggerThreatEffect() {

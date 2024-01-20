@@ -8,7 +8,7 @@ export class Pawn implements IPawn {
 
     constructor(character: IPlayerCharacter) {
         this._character = character;
-        this._draggableId = character.name + "pawn-" + uuid();
+        this._draggableId = character.name + "-pawn-" + uuid();
     }
 
     get renderData(): IPawnRenderData {

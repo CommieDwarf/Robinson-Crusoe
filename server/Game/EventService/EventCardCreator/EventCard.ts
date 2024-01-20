@@ -8,10 +8,10 @@ import {IGame} from "../../../../interfaces/Game";
 import {v4 as uuidv4} from "uuid";
 import {IPawn} from "../../../../interfaces/Pawns/Pawn";
 import {EVENT_CARD, WRECKAGE_CARD,} from "../../../../interfaces/EventService/EVENT_CARD";
-import {IPlayerCharacter} from "../../../../interfaces/Characters/Character";
 import {ACTION, ACTION_ITEM, AdventureAction} from "../../../../interfaces/ACTION";
 import {AssignablePawnsItem} from "../../AssignablePawnsItem/AssignablePawnsItem";
 import {ResourceCommittableItem} from "../../ResourceCommittableItem/ResourceCommittableItem";
+import {IPlayerCharacter} from "../../../../interfaces/Characters/PlayerCharacter";
 
 //TODO: implement name translations
 
@@ -42,6 +42,7 @@ export abstract class EventCard extends ResourceCommittableItem implements IEven
             id: this.id,
             name: this.name,
             cardType: this._cardType,
+            meetsRequirement: this.meetsRequirement(),
             ...super.getResourceCommittableRenderData(),
         };
     }
@@ -66,6 +67,14 @@ export abstract class EventCard extends ResourceCommittableItem implements IEven
         return this._cardType;
     }
 
+
+    public meetsRequirement() {
+        const meetsResource = this._requirements.resource ? this._game.resourceService.canAffordResource(this._requirements.resource, 1) : true;
+        const meetsConstruction = this._requirements.construction ? this._game.constructionService.getConstruction(this._requirements.construction.type).lvl >= this._requirements.construction.lvl : true;
+        const meetsInvention = this._requirements.invention ? this._game.inventionService.isBuilt(this._requirements.invention) : true;
+
+        return meetsResource && meetsConstruction && meetsInvention;
+    }
 
     protected getLeaderCharacter(): IPlayerCharacter {
         const slot = this._game.eventService.getSlotByCardID(this.id);

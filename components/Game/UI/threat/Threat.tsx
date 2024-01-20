@@ -1,12 +1,8 @@
 import Image from "next/image";
 import React from "react";
 import styles from "./Threat.module.css";
-import ActionSlot from "../ActionSlot";
 import Card from "./Card";
 import {IEventServiceRenderData} from "../../../../interfaces/EventService/EventService";
-import {EVENT_TYPE} from "../../../../interfaces/EventService/EventCard";
-import {getDroppableID} from "../../../../utils/getDroppableID";
-import {ACTION, ACTION_ITEM} from "../../../../interfaces/ACTION";
 import redArrowImg from "/public/UI/misc/red-arrow.png";
 import redArrowCurvedImg from "/public/UI/misc/red-arrow-curved.png";
 import {objectsEqual} from "../../../../utils/objectsEqual";
@@ -18,9 +14,6 @@ interface Props {
 }
 
 function Threat(props: Props) {
-    const leftCard = props.threat.leftSlot;
-    const rightCard = props.threat.rightSlot;
-
 
     const zIndexClass = props.zIndex.includes("threat")
         ? styles.zIndexIncreased
@@ -42,10 +35,10 @@ function Threat(props: Props) {
                 />
             </div>
             <div className={styles.actionSlots}>
-                {props.threat.leftSlot && getActionSlots(props.threat.leftSlot, 0, "left")}
+                {props.threat.leftSlot && (props.threat.leftSlot.meetsRequirement || props.threat.leftSlot.committedResources) && getActionSlots(props.threat.leftSlot, 0, "left")}
             </div>
             <div className={styles.actionSlots}>
-                {props.threat.rightSlot && getActionSlots(props.threat.rightSlot, 0, "right")}
+                {props.threat.rightSlot && (props.threat.rightSlot.meetsRequirement || props.threat.rightSlot.committedResources) && getActionSlots(props.threat.rightSlot, 0, "right")}
             </div>
         </div>
     );

@@ -1,9 +1,10 @@
 .container {
     width: 100%;
     height: 100%;
-    grid-column: 3 / span 1;
+    grid-column: 3 / span 2;
     grid-row: 4 / span 1;
-    border-left: 1px dashed #451e14;
+    border-left: 1px solid var(--brown);
+    border-bottom: 1px solid var(--brown);
 }
 
 .zIndexIncreased {

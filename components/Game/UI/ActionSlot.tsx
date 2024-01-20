@@ -4,7 +4,7 @@ import {Droppable} from "react-beautiful-dnd";
 
 import Pawn from "./Pawn";
 import {IPawnRenderData} from "../../../interfaces/Pawns/Pawn";
-import {ACTION, ACTION_ITEM, UniqueAction} from "../../../interfaces/ACTION";
+import {ACTION, UniqueAction} from "../../../interfaces/ACTION";
 import {getImgName} from "../../../utils/getImgName";
 import {RootState} from "../../../store/store";
 import {connect} from "react-redux";

@@ -66,10 +66,11 @@ export class TileGraph extends Graph<ITile> implements ITileGraph {
     private initVertices(campTileID: number) {
         for (let i = 0; i < 15; i++) {
             if (i === campTileID) {
-                this.addVertex(
-                    new Tile(tilePositions[i], i, true, new TileResourceService(this._game, starterTile.id, starterTile.terrainType, starterTile.resources, starterTile.extras), this._game),
-                    i
-                );
+                const tile =
+                    this.addVertex(
+                        new Tile(tilePositions[i], i, true, new TileResourceService(this._game, starterTile.id, starterTile.terrainType, starterTile.resources, starterTile.extras), this._game),
+                        i
+                    );
             } else {
                 this.addVertex(
                     new Tile(tilePositions[i], i, false, null, this._game),
@@ -99,6 +100,7 @@ export class TileGraph extends Graph<ITile> implements ITileGraph {
                 data.distance = null;
             }
         });
+
     }
 
     public getBorderVertices(id: number) {

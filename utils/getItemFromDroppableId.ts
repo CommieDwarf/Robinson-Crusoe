@@ -14,7 +14,6 @@ export function getItemFromDroppableId(droppableId: string, game: IGame) {
     } else if (droppableId.includes("hunt")) {
         return game.beastService.peekBeastFromDeck();
     } else if (droppableId.includes("invention")) {
-        console.log(droppableId);
         let name = droppableId.split("-")[1] as INVENTION;
         return game.inventionService.getInvention(name);
     } else if (droppableId.includes("construction")) {

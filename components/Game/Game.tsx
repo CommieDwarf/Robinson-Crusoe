@@ -18,12 +18,7 @@ import ArrangeCampRest from "./UI/ArrangeCampRest/ArrangeCampRest";
 
 import {IBasicResourcesAmount} from "../../interfaces/Resources/Resources";
 
-import {
-    DragDropContext,
-    DragStart,
-    DragUpdate,
-    DropResult,
-} from "react-beautiful-dnd";
+import {DragDropContext, DragStart, DragUpdate, DropResult,} from "react-beautiful-dnd";
 import {Weather} from "./UI/Weather/Weather";
 import {INVENTION_TYPE} from "../../interfaces/InventionService/Invention";
 import {canPawnBeSettled} from "../../utils/canPawnBeSettled";
@@ -48,10 +43,12 @@ import {sleep} from "../../utils/sleep";
 import rollActionDices from "../../pages/api/rollActionDices";
 import triggerTileResourceAction from "../../pages/api/triggerTileResourceAction";
 import reRollActionDice from "../../pages/api/reRollActionDice";
-import useSkill from "../../pages/api/useSkill";
+import utilizeSkill from "../../pages/api/useSkill";
 import {ActionDice} from "../../interfaces/RollDice/RollDice";
 import {useAppSelector} from "../../store/hooks";
 import resolveAdventureCard from "../../pages/api/resolveAdventureCard";
+import setAlert from "../../pages/api/setAlert";
+
 
 import CardResolve from "./UI/CardResolve/CardResolve";
 import drawMysteryCard from "../../pages/api/drawMysteryCard";
@@ -67,7 +64,6 @@ import removeHealthThreshold from "../../pages/api/removeHealthTreshold";
 import utilizeMysteryCard from "../../pages/api/utilizeMysteryCard";
 import manageCardStorage from "../../pages/api/manageCardStorage";
 import {StorageAction} from "../../interfaces/MysteryService/StorageCard";
-import useInvention from "../../pages/api/utilizeInvention";
 import utilizeInvention from "../../pages/api/utilizeInvention";
 import addWoodToStash from "../../pages/api/addWoodToStash";
 import {CONSTRUCTION} from "../../interfaces/ConstructionService/Construction";
@@ -76,6 +72,11 @@ import {Background} from "./UI/Background/Background";
 import setBibleUsage from "../../pages/api/setBibleUsage";
 import {ITEM} from "../../interfaces/Equipment/Item";
 import utilizeItem from "../../pages/api/utilizeItem";
+import {IPlayerCharacter} from "../../interfaces/Characters/PlayerCharacter";
+import {Cloud} from "../../interfaces/Weather/Weather";
+import {ConfirmWindow} from "./UI/ConfirmWindow/ConfirmWindow";
+import {CONFIRM_WINDOW} from "./UI/ConfirmWindow/messages";
+
 
 interface Props {
     gameRenderData: IGameRenderData;
@@ -88,18 +89,20 @@ export default function Game(props: Props) {
 
     gameRenderData.localPlayer.character.health;
     const [showScenario, setShowScenario] = useState(false);
-
     // Increase of proper component's z-index is necessary to render dragged pawn above other components
     // and also for proper render of scaled components
     const [elementZIndexed, setElementZIndexed] = useState("");
     const [showNightTip, setShowNightTip] = useState(true);
     const [nextCamp, setNextCamp] = useState<ITileRenderData | null>(null);
 
+
     const actionSlots = useAppSelector((state) => state.actionSlots.slots);
+
+    const [confirmWindow, setConfirmWindow] = useState<null | CONFIRM_WINDOW>(null);
 
     function useReRollSkill(dice: ActionDice) {
         // Fixed for now
-        useSkill("scrounger", "cook", dice);
+        utilizeSkill("scrounger", "cook", dice);
         props.updateGameRenderData();
     }
 
@@ -138,7 +141,16 @@ export default function Game(props: Props) {
     }
 
     function handleSetNextPhase() {
-        setNextPhase();
+
+        if (gameRenderData.characterService.areSomePawnsUnassigned &&
+            gameRenderData.phaseService.phase === "preAction" &&
+            !confirmWindow
+        ) {
+            setConfirmWindow(CONFIRM_WINDOW.GO_ACTION_PHASE);
+
+        } else {
+            setNextPhase();
+        }
         props.updateGameRenderData();
         setShowNightTip(true);
     }
@@ -230,6 +242,17 @@ export default function Game(props: Props) {
         utilizeItem(item);
         props.updateGameRenderData();
     }
+
+    function handleUseSkill(character: string, skillName: string, target: IPlayerCharacter | ActionDice | Cloud | null = null) {
+        utilizeSkill(skillName, character, target);
+        props.updateGameRenderData();
+    }
+
+    function handleSetAlert(msg: string) {
+        setAlert(msg);
+        props.updateGameRenderData();
+    }
+
 
     function showCampMoveConfirm(tile: ITileRenderData) {
         setNextCamp(tile);
@@ -343,11 +366,13 @@ export default function Game(props: Props) {
             !canPawnBeSettled(draggedPawn, destinationId) ||
             !canPawnBeSettled(pawnAtActionSlot, sourceId)
         ) {
+
             return;
         }
 
         if (shouldCommitResources(destinationId)) {
             if (!canAffordItem(destinationId)) {
+                handleSetAlert("Brakuje materiałów")
                 return;
             }
         }
@@ -370,19 +395,18 @@ export default function Game(props: Props) {
     const scenarioInventions = gameRenderData.inventionService.inventions.filter(
         (inv) => inv.inventionType === INVENTION_TYPE.SCENARIO
     );
-    // rid-column: 3 / span 2;
-    // grid-row: 3 / span 1;
+
 
     return (
         <div className={styles.game}>
-            <Background columnStart={3} columnEnd={5} rowStart={3} rowEnd={5}/>
-            <Background columnStart={1} columnEnd={3} rowStart={1} rowEnd={2}/>
-            <Background columnStart={1} columnEnd={3} rowStart={2} rowEnd={5}/>
-            <Background columnStart={1} columnEnd={3} rowStart={5} rowEnd={7}/>
-            <Background columnStart={5} columnEnd={6} rowStart={1} rowEnd={3}/>
-            <Background columnStart={6} columnEnd={7} rowStart={1} rowEnd={3}/>
-            <Background columnStart={6} columnEnd={7} rowStart={3} rowEnd={7}/>
-            <Background columnStart={3} columnEnd={6} rowStart={6} rowEnd={7}/>
+            {/*<Background columnStart={3} columnEnd={5} rowStart={3} rowEnd={5}/>*/}
+            {/*<Background columnStart={1} columnEnd={3} rowStart={1} rowEnd={2}/>*/}
+            {/*<Background columnStart={1} columnEnd={3} rowStart={2} rowEnd={5}/>*/}
+            {/*<Background columnStart={1} columnEnd={3} rowStart={5} rowEnd={7}/>*/}
+            {/*<Background columnStart={5} columnEnd={6} rowStart={1} rowEnd={3}/>*/}
+            {/*<Background columnStart={6} columnEnd={7} rowStart={1} rowEnd={3}/>*/}
+            {/*<Background columnStart={6} columnEnd={7} rowStart={3} rowEnd={7}/>*/}
+            {/*<Background columnStart={3} columnEnd={6} rowStart={6} rowEnd={7}/>*/}
             {props.gameRenderData.adventureService.currentCard && (
                 <CardResolve
                     renderData={props.gameRenderData.adventureService.currentCard}
@@ -487,6 +511,8 @@ export default function Game(props: Props) {
                     dog={gameRenderData.characterService.dog}
                     friday={gameRenderData.characterService.friday}
                     zIndex={elementZIndexed}
+                    useSkill={handleUseSkill}
+                    overallWeather={gameRenderData.weatherService.overallWeather}
                 />
 
                 <Health
@@ -532,7 +558,7 @@ export default function Game(props: Props) {
                 {/*<Players />*/}
                 <NextPhaseButton
                     goNextPhase={handleSetNextPhase}
-                    locked={gameRenderData.phaseService.locked}
+                    locked={gameRenderData.phaseService.locked || !!confirmWindow}
                 />
             </DragDropContext>
             {gameRenderData.phaseService.phase === "action" &&
@@ -549,6 +575,7 @@ export default function Game(props: Props) {
                     />
                 )}
             <Alerts message={gameRenderData.alertService.alert}/>
+
             {gameRenderData.phaseService.phase === "weather" && (
                 <WeatherResolveWindow
                     weatherService={gameRenderData.weatherService}
@@ -565,6 +592,16 @@ export default function Game(props: Props) {
             {gameRenderData.phaseService.phase === "night" && showNightTip && (
                 <NightTip hideNightTip={hideNightTip}/>
             )}
+            {confirmWindow ? <ConfirmWindow
+                name={confirmWindow}
+                onAccept={() => {
+                    handleSetNextPhase();
+                    setConfirmWindow(null);
+                }}
+                onRefuse={() => {
+                    setConfirmWindow(null)
+                }}
+            /> : ""}
         </div>
     );
 }

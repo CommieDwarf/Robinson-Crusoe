@@ -11,6 +11,7 @@ import heartImg from "/public/UI/icons/heart.png";
 import moraleIconImg from "/public/UI/icons/morale.png";
 import {useTranslation} from "react-i18next";
 import {ACTION, ACTION_ITEM} from "../../../../../interfaces/ACTION";
+import capitalizeFirstLetter from "../../../../../utils/capitalizeFirstLetter";
 
 interface Props {
     pawnAmount: number;
@@ -80,7 +81,7 @@ export default function RestArrange(props: Props) {
 
     return (
         <div className={styles[props.type] + " " + styles.activity}>
-            <div className={styles.activityName}>{t(`action.${props.type}`)}</div>
+            <div className={styles.activityName}>{capitalizeFirstLetter(t(`action.${props.type}`))}</div>
             {rewardLabel}
             <div className={styles.scroll}>
                 <div className={styles.actionSlots}>{actionSlots}</div>

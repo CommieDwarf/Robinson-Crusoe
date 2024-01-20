@@ -45,10 +45,6 @@ import {IAdventureService} from "../../interfaces/AdventureService/AdventureServ
 import {canPawnBeSettled} from "../../utils/canPawnBeSettled";
 import {MysteryService} from "./MysteryService/MysteryService";
 import {getItemFromDroppableId} from "../../utils/getItemFromDroppableId";
-import {EventCard} from "./EventService/EventCardCreator/EventCard";
-import {IEventCard} from "../../interfaces/EventService/EventCard";
-import {IConstruction} from "../../interfaces/ConstructionService/Construction";
-import {IInvention} from "../../interfaces/InventionService/Invention";
 import {ResourceCommittableItem} from "./ResourceCommittableItem/ResourceCommittableItem";
 import {IResourceCommittableItem} from "../../interfaces/ResourceCommitableItem/ResourceCommittableItem";
 import {isCommittableResourcesItem} from "../../utils/isCommittableResourcesItem";
@@ -240,10 +236,12 @@ export class GameClass implements IGame {
     setPawn(droppableId: string, draggableId: string) {
         const pawn = this.allPawns.find((p) => p.draggableId === draggableId);
         const item = getItemFromDroppableId(droppableId, this);
+        console.log('dd')
         if (!pawn) {
             throw new Error("cant find pawn with id: " + draggableId);
         }
-        if (!canPawnBeSettled(pawn, droppableId) || (this.shouldCommitResources(droppableId) && !this.canCommitResources(droppableId))) {
+        if (!canPawnBeSettled(pawn.renderData, droppableId) || (this.shouldCommitResources(droppableId) && !this.canCommitResources(droppableId))) {
+            console.log("YETI!")
             return;
         }
 
@@ -309,5 +307,6 @@ export class GameClass implements IGame {
     setNextRound() {
         this._round++;
     }
+
 
 }

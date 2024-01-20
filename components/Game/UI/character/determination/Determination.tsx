@@ -5,24 +5,21 @@ import styles from "./Determination.module.css";
 import determinationTokenImg from "/public/UI/tokens/determination.png";
 
 interface Props {
-  value: number;
+    value: number;
 }
 
 export default function Determination(props: Props) {
-  return (
-    <div className={styles.container}>
-      <div className={styles.token}>
-        <div className={styles.value}>{props.value}</div>
-        <div className={styles.image}>
-          <Image
-            src={determinationTokenImg}
-            fill
-            alt="determination icon"
-            sizes={styles.image}
-          />
+    return (
+        <div className={styles.container}>
+            <div className={styles.value}>{props.value}</div>
+            <div className={styles.image}>
+                <Image
+                    src={determinationTokenImg}
+                    fill
+                    alt="determination icon"
+                    sizes={styles.image}
+                />
+            </div>
         </div>
-      </div>
-      <div className={styles.token}></div>
-    </div>
-  );
+    );
 }

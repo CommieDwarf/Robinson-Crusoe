@@ -32,7 +32,7 @@ export class SmokeOnTheHorizon extends EventCard implements IEventCard {
     }
 
     fullFill() {
-        const tile = this._game.tileService.tiles.find((tile) => tile.modifiers.terrainDepleted === this._namePL);
+        const tile = this._game.tileService.tiles.find((tile) => tile.modifiers.terrainDepleted?.source === this._namePL);
         if (tile) {
             tile.unsetTileModifier("terrainDepleted", this._resolutionPL);
         }

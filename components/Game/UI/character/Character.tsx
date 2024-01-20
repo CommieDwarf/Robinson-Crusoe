@@ -9,19 +9,22 @@ import SkillMenu from "./SkillMenu/SkillMenu";
 import Pawn from "../Pawn";
 import {Droppable} from "react-beautiful-dnd";
 import capitalize from "../../../../utils/capitalizeFirstLetter";
-import {IPlayerCharacterRenderData, Wounds} from "../../../../interfaces/Characters/PlayerCharacter";
+import {IPlayerCharacter, IPlayerCharacterRenderData, Wounds} from "../../../../interfaces/Characters/PlayerCharacter";
 import {ISideCharacterRenderData} from "../../../../interfaces/Characters/SideCharacter";
 import {ISkillRenderData} from "../../../../interfaces/Skill/Skill";
 import {useAppSelector} from "../../../../store/hooks";
 import Wound from "./Wound/Wound";
-import {ACTION} from "../../../../interfaces/ACTION";
 import Entries from "../../../../interfaces/Entries";
+import {Cloud, OverallWeather} from "../../../../interfaces/Weather/Weather";
+import {ActionDice} from "../../../../interfaces/RollDice/RollDice";
 
 interface Props {
     character: IPlayerCharacterRenderData;
     friday: ISideCharacterRenderData;
     dog: ISideCharacterRenderData;
     zIndex: string;
+    useSkill: (character: string, skillName: string, target?: IPlayerCharacter | ActionDice | Cloud) => void;
+    overallWeather: OverallWeather
 }
 
 export default function Character(props: Props) {
@@ -29,6 +32,10 @@ export default function Character(props: Props) {
         skill: ISkillRenderData | null;
         show: boolean;
     }>({skill: null, show: false});
+
+    function useSkill(skillName: string, target?: IPlayerCharacter | ActionDice | Cloud) {
+        props.useSkill(props.character.name, skillName, target);
+    }
 
 
     const skills = props.character.skills.map((skill, i) => {
@@ -61,6 +68,7 @@ export default function Character(props: Props) {
         })
     })
 
+
     return (
         <div className={styles.container + " " + zIndexClass}>
             <div className={styles.characterPicture}>
@@ -73,13 +81,20 @@ export default function Character(props: Props) {
             </div>
             {wounds}
             <div className={styles.description}>
-                <div className={styles.characterName}>{nameCapitalized}</div>
+
                 <div className={styles.skills}>
-                    <SkillMenu skillDescription={skillDescription}/>
+                    <SkillMenu skillDescription={skillDescription} use={useSkill}
+                               used={props.character.skills.find((skill) => skill.name === skillDescription.skill?.name)?.usedInThisRound || false}
+                               overallWeather={props.overallWeather}
+                    />
                     {skills}
                 </div>
             </div>
-            <Determination value={props.character.determination}/>
+            <div className={styles.rightTop}>
+                <div className={styles.characterName}>{nameCapitalized}</div>
+                <Determination value={props.character.determination}/>
+            </div>
+
             <div className={styles.scroll}>
                 <Droppable droppableId={"freepawns-" + props.character.name}>
                     {(provided) => (

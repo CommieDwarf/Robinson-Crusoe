@@ -20,6 +20,7 @@ import {
 } from "../../components/Game/features/freePawns";
 import {batch} from "react-redux";
 import {globalCostModified} from "../../components/Game/features/globalCostModifiers";
+import {phaseUpdated} from "../../components/Game/features/phase";
 
 type Props = {};
 const Play: NextPage = (props: Props) => {
@@ -55,6 +56,7 @@ const Play: NextPage = (props: Props) => {
                     renderData.characterService.friday.pawnService.freePawns
                 )
             );
+            dispatch(phaseUpdated(renderData.phaseService.phase));
         });
     }
 

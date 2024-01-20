@@ -33,9 +33,6 @@ export class TokenService implements ITokenService {
         };
     }
 
-    private discardUsedTokens() {
-        this._owned = this._owned.filter((token) => !token.used);
-    }
 
     private getOwnedToken(id: string): IToken {
         const token = this._owned.find((token) => token.id === id);
@@ -78,8 +75,10 @@ export class TokenService implements ITokenService {
 
         //target fixed for now.
         //TODO: make targeting other characters.
-        this.getOwnedToken(id).use(user, user);
-        this.discardUsedTokens();
+        const token = this.getOwnedToken(id)
+        token.use(user, user);
+        this._owned = this._owned.filter((tok) => token !== token);
+
     }
 
     public addRandomTokenToOwned() {

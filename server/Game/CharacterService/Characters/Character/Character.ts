@@ -10,6 +10,7 @@ import {ICharEffects} from "../../../../../interfaces/Characters/CharEffects";
 import {IPawnService} from "../../../../../interfaces/Pawns/Pawns";
 import {ISkill} from "../../../../../interfaces/Skill/Skill";
 import {ActionDice} from "../../../../../interfaces/RollDice/RollDice";
+import {Cloud} from "../../../../../interfaces/Weather/Weather";
 
 export abstract class Character implements ICharacter {
     protected _namePL: string;
@@ -137,15 +138,18 @@ export abstract class Character implements ICharacter {
         return skill;
     }
 
-    public useSkill(name: string, target: ICharacter | ActionDice | null) {
+    public useSkill(name: string, target: ICharacter | ActionDice | Cloud | null = null) {
         const skill = this.getSkill(name);
-        if (skill.used) {
-            this._game.alertService.setAlert("Ta umiejętność została już użyta");
+        if (!target) {
+            target = this._game.localPlayer.getCharacter();
+        }
+        if (skill.usedInThisRound()) {
+            this._game.alertService.setAlert("Ta umiejętność została już użyta w tej rundzie.");
             return;
         }
+
         if (this._determination >= skill.cost) {
             skill.use(target);
-            this.decrDetermination(skill.cost);
         } else {
             this._game.alertService.setAlert(
                 "Za mało determinacji, żeby użyć tej umiejętności"
@@ -153,7 +157,4 @@ export abstract class Character implements ICharacter {
         }
     }
 
-    refreshSkills() {
-        this._skills.forEach((skill) => (skill.used = false));
-    }
 }

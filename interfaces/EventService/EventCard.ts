@@ -25,6 +25,8 @@ export interface IEventCard extends IResourceCommittableItem {
 
     triggerThreatEffect(): void;
 
+    meetsRequirement: () => void;
+
     setAdventureToken: () => void;
 }
 
@@ -33,6 +35,7 @@ export interface IEventCardRenderData extends IResourceCommittableItemRenderData
     id: string;
     name: string;
     cardType: AdventureAction | EVENT_TYPE;
+    meetsRequirement: boolean;
 }
 
 export enum EVENT_TYPE {

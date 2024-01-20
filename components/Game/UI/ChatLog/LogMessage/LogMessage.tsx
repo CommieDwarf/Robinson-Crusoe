@@ -34,7 +34,7 @@ export const LogMessage = (props: Props) => {
           {capitalizeFirstLetter(msg.source)} -{" "}
         </span>
                 <span className={styles.message + " " + styles[msg.color]}>
-          {capitalizeFirstLetter(msg.message)}
+          {capitalizeFirstLetter(msg.message)}.
         </span>
             </div>
         </div>

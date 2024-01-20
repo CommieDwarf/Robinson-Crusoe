@@ -1,9 +1,11 @@
 .game {
-    width: 1200px;
     /* height: 550px; */
-    height: 565px;
+    width: 1200px;
     margin: 0 auto;
     display: grid;
+    background-image: url("../../public/UI/paper-background.png");
+    background-size: cover;
+    background-position-y: -100px;
 
     grid-template-columns: 1fr 3fr 0.9fr 1.1fr 2fr 3fr;
     /* grid-template-rows: 1fr 5fr 4fr 1fr; */
@@ -20,5 +22,6 @@
     /* Non-prefixed version, currently
                                      supported by Chrome, Edge, Opera and Firefox */
     overflow: hidden;
-
 }
+
+

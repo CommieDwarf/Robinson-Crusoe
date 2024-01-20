@@ -16,7 +16,6 @@ type Props = {
 export const WoodStash = (props: Props) => {
 
     function handleButtonClick() {
-        console.log("add wood")
         props.addWood();
     }
 

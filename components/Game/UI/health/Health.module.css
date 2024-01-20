@@ -3,7 +3,8 @@
     grid-row: 5 / span 1;
     background-image: url("../../../../public/UI/characters/background.png");
     background-size: cover;
-    border: 1px dashed #451e14;
+    border: 1px solid var(--brown);
+    border-top: none;
 }
 
 .health {

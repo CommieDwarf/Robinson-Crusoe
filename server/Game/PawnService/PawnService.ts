@@ -53,7 +53,6 @@ export class PawnService implements IPawnService {
 
     copyPawnToFreePawns(draggableId: string): void {
         const duplicated = this.findPawn(draggableId, "freePawns");
-        console.log(this._freePawns)
         if (duplicated) {
             throw new Error(
                 `There is already pawn with id: ${draggableId} in freePawns[]`

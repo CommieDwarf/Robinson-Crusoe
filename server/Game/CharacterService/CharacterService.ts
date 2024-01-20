@@ -35,6 +35,7 @@ export class CharacterService implements ICharacterService {
             dog: this.dog.renderData,
             friday: this.friday.renderData,
             thresholdAmountForRemoval: this._thresholdAmountForRemoval,
+            areSomePawnsUnassigned: this.areSomePawnsUnassigned(),
         };
     }
 
@@ -248,5 +249,9 @@ export class CharacterService implements ICharacterService {
         this._allCharacters.forEach((char) =>
             this.incrDetermination(char, amount, "")
         );
+    }
+
+    private areSomePawnsUnassigned(): boolean {
+        return this._allCharacters.some((char) => char.pawnService.freePawns.length > 0);
     }
 }

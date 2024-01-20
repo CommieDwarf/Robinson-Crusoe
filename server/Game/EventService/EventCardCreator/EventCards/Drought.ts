@@ -25,8 +25,6 @@ export class Drought extends EventCard implements IEventCard {
     }
 
     triggerEventEffect() {
-        //TODO: if possible cover river terrain on some tile.
-        //TODO: treat as unexplored terrain.
         const tiles = this._game.tileService.tiles.filter((tile) => tile.tileResourceService?.terrainType === TERRAIN_TYPE.RIVER);
         if (tiles.length > 0) {
             this._game.tileService.markTilesForAction(tiles, TILE_ACTION.DEPLETE_TERRAIN_TYPE, 1, this._namePL);
@@ -38,7 +36,7 @@ export class Drought extends EventCard implements IEventCard {
     }
 
     fullFill() {
-        const tile = this._game.tileService.tiles.find((tile) => tile.modifiers.terrainDepleted === this._namePL);
+        const tile = this._game.tileService.tiles.find((tile) => tile.modifiers.terrainDepleted?.source === this._namePL);
         if (tile) {
             tile.unsetTileModifier("terrainDepleted", this._resolutionPL);
         }

@@ -1,9 +1,12 @@
 import {PHASE} from "../../../../../../interfaces/PhaseService/Phase";
 import {AdventureAction} from "../../../../../../interfaces/ACTION";
 import {IGame} from "../../../../../../interfaces/Game";
-import {IPlayerCharacter} from "../../../../../../interfaces/Characters/Character";
 import {ISkill} from "../../../../../../interfaces/Skill/Skill";
 import {ActionDice} from "../../../../../../interfaces/RollDice/RollDice";
+import {IPlayerCharacter} from "../../../../../../interfaces/Characters/PlayerCharacter";
+import {Phase} from "../../../../../../interfaces/PhaseService/PhaseService";
+import {phaseOrder} from "../../../../../../constants/phaseOrder";
+import {Cloud} from "../../../../../../interfaces/Weather/Weather";
 
 export abstract class Skill implements ISkill {
     protected readonly _name: string;
@@ -11,20 +14,22 @@ export abstract class Skill implements ISkill {
     protected readonly _description: string;
     protected readonly _quote: string;
 
-    protected readonly _phasesAllowed: PHASE[];
+    protected readonly _phasesAllowed: Phase[];
     protected readonly _actionAllowed: AdventureAction | null;
     protected readonly _game: IGame;
-    protected _used = false;
+
+    protected _lastRoundUsed = 0;
     protected _cost: number;
 
-    abstract use(target: IPlayerCharacter | ActionDice | null): void;
+    abstract use(target: IPlayerCharacter | ActionDice | Cloud | null): void;
+
 
     protected constructor(
         name: string,
         namePL: string,
         description: string,
         quote: string,
-        phasesAllowed: PHASE[],
+        phasesAllowed: Phase[] | "all",
         actionAllowed: AdventureAction | null,
         cost: number,
         game: IGame
@@ -33,7 +38,11 @@ export abstract class Skill implements ISkill {
         this._namePL = namePL;
         this._description = description;
         this._quote = quote;
-        this._phasesAllowed = phasesAllowed;
+        if (phasesAllowed === "all") {
+            this._phasesAllowed = [...phaseOrder];
+        } else {
+            this._phasesAllowed = phasesAllowed;
+        }
         this._actionAllowed = actionAllowed;
         this._cost = cost;
         this._game = game;
@@ -47,8 +56,9 @@ export abstract class Skill implements ISkill {
             quote: this._quote,
             phasesAllowed: this._phasesAllowed,
             actionAllowed: this._actionAllowed,
-            used: this._used,
+            usedInThisRound: this.usedInThisRound(),
             cost: this._cost,
+            canBeUsed: this.canBeUsed(),
         };
     }
 
@@ -72,7 +82,7 @@ export abstract class Skill implements ISkill {
         return this._quote;
     }
 
-    get phasesAllowed(): PHASE[] {
+    get phasesAllowed(): Phase[] {
         return this._phasesAllowed;
     }
 
@@ -80,11 +90,20 @@ export abstract class Skill implements ISkill {
         return this._actionAllowed;
     }
 
-    get used(): boolean {
-        return this._used;
+    public canBeUsed() {
+        return ((this._phasesAllowed.includes(this._game.phaseService.phase)) && (this._actionAllowed ? this._actionAllowed === this._game.actionService.action : true))
     }
 
-    set used(value: boolean) {
-        this._used = value;
+    usedInThisRound(): boolean {
+        return this._lastRoundUsed === this._game.round;
+    }
+
+
+    protected updateLastRoundUsed() {
+        this._lastRoundUsed = this._game.round;
+    }
+
+    protected addLogMsg(charNamePL: string) {
+        this._game.chatLog.addMessage(`${charNamePL} użył ${this._namePL}`, "green", "Umiejętność");
     }
 }

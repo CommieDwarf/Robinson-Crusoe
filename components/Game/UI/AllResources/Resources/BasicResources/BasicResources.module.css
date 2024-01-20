@@ -28,15 +28,38 @@
 }
 
 .value {
-    height: 30%;
+    height: 100%;
     width: 30%;
     font-size: 20px;
     display: inline-block;
     color: var(--brown);
-    letter-spacing: -0.1em;
+    letter-spacing: 0;
 }
+
+.valueChanged {
+    animation-name: valueAddedAnimation;
+    animation-iteration-count: 1;
+    animation-duration: 0.5s;
+    transform-origin: center center;
+}
+
+@keyframes valueAddedAnimation {
+    0% {
+        scale: 1;
+        color: var(--brown);
+    }
+    50% {
+        scale: 1.5;
+        color: var(--resourceValueChangeColor);
+    }
+    100% {
+
+        scale: 1;
+        color: var(--brown);
+    }
+}
+
 
 .treasure {
     filter: brightness(0%);
-
 }

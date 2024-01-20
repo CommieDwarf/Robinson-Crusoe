@@ -58,7 +58,7 @@ export class Tile extends AssignablePawnsItem implements ITile {
         tileType: ITileResourceService | null,
         game: IGame
     ) {
-        super(ACTION.EXPLORE, ACTION_ITEM.TILE, game);
+        super(camp ? ACTION.GATHER : ACTION.EXPLORE, ACTION_ITEM.TILE, game);
         this._position = position;
         this._id = id;
         this._camp = camp;
@@ -139,7 +139,7 @@ export class Tile extends AssignablePawnsItem implements ITile {
     }
 
     get canCampBeSettled(): boolean {
-        return this._canCampBeSettled && this._game.phaseService.phase === "night";
+        return this._canCampBeSettled && this._game.phaseService.phase === "night" && !this._modifiers.flipped;
     }
 
     set canCampBeSettled(value: boolean) {
@@ -223,7 +223,6 @@ export class Tile extends AssignablePawnsItem implements ITile {
     }
 
     public depleteResource(side: "left" | "right", source: string) {
-        console.log(source);
         this._tileResourceService?.deplete(side, source);
     }
 
@@ -328,7 +327,6 @@ export class Tile extends AssignablePawnsItem implements ITile {
             resources.extras
         );
         this._action = ACTION.GATHER;
-
     }
 
     public setStructureLvl(

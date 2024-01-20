@@ -2,6 +2,7 @@ import {ICharEffects} from "./CharEffects";
 import {IPawnService, IPawnServiceRenderData} from "../Pawns/Pawns";
 import {ISkill, ISkillRenderData} from "../Skill/Skill";
 import {ActionDice} from "../RollDice/RollDice";
+import {Cloud} from "../Weather/Weather";
 
 export interface ICharacterRenderData {
     pawnService: IPawnServiceRenderData;
@@ -22,8 +23,7 @@ export interface ICharacter {
     maxHealth: number;
     effects: ICharEffects;
     skills: ISkill[];
-    useSkill: (name: string, target: ICharacter | ActionDice | null) => void;
-    refreshSkills: () => void;
+    useSkill: (name: string, target: ICharacter | ActionDice | Cloud | null) => void;
     namePL: string;
     health: number;
     gender: Gender;

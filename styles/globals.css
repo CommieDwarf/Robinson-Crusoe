@@ -40,6 +40,8 @@ a {
     --palisadeAspectRatio: 640 / 481;
     --weaponAspectRatio: 366 / 681;
     --goldenRatio: 1.618;
+
+    --resourceValueChangeColor: black;
 }
 
 body::-webkit-scrollbar-track {

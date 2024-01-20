@@ -30,7 +30,7 @@ export interface ITileService {
     countHowManyTilesCanBeMarkedForAction: (tiles: ITile[], action: TILE_ACTION) => number;
     countHowManyResourcesCanBeMarkedForAction: (tiles: ITile[], action: TILE_RESOURCE_ACTION, source: string, concreteResource?: "wood" | "food" | null) => number;
     resetResourceAssignedPawns: () => void;
-    gather: (side: "left" | "right", tileId: number, logSource: string) => void;
+    gather: (side: "left" | "right", tileId: number, logSource: string, production?: boolean) => void;
     getTile: (id: number) => ITile;
     moveCamp: (tileID: number) => void;
     explore: (id: number) => void;

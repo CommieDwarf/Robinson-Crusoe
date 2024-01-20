@@ -152,14 +152,14 @@ function Map(props: Props) {
                 </div>
             )}
             <div className={styles.zoom}>
-                <div className={styles.zoomIcon}>
-                    <Image
-                        src={magnifyingGlass}
-                        fill
-                        alt="zoom"
-                        sizes={styles.zoomIcon}
-                    />
-                </div>
+                {/*<div className={styles.zoomIcon}>*/}
+                {/*    <Image*/}
+                {/*        src={magnifyingGlass}*/}
+                {/*        fill*/}
+                {/*        alt="zoom"*/}
+                {/*        sizes={styles.zoomIcon}*/}
+                {/*    />*/}
+                {/*</div>*/}
                 <div className={styles.zoomButton} onClick={zoomIn}>
                     <span className={styles.zoomText}>+</span>
                 </div>

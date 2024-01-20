@@ -1,33 +1,88 @@
 
-.container {
+.wrapper {
     position: absolute;
     width: 0;
     height: 155%;
     left: 0;
     top: -24%;
     transition: all 1s;
-    background-image: url("../../../../../public/UI/characters/background.png");
-    background-size: contain;
+
     border: none;
     overflow: hidden;
     font-size: 13px;
     font-weight: bold;
 }
 
+.container {
+    /*background-image: url("../../../../../public/UI/old-paper.png");*/
+    background-image: url("../../../../../public/UI/characters/background.png");
+
+    background-size: contain;
+    width: 210px;
+    height: 100%;
+}
+
 .skillDescriptionVisible {
     width: 210px;
     left: -210px;
-    border: 1px solid #451e14;
+    border: 1px solid var(--brown);
 
 }
 
+.topBar {
+    height: 18%;
+    position: relative;
+    top: 4px;
+}
+
+.chooseCloud {
+    height: 100%;
+    aspect-ratio: 2;
+    display: inline-flex;
+    position: absolute;
+    right: 5px;
+    top: 0;
+}
+
+.cloud {
+    height: 100%;
+    aspect-ratio: 1;
+    position: relative;
+    cursor: pointer;
+}
+
+.cloudSelected {
+    filter: invert(24%) sepia(83%) saturate(4030%) hue-rotate(106deg) brightness(91%) contrast(111%);
+}
+
 .useButton {
-    margin-left: 40px;
-    border: 1px dashed #451e14;
-    color: #451e14;
-    width: 130px;
+    border: 1px solid var(--brown);
+    color: var(--brown);
+    width: 20%;
+    height: 80%;
     text-align: center;
     border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    margin: auto;
+}
+
+
+.useButton:hover {
+    background-color: var(--brown);
+    color: white;
+    scale: 1.2;
+}
+
+.useButtonUsed {
+    border: none;
+    width: 100%;
+}
+
+.useButtonUsed:hover {
+    background: none;
+    color: var(--brown);
+    scale: 1;
 }
 
 .text {
@@ -41,7 +96,7 @@
 .quote {
     font-weight: bold;
     font-style: italic;
-    font-size: 10px;
+    font-size: 8px;
     font-family: Snell Roundhand, cursive;
 }
 

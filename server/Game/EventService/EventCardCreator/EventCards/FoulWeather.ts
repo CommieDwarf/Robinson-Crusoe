@@ -25,7 +25,7 @@ export class FoulWeather extends EventCard implements IEventCard {
     }
 
     triggerEventEffect() {
-        this._game.actionService.setAdventureToken(ACTION.GATHER, true, this._namePL);
+        this._game.actionService.addGlobalCostModifier(ACTION.GATHER, "helper", true, this._namePL)
     }
 
     triggerThreatEffect() {
