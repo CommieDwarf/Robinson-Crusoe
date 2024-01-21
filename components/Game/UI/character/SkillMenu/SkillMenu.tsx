@@ -61,32 +61,7 @@ export default function SkillMenu(props: Props) {
                 {props.skillDescription.skill && (
                     <>
                         <div className={styles.topBar}>
-                            {!props.used && props.skillDescription.skill.canBeUsed && <>
-                                <div className={styles.useButton} onClick={handleButtonClick}>Użyj</div>
-                                {props.skillDescription.skill.name === "hooch" && <div className={styles.chooseCloud}>
-                                    <div className={`${styles.cloud} ${cloud === "rain" ? styles.cloudSelected : ""}`}
-                                         onClick={handleRainCloudClick}
-                                    >
-                                        <Image src={rainImg} alt={"deszcz"} fill/>
-                                    </div>
-                                    /
-                                    <div className={`${styles.cloud} ${cloud === "snow" ? styles.cloudSelected : ""}`}
-                                         onClick={handleSnowCloudClick}
-                                    >
-                                        <Image src={snowImg} alt={"śnieg"} fill/>
-                                    </div>
-                                </div>}
-                            </>
-
-                            }
-                            {
-                                props.used &&
-                                <>
-                                    <div className={`${styles.useButton} ${styles.useButtonUsed}`}>Użyto w tej rundzie
-                                    </div>
-
-                                </>
-                            }
+                            <div className={styles.skillName}>{props.skillDescription.skill.namePL}</div>
                         </div>
 
                         <div className={styles.text}>
@@ -94,6 +69,32 @@ export default function SkillMenu(props: Props) {
                             <hr/>
                             <div className={styles.description}>{description}</div>
                         </div>
+                        {!props.used && props.skillDescription.skill.canBeUsed && <>
+                            <div className={styles.useButton} onClick={handleButtonClick}>Użyj</div>
+                            {props.skillDescription.skill.name === "hooch" && <div className={styles.chooseCloud}>
+                                <div className={`${styles.cloud} ${cloud === "rain" ? styles.cloudSelected : ""}`}
+                                     onClick={handleRainCloudClick}
+                                >
+                                    <Image src={rainImg} alt={"deszcz"} fill/>
+                                </div>
+                                /
+                                <div className={`${styles.cloud} ${cloud === "snow" ? styles.cloudSelected : ""}`}
+                                     onClick={handleSnowCloudClick}
+                                >
+                                    <Image src={snowImg} alt={"śnieg"} fill/>
+                                </div>
+                            </div>}
+                        </>
+
+                        }
+                        {
+                            props.used &&
+                            <>
+                                <div className={`${styles.useButton} ${styles.useButtonUsed}`}>Użyto w tej rundzie
+                                </div>
+
+                            </>
+                        }
                     </>
                 )}
             </div>

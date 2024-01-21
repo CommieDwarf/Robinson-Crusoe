@@ -22,7 +22,8 @@
     position: relative;
     border-radius: 5px;
     line-height: 100%;
-    background-image: url("/UI/old-paper.png");
+    background-image: url("/UI/paper-background.png");
+    background-size: cover;
     cursor: pointer;
     padding-left: 5px;
     padding-right: 5px;

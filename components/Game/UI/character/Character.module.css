@@ -40,22 +40,18 @@
 
 .characterPicture {
     width: 100%;
-    height: 50%;
-    /*grid-column: 1 / span 1;*/
-    /*grid-row: 3 / span 1;*/
-    position: relative;
-    grid-column: 1 / span 1;
-    grid-row: 1 / span 3;
-}
-
-.description {
-    /*grid-column: 1 / span 1;*/
-    /*grid-row: 1 / span 2;*/
+    height: 100%;
     grid-column: 1 / span 1;
     grid-row: 3 / span 1;
     position: relative;
+}
+
+.description {
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 2;
+    position: relative;
     width: 100%;
-    height: 100%;
+    height: 80%;
 }
 
 .rightTop {
@@ -67,17 +63,17 @@
 }
 
 .characterName {
-    width: 55%;
-    height: 70%;
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 2;
     text-align: center;
-    background-image: url("../../../../public/UI/darkwood.png");
-    background-size: cover;
-    color: white;
-    border-radius: 5px;
-    margin-top: 2%;
     font-weight: bold;
-    font-size: 13px;
-    line-height: 160%;
+    color: white;
+    background-color: var(--brown);
+    line-height: 100%;
+    width: 70%;
+    border-radius: 5px;
+    padding: 1px 2px 2px 1px;
+    margin: 5px auto 5px auto;
 }
 
 .skills {

@@ -4,7 +4,7 @@
     position: absolute;
     top: calc(50% - 100px);
     left: calc(50% - 200px);
-    background-image: url("../../../../public/UI/old-paper.png");
+    background-image: url("../../../../public/UI/paper-background.png");
     border: 1px solid var(--brown);
     z-index: 999999999;
 }

@@ -80,8 +80,10 @@ export default function Character(props: Props) {
                 />
             </div>
             {wounds}
-            <div className={styles.description}>
 
+            <div className={styles.description}>
+                <div className={styles.characterName}>{nameCapitalized}</div>
+                
                 <div className={styles.skills}>
                     <SkillMenu skillDescription={skillDescription} use={useSkill}
                                used={props.character.skills.find((skill) => skill.name === skillDescription.skill?.name)?.usedInThisRound || false}
@@ -91,7 +93,6 @@ export default function Character(props: Props) {
                 </div>
             </div>
             <div className={styles.rightTop}>
-                <div className={styles.characterName}>{nameCapitalized}</div>
                 <Determination value={props.character.determination}/>
             </div>
 

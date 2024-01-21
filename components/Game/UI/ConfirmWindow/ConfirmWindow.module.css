@@ -6,7 +6,7 @@
     left: calc(50% - 100px);
     top: 20%;
     border: 2px solid var(--brown);
-    background-image: url("../../../../public/UI/old-paper.png");
+    background-image: url("../../../../public/UI/paper-background.png");
     border-radius: 5px;
     text-align: center;
     font-weight: bold;

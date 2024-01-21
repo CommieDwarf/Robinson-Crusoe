@@ -2,7 +2,7 @@
     width: 640px;
     height: 350px;
     position: absolute;
-    background-image: url("../../../../public/UI/old-paper.png");
+    background-image: url("../../../../public/UI/paper-background.png");
     background-size: cover;
     border: 1px solid black;
     z-index: 999999999999;

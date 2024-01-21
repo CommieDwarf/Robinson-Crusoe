@@ -1,7 +1,7 @@
 .container {
     position: absolute;
     width: 100%;
-    background-image: url("../../.././../../public/UI/old-paper.png");
+    background-image: url("../../.././../../public/UI/paper-background.png");
     z-index: 99;
     border: none;
     left: 0;

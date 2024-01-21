@@ -4,7 +4,7 @@ import {
 } from "../../../../../../../../interfaces/MysteryService/MysteryCard";
 import treasureIcon from "/public/UI/misc/treasure.png";
 import Image from "next/image";
-import oldPaperImg from "/public/UI/old-paper.png";
+import oldPaperImg from "/public/UI/paper-background.png";
 import plusImg from "/public/UI/misc/plus.png";
 import minusImg from "/public/UI/misc/minus.png";
 
