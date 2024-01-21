@@ -14,6 +14,8 @@ import {isMysteryCard} from "../../../utils/isMysteryCard";
 import {isAdventureCard} from "../../../utils/isAdventureCard";
 import {WRECKAGE_CARD} from "../../../interfaces/EventService/EVENT_CARD";
 import shuffle from "../../../utils/shuffleArray";
+import {MysteryCardCreator} from "../MysteryService/MysteryCardCreator/MysteryCardCreator";
+import {CREATURE_MYSTERY_CARD} from "../../../interfaces/MysteryService/MYSTERY_CARD";
 
 interface EventSlots {
     left: null | IEventCard;
@@ -40,6 +42,7 @@ export class EventService implements IEventService {
     constructor(game: IGame) {
         this._game = game;
         this._eventCardDeck = this.initEventCards();
+
         // this.testEventCards(Play);
     }
 
@@ -216,6 +219,7 @@ export class EventService implements IEventService {
         let cards = implementedEventCards.map((card) => creator.create(card));
         cards = shuffle(cards).slice(0, 12)
         // 29 kart ogólnie
+
 
         return [...cards];
     }

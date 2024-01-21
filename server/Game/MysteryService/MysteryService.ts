@@ -9,6 +9,7 @@ import {creatures, traps} from "../../../constants/cards/MysteryCards";
 import {TREASURE_MYSTERY_CARD} from "../../../interfaces/MysteryService/MYSTERY_CARD";
 import {IPlayerCharacter} from "../../../interfaces/Characters/PlayerCharacter";
 import {Barrel} from "./MysteryCardCreator/Cards/Treasure/Barrel";
+import {PlayerCharacter} from "../CharacterService/Characters/Character/PlayerCharacter/PlayerCharacter";
 
 
 export class MysteryService implements IMysteryService {
@@ -150,8 +151,10 @@ export class MysteryService implements IMysteryService {
             if (!card.drawLabel) {
                 card.triggerDrawEffect(this._cardDrawer.drawer);
                 card.drawResolved = true;
+                console.log("resolved true")
             } else {
                 this._cardToBeResolved = card;
+                console.log("to be resolved");
             }
         }
     }
@@ -169,6 +172,8 @@ export class MysteryService implements IMysteryService {
             throw new Error("Card drawer isn't instanced");
         }
         this._cardToBeResolved?.triggerDrawEffect(this._cardDrawer.drawer);
+        this._cardToBeResolved = null;
+        this._currentResolve = null;
     }
 
     public finish() {

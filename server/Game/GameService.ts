@@ -1,9 +1,9 @@
 import {IGame, IGameRenderData} from "../../interfaces/Game";
 import {GameClass} from "./Game";
-import {INVENTION_STARTER} from "../../interfaces/InventionService/Invention";
 import {Pawn} from "./PawnService/Pawn/Pawn";
 import {ACTION} from "../../interfaces/ACTION";
-import shuffle from "../../utils/shuffleArray";
+import {MysteryCardCreator} from "./MysteryService/MysteryCardCreator/MysteryCardCreator";
+import {CREATURE_MYSTERY_CARD} from "../../interfaces/MysteryService/MYSTERY_CARD";
 
 interface IGameService {
     game: IGame | null;
@@ -34,11 +34,8 @@ export class GameService implements IGameService {
         this._game.actionService.setAdventureToken(ACTION.GATHER, true, "test");
         this._game.actionService.setAdventureToken(ACTION.BUILD, true, "test");
         this._game.tileService.explore(6);
+        this._game.mysteryService.startDrawingCards(1, 0, 0, char);
 
-        let a = [0, 1, 2, 3];
-        a.push(4);
-        a = shuffle(a);
-        console.log(a);
     }
 
     get renderData() {

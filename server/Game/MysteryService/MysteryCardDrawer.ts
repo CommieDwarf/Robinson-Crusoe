@@ -4,8 +4,11 @@ import {
 } from "../../../interfaces/MysteryService/MysteryCard";
 import {IMysteryService} from "../../../interfaces/MysteryService/MysteryService";
 import {IMysteryCardDrawer} from "../../../interfaces/MysteryService/MysteryCardDrawer";
-import { TreasureMysteryCard } from "./MysteryCardCreator/Cards/Treasure/TreasureMysteryCard/TreasureMysteryCard";
-import { IPlayerCharacter } from "../../../interfaces/Characters/PlayerCharacter";
+import {TreasureMysteryCard} from "./MysteryCardCreator/Cards/Treasure/TreasureMysteryCard/TreasureMysteryCard";
+import {IPlayerCharacter} from "../../../interfaces/Characters/PlayerCharacter";
+import {MysteryCardCreator} from "./MysteryCardCreator/MysteryCardCreator";
+import {FuriousTiger} from "./MysteryCardCreator/Cards/Creature/FuriousTiger";
+import {CREATURE_MYSTERY_CARD} from "../../../interfaces/MysteryService/MYSTERY_CARD";
 
 export class MysteryCardDrawer implements IMysteryCardDrawer {
     private _creature: number;
@@ -85,9 +88,10 @@ export class MysteryCardDrawer implements IMysteryCardDrawer {
         return types;
     }
 
-    private getMysteryCard(types: MYSTERY_CARD_TYPE[]) {
+    private getMysteryCard(types: MYSTERY_CARD_TYPE[]): IMysteryCard {
         let cardsExcluded = [];
         let found;
+        return this._mysteryService.cardStack.find((card) => card.name === CREATURE_MYSTERY_CARD.FURIOUS_TIGER)
         do {
             let card = this._mysteryService.cardStack.pop();
             if (!card) {
@@ -114,7 +118,7 @@ export class MysteryCardDrawer implements IMysteryCardDrawer {
             this._acquiredTreasures.push(card);
         }
         this.decrCardType(card.type);
-        this._cardDrewCount ++;
+        this._cardDrewCount++;
         return card;
     }
 
@@ -145,5 +149,5 @@ export class MysteryCardDrawer implements IMysteryCardDrawer {
         }
     }
 
-  
+
 }
