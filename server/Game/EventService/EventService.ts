@@ -149,8 +149,9 @@ export class EventService implements IEventService {
 
     public shuffleCardInToDeck(card: IAdventureCard | IMysteryCard) {
         this._eventCardDeck.push(card);
-
+        console.log("BEFORE shuffle", this._eventCardDeck.map((card) => card.name));
         this._eventCardDeck = shuffle(this._eventCardDeck);
+        console.log("AFTER shuffle", this._eventCardDeck.map((card) => card.name));
     }
 
     public switchCardFromTopToBottomOfStack() {

@@ -77,7 +77,9 @@ export class TokenService implements ITokenService {
         //TODO: make targeting other characters.
         const token = this.getOwnedToken(id)
         token.use(user, user);
-        this._owned = this._owned.filter((tok) => token !== token);
+        if (token.used) {
+            this._owned = this._owned.filter((tok) => tok !== token);
+        }
 
     }
 

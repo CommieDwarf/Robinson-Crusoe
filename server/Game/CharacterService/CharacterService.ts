@@ -164,7 +164,7 @@ export class CharacterService implements ICharacterService {
             this.hurt(char, by, "");
         });
         this._game.chatLog.addMessage(
-            "Wszyscy gracze dostają obrażenia.",
+            "Wszyscy gracze dostają obrażenia",
             "red",
             logSource
         );

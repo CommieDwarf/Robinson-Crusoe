@@ -10,7 +10,7 @@ export abstract class AssignablePawnsItem implements IAssignablePawnsItem {
 
 
     protected _assignedPawnAmount: number = 0;
-    protected _requiredPawnAmount: number | null = 2;
+    protected _requiredPawnAmount: number | null = 1;
 
     protected _action: ACTION;
     protected _actionItem: ACTION_ITEM;

@@ -2,6 +2,8 @@ import {IGame, IGameRenderData} from "../../interfaces/Game";
 import {GameClass} from "./Game";
 import {INVENTION_STARTER} from "../../interfaces/InventionService/Invention";
 import {Pawn} from "./PawnService/Pawn/Pawn";
+import {ACTION} from "../../interfaces/ACTION";
+import shuffle from "../../utils/shuffleArray";
 
 interface IGameService {
     game: IGame | null;
@@ -28,13 +30,15 @@ export class GameService implements IGameService {
         char.pawnService.addPawn(new Pawn(char));
         char.pawnService.addPawn(new Pawn(char));
         char.pawnService.resetFreePawns();
-        this._game.tokenService.addRandomTokenToOwned();
-        this._game.tokenService.addRandomTokenToOwned();
-        this._game.tokenService.addRandomTokenToOwned();
-        this._game.tokenService.addRandomTokenToOwned();
-        this._game.tokenService.addRandomTokenToOwned();
-        this._game.resourceService.addBasicResourceToOwned("leather", 1, "test");
-        this._game.inventionService.updateLocks();
+        this._game.actionService.setAdventureToken(ACTION.EXPLORE, true, "test");
+        this._game.actionService.setAdventureToken(ACTION.GATHER, true, "test");
+        this._game.actionService.setAdventureToken(ACTION.BUILD, true, "test");
+        this._game.tileService.explore(6);
+
+        let a = [0, 1, 2, 3];
+        a.push(4);
+        a = shuffle(a);
+        console.log(a);
     }
 
     get renderData() {

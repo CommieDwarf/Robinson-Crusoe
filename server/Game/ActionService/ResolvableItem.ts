@@ -260,7 +260,7 @@ export class ResolvableItem implements IResolvableItem {
         ) {
             return false;
         }
-        return Boolean(item.requiredPawnAmount && item.requiredPawnAmount > this._helperAmount + 1);
+        return Boolean(item.requiredPawnAmount && item.requiredPawnAmount > this._helperAmount);
     }
 
     private applyRollDiceEffects() {

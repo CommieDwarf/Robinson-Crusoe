@@ -178,6 +178,10 @@ export class ActionService implements IActionService {
         if (this._adventureTokens[action] === value) {
             return;
         }
+        if (!value) {
+            this._adventureTokens[action] = value;
+            return;
+        }
         if (value) {
             this._game.chatLog.addMessage(
                 `Położono token przygody na akcji: ${i18n.t(`action.${action}`, {

@@ -53,10 +53,10 @@ export const WeatherResolveWindow = (props: Props) => {
     return (
         <Draggable bounds="parent" defaultClassNameDragging={sharedStyles.grabbing}>
             <div className={styles.container}>
-                <UtilityDropDownButton
-                    isOpen={isUtilityOpen}
-                    toggleOpen={toggleUtilityOpen}
-                />
+                {/*<UtilityDropDownButton*/}
+                {/*    isOpen={isUtilityOpen}*/}
+                {/*    toggleOpen={toggleUtilityOpen}*/}
+                {/*/>*/}
                 <Utility
                     skills={props.skills}
                     determination={props.determination}

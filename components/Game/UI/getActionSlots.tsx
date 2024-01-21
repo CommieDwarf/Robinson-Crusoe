@@ -23,7 +23,7 @@ export default function getActionSlots(
     const actionSlots = [];
 
 
-    for (let i = 0; i < item.requiredPawnAmount; i++) {
+    for (let i = 0; i < item.requiredPawnAmount + 1; i++) {
         const actionSlotId = getDroppableID(item.uniqueAction, identifier, side, i);
         const role = i === 0 ? "leader" : "helper";
         actionSlots.push(

@@ -7,6 +7,7 @@ import {ActionSlotService} from "../ActionSlotsService/ActionSlotService";
 import {MissingHelperError} from "../Errors/MissingHelperError";
 import {TREASURE_MYSTERY_CARD} from "../../../interfaces/MysteryService/MYSTERY_CARD";
 import {INVENTION_NORMAL} from "../../../interfaces/InventionService/Invention";
+import {CONSTRUCTION} from "../../../interfaces/ConstructionService/Construction";
 
 export class PhaseService implements IPhaseService {
     private _phase: Phase = "event";
@@ -137,6 +138,14 @@ export class PhaseService implements IPhaseService {
         this._game.setNextRound();
         this._game.tileService.campJustMoved = false;
         //TODO: IMPLEMENT EATING;
+        this.eatOrGetHurt();
+        this.rotFood();
+        this.sleepInShelterOrHurt();
+        this._game.eventService.pullCard();
+    };
+
+
+    private eatOrGetHurt() {
         this._game.playerService.players.forEach((player) => {
             const character = player.getCharacter();
             if (this._game.resourceService.canAffordResource("food", 1)) {
@@ -149,14 +158,19 @@ export class PhaseService implements IPhaseService {
                 this._game.characterService.hurt(character, 1, "Brak pożywienia");
             }
         })
+    }
+
+    private rotFood() {
         if (!this._game.mysteryService.hasTresureCard(TREASURE_MYSTERY_CARD.BOXES) &&
             !this._game.inventionService.isBuilt(INVENTION_NORMAL.CELLAR)
         ) {
             this._game.resourceService.spendBasicResourceIfPossible("food", Infinity, "Jedzenie gnije");
         }
+    }
 
-        this._game.eventService.pullCard();
-    };
-
-
+    private sleepInShelterOrHurt() {
+        if (!this._game.constructionService.isBuilt(CONSTRUCTION.SHELTER)) {
+            this._game.characterService.hurtAllPlayerCharacters(1, "Sen pod gołym niebem");
+        }
+    }
 }

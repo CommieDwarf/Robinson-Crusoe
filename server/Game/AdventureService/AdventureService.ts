@@ -13,6 +13,7 @@ import {IResolvableItem} from "../../../interfaces/ActionService/IResolvableItem
 import {Tile} from "../TileService/TileGraph/Tile";
 import {TileService} from "../TileService/TileService";
 import {isAdventureAction} from "../../../utils/isAdventureAction";
+import shuffle from "../../../utils/shuffleArray";
 
 export class AdventureService implements IAdventureService {
     private readonly _game: IGame;
@@ -104,9 +105,9 @@ export class AdventureService implements IAdventureService {
         const creator = new AdventureCardCreator(this._game);
         const implemented = creator.implemented;
         return {
-            build: implemented.build.map((card) => creator.createBuildCard(card)),
-            explore: implemented.explore.map((card) => creator.createExploreCard(card)),
-            gather: implemented.gather.map((card) => creator.createGatherCard(card))
+            build: shuffle(implemented.build.map((card) => creator.createBuildCard(card))),
+            explore: shuffle(implemented.explore.map((card) => creator.createExploreCard(card))),
+            gather: shuffle(implemented.gather.map((card) => creator.createGatherCard(card)))
         }
     }
 }

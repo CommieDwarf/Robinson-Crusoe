@@ -16,7 +16,7 @@ export class SupplyCrates extends EventCard implements IEventCard {
             EVENT_TYPE.WRECKAGE,
             {
                 optionalResource: null,
-                pawns: 2,
+                pawns: 1,
                 invention: null,
                 construction: null,
                 resource: null

@@ -232,7 +232,7 @@ export class ActionSlotService implements IActionSlotService {
                 });
 
 
-                if (item && item.requiredPawnAmount && helperCount < item.requiredPawnAmount - 2) {
+                if (item && item.requiredPawnAmount && helperCount < item.requiredPawnAmount - 1) {
                     throw new MissingHelperError(droppableID);
                 }
             });
