@@ -5,11 +5,9 @@ import shuffle from "../../../utils/shuffleArray";
 import {IMysteryService} from "../../../interfaces/MysteryService/MysteryService";
 import {IMysteryCardDrawer} from "../../../interfaces/MysteryService/MysteryCardDrawer";
 import {MysteryCardDrawer} from "./MysteryCardDrawer";
-import {creatures, traps} from "../../../constants/cards/MysteryCards";
 import {TREASURE_MYSTERY_CARD} from "../../../interfaces/MysteryService/MYSTERY_CARD";
 import {IPlayerCharacter} from "../../../interfaces/Characters/PlayerCharacter";
 import {Barrel} from "./MysteryCardCreator/Cards/Treasure/Barrel";
-import {PlayerCharacter} from "../CharacterService/Characters/Character/PlayerCharacter/PlayerCharacter";
 
 
 export class MysteryService implements IMysteryService {

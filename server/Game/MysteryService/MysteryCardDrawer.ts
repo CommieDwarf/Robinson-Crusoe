@@ -91,7 +91,6 @@ export class MysteryCardDrawer implements IMysteryCardDrawer {
     private getMysteryCard(types: MYSTERY_CARD_TYPE[]): IMysteryCard {
         let cardsExcluded = [];
         let found;
-        return this._mysteryService.cardStack.find((card) => card.name === CREATURE_MYSTERY_CARD.FURIOUS_TIGER)
         do {
             let card = this._mysteryService.cardStack.pop();
             if (!card) {
