@@ -8,7 +8,9 @@ import {IGame} from "../../../interfaces/Game";
 import {ResourceCommittableItem} from "../ResourceCommittableItem/ResourceCommittableItem";
 import {SingleResourceRequirement} from "../../../interfaces/ResourceCommitableItem/ResourceCommittableItem";
 
-export class Construction extends ResourceCommittableItem implements IConstruction {
+type resource = "leather" | "wood"
+
+export class Construction extends ResourceCommittableItem<resource> implements IConstruction {
 
 
     private readonly _name: CONSTRUCTION;
@@ -18,13 +20,14 @@ export class Construction extends ResourceCommittableItem implements IConstructi
     private _resourceChoice: boolean = true;
     private _temporaryBoost: number = 0;
 
+
     constructor(
         name: CONSTRUCTION,
         namePL: string,
         locked: boolean,
         game: IGame,
-        resourceCost: SingleResourceRequirement,
-        optionalCost: SingleResourceRequirement | null,
+        resourceCost: SingleResourceRequirement<resource>,
+        optionalCost: SingleResourceRequirement<resource> | null,
     ) {
         super(ACTION.BUILD, ACTION_ITEM.CONSTRUCTION, game, resourceCost, optionalCost);
         this._name = name;
@@ -110,7 +113,7 @@ export class Construction extends ResourceCommittableItem implements IConstructi
         }
     }
 
-    private switchResourceType(old: SingleResourceRequirement, newResource: SingleResourceRequirement) {
+    private switchResourceType(old: SingleResourceRequirement<resource>, newResource: SingleResourceRequirement<resource>) {
         if (!this._committedResources) {
             return;
         }

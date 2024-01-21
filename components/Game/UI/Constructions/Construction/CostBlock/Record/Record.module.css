@@ -1,0 +1,22 @@
+.container {
+    width: 100%;
+    height: 100%;
+}
+
+.icon {
+    height: 100%;
+    aspect-ratio: 1;
+    position: absolute;
+    right: -20%;
+    top: 0;
+}
+
+.value {
+    position: absolute;
+    left: 0;
+    top: 10%;
+    height: 100%;
+    display: inline-block;
+    line-height: 100%;
+    color: var(--brown);
+}

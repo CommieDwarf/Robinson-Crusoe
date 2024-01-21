@@ -1,6 +1,9 @@
 .game {
     /* height: 550px; */
-    width: 1200px;
+    /*width: 1200px;*/
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 2.15;
     margin: 0 auto;
     display: grid;
     background-image: url("../../public/UI/paper-background.png");
@@ -9,7 +12,8 @@
 
     grid-template-columns: 1fr 3fr 0.9fr 1.1fr 2fr 3fr;
     /* grid-template-rows: 1fr 5fr 4fr 1fr; */
-    grid-template-rows: 50px 235px 125px 75px 25px 50px;
+    /*grid-template-rows: 50px 235px 125px 75px 25px 50px;*/
+    grid-template-rows: 30fr 235fr 125fr 75fr 25fr 50fr;
     /*background-image: url("../../public/UI/paper-background.png");*/
     /*background-size: contain;*/
     position: relative;

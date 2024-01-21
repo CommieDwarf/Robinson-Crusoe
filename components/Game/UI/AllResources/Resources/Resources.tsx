@@ -61,9 +61,16 @@ export const Resources = (props: Props) => {
         );
     });
 
+    const containerRef = useRef<HTMLDivElement>(null);
+    const style = {
+        fontSize: "50px",
+    }
+    if (containerRef.current) {
+        style.fontSize = containerRef.current.offsetWidth / 5 + "px";
+    }
 
     return (
-        <div className={styles.container}>
+        <div className={`${styles.container} ${styles[props.type]}`} ref={containerRef} style={style}>
             <div className={styles.label}>
                 {props.type === "future" ? "Przyszłe" : "Posiadane"}
             </div>

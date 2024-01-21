@@ -9,6 +9,7 @@ import getActionSlots from "../../getActionSlots";
 import woodImg from "/public/UI/resources/wood.png";
 import leatherImg from "/public/UI/resources/leather.png";
 import {objectsEqual} from "../../../../../utils/objectsEqual";
+import {CostBlock} from "./CostBlock/CostBlock";
 
 type Props = {
     construction: IConstructionRenderData;
@@ -41,60 +42,14 @@ function Construction(props: Props) {
         }
     }
 
-
-    const lockedClass = props.construction.locked ? styles.locked : "";
-
-    const nonSelectableResourceCostClass = !props.construction.canResourceBeSwitched && props.construction.committedResources ? styles.nonSelectable : "";
-
-    let costIcon;
-
-    if (props.construction.name == CONSTRUCTION.WEAPON) {
-        costIcon = (
-            <div className={styles.costIcon}>
-                <div className={styles.costWoodValue}>
-                    {props.construction.resourceCost?.amount}
-                </div>
-                <div className={styles.woodImage}>
-                    <Image src={woodImg} fill alt={"wood"} sizes={styles.woodImage}/>
-                </div>
-            </div>
-        );
-    } else {
-        costIcon = (
-            <div className={styles.costIcon}>
-                <div className={styles.costWoodValue}>
-                    {props.construction.resourceCost?.amount}
-                </div>
-                <div className={`${styles.woodImage}
-                 ${props.construction.committedResources?.type === "wood" ? styles.selected : nonSelectableResourceCostClass}`}
-                     onClick={handleResourceClick}
-                >
-                    <Image src={woodImg} fill alt={"drewno"} sizes={styles.woodImage}/>
-                </div>
-                <div className={styles.crossLine}></div>
-                <div className={styles.costLeatherValue}>
-                    {props.construction.optionalResourceCost?.amount}
-                </div>
-                <div className={`${styles.leatherImage}
-                    ${props.construction.committedResources?.type === "leather" ? styles.selected : nonSelectableResourceCostClass}`}
-                     onClick={handleResourceClick}
-                >
-                    <Image
-                        src={leatherImg}
-                        fill
-                        alt={"skóra"}
-                        sizes={styles.leatherImage}
-                    />
-                </div>
-            </div>
-        );
-    }
     let actionSlots;
     if (props.construction.requiredPawnAmount) {
         actionSlots = getActionSlots(props.construction, props.construction.requiredPawnAmount);
     }
 
-
+    const cost = <CostBlock resource1={props.construction.resourceCost}
+                            resource2={props.construction.optionalResourceCost}
+    />
     return (
         <div className={`${styles.construction} ${props.construction.name === "weapon" ? styles.noBottomBorder : ""}`}>
             <div className={styles.lvlLabel}>Poziom {props.construction.lvl}
@@ -102,7 +57,7 @@ function Construction(props: Props) {
                     <span className={styles.lvlBoosted}>(+{props.construction.temporaryBoost})</span>
                 }
             </div>
-            <div className={styles.cost}>{costIcon}</div>
+            <div className={styles.cost}>{cost}</div>
             <div className={styles.build}>
                 <div className={styles.actionSlots}>
                     {!props.construction.locked && !props?.hideActionSlots && (

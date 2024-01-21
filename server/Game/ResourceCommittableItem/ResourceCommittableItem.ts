@@ -7,16 +7,16 @@ import {
 } from "../../../interfaces/ResourceCommitableItem/ResourceCommittableItem";
 
 
-export abstract class ResourceCommittableItem extends AssignablePawnsItem implements IResourceCommittableItem {
+export abstract class ResourceCommittableItem<Resource extends "leather" | "wood" | "food" | "dryFood"> extends AssignablePawnsItem implements IResourceCommittableItem<Resource> {
 
 
     protected readonly _action: ACTION;
-    _resourceCost: SingleResourceRequirement | null = null;
-    _optionalResourceCost: SingleResourceRequirement | null = null;
-    protected _committedResources: SingleResourceRequirement | null = null;
+    protected _resourceCost: SingleResourceRequirement<Resource> | null = null;
+    protected _optionalResourceCost: SingleResourceRequirement<Resource> | null = null;
+    protected _committedResources: SingleResourceRequirement<Resource> | null = null;
 
 
-    protected constructor(action: ACTION, actionItem: ACTION_ITEM, game: IGame, resource: SingleResourceRequirement | null = null, optionalResource: SingleResourceRequirement | null = null) {
+    protected constructor(action: ACTION, actionItem: ACTION_ITEM, game: IGame, resource: SingleResourceRequirement<Resource> | null = null, optionalResource: SingleResourceRequirement<Resource> | null = null) {
         super(action, actionItem, game);
         this._action = action;
         this._resourceCost = resource;
@@ -30,14 +30,14 @@ export abstract class ResourceCommittableItem extends AssignablePawnsItem implem
     }
 
 
-    get resourceCost(): SingleResourceRequirement | null {
+    get resourceCost(): SingleResourceRequirement<Resource> | null {
         if (!this._resourceCost) {
             return null;
         }
         return this.getGloballyModifiedResourceAmount(this._resourceCost);
     }
 
-    get optionalResourceCost(): SingleResourceRequirement | null {
+    get optionalResourceCost(): SingleResourceRequirement<Resource> | null {
         if (!this._optionalResourceCost) {
             return null;
         }
@@ -45,11 +45,11 @@ export abstract class ResourceCommittableItem extends AssignablePawnsItem implem
         return this.getGloballyModifiedResourceAmount(this._optionalResourceCost);
     }
 
-    get committedResources(): SingleResourceRequirement | null {
+    get committedResources(): SingleResourceRequirement<Resource> | null {
         return this._committedResources;
     }
 
-    protected getResourceCommittableRenderData(): IResourceCommittableItemRenderData {
+    protected getResourceCommittableRenderData(): IResourceCommittableItemRenderData<Resource> {
         return {
             ...this.getAssignablePawnsRenderData(),
             committedResources: this._committedResources,
@@ -83,7 +83,7 @@ export abstract class ResourceCommittableItem extends AssignablePawnsItem implem
     }
 
     public canCommitResource(optional: boolean): boolean {
-        let requirement: SingleResourceRequirement | null;
+        let requirement: SingleResourceRequirement<Resource> | null;
         if (!optional) {
             requirement = this.resourceCost
         } else {
@@ -98,7 +98,7 @@ export abstract class ResourceCommittableItem extends AssignablePawnsItem implem
     }
 
 
-    private getGloballyModifiedResourceAmount(requirement: SingleResourceRequirement): SingleResourceRequirement {
+    private getGloballyModifiedResourceAmount(requirement: SingleResourceRequirement<Resource>): SingleResourceRequirement<Resource> {
         let amount = requirement.amount;
         if (this._game.actionService.globalCostModifiers[this._action].some((mod) => mod.resource === requirement.type)) {
             amount++;

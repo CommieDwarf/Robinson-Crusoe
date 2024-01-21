@@ -16,6 +16,8 @@ interface OwnProps {
     id: string;
     isDragDisabled?: boolean;
     ownedByCard?: boolean;
+
+    height?: number;
 }
 
 interface Props extends OwnProps {
@@ -39,6 +41,7 @@ function ActionSlot(props: Props) {
     } else if (props.type === "helper") {
         helperClass = styles.helper;
     }
+
 
     return (
         <div

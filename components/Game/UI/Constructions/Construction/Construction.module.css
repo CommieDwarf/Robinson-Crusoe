@@ -6,27 +6,27 @@
 }
 
 .shelter {
-    width: calc(579px * 0.15);
-    height: calc(402px * 0.15);
+    aspect-ratio: 1.44;
+    height: 100%;
     position: absolute;
     right: 0;
     bottom: 0;
 }
 
 .roof {
+    aspect-ratio: 1.81;
     position: absolute;
-    width: calc(361px * 0.22);
-    height: calc(199px * 0.22);
+    height: 90%;
     right: 0;
-    bottom: 5px;
+    bottom: 2px;
 }
 
 .palisade {
+    aspect-ratio: 1.33;
     position: absolute;
-    width: calc(640px * 0.13);
-    height: calc(481px * 0.13);
-    right: 0;
-    bottom: -6px;
+    height: 115%;
+    right: 1%;
+    bottom: -15%;
 }
 
 .level0 {
@@ -36,50 +36,24 @@
 
 .weapon {
     position: absolute;
-    width: calc(366px * 0.09);
-    height: calc(681px * 0.09);
-    right: 0;
-    bottom: 0;
+    aspect-ratio: 0.537;
+    transform: rotate(90deg);
+    height: 150%;
+    right: 10%;
+    bottom: -35%;
 }
 
 .lvlLabel {
     font-size: 15px;
+    height: 25%;
 }
 
 .cost {
     display: inline-block;
-    vertical-align: top;
+    height: 80%;
+    width: 25%;
 }
 
-.costWoodValue {
-    left: 0;
-    position: absolute;
-    font-size: 18px;
-}
-
-.costLeatherValue {
-    right: 25px;
-    position: absolute;
-    font-size: 18px;
-    bottom: 0;
-}
-
-.costIcon {
-    width: 50px;
-    height: 50px;
-    position: relative;
-    display: inline-block;
-}
-
-.woodImage {
-    position: absolute;
-    width: 28px;
-    height: 28px;
-    left: 10px;
-    cursor: pointer;
-    z-index: 1;
-
-}
 
 .selected {
     border-radius: 100%;
@@ -90,38 +64,20 @@
     filter: opacity(40%);
 }
 
-.leatherImage {
-    position: absolute;
-    width: 28px;
-    height: 28px;
-    right: 0;
-    bottom: 0;
-    cursor: pointer;
-}
-
-.crossLine {
-    height: 50px;
-    width: 50px;
-    border-right: 1px solid black;
-    transform: rotate(50deg);
-    margin: auto;
-    position: absolute;
-    top: -18px;
-    left: -18px;
-}
-
 .build {
     display: inline-block;
-    width: 30%;
-    height: 70%;
+    width: 40%;
+    height: 80%;
+    vertical-align: top;
+    position: relative;
+
 }
 
 .actionSlots {
-    width: 75px;
+    height: 50%;
+    width: 100%;
     display: inline-flex;
     flex-wrap: wrap;
-    margin-left: 5px;
-    height: 25px;
 }
 
 .committedResources {

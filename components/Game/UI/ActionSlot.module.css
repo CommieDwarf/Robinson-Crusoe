@@ -1,9 +1,9 @@
 .container {
     border-radius: 100%;
+    aspect-ratio: 1 !important;
     background-color: white;
     /*border: 1px dashed #451e14;*/
     position: relative;
-    aspect-ratio: 1;
     background-size: contain;
     z-index: 50;
 }

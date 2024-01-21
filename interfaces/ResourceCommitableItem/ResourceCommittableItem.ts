@@ -1,21 +1,21 @@
 import {IAssignablePawnsItem, IAssignablePawnsItemRenderData} from "../AssignablePawnsItem/AssignablePawnsItem";
 import {IBasicResourcesAmount} from "../Resources/Resources";
 
-export interface ResourceRequirement {
-    resource: SingleResourceRequirement,
-    optionalResource: SingleResourceRequirement | null,
+export interface ResourceRequirement<Resource> {
+    resource: SingleResourceRequirement<Resource>,
+    optionalResource: SingleResourceRequirement<Resource> | null,
 }
 
-export interface SingleResourceRequirement {
-    type: keyof IBasicResourcesAmount,
+export interface SingleResourceRequirement<Resource> {
+    type: Resource,
     amount: number,
 }
 
-export interface IResourceCommittableItem extends IAssignablePawnsItem {
+export interface IResourceCommittableItem<Resource> extends IAssignablePawnsItem {
 
-    resourceCost: SingleResourceRequirement | null;
-    optionalResourceCost: SingleResourceRequirement | null;
-    committedResources: SingleResourceRequirement | null;
+    resourceCost: SingleResourceRequirement<Resource> | null;
+    optionalResourceCost: SingleResourceRequirement<Resource> | null;
+    committedResources: SingleResourceRequirement<Resource> | null;
 
     commitResource: () => void;
     unCommitResources: () => void;
@@ -23,12 +23,12 @@ export interface IResourceCommittableItem extends IAssignablePawnsItem {
     consumeCommittedResources: () => void;
     canCommitResource: (optional: boolean) => boolean;
 
-    renderData: IResourceCommittableItemRenderData
+    renderData: IResourceCommittableItemRenderData<Resource>
 }
 
 
-export interface IResourceCommittableItemRenderData extends IAssignablePawnsItemRenderData {
-    committedResources: SingleResourceRequirement | null,
-    resourceCost: SingleResourceRequirement | null;
-    optionalResourceCost: SingleResourceRequirement | null;
+export interface IResourceCommittableItemRenderData<Resource> extends IAssignablePawnsItemRenderData {
+    committedResources: SingleResourceRequirement<Resource> | null,
+    resourceCost: SingleResourceRequirement<Resource> | null;
+    optionalResourceCost: SingleResourceRequirement<Resource> | null;
 }

@@ -2,10 +2,11 @@
     position: absolute;
     width: 100%;
     background-image: url("../../.././../../public/UI/paper-background.png");
+    background-size: 300px;
     z-index: 99;
     border: none;
+    top: calc(100% + 1px);
     left: 0;
-    top: 100%;
     overflow: hidden;
     transition: height 1s;
     cursor: default;
@@ -13,7 +14,6 @@
 
 .show {
     height: 360px;
-    border: 1px solid var(--brown);
     border-top: none;
 }
 
@@ -29,7 +29,7 @@
 
 .phase {
     height: 60px;
-    border-bottom: 1px dashed #451e14;
+    border-bottom: 1px dashed var(--brown);
 }
 
 .phaseLabel {
@@ -67,4 +67,8 @@
 
 .weather {
     color: #265167;
+}
+
+.last {
+    border-bottom: none;
 }

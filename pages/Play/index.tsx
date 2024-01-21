@@ -22,6 +22,8 @@ import {batch} from "react-redux";
 import {globalCostModified} from "../../components/Game/features/globalCostModifiers";
 import {phaseUpdated} from "../../components/Game/features/phase";
 
+import styles from "./play.module.css";
+
 type Props = {};
 const Play: NextPage = (props: Props) => {
     const [gameRenderData, setGameRenderData] = useState<IGameRenderData>();
@@ -61,7 +63,7 @@ const Play: NextPage = (props: Props) => {
     }
 
     return (
-        <div>
+        <div className={styles.container}>
             {gameRenderData && (
                 <Game
                     gameRenderData={gameRenderData}

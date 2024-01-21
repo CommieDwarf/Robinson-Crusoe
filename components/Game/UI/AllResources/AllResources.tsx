@@ -1,12 +1,14 @@
 import React from "react";
 import styles from "./AllResources.module.css";
-
+import frameStyles from "./Frame/Frame.module.css";
 import {IBasicResourcesAmount} from "../../../../interfaces/Resources/Resources";
 
-import {compareMapValues} from "../../../../utils/compareMapValues";
 import {Frame} from "./Frame/Frame";
 import {Resources} from "./Resources/Resources";
 import {objectsEqual} from "../../../../utils/objectsEqual";
+import Image from "next/image";
+import productionImg from "/public/UI/phase/production.png";
+import boardImg from "/public/UI/misc/board.jpg";
 
 interface Props {
     owned: {
@@ -27,6 +29,19 @@ function AllResources(props: Props) {
             <Frame/>
             <div className={styles.resources}>
                 <Resources type={"future"} {...props.future} />
+            </div>
+            <div className={frameStyles.midBar}>
+                <Image src={boardImg} fill alt={"ramka"} sizes={frameStyles.midBar}/>
+                <div className={frameStyles.barDecoration}>
+                    <div className={frameStyles.productionIcon}>
+                        <Image
+                            src={productionImg}
+                            fill
+                            alt={"ikona produkcji"}
+                            sizes={styles.productionIcon}
+                        />
+                    </div>
+                </div>
             </div>
             <div className={styles.resources}>
                 <Resources type={"owned"} {...props.owned} />

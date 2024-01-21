@@ -16,8 +16,8 @@
 }
 
 .actionIcon {
-    width: 25px;
-    height: 25px;
+    width: 5%;
+    aspect-ratio: 1;
     margin: 0;
     vertical-align: top;
     position: relative;
@@ -25,7 +25,7 @@
 }
 
 .label {
-    width: 130px;
+    width: 30%;
     display: inline-block;
     font-weight: bold;
     font-style: italic;
@@ -37,13 +37,13 @@
 .tokens {
     display: flex;
     position: absolute;
-    width: 30px;
+    width: 320px;
     right: -5px;
     top: -10px;
 }
 
 .token {
-    width: 20px;
+    width: 5%;
     height: 20px;
     margin-right: -10px;
     filter: contrast(110%);
