@@ -67,10 +67,11 @@
     grid-row: 1 / span 2;
     text-align: center;
     font-weight: bold;
-    color: white;
-    background-color: var(--brown);
+    font-size: 25px;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--brown);
     line-height: 100%;
-    width: 70%;
+    width: 100%;
     border-radius: 5px;
     padding: 1px 2px 2px 1px;
     margin: 5px auto 5px auto;

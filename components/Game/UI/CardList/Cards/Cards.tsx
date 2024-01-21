@@ -53,8 +53,10 @@ function Cards(props: Props) {
         );
     });
 
+    const tabsHeight = 20;
+    const cardHeight = 140;
     const contentStyle = {
-        height: (row + 1) * 140,
+        height: (row + 1) * cardHeight + tabsHeight,
     };
 
     return (

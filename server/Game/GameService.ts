@@ -28,6 +28,13 @@ export class GameService implements IGameService {
         char.pawnService.addPawn(new Pawn(char));
         char.pawnService.addPawn(new Pawn(char));
         char.pawnService.resetFreePawns();
+        this._game.tokenService.addRandomTokenToOwned();
+        this._game.tokenService.addRandomTokenToOwned();
+        this._game.tokenService.addRandomTokenToOwned();
+        this._game.tokenService.addRandomTokenToOwned();
+        this._game.tokenService.addRandomTokenToOwned();
+        this._game.resourceService.addBasicResourceToOwned("leather", 1, "test");
+        this._game.inventionService.updateLocks();
     }
 
     get renderData() {

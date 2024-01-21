@@ -6,7 +6,7 @@
     left: 5px;
     display: flex;
     column-gap: 10px;
-    z-index: 95235423;
+    z-index: 10;
     grid-column: 6 / span 1;
     grid-row: 1 / span 2;
 }

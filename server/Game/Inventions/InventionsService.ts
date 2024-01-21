@@ -95,7 +95,8 @@ export class InventionsService implements IInventionService {
         this._inventions.forEach((invention) => {
             invention.locked = !(
                 this.isInvRequirementMet(invention) &&
-                this.isTileTypeRequirementMet(invention)
+                this.isTileTypeRequirementMet(invention) &&
+                this.isResourceCostMet(invention)
             );
         });
     }
@@ -116,6 +117,16 @@ export class InventionsService implements IInventionService {
             }
         });
         return flag;
+    }
+
+    private isResourceCostMet(invention: IInvention): boolean {
+        if (!invention.resourceCost?.type) {
+            return true;
+        }
+        return this._game.resourceService.canAffordResource(
+            invention.resourceCost.type,
+            invention.resourceCost.amount
+        )
     }
 
     private isTileTypeRequirementMet(invention: IInvention) {

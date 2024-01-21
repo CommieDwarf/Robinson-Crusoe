@@ -39,6 +39,12 @@ export class ActionService implements IActionService {
         explore: false,
         gather: false,
     };
+
+    private _newAdventureTokens: ActionTokens = {
+        build: false,
+        explore: false,
+        gather: false,
+    };
     private _reRollTokens: ActionTokens = {
         build: false,
         explore: false,
@@ -181,7 +187,11 @@ export class ActionService implements IActionService {
                 logSource
             );
         }
-        this._adventureTokens[action] = value;
+        if (this._game.phaseService.phase === "action") {
+            this._newAdventureTokens[action] = value
+        } else {
+            this._adventureTokens[action] = value;
+        }
     }
 
     private finishPhase() {
@@ -190,6 +200,8 @@ export class ActionService implements IActionService {
         this._action = actionOrder[this._actionIndex];
         this._resolvableItems = [];
         this._skippableActions = [];
+        this.mergeAdventureTokens();
+        this.resetNewAdventureTokens();
     }
 
     public setNextAction() {
@@ -365,6 +377,23 @@ export class ActionService implements IActionService {
         }
 
         return resolvableItem;
+    }
+
+    private mergeAdventureTokens() {
+        this._adventureTokens = {
+            gather: this._adventureTokens.gather || this._newAdventureTokens.gather,
+            explore: this._adventureTokens.explore || this._newAdventureTokens.explore,
+            build: this._adventureTokens.build || this._newAdventureTokens.build,
+        }
+
+    }
+
+    private resetNewAdventureTokens() {
+        this._newAdventureTokens = {
+            gather: false,
+            explore: false,
+            build: false
+        }
     }
 
     setBibleUsage(resolvableItemId: string, value: boolean) {
