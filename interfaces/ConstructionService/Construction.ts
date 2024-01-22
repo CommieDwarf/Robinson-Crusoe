@@ -5,9 +5,9 @@ import {
     IResourceCommittableItemRenderData, SingleResourceRequirement
 } from "../ResourceCommitableItem/ResourceCommittableItem";
 
-export type resource = "wood" | "leather";
+export type ConstructionCostType = "wood" | "leather";
 
-export interface IConstructionRenderData extends IResourceCommittableItemRenderData<resource> {
+export interface IConstructionRenderData extends IResourceCommittableItemRenderData<ConstructionCostType> {
     name: CONSTRUCTION;
     lvl: number;
     locked: boolean;
@@ -16,7 +16,7 @@ export interface IConstructionRenderData extends IResourceCommittableItemRenderD
 
 }
 
-export interface IConstruction extends IResourceCommittableItem<resource> {
+export interface IConstruction extends IResourceCommittableItem<ConstructionCostType> {
     name: CONSTRUCTION;
     namePL: string;
     lvl: number;

@@ -63,7 +63,7 @@ export const Resources = (props: Props) => {
 
     const containerRef = useRef<HTMLDivElement>(null);
     const style = {
-        fontSize: "50px",
+        fontSize: "40px",
     }
     if (containerRef.current) {
         style.fontSize = containerRef.current.offsetWidth / 5 + "px";

@@ -6,25 +6,26 @@ import {
     CONSTRUCTION,
 } from "../../../../../interfaces/ConstructionService/Construction";
 import getActionSlots from "../../getActionSlots";
-import woodImg from "/public/UI/resources/wood.png";
-import leatherImg from "/public/UI/resources/leather.png";
 import {objectsEqual} from "../../../../../utils/objectsEqual";
 import {CostBlock} from "./CostBlock/CostBlock";
+import {IBasicResourcesAmount} from "../../../../../interfaces/Resources/Resources";
 
 type Props = {
     construction: IConstructionRenderData;
     hideActionSlots?: boolean;
     switchCommittedResources: (construction: CONSTRUCTION) => void;
+    ownedResources: IBasicResourcesAmount;
 };
 
 function Construction(props: Props) {
     const resources: JSX.Element[] = [];
 
-    function handleResourceClick() {
-        if (props.construction.canResourceBeSwitched) {
+    function handleResourceClick(resource: "wood" | "leather") {
+        if (props.construction.canResourceBeSwitched && props.construction.committedResources?.type !== resource) {
             props.switchCommittedResources(props.construction.name);
         }
     }
+
 
     if (props.construction.committedResources) {
         const resType = props.construction.committedResources.type;
@@ -42,14 +43,13 @@ function Construction(props: Props) {
         }
     }
 
+
     let actionSlots;
     if (props.construction.requiredPawnAmount) {
         actionSlots = getActionSlots(props.construction, props.construction.requiredPawnAmount);
     }
 
-    const cost = <CostBlock resource1={props.construction.resourceCost}
-                            resource2={props.construction.optionalResourceCost}
-    />
+
     return (
         <div className={`${styles.construction} ${props.construction.name === "weapon" ? styles.noBottomBorder : ""}`}>
             <div className={styles.lvlLabel}>Poziom {props.construction.lvl}
@@ -57,7 +57,14 @@ function Construction(props: Props) {
                     <span className={styles.lvlBoosted}>(+{props.construction.temporaryBoost})</span>
                 }
             </div>
-            <div className={styles.cost}>{cost}</div>
+            <div className={styles.cost}>
+                <CostBlock resource1={props.construction.resourceCost}
+                           resource2={props.construction.optionalResourceCost}
+                           canBeSwitched={props.construction.canResourceBeSwitched}
+                           committedResourceType={props.construction.committedResources?.type || null}
+                           onClick={handleResourceClick}
+                           ownedResources={props.ownedResources}
+                /></div>
             <div className={styles.build}>
                 <div className={styles.actionSlots}>
                     {!props.construction.locked && !props?.hideActionSlots && (

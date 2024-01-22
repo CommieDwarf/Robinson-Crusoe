@@ -480,6 +480,7 @@ export default function Game(props: Props) {
                     constructions={gameRenderData.constructionService.constructions}
                     zIndex={elementZIndexed}
                     switchCommittedResources={handleSwitchCommittedResources}
+                    ownedResources={gameRenderData.resourceService.owned.basic}
                 />
                 <MapComponent
                     tileService={gameRenderData.tileService}

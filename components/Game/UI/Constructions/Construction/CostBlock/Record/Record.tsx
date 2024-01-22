@@ -6,11 +6,13 @@ import woodImg from "/public/UI/resources/wood.png";
 interface Props {
     value: number,
     type: "leather" | "wood"
+    canAfford: boolean,
+    committed: boolean,
 }
 
 export function Record(props: Props) {
 
-    return <div className={styles.container}>
+    return <div className={`${styles.container} ${props.canAfford || props.committed ? "" : styles.cantAfford}`}>
         <div className={styles.value}>
             {props.value}
         </div>

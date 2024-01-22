@@ -2,11 +2,13 @@ import React from "react";
 import Construction from "./Construction/Construction";
 import styles from "./Constructions.module.css";
 import {CONSTRUCTION, IConstructionRenderData} from "../../../../interfaces/ConstructionService/Construction";
+import {IBasicResourcesAmount} from "../../../../interfaces/Resources/Resources";
 
 interface Props {
     constructions: IConstructionRenderData[];
     zIndex: string;
     switchCommittedResources: (construction: CONSTRUCTION) => void;
+    ownedResources: IBasicResourcesAmount;
 }
 
 export default function Constructions(props: Props) {
@@ -14,7 +16,9 @@ export default function Constructions(props: Props) {
     for (let i = 0; i < 4; i++) {
         constructions.push(
             <Construction construction={props.constructions[i]} key={i}
-                          switchCommittedResources={props.switchCommittedResources}/>
+                          switchCommittedResources={props.switchCommittedResources}
+                          ownedResources={props.ownedResources}
+            />
         );
     }
 

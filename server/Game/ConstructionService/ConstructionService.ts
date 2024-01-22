@@ -1,4 +1,4 @@
-import {CONSTRUCTION} from "../../../interfaces/ConstructionService/Construction";
+import {CONSTRUCTION, ConstructionCostType} from "../../../interfaces/ConstructionService/Construction";
 import {
     IConstructionService,
     IConstructionServiceRenderData,
@@ -38,8 +38,8 @@ export class ConstructionService implements IConstructionService {
 
     private initConstructions() {
         return Object.entries(CONSTRUCTION).map(([key, value]) => {
-            let resource: SingleResourceRequirement;
-            let optionalResource: SingleResourceRequirement | null = null;
+            let resource: SingleResourceRequirement<ConstructionCostType>;
+            let optionalResource: SingleResourceRequirement<ConstructionCostType> | null = null;
             if (value === CONSTRUCTION.WEAPON) {
                 resource = {
                     type: "wood",
@@ -58,7 +58,7 @@ export class ConstructionService implements IConstructionService {
             return new Construction(
                 value,
                 constructionPL[value],
-                value !== "shelter",
+                value !== "shelter" && value !== "weapon",
                 this._game,
                 resource,
                 optionalResource,

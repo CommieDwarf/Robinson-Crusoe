@@ -13,6 +13,14 @@
     position: absolute;
 }
 
+.resourceClickable {
+    cursor: pointer;
+}
+
+.resourceClickable:hover {
+    scale: 1.2;
+}
+
 .resource1 {
     top: 0;
     left: 0;
@@ -31,5 +39,4 @@
     height: 90%;
     left: 40%;
     top: 5%;
-
 }

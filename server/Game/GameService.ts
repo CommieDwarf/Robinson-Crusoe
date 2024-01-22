@@ -4,6 +4,7 @@ import {Pawn} from "./PawnService/Pawn/Pawn";
 import {ACTION} from "../../interfaces/ACTION";
 import {MysteryCardCreator} from "./MysteryService/MysteryCardCreator/MysteryCardCreator";
 import {CREATURE_MYSTERY_CARD} from "../../interfaces/MysteryService/MYSTERY_CARD";
+import {BasicResources} from "./ResourceService/BasicResources";
 
 interface IGameService {
     game: IGame | null;
@@ -34,7 +35,8 @@ export class GameService implements IGameService {
         this._game.actionService.setAdventureToken(ACTION.GATHER, true, "test");
         this._game.actionService.setAdventureToken(ACTION.BUILD, true, "test");
         this._game.tileService.explore(6);
-        this._game.mysteryService.startDrawingCards(1, 0, 0, char);
+        // this._game.mysteryService.startDrawingCards(1, 0, 0, char);
+        this._game.resourceService.addBasicResourcesToOwned(new BasicResources(0, 0, 6, 2));
 
     }
 
