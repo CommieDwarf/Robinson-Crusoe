@@ -83,9 +83,9 @@ export default function RestArrange(props: Props) {
         <div className={styles[props.type] + " " + styles.activity}>
             <div className={styles.activityName}>{capitalizeFirstLetter(t(`action.${props.type}`))}</div>
             {rewardLabel}
-            <div className={styles.scroll}>
-                <div className={styles.actionSlots}>{actionSlots}</div>
-            </div>
+            <div className={styles.actionSlots}>{actionSlots.map((slot, i) => {
+                return <div className={styles.actionSlot} key={i}>{slot}</div>
+            })}</div>
         </div>
     );
 }

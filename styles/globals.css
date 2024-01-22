@@ -20,9 +20,6 @@ a {
 }
 
 :root {
-    --arrowHeight: 19px;
-    --arrowAspectRatio: calc(346 / 122);
-    --arrowWidth: calc(var(--arrowHeight) * var(--arrowAspectRatio));
     --brown: #451e14;
     --beastRed: rgb(186, 51, 28);
     --threat: #241f21;
@@ -40,8 +37,11 @@ a {
     --palisadeAspectRatio: 640 / 481;
     --weaponAspectRatio: 366 / 681;
     --goldenRatio: 1.618;
+    --gameBaseFontSize: 10;
 
     --resourceValueChangeColor: black;
+
+    --blackToBrown: invert(11%) sepia(11%) saturate(7369%) hue-rotate(342deg) brightness(95%) contrast(91%);
 }
 
 body::-webkit-scrollbar-track {

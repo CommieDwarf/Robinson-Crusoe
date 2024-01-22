@@ -1,5 +1,4 @@
 .container {
-    top: 20px;
     aspect-ratio: 1;
     z-index: 9999;
 }
@@ -55,7 +54,7 @@
 }
 
 .characterContext {
-    height: 45%;
+    height: 42%;
 }
 
 .characterContextSideCharacter {

@@ -1,14 +1,15 @@
 .container {
-    width: 100px;
-    height: 130px;
+    width: 8%;
+    aspect-ratio: 0.3;
     position: absolute;
-    right: 10px;
-    bottom: 15px;
+    right: 7%;
+    bottom: 5px;
     z-index: 10;
-    background-size: cover;
-    background-position-x: center;
     grid-column: 1 / span 2;
     grid-row: 2 / span 3;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .zIndexIncreased {
@@ -22,8 +23,7 @@
 .card {
     position: relative;
     aspect-ratio: 1082 / 1635;
-    height: 80px;
-    margin: auto;
+    height: 65%;
 }
 
 .locked {
@@ -31,13 +31,12 @@
 }
 
 .beastCount {
-    width: 17px;
-    height: 17px;
+    height: 10%;
+    aspect-ratio: 1;
     font-weight: bold;
     font-size: 20px;
-    margin: -15px auto auto;
     position: relative;
-    bottom: 61px;
+    bottom: 63%;
     color: var(--beastRed);
     filter: contrast(110%);
     text-align: center;
@@ -46,7 +45,12 @@
 }
 
 .actionSlots {
-    height: 40px;
-    width: 80px;
-    margin: 3px auto auto;
+    height: 35%;
+    aspect-ratio: 2;
+    margin-top: -30%;
+}
+
+.actionSlot {
+    height: 100%;
+    display: inline-block;
 }

@@ -76,19 +76,21 @@
 
 }
 
-.slotsScrollbar {
-    width: 65% !important;
-    height: 75% !important;
-    display: inline-block !important;
-}
 
 .actionSlots {
-    display: flex;
-    justify-content: center;
+    display: inline-flex;
+    justify-content: left;
     margin: auto;
     flex-wrap: wrap;
     padding-top: 2px;
     padding-left: 5px;
+    width: 80%;
+    height: 75%;
+}
+
+.actionSlot {
+    height: 100%;
+    aspect-ratio: 1;
 }
 
 .rest {
@@ -110,38 +112,39 @@
     display: inline-block;
     color: #451e14;
     position: relative;
-    bottom: 2px;
-    margin-left: 2px;
+    margin-left: 10%;
+    vertical-align: top;
+    scale: 3;
+    top: 15%;
+    margin-right: 10%;
 }
 
 .moraleIcon {
-    width: 15px;
-    height: 15px;
+    height: 100%;
+    aspect-ratio: 1;
     position: relative;
     display: inline-block;
 }
 
 
 .moraleArrow {
-    width: 35px;
-    height: 12px;
+    height: 70%;
+    aspect-ratio: 35 / 12;
     position: relative;
-    top: 2px;
 }
 
 .plus {
-    height: 10px;
-    width: 10px;
+    font-size: 2lh;
+    aspect-ratio: 1;
     display: inline-block;
     margin-bottom: 8px;
     vertical-align: middle;
 }
 
 .heart {
-    height: 20px;
-    width: 20px;
+    height: 60%;
+    aspect-ratio: 1;
     position: relative;
     display: inline-block;
-    margin-top: 2px;
     vertical-align: middle;
 }

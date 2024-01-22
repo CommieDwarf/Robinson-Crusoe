@@ -124,8 +124,8 @@
     display: flex;
     flex-wrap: wrap;
     margin: auto;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     position: relative;
     top: 25%;
     right: 2%;
@@ -166,6 +166,14 @@
     top: 5%;
 }
 
+.actionSlot {
+    width: 50%;
+    aspect-ratio: 1;
+}
+
+.actionSlotGather {
+    width: 70%;
+}
 
 .campIcon {
     width: 20%;
@@ -194,11 +202,11 @@
 
 .scroll {
     width: 60% !important;
-    height: 35% !important;
+    height: 45% !important;
     z-index: 1;
     margin: auto;
     position: relative;
-    top: 25%;
+    top: 20%;
     overflow-y: scroll;
     overflow-x: hidden;
 }

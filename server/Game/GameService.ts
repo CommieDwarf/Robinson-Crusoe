@@ -2,8 +2,6 @@ import {IGame, IGameRenderData} from "../../interfaces/Game";
 import {GameClass} from "./Game";
 import {Pawn} from "./PawnService/Pawn/Pawn";
 import {ACTION} from "../../interfaces/ACTION";
-import {MysteryCardCreator} from "./MysteryService/MysteryCardCreator/MysteryCardCreator";
-import {CREATURE_MYSTERY_CARD} from "../../interfaces/MysteryService/MYSTERY_CARD";
 import {BasicResources} from "./ResourceService/BasicResources";
 
 interface IGameService {
@@ -30,6 +28,10 @@ export class GameService implements IGameService {
         char.pawnService.addPawn(new Pawn(char));
         char.pawnService.addPawn(new Pawn(char));
         char.pawnService.addPawn(new Pawn(char));
+        char.pawnService.addPawn(new Pawn(char));
+        char.pawnService.addPawn(new Pawn(char));
+        char.pawnService.addPawn(new Pawn(char));
+        char.pawnService.addPawn(new Pawn(char));
         char.pawnService.resetFreePawns();
         this._game.actionService.setAdventureToken(ACTION.EXPLORE, true, "test");
         this._game.actionService.setAdventureToken(ACTION.GATHER, true, "test");
@@ -37,6 +39,8 @@ export class GameService implements IGameService {
         this._game.tileService.explore(6);
         // this._game.mysteryService.startDrawingCards(1, 0, 0, char);
         this._game.resourceService.addBasicResourcesToOwned(new BasicResources(0, 0, 6, 2));
+        this._game.beastService.moveBeastFromStackToDeck();
+
 
     }
 

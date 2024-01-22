@@ -7,25 +7,25 @@
     border-right: none;
     grid-row: 1 / span 1;
     grid-column: 1 / span 1;
-    cursor: pointer;
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
     -moz-user-select: none; /* Old versions of Firefox */
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none;
-
+    font-size: 2lh;
 }
 
 .phaseIcon {
     position: absolute;
     right: 0;
     top: 0;
+    width: 20%;
+    aspect-ratio: 1;
 }
 
 
 .event {
     color: #6b814a;
-    font-size: 14px;
 }
 
 .action, .preAction {
@@ -48,19 +48,34 @@
     color: #265167;
 }
 
+.dropDownButton:hover {
+    scale: 1.2;
+}
+
 .dropDownButton {
     position: relative;
-    padding-top: 5px;
-    top: 2px;
+    width: 100%;
+    height: 50%;
+    display: flex;
+    filter: var(--blackToBrown);
+    justify-content: center;
+    cursor: pointer;
+    
+}
+
+.dropDownText {
+    font-weight: bold;
+    font-size: 0.5lh;
+    color: black;
+    height: 90%;
+    font-style: italic;
+    margin-right: 5px;
 }
 
 .triangle {
-    width: 0;
-    height: 0;
-    border-left: 70px solid transparent;
-    border-right: 70px solid transparent;
-    border-top: 10px solid #451e14;
-    margin: auto;
     position: relative;
-    cursor: pointer;
+    width: 10%;
+    height: 40%;
+    top: 30%;
 }
+

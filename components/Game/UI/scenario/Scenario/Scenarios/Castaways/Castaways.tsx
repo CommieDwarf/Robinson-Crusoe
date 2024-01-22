@@ -96,7 +96,8 @@ export default function Castaways(props: Props) {
                                 useMysteryCard={() => {
                                 }}
                                 manageStorage={() => {
-                                }}/>
+                                }}
+                            />
                         );
                     })}
                 </div>

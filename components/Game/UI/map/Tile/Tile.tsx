@@ -41,7 +41,9 @@ export default function Tile(props: Props) {
     } else if (!props.tile.tileResourceService && !props.tile.modifiers.flipped) {
         actionSlots = (
             <div className={`${styles.explorePlayerSlots}`}>
-                {getActionSlots(props.tile, props.tile.requiredPawnAmount)}
+                {getActionSlots(props.tile, props.tile.requiredPawnAmount).map((slot, i) => {
+                    return <div className={styles.actionSlot} key={i}>{slot}</div>
+                })}
             </div>
         );
     } else if (!props.tile.modifiers.flipped && props.tile.tileResourceService) {
@@ -57,14 +59,19 @@ export default function Tile(props: Props) {
                     {props.tile.tileResourceService.resources.left.resource !== "beast" &&
                         !props.tile.tileResourceService.resources.left.depleted && (
                             <div className={styles.gatherActionSlotsLeft}>
-                                {getActionSlots(props.tile, props.tile.requiredPawnAmount, "left")}
+                                {getActionSlots(props.tile, props.tile.requiredPawnAmount, "left").map((slot, i) => {
+                                    return <div className={styles.actionSlotGather} key={i}>{slot}</div>
+                                })
+                                }
                             </div>
                         )}
                     {props.tile.tileResourceService.resources.right.resource !==
                         "beast" &&
                         !props.tile.tileResourceService.resources.right.depleted && (
                             <div className={styles.gatherActionSlotsRight}>
-                                {getActionSlots(props.tile, props.tile.requiredPawnAmount, "right")}
+                                {getActionSlots(props.tile, props.tile.requiredPawnAmount, "right").map((slot, i) => {
+                                    return <div className={styles.actionSlotGather} key={i}>{slot}</div>
+                                })}
                             </div>
                         )}
                 </div>

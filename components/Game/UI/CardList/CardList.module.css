@@ -8,6 +8,7 @@
     border-left: none;
     position: relative;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 /* width */
@@ -43,6 +44,5 @@
     width: 91%;
     background-image: url("../../../../public/UI/paper-background.png");
     background-size: cover;
-    height: 500px;
 }
 

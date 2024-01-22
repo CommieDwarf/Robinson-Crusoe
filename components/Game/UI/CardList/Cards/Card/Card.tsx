@@ -27,6 +27,10 @@ type Props = {
         type: "mystery",
         action: StorageAction
     ) => void;
+
+    height: number;
+    width: number;
+    totalWidth: number;
 };
 export const Card = (props: Props) => {
     const [mouseOnButtons, setMouseOnButtons] = useState(false);
@@ -44,10 +48,13 @@ export const Card = (props: Props) => {
 
     let card;
 
+    const enlargeMultiplayer = 2.1
+
     const wrapperStyle = {
-        left: props.column * 95,
-        top: props.row * 140,
+        left: enlarged ? props.totalWidth / 4 : props.column * props.width,
+        top: props.row * props.height,
         cursor: enlarged ? "zoom-out" : "zoom-in",
+        height: enlarged ? props.height * enlargeMultiplayer + "px" : props.height + "px",
     };
 
     const enlargedClass = enlarged
@@ -55,7 +62,7 @@ export const Card = (props: Props) => {
         : styles.zIndexTransition;
 
     wrapperStyle.top = enlarged ? props.top : wrapperStyle.top;
-    wrapperStyle.left = enlarged ? 60 : wrapperStyle.left;
+    // wrapperStyle.left = enlarged ? 60 : wrapperStyle.left;
 
     const zIndexClass = props.zIndexIncreased ? styles.zIndexIncreased : "";
 

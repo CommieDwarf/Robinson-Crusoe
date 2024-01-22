@@ -28,20 +28,25 @@ export default function Hunt(props: Props) {
 
             {props.beastCount > 0 && (
                 <div className={styles.actionSlots}>
-                    <ActionSlot
-                        type={"leader"}
-                        action={ACTION.HUNT}
-                        uniqueAction={ACTION.HUNT}
-                        id={getDroppableID(ACTION.HUNT, "", "", 0)}
-                        isDragDisabled={props.isDragDisabled}
-                    />
-                    <ActionSlot
-                        type={"helper"}
-                        action={ACTION.HUNT}
-                        uniqueAction={ACTION.HUNT}
-                        id={getDroppableID(ACTION.HUNT, "", "", 1)}
-                        isDragDisabled={props.isDragDisabled}
-                    />
+                    <div className={styles.actionSlot}>
+                        <ActionSlot
+                            type={"leader"}
+                            action={ACTION.HUNT}
+                            uniqueAction={ACTION.HUNT}
+                            id={getDroppableID(ACTION.HUNT, "", "", 0)}
+                            isDragDisabled={props.isDragDisabled}
+                        />
+                    </div>
+                    <div className={styles.actionSlot}>
+                        <ActionSlot
+                            type={"helper"}
+                            action={ACTION.HUNT}
+                            uniqueAction={ACTION.HUNT}
+                            id={getDroppableID(ACTION.HUNT, "", "", 1)}
+                            isDragDisabled={props.isDragDisabled}
+                        />
+                    </div>
+
                 </div>
             )}
         </div>

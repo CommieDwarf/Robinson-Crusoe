@@ -5,12 +5,12 @@
     height: 100%;
     width: 100%;
     position: relative;
-    top: 10px;
+    font-size: 2lh;
 }
 
 .redArrow {
-    width: 25px;
-    height: 10px;
+    width: 5%;
+    height: 35%;
     position: relative;
     display: inline-block;
 }
@@ -37,14 +37,15 @@
 .tokens {
     display: flex;
     position: absolute;
-    width: 320px;
-    right: -5px;
-    top: -10px;
+    width: 130%;
+    height: 60%;
+    top: -10%;
+    left: 70%;
 }
 
 .token {
-    width: 5%;
-    height: 20px;
-    margin-right: -10px;
+    height: 100%;
+    margin-left: -20%;
+    aspect-ratio: 1;
     filter: contrast(110%);
 }

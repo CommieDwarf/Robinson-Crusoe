@@ -25,8 +25,8 @@
 
 
 .arrow {
-    width: var(--arrowWidth);
-    height: var(--arrowHeight);
+    height: 2lh;
+    width: 8lh;
     margin: auto;
     position: relative;
 }

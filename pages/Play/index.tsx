@@ -24,9 +24,16 @@ import {phaseUpdated} from "../../components/Game/features/phase";
 
 import styles from "./play.module.css";
 
+
+import {useRouter} from "next/router";
+import Loading from "../Loading";
+
 type Props = {};
-const Play: NextPage = (props: Props) => {
+
+function Play(props: Props) {
     const [gameRenderData, setGameRenderData] = useState<IGameRenderData>();
+
+
     useEffect(() => {
         createGame();
         updateGameRenderData();
@@ -62,14 +69,15 @@ const Play: NextPage = (props: Props) => {
         });
     }
 
+
     return (
         <div className={styles.container}>
-            {gameRenderData && (
+            {gameRenderData ? (
                 <Game
                     gameRenderData={gameRenderData}
                     updateGameRenderData={updateGameRenderData}
                 />
-            )}
+            ) : <Loading/>}
         </div>
     );
 };

@@ -1,6 +1,5 @@
 .card {
     aspect-ratio: 404 / 617;
-    height: 140px;
     position: absolute;
     transition: all 0.5s;
     z-index: 1;
@@ -26,7 +25,6 @@
 }
 
 .enlarged {
-    height: 260px;
     z-index: 2;
     font-size: 40px !important;
 }

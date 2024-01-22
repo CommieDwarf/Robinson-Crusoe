@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useLayoutEffect, useRef, useState} from "react";
 import Phase from "./UI/phase/Phase";
 import Morale from "./UI/morale/Morale";
 import styles from "./Game.module.css";
@@ -99,6 +99,17 @@ export default function Game(props: Props) {
     const actionSlots = useAppSelector((state) => state.actionSlots.slots);
 
     const [confirmWindow, setConfirmWindow] = useState<null | CONFIRM_WINDOW>(null);
+
+    const gameRef = useRef<HTMLDivElement>(null);
+    const [gameHeight, setGameHeight] = useState<number>(0);
+
+    useLayoutEffect(() => {
+        const current = gameRef.current
+        if (current) {
+            setGameHeight(current.offsetHeight);
+        }
+    }, [])
+
 
     function useReRollSkill(dice: ActionDice) {
         // Fixed for now
@@ -396,9 +407,13 @@ export default function Game(props: Props) {
         (inv) => inv.inventionType === INVENTION_TYPE.SCENARIO
     );
 
+    const gameStyle = {
+        fontSize: gameHeight / 100
+    }
+
 
     return (
-        <div className={styles.game}>
+        <div className={styles.game} ref={gameRef} style={gameStyle}>
             {/*<Background columnStart={3} columnEnd={5} rowStart={3} rowEnd={5}/>*/}
             {/*<Background columnStart={1} columnEnd={3} rowStart={1} rowEnd={2}/>*/}
             {/*<Background columnStart={1} columnEnd={3} rowStart={2} rowEnd={5}/>*/}

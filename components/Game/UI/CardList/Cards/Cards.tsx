@@ -21,6 +21,8 @@ interface Props {
     useInventionCard: (cardName: string) => void;
     manageStorage: (cardName: string, type: "mystery", action: StorageAction) => void;
     useItem: (item: ITEM) => void;
+
+    containerWidth: number;
 }
 
 function Cards(props: Props) {
@@ -31,11 +33,24 @@ function Cards(props: Props) {
 
     let cardsSelected = props[props.tab];
 
+
     let column = -1;
     let row = -1;
 
+
+    const aspectRatio = 0.654;
+    const tabsHeight = 20;
+    // const columnGap = 6;
+    const scrollbar = 20;
+    const totalWidth = props.containerWidth - scrollbar;
+    const cardWidth = totalWidth / 4;
+    const cardHeight = cardWidth / aspectRatio;
+
+
+    const maxColumns = 4;
+
     const cards = cardsSelected.map((card) => {
-        column = column == 2 ? 0 : column + 1;
+        column = column == maxColumns - 1 ? 0 : column + 1;
         row = column == 0 ? row + 1 : row;
         return (
             <Card
@@ -49,12 +64,12 @@ function Cards(props: Props) {
                 useInventionCard={props.useInventionCard}
                 manageStorage={props.manageStorage}
                 useItem={props.useItem}
+                height={cardHeight}
+                width={cardWidth}
+                totalWidth={totalWidth}
             />
         );
     });
-
-    const tabsHeight = 20;
-    const cardHeight = 140;
     const contentStyle = {
         height: (row + 1) * cardHeight + tabsHeight,
     };
