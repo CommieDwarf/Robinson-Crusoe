@@ -30,7 +30,7 @@ a {
     --arrangeCamp: #2e3563;
     --rest: #f8b121;
     --weather: #068ad4;
-    --eventCardAspectRatio: 409 / 610;
+    --cardAspectRatio: 0.67;
     --beastCardAspectRatio: 409 / 610;
     --shelterAspectRatio: 579 / 402;
     --roofAspectRatio: 361 / 199;
@@ -40,8 +40,9 @@ a {
     --gameBaseFontSize: 10;
 
     --resourceValueChangeColor: black;
-
+    --borderColor: #b49c7d;
     --blackToBrown: invert(11%) sepia(11%) saturate(7369%) hue-rotate(342deg) brightness(95%) contrast(91%);
+    --blackToBorderColor: invert(86%) sepia(5%) saturate(2312%) hue-rotate(348deg) brightness(76%) contrast(78%);
 }
 
 body::-webkit-scrollbar-track {

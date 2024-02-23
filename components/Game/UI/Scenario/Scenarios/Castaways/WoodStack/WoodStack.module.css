@@ -1,0 +1,100 @@
+.container {
+    height: 30%;
+    aspect-ratio: 1;
+    position: absolute;
+    right: 0;
+    top: 30%;
+    font-style: italic;
+    font-family: Snell Roundhand, cursive;
+    color: var(--brown);
+}
+
+.title {
+    margin: auto;
+    text-align: center;
+    font-size: 2em;
+}
+
+.woodStack {
+    position: relative;
+    height: 60%;
+    aspect-ratio: 1;
+    filter: brightness(30%) sepia(150%);
+    margin: auto;
+}
+
+
+.level1 {
+    top: 5%;
+}
+
+.level2 {
+    transform: scale(70%);
+    top: 10%;
+}
+
+
+.level4 {
+    transform: scale(130%);
+    top: -7%;
+}
+
+.fire {
+    height: 25%;
+    aspect-ratio: 1;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.wood {
+    height: 40%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.woodImage {
+    aspect-ratio: 1;
+    height: 50%;
+    position: relative;
+}
+
+.woodAmount {
+    line-height: 150%;
+    font-size: 3em;
+    vertical-align: middle;
+    height: 50%;
+    position: relative;
+    right: 5px;
+}
+
+.woodButton {
+    aspect-ratio: 1;
+    height: 50%;
+    border-radius: 100%;
+    border: 1px solid var(--borderColor);
+    background-color: white;
+    text-align: center;
+    font-size: 5.5em;
+    padding-right: 2%;
+    line-height: 70%;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.addWoodButton {
+    color: var(--brown);
+}
+
+.removeWoodButton {
+    color: indianred;
+}
+
+.buttonLocked {
+    filter: opacity(30%);
+}
+
+.fireNotBuilt {
+    filter: opacity(30%);
+}

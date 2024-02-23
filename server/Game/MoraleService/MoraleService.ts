@@ -51,7 +51,7 @@ export class MoraleService implements IMorale {
     }
 
     lvlDown(by: number, logSource: string) {
-        //TODO: maybe im going to implement here punishment for negative morale threshold. dunno yet.
+        //TODO: maybe im going to implement here punishment for negative Morale threshold. dunno yet.
         if (this._lvl > -3) {
             this._lvl -= by;
             this._game.chatLog.addMessage(

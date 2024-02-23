@@ -1,0 +1,128 @@
+
+.wrapper {
+    margin-left: 0;
+    width: 0;
+    left: 0;
+    top: 0;
+    height: auto;
+    transition: all 0.5s;
+    overflow: hidden;
+    font-size: 2em;
+    font-weight: bold;
+    grid-column: 1 / span 1;
+    position: absolute;
+}
+
+.skillDescriptionVisible {
+    width: 200%;
+    margin-left: -200%;
+
+}
+
+.container {
+    /*background-image: url("../../../../../public/UI/paper-background.png");*/
+    background-image: url("../../../../../public/UI/characters/background.png");
+    background-size: contain;
+    height: 100%;
+}
+
+
+.topBar {
+    height: 18%;
+    padding-top: 5px;
+    position: relative;
+    top: 4%;
+    font-style: italic;
+}
+
+.skillName {
+    text-align: center;
+    font-size: 1.5em;
+    margin-top: -5px;
+}
+
+.chooseCloud {
+    aspect-ratio: 2;
+    width: 20%;
+    display: flex;
+    column-gap: 7%;
+    position: relative;
+    justify-content: center;
+    margin: auto auto 5%;
+}
+
+.cloud {
+    height: 100%;
+    aspect-ratio: 1;
+    position: relative;
+    cursor: pointer;
+}
+
+.cloudSelected {
+    filter: invert(24%) sepia(83%) saturate(4030%) hue-rotate(106deg) brightness(91%) contrast(111%);
+    scale: 1.2;
+}
+
+
+.useButton {
+    border: 1px solid var(--borderColor);
+    color: var(--brown);
+    height: 1.5em;
+    aspect-ratio: 3;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    margin: 5px auto auto;
+    top: -5px;
+}
+
+
+.useButton:hover {
+    background-color: var(--brown);
+    color: white;
+    scale: 1.2;
+}
+
+.useButtonUsed {
+    border: none;
+    width: 100%;
+}
+
+.useButtonUsed:hover {
+    background: none;
+    color: var(--brown);
+    scale: 1;
+}
+
+.text {
+    position: relative;
+    padding: 2%;
+    margin-top: 5px;
+    text-align: center;
+}
+
+.quote {
+    font-weight: bold;
+    font-style: italic;
+    font-size: 0.7em;
+    font-family: Snell Roundhand, cursive;
+}
+
+.description {
+    font-size: 1em;
+    margin-top: -8px;
+}
+
+.icon {
+    height: 1.2em;
+    aspect-ratio: 1;
+    position: relative;
+    top: 0.2em;
+    display: inline-block;
+}
+
+.hr {
+    color: var(--brown);
+    opacity: 0.7;
+}

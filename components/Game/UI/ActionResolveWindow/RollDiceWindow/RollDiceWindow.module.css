@@ -1,12 +1,11 @@
 .container {
     position: absolute;
     z-index: 9999999999999;
-    left: -40px;
-    top: -70px;
-    /*top: -180px;*/
-    /*top: 288px;*/
-    width: 240px;
-    height: 130px;
+    left: -6%;
+    top: -15%;
+    height: 30%;
+    aspect-ratio: 240 / 130;
+    overflow: hidden;
 }
 
 .bar {

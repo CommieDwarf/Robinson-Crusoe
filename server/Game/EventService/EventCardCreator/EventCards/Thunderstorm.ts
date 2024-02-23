@@ -24,7 +24,7 @@ export class Thunderstorm extends EventCard implements IEventCard {
     }
 
     triggerEventEffect() {
-        //TODO deplete closest wood else players get hurt
+        //TODO deplete closest wood else Players get hurt
     }
 
     triggerThreatEffect() {

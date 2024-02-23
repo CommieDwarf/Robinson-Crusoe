@@ -4,26 +4,16 @@
     height: 100%;
     width: 100%;
     background-image: url("../../../../public/UI/weather/weather-pic.png");
-    background-size: cover;
+    background-size: contain;
+    background-position: center;
     background-repeat: no-repeat;
     display: flex;
     position: relative;
-    justify-content: space-around;
+    justify-content: center;
+    column-gap: 6%;
     align-items: center;
+    border-left: 1px soliv var(--borderColor);
 }
 
-.backgroundText {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    color: white;
-    -webkit-text-stroke: 1px #068ad4;
-    font-size: 40px;
-    font-weight: bold;
-    text-align: center;
-    opacity: 0.7;
-    line-height: 100%;
-}
 
 

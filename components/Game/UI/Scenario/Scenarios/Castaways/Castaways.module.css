@@ -1,0 +1,101 @@
+.container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.title {
+    z-index: 10;
+    position: relative;
+    color: transparent;
+    font-style: italic;
+    font-family: Snell Roundhand, cursive;
+    font-weight: bold;
+    -webkit-text-stroke: 2px var(--brown);
+    opacity: 0.6;
+    font-size: 5em;
+}
+
+.titleDiv {
+    width: 50%;
+    margin: auto;
+    position: relative;
+    text-align: center;
+}
+
+.rounds {
+    width: 100%;
+    height: 7%;
+    margin-top: 7%;
+    display: flex;
+    justify-content: center;
+}
+
+.eventEffects {
+    height: 30%;
+    aspect-ratio: 0.9;
+    position: absolute;
+    left: 35%;
+    top: 20%;
+}
+
+.eventEffect {
+    display: block;
+    height: 50%;
+    width: 100%;
+    position: relative;
+}
+
+
+.bottomHalf {
+    width: 100%;
+    height: 45%;
+    background-size: 120%;
+    background-repeat: no-repeat;
+    background-position-y: -5px;
+    background-position-x: -30px;
+    position: relative;
+}
+
+.tokens {
+    aspect-ratio: 800 / 567;
+    width: 50%;
+    position: relative;
+    filter: sepia(10%);
+    top: -2%;
+    display: inline-block;
+}
+
+
+.inventions {
+    display: inline-block;
+    position: relative;
+    width: 50%;
+    aspect-ratio: calc(var(--cardAspectRatio) * 2);
+    right: 0;
+    bottom: 10%;
+}
+
+.inventions > div {
+    border-radius: 5%;
+    overflow: hidden;
+}
+
+.hideButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: 1px dashed rosybrown;
+    color: rosybrown;
+    width: 30px;
+    height: 30px;
+    font-size: 30px;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.hideButton:hover {
+    color: var(--brown);
+}

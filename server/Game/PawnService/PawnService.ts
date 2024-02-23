@@ -61,7 +61,7 @@ export class PawnService implements IPawnService {
         let pawn = this.findPawn(draggableId, "pawns");
         if (!pawn) {
             throw new Error(
-                "character doesn't own pawn with draggable id: " + draggableId
+                "Character doesn't own pawn with draggable id: " + draggableId
             );
         }
 

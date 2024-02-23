@@ -1,9 +1,10 @@
 import styles from "./CostBlock.module.css";
-import lineImg from "/public/UI/misc/line.png";
 
 import {Record} from "./Record/Record";
 import Image from "next/image";
 import {IBasicResourcesAmount} from "../../../../../../interfaces/Resources/Resources";
+import React from "react";
+import crossLineImg from "/public/UI/misc/cross-line.png";
 
 interface ResourceCost {
     type: "leather" | "wood",
@@ -45,12 +46,8 @@ export function CostBlock(props: Props) {
                 />
             </div>}
         {props.resource2 &&
-            <div className={styles.slash}>
-
-                <Image src={lineImg} alt={"line"} fill>
-
-                </Image>
-
+            <div className={styles.diagonal}>
+                <Image src={crossLineImg} alt={""} fill/>
             </div>
         }
         {props.resource2 &&

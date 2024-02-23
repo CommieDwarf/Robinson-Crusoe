@@ -34,6 +34,7 @@ export class Hooch extends Skill implements ISkill {
         } else {
             throw new Error("Target must be snow or rain");
         }
+        this._character.decrDetermination(this.cost);
         this.updateLastRoundUsed();
     }
 

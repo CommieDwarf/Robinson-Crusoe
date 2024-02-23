@@ -36,6 +36,7 @@ export class StoneSoup extends Skill implements ISkill {
                 this._namePL
             );
         }
+        this._character.decrDetermination(this.cost);
         this.updateLastRoundUsed()
     }
 }

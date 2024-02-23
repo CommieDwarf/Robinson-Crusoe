@@ -26,7 +26,7 @@ export const ConfirmCampMove = (props: Props) => {
             <h3>Czy na pewno chcesz przenieść obóz?</h3>
             <div className={styles.tile}>
                 <Image
-                    src={"/UI/map/tiles/" + props.currentCamp.tileResourceService?.id + ".png"}
+                    src={"/UI/Map/tiles/" + props.currentCamp.tileResourceService?.id + ".png"}
                     alt={"Obecny obóz"}
                     fill
                     sizes={styles.tile}
@@ -37,7 +37,7 @@ export const ConfirmCampMove = (props: Props) => {
             </div>
             <div className={styles.tile}>
                 <Image
-                    src={"/UI/map/tiles/" + props.nextCamp.tileResourceService?.id + ".png"}
+                    src={"/UI/Map/tiles/" + props.nextCamp.tileResourceService?.id + ".png"}
                     alt={"Przyszły obóz"}
                     fill
                     sizes={styles.tile}

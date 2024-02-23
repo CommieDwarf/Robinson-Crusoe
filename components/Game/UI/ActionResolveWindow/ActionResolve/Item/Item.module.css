@@ -1,15 +1,15 @@
 .container {
-    height: 200px !important;
+    height: 60%;
     aspect-ratio: 404 / 617 !important;
-    width: auto !important;
     position: relative;
-    top: 30px !important;
+    top: 15%;
 }
 
 .item {
-    aspect-ratio: var(--eventCardAspectRatio);
+    aspect-ratio: var(--cardAspectRatio);
     width: 100%;
     position: relative;
+
 }
 
 .tile {
@@ -31,22 +31,21 @@
 
 .structureLvl {
     width: 100%;
-    font-size: 25px;
     font-weight: bold;
     position: absolute;
-    bottom: 0;
+    bottom: 5%;
+
 }
 
 .lvl {
     color: var(--build);
     width: 100%;
+    font-size: 3em;
 }
 
 .lvlSpan {
-    font-size: 20px;
     font-weight: 500;
     color: black;
-
 }
 
 .arrow {
@@ -108,12 +107,12 @@
 
 .status {
     position: absolute;
-    height: 50px;
-    top: 60px;
-    left: 0;
+    height: 25%;
+    top: 30%;
+    left: -10%;
     z-index: 999999999;
     font-weight: bold;
-    font-size: 40px;
+    font-size: 7em;
     transform: rotate(45deg);
 
 }
@@ -121,7 +120,6 @@
 .success {
     -webkit-text-stroke: 2px darkgreen;
     color: limegreen;
-
 }
 
 .failure {
@@ -141,22 +139,21 @@
 
 
 .resolveButton {
-    width: 95%;
+    width: 80%;
     top: 100%;
-    font-size: 18px;
-    height: 30px;
+    font-size: 2em;
+    height: 12%;
     font-weight: bold;
     color: var(--brown);
-    border: 2px solid var(--brown);
-    border-radius: 5px;
-    margin: auto;
-    line-height: 15px;
-    padding: 5px;
+    border: 1px solid var(--borderColor);
+    border-radius: 12%;
+    line-height: 150%;
     -webkit-box-shadow: 4px 4px 5px -4px var(--brown);
     -moz-box-shadow: 4px 4px 5px -4px var(--brown);
     box-shadow: 4px 4px 5px -4px var(--brown);
     display: flex;
     justify-content: center;
+    margin: -5% auto auto;
 }
 
 
@@ -186,10 +183,8 @@
 }
 
 .clickableButton:hover {
-    color: green;
-    border: 2px solid darkgreen;
-    transform: scale(110%);
     cursor: pointer;
+    scale: 1.2;
 }
 
 .locked {
@@ -198,8 +193,8 @@
 
 
 .character {
-    width: 50px !important;
-    height: 50px !important;
+    aspect-ratio: 1;
+    height: 25%;
     position: relative;
     border: 2px solid orange;
     border-radius: 100% !important;

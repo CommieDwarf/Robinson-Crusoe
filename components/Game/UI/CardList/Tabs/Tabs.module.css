@@ -1,6 +1,6 @@
 .container {
-    height: 20px;
     width: 100%;
+    height: 6%;
     position: absolute;
     bottom: 2px;
     left: 5px;
@@ -16,9 +16,9 @@
     width: auto;
     height: 100%;
     text-align: center;
-    border: 1px solid var(--brown);
+    border: 1px solid var(--borderColor);
     font-weight: 500;
-    font-size: 15px;
+    font-size: 2em;
     position: relative;
     border-radius: 5px;
     line-height: 100%;
@@ -31,7 +31,7 @@
 
 .selected {
     font-weight: 700;
-    font-size: 17px;
+    font-size: 2.2em;
 }
 
 .tab:hover {

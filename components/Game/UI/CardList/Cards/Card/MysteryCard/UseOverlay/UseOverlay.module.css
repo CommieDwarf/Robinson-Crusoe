@@ -11,7 +11,7 @@
     display: block;
     font-size: 50%;
     border-radius: 5px;
-    border: 1px solid var(--brown);
+    border: 1px solid var(--borderColor);
 }
 
 .button:hover {
@@ -39,7 +39,7 @@
     background-image: url("../../../../../../../../public/UI/paper-background.png");
     background-size: contain;
     position: relative;
-    border: 1px solid var(--brown);
+    border: 1px solid var(--borderColor);
     cursor: pointer;
 }
 

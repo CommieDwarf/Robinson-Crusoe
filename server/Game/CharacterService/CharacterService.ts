@@ -123,7 +123,7 @@ export class CharacterService implements ICharacterService {
             (char) => char.name === charName
         );
         if (!character) {
-            throw new Error("Couldn't find character with name: " + charName);
+            throw new Error("Couldn't find Character with name: " + charName);
         }
         return character;
     }

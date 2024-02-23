@@ -14,7 +14,7 @@
 .useButton {
     width: 60px;
     height: 30px;
-    border: 2px solid var(--brown);
+    border: 2px solid var(--borderColor);
     margin-left: auto;
     margin-right: auto;
     border-radius: 10px;

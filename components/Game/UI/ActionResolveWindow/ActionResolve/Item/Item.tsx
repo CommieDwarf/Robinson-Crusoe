@@ -236,8 +236,8 @@ export const Item = (props: Props) => {
                     className={`${styles.status} ${itemTypeStatusClass} ${statusClass}`}
                 >
                     {props.resolvableItem.resolveStatus === RESOLVE_ITEM_STATUS.FAILURE
-                        ? "porażka!"
-                        : "sukces!"}
+                        ? "Porażka!"
+                        : "Sukces!"}
                 </div>
             )}
             {(props.resolvableItem.canBibleBeUsed || props.resolvableItem.bibleChecked) &&

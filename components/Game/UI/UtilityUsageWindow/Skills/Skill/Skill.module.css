@@ -2,7 +2,7 @@
     width: 100%;
     text-align: center;
     font-size: 15px;
-    border-bottom: 1px solid var(--brown);
+    border-bottom: 1px solid var(--borderColor);
     font-weight: 500;
 }
 

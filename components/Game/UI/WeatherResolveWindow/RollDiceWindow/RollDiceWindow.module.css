@@ -1,9 +1,11 @@
 .container {
     position: absolute;
     z-index: 9999999999999;
-    left: -80px;
-    top: -30px;
-    width: 240px;
-    height: 130px;
+    left: -5%;
+    top: -5%;
+    height: 30% !important;
+    /*aspect-ratio: 240 / 130;*/
+    aspect-ratio: 240 / 130 !important;
+    overflow: hidden;
 }
 

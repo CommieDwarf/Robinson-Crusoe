@@ -1,15 +1,16 @@
 .container {
-    width: 200px;
-    aspect-ratio: var(--eventCardAspectRatio);
+    height: 45%;
+    aspect-ratio: var(--cardAspectRatio);
     background-size: contain;
     position: absolute;
     z-index: 99999999;
-    left: calc(50% - 100px);
+    left: 47%;
+    top: 10%;
 }
 
 .card {
-    width: 200px;
-    aspect-ratio: var(--eventCardAspectRatio);
+    height: 100%;
+    aspect-ratio: var(--cardAspectRatio);
     position: relative;
     margin: auto;
     cursor: grab;
@@ -18,7 +19,7 @@
 }
 
 .enlarged {
-    transform: scale(160%);
+    scale: 2;
 }
 
 

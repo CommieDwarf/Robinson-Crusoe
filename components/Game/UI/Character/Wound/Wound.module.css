@@ -1,0 +1,28 @@
+.container {
+    position: absolute;
+    height: 17%;
+    aspect-ratio: 1;
+    grid-column: 1 / span 1;
+    grid-row: 3 / span 1;
+    z-index: 2;
+}
+
+.cookMaleHead {
+    right: 22%;
+    top: 5%;
+}
+
+.cookMaleStomach {
+    top: 27%;
+    left: 6%;
+}
+
+.cookMaleArm {
+    bottom: 13%;
+    right: 5%;
+}
+
+.cookMaleLeg {
+    bottom: 2%;
+    left: 7%;
+}

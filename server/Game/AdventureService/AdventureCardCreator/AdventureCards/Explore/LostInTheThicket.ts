@@ -21,6 +21,6 @@ export class LostInTheThicket
     }
 
     option1(resolver: IPlayerCharacter) {
-        //TODO: implement camp out of camp and pull discovery token just before event phase
+        //TODO: implement camp out of camp and pull discovery token just before event Phase
     }
 }

@@ -15,9 +15,10 @@
     top: 0;
 }
 
-.icon:hover {
-    /*scale: 1.1;*/
+.iconWood {
+    right: -28%;
 }
+
 
 .value {
     position: absolute;
@@ -28,3 +29,4 @@
     line-height: 100%;
     color: var(--brown);
 }
+

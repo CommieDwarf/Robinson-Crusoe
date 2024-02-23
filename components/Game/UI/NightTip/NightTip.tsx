@@ -10,9 +10,7 @@ type Props = {
 export const NightTip = (props: Props) => {
     return (
         <div className={styles.container}>
-            <div className={styles.closeButton} onClick={props.hideNightTip}>
-                X
-            </div>
+
             <header className={styles.header}>
                 <span className={styles.title}>Nastała Noc</span>
                 <div className={styles.nightPicture}>
@@ -33,6 +31,9 @@ export const NightTip = (props: Props) => {
                     Aby przenieść obóz kliknij na strzałkę. Zbudowane konstrukcje zostaną
                     utracone.
                 </p>
+            </div>
+            <div className={styles.closeButton} onClick={props.hideNightTip}>
+                Zamknij
             </div>
         </div>
     );

@@ -27,7 +27,7 @@ export class Predators extends EventCard implements IEventCard {
     }
 
     triggerEventEffect() {
-        //TODO: deplete closest food source or all players get hurt.
+        //TODO: deplete closest food source or all Players get hurt.
     }
 
     triggerThreatEffect() {

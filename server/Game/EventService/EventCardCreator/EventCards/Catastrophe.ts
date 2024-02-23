@@ -25,7 +25,7 @@ export class Catastrophe extends EventCard implements IEventCard {
 
     triggerEventEffect() {
         //TODO: lock equipment items from usage.
-        //TODO: unlock after action phase.
+        //TODO: unlock after action Phase.
     }
 
     triggerThreatEffect() {

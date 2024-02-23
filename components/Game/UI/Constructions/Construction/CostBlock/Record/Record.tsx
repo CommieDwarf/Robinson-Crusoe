@@ -16,7 +16,7 @@ export function Record(props: Props) {
         <div className={styles.value}>
             {props.value}
         </div>
-        <div className={styles.icon}>
+        <div className={`${styles.icon} ${props.type === "wood" ? styles.iconWood : ""}`}>
             <Image src={props.type === "leather" ? leatherImg : woodImg} alt={props.type} fill></Image>
         </div>
     </div>

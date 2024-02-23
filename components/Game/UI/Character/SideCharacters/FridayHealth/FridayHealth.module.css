@@ -1,0 +1,24 @@
+.health {
+    position: absolute;
+    width: 75%;
+    height: 40%;
+    display: inline-block;
+    vertical-align: middle;
+    bottom: 5%;
+}
+
+.heart {
+    width: 20%;
+    height: 80%;
+    position: relative;
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+.skull {
+    width: 20%;
+    height: 80%;
+    position: relative;
+    display: inline-block;
+    vertical-align: bottom;
+}

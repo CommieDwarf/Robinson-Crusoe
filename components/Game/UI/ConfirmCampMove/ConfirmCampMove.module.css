@@ -7,7 +7,7 @@
     background-image: url("../../../../public/UI/paper-background.png");
     z-index: 9999999999999999;
     text-align: center;
-    border: 2px solid var(--brown);
+    border: 2px solid var(--borderColor);
     border-radius: 5px;
 
 }

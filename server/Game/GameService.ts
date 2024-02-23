@@ -41,6 +41,23 @@ export class GameService implements IGameService {
         this._game.resourceService.addBasicResourcesToOwned(new BasicResources(0, 0, 6, 2));
         this._game.beastService.moveBeastFromStackToDeck();
 
+        this._game.weatherService.setToken("snow", true, "test")
+        this._game.weatherService.setToken("rain", true, "test")
+        this._game.weatherService.setToken("storm", true, "test")
+
+
+        char.setWound("head", ACTION.GATHER, "test");
+        char.setWound("arm", ACTION.EXPLORE, "test");
+        char.setWound("stomach", ACTION.EXPLORE, "test");
+        char.setWound("leg", ACTION.EXPLORE, "test");
+
+        this._game.setNextRound();
+        this._game.setNextRound();
+        this._game.setNextRound();
+        this._game.setNextRound();
+        this._game.setNextRound();
+        this._game.setNextRound();
+        char.incrDetermination(0);
 
     }
 

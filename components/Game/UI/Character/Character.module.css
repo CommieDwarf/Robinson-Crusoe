@@ -1,0 +1,97 @@
+.container {
+    width: 100%;
+    height: 100%;
+    grid-column: 5 / span 1;
+    grid-row: 3 / span 2;
+    background-image: url("../../../../public/UI/characters/background.png");
+    background-size: cover;
+    border: 1px solid var(--borderColor);
+    border-top: none;
+    border-bottom: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 3fr 4fr;
+    z-index: 100;
+    position: relative;
+}
+
+.characterPictureWrapper {
+    width: 100%;
+    height: 100%;
+    grid-column: 1 / span 1;
+    grid-row: 3 / span 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.characterPicture {
+    height: 100%;
+    aspect-ratio: 1;
+    position: absolute;
+}
+
+
+.rightTop {
+    width: 100%;
+    height: 100%;
+    grid-column: 2 / span 1;
+    grid-row: 1 / span 1;
+}
+
+.characterName {
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 1;
+    text-align: center;
+    font-weight: bold;
+    font-size: 3.5em;
+    color: #56423D;
+    font-style: italic;
+    line-height: 100%;
+    width: 100%;
+    border-radius: 5px;
+    padding: 1px 2px 2px 1px;
+    margin: 5px auto 5px auto;
+}
+
+.skills {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    grid-column: 1 / span 1;
+    grid-row: 2 / span 1;
+}
+
+
+.pawns {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+}
+
+.scroll {
+    grid-column: 2 / span 1;
+    grid-row: 2 / span 1;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.scroll::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+.scroll::-webkit-scrollbar-track {
+}
+
+/* Handle */
+.scroll::-webkit-scrollbar-thumb {
+    width: 10px;
+    background-image: url("../../../../public/UI/misc/board-vert.jpg");
+    background-size: cover;
+    border-radius: 5px;
+    border: 1px solid var(--borderColor);
+}
+

@@ -1,7 +1,6 @@
 .container {
-    border: 1px solid var(--brown);
+    border: 1px solid var(--borderColor);
     font-weight: bold;
-    font-size: 23px;
     grid-column: 5 / span 1;
     grid-row: 1 / span 2;
     width: 100%;

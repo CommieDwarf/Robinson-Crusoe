@@ -94,7 +94,7 @@ export class MysteryCardDrawer implements IMysteryCardDrawer {
         do {
             let card = this._mysteryService.cardStack.pop();
             if (!card) {
-                //TODO: unlikely scenario but i need to handle it in the future.
+                //TODO: unlikely ScenarioButton but i need to handle it in the future.
                 throw new Error("there is no card in the stack");
             }
             // @ts-ignore

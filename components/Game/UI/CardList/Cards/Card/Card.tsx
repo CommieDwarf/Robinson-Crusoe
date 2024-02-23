@@ -31,6 +31,11 @@ type Props = {
     height: number;
     width: number;
     totalWidth: number;
+    enlargeParams?: {
+        left: number,
+        top: number,
+        scale: number,
+    }
 };
 export const Card = (props: Props) => {
     const [mouseOnButtons, setMouseOnButtons] = useState(false);
@@ -50,19 +55,21 @@ export const Card = (props: Props) => {
 
     const enlargeMultiplayer = 2.1
 
+    const top = props.row * props.height;
+
     const wrapperStyle = {
-        left: enlarged ? props.totalWidth / 4 : props.column * props.width,
-        top: props.row * props.height,
+        left: enlarged ? (props.enlargeParams?.left ? props.enlargeParams.left : props.totalWidth / 4) : props.column * props.width,
+        top: enlarged ? (props.enlargeParams?.top ? props.enlargeParams.top : props.top) : top,
         cursor: enlarged ? "zoom-out" : "zoom-in",
-        height: enlarged ? props.height * enlargeMultiplayer + "px" : props.height + "px",
+        height: enlarged ? props.height * (props.enlargeParams ? props.enlargeParams.scale : enlargeMultiplayer) + "px" : props.height + "px",
     };
+
+    console.log(props.card.name, wrapperStyle.top)
 
     const enlargedClass = enlarged
         ? styles.enlarged
         : styles.zIndexTransition;
 
-    wrapperStyle.top = enlarged ? props.top : wrapperStyle.top;
-    // wrapperStyle.left = enlarged ? 60 : wrapperStyle.left;
 
     const zIndexClass = props.zIndexIncreased ? styles.zIndexIncreased : "";
 

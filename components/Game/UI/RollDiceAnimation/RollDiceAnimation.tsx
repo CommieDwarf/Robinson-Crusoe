@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as THREE from "three";
-import {useEffect, useState} from "react";
+import {useEffect, useLayoutEffect, useState} from "react";
 import styles from "./RollDiceAnimation.module.css";
 
 import {RoundedBoxGeometry} from "three/examples/jsm/geometries/RoundedBoxGeometry";
@@ -42,6 +42,7 @@ type Props = {
     reRolledDice: ActionDice | null;
     fixed: boolean;
     reRoll: (dice: ActionDice) => void | ((dice: WeatherDice) => void);
+
 };
 
 export const RollDiceAnimation = (props: Props) => {
@@ -53,7 +54,7 @@ export const RollDiceAnimation = (props: Props) => {
         })
     );
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const {current} = containerRef;
         if (!current || !renderer) {
             return;

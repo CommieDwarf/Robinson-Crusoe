@@ -28,7 +28,7 @@ export class Landslide extends EventCard implements IEventCard {
     }
 
     triggerThreatEffect() {
-        //TODO: no resources in production phase.
+        //TODO: no resources in production Phase.
     }
 
     fullFill() {

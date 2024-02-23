@@ -1,16 +1,16 @@
 import React, {useLayoutEffect, useRef, useState} from "react";
-import Phase from "./UI/phase/Phase";
-import Morale from "./UI/morale/Morale";
+import Phase from "./UI/Phase/Phase";
+import Morale from "./UI/Morale/Morale";
 import styles from "./Game.module.css";
 import AllResources from "./UI/AllResources/AllResources";
 import Constructions from "./UI/Constructions/Constructions";
-import MapComponent from "./UI/map/Map";
-import Character from "./UI/character/Character";
-import Health from "./UI/health/Health";
-import ActionsOrder from "./UI/actionsOrder/ActionsOrder";
+import MapComponent from "./UI/Map/Map";
+import Character from "./UI/Character/Character";
+import Health from "./UI/Health/Health";
+import ActionsOrder from "./UI/ActionOrder/ActionOrder";
 import ChatLog from "./UI/ChatLog/ChatLog";
 import Tokens from "./UI/tokens/Tokens";
-import ScenarioButton from "./UI/scenario/ScenarioButton";
+import ScenarioButton from "./UI/./ScenarioButton/ScenarioButton";
 import actionSlotStyles from "./UI/ActionSlot.module.css";
 
 import Threat from "./UI/threat/Threat";
@@ -24,7 +24,7 @@ import {INVENTION_TYPE} from "../../interfaces/InventionService/Invention";
 import {canPawnBeSettled} from "../../utils/canPawnBeSettled";
 
 import {IGameRenderData} from "../../interfaces/Game";
-import {NextPhaseButton} from "./UI/nextPhaseButton/NextPhaseButton";
+import {NextPhaseButton} from "./UI/NextPhaseButton/NextPhaseButton";
 import {ActionResolveWindow} from "./UI/ActionResolveWindow/ActionResolveWindow";
 import {setNextAction} from "../../pages/api/setNextAction";
 import utilizeToken from "../../pages/api/utilizeToken";
@@ -68,7 +68,6 @@ import utilizeInvention from "../../pages/api/utilizeInvention";
 import addWoodToStash from "../../pages/api/addWoodToStash";
 import {CONSTRUCTION} from "../../interfaces/ConstructionService/Construction";
 import switchCommittedResources from "../../pages/api/switchCommittedResources";
-import {Background} from "./UI/Background/Background";
 import setBibleUsage from "../../pages/api/setBibleUsage";
 import {ITEM} from "../../interfaces/Equipment/Item";
 import utilizeItem from "../../pages/api/utilizeItem";
@@ -76,6 +75,7 @@ import {IPlayerCharacter} from "../../interfaces/Characters/PlayerCharacter";
 import {Cloud} from "../../interfaces/Weather/Weather";
 import {ConfirmWindow} from "./UI/ConfirmWindow/ConfirmWindow";
 import {CONFIRM_WINDOW} from "./UI/ConfirmWindow/messages";
+import Scenario from "./UI/Scenario/Scenario";
 
 
 interface Props {
@@ -101,15 +101,35 @@ export default function Game(props: Props) {
     const [confirmWindow, setConfirmWindow] = useState<null | CONFIRM_WINDOW>(null);
 
     const gameRef = useRef<HTMLDivElement>(null);
-    const [gameHeight, setGameHeight] = useState<number>(0);
+    const gameHeight = useGameHeight();
+
+    const mapRef = useRef<HTMLDivElement>(null)
+    const [mapHeight, setMapHeight] = useState<number>(0);
+
 
     useLayoutEffect(() => {
-        const current = gameRef.current
-        if (current) {
-            setGameHeight(current.offsetHeight);
-        }
+        if (mapRef.current) setMapHeight(mapRef.current.offsetHeight);
     }, [])
 
+    console.log(styles.game, "SSTYLES")
+
+    function useGameHeight() {
+        const [gameHeight, setGameHeight] = useState(0);
+        useLayoutEffect(() => {
+            if (!gameHeight) updateGameHeight();
+
+            function updateGameHeight() {
+                if (gameRef.current) setGameHeight(gameRef.current.offsetHeight);
+            }
+
+            window.addEventListener("resize", updateGameHeight)
+
+            return () => {
+                window.removeEventListener("resize", updateGameHeight)
+            }
+        }, []);
+        return gameHeight;
+    }
 
     function useReRollSkill(dice: ActionDice) {
         // Fixed for now
@@ -411,7 +431,7 @@ export default function Game(props: Props) {
         fontSize: gameHeight / 100
     }
 
-
+    console.log(gameHeight, "GAME HEIGHT")
     return (
         <div className={styles.game} ref={gameRef} style={gameStyle}>
             {/*<Background columnStart={3} columnEnd={5} rowStart={3} rowEnd={5}/>*/}
@@ -466,6 +486,17 @@ export default function Game(props: Props) {
                     hide={hideCampMoveConfirm}
                 />
             )}
+
+            <Scenario
+                zIndex={elementZIndexed}
+                inventions={gameRenderData.inventionService.inventions.filter((card) => card.inventionType === INVENTION_TYPE.SCENARIO)}
+                show={showScenario}
+                contentHeight={mapHeight}
+                round={gameRenderData.round}
+                scenario={gameRenderData.scenarioService}
+                addWoodToStash={() => {
+                }}
+            />
             <DragDropContext
                 onDragEnd={onDragEnd}
                 onDragUpdate={onDragUpdate}
@@ -507,6 +538,7 @@ export default function Game(props: Props) {
                     showCampMoveConfirm={showCampMoveConfirm}
                     triggerTileResourceAction={handleTileResourceAction}
                     triggerTileAction={handleTileAction}
+                    containerRef={mapRef}
                 />
 
                 <CardList
@@ -608,6 +640,7 @@ export default function Game(props: Props) {
             {gameRenderData.phaseService.phase === "night" && showNightTip && (
                 <NightTip hideNightTip={hideNightTip}/>
             )}
+
             {confirmWindow ? <ConfirmWindow
                 name={confirmWindow}
                 onAccept={() => {
@@ -618,6 +651,8 @@ export default function Game(props: Props) {
                     setConfirmWindow(null)
                 }}
             /> : ""}
+
+
         </div>
     );
 }

@@ -1,0 +1,76 @@
+.container {
+    width: calc(98% / 12);
+    aspect-ratio: 1;
+    position: relative;
+    z-index: 1;
+    font-size: 3.8em;
+}
+
+
+.round {
+    font-style: italic;
+    font-size: inherit;
+    font-family: Snell Roundhand, cursive;
+    text-align: center;
+    position: relative;
+    top: 2px;
+    color: var(--brown);
+    filter: opacity(40%);
+}
+
+.currentRound {
+    filter: none;
+}
+
+.ship {
+    height: 100%;
+    aspect-ratio: 1;
+    position: absolute;
+    top: 100%;
+    left: 20%;
+    filter: invert(12%) sepia(25%) saturate(2174%) hue-rotate(352deg) brightness(97%) contrast(102%);
+    z-index: 1;
+}
+
+.square {
+    filter: invert(12%) sepia(25%) saturate(2174%) hue-rotate(352deg) brightness(97%) contrast(102%);
+}
+
+
+.weather {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: absolute;
+    top: -100%;
+    align-items: flex-end;
+}
+
+.weather:nth-child(1n) {
+    flex-basis: 100%;
+}
+
+.weatherDice {
+    height: 50%;
+    aspect-ratio: 1;
+    border-radius: 3px;
+    border: 1px dotted black;
+    position: relative;
+}
+
+
+.rain {
+    background-color: orange;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.snow {
+    background-color: white;
+}
+
+.hungryAnimal {
+    background-color: red;
+}

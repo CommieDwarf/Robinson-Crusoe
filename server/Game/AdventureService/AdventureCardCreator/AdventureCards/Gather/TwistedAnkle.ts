@@ -27,7 +27,7 @@ export class TwistedAnkle
     }
 
     triggerEventEffect() {
-        //TODO: character with wound can only rest, arrange camp and build.
+        //TODO: Character with wound can only rest, arrange camp and build.
         //TODO: discard wound
     }
 }

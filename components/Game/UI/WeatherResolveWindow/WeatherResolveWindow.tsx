@@ -14,7 +14,6 @@ import {useState} from "react";
 import {RollDiceWindow} from "./RollDiceWindow/RollDiceWindow";
 import {WeatherDays} from "../../../../interfaces/ScenarioService/ScenarioService";
 import {Utility} from "./Utility/Utility";
-import {UtilityDropDownButton} from "./UtilityDropDownButton/UtilityDropDownButton";
 import {ISkillRenderData} from "../../../../interfaces/Skill/Skill";
 import Draggable from "react-draggable";
 

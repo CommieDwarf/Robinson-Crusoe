@@ -2,7 +2,7 @@
 import * as React from "react";
 import styles from "./Header.module.css";
 import Image from "next/image";
-import {RoundSquare} from "../../scenario/Scenario/Scenarios/Castaways/Rounds/RoundSquare";
+import {RoundSquare} from "../../Scenario/Scenarios/Castaways/Rounds/RoundSquare";
 
 import weatherImg from "/public/UI/phase/weather.png";
 import redArrowImg from "/public/UI/misc/red-arrow.png";

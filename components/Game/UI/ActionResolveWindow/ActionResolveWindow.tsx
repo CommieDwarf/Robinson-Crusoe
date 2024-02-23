@@ -42,7 +42,12 @@ export const ActionResolveWindow = (props: Props) => {
     const [reRollSkillUsed, setReRollSkillUsed] = useState(false);
 
     function onReRollButtonClick() {
-        setReRollButtonClicked(true);
+
+        if (props.actionService.lastRolledItem?.leaderPawn.character.determination &&
+            props.actionService.lastRolledItem?.leaderPawn.character.determination > 3
+        ) {
+            setReRollButtonClicked(true);
+        }
     }
 
     function onReRollSkillUse(dice: ActionDice) {

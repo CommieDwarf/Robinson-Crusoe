@@ -1,0 +1,100 @@
+.container {
+    width: 100%;
+    height: 45%;
+    position: relative;
+    user-select: none;
+}
+
+.buttons {
+    width: 15%;
+    height: 100%;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-around;
+    vertical-align: top;
+}
+
+.paperScroll {
+    width: 85%;
+    height: 100%;
+    vertical-align: top;
+    position: relative;
+    display: inline-block;
+}
+
+
+.leftScroll {
+    position: absolute;
+    height: 100%;
+    aspect-ratio: 0.25;
+    z-index: 2;
+    vertical-align: top;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.paperWrapper {
+    width: 6%;
+    height: 94%;
+    z-index: 1;
+    overflow: hidden;
+    position: relative;
+    display: inline-block;
+    left: 5%;
+    vertical-align: top;
+    top: 3%;
+    transition: width 0.5s
+}
+
+.paperWrapperUnrolled {
+    width: 90%;
+    left: 5%;
+}
+
+
+.paper {
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    position: relative;
+}
+
+.paperImg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+}
+
+.text {
+    z-index: 6;
+    height: 100%;
+    width: 100%;
+    font-size: 2.8em;
+    position: relative;
+    padding: 2% 10% 2% 10%;
+    font-style: italic;
+    color: var(--brown);
+}
+
+.rightScroll {
+    height: 50%;
+    z-index: 21;
+    aspect-ratio: 0.24;
+    top: 25%;
+    left: 3%;
+    scale: 2;
+    position: relative;
+    display: inline-block;
+    transform: rotate(180deg);
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+
+.rightScrollUnrolled {
+    left: 0;
+}
+

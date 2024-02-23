@@ -1,7 +1,7 @@
 // @flow
 import * as React from "react";
 import styles from "./LogMessage.module.css";
-import {RoundSquare} from "../../scenario/Scenario/Scenarios/Castaways/Rounds/RoundSquare";
+import {RoundSquare} from "../../Scenario/Scenarios/Castaways/Rounds/RoundSquare";
 import Image from "next/image";
 import {ILogMessageRenderData} from "../../../../../interfaces/ChatLog/LogMessage";
 import capitalizeFirstLetter from "../../../../../utils/capitalizeFirstLetter";
@@ -22,7 +22,7 @@ export const LogMessage = (props: Props) => {
             ></RoundSquare>
             <div className={styles.phaseIcon}>
                 <Image
-                    src={"/UI/phase/" + msg.phase + ".png"}
+                    src={"/UI/Phase/" + msg.phase + ".png"}
                     fill
                     alt={"faza"}
                     sizes={styles.phaseIcon}

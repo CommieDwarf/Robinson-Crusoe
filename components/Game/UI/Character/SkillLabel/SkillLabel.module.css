@@ -1,0 +1,26 @@
+.container {
+    height: 25%;
+    font-weight: bold;
+    font-style: italic;
+    cursor: pointer;
+    position: relative;
+    z-index: 100;
+}
+
+.skillName {
+    text-align: center;
+    margin: auto;
+    display: block;
+    font-size: 1.8em;
+    height: 100%;
+}
+
+.skillName:hover {
+    background-color: #451e14;
+    color: white;
+}
+
+.skillNameSelected {
+    background-color: #451e14;
+    color: white;
+}

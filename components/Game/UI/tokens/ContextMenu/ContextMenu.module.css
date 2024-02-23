@@ -8,9 +8,9 @@
     background-image: url("../../../../../public/UI/paper-background.png");
     background-size: cover;
     background-repeat: no-repeat;
-    border: 1px solid var(--brown);
+    border: 1px solid var(--borderColor);
     background-position: top;
-    -webkit-box-shadow: inset 0 0 5px 2px var(white);
+    -webkit-box-shadow: inset 0 0 5px 2px var(--brown);
     -moz-box-shadow: inset 0 0 5px 2px var(--brown);
     box-shadow: inset 0 0 5px 2px var(--brown);
     text-align: center;

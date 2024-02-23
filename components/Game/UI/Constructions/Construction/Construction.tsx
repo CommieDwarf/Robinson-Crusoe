@@ -9,6 +9,7 @@ import getActionSlots from "../../getActionSlots";
 import {objectsEqual} from "../../../../../utils/objectsEqual";
 import {CostBlock} from "./CostBlock/CostBlock";
 import {IBasicResourcesAmount} from "../../../../../interfaces/Resources/Resources";
+import crossLineImg from "/public/UI/misc/cross-line.png";
 
 type Props = {
     construction: IConstructionRenderData;
@@ -58,13 +59,15 @@ function Construction(props: Props) {
                 }
             </div>
             <div className={styles.cost}>
+
                 <CostBlock resource1={props.construction.resourceCost}
                            resource2={props.construction.optionalResourceCost}
                            canBeSwitched={props.construction.canResourceBeSwitched}
                            committedResourceType={props.construction.committedResources?.type || null}
                            onClick={handleResourceClick}
                            ownedResources={props.ownedResources}
-                /></div>
+                />
+            </div>
             <div className={styles.build}>
                 <div className={styles.actionSlots}>
                     {!props.construction.locked && !props?.hideActionSlots && (
