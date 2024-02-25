@@ -6,6 +6,8 @@ import {PHASE} from "../../../../../../interfaces/PhaseService/Phase";
 import {ISkill} from "../../../../../../interfaces/Skill/Skill";
 import {ACTION} from "../../../../../../interfaces/ACTION";
 import {ActionDice} from "../../../../../../interfaces/RollDice/RollDice";
+import {ICharacter} from "../../../../../../interfaces/Characters/Character";
+import {Cloud} from "../../../../../../interfaces/Weather/Weather";
 
 export class Scrounger extends Skill implements ISkill {
     private _character: IPlayerCharacter;
@@ -24,7 +26,7 @@ export class Scrounger extends Skill implements ISkill {
         this._character = character;
     }
 
-    use(target: IPlayerCharacter | ActionDice | null = null) {
+    use(target: ICharacter | ActionDice | Cloud | null = null) {
         if (
             !target ||
             (target !== "mystery" && target !== "success" && target !== "hurt")

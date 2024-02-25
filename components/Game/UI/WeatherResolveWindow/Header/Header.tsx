@@ -7,6 +7,7 @@ import {RoundSquare} from "../../Scenario/Scenarios/Castaways/Rounds/RoundSquare
 import weatherImg from "/public/UI/phase/weather.png";
 import redArrowImg from "/public/UI/misc/red-arrow.png";
 import nightImg from "/public/UI/phase/night.png";
+import ResizableImage from "../../../../ResizableImage/ResizableImage";
 
 type Props = {
     round: number;
@@ -21,7 +22,7 @@ export const Header = (props: Props) => {
     return (
         <div className={styles.container}>
             <div className={styles.symbol}>
-                <Image src={weatherImg} fill alt={"pogoda"} sizes={styles.symbol}/>
+                <ResizableImage src={weatherImg} alt={"pogoda"}/>
             </div>
             <span className={styles.title}>Faza Pogody</span>
             <div className={styles.symbol + " " + styles.round}>
@@ -35,7 +36,7 @@ export const Header = (props: Props) => {
             {props.resolved && (
                 <div className={styles.nextPhaseButton} onClick={handleClick}>
                     <div className={styles.arrow}>
-                        <Image
+                        <ResizableImage
                             src={redArrowImg}
                             alt={"strzałka"}
                             fill
@@ -43,7 +44,7 @@ export const Header = (props: Props) => {
                         />
                     </div>
                     <div className={styles.night}>
-                        <Image
+                        <ResizableImage
                             src={nightImg}
                             alt={"następna faza"}
                             fill

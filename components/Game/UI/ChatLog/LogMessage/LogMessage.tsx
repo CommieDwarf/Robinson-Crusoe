@@ -5,6 +5,7 @@ import {RoundSquare} from "../../Scenario/Scenarios/Castaways/Rounds/RoundSquare
 import Image from "next/image";
 import {ILogMessageRenderData} from "../../../../../interfaces/ChatLog/LogMessage";
 import capitalizeFirstLetter from "../../../../../utils/capitalizeFirstLetter";
+import ResizableImage from "../../../../ResizableImage/ResizableImage";
 
 type Props = {
     message: ILogMessageRenderData;
@@ -21,7 +22,7 @@ export const LogMessage = (props: Props) => {
                 chatLog={true}
             ></RoundSquare>
             <div className={styles.phaseIcon}>
-                <Image
+                <ResizableImage
                     src={"/UI/Phase/" + msg.phase + ".png"}
                     fill
                     alt={"faza"}

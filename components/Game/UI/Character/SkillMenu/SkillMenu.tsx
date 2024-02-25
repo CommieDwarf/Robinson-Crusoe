@@ -8,13 +8,14 @@ import rainImg from "/public/UI/scenarios/rain.png";
 import {Cloud, OverallWeather} from "../../../../../interfaces/Weather/Weather";
 import {IPlayerCharacter} from "../../../../../interfaces/Characters/PlayerCharacter";
 import {ActionDice} from "../../../../../interfaces/RollDice/RollDice";
+import ResizableImage from "../../../../ResizableImage/ResizableImage";
 
 interface Props {
     skillDescription: {
         skill: ISkillRenderData | null;
         show: boolean;
     };
-    use: (skillName: string, target?: IPlayerCharacter | ActionDice | Cloud | null) => void;
+    use: (skillName: string, target?: IPlayerCharacter | ActionDice | Cloud) => void;
     used: boolean;
     overallWeather: OverallWeather;
     width: number;
@@ -80,13 +81,13 @@ export default function SkillMenu(props: Props) {
                                     <div className={`${styles.cloud} ${cloud === "rain" ? styles.cloudSelected : ""}`}
                                          onClick={handleRainCloudClick}
                                     >
-                                        <Image src={rainImg} alt={"deszcz"} fill sizes={styles.cloud}/>
+                                        <ResizableImage src={rainImg} alt={"deszcz"} fill sizes={styles.cloud}/>
                                     </div>
                                     /
                                     <div className={`${styles.cloud} ${cloud === "snow" ? styles.cloudSelected : ""}`}
                                          onClick={handleSnowCloudClick}
                                     >
-                                        <Image src={snowImg} alt={"śnieg"} fill sizes={styles.cloud}/>
+                                        <ResizableImage src={snowImg} alt={"śnieg"} fill sizes={styles.cloud}/>
                                     </div>
                                 </div>
                                 }

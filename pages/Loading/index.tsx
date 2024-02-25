@@ -1,8 +1,9 @@
 import styles from "../Play/play.module.css";
-import Image from "next/image";
 import compassImg from "/public/UI/tokens/compass.png";
 import * as React from "react";
 import {NextPage} from "next";
+import ResizableImage from "../../components/ResizableImage/ResizableImage";
+import Image from "next/image";
 
 const Loading: NextPage = () => {
 
@@ -12,7 +13,7 @@ const Loading: NextPage = () => {
                         <h1>Ładowanie...</h1>
                     </span>
         <div className={styles.tokenImg}>
-            <Image src={compassImg} alt={""} fill sizes={styles.tokenImg}/>
+            <Image src={compassImg} alt={""} fill sizes={"100px"}/>
         </div>
     </div>)
 }

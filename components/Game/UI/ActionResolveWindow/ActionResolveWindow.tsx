@@ -7,7 +7,7 @@ import {IActionServiceRenderData} from "../../../../interfaces/ActionService/Act
 import {NextActionButton} from "./NextActionButton/NextActionButton";
 import {RollDiceWindow} from "./RollDiceWindow/RollDiceWindow";
 import actionIconImg from "/public/UI/phase/action.png";
-import {getImgName} from "../../../../utils/getImgName";
+import {formatToKebabCase} from "../../../../utils/formatToKebabCase";
 import {RESOLVE_ITEM_STATUS} from "../../../../interfaces/ActionService/IResolvableItem";
 import {isAdventureAction} from "../../../../utils/isAdventureAction";
 import {ReRoll} from "./ReRoll/ReRoll";
@@ -16,6 +16,7 @@ import {ActionDice} from "../../../../interfaces/RollDice/RollDice";
 import {sleep} from "../../../../utils/sleep";
 import Draggable from "react-draggable";
 import sharedStyles from "../../../../styles/shared.module.css";
+import ResizableImage from "../../../ResizableImage/ResizableImage";
 
 type Props = {
     actionService: IActionServiceRenderData;
@@ -116,11 +117,9 @@ export const ActionResolveWindow = (props: Props) => {
             <div className={styles.container} ref={containerRef}>
                 {reRollButtonClicked && (
                     <div className={styles.reRollArrowTip}>
-                        <Image
+                        <ResizableImage
                             src={redArrowImg}
                             alt={"przerzuć kość"}
-                            fill
-                            sizes={styles.tipArrow}
                         />
                     </div>
                 )}
@@ -147,20 +146,16 @@ export const ActionResolveWindow = (props: Props) => {
                     )}
                 <div className={styles.header}>
                     <div className={styles.actionIcon}>
-                        <Image
+                        <ResizableImage
                             src={actionIconImg}
-                            fill
                             alt={"akcja"}
                             className={styles.actionIcon}
-                            sizes={styles.actionIcon}
                         />
                     </div>
                     <div className={styles.title}>Faza Akcji</div>
                     <div className={styles.actionIcon}>
-                        <Image
-                            src={`/UI/actions/${getImgName(props.actionService.action)}.png`}
-                            fill
-                            sizes={styles.actionIcon}
+                        <ResizableImage
+                            src={`/UI/actions/${formatToKebabCase(props.actionService.action)}.png`}
                             alt={"akcja"}
                         />
                     </div>

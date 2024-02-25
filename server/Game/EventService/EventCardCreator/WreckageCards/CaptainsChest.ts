@@ -1,38 +1,39 @@
-import { EventCard } from "../EventCard";
+import {EventCard} from "../EventCard";
 import {
-  EVENT_TYPE,
-  IEventCard,
+    EVENT_TYPE,
+    IEventCard,
 } from "../../../../../interfaces/EventService/EventCard";
-import { IGame } from "../../../../../interfaces/Game";
-import { WRECKAGE_CARD } from "../../../../../interfaces/EventService/EVENT_CARD";
+import {IGame} from "../../../../../interfaces/Game";
+import {WRECKAGE_CARD} from "../../../../../interfaces/EventService/EVENT_CARD";
 
 export class CaptainsChest extends EventCard implements IEventCard {
-  protected _namePL = "kufer kapitana";
-  protected _resolutionPL = "wyprawa po skarby";
+    protected _namePL = "kufer kapitana";
+    protected _resolutionPL = "wyprawa po skarby";
 
-  constructor(game: IGame) {
-    super(
-      WRECKAGE_CARD.CAPTAINS_CHEST,
-      EVENT_TYPE.WRECKAGE,
-      {
-        pawns: 1,
-        invention: null,
-        construction: null,
-        resource: null,
-      },
-      game
-    );
-  }
+    constructor(game: IGame) {
+        super(
+            WRECKAGE_CARD.CAPTAINS_CHEST,
+            EVENT_TYPE.WRECKAGE,
+            {
+                pawns: 1,
+                invention: null,
+                construction: null,
+                resource: null,
+                optionalResource: null,
+            },
+            game
+        );
+    }
 
-  triggerEventEffect() {
-    // nothing is happening
-  }
+    triggerEventEffect() {
+        // nothing is happening
+    }
 
-  triggerThreatEffect() {
-    // nothing
-  }
+    triggerThreatEffect() {
+        // nothing
+    }
 
-  fullFill() {
-    //TODO: implement more space for equipment item before this.
-  }
+    fullFill() {
+        //TODO: implement more space for equipment item before this.
+    }
 }

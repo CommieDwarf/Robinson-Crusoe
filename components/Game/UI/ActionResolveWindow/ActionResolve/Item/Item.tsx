@@ -13,12 +13,13 @@ import {
     IResolvableItemRenderData,
     RESOLVE_ITEM_STATUS,
 } from "../../../../../../interfaces/ActionService/IResolvableItem";
-import {getImgName} from "../../../../../../utils/getImgName";
+import {formatToKebabCase} from "../../../../../../utils/formatToKebabCase";
 import redArrowImg from "/public/UI/misc/red-arrow.png";
 import {ACTION} from "../../../../../../interfaces/ACTION";
 import {IActionServiceRenderData} from "../../../../../../interfaces/ActionService/ActionService";
 import {Tokens} from "./Tokens/Tokens";
 import reRollTokenImg from "/public/UI/tokens/reroll.png";
+import ResizableImage from "../../../../../ResizableImage/ResizableImage";
 
 type Props = {
     resolvableItem: IResolvableItemRenderData;
@@ -46,11 +47,9 @@ export const Item = (props: Props) => {
         const card = props.resolvableItem.item as unknown as IEventCardRenderData;
         image = (
             <div className={styles.threat}>
-                <Image
-                    src={`/UI/cards/event/${getImgName(card.name)}.png`}
-                    fill
+                <ResizableImage
+                    src={`/UI/cards/event/${formatToKebabCase(card.name)}.png`}
                     alt={card.name}
-                    sizes={styles.threat}
                 />
             </div>
         );
@@ -58,11 +57,9 @@ export const Item = (props: Props) => {
         const beast = props.resolvableItem.item as unknown as IBeastRenderData;
         image = (
             <div className={styles.hunt}>
-                <Image
-                    src={`/UI/cards/beasts/${getImgName(beast.name)}.png`}
-                    fill
+                <ResizableImage
+                    src={`/UI/cards/beasts/${formatToKebabCase(beast.name)}.png`}
                     alt={beast.name}
-                    sizes={styles.hunt}
                 />
             </div>
         );
@@ -73,13 +70,11 @@ export const Item = (props: Props) => {
             invention.isBuilt && invention.inventionType !== "scenario" ? "-reverse" : "";
         image = (
             <div className={styles.invention}>
-                <Image
-                    src={`/UI/inventions/${invention.inventionType}/${getImgName(
+                <ResizableImage
+                    src={`/UI/inventions/${invention.inventionType}/${formatToKebabCase(
                         invention.name
                     )}${reverse}.png`}
-                    fill
                     alt={invention.name}
-                    sizes={styles.invention}
                 />
             </div>
         );
@@ -88,11 +83,9 @@ export const Item = (props: Props) => {
         const construction = props.resolvableItem.item as unknown as IConstruction;
         image = (
             <div className={styles[construction.name] + " " + styles.construction}>
-                <Image
-                    src={`/UI/constructions/${getImgName(construction.name)}.png`}
-                    fill
+                <ResizableImage
+                    src={`/UI/constructions/${formatToKebabCase(construction.name)}.png`}
                     alt={construction.name}
-                    sizes={styles.construction}
                 />
             </div>
         );
@@ -102,7 +95,7 @@ export const Item = (props: Props) => {
             ) : (
                 <>
                     <div className={styles.arrow}>
-                        <Image src={redArrowImg} fill alt="lvl" sizes={styles.arrow}/>
+                        <ResizableImage src={redArrowImg} alt="lvl"/>
                     </div>
                     <span className={styles.nextLvl + " " + styles.lvl}>
             {construction.lvl + 1}
@@ -133,11 +126,9 @@ export const Item = (props: Props) => {
 
         image = (
             <div className={styles.tile}>
-                <Image
+                <ResizableImage
                     src={`/UI/map/tiles/${id}.png`}
-                    fill
                     alt={"kafelek"}
-                    sizes={styles.tile}
                 />
             </div>
         );
@@ -149,10 +140,8 @@ export const Item = (props: Props) => {
                 <div className={styles.gather}>
                     <span className={styles.gatherAmount}>1</span>
                     <div className={styles.resourceIcon}>
-                        <Image
+                        <ResizableImage
                             src={`/UI/resources/${tile.tileResourceService?.resources[side].resource}.png`}
-                            fill
-                            sizes={styles.resourceIcon}
                             alt={"surowiec"}
                         />
                     </div>
@@ -162,12 +151,10 @@ export const Item = (props: Props) => {
     } else {
         image = (
             <div className={styles.restArrange}>
-                <Image
-                    src={`/UI/actions/${getImgName(
+                <ResizableImage
+                    src={`/UI/actions/${formatToKebabCase(
                         props.resolvableItem.action
                     )}-picture.png`}
-                    fill
-                    sizes={styles.restArrange}
                     alt={props.resolvableItem.action}
                 />
             </div>
@@ -205,11 +192,9 @@ export const Item = (props: Props) => {
         buttonText = [
             "Przerzuć",
             <div className={styles.reRollToken} key={"1"}>
-                <Image
+                <ResizableImage
                     src={reRollTokenImg}
                     alt={"przerzut sukcesu"}
-                    sizes={styles.reRollToken}
-                    fill
                 />
             </div>,
         ];
@@ -253,11 +238,9 @@ export const Item = (props: Props) => {
                 {buttonText}
             </div>
             <div className={styles.character}>
-                <Image
+                <ResizableImage
                     src={`/interface/characters/pawns/${imageName}.png`}
-                    fill
                     alt="pionek"
-                    sizes={styles.character}
                 />
             </div>
         </div>

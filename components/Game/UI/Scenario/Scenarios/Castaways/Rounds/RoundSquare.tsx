@@ -3,6 +3,7 @@ import * as React from "react";
 import styles from "./RoundSquare.module.css";
 import Image from "next/image";
 import logStyles from "../../../../ChatLog/LogMessage/LogMessage.module.css";
+import ResizableImage from "../../../../../../ResizableImage/ResizableImage";
 
 interface Props {
     round: number;
@@ -33,11 +34,9 @@ export function RoundSquare(props: Props) {
                     }
                     key={key}
                 >
-                    <Image
+                    <ResizableImage
                         src={`/UI/scenarios/${key}.png`}
-                        fill
                         alt={"pogoda"}
-                        sizes={styles.weatherDice}
                     />
                 </div>
             );
@@ -50,26 +49,26 @@ export function RoundSquare(props: Props) {
         ? logStyles.roundContainer
         : styles.container;
 
-    const picture = props.currentRound ? "current" : props.round;
+    const imgNumber = props.currentRound ? "current" : props.round;
     return (
         <div className={containerClass}>
             <div className={styles.weather}>
                 {weatherEffects}
-
             </div>
-            <Image
-                src={"/UI/scenarios/squares/" + picture + ".png"}
-                className={styles.square}
-                fill
-                alt={"runda"}
-                sizes={containerClass}
-            />
+            <div className={styles.squareImg}>
+                <ResizableImage
+                    src={"/UI/scenarios/squares/" + imgNumber + ".png"}
+                    className={styles.square}
+                    fill
+                    alt={"runda"}
+                />
+            </div>
             <div className={styles.round + " " + currentRoundClass}>
                 {props.round}
             </div>
             {props.ship && (
                 <div className={styles.ship}>
-                    <Image
+                    <ResizableImage
                         src={"/UI/scenarios/boat.png"}
                         alt="Łódź"
                         fill

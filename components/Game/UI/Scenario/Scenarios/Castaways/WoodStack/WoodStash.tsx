@@ -5,6 +5,7 @@ import styles from "./WoodStack.module.css";
 import Image from "next/image";
 import fireImg from "/public/UI/scenarios/fire.png";
 import woodImg from "/public/UI/resources/wood.png";
+import ResizableImage from "../../../../../../ResizableImage/ResizableImage";
 
 type Props = {
     lvl: number;
@@ -26,12 +27,12 @@ export const WoodStash = (props: Props) => {
     return (
         <div className={styles.container}>
             <div className={`${styles.fire} ${fireNotBuiltClass}`}>
-                <Image src={fireImg} fill alt={"ogień"} sizes={styles.fire}/>
+                <ResizableImage src={fireImg} fill alt={"ogień"} sizes={styles.fire}/>
             </div>
             <div
                 className={`${styles.woodStack} ${styles["level" + props.lvl]}`}
             >
-                <Image
+                <ResizableImage
                     src={`/UI/scenarios/castaways/woodStack${props.lvl}.png`}
                     fill
                     sizes={styles.woodStack}
@@ -46,7 +47,7 @@ export const WoodStash = (props: Props) => {
                         {props.committedWood}/{props.lvl}
                     </div>
                     <div className={styles.woodImage}>
-                        <Image src={woodImg} fill alt={"drewno"} sizes={styles.woodImage}/>
+                        <ResizableImage src={woodImg} fill alt={"drewno"} sizes={styles.woodImage}/>
                     </div>
                     {props.lvl < 5 &&
                         <div className={`${styles.woodButton} ${styles.addWoodButton} ${buttonLockedClass}`}

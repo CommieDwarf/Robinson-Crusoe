@@ -4,6 +4,7 @@ import styles from "./MoraleBar.module.css";
 import moraleIconImg from "/public/UI/icons/morale.png";
 import heartImg from "/public/UI/misc/heart.png";
 import crossLineImg from "/public/UI/misc/cross-line.png";
+import ResizableImage from "../../../../ResizableImage/ResizableImage";
 
 interface Props {
     current: boolean;
@@ -14,13 +15,6 @@ export default function MoraleBar(props: Props) {
     const moraleBar0Class = props.value == 0 ? styles.moraleBar0 : "";
     const morale0Value = props.value === 0 ? styles.morale0Value : "";
     const moraleCurrentClass = props.current ? styles.current : "";
-    const barRef = useRef<HTMLDivElement>(null);
-    const [barHeight, setBarHeight] = useState<number>(0);
-    useLayoutEffect(() => {
-        if (barRef.current) {
-            setBarHeight()
-        }
-    }, [])
 
     if (props.value !== 3) {
         return (
@@ -34,7 +28,7 @@ export default function MoraleBar(props: Props) {
                     {props.value !== 0 && (
                         <div className={styles.moraleIcon}>
                             <div className={styles.moraleImg}>
-                                <Image
+                                <ResizableImage
                                     src={moraleIconImg}
                                     fill
                                     alt="morale"
@@ -61,7 +55,7 @@ export default function MoraleBar(props: Props) {
                 <div className={styles.moraleLabel}>
                     <div className={styles.lastMoraleBarValue}>3</div>
                     <div className={styles.lastMoraleIcon}>
-                        <Image
+                        <ResizableImage
                             src={moraleIconImg}
                             fill
                             alt="morale"
@@ -69,10 +63,10 @@ export default function MoraleBar(props: Props) {
                         />
                     </div>
                     <div className={styles.heart}>
-                        <Image src={heartImg} fill alt="życie" sizes={styles.heart}/>
+                        <ResizableImage src={heartImg} fill alt="życie" sizes={styles.heart}/>
                     </div>
                     <div className={styles.crossLine}>
-                        <Image src={crossLineImg} alt={""} fill/>
+                        <ResizableImage src={crossLineImg} alt={""} fill/>
                     </div>
                 </div>
             </div>

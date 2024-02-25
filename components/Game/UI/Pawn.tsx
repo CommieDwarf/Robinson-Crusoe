@@ -8,6 +8,7 @@ import {
 } from "../../../interfaces/Pawns/Pawn";
 import {ACTION} from "../../../interfaces/ACTION";
 import {useAppSelector} from "../../../store/hooks";
+import ResizableImage from "../../ResizableImage/ResizableImage";
 
 interface Props {
     pawn: IPawnRenderData | IPawnHelperRenderData;
@@ -48,7 +49,7 @@ export default function Pawn(props: Props) {
                             className={styles.pawn + " " + styles[pawnClass]}
                             id={props.pawn.draggableId}
                         >
-                            <Image
+                            <ResizableImage
                                 src={`/UI/characters/pawns/${imageName}.png`}
                                 fill
                                 alt="pionek"

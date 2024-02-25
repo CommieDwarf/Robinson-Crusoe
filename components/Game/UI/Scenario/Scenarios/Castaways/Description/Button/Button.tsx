@@ -33,7 +33,7 @@ export const Button = (props: Props) => {
             onClick={handleClick}
         >
             <div className={styles.background}>
-                {/*<Image*/}
+                {/*<ResizableImage*/}
                 {/*    src={scenarioBackgroundImg}*/}
                 {/*    fill*/}
                 {/*    alt={"tło"}*/}

@@ -9,13 +9,13 @@ import {v4 as uuidv4} from "uuid";
 import {IPawn} from "../../../../interfaces/Pawns/Pawn";
 import {EVENT_CARD, WRECKAGE_CARD,} from "../../../../interfaces/EventService/EVENT_CARD";
 import {ACTION, ACTION_ITEM, AdventureAction} from "../../../../interfaces/ACTION";
-import {AssignablePawnsItem} from "../../AssignablePawnsItem/AssignablePawnsItem";
 import {ResourceCommittableItem} from "../../ResourceCommittableItem/ResourceCommittableItem";
 import {IPlayerCharacter} from "../../../../interfaces/Characters/PlayerCharacter";
+import {IBasicResourcesAmount} from "../../../../interfaces/Resources/Resources";
 
 //TODO: implement name translations
 
-export abstract class EventCard extends ResourceCommittableItem implements IEventCard {
+export abstract class EventCard extends ResourceCommittableItem<keyof IBasicResourcesAmount> implements IEventCard {
     protected declare _namePL: string;
     protected declare _resolutionPL: string;
     protected readonly _id = uuidv4();

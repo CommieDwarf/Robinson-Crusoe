@@ -13,6 +13,7 @@ import timeConsumingActionToken from "/public/UI/tokens/time-consuming-action.pn
 
 import {ResourceActionButton} from "./ResourceActionButton/ResourceActionButton";
 import getActionSlots from "../../getActionSlots";
+import ResizableImage from "../../../../ResizableImage/ResizableImage";
 
 interface Props {
     tile: ITileRenderData;
@@ -116,22 +117,25 @@ export default function Tile(props: Props) {
             {props.tile.show && (
                 <>
                     <div className={styles.tile}>
-                        <Image
-                            src={`/UI/map/tiles/${imgId}.png`}
-                            fill
-                            alt="kafelek"
-                            sizes={styles.tile}
+                        {/*<ResizableImage*/}
+                        {/*    src={`/UI/map/tiles/${imgId}.png`}*/}
+                        {/*    fill*/}
+                        {/*    alt="kafelek"*/}
+                        {/*/>*/}
+                        <ResizableImage src={`/UI/map/tiles/${imgId}.png`} alt={"kafelek"}
+
                         />
+
                     </div>
 
                     {!props.tile.camp && actionSlots}
                     {props.tile.camp && (
                         <div className={styles.campIcon}>
-                            <Image
+                            <ResizableImage
                                 src={"/UI/tokens/camp.png"}
                                 fill
                                 alt={"obóz"}
-                                sizes={styles.campIcon}
+                                className={styles.campIcon}
                             />
                         </div>
                     )}
@@ -139,11 +143,9 @@ export default function Tile(props: Props) {
                         <div
                             className={`${styles.depletedMark} ${styles.depletedMarkLeft}`}
                         >
-                            <Image
+                            <ResizableImage
                                 src={xMarkImg}
                                 alt={"źródło wyczerpane"}
-                                fill
-                                sizes={styles.xMark}
                             />
                         </div>
                     )}
@@ -151,11 +153,9 @@ export default function Tile(props: Props) {
                         <div
                             className={`${styles.depletedMark} ${styles.depletedMarkRight}`}
                         >
-                            <Image
+                            <ResizableImage
                                 src={xMarkImg}
                                 alt={"źródło wyczerpane"}
-                                fill
-                                sizes={styles.xMark}
                             />
                         </div>
                     )}
@@ -179,27 +179,27 @@ export default function Tile(props: Props) {
                         <div className={styles.markedForAction} onClick={handleTileMarkClick}></div>}
                     <div className={styles.modifiers}>
                         {props.tile.modifiers.greaterDanger && <div className={styles.modifier}>
-                            <Image src={greaterDangerToken} alt={"zagrożenie"} fill sizes={styles.modifier}/>
+                            <ResizableImage src={greaterDangerToken} alt={"zagrożenie"}/>
                         </div>}
                         {props.tile.modifiers.timeConsumingAction &&
                             <div className={styles.modifier}>
-                                <Image src={timeConsumingActionToken} alt={"zagrożenie"} fill sizes={styles.modifier}/>
+                                <ResizableImage src={timeConsumingActionToken} alt={"zagrożenie"}/>
                             </div>
                         }
                     </div>
                     {props.tile.modifiers.terrainDepleted && <div className={styles.terrainDepleted}>
-                        <Image src={xMarkImg} fill alt={"teren zakryty"}/>
+                        <ResizableImage src={xMarkImg} fill alt={"teren zakryty"}/>
                     </div>}
                     {resourceModifierLeft &&
                         <div className={`${styles.resourceModifier} ${styles.resourceModifierLeft}`}>
-                            <Image src={`/UI/tokens/modifiers/${resourceModifierLeft.resource}.png`}
-                                   alt={"dodatkowy zasób"} fill sizes={styles.resourceModifier}/>
+                            <ResizableImage src={`/UI/tokens/modifiers/${resourceModifierLeft.resource}.png`}
+                                            alt={"dodatkowy zasób"}/>
                         </div>
                     }
                     {resourceModifierRight &&
                         <div className={`${styles.resourceModifier} ${styles.resourceModifierRight}`}>
-                            <Image src={`/UI/tokens/modifiers/${resourceModifierRight.resource}.png`}
-                                   alt={"dodatkowy zasób"} fill/>
+                            <ResizableImage src={`/UI/tokens/modifiers/${resourceModifierRight.resource}.png`}
+                                            alt={"dodatkowy zasób"} fill/>
                         </div>
                     }
                 </>

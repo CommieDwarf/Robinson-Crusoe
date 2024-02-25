@@ -17,13 +17,16 @@ import Wound from "./Wound/Wound";
 import Entries from "../../../../interfaces/Entries";
 import {Cloud, OverallWeather} from "../../../../interfaces/Weather/Weather";
 import {ActionDice} from "../../../../interfaces/RollDice/RollDice";
+import ResizableImage from "../../../ResizableImage/ResizableImage";
+import {formatToKebabCase} from "../../../../utils/formatToKebabCase";
+import {ICharacter} from "../../../../interfaces/Characters/Character";
 
 interface Props {
     character: IPlayerCharacterRenderData;
     friday: ISideCharacterRenderData;
     dog: ISideCharacterRenderData;
     zIndex: string;
-    useSkill: (character: string, skillName: string, target?: IPlayerCharacter | ActionDice | Cloud) => void;
+    useSkill: (character: string, skillName: string, target?: ICharacter | ActionDice | Cloud) => void;
     overallWeather: OverallWeather
 }
 
@@ -78,14 +81,15 @@ export default function Character(props: Props) {
         })
     })
 
+    const charImgName = formatToKebabCase(`${props.character.name} ${props.character.gender}`)
 
     return (
         <div className={styles.container + " " + zIndexClass} ref={containerRef}>
             <div className={styles.characterPictureWrapper}>
                 <div className={styles.characterPicture}>
                     {wounds}
-                    <Image
-                        src={`/UI/characters/player-characters/${props.character.name}-${props.character.gender}.png`}
+                    <ResizableImage
+                        src={`/UI/characters/player-characters/${charImgName}.png`}
                         fill
                         alt="character"
                         sizes={styles.characterPicture}

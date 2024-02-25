@@ -6,6 +6,7 @@ import PhaseDropDownMenu from "./PhaseDropDownMenu/PhaseDropDownMenu";
 import {useTranslation} from "react-i18next";
 
 import triangle from "/public/UI/misc/triangle.png";
+import ResizableImage from "../../../ResizableImage/ResizableImage";
 
 export type PhaseType =
     | "production"
@@ -45,7 +46,7 @@ function Phase(props: Props) {
                 <span className={styles[props.phase]}>{t(`phase.${props.phase}`)}</span>
             </strong>
             <div className={styles.phaseIcon}>
-                <Image
+                <ResizableImage
                     src={`/UI/phase/${props.phase}.png`}
                     fill
                     alt="phase icon"
@@ -56,12 +57,12 @@ function Phase(props: Props) {
                     Kolejność
                 </span>
                 <div className={styles.triangle}>
-                    <Image src={triangle} alt={""} fill></Image>
+                    <ResizableImage src={triangle} alt={""}/>
                 </div>
 
 
                 {/*<div className={styles.arrowImg}>*/}
-                {/*    <Image src={redArrowImg} alt={""} fill></Image>*/}
+                {/*    <ResizableImage src={redArrowImg} alt={""} fill></Image>*/}
                 {/*</div>*/}
             </div>
             <PhaseDropDownMenu currentPhase={props.phase} show={showMenu} rowHeight={containerHeight}/>

@@ -4,7 +4,7 @@ import {
     IInventionRenderData,
     INVENTION,
     INVENTION_TYPE,
-    InventionRequirements,
+    InventionRequirements, InventionResource,
 } from "../../../../interfaces/InventionService/Invention";
 import {CHARACTER} from "../../../../interfaces/Characters/Character";
 import {IGame} from "../../../../interfaces/Game";
@@ -15,7 +15,8 @@ import {IPlayerCharacter} from "../../../../interfaces/Characters/PlayerCharacte
 import {PAWN_HELPER_ACTION} from "../../../../interfaces/Pawns/Pawn";
 import {PawnHelper} from "../../PawnService/Pawn/PawnHelper";
 
-export class Invention extends ResourceCommittableItem implements IInvention {
+
+export class Invention extends ResourceCommittableItem<InventionResource> implements IInvention {
     protected readonly _name: INVENTION;
     protected declare readonly _namePL: string;
     protected _locked = true;
@@ -37,8 +38,8 @@ export class Invention extends ResourceCommittableItem implements IInvention {
         requirements: InventionRequirements,
         inventionType: INVENTION_TYPE,
         game: IGame,
-        resourceCost: SingleResourceRequirement | null = null,
-        optionalResource: SingleResourceRequirement | null = null,
+        resourceCost: SingleResourceRequirement<InventionResource> | null = null,
+        optionalResource: SingleResourceRequirement<InventionResource> | null = null,
     ) {
 
         super(ACTION.BUILD, ACTION_ITEM.INVENTION, game, resourceCost, optionalResource);

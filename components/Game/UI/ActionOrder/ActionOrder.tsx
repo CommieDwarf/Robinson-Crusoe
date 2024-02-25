@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 import styles from "./ActionOrder.module.css";
 import {actionOrder} from "../../../../constants/actionOrder";
-import {getImgName} from "../../../../utils/getImgName";
+import {formatToKebabCase} from "../../../../utils/formatToKebabCase";
 import redArrowImg from "/public/UI/misc/red-arrow.png";
 
 import reRollImg from "/public/UI/tokens/reroll.png";
@@ -12,6 +12,7 @@ import {objectsEqual} from "../../../../utils/objectsEqual";
 import {ACTION} from "../../../../interfaces/ACTION";
 import {IGlobalCostModifierRenderData} from "../../../../interfaces/ActionService/GlobalCostModifier";
 import timeConsumingActionToken from "/public/UI/tokens/time-consuming-action.png";
+import ResizableImage from "../../../ResizableImage/ResizableImage";
 
 interface Props {
     adventureTokens: ActionTokens;
@@ -26,16 +27,14 @@ function ActionOrder(props: Props) {
         if (i > 0) {
             actionIcons.push(
                 <div className={styles.redArrow} key={i}>
-                    <Image
+                    <ResizableImage
                         src={redArrowImg}
-                        fill
                         alt="strzałka"
-                        sizes={styles.redArrow}
                     />
                 </div>
             );
         }
-        let adventureTokenSrc = `/UI/actions/${getImgName(action)}.png`;
+        let adventureTokenSrc = `/UI/actions/${formatToKebabCase(action)}.png`;
         let reRollToken;
         if (isAdventureAction(action)) {
             if (props.adventureTokens[action]) {
@@ -45,11 +44,9 @@ function ActionOrder(props: Props) {
             if (props.reRollTokens[action]) {
                 reRollToken = (
                     <div className={styles.token}>
-                        <Image
+                        <ResizableImage
                             src={reRollImg}
                             alt={"reroll"}
-                            fill
-                            sizes={styles.actionIcon}
                             className={styles.reRoll}
                         />
                     </div>
@@ -59,21 +56,17 @@ function ActionOrder(props: Props) {
         let timeConsumingActionIcon;
         if (props.globalCostModifiers[action].some((modifier) => modifier.resource === "helper")) {
             timeConsumingActionIcon = <div className={styles.token}>
-                <Image
+                <ResizableImage
                     src={timeConsumingActionToken}
                     alt={"wymagany dodatkowy pionek"}
-                    fill
-                    sizes={styles.actionIcon}
                 />
             </div>
         }
         actionIcons.push(
             <div className={styles.actionIcon} key={i + 100}>
-                <Image
+                <ResizableImage
                     src={adventureTokenSrc}
-                    fill
                     alt={action}
-                    sizes={styles.actionIcon}
                 />
                 <div className={styles.tokens}>
                     {reRollToken}

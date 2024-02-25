@@ -9,6 +9,6 @@ import {Construction} from "../server/Game/ConstructionService/Construction";
 import {Invention} from "../server/Game/Inventions/InventionCreator/Invention";
 import {EventCard} from "../server/Game/EventService/EventCardCreator/EventCard";
 
-export function isCommittableResourcesItem(candidate: any): candidate is IResourceCommittableItem {
+export function isCommittableResourcesItem(candidate: any): candidate is IResourceCommittableItem<any> {
     return candidate instanceof Object && "resourceCost" in candidate;
 }

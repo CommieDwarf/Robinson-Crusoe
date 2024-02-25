@@ -1,8 +1,8 @@
 import {CreatureMysteryCard} from "./CreatureMysteryCard/CreatureMysteryCard";
 import {IMysteryCard} from "../../../../../../interfaces/MysteryService/MysteryCard";
 import {IGame} from "../../../../../../interfaces/Game";
-import {IPlayerCharacter} from "../../../../../../interfaces/Characters/Character";
 import {CONSTRUCTION} from "../../../../../../interfaces/ConstructionService/Construction";
+import {IPlayerCharacter} from "../../../../../../interfaces/Characters/PlayerCharacter";
 
 export class Gorilla
     extends CreatureMysteryCard

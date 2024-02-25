@@ -4,6 +4,8 @@ import {IGame} from "../../../../../../interfaces/Game";
 import {stoneSoup} from "../../../../../../constants/SkillDescriptions/Cook";
 import {ISkill} from "../../../../../../interfaces/Skill/Skill";
 import {ActionDice} from "../../../../../../interfaces/RollDice/RollDice";
+import {ICharacter} from "../../../../../../interfaces/Characters/Character";
+import {Cloud} from "../../../../../../interfaces/Weather/Weather";
 
 export class StoneSoup extends Skill implements ISkill {
     private _character: IPlayerCharacter;
@@ -22,7 +24,7 @@ export class StoneSoup extends Skill implements ISkill {
         this._character = character;
     }
 
-    use(target: IPlayerCharacter | ActionDice | null = null) {
+    use(target: ICharacter | ActionDice | Cloud | null = null) {
         if (this._game.phaseService.phase === "action") {
             this._game.resourceService.addBasicResourceToFuture(
                 "food",

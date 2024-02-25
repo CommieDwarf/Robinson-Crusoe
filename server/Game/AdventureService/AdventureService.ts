@@ -14,6 +14,7 @@ import {Tile} from "../TileService/TileGraph/Tile";
 import {TileService} from "../TileService/TileService";
 import {isAdventureAction} from "../../../utils/isAdventureAction";
 import shuffle from "../../../utils/shuffleArray";
+import {isPlayerCharacter} from "../../../utils/isPlayerCharacter";
 
 export class AdventureService implements IAdventureService {
     private readonly _game: IGame;
@@ -44,11 +45,15 @@ export class AdventureService implements IAdventureService {
         return this._currentAdventure;
     }
 
-    resolveAdventureCard(option: 1 | 2, resolverName: string) {
+
+    resolveAdventureCard(option: 1 | 2, playerCharacterName: string): void {
         if (!this._currentAdventure) {
-            throw new Error("There is no current card to resolve");
+            throw new Error("There is no current card to resolve!");
         }
-        const resolver = this._game.characterService.getCharacter(resolverName);
+        const resolver = this._game.characterService.getCharacter(playerCharacterName);
+        if (!isPlayerCharacter(resolver)) {
+            throw new Error("Side character shouldn't have opportunity to resolve adventure card!")
+        }
         if (option === 1 || !this._currentAdventure.card.shouldDecide) {
             this._currentAdventure.card.option1(resolver);
         } else {

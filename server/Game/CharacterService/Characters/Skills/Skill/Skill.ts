@@ -7,6 +7,7 @@ import {IPlayerCharacter} from "../../../../../../interfaces/Characters/PlayerCh
 import {Phase} from "../../../../../../interfaces/PhaseService/PhaseService";
 import {phaseOrder} from "../../../../../../constants/phaseOrder";
 import {Cloud} from "../../../../../../interfaces/Weather/Weather";
+import {ICharacter} from "../../../../../../interfaces/Characters/Character";
 
 export abstract class Skill implements ISkill {
     protected readonly _name: string;
@@ -21,7 +22,7 @@ export abstract class Skill implements ISkill {
     protected _lastRoundUsed = 0;
     protected _cost: number;
 
-    abstract use(target: IPlayerCharacter | ActionDice | Cloud | null): void;
+    abstract use(target: ICharacter | ActionDice | Cloud | null): void;
 
 
     protected constructor(
@@ -56,7 +57,7 @@ export abstract class Skill implements ISkill {
             quote: this._quote,
             phasesAllowed: this._phasesAllowed,
             actionAllowed: this._actionAllowed,
-            usedInThisRound: this.usedInThisRound(),
+            usedInThisRound: this.usedInThisRound,
             cost: this._cost,
             canBeUsed: this.canBeUsed(),
         };
@@ -90,12 +91,16 @@ export abstract class Skill implements ISkill {
         return this._actionAllowed;
     }
 
-    public canBeUsed() {
-        return ((this._phasesAllowed.includes(this._game.phaseService.phase)) && (this._actionAllowed ? this._actionAllowed === this._game.actionService.action : true))
+    get usedInThisRound() {
+        return this._lastRoundUsed === this._game.round;
     }
 
-    usedInThisRound(): boolean {
-        return this._lastRoundUsed === this._game.round;
+    public canBeUsed() {
+        return (
+            (this._phasesAllowed.includes(this._game.phaseService.phase))
+            && (this._actionAllowed ? this._actionAllowed === this._game.actionService.action : true)
+            && !this.usedInThisRound
+        )
     }
 
 

@@ -6,6 +6,7 @@ import {isAdventureAction} from "../../../../../../../utils/isAdventureAction";
 import reRollTokenImg from "/public/UI/tokens/reroll.png";
 import Image from "next/image";
 import {ACTION} from "../../../../../../../interfaces/ACTION";
+import ResizableImage from "../../../../../../ResizableImage/ResizableImage";
 
 type Props = {
     action: ACTION;
@@ -17,21 +18,17 @@ export const Tokens = (props: Props) => {
         <div className={styles.container}>
             {isAdventureAction(props.action) && props.reRollTokens[props.action] && (
                 <div className={styles.token}>
-                    <Image
+                    <ResizableImage
                         src={reRollTokenImg}
-                        sizes={styles.token}
                         alt={"przerzut sukcesu"}
-                        fill
                     />
                 </div>
             )}
             {isAdventureAction(props.action) && props.adventureTokens[props.action] && (
                 <div className={styles.token}>
-                    <Image
+                    <ResizableImage
                         src={`/UI/tokens/adventure/${props.action}.png`}
-                        sizes={styles.token}
                         alt={"przerzut sukcesu"}
-                        fill
                     />
                 </div>
             )}

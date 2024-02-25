@@ -7,6 +7,7 @@ import redArrowImg from "/public/UI/misc/red-arrow.png";
 import redArrowCurvedImg from "/public/UI/misc/red-arrow-curved.png";
 import {objectsEqual} from "../../../../utils/objectsEqual";
 import getActionSlots from "../getActionSlots";
+import ResizableImage from "../../../ResizableImage/ResizableImage";
 
 interface Props {
     threat: IEventServiceRenderData;
@@ -24,10 +25,10 @@ function Threat(props: Props) {
             <Card card={props.threat.leftSlot}/>
             <Card card={props.threat.rightSlot}/>
             <div className={styles.arrow}>
-                <Image src={redArrowImg} fill alt="strzałka" sizes={styles.arrow}/>
+                <ResizableImage src={redArrowImg} fill alt="strzałka" sizes={styles.arrow}/>
             </div>
             <div className={styles.curvedArrow}>
-                <Image
+                <ResizableImage
                     src={redArrowCurvedImg}
                     fill
                     alt="strzałka"

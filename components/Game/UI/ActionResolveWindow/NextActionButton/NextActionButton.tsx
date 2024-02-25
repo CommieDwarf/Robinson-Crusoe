@@ -4,8 +4,9 @@ import styles from "./NextActionButton.module.css";
 import Image from "next/image";
 import {actionOrder} from "../../../../../constants/actionOrder";
 import redArrowImg from "/public/UI/misc/red-arrow.png";
-import {getImgName} from "../../../../../utils/getImgName";
+import {formatToKebabCase} from "../../../../../utils/formatToKebabCase";
 import {IActionServiceRenderData} from "../../../../../interfaces/ActionService/ActionService";
+import ResizableImage from "../../../../ResizableImage/ResizableImage";
 
 type Props = {
     setNextAction: () => void;
@@ -37,20 +38,16 @@ export const NextActionButton = (props: Props) => {
     return (
         <div className={styles.container} onClick={clickHandle}>
             <div className={styles.arrow}>
-                <Image
+                <ResizableImage
                     src={redArrowImg}
-                    fill
                     alt={"Następna akcja"}
-                    sizes={styles.arrow}
                 />
             </div>
             <div className={styles.nextAction}>
-                {/*<Image*/}
-                {/*  src={`/UI/actions/${getImgName(nextAction)}.png`}*/}
-                {/*  fill*/}
-                {/*  alt={"Następna akcja"}*/}
-                {/*  sizes={styles.nextAction}*/}
-                {/*/>*/}
+                <ResizableImage
+                    src={`/UI/actions/${formatToKebabCase(nextAction)}.png`}
+                    alt={"Następna akcja"}
+                />
             </div>
         </div>
     );

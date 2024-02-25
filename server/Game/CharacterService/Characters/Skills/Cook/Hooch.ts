@@ -6,6 +6,7 @@ import {PHASE} from "../../../../../../interfaces/PhaseService/Phase";
 import {ISkill} from "../../../../../../interfaces/Skill/Skill";
 import {ActionDice} from "../../../../../../interfaces/RollDice/RollDice";
 import {Cloud} from "../../../../../../interfaces/Weather/Weather";
+import {ICharacter} from "../../../../../../interfaces/Characters/Character";
 
 export class Hooch extends Skill implements ISkill {
     private _character: IPlayerCharacter;
@@ -24,7 +25,7 @@ export class Hooch extends Skill implements ISkill {
         this._character = character;
     }
 
-    use(target: IPlayerCharacter | ActionDice | Cloud | null = null) {
+    use(target: ICharacter | ActionDice | Cloud | null = null) {
         //TODO: implement
         if (target === "rain") {
             this._game.weatherService.incrementModifier(target, -1, this._namePL);

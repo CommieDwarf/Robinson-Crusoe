@@ -11,6 +11,7 @@ import magnifyingGlass from "/public/UI/misc/magnifying-glass.png";
 import map from "/public/UI/map/map.png";
 import redArrowImg from "/public/UI/misc/red-arrow.png";
 import {objectsEqual} from "../../../../utils/objectsEqual";
+import ResizableImage from "../../../ResizableImage/ResizableImage";
 
 interface Props {
     tileService: ITilesServiceRenderData;
@@ -144,7 +145,7 @@ function Map(props: Props) {
         >
             {props.tileService.isTileMarkedForAction && (
                 <div className={styles.tipArrow}>
-                    <Image
+                    <ResizableImage
                         src={redArrowImg}
                         alt={""}
                         fill
@@ -170,7 +171,7 @@ function Map(props: Props) {
             <div className={`${styles.scroll} ${scrollDisabledClass}`} ref={scrollbar}>
                 <div className={`${styles.content}`} style={contentStyle}>
                     <div className={styles.map}>
-                        <Image src={map} fill alt="mapa" priority sizes={styles.map}/>
+                        <ResizableImage src={map} alt="mapa"/>
                         {tiles}
                     </div>
                 </div>

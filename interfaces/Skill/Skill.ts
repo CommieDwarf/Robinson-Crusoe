@@ -4,6 +4,7 @@ import {ActionDice} from "../RollDice/RollDice";
 import {IPlayerCharacter} from "../Characters/PlayerCharacter";
 import {Phase} from "../PhaseService/PhaseService";
 import {Cloud} from "../Weather/Weather";
+import {ICharacter} from "../Characters/Character";
 
 export interface ISkill {
     name: string;
@@ -13,8 +14,10 @@ export interface ISkill {
     phasesAllowed: Phase[] | "all";
     actionAllowed: AdventureAction | null;
 
+    usedInThisRound: boolean;
+
     canBeUsed: () => boolean;
-    use: (target: IPlayerCharacter | ActionDice | Cloud | null) => void;
+    use: (target: ICharacter | ActionDice | Cloud | null) => void;
     cost: number;
     renderData: ISkillRenderData;
 }

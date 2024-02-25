@@ -10,7 +10,13 @@ import {Side} from "../../../interfaces/TileService/TileResourceService";
 
 
 export default function getActionSlots(
-    item: IInventionRenderData | IConstructionRenderData | ITileRenderData | IBeastRenderData | IEventCardRenderData, additionalCost: number, side: Side | "" = "") {
+    item: IInventionRenderData |
+        IConstructionRenderData | ITileRenderData
+        | IBeastRenderData | IEventCardRenderData,
+    additionalCost: number,
+    side: Side | "" = "") {
+
+    if (item.requiredPawnAmount === null) return [];
 
     let identifier;
 

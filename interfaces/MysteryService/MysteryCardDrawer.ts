@@ -1,20 +1,20 @@
-import { IMysteryCard } from "./MysteryCard";
-import { IPlayerCharacter } from "../Characters/Character";
+import {IMysteryCard} from "./MysteryCard";
+import {IPlayerCharacter} from "../Characters/PlayerCharacter";
 
 export interface IMysteryCardDrawer {
-  creature: number;
-  trap: number;
-  treasure: number;
-  acquiredTreasures: IMysteryCard[];
+    creature: number;
+    trap: number;
+    treasure: number;
+    acquiredTreasures: IMysteryCard[];
 
-  drawer: IPlayerCharacter;
+    drawer: IPlayerCharacter;
 
-  canDraw: boolean;
-  finished: boolean;
-  canFinish: boolean
+    canDraw: boolean;
+    finished: boolean;
+    canFinish: boolean
 
 
-  finish: () => void;
-  drawCard: () => IMysteryCard;
-  disableDrawingCards: () => void;
+    finish: () => void;
+    drawCard: () => IMysteryCard;
+    disableDrawingCards: () => void;
 }

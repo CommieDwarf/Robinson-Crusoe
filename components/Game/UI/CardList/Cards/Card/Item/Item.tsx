@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./Item.module.css";
-import Image from "next/image";
 import {IItemRenderData, ITEM} from "../../../../../../../interfaces/Equipment/Item";
-import {getImgName} from "../../../../../../../utils/getImgName";
+import {formatToKebabCase} from "../../../../../../../utils/formatToKebabCase";
 import useImg from "/public/UI/icons/use-mark.png";
+import ResizableImage from "../../../../../../ResizableImage/ResizableImage";
 
 interface Props {
     item: IItemRenderData;
@@ -43,17 +43,15 @@ export default function Item(props: Props) {
                           onMouseLeave={handleMouseLeave}
                           onClick={handleButtonClick}
         >
-            <Image src={useImg} alt={"użyj"} fill/>
+            <ResizableImage src={useImg} alt={"użyj"} fill/>
         </div>)
     }
 
     return (
         <div className={styles.container}>
-            <Image
-                src={`/UI/cards/items/${getImgName(props.item.name)}.png`}
-                fill
+            <ResizableImage
+                src={`/UI/cards/items/${formatToKebabCase(props.item.name)}.png`}
                 alt={props.item.name}
-                sizes={styles.item}
             />
             <div className={styles.buttons}>
                 {buttons}

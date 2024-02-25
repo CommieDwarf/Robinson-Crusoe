@@ -8,6 +8,7 @@ import skullImg from "/public/UI/icons/skull.png";
 import {ICharacterRenderData} from "../../../../interfaces/Characters/Character";
 import {ICharacterService, ICharacterServiceRenderData} from "../../../../interfaces/CharacterService/CharacterService";
 import Threshold from "./Threshold";
+import ResizableImage from "../../../ResizableImage/ResizableImage";
 
 interface Props {
     value: number;
@@ -22,10 +23,9 @@ function Health(props: Props) {
 
 
     for (let i = props.maxHealth; i > 0; i--) {
-        console.log("heart key, ", i)
         marks.push(
             <div className={styles.heart} key={i}>
-                <Image
+                <ResizableImage
                     src={i === props.value ? redHeartImg : heartImg}
                     fill
                     alt="serce"
@@ -47,7 +47,7 @@ function Health(props: Props) {
     }
     marks.push(
         <div className={styles.skull} key={2137}>
-            <Image src={skullImg} fill alt="czaszka" sizes={styles.skull}/>
+            <ResizableImage src={skullImg} fill alt="czaszka" sizes={styles.skull}/>
         </div>
     );
     return (

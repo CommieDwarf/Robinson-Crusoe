@@ -10,6 +10,7 @@ import dogPicImg from "/public/UI/characters/side-characters/dog-pic.png";
 import dogUsageImg from "/public/UI/characters/dog-usage.png";
 import {useAppSelector} from "../../../../../store/hooks";
 import {objectsEqual} from "../../../../../utils/objectsEqual";
+import ResizableImage from "../../../../ResizableImage/ResizableImage";
 
 interface Props {
     friday: ISideCharacterRenderData;
@@ -57,7 +58,7 @@ function SideCharacters(props: Props) {
                 <div className={`${styles.name}`}>Piętaszek</div>
                 <FridayHealth health={0}/>
                 <div className={styles.fridayPic}>
-                    <Image
+                    <ResizableImage
                         src={fridayPicImg}
                         fill
                         alt="Piętaszek"
@@ -92,7 +93,7 @@ function SideCharacters(props: Props) {
                 </Droppable>
                 <div className={`${styles.name}`}>Pies</div>
                 <div className={styles.dogUsage}>
-                    <Image
+                    <ResizableImage
                         src={dogUsageImg}
                         fill
                         alt="umiejętności psa"
@@ -100,7 +101,7 @@ function SideCharacters(props: Props) {
                     />
                 </div>
                 <div className={`${styles.dogPic}`}>
-                    <Image src={dogPicImg} fill alt="pies" sizes={styles.picture}/>
+                    <ResizableImage src={dogPicImg} fill alt="pies" sizes={styles.picture}/>
                 </div>
             </div>
         </div>

@@ -143,7 +143,7 @@ export abstract class Character implements ICharacter {
         if (!target) {
             target = this._game.localPlayer.getCharacter();
         }
-        if (skill.usedInThisRound()) {
+        if (skill.usedInThisRound) {
             this._game.alertService.setAlert("Ta umiejętność została już użyta w tej rundzie.");
             return;
         }

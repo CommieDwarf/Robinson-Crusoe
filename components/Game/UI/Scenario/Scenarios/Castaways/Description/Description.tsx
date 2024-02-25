@@ -11,6 +11,7 @@ import Entries from "../../../../../../../interfaces/Entries";
 import yellowPaperImg from "/public/UI/scenarios/paper.png";
 import paperScrollRightImg from "/public/UI/scenarios/paper-scroll-right.png";
 import paperScrollLeftImg from "/public/UI/scenarios/paper-scroll-left.png";
+import ResizableImage from "../../../../../../ResizableImage/ResizableImage";
 
 type Props = {};
 
@@ -73,7 +74,7 @@ export const Description = (props: Props) => {
             <div className={styles.buttons}>{buttons}</div>
             <div className={styles.paperScroll}>
                 <div className={styles.leftScroll} onClick={handleRollClick}>
-                    <Image src={paperScrollLeftImg} alt={""} fill sizes={styles.leftScroll}/>
+                    <ResizableImage src={paperScrollLeftImg} alt={""} fill sizes={styles.leftScroll}/>
                 </div>
                 <div className={`${styles.paperWrapper} ${unrolled ? styles.paperWrapperUnrolled : ""}`}>
                     <div className={styles.paper} style={paperStyle}>
@@ -81,14 +82,14 @@ export const Description = (props: Props) => {
                             {currentInfo[1]}
                         </div>
                         <div className={styles.paperImg}>
-                            <Image src={yellowPaperImg} alt={""} fill sizes={styles.paperImg}/>
+                            <ResizableImage src={yellowPaperImg} alt={""} fill sizes={styles.paperImg}/>
                         </div>
                     </div>
 
                 </div>
                 <div className={`${styles.rightScroll} ${unrolled ? styles.rightScrollUnrolled : ""}`}
                      onClick={handleRollClick}>
-                    <Image src={paperScrollLeftImg} alt={""} fill/>
+                    <ResizableImage src={paperScrollLeftImg} alt={""} fill/>
                 </div>
             </div>
         </div>

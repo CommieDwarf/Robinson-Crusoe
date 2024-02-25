@@ -9,6 +9,7 @@ import {objectsEqual} from "../../../../utils/objectsEqual";
 import Image from "next/image";
 import productionImg from "/public/UI/phase/production.png";
 import boardImg from "/public/UI/misc/board.jpg";
+import ResizableImage from "../../../ResizableImage/ResizableImage";
 
 interface Props {
     owned: {
@@ -31,14 +32,12 @@ function AllResources(props: Props) {
                 <Resources type={"future"} {...props.future} />
             </div>
             <div className={frameStyles.midBar}>
-                <Image src={boardImg} fill alt={"ramka"} sizes={frameStyles.midBar}/>
+                <ResizableImage src={boardImg} alt={"ramka"}/>
                 <div className={frameStyles.barDecoration}>
                     <div className={frameStyles.productionIcon}>
-                        <Image
+                        <ResizableImage
                             src={productionImg}
-                            fill
                             alt={"ikona produkcji"}
-                            sizes={styles.productionIcon}
                         />
                     </div>
                 </div>

@@ -25,7 +25,6 @@ export default function Scenario(props: Props) {
         height: (props.contentHeight + actionOrderRowHeight) + "px",
     }
 
-    console.log(contentStyle)
 
     return (
         <div className={styles.container + " " + hiddenClass}>

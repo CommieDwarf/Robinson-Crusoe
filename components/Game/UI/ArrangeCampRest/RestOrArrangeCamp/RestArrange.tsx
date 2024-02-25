@@ -12,6 +12,7 @@ import moraleIconImg from "/public/UI/icons/morale.png";
 import {useTranslation} from "react-i18next";
 import {ACTION, ACTION_ITEM} from "../../../../../interfaces/ACTION";
 import capitalizeFirstLetter from "../../../../../utils/capitalizeFirstLetter";
+import ResizableImage from "../../../../ResizableImage/ResizableImage";
 
 interface Props {
     pawnAmount: number;
@@ -27,20 +28,16 @@ export default function RestArrange(props: Props) {
                 <div className={styles.determinationReward}>
                     <div className={styles.determinationValue}>2</div>
                     <div className={styles.moraleIcon}>
-                        <Image
+                        <ResizableImage
                             src={moraleIconImg}
-                            fill
                             alt="token determinacji"
-                            sizes={styles.moraleIcon}
                         />
                     </div>
                 </div>
                 <div className={styles.moraleReward}>
                     <div className={styles.moraleArrow}>
-                        <Image
+                        <ResizableImage
                             src={moraleArrowRightImg}
-                            fill
-                            sizes={styles.moraleArrow}
                             alt="strzałka morali"
                         />
                     </div>
@@ -52,7 +49,7 @@ export default function RestArrange(props: Props) {
             <div className={styles.activityReward}>
                 <div className={styles.plus}>+</div>
                 <div className={styles.heart}>
-                    <Image src={heartImg} fill sizes={styles.heart} alt="serce"/>
+                    <ResizableImage src={heartImg} alt="serce"/>
                 </div>
             </div>
         );

@@ -1,5 +1,5 @@
-import { IPlayerService } from "../../../interfaces/PlayerService/PlayerSevice";
-import { IPlayer } from "../../../interfaces/PlayerService/Player";
+import {IPlayerService} from "../../../interfaces/PlayerService/PlayerSevice";
+import {IPlayer} from "../../../interfaces/PlayerService/Player";
 
 export class PlayerService implements IPlayerService {
   players: IPlayer[];
@@ -16,8 +16,18 @@ export class PlayerService implements IPlayerService {
   }
 
   // TODO: Implement for multiplayer
-  addPlayer(player: IPlayer): void {}
+  addPlayer(player: IPlayer): void {
+  }
 
   // TODO: Implement for multiplayer Play
-  setNextPrimePlayer(): void {}
+  setNextPrimePlayer(): void {
+  }
+
+  getPlayerById(id: number) {
+    const searchedPlayer = this.players.find((player) => player.id === id);
+    if (!searchedPlayer) {
+      throw new Error("Can't find player with given id: ", searchedPlayer);
+    }
+    return searchedPlayer;
+  }
 }

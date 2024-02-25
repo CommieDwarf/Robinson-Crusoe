@@ -3,6 +3,7 @@ import * as React from "react";
 import styles from "./ResourceActionButton.module.css";
 import Image from "next/image";
 import circleImg from "/public/UI/misc/red-circle-2.png";
+import ResizableImage from "../../../../../ResizableImage/ResizableImage";
 
 interface Props {
     side: "left" | "right";
@@ -22,7 +23,7 @@ export const ResourceActionButton = (props: Props) => {
             }`}
             onClick={handleClick}
         >
-            <Image
+            <ResizableImage
                 src={circleImg}
                 alt={"wyczerp źródło"}
                 fill

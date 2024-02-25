@@ -49,6 +49,7 @@ import {ResourceCommittableItem} from "./ResourceCommittableItem/ResourceCommitt
 import {IResourceCommittableItem} from "../../interfaces/ResourceCommitableItem/ResourceCommittableItem";
 import {isCommittableResourcesItem} from "../../utils/isCommittableResourcesItem";
 import {Invention} from "./Inventions/InventionCreator/Invention";
+import {IBasicResources} from "../../interfaces/Resources/Resources";
 
 type ScenarioName = "castaways";
 
@@ -249,7 +250,7 @@ export class GameClass implements IGame {
             pawn.character.pawnService.copyPawnToFreePawns(pawn.draggableId);
         } else {
             if (this.shouldCommitResources(droppableId) && this.canCommitResources(droppableId)) {
-                const item = getItemFromDroppableId(droppableId, this) as IResourceCommittableItem;
+                const item = getItemFromDroppableId(droppableId, this) as IResourceCommittableItem<keyof IBasicResources>;
                 item.commitResource();
             }
             if (droppableId.includes("card") && item instanceof Invention) {

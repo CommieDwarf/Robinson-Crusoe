@@ -4,6 +4,7 @@ import styles from "./PhaseDropDownMenu.module.css";
 import {useTranslation} from "react-i18next";
 
 import {PhaseType} from "../Phase";
+import ResizableImage from "../../../../ResizableImage/ResizableImage";
 
 interface Props {
     currentPhase: PhaseType;
@@ -38,7 +39,7 @@ export default function PhaseDropDownMenu(props: Props) {
                     {i + 1}. Faza {t(`phase.${phase}`)}
                 </div>
                 <div className={styles.phasePicture}>
-                    <Image
+                    <ResizableImage
                         src={`/UI/phase/${phase}-pic.png`}
                         alt={phase}
                         fill

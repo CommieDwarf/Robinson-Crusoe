@@ -9,9 +9,10 @@ import plusImg from "/public/UI/misc/plus.png";
 import minusImg from "/public/UI/misc/minus.png";
 
 import styles from "./UseOverlay.module.css";
-import {getImgName} from "../../../../../../../../utils/getImgName";
+import {formatToKebabCase} from "../../../../../../../../utils/formatToKebabCase";
 import {isStorageCard} from "../../../../../../../../utils/isStorageCard";
 import {StorageAction} from "../../../../../../../../interfaces/MysteryService/StorageCard";
+import ResizableImage from "../../../../../../../ResizableImage/ResizableImage";
 
 interface Props {
     card: IMysteryCardRenderData;
@@ -36,13 +37,11 @@ export default function UseButtons(props: Props) {
                     onMouseLeave={props.onMouseLeaveButton}
                     onClick={props.use}
                 >
-                    <Image
+                    <ResizableImage
                         className={styles.treasureImage}
                         src={treasureIcon}
-                        sizes={styles.useMark}
-                        fill
                         alt="użycie"
-                    ></Image>
+                    />
                 </div>
             );
         }
@@ -53,16 +52,14 @@ export default function UseButtons(props: Props) {
 
     if (isStorageCard(props.card) && props.card.stored) {
         Object.entries(props.card.stored).forEach(([res, amount]) => {
-            const sourceImg = `/UI/resources/${getImgName(res)}.png`;
+            const sourceImg = `/UI/resources/${formatToKebabCase(res)}.png`;
             for (let i = 0; i < amount; i++) {
                 resources.push(
                     <div className={styles.resource}>
-                        <Image
+                        <ResizableImage
                             src={sourceImg}
-                            fill
-                            sizes={styles.resource}
                             alt="depozyt"
-                        ></Image>
+                        />
                     </div>
                 );
             }
@@ -104,12 +101,10 @@ export default function UseButtons(props: Props) {
                         onMouseLeave={props.onMouseLeaveButton}
                         onClick={handleWithdraw}
                     >
-                        <Image
+                        <ResizableImage
                             src={minusImg}
-                            fill
-                            sizes={styles.storageButton}
                             alt="Wyjmij"
-                        ></Image>
+                        />
                     </div>
                     {resources}
                     <div
@@ -118,12 +113,10 @@ export default function UseButtons(props: Props) {
                         onMouseLeave={props.onMouseLeaveButton}
                         onClick={handleDeposit}
                     >
-                        <Image
+                        <ResizableImage
                             src={plusImg}
-                            fill
-                            sizes={styles.storageButton}
                             alt="Zdeponuj"
-                        ></Image>
+                        />
                     </div>
                 </div>
             )}

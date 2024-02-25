@@ -3,6 +3,7 @@ import * as React from "react";
 import styles from "./NextPhaseButton.module.css";
 import Image from "next/image";
 import compassImg from "/public/UI/tokens/compass.png";
+import ResizableImage from "../../../ResizableImage/ResizableImage";
 
 type Props = {
     goNextPhase: () => void;
@@ -21,14 +22,11 @@ export const NextPhaseButton = (props: Props) => {
     return (
         <div className={styles.container + " " + className} onClick={handleClick}>
             <div className={styles.token}>
-                {/*<Image*/}
-                {/*    src={compassImg}*/}
-                {/*    fill*/}
-                {/*    alt="następna faza"*/}
-                {/*    sizes={styles.container}*/}
-                {/*/>*/}
+                <ResizableImage
+                    src={compassImg}
+                    alt="następna faza"
+                />
             </div>
-
         </div>
     );
 };

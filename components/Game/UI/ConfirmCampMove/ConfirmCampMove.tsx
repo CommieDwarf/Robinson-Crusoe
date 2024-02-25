@@ -4,6 +4,7 @@ import styles from "./ConfirmCampMove.module.css";
 import {ITileRenderData} from "../../../../interfaces/TileService/ITile";
 import Image from "next/image";
 import redArrowImg from "/public/UI/misc/red-arrow.png";
+import ResizableImage from "../../../ResizableImage/ResizableImage";
 
 type Props = {
     currentCamp: ITileRenderData;
@@ -25,7 +26,7 @@ export const ConfirmCampMove = (props: Props) => {
         <div className={styles.container}>
             <h3>Czy na pewno chcesz przenieść obóz?</h3>
             <div className={styles.tile}>
-                <Image
+                <ResizableImage
                     src={"/UI/Map/tiles/" + props.currentCamp.tileResourceService?.id + ".png"}
                     alt={"Obecny obóz"}
                     fill
@@ -33,10 +34,10 @@ export const ConfirmCampMove = (props: Props) => {
                 />
             </div>
             <div className={styles.arrow}>
-                <Image src={redArrowImg} alt={"strzałka"} fill sizes={styles.arrow}/>
+                <ResizableImage src={redArrowImg} alt={"strzałka"} fill sizes={styles.arrow}/>
             </div>
             <div className={styles.tile}>
-                <Image
+                <ResizableImage
                     src={"/UI/Map/tiles/" + props.nextCamp.tileResourceService?.id + ".png"}
                     alt={"Przyszły obóz"}
                     fill

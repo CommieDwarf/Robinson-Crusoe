@@ -5,11 +5,17 @@ import {Droppable} from "react-beautiful-dnd";
 import Pawn from "./Pawn";
 import {IPawnRenderData} from "../../../interfaces/Pawns/Pawn";
 import {ACTION, UniqueAction} from "../../../interfaces/ACTION";
-import {getImgName} from "../../../utils/getImgName";
+import {formatToKebabCase} from "../../../utils/formatToKebabCase";
 import {RootState} from "../../../store/store";
 import {connect} from "react-redux";
 
-interface OwnProps {
+
+interface StateProps {
+    pawn: IPawnRenderData | undefined | null;
+    marked: boolean;
+}
+
+interface Props extends StateProps {
     type: "helper" | "leader";
     action: ACTION;
     uniqueAction: UniqueAction;
@@ -18,14 +24,11 @@ interface OwnProps {
     ownedByCard?: boolean;
 
     height?: number;
-}
 
-interface Props extends OwnProps {
-    pawn: IPawnRenderData | undefined | null;
-    marked: boolean;
     onMouseEnter?: () => void;
     onMouseLeave?: () => void;
 }
+
 
 function ActionSlot(props: Props) {
     let element: JSX.Element;
@@ -46,7 +49,7 @@ function ActionSlot(props: Props) {
     return (
         <div
             className={`${styles.container} ${
-                styles[getImgName(props.uniqueAction)]
+                styles[formatToKebabCase(props.uniqueAction)]
             } ${helperClass}`}
             id={props.id}
             onMouseEnter={props.onMouseEnter}
@@ -72,7 +75,7 @@ function ActionSlot(props: Props) {
     );
 }
 
-function mapStateToProps(state: RootState, ownProps: OwnProps): Props {
+function mapStateToProps(state: RootState, ownProps: Omit<Props, keyof StateProps>): Props {
     const pawn = state.actionSlots.slots[ownProps.id];
     let marked =
         (state.actionSlots.markedActionSlot &&

@@ -30,7 +30,7 @@ import {IDice} from "../../../../interfaces/Dice/Dice";
 import {SpotLight} from "three";
 import {AdventureAction} from "../../../../interfaces/ACTION";
 import {isActionDice} from "../../../../utils/isActionDice";
-import {getImgName} from "../../../../utils/getImgName";
+import {formatToKebabCase} from "../../../../utils/formatToKebabCase";
 
 type Props = {
     name: string;
@@ -354,7 +354,7 @@ export const RollDiceAnimation = (props: Props) => {
 
         return Object.entries(structure).map(([key, side]) => {
             return new THREE.MeshPhysicalMaterial({
-                map: loader.load(`/${getImgName(side)}.png`),
+                map: loader.load(`/${formatToKebabCase(side)}.png`),
                 clearcoat: 0,
                 clearcoatRoughness: 0,
                 metalness: 0,

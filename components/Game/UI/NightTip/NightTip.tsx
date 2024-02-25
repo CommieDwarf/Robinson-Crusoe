@@ -3,6 +3,7 @@ import * as React from "react";
 import styles from "./NightTip.module.css";
 import Image from "next/image";
 import nightPicImg from "/public/UI/phase/night-pic.png";
+import ResizableImage from "../../../ResizableImage/ResizableImage";
 
 type Props = {
     hideNightTip: () => void;
@@ -14,7 +15,7 @@ export const NightTip = (props: Props) => {
             <header className={styles.header}>
                 <span className={styles.title}>Nastała Noc</span>
                 <div className={styles.nightPicture}>
-                    <Image
+                    <ResizableImage
                         src={nightPicImg}
                         alt={"noc"}
                         fill

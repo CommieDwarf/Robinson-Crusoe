@@ -5,6 +5,7 @@ import Image from "next/image";
 import {IBasicResourcesAmount} from "../../../../../../interfaces/Resources/Resources";
 import React from "react";
 import crossLineImg from "/public/UI/misc/cross-line.png";
+import ResizableImage from "../../../../../ResizableImage/ResizableImage";
 
 interface ResourceCost {
     type: "leather" | "wood",
@@ -47,7 +48,7 @@ export function CostBlock(props: Props) {
             </div>}
         {props.resource2 &&
             <div className={styles.diagonal}>
-                <Image src={crossLineImg} alt={""} fill/>
+                <ResizableImage src={crossLineImg} alt={""} fill/>
             </div>
         }
         {props.resource2 &&

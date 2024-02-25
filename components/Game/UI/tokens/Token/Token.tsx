@@ -3,8 +3,9 @@ import * as React from "react";
 import {ITokenRenderData} from "../../../../../interfaces/TokenService/Token";
 import styles from "./Token.module.css";
 import Image from "next/image";
-import {getImgName} from "../../../../../utils/getImgName";
+import {formatToKebabCase} from "../../../../../utils/formatToKebabCase";
 import {objectsEqual} from "../../../../../utils/objectsEqual";
+import ResizableImage from "../../../../ResizableImage/ResizableImage";
 
 type Props = {
     token: ITokenRenderData;
@@ -27,8 +28,8 @@ const Token = (props: Props) => {
             onMouseEnter={handleMouseEnter}
             onMouseOutCapture={props.mouseLeaveToken}
         >
-            <Image
-                src={`/UI/tokens/discovery/${getImgName(props.token.name)}.png`}
+            <ResizableImage
+                src={`/UI/tokens/discovery/${formatToKebabCase(props.token.name)}.png`}
                 fill
                 alt={"token"}
                 sizes={styles.token}

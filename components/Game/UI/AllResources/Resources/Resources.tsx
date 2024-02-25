@@ -4,6 +4,8 @@ import styles from "./Resources.module.css";
 import {IBasicResourcesAmount} from "../../../../../interfaces/Resources/Resources";
 import Image from "next/image";
 import {useEffect, useRef} from "react";
+import ResizableImage from "../../../../ResizableImage/ResizableImage";
+import {formatToKebabCase} from "../../../../../utils/formatToKebabCase";
 
 type Props = {
     type: "future" | "owned";
@@ -49,11 +51,9 @@ export const Resources = (props: Props) => {
         resources.push(
             <div className={styles.resource} key={key}>
                 <div className={`${styles.icon} ${styles[key]}`}>
-                    <Image
-                        src={`/UI/resources/${key}.png`}
-                        fill
+                    <ResizableImage
+                        src={`/UI/resources/${formatToKebabCase(key)}.png`}
                         alt={key}
-                        sizes={styles.icon}
                     />
                 </div>
                 <div className={`${styles.value} ${valueChanged ? styles.valueChanged : ""}`}>{value}</div>

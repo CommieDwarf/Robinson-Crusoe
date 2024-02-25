@@ -9,7 +9,7 @@ import {
 } from "../ResourceCommitableItem/ResourceCommittableItem";
 
 
-export interface IEventCard extends IResourceCommittableItem {
+export interface IEventCard extends IResourceCommittableItem<keyof IBasicResourcesAmount> {
     id: string;
     name: string;
     namePL: string;
@@ -31,7 +31,7 @@ export interface IEventCard extends IResourceCommittableItem {
 }
 
 
-export interface IEventCardRenderData extends IResourceCommittableItemRenderData {
+export interface IEventCardRenderData extends IResourceCommittableItemRenderData<keyof IBasicResourcesAmount> {
     id: string;
     name: string;
     cardType: AdventureAction | EVENT_TYPE;

@@ -10,6 +10,7 @@ import {objectsEqual} from "../../../../../utils/objectsEqual";
 import {CostBlock} from "./CostBlock/CostBlock";
 import {IBasicResourcesAmount} from "../../../../../interfaces/Resources/Resources";
 import crossLineImg from "/public/UI/misc/cross-line.png";
+import ResizableImage from "../../../../ResizableImage/ResizableImage";
 
 type Props = {
     construction: IConstructionRenderData;
@@ -33,7 +34,7 @@ function Construction(props: Props) {
         for (let i = 0; i < props.construction.committedResources?.amount; i++) {
             resources.push(
                 <div className={styles.committedResource} key={i}>
-                    <Image
+                    <ResizableImage
                         src={`/UI/resources/${resType}.png`}
                         fill
                         alt={resType}
@@ -84,7 +85,7 @@ function Construction(props: Props) {
                     props.construction.lvl === 0 ? styles.level0 : ""
                 }`}
             >
-                <Image
+                <ResizableImage
                     src={`/UI/constructions/${props.construction.name}.png`}
                     fill
                     alt={props.construction.name}
@@ -94,7 +95,7 @@ function Construction(props: Props) {
                 />
             </div>
             <div className={styles.structureIcon}>
-                <Image
+                <ResizableImage
                     src={`/UI/constructions/${props.construction.name}-icon.png`}
                     fill
                     alt={props.construction.name + " icon"}

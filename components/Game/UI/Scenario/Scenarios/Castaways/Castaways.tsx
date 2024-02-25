@@ -14,6 +14,7 @@ import scenarioTokensImg from "/public/UI/scenarios/castaways/tokens.png";
 import Rounds from "./Rounds/Rounds";
 import {IScenarioServiceRenderData} from "../../../../../../interfaces/ScenarioService/ScenarioService";
 import {Card} from "../../../CardList/Cards/Card/Card";
+import ResizableImage from "../../../../../ResizableImage/ResizableImage";
 
 interface Props {
     inventions: IInventionRenderData[];
@@ -50,10 +51,6 @@ export default function Castaways(props: Props) {
     const cardWidth = inventionContHeight * cardAspectRatio;
     const cardEnlargeScale = 1.5;
 
-    console.log("height", inventionContHeight);
-    console.log("width", inventionContHeight * cardAspectRatio);
-    console.log("totalWidth", inventionContWidth);
-    console.log(inventionContRef)
 
     return (
         <div className={styles.container}>
@@ -67,7 +64,7 @@ export default function Castaways(props: Props) {
             <Description/>
             <div className={styles.eventEffects}>
                 <div className={styles.eventEffect + " " + styles.bookEffect}>
-                    <Image
+                    <ResizableImage
                         src={bookEffectImg}
                         fill
                         alt={"tokeny"}
@@ -76,7 +73,7 @@ export default function Castaways(props: Props) {
                 </div>
 
                 <div className={styles.eventEffect}>
-                    <Image
+                    <ResizableImage
                         src={totemEffectImg}
                         fill
                         alt={"tokeny"}
@@ -91,7 +88,7 @@ export default function Castaways(props: Props) {
             />
             <div className={styles.bottomHalf}>
                 <div className={styles.tokens}>
-                    <Image
+                    <ResizableImage
                         src={scenarioTokensImg}
                         fill
                         alt={"tokeny"}

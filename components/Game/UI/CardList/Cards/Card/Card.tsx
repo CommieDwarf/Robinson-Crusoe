@@ -64,7 +64,6 @@ export const Card = (props: Props) => {
         height: enlarged ? props.height * (props.enlargeParams ? props.enlargeParams.scale : enlargeMultiplayer) + "px" : props.height + "px",
     };
 
-    console.log(props.card.name, wrapperStyle.top)
 
     const enlargedClass = enlarged
         ? styles.enlarged

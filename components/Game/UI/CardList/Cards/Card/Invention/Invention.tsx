@@ -4,12 +4,13 @@ import ActionSlot from "../../../../ActionSlot";
 import styles from "./Invention.module.css";
 import getActionSlots from "../../../../getActionSlots";
 import {IInventionRenderData} from "../../../../../../../interfaces/InventionService/Invention";
-import {getImgName} from "../../../../../../../utils/getImgName";
+import {formatToKebabCase} from "../../../../../../../utils/formatToKebabCase";
 import {ACTION} from "../../../../../../../interfaces/ACTION";
 import {objectsEqual} from "../../../../../../../utils/objectsEqual";
 import {useAppSelector} from "../../../../../../../store/hooks";
 import {selectModifiersByAction} from "../../../../../features/globalCostModifiers";
 import {getCardPawnDroppableId} from "../../../../../../../utils/getCardPawnDroppableId";
+import ResizableImage from "../../../../../../ResizableImage/ResizableImage";
 
 type Props = {
     invention: IInventionRenderData;
@@ -41,11 +42,9 @@ function Invention(props: Props) {
         for (let i = 0; i < props.invention.committedResources?.amount; i++) {
             resources.push(
                 <div className={styles.resource} key={i}>
-                    <Image
+                    <ResizableImage
                         src={`/UI/resources/${resource}.png`}
-                        fill
                         alt="surowiec"
-                        sizes={styles.resource}
                     />
                 </div>
             );
@@ -76,17 +75,17 @@ function Invention(props: Props) {
         <div
             className={`${styles.container}`}
         >
-            <Image
-                src={`/UI/inventions/${props.invention.inventionType}/${getImgName(
+            <ResizableImage
+                src={`/UI/inventions/${props.invention.inventionType}/${formatToKebabCase(
                     props.invention.name
                 )}${reverse}.png`}
-                fill
                 alt={"karta pomysłu"}
-                sizes={styles.invention}
             />
+
+
             {
                 // <div className={styles.placeholder}>
-                //   <Image
+                //   <ResizableImage
                 //     src={actionSlotBuildImg}
                 //     fill
                 //     alt={"loading"}
@@ -121,8 +120,8 @@ function Invention(props: Props) {
                         action={ACTION.EXPLORE}
                         uniqueAction={ACTION.EXPLORE}
                         id={getCardPawnDroppableId(props.invention.name, "invention")}
-                        pawn={helperPawn?.pawn}
-                        marked={false}
+                        // pawn={helperPawn?.pawn}
+                        // marked={false}
                         ownedByCard={true}
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}

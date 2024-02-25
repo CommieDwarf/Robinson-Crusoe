@@ -4,6 +4,8 @@ import {grandmasRecipe} from "../../../../../../constants/SkillDescriptions/Cook
 import {IPlayerCharacter} from "../../../../../../interfaces/Characters/PlayerCharacter";
 import {ISkill} from "../../../../../../interfaces/Skill/Skill";
 import {ActionDice} from "../../../../../../interfaces/RollDice/RollDice";
+import {ICharacter} from "../../../../../../interfaces/Characters/Character";
+import {Cloud} from "../../../../../../interfaces/Weather/Weather";
 
 export class GrandmasRecipe extends Skill implements ISkill {
     private _character: IPlayerCharacter;
@@ -22,7 +24,7 @@ export class GrandmasRecipe extends Skill implements ISkill {
         this._character = character;
     }
 
-    use(target: IPlayerCharacter | ActionDice | null = null) {
+    use(target: ICharacter | ActionDice | Cloud | null = null) {
         if (!target) {
             return;
         }

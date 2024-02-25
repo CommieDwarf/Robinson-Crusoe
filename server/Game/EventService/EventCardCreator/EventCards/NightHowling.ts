@@ -1,8 +1,5 @@
 import {EventCard} from "../EventCard";
-import {
-    EVENT_TYPE,
-    IEventCard,
-} from "../../../../../interfaces/EventService/EventCard";
+import {EVENT_TYPE, IEventCard,} from "../../../../../interfaces/EventService/EventCard";
 import {IGame} from "../../../../../interfaces/Game";
 import {CONSTRUCTION} from "../../../../../interfaces/ConstructionService/Construction";
 import {EVENT_CARD} from "../../../../../interfaces/EventService/EVENT_CARD";
@@ -29,7 +26,7 @@ export class NightHowling extends EventCard implements IEventCard {
     }
 
     triggerEventEffect() {
-        this._game.beastService.beastStrengthEnchanted = true;
+        this._game.beastService
     }
 
     triggerThreatEffect() {

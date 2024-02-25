@@ -3,12 +3,13 @@ import * as React from "react";
 import {IMysteryCardRenderData} from "../../../../../interfaces/MysteryService/MysteryCard";
 import {ICharacterRenderData} from "../../../../../interfaces/Characters/Character";
 import cardResolveStyles from "../CardResolve.module.css";
-import {getImgName} from "../../../../../utils/getImgName";
+import {formatToKebabCase} from "../../../../../utils/formatToKebabCase";
 import Image from "next/image";
 import {MysteryCardsAmount} from "../../../../../interfaces/MysteryService/MysteryService";
 import {MysteryCardCounter} from "./MysteryCardCounter/MysteryCardCounter";
 import {CardActions} from "../Actions/CardActions";
 import {ZoomButton} from "../ZoomButton/ZoomButton";
+import ResizableImage from "../../../../ResizableImage/ResizableImage";
 
 type Props = {
     isDrawingOn: boolean;
@@ -48,7 +49,7 @@ export const Mystery = (props: Props) => {
 
 
     const cardImgSrc = props.currentResolve
-        ? `/UI/cards/mystery/${props.currentResolve.type}/${getImgName(
+        ? `/UI/cards/mystery/${props.currentResolve.type}/${formatToKebabCase(
             props.currentResolve.name
         )}.png`
         : `/UI/cards/reverse/mystery.png`;
@@ -59,7 +60,7 @@ export const Mystery = (props: Props) => {
                 <ZoomButton onClick={props.toggleZoom} cardType={"mystery"}/>
             )}
             <MysteryCardCounter cardsLeft={props.cardsLeft}/>
-            <Image
+            <ResizableImage
                 src={cardImgSrc}
                 alt={"karta tajemnic"}
                 fill

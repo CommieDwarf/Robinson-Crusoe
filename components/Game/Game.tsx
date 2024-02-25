@@ -76,6 +76,7 @@ import {Cloud} from "../../interfaces/Weather/Weather";
 import {ConfirmWindow} from "./UI/ConfirmWindow/ConfirmWindow";
 import {CONFIRM_WINDOW} from "./UI/ConfirmWindow/messages";
 import Scenario from "./UI/Scenario/Scenario";
+import {ICharacter} from "../../interfaces/Characters/Character";
 
 
 interface Props {
@@ -111,7 +112,6 @@ export default function Game(props: Props) {
         if (mapRef.current) setMapHeight(mapRef.current.offsetHeight);
     }, [])
 
-    console.log(styles.game, "SSTYLES")
 
     function useGameHeight() {
         const [gameHeight, setGameHeight] = useState(0);
@@ -274,8 +274,8 @@ export default function Game(props: Props) {
         props.updateGameRenderData();
     }
 
-    function handleUseSkill(character: string, skillName: string, target: IPlayerCharacter | ActionDice | Cloud | null = null) {
-        utilizeSkill(skillName, character, target);
+    function handleUseSkill(character: string, skillName: string, target?: ICharacter | ActionDice | Cloud) {
+        utilizeSkill(skillName, character, target || null);
         props.updateGameRenderData();
     }
 

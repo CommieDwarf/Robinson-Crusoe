@@ -4,6 +4,8 @@ import ActionSlot from "../ActionSlot";
 import {ACTION, ACTION_ITEM} from "../../../../interfaces/ACTION";
 import {getDroppableID} from "../../../../utils/getDroppableID";
 import beastReverseImg from "/public/UI/cards/reverse/beast.png";
+import React from "react";
+import ResizableImage from "../../../ResizableImage/ResizableImage";
 
 interface Props {
     zIndex: string;
@@ -20,7 +22,7 @@ export default function Hunt(props: Props) {
     return (
         <div className={styles.container + " " + zIndexClass}>
             <div className={styles.card + " " + lockedClass}>
-                <Image src={beastReverseImg} fill alt="Bestia" sizes={styles.card}/>
+                <ResizableImage src={beastReverseImg} alt="Bestia"/>
             </div>
             <div className={styles.beastCount + " " + styles.locked}>
                 {props.beastCount}

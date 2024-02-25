@@ -6,6 +6,7 @@ import {IInventionRenderData} from "../../../../interfaces/InventionService/Inve
 import redArrowImg from "/public/UI/misc/red-arrow.png";
 import {IScenarioServiceRenderData} from "../../../../interfaces/ScenarioService/ScenarioService";
 import {objectsEqual} from "../../../../utils/objectsEqual";
+import ResizableImage from "../../../ResizableImage/ResizableImage";
 
 interface Props {
     inventions: IInventionRenderData[];
@@ -36,7 +37,7 @@ function ScenarioButton(props: Props) {
             <div className={styles.button} onClick={handleClick}>
                 <div className={styles.arrowWrapper}>
                     <div className={`${styles.arrow} ${rotatedArrowClass}`}>
-                        <Image src={redArrowImg} fill alt="strzałka" sizes={styles.arrow}/>
+                        <ResizableImage src={redArrowImg} fill alt="strzałka" sizes={styles.arrow}/>
                     </div>
                 </div>
                 <div className={styles.label}>
@@ -44,7 +45,7 @@ function ScenarioButton(props: Props) {
                 </div>
                 <div className={styles.arrowWrapper}>
                     <div className={`${styles.arrow} ${rotatedArrowClass}`}>
-                        <Image src={redArrowImg} fill alt="strzałka" sizes={styles.arrow}/>
+                        <ResizableImage src={redArrowImg} fill alt="strzałka" sizes={styles.arrow}/>
                     </div>
                 </div>
             </div>

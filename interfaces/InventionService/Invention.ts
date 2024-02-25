@@ -1,14 +1,14 @@
 import {TERRAIN_TYPE} from "../TileService/ITile";
-import {IBasicResources, IBasicResourcesAmount} from "../Resources/Resources";
 import {CHARACTER} from "../Characters/Character";
-import {IAssignablePawnsItem, IAssignablePawnsItemRenderData} from "../AssignablePawnsItem/AssignablePawnsItem";
 import {
     IResourceCommittableItem,
     IResourceCommittableItemRenderData
 } from "../ResourceCommitableItem/ResourceCommittableItem";
 import {IPlayerCharacter} from "../Characters/PlayerCharacter";
-import {ACTION} from "../ACTION";
 import {IPawnHelper, IPawnHelperRenderData, PAWN_HELPER_ACTION} from "../Pawns/Pawn";
+
+
+export type InventionResource = "wood" | 'leather'
 
 export interface CardPawnHelper {
     action: PAWN_HELPER_ACTION,
@@ -20,7 +20,7 @@ export interface CardPawnHelperRenderData {
     pawn: IPawnHelperRenderData | null;
 }
 
-export interface IInvention extends IResourceCommittableItem {
+export interface IInvention extends IResourceCommittableItem<InventionResource> {
     name: INVENTION;
     namePL: string;
     locked: boolean;
@@ -44,7 +44,7 @@ export interface IInvention extends IResourceCommittableItem {
     renderData: IInventionRenderData;
 }
 
-export interface IInventionRenderData extends IResourceCommittableItemRenderData {
+export interface IInventionRenderData extends IResourceCommittableItemRenderData<InventionResource> {
     name: string;
     locked: boolean;
     assignedPawnAmount: number;

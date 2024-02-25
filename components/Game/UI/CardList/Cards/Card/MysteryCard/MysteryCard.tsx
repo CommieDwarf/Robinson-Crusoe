@@ -3,9 +3,10 @@ import * as React from "react";
 import styles from "./MysteryCard.module.css";
 import Image from "next/image";
 import {IMysteryCardRenderData} from "../../../../../../../interfaces/MysteryService/MysteryCard";
-import {getImgName} from "../../../../../../../utils/getImgName";
+import {formatToKebabCase} from "../../../../../../../utils/formatToKebabCase";
 import UseButtons from "./UseOverlay/UseOverlay";
 import {StorageAction} from "../../../../../../../interfaces/MysteryService/StorageCard";
+import ResizableImage from "../../../../../../ResizableImage/ResizableImage";
 
 type Props = {
     mysteryCard: IMysteryCardRenderData;
@@ -37,13 +38,11 @@ export const MysteryCard = (props: Props) => {
         <div
             className={`${styles.container}`}
         >
-            <Image
-                src={`/UI/cards/mystery/${props.mysteryCard.type}/${getImgName(
+            <ResizableImage
+                src={`/UI/cards/mystery/${props.mysteryCard.type}/${formatToKebabCase(
                     props.mysteryCard.name
                 )}.png`}
-                fill
                 alt={"karta pomysłu"}
-                sizes={styles.invention}
                 placeholder="blur"
                 blurDataURL={`/UI/cards/${props.mysteryCard.type}/${props.mysteryCard.name}.png`}
             />
