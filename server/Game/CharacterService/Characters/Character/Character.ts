@@ -7,7 +7,7 @@ import {PlayerCharacterName} from "../../../../../interfaces/Characters/PlayerCh
 import {SideCharacterName} from "../../../../../interfaces/Characters/SideCharacter";
 import {IGame} from "../../../../../interfaces/Game";
 import {ICharEffects} from "../../../../../interfaces/Characters/CharEffects";
-import {IPawnService} from "../../../../../interfaces/Pawns/Pawns";
+import {IPawnService} from "../../../../../interfaces/Pawns/PawnService";
 import {ISkill} from "../../../../../interfaces/Skill/Skill";
 import {ActionDice} from "../../../../../interfaces/RollDice/RollDice";
 import {Cloud} from "../../../../../interfaces/Weather/Weather";

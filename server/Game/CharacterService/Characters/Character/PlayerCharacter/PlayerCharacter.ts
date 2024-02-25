@@ -9,7 +9,7 @@ import {IPlayer} from "../../../../../../interfaces/PlayerService/Player";
 import {PawnService} from "../../../../PawnService/PawnService";
 import {ICharEffects} from "../../../../../../interfaces/Characters/CharEffects";
 import {PlayerCharEffects} from "../../../CharEffects/CharEffects";
-import {IPawnService} from "../../../../../../interfaces/Pawns/Pawns";
+import {IPawnService} from "../../../../../../interfaces/Pawns/PawnService";
 import {IGame} from "../../../../../../interfaces/Game";
 import {Gender} from "../../../../../../interfaces/Characters/Character";
 import {ISkill} from "../../../../../../interfaces/Skill/Skill";

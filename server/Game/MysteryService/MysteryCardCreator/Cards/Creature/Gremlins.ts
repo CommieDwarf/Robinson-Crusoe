@@ -4,6 +4,7 @@ import {IGame} from "../../../../../../interfaces/Game";
 import {BeastStats} from "../../../../BeastService/BeastCreator/BeastCreator";
 import {BasicResources} from "../../../../ResourceService/BasicResources";
 import {IPlayerCharacter} from "../../../../../../interfaces/Characters/PlayerCharacter";
+import {ICharacter} from "../../../../../../interfaces/Characters/Character";
 
 export class Gremlins extends CreatureMysteryCard implements IMysteryCard {
     constructor(game: IGame) {
@@ -18,7 +19,7 @@ export class Gremlins extends CreatureMysteryCard implements IMysteryCard {
         reward: new BasicResources(),
     }
 
-    triggerDrawEffect(drawer: IPlayerCharacter) {
+    triggerDrawEffect(drawer: ICharacter) {
         //TODO: implement custom beast fight;
 
         this._game.beastService.fightCustomBeast(drawer, this._beastStats);

@@ -1,13 +1,14 @@
 import {TreasureMysteryCard} from "./TreasureMysteryCard/TreasureMysteryCard";
 import {IGame} from "../../../../../../interfaces/Game";
 import {IPlayerCharacter} from "../../../../../../interfaces/Characters/PlayerCharacter";
+import {ICharacter} from "../../../../../../interfaces/Characters/Character";
 
 export class CaveWithFurs extends TreasureMysteryCard {
     constructor(game: IGame) {
         super(game, "cave with furs", "grota ze skórami", false, "", 1);
     }
 
-    triggerDrawEffect(drawer: IPlayerCharacter) {
+    triggerDrawEffect(drawer: ICharacter) {
         this._game.resourceService.addBasicResourceToFuture(
             "leather",
             2,

@@ -2,13 +2,14 @@ import {IMysteryCard} from "../../../../../../interfaces/MysteryService/MysteryC
 import {IGame} from "../../../../../../interfaces/Game";
 import {CreatureMysteryCard} from "./CreatureMysteryCard/CreatureMysteryCard";
 import {IPlayerCharacter} from "../../../../../../interfaces/Characters/PlayerCharacter";
+import {ICharacter} from "../../../../../../interfaces/Characters/Character";
 
 export class Bats extends CreatureMysteryCard implements IMysteryCard {
     constructor(game: IGame) {
         super(game, "bats", "nietoperze", false, "");
     }
 
-    triggerDrawEffect(drawer: IPlayerCharacter) {
+    triggerDrawEffect(drawer: ICharacter) {
         this._game.characterService.decrDeterminationOrGetHurt(drawer, 1, this._namePL);
     }
 }

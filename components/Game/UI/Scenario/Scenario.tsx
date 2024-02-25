@@ -31,7 +31,6 @@ export default function Scenario(props: Props) {
             <div className={styles.content} style={contentStyle}>
                 <Castaways
                     inventions={props.inventions}
-                    setShow={props.setShow}
                     zIndex={props.zIndex}
                     round={props.round}
                     scenario={props.scenario}

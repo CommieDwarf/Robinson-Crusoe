@@ -4,6 +4,7 @@ import {TREASURE_MYSTERY_CARD} from "../../../interfaces/MysteryService/MYSTERY_
 import {IPlayerCharacter} from "../../../interfaces/Characters/PlayerCharacter";
 import {INVENTION_NORMAL} from "../../../interfaces/InventionService/Invention";
 import {ITEM} from "../../../interfaces/Equipment/Item";
+import {ICharacter} from "../../../interfaces/Characters/Character";
 
 export class ArrangeCampRestService implements IArrangeCampRestService {
     // TODO: IMPLEMENT CHOICE BETWEEN BED EFFECT OR NORMAL EFFECT.
@@ -44,9 +45,9 @@ export class ArrangeCampRestService implements IArrangeCampRestService {
         this._pawnAmount[action]--;
     }
 
-    public rest(character: IPlayerCharacter) {
+    public rest(character: ICharacter) {
         const bedBuilt = this._game.inventionService.isBuilt(INVENTION_NORMAL.BED);
-        const hammockOwned = this._game.mysteryService.hasTresureCard(TREASURE_MYSTERY_CARD.HAMMOCK);
+        const hammockOwned = this._game.mysteryService.hasTreasureCard(TREASURE_MYSTERY_CARD.HAMMOCK);
         let healAmount = bedBuilt ? 2 : 1;
         this._game.characterService.heal(character, healAmount, "Odpoczynek");
         if (bedBuilt || hammockOwned) {
@@ -55,7 +56,7 @@ export class ArrangeCampRestService implements IArrangeCampRestService {
     }
 
 
-    public arrangeCamp(character: IPlayerCharacter, useBible: boolean) {
+    public arrangeCamp(character: ICharacter, useBible: boolean) {
         const characterService = this._game.characterService;
         let determination = 2;
         let logSource = "Porządkowanie obozu"

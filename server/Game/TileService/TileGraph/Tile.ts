@@ -424,13 +424,14 @@ export class Tile extends AssignablePawnsItem implements ITile {
                     "green",
                     source
                 );
+                break;
             case "flipped":
                 this._game.chatLog.addMessage(
                     "Kafelek został przywrócony",
                     "green",
                     source,
                 )
-
+                break;
         }
     }
 

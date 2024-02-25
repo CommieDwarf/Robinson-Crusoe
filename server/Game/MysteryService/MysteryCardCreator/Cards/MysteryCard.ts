@@ -4,6 +4,7 @@ import {
 } from "../../../../../interfaces/MysteryService/MysteryCard";
 import {IGame} from "../../../../../interfaces/Game";
 import {IPlayerCharacter} from "../../../../../interfaces/Characters/PlayerCharacter";
+import {ICharacter} from "../../../../../interfaces/Characters/Character";
 
 export abstract class MysteryCard implements IMysteryCard {
     protected readonly _name: string;
@@ -114,7 +115,7 @@ export abstract class MysteryCard implements IMysteryCard {
         this._usedCount++;
     }
 
-    triggerDrawEffect(drawer: IPlayerCharacter) {
+    triggerDrawEffect(drawer: ICharacter) {
     }
 
     triggerEventEffect() {

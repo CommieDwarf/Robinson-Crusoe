@@ -161,7 +161,7 @@ export class PhaseService implements IPhaseService {
     }
 
     private rotFood() {
-        if (!this._game.mysteryService.hasTresureCard(TREASURE_MYSTERY_CARD.BOXES) &&
+        if (!this._game.mysteryService.hasTreasureCard(TREASURE_MYSTERY_CARD.BOXES) &&
             !this._game.inventionService.isBuilt(INVENTION_NORMAL.CELLAR)
         ) {
             this._game.resourceService.spendBasicResourceIfPossible("food", Infinity, "Jedzenie gnije");

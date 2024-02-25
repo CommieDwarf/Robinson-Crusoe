@@ -1,20 +1,21 @@
 import {
     IPawnService,
     IPawnServiceRenderData,
-} from "../../../interfaces/Pawns/Pawns";
+} from "../../../interfaces/Pawns/PawnService";
 import {IPawn, IPawnHelper} from "../../../interfaces/Pawns/Pawn";
 
-import {PawnArrayName} from "../../../interfaces/Pawns/Pawns";
+import {PawnArrayName} from "../../../interfaces/Pawns/PawnService";
 import {Pawn} from "./Pawn/Pawn";
 import {IPlayerCharacter} from "../../../interfaces/Characters/PlayerCharacter";
+import {ICharacter} from "../../../interfaces/Characters/Character";
 
 export class PawnService implements IPawnService {
     private _freePawns: (IPawn | IPawnHelper)[] = [];
     private _pawns: (IPawn | IPawnHelper)[] = [];
-    private readonly _character: IPlayerCharacter;
+    private readonly _character: ICharacter;
     _initialQuantity: number;
 
-    constructor(character: IPlayerCharacter, initialQuantity: number) {
+    constructor(character: ICharacter, initialQuantity: number) {
         this._character = character;
         this._pawns = this.initPawns(initialQuantity);
         this._freePawns = [...this._pawns];
@@ -43,7 +44,7 @@ export class PawnService implements IPawnService {
         return this._pawns;
     }
 
-    get character(): IPlayerCharacter {
+    get character(): ICharacter {
         return this._character;
     }
 
@@ -84,6 +85,7 @@ export class PawnService implements IPawnService {
     private initPawns(initialQuantity: number): IPawn[] {
         const pawns: IPawn[] = [];
         for (let i = 0; i < initialQuantity; i++) {
+
             pawns.push(new Pawn(this.character));
         }
         return pawns;

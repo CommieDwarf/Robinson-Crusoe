@@ -50,6 +50,7 @@ import {IResourceCommittableItem} from "../../interfaces/ResourceCommitableItem/
 import {isCommittableResourcesItem} from "../../utils/isCommittableResourcesItem";
 import {Invention} from "./Inventions/InventionCreator/Invention";
 import {IBasicResources} from "../../interfaces/Resources/Resources";
+import {IMysteryService} from "../../interfaces/MysteryService/MysteryService";
 
 type ScenarioName = "castaways";
 
@@ -125,7 +126,7 @@ export class GameClass implements IGame {
         };
     }
 
-    get mysteryService(): MysteryService {
+    get mysteryService(): IMysteryService {
         return this._mysteryService;
     }
 

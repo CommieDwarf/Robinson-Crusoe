@@ -5,6 +5,7 @@ import {BeastCreator, BeastStats} from "./BeastCreator/BeastCreator";
 import {CONSTRUCTION} from "../../../interfaces/ConstructionService/Construction";
 import {IPlayerCharacter} from "../../../interfaces/Characters/PlayerCharacter";
 import {TREASURE_MYSTERY_CARD} from "../../../interfaces/MysteryService/MYSTERY_CARD";
+import {ICharacter} from "../../../interfaces/Characters/Character";
 
 export class BeastService implements IBeastService {
     private _deck: IBeast[] = [];
@@ -74,7 +75,7 @@ export class BeastService implements IBeastService {
         return beasts;
     }
 
-    fightBeast(leader: IPlayerCharacter, beast: IBeast) {
+    fightBeast(leader: ICharacter, beast: IBeast) {
         const modifiedStrength = this.getStrengthWithModifiers(beast);
         const weapon = this._game.constructionService.getConstruction(CONSTRUCTION.WEAPON);
         const weaponLvl = weapon.boostedLvl;
@@ -93,7 +94,7 @@ export class BeastService implements IBeastService {
         weapon.resetTemporaryBoost();
     }
 
-    fightCustomBeast(leader: IPlayerCharacter, beastStats: BeastStats) {
+    fightCustomBeast(leader: ICharacter, beastStats: BeastStats) {
         const beast = this._beastCreator.createCustomBeast(beastStats);
         this.fightBeast(leader, beast);
     }
@@ -114,7 +115,7 @@ export class BeastService implements IBeastService {
 
     private getStrengthWithModifiers(beast: IBeast) {
         let strength = beast.strength;
-        if (this._game.mysteryService.hasTresureCard(TREASURE_MYSTERY_CARD.HELMET)) {
+        if (this._game.mysteryService.hasTreasureCard(TREASURE_MYSTERY_CARD.HELMET)) {
             strength--;
         }
         return strength;

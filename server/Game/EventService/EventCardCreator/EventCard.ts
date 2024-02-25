@@ -12,6 +12,7 @@ import {ACTION, ACTION_ITEM, AdventureAction} from "../../../../interfaces/ACTIO
 import {ResourceCommittableItem} from "../../ResourceCommittableItem/ResourceCommittableItem";
 import {IPlayerCharacter} from "../../../../interfaces/Characters/PlayerCharacter";
 import {IBasicResourcesAmount} from "../../../../interfaces/Resources/Resources";
+import {ICharacter} from "../../../../interfaces/Characters/Character";
 
 //TODO: implement name translations
 
@@ -76,7 +77,7 @@ export abstract class EventCard extends ResourceCommittableItem<keyof IBasicReso
         return meetsResource && meetsConstruction && meetsInvention;
     }
 
-    protected getLeaderCharacter(): IPlayerCharacter {
+    protected getLeaderCharacter(): ICharacter {
         const slot = this._game.eventService.getSlotByCardID(this.id);
         const pawn = this._game.actionSlotService.getPawn(
             `threat-${slot}-leader-0`

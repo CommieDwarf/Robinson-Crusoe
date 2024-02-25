@@ -18,7 +18,6 @@ import ResizableImage from "../../../../../ResizableImage/ResizableImage";
 
 interface Props {
     inventions: IInventionRenderData[];
-    setShow: React.Dispatch<React.SetStateAction<boolean>>;
     zIndex: string;
     round: number;
     scenario: IScenarioServiceRenderData;
@@ -39,9 +38,6 @@ export default function Castaways(props: Props) {
         }
     }, [])
 
-    function handleClick() {
-        props.setShow(false);
-    }
 
     const fireBuilt = Boolean(props.inventions.find((inv) => inv.name === INVENTION_STARTER.FIRE)?.isBuilt);
 
@@ -54,9 +50,6 @@ export default function Castaways(props: Props) {
 
     return (
         <div className={styles.container}>
-            <div className={styles.hideButton} onClick={handleClick}>
-                X
-            </div>
             <div className={styles.titleDiv}>
                 <span className={styles.title}>Rozbitkowie</span>
             </div>

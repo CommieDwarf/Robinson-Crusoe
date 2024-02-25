@@ -1,14 +1,15 @@
 import {CreatureMysteryCard} from "./CreatureMysteryCard/CreatureMysteryCard";
 import {IMysteryCard} from "../../../../../../interfaces/MysteryService/MysteryCard";
 import {IGame} from "../../../../../../interfaces/Game";
-import {IPlayerCharacter} from "../../../../../../interfaces/Characters/Character";
+import {IPlayerCharacter} from "../../../../../../interfaces/Characters/PlayerCharacter";
+import {ICharacter} from "../../../../../../interfaces/Characters/Character";
 
 export class Snake extends CreatureMysteryCard implements IMysteryCard {
-  constructor(game: IGame) {
-    super(game, "snake", "wąż", false, "");
-  }
+    constructor(game: IGame) {
+        super(game, "snake", "wąż", false, "");
+    }
 
-  triggerDrawEffect(drawer: IPlayerCharacter) {
-    this._game.characterService.hurt(drawer, 2, this._namePL);
-  }
+    triggerDrawEffect(drawer: ICharacter) {
+        this._game.characterService.hurt(drawer, 2, this._namePL);
+    }
 }

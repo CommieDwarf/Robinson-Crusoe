@@ -1,5 +1,6 @@
 import {IMysteryCard} from "./MysteryCard";
 import {IPlayerCharacter} from "../Characters/PlayerCharacter";
+import {ICharacter} from "../Characters/Character";
 
 export interface IMysteryCardDrawer {
     creature: number;
@@ -7,7 +8,7 @@ export interface IMysteryCardDrawer {
     treasure: number;
     acquiredTreasures: IMysteryCard[];
 
-    drawer: IPlayerCharacter;
+    drawer: ICharacter;
 
     canDraw: boolean;
     finished: boolean;

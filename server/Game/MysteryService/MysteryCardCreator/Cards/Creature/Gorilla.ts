@@ -3,6 +3,7 @@ import {IMysteryCard} from "../../../../../../interfaces/MysteryService/MysteryC
 import {IGame} from "../../../../../../interfaces/Game";
 import {CONSTRUCTION} from "../../../../../../interfaces/ConstructionService/Construction";
 import {IPlayerCharacter} from "../../../../../../interfaces/Characters/PlayerCharacter";
+import {ICharacter} from "../../../../../../interfaces/Characters/Character";
 
 export class Gorilla
     extends CreatureMysteryCard
@@ -11,7 +12,7 @@ export class Gorilla
         super(game, "gorilla", "goryl", true, "goryl w obozie");
     }
 
-    triggerDrawEffect(drawer: IPlayerCharacter) {
+    triggerDrawEffect(drawer: ICharacter) {
         this._game.characterService.hurt(drawer, 2, this._namePL);
         this.shuffleIntoEventDeck();
     }

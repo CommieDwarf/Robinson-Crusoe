@@ -37,7 +37,7 @@ export class Precipice extends EventCard implements IEventCard {
     }
 
     fullFill() {
-        const tile = this._game.tileService.tiles.find((tile) => tile.modifiers.flipped === this._namePL);
+        const tile = this._game.tileService.tiles.find((tile) => tile.modifiers.flipped?.source === this._namePL);
         if (tile) {
             tile.unsetTileModifier("flipped", this._resolutionPL);
         }

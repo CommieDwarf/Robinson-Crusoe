@@ -2,6 +2,7 @@ import {TreasureMysteryCard} from "./TreasureMysteryCard/TreasureMysteryCard";
 import {IGame} from "../../../../../../interfaces/Game";
 import {IPlayerCharacter} from "../../../../../../interfaces/Characters/PlayerCharacter";
 import {CONSTRUCTION} from "../../../../../../interfaces/ConstructionService/Construction";
+import {ICharacter} from "../../../../../../interfaces/Characters/Character";
 
 export class Sabre extends TreasureMysteryCard {
 
@@ -11,7 +12,7 @@ export class Sabre extends TreasureMysteryCard {
         super(game, "sabre", "szabla", false, "", 1);
     }
 
-    triggerDrawEffect(drawer: IPlayerCharacter) {
+    triggerDrawEffect(drawer: ICharacter) {
         this.addToResources();
     }
 

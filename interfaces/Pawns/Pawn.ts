@@ -1,6 +1,7 @@
 import {IPlayerCharacter} from "../Characters/PlayerCharacter";
 import {ISkillRenderData} from "../Skill/Skill";
 import {IInvention} from "../InventionService/Invention";
+import {ICharacter} from "../Characters/Character";
 
 export interface IPawnRenderData {
     draggableId: string;
@@ -16,9 +17,10 @@ export interface IPawnRenderData {
 
 export interface IPawn {
     draggableId: string;
-    character: IPlayerCharacter;
+    character: ICharacter;
     renderData: IPawnRenderData;
 }
+
 
 export interface IPawnHelper extends IPawn {
     disposable: boolean;

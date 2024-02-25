@@ -21,4 +21,3 @@ export interface IActionSlotService {
     pawnDropIDAlert: string | null;
 }
 
-export type IActionSlotsRenderData = Map<string, IPawnRenderData | null>;

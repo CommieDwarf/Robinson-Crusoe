@@ -1,4 +1,3 @@
-import {IPlayerCharacter} from "../Characters/Character";
 import {IPlayerCharacter} from "../Characters/PlayerCharacter";
 
 export interface IToken {

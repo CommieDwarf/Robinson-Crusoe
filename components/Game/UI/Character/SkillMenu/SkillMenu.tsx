@@ -52,7 +52,7 @@ export default function SkillMenu(props: Props) {
 
     function handleButtonClick() {
         if (props.skillDescription.skill?.name) {
-            const cloudTarget = props.skillDescription.skill.name === "hooch" ? cloud : null;
+            const cloudTarget = props.skillDescription.skill.name === "hooch" ? cloud : undefined;
             props.use(props.skillDescription.skill?.name, cloudTarget);
         }
     }

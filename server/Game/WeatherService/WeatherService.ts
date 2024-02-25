@@ -48,7 +48,7 @@ export class WeatherService implements IWeatherService {
         if (snow > 0 && this._game.inventionService.isBuilt(INVENTION_NORMAL.FURNACE)) {
             snow--;
         }
-        if (snow > 0 && this._game.mysteryService.hasTresureCard(TREASURE_MYSTERY_CARD.OLD_CLOTHES)) {
+        if (snow > 0 && this._game.mysteryService.hasTreasureCard(TREASURE_MYSTERY_CARD.OLD_CLOTHES)) {
             snow--;
             rain++;
         }

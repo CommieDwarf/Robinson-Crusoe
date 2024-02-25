@@ -8,6 +8,7 @@ import {MysteryCardDrawer} from "./MysteryCardDrawer";
 import {TREASURE_MYSTERY_CARD} from "../../../interfaces/MysteryService/MYSTERY_CARD";
 import {IPlayerCharacter} from "../../../interfaces/Characters/PlayerCharacter";
 import {Barrel} from "./MysteryCardCreator/Cards/Treasure/Barrel";
+import {ICharacter} from "../../../interfaces/Characters/Character";
 
 
 export class MysteryService implements IMysteryService {
@@ -112,7 +113,7 @@ export class MysteryService implements IMysteryService {
         creature: number,
         trap: number,
         treasure: number,
-        drawer: IPlayerCharacter,
+        drawer: ICharacter,
         max: number = Infinity,
     ) {
         this._cardDrawer = new MysteryCardDrawer(
@@ -157,7 +158,7 @@ export class MysteryService implements IMysteryService {
         }
     }
 
-    public hasTresureCard(name: TREASURE_MYSTERY_CARD) {
+    public hasTreasureCard(name: TREASURE_MYSTERY_CARD) {
         let card = this._cardsAsReminders.find((c) => c.name === name);
         if (!card) {
             card = this._game.resourceService.owned.treasures.find((c) => c.name === name);

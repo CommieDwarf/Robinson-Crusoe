@@ -4,6 +4,7 @@ import {IGame} from "../../../../../../interfaces/Game";
 import {IPlayerCharacter} from "../../../../../../interfaces/Characters/PlayerCharacter";
 import {BeastStats} from "../../../../BeastService/BeastCreator/BeastCreator";
 import {BasicResources} from "../../../../ResourceService/BasicResources";
+import {ICharacter} from "../../../../../../interfaces/Characters/Character";
 
 export class BigApe
     extends CreatureMysteryCard
@@ -12,7 +13,7 @@ export class BigApe
         super(game, "big ape", "wielka małpa", true, "nocny demon", "Walcz");
     }
 
-    triggerDrawEffect(drawer: IPlayerCharacter) {
+    triggerDrawEffect(drawer: ICharacter) {
         this.shuffleIntoEventDeck();
     }
 

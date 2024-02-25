@@ -13,6 +13,7 @@ import {IGame} from "../../../interfaces/Game";
 import {InventionCreator} from "./InventionCreator/InventionCreator";
 import capitalizeFirstLetter from "../../../utils/capitalizeFirstLetter";
 import {IPlayerCharacter} from "../../../interfaces/Characters/PlayerCharacter";
+import {ICharacter} from "../../../interfaces/Characters/Character";
 
 export class InventionsService implements IInventionService {
     private _builtInventions: IInvention[] = [];
@@ -60,7 +61,7 @@ export class InventionsService implements IInventionService {
         );
     }
 
-    build(name: INVENTION, builder: IPlayerCharacter) {
+    build(name: INVENTION, builder: ICharacter) {
         const invention = this.getInvention(name);
         if (this._builtInventions.includes(invention)) {
             throw new Error("Invention is already has been built " + invention.name);

@@ -22,7 +22,7 @@ import {isTile} from "../../../utils/isSpecificResolvableItem/isTile";
 
 export class ActionSlotService implements IActionSlotService {
     private _slots: Map<string, null | IPawn>;
-    private _game: IGame;
+    private readonly _game: IGame;
     private _pawnDropIDAlert: string | null = null;
 
     constructor(game: IGame) {

@@ -9,6 +9,7 @@ import {IPlayerCharacter} from "../../../interfaces/Characters/PlayerCharacter";
 import {MysteryCardCreator} from "./MysteryCardCreator/MysteryCardCreator";
 import {FuriousTiger} from "./MysteryCardCreator/Cards/Creature/FuriousTiger";
 import {CREATURE_MYSTERY_CARD} from "../../../interfaces/MysteryService/MYSTERY_CARD";
+import {ICharacter} from "../../../interfaces/Characters/Character";
 
 export class MysteryCardDrawer implements IMysteryCardDrawer {
     private _creature: number;
@@ -20,7 +21,7 @@ export class MysteryCardDrawer implements IMysteryCardDrawer {
     private _canFinish: boolean = false;
     private _finished: boolean = false;
     private _max: number;
-    private readonly _drawer: IPlayerCharacter;
+    private readonly _drawer: ICharacter;
     private _cardDrewCount: number = 0;
     private _acquiredTreasures: IMysteryCard[] = [];
 
@@ -30,7 +31,7 @@ export class MysteryCardDrawer implements IMysteryCardDrawer {
         creature: number,
         trap: number,
         treasure: number,
-        drawer: IPlayerCharacter,
+        drawer: ICharacter,
         max: number
     ) {
         this._mysteryService = mysteryService;
@@ -61,7 +62,7 @@ export class MysteryCardDrawer implements IMysteryCardDrawer {
         return (this._trap > 0 || this._creature > 0 || this._treasure > 0) && this._max > this._cardDrewCount;
     }
 
-    get drawer(): IPlayerCharacter {
+    get drawer(): ICharacter {
         return this._drawer;
     }
 

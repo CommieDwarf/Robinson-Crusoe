@@ -9,12 +9,6 @@ export interface ActionTokens {
     explore: boolean;
 }
 
-export interface Modifier {
-    active: boolean,
-    satisfiedByItem: {
-        droppableId: string
-    } | null;
-}
 
 export type GlobalCostModifiers = Record<ACTION, IGlobalCostModifier[]>;
 

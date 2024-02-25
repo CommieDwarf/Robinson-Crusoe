@@ -1,6 +1,7 @@
 import {TreasureMysteryCard} from "./TreasureMysteryCard/TreasureMysteryCard";
 import {IGame} from "../../../../../../interfaces/Game";
 import {IPlayerCharacter} from "../../../../../../interfaces/Characters/PlayerCharacter";
+import {ICharacter} from "../../../../../../interfaces/Characters/Character";
 
 export class CeremonialBowl extends TreasureMysteryCard {
     constructor(game: IGame) {
@@ -14,7 +15,7 @@ export class CeremonialBowl extends TreasureMysteryCard {
         );
     }
 
-    triggerDrawEffect(drawer: IPlayerCharacter) {
+    triggerDrawEffect(drawer: ICharacter) {
         //TODO: implement reroll token on drawer.
     }
 

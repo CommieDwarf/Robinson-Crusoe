@@ -6,7 +6,7 @@ import {
     INVENTION_TYPE,
     InventionRequirements, InventionResource,
 } from "../../../../interfaces/InventionService/Invention";
-import {CHARACTER} from "../../../../interfaces/Characters/Character";
+import {CHARACTER, ICharacter} from "../../../../interfaces/Characters/Character";
 import {IGame} from "../../../../interfaces/Game";
 import {ACTION, ACTION_ITEM} from "../../../../interfaces/ACTION";
 import {ResourceCommittableItem} from "../../ResourceCommittableItem/ResourceCommittableItem";
@@ -154,7 +154,7 @@ export class Invention extends ResourceCommittableItem<InventionResource> implem
         this._game.otherPawns = this._game.otherPawns.filter((pawn) => pawn.card !== this);
     }
 
-    protected getLeader(): IPlayerCharacter {
+    protected getLeader(): ICharacter {
         const leader = this._game.actionSlotService.getPawn(
             "invention-" + this.name + "-leader-0"
         )?.character;

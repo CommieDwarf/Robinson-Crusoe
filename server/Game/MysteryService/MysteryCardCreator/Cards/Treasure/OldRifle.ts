@@ -2,6 +2,7 @@ import {TreasureMysteryCard} from "./TreasureMysteryCard/TreasureMysteryCard";
 import {IGame} from "../../../../../../interfaces/Game";
 import {CONSTRUCTION} from "../../../../../../interfaces/ConstructionService/Construction";
 import {IPlayerCharacter} from "../../../../../../interfaces/Characters/PlayerCharacter";
+import {ICharacter} from "../../../../../../interfaces/Characters/Character";
 
 export class OldRifle extends TreasureMysteryCard {
     constructor(game: IGame) {
@@ -13,7 +14,7 @@ export class OldRifle extends TreasureMysteryCard {
         this.removeFromOwnedResources();
     }
 
-    triggerDrawEffect(drawer: IPlayerCharacter) {
+    triggerDrawEffect(drawer: ICharacter) {
         this.addToResources();
     }
 }

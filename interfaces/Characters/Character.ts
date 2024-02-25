@@ -1,5 +1,5 @@
 import {ICharEffects} from "./CharEffects";
-import {IPawnService, IPawnServiceRenderData} from "../Pawns/Pawns";
+import {IPawnService, IPawnServiceRenderData} from "../Pawns/PawnService";
 import {ISkill, ISkillRenderData} from "../Skill/Skill";
 import {ActionDice} from "../RollDice/RollDice";
 import {Cloud} from "../Weather/Weather";

@@ -6,6 +6,9 @@ import {Phase} from "../PhaseService/PhaseService";
 import {Cloud} from "../Weather/Weather";
 import {ICharacter} from "../Characters/Character";
 
+
+export type SkillTarget = ICharacter | ActionDice | Cloud | null;
+
 export interface ISkill {
     name: string;
     namePL: string;
@@ -17,7 +20,7 @@ export interface ISkill {
     usedInThisRound: boolean;
 
     canBeUsed: () => boolean;
-    use: (target: ICharacter | ActionDice | Cloud | null) => void;
+    use: (target: SkillTarget) => void;
     cost: number;
     renderData: ISkillRenderData;
 }
