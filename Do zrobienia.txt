@@ -1,5 +1,17 @@
-Żeton dodatkowego pionka na akcji
+Piętaszek i karty przygód
+Piętaszek i jego pula determinacji
+Ikonki surowców w ramki i nazwy po najechaniu
+Żeton Powalone drzewo - nie został zrealizowany po końcu akcji
+Faza pogody - najezdzajace sie napisy
+Naturalne schronienie - podmień obrazy na jakąś jaskinie i daj napis.
+Nastała noc - przycisk niebieski
+Naturalne schronienie nie działa
 
-Refaktoryzacja CardResolve.tsx az wstyd
 
-mystery trap - trap door
+
+akcje (czerwona strzalka) na kafelku da się zignorować.
+
+W chatlogu log z eventu powinien mieć ikonkę wydarzenia a nie nocy x
+Wspomnienia z rejsu (event) - za dużo action slotów, insekty tez x
+Karta eventu za blisko przycisku w action resolve window x
+nie działa obraz bestrii w action resolve window x

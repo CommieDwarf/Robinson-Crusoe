@@ -24,8 +24,8 @@ export class InAHurry extends BuildAdventureCard implements IAdventureCard {
     }
 
     option2(resolver: IPlayerCharacter) {
-        this._game.tokenService.addRandomTokenToOwned();
-        this._game.tokenService.addRandomTokenToOwned();
+        this._game.tokenService.addRandomTokensToOwned();
+        this._game.tokenService.addRandomTokensToOwned();
         this.shuffleIntoEventDeck();
     }
 

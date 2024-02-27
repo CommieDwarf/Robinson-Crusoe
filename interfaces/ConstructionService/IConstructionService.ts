@@ -31,7 +31,8 @@ export interface IConstructionService {
         by: number,
         logSource: string
     ) => void;
-    setDividedLvlByTwo: (construction: CONSTRUCTION, sourceLog: string) => void;
+    setDividedLvlByTwoRoundedDown: (construction: CONSTRUCTION, sourceLog: string) => void;
+    setDividedLvlByTwoRoundedUp: (construction: CONSTRUCTION, sourceLog: string) => void;
     setLvl: (construction: CONSTRUCTION, lvl: number) => void;
     unlockConstruction: (construction: CONSTRUCTION) => void;
     lockConstruction: (construction: CONSTRUCTION) => void;

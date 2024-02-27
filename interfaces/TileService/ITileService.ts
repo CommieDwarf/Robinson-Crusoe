@@ -17,7 +17,7 @@ export interface ITileService {
     campJustMoved: boolean;
     tilesAroundCamp: ITile[]
     isTileMarkedForAction: boolean;
-    terrainTypesExplored: Set<TERRAIN_TYPE>;
+    exploredTerrainTypes: Set<TERRAIN_TYPE>;
     canCampBeMoved: () => boolean;
     forceCampMovement: () => void;
     updateDistance: () => void;
@@ -35,6 +35,6 @@ export interface ITileService {
     moveCamp: (tileID: number) => void;
     explore: (id: number) => void;
 
-
+    updateExploredTerrainTypes: () => void;
     renderData: ITilesServiceRenderData;
 }

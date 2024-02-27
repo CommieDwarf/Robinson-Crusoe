@@ -51,7 +51,6 @@ export class TokenService implements ITokenService {
     private testTokens() {
         const length = this._tokenStack.length;
         for (let i = 0; i < length; i++) {
-            this.addRandomTokenToOwned();
         }
         // const testSet = new Set<string>();
         //
@@ -80,13 +79,14 @@ export class TokenService implements ITokenService {
         if (token.used) {
             this._owned = this._owned.filter((tok) => tok !== token);
         }
-
     }
 
-    public addRandomTokenToOwned() {
-        const tokenName = this._tokenStack.pop();
-        if (tokenName) {
-            this._owned.push(this._tokenCreator.create(tokenName));
+    public addRandomTokensToOwned(amount: number) {
+        for (let i = 0; i < amount; i++) {
+            const tokenName = this._tokenStack.pop();
+            if (tokenName) {
+                this._owned.push(this._tokenCreator.create(tokenName));
+            }
         }
     }
 }

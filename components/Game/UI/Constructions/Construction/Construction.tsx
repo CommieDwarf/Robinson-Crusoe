@@ -17,6 +17,7 @@ type Props = {
     hideActionSlots?: boolean;
     switchCommittedResources: (construction: CONSTRUCTION) => void;
     ownedResources: IBasicResourcesAmount;
+    naturalShelter: boolean;
 };
 
 function Construction(props: Props) {
@@ -51,9 +52,16 @@ function Construction(props: Props) {
         actionSlots = getActionSlots(props.construction, props.construction.requiredPawnAmount);
     }
 
+    let constrImgName = props.construction.name as string;
+
+    if (constrImgName === "shelter" && props.construction.lvl === 0 && props.naturalShelter) {
+        constrImgName = "natural-shelter";
+    }
+
 
     return (
-        <div className={`${styles.construction} ${props.construction.name === "weapon" ? styles.noBottomBorder : ""}`}>
+        <div
+            className={`${styles.construction} ${props.construction.name === "weapon" ? styles.noBottomBorder : ""}`}>
             <div className={styles.lvlLabel}>Poziom {props.construction.lvl}
                 {props.construction.temporaryBoost > 0 &&
                     <span className={styles.lvlBoosted}>(+{props.construction.temporaryBoost})</span>
@@ -82,11 +90,11 @@ function Construction(props: Props) {
             </div>
             <div
                 className={`${styles[props.construction.name]} ${
-                    props.construction.lvl === 0 ? styles.level0 : ""
+                    props.construction.lvl === 0 && constrImgName !== "natural-shelter" ? styles.level0 : ""
                 }`}
             >
                 <ResizableImage
-                    src={`/UI/constructions/${props.construction.name}.png`}
+                    src={`/UI/constructions/${constrImgName}.png`}
                     fill
                     alt={props.construction.name}
                     sizes={`${styles[props.construction.name]} ${

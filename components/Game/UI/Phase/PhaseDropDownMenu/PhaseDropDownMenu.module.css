@@ -11,22 +11,27 @@
     overflow: hidden;
 }
 
-.content {
-}
 
 .phase {
-    height: calc(100% / 6);
     border-bottom: var(--borderColor);
 }
 
+.container {
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+}
+
+
 .show {
-    height: 720%;
     border-top: none;
 }
 
 .hide {
     height: 0;
-    overflow: hidden;
 }
 
 .currentPhase {
@@ -43,7 +48,7 @@
 }
 
 .phasePicture {
-    height: 50%;
+    width: 100%;
     aspect-ratio: 6;
     position: relative;
     margin: auto;
@@ -73,6 +78,3 @@
     color: #265167;
 }
 
-.last {
-    border-bottom: none;
-}

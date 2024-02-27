@@ -30,7 +30,7 @@ export class NiceSurprise
     }
 
     triggerEventEffect() {
-        this._game.constructionService.setDividedLvlByTwo(
+        this._game.constructionService.setDividedLvlByTwoRoundedDown(
             CONSTRUCTION.ROOF,
             this._eventNamePL
         );

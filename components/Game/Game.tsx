@@ -101,31 +101,33 @@ export default function Game(props: Props) {
 
     const [confirmWindow, setConfirmWindow] = useState<null | CONFIRM_WINDOW>(null);
 
-    const gameRef = useRef<HTMLDivElement>(null);
-    const gameHeight = useGameHeight();
-
     const mapRef = useRef<HTMLDivElement>(null)
     const [mapHeight, setMapHeight] = useState<number>(0);
+    const actionOrderRef = useRef<HTMLDivElement>(null);
+    const [actionOrderHeight, setActionOrderHeight] = useState<number>(0);
 
 
     useLayoutEffect(() => {
         if (mapRef.current) setMapHeight(mapRef.current.offsetHeight);
+        if (actionOrderRef.current) setActionOrderHeight(actionOrderRef.current.offsetHeight)
     }, [])
 
+    const [gameHeight, setGameHeight] = useState(window.outerHeight);
+
+    useGameHeight();
 
     function useGameHeight() {
-        const [gameHeight, setGameHeight] = useState(0);
         useLayoutEffect(() => {
-            if (!gameHeight) updateGameHeight();
+            updateGameHeight();
 
             function updateGameHeight() {
-                if (gameRef.current) setGameHeight(gameRef.current.offsetHeight);
+                if (mapRef.current) setMapHeight(mapRef.current.offsetHeight);
+                if (actionOrderRef.current) setActionOrderHeight(actionOrderRef.current.offsetHeight);
             }
 
             window.addEventListener("resize", updateGameHeight)
-
             return () => {
-                window.removeEventListener("resize", updateGameHeight)
+                window.removeEventListener("resize", updateGameHeight);
             }
         }, []);
         return gameHeight;
@@ -428,12 +430,15 @@ export default function Game(props: Props) {
     );
 
     const gameStyle = {
-        fontSize: gameHeight / 100
+        fontSize: gameHeight / 100,
     }
 
-    console.log(gameHeight, "GAME HEIGHT")
+    // @ts-ignore
+    const isFirefox = typeof InstallTrigger !== 'undefined';
+
+
     return (
-        <div className={styles.game} ref={gameRef} style={gameStyle}>
+        <div className={`${styles.game} ${isFirefox ? styles.gameMoz : ""}`} style={gameStyle}>
             {/*<Background columnStart={3} columnEnd={5} rowStart={3} rowEnd={5}/>*/}
             {/*<Background columnStart={1} columnEnd={3} rowStart={1} rowEnd={2}/>*/}
             {/*<Background columnStart={1} columnEnd={3} rowStart={2} rowEnd={5}/>*/}
@@ -487,21 +492,21 @@ export default function Game(props: Props) {
                 />
             )}
 
-            <Scenario
-                zIndex={elementZIndexed}
-                inventions={gameRenderData.inventionService.inventions.filter((card) => card.inventionType === INVENTION_TYPE.SCENARIO)}
-                show={showScenario}
-                contentHeight={mapHeight}
-                round={gameRenderData.round}
-                scenario={gameRenderData.scenarioService}
-                addWoodToStash={() => {
-                }}
-            />
+
             <DragDropContext
                 onDragEnd={onDragEnd}
                 onDragUpdate={onDragUpdate}
                 onDragStart={onDragStart}
             >
+                <Scenario
+                    zIndex={elementZIndexed}
+                    inventions={gameRenderData.inventionService.inventions.filter((card) => card.inventionType === INVENTION_TYPE.SCENARIO)}
+                    show={showScenario}
+                    contentHeight={mapHeight + actionOrderHeight}
+                    round={gameRenderData.round}
+                    scenario={gameRenderData.scenarioService}
+                    addWoodToStash={handleAddWoodToStash}
+                />
                 <Phase phase={gameRenderData.phaseService.phase}/>
                 <Morale current={gameRenderData.moraleService.lvl}/>
                 <AllResources
@@ -527,6 +532,7 @@ export default function Game(props: Props) {
                     zIndex={elementZIndexed}
                     switchCommittedResources={handleSwitchCommittedResources}
                     ownedResources={gameRenderData.resourceService.owned.basic}
+                    naturalShelter={gameRenderData.tileService.campTile.tileResourceService?.extras.naturalShelter || false}
                 />
                 <MapComponent
                     tileService={gameRenderData.tileService}
@@ -586,6 +592,7 @@ export default function Game(props: Props) {
                     adventureTokens={gameRenderData.actionService.adventureTokens}
                     reRollTokens={gameRenderData.actionService.reRollTokens}
                     globalCostModifiers={gameRenderData.actionService.globalCostModifiers}
+                    containerRef={actionOrderRef}
                 />
                 <ChatLog logMessages={gameRenderData.logs}/>
                 <Weather tokens={gameRenderData.weatherService.tokens}/>
@@ -594,21 +601,22 @@ export default function Game(props: Props) {
                     utilizeToken={handleUtilizeToken}
                     menuDisabled={isPawnBeingDragged || elementZIndexed !== ""}
                 />
-                <ScenarioButton
-                    inventions={scenarioInventions}
-                    zIndex={elementZIndexed}
-                    show={showScenario}
-                    setShow={setShowScenario}
-                    round={gameRenderData.round}
-                    scenario={gameRenderData.scenarioService}
-                    addWoodToStash={handleAddWoodToStash}
-                />
+
                 {/*<Players />*/}
                 <NextPhaseButton
                     goNextPhase={handleSetNextPhase}
                     locked={gameRenderData.phaseService.locked || !!confirmWindow}
                 />
             </DragDropContext>
+            <ScenarioButton
+                inventions={scenarioInventions}
+                zIndex={elementZIndexed}
+                show={showScenario}
+                setShow={setShowScenario}
+                round={gameRenderData.round}
+                scenario={gameRenderData.scenarioService}
+                addWoodToStash={handleAddWoodToStash}
+            />
             {gameRenderData.phaseService.phase === "action" &&
                 !gameRenderData.actionService.finished && (
                     <ActionResolveWindow

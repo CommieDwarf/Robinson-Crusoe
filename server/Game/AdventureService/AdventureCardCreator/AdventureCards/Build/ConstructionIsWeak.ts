@@ -29,6 +29,6 @@ export class ConstructionIsWeak
         const construction = this._game.constructionService.getConstruction(
             CONSTRUCTION.ROOF
         );
-        this._game.constructionService.setDividedLvlByTwo(CONSTRUCTION.ROOF, this._eventNamePL)
+        this._game.constructionService.setDividedLvlByTwoRoundedDown(CONSTRUCTION.ROOF, this._eventNamePL)
     }
 }

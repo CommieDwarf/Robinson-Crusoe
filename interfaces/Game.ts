@@ -70,6 +70,12 @@ import {
     IMysteryServiceRenderData,
 } from "./MysteryService/MysteryService";
 
+export enum GAME_STATUS {
+    PENDING = "pending",
+    LOSE = "lose",
+    WIN = "win",
+}
+
 export interface IGameRenderData {
     players: IPlayerRenderData[];
     localPlayer: IPlayerRenderData;
@@ -122,6 +128,8 @@ export interface IGame {
     otherPawns: IPawnHelper[];
     setNextRound: () => void;
     setPawn: (droppableId: string, draggableId: string) => void;
+
+    gameStatus: GAME_STATUS;
     unsetPawn: (droppableId: string, draggableId: string) => void;
 
     canCommitResources: (droppableId: string) => boolean;
@@ -130,5 +138,7 @@ export interface IGame {
     actionSlotRenderData: IActionSlotServiceRenderData;
     adventureService: IAdventureService;
     mysteryService: IMysteryService;
+
+    setGameStatus: (status: GAME_STATUS.WIN | GAME_STATUS.LOSE, reason?: string) => void;
     renderData: IGameRenderData;
 }

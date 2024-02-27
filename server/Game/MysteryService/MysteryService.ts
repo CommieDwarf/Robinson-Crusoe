@@ -150,10 +150,8 @@ export class MysteryService implements IMysteryService {
             if (!card.drawLabel) {
                 card.triggerDrawEffect(this._cardDrawer.drawer);
                 card.drawResolved = true;
-                console.log("resolved true")
             } else {
                 this._cardToBeResolved = card;
-                console.log("to be resolved");
             }
         }
     }

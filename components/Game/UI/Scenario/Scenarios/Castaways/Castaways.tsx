@@ -27,14 +27,25 @@ interface Props {
 export default function Castaways(props: Props) {
 
     const inventionContRef = useRef<HTMLDivElement>(null);
-    const [inventionContHeight, setInventionContHeight] = useState<number>(0);
     const [inventionContWidth, setInventionContWidth] = useState<number>(0);
 
     useLayoutEffect(() => {
         const {current} = inventionContRef;
-        if (current) {
-            setInventionContHeight(current.getBoundingClientRect().height);
-            setInventionContWidth(current.getBoundingClientRect().width)
+
+        updateSizes();
+
+        function updateSizes() {
+            if (current) {
+                setInventionContWidth(current.getBoundingClientRect().width)
+            }
+        }
+
+        const container = current;
+
+        if (container) container.addEventListener("resize", updateSizes);
+
+        return () => {
+            if (container) container.removeEventListener("resize", updateSizes);
         }
     }, [])
 
@@ -44,7 +55,8 @@ export default function Castaways(props: Props) {
     const cardAspectRatio = Number(getComputedStyle(document.documentElement)
         .getPropertyValue('--cardAspectRatio'));
 
-    const cardWidth = inventionContHeight * cardAspectRatio;
+    const cardWidth = inventionContWidth / 2;
+    const cardHeight = cardWidth / cardAspectRatio;
     const cardEnlargeScale = 1.5;
 
 
@@ -104,13 +116,13 @@ export default function Castaways(props: Props) {
                                 }}
                                 manageStorage={() => {
                                 }}
-                                height={inventionContHeight}
+                                height={cardHeight}
                                 width={cardWidth}
                                 totalWidth={inventionContWidth}
                                 useItem={() => {
                                 }}
                                 enlargeParams={{
-                                    top: -inventionContHeight * cardEnlargeScale / 2,
+                                    top: -cardHeight / 2,
                                     left: (inventionContWidth / 2) - (cardWidth * cardEnlargeScale / 2),
                                     scale: cardEnlargeScale,
                                 }}

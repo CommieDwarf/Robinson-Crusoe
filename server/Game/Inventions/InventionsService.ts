@@ -12,7 +12,6 @@ import {ITileService} from "../../../interfaces/TileService/ITileService";
 import {IGame} from "../../../interfaces/Game";
 import {InventionCreator} from "./InventionCreator/InventionCreator";
 import capitalizeFirstLetter from "../../../utils/capitalizeFirstLetter";
-import {IPlayerCharacter} from "../../../interfaces/Characters/PlayerCharacter";
 import {ICharacter} from "../../../interfaces/Characters/Character";
 
 export class InventionsService implements IInventionService {
@@ -94,12 +93,15 @@ export class InventionsService implements IInventionService {
 
     updateLocks() {
         this._inventions.forEach((invention) => {
+            if (invention.name === INVENTION_CASTAWAYS.AXE) {
+            }
             invention.locked = !(
                 this.isInvRequirementMet(invention) &&
                 this.isTileTypeRequirementMet(invention) &&
                 this.isResourceCostMet(invention)
             );
         });
+
     }
 
     public useInvention(name: string): void {
@@ -135,7 +137,7 @@ export class InventionsService implements IInventionService {
             return true;
         }
 
-        return this._tiles.terrainTypesExplored.has(
+        return this._tiles.exploredTerrainTypes.has(
             invention.requirements.terrainType
         );
     }

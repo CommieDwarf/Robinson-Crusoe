@@ -13,15 +13,19 @@ import {ACTION} from "../../../../interfaces/ACTION";
 import {IGlobalCostModifierRenderData} from "../../../../interfaces/ActionService/GlobalCostModifier";
 import timeConsumingActionToken from "/public/UI/tokens/time-consuming-action.png";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
+import {ReactRef} from "@nextui-org/react/types/utils/refs";
+import {arePropsEqual} from "../../../../utils/arePropsEqual";
 
-interface Props {
+type Props = {
     adventureTokens: ActionTokens;
     reRollTokens: ActionTokens;
-    globalCostModifiers: Record<ACTION, IGlobalCostModifierRenderData[]>;
+    globalCostModifiers: Record<ACTION, IGlobalCostModifierRenderData[]>
+    containerRef: React.RefObject<HTMLDivElement>
 }
 
 function ActionOrder(props: Props) {
     let actionIcons: JSX.Element[] = [];
+
 
     actionOrder.forEach((action, i) => {
         if (i > 0) {
@@ -78,11 +82,12 @@ function ActionOrder(props: Props) {
     });
 
     return (
-        <div className={styles.container}>
+        <div className={styles.container} ref={props.containerRef}>
             <div className={styles.label}>Kolejność akcji</div>
             {actionIcons}
         </div>
     );
 }
 
-export default React.memo(ActionOrder, objectsEqual);
+export default React.memo(ActionOrder, arePropsEqual<Props>(["containerRef"]));
+

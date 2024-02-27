@@ -2,7 +2,7 @@ import {EventCard} from "../EventCard";
 import {EVENT_TYPE, IEventCard,} from "../../../../../interfaces/EventService/EventCard";
 import {IGame} from "../../../../../interfaces/Game";
 import {EVENT_CARD} from "../../../../../interfaces/EventService/EVENT_CARD";
-import {TILE_ACTION} from "../../../../../interfaces/TileService/ITile";
+import {TERRAIN_TYPE, TILE_ACTION} from "../../../../../interfaces/TileService/ITile";
 
 export class SmokeOnTheHorizon extends EventCard implements IEventCard {
     protected readonly _namePL = "dym na horyzoncie";
@@ -23,7 +23,7 @@ export class SmokeOnTheHorizon extends EventCard implements IEventCard {
     }
 
     triggerEventEffect() {
-        const tiles = this._game.tileService.tiles;
+        const tiles = this._game.tileService.tiles.filter((tile) => tile.tileResourceService?.terrainType === TERRAIN_TYPE.PLAINS);
         this._game.tileService.markTilesForAction(tiles, TILE_ACTION.DEPLETE_TERRAIN_TYPE, 1, this._namePL);
     }
 

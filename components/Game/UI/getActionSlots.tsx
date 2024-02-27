@@ -7,6 +7,7 @@ import {ITileRenderData} from "../../../interfaces/TileService/ITile";
 import {IBeastRenderData} from "../../../interfaces/Beasts/Beast";
 import {IEventCardRenderData} from "../../../interfaces/EventService/EventCard";
 import {Side} from "../../../interfaces/TileService/TileResourceService";
+import {isEventCard} from "../../../utils/isEventCard";
 
 
 export default function getActionSlots(
@@ -28,8 +29,9 @@ export default function getActionSlots(
 
     const actionSlots = [];
 
+    const actionSlotAmount = isEventCard(item) ? item.requiredPawnAmount : item.requiredPawnAmount + 1;
 
-    for (let i = 0; i < item.requiredPawnAmount + 1; i++) {
+    for (let i = 0; i < actionSlotAmount; i++) {
         const actionSlotId = getDroppableID(item.uniqueAction, identifier, side, i);
         const role = i === 0 ? "leader" : "helper";
         actionSlots.push(

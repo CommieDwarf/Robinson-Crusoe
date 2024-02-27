@@ -8,12 +8,13 @@ import {Side, TILE_RESOURCE_ACTION} from "../../../interfaces/TileService/TileRe
 import {FixedTileResources} from "../../../interfaces/TileService/TileResourceInfo";
 import {fixedTileResources} from "../../../constants/tileResourceServices";
 import {INVENTION_NORMAL} from "../../../interfaces/InventionService/Invention";
+import {CONSTRUCTION} from "../../../interfaces/ConstructionService/Construction";
 
 export class TileService implements ITileService {
 
     private _tileGraph: ITileGraph;
     private _fixedTileResourcesStack: FixedTileResources[];
-    private readonly _terrainTypesExplored: Set<TERRAIN_TYPE>;
+    private _exploredTerrainTypes: Set<TERRAIN_TYPE>;
     private _campTransition = {
         status: false,
         forced: false,
@@ -36,7 +37,7 @@ export class TileService implements ITileService {
     constructor(game: IGame, campTileID: number) {
         this._game = game;
         this._fixedTileResourcesStack = shuffle(fixedTileResources);
-        this._terrainTypesExplored = new Set<TERRAIN_TYPE>([TERRAIN_TYPE.BEACH]);
+        this._exploredTerrainTypes = new Set<TERRAIN_TYPE>([TERRAIN_TYPE.BEACH]);
         this._tileGraph = new TileGraph(this._startCamp, game);
         this.showAdjacentTiles(campTileID);
     }
@@ -67,8 +68,8 @@ export class TileService implements ITileService {
         return this._tileGraph.vertices.map((vertex) => vertex.data);
     }
 
-    get terrainTypesExplored(): Set<TERRAIN_TYPE> {
-        return this._terrainTypesExplored;
+    get exploredTerrainTypes(): Set<TERRAIN_TYPE> {
+        return this._exploredTerrainTypes;
     }
 
     get campTransition(): { forced: boolean; status: boolean } {
@@ -260,21 +261,38 @@ export class TileService implements ITileService {
         }
         const tile = this.getTile(id);
         tile.reveal(tileFixedResources);
+        this.updateExploredTerrainTypes();
         if (tile.position.borderTiles.includes(this.campTile.id)) {
             tile.canCampBeSettled = true;
         }
-        this.terrainTypesExplored.add(tileFixedResources.terrainType);
+        this.exploredTerrainTypes.add(tileFixedResources.terrainType);
         this.showAdjacentTiles(id);
         this._tileGraph.addEdges(id);
         this._tileGraph.updateDistance();
         if (tile.tileResourceService?.extras.discoveryToken) {
-            this._game.tokenService.addRandomTokenToOwned();
+            this._game.tokenService.addRandomTokensToOwned(tile.tileResourceService.extras.discoveryToken);
         }
         if (tile.tileResourceService?.resources.left.resource === "beast" ||
             tile.tileResourceService?.resources.right.resource === "beast"
         ) {
             this._game.beastService.moveBeastFromStackToDeck();
         }
+    }
+
+    public updateExploredTerrainTypes() {
+        const terrainTypes = new Set<TERRAIN_TYPE>();
+        this._tileGraph.vertices.forEach((vertex) => {
+            const tile = vertex.data;
+            if (tile.tileResourceService?.terrainType
+                && !tile.modifiers.terrainDepleted
+                && !tile.modifiers.flipped
+            ) {
+                terrainTypes.add(tile.tileResourceService.terrainType)
+            }
+        })
+
+        this._exploredTerrainTypes = terrainTypes;
+        this._game.inventionService.updateLocks();
     }
 
     private addResourceAmountFromItems(amount: number) {
@@ -304,17 +322,51 @@ export class TileService implements ITileService {
             this._game.phaseService.phase === "night" &&
             this.getTile(tileID).canCampBeSettled
         ) {
+            this.moveModifiers(this.campTile.id, tileID);
             this._tileGraph.moveCamp(tileID);
             this.campJustMoved = true;
+            this._game.constructionService.updateLocks();
             this._game.chatLog.addMessage(
                 "Obóz został przeniesiony.",
                 "green",
                 "Noc"
             );
+            this.moveConstructions();
         } else {
             throw Error(`Cant transfer camp. tileID: ${tileID}`);
         }
     }
+
+    private moveConstructions() {
+        const logSource = "Przeniesienie obozu";
+        const constructionService = this._game.constructionService;
+        const affectedConstructions = [CONSTRUCTION.ROOF, CONSTRUCTION.PALISADE];
+        if (constructionService.isBuilt(CONSTRUCTION.SHELTER)) {
+            affectedConstructions.forEach((constr) => constructionService.setDividedLvlByTwoRoundedUp(constr, logSource))
+        } else {
+            affectedConstructions.forEach((constr) => constructionService.lvlDownIfPossible(constr, Infinity, logSource))
+        }
+    }
+
+    private moveModifiers(currentTileId: number, targetTileId: number) {
+        const [currentTile, targetTile] = [this.getTile(currentTileId), this.getTile(targetTileId)];
+        const resources: ["wood", "food"] = ["wood", "food"];
+
+        resources.forEach((res) => {
+            const currentSide = currentTile.getSideByResource(res);
+            const targetSide = targetTile.getSideByResource(res);
+            if (currentSide && targetSide) {
+                const currentResources = currentTile.tileResourceService?.resources[currentSide];
+                const targetResources = targetTile.tileResourceService?.resources[targetSide];
+                if (currentResources && targetResources) {
+                    targetResources.modifiers = targetResources.modifiers.concat(currentResources?.modifiers);
+                }
+            }
+        })
+
+        currentTile.tileResourceService?.clearModifiers();
+    }
+
 
     public forceCampMovement() {
         if (this.tilesAroundCamp.some((tile) => tile.canCampBeSettled)) {

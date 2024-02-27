@@ -6,7 +6,7 @@ import {
     WeatherDays,
 } from "../../../interfaces/ScenarioService/ScenarioService";
 import {castaways} from "../../../constants/scenarios/castaways";
-import {IGame} from "../../../interfaces/Game";
+import {GAME_STATUS, IGame} from "../../../interfaces/Game";
 import {INVENTION_STARTER} from "../../../interfaces/InventionService/Invention";
 
 export class Castaways implements IScenarioService {
@@ -118,11 +118,12 @@ export class Castaways implements IScenarioService {
             this._woodStashLvl === this._maxWoodStashLvl &&
             this._shipRounds.includes(this._game.round)
         ) {
-            this._status = SCENARIO_STATUS.WIN;
+            this._game.setGameStatus(GAME_STATUS.WIN);
         } else if (this._game.round > this._lastRound) {
-            this._status = SCENARIO_STATUS.DEFEAT;
+            this._game.setGameStatus(GAME_STATUS.LOSE);
         }
     }
+
 
     private addLogMessage(woodAdded: number, sourceLog: string) {
         this._game.chatLog.addMessage(`Dodano ${woodAdded} drewna na stos`, "green", sourceLog)

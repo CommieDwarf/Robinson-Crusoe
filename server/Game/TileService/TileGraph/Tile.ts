@@ -185,6 +185,7 @@ export class Tile extends AssignablePawnsItem implements ITile {
     public triggerAction() {
         this._markedForAction?.trigger.call(this);
         this._markedForAction = null;
+        this._game.tileService.updateExploredTerrainTypes();
     }
 
     public isMarkedForAction(): boolean {
@@ -338,6 +339,10 @@ export class Tile extends AssignablePawnsItem implements ITile {
 
     public incrementStructureLvl(structure: BuiltTileStructure, amount: number) {
         this.builtStructures[structure] += amount;
+    }
+
+    public isExplored() {
+        return Boolean(this._tileResourceService);
     }
 
     // TODO: implement edge cases

@@ -59,7 +59,7 @@ export const Card = (props: Props) => {
 
     const wrapperStyle = {
         left: enlarged ? (props.enlargeParams?.left ? props.enlargeParams.left : props.totalWidth / 4) : props.column * props.width,
-        top: enlarged ? (props.enlargeParams?.top ? props.enlargeParams.top : props.top) : top,
+        top: enlarged ? (props.enlargeParams?.top ? props.enlargeParams.top : props.top + 5) : top,
         cursor: enlarged ? "zoom-out" : "zoom-in",
         height: enlarged ? props.height * (props.enlargeParams ? props.enlargeParams.scale : enlargeMultiplayer) + "px" : props.height + "px",
     };

@@ -1,16 +1,14 @@
-import {
-    Gender, ICharacter,
-    ICharacterRenderData,
-} from "../../../../../interfaces/Characters/Character";
+import {Gender, ICharacter, ICharacterRenderData,} from "../../../../../interfaces/Characters/Character";
 
 import {PlayerCharacterName} from "../../../../../interfaces/Characters/PlayerCharacter";
 import {SideCharacterName} from "../../../../../interfaces/Characters/SideCharacter";
-import {IGame} from "../../../../../interfaces/Game";
+import {GAME_STATUS, IGame} from "../../../../../interfaces/Game";
 import {ICharEffects} from "../../../../../interfaces/Characters/CharEffects";
 import {IPawnService} from "../../../../../interfaces/Pawns/PawnService";
 import {ISkill} from "../../../../../interfaces/Skill/Skill";
 import {ActionDice} from "../../../../../interfaces/RollDice/RollDice";
 import {Cloud} from "../../../../../interfaces/Weather/Weather";
+import {PlayerCharacter} from "./PlayerCharacter/PlayerCharacter";
 
 export abstract class Character implements ICharacter {
     protected _namePL: string;
@@ -120,6 +118,9 @@ export abstract class Character implements ICharacter {
 
     hurt(by: number) {
         this._health -= by;
+        if (this instanceof PlayerCharacter && this._health <= 0) {
+            this._game.setGameStatus(GAME_STATUS.LOSE, `${this._namePL} nie żyje`);
+        }
     }
 
     heal(by: number) {

@@ -13,7 +13,7 @@ export class MonkeysWatchYou
         {
             label: "dach",
             resolve: () => {
-                this._game.constructionService.setDividedLvlByTwo(CONSTRUCTION.ROOF, this._eventNamePL)
+                this._game.constructionService.setDividedLvlByTwoRoundedDown(CONSTRUCTION.ROOF, this._eventNamePL)
             },
             canBeResolved: () => {
                 return this._game.constructionService.isBuilt(CONSTRUCTION.ROOF)
@@ -23,7 +23,7 @@ export class MonkeysWatchYou
         {
             label: "palisada",
             resolve: () => {
-                this._game.constructionService.setDividedLvlByTwo(CONSTRUCTION.PALISADE, this._eventNamePL)
+                this._game.constructionService.setDividedLvlByTwoRoundedDown(CONSTRUCTION.PALISADE, this._eventNamePL)
             },
             canBeResolved: () => {
                 return this._game.constructionService.isBuilt(CONSTRUCTION.PALISADE)

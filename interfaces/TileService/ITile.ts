@@ -22,6 +22,8 @@ export interface ITile extends IAssignablePawnsItem {
     renderData: ITileRenderData;
 
     isMarkedForAction: () => boolean;
+
+    isExplored: () => boolean;
     isSideRequiredPawnsSatisfied: (side: Side) => boolean;
     isAnySideRequiredPawnsSatisfied: () => boolean;
 

@@ -142,10 +142,18 @@ export class ConstructionService implements IConstructionService {
 
     }
 
-    setDividedLvlByTwo(construction: CONSTRUCTION, logSource: string) {
+    public setDividedLvlByTwoRoundedDown(construction: CONSTRUCTION, logSource: string) {
+        this.setDividedLvlByTwo(construction, logSource, Math.floor)
+    }
+
+    public setDividedLvlByTwoRoundedUp(construction: CONSTRUCTION, logSource: string) {
+        this.setDividedLvlByTwo(construction, logSource, Math.ceil);
+    }
+
+    setDividedLvlByTwo(construction: CONSTRUCTION, logSource: string, roundFunction: (value: number) => number) {
         const construct = this.getConstruction(construction);
         const prevValue = construct.lvl;
-        this.setLvl(construction, Math.floor(prevValue / 2))
+        this.setLvl(construction, roundFunction(prevValue / 2))
         if (construct.lvl !== prevValue) {
             this._game.chatLog.addMessage(
                 `Poziom ${i18n.t(`construction.${construct.name}`, {
@@ -156,6 +164,7 @@ export class ConstructionService implements IConstructionService {
             );
         }
     }
+
 
     unlockConstruction(construction: CONSTRUCTION) {
         this.getConstruction(construction).locked = false;
@@ -172,7 +181,7 @@ export class ConstructionService implements IConstructionService {
     }
 
     updateLocks() {
-        if (this.getConstruction(CONSTRUCTION.SHELTER).lvl > 0) {
+        if (this.getConstruction(CONSTRUCTION.SHELTER).lvl > 0 || this._game.tileService.campTile.tileResourceService?.extras.naturalShelter) {
             this.unlockAllConstructions()
         } else {
             [CONSTRUCTION.PALISADE, CONSTRUCTION.ROOF].forEach((construction) => {

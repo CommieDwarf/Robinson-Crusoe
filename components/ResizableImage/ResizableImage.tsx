@@ -23,7 +23,6 @@ export default function ResizableImage(props: Props) {
 
     const sizes = `(max-width: ${containerWidth}px) 100vw, ${containerWidth}px`;
 
-    console.log("SIZES", sizes);
 
     // const startTime = performance.now();
     //

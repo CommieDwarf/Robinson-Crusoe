@@ -7,7 +7,7 @@ import {ConstructionService} from "./ConstructionService/ConstructionService";
 import {InventionsService} from "./Inventions/InventionsService";
 import {Equipment} from "./Equipment/Equipment";
 import {BeastService} from "./BeastService/BeastService";
-import {IGame, IGameRenderData} from "../../interfaces/Game";
+import {GAME_STATUS, IGame, IGameRenderData} from "../../interfaces/Game";
 import {IInventionService} from "../../interfaces/InventionService/InventionService";
 
 import {IEquipment} from "../../interfaces/Equipment/Equipment";
@@ -54,7 +54,10 @@ import {IMysteryService} from "../../interfaces/MysteryService/MysteryService";
 
 type ScenarioName = "castaways";
 
+
 export class GameClass implements IGame {
+
+
     private _chatLog: IChatLog = new ChatLog(this);
     private _actionService: ActionService = new ActionService(this);
     private readonly _playerService: IPlayerService;
@@ -85,6 +88,8 @@ export class GameClass implements IGame {
     private _adventureService = new AdventureService(this);
     private _mysteryService = new MysteryService(this);
     private _otherPawns: IPawnHelper[] = [];
+
+    private _gameStatus: GAME_STATUS = GAME_STATUS.PENDING;
 
     constructor(scenarioName: ScenarioName) {
         // this is hardcoded for demo purpose.
@@ -235,15 +240,17 @@ export class GameClass implements IGame {
         return this._otherPawns;
     }
 
+    get gameStatus(): GAME_STATUS {
+        return this._gameStatus;
+    }
+
     setPawn(droppableId: string, draggableId: string) {
         const pawn = this.allPawns.find((p) => p.draggableId === draggableId);
         const item = getItemFromDroppableId(droppableId, this);
-        console.log('dd')
         if (!pawn) {
             throw new Error("cant find pawn with id: " + draggableId);
         }
         if (!canPawnBeSettled(pawn.renderData, droppableId) || (this.shouldCommitResources(droppableId) && !this.canCommitResources(droppableId))) {
-            console.log("YETI!")
             return;
         }
 
@@ -310,5 +317,13 @@ export class GameClass implements IGame {
         this._round++;
     }
 
+    setGameStatus(status: GAME_STATUS.WIN | GAME_STATUS.LOSE, reason: string = "") {
+        this._gameStatus = status;
+        if (status === GAME_STATUS.LOSE) {
+            this._chatLog.addMessage("Gra zakończona przegraną!", "red", reason);
+        } else {
+            this._chatLog.addMessage("Gra wygrana!", "green", "Udało się wypełnić warunki scenariusza")
+        }
+    }
 
 }

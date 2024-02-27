@@ -1,13 +1,17 @@
 import "../styles/globals.css";
 import React from "react";
-import type { AppProps } from "next/app";
-import { Provider } from "react-redux";
-import { store } from "../store/store";
+import type {AppProps} from "next/app";
+import {Provider} from "react-redux";
+import {store} from "../store/store";
 
-export default function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    <Provider store={store}>
-      <Component {...pageProps} />;
-    </Provider>
-  );
+export default function MyApp({Component, pageProps}: AppProps) {
+    return (
+        <Provider store={store}>
+            <Component {...pageProps} />
+        </Provider>
+    );
 }
+
+
+// Piętaszek i karty przygody
+//

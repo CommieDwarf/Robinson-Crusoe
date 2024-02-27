@@ -79,7 +79,7 @@ function Play(props: Props) {
                 />
             ) : <Loading/>}
         </div>
-    );
+    )
 }
 
 export default Play;

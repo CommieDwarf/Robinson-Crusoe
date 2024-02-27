@@ -14,8 +14,6 @@ import {isMysteryCard} from "../../../utils/isMysteryCard";
 import {isAdventureCard} from "../../../utils/isAdventureCard";
 import {WRECKAGE_CARD} from "../../../interfaces/EventService/EVENT_CARD";
 import shuffle from "../../../utils/shuffleArray";
-import {MysteryCardCreator} from "../MysteryService/MysteryCardCreator/MysteryCardCreator";
-import {CREATURE_MYSTERY_CARD} from "../../../interfaces/MysteryService/MYSTERY_CARD";
 
 interface EventSlots {
     left: null | IEventCard;
@@ -152,9 +150,7 @@ export class EventService implements IEventService {
 
     public shuffleCardInToDeck(card: IAdventureCard | IMysteryCard) {
         this._eventCardDeck.push(card);
-        console.log("BEFORE shuffle", this._eventCardDeck.map((card) => card.name));
         this._eventCardDeck = shuffle(this._eventCardDeck);
-        console.log("AFTER shuffle", this._eventCardDeck.map((card) => card.name));
     }
 
     public switchCardFromTopToBottomOfStack() {

@@ -46,7 +46,6 @@ export class Invention extends ResourceCommittableItem<InventionResource> implem
         this._name = name;
         this._requirements = requirements;
         this._inventionType = inventionType;
-
     }
 
     get renderData(): IInventionRenderData {

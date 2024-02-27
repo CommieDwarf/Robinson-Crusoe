@@ -60,8 +60,8 @@ export class PhaseService implements IPhaseService {
             case "action":
                 return this._game.actionService.finished;
             case "weather":
-                return this._game.weatherService.shouldRollDices &&
-                !this._game.weatherService.rollDiceResult ? false : true;
+                return !(this._game.weatherService.shouldRollDices &&
+                    !this._game.weatherService.rollDiceResult);
         }
 
         return true;
@@ -102,6 +102,7 @@ export class PhaseService implements IPhaseService {
     }
 
     private eventEffect = () => {
+        this._game.eventService.pullCard();
     };
 
     private moraleEffect = () => {
@@ -141,7 +142,6 @@ export class PhaseService implements IPhaseService {
         this.eatOrGetHurt();
         this.rotFood();
         this.sleepInShelterOrHurt();
-        this._game.eventService.pullCard();
     };
 
 
@@ -169,7 +169,7 @@ export class PhaseService implements IPhaseService {
     }
 
     private sleepInShelterOrHurt() {
-        if (!this._game.constructionService.isBuilt(CONSTRUCTION.SHELTER)) {
+        if (!this._game.constructionService.isBuilt(CONSTRUCTION.SHELTER) && !this._game.tileService.campTile.tileResourceService?.extras.naturalShelter) {
             this._game.characterService.hurtAllPlayerCharacters(1, "Sen pod gołym niebem");
         }
     }

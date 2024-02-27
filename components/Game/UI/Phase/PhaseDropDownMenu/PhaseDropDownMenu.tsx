@@ -27,14 +27,17 @@ export default function PhaseDropDownMenu(props: Props) {
     let currentPhase =
         props.currentPhase === "preAction" ? "action" : props.currentPhase;
 
-    const contentStyle = {
-        height: props.rowHeight * 7 + "px",
-    }
 
     const phaseElements = phases.map((phase, i) => {
         const currentPhaseClass = currentPhase === phase ? styles.currentPhase : "";
+
+        const phaseStyle = {
+            height: props.rowHeight + "px"
+        }
         return (
-            <div className={`${styles.phase} ${currentPhaseClass} ${phase === "night" ? styles.last : ""}`} key={i}>
+            <div className={`${styles.phase} ${currentPhaseClass} ${phase === "night" ? styles.last : ""}`} key={i}
+                 style={phaseStyle}
+            >
                 <div className={`${styles.phaseLabel} ${styles[phase]}`}>
                     {i + 1}. Faza {t(`phase.${phase}`)}
                 </div>
@@ -49,11 +52,14 @@ export default function PhaseDropDownMenu(props: Props) {
             </div>
         );
     });
+    const paddingBottom = 10;
+    const rowGap = 5;
 
-    const showClass = props.show ? styles.show : styles.hide;
-
+    const contentStyle = {
+        height: ((props.rowHeight + rowGap) * 6 + paddingBottom) + "px",
+    }
     return (
-        <div className={styles.container + " " + showClass}>
+        <div className={styles.container} style={props.show ? contentStyle : {height: 0}}>
             <div className={styles.content} style={contentStyle}>
                 {phaseElements}
             </div>

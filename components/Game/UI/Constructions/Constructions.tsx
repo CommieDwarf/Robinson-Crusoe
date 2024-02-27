@@ -9,6 +9,7 @@ interface Props {
     zIndex: string;
     switchCommittedResources: (construction: CONSTRUCTION) => void;
     ownedResources: IBasicResourcesAmount;
+    naturalShelter: boolean;
 }
 
 export default function Constructions(props: Props) {
@@ -18,6 +19,7 @@ export default function Constructions(props: Props) {
             <Construction construction={props.constructions[i]} key={i}
                           switchCommittedResources={props.switchCommittedResources}
                           ownedResources={props.ownedResources}
+                          naturalShelter={props.naturalShelter}
             />
         );
     }

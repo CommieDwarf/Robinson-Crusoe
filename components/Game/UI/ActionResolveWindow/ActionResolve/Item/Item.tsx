@@ -239,7 +239,7 @@ export const Item = (props: Props) => {
             </div>
             <div className={styles.character}>
                 <ResizableImage
-                    src={`/interface/characters/pawns/${imageName}.png`}
+                    src={`/UI/characters/pawns/${imageName}.png`}
                     alt="pionek"
                 />
             </div>
