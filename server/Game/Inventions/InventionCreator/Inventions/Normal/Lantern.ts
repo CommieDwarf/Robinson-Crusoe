@@ -7,7 +7,6 @@ import {
 import {IGame} from "../../../../../../interfaces/Game";
 import {TERRAIN_TYPE} from "../../../../../../interfaces/TileService/ITile";
 import {Invention} from "../../Invention";
-import {PAWN_HELPER_ACTION} from "../../../../../../interfaces/Pawns/Pawn";
 
 export class Lantern extends Invention implements IInvention {
     protected readonly _namePL = "latarnia";
@@ -22,10 +21,9 @@ export class Lantern extends Invention implements IInvention {
     }
 
     onBuild() {
-        this.initHelperPawn(PAWN_HELPER_ACTION.BUILD);
     }
 
     onDestruction() {
-        this.destroyPawn();
+        this._pawnService?.pawns.map((pawn) => this._pawnService?.destroyPawn(pawn.draggableId))
     }
 }

@@ -73,9 +73,10 @@
 }
 
 .cardPawn {
-    position: relative;
-    top: 30%;
-    height: 50%;
+    position: absolute;
+    bottom: 5%;
+    width: 40%;
+    left: 30%;
     aspect-ratio: 1;
     margin: auto;
     z-index: 999999;

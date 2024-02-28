@@ -1,4 +1,4 @@
-import {ACTION, AdventureAction} from "../interfaces/ACTION";
+import {ACTION, AdventureAction} from "../../interfaces/ACTION";
 
 
 export const isAdventureAction = (

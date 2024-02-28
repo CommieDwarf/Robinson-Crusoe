@@ -1,6 +1,7 @@
 import {IInvention, IInventionRenderData, INVENTION} from "./Invention";
 import {IPlayerCharacter} from "../Characters/PlayerCharacter";
 import {ICharacter} from "../Characters/Character";
+import {IPawnService} from "../Pawns/PawnService";
 
 export interface IInventionServiceRenderData {
     inventions: IInventionRenderData[];
@@ -20,5 +21,7 @@ export interface IInventionService {
     useInvention: (name: string) => void;
 
     resetCardPawns: () => void;
+
+
     renderData: IInventionServiceRenderData;
 }

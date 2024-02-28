@@ -1,4 +1,6 @@
 import {IPlayerCharacter} from "../Characters/PlayerCharacter";
+import {IPlayer} from "../PlayerService/Player";
+import {ICharacter} from "../Characters/Character";
 
 export interface IToken {
     name: DISCOVERY_TOKEN;
@@ -7,7 +9,7 @@ export interface IToken {
     used: boolean;
     renderData: ITokenRenderData;
     //TODO: ADD TARGET PARAMETER
-    use: (user: IPlayerCharacter, target: IPlayerCharacter | null) => void;
+    use: (user: IPlayer, target?: ICharacter) => void;
     autoDiscard: () => void;
     id: string;
 }

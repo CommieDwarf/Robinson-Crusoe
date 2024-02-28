@@ -54,6 +54,14 @@ export class PhaseService implements IPhaseService {
         if (this._game.mysteryService.isDrawingOn) {
             return false;
         }
+        if (this._game.tileService.isTileMarkedForAction) {
+            return false;
+        }
+
+        if (this._game.adventureService.currentAdventure) {
+            return false;
+        }
+
         switch (this._phase) {
             case "event":
                 return this._game.eventService.canGoNextPhase();

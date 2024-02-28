@@ -7,7 +7,7 @@ import redArrowImg from "/public/UI/misc/red-arrow.png";
 
 import reRollImg from "/public/UI/tokens/reroll.png";
 import {ActionTokens, GlobalCostModifiers} from "../../../../interfaces/ActionService/ActionService";
-import {isAdventureAction} from "../../../../utils/isAdventureAction";
+import {isAdventureAction} from "../../../../utils/typeGuards/isAdventureAction";
 import {objectsEqual} from "../../../../utils/objectsEqual";
 import {ACTION} from "../../../../interfaces/ACTION";
 import {IGlobalCostModifierRenderData} from "../../../../interfaces/ActionService/GlobalCostModifier";

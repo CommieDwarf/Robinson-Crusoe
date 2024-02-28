@@ -5,12 +5,12 @@ Ikonki surowców w ramki i nazwy po najechaniu
 Faza pogody - najezdzajace sie napisy
 Naturalne schronienie - podmień obrazy na jakąś jaskinie i daj napis.
 Nastała noc - przycisk niebieski
-Naturalne schronienie nie działa
+kompas (karta skarbu) - zielony pionek.
 
 
 
-akcje (czerwona strzalka) na kafelku da się zignorować.
-
+akcje (czerwona strzalka) na kafelku da się zignorować. x
+Naturalne schronienie nie działa x
 W chatlogu log z eventu powinien mieć ikonkę wydarzenia a nie nocy x
 Wspomnienia z rejsu (event) - za dużo action slotów, insekty tez x
 Karta eventu za blisko przycisku w action resolve window x

@@ -5,7 +5,7 @@ import {ActionDice} from "../RollDice/RollDice";
 import {Cloud} from "../Weather/Weather";
 
 export interface ICharacterRenderData {
-    pawnService: IPawnServiceRenderData;
+    pawnService: IPawnServiceRenderData<ICharacterRenderData>;
     name: CHARACTER;
     namePL: string;
     id: number;
@@ -17,7 +17,7 @@ export interface ICharacterRenderData {
 }
 
 export interface ICharacter {
-    pawnService: IPawnService;
+    pawnService: IPawnService<ICharacter>;
     name: CHARACTER;
     id: number;
     maxHealth: number;

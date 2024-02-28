@@ -4,7 +4,8 @@ import {
     IItemRenderData,
     ITEM,
 } from "../../../../interfaces/Equipment/Item";
-import {IPlayerCharacter} from "../../../../interfaces/Characters/PlayerCharacter";
+import {IPlayer} from "../../../../interfaces/PlayerService/Player";
+import {ICharacter} from "../../../../interfaces/Characters/Character";
 
 export class Item implements IItem {
 
@@ -51,7 +52,7 @@ export class Item implements IItem {
         }
     }
 
-    use(user: IPlayerCharacter, target: IPlayerCharacter = user) {
+    use(user: IPlayer, target?: ICharacter) {
         this.decrementUses();
     }
 }

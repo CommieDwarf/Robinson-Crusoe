@@ -8,7 +8,7 @@ import {IAdventureCardRenderData} from "../../../../../interfaces/AdventureServi
 import {CardActions} from "../Actions/CardActions";
 import {ZoomButton} from "../ZoomButton/ZoomButton";
 import {IMysteryCardRenderData} from "../../../../../interfaces/MysteryService/MysteryCard";
-import {isAdventureCard} from "../../../../../utils/isAdventureCard";
+import {isAdventureCard} from "../../../../../utils/typeGuards/isAdventureCard";
 import {AdventureCard} from "../../../../../server/Game/AdventureService/AdventureCardCreator/AdventureCard";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
 

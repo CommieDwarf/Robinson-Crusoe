@@ -180,7 +180,7 @@ export const Item = (props: Props) => {
 
     const lockedButtonClass =
         used || props.locked ? styles.locked : styles.clickableButton;
-    const imageName = `${props.resolvableItem.leaderPawn.character.name}-${props.resolvableItem.leaderPawn.character.gender}`;
+    const imageName = `${props.resolvableItem.leaderPawn.owner.name}-${props.resolvableItem.leaderPawn.owner.gender}`;
     const statusClass =
         props.resolvableItem.resolveStatus === RESOLVE_ITEM_STATUS.SUCCESS
             ? styles.success

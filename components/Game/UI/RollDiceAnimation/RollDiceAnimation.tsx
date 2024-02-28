@@ -29,7 +29,7 @@ import {cancelAnimationFrame, requestAnimationFrame} from "dom-helpers";
 import {IDice} from "../../../../interfaces/Dice/Dice";
 import {SpotLight} from "three";
 import {AdventureAction} from "../../../../interfaces/ACTION";
-import {isActionDice} from "../../../../utils/isActionDice";
+import {isActionDice} from "../../../../utils/typeGuards/isActionDice";
 import {formatToKebabCase} from "../../../../utils/formatToKebabCase";
 
 type Props = {

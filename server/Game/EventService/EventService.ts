@@ -8,10 +8,10 @@ import {IGame} from "../../../interfaces/Game";
 import {EventCardCreator} from "./EventCardCreator/EventCardCreator";
 import {IAdventureCard} from "../../../interfaces/AdventureService/AdventureCard";
 import {implementedEventCards} from "../../../constants/cards/EventCards";
-import {isEventCard} from "../../../utils/isEventCard";
+import {isEventCard} from "../../../utils/typeGuards/isEventCard";
 import {IMysteryCard} from "../../../interfaces/MysteryService/MysteryCard";
-import {isMysteryCard} from "../../../utils/isMysteryCard";
-import {isAdventureCard} from "../../../utils/isAdventureCard";
+import {isMysteryCard} from "../../../utils/typeGuards/isMysteryCard";
+import {isAdventureCard} from "../../../utils/typeGuards/isAdventureCard";
 import {WRECKAGE_CARD} from "../../../interfaces/EventService/EVENT_CARD";
 import shuffle from "../../../utils/shuffleArray";
 
@@ -100,13 +100,13 @@ export class EventService implements IEventService {
         );
     }
 
-    public fullFill(id: string) {
-        this._eventSlots[this.getSlotByCardID(id)]?.fullFill();
-        this.discardCard(id);
+    public fullFill(name: string) {
+        this._eventSlots[this.getSlotByCardName(name)]?.fullFill();
+        this.discardCard(name);
     }
 
-    private discardCard(id: string) {
-        this._eventSlots[this.getSlotByCardID(id)] = null;
+    private discardCard(name: string) {
+        this._eventSlots[this.getSlotByCardName(name)] = null;
     }
 
     private setInitialCard(eventCards: IEventCard[]) {
@@ -156,14 +156,14 @@ export class EventService implements IEventService {
     public switchCardFromTopToBottomOfStack() {
     }
 
-    public getSlotByCardID(cardID: string) {
-        if (this.leftSlot?.id === cardID) {
+    public getSlotByCardName(cardName: string) {
+        if (this.leftSlot?.name === cardName) {
             return "left";
-        } else if (this.rightSlot?.id === cardID) {
+        } else if (this.rightSlot?.name === cardName) {
             return "right";
         }
 
-        throw new Error("There is no card with id: " + cardID + "in any slot");
+        throw new Error("There is no card with name: " + cardName + "in any slot");
     }
 
     public setSpecialEffect(

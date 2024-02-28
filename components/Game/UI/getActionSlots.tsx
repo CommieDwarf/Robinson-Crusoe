@@ -2,12 +2,12 @@ import ActionSlot from "./ActionSlot";
 
 import {IInventionRenderData} from "../../../interfaces/InventionService/Invention";
 import {IConstructionRenderData} from "../../../interfaces/ConstructionService/Construction";
-import {getDroppableID} from "../../../utils/getDroppableID";
+import {getActionSlotDroppableId} from "../../../utils/getActionSlotDroppableId";
 import {ITileRenderData} from "../../../interfaces/TileService/ITile";
 import {IBeastRenderData} from "../../../interfaces/Beasts/Beast";
 import {IEventCardRenderData} from "../../../interfaces/EventService/EventCard";
 import {Side} from "../../../interfaces/TileService/TileResourceService";
-import {isEventCard} from "../../../utils/isEventCard";
+import {isEventCard} from "../../../utils/typeGuards/isEventCard";
 
 
 export default function getActionSlots(
@@ -15,24 +15,24 @@ export default function getActionSlots(
         IConstructionRenderData | ITileRenderData
         | IBeastRenderData | IEventCardRenderData,
     additionalCost: number,
-    side: Side | "" = "") {
+    side: Side | "" = "",
+    name?: string,
+) {
 
     if (item.requiredPawnAmount === null) return [];
 
     let identifier;
 
-    if ("id" in item) {
-        identifier = item.id;
-    } else {
-        identifier = item.name;
-    }
 
     const actionSlots = [];
+    if (!name) {
+        name = "id" in item ? String(item.id) : item.name;
+    }
 
     const actionSlotAmount = isEventCard(item) ? item.requiredPawnAmount : item.requiredPawnAmount + 1;
 
     for (let i = 0; i < actionSlotAmount; i++) {
-        const actionSlotId = getDroppableID(item.uniqueAction, identifier, side, i);
+        const actionSlotId = getActionSlotDroppableId(item.uniqueAction, name, side ? side : null, i);
         const role = i === 0 ? "leader" : "helper";
         actionSlots.push(
             <ActionSlot

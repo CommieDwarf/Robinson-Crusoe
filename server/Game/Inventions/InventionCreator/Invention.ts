@@ -1,22 +1,23 @@
 import {
-    CardPawnHelper, CardPawnHelperRenderData,
     IInvention,
     IInventionRenderData,
     INVENTION,
     INVENTION_TYPE,
     InventionRequirements, InventionResource,
 } from "../../../../interfaces/InventionService/Invention";
-import {CHARACTER, ICharacter} from "../../../../interfaces/Characters/Character";
 import {IGame} from "../../../../interfaces/Game";
 import {ACTION, ACTION_ITEM} from "../../../../interfaces/ACTION";
 import {ResourceCommittableItem} from "../../ResourceCommittableItem/ResourceCommittableItem";
 import {SingleResourceRequirement} from "../../../../interfaces/ResourceCommitableItem/ResourceCommittableItem";
 import {IPlayerCharacter} from "../../../../interfaces/Characters/PlayerCharacter";
-import {PAWN_HELPER_ACTION} from "../../../../interfaces/Pawns/Pawn";
-import {PawnHelper} from "../../PawnService/Pawn/PawnHelper";
+import {IPawnService} from "../../../../interfaces/Pawns/PawnService";
+import {CHARACTER} from "../../../../interfaces/Characters/Character";
+import {PawnService} from "../../PawnService/PawnService";
 
 
 export class Invention extends ResourceCommittableItem<InventionResource> implements IInvention {
+
+
     protected readonly _name: INVENTION;
     protected declare readonly _namePL: string;
     protected _locked = true;
@@ -29,8 +30,8 @@ export class Invention extends ResourceCommittableItem<InventionResource> implem
     protected readonly _usable: boolean = false;
     protected _used: boolean = false;
     protected readonly _logSource = `karta pomysłu: ${this.namePL}`;
-    protected _onBuildDelayed = false;
-    protected _helperPawn: CardPawnHelper | null = null;
+
+    protected _pawnService: IPawnService<IInvention> = new PawnService(this._game, this);
 
 
     constructor(
@@ -49,19 +50,20 @@ export class Invention extends ResourceCommittableItem<InventionResource> implem
     }
 
     get renderData(): IInventionRenderData {
-        const helperPawn: CardPawnHelperRenderData | null = this._helperPawn ? {
-            pawn: this._helperPawn.pawn?.renderData || null,
-            action: this._helperPawn.action
-        } : null;
         return {
             name: this.name,
             locked: this.locked,
             inventionType: this._inventionType,
             isBuilt: this.isBuilt,
             ...super.getResourceCommittableRenderData(),
-            helperPawn,
             usable: this._usable && !this._used,
+            pawnService: this._pawnService.renderData
         };
+    }
+
+
+    get pawnService(): IPawnService<IInvention> | null {
+        return this._pawnService;
     }
 
 
@@ -120,48 +122,6 @@ export class Invention extends ResourceCommittableItem<InventionResource> implem
         return this._namePL;
     }
 
-    get helperPawn() {
-        return this._helperPawn;
-    }
-
-    protected initHelperPawn(action: PAWN_HELPER_ACTION) {
-        const pawn = new PawnHelper(this._game.localPlayer.getCharacter(), false, action, this)
-        this._helperPawn = {
-            pawn,
-            action,
-        }
-        this._game.otherPawns.push(pawn);
-    }
-
-    public resetHelperPawn() {
-        if (this._helperPawn) {
-            const pawn = this._game.otherPawns.find((pawn) => pawn.card === this);
-            if (pawn) {
-                this._helperPawn.pawn = pawn;
-            }
-        }
-    }
-
-    public unsetPawn() {
-        if (this._helperPawn) {
-            this._helperPawn.pawn = null;
-        }
-    }
-
-    protected destroyPawn() {
-        this._helperPawn = null;
-        this._game.otherPawns = this._game.otherPawns.filter((pawn) => pawn.card !== this);
-    }
-
-    protected getLeader(): ICharacter {
-        const leader = this._game.actionSlotService.getPawn(
-            "invention-" + this.name + "-leader-0"
-        )?.character;
-        if (!leader) {
-            throw new Error("Couldn't find leader.");
-        }
-        return leader;
-    }
 
     public onBuild() {
         return;

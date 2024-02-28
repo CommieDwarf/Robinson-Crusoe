@@ -1,4 +1,4 @@
-import { IAdventureCard } from "../interfaces/AdventureService/AdventureCard";
+import {IAdventureCard} from "../../interfaces/AdventureService/AdventureCard";
 
 export const isAdventureCard = (
     candidate: Object

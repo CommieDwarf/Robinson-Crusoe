@@ -3,7 +3,7 @@ import {
     IAssignablePawnsItemRenderData
 } from "../../../interfaces/AssignablePawnsItem/AssignablePawnsItem";
 import {ACTION, ACTION_ITEM, UniqueAction} from "../../../interfaces/ACTION";
-import {actionToUniqueAction} from "../../../utils/isUniqueAction";
+import {actionToUniqueAction} from "../../../utils/typeGuards/isUniqueAction";
 import {IGame} from "../../../interfaces/Game";
 
 export abstract class AssignablePawnsItem implements IAssignablePawnsItem {

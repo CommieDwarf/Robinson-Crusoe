@@ -67,7 +67,7 @@ export class TokenService implements ITokenService {
     }
 
     public useToken(id: string, targetName: string | null = null) {
-        const user = this._game.localPlayer.getCharacter();
+        const user = this._game.localPlayer
         const target = targetName
             ? this._game.characterService.getCharacter(targetName)
             : null;
@@ -75,7 +75,7 @@ export class TokenService implements ITokenService {
         //target fixed for now.
         //TODO: make targeting other characters.
         const token = this.getOwnedToken(id)
-        token.use(user, user);
+        token.use(user, user.getCharacter());
         if (token.used) {
             this._owned = this._owned.filter((tok) => tok !== token);
         }

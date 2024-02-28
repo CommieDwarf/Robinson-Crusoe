@@ -11,10 +11,10 @@ import {IResolvableItem, RESOLVE_ITEM_STATUS,} from "../../../interfaces/ActionS
 import {getItemFromDroppableId} from "../../../utils/getItemFromDroppableId";
 import {ResolvableItem} from "./ResolvableItem";
 import {actionOrder} from "../../../constants/actionOrder";
-import {IPawn, IPawnHelper} from "../../../interfaces/Pawns/Pawn";
+import {IPawn} from "../../../interfaces/Pawns/Pawn";
 import {ActionSlotService} from "../ActionSlotsService/ActionSlotService";
 import {MissingLeaderError} from "../Errors/MissingLeaderError";
-import {isAdventureAction} from "../../../utils/isAdventureAction";
+import {isAdventureAction} from "../../../utils/typeGuards/isAdventureAction";
 import i18n from "../../../I18n/I18n";
 import {OccupiedSlots} from "../../../interfaces/ActionSlots";
 import {IGlobalCostModifierRenderData} from "../../../interfaces/ActionService/GlobalCostModifier";
@@ -32,7 +32,7 @@ export class ActionService implements IActionService {
     private _skippableActions: ACTION[] = [];
     private _actionIndex = 0;
     private _finished: boolean = false;
-    private _occupiedSlots: Map<string, IPawn | IPawnHelper> = new Map();
+    private _occupiedSlots: Map<string, IPawn<any>> = new Map();
     private _lastRolledItem: IResolvableItem | null = null;
     private _adventureTokens: ActionTokens = {
         build: false,
@@ -304,9 +304,11 @@ export class ActionService implements IActionService {
     }
 
     public rollDices(resolvableItemID: string) {
-        const resolvableItem = this.getResolvableItem(resolvableItemID);
-        resolvableItem.rollDices();
-        this._lastRolledItem = resolvableItem;
+        if (this.canResolve) {
+            const resolvableItem = this.getResolvableItem(resolvableItemID);
+            resolvableItem.rollDices();
+            this._lastRolledItem = resolvableItem;
+        }
     }
 
     public reRollSuccess(resolvableItemID: string) {
@@ -327,6 +329,7 @@ export class ActionService implements IActionService {
         if (!this.canResolve) {
             return;
         }
+
         const resolvableItem = this.getResolvableItem(resolvableItemID);
         resolvableItem.resolve();
         if (resolvableItem.shouldRollDices) {

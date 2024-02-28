@@ -335,7 +335,7 @@ export default function Game(props: Props) {
         );
         const destinationId = update.destination?.droppableId;
         if (
-            destinationId?.includes("freepawns") ||
+            destinationId?.includes("owner") ||
             destinationId === update.source.droppableId
         ) {
             return;
@@ -355,7 +355,7 @@ export default function Game(props: Props) {
                 update.source.droppableId
             );
             if (
-                update.source.droppableId.includes("freepawns") ||
+                update.source.droppableId.includes("owner") ||
                 !pawnAtDestination
             ) {
                 return;
@@ -384,12 +384,12 @@ export default function Game(props: Props) {
             !sourceId ||
             !draggedPawn ||
             destinationId === sourceId ||
-            (destinationId.includes("freepawns") && sourceId.includes("freepawns"))
+            (destinationId.includes("owner") && sourceId.includes("owner"))
         ) {
             return;
         }
         let pawnAtActionSlot = null;
-        if (!destinationId.includes("freepawns")) {
+        if (!destinationId.includes("owner")) {
             pawnAtActionSlot = actionSlots[destinationId];
             pawnAtActionSlot =
                 pawnAtActionSlot === undefined ? null : pawnAtActionSlot;

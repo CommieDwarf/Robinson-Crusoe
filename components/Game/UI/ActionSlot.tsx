@@ -11,7 +11,7 @@ import {connect} from "react-redux";
 
 
 interface StateProps {
-    pawn: IPawnRenderData | undefined | null;
+    pawn: IPawnRenderData<any> | undefined | null;
     marked: boolean;
 }
 

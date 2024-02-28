@@ -1,4 +1,4 @@
-import {IMysteryCardRenderData} from "../interfaces/MysteryService/MysteryCard";
+import {IMysteryCardRenderData} from "../../interfaces/MysteryService/MysteryCard";
 
 export const isMysteryCard = (
     candidate: Object

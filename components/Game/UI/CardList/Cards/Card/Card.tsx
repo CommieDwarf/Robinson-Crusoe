@@ -2,13 +2,13 @@
 import * as React from "react";
 import {IMysteryCardRenderData} from "../../../../../../interfaces/MysteryService/MysteryCard";
 import {IInventionRenderData} from "../../../../../../interfaces/InventionService/Invention";
-import {isCardInvention} from "../../../../../../utils/isCardInvention";
+import {isCardInvention} from "../../../../../../utils/typeGuards/isCardInvention";
 import Invention from "./Invention/Invention";
 import {MysteryCard} from "./MysteryCard/MysteryCard";
 import {StorageAction} from "../../../../../../interfaces/MysteryService/StorageCard";
 import {useState} from "react";
 import {IItemRenderData, ITEM} from "../../../../../../interfaces/Equipment/Item";
-import {isMysteryCard} from "../../../../../../utils/isMysteryCard";
+import {isMysteryCard} from "../../../../../../utils/typeGuards/isMysteryCard";
 import Item from "./Item/Item";
 import styles from "./Card.module.css";
 
@@ -97,5 +97,6 @@ export const Card = (props: Props) => {
                 onClick={handleEnlarge}
     >
         {card}
+
     </div>
 }

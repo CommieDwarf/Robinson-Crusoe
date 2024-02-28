@@ -20,7 +20,7 @@ export abstract class Character implements ICharacter {
     protected _health: number;
     protected _game: IGame;
     protected declare _effects: ICharEffects;
-    protected declare _pawnService: IPawnService;
+    protected declare _pawnService: IPawnService<ICharacter>;
     protected declare _skills: ISkill[];
 
     protected constructor(
@@ -64,7 +64,7 @@ export abstract class Character implements ICharacter {
         return this._effects;
     }
 
-    get pawnService(): IPawnService {
+    get pawnService(): IPawnService<ICharacter> {
         return this._pawnService;
     }
 

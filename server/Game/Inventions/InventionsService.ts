@@ -143,8 +143,9 @@ export class InventionsService implements IInventionService {
     }
 
     public resetCardPawns() {
-        this._builtInventions.forEach((invention) => invention.resetHelperPawn());
+        this._builtInventions.forEach((card) => card.pawnService?.resetFreePawns());
     }
+
 
     getInvention(name: string): IInvention {
         const invention = this._inventions.find((inv) => inv.name === name);

@@ -1,5 +1,7 @@
 import {IGame} from "../Game";
 import {IPlayerCharacter} from "../Characters/PlayerCharacter";
+import {IPlayer} from "../PlayerService/Player";
+import {ICharacter} from "../Characters/Character";
 
 export interface IItemRenderData {
     name: ITEM;
@@ -22,6 +24,6 @@ export interface IItem {
     uses: number;
     game: IGame;
     hasUses: boolean;
-    use: (user: IPlayerCharacter, target?: IPlayerCharacter) => void;
+    use: (user: IPlayer, target?: ICharacter) => void;
     renderData: IItemRenderData;
 }

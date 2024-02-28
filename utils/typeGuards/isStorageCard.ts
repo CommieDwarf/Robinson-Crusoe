@@ -1,4 +1,4 @@
-import { StorageCard } from "../interfaces/MysteryService/StorageCard";
+import {StorageCard} from "../../interfaces/MysteryService/StorageCard";
 
 export const isStorageCard = (
     candidate: Object

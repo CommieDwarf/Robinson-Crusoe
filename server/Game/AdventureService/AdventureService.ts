@@ -12,9 +12,9 @@ import {AdventureCardCreator} from "./AdventureCardCreator/Creators/AdventureCar
 import {IResolvableItem} from "../../../interfaces/ActionService/IResolvableItem";
 import {Tile} from "../TileService/TileGraph/Tile";
 import {TileService} from "../TileService/TileService";
-import {isAdventureAction} from "../../../utils/isAdventureAction";
+import {isAdventureAction} from "../../../utils/typeGuards/isAdventureAction";
 import shuffle from "../../../utils/shuffleArray";
-import {isPlayerCharacter} from "../../../utils/isPlayerCharacter";
+import {isPlayerCharacter} from "../../../utils/typeGuards/isPlayerCharacter";
 
 export class AdventureService implements IAdventureService {
     private readonly _game: IGame;

@@ -19,7 +19,6 @@ import {ICharacter} from "../../../../interfaces/Characters/Character";
 export abstract class EventCard extends ResourceCommittableItem<keyof IBasicResourcesAmount> implements IEventCard {
     protected declare _namePL: string;
     protected declare _resolutionPL: string;
-    protected readonly _id = uuidv4();
     protected readonly _name: string;
     protected readonly _cardType: AdventureAction | EVENT_TYPE;
     protected readonly _requirements: EventResolveRequirements;
@@ -40,7 +39,6 @@ export abstract class EventCard extends ResourceCommittableItem<keyof IBasicReso
 
     get renderData(): IEventCardRenderData {
         return {
-            id: this.id,
             name: this.name,
             cardType: this._cardType,
             meetsRequirement: this.meetsRequirement(),
@@ -48,9 +46,6 @@ export abstract class EventCard extends ResourceCommittableItem<keyof IBasicReso
         };
     }
 
-    get id(): string {
-        return this._id;
-    }
 
     get name(): string {
         return this._name;
@@ -78,18 +73,18 @@ export abstract class EventCard extends ResourceCommittableItem<keyof IBasicReso
     }
 
     protected getLeaderCharacter(): ICharacter {
-        const slot = this._game.eventService.getSlotByCardID(this.id);
+        const slot = this._game.eventService.getSlotByCardName(this.name);
         const pawn = this._game.actionSlotService.getPawn(
             `threat-${slot}-leader-0`
         );
         if (!pawn) {
             throw new Error("Can't find leader pawn");
         }
-        return pawn.character;
+        return pawn.owner;
     }
 
     protected getHelperPawn(): IPawn | null {
-        const slot = this._game.eventService.getSlotByCardID(this.id);
+        const slot = this._game.eventService.getSlotByCardName(this._name);
         return this._game.actionSlotService.getPawn(`threat-${slot}-helper-1`);
     }
 

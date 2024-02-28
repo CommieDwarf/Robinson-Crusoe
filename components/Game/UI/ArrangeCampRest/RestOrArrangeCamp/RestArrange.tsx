@@ -3,8 +3,8 @@ import React from "react";
 import styles from "./RestArrange.module.css";
 import ActionSlot from "../../ActionSlot";
 import {
-    getDroppableID,
-} from "../../../../../utils/getDroppableID";
+    getActionSlotDroppableId,
+} from "../../../../../utils/getActionSlotDroppableId";
 
 import moraleArrowRightImg from "/public/UI/icons/morale-arrow-right.png";
 import heartImg from "/public/UI/icons/heart.png";
@@ -62,7 +62,7 @@ export default function RestArrange(props: Props) {
     for (let i = 0; i < slotsQuantity; i++) {
         const actionItem =
             props.type === ACTION.REST ? ACTION_ITEM.REST : ACTION_ITEM.ARRANGE_CAMP;
-        const id = getDroppableID(props.type, "", "", i);
+        const id = getActionSlotDroppableId(props.type, "", "", i);
         actionSlots.push(
             <ActionSlot
                 type="leader"

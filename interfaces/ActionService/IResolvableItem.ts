@@ -12,6 +12,7 @@ import {IEventCard, IEventCardRenderData} from "../EventService/EventCard";
 import {IBeast, IBeastRenderData} from "../Beasts/Beast";
 import {ACTION, AdventureAction} from "../ACTION";
 import {ActionDice, ActionDiceResults} from "../RollDice/RollDice";
+import {ICharacterRenderData} from "../Characters/Character";
 
 export type Item =
     | IConstruction
@@ -65,7 +66,7 @@ export interface IResolvableItemRenderData {
         | ACTION.REST
         | ACTION.ARRANGE_CAMP;
     id: string;
-    leaderPawn: IPawnRenderData;
+    leaderPawn: IPawnRenderData<ICharacterRenderData>;
     droppableID: string;
     resolveStatus: RESOLVE_ITEM_STATUS;
     action: ACTION;

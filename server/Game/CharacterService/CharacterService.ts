@@ -10,7 +10,6 @@ import {ICharacter} from "../../../interfaces/Characters/Character";
 import {Dog} from "./Characters/Dog";
 import {Friday} from "./Characters/Friday";
 import {IPlayerCharacter} from "../../../interfaces/Characters/PlayerCharacter";
-import i18n from "../../../I18n/I18n";
 
 export class CharacterService implements ICharacterService {
     dog: ISideCharacter;

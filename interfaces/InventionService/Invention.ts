@@ -5,20 +5,11 @@ import {
     IResourceCommittableItemRenderData
 } from "../ResourceCommitableItem/ResourceCommittableItem";
 import {IPlayerCharacter} from "../Characters/PlayerCharacter";
-import {IPawnHelper, IPawnHelperRenderData, PAWN_HELPER_ACTION} from "../Pawns/Pawn";
+import {IPawnService, IPawnServiceRenderData} from "../Pawns/PawnService";
 
 
 export type InventionResource = "wood" | 'leather'
 
-export interface CardPawnHelper {
-    action: PAWN_HELPER_ACTION,
-    pawn: IPawnHelper | null;
-}
-
-export interface CardPawnHelperRenderData {
-    action: PAWN_HELPER_ACTION,
-    pawn: IPawnHelperRenderData | null;
-}
 
 export interface IInvention extends IResourceCommittableItem<InventionResource> {
     name: INVENTION;
@@ -31,16 +22,13 @@ export interface IInvention extends IResourceCommittableItem<InventionResource> 
     resourceChoice: boolean;
     usable: boolean;
     used: boolean;
-    helperPawn: CardPawnHelper | null;
 
     onBuild: () => void;
     onDestruction: () => void;
     onNextRound: () => void;
     use: (character: IPlayerCharacter) => void;
 
-    unsetPawn: () => void;
-
-    resetHelperPawn: () => void;
+    pawnService: IPawnService<IInvention>;
     renderData: IInventionRenderData;
 }
 
@@ -52,7 +40,7 @@ export interface IInventionRenderData extends IResourceCommittableItemRenderData
     isBuilt: boolean;
 
     usable: boolean;
-    helperPawn: CardPawnHelperRenderData | null;
+    pawnService: IPawnServiceRenderData<IInventionRenderData>;
 }
 
 export interface InventionRequirements {

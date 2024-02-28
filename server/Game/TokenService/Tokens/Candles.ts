@@ -1,11 +1,11 @@
 import {Token} from "./Token/Token";
 import {IGame} from "../../../../interfaces/Game";
-import {IPlayerCharacter} from "../../../../interfaces/Characters/PlayerCharacter";
-import {PawnHelper} from "../../PawnService/Pawn/PawnHelper";
 import {PAWN_HELPER_ACTION} from "../../../../interfaces/Pawns/Pawn";
-import {DISCOVERY_TOKEN} from "../../../../interfaces/TokenService/Token";
+import {DISCOVERY_TOKEN, IToken} from "../../../../interfaces/TokenService/Token";
+import {ICharacter} from "../../../../interfaces/Characters/Character";
+import {IPlayer} from "../../../../interfaces/PlayerService/Player";
 
-export class Candles extends Token {
+export class Candles extends Token implements IToken {
     constructor(game: IGame) {
         super(
             game,
@@ -15,12 +15,9 @@ export class Candles extends Token {
         );
     }
 
-    use(user: IPlayerCharacter, target: IPlayerCharacter | null = null) {
-        super.use(user);
-        const pawnService = user.pawnService;
-        const pawn = new PawnHelper(user, true, PAWN_HELPER_ACTION.BUILD);
-        pawnService.addPawn(pawn);
-        pawnService.copyPawnToFreePawns(pawn.draggableId);
+    use(user: IPlayer, target?: ICharacter) {
+        super.use(user, target);
+        user.getCharacter().pawnService.addPawn(true, PAWN_HELPER_ACTION.BUILD);
         this._used = true;
     }
 

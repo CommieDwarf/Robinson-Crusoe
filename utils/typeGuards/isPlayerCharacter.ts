@@ -1,4 +1,4 @@
-import {IPlayerCharacter} from "../interfaces/Characters/PlayerCharacter";
+import {IPlayerCharacter} from "../../interfaces/Characters/PlayerCharacter";
 
 export const isPlayerCharacter = (
     candidate: Object

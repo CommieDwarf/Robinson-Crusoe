@@ -3,6 +3,8 @@ import {IGame} from "../../../../interfaces/Game";
 import {INVENTION_STARTER} from "../../../../interfaces/InventionService/Invention";
 import {DISCOVERY_TOKEN} from "../../../../interfaces/TokenService/Token";
 import {IPlayerCharacter} from "../../../../interfaces/Characters/PlayerCharacter";
+import {IPlayer} from "../../../../interfaces/PlayerService/Player";
+import {ICharacter} from "../../../../interfaces/Characters/Character";
 
 export class HealingHerbs extends Token {
     constructor(game: IGame) {
@@ -14,7 +16,7 @@ export class HealingHerbs extends Token {
         );
     }
 
-    use(user: IPlayerCharacter, target: IPlayerCharacter | null = null) {
+    use(user: IPlayer, target?: ICharacter) {
         if (
             this._game.inventionService.getInvention(INVENTION_STARTER.POT).isBuilt
         ) {

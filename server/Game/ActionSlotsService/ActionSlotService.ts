@@ -1,11 +1,10 @@
-import {IPawn} from "../../../interfaces/Pawns/Pawn";
 import {
     IActionSlotService,
     IActionSlotServiceRenderData,
     OccupiedSlots,
 } from "../../../interfaces/ActionSlots";
 import Entries from "../../../interfaces/Entries";
-import {getDroppableID} from "../../../utils/getDroppableID";
+import {getActionSlotDroppableId} from "../../../utils/getActionSlotDroppableId";
 import {
     INVENTION_CASTAWAYS,
     INVENTION_NORMAL,
@@ -17,8 +16,7 @@ import {IGame} from "../../../interfaces/Game";
 import {getItemFromDroppableId} from "../../../utils/getItemFromDroppableId";
 import {MissingLeaderError} from "../Errors/MissingLeaderError";
 import {MissingHelperError} from "../Errors/MissingHelperError";
-import {ITile} from "../../../interfaces/TileService/ITile";
-import {isTile} from "../../../utils/isSpecificResolvableItem/isTile";
+import {IPawn} from "../../../interfaces/Pawns/Pawn";
 
 export class ActionSlotService implements IActionSlotService {
     private _slots: Map<string, null | IPawn>;
@@ -137,7 +135,7 @@ export class ActionSlotService implements IActionSlotService {
         this._game.constructionService.constructions.forEach((construction) => {
             for (let i = 0; i < 4; i++) {
                 actionSlots.set(
-                    getDroppableID(ACTION_ITEM.CONSTRUCTION, construction.name, "", i),
+                    getActionSlotDroppableId(ACTION_ITEM.CONSTRUCTION, construction.name, " ", i),
                     null
                 );
             }
@@ -151,7 +149,7 @@ export class ActionSlotService implements IActionSlotService {
         inventions.forEach((invention) => {
             for (let i = 0; i < 4; i++) {
                 actionSlots.set(
-                    getDroppableID(ACTION_ITEM.INVENTION, invention, "", i),
+                    getActionSlotDroppableId(ACTION_ITEM.INVENTION, invention, " ", i),
                     null
                 );
             }
@@ -159,30 +157,30 @@ export class ActionSlotService implements IActionSlotService {
         this._game.tileService.tiles.forEach((tile) => {
             for (let i = 0; i < 8; i++) {
                 actionSlots.set(
-                    getDroppableID(ACTION.GATHER, tile.id, "left", i),
+                    getActionSlotDroppableId(ACTION.GATHER, tile.id, "left", i),
                     null
                 );
                 actionSlots.set(
-                    getDroppableID(ACTION.GATHER, tile.id, "right", i),
+                    getActionSlotDroppableId(ACTION.GATHER, tile.id, "right", i),
                     null
                 );
                 actionSlots.set(
-                    getDroppableID(ACTION.EXPLORE, tile.id, "", i),
+                    getActionSlotDroppableId(ACTION.EXPLORE, tile.id, " ", i),
                     null
                 );
             }
         });
         for (let i = 0; i < 10; i++) {
-            actionSlots.set(getDroppableID(ACTION.REST, "", "", i), null);
+            actionSlots.set(getActionSlotDroppableId(ACTION.REST, "", " ", i), null);
             actionSlots.set(
-                getDroppableID(ACTION.ARRANGE_CAMP, "", "", i),
+                getActionSlotDroppableId(ACTION.ARRANGE_CAMP, "", " ", i),
                 null
             );
         }
         for (let i = 0; i < 2; i++) {
-            actionSlots.set(getDroppableID(ACTION.THREAT, "", "left", i), null);
-            actionSlots.set(getDroppableID(ACTION.THREAT, "", "right", i), null);
-            actionSlots.set(getDroppableID(ACTION.HUNT, "", "", i), null);
+            actionSlots.set(getActionSlotDroppableId(ACTION.THREAT, " ", "left", i), null);
+            actionSlots.set(getActionSlotDroppableId(ACTION.THREAT, " ", "right", i), null);
+            actionSlots.set(getActionSlotDroppableId(ACTION.HUNT, " ", " ", i), null);
         }
 
         return actionSlots;
@@ -238,6 +236,5 @@ export class ActionSlotService implements IActionSlotService {
             });
         });
     }
-
 
 }

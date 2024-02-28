@@ -22,10 +22,10 @@ export class Raft extends Invention implements IInvention {
     }
 
     onBuild() {
-        this.initHelperPawn(PAWN_HELPER_ACTION.GATHER_EXPLORE)
+        this._pawnService.initPawns(1, false, PAWN_HELPER_ACTION.GATHER_EXPLORE);
     }
 
     onDestruction() {
-        this.destroyPawn();
+        this._pawnService.pawns.forEach((pawn) => this._pawnService.destroyPawn(pawn.draggableId))
     }
 }

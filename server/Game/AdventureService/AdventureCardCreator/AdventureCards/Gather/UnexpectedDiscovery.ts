@@ -21,6 +21,6 @@ export class UnexpectedDiscovery
     }
 
     option1(resolver: IPlayerCharacter) {
-        this._game.tokenService.addRandomTokensToOwned();
+        this._game.tokenService.addRandomTokensToOwned(1);
     }
 }

@@ -7,6 +7,7 @@ import {
 import {IGame} from "../../../../../../interfaces/Game";
 import {PAWN_HELPER_ACTION} from "../../../../../../interfaces/Pawns/Pawn";
 import {Invention} from "../../Invention";
+import {PawnService} from "../../../../PawnService/PawnService";
 
 export class Belts extends Invention implements IInvention {
     protected readonly _namePL = "pasy";
@@ -22,10 +23,11 @@ export class Belts extends Invention implements IInvention {
     }
 
     onBuild() {
-        this.initHelperPawn(PAWN_HELPER_ACTION.GATHER);
+        this._pawnService.initPawns(1, false, PAWN_HELPER_ACTION.GATHER)
     }
 
     onDestruction() {
-        this.destroyPawn();
+        this._pawnService.destroyAllPawns();
+        super.onDestruction();
     }
 }

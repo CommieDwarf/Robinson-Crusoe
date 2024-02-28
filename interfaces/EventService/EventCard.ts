@@ -10,7 +10,6 @@ import {
 
 
 export interface IEventCard extends IResourceCommittableItem<keyof IBasicResourcesAmount> {
-    id: string;
     name: string;
     namePL: string;
     resolutionPL: string;
@@ -32,7 +31,6 @@ export interface IEventCard extends IResourceCommittableItem<keyof IBasicResourc
 
 
 export interface IEventCardRenderData extends IResourceCommittableItemRenderData<keyof IBasicResourcesAmount> {
-    id: string;
     name: string;
     cardType: AdventureAction | EVENT_TYPE;
     meetsRequirement: boolean;

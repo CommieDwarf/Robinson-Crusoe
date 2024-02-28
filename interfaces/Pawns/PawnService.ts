@@ -1,18 +1,23 @@
-import { IPawn, IPawnHelper, IPawnRenderData } from "./Pawn";
+import {IPawn, IPawnOwner, IPawnOwnerRenderData, IPawnRenderData, PAWN_HELPER_ACTION} from "./Pawn";
 
 export type PawnArrayName = "pawns" | "freePawns";
 
-export interface IPawnService {
-  pawns: (IPawn | IPawnHelper)[];
-  freePawns: (IPawn | IPawnHelper)[];
-  resetFreePawns: () => void;
-  addPawn: (pawn: IPawn | IPawnHelper) => void;
-  removePawn: (draggableId: string, source: PawnArrayName) => void;
-  copyPawnToFreePawns: (draggableId: string) => void;
+export interface IPawnService<Owner extends IPawnOwner> {
+    pawns: IPawn<Owner>[];
+    freePawns: IPawn<Owner>[];
+    resetFreePawns: () => void;
+    removePawn: (draggableId: string, source: PawnArrayName) => void;
+    copyPawnToFreePawns: (draggableId: string) => void;
 
-  renderData: IPawnServiceRenderData;
+    addPawn: (disposable: boolean, action: PAWN_HELPER_ACTION | null) => void;
+
+    destroyPawn: (draggableId: string) => void;
+    destroyAllPawns: () => void;
+    initPawns: (initialQuantity: number, disposable: boolean, action: PAWN_HELPER_ACTION | null) => void;
+    renderData: IPawnServiceRenderData<Owner["renderData"]>;
 }
 
-export interface IPawnServiceRenderData {
-  freePawns: IPawnRenderData[];
+export interface IPawnServiceRenderData<Owner extends IPawnOwnerRenderData> {
+    freePawns: IPawnRenderData<Owner>[];
+    pawns: IPawnRenderData<Owner>[];
 }

@@ -3,7 +3,6 @@ import React from "react";
 import styles from "./Pawn.module.css";
 import {Draggable} from "react-beautiful-dnd";
 import {
-    IPawnHelperRenderData,
     IPawnRenderData,
 } from "../../../interfaces/Pawns/Pawn";
 import {ACTION} from "../../../interfaces/ACTION";
@@ -11,7 +10,7 @@ import {useAppSelector} from "../../../store/hooks";
 import ResizableImage from "../../ResizableImage/ResizableImage";
 
 interface Props {
-    pawn: IPawnRenderData | IPawnHelperRenderData;
+    pawn: IPawnRenderData<any>;
     context: ACTION | "character";
     index: number;
 }
@@ -19,17 +18,17 @@ interface Props {
 export default function Pawn(props: Props) {
     let imageName: string;
     let pawnClass: keyof typeof styles;
-    if ("action" in props.pawn) {
+    if (props.pawn.action) {
         imageName = "helper";
         pawnClass = props.pawn.action;
     } else {
-        pawnClass = props.pawn.character.name;
-        imageName = `${props.pawn.character.name}-${props.pawn.character.gender}`;
+        pawnClass = props.pawn.owner.name;
+        imageName = `${props.pawn.owner.name}-${props.pawn.owner.gender}`;
     }
 
     const context =
-        props.pawn.character.name === "dog" ||
-        props.pawn.character.name === "friday"
+        props.pawn.owner.name === "dog" ||
+        props.pawn.owner.name === "friday"
             ? props.context + "ContextSideCharacter"
             : props.context + "Context";
 

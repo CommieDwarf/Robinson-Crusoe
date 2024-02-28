@@ -2,7 +2,7 @@ import {
     IEventService,
     IEventServiceRenderData,
 } from "./EventService/EventService";
-import {IPawn, IPawnHelper, IPawnRenderData} from "./Pawns/Pawn";
+import {IPawn, IPawnRenderData} from "./Pawns/Pawn";
 import {IBeastService, IBeastServiceRenderData} from "./Beasts/BeastService";
 import {IPlayerRenderData} from "./PlayerService/Player";
 import {
@@ -69,6 +69,7 @@ import {
     IMysteryService,
     IMysteryServiceRenderData,
 } from "./MysteryService/MysteryService";
+import {ICharacterRenderData} from "./Characters/Character";
 
 export enum GAME_STATUS {
     PENDING = "pending",
@@ -96,7 +97,7 @@ export interface IGameRenderData {
     alertService: IAlertServiceRenderData;
     scenarioService: IScenarioServiceRenderData;
     weatherService: IWeatherServiceRenderData;
-    allPawns: IPawnRenderData[];
+    allPawns: IPawnRenderData<any>[];
     tokenService: ITokenServiceRenderData;
     adventureService: IAdventureServiceRenderData;
     mysteryService: IMysteryServiceRenderData;
@@ -125,7 +126,7 @@ export interface IGame {
     scenarioService: IScenarioService;
     allPawns: IPawn[];
     round: number;
-    otherPawns: IPawnHelper[];
+    otherPawns: IPawn[];
     setNextRound: () => void;
     setPawn: (droppableId: string, draggableId: string) => void;
 
@@ -138,6 +139,8 @@ export interface IGame {
     actionSlotRenderData: IActionSlotServiceRenderData;
     adventureService: IAdventureService;
     mysteryService: IMysteryService;
+
+    addToOtherPawns: (pawn: IPawn[] | IPawn) => void;
 
     setGameStatus: (status: GAME_STATUS.WIN | GAME_STATUS.LOSE, reason?: string) => void;
     renderData: IGameRenderData;

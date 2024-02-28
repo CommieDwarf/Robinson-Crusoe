@@ -1,11 +1,23 @@
-import {IPlayerCharacter} from "../Characters/PlayerCharacter";
 import {IBasicResourcesAmount} from "../Resources/Resources";
 import {ICharacter} from "../Characters/Character";
+import {IPawnService, IPawnServiceRenderData} from "../Pawns/PawnService";
 
 export enum MYSTERY_CARD_TYPE {
     CREATURE = "creature",
     TRAP = "trap",
     TREASURE = "treasure",
+}
+
+
+export interface ITreasureMysteryCard extends IMysteryCard {
+    addToResources: () => void;
+    pawnService: IPawnService<ITreasureMysteryCard>;
+
+    renderData: ITreasureMysteryCardRenderData
+}
+
+export interface ITreasureMysteryCardRenderData extends IMysteryCardRenderData {
+    pawnService: IPawnServiceRenderData<ITreasureMysteryCardRenderData> | null;
 }
 
 export interface IMysteryCard {
@@ -17,6 +29,7 @@ export interface IMysteryCard {
     requiresTarget: boolean;
     drawLabel: string;
     drawResolved: boolean;
+
     triggerDrawEffect: (drawer: ICharacter) => void;
     triggerEventEffect: () => void;
     uses: number;

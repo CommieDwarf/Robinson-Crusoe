@@ -3,6 +3,8 @@ import {IGame} from "../../../../interfaces/Game";
 import {CONSTRUCTION} from "../../../../interfaces/ConstructionService/Construction";
 import {DISCOVERY_TOKEN} from "../../../../interfaces/TokenService/Token";
 import {IPlayerCharacter} from "../../../../interfaces/Characters/PlayerCharacter";
+import {IPlayer} from "../../../../interfaces/PlayerService/Player";
+import {ICharacter} from "../../../../interfaces/Characters/Character";
 
 export class ThornyBushes extends Token {
     constructor(game: IGame) {
@@ -14,7 +16,7 @@ export class ThornyBushes extends Token {
         );
     }
 
-    use(user: IPlayerCharacter, target: IPlayerCharacter | null = null) {
+    use(user: IPlayer, target?: ICharacter) {
         if (
             this._game.constructionService.getConstruction(CONSTRUCTION.SHELTER).lvl >
             0

@@ -16,7 +16,7 @@ export class AmuletWithPortraitOfBeautifulLady
             "medalion z portretem pięknej damy",
             false,
             "",
-            0
+            0,
         );
     }
 

@@ -10,7 +10,7 @@ import minusImg from "/public/UI/misc/minus.png";
 
 import styles from "./UseOverlay.module.css";
 import {formatToKebabCase} from "../../../../../../../../utils/formatToKebabCase";
-import {isStorageCard} from "../../../../../../../../utils/isStorageCard";
+import {isStorageCard} from "../../../../../../../../utils/typeGuards/isStorageCard";
 import {StorageAction} from "../../../../../../../../interfaces/MysteryService/StorageCard";
 import ResizableImage from "../../../../../../../ResizableImage/ResizableImage";
 

@@ -1,5 +1,4 @@
-import Image from "next/image";
-import React, {useState} from "react";
+import React from "react";
 import ActionSlot from "../../../../ActionSlot";
 import styles from "./Invention.module.css";
 import getActionSlots from "../../../../getActionSlots";
@@ -9,8 +8,8 @@ import {ACTION} from "../../../../../../../interfaces/ACTION";
 import {objectsEqual} from "../../../../../../../utils/objectsEqual";
 import {useAppSelector} from "../../../../../../../store/hooks";
 import {selectModifiersByAction} from "../../../../../features/globalCostModifiers";
-import {getCardPawnDroppableId} from "../../../../../../../utils/getCardPawnDroppableId";
 import ResizableImage from "../../../../../../ResizableImage/ResizableImage";
+import {getOwnedDroppableId} from "../../../../../../../utils/getOwnedDroppableId";
 
 type Props = {
     invention: IInventionRenderData;
@@ -69,7 +68,6 @@ function Invention(props: Props) {
         ? 1
         : 0;
 
-    const helperPawn = props.invention.helperPawn;
 
     return (
         <div
@@ -112,22 +110,28 @@ function Invention(props: Props) {
                 >
                     Użyj
                 </div>)}
-            {props.invention.helperPawn && (
-                <div className={`${styles.cardPawn} `}
-                >
-                    <ActionSlot
-                        type={"helper"}
-                        action={ACTION.EXPLORE}
-                        uniqueAction={ACTION.EXPLORE}
-                        id={getCardPawnDroppableId(props.invention.name, "invention")}
-                        // pawn={helperPawn?.pawn}
-                        // marked={false}
-                        ownedByCard={true}
-                        onMouseEnter={handleMouseEnter}
-                        onMouseLeave={handleMouseLeave}
-                    />
-                </div>
-            )}
+
+            <div className={`${styles.cardPawn} `}
+            >
+                {
+                    props.invention.pawnService.pawns.map((pawn, i) => {
+                        return (
+                            <ActionSlot
+                                type={"helper"}
+                                key={pawn.draggableId}
+                                action={ACTION.EXPLORE}
+                                uniqueAction={ACTION.EXPLORE}
+                                id={getOwnedDroppableId(pawn.owner.name, pawn.owner.type)}
+                                pawn={props.invention.pawnService?.freePawns.find((p) => p.draggableId === pawn.draggableId)}
+                                marked={false}
+                                ownedByCard={true}
+                                onMouseEnter={handleMouseEnter}
+                                onMouseLeave={handleMouseLeave}
+                            />
+                        )
+                    })
+                }
+            </div>
         </div>
     );
 }

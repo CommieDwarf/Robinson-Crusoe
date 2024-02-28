@@ -20,6 +20,7 @@ import {ActionDice} from "../../../../interfaces/RollDice/RollDice";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
 import {formatToKebabCase} from "../../../../utils/formatToKebabCase";
 import {ICharacter} from "../../../../interfaces/Characters/Character";
+import {getOwnedDroppableId} from "../../../../utils/getOwnedDroppableId";
 
 interface Props {
     character: IPlayerCharacterRenderData;
@@ -82,7 +83,7 @@ export default function Character(props: Props) {
     })
 
     const charImgName = formatToKebabCase(`${props.character.name} ${props.character.gender}`)
-
+    const droppableId = getOwnedDroppableId(props.character.name, "character")
     return (
         <div className={styles.container + " " + zIndexClass} ref={containerRef}>
             <div className={styles.characterPictureWrapper}>
@@ -112,10 +113,10 @@ export default function Character(props: Props) {
             </div>
 
             <div className={styles.scroll}>
-                <Droppable droppableId={"freepawns-" + props.character.name}>
+                <Droppable droppableId={droppableId}>
                     {(provided) => (
                         <div
-                            id={"freepawns-" + props.character.name}
+                            id={droppableId}
                             className={styles.pawns}
                             ref={provided.innerRef}
                             {...provided.droppableProps}

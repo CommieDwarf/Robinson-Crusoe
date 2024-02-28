@@ -1,4 +1,4 @@
-import {IMysteryCard} from "../../../interfaces/MysteryService/MysteryCard";
+import {IMysteryCard, ITreasureMysteryCard} from "../../../interfaces/MysteryService/MysteryCard";
 import {MysteryCardCreator} from "./MysteryCardCreator/MysteryCardCreator";
 import {IGame} from "../../../interfaces/Game";
 import shuffle from "../../../utils/shuffleArray";
@@ -77,13 +77,10 @@ export class MysteryService implements IMysteryService {
         }
     }
 
-    public addTreasureToFutureResources(card: IMysteryCard) {
-        this._game.resourceService.addTreasureToFuture(card);
+    public addTreasureToResources(card: ITreasureMysteryCard) {
+        card.addToResources()
     }
 
-    public addTreasureToOwnedResources(card: IMysteryCard) {
-        this._game.resourceService.addTreasureToOwned(card);
-    }
 
     public addCardAsReminder(card: IMysteryCard) {
         this._cardsAsReminders.push(card);

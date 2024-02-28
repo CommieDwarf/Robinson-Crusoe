@@ -32,7 +32,7 @@ export class Equipment implements IEquipment {
     }
 
     useItem(item: ITEM) {
-        const user = this.game.localPlayer.getCharacter();
+        const user = this.game.localPlayer;
         this.getItem(item).use(user);
         this.items = this.filterOutUsed(this.items);
     }

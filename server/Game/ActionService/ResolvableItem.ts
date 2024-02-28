@@ -2,7 +2,7 @@ import {CONSTRUCTION, IConstruction} from "../../../interfaces/ConstructionServi
 import {IInvention} from "../../../interfaces/InventionService/Invention";
 import {ITile} from "../../../interfaces/TileService/ITile";
 import {IEventCard} from "../../../interfaces/EventService/EventCard";
-import {IPawn, IPawnHelper} from "../../../interfaces/Pawns/Pawn";
+import {IPawn} from "../../../interfaces/Pawns/Pawn";
 import {ACTION, AdventureAction} from "../../../interfaces/ACTION";
 import {Construction} from "../ConstructionService/Construction";
 import {IGame} from "../../../interfaces/Game";
@@ -14,14 +14,15 @@ import {IResolvableItem, Item, RESOLVE_ITEM_STATUS,} from "../../../interfaces/A
 import {v4 as uuidv4} from "uuid";
 import {ActionDice, ActionDiceResults,} from "../../../interfaces/RollDice/RollDice";
 import {RollDiceService} from "../RollDiceService/RollDiceService";
-import {isAdventureAction} from "../../../utils/isAdventureAction";
-import {isTile} from "../../../utils/isSpecificResolvableItem/isTile";
-import {isCommittableResourcesItem} from "../../../utils/isCommittableResourcesItem";
+import {isAdventureAction} from "../../../utils/typeGuards/isAdventureAction";
+import {isTile} from "../../../utils/typeGuards/isTile";
+import {isCommittableResourcesItem} from "../../../utils/typeGuards/isCommittableResourcesItem";
 import {IBeast} from "../../../interfaces/Beasts/Beast";
+import {ICharacter} from "../../../interfaces/Characters/Character";
 
 export class ResolvableItem implements IResolvableItem {
     private readonly _item: Item;
-    private readonly _leaderPawn: IPawn;
+    private readonly _leaderPawn: IPawn<ICharacter>;
     private readonly _action: ACTION;
     private readonly _game: IGame;
     private _resolved: boolean = false;
@@ -39,7 +40,7 @@ export class ResolvableItem implements IResolvableItem {
     constructor(
         item: Item,
         action: ACTION,
-        leaderPawn: IPawn | IPawnHelper,
+        leaderPawn: IPawn<ICharacter>,
         game: IGame,
         droppableID: string
     ) {
@@ -118,7 +119,7 @@ export class ResolvableItem implements IResolvableItem {
         return this._item;
     }
 
-    get leaderPawn(): IPawn {
+    get leaderPawn(): IPawn<ICharacter> {
         return this._leaderPawn;
     }
 
@@ -190,7 +191,7 @@ export class ResolvableItem implements IResolvableItem {
 
         if (isTile(item) && item.modifiers.greaterDanger) {
             if (this._game.constructionService.getConstruction(CONSTRUCTION.WEAPON).lvl === 0 && item.modifiers.greaterDanger.setInRound !== this._game.round) {
-                this._game.characterService.hurt(this._leaderPawn.character, 1, "Zagrożenie na kafelku - brak broni.")
+                this._game.characterService.hurt(this._leaderPawn.owner as ICharacter, 1, "Zagrożenie na kafelku - brak broni.")
             }
         }
         if (isCommittableResourcesItem(item)) {
@@ -207,14 +208,14 @@ export class ResolvableItem implements IResolvableItem {
                 this._game.constructionService.lvlUpConstruction(
                     construction.name,
                     1,
-                    this._leaderPawn.character.name
+                    this._leaderPawn.owner.name
                 );
                 break;
             case item instanceof Invention:
                 const invention = item as IInvention;
                 this._game.inventionService.build(
                     invention.name,
-                    this._leaderPawn.character
+                    this._leaderPawn.owner
                 );
                 break;
             case item instanceof Tile:
@@ -226,7 +227,7 @@ export class ResolvableItem implements IResolvableItem {
                     this._game.tileService.gather(
                         side,
                         tile.id,
-                        this._leaderPawn.character.name
+                        this._leaderPawn.owner.name
                     );
                 }
                 break;
@@ -235,15 +236,15 @@ export class ResolvableItem implements IResolvableItem {
                 this._game.eventService.fullFill(eventCard.id);
                 break;
             case item instanceof Beast:
-                this._game.beastService.fightBeast(this._leaderPawn.character, item as IBeast);
+                this._game.beastService.fightBeast(this._leaderPawn.owner, item as IBeast);
                 this._game.beastService.removeBeastFromDeck();
                 break;
             case item === ACTION.REST:
-                this._game.arrangeCampRestService.rest(this._leaderPawn.character);
+                this._game.arrangeCampRestService.rest(this._leaderPawn.owner);
                 break;
             case item === ACTION.ARRANGE_CAMP:
                 this._game.arrangeCampRestService.arrangeCamp(
-                    this._leaderPawn.character, this._bibleChecked
+                    this._leaderPawn.owner, this._bibleChecked
                 );
                 break;
         }
@@ -264,7 +265,7 @@ export class ResolvableItem implements IResolvableItem {
     }
 
     private applyRollDiceEffects() {
-        const character = this.leaderPawn.character;
+        const character = this.leaderPawn.owner;
         if (this._rollDiceResults?.hurt.result === "hurt") {
             this._game.characterService.hurt(character, 1, this._action);
         }

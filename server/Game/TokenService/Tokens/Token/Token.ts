@@ -7,6 +7,8 @@ import {IGame} from "../../../../../interfaces/Game";
 import {v4 as uuidv4} from "uuid";
 import capitalizeFirstLetter from "../../../../../utils/capitalizeFirstLetter";
 import {IPlayerCharacter} from "../../../../../interfaces/Characters/PlayerCharacter";
+import {IPlayer} from "../../../../../interfaces/PlayerService/Player";
+import {ICharacter} from "../../../../../interfaces/Characters/Character";
 
 export abstract class Token implements IToken {
 
@@ -60,9 +62,9 @@ export abstract class Token implements IToken {
         return this._description;
     }
 
-    public use(user: IPlayerCharacter, target: IPlayerCharacter | null = null): void {
+    public use(user: IPlayer, target?: ICharacter): void {
         this._game.chatLog.addMessage(
-            `postać ${user.namePL} użyła ${capitalizeFirstLetter(this.namePL)}`,
+            `${user.getCharacter().namePL} użył ${capitalizeFirstLetter(this.namePL)}`,
             "neutral",
             "Żeton odkryć"
         );

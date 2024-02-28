@@ -10,7 +10,7 @@ type Props = {
     onReRollButtonClick: () => void;
 };
 export const ReRoll = (props: Props) => {
-    let character = props.actionService.lastRolledItem?.leaderPawn.character;
+    let character = props.actionService.lastRolledItem?.leaderPawn.owner;
     let skill;
     let action;
 

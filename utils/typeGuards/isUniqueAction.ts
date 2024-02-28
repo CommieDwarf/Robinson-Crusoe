@@ -1,4 +1,4 @@
-import {ACTION, ACTION_ITEM, UniqueAction} from "../interfaces/ACTION";
+import {ACTION, ACTION_ITEM, UniqueAction} from "../../interfaces/ACTION";
 
 
 export function actionToUniqueAction(action: ACTION, actionItem: ACTION_ITEM): UniqueAction {

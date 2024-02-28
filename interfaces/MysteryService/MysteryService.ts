@@ -1,4 +1,4 @@
-import {IMysteryCard, IMysteryCardRenderData} from "./MysteryCard";
+import {IMysteryCard, IMysteryCardRenderData, ITreasureMysteryCard} from "./MysteryCard";
 import {ICharacter, ICharacterRenderData} from "../Characters/Character";
 import {IPlayerCharacter} from "../Characters/PlayerCharacter";
 import {TREASURE_MYSTERY_CARD} from "./MYSTERY_CARD";
@@ -18,8 +18,7 @@ export interface IMysteryService {
     ) => void;
     addCardAsReminder: (card: IMysteryCard) => void;
     removeCardAsReminder: (card: IMysteryCard) => void;
-    addTreasureToFutureResources: (card: IMysteryCard) => void;
-    addTreasureToOwnedResources: (card: IMysteryCard) => void;
+    addTreasureToResources: (card: ITreasureMysteryCard) => void;
     useCard: (user: IPlayerCharacter | string, cardName: string, target1?: any, target2?: any) => void;
     drawCard: () => void;
     finish: () => void;

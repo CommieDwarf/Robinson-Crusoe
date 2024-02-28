@@ -1,40 +1,32 @@
-import {IPlayerCharacter} from "../Characters/PlayerCharacter";
+import {IPlayerCharacter, IPlayerCharacterRenderData} from "../Characters/PlayerCharacter";
 import {ISkillRenderData} from "../Skill/Skill";
-import {IInvention} from "../InventionService/Invention";
-import {ICharacter} from "../Characters/Character";
-
-export interface IPawnRenderData {
-    draggableId: string;
-    character: {
-        name: string;
-        namePL: string;
-        gender: string;
-        id: number;
-        skills: ISkillRenderData[];
-        determination: number;
-    };
-}
-
-export interface IPawn {
-    draggableId: string;
-    character: ICharacter;
-    renderData: IPawnRenderData;
-}
+import {IInvention, IInventionRenderData} from "../InventionService/Invention";
+import {ICharacter, ICharacterRenderData} from "../Characters/Character";
+import {ITreasureMysteryCard, ITreasureMysteryCardRenderData} from "../MysteryService/MysteryCard";
 
 
-export interface IPawnHelper extends IPawn {
+export type IPawnOwner = IInvention | ITreasureMysteryCard | ICharacter;
+export type IPawnOwnerRenderData = IPawnOwner["renderData"];
+
+export interface IPawn<Owner extends IPawnOwner = IPawnOwner> {
     disposable: boolean;
-    action: PAWN_HELPER_ACTION;
+    action: PAWN_HELPER_ACTION | null;
     disposed: boolean;
-    card: IInvention | null;
+    owner: Owner;
+    draggableId: string;
 
-    renderData: IPawnHelperRenderData;
+    renderData: IPawnRenderData<Owner["renderData"]>;
 }
 
-export interface IPawnHelperRenderData extends IPawnRenderData {
+export interface IPawnRenderData<OwnerRenderData extends IPawnOwnerRenderData> {
+    draggableId: string;
     disposable: boolean;
-    action: PAWN_HELPER_ACTION;
-    cardName: string | null;
+    action: PAWN_HELPER_ACTION | null;
+    owner: {
+        name: string,
+        gender: string | null,
+        type: "invention" | "mystery" | "character",
+    };
 }
 
 export enum PAWN_HELPER_ACTION {

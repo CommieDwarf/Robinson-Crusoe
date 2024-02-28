@@ -3,6 +3,7 @@ import {IBeast, IBeastRenderData} from "../../../../interfaces/Beasts/Beast";
 import {IGame} from "../../../../interfaces/Game";
 import {AssignablePawnsItem} from "../../AssignablePawnsItem/AssignablePawnsItem";
 import {ACTION, ACTION_ITEM} from "../../../../interfaces/ACTION";
+import {ICharacter} from "../../../../interfaces/Characters/Character";
 
 export class Beast extends AssignablePawnsItem implements IBeast {
 
@@ -68,7 +69,7 @@ export class Beast extends AssignablePawnsItem implements IBeast {
         if (!pawn) {
             throw new Error("can't get leader");
         }
-        return pawn.character;
+        return pawn.owner as ICharacter;
     }
 
     applySpecialEffect() {

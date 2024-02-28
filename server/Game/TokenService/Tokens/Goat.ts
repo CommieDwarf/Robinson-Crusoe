@@ -4,6 +4,8 @@ import {CONSTRUCTION} from "../../../../interfaces/ConstructionService/Construct
 import {DISCOVERY_TOKEN} from "../../../../interfaces/TokenService/Token";
 import {IPlayerCharacter} from "../../../../interfaces/Characters/PlayerCharacter";
 import {BasicResources} from "../../ResourceService/BasicResources";
+import {IPlayer} from "../../../../interfaces/PlayerService/Player";
+import {ICharacter} from "../../../../interfaces/Characters/Character";
 
 export class Goat extends Token {
     constructor(game: IGame) {
@@ -15,12 +17,12 @@ export class Goat extends Token {
         );
     }
 
-    use(user: IPlayerCharacter, target: IPlayerCharacter | null = null) {
+    use(user: IPlayer, target?: ICharacter) {
         if (
             this._game.constructionService.getConstruction(CONSTRUCTION.WEAPON).lvl >
             0
         ) {
-            super.use(user);
+            super.use(user, target);
             const resources = new BasicResources(1, 0, 0, 1)
             if (this._game.phaseService.phase === "action") {
                 this._game.resourceService.addBasicResourcesToFuture(resources, this._sourceLog);

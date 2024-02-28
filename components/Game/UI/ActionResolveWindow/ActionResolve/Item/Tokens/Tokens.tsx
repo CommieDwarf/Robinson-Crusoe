@@ -2,7 +2,7 @@
 import * as React from "react";
 import styles from "./Tokens.module.css";
 import {ActionTokens} from "../../../../../../../interfaces/ActionService/ActionService";
-import {isAdventureAction} from "../../../../../../../utils/isAdventureAction";
+import {isAdventureAction} from "../../../../../../../utils/typeGuards/isAdventureAction";
 import reRollTokenImg from "/public/UI/tokens/reroll.png";
 import Image from "next/image";
 import {ACTION} from "../../../../../../../interfaces/ACTION";

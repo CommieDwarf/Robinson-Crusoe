@@ -24,7 +24,8 @@ export class SideCharacter extends Character implements ISideCharacter {
         game: IGame
     ) {
         super(name, namePL, id, maxHealth, game);
-        this._pawnService = new PawnService(this, 1);
+        this._pawnService = new PawnService<ICharacter>(this._game, this);
+        this.pawnService.initPawns(1, false, null);
         this._effects = new SideCharEffects(this);
     }
 

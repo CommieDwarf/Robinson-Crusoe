@@ -5,7 +5,7 @@ import styles from "./Tile.module.css";
 import {ITileRenderData} from "../../../../../interfaces/TileService/ITile";
 import {MoveCampArrow} from "./MoveCampArrow/MoveCampArrow";
 import {ACTION, ACTION_ITEM} from "../../../../../interfaces/ACTION";
-import {getDroppableID,} from "../../../../../utils/getDroppableID";
+import {getActionSlotDroppableId,} from "../../../../../utils/getActionSlotDroppableId";
 
 import xMarkImg from "/public/UI/misc/x-mark.png";
 import greaterDangerToken from "/public/UI/tokens/greater-danger.png"

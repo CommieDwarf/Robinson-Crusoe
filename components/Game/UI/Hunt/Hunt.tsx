@@ -2,7 +2,7 @@ import styles from "./Hunt.module.css";
 import Image from "next/image";
 import ActionSlot from "../ActionSlot";
 import {ACTION, ACTION_ITEM} from "../../../../interfaces/ACTION";
-import {getDroppableID} from "../../../../utils/getDroppableID";
+import {getActionSlotDroppableId} from "../../../../utils/getActionSlotDroppableId";
 import beastReverseImg from "/public/UI/cards/reverse/beast.png";
 import React from "react";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
@@ -35,7 +35,7 @@ export default function Hunt(props: Props) {
                             type={"leader"}
                             action={ACTION.HUNT}
                             uniqueAction={ACTION.HUNT}
-                            id={getDroppableID(ACTION.HUNT, "", "", 0)}
+                            id={getActionSlotDroppableId(ACTION.HUNT, "", "", 0)}
                             isDragDisabled={props.isDragDisabled}
                         />
                     </div>
@@ -44,7 +44,7 @@ export default function Hunt(props: Props) {
                             type={"helper"}
                             action={ACTION.HUNT}
                             uniqueAction={ACTION.HUNT}
-                            id={getDroppableID(ACTION.HUNT, "", "", 1)}
+                            id={getActionSlotDroppableId(ACTION.HUNT, "", "", 1)}
                             isDragDisabled={props.isDragDisabled}
                         />
                     </div>

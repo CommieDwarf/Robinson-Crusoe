@@ -9,7 +9,7 @@ import {RollDiceWindow} from "./RollDiceWindow/RollDiceWindow";
 import actionIconImg from "/public/UI/phase/action.png";
 import {formatToKebabCase} from "../../../../utils/formatToKebabCase";
 import {RESOLVE_ITEM_STATUS} from "../../../../interfaces/ActionService/IResolvableItem";
-import {isAdventureAction} from "../../../../utils/isAdventureAction";
+import {isAdventureAction} from "../../../../utils/typeGuards/isAdventureAction";
 import {ReRoll} from "./ReRoll/ReRoll";
 import redArrowImg from "/public/UI/misc/red-arrow.png";
 import {ActionDice} from "../../../../interfaces/RollDice/RollDice";
@@ -17,6 +17,7 @@ import {sleep} from "../../../../utils/sleep";
 import Draggable from "react-draggable";
 import sharedStyles from "../../../../styles/shared.module.css";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
+import {ICharacter} from "../../../../interfaces/Characters/Character";
 
 type Props = {
     actionService: IActionServiceRenderData;
@@ -43,9 +44,10 @@ export const ActionResolveWindow = (props: Props) => {
     const [reRollSkillUsed, setReRollSkillUsed] = useState(false);
 
     function onReRollButtonClick() {
+        const leader = props.actionService.lastRolledItem?.leaderPawn.owner as unknown as ICharacter;
 
-        if (props.actionService.lastRolledItem?.leaderPawn.character.determination &&
-            props.actionService.lastRolledItem?.leaderPawn.character.determination > 3
+        if (leader.determination &&
+            leader.determination > 3
         ) {
             setReRollButtonClicked(true);
         }

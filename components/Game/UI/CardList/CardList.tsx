@@ -49,7 +49,7 @@ export const CardList = (props: Props) => {
     function handleScroll(event: React.UIEvent<HTMLDivElement>) {
         setScrollTop(event.currentTarget.scrollTop)
     }
-
+    
     const disabledScrollClass = props.isBeingDragged ? styles.disabledScroll : "";
 
     return (

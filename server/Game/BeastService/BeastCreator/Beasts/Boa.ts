@@ -9,6 +9,6 @@ export class Boa extends Beast implements IBeast {
     }
 
     applySpecialEffect() {
-        this._game.tokenService.addRandomTokensToOwned();
+        this._game.tokenService.addRandomTokensToOwned(1);
     }
 }

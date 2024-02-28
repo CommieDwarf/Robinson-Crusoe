@@ -17,11 +17,11 @@ export class Map extends Invention implements IInvention {
     }
 
     onBuild() {
-        this.initHelperPawn(PAWN_HELPER_ACTION.EXPLORE);
+        this._pawnService.initPawns(1, false, PAWN_HELPER_ACTION.EXPLORE);
     }
 
     onDestruction() {
-        this.destroyPawn();
+        this._pawnService.destroyAllPawns();
         super.onDestruction();
     }
 }

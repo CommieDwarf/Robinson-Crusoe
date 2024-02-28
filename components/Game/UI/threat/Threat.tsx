@@ -42,7 +42,9 @@ function Threat(props: Props) {
                     && getActionSlots(props.threat.leftSlot, 0, "left")}
             </div>
             <div className={styles.actionSlots}>
-                {props.threat.rightSlot && (props.threat.rightSlot.meetsRequirement || props.threat.rightSlot.committedResources) && getActionSlots(props.threat.rightSlot, 0, "right")}
+                {props.threat.rightSlot && (props.threat.rightSlot.meetsRequirement
+                        || props.threat.rightSlot.committedResources) &&
+                    getActionSlots(props.threat.rightSlot, 0, "right")}
             </div>
         </div>
     );

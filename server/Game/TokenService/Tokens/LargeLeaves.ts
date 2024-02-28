@@ -2,6 +2,8 @@ import {Token} from "./Token/Token";
 import {IGame} from "../../../../interfaces/Game";
 import {DISCOVERY_TOKEN} from "../../../../interfaces/TokenService/Token";
 import {IPlayerCharacter} from "../../../../interfaces/Characters/PlayerCharacter";
+import {IPlayer} from "../../../../interfaces/PlayerService/Player";
+import {ICharacter} from "../../../../interfaces/Characters/Character";
 
 export class LargeLeaves extends Token {
     constructor(game: IGame) {
@@ -13,7 +15,7 @@ export class LargeLeaves extends Token {
         );
     }
 
-    use(user: IPlayerCharacter, target: IPlayerCharacter | null = null) {
+    use(user: IPlayer, target?: ICharacter) {
         if (this._game.phaseService.phase === "weather") {
             if (this._game.weatherService.getOverallWeather().rain === 0) {
                 this._game.alertService.setAlert("Nie ma żadnej deszczowej chmury.")
