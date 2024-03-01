@@ -5,14 +5,13 @@ import {
     IEventCardRenderData,
 } from "../../../../interfaces/EventService/EventCard";
 import {IGame} from "../../../../interfaces/Game";
-import {v4 as uuidv4} from "uuid";
 import {IPawn} from "../../../../interfaces/Pawns/Pawn";
 import {EVENT_CARD, WRECKAGE_CARD,} from "../../../../interfaces/EventService/EVENT_CARD";
 import {ACTION, ACTION_ITEM, AdventureAction} from "../../../../interfaces/ACTION";
 import {ResourceCommittableItem} from "../../ResourceCommittableItem/ResourceCommittableItem";
-import {IPlayerCharacter} from "../../../../interfaces/Characters/PlayerCharacter";
 import {IBasicResourcesAmount} from "../../../../interfaces/Resources/Resources";
 import {ICharacter} from "../../../../interfaces/Characters/Character";
+import {getActionSlotDroppableId} from "../../../../utils/getActionSlotDroppableId";
 
 //TODO: implement name translations
 
@@ -85,7 +84,8 @@ export abstract class EventCard extends ResourceCommittableItem<keyof IBasicReso
 
     protected getHelperPawn(): IPawn | null {
         const slot = this._game.eventService.getSlotByCardName(this._name);
-        return this._game.actionSlotService.getPawn(`threat-${slot}-helper-1`);
+        const actionSlotId = getActionSlotDroppableId(ACTION.THREAT, this._name, slot, 1);
+        return this._game.actionSlotService.getPawn(actionSlotId);
     }
 
     get requirements(): EventResolveRequirements {

@@ -17,6 +17,8 @@ import {getItemFromDroppableId} from "../../../utils/getItemFromDroppableId";
 import {MissingLeaderError} from "../Errors/MissingLeaderError";
 import {MissingHelperError} from "../Errors/MissingHelperError";
 import {IPawn} from "../../../interfaces/Pawns/Pawn";
+import {isEventCard} from "../../../utils/typeGuards/isEventCard";
+import {WRECKAGE_CARD} from "../../../interfaces/EventService/EVENT_CARD";
 
 export class ActionSlotService implements IActionSlotService {
     private _slots: Map<string, null | IPawn>;
@@ -122,12 +124,7 @@ export class ActionSlotService implements IActionSlotService {
     }
 
     public getPawn(droppableId: string): IPawn | null {
-        let pawn = this.slots.get(droppableId);
-        if (pawn === undefined) {
-            throw new Error("Cant find slot with id: " + droppableId);
-        } else {
-            return pawn;
-        }
+        return this.slots.get(droppableId) || null;
     }
 
     private initActionSlots() {
@@ -135,7 +132,7 @@ export class ActionSlotService implements IActionSlotService {
         this._game.constructionService.constructions.forEach((construction) => {
             for (let i = 0; i < 4; i++) {
                 actionSlots.set(
-                    getActionSlotDroppableId(ACTION_ITEM.CONSTRUCTION, construction.name, " ", i),
+                    getActionSlotDroppableId(ACTION_ITEM.CONSTRUCTION, construction.name, null, i),
                     null
                 );
             }
@@ -149,7 +146,7 @@ export class ActionSlotService implements IActionSlotService {
         inventions.forEach((invention) => {
             for (let i = 0; i < 4; i++) {
                 actionSlots.set(
-                    getActionSlotDroppableId(ACTION_ITEM.INVENTION, invention, " ", i),
+                    getActionSlotDroppableId(ACTION_ITEM.INVENTION, invention, null, i),
                     null
                 );
             }
@@ -165,22 +162,22 @@ export class ActionSlotService implements IActionSlotService {
                     null
                 );
                 actionSlots.set(
-                    getActionSlotDroppableId(ACTION.EXPLORE, tile.id, " ", i),
+                    getActionSlotDroppableId(ACTION.EXPLORE, tile.id, null, i),
                     null
                 );
             }
         });
         for (let i = 0; i < 10; i++) {
-            actionSlots.set(getActionSlotDroppableId(ACTION.REST, "", " ", i), null);
+            actionSlots.set(getActionSlotDroppableId(ACTION.REST, "", null, i), null);
             actionSlots.set(
-                getActionSlotDroppableId(ACTION.ARRANGE_CAMP, "", " ", i),
+                getActionSlotDroppableId(ACTION.ARRANGE_CAMP, "", null, i),
                 null
             );
         }
         for (let i = 0; i < 2; i++) {
             actionSlots.set(getActionSlotDroppableId(ACTION.THREAT, " ", "left", i), null);
             actionSlots.set(getActionSlotDroppableId(ACTION.THREAT, " ", "right", i), null);
-            actionSlots.set(getActionSlotDroppableId(ACTION.HUNT, " ", " ", i), null);
+            actionSlots.set(getActionSlotDroppableId(ACTION.HUNT, " ", null, i), null);
         }
 
         return actionSlots;
@@ -230,7 +227,10 @@ export class ActionSlotService implements IActionSlotService {
                 });
 
 
-                if (item && item.requiredPawnAmount && helperCount < item.requiredPawnAmount - 1) {
+                if (item && item.requiredPawnAmount && helperCount < item.requiredPawnAmount - 1
+                    &&
+                    !(isEventCard(item) && item.name === WRECKAGE_CARD.SUPPLY_CRATES)
+                ) {
                     throw new MissingHelperError(droppableID);
                 }
             });

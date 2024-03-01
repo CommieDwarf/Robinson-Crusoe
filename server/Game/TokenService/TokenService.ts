@@ -13,6 +13,7 @@ export class TokenService implements ITokenService {
     private _tokenStack: DISCOVERY_TOKEN[];
 
     private _owned: IToken[] = [];
+    private _future: IToken[] = [];
     private _game: IGame;
     private _tokenCreator: ICreator<IToken, DISCOVERY_TOKEN>;
 
@@ -30,6 +31,7 @@ export class TokenService implements ITokenService {
     get renderData() {
         return {
             owned: this._owned.map((token) => token.renderData),
+            future: this._future.map((token) => token.renderData),
         };
     }
 
@@ -62,7 +64,7 @@ export class TokenService implements ITokenService {
         // });
     }
 
-    public autoUseOwnedTokens() {
+    private autoUseFutureTokens() {
         this._owned.forEach((token) => token.autoDiscard());
     }
 
@@ -81,12 +83,34 @@ export class TokenService implements ITokenService {
         }
     }
 
+    public addRandomTokensToFuture(amount: number) {
+        for (let i = 0; i < amount; i++) {
+            this._future.push(this.getRandomToken())
+        }
+    }
+
     public addRandomTokensToOwned(amount: number) {
         for (let i = 0; i < amount; i++) {
-            const tokenName = this._tokenStack.pop();
-            if (tokenName) {
-                this._owned.push(this._tokenCreator.create(tokenName));
-            }
+            this._owned.push(this.getRandomToken())
+        }
+    }
+
+    private moveFutureToOwned() {
+        this._owned = this._owned.concat(this._future);
+        this._future = [];
+    }
+
+    public onActionEnd() {
+        this.autoUseFutureTokens();
+        this.moveFutureToOwned();
+    }
+
+    private getRandomToken(): IToken {
+        const tokenName = this._tokenStack.pop();
+        if (tokenName) {
+            return this._tokenCreator.create(tokenName);
+        } else {
+            throw new Error("Empty tokenStack!");
         }
     }
 }

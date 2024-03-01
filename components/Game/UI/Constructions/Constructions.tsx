@@ -13,16 +13,6 @@ interface Props {
 }
 
 export default function Constructions(props: Props) {
-    const constructions = [];
-    for (let i = 0; i < 4; i++) {
-        constructions.push(
-            <Construction construction={props.constructions[i]} key={i}
-                          switchCommittedResources={props.switchCommittedResources}
-                          ownedResources={props.ownedResources}
-                          naturalShelter={props.naturalShelter}
-            />
-        );
-    }
 
     let zIndexIncreasedClass = props.zIndex.includes("construction")
         ? styles.zIndexIncreased
@@ -30,7 +20,14 @@ export default function Constructions(props: Props) {
 
     return (
         <div className={styles.container + " " + zIndexIncreasedClass}>
-            {constructions}
+            {props.constructions.map((construction, i) => {
+                return <Construction construction={props.constructions[i]} key={i}
+                                     switchCommittedResources={props.switchCommittedResources}
+                                     ownedResources={props.ownedResources}
+                                     naturalShelter={props.naturalShelter}
+                                     hideActionSlots={props.constructions[i].lvl > 0 && props.constructions[i].name === CONSTRUCTION.SHELTER}
+                />
+            })}
         </div>
     );
 }

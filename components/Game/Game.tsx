@@ -511,7 +511,7 @@ export default function Game(props: Props) {
                 <Morale current={gameRenderData.moraleService.lvl}/>
                 <AllResources
                     future={{
-                        tokenAmount: gameRenderData.resourceService.future.tokens.length,
+                        tokenAmount: gameRenderData.tokenService.future.length,
                         treasureAmount:
                         gameRenderData.resourceService.future.treasures.length,
                         basic: new Map(
@@ -519,7 +519,7 @@ export default function Game(props: Props) {
                         ) as Map<keyof IBasicResourcesAmount, number>,
                     }}
                     owned={{
-                        tokenAmount: gameRenderData.resourceService.owned.tokens.length,
+                        tokenAmount: gameRenderData.tokenService.owned.length,
                         treasureAmount:
                         gameRenderData.resourceService.owned.treasures.length,
                         basic: new Map(
@@ -597,7 +597,8 @@ export default function Game(props: Props) {
                 <ChatLog logMessages={gameRenderData.logs}/>
                 <Weather tokens={gameRenderData.weatherService.tokens}/>
                 <Tokens
-                    discoveryTokens={gameRenderData.tokenService.owned}
+                    owned={gameRenderData.tokenService.owned}
+                    future={gameRenderData.tokenService.future}
                     utilizeToken={handleUtilizeToken}
                     menuDisabled={isPawnBeingDragged || elementZIndexed !== ""}
                 />

@@ -270,7 +270,7 @@ export class TileService implements ITileService {
         this._tileGraph.addEdges(id);
         this._tileGraph.updateDistance();
         if (tile.tileResourceService?.extras.discoveryToken) {
-            this._game.tokenService.addRandomTokensToOwned(tile.tileResourceService.extras.discoveryToken);
+            this._game.tokenService.addRandomTokensToFuture(tile.tileResourceService.extras.discoveryToken);
         }
         if (tile.tileResourceService?.resources.left.resource === "beast" ||
             tile.tileResourceService?.resources.right.resource === "beast"

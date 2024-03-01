@@ -1,9 +1,9 @@
 .container {
-    height: 35%;
-    aspect-ratio: 2;
+    width: 40%;
+    aspect-ratio: 2.5;
     position: absolute;
-    top: calc(50% - 100px);
-    left: calc(50% - 200px);
+    top: 25%;
+    left: 30%;
     background-image: url("../../../../public/UI/paper-background.png");
     border: 1px solid var(--borderColor);
     z-index: 9999;
@@ -28,6 +28,8 @@
     padding: 10px;
     position: relative;
     font-size: 2em;
+    margin: auto;
+    text-align: center;
 }
 
 .closeButton {
@@ -36,8 +38,15 @@
     cursor: pointer;
     height: 15%;
     aspect-ratio: 2.5;
-    background-color: blue;
-    margin: auto;
     font-size: 3em;
     font-weight: bold;
+    border: 1px solid var(--brown);
+    padding: 10px;
+    border-radius: 5%;
+    line-height: 30%;
+    margin: auto auto 1%;
+}
+
+.closeButton:hover {
+    scale: 1.1;
 }

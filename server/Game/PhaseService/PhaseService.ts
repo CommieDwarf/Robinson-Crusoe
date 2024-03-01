@@ -137,6 +137,7 @@ export class PhaseService implements IPhaseService {
         this._game.tileService.resetResourceAssignedPawns();
         this._game.inventionService.resetCardPawns();
         this._game.resourceService.addFutureToOwned();
+        this._game.tokenService.onActionEnd();
     };
 
     private weatherEffect = () => {

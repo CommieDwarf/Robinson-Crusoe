@@ -13,7 +13,6 @@ import {IBasicResourcesAmount} from "../../../../interfaces/Resources/Resources"
 import {useState} from "react";
 import {RollDiceWindow} from "./RollDiceWindow/RollDiceWindow";
 import {WeatherDays} from "../../../../interfaces/ScenarioService/ScenarioService";
-import {Utility} from "./Utility/Utility";
 import {ISkillRenderData} from "../../../../interfaces/Skill/Skill";
 import Draggable from "react-draggable";
 
@@ -35,32 +34,16 @@ export const WeatherResolveWindow = (props: Props) => {
         !props.dices.rain.includes(props.round) &&
         !props.dices.winter.includes(props.round)
     );
-    const [isUtilityOpen, setIsUtilityOpen] = useState(false);
 
 
     function setWeatherResolved() {
         setResolved(true);
     }
-
-    function toggleUtilityOpen() {
-        setIsUtilityOpen((prev) => {
-            return !prev;
-        });
-    }
-
+    
 
     return (
         <Draggable bounds="parent" defaultClassNameDragging={sharedStyles.grabbing}>
             <div className={styles.container}>
-                {/*<UtilityDropDownButton*/}
-                {/*    isOpen={isUtilityOpen}*/}
-                {/*    toggleOpen={toggleUtilityOpen}*/}
-                {/*/>*/}
-                <Utility
-                    skills={props.skills}
-                    determination={props.determination}
-                    isOpen={isUtilityOpen}
-                />
                 <RollDiceWindow
                     weatherService={props.weatherService}
                     setResolved={setWeatherResolved}

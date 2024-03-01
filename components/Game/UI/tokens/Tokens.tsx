@@ -7,7 +7,8 @@ import {ContextMenu} from "./ContextMenu/ContextMenu";
 import {objectsEqual} from "../../../../utils/objectsEqual";
 
 interface Props {
-    discoveryTokens: ITokenRenderData[];
+    owned: ITokenRenderData[];
+    future: ITokenRenderData[];
     utilizeToken: (id: string) => void;
     menuDisabled: boolean;
 }
@@ -20,6 +21,7 @@ function Tokens(props: Props) {
         null
     );
     const [contextMenuLeft, setContextMenuLeft] = useState(0);
+    const [tokenLocked, setTokenLocked] = useState(false);
 
     function handleScroll(event: React.UIEvent<HTMLDivElement>) {
         setScrollLeft(event.currentTarget.scrollLeft);
@@ -41,10 +43,11 @@ function Tokens(props: Props) {
     }
 
 
-    function mouseEnterToken(token: ITokenRenderData, menuLeft: number) {
+    function mouseEnterToken(token: ITokenRenderData, menuLeft: number, locked: boolean) {
         setSelectedToken(token);
         setMouseOverToken(true);
         setContextMenuLeft(menuLeft);
+        setTokenLocked(locked);
     }
 
     function mouseLeaveToken() {
@@ -61,6 +64,9 @@ function Tokens(props: Props) {
 
     // TODO: make setSelectedToken(null) only when token have been used.
     function utilizeToken(id: string) {
+        if (tokenLocked) {
+            return;
+        }
         setSelectedToken(null);
         props.utilizeToken(id);
     }
@@ -80,13 +86,25 @@ function Tokens(props: Props) {
                 )}
             <div className={styles.scroll} onScroll={handleScroll} onWheel={handleWheel} ref={scrollRef}>
                 <div className={styles.content}>
-                    {props.discoveryTokens.map((token, i) => {
+                    {props.owned.map((token, i) => {
                         return (
                             <Token
                                 key={i}
                                 token={token}
                                 mouseEnterToken={mouseEnterToken}
                                 mouseLeaveToken={mouseLeaveToken}
+                                locked={false}
+                            />
+                        );
+                    })}
+                    {props.future.map((token, i) => {
+                        return (
+                            <Token
+                                key={i}
+                                token={token}
+                                mouseEnterToken={mouseEnterToken}
+                                mouseLeaveToken={mouseLeaveToken}
+                                locked={true}
                             />
                         );
                     })}

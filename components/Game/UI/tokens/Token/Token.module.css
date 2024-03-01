@@ -3,3 +3,7 @@
     aspect-ratio: 1;
     position: relative;
 }
+
+.locked {
+    filter: brightness(80%);
+}

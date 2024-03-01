@@ -49,12 +49,5 @@ function AllResources(props: Props) {
     );
 }
 
-// function areEqual(prevProps: Props, nextProps: Props) {
-//   const futureBasicEqual = objectsEqual(prevProps.future.basic, nextProps.future.basic);
-//   const ownedBasicEqual = compareMapValues(prevProps.owned.basic, nextProps.owned.basic);
-//
-//
-//   return futureBasicEqual && ownedBasicEqual;
-// }
 
 export default React.memo(AllResources, objectsEqual);

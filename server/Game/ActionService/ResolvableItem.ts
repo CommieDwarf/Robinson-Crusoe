@@ -233,7 +233,7 @@ export class ResolvableItem implements IResolvableItem {
                 break;
             case item instanceof EventCard:
                 const eventCard = item as IEventCard;
-                this._game.eventService.fullFill(eventCard.id);
+                this._game.eventService.fullFill(eventCard.name);
                 break;
             case item instanceof Beast:
                 this._game.beastService.fightBeast(this._leaderPawn.owner, item as IBeast);

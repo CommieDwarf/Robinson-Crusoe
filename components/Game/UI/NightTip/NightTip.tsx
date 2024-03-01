@@ -32,10 +32,12 @@ export const NightTip = (props: Props) => {
                     Aby przenieść obóz kliknij na strzałkę. Zbudowane konstrukcje zostaną
                     utracone.
                 </p>
+
             </div>
             <div className={styles.closeButton} onClick={props.hideNightTip}>
                 Zamknij
             </div>
+
         </div>
     );
 };

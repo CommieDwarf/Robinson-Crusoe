@@ -9,8 +9,10 @@ import ResizableImage from "../../../../ResizableImage/ResizableImage";
 
 type Props = {
     token: ITokenRenderData;
-    mouseEnterToken: (token: ITokenRenderData, offsetLeft: number) => void;
+    mouseEnterToken: (token: ITokenRenderData, offsetLeft: number, locked: boolean) => void;
     mouseLeaveToken: () => void;
+
+    locked: boolean;
 };
 
 const Token = (props: Props) => {
@@ -18,13 +20,14 @@ const Token = (props: Props) => {
         const target = event.currentTarget as HTMLDivElement;
         props.mouseEnterToken(
             props.token,
-            target.offsetLeft + target.offsetWidth / 2
+            target.offsetLeft + target.offsetWidth / 2,
+            props.locked
         );
     }
 
     return (
         <div
-            className={styles.container}
+            className={`${styles.container} ${props.locked ? styles.locked : ""}`}
             onMouseEnter={handleMouseEnter}
             onMouseOutCapture={props.mouseLeaveToken}
         >

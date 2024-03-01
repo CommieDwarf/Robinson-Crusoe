@@ -9,7 +9,6 @@ import getActionSlots from "../../getActionSlots";
 import {objectsEqual} from "../../../../../utils/objectsEqual";
 import {CostBlock} from "./CostBlock/CostBlock";
 import {IBasicResourcesAmount} from "../../../../../interfaces/Resources/Resources";
-import crossLineImg from "/public/UI/misc/cross-line.png";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
 
 type Props = {

@@ -2,13 +2,11 @@ Piętaszek i karty przygód
 Piętaszek i jego pula determinacji
 Ikonki surowców w ramki i nazwy po najechaniu
 Żeton Powalone drzewo - nie został zrealizowany po końcu akcji
-Faza pogody - najezdzajace sie napisy
-Naturalne schronienie - podmień obrazy na jakąś jaskinie i daj napis.
-Nastała noc - przycisk niebieski
-kompas (karta skarbu) - zielony pionek.
 
-
-
+Faza pogody - najezdzajace sie napisy x
+x Naturalne schronienie - podmień obrazy na jakąś jaskinie i daj napis.
+Nastała noc - przycisk niebieski x
+kompas (karta skarbu) - zielony pionek. x
 akcje (czerwona strzalka) na kafelku da się zignorować. x
 Naturalne schronienie nie działa x
 W chatlogu log z eventu powinien mieć ikonkę wydarzenia a nie nocy x
