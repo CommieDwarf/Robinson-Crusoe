@@ -1,6 +1,6 @@
 .container {
     height: 100%;
-    width: 40%;
+    width: 33%;
     display: flex;
     flex-wrap: wrap;
     position: relative;
@@ -9,11 +9,11 @@
 
 
 .tips {
-    width: 110%;
+    width: 120%;
     height: 70%;
     position: absolute;
     top: -90%;
-    left: -13%;
+    left: -15%;
 }
 
 .tip {

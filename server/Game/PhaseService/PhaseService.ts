@@ -163,6 +163,12 @@ export class PhaseService implements IPhaseService {
                     1,
                     "")
                 this._game.chatLog.addMessage(`${character.namePL} spożywa 1 pożywienie`, "neutral", "noc");
+            } else if (this._game.resourceService.canAffordResource("dryFood", 1)) {
+                this._game.resourceService.spendBasicResourceIfPossible(
+                    "dryFood",
+                    1,
+                    "")
+                this._game.chatLog.addMessage(`${character.namePL} spożywa 1 suchy prowiant`, "neutral", "noc");
             } else {
                 this._game.characterService.hurt(character, 1, "Brak pożywienia");
             }

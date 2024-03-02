@@ -345,6 +345,7 @@ export class ActionService implements IActionService {
         ) {
             if (resolvableItem.leaderPawn.owner.name === CHARACTER.FRIDAY) {
                 this._game.characterService.hurt(CHARACTER.FRIDAY, 1, "Przygoda");
+            } else {
                 this._game.adventureService.setCurrentAdventure(resolvableItem);
             }
             this.setAdventureToken(

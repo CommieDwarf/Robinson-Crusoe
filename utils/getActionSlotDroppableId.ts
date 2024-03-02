@@ -8,7 +8,7 @@ export function getActionSlotDroppableId(
     id: number
 ): string {
 
-    const role = id === 0 ? "leader" : "helper";
+    const role = id === 0 || itemType === ACTION.ARRANGE_CAMP || itemType === ACTION.REST ? "leader" : "helper";
 
     if (itemType === ACTION.THREAT || itemType === ACTION.HUNT) {
         name = " ";

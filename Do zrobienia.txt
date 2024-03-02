@@ -4,6 +4,8 @@ Piętaszek i karty przygód
 
 
 Piętaszek i jego pula determinacji
+Rzuciłem koścmi budowy i mimo że był token przygody nie pociągnąłem karty przygody. Budował kucharz.
+Przy budowanie konstrukcji podaje lvl za dużo.
 
 
 Ikonki surowców w ramki i nazwy po najechaniu x

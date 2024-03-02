@@ -194,13 +194,17 @@ export class ResolvableItem implements IResolvableItem {
                 this._game.characterService.hurt(this._leaderPawn.owner as ICharacter, 1, "Zagrożenie na kafelku - brak broni.")
             }
         }
-        if (isCommittableResourcesItem(item)) {
-            item.consumeCommittedResources();
-        }
+
         if (this.resolveStatus === RESOLVE_ITEM_STATUS.FAILURE) {
+            if (isCommittableResourcesItem(item)) {
+                item.unCommitResources();
+            }
             return;
         }
 
+        if (isCommittableResourcesItem(item)) {
+            item.consumeCommittedResources();
+        }
         this.resolveStatus = RESOLVE_ITEM_STATUS.SUCCESS;
         switch (true) {
             case item instanceof Construction:

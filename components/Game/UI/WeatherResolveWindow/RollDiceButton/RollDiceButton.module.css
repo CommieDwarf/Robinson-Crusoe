@@ -9,7 +9,8 @@
     font-weight: 800;
     position: relative;
     cursor: pointer;
-    font-size: 30px;
+    font-size: 5em;
+    top: -10%;
 }
 
 .notClicked:hover {

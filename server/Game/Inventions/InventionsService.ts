@@ -29,6 +29,7 @@ export class InventionsService implements IInventionService {
         this._tiles = tiles;
         this._inventions = this.getInitialInventions(scenario);
         this.updateLocks();
+        this.sortInventions();
     }
 
     get renderData(): IInventionServiceRenderData {
@@ -118,16 +119,7 @@ export class InventionsService implements IInventionService {
         });
         return flag;
     }
-
-    private isResourceCostMet(invention: IInvention): boolean {
-        if (!invention.resourceCost?.type) {
-            return true;
-        }
-        return this._game.resourceService.canAffordResource(
-            invention.resourceCost.type,
-            invention.resourceCost.amount
-        )
-    }
+    
 
     private isTileTypeRequirementMet(invention: IInvention) {
         if (!invention.requirements || !invention.requirements.terrainType) {
@@ -168,7 +160,7 @@ export class InventionsService implements IInventionService {
     private getSortWeight(invention: IInvention) {
         let sum = 0;
         if (invention.isBuilt) sum += 10;
-        if (!invention.locked) sum += 3;
+        if (!invention.locked) sum += 5;
         if (invention.inventionType === INVENTION_TYPE.STARTER) sum += 2;
         if (invention.inventionType === INVENTION_TYPE.NORMAL) sum += 1;
         return sum;

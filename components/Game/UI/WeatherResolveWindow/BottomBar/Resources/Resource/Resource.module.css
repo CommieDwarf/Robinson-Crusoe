@@ -31,37 +31,36 @@
     display: inline-block;
     vertical-align: top;
     text-align: right;
+    margin-left: 5px;
 }
 
 .subtrahends {
     display: inline-flex;
     justify-content: flex-end;
-    margin-left: 2px;
     height: 100%;
-    aspect-ratio: 2;
+    width: 35%;
     float: right;
 }
 
 .subtrahend {
-    height: 50%;
-    aspect-ratio: 2;
+    width: 50%;
+    height: 100%;
     color: darkred;
-    margin-top: 5%;
-    margin-left: 5%;
 }
 
 .subtrahendImage {
     position: relative;
-    height: 100%;
+    width: 50%;
     aspect-ratio: 1;
     display: inline-block;
     border-radius: 5px;
     overflow: hidden;
-    top: 10%;
+    top: 15%;
+    margin-left: 5%;
 }
 
 .subtrahendValue {
-    height: 100%;
+    width: 40%;
     aspect-ratio: 1;
     display: inline-block;
 }

@@ -62,7 +62,7 @@ export default function RestArrange(props: Props) {
     for (let i = 0; i < slotsQuantity; i++) {
         const actionItem =
             props.type === ACTION.REST ? ACTION_ITEM.REST : ACTION_ITEM.ARRANGE_CAMP;
-        const id = getActionSlotDroppableId(props.type, "", "", i);
+        const id = getActionSlotDroppableId(props.type, "", null, i);
         actionSlots.push(
             <ActionSlot
                 type="leader"

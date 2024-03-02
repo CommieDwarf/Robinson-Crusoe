@@ -22,12 +22,14 @@ export class GameService implements IGameService {
     public createGame() {
         this._game = new GameClass("castaways");
         const char = this._game.localPlayer.getCharacter();
-        this._game.tileService.explore(6);
-        this._game.inventionService.build(INVENTION_NORMAL.RAFT, char);
-        this._game.inventionService.build(INVENTION_NORMAL.SHIELD, char);
-        this._game.inventionService.build(INVENTION_NORMAL.FURNACE, char);
-        this._game.inventionService.build(INVENTION_PERSONAL.FIREPLACE, char);
-        
+        this._game.setNextRound();
+        this._game.setNextRound();
+        this._game.setNextRound();
+        this._game.setNextRound();
+        this._game.setNextRound();
+        this._game.setNextRound();
+        this._game.setNextRound();
+        this._game.weatherService.setToken("snow", true, "test")
     }
 
     get renderData() {

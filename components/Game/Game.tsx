@@ -123,6 +123,7 @@ export default function Game(props: Props) {
             function updateGameHeight() {
                 if (mapRef.current) setMapHeight(mapRef.current.offsetHeight);
                 if (actionOrderRef.current) setActionOrderHeight(actionOrderRef.current.offsetHeight);
+                setGameHeight(window.outerHeight);
             }
 
             window.addEventListener("resize", updateGameHeight)

@@ -3,7 +3,8 @@
     aspect-ratio: 1;
     position: relative;
     z-index: 1;
-    font-size: 3.8em;
+    font-size: 4em;
+    line-height: 120%;
 }
 
 
