@@ -1,8 +1,11 @@
 Piętaszek i karty przygód
-Piętaszek i jego pula determinacji
-Ikonki surowców w ramki i nazwy po najechaniu
-Żeton Powalone drzewo - nie został zrealizowany po końcu akcji
 
+
+
+
+Piętaszek i jego pula determinacji
+Ikonki surowców w ramki i nazwy po najechaniu x
+Żeton Powalone drzewo - nie został zrealizowany po końcu akcji x
 Faza pogody - najezdzajace sie napisy x
 x Naturalne schronienie - podmień obrazy na jakąś jaskinie i daj napis.
 Nastała noc - przycisk niebieski x
@@ -13,3 +16,9 @@ W chatlogu log z eventu powinien mieć ikonkę wydarzenia a nie nocy x
 Wspomnienia z rejsu (event) - za dużo action slotów, insekty tez x
 Karta eventu za blisko przycisku w action resolve window x
 nie działa obraz bestrii w action resolve window x
+
+
+Piętaszek wciaż moze rozpatrywać karty przygod.
+Front nie pokazuje aktualnego hp Piętaszka.
+Pokazuj commitowane surowce na threat
+Jadalne kłacza - sprawdz czy naczynia są zbudowane

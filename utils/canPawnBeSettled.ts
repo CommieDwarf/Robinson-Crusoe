@@ -1,6 +1,6 @@
 import {IPawnRenderData,} from "../interfaces/Pawns/Pawn";
 import {getDroppableIdObject} from "./getActionSlotDroppableId";
-import {ACTION} from "../interfaces/ACTION";
+import {ACTION, ACTION_ITEM, UniqueAction} from "../interfaces/ACTION";
 
 export function canPawnBeSettled(
     pawn: null | IPawnRenderData<any>,
@@ -20,7 +20,7 @@ export function canPawnBeSettled(
 
     const droppableIdObject = getDroppableIdObject(droppableId);
 
-    if (pawn.action && (!pawn.action.includes(droppableIdObject.itemType) || droppableId.includes("leader"))) {
+    if (pawn.action && (!pawn.action.includes(uniqueActionToAction(droppableIdObject.itemType)) || droppableId.includes("leader"))) {
         return false;
     }
 
@@ -28,7 +28,14 @@ export function canPawnBeSettled(
         return ((droppableIdObject.itemType === ACTION.HUNT || droppableIdObject.itemType === ACTION.EXPLORE) && droppableIdObject.role === "helper")
     }
 
-
     return true;
 }
 
+
+function uniqueActionToAction(uniqueAction: UniqueAction) {
+    if (uniqueAction === ACTION_ITEM.INVENTION || uniqueAction || ACTION_ITEM.CONSTRUCTION) {
+        return ACTION.BUILD
+    } else {
+        return uniqueAction as ACTION;
+    }
+}

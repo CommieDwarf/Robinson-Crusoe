@@ -15,8 +15,8 @@ export interface ThreatSpecialEffects {
 }
 
 export interface IEventService {
-    leftSlot: IEventCard | null;
-    rightSlot: IEventCard | null;
+    left: IEventCard | null;
+    right: IEventCard | null;
     currentAdventureCard: IAdventureCard | null;
     currentMysteryCard: IMysteryCard | null;
     adventureNeedsToBeResolved: boolean;

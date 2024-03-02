@@ -40,8 +40,9 @@
     /*z-index: 1;*/
     width: 88%;
     height: 7%;
+    bottom: 46%;
     margin-left: 6%;
-    position: relative;
+    position: absolute;
 }
 
 .barDecoration {

@@ -4,7 +4,7 @@ import {ACTION} from "../../interfaces/ACTION";
 import {MysteryCardCreator} from "./MysteryService/MysteryCardCreator/MysteryCardCreator";
 import {TREASURE_MYSTERY_CARD} from "../../interfaces/MysteryService/MYSTERY_CARD";
 import {INVENTION_NORMAL} from "../../interfaces/InventionService/Invention";
-import {CONSTRUCTION} from "../../interfaces/ConstructionService/Construction";
+import {PAWN_HELPER_ACTION} from "../../interfaces/Pawns/Pawn";
 
 interface IGameService {
     game: IGame | null;
@@ -25,14 +25,17 @@ export class GameService implements IGameService {
 
     public createGame() {
         this._game = new GameClass("castaways");
-        const char = this._game.localPlayer.getCharacter();
-        this._game.actionService.setAdventureToken(ACTION.EXPLORE, true, "testy")
-        this._game.actionService.setAdventureToken(ACTION.GATHER, true, "testy")
-        this._game.mysteryService.addTreasureToResources(new MysteryCardCreator(this._game).createTreasureCard(TREASURE_MYSTERY_CARD.COMPASS))
-        this._game.inventionService.build(INVENTION_NORMAL.SHIELD, char);
-        this._game.beastService.moveBeastFromStackToDeck();
-        this._game.tileService.explore(6);
-        this._game.tileService.explore(11);
+        // const char = this._game.localPlayer.getCharacter();
+        // this._game.characterService.friday.hurt(4);
+        // this._game.actionService.setAdventureToken(ACTION.EXPLORE, true, "testy")
+        // this._game.actionService.setAdventureToken(ACTION.GATHER, true, "testy")
+        // this._game.mysteryService.addTreasureToResources(new MysteryCardCreator(this._game).createTreasureCard(TREASURE_MYSTERY_CARD.COMPASS))
+        // this._game.inventionService.build(INVENTION_NORMAL.SHIELD, char);
+        // this._game.beastService.moveBeastFromStackToDeck();
+        // this._game.tileService.explore(6);
+        // this._game.tileService.explore(11);
+        //
+        // this._game.localPlayer.getCharacter().pawnService.addPawn(true, PAWN_HELPER_ACTION.BUILD);
     }
 
     get renderData() {

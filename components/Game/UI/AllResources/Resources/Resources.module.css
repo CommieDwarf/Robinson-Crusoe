@@ -1,7 +1,9 @@
 .container {
     width: 100%;
-    height: 100%;
+    height: 70%;
     position: relative;
+    z-index: 99;
+    margin: auto;
 }
 
 .future {
@@ -16,9 +18,7 @@
     width: 100%;
     height: 100%;
     top: 0;
-    line-height: 250%;
     opacity: 0.3;
-
 }
 
 .resources {
@@ -34,31 +34,30 @@
 
 .resource {
     position: relative;
-    height: 50%;
+    width: 26%;
     aspect-ratio: 1;
 }
 
 .icon {
-    width: 70%;
-    height: 70%;
-    display: inline-block;
+    width: 100%;
+    height: 100%;
     position: relative;
-    top: 15%;
     margin: auto;
-    vertical-align: top;
 }
 
 .value {
-    height: 100%;
-    width: 30%;
-    font-size: 30px;
-    display: inline-block;
-    color: white;
-    letter-spacing: 0;
-    vertical-align: center;
-    position: relative;
-    top: -5px;
-    -webkit-text-stroke: 2px var(--brown);
+    position: absolute;
+    background-color: white;
+    aspect-ratio: 1;
+    height: 40%;
+    line-height: 1.3rem;
+    padding-bottom: 5%;
+    font-size: 1.3rem;
+    border-radius: 30%;
+    text-align: center;
+    border: 1px solid var(--borderColor);
+    right: 0;
+    bottom: 0;
 }
 
 .valueChanged {

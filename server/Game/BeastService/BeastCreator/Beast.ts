@@ -4,6 +4,7 @@ import {IGame} from "../../../../interfaces/Game";
 import {AssignablePawnsItem} from "../../AssignablePawnsItem/AssignablePawnsItem";
 import {ACTION, ACTION_ITEM} from "../../../../interfaces/ACTION";
 import {ICharacter} from "../../../../interfaces/Characters/Character";
+import {getActionSlotDroppableId} from "../../../../utils/getActionSlotDroppableId";
 
 export class Beast extends AssignablePawnsItem implements IBeast {
 
@@ -65,7 +66,7 @@ export class Beast extends AssignablePawnsItem implements IBeast {
     }
 
     protected getLeader() {
-        const pawn = this._game.actionSlotService.getPawn("hunt-leader-0");
+        const pawn = this._game.actionSlotService.getPawn(getActionSlotDroppableId(ACTION.HUNT, null, null, 0));
         if (!pawn) {
             throw new Error("can't get leader");
         }

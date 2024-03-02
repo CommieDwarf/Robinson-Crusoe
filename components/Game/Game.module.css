@@ -1,6 +1,5 @@
 .game {
-    width: 100%;
-    /*aspect-ratio: 16 / 7;*/
+    /*width: 100vw;*/
     height: 100vh;
     position: relative !important;
     display: grid;
@@ -15,15 +14,14 @@
     -moz-user-select: none; /* Old versions of Firefox */
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none;
-    overflow: hidden;
 }
 
 .gameMoz {
     height: inherit;
 }
 
-@media (min-aspect-ratio: 16 / 11) {
-    .gameMoz {
+@media (max-aspect-ratio: 16 / 11) {
+    .game {
         aspect-ratio: 16 / 7 !important;
         /*color: blue !important;*/
     }

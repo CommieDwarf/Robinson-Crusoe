@@ -17,7 +17,7 @@ export class FallenTree extends Token {
 
     use(user: IPlayer, target?: ICharacter) {
         super.use(user, target);
-        this._game.resourceService.addBasicResourceToFuture(
+        this._game.resourceService.addBasicResourceToOwned(
             "wood",
             1,
             this._sourceLog

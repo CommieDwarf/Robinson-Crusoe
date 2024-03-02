@@ -1,32 +1,28 @@
 import {IGame} from "../interfaces/Game";
-import {CONSTRUCTION} from "../interfaces/ConstructionService/Construction";
-import {INVENTION} from "../interfaces/InventionService/Invention";
-import {ACTION} from "../interfaces/ACTION";
+import {ACTION, ACTION_ITEM} from "../interfaces/ACTION";
+import {getDroppableIdObject} from "./getActionSlotDroppableId";
+import {CONSTRUCTION, IConstruction} from "../interfaces/ConstructionService/Construction";
+import {IInvention, INVENTION} from "../interfaces/InventionService/Invention";
+import {Side} from "../interfaces/TileService/TileResourceService";
 import {IEventCard} from "../interfaces/EventService/EventCard";
+import {ITile} from "../interfaces/TileService/ITile";
+import {IBeast} from "../interfaces/Beasts/Beast";
 
-export function getItemFromDroppableId(droppableId: string, game: IGame) {
-    if (droppableId.includes("threat")) {
-        if (droppableId.includes("left")) {
-            return game.eventService.leftSlot as IEventCard;
-        } else {
-            return game.eventService.rightSlot as IEventCard;
-        }
-    } else if (droppableId.includes("hunt")) {
-        return game.beastService.peekBeastFromDeck();
-    } else if (droppableId.includes("invention")) {
-        let name = droppableId.split("-")[1] as INVENTION;
-        return game.inventionService.getInvention(name);
-    } else if (droppableId.includes("construction")) {
-        let name = droppableId.split("-")[1] as CONSTRUCTION;
-        return game.constructionService.getConstruction(name);
-    } else if (droppableId.includes("tile")) {
-        let id = droppableId.split("-")[1];
-        return game.tileService.getTile(parseInt(id));
-    } else if (droppableId.includes("rest")) {
-        return ACTION.REST;
-    } else if (droppableId.includes("arrange camp")) {
-        return ACTION.ARRANGE_CAMP;
+export function getItemFromDroppableId(droppableId: string, game: IGame): IEventCard | IConstruction | IInvention | ITile | IBeast | ACTION.ARRANGE_CAMP | ACTION.REST | null {
+    const obj = getDroppableIdObject(droppableId);
+
+    switch (true) {
+        case obj.itemType === ACTION.THREAT:
+            return game.eventService[obj.side as Side];
+        case obj.itemType === ACTION_ITEM.CONSTRUCTION:
+            return game.constructionService.getConstruction(obj.name as CONSTRUCTION);
+        case obj.itemType === ACTION_ITEM.INVENTION:
+            return game.inventionService.getInvention(obj.name as INVENTION);
+        case obj.itemType === ACTION.EXPLORE || obj.itemType === ACTION.GATHER:
+            return game.tileService.getTile(Number(obj.name));
+        case obj.itemType === ACTION.HUNT:
+            return game.beastService.peekBeastFromDeck();
+        default:
+            return obj.itemType as ACTION.ARRANGE_CAMP || ACTION.REST;
     }
-
-    return null;
 }

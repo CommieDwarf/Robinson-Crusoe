@@ -8,6 +8,7 @@ import {IBeastRenderData} from "../../../interfaces/Beasts/Beast";
 import {IEventCardRenderData} from "../../../interfaces/EventService/EventCard";
 import {Side} from "../../../interfaces/TileService/TileResourceService";
 import {isEventCard} from "../../../utils/typeGuards/isEventCard";
+import {WRECKAGE_CARD} from "../../../interfaces/EventService/EVENT_CARD";
 
 
 export default function getActionSlots(
@@ -29,7 +30,16 @@ export default function getActionSlots(
         name = "id" in item ? String(item.id) : item.name;
     }
 
-    const actionSlotAmount = isEventCard(item) ? item.requiredPawnAmount : item.requiredPawnAmount + 1;
+    let actionSlotAmount;
+
+
+    // @ts-ignore
+    if (isEventCard(item) && !(Object.values(WRECKAGE_CARD).includes(item.name))) {
+        actionSlotAmount = item.requiredPawnAmount
+    } else {
+        actionSlotAmount = item.requiredPawnAmount + 1
+    }
+
 
     for (let i = 0; i < actionSlotAmount; i++) {
         const actionSlotId = getActionSlotDroppableId(item.uniqueAction, name, side ? side : null, i);

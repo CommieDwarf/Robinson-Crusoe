@@ -28,7 +28,7 @@ function AllResources(props: Props) {
     return (
         <div className={styles.container}>
             <Frame/>
-            <div className={styles.resources}>
+            <div className={`${styles.resources} ${styles.future}`}>
                 <Resources type={"future"} {...props.future} />
             </div>
             <div className={frameStyles.midBar}>
@@ -42,7 +42,7 @@ function AllResources(props: Props) {
                     </div>
                 </div>
             </div>
-            <div className={styles.resources}>
+            <div className={`${styles.resources} ${styles.owned}`}>
                 <Resources type={"owned"} {...props.owned} />
             </div>
         </div>

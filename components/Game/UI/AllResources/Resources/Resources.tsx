@@ -3,7 +3,7 @@ import * as React from "react";
 import styles from "./Resources.module.css";
 import {IBasicResourcesAmount} from "../../../../../interfaces/Resources/Resources";
 import Image from "next/image";
-import {useEffect, useRef} from "react";
+import {useEffect, useRef, useState} from "react";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
 import {formatToKebabCase} from "../../../../../utils/formatToKebabCase";
 
@@ -31,6 +31,7 @@ export const Resources = (props: Props) => {
         ]
     );
 
+
     const oldValues = usePreviousValue(allResources);
     let color = "black";
 
@@ -47,7 +48,6 @@ export const Resources = (props: Props) => {
             document.documentElement.style.setProperty("--resourceValueChangeColor", color);
         }
 
-
         resources.push(
             <div className={styles.resource} key={key}>
                 <div className={`${styles.icon} ${styles[key]}`}>
@@ -62,15 +62,8 @@ export const Resources = (props: Props) => {
     });
 
     const containerRef = useRef<HTMLDivElement>(null);
-    const style = {
-        fontSize: "40px",
-    }
-    if (containerRef.current) {
-        style.fontSize = containerRef.current.offsetWidth / 5 + "px";
-    }
-
     return (
-        <div className={`${styles.container} ${styles[props.type]}`} ref={containerRef} style={style}>
+        <div className={`${styles.container} ${styles[props.type]}`} ref={containerRef}>
             <div className={styles.label}>
                 {props.type === "future" ? "Przyszłe" : "Posiadane"}
             </div>

@@ -133,7 +133,6 @@ export class PhaseService implements IPhaseService {
 
     private actionEffect = () => {
         this._game.actionService.finished = false;
-        this._game.resetPawns();
         this._game.tileService.resetResourceAssignedPawns();
         this._game.inventionService.resetCardPawns();
         this._game.resourceService.addFutureToOwned();
@@ -151,6 +150,7 @@ export class PhaseService implements IPhaseService {
         this.eatOrGetHurt();
         this.rotFood();
         this.sleepInShelterOrHurt();
+        this._game.resetPawns();
     };
 
 

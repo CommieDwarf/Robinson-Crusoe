@@ -11,6 +11,7 @@ import dogUsageImg from "/public/UI/characters/dog-usage.png";
 import {useAppSelector} from "../../../../../store/hooks";
 import {objectsEqual} from "../../../../../utils/objectsEqual";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
+import {getOwnedDroppableId} from "../../../../../utils/getOwnedDroppableId";
 
 interface Props {
     friday: ISideCharacterRenderData;
@@ -32,7 +33,7 @@ function SideCharacters(props: Props) {
     return (
         <div className={styles.container}>
             <div className={styles.friday}>
-                <Droppable droppableId={"freepawns-friday"}>
+                <Droppable droppableId={getOwnedDroppableId("friday", "character")}>
                     {(provided) => (
                         <div
                             className={`${styles.pawn} ${styles.fridayPawn}`}
@@ -56,7 +57,7 @@ function SideCharacters(props: Props) {
                     )}
                 </Droppable>
                 <div className={`${styles.name}`}>Piętaszek</div>
-                <FridayHealth health={0}/>
+                <FridayHealth health={props.friday.health}/>
                 <div className={styles.fridayPic}>
                     <ResizableImage
                         src={fridayPicImg}
@@ -68,7 +69,7 @@ function SideCharacters(props: Props) {
             </div>
             <div className={styles.dog}>
                 <div className={styles.dogPawn}></div>
-                <Droppable droppableId={"freepawns-dog"}>
+                <Droppable droppableId={getOwnedDroppableId("dog", "character")}>
                     {(provided) => (
                         <div
                             className={styles.pawn}

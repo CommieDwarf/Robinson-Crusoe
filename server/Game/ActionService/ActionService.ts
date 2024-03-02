@@ -6,13 +6,12 @@ import {
 } from "../../../interfaces/ActionService/ActionService";
 import {IGame} from "../../../interfaces/Game";
 
-import {ACTION, AdventureAction} from "../../../interfaces/ACTION";
+import {ACTION, AdventureAction, UniqueAction} from "../../../interfaces/ACTION";
 import {IResolvableItem, RESOLVE_ITEM_STATUS,} from "../../../interfaces/ActionService/IResolvableItem";
 import {getItemFromDroppableId} from "../../../utils/getItemFromDroppableId";
 import {ResolvableItem} from "./ResolvableItem";
 import {actionOrder} from "../../../constants/actionOrder";
 import {IPawn} from "../../../interfaces/Pawns/Pawn";
-import {ActionSlotService} from "../ActionSlotsService/ActionSlotService";
 import {MissingLeaderError} from "../Errors/MissingLeaderError";
 import {isAdventureAction} from "../../../utils/typeGuards/isAdventureAction";
 import i18n from "../../../I18n/I18n";
@@ -22,6 +21,8 @@ import {IBasicResourcesAmount} from "../../../interfaces/Resources/Resources";
 import {GlobalCostModifier} from "./GlobalCostModifier/GlobalCostModifier";
 import Entries from "../../../interfaces/Entries";
 import {ITEM} from "../../../interfaces/Equipment/Item";
+import {CHARACTER} from "../../../interfaces/Characters/Character";
+import {getDroppableIdObject} from "../../../utils/getActionSlotDroppableId";
 
 export class ActionService implements IActionService {
 
@@ -263,6 +264,7 @@ export class ActionService implements IActionService {
             this.setCanBeSkipped(allSlots);
         }
 
+
         this._occupiedSlots = allSlots[this._action];
 
         const resolvableItems: IResolvableItem[] = [];
@@ -294,6 +296,8 @@ export class ActionService implements IActionService {
                 droppableID,
                 resolvableItems
             );
+
+
             if (!item) {
                 throw new MissingLeaderError(droppableID);
             } else {
@@ -339,7 +343,11 @@ export class ActionService implements IActionService {
             isAdventureAction(resolvableItem.action) &&
             this.shouldSetAdventureCard(resolvableItem)
         ) {
-            this._game.adventureService.setCurrentAdventure(resolvableItem);
+            if (resolvableItem.leaderPawn.owner.name === CHARACTER.FRIDAY) {
+                this._game.characterService.hurt(CHARACTER.FRIDAY, 1, "Piętaszek nie może rozpatrywać przygód");
+            } else {
+                this._game.adventureService.setCurrentAdventure(resolvableItem);
+            }
             this.setAdventureToken(
                 resolvableItem.action,
                 false,
@@ -372,14 +380,17 @@ export class ActionService implements IActionService {
         droppableID: string,
         resolvableItems: IResolvableItem[]
     ) {
-        const droppableIDRoleRemoved =
-            ActionSlotService.rmvRoleInfoFromDroppableId(droppableID);
-        const resolvableItem = resolvableItems.find((resItem) =>
-            resItem.droppableID.includes(droppableIDRoleRemoved)
-        );
+
+        const {itemType, name, side} = getDroppableIdObject(droppableID);
+        const resolvableItem = resolvableItems.find((resItem) => {
+                return [itemType, name, side].every((value) => {
+                    return resItem.droppableID.includes(value)
+                });
+            }
+        )
         if (!resolvableItem) {
             throw new Error(
-                `Resolvable item with droppableID: ${droppableIDRoleRemoved} not found.`
+                `Resolvable item with droppableID: ${droppableID} not found.`
             );
         }
 

@@ -34,6 +34,10 @@ export class CaptainsChest extends EventCard implements IEventCard {
     }
 
     fullFill() {
-        //TODO: implement more space for equipment item before this.
+        const helper = this.getHelperPawn();
+        this._game.resourceService.addBasicResourceToOwned("wood", 1, this._resolutionPL);
+        if (helper) {
+            this._game.equipmentService.addRandomItem(this._resolutionPL);
+        }
     }
 }

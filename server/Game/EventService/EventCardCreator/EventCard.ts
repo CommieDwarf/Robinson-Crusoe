@@ -72,19 +72,16 @@ export abstract class EventCard extends ResourceCommittableItem<keyof IBasicReso
     }
 
     protected getLeaderCharacter(): ICharacter {
-        const slot = this._game.eventService.getSlotByCardName(this.name);
-        const pawn = this._game.actionSlotService.getPawn(
-            `threat-${slot}-leader-0`
-        );
-        if (!pawn) {
-            throw new Error("Can't find leader pawn");
-        }
-        return pawn.owner;
+        return this.getPawn(0)?.owner;
     }
 
     protected getHelperPawn(): IPawn | null {
+        return this.getPawn(1);
+    }
+
+    protected getPawn(id: number) {
         const slot = this._game.eventService.getSlotByCardName(this._name);
-        const actionSlotId = getActionSlotDroppableId(ACTION.THREAT, this._name, slot, 1);
+        const actionSlotId = getActionSlotDroppableId(ACTION.THREAT, this._name, slot, id);
         return this._game.actionSlotService.getPawn(actionSlotId);
     }
 

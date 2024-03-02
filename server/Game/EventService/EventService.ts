@@ -46,8 +46,8 @@ export class EventService implements IEventService {
 
     get renderData(): IEventServiceRenderData {
         return {
-            leftSlot: this.leftSlot?.renderData || null,
-            rightSlot: this.rightSlot?.renderData || null,
+            leftSlot: this.left?.renderData || null,
+            rightSlot: this.right?.renderData || null,
             currentAdventureCard: this._currentAdventureCard?.renderData || null,
             currentMysteryCard: this._currentMysteryCard?.getRenderData() || null,
         };
@@ -57,19 +57,19 @@ export class EventService implements IEventService {
         return this._specialEffects;
     }
 
-    set leftSlot(card: IEventCard | null) {
+    set left(card: IEventCard | null) {
         this._eventSlots.left = card;
     }
 
-    set rightSlot(card: IEventCard | null) {
+    set right(card: IEventCard | null) {
         this._eventSlots.right = card;
     }
 
-    get leftSlot() {
+    get left() {
         return this._eventSlots.left;
     }
 
-    get rightSlot() {
+    get right() {
         return this._eventSlots.right;
     }
 
@@ -138,11 +138,11 @@ export class EventService implements IEventService {
 
 
     private moveCardsLeft() {
-        this.leftSlot?.triggerThreatEffect();
-        this.leftSlot = null;
+        this.left?.triggerThreatEffect();
+        this.left = null;
 
-        this.leftSlot = this.rightSlot;
-        this.rightSlot = null;
+        this.left = this.right;
+        this.right = null;
     }
 
     public addCardToTopOfStack(card: unknown) {
@@ -157,9 +157,9 @@ export class EventService implements IEventService {
     }
 
     public getSlotByCardName(cardName: string) {
-        if (this.leftSlot?.name === cardName) {
+        if (this.left?.name === cardName) {
             return "left";
-        } else if (this.rightSlot?.name === cardName) {
+        } else if (this.right?.name === cardName) {
             return "right";
         }
 
@@ -211,9 +211,10 @@ export class EventService implements IEventService {
 
     private initEventCards(): IEventCard[] {
         const creator = new EventCardCreator(this._game);
-        this._eventSlots.right = creator.create(WRECKAGE_CARD.SUPPLY_CRATES);
+        // this._eventSlots.right = creator.create(WRECKAGE_CARD.SUPPLY_CRATES);
         let cards = implementedEventCards.map((card) => creator.create(card));
-        cards = shuffle(cards).slice(0, 12)
+        cards = shuffle(cards).slice(0, 11)
+        cards.push(creator.create(WRECKAGE_CARD.CAPTAINS_CHEST))
         // 29 kart ogólnie
 
 

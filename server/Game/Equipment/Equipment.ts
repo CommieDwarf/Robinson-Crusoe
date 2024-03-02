@@ -15,6 +15,8 @@ export class Equipment implements IEquipment {
         };
     }
 
+    private _stack = shuffle(Object.values(ITEM).filter(item => item !== ITEM.STORM_GLASS));
+
     items: IItem[];
     game: IGame;
     private _itemCreator;
@@ -22,13 +24,30 @@ export class Equipment implements IEquipment {
     constructor(game: IGame) {
         this.game = game;
         this._itemCreator = new ItemCreator(game);
-        this.items = this.getInitialItems(equipmentList);
+        this.items = this.getInitialItems(2);
     }
 
-    getInitialItems(itemList: EqList): IItem[] {
-        const items = Object.values(ITEM).filter(item => item !== ITEM.STORM_GLASS);
-        const random2Items = shuffle(items).slice(0, 2);
-        return random2Items.map((item) => this._itemCreator.create(item));
+    getInitialItems(amount: number): IItem[] {
+        const items = [];
+        for (let i = 0; i < amount; i++) {
+            items.push(this._itemCreator.create(this.popItem()))
+        }
+
+        return items;
+    }
+
+    private popItem(): ITEM {
+        const item = this._stack.pop();
+        if (!item) {
+            throw new Error("No more items in stack!")
+        }
+        return item;
+    }
+
+    public addRandomItem(logSource: string) {
+        const item = this._itemCreator.create(this.popItem());
+        this.game.chatLog.addMessage(`Otrzymano przedmiot: ${item.name}`, "green", logSource)
+        this.items.push(this._itemCreator.create(this.popItem()));
     }
 
     useItem(item: ITEM) {

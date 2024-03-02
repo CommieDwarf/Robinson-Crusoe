@@ -19,6 +19,7 @@ export class PawnService<Owner extends IPawnOwner> implements IPawnService<Owner
         this._game = game;
         this._owner = owner;
         this._freePawns = [...this._pawns];
+
     }
 
     get renderData(): IPawnServiceRenderData<Owner["renderData"]> {
@@ -28,13 +29,6 @@ export class PawnService<Owner extends IPawnOwner> implements IPawnService<Owner
         }
     }
 
-    set freePawns(value: IPawn<Owner>[]) {
-        this._freePawns = value;
-    }
-
-    set pawns(value: IPawn<Owner>[]) {
-        this._pawns = value;
-    }
 
     get freePawns(): IPawn<Owner>[] {
         return this._freePawns;
@@ -67,12 +61,13 @@ export class PawnService<Owner extends IPawnOwner> implements IPawnService<Owner
 
     removePawn(draggableId: string, source: PawnArrayName): void {
         const pawn = this.findPawn(draggableId, source);
-        this[source] = this[source].filter((p) => pawn !== p);
+        // @ts-ignore
+        this["_" + source] = this[source].filter((p) => pawn !== p);
     }
 
     resetFreePawns(): void {
         this._pawns.forEach((pawn) => {
-            if (!this._freePawns.includes(pawn) && !("disposable" in pawn)) {
+            if (!this._freePawns.includes(pawn) && !pawn.disposable) {
                 this._freePawns.push(pawn);
             }
         })
@@ -101,9 +96,9 @@ export class PawnService<Owner extends IPawnOwner> implements IPawnService<Owner
         for (let i = 0; i < initialQuantity; i++) {
             pawns.push(new Pawn(this.owner, disposable, action));
         }
-        this._pawns = pawns;
-        this._freePawns = pawns;
-        this._game.addToOtherPawns(pawns);
+        this._pawns = [...pawns];
+        this._freePawns = [...pawns];
+        this._game.addToOtherPawns([...pawns]);
     }
 
     private getPawn(draggableId: string) {

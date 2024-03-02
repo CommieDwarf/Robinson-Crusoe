@@ -23,13 +23,13 @@ export class StrokeOfFate extends EventCard implements IEventCard {
     }
 
     triggerEventEffect() {
-        if (this._game.eventService.leftSlot) {
-            this._game.eventService.leftSlot.triggerThreatEffect();
-            this._game.eventService.leftSlot = null;
+        if (this._game.eventService.left) {
+            this._game.eventService.left.triggerThreatEffect();
+            this._game.eventService.left = null;
         }
-        if (this._game.eventService.rightSlot) {
-            this._game.eventService.rightSlot.triggerThreatEffect();
-            this._game.eventService.rightSlot = null;
+        if (this._game.eventService.right) {
+            this._game.eventService.right.triggerThreatEffect();
+            this._game.eventService.right = null;
         }
     }
 

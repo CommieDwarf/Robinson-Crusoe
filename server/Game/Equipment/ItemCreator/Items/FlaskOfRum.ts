@@ -11,16 +11,13 @@ export class FlaskOfRum extends Item implements IItem {
     }
 
     use(user: IPlayer, target?: ICharacter) {
-        if (!target) {
-            throw Error("target is null");
-        }
         if (this._game.phaseService.phase !== "night") {
             this._game.alertService.setAlert(
                 "Tego przedmiotu można użyć tylko w nocy"
             );
         } else {
             super.use(user);
-            this._game.characterService.heal(target, 1, this.namePL);
+            this._game.characterService.heal(user.getCharacter(), 1, this.namePL);
         }
     }
 }

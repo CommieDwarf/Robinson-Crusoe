@@ -17,6 +17,8 @@ export interface IEquipment {
     hasItem: (item: ITEM) => boolean;
     getUses: (item: ITEM) => number;
 
+    addRandomItem: (logSource: string) => void;
+
     getItem: (item: ITEM) => IItem;
     renderData: IEquipmentRenderData;
 }

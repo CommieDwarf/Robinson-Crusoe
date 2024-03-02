@@ -29,12 +29,11 @@ interface DroppableIdObject {
 export function getDroppableIdObject(droppableId: string): DroppableIdObject {
     const arr = droppableId.split("-");
 
-
     return {
         itemType: arr[0],
         name: arr[1],
         side: arr[2],
         role: arr[3],
-        id: arr[4]
+        id: arr[4],
     } as DroppableIdObject;
 }

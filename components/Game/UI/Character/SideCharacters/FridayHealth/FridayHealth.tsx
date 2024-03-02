@@ -14,7 +14,7 @@ export default function FridayHealth(props: Props) {
 
     const hearts = [];
 
-    for (let i = 0; i < totalHealth; i++) {
+    for (let i = totalHealth; i > 0; i--) {
         if (props.health === i) {
             hearts.push(
                 <div className={styles.heart} key={i}>

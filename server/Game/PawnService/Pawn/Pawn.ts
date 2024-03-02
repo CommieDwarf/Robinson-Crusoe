@@ -52,6 +52,7 @@ export class Pawn<Owner extends IInvention | ITreasureMysteryCard | ICharacter>
                 name: this._owner.name,
                 gender,
                 type: this.ownerType,
+                skills: isCharacter(this._owner) ? this._owner.skills.map((skill) => skill.renderData) : null
             }
         };
     }

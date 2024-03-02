@@ -42,6 +42,7 @@ export default function Item(props: Props) {
                           onMouseEnter={handleMouseEnter}
                           onMouseLeave={handleMouseLeave}
                           onClick={handleButtonClick}
+                          key={i}
         >
             <ResizableImage src={useImg} alt={"użyj"} fill/>
         </div>)

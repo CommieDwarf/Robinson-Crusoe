@@ -33,18 +33,19 @@ export const MysteryCard = (props: Props) => {
         props.use(props.mysteryCard.name)
     }
 
+    const imgUrl = `/UI/cards/mystery/${props.mysteryCard.type}/${formatToKebabCase(
+        props.mysteryCard.name
+    )}.png`
 
     return (
         <div
             className={`${styles.container}`}
         >
             <ResizableImage
-                src={`/UI/cards/mystery/${props.mysteryCard.type}/${formatToKebabCase(
-                    props.mysteryCard.name
-                )}.png`}
+                src={imgUrl}
                 alt={"karta pomysłu"}
                 placeholder="blur"
-                blurDataURL={`/UI/cards/${props.mysteryCard.type}/${props.mysteryCard.name}.png`}
+                blurDataURL={imgUrl}
             />
             {"uses" in props.mysteryCard && (
                 <UseButtons card={props.mysteryCard} onMouseEnterButton={onMouseEnterButton}
