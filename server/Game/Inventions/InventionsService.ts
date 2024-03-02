@@ -94,15 +94,11 @@ export class InventionsService implements IInventionService {
 
     updateLocks() {
         this._inventions.forEach((invention) => {
-            if (invention.name === INVENTION_CASTAWAYS.AXE) {
-            }
             invention.locked = !(
                 this.isInvRequirementMet(invention) &&
-                this.isTileTypeRequirementMet(invention) &&
-                this.isResourceCostMet(invention)
+                this.isTileTypeRequirementMet(invention)
             );
         });
-        this.sortInventions();
     }
 
     public useInvention(name: string): void {
@@ -159,6 +155,7 @@ export class InventionsService implements IInventionService {
     public onMapExplore() {
         this.updateLocks();
         this.sortInventions();
+        console.log(this._inventions)
     }
 
 
@@ -170,10 +167,10 @@ export class InventionsService implements IInventionService {
 
     private getSortWeight(invention: IInvention) {
         let sum = 0;
-        if (invention.isBuilt) sum += 6;
+        if (invention.isBuilt) sum += 10;
         if (!invention.locked) sum += 3;
         if (invention.inventionType === INVENTION_TYPE.STARTER) sum += 2;
-        if (invention.inventionType === INVENTION_TYPE.PERSONAL) sum -= 1;
+        if (invention.inventionType === INVENTION_TYPE.NORMAL) sum += 1;
         return sum;
     }
 }

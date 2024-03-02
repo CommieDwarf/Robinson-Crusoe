@@ -277,6 +277,7 @@ export class TileService implements ITileService {
         ) {
             this._game.beastService.moveBeastFromStackToDeck();
         }
+        this._game.inventionService.onMapExplore();
     }
 
     public updateExploredTerrainTypes() {
@@ -292,7 +293,6 @@ export class TileService implements ITileService {
         })
 
         this._exploredTerrainTypes = terrainTypes;
-        this._game.inventionService.onMapExplore();
     }
 
     private addResourceAmountFromItems(amount: number) {

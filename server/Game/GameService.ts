@@ -1,6 +1,6 @@
 import {IGame, IGameRenderData} from "../../interfaces/Game";
 import {GameClass} from "./Game";
-import {INVENTION_NORMAL, INVENTION_STARTER} from "../../interfaces/InventionService/Invention";
+import {INVENTION_NORMAL, INVENTION_PERSONAL} from "../../interfaces/InventionService/Invention";
 
 interface IGameService {
     game: IGame | null;
@@ -23,6 +23,11 @@ export class GameService implements IGameService {
         this._game = new GameClass("castaways");
         const char = this._game.localPlayer.getCharacter();
         this._game.tileService.explore(6);
+        this._game.inventionService.build(INVENTION_NORMAL.RAFT, char);
+        this._game.inventionService.build(INVENTION_NORMAL.SHIELD, char);
+        this._game.inventionService.build(INVENTION_NORMAL.FURNACE, char);
+        this._game.inventionService.build(INVENTION_PERSONAL.FIREPLACE, char);
+        
     }
 
     get renderData() {
