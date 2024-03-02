@@ -20,8 +20,9 @@ export function canPawnBeSettled(
 
     const droppableIdObject = getDroppableIdObject(droppableId);
 
-    if (pawn.action && (!pawn.action.includes(uniqueActionToAction(droppableIdObject.itemType)) || droppableId.includes("leader"))) {
-        return false;
+    if (pawn.action) {
+        console.log(pawn.action.includes(uniqueActionToAction(droppableIdObject.itemType)), pawn.action, uniqueActionToAction(droppableIdObject.itemType))
+        return (pawn.action.includes(uniqueActionToAction(droppableIdObject.itemType)) && !droppableId.includes("leader"));
     }
 
     if (pawn.owner.name === "dog") {
@@ -33,7 +34,7 @@ export function canPawnBeSettled(
 
 
 function uniqueActionToAction(uniqueAction: UniqueAction) {
-    if (uniqueAction === ACTION_ITEM.INVENTION || uniqueAction || ACTION_ITEM.CONSTRUCTION) {
+    if (uniqueAction === ACTION_ITEM.INVENTION || uniqueAction === ACTION_ITEM.CONSTRUCTION) {
         return ACTION.BUILD
     } else {
         return uniqueAction as ACTION;

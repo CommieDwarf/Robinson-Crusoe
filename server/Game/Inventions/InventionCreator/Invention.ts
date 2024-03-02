@@ -31,7 +31,7 @@ export class Invention extends ResourceCommittableItem<InventionResource> implem
     protected _used: boolean = false;
     protected readonly _logSource = `karta pomysłu: ${this.namePL}`;
 
-    protected _pawnService: IPawnService<IInvention> = new PawnService(this._game, this);
+    protected _pawnService: IPawnService<IInvention> = new PawnService<IInvention>(this._game, this);
 
 
     constructor(
@@ -62,7 +62,7 @@ export class Invention extends ResourceCommittableItem<InventionResource> implem
     }
 
 
-    get pawnService(): IPawnService<IInvention> | null {
+    get pawnService(): IPawnService<IInvention> {
         return this._pawnService;
     }
 

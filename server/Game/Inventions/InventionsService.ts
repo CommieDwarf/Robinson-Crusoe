@@ -6,6 +6,7 @@ import {
     INVENTION_NORMAL,
     INVENTION_PERSONAL,
     INVENTION_STARTER,
+    INVENTION_TYPE,
 } from "../../../interfaces/InventionService/Invention";
 import {IInventionService, IInventionServiceRenderData,} from "../../../interfaces/InventionService/InventionService";
 import {ITileService} from "../../../interfaces/TileService/ITileService";
@@ -17,7 +18,7 @@ import {ICharacter} from "../../../interfaces/Characters/Character";
 export class InventionsService implements IInventionService {
     private _builtInventions: IInvention[] = [];
     scenario: "castaways";
-    private readonly _inventions: IInvention[];
+    private _inventions: IInvention[];
     private _tiles: ITileService;
     private readonly _game: IGame;
     fireplace: boolean = false;
@@ -76,7 +77,7 @@ export class InventionsService implements IInventionService {
         );
         invention.onBuild();
         this.updateLocks();
-        this.sortInventionsByBuilt();
+        this.sortInventions();
     }
 
     destroy(name: INVENTION) {
@@ -101,7 +102,7 @@ export class InventionsService implements IInventionService {
                 this.isResourceCostMet(invention)
             );
         });
-
+        this.sortInventions();
     }
 
     public useInvention(name: string): void {
@@ -155,13 +156,24 @@ export class InventionsService implements IInventionService {
         return invention;
     }
 
-    sortInventionsByBuilt() {
-        this._inventions.sort((a) => {
-            if (a.isBuilt) {
-                return -1;
-            } else {
-                return 1;
-            }
+    public onMapExplore() {
+        this.updateLocks();
+        this.sortInventions();
+    }
+
+
+    private sortInventions() {
+        this._inventions = this._inventions.sort((a, b) => {
+            return this.getSortWeight(b) - this.getSortWeight(a);
         });
+    }
+
+    private getSortWeight(invention: IInvention) {
+        let sum = 0;
+        if (invention.isBuilt) sum += 6;
+        if (!invention.locked) sum += 3;
+        if (invention.inventionType === INVENTION_TYPE.STARTER) sum += 2;
+        if (invention.inventionType === INVENTION_TYPE.PERSONAL) sum -= 1;
+        return sum;
     }
 }

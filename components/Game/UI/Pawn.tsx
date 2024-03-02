@@ -8,6 +8,7 @@ import {
 import {ACTION} from "../../../interfaces/ACTION";
 import {useAppSelector} from "../../../store/hooks";
 import ResizableImage from "../../ResizableImage/ResizableImage";
+import {kebabCase} from "lodash";
 
 interface Props {
     pawn: IPawnRenderData<any>;
@@ -20,7 +21,7 @@ export default function Pawn(props: Props) {
     let pawnClass: keyof typeof styles;
     if (props.pawn.action) {
         imageName = "helper";
-        pawnClass = props.pawn.action;
+        pawnClass = kebabCase(props.pawn.action);
     } else {
         pawnClass = props.pawn.owner.name;
         imageName = `${props.pawn.owner.name}-${props.pawn.owner.gender}`;

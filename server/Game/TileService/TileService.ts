@@ -292,7 +292,7 @@ export class TileService implements ITileService {
         })
 
         this._exploredTerrainTypes = terrainTypes;
-        this._game.inventionService.updateLocks();
+        this._game.inventionService.onMapExplore();
     }
 
     private addResourceAmountFromItems(amount: number) {

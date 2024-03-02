@@ -22,6 +22,7 @@ export interface IInventionService {
 
     resetCardPawns: () => void;
 
+    onMapExplore: () => void;
 
     renderData: IInventionServiceRenderData;
 }

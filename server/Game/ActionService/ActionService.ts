@@ -344,8 +344,7 @@ export class ActionService implements IActionService {
             this.shouldSetAdventureCard(resolvableItem)
         ) {
             if (resolvableItem.leaderPawn.owner.name === CHARACTER.FRIDAY) {
-                this._game.characterService.hurt(CHARACTER.FRIDAY, 1, "Piętaszek nie może rozpatrywać przygód");
-            } else {
+                this._game.characterService.hurt(CHARACTER.FRIDAY, 1, "Przygoda");
                 this._game.adventureService.setCurrentAdventure(resolvableItem);
             }
             this.setAdventureToken(
