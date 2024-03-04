@@ -10,7 +10,7 @@
     border-bottom: none;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 3fr 4fr;
+    grid-template-rows: 1fr 3fr 1fr 4fr;
     z-index: 100;
     position: relative;
 }
@@ -19,14 +19,15 @@
     width: 100%;
     height: 100%;
     grid-column: 1 / span 1;
-    grid-row: 3 / span 1;
+    grid-row: 2 / span 2;
     position: relative;
     display: flex;
     justify-content: center;
 }
 
 .characterPicture {
-    height: 100%;
+    height: 120%;
+    top: -20%;
     aspect-ratio: 1;
     position: absolute;
 }
@@ -45,13 +46,11 @@
     text-align: center;
     font-weight: bold;
     font-size: 3.5em;
-    color: #56423D;
     font-style: italic;
+    color: var(--brown);
     line-height: 100%;
     width: 100%;
     border-radius: 5px;
-    padding: 1px 2px 2px 1px;
-    margin: 5px auto 5px auto;
 }
 
 .skills {
@@ -59,7 +58,7 @@
     width: 100%;
     position: relative;
     grid-column: 1 / span 1;
-    grid-row: 2 / span 1;
+    grid-row: 4 / span 1;
 }
 
 

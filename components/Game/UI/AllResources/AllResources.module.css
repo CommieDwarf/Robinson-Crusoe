@@ -10,21 +10,17 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
 }
 
 .resources {
-    width: 100%;
-    height: 40%;
-    margin-left: auto;
-    margin-right: auto;
+    width: calc(100% - 2 * 6.5%);
+    height: calc(50% - 9.5%);
+    margin: auto;
     text-align: center;
 }
 
 .future {
-    margin-top: 7%;
 }
 
 .owned {
-    margin-bottom: 2%;
 }

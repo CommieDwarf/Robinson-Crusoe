@@ -72,16 +72,16 @@
 
 .arrow {
     position: absolute;
-    width: 35px;
-    height: 20px;
+    width: 13%;
+    aspect-ratio: 2;
     top: 35%;
     transform: rotate(180deg);
 }
 
 .curvedArrow {
     position: absolute;
-    width: 35px;
-    height: 20px;
-    left: -2px;
-    bottom: 50px;
+    width: 13%;
+    aspect-ratio: 1;
+    left: 0;
+    bottom: 20%;
 }

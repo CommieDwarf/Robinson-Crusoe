@@ -1,13 +1,12 @@
 .container {
     width: 100%;
-    height: 70%;
+    height: 100%;
     position: relative;
     z-index: 99;
     margin: auto;
 }
 
 .future {
-    margin-top: 6%;
 }
 
 .label {
@@ -50,9 +49,9 @@
     background-color: white;
     aspect-ratio: 1;
     height: 40%;
-    line-height: 1.3rem;
     padding-bottom: 5%;
-    font-size: 1.3rem;
+    font-size: 2.5em;
+    line-height: 100%;
     border-radius: 30%;
     text-align: center;
     border: 1px solid var(--borderColor);
@@ -70,20 +69,15 @@
 @keyframes valueAddedAnimation {
     0% {
         scale: 1;
-        color: white;
-        -webkit-text-stroke: 2px var(--brown);
+        color: var(--brown);
     }
     50% {
         scale: 1.5;
         color: limegreen;
-        -webkit-text-stroke: 2px green;
-
     }
     100% {
-
         scale: 1;
-        color: white;
-        -webkit-text-stroke: 2px var(--brown);
+        color: var(--brown);
     }
 }
 

@@ -1,13 +1,13 @@
-import Image from "next/image";
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import styles from "./Threat.module.css";
 import {IEventCardRenderData} from "../../../../interfaces/EventService/EventCard";
 import {formatToKebabCase} from "../../../../utils/formatToKebabCase";
-import {ReactRef} from "@nextui-org/react/types/utils/refs";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
+import {Side} from "../../../../interfaces/TileService/TileResourceService";
 
 interface Props {
     card: IEventCardRenderData | null;
+    slot?: Side;
 }
 
 export default function Card(props: Props) {
@@ -20,6 +20,13 @@ export default function Card(props: Props) {
         }
         setEnlarged((prev) => !prev);
     }
+
+    useEffect(() => {
+        if (props.slot === "right") {
+            setEnlarged(true);
+        }
+    }, [props.card, props.slot])
+
 
     const enlargedClass = enlarged && props.card ? styles.cardEnlarged : "";
 

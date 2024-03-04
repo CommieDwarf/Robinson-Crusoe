@@ -3,13 +3,14 @@
     margin-left: 0;
     width: 0;
     left: 0;
-    top: 0;
+    bottom: 0;
     height: auto;
     transition: all 0.5s;
     overflow: hidden;
     font-size: 2em;
     font-weight: bold;
     grid-column: 1 / span 1;
+    grid-row: 3 / span 2;
     position: absolute;
 }
 
@@ -24,6 +25,7 @@
     background-image: url("../../../../../public/UI/characters/background.png");
     background-size: contain;
     height: 100%;
+    border: 1px solid var(--borderColor);
 }
 
 
@@ -65,8 +67,8 @@
 
 
 .useButton {
-    border: 1px solid var(--borderColor);
-    color: var(--brown);
+    background-color: var(--brown);
+    color: white;
     height: 1.5em;
     aspect-ratio: 3;
     text-align: center;
@@ -75,13 +77,13 @@
     position: relative;
     margin: 5px auto auto;
     top: -5px;
+    transition: all 0.1s;
 }
 
 
 .useButton:hover {
-    background-color: var(--brown);
-    color: white;
     scale: 1.2;
+    filter: brightness(120%);
 }
 
 .useButtonUsed {

@@ -5,7 +5,7 @@
     display: grid;
     background-image: url("../../public/UI/paper-background.png");
     background-size: cover;
-    background-position-y: -100px;
+    background-repeat: no-repeat;
     grid-template-columns: 1.5fr 3fr 0.9fr 1.1fr 2fr 3fr;
     grid-template-rows: 2fr 12fr 8fr 3fr 1fr 2fr;
     -webkit-touch-callout: none; /* iOS Safari */

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import React from "react";
 import styles from "./Threat.module.css";
 import Card from "./Card";
@@ -22,8 +21,8 @@ function Threat(props: Props) {
 
     return (
         <div className={styles.container + " " + zIndexClass}>
-            <Card card={props.threat.leftSlot}/>
-            <Card card={props.threat.rightSlot}/>
+            <Card card={props.threat.leftSlot} slot={"left"}/>
+            <Card card={props.threat.rightSlot} slot={"right"}/>
             <div className={styles.arrow}>
                 <ResizableImage src={redArrowImg} fill alt="strzałka" sizes={styles.arrow}/>
             </div>

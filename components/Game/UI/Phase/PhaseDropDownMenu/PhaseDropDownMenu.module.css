@@ -13,7 +13,7 @@
 
 
 .phase {
-    border-bottom: var(--borderColor);
+    border-bottom: 1px solid var(--borderColor);
 }
 
 .container {
@@ -22,9 +22,10 @@
 .content {
     display: flex;
     flex-direction: column;
-    row-gap: 5px;
     background-image: url("../../.././../../public/UI/paper-background.png");
-    background-size: cover;
+    background-position-y: -55px;
+    background-size: 1600px 1000px;
+    background-repeat: no-repeat;
 }
 
 
@@ -36,11 +37,11 @@
     height: 0;
 }
 
-.currentPhase {
-    -webkit-box-shadow: inset 0 0 40px -16px rgba(96, 201, 75, 1);
-    -moz-box-shadow: inset 0 0 40px -16px rgba(96, 201, 75, 1);
-    box-shadow: inset 0 0 40px -16px rgba(96, 201, 75, 1);
-}
+/*.currentPhase {*/
+/*    -webkit-box-shadow: inset 0 0 40px -16px rgba(96, 201, 75, 1);*/
+/*    -moz-box-shadow: inset 0 0 40px -16px rgba(96, 201, 75, 1);*/
+/*    box-shadow: inset 0 0 40px -16px rgba(96, 201, 75, 1);*/
+/*}*/
 
 
 .phaseLabel {
@@ -51,14 +52,18 @@
 }
 
 .phasePicture {
-    width: 100%;
-    aspect-ratio: 6;
+    width: 90%;
+    aspect-ratio: 5;
     position: relative;
     margin: auto;
+    top: -2%;
 }
+
 
 .event {
     color: #6b814a;
+    filter: brightness(80%);
+
 }
 
 .action {

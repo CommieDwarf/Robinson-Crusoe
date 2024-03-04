@@ -1,5 +1,4 @@
-import Image from "next/image";
-import React, {useLayoutEffect, useRef, useState} from "react";
+import React from "react";
 import styles from "./PhaseDropDownMenu.module.css";
 import {useTranslation} from "react-i18next";
 
@@ -52,11 +51,8 @@ export default function PhaseDropDownMenu(props: Props) {
             </div>
         );
     });
-    const paddingBottom = 10;
-    const rowGap = 5;
-
     const contentStyle = {
-        height: ((props.rowHeight + rowGap) * 6 + paddingBottom) + "px",
+        height: (props.rowHeight * 6) + "px",
     }
     return (
         <div className={styles.container} style={props.show ? contentStyle : {height: 0}}>
