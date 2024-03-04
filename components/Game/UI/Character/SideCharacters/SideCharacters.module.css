@@ -4,8 +4,6 @@
     height: 100%;
     width: 100%;
     font-size: 2.5em;
-    font-style: italic;
-
 }
 
 .friday {
@@ -32,6 +30,8 @@
     position: absolute;
     top: 0;
     right: 0;
+
+    font-style: italic;
 }
 
 .dog {
@@ -71,3 +71,29 @@
     top: 5%;
 }
 
+.determination {
+    color: var(--brown);
+    position: absolute;
+    left: 45%;
+    top: 23%;
+    font-weight: bold;
+    width: 30%;
+    height: 50%;
+}
+
+.determinationValue {
+    width: 50%;
+    height: 100%;
+    display: inline-block;
+    font-size: 1.2em;
+    text-align: right;
+
+}
+
+.determinationIcon {
+    width: 50%;
+    aspect-ratio: 1;
+    display: inline-block;
+    position: relative;
+    top: 5%;
+}

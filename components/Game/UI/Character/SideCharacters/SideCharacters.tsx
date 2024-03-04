@@ -12,6 +12,7 @@ import {useAppSelector} from "../../../../../store/hooks";
 import {objectsEqual} from "../../../../../utils/objectsEqual";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
 import {getOwnedDroppableId} from "../../../../../utils/getOwnedDroppableId";
+import determinationTokenImg from "/public/UI/tokens/determination.png";
 
 interface Props {
     friday: ISideCharacterRenderData;
@@ -58,6 +59,12 @@ function SideCharacters(props: Props) {
                 </Droppable>
                 <div className={`${styles.name}`}>Piętaszek</div>
                 <FridayHealth health={props.friday.health}/>
+                <div className={styles.determination}>
+                    <div className={styles.determinationValue}>{props.friday.determination}</div>
+                    <div className={styles.determinationIcon}>
+                        <ResizableImage src={determinationTokenImg} alt={"determinacja"}/>
+                    </div>
+                </div>
                 <div className={styles.fridayPic}>
                     <ResizableImage
                         src={fridayPicImg}
