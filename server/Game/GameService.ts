@@ -22,14 +22,6 @@ export class GameService implements IGameService {
     public createGame() {
         this._game = new GameClass("castaways");
         const char = this._game.localPlayer.getCharacter();
-        this._game.setNextRound();
-        this._game.setNextRound();
-        this._game.setNextRound();
-        this._game.setNextRound();
-        this._game.setNextRound();
-        this._game.setNextRound();
-        this._game.setNextRound();
-        this._game.weatherService.setToken("snow", true, "test")
     }
 
     get renderData() {

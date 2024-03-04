@@ -1,10 +1,7 @@
-import Image from "next/image";
 import React from "react";
 import styles from "./RestArrange.module.css";
 import ActionSlot from "../../ActionSlot";
-import {
-    getActionSlotDroppableId,
-} from "../../../../../utils/getActionSlotDroppableId";
+import {getActionSlotDroppableId,} from "../../../../../utils/getActionSlotDroppableId";
 
 import moraleArrowRightImg from "/public/UI/icons/morale-arrow-right.png";
 import heartImg from "/public/UI/icons/heart.png";
@@ -78,7 +75,8 @@ export default function RestArrange(props: Props) {
 
     return (
         <div className={styles[props.type] + " " + styles.activity}>
-            <div className={styles.activityName}>{capitalizeFirstLetter(t(`action.${props.type}`))}</div>
+            <div
+                className={`${styles.activityName} ${props.type === ACTION.REST ? styles.activityNameRest : ""}`}>{capitalizeFirstLetter(t(`action.${props.type}`))}</div>
             {rewardLabel}
             <div className={styles.actionSlots}>{actionSlots.map((slot, i) => {
                 return <div className={styles.actionSlot} key={i}>{slot}</div>

@@ -48,11 +48,11 @@ export class ConstructionService implements IConstructionService {
             } else {
                 resource = {
                     type: "wood",
-                    amount: 3,
+                    amount: 2,
                 }
                 optionalResource = {
                     type: "leather",
-                    amount: 2,
+                    amount: 1,
                 }
             }
             return new Construction(
