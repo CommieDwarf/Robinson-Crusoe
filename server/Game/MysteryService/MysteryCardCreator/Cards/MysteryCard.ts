@@ -1,9 +1,8 @@
 import {
-    IMysteryCard,
+    IMysteryCard, IMysteryCardRenderData,
     MYSTERY_CARD_TYPE,
 } from "../../../../../interfaces/MysteryService/MysteryCard";
 import {IGame} from "../../../../../interfaces/Game";
-import {IPlayerCharacter} from "../../../../../interfaces/Characters/PlayerCharacter";
 import {ICharacter} from "../../../../../interfaces/Characters/Character";
 
 export abstract class MysteryCard implements IMysteryCard {
@@ -38,7 +37,7 @@ export abstract class MysteryCard implements IMysteryCard {
         this._drawLabel = drawLabel;
     }
 
-    getRenderData() {
+    getRenderData(): IMysteryCardRenderData {
         return {
             name: this._name,
             namePL: this._namePL,

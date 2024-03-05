@@ -9,7 +9,7 @@ import {ICharacter} from "../Characters/Character";
 
 export type SkillTarget = ICharacter | ActionDice | Cloud | null;
 
-export interface ISkill {
+export interface ISkill<Target extends SkillTarget> {
     name: string;
     namePL: string;
     description: string;
@@ -20,7 +20,7 @@ export interface ISkill {
     usedInThisRound: boolean;
 
     canBeUsed: () => boolean;
-    use: (target: SkillTarget) => void;
+    use: (target: Target) => void;
     cost: number;
     renderData: ISkillRenderData;
 }

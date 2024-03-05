@@ -1,6 +1,7 @@
 import {IBasicResourcesAmount} from "../Resources/Resources";
 import {ICharacter} from "../Characters/Character";
 import {IPawnService, IPawnServiceRenderData} from "../Pawns/PawnService";
+import {PawnOwner} from "../PawnOwner/PawnOwner";
 
 export enum MYSTERY_CARD_TYPE {
     CREATURE = "creature",
@@ -9,7 +10,7 @@ export enum MYSTERY_CARD_TYPE {
 }
 
 
-export interface ITreasureMysteryCard extends IMysteryCard {
+export interface ITreasureMysteryCard extends IMysteryCard, PawnOwner<ITreasureMysteryCardRenderData> {
     addToResources: () => void;
     pawnService: IPawnService<ITreasureMysteryCard>;
 
@@ -35,7 +36,6 @@ export interface IMysteryCard {
     uses: number;
     use: (...args: any[]) => void;
 
-    getRenderData(): IMysteryCardRenderData;
 }
 
 export interface IMysteryCardRenderData {

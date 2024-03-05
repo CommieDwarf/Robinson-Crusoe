@@ -9,7 +9,7 @@ import {phaseOrder} from "../../../../../../constants/phaseOrder";
 import {Cloud} from "../../../../../../interfaces/Weather/Weather";
 import {ICharacter} from "../../../../../../interfaces/Characters/Character";
 
-export abstract class Skill implements ISkill {
+export abstract class Skill implements ISkill<ICharacter> {
     protected readonly _name: string;
     protected readonly _namePL: string;
     protected readonly _description: string;
@@ -21,8 +21,7 @@ export abstract class Skill implements ISkill {
 
     protected _lastRoundUsed = 0;
     protected _cost: number;
-
-    abstract use(target: ICharacter | ActionDice | Cloud | null): void;
+    protected _character: ICharacter;
 
 
     protected constructor(
@@ -33,7 +32,8 @@ export abstract class Skill implements ISkill {
         phasesAllowed: Phase[] | "all",
         actionAllowed: AdventureAction | null,
         cost: number,
-        game: IGame
+        game: IGame,
+        character: ICharacter,
     ) {
         this._name = name;
         this._namePL = namePL;
@@ -47,6 +47,7 @@ export abstract class Skill implements ISkill {
         this._actionAllowed = actionAllowed;
         this._cost = cost;
         this._game = game;
+        this._character = character;
     }
 
     get renderData() {
@@ -101,6 +102,12 @@ export abstract class Skill implements ISkill {
             && (this._actionAllowed ? this._actionAllowed === this._game.actionService.action : true)
             && !this.usedInThisRound
         )
+    }
+
+    public use(target: ICharacter | ActionDice | Cloud | null) {
+        this.updateLastRoundUsed();
+        this._character.decrDetermination(this.cost);
+        this.addLogMsg(this._character.namePL);
     }
 
 

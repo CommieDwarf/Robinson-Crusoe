@@ -22,11 +22,7 @@ export interface IPawnRenderData<OwnerRenderData extends IPawnOwnerRenderData> {
     draggableId: string;
     disposable: boolean;
     action: PAWN_HELPER_ACTION | null;
-    owner: {
-        name: string,
-        gender: string | null,
-        type: "invention" | "mystery" | "character",
-    };
+    owner: Omit<OwnerRenderData, "pawnService">
 }
 
 export enum PAWN_HELPER_ACTION {

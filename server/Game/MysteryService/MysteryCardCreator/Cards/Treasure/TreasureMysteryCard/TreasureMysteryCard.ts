@@ -4,8 +4,6 @@ import {
     MYSTERY_CARD_TYPE
 } from "../../../../../../../interfaces/MysteryService/MysteryCard";
 import {IGame} from "../../../../../../../interfaces/Game";
-import {PAWN_HELPER_ACTION} from "../../../../../../../interfaces/Pawns/Pawn";
-import {Pawn} from "../../../../../PawnService/Pawn/Pawn";
 import {IPawnService} from "../../../../../../../interfaces/Pawns/PawnService";
 import {PawnService} from "../../../../../PawnService/PawnService";
 
@@ -36,9 +34,14 @@ export abstract class TreasureMysteryCard extends MysteryCard implements ITreasu
 
     get renderData() {
         return {
+            ...this.getRenderData(),
+            pawnService: this._pawnService.renderData,
+        }
+    }
+
+    getRenderData() {
+        return {
             ...super.getRenderData(),
-            uses: this.uses,
-            pawnService: this._pawnService?.renderData || null,
         };
     }
 
@@ -47,7 +50,7 @@ export abstract class TreasureMysteryCard extends MysteryCard implements ITreasu
         return this._uses;
     }
 
-    get pawnService(): IPawnService<ITreasureMysteryCard> | null {
+    get pawnService(): IPawnService<ITreasureMysteryCard> {
         return this._pawnService;
     }
 

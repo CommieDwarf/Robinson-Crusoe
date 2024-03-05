@@ -1,5 +1,5 @@
 import {
-    IPawn, IPawnOwnerRenderData,
+    IPawn,
     PAWN_HELPER_ACTION,
 } from "../../../../interfaces/Pawns/Pawn";
 import {IInvention} from "../../../../interfaces/InventionService/Invention";
@@ -8,8 +8,6 @@ import {v4 as uuid} from "uuid";
 import {isCardInvention} from "../../../../utils/typeGuards/isCardInvention";
 import {isMysteryCard} from "../../../../utils/typeGuards/isMysteryCard";
 import {ICharacter} from "../../../../interfaces/Characters/Character";
-import {isPlayerCharacter} from "../../../../utils/typeGuards/isPlayerCharacter";
-import {isCharacter} from "../../../../utils/typeGuards/isCharacter";
 
 export class Pawn<Owner extends IInvention | ITreasureMysteryCard | ICharacter>
     implements IPawn<Owner> {
@@ -38,33 +36,12 @@ export class Pawn<Owner extends IInvention | ITreasureMysteryCard | ICharacter>
     private readonly _draggableId: string;
 
     get renderData() {
-        // // @ts-ignore
-        //
-        // const ownerRenderData = {...owner} as Omit<IPawnOwnerRenderData, "pawnService">
-
-        const gender = isCharacter(this._owner) ? this._owner.gender : null;
-
         return {
             action: this._action,
             disposable: this._disposable,
             draggableId: this._draggableId,
-            owner: {
-                name: this._owner.name,
-                gender,
-                type: this.ownerType,
-                skills: isCharacter(this._owner) ? this._owner.skills.map((skill) => skill.renderData) : null
-            }
+            owner: this._owner.getRenderData(),
         };
-    }
-
-    get ownerType(): "mystery" | "invention" | "character" {
-        if (isMysteryCard(this._owner)) {
-            return "mystery"
-        } else if (isCardInvention(this._owner)) {
-            return "invention"
-        } else {
-            return "character"
-        }
     }
 
 

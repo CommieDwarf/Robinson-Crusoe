@@ -3,6 +3,9 @@ import {IPawnService, IPawnServiceRenderData} from "../Pawns/PawnService";
 import {ISkill, ISkillRenderData} from "../Skill/Skill";
 import {ActionDice} from "../RollDice/RollDice";
 import {Cloud} from "../Weather/Weather";
+import {ISideCharacterRenderData} from "./SideCharacter";
+import {PawnOwner} from "../PawnOwner/PawnOwner";
+import {IPlayerCharacter, IPlayerCharacterRenderData} from "./PlayerCharacter";
 
 export interface ICharacterRenderData {
     pawnService: IPawnServiceRenderData<ICharacterRenderData>;
@@ -16,7 +19,7 @@ export interface ICharacterRenderData {
     skills: ISkillRenderData[];
 }
 
-export interface ICharacter {
+export interface ICharacter extends PawnOwner<IPlayerCharacterRenderData | ISideCharacterRenderData> {
     pawnService: IPawnService<ICharacter>;
     name: CHARACTER;
     id: number;
@@ -33,6 +36,7 @@ export interface ICharacter {
     decrDetermination: (by: number) => void;
     hurt: (by: number) => void;
     heal: (by: number) => void;
+
 }
 
 export enum CHARACTER {

@@ -12,19 +12,24 @@ type Props = {
 export const ReRoll = (props: Props) => {
     let character = props.actionService.lastRolledItem?.leaderPawn.owner;
     let skill;
-    let action;
+    let actionRestrict;
 
     if (character) {
         switch (character.name) {
             case "cook":
                 skill = character.skills.find((skill) => skill.name === "scrounger");
-                action = ACTION.GATHER;
+                actionRestrict = ACTION.GATHER;
+                break;
+            case "friday":
+                skill = character.skills.find((skill) => skill.name === "reRoll");
+                actionRestrict = null;
+                break;
         }
     }
 
     return (
         <div className={styles.container}>
-            {skill && character && props.actionService.action === action && (
+            {skill && character && (props.actionService.action === actionRestrict || !actionRestrict) && (
                 <>
                     <div>{skill.namePL}</div>
                     <div
@@ -34,7 +39,7 @@ export const ReRoll = (props: Props) => {
                         onClick={props.onReRollButtonClick}
                     >
                         {insertIconsIntoText(
-                            `Przerzuć (${skill.cost}/${character?.determination})$determination$`
+                            `Przerzuć (${character?.determination}/${skill.cost})$determination$`
                         )}
                     </div>
                 </>

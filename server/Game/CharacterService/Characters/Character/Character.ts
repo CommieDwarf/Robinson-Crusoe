@@ -39,13 +39,15 @@ export abstract class Character implements ICharacter {
     }
 
     get renderData(): ICharacterRenderData {
-        return this.getRenderData();
+        return {
+            ...this.getRenderData(),
+            pawnService: this._pawnService.renderData,
+        }
     }
 
-    protected getRenderData(): ICharacterRenderData {
+    public getRenderData(): Omit<ICharacterRenderData, "pawnService"> {
         return {
             determination: this._determination,
-            pawnService: this._pawnService.renderData,
             gender: this._gender,
             health: this._health,
             id: this._id,

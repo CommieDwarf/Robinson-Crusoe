@@ -6,12 +6,13 @@ import {
 } from "../ResourceCommitableItem/ResourceCommittableItem";
 import {IPlayerCharacter} from "../Characters/PlayerCharacter";
 import {IPawnService, IPawnServiceRenderData} from "../Pawns/PawnService";
+import {PawnOwner} from "../PawnOwner/PawnOwner";
 
 
 export type InventionResource = "wood" | 'leather'
 
 
-export interface IInvention extends IResourceCommittableItem<InventionResource> {
+export interface IInvention extends IResourceCommittableItem<InventionResource>, PawnOwner<IInventionRenderData> {
     name: INVENTION;
     namePL: string;
     locked: boolean;
@@ -30,6 +31,7 @@ export interface IInvention extends IResourceCommittableItem<InventionResource> 
 
     pawnService: IPawnService<IInvention>;
     renderData: IInventionRenderData;
+
 }
 
 export interface IInventionRenderData extends IResourceCommittableItemRenderData<InventionResource> {

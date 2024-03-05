@@ -8,8 +8,7 @@ import {ActionDice} from "../../../../../../interfaces/RollDice/RollDice";
 import {Cloud} from "../../../../../../interfaces/Weather/Weather";
 import {ICharacter} from "../../../../../../interfaces/Characters/Character";
 
-export class Hooch extends Skill implements ISkill {
-    private _character: IPlayerCharacter;
+export class Hooch extends Skill implements ISkill<Cloud> {
 
     constructor(game: IGame, character: IPlayerCharacter) {
         super(
@@ -20,23 +19,19 @@ export class Hooch extends Skill implements ISkill {
             [PHASE.WEATHER],
             null,
             3,
-            game
+            game,
+            character
         );
-        this._character = character;
     }
 
-    use(target: ICharacter | ActionDice | Cloud | null = null) {
-        //TODO: implement
+    use(target: Cloud) {
         if (target === "rain") {
             this._game.weatherService.incrementModifier(target, -1, this._namePL);
-        } else if (target === "snow") {
+        } else {
             this._game.weatherService.incrementModifier(target, -1, this._namePL);
             this._game.weatherService.incrementModifier("rain", 1, this._namePL);
-        } else {
-            throw new Error("Target must be snow or rain");
         }
-        this._character.decrDetermination(this.cost);
-        this.updateLastRoundUsed();
+        super.use(target);
     }
 
     canBeUsed(): boolean {

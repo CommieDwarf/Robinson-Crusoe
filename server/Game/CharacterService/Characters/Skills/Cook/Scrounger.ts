@@ -9,8 +9,7 @@ import {ActionDice} from "../../../../../../interfaces/RollDice/RollDice";
 import {ICharacter} from "../../../../../../interfaces/Characters/Character";
 import {Cloud} from "../../../../../../interfaces/Weather/Weather";
 
-export class Scrounger extends Skill implements ISkill {
-    private _character: IPlayerCharacter;
+export class Scrounger extends Skill implements ISkill<ActionDice> {
 
     constructor(game: IGame, character: IPlayerCharacter) {
         super(
@@ -21,18 +20,12 @@ export class Scrounger extends Skill implements ISkill {
             [PHASE.ACTION],
             ACTION.GATHER,
             2,
-            game
+            game,
+            character
         );
-        this._character = character;
     }
 
-    use(target: ICharacter | ActionDice | Cloud | null = null) {
-        if (
-            !target ||
-            (target !== "mystery" && target !== "success" && target !== "hurt")
-        ) {
-            return;
-        }
+    use(target: ActionDice) {
         if (this._game.actionService.action !== ACTION.GATHER) {
             this._game.alertService.setAlert(
                 "Tej umiejętności można użyć tylko na kostkach zbierania"
@@ -41,9 +34,7 @@ export class Scrounger extends Skill implements ISkill {
 
         if (this._game.actionService.lastRolledItem) {
             this._game.actionService.lastRolledItem.reRollDice(target, ACTION.GATHER);
-            this.updateLastRoundUsed()
-            this._character.decrDetermination(this.cost);
-            this.addLogMsg(this._character.namePL);
+            super.use(target);
         }
     }
 }

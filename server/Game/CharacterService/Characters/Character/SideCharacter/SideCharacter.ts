@@ -31,8 +31,15 @@ export class SideCharacter extends Character implements ISideCharacter {
 
     get renderData(): ISideCharacterRenderData {
         return {
-            ...super.getRenderData(),
-            name: this._name, // overriding CharacterName type into SideCharacterName type.
+            ...this.getRenderData(),
+            pawnService: this._pawnService.renderData,
         };
+    }
+
+    public getRenderData(): Omit<ISideCharacterRenderData, "pawnService"> {
+        return {
+            ...super.getRenderData(),
+            name: this._name,
+        }
     }
 }

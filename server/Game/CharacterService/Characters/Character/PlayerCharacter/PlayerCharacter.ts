@@ -11,7 +11,7 @@ import {ICharEffects} from "../../../../../../interfaces/Characters/CharEffects"
 import {PlayerCharEffects} from "../../../CharEffects/CharEffects";
 import {IPawnService} from "../../../../../../interfaces/Pawns/PawnService";
 import {IGame} from "../../../../../../interfaces/Game";
-import {Gender, ICharacter} from "../../../../../../interfaces/Characters/Character";
+import {Gender, ICharacter, ICharacterRenderData} from "../../../../../../interfaces/Characters/Character";
 import {ISkill} from "../../../../../../interfaces/Skill/Skill";
 import i18n from "../../../../../../I18n/I18n";
 import {ACTION, AdventureAction} from "../../../../../../interfaces/ACTION";
@@ -59,6 +59,13 @@ export abstract class PlayerCharacter
 
     get renderData(): IPlayerCharacterRenderData {
         return {
+            ...this.getRenderData(),
+            pawnService: this._pawnService.renderData,
+        }
+    }
+
+    public getRenderData(): Omit<IPlayerCharacterRenderData, "pawnService"> {
+        return {
             ...super.getRenderData(),
             moraleThresholds: this._moraleThresholds,
             playerId: 0,
@@ -66,7 +73,8 @@ export abstract class PlayerCharacter
             skills: this._skills.map((skill) => skill.renderData),
             moraleThresholdsRemoved: this._moraleThresholdsRemoved,
             wounds: this._wounds,
-        };
+        }
+
     }
 
     // ---------------------------------------------

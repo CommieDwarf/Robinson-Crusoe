@@ -1,7 +1,5 @@
 import {IGame, IGameRenderData} from "../../interfaces/Game";
 import {GameClass} from "./Game";
-import {INVENTION_NORMAL, INVENTION_PERSONAL} from "../../interfaces/InventionService/Invention";
-import {ACTION} from "../../interfaces/ACTION";
 
 interface IGameService {
     game: IGame | null;
@@ -23,11 +21,7 @@ export class GameService implements IGameService {
     public createGame() {
         this._game = new GameClass("castaways");
         const char = this._game.localPlayer.getCharacter();
-        char.pawnService.addPawn(false, null);
-        char.pawnService.addPawn(false, null);
-        char.pawnService.addPawn(false, null);
-        char.pawnService.addPawn(false, null);
-        char.setWound("head", ACTION.BUILD, "test")
+        this._game.characterService.friday.incrDetermination(5);
     }
 
     get renderData() {
