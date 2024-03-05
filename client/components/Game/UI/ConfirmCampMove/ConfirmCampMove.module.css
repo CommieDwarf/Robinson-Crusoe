@@ -1,0 +1,66 @@
+.container {
+    position: absolute;
+    width: 404px;
+    height: 300px;
+    left: calc(50% - 200px);
+    top: calc(50% - 150px);
+    background-image: url("../../../../public/UI/paper-background.png");
+    z-index: 9999999999999999;
+    text-align: center;
+    border: 2px solid var(--borderColor);
+    border-radius: 5px;
+
+}
+
+.tile {
+    display: inline-block;
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.arrow {
+    width: 100px;
+    height: 50px;
+    position: relative;
+    display: inline-block;
+    top: -55px;
+}
+
+.buttons {
+    margin: auto;
+    width: 100px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.button {
+    width: 80px;
+    height: 30px;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    position: relative;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.button:hover {
+    width: 100px;
+    height: 40px;
+    left: -10px;
+    top: -5px;
+    margin-bottom: 0;
+    font-size: 22px;
+}
+
+.accept {
+    color: green;
+    border: 2px solid green;
+}
+
+.cancel {
+    color: red;
+    border: 2px solid red;
+}

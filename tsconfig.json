@@ -7,6 +7,9 @@
       ],
       "@sharedUtils/*": [
         "./server/src/utils/*"
+      ],
+      "@sharedConstants/*": [
+        "./server/src/constants/*"
       ]
     },
     "target": "esnext",

@@ -1,0 +1,25 @@
+.container {
+    width: 100%;
+    height: 100%;
+    background-image: url("../../../../public/UI/characters/background.png");
+    background-size: cover;
+}
+
+.header {
+    width: 100%;
+    height: 40px;
+    border-bottom: 1px solid black;
+}
+
+.useButton {
+    width: 60px;
+    height: 30px;
+    border: 2px solid var(--borderColor);
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+    position: relative;
+    top: 5px;
+    text-align: center;
+    font-weight: bold;
+}
