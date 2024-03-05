@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@sharedTypes/*": [
+        "./server/src/types/*"
+      ],
+      "@sharedUtils/*": [
+        "./server/src/utils/*"
+      ],
+      "@sharedConstants/*": [
+        "./server/src/constants/*"
+      ]
+    },
+    "target": "esnext",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": [
+    "client",
+    "server",
+    "shared"
+  ]
+}
