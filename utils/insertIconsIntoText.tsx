@@ -1,4 +1,4 @@
-import styles from "../components/Game/UI/Character/SkillMenu/SkillMenu.module.css";
+import styles from "../Client/components/Game/UI/Character/SkillMenu/SkillMenu.module.css";
 import Image from "next/image";
 import React from "react";
 

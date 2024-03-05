@@ -1,0 +1,75 @@
+.container {
+    width: 100%;
+    position: absolute;
+    bottom: 9%;
+}
+
+.button {
+    background-image: url("../../../../../../../../../public/UI/paper-background.png");
+    width: 40%;
+    margin: auto;
+    display: block;
+    font-size: 50%;
+    border-radius: 5px;
+    border: 1px solid var(--borderColor);
+}
+
+.button:hover {
+    cursor: pointer;
+}
+
+.button:hover {
+    scale: 1.1;
+}
+
+.useMarks {
+    width: 75%;
+    display: flex;
+    flex-wrap: nowrap;
+    margin: auto;
+    column-gap: 10%;
+    margin-bottom: 2%;
+}
+
+.useMark {
+    width: 28%;
+    aspect-ratio: 1;
+    border-radius: 100%;
+    /* background-color: white; */
+    background-image: url("../../../../../../../../../public/UI/paper-background.png");
+    background-size: contain;
+    position: relative;
+    border: 1px solid var(--borderColor);
+    cursor: pointer;
+}
+
+.useMark:hover {
+    scale: 1.1;
+}
+
+.treasureImage {
+    filter: brightness(0%)
+}
+
+.storage {
+    width: 75%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    margin: auto;
+    column-gap: 10%;
+    margin-bottom: 2%;
+}
+
+.storageButton {
+    background-image: url("../../../../../../../../../public/UI/paper-background.png");
+    cursor: pointer;
+}
+
+.resource, .storageButton {
+    width: 20%;
+    aspect-ratio: 1;
+    position: relative;
+    background-color: white;
+    border-radius: 100%;
+}

@@ -1,5 +1,5 @@
 import React from "react";
-import pawnStyles from "../components/Game/UI/Pawn.module.css";
+import pawnStyles from "../Client/components/Game/UI/Pawn.module.css";
 
 
 export default function getMouseDownHandle(

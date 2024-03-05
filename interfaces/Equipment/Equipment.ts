@@ -1,5 +1,5 @@
 import {IGame} from "../Game";
-import {EqList} from "../../constants/eqList";
+import {EqList} from "../../Server/constants/eqList";
 import {IItem, IItemRenderData, ITEM} from "./Item";
 import {IPlayerCharacter} from "../Characters/PlayerCharacter";
 

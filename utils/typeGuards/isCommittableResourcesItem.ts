@@ -5,9 +5,9 @@ import {ITile} from "../../interfaces/TileService/ITile";
 import {IEventCard} from "../../interfaces/EventService/EventCard";
 import {IBeast} from "../../interfaces/Beasts/Beast";
 import {ACTION} from "../../interfaces/ACTION";
-import {Construction} from "../../server/Game/ConstructionService/Construction";
-import {Invention} from "../../server/Game/Inventions/InventionCreator/Invention";
-import {EventCard} from "../../server/Game/EventService/EventCardCreator/EventCard";
+import {Construction} from "../../Server/server/Game/ConstructionService/Construction";
+import {Invention} from "../../Server/server/Game/Inventions/InventionCreator/Invention";
+import {EventCard} from "../../Server/server/Game/EventService/EventCardCreator/EventCard";
 
 export function isCommittableResourcesItem(candidate: any): candidate is IResourceCommittableItem<any> {
     return candidate instanceof Object && "resourceCost" in candidate;

@@ -1,4 +1,4 @@
-import {BeastStats} from "../../server/Game/BeastService/BeastCreator/BeastCreator";
+import {BeastStats} from "../../Server/server/Game/BeastService/BeastCreator/BeastCreator";
 import {IPlayerCharacter} from "../Characters/PlayerCharacter";
 import {IBeast} from "./Beast";
 import {ICharacter} from "../Characters/Character";

@@ -64,7 +64,7 @@ import {
     IAdventureService,
     IAdventureServiceRenderData,
 } from "./AdventureService/AdventureService";
-import {Player} from "../server/Game/Players/Player";
+import {Player} from "../Server/server/Game/Players/Player";
 import {
     IMysteryService,
     IMysteryServiceRenderData,
