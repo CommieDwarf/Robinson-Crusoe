@@ -1,6 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {ACTION} from "../../../../server/src/types/ACTION";
-import {IGlobalCostModifierRenderData} from "../../../../server/src/types/ActionService/GlobalCostModifier";
+import {ACTION} from "@shared/types/Game/ACTION";
+import {IGlobalCostModifierRenderData} from "@shared/types/Game/ActionService/GlobalCostModifier";
 
 
 const initialState: { modifiers: Record<ACTION, IGlobalCostModifierRenderData[]> } = {

@@ -1,6 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {IPawnRenderData} from "../../../../server/src/types/Pawns/Pawn";
-import {ICharacterRenderData} from "../../../../server/src/types/Characters/Character";
+import {IPawnRenderData} from "@shared/types/Game/Pawns/Pawn";
+import {ICharacterRenderData} from "@shared/types/Game/Characters/Character";
 
 export interface freePawnsState {
     localCharacter: IPawnRenderData<ICharacterRenderData>[];

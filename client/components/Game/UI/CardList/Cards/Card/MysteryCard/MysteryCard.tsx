@@ -1,19 +1,18 @@
 // @flow
 import * as React from "react";
 import styles from "./MysteryCard.module.css";
-import {IMysteryCardRenderData} from "@sharedTypes/MysteryService/MysteryCard";
 import UseButtons from "./UseOverlay/UseOverlay";
-import {StorageAction} from "@sharedTypes/MysteryService/StorageCard";
 import ResizableImage from "../../../../../../ResizableImage/ResizableImage";
-import {formatToKebabCase} from "@sharedUtils/formatToKebabCase";
+import {IMysteryCardRenderData} from "@shared/types/Game/MysteryService/MysteryCard";
+import {kebabCase} from "lodash";
+import {emitAction} from "../../../../../../../pages/api/emitAction";
+import {MYSTERY_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
+
 
 type Props = {
     mysteryCard: IMysteryCardRenderData;
 
-
     hideActionSlots?: boolean;
-    use: (cardName: string) => void;
-    manageStorage: (cardName: string, type: "mystery", action: StorageAction) => void;
     handleMouseOverButtons: (value: boolean) => void;
 };
 export const MysteryCard = (props: Props) => {
@@ -29,10 +28,12 @@ export const MysteryCard = (props: Props) => {
 
 
     function use() {
-        props.use(props.mysteryCard.name)
+        emitAction(MYSTERY_CONTROLLER_ACTION.USE_TREASURE_CARD, {
+            cardName: props.mysteryCard.name
+        })
     }
 
-    const imgUrl = `/UI/cards/mystery/${props.mysteryCard.type}/${formatToKebabCase(
+    const imgUrl = `/UI/cards/mystery/${props.mysteryCard.type}/${kebabCase(
         props.mysteryCard.name
     )}.png`
 
@@ -49,7 +50,6 @@ export const MysteryCard = (props: Props) => {
             {"uses" in props.mysteryCard && (
                 <UseButtons card={props.mysteryCard} onMouseEnterButton={onMouseEnterButton}
                             onMouseLeaveButton={onMouseLeaveButton}
-                            manageStorage={props.manageStorage}
                             use={use}
                 ></UseButtons>
             )}

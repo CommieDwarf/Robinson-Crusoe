@@ -2,19 +2,20 @@ import React from "react";
 import ActionSlot from "../../../../ActionSlot";
 import styles from "./Invention.module.css";
 import getActionSlots from "../../../../getActionSlots";
-import {IInventionRenderData} from "@sharedTypes/InventionService/Invention";
-import {ACTION} from "@sharedTypes/ACTION";
 import {useAppSelector} from "../../../../../../../store/hooks";
 import {selectModifiersByAction} from "../../../../../features/globalCostModifiers";
 import ResizableImage from "../../../../../../ResizableImage/ResizableImage";
 import {kebabCase} from "lodash";
-import {getOwnedDroppableId} from "@sharedUtils/getOwnedDroppableId";
-import {objectsEqual} from "@sharedUtils/objectsEqual";
+import {emitAction} from "../../../../../../../pages/api/emitAction";
+import {OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
+import {ACTION} from "@shared/types/Game/ACTION";
+import {IInventionRenderData} from "@shared/types/Game/InventionService/Invention";
+import {getOwnedDroppableId} from "@shared/utils/getOwnedDroppableId";
+import {arePropsEqual} from "../../../../../../../utils/arePropsEqual";
 
 type Props = {
     invention: IInventionRenderData;
     hideActionSlots?: boolean;
-    use: (name: string) => void;
     handleMouseOverButtons: (value: boolean) => void;
 };
 
@@ -30,7 +31,9 @@ function Invention(props: Props) {
 
 
     function handleUseButtonClick() {
-        props.use(props.invention.name);
+        emitAction(OTHER_CONTROLLER_ACTION.USE_INVENTION, {
+            inventionName: props.invention.name
+        })
         props.handleMouseOverButtons(false);
     }
 
@@ -121,7 +124,7 @@ function Invention(props: Props) {
                                 key={pawn.draggableId}
                                 action={ACTION.EXPLORE}
                                 uniqueAction={ACTION.EXPLORE}
-                                id={getOwnedDroppableId(pawn.owner.name, pawn.owner.type)}
+                                id={getOwnedDroppableId(pawn.owner.name, "invention")}
                                 pawn={props.invention.pawnService?.freePawns.find((p) => p.draggableId === pawn.draggableId)}
                                 marked={false}
                                 ownedByCard={true}
@@ -136,4 +139,4 @@ function Invention(props: Props) {
     );
 }
 
-export default React.memo(Invention, objectsEqual);
+export default React.memo(Invention, arePropsEqual([]));

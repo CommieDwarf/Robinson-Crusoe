@@ -1,19 +1,23 @@
 // @flow
 import * as React from "react";
 import styles from "./ConfirmCampMove.module.css";
-import {ITileRenderData} from "@sharedTypes/TileService/ITile";
 import redArrowImg from "/public/UI/misc/red-arrow.png";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
+
+import {socket} from "../../../../pages/_app";
+import {ITileRenderData} from "@shared/types/Game/TileService/ITile";
+import {TILE_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 
 type Props = {
     currentCamp: ITileRenderData;
     nextCamp: ITileRenderData;
-    moveCamp: (tileID: number) => void;
     hide: () => void;
 };
 export const ConfirmCampMove = (props: Props) => {
     function handleConfirmClick() {
-        props.moveCamp(props.nextCamp.id);
+        socket.emit(TILE_CONTROLLER_ACTION.MOVE_CAMP, {
+            tileId: props.nextCamp.id
+        })
         props.hide();
     }
 

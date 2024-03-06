@@ -4,11 +4,12 @@ import xMark from "/public/UI/misc/x-mark.png";
 import moraleArrowLeftImg from "/public/UI/icons/morale-arrow-left.png";
 import React from "react";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
+import {emitAction} from "../../../../pages/api/emitAction";
+import {CHARACTER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 
 interface Props {
     id: number;
     thresholdAmountForRemoval: number;
-    removeThreshold: (threshold: number) => void;
     removed: boolean;
 }
 
@@ -19,7 +20,9 @@ export default function Threshold(props: Props) {
 
     const handleClick = () => {
         if (props.thresholdAmountForRemoval > 0 && !props.removed) {
-            props.removeThreshold(props.id);
+            emitAction(CHARACTER_CONTROLLER_ACTION.REMOVE_HEALTH_THRESHOLD, {
+                num: props.id
+            })
         }
     };
 

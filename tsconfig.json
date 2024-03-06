@@ -2,14 +2,8 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@sharedTypes/*": [
-        "./server/src/types/*"
-      ],
-      "@sharedUtils/*": [
-        "./server/src/utils/*"
-      ],
-      "@sharedConstants/*": [
-        "./server/src/constants/*"
+      "@shared/*": [
+        "./server/src/shared/*"
       ]
     },
     "target": "esnext",

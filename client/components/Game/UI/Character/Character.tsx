@@ -7,30 +7,26 @@ import SkillLabel from "./SkillLabel/SkillLabel";
 import SkillMenu from "./SkillMenu/SkillMenu";
 import Pawn from "../Pawn";
 import {Droppable} from "react-beautiful-dnd";
-import capitalize from "../../../../../utils/capitalizeFirstLetter";
-import {
-    IPlayerCharacter,
-    IPlayerCharacterRenderData,
-    Wounds
-} from "../../../../../server/src/types/Characters/PlayerCharacter";
-import {ISideCharacterRenderData} from "../../../../../server/src/types/Characters/SideCharacter";
-import {ISkillRenderData} from "../../../../../server/src/types/Skill/Skill";
+
+import {emitAction} from "../../../../pages/api/emitAction";
+import {CHARACTER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
+import {Cloud, OverallWeather} from "@shared/types/Game/Weather/Weather";
+import {IPlayerCharacter, IPlayerCharacterRenderData, Wounds} from "@shared/types/Game/Characters/PlayerCharacter";
 import {useAppSelector} from "../../../../store/hooks";
+import Entries from "@shared/types/Entries";
 import Wound from "./Wound/Wound";
-import Entries from "../../../../../server/src/types/Entries";
-import {Cloud, OverallWeather} from "../../../../../server/src/types/Weather/Weather";
-import {ActionDice} from "../../../../../server/src/types/RollDice/RollDice";
+import {getOwnedDroppableId} from "@shared/utils/getOwnedDroppableId";
+import {ActionDice} from "@shared/types/Game/RollDice/RollDice";
+import {ISkillRenderData} from "@shared/types/Game/Skill/Skill";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
-import {formatToKebabCase} from "../../../../../utils/formatToKebabCase";
-import {ICharacter} from "../../../../../server/src/types/Characters/Character";
-import {getOwnedDroppableId} from "../../../../../utils/getOwnedDroppableId";
+import {ISideCharacterRenderData} from "@shared/types/Game/Characters/SideCharacter";
+import {capitalize, kebabCase} from "lodash";
 
 interface Props {
     character: IPlayerCharacterRenderData;
     friday: ISideCharacterRenderData;
     dog: ISideCharacterRenderData;
     zIndex: string;
-    useSkill: (character: string, skillName: string, target?: ICharacter | ActionDice | Cloud) => void;
     overallWeather: OverallWeather
 }
 
@@ -50,8 +46,11 @@ export default function Character(props: Props) {
         }
     }, []);
 
-    function useSkill(skillName: string, target?: IPlayerCharacter | ActionDice | Cloud) {
-        props.useSkill(props.character.name, skillName, target);
+    function useSkill(abilityName: string, target: IPlayerCharacter | ActionDice | Cloud) {
+        emitAction(CHARACTER_CONTROLLER_ACTION.USE_ABILITY, {
+            abilityName,
+            target
+        })
     }
 
 
@@ -85,7 +84,7 @@ export default function Character(props: Props) {
         })
     })
 
-    const charImgName = formatToKebabCase(`${props.character.name} ${props.character.gender}`)
+    const charImgName = kebabCase(`${props.character.name} ${props.character.gender}`)
     const droppableId = getOwnedDroppableId(props.character.name, "character")
     return (
         <div className={styles.container + " " + zIndexClass} ref={containerRef}>

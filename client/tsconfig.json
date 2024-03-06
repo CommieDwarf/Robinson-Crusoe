@@ -7,14 +7,8 @@
       "esnext"
     ],
     "paths": {
-      "@sharedTypes/*": [
-        "../server/src/types/*"
-      ],
-      "@sharedUtils/*": [
-        "../server/src/utils/*"
-      ],
-      "@sharedConstants/*": [
-        "../server/src/constants/*"
+      "@shared/*": [
+        "../server/src/shared/*"
       ]
     },
     "allowJs": true,

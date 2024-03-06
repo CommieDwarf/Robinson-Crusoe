@@ -1,15 +1,16 @@
 import React, {useRef, useState} from "react";
 import styles from "./Tokens.module.css";
 
-import {ITokenRenderData} from "@sharedTypes/TokenService/Token";
 import Token from "./Token/Token";
 import {ContextMenu} from "./ContextMenu/ContextMenu";
-import {objectsEqual} from "@sharedUtils/objectsEqual";
+import {ITokenRenderData} from "@shared/types/Game/TokenService/Token";
+import {arePropsEqual} from "../../../../utils/arePropsEqual";
+import {emitAction} from "../../../../pages/api/emitAction";
+import {OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 
 interface Props {
     owned: ITokenRenderData[];
     future: ITokenRenderData[];
-    utilizeToken: (id: string) => void;
     menuDisabled: boolean;
 }
 
@@ -68,7 +69,10 @@ function Tokens(props: Props) {
             return;
         }
         setSelectedToken(null);
-        props.utilizeToken(id);
+        emitAction(OTHER_CONTROLLER_ACTION.USE_DISCOVERY_TOKEN, {
+            targetCharName: "cook",
+            tokenId: id
+        })
     }
 
     return (
@@ -114,4 +118,4 @@ function Tokens(props: Props) {
     );
 }
 
-export default React.memo(Tokens, objectsEqual);
+export default React.memo(Tokens, arePropsEqual());

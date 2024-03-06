@@ -3,16 +3,20 @@ import * as React from "react";
 import styles from "./ResourceActionButton.module.css";
 import circleImg from "/public/UI/misc/red-circle-2.png";
 import ResizableImage from "../../../../../ResizableImage/ResizableImage";
+import {emitAction} from "../../../../../../pages/api/emitAction";
+import {TILE_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 
 interface Props {
     side: "left" | "right";
     tileID: number;
-    triggerResourceAction: (tileID: number, side: "left" | "right") => void;
 }
 
 export const ResourceActionButton = (props: Props) => {
     function handleClick() {
-        props.triggerResourceAction(props.tileID, props.side);
+        emitAction(TILE_CONTROLLER_ACTION.TRIGGER_TILE_RESOURCE_ACTION, {
+            tileID: props.tileID,
+            side: props.side,
+        })
     }
 
     return (

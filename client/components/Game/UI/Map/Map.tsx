@@ -1,14 +1,14 @@
 import React, {RefObject, useEffect, useRef, useState} from "react";
 import styles from "./Map.module.css";
-import getDragAndScrollHandle from "@sharedUtils/dragAndScrollHandle";
 import Tile from "./Tile/Tile";
 import Hunt from "../Hunt/Hunt";
-import {ITileRenderData} from "@sharedTypes/TileService/ITile";
-import {ITilesServiceRenderData} from "@sharedTypes/TileService/ITileService";
 import map from "/public/UI/map/map.png";
 import redArrowImg from "/public/UI/misc/red-arrow.png";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
-import {objectsEqual} from "@sharedUtils/objectsEqual";
+import {arePropsEqual} from "../../../../utils/arePropsEqual";
+import {ITilesServiceRenderData} from "@shared/types/Game/TileService/ITileService";
+import getMouseDownHandle from "../../../../utils/dragAndScrollHandle";
+import {ITileRenderData} from "@shared/types/Game/TileService/ITile";
 
 interface Props {
     tileService: ITilesServiceRenderData;
@@ -18,8 +18,6 @@ interface Props {
     zIndex: string;
     night: boolean;
     showCampMoveConfirm: (tile: ITileRenderData) => void;
-    triggerTileResourceAction: (tileID: number, side: "left" | "right") => void;
-    triggerTileAction: (tileID: number) => void;
     containerRef: RefObject<HTMLDivElement>
 }
 
@@ -43,8 +41,6 @@ function Map(props: Props) {
                 campSettableTiles={
                     tile.camp && !props.tileService.campJustMoved ? campSettableTiles : []
                 }
-                triggerTileResourceAction={props.triggerTileResourceAction}
-                triggerTileAction={props.triggerTileAction}
             />
         );
     });
@@ -52,7 +48,7 @@ function Map(props: Props) {
     const scrollbar = useRef<HTMLDivElement>(null);
     const container = props.containerRef
 
-    const mouseDownHandle = getDragAndScrollHandle(scrollbar, container);
+    const mouseDownHandle = getMouseDownHandle(scrollbar, container);
 
 
     useEffect(() => {
@@ -178,17 +174,5 @@ function Map(props: Props) {
     );
 }
 
-function areEqual(prevProps: Props, nextProps: Props) {
-    const start = Date.now();
-    let equal = objectsEqual(
-        {...prevProps, zIndex: prevProps.zIndex.includes("tile")},
-        {
-            ...nextProps,
-            zIndex: nextProps.zIndex.includes("tile"),
-        }
-    );
-    const end = Date.now();
-    return equal;
-}
 
-export default React.memo(Map, areEqual);
+export default React.memo(Map, arePropsEqual([]));

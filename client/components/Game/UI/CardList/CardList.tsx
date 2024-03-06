@@ -2,12 +2,11 @@
 import * as React from "react";
 import {useLayoutEffect, useRef, useState} from "react";
 import styles from "./CardList.module.css";
-import {IInventionRenderData} from "../../../../../server/src/types/InventionService/Invention";
 import {Tabs} from "./Tabs/Tabs";
 import Cards from "./Cards/Cards";
-import {IMysteryCardRenderData} from "../../../../../server/src/types/MysteryService/MysteryCard";
-import {StorageAction} from "../../../../../server/src/types/MysteryService/StorageCard";
-import {IItemRenderData, ITEM} from "../../../../../server/src/types/Equipment/Item";
+import {IItemRenderData, ITEM} from "@shared/types/Game/Equipment/Item";
+import {IMysteryCardRenderData} from "@shared/types/Game/MysteryService/MysteryCard";
+import {IInventionRenderData} from "@shared/types/Game/InventionService/Invention";
 
 type Props = {
     zIndex: string;
@@ -15,11 +14,6 @@ type Props = {
     mysteryCards: IMysteryCardRenderData[];
     items: IItemRenderData[];
     isBeingDragged: boolean;
-    useMysteryCard: (cardName: string) => void;
-    manageStorage: (cardName: string, type: "mystery", action: StorageAction) => void;
-    useInventionCard: (cardName: string) => void;
-
-    useItem: (item: ITEM) => void;
 };
 
 export type Tab = "inventions" | "mysteryCards" | "items";
@@ -66,10 +60,6 @@ export const CardList = (props: Props) => {
                     isBeingDragged={props.isBeingDragged}
                     zIndex={props.zIndex}
                     scrollTop={scrollTop}
-                    useMysteryCard={props.useMysteryCard}
-                    useItem={props.useItem}
-                    manageStorage={props.manageStorage}
-                    useInventionCard={props.useInventionCard}
                     containerWidth={containerWidth}
                 />
 

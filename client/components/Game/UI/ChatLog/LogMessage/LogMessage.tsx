@@ -2,7 +2,7 @@
 import * as React from "react";
 import styles from "./LogMessage.module.css";
 import {RoundSquare} from "../../Scenario/Scenarios/Castaways/Rounds/RoundSquare";
-import {ILogMessageRenderData} from "@sharedTypes/ChatLog/LogMessage";
+import {ILogMessageRenderData} from "@sharedTypes/LogService/LogMessage";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
 import capitalizeFirstLetter from "@sharedUtils/capitalizeFirstLetter";
 

@@ -1,9 +1,0 @@
-import {DISCOVERY_TOKEN} from "../src/types/TokenService/Token";
-
-export const doubledDiscoveryTokens = [
-    DISCOVERY_TOKEN.FALLEN_TREE,
-    DISCOVERY_TOKEN.NOURISHING_LARVAE,
-    DISCOVERY_TOKEN.GOAT,
-    DISCOVERY_TOKEN.TREASURE,
-    DISCOVERY_TOKEN.CANDLES,
-];

@@ -1,12 +1,13 @@
-import {IGame} from "../server/src/types/Game";
-import {ACTION, ACTION_ITEM} from "../server/src/types/ACTION";
-import {getDroppableIdObject} from "./getActionSlotDroppableId";
-import {CONSTRUCTION, IConstruction} from "../server/src/types/ConstructionService/Construction";
-import {IInvention, INVENTION} from "../server/src/types/InventionService/Invention";
-import {Side} from "../server/src/types/TileService/TileResourceService";
-import {IEventCard} from "../server/src/types/EventService/EventCard";
-import {ITile} from "../server/src/types/TileService/ITile";
-import {IBeast} from "../server/src/types/Beasts/Beast";
+import {Side} from "@shared/types/Game/TileService/TileResourceService";
+import {ACTION, ACTION_ITEM} from "@shared/types/Game/ACTION";
+import {IBeast} from "@shared/types/Game/Beasts/Beast";
+import {IInvention, INVENTION} from "@shared/types/Game/InventionService/Invention";
+import {CONSTRUCTION, IConstruction} from "@shared/types/Game/ConstructionService/Construction";
+import {IEventCard} from "@shared/types/Game/EventService/EventCard";
+import {ITile} from "@shared/types/Game/TileService/ITile";
+import {getDroppableIdObject} from "@shared/utils/getActionSlotDroppableId";
+import {IGame} from "@shared/types/Game/Game";
+
 
 export function getItemFromDroppableId(droppableId: string, game: IGame): IEventCard | IConstruction | IInvention | ITile | IBeast | ACTION.ARRANGE_CAMP | ACTION.REST | null {
     const obj = getDroppableIdObject(droppableId);

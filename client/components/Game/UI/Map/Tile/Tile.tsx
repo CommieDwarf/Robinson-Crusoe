@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./Tile.module.css";
-import {ITileRenderData} from "@sharedTypes/TileService/ITile";
 import {MoveCampArrow} from "./MoveCampArrow/MoveCampArrow";
 
 import xMarkImg from "/public/UI/misc/x-mark.png";
@@ -10,6 +9,9 @@ import timeConsumingActionToken from "/public/UI/tokens/time-consuming-action.pn
 import {ResourceActionButton} from "./ResourceActionButton/ResourceActionButton";
 import getActionSlots from "../../getActionSlots";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
+import {ITileRenderData} from "@shared/types/Game/TileService/ITile";
+import {emitAction} from "../../../../../pages/api/emitAction";
+import {TILE_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 
 interface Props {
     tile: ITileRenderData;
@@ -18,8 +20,6 @@ interface Props {
     zIndex: string;
     campSettableTiles: ITileRenderData[];
     showCampMoveConfirm: (tile: ITileRenderData) => void;
-    triggerTileResourceAction: (tileID: number, side: "left" | "right") => void;
-    triggerTileAction: (tileID: number) => void;
 }
 
 export default function Tile(props: Props) {
@@ -99,7 +99,7 @@ export default function Tile(props: Props) {
     });
 
     function handleTileMarkClick() {
-        props.triggerTileAction(props.tile.id);
+        emitAction(TILE_CONTROLLER_ACTION.TRIGGER_TILE_ACTION, {tileId: props.tile.id})
     }
 
     const flippedClass = props.tile.modifiers.flipped ? styles.flipped : "";
@@ -160,7 +160,6 @@ export default function Tile(props: Props) {
                         <ResourceActionButton
                             side={"right"}
                             tileID={props.tile.id}
-                            triggerResourceAction={props.triggerTileResourceAction}
                         />
                     )}
                     {props.tile.tileResourceService?.resources.left
@@ -168,7 +167,6 @@ export default function Tile(props: Props) {
                         <ResourceActionButton
                             side={"left"}
                             tileID={props.tile.id}
-                            triggerResourceAction={props.triggerTileResourceAction}
                         />
                     )}
                     {props.tile.markedForAction &&

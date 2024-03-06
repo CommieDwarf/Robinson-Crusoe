@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from "react";
 import styles from "./ChatLog.module.css";
 import {LogMessage} from "./LogMessage/LogMessage";
-import {ILogMessageRenderData} from "@sharedTypes/ChatLog/LogMessage";
+import {ILogMessageRenderData} from "@sharedTypes/LogService/LogMessage";
 
 interface Props {
     logMessages: ILogMessageRenderData[];

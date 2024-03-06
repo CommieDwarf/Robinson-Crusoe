@@ -1,19 +1,18 @@
-import React from "react";
-import styles from "./Construction.module.css";
-import {
-    CONSTRUCTION,
-    IConstructionRenderData,
-} from "@sharedTypes/ConstructionService/Construction";
+import {IConstructionRenderData} from "@shared/types/Game/ConstructionService/Construction";
+import {IBasicResourcesAmount} from "@shared/types/Game/Resources/Resources";
+import {emitAction} from "../../../../../pages/api/emitAction";
+import {OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import getActionSlots from "../../getActionSlots";
-import {CostBlock} from "./CostBlock/CostBlock";
-import {IBasicResourcesAmount} from "@sharedTypes/Resources/Resources";
+import {objectsEqual} from "@shared/utils/objectsEqual";
+import styles from "./Construction.module.css";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
-import {objectsEqual} from "@sharedUtils/objectsEqual";
+import {CostBlock} from "./CostBlock/CostBlock";
+import React from "react";
+
 
 type Props = {
     construction: IConstructionRenderData;
     hideActionSlots?: boolean;
-    switchCommittedResources: (construction: CONSTRUCTION) => void;
     ownedResources: IBasicResourcesAmount;
     naturalShelter: boolean;
 };
@@ -23,7 +22,7 @@ function Construction(props: Props) {
 
     function handleResourceClick(resource: "wood" | "leather") {
         if (props.construction.canResourceBeSwitched && props.construction.committedResources?.type !== resource) {
-            props.switchCommittedResources(props.construction.name);
+            emitAction(OTHER_CONTROLLER_ACTION.SWITCH_COMMITTED_RESOURCES_TYPE, {construction: props.construction.name})
         }
     }
 

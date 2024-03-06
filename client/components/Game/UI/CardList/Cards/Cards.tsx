@@ -1,13 +1,12 @@
 import React from "react";
 import styles from "./Cards.module.css";
-
-import {IInventionRenderData} from "@sharedTypes/InventionService/Invention";
-import {IMysteryCardRenderData} from "@sharedTypes/MysteryService/MysteryCard";
+import {IItemRenderData, ITEM} from "@shared/types/Game/Equipment/Item";
+import {objectsEqual} from "@shared/utils/objectsEqual";
 import {Tab} from "../CardList";
+import {IMysteryCardRenderData} from "@shared/types/Game/MysteryService/MysteryCard";
+import {StorageAction} from "@shared/types/Game/MysteryService/StorageCard";
+import {IInventionRenderData} from "@shared/types/Game/InventionService/Invention";
 import {Card} from "./Card/Card";
-import {StorageAction} from "@sharedTypes/MysteryService/StorageCard";
-import {IItemRenderData, ITEM} from "@sharedTypes/Equipment/Item";
-import {objectsEqual} from "@sharedUtils/objectsEqual";
 
 interface Props {
     inventions: IInventionRenderData[];
@@ -17,10 +16,6 @@ interface Props {
     isBeingDragged: boolean;
     zIndex: string;
     scrollTop: number;
-    useMysteryCard: (cardName: string) => void;
-    useInventionCard: (cardName: string) => void;
-    manageStorage: (cardName: string, type: "mystery", action: StorageAction) => void;
-    useItem: (item: ITEM) => void;
 
     containerWidth: number;
 }
@@ -60,10 +55,6 @@ function Cards(props: Props) {
                 card={card}
                 key={card.name}
                 zIndexIncreased={props.zIndex.includes(card.name)}
-                useMysteryCard={props.useMysteryCard}
-                useInventionCard={props.useInventionCard}
-                manageStorage={props.manageStorage}
-                useItem={props.useItem}
                 height={cardHeight}
                 width={cardWidth}
                 totalWidth={totalWidth}

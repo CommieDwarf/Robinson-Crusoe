@@ -6,14 +6,8 @@
       "es6"
     ],
     "paths": {
-      "@sharedTypes/*": [
-        "./src/types/*"
-      ],
-      "@sharedUtils/*": [
-        "./src/utils/*"
-      ],
-      "@sharedConstants/*": [
-        "./src/constants/*"
+      "@shared/*": [
+        "./src/shared/*"
       ]
     },
     "allowJs": true,
@@ -22,7 +16,8 @@
     "strict": true,
     "noImplicitAny": true,
     "esModuleInterop": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "jsx": "react"
   },
   "exclude": [
     "node_modules"

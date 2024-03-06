@@ -12,7 +12,6 @@ interface Props {
     zIndex: string;
     round: number;
     scenario: IScenarioServiceRenderData;
-    addWoodToStash: () => void;
     contentHeight: number;
 }
 
@@ -34,7 +33,6 @@ export default function Scenario(props: Props) {
                     zIndex={props.zIndex}
                     round={props.round}
                     scenario={props.scenario}
-                    addWoodToStash={props.addWoodToStash}
                 />
             </div>
         </div>

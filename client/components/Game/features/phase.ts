@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {Phase} from "../../../../server/src/types/PhaseService/PhaseService";
+import {Phase} from "@shared/types/Game/PhaseService/PhaseService";
 
 type State = {
     current: Phase

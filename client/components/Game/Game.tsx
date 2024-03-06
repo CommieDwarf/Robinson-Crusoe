@@ -19,64 +19,31 @@ import ArrangeCampRest from "./UI/ArrangeCampRest/ArrangeCampRest";
 
 import {DragDropContext, DragStart, DragUpdate, DropResult,} from "react-beautiful-dnd";
 import {Weather} from "./UI/Weather/Weather";
-import {canPawnBeSettled} from "@sharedUtils/canPawnBeSettled";
 
 import {NextPhaseButton} from "./UI/NextPhaseButton/NextPhaseButton";
 import {ActionResolveWindow} from "./UI/ActionResolveWindow/ActionResolveWindow";
-import {setNextAction} from "../../pages/api/setNextAction";
-import utilizeToken from "../../pages/api/utilizeToken";
-import setNextPhase from "../../pages/api/setNextPhase";
-import resolveActionItem from "../../pages/api/resolveActionItem";
-import rollWeatherDices from "../../pages/api/rollWeatherDices";
-import setPawn from "../../pages/api/setPawn";
-import unsetPawn from "../../pages/api/unsetPawn";
+
 import {Alerts} from "./UI/Alerts/Alerts";
 import {WeatherResolveWindow} from "./UI/WeatherResolveWindow/WeatherResolveWindow";
 import {NightTip} from "./UI/NightTip/NightTip";
-import moveCamp from "../../pages/api/moveCamp";
 import {ConfirmCampMove} from "./UI/ConfirmCampMove/ConfirmCampMove";
 // @ts-ignore
 import {sleep} from "../../../utils/sleep";
-import rollActionDices from "../../pages/api/rollActionDices";
-import triggerTileResourceAction from "../../pages/api/triggerTileResourceAction";
-import reRollActionDice from "../../pages/api/reRollActionDice";
-import utilizeSkill from "../../pages/api/useSkill";
-import {useAppSelector} from "../../store/hooks";
-import resolveAdventureCard from "../../pages/api/resolveAdventureCard";
-import setAlert from "../../pages/api/setAlert";
 
+import {useAppSelector} from "../../store/hooks";
 
 import CardResolve from "./UI/CardResolve/CardResolve";
-import drawMysteryCard from "../../pages/api/drawMysteryCard";
-import finishDrawingMysteryCards from "../../pages/api/finishDrawingMysteryCards";
+
 import {CardList} from "./UI/CardList/CardList";
-import triggerTileAction from "../../pages/api/triggerTileAction";
-import canAffordItem from "../../pages/api/canAffordItem";
-import shouldCommitResources from "../../pages/api/shouldCommitResources";
-import resolveEventAdventure from "../../pages/api/resolveEventAdventure";
-import resolveEventMystery from "../../pages/api/resolveMysteryCard";
-import triggerDrawEffect from "../../pages/api/triggerDrawEffect";
-import removeHealthThreshold from "../../pages/api/removeHealthTreshold";
-import utilizeMysteryCard from "../../pages/api/utilizeMysteryCard";
-import manageCardStorage from "../../pages/api/manageCardStorage";
-import {StorageAction} from "@sharedTypes/MysteryService/StorageCard";
-import utilizeInvention from "../../pages/api/utilizeInvention";
-import addWoodToStash from "../../pages/api/addWoodToStash";
-import {CONSTRUCTION} from "@sharedTypes/ConstructionService/Construction";
-import switchCommittedResources from "../../pages/api/switchCommittedResources";
-import setBibleUsage from "../../pages/api/setBibleUsage";
-import {ITEM} from "@sharedTypes/Equipment/Item";
-import utilizeItem from "../../pages/api/utilizeItem";
-import {Cloud} from "@sharedTypes/Weather/Weather";
+
 import {ConfirmWindow} from "./UI/ConfirmWindow/ConfirmWindow";
 import {CONFIRM_WINDOW} from "./UI/ConfirmWindow/messages";
 import Scenario from "./UI/Scenario/Scenario";
-import {ICharacter} from "@sharedTypes/Characters/Character";
-import {ITileRenderData} from "@sharedTypes/TileService/ITile";
-import {INVENTION_TYPE} from "@sharedTypes/InventionService/Invention";
-import {IGameRenderData} from "@sharedTypes/Game";
-import {ActionDice} from "@sharedTypes/RollDice/RollDice";
-import {IBasicResourcesAmount} from "@sharedTypes/Resources/Resources";
+import {canPawnBeSettled} from "@shared/utils/canPawnBeSettled";
+import {IBasicResourcesAmount} from "@shared/types/Game/Resources/Resources";
+import {INVENTION_TYPE} from "@shared/types/Game/InventionService/Invention";
+import {IGameRenderData} from "@shared/types/Game/Game";
+import {ITileRenderData} from "@shared/types/Game/TileService/ITile";
 
 
 interface Props {
@@ -335,7 +302,6 @@ export default function Game(props: Props) {
                 <ConfirmCampMove
                     currentCamp={props.gameRenderData.tileService.campTile}
                     nextCamp={nextCamp}
-                    moveCamp={handleMoveCamp}
                     hide={hideCampMoveConfirm}
                 />
             )}
@@ -353,7 +319,6 @@ export default function Game(props: Props) {
                     contentHeight={mapHeight + actionOrderHeight}
                     round={gameRenderData.round}
                     scenario={gameRenderData.scenarioService}
-                    addWoodToStash={handleAddWoodToStash}
                 />
                 <Phase phase={gameRenderData.phaseService.phase}/>
                 <Morale current={gameRenderData.moraleService.lvl}/>
@@ -378,7 +343,6 @@ export default function Game(props: Props) {
                 <Constructions
                     constructions={gameRenderData.constructionService.constructions}
                     zIndex={elementZIndexed}
-                    switchCommittedResources={handleSwitchCommittedResources}
                     ownedResources={gameRenderData.resourceService.owned.basic}
                     naturalShelter={gameRenderData.tileService.campTile.tileResourceService?.extras.naturalShelter || false}
                 />
@@ -390,8 +354,6 @@ export default function Game(props: Props) {
                     beastCount={gameRenderData.beastService.deckCount}
                     night={gameRenderData.phaseService.phase === "night"}
                     showCampMoveConfirm={showCampMoveConfirm}
-                    triggerTileResourceAction={handleTileResourceAction}
-                    triggerTileAction={handleTileAction}
                     containerRef={mapRef}
                 />
 
@@ -403,17 +365,12 @@ export default function Game(props: Props) {
                     items={gameRenderData.equipmentService.items}
                     isBeingDragged={isPawnBeingDragged}
                     zIndex={elementZIndexed}
-                    useMysteryCard={handleUseMysteryCard}
-                    useInventionCard={handleUseInvention}
-                    useItem={handleUseItem}
-                    manageStorage={handleCardStorage}
                 />
                 <Character
                     character={gameRenderData.localPlayer.character}
                     dog={gameRenderData.characterService.dog}
                     friday={gameRenderData.characterService.friday}
                     zIndex={elementZIndexed}
-                    useSkill={handleUseSkill}
                     overallWeather={gameRenderData.weatherService.overallWeather}
                 />
 
@@ -426,7 +383,6 @@ export default function Game(props: Props) {
                     characterService={
                         gameRenderData.characterService
                     }
-                    removeThreshold={handleHealthThresholdRemoval}
                 />
                 <Threat threat={gameRenderData.eventService} zIndex={elementZIndexed}/>
                 <ArrangeCampRest
@@ -447,7 +403,6 @@ export default function Game(props: Props) {
                 <Tokens
                     owned={gameRenderData.tokenService.owned}
                     future={gameRenderData.tokenService.future}
-                    utilizeToken={handleUtilizeToken}
                     menuDisabled={isPawnBeingDragged || elementZIndexed !== ""}
                 />
 

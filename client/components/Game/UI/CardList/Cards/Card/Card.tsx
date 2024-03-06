@@ -1,16 +1,15 @@
 // @flow
 import * as React from "react";
 import {useState} from "react";
-import {IMysteryCardRenderData} from "@sharedTypes/MysteryService/MysteryCard";
-import {IInventionRenderData} from "@sharedTypes/InventionService/Invention";
-import Invention from "./Invention/Invention";
+import {isCardInvention} from "@shared/utils/typeGuards/isCardInvention";
+import {IItemRenderData, ITEM} from "@shared/types/Game/Equipment/Item";
 import {MysteryCard} from "./MysteryCard/MysteryCard";
-import {StorageAction} from "@sharedTypes/MysteryService/StorageCard";
-import {IItemRenderData, ITEM} from "@sharedTypes/Equipment/Item";
-import Item from "./Item/Item";
-import styles from "./Card.module.css";
-import {isCardInvention} from "@sharedUtils/typeGuards/isCardInvention";
-import {isMysteryCard} from "@sharedUtils/typeGuards/isMysteryCard";
+import {IMysteryCardRenderData} from "@shared/types/Game/MysteryService/MysteryCard";
+import styles from "./Card.module.css"
+import Invention from "./Invention/Invention";
+import {isMysteryCard} from "@shared/utils/typeGuards/isMysteryCard";
+import {IInventionRenderData} from "@shared/types/Game/InventionService/Invention";
+import Item from "./Item/Item"
 
 type Props = {
     card: IMysteryCardRenderData | IInventionRenderData | IItemRenderData
@@ -19,15 +18,6 @@ type Props = {
     top: number;
     zIndexIncreased: boolean;
     hideActionSlots?: boolean;
-    useMysteryCard: (cardName: string) => void;
-    useInventionCard: (cardName: string) => void;
-    useItem: (item: ITEM) => void;
-    manageStorage: (
-        cardName: string,
-        type: "mystery",
-        action: StorageAction
-    ) => void;
-
     height: number;
     width: number;
     totalWidth: number;
@@ -75,21 +65,18 @@ export const Card = (props: Props) => {
     if (isCardInvention(props.card)) {
         card = <Invention
             invention={props.card}
-            use={props.useInventionCard}
             handleMouseOverButtons={handleMouseOverButtons}
         />;
     } else if (isMysteryCard(props.card)) {
         card = (
             <MysteryCard
                 mysteryCard={props.card}
-                use={props.useMysteryCard}
-                manageStorage={props.manageStorage}
                 handleMouseOverButtons={handleMouseOverButtons}
             />
         );
     } else {
         card = (
-            <Item item={props.card} use={props.useItem}
+            <Item item={props.card}
                   handleMouseOverButtons={handleMouseOverButtons}/>
         )
     }

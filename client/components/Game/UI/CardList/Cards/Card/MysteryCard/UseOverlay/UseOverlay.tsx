@@ -1,18 +1,18 @@
-import {IMysteryCardRenderData,} from "@sharedTypes/MysteryService/MysteryCard";
 import treasureIcon from "/public/UI/misc/treasure.png";
 import plusImg from "/public/UI/misc/plus.png";
 import minusImg from "/public/UI/misc/minus.png";
 import styles from "./UseOverlay.module.css";
-import {StorageAction} from "@sharedTypes/MysteryService/StorageCard";
 import ResizableImage from "../../../../../../../ResizableImage/ResizableImage";
-import {isStorageCard} from "@sharedUtils/typeGuards/isStorageCard";
 import {kebabCase} from "lodash";
+import {IMysteryCardRenderData} from "@shared/types/Game/MysteryService/MysteryCard";
+import {isStorageCard} from "@shared/utils/typeGuards/isStorageCard";
+import {emitAction} from "../../../../../../../../pages/api/emitAction";
+import {MYSTERY_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 
 interface Props {
     card: IMysteryCardRenderData;
     onMouseEnterButton: () => void;
     onMouseLeaveButton: () => void;
-    manageStorage: (cardName: string, type: "mystery", action: StorageAction) => void;
     use: () => void;
 
 }
@@ -62,13 +62,19 @@ export default function UseButtons(props: Props) {
 
     function handleWithdraw() {
         if (isStorageCard(props.card)) {
-            props.manageStorage(props.card.name, "mystery", "withdraw");
+            emitAction(MYSTERY_CONTROLLER_ACTION.MANAGE_CARD_STORAGE, {
+                cardName: props.card.name,
+                action: "withdraw"
+            })
         }
     }
 
     function handleDeposit() {
         if (isStorageCard(props.card)) {
-            props.manageStorage(props.card.name, "mystery", "deposit");
+            emitAction(MYSTERY_CONTROLLER_ACTION.MANAGE_CARD_STORAGE, {
+                cardName: props.card.name,
+                action: "deposit"
+            })
         }
     }
 

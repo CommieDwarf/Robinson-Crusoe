@@ -1,16 +1,17 @@
 import React from "react";
 import styles from "./Item.module.css";
-import {IItemRenderData, ITEM} from "@sharedTypes/Equipment/Item";
 import useImg from "/public/UI/icons/use-mark.png";
 import ResizableImage from "../../../../../../ResizableImage/ResizableImage";
 import {kebabCase} from "lodash";
+import {IItemRenderData, ITEM} from "@shared/types/Game/Equipment/Item";
+import {emitAction} from "../../../../../../../pages/api/emitAction";
+import {OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 
 interface Props {
     item: IItemRenderData;
 
     hideActionSlots?: boolean;
 
-    use: (item: ITEM) => void;
 
     handleMouseOverButtons: (value: boolean) => void;
 }
@@ -22,7 +23,9 @@ export default function Item(props: Props) {
 
     function handleButtonClick() {
         if (props.item.name !== ITEM.BIBLE) {
-            props.use(props.item.name);
+            emitAction(OTHER_CONTROLLER_ACTION.USE_ITEM, {
+                item: props.item.name
+            })
             handleMouseLeave();
         }
     }

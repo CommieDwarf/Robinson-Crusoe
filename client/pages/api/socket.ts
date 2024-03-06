@@ -19,3 +19,4 @@ export default function socketClient() {
 
     return socket
 }
+

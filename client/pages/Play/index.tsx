@@ -1,25 +1,10 @@
-// @flow
-import * as React from "react";
-import {useEffect, useState} from "react";
-import {IGameRenderData} from "../../../server/src/types/Game";
-import createGame from "../api/createGame";
-import getGameRenderData from "../api/getGame";
-import Game from "../../components/Game/Game";
-import {useAppDispatch} from "../../store/hooks";
-import {actionSlotsUpdated, markedSlotUpdated,} from "../../components/Game/features/actionSlots";
-import getActionSlotService from "../api/getActionSlotService";
-import {IActionSlotServiceRenderData} from "@sharedTypes/ActionSlots";
-import {
-    dogPawnsUpdated,
-    fridayPawnsUpdated,
-    localCharacterPawnsUpdated,
-} from "../../components/Game/features/freePawns";
-import {batch} from "react-redux";
-import {globalCostModified} from "../../components/Game/features/globalCostModifiers";
-import {phaseUpdated} from "../../components/Game/features/phase";
-
 import styles from "./play.module.css";
 import Loading from "../Loading";
+import {useEffect, useState} from "react";
+import {useAppDispatch} from "../../store/hooks";
+import Game from "../../components/Game/Game";
+import {IGameRenderData} from "@shared/types/Game/Game";
+
 
 type Props = {};
 
@@ -28,7 +13,6 @@ function Play(props: Props) {
 
 
     useEffect(() => {
-        createGame();
         updateGameRenderData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -36,30 +20,30 @@ function Play(props: Props) {
     const dispatch = useAppDispatch();
 
     function updateGameRenderData() {
-        const renderData = JSON.parse(getGameRenderData()) as IGameRenderData;
-        const actionSlotService = JSON.parse(
-            getActionSlotService()
-        ) as IActionSlotServiceRenderData;
-        setGameRenderData(renderData);
-        batch(() => {
-            dispatch(globalCostModified(renderData.actionService.globalCostModifiers));
-            dispatch(actionSlotsUpdated(actionSlotService.slots));
-            dispatch(markedSlotUpdated(actionSlotService.pawnDropIDAlert));
-            dispatch(
-                localCharacterPawnsUpdated(
-                    renderData.localPlayer.character.pawnService.freePawns
-                )
-            );
-            dispatch(
-                dogPawnsUpdated(renderData.characterService.dog.pawnService.freePawns)
-            );
-            dispatch(
-                fridayPawnsUpdated(
-                    renderData.characterService.friday.pawnService.freePawns
-                )
-            );
-            dispatch(phaseUpdated(renderData.phaseService.phase));
-        });
+        // const renderData = JSON.parse(gameRenderData) as IGameRenderData;
+        // const actionSlotService = JSON.parse(
+        //     getActionSlotService()
+        // ) as IActionSlotServiceRenderData;
+        // setGameRenderData(renderData);
+        // batch(() => {
+        //     dispatch(globalCostModified(renderData.actionService.globalCostModifiers));
+        //     dispatch(actionSlotsUpdated(actionSlotService.slots));
+        //     dispatch(markedSlotUpdated(actionSlotService.pawnDropIDAlert));
+        //     dispatch(
+        //         localCharacterPawnsUpdated(
+        //             renderData.localPlayer.character.pawnService.freePawns
+        //         )
+        //     );
+        //     dispatch(
+        //         dogPawnsUpdated(renderData.characterService.dog.pawnService.freePawns)
+        //     );
+        //     dispatch(
+        //         fridayPawnsUpdated(
+        //             renderData.characterService.friday.pawnService.freePawns
+        //         )
+        //     );
+        //     dispatch(phaseUpdated(renderData.phaseService.phase));
+        // });
     }
 
 

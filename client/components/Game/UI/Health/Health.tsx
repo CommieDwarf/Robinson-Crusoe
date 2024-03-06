@@ -3,16 +3,15 @@ import styles from "./Health.module.css";
 import heartImg from "/public/UI/misc/heart.png";
 import redHeartImg from "/public/UI/icons/red-heart.png";
 import skullImg from "/public/UI/icons/skull.png";
-import {ICharacterServiceRenderData} from "@sharedTypes/CharacterService/CharacterService";
 import Threshold from "./Threshold";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
+import {ICharacterServiceRenderData} from "@shared/types/Game/CharacterService/CharacterService";
 
 interface Props {
     value: number;
     maxHealth: number;
     moraleThresholds: number[];
     characterService: ICharacterServiceRenderData;
-    removeThreshold: (threshold: number) => void;
 }
 
 function Health(props: Props) {
@@ -34,7 +33,6 @@ function Health(props: Props) {
             marks.push(
                 <Threshold id={i - 1}
                            thresholdAmountForRemoval={props.characterService.thresholdAmountForRemoval}
-                           removeThreshold={props.removeThreshold}
                     //TODO: CHANGE HARDCODED CHAR
                            removed={props.characterService.playerCharacters[0].moraleThresholdsRemoved.includes(i - 1)}
                            key={i + 100}

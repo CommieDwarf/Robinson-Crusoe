@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {IPawnRenderData} from "../../../../server/src/types/Pawns/Pawn";
+import {IPawnRenderData} from "@shared/types/Game/Pawns/Pawn";
 
 export interface ActionSlots {
     [key: string]: IPawnRenderData<any>;

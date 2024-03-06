@@ -1,6 +1,6 @@
 import styles from "./Castaways.module.css";
 import {Description} from "./Description/Description";
-import {WoodStash} from "./WoodStack/WoodStash";
+import {WoodPile} from "./WoodStack/WoodPile";
 import React, {useLayoutEffect, useRef, useState} from "react";
 import {
     IInventionRenderData,
@@ -19,7 +19,6 @@ interface Props {
     zIndex: string;
     round: number;
     scenario: IScenarioServiceRenderData;
-    addWoodToStash: () => void;
 }
 
 export default function Castaways(props: Props) {
@@ -84,10 +83,9 @@ export default function Castaways(props: Props) {
                     />
                 </div>
             </div>
-            <WoodStash lvl={props.scenario.woodStashLvl} committedWood={props.scenario.committedWood}
-                       addWood={props.addWoodToStash}
-                       canAddWood={props.scenario.canAddWood}
-                       isFireBuilt={props.scenario.isFireBuilt}
+            <WoodPile lvl={props.scenario.woodStashLvl} committedWood={props.scenario.committedWood}
+                      canAddWood={props.scenario.canAddWood}
+                      isFireBuilt={props.scenario.isFireBuilt}
             />
             <div className={styles.bottomHalf}>
                 <div className={styles.tokens}>
