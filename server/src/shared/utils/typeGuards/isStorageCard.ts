@@ -1,4 +1,4 @@
-import {StorageCard} from "../../server/src/types/MysteryService/StorageCard";
+import {StorageCard} from "@shared/types/Game/MysteryService/StorageCard";
 
 export const isStorageCard = (
     candidate: Object

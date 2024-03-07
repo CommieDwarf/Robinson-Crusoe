@@ -1,12 +1,12 @@
 import React from "react";
 import styles from "./Threat.module.css";
 import Card from "./Card";
-import {IEventServiceRenderData} from "@sharedTypes/EventService/EventService";
 import redArrowImg from "/public/UI/misc/red-arrow.png";
 import redArrowCurvedImg from "/public/UI/misc/red-arrow-curved.png";
 import getActionSlots from "../getActionSlots";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
-import {objectsEqual} from "@sharedUtils/objectsEqual";
+import {objectsEqual} from "@shared/utils/objectsEqual";
+import {IEventServiceRenderData} from "@shared/types/Game/EventService/EventService";
 
 interface Props {
     threat: IEventServiceRenderData;

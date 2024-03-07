@@ -2,13 +2,39 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./dist/server.ts",
+    "nodemon": "nodemon ./server.ts",
+    "dev": "nodemon"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "**/*.test.ts",
+      "**/*.spec.ts",
+      ".git",
+      "node_modules"
+    ],
+    "watch": [
+      "."
+    ],
+    "exec": "node -r tsconfig-paths/register -r ts-node/register ./server.ts",
+    "ext": "ts, js"
   },
   "author": "Konrad Czaczkowski",
   "license": "ISC",
   "dependencies": {
-    "typescript": "^5.3.3"
+    "cors": "^2.8.5",
+    "express": "^4.18.3",
+    "socket.io": "^4.7.4",
+    "uuidv4": "^6.2.13"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.1.0",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.4.2"
   }
 }

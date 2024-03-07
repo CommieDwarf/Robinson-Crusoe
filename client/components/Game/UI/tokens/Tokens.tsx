@@ -4,7 +4,7 @@ import styles from "./Tokens.module.css";
 import Token from "./Token/Token";
 import {ContextMenu} from "./ContextMenu/ContextMenu";
 import {ITokenRenderData} from "@shared/types/Game/TokenService/Token";
-import {arePropsEqual} from "../../../../utils/arePropsEqual";
+import {getPropsComparator} from "../../../../utils/getPropsComparator";
 import {emitAction} from "../../../../pages/api/emitAction";
 import {OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 
@@ -118,4 +118,4 @@ function Tokens(props: Props) {
     );
 }
 
-export default React.memo(Tokens, arePropsEqual());
+export default React.memo(Tokens, getPropsComparator());

@@ -5,7 +5,7 @@ import Hunt from "../Hunt/Hunt";
 import map from "/public/UI/map/map.png";
 import redArrowImg from "/public/UI/misc/red-arrow.png";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
-import {arePropsEqual} from "../../../../utils/arePropsEqual";
+import {getPropsComparator} from "../../../../utils/getPropsComparator";
 import {ITilesServiceRenderData} from "@shared/types/Game/TileService/ITileService";
 import getMouseDownHandle from "../../../../utils/dragAndScrollHandle";
 import {ITileRenderData} from "@shared/types/Game/TileService/ITile";
@@ -175,4 +175,4 @@ function Map(props: Props) {
 }
 
 
-export default React.memo(Map, arePropsEqual([]));
+export default React.memo(Map, getPropsComparator([]));

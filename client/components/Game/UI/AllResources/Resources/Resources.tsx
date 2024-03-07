@@ -2,7 +2,7 @@
 import * as React from "react";
 import {useEffect, useRef} from "react";
 import styles from "./Resources.module.css";
-import {IBasicResourcesAmount} from "@sharedTypes/Resources/Resources";
+import {IBasicResourcesAmount} from "@shared/types/Resources/Resources";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
 import {kebabCase} from "lodash";
 

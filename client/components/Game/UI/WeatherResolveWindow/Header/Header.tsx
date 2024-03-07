@@ -7,15 +7,16 @@ import weatherImg from "/public/UI/phase/weather.png";
 import redArrowImg from "/public/UI/misc/red-arrow.png";
 import nightImg from "/public/UI/phase/night.png";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
+import {emitAction} from "../../../../../pages/api/emitAction";
+import {OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 
 type Props = {
     round: number;
-    setNextPhase: () => void;
     resolved: boolean;
 };
 export const Header = (props: Props) => {
     function handleClick() {
-        props.setNextPhase();
+        emitAction(OTHER_CONTROLLER_ACTION.SET_NEXT_PHASE);
     }
 
     return (

@@ -1,4 +1,4 @@
-import {ActionDice, WeatherDice} from "../../server/src/types/RollDice/RollDice";
+import {ActionDice, WeatherDice} from "@shared/types/Game/RollDice/RollDice";
 
 export function isActionDice(
     dice: ActionDice | WeatherDice

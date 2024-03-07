@@ -3,13 +3,13 @@ import * as React from "react";
 import {useLayoutEffect, useRef, useState} from "react";
 import styles from "./Description.module.css";
 import {Button} from "./Button/Button";
-import {ScenarioText} from "@sharedTypes/ScenarioService/ScenarioService";
-import Entries from "../../../../../../../../server/src/types/Entries";
 
 import yellowPaperImg from "/public/UI/scenarios/paper.png";
 import paperScrollLeftImg from "/public/UI/scenarios/paper-scroll-left.png";
 import ResizableImage from "../../../../../../ResizableImage/ResizableImage";
-import {castaways} from "@sharedConstants/scenarios/castaways";
+import {castaways} from "@shared/constants/scenarios/castaways";
+import Entries from "@shared/types/Entries";
+import {ScenarioText} from "@shared/types/Game/ScenarioService/ScenarioService";
 
 type Props = {};
 

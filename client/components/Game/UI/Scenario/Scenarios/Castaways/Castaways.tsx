@@ -2,17 +2,15 @@ import styles from "./Castaways.module.css";
 import {Description} from "./Description/Description";
 import {WoodPile} from "./WoodStack/WoodPile";
 import React, {useLayoutEffect, useRef, useState} from "react";
-import {
-    IInventionRenderData,
-    INVENTION_STARTER
-} from "@sharedTypes/InventionService/Invention";
+
 import bookEffectImg from "/public/UI/scenarios/castaways/book-effect.png";
 import totemEffectImg from "/public/UI/scenarios/castaways/totem-effect.png";
 import scenarioTokensImg from "/public/UI/scenarios/castaways/tokens.png";
 import Rounds from "./Rounds/Rounds";
-import {IScenarioServiceRenderData} from "@sharedTypes/ScenarioService/ScenarioService";
 import {Card} from "../../../CardList/Cards/Card/Card";
 import ResizableImage from "../../../../../ResizableImage/ResizableImage";
+import {IScenarioServiceRenderData} from "@shared/types/Game/ScenarioService/ScenarioService";
+import {IInventionRenderData, INVENTION_STARTER} from "@shared/types/Game/InventionService/Invention";
 
 interface Props {
     inventions: IInventionRenderData[];
@@ -106,17 +104,9 @@ export default function Castaways(props: Props) {
                                 row={0}
                                 top={0}
                                 zIndexIncreased={props.zIndex.includes(inv.name)}
-                                useInventionCard={() => {
-                                }}
-                                useMysteryCard={() => {
-                                }}
-                                manageStorage={() => {
-                                }}
                                 height={cardHeight}
                                 width={cardWidth}
                                 totalWidth={inventionContWidth}
-                                useItem={() => {
-                                }}
                                 enlargeParams={{
                                     top: -cardHeight / 2,
                                     left: (inventionContWidth / 2) - (cardWidth * cardEnlargeScale / 2),

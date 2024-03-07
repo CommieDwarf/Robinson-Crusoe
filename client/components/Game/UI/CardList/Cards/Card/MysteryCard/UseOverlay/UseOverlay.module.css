@@ -36,7 +36,7 @@
     aspect-ratio: 1;
     border-radius: 100%;
     /* background-color: white; */
-    background-image: url("../../../../../../../../../public/UI/paper-background.png");
+    background-image: url("../../../../../../../../public/UI/paper-background.png");
     background-size: contain;
     position: relative;
     border: 1px solid var(--borderColor);
@@ -62,7 +62,7 @@
 }
 
 .storageButton {
-    background-image: url("../../../../../../../../../public/UI/paper-background.png");
+    background-image: url("../../../../../../../../public/UI/paper-background.png");
     cursor: pointer;
 }
 

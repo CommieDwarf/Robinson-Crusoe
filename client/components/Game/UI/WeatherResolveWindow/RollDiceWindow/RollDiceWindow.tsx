@@ -5,8 +5,8 @@ import {
     WeatherDice,
     WeatherDiceResult,
     WeatherDiceResults,
-} from "@sharedTypes/RollDice/RollDice";
-import {IWeatherServiceRenderData} from "@sharedTypes/Weather/Weather";
+} from "@shared/types/RollDice/RollDice";
+import {IWeatherServiceRenderData} from "@shared/types/Weather/Weather";
 import Entries from "../../../../../../server/src/types/Entries";
 
 type Props = {

@@ -12,7 +12,6 @@ import {IInventionService, IInventionServiceRenderData,} from "@shared/types/Gam
 import {ITileService} from "@shared/types/Game/TileService/ITileService";
 import {IGame} from "@shared/types/Game/Game";
 import {InventionCreator} from "./InventionCreator/InventionCreator";
-import capitalize from "@shared/utils/capitalize";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
 import {LOG_CODE} from "@shared/types/Game/ChatLog/LOG_CODE";
 
@@ -152,7 +151,6 @@ export class InventionsService implements IInventionService {
     public onMapExplore() {
         this.updateLocks();
         this.sortInventions();
-        console.log(this._inventions)
     }
 
 

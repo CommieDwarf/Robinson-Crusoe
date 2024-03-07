@@ -31,12 +31,13 @@ export interface IMysteryCard {
     drawLabel: string;
     drawResolved: boolean;
 
-    getRenderData: () => IMysteryCardRenderData;
 
     triggerDrawEffect: (drawer: ICharacter) => void;
     triggerEventEffect: () => void;
     uses: number;
     use: (...args: any[]) => void;
+
+    renderData: IMysteryCardRenderData
 
 }
 

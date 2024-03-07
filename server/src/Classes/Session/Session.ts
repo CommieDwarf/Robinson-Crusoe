@@ -8,6 +8,7 @@ import {SessionData} from "../../types/Session/Session";
 import {PAWN_COLOR} from "@shared/types/Game/PAWN_COLOR";
 import {uuid} from "uuidv4";
 import {CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
+import {CHARACTER} from "@shared/types/Game/Characters/Character";
 
 export class Session implements SessionData {
     private _players: IPlayer[] = [];
@@ -17,6 +18,8 @@ export class Session implements SessionData {
     private _colors: PAWN_COLOR[] = Object.values(PAWN_COLOR);
 
     private _id = uuid();
+
+    private _characters: CHARACTER[] = [CHARACTER.COOK];
 
 
     constructor(creator: UserData) {
@@ -42,8 +45,9 @@ export class Session implements SessionData {
 
     public joinSession(user: UserData) {
         const player = new Player(user);
-        player.assignColor(this.findAvailableColor());
         this._players.push(player);
+        this.assignColor(user, this.findAvailableColor());
+        this.assignCharacter(user, CHARACTER.COOK);
     }
 
 
@@ -52,14 +56,21 @@ export class Session implements SessionData {
     }
 
     public startGame(): BaseController {
-        const gameController = new GameController(new GameClass(this._players), this._players);
-        this._gameController = gameController;
+        const game = new GameClass(this._players);
+        const gameController = new GameController(game, this._players);
+        this._gameController = gameController
         return gameController;
     }
 
     public assignColor(user: UserData, color: PAWN_COLOR): void {
-        if (this.isColorTaken(color)) {
+        if (!this.isColorTaken(color)) {
             this.getPlayer(user).assignColor(color);
+        }
+    }
+
+    public assignCharacter(user: UserData, character: CHARACTER) {
+        if (!this.isCharacterTaken(character)) {
+            this.getPlayer(user).assignCharacter(character);
         }
     }
 
@@ -87,5 +98,9 @@ export class Session implements SessionData {
 
     private isColorTaken(color: PAWN_COLOR) {
         return this._players.some((player) => player.color === color);
+    }
+
+    private isCharacterTaken(character: CHARACTER) {
+        return this._players.some((player) => player.getCharacter)
     }
 }

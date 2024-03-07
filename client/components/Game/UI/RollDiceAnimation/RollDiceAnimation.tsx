@@ -5,23 +5,22 @@ import {SpotLight} from "three";
 import styles from "./RollDiceAnimation.module.css";
 
 import {RoundedBoxGeometry} from "three/examples/jsm/geometries/RoundedBoxGeometry";
+import {kebabCase} from "lodash";
+import {explore} from "@shared/constants/diceStructures/explore";
+import {AdventureAction} from "@shared/types/Game/ACTION";
+import {isActionDice} from "@shared/utils/typeGuards/isActionDice";
+import {build} from "@shared/constants/diceStructures/build";
+import {IDice} from "@shared/types/Game/Dice/Dice";
+import {weather} from "@shared/constants/diceStructures/weather";
+import {gather} from "@shared/constants/diceStructures/gather";
+import {degreesToRadians} from "../../../../utils/degreesToRadians";
 import {
     ActionDice,
     ActionDiceResult,
     ActionDiceResults,
     WeatherDice,
-    WeatherDiceResult,
-} from "@sharedTypes/RollDice/RollDice";
-import {cancelAnimationFrame, requestAnimationFrame} from "dom-helpers";
-import {IDice} from "@sharedTypes/Dice/Dice";
-import {AdventureAction} from "@sharedTypes/ACTION";
-import {explore} from "@sharedConstants/diceStructures/explore";
-import {build} from "@sharedConstants/diceStructures/build";
-import {weather} from "@sharedConstants/diceStructures/weather";
-import {gather} from "@sharedConstants/diceStructures/gather";
-import {degreesToRadians} from "@sharedUtils/degreesToRadians";
-import {isActionDice} from "@sharedUtils/typeGuards/isActionDice";
-import {kebabCase} from "lodash";
+    WeatherDiceResult
+} from "@shared/types/Game/RollDice/RollDice";
 
 const structures = {
     gather,
@@ -37,8 +36,10 @@ type Props = {
         | Map<keyof ActionDiceResults, ActionDiceResult>;
     type: "weather" | AdventureAction;
     onFinish: (name: string) => void;
+    // @ts-ignore
     reRolledDice: ActionDice | null;
     fixed: boolean;
+    // @ts-ignore
     reRoll: (dice: ActionDice) => void | ((dice: WeatherDice) => void);
 
 };

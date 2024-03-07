@@ -1,6 +1,6 @@
 import React from 'react';
-import {IPlayerCharacterRenderData, Wounds} from "@sharedTypes/Characters/PlayerCharacter";
-import {AdventureAction} from "@sharedTypes/ACTION";
+import {IPlayerCharacterRenderData, Wounds} from "@shared/types/Characters/PlayerCharacter";
+import {AdventureAction} from "@shared/types/ACTION";
 import styles from "./Wound.module.css";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
 import {capitalize} from "lodash";

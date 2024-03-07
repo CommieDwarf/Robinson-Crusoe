@@ -7,7 +7,7 @@
     z-index: 101;
     border-top: 1px solid var(--borderColor);
     border-right: 1px solid var(--borderColor);
-    background-image: url("../../../../../public/UI/paper-background.png");
+    background-image: url("../../../../public/UI/paper-background.png");
     background-position: 50% 50%;
 }
 

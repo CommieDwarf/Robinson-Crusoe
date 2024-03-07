@@ -1,7 +1,7 @@
 // @flow
 import * as React from "react";
 import styles from "./CardActions.module.css";
-import capitalizeFirstLetter from "../../../../../../utils/capitalizeFirstLetter";
+import {capitalize} from "lodash";
 
 type Props = {
     label1: string;
@@ -33,14 +33,14 @@ export const CardActions = (props: Props) => {
                 className={`${styles.action} ${action1LockedClass}`}
                 onClick={handleAction1Click}
             >
-                {capitalizeFirstLetter(props.label1)}
+                {capitalize(props.label1)}
             </div>
             {props.label2 && (
                 <div
                     className={`${styles.action} ${action2LockedClass}`}
                     onClick={handleAction2Click}
                 >
-                    {capitalizeFirstLetter(props.label2)}
+                    {capitalize(props.label2)}
                 </div>
             )}
         </div>

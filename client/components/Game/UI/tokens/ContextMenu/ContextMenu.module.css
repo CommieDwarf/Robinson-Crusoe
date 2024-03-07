@@ -5,7 +5,7 @@
     position: absolute;
     top: -190px;
     z-index: 100;
-    background-image: url("../../../../../../public/UI/paper-background.png");
+    background-image: url("../../../../../public/UI/paper-background.png");
     background-size: cover;
     background-repeat: no-repeat;
     border: 1px solid var(--borderColor);
@@ -43,7 +43,7 @@
 }
 
 .useButton {
-    background-image: url("../../../../../../public/UI/darkwood.png");
+    background-image: url("../../../../../public/UI/darkwood.png");
     width: 70px;
     height: 25px;
     color: white;

@@ -1,4 +1,4 @@
-import {ITile} from "../../server/src/types/TileService/ITile";
+import {ITile} from "@shared/types/Game/TileService/ITile";
 
 export const isTile = (
     candidate: any

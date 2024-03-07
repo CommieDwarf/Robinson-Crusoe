@@ -25,6 +25,7 @@ export class GameController implements GameControllerInterface, BaseController {
     private readonly _actionHandlers = new Map<CONTROLLER_ACTION, ActionHandler>()
 
     constructor(game: IGame, players: IPlayer[]) {
+        console.log(game.gameStatus);
         this._game = game;
         this._players = players;
         this.initActionHandlers();
@@ -59,14 +60,14 @@ export class GameController implements GameControllerInterface, BaseController {
 
     public getActionHandlers(): Map<OTHER_CONTROLLER_ACTION, ActionHandler> {
         const handlers = new Map<OTHER_CONTROLLER_ACTION, ActionHandler>();
-        handlers.set(OTHER_CONTROLLER_ACTION.ADD_WOOD_TO_PILE, this.addWoodToPile);
-        handlers.set(OTHER_CONTROLLER_ACTION.RESOLVE_EVENT_ADVENTURE, this.resolveEventAdventure);
-        handlers.set(OTHER_CONTROLLER_ACTION.ROLL_WEATHER_DICES, this.rollWeatherDices);
-        handlers.set(OTHER_CONTROLLER_ACTION.SET_NEXT_PHASE, this.setNextPhase);
-        handlers.set(OTHER_CONTROLLER_ACTION.SWITCH_COMMITTED_RESOURCES_TYPE, this.switchCommittedResourcesType);
-        handlers.set(OTHER_CONTROLLER_ACTION.USE_INVENTION, this.useInvention);
-        handlers.set(OTHER_CONTROLLER_ACTION.USE_ITEM, this.useItem);
-        handlers.set(OTHER_CONTROLLER_ACTION.USE_DISCOVERY_TOKEN, this.useDiscoveryToken);
+        handlers.set(OTHER_CONTROLLER_ACTION.ADD_WOOD_TO_PILE, this.addWoodToPile.bind(this));
+        handlers.set(OTHER_CONTROLLER_ACTION.RESOLVE_EVENT_ADVENTURE, this.resolveEventAdventure.bind(this));
+        handlers.set(OTHER_CONTROLLER_ACTION.ROLL_WEATHER_DICES, this.rollWeatherDices.bind(this));
+        handlers.set(OTHER_CONTROLLER_ACTION.SET_NEXT_PHASE, this.setNextPhase.bind(this));
+        handlers.set(OTHER_CONTROLLER_ACTION.SWITCH_COMMITTED_RESOURCES_TYPE, this.switchCommittedResourcesType.bind(this));
+        handlers.set(OTHER_CONTROLLER_ACTION.USE_INVENTION, this.useInvention.bind(this));
+        handlers.set(OTHER_CONTROLLER_ACTION.USE_ITEM, this.useItem.bind(this));
+        handlers.set(OTHER_CONTROLLER_ACTION.USE_DISCOVERY_TOKEN, this.useDiscoveryToken.bind(this));
         return handlers;
     }
 
@@ -87,6 +88,8 @@ export class GameController implements GameControllerInterface, BaseController {
 
 
     private setNextPhase(player: IPlayer): void {
+
+        console.log(this._game);
         this._game.phaseService.goNextPhase();
     }
 

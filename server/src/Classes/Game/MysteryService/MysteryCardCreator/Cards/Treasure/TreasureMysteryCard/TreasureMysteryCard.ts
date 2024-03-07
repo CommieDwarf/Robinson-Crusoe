@@ -29,14 +29,15 @@ export abstract class TreasureMysteryCard extends MysteryCard implements ITreasu
     }
 
 
+    // @ts-ignore
     get renderData() {
         return {
-            ...this.getRenderData(),
+            ...this.getPawnOwnerRenderData(),
             pawnService: this._pawnService.renderData,
         }
     }
 
-    getRenderData() {
+    getPawnOwnerRenderData() {
         return {
             ...super.getRenderData(),
         };

@@ -1,5 +1,4 @@
 import {EventService} from "./EventService/EventService";
-import {Player} from "./Players/Player";
 import {ActionSlotService} from "./ActionSlotsService/ActionSlotService";
 import {TileService} from "./TileService/TileService";
 import {ResourceService} from "./ResourceService/ResourceService";
@@ -23,7 +22,6 @@ import {TokenService} from "./TokenService/TokenService";
 import {Cook} from "./CharacterService/Characters/Cook";
 import {AdventureService} from "./AdventureService/AdventureService";
 import {MysteryService} from "./MysteryService/MysteryService";
-import {ResourceCommittableItem} from "./ResourceCommittableItem/ResourceCommittableItem";
 import {IResourceService} from "@shared/types/Game/Resources/AllResources";
 import {IAdventureService} from "@shared/types/Game/AdventureService/AdventureService";
 import {IBeastService} from "@shared/types/Game/Beasts/BeastService";
@@ -96,7 +94,7 @@ export class GameClass implements IGame {
     constructor(players: IPlayer[]) {
         // this is hardcoded for demo purpose.
         this._localPlayer = players[0]
-        const cook = new Cook("male", this, this.localPlayer);
+        players.forEach((player) => player.initCharacter(this))
 
         this._playerService = new PlayerService([this.localPlayer]);
         this._characterService = new CharacterService(
@@ -130,6 +128,7 @@ export class GameClass implements IGame {
             tokenService: this._tokenService.renderData,
             adventureService: this._adventureService.renderData,
             mysteryService: this._mysteryService.renderData,
+            actionSlotRenderData: this._actionSlotService.renderData
         };
     }
 

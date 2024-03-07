@@ -1,10 +1,10 @@
 // @flow
 import * as React from "react";
-import {ITokenRenderData} from "@sharedTypes/TokenService/Token";
 import styles from "./Token.module.css";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
 import {kebabCase} from "lodash";
-import {objectsEqual} from "@sharedUtils/objectsEqual";
+import {objectsEqual} from "@shared/utils/objectsEqual";
+import {ITokenRenderData} from "@shared/types/Game/TokenService/Token";
 
 type Props = {
     token: ITokenRenderData;

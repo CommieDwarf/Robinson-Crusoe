@@ -1,8 +1,8 @@
 // @flow
 import * as React from "react";
 import styles from "./ContextMenu.module.css";
-import {ITokenRenderData} from "@sharedTypes/TokenService/Token";
-import capitalizeFirstLetter from "@sharedUtils/capitalizeFirstLetter";
+import {ITokenRenderData} from "@shared/types/Game/TokenService/Token";
+import {capitalize} from "lodash";
 
 type Props = {
     left: number;
@@ -29,10 +29,10 @@ export const ContextMenu = (props: Props) => {
             onMouseEnter={props.mouseEnterMenu}
         >
             <header className={styles.header}>
-                {capitalizeFirstLetter(props.token.namePL)}
+                {capitalize(props.token.namePL)}
             </header>
             <div className={styles.description}>
-                {capitalizeFirstLetter(props.token.description)}
+                {capitalize(props.token.description)}
             </div>
             <div
                 className={`${styles.useButton} ${styles.useButtonClickable}`}

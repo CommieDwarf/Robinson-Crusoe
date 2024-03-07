@@ -1,11 +1,11 @@
 // @flow
 import * as React from "react";
 import styles from "./Tokens.module.css";
-import {ActionTokens} from "../../../../../../../../server/src/types/ActionService/ActionService";
-import {isAdventureAction} from "../../../../../../../../utils/typeGuards/isAdventureAction";
 import reRollTokenImg from "/public/UI/tokens/reroll.png";
-import {ACTION} from "../../../../../../../../server/src/types/ACTION";
 import ResizableImage from "../../../../../../ResizableImage/ResizableImage";
+import {ACTION} from "@shared/types/Game/ACTION";
+import {isAdventureAction} from "@shared/utils/typeGuards/isAdventureAction";
+import {ActionTokens} from "@shared/types/Game/ActionService/ActionService";
 
 type Props = {
     action: ACTION;

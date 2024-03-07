@@ -1,9 +1,9 @@
 // @flow
 import * as React from "react";
 import styles from "./ResolveItems.module.css";
-import {IActionServiceRenderData} from "../../../../../../server/src/types/ActionService/ActionService";
 import {Item} from "./Item/Item";
-import capitalizeFirstLetter from "../../../../../../utils/capitalizeFirstLetter";
+import {IActionServiceRenderData} from "@shared/types/Game/ActionService/ActionService";
+import {capitalize} from "lodash";
 
 type Props = {
     actionService: IActionServiceRenderData;
@@ -12,7 +12,6 @@ type Props = {
     resolvedItems: Map<string, boolean>;
     locked: boolean;
     reRoll: (resolvableItemID: string) => void;
-    setBibleUsage: (resolvableItemId: string, value: boolean) => void;
 };
 
 export const ResolvableItems = (props: Props) => {
@@ -33,7 +32,6 @@ export const ResolvableItems = (props: Props) => {
                 locked={props.locked || locked}
                 rollDices={props.rollDices}
                 reRoll={props.reRoll}
-                setBibleUsage={props.setBibleUsage}
             />
         );
     });
@@ -41,7 +39,7 @@ export const ResolvableItems = (props: Props) => {
     return (
         <div className={styles.container}>
             <div className={styles.title + " " + styles[props.actionService.action]}>
-                {capitalizeFirstLetter(props.actionService.action)}
+                {capitalize(props.actionService.action)}
             </div>
             <div className={styles.items}>{items}</div>
         </div>

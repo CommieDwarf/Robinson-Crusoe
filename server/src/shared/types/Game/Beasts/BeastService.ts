@@ -1,6 +1,6 @@
-import {BeastStats} from "../../server/server/Game/BeastService/BeastCreator/BeastCreator";
 import {IBeast} from "./Beast";
 import {ICharacter} from "../Characters/Character";
+import {BeastStats} from "../../../../Classes/Game/BeastService/BeastCreator/BeastCreator";
 
 export interface IBeastServiceRenderData {
     deckCount: number;

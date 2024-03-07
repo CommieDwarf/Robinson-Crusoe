@@ -10,7 +10,7 @@
     width: 500px;
     height: 200px;
     margin: 200px auto auto;
-    background-image: url("/UI/paper-background.png");
+    background-image: url("../../public/UI/paper-background.png");
     border-radius: 2%;
     padding: 10px;
 }

@@ -1,3 +1,3 @@
 export interface PawnOwner<RenderData> {
-    getRenderData: () => Omit<RenderData, "pawnService">;
+    getPawnOwnerRenderData: () => Omit<RenderData, "pawnService">;
 }

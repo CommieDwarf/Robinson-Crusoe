@@ -8,7 +8,6 @@ import {Side} from "@shared/types/Game/TileService/TileResourceService";
 import {ITEM} from "@shared/types/Game/Equipment/Item";
 import {ActionDice} from "@shared/types/Game/RollDice/RollDice";
 import {Cloud} from "@shared/types/Game/Weather/Weather";
-import {STORAGE_ACTION} from "../../Classes/GameController/GameController";
 import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
 

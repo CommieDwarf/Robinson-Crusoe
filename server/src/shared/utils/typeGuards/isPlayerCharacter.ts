@@ -1,4 +1,4 @@
-import {IPlayerCharacter} from "../../server/src/types/Characters/PlayerCharacter";
+import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 
 export const isPlayerCharacter = (
     candidate: Object

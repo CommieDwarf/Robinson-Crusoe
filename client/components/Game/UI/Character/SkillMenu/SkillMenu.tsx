@@ -1,13 +1,14 @@
 import React, {useState} from "react";
 import styles from "./SkillMenu.module.css";
-import {ISkillRenderData} from "@sharedTypes/Skill/Skill";
 import snowImg from "/public/UI/scenarios/snow.png";
 import rainImg from "/public/UI/scenarios/rain.png";
-import {Cloud, OverallWeather} from "@sharedTypes/Weather/Weather";
-import {IPlayerCharacter} from "@sharedTypes/Characters/PlayerCharacter";
-import {ActionDice} from "@sharedTypes/RollDice/RollDice";
+import {ActionDice} from "@shared/types/Game/RollDice/RollDice";
+import {Cloud, OverallWeather} from "@shared/types/Game/Weather/Weather";
+import {ISkillRenderData} from "@shared/types/Game/Skill/Skill";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
-import {insertIconsIntoText} from "@sharedUtils/insertIconsIntoText";
+import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
+import {insertIconsIntoText} from "../../../../../utils/insertIconsIntoText";
+
 
 interface Props {
     skillDescription: {

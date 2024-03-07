@@ -2,7 +2,7 @@
 import * as React from "react";
 import styles from "../Castaways.module.css";
 import {RoundSquare} from "./RoundSquare";
-import {castaways} from "@sharedConstants/scenarios/castaways";
+import {castaways} from "@shared/constants/scenarios/castaways";
 
 type Props = {
     current: number;

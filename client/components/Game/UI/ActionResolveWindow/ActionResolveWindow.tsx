@@ -2,31 +2,27 @@ import * as React from "react";
 import {useState} from "react";
 import styles from "./ActionResolveWindow.module.css";
 import {ResolvableItems} from "./ActionResolve/ResolvableItems";
-import {IActionServiceRenderData} from "@sharedTypes/ActionService/ActionService";
+import {ActionDice} from "@shared/types/Game/RollDice/RollDice";
+import {sleep} from "@shared/utils/sleep";
+import {emitAction} from "../../../../pages/api/emitAction";
+import {RESOLVE_ITEM_STATUS} from "@shared/types/Game/ActionService/IResolvableItem";
+import {IActionServiceRenderData} from "@shared/types/Game/ActionService/ActionService";
 import {NextActionButton} from "./NextActionButton/NextActionButton";
+import redArrowImg from "/public/UI/misc/red-arrow.png";
+import {ReRoll} from "./ReRoll/ReRoll";
+import {isAdventureAction} from "@shared/utils/typeGuards/isAdventureAction";
+import ResizableImage from "../../../ResizableImage/ResizableImage";
+import {ICharacter} from "@shared/types/Game/Characters/Character";
+import {ACTION_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
+import sharedStyles from "../../../../styles/shared.module.css";
+import Draggable from "react-draggable";
 import {RollDiceWindow} from "./RollDiceWindow/RollDiceWindow";
 import actionIconImg from "/public/UI/phase/action.png";
-import {RESOLVE_ITEM_STATUS} from "@sharedTypes/ActionService/IResolvableItem";
-import {ReRoll} from "./ReRoll/ReRoll";
-import redArrowImg from "/public/UI/misc/red-arrow.png";
-import {ActionDice} from "@sharedTypes/RollDice/RollDice";
-import Draggable from "react-draggable";
-import sharedStyles from "../../../../styles/shared.module.css";
-import ResizableImage from "../../../ResizableImage/ResizableImage";
-import {ICharacter} from "@sharedTypes/Characters/Character";
-import {sleep} from "@sharedUtils/sleep";
-import {isAdventureAction} from "@sharedUtils/typeGuards/isAdventureAction";
-import {formatToKebabCase} from "@sharedUtils/formatToKebabCase";
+import {kebabCase} from "lodash";
+
 
 type Props = {
     actionService: IActionServiceRenderData;
-    setNextAction: () => void;
-    resolveItem: (resolvableItemID: string) => void;
-    rollDices: (resolvableItemID: string) => void;
-    setNextPhase: () => void;
-    reRoll: (resolvableItemID: string) => void;
-    useReRollSkill: (dice: ActionDice) => void;
-    setBibleUsage: (resolvableItemId: string, value: boolean) => void;
 };
 export const ActionResolveWindow = (props: Props) => {
     let containerRef = React.createRef<HTMLDivElement>();
@@ -54,7 +50,13 @@ export const ActionResolveWindow = (props: Props) => {
 
     function onReRollSkillUse(dice: ActionDice) {
         setResItemAnimationDoneID(null);
-        props.useReRollSkill(dice);
+
+        // TODO: zaimplementuj
+        // emitAction(CHARACTER_CONTROLLER_ACTION.USE_ABILITY, {
+        //     abilityName: ,
+        //     target: dice
+        //
+        // })
         setReRollButtonClicked(false);
         setReRolledDice(dice);
         setReRollSkillUsed(true);
@@ -65,7 +67,10 @@ export const ActionResolveWindow = (props: Props) => {
             setReRolledDice(null);
             await sleep(10);
         }
-        props.reRoll(resolvableItemID);
+        emitAction(ACTION_CONTROLLER_ACTION.REROLL_ACTION_DICE, {
+            resolvableItemID: resolvableItemID
+        })
+
         setReRolledDice("success");
     }
 
@@ -75,28 +80,34 @@ export const ActionResolveWindow = (props: Props) => {
 
     function setNextAction() {
         setResolvedItems(new Map());
-        props.setNextAction();
+        emitAction(ACTION_CONTROLLER_ACTION.SET_NEXT_ACTION, {});
     }
 
-    function rollDices(resolvableItemID: string) {
-        const item = getResolvableItem(resolvableItemID);
+    function rollDices(actionItem: string) {
+        const item = getResolvableItem(actionItem);
         setReRolledDice(null);
         if (
             item.shouldRollDices &&
             item.resolveStatus === RESOLVE_ITEM_STATUS.PENDING
         ) {
-            props.rollDices(resolvableItemID);
+            emitAction(ACTION_CONTROLLER_ACTION.ROLL_ACTION_DICES, {
+                actionId: actionItem
+            })
         }
     }
 
-    function setItemResolved(resolvableItemID: string) {
-        if (resolvableItemID !== props.actionService.lastRolledItem?.id) {
+    function setItemResolved(actionId: string) {
+        if (actionId !== props.actionService.lastRolledItem?.id) {
             setReRolledDice(null);
         }
-        props.resolveItem(resolvableItemID);
+
+        emitAction(ACTION_CONTROLLER_ACTION.RESOLVE_ACTION, {
+            actionId: actionId
+        })
+
         setResolvedItems((prevState) => {
             const copy = new Map(prevState);
-            copy.set(resolvableItemID, true);
+            copy.set(actionId, true);
             return copy;
         });
         setReRollButtonClicked(false);
@@ -156,7 +167,7 @@ export const ActionResolveWindow = (props: Props) => {
                     <div className={styles.title}>Faza Akcji</div>
                     <div className={styles.actionIcon}>
                         <ResizableImage
-                            src={`/UI/actions/${formatToKebabCase(props.actionService.action)}.png`}
+                            src={`/UI/actions/${kebabCase(props.actionService.action)}.png`}
                             alt={"akcja"}
                         />
                     </div>
@@ -172,12 +183,10 @@ export const ActionResolveWindow = (props: Props) => {
                     }
                     rollDices={rollDices}
                     reRoll={onReRollSuccess}
-                    setBibleUsage={props.setBibleUsage}
                 />
                 {props.actionService.resolvableItems.length === resolvedItems.size && (
                     <NextActionButton
                         setNextAction={setNextAction}
-                        setNextPhase={props.setNextPhase}
                         actionService={props.actionService}
                     />
                 )}

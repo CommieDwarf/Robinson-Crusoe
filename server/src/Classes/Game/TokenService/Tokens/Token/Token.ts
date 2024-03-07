@@ -1,7 +1,6 @@
 import {DISCOVERY_TOKEN, IToken, ITokenRenderData,} from "@shared/types/Game/TokenService/Token";
 import {IGame} from "@shared/types/Game/Game";
 import {v4 as uuidv4} from "uuid";
-import capitalize from "@shared/utils/capitalize";
 import {IPlayer} from "@shared/types/Game/PlayerService/Player";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
 import {LOG_CODE} from "@shared/types/Game/ChatLog/LOG_CODE";

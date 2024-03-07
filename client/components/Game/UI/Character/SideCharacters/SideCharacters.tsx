@@ -3,15 +3,15 @@ import Pawn from "../../Pawn";
 import FridayHealth from "./FridayHealth/FridayHealth";
 import styles from "./SideCharacters.module.css";
 import {Droppable} from "react-beautiful-dnd";
-import {ISideCharacterRenderData} from "@sharedTypes/Characters/SideCharacter";
 import fridayPicImg from "/public/UI/characters/side-characters/friday-pic.png";
 import dogPicImg from "/public/UI/characters/side-characters/dog-pic.png";
 import dogUsageImg from "/public/UI/characters/dog-usage.png";
 import {useAppSelector} from "../../../../../store/hooks";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
 import determinationTokenImg from "/public/UI/tokens/determination.png";
-import {objectsEqual} from "@sharedUtils/objectsEqual";
-import {getOwnedDroppableId} from "@sharedUtils/getOwnedDroppableId";
+import {objectsEqual} from "@shared/utils/objectsEqual";
+import {getOwnedDroppableId} from "@shared/utils/getOwnedDroppableId";
+import {ISideCharacterRenderData} from "@shared/types/Game/Characters/SideCharacter";
 
 interface Props {
     friday: ISideCharacterRenderData;

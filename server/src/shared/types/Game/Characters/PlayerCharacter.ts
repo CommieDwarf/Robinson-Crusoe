@@ -2,7 +2,6 @@ import {IPlayer} from "../PlayerService/Player";
 import {CHARACTER, ICharacter, ICharacterRenderData} from "./Character";
 import {ISkill, ISkillRenderData} from "../Skill/Skill";
 import {AdventureAction} from "../ACTION";
-import {PawnOwner} from "../PawnOwner/PawnOwner";
 
 export type PlayerCharacterName = Exclude<CHARACTER, "dog" | "friday">;
 
@@ -13,20 +12,20 @@ export interface Wounds {
     leg: AdventureAction[];
 }
 
-export interface IPlayerCharacter extends ICharacter, PawnOwner<IPlayerCharacterRenderData> {
+export interface IPlayerCharacter extends ICharacter {
     player: IPlayer;
     name: PlayerCharacterName;
     moraleThresholds: number[];
     moraleThresholdsRemoved: number[];
     renderData: IPlayerCharacterRenderData;
     shouldMoraleDrop: boolean;
-    skills: ISkill[];
+    skills: ISkill<any>[];
 
     wounds: Wounds;
 
     setWound: (part: keyof Wounds, action: AdventureAction, source: string) => void;
     unsetWound: (part: keyof Wounds, action: AdventureAction, source: string) => void;
-    
+
 }
 
 export interface IPlayerCharacterRenderData extends ICharacterRenderData {

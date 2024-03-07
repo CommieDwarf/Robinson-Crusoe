@@ -1,15 +1,16 @@
 import redArrowImg from "/public/UI/misc/red-arrow.png";
 import timeConsumingActionToken from "/public/UI/tokens/time-consuming-action.png";
-import {ACTION} from "@sharedTypes/ACTION";
-import {isAdventureAction} from "@sharedUtils/typeGuards/isAdventureAction";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
-import {actionOrder} from "@sharedConstants/actionOrder";
-import {arePropsEqual} from "@sharedUtils/arePropsEqual";
-import {IGlobalCostModifierRenderData} from "@sharedTypes/ActionService/GlobalCostModifier";
-import {formatToKebabCase} from "@sharedUtils/formatToKebabCase";
 import reRollTokenImg from "/public/UI/tokens/reroll.png";
 import styles from "./ActionOrder.module.css";
-import {ActionTokens} from "@sharedTypes/ActionService/ActionService";
+import React from "react";
+import {actionOrder} from "@shared/constants/actionOrder";
+import {ActionTokens} from "@shared/types/Game/ActionService/ActionService";
+import {ACTION} from "@shared/types/Game/ACTION";
+import {isAdventureAction} from "@shared/utils/typeGuards/isAdventureAction";
+import {IGlobalCostModifierRenderData} from "@shared/types/Game/ActionService/GlobalCostModifier";
+import {kebabCase} from "lodash";
+import {getPropsComparator} from "../../../../utils/getPropsComparator";
 
 type Props = {
     adventureTokens: ActionTokens;
@@ -33,7 +34,7 @@ function ActionOrder(props: Props) {
                 </div>
             );
         }
-        let adventureTokenSrc = `/UI/actions/${formatToKebabCase(action)}.png`;
+        let adventureTokenSrc = `/UI/actions/${kebabCase(action)}.png`;
         let reRollToken;
         if (isAdventureAction(action)) {
             if (props.adventureTokens[action]) {
@@ -84,5 +85,5 @@ function ActionOrder(props: Props) {
     );
 }
 
-export default React.memo(ActionOrder, arePropsEqual<Props>(["containerRef"]));
+export default React.memo(ActionOrder, getPropsComparator(["containerRef"]));
 

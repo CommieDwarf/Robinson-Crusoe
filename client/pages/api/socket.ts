@@ -2,7 +2,7 @@ import {io} from "socket.io-client"
 
 const PORT = 3030;
 export default function socketClient() {
-    const socket = io(`localhost:${PORT}`)
+    const socket = io(`http://localhost:3030`)
 
     socket.on("connect", () => {
         console.log("Connected")

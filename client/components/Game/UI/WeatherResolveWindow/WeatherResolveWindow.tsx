@@ -4,17 +4,17 @@ import styles from "./WeatherResolveWindow.module.css";
 import sharedStyles from "../../../../styles/shared.module.css"
 import {Header} from "./Header/Header";
 import {WeatherTokens} from "./BottomBar/Tokens/WeatherTokens";
-import {IWeatherServiceRenderData} from "@sharedTypes/Weather/Weather";
 import {Resources} from "./BottomBar/Resources/Resources";
 import {CloudsTotal} from "./BottomBar/CloudsTotal/CloudsTotal";
 import {Dices} from "./Dices/Dices";
 import {RollDiceButton} from "./RollDiceButton/RollDiceButton";
-import {IConstructionServiceRenderData} from "@sharedTypes/ConstructionService/IConstructionService";
-import {IBasicResourcesAmount} from "@sharedTypes/Resources/Resources";
 import {RollDiceWindow} from "./RollDiceWindow/RollDiceWindow";
-import {WeatherDays} from "@sharedTypes/ScenarioService/ScenarioService";
-import {ISkillRenderData} from "@sharedTypes/Skill/Skill";
 import Draggable from "react-draggable";
+import {ISkillRenderData} from "@shared/types/Game/Skill/Skill";
+import {IWeatherServiceRenderData} from "@shared/types/Game/Weather/Weather";
+import {IBasicResourcesAmount} from "@shared/types/Game/Resources/Resources";
+import {WeatherDays} from "@shared/types/Game/ScenarioService/ScenarioService";
+import {IConstructionServiceRenderData} from "@shared/types/Game/ConstructionService/IConstructionService";
 
 
 type Props = {
@@ -22,11 +22,9 @@ type Props = {
     round: number;
     constructionService: IConstructionServiceRenderData;
     resourcesAmount: IBasicResourcesAmount;
-    rollWeatherDices: () => void;
     dices: WeatherDays;
     skills: ISkillRenderData[];
     determination: number;
-    setNextPhase: () => void;
 };
 export const WeatherResolveWindow = (props: Props) => {
     const [resolved, setResolved] = useState(
@@ -53,7 +51,6 @@ export const WeatherResolveWindow = (props: Props) => {
                 <Header
                     round={props.round}
                     resolved={resolved}
-                    setNextPhase={props.setNextPhase}
                 />
                 <Dices
                     animals={props.dices.animals.includes(props.round)}
@@ -61,7 +58,7 @@ export const WeatherResolveWindow = (props: Props) => {
                     snow={props.dices.winter.includes(props.round)}
                 />
                 {props.weatherService.shouldRollDices && (
-                    <RollDiceButton rollWeatherDices={props.rollWeatherDices}/>
+                    <RollDiceButton/>
                 )}
                 <div className={styles.bottomBar}>
                     <WeatherTokens tokens={props.weatherService.tokens}/>

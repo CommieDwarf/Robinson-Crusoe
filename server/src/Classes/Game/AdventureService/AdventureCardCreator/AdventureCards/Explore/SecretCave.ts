@@ -1,8 +1,8 @@
 import {ExploreAdventureCard} from "./ExploreAdventureCard/ExploreAdventureCard";
-import {IAdventureCard} from "@shared/types/Game/Game/AdventureService/AdventureCard";
-import {IGame} from "@shared/types/Game/Game/Game";
 import {ADVENTURE_CARD_EXPLORE} from "@shared/types/Game/AdventureService/ADVENTURE_CARD";
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
+import {IGame} from "@shared/types/Game/Game";
+import {IAdventureCard} from "@shared/types/Game/AdventureService/AdventureCard";
 
 export class SecretCave extends ExploreAdventureCard implements IAdventureCard {
     protected _eventNamePL = "przebudzenie bestii";

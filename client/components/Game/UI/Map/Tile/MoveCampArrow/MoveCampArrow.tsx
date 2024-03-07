@@ -1,9 +1,9 @@
 // @flow
 import * as React from "react";
 import styles from "./MoveCampArrow.module.css";
-import {ITileRenderData} from "@sharedTypes/TileService/ITile";
 import redArrowImg from "/public/UI/misc/red-arrow.png";
 import ResizableImage from "../../../../../ResizableImage/ResizableImage";
+import {ITileRenderData} from "@shared/types/Game/TileService/ITile";
 
 type Props = {
     tile: ITileRenderData;

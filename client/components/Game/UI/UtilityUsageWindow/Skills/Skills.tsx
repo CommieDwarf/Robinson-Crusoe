@@ -2,8 +2,8 @@
 import * as React from "react";
 import styles from "./Skills.module.css";
 import {Skill} from "./Skill/Skill";
-import {PHASE} from "@sharedTypes/PhaseService/Phase";
-import {ISkillRenderData} from "@sharedTypes/Skill/Skill";
+import {PHASE} from "@shared/types/PhaseService/Phase";
+import {ISkillRenderData} from "@shared/types/Skill/Skill";
 
 type Props = {
     skills: ISkillRenderData[];

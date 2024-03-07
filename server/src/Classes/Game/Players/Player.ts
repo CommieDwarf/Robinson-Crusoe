@@ -1,8 +1,12 @@
-import {IPlayerCharacter} from "@shared/types/Game/Game/Characters/PlayerCharacter";
-import {IPlayer, IPlayerRenderData} from "@shared/types/Game/Game/PlayerService/Player";
+import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
+import {IPlayer, IPlayerRenderData} from "@shared/types/Game/PlayerService/Player";
+import {UserData} from "../../../types/UserData/UserData";
+import {PAWN_COLOR} from "@shared/types/Game/PAWN_COLOR";
 import {uuid} from "uuidv4";
-import {UserData} from "@shared/types/Game/UserData/UserData";
-import {PAWN_COLOR} from "@shared/types/Game/Game/PAWN_COLOR";
+import {CHARACTER} from "@shared/types/Game/Characters/Character";
+import {IGame} from "@shared/types/Game/Game";
+import {Cook} from "../CharacterService/Characters/Cook";
+
 
 export class Player implements IPlayer {
 
@@ -11,6 +15,9 @@ export class Player implements IPlayer {
     private _character: IPlayerCharacter | null = null;
     private readonly _user: UserData;
     private readonly _id = uuid();
+
+    private assignedCharacter: CHARACTER | null = null;
+
 
     constructor(user: UserData) {
         this._user = user;
@@ -50,6 +57,14 @@ export class Player implements IPlayer {
         this._color = color;
     }
 
+    assignCharacter(character: CHARACTER) {
+        this.assignedCharacter = character;
+    }
+
+    initCharacter(game: IGame): void {
+        this._character = new Cook("male", game, this);
+    }
+
 
     getCharacter(): IPlayerCharacter {
         if (!this._character) {
@@ -60,7 +75,5 @@ export class Player implements IPlayer {
         return this._character;
     }
 
-    setCharacter(value: IPlayerCharacter) {
-        this._character = value;
-    }
+
 }

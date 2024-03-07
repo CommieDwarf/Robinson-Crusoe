@@ -3,11 +3,11 @@ import styles from "./ActionSlot.module.css";
 import {Droppable} from "react-beautiful-dnd";
 
 import Pawn from "./Pawn";
-import {IPawnRenderData} from "@sharedTypes/Pawns/Pawn";
-import {ACTION, UniqueAction} from "@sharedTypes/ACTION";
 import {RootState} from "../../../store/store";
 import {connect} from "react-redux";
 import {kebabCase} from "lodash";
+import {IPawnRenderData} from "@shared/types/Game/Pawns/Pawn";
+import {ACTION, UniqueAction} from "@shared/types/Game/ACTION";
 
 
 interface StateProps {

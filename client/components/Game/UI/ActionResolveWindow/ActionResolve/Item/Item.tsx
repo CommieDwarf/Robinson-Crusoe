@@ -3,22 +3,22 @@ import * as React from "react";
 import {useState} from "react";
 
 import styles from "./Item.module.css";
-import {IEventCardRenderData} from "../../../../../../../server/src/types/EventService/EventCard";
-import {IConstruction} from "../../../../../../../server/src/types/ConstructionService/Construction";
-import {ITileRenderData} from "../../../../../../../server/src/types/TileService/ITile";
-import {IInventionRenderData} from "../../../../../../../server/src/types/InventionService/Invention";
-import {IBeastRenderData} from "../../../../../../../server/src/types/Beasts/Beast";
-import {
-    IResolvableItemRenderData,
-    RESOLVE_ITEM_STATUS,
-} from "../../../../../../../server/src/types/ActionService/IResolvableItem";
-import {formatToKebabCase} from "../../../../../../../utils/formatToKebabCase";
+
 import redArrowImg from "/public/UI/misc/red-arrow.png";
-import {ACTION} from "../../../../../../../server/src/types/ACTION";
-import {IActionServiceRenderData} from "../../../../../../../server/src/types/ActionService/ActionService";
 import {Tokens} from "./Tokens/Tokens";
 import reRollTokenImg from "/public/UI/tokens/reroll.png";
 import ResizableImage from "../../../../../ResizableImage/ResizableImage";
+import {IResolvableItemRenderData, RESOLVE_ITEM_STATUS} from "@shared/types/Game/ActionService/IResolvableItem";
+import {IBeastRenderData} from "@shared/types/Game/Beasts/Beast";
+import {IActionServiceRenderData} from "@shared/types/Game/ActionService/ActionService";
+import {ACTION} from "@shared/types/Game/ACTION";
+import {IEventCardRenderData} from "@shared/types/Game/EventService/EventCard";
+import {IConstruction} from "@shared/types/Game/ConstructionService/Construction";
+import {IInventionRenderData} from "@shared/types/Game/InventionService/Invention";
+import {ITileRenderData} from "@shared/types/Game/TileService/ITile";
+import {kebabCase} from "lodash";
+import {emitAction} from "../../../../../../pages/api/emitAction";
+import {ACTION_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 
 type Props = {
     resolvableItem: IResolvableItemRenderData;
@@ -27,7 +27,6 @@ type Props = {
     rollDices: (resolvableItemID: string) => void;
     reRoll: (resolvableItemID: string) => void;
     actionService: IActionServiceRenderData;
-    setBibleUsage: (resolvableItemId: string, value: boolean) => void;
     resolved: boolean;
 };
 export const Item = (props: Props) => {
@@ -39,7 +38,10 @@ export const Item = (props: Props) => {
 
 
     function handleBibleCheckBoxClick() {
-        props.setBibleUsage(props.resolvableItem.id, !props.resolvableItem.bibleChecked)
+        emitAction(ACTION_CONTROLLER_ACTION.SET_BIBLE_USAGE, {
+            actionId: props.resolvableItem.id,
+            value: !props.resolvableItem.bibleChecked
+        })
     }
 
     if (props.resolvableItem.action === ACTION.THREAT) {
@@ -47,7 +49,7 @@ export const Item = (props: Props) => {
         image = (
             <div className={styles.threat}>
                 <ResizableImage
-                    src={`/UI/cards/event/${formatToKebabCase(card.name)}.png`}
+                    src={`/UI/cards/event/${kebabCase(card.name)}.png`}
                     alt={card.name}
                 />
             </div>
@@ -57,7 +59,7 @@ export const Item = (props: Props) => {
         image = (
             <div className={styles.hunt}>
                 <ResizableImage
-                    src={`/UI/cards/beasts/${formatToKebabCase(beast.name)}.png`}
+                    src={`/UI/cards/beasts/${kebabCase(beast.name)}.png`}
                     alt={beast.name}
                 />
             </div>
@@ -70,7 +72,7 @@ export const Item = (props: Props) => {
         image = (
             <div className={styles.invention}>
                 <ResizableImage
-                    src={`/UI/inventions/${invention.inventionType}/${formatToKebabCase(
+                    src={`/UI/inventions/${invention.inventionType}/${kebabCase(
                         invention.name
                     )}${reverse}.png`}
                     alt={invention.name}
@@ -83,7 +85,7 @@ export const Item = (props: Props) => {
         image = (
             <div className={styles[construction.name] + " " + styles.construction}>
                 <ResizableImage
-                    src={`/UI/constructions/${formatToKebabCase(construction.name)}.png`}
+                    src={`/UI/constructions/${kebabCase(construction.name)}.png`}
                     alt={construction.name}
                 />
             </div>
@@ -151,7 +153,7 @@ export const Item = (props: Props) => {
         image = (
             <div className={styles.restArrange}>
                 <ResizableImage
-                    src={`/UI/actions/${formatToKebabCase(
+                    src={`/UI/actions/${kebabCase(
                         props.resolvableItem.action
                     )}-picture.png`}
                     alt={props.resolvableItem.action}

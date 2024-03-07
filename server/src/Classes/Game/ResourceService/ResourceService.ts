@@ -98,7 +98,7 @@ export class ResourceService implements IResourceService {
         return {
             basic: resources.basic.renderData,
             tokens: resources.tokens.map((token) => token.renderData),
-            treasures: resources.treasures.map((treasure) => treasure.getRenderData()),
+            treasures: resources.treasures.map((treasure) => treasure.renderData),
         };
     }
 

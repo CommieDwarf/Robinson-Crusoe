@@ -1,10 +1,10 @@
 import styles from "./CostBlock.module.css";
 
 import {Record} from "./Record/Record";
-import {IBasicResourcesAmount} from "@sharedTypes/Resources/Resources";
 import React from "react";
 import crossLineImg from "/public/UI/misc/cross-line.png";
 import ResizableImage from "../../../../../ResizableImage/ResizableImage";
+import {IBasicResourcesAmount} from "@shared/types/Game/Resources/Resources";
 
 interface ResourceCost {
     type: "leather" | "wood",

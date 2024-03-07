@@ -1,9 +1,10 @@
 import React, {useEffect, useRef, useState} from "react";
 import styles from "./Threat.module.css";
-import {IEventCardRenderData} from "@sharedTypes/EventService/EventCard";
-import ResizableImage from "../../../ResizableImage/ResizableImage";
-import {Side} from "@sharedTypes/TileService/TileResourceService";
+
 import {kebabCase} from "lodash";
+import {IEventCardRenderData} from "@shared/types/Game/EventService/EventCard";
+import ResizableImage from "../../../ResizableImage/ResizableImage";
+import {Side} from "@shared/types/Game/TileService/TileResourceService";
 
 interface Props {
     card: IEventCardRenderData | null;

@@ -29,7 +29,7 @@ export class MysteryService implements IMysteryService {
         return {
             isDrawingOn: this.isDrawingOn,
             canDraw: this._cardDrawer?.canDraw || false,
-            currentResolve: this._currentResolve?.getRenderData() || null,
+            currentResolve: this._currentResolve?.renderData || null,
             canFinish: this._cardDrawer?.canFinish || false,
             drawer: this._cardDrawer?.drawer.renderData || null,
             cardsLeft: {
@@ -37,7 +37,7 @@ export class MysteryService implements IMysteryService {
                 trap: this._cardDrawer?.trap || 0,
                 treasure: this._cardDrawer?.treasure || 0,
             },
-            cardsAsReminders: this._cardsAsReminders.map((card) => card.getRenderData()),
+            cardsAsReminders: this._cardsAsReminders.map((card) => card.renderData),
         };
     }
 

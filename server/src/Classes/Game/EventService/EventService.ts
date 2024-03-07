@@ -49,7 +49,7 @@ export class EventService implements IEventService {
             leftSlot: this.left?.renderData || null,
             rightSlot: this.right?.renderData || null,
             currentAdventureCard: this._currentAdventureCard?.renderData || null,
-            currentMysteryCard: this._currentMysteryCard?.getRenderData() || null,
+            currentMysteryCard: this._currentMysteryCard?.renderData || null,
         };
     }
 

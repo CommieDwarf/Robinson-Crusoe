@@ -46,7 +46,7 @@ export class Barrel extends TreasureMysteryCard implements StorageCard {
         }
     }
 
-    getRenderData() {
-        return {...super.getRenderData(), stored: this._stored};
+    getPawnOwnerRenderData() {
+        return {...super.getPawnOwnerRenderData(), stored: this._stored};
     }
 }

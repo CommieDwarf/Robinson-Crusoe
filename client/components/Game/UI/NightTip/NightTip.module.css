@@ -4,7 +4,7 @@
     position: absolute;
     top: 25%;
     left: 30%;
-    background-image: url("../../../../../public/UI/paper-background.png");
+    background-image: url("../../../../public/UI/paper-background.png");
     border: 1px solid var(--borderColor);
     z-index: 9999;
 }

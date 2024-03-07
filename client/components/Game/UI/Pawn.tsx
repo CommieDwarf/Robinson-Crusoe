@@ -4,8 +4,8 @@ import {Draggable} from "react-beautiful-dnd";
 import {useAppSelector} from "../../../store/hooks";
 import ResizableImage from "../../ResizableImage/ResizableImage";
 import {kebabCase} from "lodash";
-import {ACTION} from "@sharedTypes/Game/ACTION";
-import {IPawnRenderData} from "@sharedTypes/Game/Pawns/Pawn";
+import {ACTION} from "@shared/types/Game/ACTION";
+import {IPawnRenderData} from "@shared/types/Game/Pawns/Pawn";
 
 interface Props {
     pawn: IPawnRenderData<any>;

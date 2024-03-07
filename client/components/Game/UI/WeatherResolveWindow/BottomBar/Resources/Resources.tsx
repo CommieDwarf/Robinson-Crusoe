@@ -2,12 +2,11 @@
 import * as React from "react";
 import styles from "./Resources.module.css";
 import {Resource} from "./Resource/Resource";
-import {
-    IConstructionServiceRenderData
-} from "@sharedTypes/ConstructionService/IConstructionService";
-import {IBasicResourcesAmount} from "@sharedTypes/Resources/Resources";
-import {OverallWeather} from "@sharedTypes/Weather/Weather";
-import {CONSTRUCTION} from "@sharedTypes/ConstructionService/Construction";
+import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction";
+import {IBasicResourcesAmount} from "@shared/types/Game/Resources/Resources";
+import {OverallWeather} from "@shared/types/Game/Weather/Weather";
+import {IConstructionServiceRenderData} from "@shared/types/Game/ConstructionService/IConstructionService";
+
 
 type Props = {
     constructionService: IConstructionServiceRenderData;

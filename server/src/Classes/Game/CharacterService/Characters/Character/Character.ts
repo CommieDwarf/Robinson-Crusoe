@@ -21,7 +21,7 @@ export abstract class Character implements ICharacter {
     protected _game: IGame;
     protected declare _effects: ICharEffects;
     protected declare _pawnService: IPawnService<ICharacter>;
-    protected declare _skills: ISkill[];
+    protected declare _skills: ISkill<any>[];
 
     protected constructor(
         name: PlayerCharacterName | SideCharacterName,
@@ -40,12 +40,12 @@ export abstract class Character implements ICharacter {
 
     get renderData(): ICharacterRenderData {
         return {
-            ...this.getRenderData(),
+            ...this.getPawnOwnerRenderData(),
             pawnService: this._pawnService.renderData,
         }
     }
 
-    public getRenderData(): Omit<ICharacterRenderData, "pawnService"> {
+    public getPawnOwnerRenderData(): Omit<ICharacterRenderData, "pawnService"> {
         return {
             determination: this._determination,
             gender: this._gender,
@@ -58,7 +58,7 @@ export abstract class Character implements ICharacter {
         };
     }
 
-    get skills(): ISkill[] {
+    get skills(): ISkill<any>[] {
         return this._skills;
     }
 

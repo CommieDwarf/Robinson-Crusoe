@@ -1,8 +1,8 @@
 // @flow
 import * as React from "react";
 import styles from "./Skill.module.css";
-import {ISkillRenderData} from "@sharedTypes/Skill/Skill";
-import {insertIconsIntoText} from "@sharedUtils/insertIconsIntoText";
+import {ISkillRenderData} from "@shared/types/Game/Skill/Skill";
+import {insertIconsIntoText} from "../../../../../../utils/insertIconsIntoText";
 
 type Props = {
     skill: ISkillRenderData;

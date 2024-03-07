@@ -2,17 +2,18 @@
 import * as React from "react";
 import styles from "../CardResolve.module.css";
 import i18n from "../../../../../I18n/I18n";
-import {formatToKebabCase} from "../../../../../../utils/formatToKebabCase";
-import {IAdventureCardRenderData} from "../../../../../../server/src/types/AdventureService/AdventureCard";
 import {CardActions} from "../Actions/CardActions";
 import {ZoomButton} from "../ZoomButton/ZoomButton";
-import {IMysteryCardRenderData} from "../../../../../../server/src/types/MysteryService/MysteryCard";
-import {isAdventureCard} from "../../../../../../utils/typeGuards/isAdventureCard";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
+import {emitAction} from "../../../../../pages/api/emitAction";
+import {ACTION_CONTROLLER_ACTION, OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
+import {IAdventureCardRenderData} from "@shared/types/Game/AdventureService/AdventureCard";
+import {IMysteryCardRenderData} from "@shared/types/Game/MysteryService/MysteryCard";
+import {isAdventureCard} from "@shared/utils/typeGuards/isAdventureCard";
+import {kebabCase} from "lodash";
 
 type Props = {
     card: IAdventureCardRenderData | IMysteryCardRenderData;
-    resolve: (option: 1 | 2) => void;
     toggleZoom: () => void;
     eventStage: boolean;
 };
@@ -22,14 +23,26 @@ export const Adventure = (props: Props) => {
     }
 
     function handleOption1Click() {
-        props.resolve(1);
+        resolve(1);
     }
 
     function handleOption2Click() {
-        props.resolve(2);
+        resolve(2);
     }
 
-    let l: IMysteryCardRenderData;
+
+    function resolve(option: 1 | 2) {
+        if (props.eventStage) {
+            emitAction(OTHER_CONTROLLER_ACTION.RESOLVE_EVENT_ADVENTURE, {
+                option
+            })
+        } else {
+            emitAction(ACTION_CONTROLLER_ACTION.RESOLVE_ADVENTURE, {
+                option
+            })
+        }
+    }
+
 
     let label1: string = ""
     let label2: string = ""
@@ -58,9 +71,9 @@ export const Adventure = (props: Props) => {
         }
     }
 
-    let imageUrl = "action" in props.card ? `/UI/cards/adventure/${props.card.action}/${formatToKebabCase(
+    let imageUrl = "action" in props.card ? `/UI/cards/adventure/${props.card.action}/${kebabCase(
         props.card.name
-    )}.png` : `/UI/cards/mystery/${props.card.type}/${formatToKebabCase(props.card.name)}.png`
+    )}.png` : `/UI/cards/mystery/${props.card.type}/${kebabCase(props.card.name)}.png`
 
     return (
         <>

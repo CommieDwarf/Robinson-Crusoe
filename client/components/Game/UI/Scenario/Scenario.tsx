@@ -3,8 +3,8 @@ import styles from "./Scenario.module.css";
 import React from "react";
 
 import Castaways from "./Scenarios/Castaways/Castaways";
-import {IInventionRenderData} from "@sharedTypes/InventionService/Invention";
-import {IScenarioServiceRenderData} from "@sharedTypes/ScenarioService/ScenarioService";
+import {IInventionRenderData} from "@shared/types/InventionService/Invention";
+import {IScenarioServiceRenderData} from "@shared/types/ScenarioService/ScenarioService";
 
 interface Props {
     inventions: IInventionRenderData[];

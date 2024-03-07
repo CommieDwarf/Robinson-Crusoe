@@ -18,6 +18,7 @@ import {IEventCard} from "@shared/types/Game/EventService/EventCard";
 import {IGame} from "@shared/types/Game/Game";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
 import {uuid} from "uuidv4"
+import {Construction} from "../ConstructionService/Construction";
 
 export class ResolvableItem implements IResolvableItem {
     private readonly _item: Item;

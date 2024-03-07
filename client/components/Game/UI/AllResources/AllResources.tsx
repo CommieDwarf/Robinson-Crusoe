@@ -1,14 +1,14 @@
 import React from "react";
 import styles from "./AllResources.module.css";
 import frameStyles from "./Frame/Frame.module.css";
-import {IBasicResourcesAmount} from "@sharedTypes/Resources/Resources";
 
 import {Frame} from "./Frame/Frame";
 import {Resources} from "./Resources/Resources";
 import productionImg from "/public/UI/phase/production.png";
 import boardImg from "/public/UI/misc/board.jpg";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
-import {objectsEqual} from "@sharedUtils/objectsEqual";
+import {IBasicResourcesAmount} from "@shared/types/Game/Resources/Resources";
+import {objectsEqual} from "@shared/utils/objectsEqual";
 
 interface Props {
     owned: {

@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./ArrangeCampRest.module.css";
 import RestArrange from "./RestOrArrangeCamp/RestArrange";
-import {IArrangeCampRestServiceRenderData} from "@sharedTypes/RestArrangeCampService/ArrangeCampRestService";
-import {ACTION} from "@sharedTypes/ACTION";
-import {objectsEqual} from "@sharedUtils/objectsEqual";
+import {ACTION} from "@shared/types/Game/ACTION";
+import {objectsEqual} from "@shared/utils/objectsEqual";
+import {IArrangeCampRestServiceRenderData} from "@shared/types/Game/RestArrangeCampService/ArrangeCampRestService";
 
 interface Props {
     arrangeCampRestService: IArrangeCampRestServiceRenderData;

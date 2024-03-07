@@ -1,4 +1,4 @@
-import {ACTION, ACTION_ITEM, UniqueAction} from "../../server/src/types/ACTION";
+import {ACTION, ACTION_ITEM, UniqueAction} from "@shared/types/Game/ACTION";
 
 
 export function actionToUniqueAction(action: ACTION, actionItem: ACTION_ITEM): UniqueAction {

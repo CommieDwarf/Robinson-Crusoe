@@ -46,8 +46,8 @@
     display: inline-block;
     margin-top: 2px;
     border-radius: 5px;
-    background-image: url("../../../../../public/UI/misc/event-background.png"),
-    url("../../../../../public/UI/cards/event/event-slot-background.png");
+    background-image: url("../../../../public/UI/misc/event-background.png"),
+    url("../../../../public/UI/cards/event/event-slot-background.png");
     background-size: cover;
     transition: all 0.5s;
     cursor: pointer;

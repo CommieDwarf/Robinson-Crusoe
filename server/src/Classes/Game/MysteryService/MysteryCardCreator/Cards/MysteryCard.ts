@@ -16,6 +16,8 @@ export abstract class MysteryCard implements IMysteryCard {
     protected readonly _drawLabel: string;
     protected _drawResolved: boolean = false;
 
+    declare renderData: IMysteryCardRenderData
+
     protected constructor(
         game: IGame,
         name: string,
@@ -34,7 +36,7 @@ export abstract class MysteryCard implements IMysteryCard {
         this._drawLabel = drawLabel;
     }
 
-    public getRenderData(): IMysteryCardRenderData {
+    protected getRenderData(): IMysteryCardRenderData {
         return {
             name: this._name,
             namePL: this._namePL,

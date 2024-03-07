@@ -1,5 +1,5 @@
 import {IBasicResources, IBasicResourcesAmount,} from "@shared/types/Game/Resources/Resources";
-import Entries from "@shared/types/Game/Entries";
+import Entries from "@shared/types/Entries";
 
 const initialResources: IBasicResourcesAmount = {
     food: 0,

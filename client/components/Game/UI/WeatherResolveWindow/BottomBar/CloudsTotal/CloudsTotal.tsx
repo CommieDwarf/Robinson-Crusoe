@@ -1,10 +1,10 @@
 // @flow
 import * as React from "react";
 import styles from "./CloudsTotal.module.css";
-import {IWeatherServiceRenderData} from "@sharedTypes/Weather/Weather";
 import snowCloudImg from "/public/UI/weather/snow-cloud.png";
 import rainCloudImg from "/public/UI/weather/rain-cloud.png";
 import ResizableImage from "../../../../../ResizableImage/ResizableImage";
+import {IWeatherServiceRenderData} from "@shared/types/Game/Weather/Weather";
 
 type Props = {
     weatherService: IWeatherServiceRenderData;

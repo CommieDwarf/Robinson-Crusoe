@@ -52,12 +52,12 @@ export class Invention extends ResourceCommittableItem<InventionResource> implem
 
     get renderData(): IInventionRenderData {
         return {
-            ...this.getRenderData(),
+            ...this.getPawnOwnerRenderData(),
             pawnService: this._pawnService.renderData
         }
     }
 
-    getRenderData(): Omit<IInventionRenderData, "pawnService"> {
+    getPawnOwnerRenderData(): Omit<IInventionRenderData, "pawnService"> {
         return {
             name: this.name,
             locked: this.locked,

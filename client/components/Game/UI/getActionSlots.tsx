@@ -1,16 +1,13 @@
 import ActionSlot from "./ActionSlot";
-
-import {IInventionRenderData} from "@sharedTypes/InventionService/Invention";
-import {IConstructionRenderData} from "@sharedTypes/ConstructionService/Construction";
-// @ts-ignore
-import {getActionSlotDroppableId} from "../../../../utils/getActionSlotDroppableId";
-import {ITileRenderData} from "@sharedTypes/TileService/ITile";
-import {IBeastRenderData} from "@sharedTypes/Beasts/Beast";
-import {IEventCardRenderData} from "@sharedTypes/EventService/EventCard";
-import {Side} from "@sharedTypes/TileService/TileResourceService";
-// @ts-ignore
-import {isEventCard} from "../../../../utils/typeGuards/isEventCard";
-import {WRECKAGE_CARD} from "@sharedTypes/EventService/EVENT_CARD";
+import {IBeastRenderData} from "@shared/types/Game/Beasts/Beast";
+import {IConstructionRenderData} from "@shared/types/Game/ConstructionService/Construction";
+import {isEventCard} from "@shared/utils/typeGuards/isEventCard";
+import {WRECKAGE_CARD} from "@shared/types/Game/EventService/EVENT_CARD";
+import {IEventCardRenderData} from "@shared/types/Game/EventService/EventCard";
+import {IInventionRenderData} from "@shared/types/Game/InventionService/Invention";
+import {ITileRenderData} from "@shared/types/Game/TileService/ITile";
+import {getActionSlotDroppableId} from "@shared/utils/getActionSlotDroppableId";
+import {Side} from "@shared/types/Game/TileService/TileResourceService";
 
 
 export default function getActionSlots(

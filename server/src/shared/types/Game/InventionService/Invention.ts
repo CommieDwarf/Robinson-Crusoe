@@ -30,6 +30,7 @@ export interface IInvention extends IResourceCommittableItem<InventionResource>,
     use: (character: IPlayerCharacter) => void;
 
     pawnService: IPawnService<IInvention>;
+
     renderData: IInventionRenderData;
 
 }

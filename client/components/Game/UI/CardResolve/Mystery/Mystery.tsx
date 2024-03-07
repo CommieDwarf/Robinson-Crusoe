@@ -1,14 +1,16 @@
 // @flow
 import * as React from "react";
-import {IMysteryCardRenderData} from "../../../../../../server/src/types/MysteryService/MysteryCard";
-import {ICharacterRenderData} from "../../../../../../server/src/types/Characters/Character";
 import cardResolveStyles from "../CardResolve.module.css";
-import {formatToKebabCase} from "../../../../../../utils/formatToKebabCase";
-import {MysteryCardsAmount} from "../../../../../../server/src/types/MysteryService/MysteryService";
 import {MysteryCardCounter} from "./MysteryCardCounter/MysteryCardCounter";
 import {CardActions} from "../Actions/CardActions";
 import {ZoomButton} from "../ZoomButton/ZoomButton";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
+import {IMysteryCardRenderData} from "@shared/types/Game/MysteryService/MysteryCard";
+import {MysteryCardsAmount} from "@shared/types/Game/MysteryService/MysteryService";
+import {ICharacterRenderData} from "@shared/types/Game/Characters/Character";
+import {kebabCase} from "lodash";
+import {emitAction} from "../../../../../pages/api/emitAction";
+import {MYSTERY_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 
 type Props = {
     isDrawingOn: boolean;
@@ -16,8 +18,6 @@ type Props = {
     currentResolve: IMysteryCardRenderData | null;
     canFinish: boolean;
     drawer: ICharacterRenderData | null;
-    draw: (option: 1 | 2) => void;
-    resolve: () => void;
     cardsLeft: MysteryCardsAmount;
     toggleZoom: () => void;
 };
@@ -25,15 +25,15 @@ type Props = {
 export const Mystery = (props: Props) => {
     function handleDrawClick() {
         if (props.currentResolve?.drawResolved === false) {
-            props.resolve();
+            emitAction(MYSTERY_CONTROLLER_ACTION.TRIGGER_MYSTERY_DRAW_EFFECT)
         } else if (props.canDraw) {
-            props.draw(1);
+            emitAction(MYSTERY_CONTROLLER_ACTION.DRAW_MYSTERY_CARD)
         }
     }
 
     function handleFinishClick() {
         if (props.canFinish) {
-            props.draw(2);
+            emitAction(MYSTERY_CONTROLLER_ACTION.FINISH_DRAWING_MYSTERY_CARDS);
         }
     }
 
@@ -48,7 +48,7 @@ export const Mystery = (props: Props) => {
 
 
     const cardImgSrc = props.currentResolve
-        ? `/UI/cards/mystery/${props.currentResolve.type}/${formatToKebabCase(
+        ? `/UI/cards/mystery/${props.currentResolve.type}/${kebabCase(
             props.currentResolve.name
         )}.png`
         : `/UI/cards/reverse/mystery.png`;

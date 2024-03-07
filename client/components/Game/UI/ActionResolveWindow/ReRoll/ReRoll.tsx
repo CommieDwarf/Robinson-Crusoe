@@ -1,9 +1,9 @@
 // @flow
 import * as React from "react";
 import styles from "./ReRoll.module.css";
-import {IActionServiceRenderData} from "../../../../../../server/src/types/ActionService/ActionService";
-import {insertIconsIntoText} from "../../../../../../utils/insertIconsIntoText";
-import {ACTION} from "../../../../../../server/src/types/ACTION";
+import {IActionServiceRenderData} from "@shared/types/Game/ActionService/ActionService";
+import {ACTION} from "@shared/types/Game/ACTION";
+import {insertIconsIntoText} from "../../../../../utils/insertIconsIntoText";
 
 type Props = {
     actionService: IActionServiceRenderData;
@@ -39,7 +39,8 @@ export const ReRoll = (props: Props) => {
                         onClick={props.onReRollButtonClick}
                     >
                         {insertIconsIntoText(
-                            `Przerzuć (${character?.determination}/${skill.cost})$determination$`
+                            `Przerzuć (${character?.determination}/${skill.cost})$determination$`,
+                            styles.button
                         )}
                     </div>
                 </>

@@ -23,7 +23,7 @@
 
 /* Handle */
 .scroll::-webkit-scrollbar-thumb {
-    background-image: url("../../../../../public/UI/map/boardVert.jpg");
+    background-image: url("../../../../public/UI/map/boardVert.jpg");
     background-size: cover;
     border-radius: 5px;
     border: 1px solid var(--borderColor);
@@ -46,7 +46,7 @@
     text-align: center;
     line-height: 100%;
     font-size: 3em;
-    
+
 }
 
 

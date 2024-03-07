@@ -1,10 +1,10 @@
 import styles from "./Hunt.module.css";
 import ActionSlot from "../ActionSlot";
-import {ACTION} from "@sharedTypes/ACTION";
 import beastReverseImg from "/public/UI/cards/reverse/beast.png";
 import React from "react";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
-import {getActionSlotDroppableId} from "@sharedUtils/getActionSlotDroppableId";
+import {getActionSlotDroppableId} from "@shared/utils/getActionSlotDroppableId";
+import {ACTION} from "@shared/types/Game/ACTION";
 
 interface Props {
     zIndex: string;

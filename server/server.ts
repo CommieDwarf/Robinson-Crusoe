@@ -1,11 +1,13 @@
-import {Socket} from "socket.io";
-import {SessionService} from "./src/SessionService/SessionService";
-import {User} from "./src/User/User";
-import {CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
-import {SessionData} from "./src/types/Session/Session";
-import {BaseController} from "./src/types/GameController/Controllers";
-import {IGame} from "@shared/types/Game/Game";
-import {UserData} from "./src/types/UserData/UserData";
+const {Socket} = require("socket.io");
+const {CONTROLLER_ACTION} = require("./src/shared/types/CONTROLLER_ACTION");
+const {SessionData} = require("./src/types/Session/Session");
+const {BaseController} = require("./src/types/GameController/Controllers");
+const {IGame} = require("./src/shared/types/Game/Game");
+const {UserData} = require("./src/types/UserData/UserData");
+const {SessionService} = require("./src/Classes/SessionService/SessionService");
+const {User} = require("./src/Classes/User/User");
+const {MethodData} = require("./src/shared/types/MethodData");
+
 
 const express = require("express");
 const app = express();
@@ -20,6 +22,7 @@ app.use(cors({
     origin: '*'
 }));
 
+
 const io = new Server(server, {
     cors: {
         origin: "*",
@@ -29,27 +32,27 @@ const io = new Server(server, {
 
 
 const sessionService = new SessionService();
-const user = new User("ID", "Konrad");
-
-const session = sessionService.createSession(user);
 
 
 export interface ActionPayload {
-    actionType: CONTROLLER_ACTION,
+    actionType: typeof CONTROLLER_ACTION,
     arguments: any[],
 
 }
 
-io.on("connection", (socket: Socket) => {
-    const session: SessionData = user.session;
+const user = new User("ID", "Konrad");
+const session = sessionService.createSession(user);
+const gameController: typeof BaseController = session.startGame();
+const game: typeof IGame = gameController.game;
+
+io.on("connection", (socket: typeof Socket) => {
+
     if (!session) {
         throw new Error("SHIT");
     }
-    const gameController: BaseController = session.startGame();
-    const game: IGame = gameController.game;
 
-    socket.on("game_instance_requested", (payload) => {
-        console.log(payload);
+
+    socket.on("game_instance_requested", () => {
         socket.emit("game_instance_sent", game.renderData);
     })
 
@@ -58,10 +61,25 @@ io.on("connection", (socket: Socket) => {
     })
 
     socket.on("playerAction", (actionData: ActionPayload) => {
-        session.handleAction(user, actionData.actionType, ...actionData.arguments)
+        session.handleAction(user, actionData.actionType, ...actionData.arguments);
+        socket.emit("game_instance_sent", game.renderData);
     })
 
-    console.log("connected!", socket)
+    socket.on("executeGameMethodAndSendResponse", (methodData: typeof MethodData) => {
+        const {methodName, methodArgs} = methodData;
+
+        if (typeof game[methodName] === 'function') {
+            const func = game[methodName] as Function;
+            func.bind(game);
+            const result = func(...methodArgs);
+
+            socket.emit("gameMethodResponse", {result});
+        } else {
+            console.error(`Method ${methodName} does not exist on game instance.`);
+        }
+    });
+
+    console.log("connected!", socket.id)
 
 })
 
@@ -70,4 +88,3 @@ server.listen(PORT, () => {
     console.log('server running on port:', PORT);
 })
 
-export {}

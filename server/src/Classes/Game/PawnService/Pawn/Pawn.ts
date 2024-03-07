@@ -37,7 +37,7 @@ export class Pawn<Owner extends IInvention | ITreasureMysteryCard | ICharacter>
             action: this._action,
             disposable: this._disposable,
             draggableId: this._draggableId,
-            owner: this._owner.getRenderData(),
+            owner: this._owner.getPawnOwnerRenderData(),
         };
     }
 

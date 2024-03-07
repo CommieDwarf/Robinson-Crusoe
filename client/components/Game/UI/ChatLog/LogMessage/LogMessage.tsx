@@ -2,13 +2,16 @@
 import * as React from "react";
 import styles from "./LogMessage.module.css";
 import {RoundSquare} from "../../Scenario/Scenarios/Castaways/Rounds/RoundSquare";
-import {ILogMessageRenderData} from "@sharedTypes/LogService/LogMessage";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
-import capitalizeFirstLetter from "@sharedUtils/capitalizeFirstLetter";
+import {capitalize} from "lodash";
+import {ILogMessageRenderData} from "@shared/types/Game/ChatLog/LogMessage";
 
 type Props = {
     message: ILogMessageRenderData;
 };
+
+
+//TODO: zrób odkodowywanie
 export const LogMessage = (props: Props) => {
     const msg = props.message;
     return (
@@ -31,10 +34,11 @@ export const LogMessage = (props: Props) => {
             {}
             <div className={styles.messageContent}>
         <span className={styles.messageSource}>
-          {capitalizeFirstLetter(msg.source)} -{" "}
+          {capitalize(msg.source)} -{" "}
         </span>
                 <span className={styles.message + " " + styles[msg.color]}>
-          {capitalizeFirstLetter(msg.message)}.
+
+                    {msg.content.code}
         </span>
             </div>
         </div>

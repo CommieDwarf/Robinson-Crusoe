@@ -1,11 +1,11 @@
 import React from "react";
 import styles from "./ScenarioButton.module.css";
-import {IInventionRenderData} from "@sharedTypes/InventionService/Invention";
 
 import redArrowImg from "/public/UI/misc/red-arrow.png";
-import {IScenarioServiceRenderData} from "@sharedTypes/ScenarioService/ScenarioService";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
-import {objectsEqual} from "@sharedUtils/objectsEqual";
+import {IScenarioServiceRenderData} from "@shared/types/Game/ScenarioService/ScenarioService";
+import {IInventionRenderData} from "@shared/types/Game/InventionService/Invention";
+import {getPropsComparator} from "../../../../utils/getPropsComparator";
 
 interface Props {
     inventions: IInventionRenderData[];
@@ -15,7 +15,6 @@ interface Props {
     round: number;
 
     scenario: IScenarioServiceRenderData;
-    addWoodToStash: () => void;
 }
 
 function ScenarioButton(props: Props) {
@@ -54,4 +53,4 @@ function ScenarioButton(props: Props) {
 }
 
 
-export default React.memo(ScenarioButton, objectsEqual);
+export default React.memo(ScenarioButton, getPropsComparator());

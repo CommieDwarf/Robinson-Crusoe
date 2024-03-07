@@ -1,4 +1,4 @@
-import {ICharacter} from "../../server/src/types/Characters/Character";
+import {ICharacter} from "@shared/types/Game/Characters/Character";
 
 export const isCharacter = (
     candidate: Object

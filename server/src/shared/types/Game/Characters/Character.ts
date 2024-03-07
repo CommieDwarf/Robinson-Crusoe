@@ -25,7 +25,7 @@ export interface ICharacter extends PawnOwner<IPlayerCharacterRenderData | ISide
     id: number;
     maxHealth: number;
     effects: ICharEffects;
-    skills: ISkill[];
+    skills: ISkill<any>[];
     useSkill: (name: string, target: ICharacter | ActionDice | Cloud | null) => void;
     namePL: string;
     health: number;

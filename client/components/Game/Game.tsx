@@ -27,8 +27,7 @@ import {Alerts} from "./UI/Alerts/Alerts";
 import {WeatherResolveWindow} from "./UI/WeatherResolveWindow/WeatherResolveWindow";
 import {NightTip} from "./UI/NightTip/NightTip";
 import {ConfirmCampMove} from "./UI/ConfirmCampMove/ConfirmCampMove";
-// @ts-ignore
-import {sleep} from "../../../utils/sleep";
+import {sleep} from "@shared/utils/sleep";
 
 import {useAppSelector} from "../../store/hooks";
 
@@ -44,11 +43,14 @@ import {IBasicResourcesAmount} from "@shared/types/Game/Resources/Resources";
 import {INVENTION_TYPE} from "@shared/types/Game/InventionService/Invention";
 import {IGameRenderData} from "@shared/types/Game/Game";
 import {ITileRenderData} from "@shared/types/Game/TileService/ITile";
+import {emitAction} from "../../pages/api/emitAction";
+import {CHARACTER_CONTROLLER_ACTION, OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
+import {socket} from "../../pages/_app";
+import {MethodData} from "@shared/types/MethodData";
 
 
 interface Props {
     gameRenderData: IGameRenderData;
-    updateGameRenderData: () => void;
 }
 
 export default function Game(props: Props) {
@@ -218,25 +220,46 @@ export default function Game(props: Props) {
             return;
         }
 
-        if (shouldCommitResources(destinationId)) {
-            if (!canAffordItem(destinationId)) {
-                handleSetAlert("Brakuje materiałów")
-                return;
+
+        //TODO: przenies moze logike do gry
+        const canAffordItem: boolean = await new Promise((resolve, reject) => {
+            const methodData: MethodData = {
+                methodName: "shouldCommitResources",
+                methodArgs: [destinationId]
             }
+            socket.emit("executeGameMethodAndSendResponse", methodData);
+            socket.on("gameMethodResponse", (result: boolean) => {
+                socket.off("gameMethodResponse");
+                resolve(result);
+            })
+        })
+
+
+        if (!canAffordItem) {
+            //TODO zrob stan dla alerta
+            // handleSetAlert("Brakuje materiałów")
+            return;
         }
 
-        handleSetPawn(destinationId, draggedPawn.draggableId);
-        handleUnsetPawn(sourceId, draggedPawn.draggableId);
+        emitAction(CHARACTER_CONTROLLER_ACTION.SET_PAWN, {
+            destinationId,
+            draggableId: draggedPawn.draggableId
+        })
+        emitAction(CHARACTER_CONTROLLER_ACTION.UNSET_PAWN, {
+            destinationId: sourceId,
+            draggableId: draggedPawn.draggableId
+        })
 
-        props.updateGameRenderData();
 
         // Sleep is used here, because if both pawns are switched in the same time,
         // beautiful DND loses draggable.
         await sleep(100);
 
         if (pawnAtActionSlot) {
-            setPawn(sourceId, pawnAtActionSlot.draggableId);
-            props.updateGameRenderData();
+            emitAction(CHARACTER_CONTROLLER_ACTION.SET_PAWN, {
+                destinationId: sourceId,
+                draggableId: pawnAtActionSlot.draggableId
+            })
         }
     }
 
@@ -265,36 +288,25 @@ export default function Game(props: Props) {
             {props.gameRenderData.adventureService.currentCard && (
                 <CardResolve
                     renderData={props.gameRenderData.adventureService.currentCard}
-                    resolve={handleResolveAdventureCard}
                     eventStage={false}
-                    triggerDrawEffect={() => {
-                    }}
                 />
             )}
             {props.gameRenderData.mysteryService.isDrawingOn && (
                 <CardResolve
                     renderData={props.gameRenderData.mysteryService}
-                    resolve={handleDrawOrFinishMysteryCard}
                     eventStage={false}
-                    triggerDrawEffect={handleTriggerDrawEffect}
                 />
             )}
             {props.gameRenderData.eventService.currentAdventureCard && (
                 <CardResolve
                     renderData={props.gameRenderData.eventService.currentAdventureCard}
-                    resolve={handleEventAdventureResolve}
                     eventStage={true}
-                    triggerDrawEffect={() => {
-                    }}
                 />
             )}
             {props.gameRenderData.eventService.currentMysteryCard && (
                 <CardResolve
                     renderData={props.gameRenderData.eventService.currentMysteryCard}
-                    resolve={handleEventMysteryResolve}
                     eventStage={true}
-                    triggerDrawEffect={() => {
-                    }}
                 />
             )}
 
@@ -408,7 +420,6 @@ export default function Game(props: Props) {
 
                 {/*<Players />*/}
                 <NextPhaseButton
-                    goNextPhase={handleSetNextPhase}
                     locked={gameRenderData.phaseService.locked || !!confirmWindow}
                 />
             </DragDropContext>
@@ -419,19 +430,11 @@ export default function Game(props: Props) {
                 setShow={setShowScenario}
                 round={gameRenderData.round}
                 scenario={gameRenderData.scenarioService}
-                addWoodToStash={handleAddWoodToStash}
             />
             {gameRenderData.phaseService.phase === "action" &&
                 !gameRenderData.actionService.finished && (
                     <ActionResolveWindow
                         actionService={gameRenderData.actionService}
-                        setNextAction={handleSetNextAction}
-                        resolveItem={handleResolveActionItem}
-                        setNextPhase={handleSetNextPhase}
-                        rollDices={handleRollActionDices}
-                        reRoll={handleReRollActionDice}
-                        useReRollSkill={useReRollSkill}
-                        setBibleUsage={handleSetBibleUsage}
                     />
                 )}
             <Alerts message={gameRenderData.alertService.alert}/>
@@ -442,11 +445,9 @@ export default function Game(props: Props) {
                     round={gameRenderData.round}
                     constructionService={gameRenderData.constructionService}
                     resourcesAmount={gameRenderData.resourceService.owned.basic}
-                    rollWeatherDices={handleRollWeatherDices}
                     dices={gameRenderData.scenarioService.weather}
                     skills={gameRenderData.localPlayer.character.skills}
                     determination={gameRenderData.localPlayer.character.determination}
-                    setNextPhase={handleSetNextPhase}
                 />
             )}
             {gameRenderData.phaseService.phase === "night" && showNightTip && (
@@ -456,7 +457,7 @@ export default function Game(props: Props) {
             {confirmWindow ? <ConfirmWindow
                 name={confirmWindow}
                 onAccept={() => {
-                    handleSetNextPhase();
+                    emitAction(OTHER_CONTROLLER_ACTION.SET_NEXT_PHASE)
                     setConfirmWindow(null);
                 }}
                 onRefuse={() => {

@@ -6,10 +6,11 @@ import moraleArrowRightImg from "/public/UI/icons/morale-arrow-right.png";
 import heartImg from "/public/UI/icons/heart.png";
 import moraleIconImg from "/public/UI/icons/morale.png";
 import {useTranslation} from "react-i18next";
-import {ACTION, ACTION_ITEM} from "@sharedTypes/ACTION";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
-import {getActionSlotDroppableId} from "@sharedUtils/getActionSlotDroppableId";
-import capitalizeFirstLetter from "@sharedUtils/capitalizeFirstLetter";
+import {ACTION, ACTION_ITEM} from "@shared/types/Game/ACTION";
+import {getActionSlotDroppableId} from "@shared/utils/getActionSlotDroppableId";
+import {capitalize} from "lodash";
+
 
 interface Props {
     pawnAmount: number;
@@ -73,10 +74,12 @@ export default function RestArrange(props: Props) {
 
     const [t] = useTranslation();
 
+
     return (
         <div className={styles[props.type] + " " + styles.activity}>
             <div className={`${styles.activityName} ${props.type === ACTION.REST ? styles.activityNameRest : ""}`}>
-                {capitalizeFirstLetter(t(`action.${props.type}`))}
+                {t("ss")}
+                {capitalize(t(`action.${props.type}`))}
             </div>
             {rewardLabel}
             <div className={styles.actionSlots}>

@@ -31,14 +31,14 @@ export class SideCharacter extends Character implements ISideCharacter {
 
     get renderData(): ISideCharacterRenderData {
         return {
-            ...this.getRenderData(),
+            ...this.getPawnOwnerRenderData(),
             pawnService: this._pawnService.renderData,
         };
     }
 
-    public getRenderData(): Omit<ISideCharacterRenderData, "pawnService"> {
+    public getPawnOwnerRenderData(): Omit<ISideCharacterRenderData, "pawnService"> {
         return {
-            ...super.getRenderData(),
+            ...super.getPawnOwnerRenderData(),
             name: this._name,
         }
     }

@@ -53,21 +53,20 @@ export abstract class PlayerCharacter
         this._gender = gender;
         this._effects = new PlayerCharEffects(this);
         this._pawnService = new PawnService(this._game, this);
-        console.log(this._pawnService);
 
         this.pawnService.initPawns(2, false, null);
     }
 
     get renderData(): IPlayerCharacterRenderData {
         return {
-            ...this.getRenderData(),
+            ...this.getPawnOwnerRenderData(),
             pawnService: this._pawnService.renderData,
         }
     }
 
-    public getRenderData(): Omit<IPlayerCharacterRenderData, "pawnService"> {
+    public getPawnOwnerRenderData(): Omit<IPlayerCharacterRenderData, "pawnService"> {
         return {
-            ...super.getRenderData(),
+            ...super.getPawnOwnerRenderData(),
             moraleThresholds: this._moraleThresholds,
             playerId: 0,
             name: this.name,

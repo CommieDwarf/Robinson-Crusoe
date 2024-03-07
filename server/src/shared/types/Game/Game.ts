@@ -50,6 +50,9 @@ export interface IGameRenderData {
     round: number;
     logs: ILogMessageRenderData[];
     actionService: IActionServiceRenderData;
+
+    actionSlotRenderData: IActionSlotServiceRenderData;
+    
     alertService: IAlertServiceRenderData;
     scenarioService: IScenarioServiceRenderData;
     weatherService: IWeatherServiceRenderData;
@@ -92,7 +95,6 @@ export interface IGame {
     canCommitResources: (droppableId: string) => boolean;
     shouldCommitResources: (droppableId: string) => boolean;
     resetPawns: () => void;
-    actionSlotRenderData: IActionSlotServiceRenderData;
     adventureService: IAdventureService;
     mysteryService: IMysteryService;
 

@@ -22,7 +22,7 @@
 .content {
     display: flex;
     flex-direction: column;
-    background-image: url("../../../../../../public/UI/paper-background.png");
+    background-image: url("../../../../../public/UI/paper-background.png");
     background-position-y: -55px;
     background-size: 1600px 1000px;
     background-repeat: no-repeat;

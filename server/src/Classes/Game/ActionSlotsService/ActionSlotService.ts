@@ -1,6 +1,4 @@
 import {IActionSlotService, IActionSlotServiceRenderData, OccupiedSlots,} from "@shared/types/Game/ActionSlots";
-import Entries from "@shared/types/Game/Entries";
-import {getActionSlotDroppableId} from "@sharedUtils/getActionSlotDroppableId";
 import {
     INVENTION_CASTAWAYS,
     INVENTION_NORMAL,
@@ -9,12 +7,14 @@ import {
 } from "@shared/types/Game/InventionService/Invention";
 import {ACTION, ACTION_ITEM} from "@shared/types/Game/ACTION";
 import {IGame} from "@shared/types/Game/Game";
-import {getItemFromDroppableId} from "@sharedUtils/getItemFromDroppableId";
 import {MissingLeaderError} from "../Errors/MissingLeaderError";
 import {MissingHelperError} from "../Errors/MissingHelperError";
 import {IPawn} from "@shared/types/Game/Pawns/Pawn";
-import {isEventCard} from "@sharedUtils/typeGuards/isEventCard";
 import {WRECKAGE_CARD} from "@shared/types/Game/EventService/EVENT_CARD";
+import Entries from "@shared/types/Entries";
+import {getActionSlotDroppableId} from "@shared/utils/getActionSlotDroppableId";
+import {isEventCard} from "@shared/utils/typeGuards/isEventCard";
+import {getItemFromDroppableId} from "../../../utils/getItemFromDroppableId";
 
 export class ActionSlotService implements IActionSlotService {
     private _slots: Map<string, null | IPawn>;

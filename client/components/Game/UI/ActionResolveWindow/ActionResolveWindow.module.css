@@ -7,7 +7,7 @@
     top: calc(50% - 200px);
     margin: auto;
     z-index: 9000;
-    background-image: url("../../../../../public/UI/paper-background.png");
+    background-image: url("../../../../public/UI/paper-background.png");
     background-size: cover;
     overflow: visible;
     cursor: grab;

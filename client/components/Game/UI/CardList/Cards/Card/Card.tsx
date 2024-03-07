@@ -2,7 +2,7 @@
 import * as React from "react";
 import {useState} from "react";
 import {isCardInvention} from "@shared/utils/typeGuards/isCardInvention";
-import {IItemRenderData, ITEM} from "@shared/types/Game/Equipment/Item";
+import {IItemRenderData} from "@shared/types/Game/Equipment/Item";
 import {MysteryCard} from "./MysteryCard/MysteryCard";
 import {IMysteryCardRenderData} from "@shared/types/Game/MysteryService/MysteryCard";
 import styles from "./Card.module.css"

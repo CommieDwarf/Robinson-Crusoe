@@ -1,9 +1,9 @@
 // @flow
 import * as React from "react";
 import styles from "./Resource.module.css";
-import {OverallWeather} from "@sharedTypes/Weather/Weather";
 import {Subtrahend} from "../Resources";
 import ResizableImage from "../../../../../../ResizableImage/ResizableImage";
+import {OverallWeather} from "@shared/types/Game/Weather/Weather";
 
 type WeatherResource = "roof" | "palisade" | "food" | "wood" | "weapon";
 

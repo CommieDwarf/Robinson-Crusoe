@@ -10,7 +10,7 @@ type CompareFunction<P> = (prevProps: P, nextProps: P) => boolean;
  * @returns {CompareFunction<P>} A function that compares two objects of type P.
  */
 
-export function arePropsEqual<P>(excluded?: (keyof P)[]): CompareFunction<P> {
+export function getPropsComparator<P>(excluded?: (keyof P)[]): CompareFunction<P> {
     return function compare(o1: P, o2: P): boolean {
         const [copy1, copy2]: [Partial<P>, Partial<P>] = [{...o1}, {...o2}];
         [copy1, copy2].forEach((copy) => {

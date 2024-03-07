@@ -1,7 +1,7 @@
 // @flow
 import * as React from "react";
 import styles from "./Weather.module.css";
-import {IWeatherTokens} from "@sharedTypes/Weather/Weather";
+import {IWeatherTokens} from "@shared/types/Weather/Weather";
 import {WeatherToken} from "./WeatherToken/WeatherToken";
 
 type Props = {
