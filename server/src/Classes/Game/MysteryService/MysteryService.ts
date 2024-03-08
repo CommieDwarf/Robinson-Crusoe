@@ -9,6 +9,7 @@ import {TREASURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_C
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 import {Barrel} from "./MysteryCardCreator/Cards/Treasure/Barrel";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
+import {isTreasureCard} from "@shared/utils/typeGuards/isTreasureCard";
 
 
 export class MysteryService implements IMysteryService {
@@ -66,10 +67,16 @@ export class MysteryService implements IMysteryService {
     }
 
     public useCard(user: IPlayerCharacter | string, cardName: string, target1?: any, target2?: any) {
-        const card = this.getOwnedTreasureCard(cardName);
+        const card = this.getOwnedMysteryCard(cardName);
         if (typeof user === "string") {
             user = this._game.characterService.getCharacter(user) as IPlayerCharacter;
         }
+
+        if (!isTreasureCard(card)) {
+            return;
+        }
+
+        //TODO: think about targeting
         if (card.requiresTarget && this._currentCardThatRequiresTarget !== card) {
             this._currentCardThatRequiresTarget = card;
         } else {
@@ -124,14 +131,14 @@ export class MysteryService implements IMysteryService {
     }
 
     public depositResource(cardName: string) {
-        const card = this.getOwnedTreasureCard(cardName);
+        const card = this.getOwnedMysteryCard(cardName);
         if (card instanceof Barrel) {
             card.deposit();
         }
     }
 
     public withdrawResource(cardName: string) {
-        const card = this.getOwnedTreasureCard(cardName);
+        const card = this.getOwnedMysteryCard(cardName);
         if (card instanceof Barrel) {
             card.withdraw();
         }
@@ -193,7 +200,7 @@ export class MysteryService implements IMysteryService {
     }
 
 
-    private getOwnedTreasureCard(name: string) {
+    private getOwnedMysteryCard(name: string) {
         return this._game.resourceService.getOwnedTreasureMysteryCard(name);
     }
 }

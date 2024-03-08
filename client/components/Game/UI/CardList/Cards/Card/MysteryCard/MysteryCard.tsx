@@ -7,6 +7,7 @@ import {IMysteryCardRenderData} from "@shared/types/Game/MysteryService/MysteryC
 import {kebabCase} from "lodash";
 import {emitAction} from "../../../../../../../pages/api/emitAction";
 import {MYSTERY_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
+import {isTreasureCard, isTreasureCardRenderData} from "@shared/utils/typeGuards/isTreasureCard";
 
 
 type Props = {
@@ -28,14 +29,14 @@ export const MysteryCard = (props: Props) => {
 
 
     function use() {
-        emitAction(MYSTERY_CONTROLLER_ACTION.USE_TREASURE_CARD, {
-            cardName: props.mysteryCard.name
-        })
+        emitAction(MYSTERY_CONTROLLER_ACTION.USE_TREASURE_CARD, props.mysteryCard.name)
     }
 
     const imgUrl = `/UI/cards/mystery/${props.mysteryCard.type}/${kebabCase(
         props.mysteryCard.name
     )}.png`
+
+    console.log(props.mysteryCard)
 
     return (
         <div
@@ -47,7 +48,7 @@ export const MysteryCard = (props: Props) => {
                 placeholder="blur"
                 blurDataURL={imgUrl}
             />
-            {"uses" in props.mysteryCard && (
+            {isTreasureCardRenderData(props.mysteryCard) && (
                 <UseButtons card={props.mysteryCard} onMouseEnterButton={onMouseEnterButton}
                             onMouseLeaveButton={onMouseLeaveButton}
                             use={use}

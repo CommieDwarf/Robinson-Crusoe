@@ -1,12 +1,12 @@
 import {TrapMysteryCard} from "./TrapMysteryCard/TrapMysteryCard";
-import {IMysteryCard} from "@shared/types/Game/MysteryService/MysteryCard";
 import {IGame} from "@shared/types/Game/Game";
 import {INVENTION_STARTER} from "@shared/types/Game/InventionService/Invention";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
+import {TRAP_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_CARD";
 
-export class Poison extends TrapMysteryCard implements IMysteryCard {
+export class Poison extends TrapMysteryCard {
     constructor(game: IGame) {
-        super(game, "poison", "trucizna");
+        super(game, TRAP_MYSTERY_CARD.POISON, "trucizna");
     }
 
     triggerDrawEffect(drawer: ICharacter) {

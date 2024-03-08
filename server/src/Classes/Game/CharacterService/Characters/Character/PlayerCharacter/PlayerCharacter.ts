@@ -12,7 +12,7 @@ import {PlayerCharEffects} from "../../../CharEffects/CharEffects";
 import {IPawnService} from "@shared/types/Game/Pawns/PawnService";
 import {IGame} from "@shared/types/Game/Game";
 import {Gender} from "@shared/types/Game/Characters/Character";
-import {ISkill} from "@shared/types/Game/Skill/Skill";
+import {IAbility} from "@shared/types/Game/Skill/IAbility";
 import {AdventureAction} from "@shared/types/Game/ACTION";
 import {removeFromArray} from "@shared/utils/removeFromArray";
 import {LOG_CODE} from "@shared/types/Game/ChatLog/LOG_CODE";
@@ -28,7 +28,7 @@ export abstract class PlayerCharacter
     private _moraleThresholdsRemoved: number[] = [];
     protected _pawnService: IPawnService<IPlayerCharacter>
     protected declare _name: PlayerCharacterName;
-    protected declare _skills: ISkill<any>[];
+    protected declare _skills: IAbility<any>[];
 
     protected _wounds: Wounds = {
         head: [],
@@ -87,7 +87,7 @@ export abstract class PlayerCharacter
         return this._moraleThresholdsRemoved;
     }
 
-    get skills(): ISkill<any>[] {
+    get skills(): IAbility<any>[] {
         return this._skills;
     }
 

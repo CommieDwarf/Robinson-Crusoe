@@ -1,13 +1,12 @@
 import {CreatureMysteryCard} from "./CreatureMysteryCard/CreatureMysteryCard";
-import {IMysteryCard} from "@shared/types/Game/MysteryService/MysteryCard";
 import {IGame} from "@shared/types/Game/Game";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
+import {CREATURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_CARD";
 
 export class UnleashedBeast
-    extends CreatureMysteryCard
-    implements IMysteryCard {
+    extends CreatureMysteryCard {
     constructor(game: IGame) {
-        super(game, "unleashed beast", "bestia na wolności", false, "");
+        super(game, CREATURE_MYSTERY_CARD.UNLEASHED_BEAST, "bestia na wolności", false, "");
     }
 
     triggerDrawEffect(drawer: ICharacter) {

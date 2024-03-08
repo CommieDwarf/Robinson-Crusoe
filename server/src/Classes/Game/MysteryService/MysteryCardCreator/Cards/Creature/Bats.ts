@@ -1,11 +1,11 @@
-import {IMysteryCard} from "@shared/types/Game/MysteryService/MysteryCard";
 import {IGame} from "@shared/types/Game/Game";
 import {CreatureMysteryCard} from "./CreatureMysteryCard/CreatureMysteryCard";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
+import {CREATURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_CARD";
 
-export class Bats extends CreatureMysteryCard implements IMysteryCard {
+export class Bats extends CreatureMysteryCard {
     constructor(game: IGame) {
-        super(game, "bats", "nietoperze", false, "");
+        super(game, CREATURE_MYSTERY_CARD.BATS, "nietoperze", false, "");
     }
 
     triggerDrawEffect(drawer: ICharacter) {

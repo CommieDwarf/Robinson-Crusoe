@@ -1,12 +1,11 @@
-import {IMysteryCard} from "@shared/types/Game/MysteryService/MysteryCard";
 import {IGame} from "@shared/types/Game/Game";
 import {CreatureMysteryCard} from "./CreatureMysteryCard/CreatureMysteryCard";
+import {CREATURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_CARD";
 
 export class AShinyJewel
-    extends CreatureMysteryCard
-    implements IMysteryCard {
+    extends CreatureMysteryCard {
     constructor(game: IGame) {
-        super(game, "a shiny jewel", "wielki klejnot", false, "");
+        super(game, CREATURE_MYSTERY_CARD.A_SHINY_JEWEL, "wielki klejnot", false, "");
     }
 
     triggerDrawEffect() {

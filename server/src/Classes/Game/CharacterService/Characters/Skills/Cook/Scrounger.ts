@@ -1,17 +1,18 @@
-import {Skill} from "../Skill/Skill";
+import {Ability} from "../Skill/Ability";
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 import {IGame} from "@shared/types/Game/Game";
 import {PHASE} from "@shared/types/Game/PhaseService/Phase";
-import {ISkill} from "@shared/types/Game/Skill/Skill";
+import {IAbility} from "@shared/types/Game/Skill/IAbility";
 import {ACTION} from "@shared/types/Game/ACTION";
 import {ActionDice} from "@shared/types/Game/RollDice/RollDice";
 import {scrounger} from "@shared/constants/SkillDescriptions/Cook";
+import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
 
-export class Scrounger extends Skill implements ISkill<ActionDice> {
+export class Scrounger extends Ability implements IAbility<ActionDice> {
 
     constructor(game: IGame, character: IPlayerCharacter) {
         super(
-            scrounger.name,
+            ABILITY.SCROUNGER,
             scrounger.namePL,
             scrounger.description,
             scrounger.quote,

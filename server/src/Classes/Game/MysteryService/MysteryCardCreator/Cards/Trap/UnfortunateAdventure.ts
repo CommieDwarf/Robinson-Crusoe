@@ -2,12 +2,12 @@ import {TrapMysteryCard} from "./TrapMysteryCard/TrapMysteryCard";
 import {IMysteryCard} from "@shared/types/Game/MysteryService/MysteryCard";
 import {IGame} from "@shared/types/Game/Game";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
+import {TRAP_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_CARD";
 
 export class UnfortunateAdventure
-    extends TrapMysteryCard
-    implements IMysteryCard {
+    extends TrapMysteryCard {
     constructor(game: IGame) {
-        super(game, "unfortunate adventure", "nieszczęśliwa przygoda");
+        super(game, TRAP_MYSTERY_CARD.UNFORTUNATE_ADVENTURE, "nieszczęśliwa przygoda");
     }
 
     triggerDrawEffect(drawer: ICharacter) {

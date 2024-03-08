@@ -1,18 +1,19 @@
-import {Skill} from "../Skill/Skill";
+import {Ability} from "../Skill/Ability";
 import {PHASE} from "@shared/types/Game/PhaseService/Phase";
 import {ISideCharacter} from "@shared/types/Game/Characters/SideCharacter";
 import {ACTION} from "@shared/types/Game/ACTION";
 import {ActionDice} from "@shared/types/Game/RollDice/RollDice";
-import {ISkill} from "@shared/types/Game/Skill/Skill";
+import {IAbility} from "@shared/types/Game/Skill/IAbility";
 import {IGame} from "@shared/types/Game/Game";
+import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
 
-export class ReRoll extends Skill implements ISkill<ActionDice> {
+export class ReRoll extends Ability implements IAbility<ActionDice> {
 
     declare _character: ISideCharacter
 
     constructor(game: IGame, character: ISideCharacter) {
         super(
-            "reRoll",
+            ABILITY.FRIDAYS_ABILITY,
             "Przerzut dowolnej kości akcji",
             "",
             "",

@@ -1,14 +1,15 @@
-import {Skill} from "../Skill/Skill";
+import {Ability} from "../Skill/Ability";
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 import {IGame} from "@shared/types/Game/Game";
-import {ISkill} from "@shared/types/Game/Skill/Skill";
+import {IAbility} from "@shared/types/Game/Skill/IAbility";
 import {stoneSoup} from "@shared/constants/SkillDescriptions/Cook";
+import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
 
-export class StoneSoup extends Skill implements ISkill<null> {
+export class StoneSoup extends Ability implements IAbility<null> {
 
     constructor(game: IGame, character: IPlayerCharacter) {
         super(
-            stoneSoup.name,
+            ABILITY.STONE_SOUP,
             stoneSoup.namePL,
             stoneSoup.description,
             stoneSoup.quote,

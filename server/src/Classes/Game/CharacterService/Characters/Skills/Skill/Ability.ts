@@ -1,15 +1,16 @@
 import {AdventureAction} from "@shared/types/Game/ACTION";
 import {IGame} from "@shared/types/Game/Game";
-import {ISkill} from "@shared/types/Game/Skill/Skill";
+import {IAbility} from "@shared/types/Game/Skill/IAbility";
 import {ActionDice} from "@shared/types/Game/RollDice/RollDice";
 import {Phase} from "@shared/types/Game/PhaseService/PhaseService";
 import {Cloud} from "@shared/types/Game/Weather/Weather";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
 import {phaseOrder} from "@shared/constants/phaseOrder";
 import {LOG_CODE} from "@shared/types/Game/ChatLog/LOG_CODE";
+import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
 
-export abstract class Skill implements ISkill<ICharacter> {
-    protected readonly _name: string;
+export abstract class Ability implements IAbility<ICharacter> {
+    protected readonly _name: ABILITY;
     protected readonly _namePL: string;
     protected readonly _description: string;
     protected readonly _quote: string;
@@ -24,7 +25,7 @@ export abstract class Skill implements ISkill<ICharacter> {
 
 
     protected constructor(
-        name: string,
+        name: ABILITY,
         namePL: string,
         description: string,
         quote: string,
@@ -63,7 +64,7 @@ export abstract class Skill implements ISkill<ICharacter> {
         };
     }
 
-    get name(): string {
+    get name(): ABILITY {
         return this._name;
     }
 

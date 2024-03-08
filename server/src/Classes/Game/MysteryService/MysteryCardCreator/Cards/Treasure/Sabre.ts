@@ -2,13 +2,14 @@ import {TreasureMysteryCard} from "./TreasureMysteryCard/TreasureMysteryCard";
 import {IGame} from "@shared/types/Game/Game";
 import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
+import {TREASURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_CARD";
 
 export class Sabre extends TreasureMysteryCard {
 
     private usedInRound = 0;
 
     constructor(game: IGame) {
-        super(game, "sabre", "szabla", false, "", 1);
+        super(game, TREASURE_MYSTERY_CARD.SABRE, "szabla", false, "", 1);
     }
 
     triggerDrawEffect(drawer: ICharacter) {

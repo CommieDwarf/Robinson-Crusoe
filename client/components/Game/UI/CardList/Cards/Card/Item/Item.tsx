@@ -23,9 +23,7 @@ export default function Item(props: Props) {
 
     function handleButtonClick() {
         if (props.item.name !== ITEM.BIBLE) {
-            emitAction(OTHER_CONTROLLER_ACTION.USE_ITEM, {
-                item: props.item.name
-            })
+            emitAction(OTHER_CONTROLLER_ACTION.USE_ITEM, props.item.name)
             handleMouseLeave();
         }
     }

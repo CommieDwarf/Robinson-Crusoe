@@ -1,15 +1,16 @@
-import {Skill} from "../Skill/Skill";
+import {Ability} from "../Skill/Ability";
 import {IGame} from "@shared/types/Game/Game";
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
-import {ISkill} from "@shared/types/Game/Skill/Skill";
+import {IAbility} from "@shared/types/Game/Skill/IAbility";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
 import {grandmasRecipe} from "@shared/constants/SkillDescriptions/Cook";
+import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
 
-export class GrandmasRecipe extends Skill implements ISkill<ICharacter> {
+export class GrandmasRecipe extends Ability implements IAbility<ICharacter> {
 
     constructor(game: IGame, character: IPlayerCharacter) {
         super(
-            grandmasRecipe.name,
+            ABILITY.GRANDMAS_RECIPE,
             grandmasRecipe.namePL,
             grandmasRecipe.description,
             grandmasRecipe.quote,

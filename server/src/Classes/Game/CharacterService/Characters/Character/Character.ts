@@ -5,10 +5,11 @@ import {SideCharacterName} from "@shared/types/Game/Characters/SideCharacter";
 import {GAME_STATUS, IGame} from "@shared/types/Game/Game";
 import {ICharEffects} from "@shared/types/Game/Characters/CharEffects";
 import {IPawnService} from "@shared/types/Game/Pawns/PawnService";
-import {ISkill} from "@shared/types/Game/Skill/Skill";
+import {IAbility} from "@shared/types/Game/Skill/IAbility";
 import {ActionDice} from "@shared/types/Game/RollDice/RollDice";
 import {Cloud} from "@shared/types/Game/Weather/Weather";
 import {PlayerCharacter} from "./PlayerCharacter/PlayerCharacter";
+import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
 
 export abstract class Character implements ICharacter {
     protected _namePL: string;
@@ -21,7 +22,7 @@ export abstract class Character implements ICharacter {
     protected _game: IGame;
     protected declare _effects: ICharEffects;
     protected declare _pawnService: IPawnService<ICharacter>;
-    protected declare _skills: ISkill<any>[];
+    protected declare _skills: IAbility<any>[];
 
     protected constructor(
         name: PlayerCharacterName | SideCharacterName,
@@ -58,7 +59,7 @@ export abstract class Character implements ICharacter {
         };
     }
 
-    get skills(): ISkill<any>[] {
+    get skills(): IAbility<any>[] {
         return this._skills;
     }
 
@@ -133,7 +134,7 @@ export abstract class Character implements ICharacter {
         }
     }
 
-    public getSkill(name: string) {
+    public getAbility(name: ABILITY) {
         const skill = this._skills.find((skill) => skill.name === name);
         if (!skill) {
             throw new Error(`Can't find skill with name: ${name}`);
@@ -141,8 +142,8 @@ export abstract class Character implements ICharacter {
         return skill;
     }
 
-    public useSkill(name: string, target: ICharacter | ActionDice | Cloud | null = null) {
-        const skill = this.getSkill(name);
+    public useAbility(name: ABILITY, target: ICharacter | ActionDice | Cloud | null = null) {
+        const skill = this.getAbility(name);
         if (!target) {
             target = this._game.localPlayer.getCharacter();
         }

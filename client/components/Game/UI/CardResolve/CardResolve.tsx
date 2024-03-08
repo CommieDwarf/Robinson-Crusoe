@@ -21,6 +21,7 @@ const CardResolve = (props: Props) => {
         setEnlarged((state) => !state);
     }
 
+    console.log(props.renderData)
 
     return (
         <Draggable bounds={"parent"}>

@@ -9,16 +9,16 @@ const icons = [
     "food",
 ];
 
-export function insertIconsIntoText(string: string) {
+export function insertIconsIntoText(string: string, className: string) {
     const array = string.split("$");
+
 
     return array.map((str, i) => {
         if (icons.includes(str)) {
             return (
-                <div key={i}>
+                <div key={i} className={className}>
                     <ResizableImage
                         src={`/UI/icons/${str}.png`}
-                        fill
                         alt={str}
                     />
                 </div>

@@ -6,10 +6,12 @@ export default function socketClient() {
 
     socket.on("connect", () => {
         console.log("Connected")
+        socket.emit("game_instance_requested");
     })
 
     socket.on("disconnect", () => {
         console.log("Disconnected")
+        socket.off();
     })
 
     socket.on("connect_error", async err => {

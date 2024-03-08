@@ -67,9 +67,7 @@ export const ActionResolveWindow = (props: Props) => {
             setReRolledDice(null);
             await sleep(10);
         }
-        emitAction(ACTION_CONTROLLER_ACTION.REROLL_ACTION_DICE, {
-            resolvableItemID: resolvableItemID
-        })
+        emitAction(ACTION_CONTROLLER_ACTION.REROLL_ACTION_DICE, resolvableItemID)
 
         setReRolledDice("success");
     }
@@ -80,7 +78,7 @@ export const ActionResolveWindow = (props: Props) => {
 
     function setNextAction() {
         setResolvedItems(new Map());
-        emitAction(ACTION_CONTROLLER_ACTION.SET_NEXT_ACTION, {});
+        emitAction(ACTION_CONTROLLER_ACTION.SET_NEXT_ACTION);
     }
 
     function rollDices(actionItem: string) {
@@ -90,9 +88,7 @@ export const ActionResolveWindow = (props: Props) => {
             item.shouldRollDices &&
             item.resolveStatus === RESOLVE_ITEM_STATUS.PENDING
         ) {
-            emitAction(ACTION_CONTROLLER_ACTION.ROLL_ACTION_DICES, {
-                actionId: actionItem
-            })
+            emitAction(ACTION_CONTROLLER_ACTION.ROLL_ACTION_DICES, actionItem)
         }
     }
 
@@ -101,9 +97,7 @@ export const ActionResolveWindow = (props: Props) => {
             setReRolledDice(null);
         }
 
-        emitAction(ACTION_CONTROLLER_ACTION.RESOLVE_ACTION, {
-            actionId: actionId
-        })
+        emitAction(ACTION_CONTROLLER_ACTION.RESOLVE_ACTION, actionId)
 
         setResolvedItems((prevState) => {
             const copy = new Map(prevState);

@@ -2,10 +2,11 @@ import {TreasureMysteryCard} from "./TreasureMysteryCard/TreasureMysteryCard";
 import {IGame} from "@shared/types/Game/Game";
 import {StorageCard} from "@shared/types/Game/MysteryService/StorageCard";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
+import {TREASURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_CARD";
 
 export class Barrel extends TreasureMysteryCard implements StorageCard {
     constructor(game: IGame) {
-        super(game, "barrel", "beczka", false, "", 1);
+        super(game, TREASURE_MYSTERY_CARD.BARREL, "beczka", false, "", 1);
     }
 
     private _used: boolean = false;

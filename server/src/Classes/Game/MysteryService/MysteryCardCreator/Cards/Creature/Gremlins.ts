@@ -4,10 +4,11 @@ import {IGame} from "@shared/types/Game/Game";
 import {BeastStats} from "../../../../BeastService/BeastCreator/BeastCreator";
 import {BasicResources} from "../../../../ResourceService/BasicResources";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
+import {CREATURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_CARD";
 
-export class Gremlins extends CreatureMysteryCard implements IMysteryCard {
+export class Gremlins extends CreatureMysteryCard {
     constructor(game: IGame) {
-        super(game, "gremlins", "gremliny", true, "gremliny was wytropiły", "walcz", "walcz");
+        super(game, CREATURE_MYSTERY_CARD.GREMLINS, "gremliny", true, "gremliny was wytropiły", "walcz", "walcz");
     }
 
     private _beastStats: BeastStats = {

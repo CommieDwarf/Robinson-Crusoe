@@ -4,9 +4,9 @@ import styles from "./ConfirmCampMove.module.css";
 import redArrowImg from "/public/UI/misc/red-arrow.png";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
 
-import {socket} from "../../../../pages/_app";
 import {ITileRenderData} from "@shared/types/Game/TileService/ITile";
 import {TILE_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
+import {emitAction} from "../../../../pages/api/emitAction";
 
 type Props = {
     currentCamp: ITileRenderData;
@@ -15,9 +15,7 @@ type Props = {
 };
 export const ConfirmCampMove = (props: Props) => {
     function handleConfirmClick() {
-        socket.emit(TILE_CONTROLLER_ACTION.MOVE_CAMP, {
-            tileId: props.nextCamp.id
-        })
+        emitAction(TILE_CONTROLLER_ACTION.MOVE_CAMP, props.nextCamp.id)
         props.hide();
     }
 

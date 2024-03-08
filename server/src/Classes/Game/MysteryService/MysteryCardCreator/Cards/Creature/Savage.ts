@@ -3,12 +3,12 @@ import {IMysteryCard} from "@shared/types/Game/MysteryService/MysteryCard";
 import {IGame} from "@shared/types/Game/Game";
 import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
+import {CREATURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_CARD";
 
 export class Savage
-    extends CreatureMysteryCard
-    implements IMysteryCard {
+    extends CreatureMysteryCard {
     constructor(game: IGame) {
-        super(game, "savage", "dzikus", true, "nieudane polowanie");
+        super(game, CREATURE_MYSTERY_CARD.SAVAGE, "dzikus", true, "nieudane polowanie");
     }
 
     triggerDrawEffect(drawer: ICharacter) {

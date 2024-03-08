@@ -5,6 +5,7 @@ import {Cloud} from "@shared/types/Game/Weather/Weather";
 import {IGame} from "@shared/types/Game/Game";
 import {ActionHandler, GameControllerInterface} from "../../../types/GameController/Controllers";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
+import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
 
 
 export class CharacterController implements GameControllerInterface {
@@ -36,7 +37,13 @@ export class CharacterController implements GameControllerInterface {
         this._game.characterService.removeMoraleThreshold(player.getCharacter(), num);
     }
 
-    private useAbility(player: IPlayer, abilityName: string, target: ICharacter | ActionDice | Cloud): void {
-        player.getCharacter().useSkill(abilityName, target);
+    private useAbility(player: IPlayer, abilityInfo: {
+        abilityName: ABILITY,
+        target?: ICharacter | ActionDice | Cloud
+    },): void {
+
+        const {abilityName, target} = abilityInfo;
+
+        player.getCharacter().useAbility(abilityName, target || null);
     }
 }

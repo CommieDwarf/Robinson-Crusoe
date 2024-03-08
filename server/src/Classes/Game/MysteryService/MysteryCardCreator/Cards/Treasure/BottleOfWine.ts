@@ -1,10 +1,11 @@
 import {TreasureMysteryCard} from "./TreasureMysteryCard/TreasureMysteryCard";
 import {IGame} from "@shared/types/Game/Game";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
+import {TREASURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_CARD";
 
 export class BottleOfWine extends TreasureMysteryCard {
     constructor(game: IGame) {
-        super(game, "bottle of wine", "butelka wina", false, "", 1);
+        super(game, TREASURE_MYSTERY_CARD.BOTTLE_OF_WINE, "butelka wina", false, "", 1);
     }
 
     use(): void {

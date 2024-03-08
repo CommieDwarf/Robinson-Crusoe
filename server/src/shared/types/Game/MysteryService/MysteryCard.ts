@@ -2,6 +2,11 @@ import {IBasicResourcesAmount} from "../Resources/Resources";
 import {ICharacter} from "../Characters/Character";
 import {IPawnService, IPawnServiceRenderData} from "../Pawns/PawnService";
 import {PawnOwner} from "../PawnOwner/PawnOwner";
+import {
+    CREATURE_MYSTERY_CARD, MysteryCardName,
+    TRAP_MYSTERY_CARD,
+    TREASURE_MYSTERY_CARD
+} from "@shared/types/Game/MysteryService/MYSTERY_CARD";
 
 export enum MYSTERY_CARD_TYPE {
     CREATURE = "creature",
@@ -10,19 +15,27 @@ export enum MYSTERY_CARD_TYPE {
 }
 
 
-export interface ITreasureMysteryCard extends IMysteryCard, PawnOwner<ITreasureMysteryCardRenderData> {
+export interface ITreasureMysteryCard extends IBaseMysteryCard<TREASURE_MYSTERY_CARD>, PawnOwner<ITreasureMysteryCardRenderData> {
+
+    name: TREASURE_MYSTERY_CARD
     addToResources: () => void;
+
+    use: (...args: any[]) => void; //TODO: do zmiany potem
     pawnService: IPawnService<ITreasureMysteryCard>;
 
     renderData: ITreasureMysteryCardRenderData
 }
 
-export interface ITreasureMysteryCardRenderData extends IMysteryCardRenderData {
+export interface ITreasureMysteryCardRenderData extends IMysteryCardRenderData<TREASURE_MYSTERY_CARD> {
     pawnService: IPawnServiceRenderData<ITreasureMysteryCardRenderData> | null;
+    uses: number;
 }
 
-export interface IMysteryCard {
-    name: string;
+export interface IMysteryCard extends IBaseMysteryCard<MysteryCardName> {
+};
+
+export interface IBaseMysteryCard<Name> {
+    name: Name
     namePL: string;
     type: MYSTERY_CARD_TYPE;
     shuffleable: boolean;
@@ -34,22 +47,19 @@ export interface IMysteryCard {
 
     triggerDrawEffect: (drawer: ICharacter) => void;
     triggerEventEffect: () => void;
-    uses: number;
-    use: (...args: any[]) => void;
 
-    renderData: IMysteryCardRenderData
+    renderData: IMysteryCardRenderData<Name>
 
 }
 
-export interface IMysteryCardRenderData {
-    name: string;
+export interface IMysteryCardRenderData<Name> {
+    name: Name;
     namePL: string;
     type: MYSTERY_CARD_TYPE;
     shuffleable: boolean;
     drawLabel: string;
     drawResolved: boolean;
     eventLabel: string;
-    uses: number;
     usedCount: number;
     stored?: IBasicResourcesAmount;
 }

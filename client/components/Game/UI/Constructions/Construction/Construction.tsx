@@ -22,7 +22,7 @@ function Construction(props: Props) {
 
     function handleResourceClick(resource: "wood" | "leather") {
         if (props.construction.canResourceBeSwitched && props.construction.committedResources?.type !== resource) {
-            emitAction(OTHER_CONTROLLER_ACTION.SWITCH_COMMITTED_RESOURCES_TYPE, {construction: props.construction.name})
+            emitAction(OTHER_CONTROLLER_ACTION.SWITCH_COMMITTED_RESOURCES_TYPE, props.construction.name)
         }
     }
 

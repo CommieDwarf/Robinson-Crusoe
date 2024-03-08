@@ -1,10 +1,11 @@
 import {TreasureMysteryCard} from "./TreasureMysteryCard/TreasureMysteryCard";
 import {IGame} from "@shared/types/Game/Game";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
+import {TREASURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_CARD";
 
 export class ProtectiveAmulet extends TreasureMysteryCard {
     constructor(game: IGame) {
-        super(game, "protective amulet", "amulet ochronny", false, "", 1);
+        super(game, TREASURE_MYSTERY_CARD.PROTECTIVE_AMULET, "amulet ochronny", false, "", 1);
     }
 
     triggerDrawEffect(drawer: ICharacter) {

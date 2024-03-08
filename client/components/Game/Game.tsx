@@ -427,7 +427,7 @@ export default function Game(props: Props) {
                         actionService={gameRenderData.actionService}
                     />
                 )}
-            <Alerts message={gameRenderData.alertService.alert}/>
+            <Alerts/>
 
             {gameRenderData.phaseService.phase === "weather" && (
                 <WeatherResolveWindow

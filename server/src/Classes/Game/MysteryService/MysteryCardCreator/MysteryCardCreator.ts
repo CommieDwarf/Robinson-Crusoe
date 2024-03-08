@@ -1,11 +1,11 @@
 import {IGame} from "@shared/types/Game/Game";
 import {
-    CREATURE_MYSTERY_CARD,
+    CREATURE_MYSTERY_CARD, MysteryCardName,
     TRAP_MYSTERY_CARD,
     TREASURE_MYSTERY_CARD,
 } from "@shared/types/Game/MysteryService/MYSTERY_CARD";
 import {BlowGun} from "./Cards/Trap/BlowGun";
-import {IMysteryCard, ITreasureMysteryCard} from "@shared/types/Game/MysteryService/MysteryCard";
+import {IBaseMysteryCard, IMysteryCard, ITreasureMysteryCard} from "@shared/types/Game/MysteryService/MysteryCard";
 import {BluntSpear} from "./Cards/Trap/BluntSpear";
 import {Collapse} from "./Cards/Trap/Collapse";
 import {Confused} from "./Cards/Trap/Confused";
@@ -140,7 +140,7 @@ export class MysteryCardCreator implements IMysteryCardCreator {
         });
     }
 
-    public createCreatureCard(card: CREATURE_MYSTERY_CARD): IMysteryCard {
+    public createCreatureCard(card: CREATURE_MYSTERY_CARD): IBaseMysteryCard<CREATURE_MYSTERY_CARD> {
         const game = this._game;
         switch (card) {
             case CREATURE_MYSTERY_CARD.A_SHINY_JEWEL:
@@ -172,7 +172,7 @@ export class MysteryCardCreator implements IMysteryCardCreator {
         }
     }
 
-    public createTrapCard(card: TRAP_MYSTERY_CARD): IMysteryCard {
+    public createTrapCard(card: TRAP_MYSTERY_CARD): IBaseMysteryCard<TRAP_MYSTERY_CARD> {
         const game = this._game;
         switch (card) {
             case TRAP_MYSTERY_CARD.BLOW_GUN:

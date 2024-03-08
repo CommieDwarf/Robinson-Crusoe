@@ -10,7 +10,7 @@ import {Dices} from "./Dices/Dices";
 import {RollDiceButton} from "./RollDiceButton/RollDiceButton";
 import {RollDiceWindow} from "./RollDiceWindow/RollDiceWindow";
 import Draggable from "react-draggable";
-import {ISkillRenderData} from "@shared/types/Game/Skill/Skill";
+import {ISkillRenderData} from "@shared/types/Game/Skill/IAbility";
 import {IWeatherServiceRenderData} from "@shared/types/Game/Weather/Weather";
 import {IBasicResourcesAmount} from "@shared/types/Game/Resources/Resources";
 import {WeatherDays} from "@shared/types/Game/ScenarioService/ScenarioService";

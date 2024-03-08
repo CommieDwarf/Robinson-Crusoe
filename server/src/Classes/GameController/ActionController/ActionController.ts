@@ -2,6 +2,7 @@ import {ACTION_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {IGame} from "@shared/types/Game/Game";
 import {ActionHandler, GameControllerInterface} from "../../../types/GameController/Controllers";
 import {IPlayer} from "@shared/types/Game/PlayerService/Player";
+import {SetBibleUsageArgs} from "@shared/types/ActionArgMap";
 
 export class ActionController implements GameControllerInterface {
 

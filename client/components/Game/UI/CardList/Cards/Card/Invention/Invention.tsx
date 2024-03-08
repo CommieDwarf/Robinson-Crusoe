@@ -3,7 +3,7 @@ import ActionSlot from "../../../../ActionSlot";
 import styles from "./Invention.module.css";
 import getActionSlots from "../../../../getActionSlots";
 import {useAppSelector} from "../../../../../../../store/hooks";
-import {selectModifiersByAction} from "../../../../../features/globalCostModifiers";
+import {selectModifiersByAction} from "../../../../../reduxSlices/globalCostModifiers";
 import ResizableImage from "../../../../../../ResizableImage/ResizableImage";
 import {kebabCase} from "lodash";
 import {emitAction} from "../../../../../../../pages/api/emitAction";

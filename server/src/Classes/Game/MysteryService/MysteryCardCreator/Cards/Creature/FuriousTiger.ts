@@ -1,13 +1,13 @@
 import {CreatureMysteryCard} from "./CreatureMysteryCard/CreatureMysteryCard";
-import {IMysteryCard} from "@shared/types/Game/MysteryService/MysteryCard";
 import {IGame} from "@shared/types/Game/Game";
 import {BeastStats} from "../../../../BeastService/BeastCreator/BeastCreator";
 import {BasicResources} from "../../../../ResourceService/BasicResources";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
+import {CREATURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_CARD";
 
-export class FuriousTiger extends CreatureMysteryCard implements IMysteryCard {
+export class FuriousTiger extends CreatureMysteryCard {
     constructor(game: IGame) {
-        super(game, "furious tiger", "rozszalały tygrys", false, "", "", "Walcz");
+        super(game, CREATURE_MYSTERY_CARD.FURIOUS_TIGER, "rozszalały tygrys", false, "", "", "Walcz");
     }
 
     triggerDrawEffect(drawer: ICharacter) {

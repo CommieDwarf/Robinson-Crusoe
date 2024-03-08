@@ -1,17 +1,22 @@
-import {IMysteryCard, IMysteryCardRenderData, MYSTERY_CARD_TYPE,} from "@shared/types/Game/MysteryService/MysteryCard";
+import {
+    IBaseMysteryCard,
+    IMysteryCard,
+    IMysteryCardRenderData,
+    MYSTERY_CARD_TYPE,
+} from "@shared/types/Game/MysteryService/MysteryCard";
 import {IGame} from "@shared/types/Game/Game";
 import {MysteryCard} from "../../MysteryCard";
+import {CREATURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_CARD";
 
 export abstract class CreatureMysteryCard
-    extends MysteryCard
-    implements IMysteryCard {
+    extends MysteryCard<CREATURE_MYSTERY_CARD>
+    implements IBaseMysteryCard<CREATURE_MYSTERY_CARD> {
     protected _type = MYSTERY_CARD_TYPE.CREATURE;
 
-    declare renderData: IMysteryCardRenderData;
 
     protected constructor(
         game: IGame,
-        name: string,
+        name: CREATURE_MYSTERY_CARD,
         namePL: string,
         shuffleable: boolean,
         eventName: string,
@@ -21,7 +26,11 @@ export abstract class CreatureMysteryCard
         super(game, name, namePL, shuffleable, eventName, eventLabel, drawLabel);
     }
 
-    protected getRenderData(): IMysteryCardRenderData {
+    get renderData() {
+        return this.getRenderData();
+    }
+
+    protected getRenderData(): IMysteryCardRenderData<CREATURE_MYSTERY_CARD> {
         return super.getRenderData();
     }
 }

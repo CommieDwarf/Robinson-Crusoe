@@ -17,10 +17,11 @@ import Entries from "@shared/types/Entries";
 import Wound from "./Wound/Wound";
 import {getOwnedDroppableId} from "@shared/utils/getOwnedDroppableId";
 import {ActionDice} from "@shared/types/Game/RollDice/RollDice";
-import {ISkillRenderData} from "@shared/types/Game/Skill/Skill";
+import {ISkillRenderData} from "@shared/types/Game/Skill/IAbility";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
 import {ISideCharacterRenderData} from "@shared/types/Game/Characters/SideCharacter";
 import {capitalize, kebabCase} from "lodash";
+import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
 
 interface Props {
     character: IPlayerCharacterRenderData;
@@ -32,9 +33,13 @@ interface Props {
 
 export default function Character(props: Props) {
     const [skillDescription, setSkillDescription] = useState<{
-        skill: ISkillRenderData | null;
+        skill: ISkillRenderData;
         show: boolean;
-    }>({skill: null, show: false});
+    }>(
+        {
+            skill: props.character.skills[0],
+            show: false,
+        });
 
     const [containerWidth, setContainerWidth] = useState(0);
     const containerRef = useRef<HTMLDivElement>(null);
@@ -45,13 +50,6 @@ export default function Character(props: Props) {
             setContainerWidth(current.clientWidth);
         }
     }, []);
-
-    function useSkill(abilityName: string, target: IPlayerCharacter | ActionDice | Cloud) {
-        emitAction(CHARACTER_CONTROLLER_ACTION.USE_ABILITY, {
-            abilityName,
-            target
-        })
-    }
 
 
     const skills = props.character.skills.map((skill, i) => {
@@ -84,6 +82,7 @@ export default function Character(props: Props) {
         })
     })
 
+
     const charImgName = kebabCase(`${props.character.name} ${props.character.gender}`)
     const droppableId = getOwnedDroppableId(props.character.name, "character")
     return (
@@ -102,10 +101,12 @@ export default function Character(props: Props) {
 
 
             <div className={styles.characterName}>{nameCapitalized}</div>
-            <SkillMenu skillDescription={skillDescription} use={useSkill}
-                       used={props.character.skills.find((skill) => skill.name === skillDescription.skill?.name)?.usedInThisRound || false}
-                       overallWeather={props.overallWeather}
-                       width={containerWidth}
+            <SkillMenu
+                skillDescription={skillDescription}
+                used={props.character.skills.find((skill) => skill.name === skillDescription.skill.name)?.usedInThisRound || false}
+                overallWeather={props.overallWeather}
+                width={containerWidth}
+                ownedDetermination={props.character.determination}
             />
             <div className={styles.skills}>
                 {skills}

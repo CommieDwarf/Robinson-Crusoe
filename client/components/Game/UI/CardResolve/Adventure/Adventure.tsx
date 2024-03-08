@@ -33,13 +33,9 @@ export const Adventure = (props: Props) => {
 
     function resolve(option: 1 | 2) {
         if (props.eventStage) {
-            emitAction(OTHER_CONTROLLER_ACTION.RESOLVE_EVENT_ADVENTURE, {
-                option
-            })
+            emitAction(OTHER_CONTROLLER_ACTION.RESOLVE_EVENT_ADVENTURE, option)
         } else {
-            emitAction(ACTION_CONTROLLER_ACTION.RESOLVE_ADVENTURE, {
-                option
-            })
+            emitAction(ACTION_CONTROLLER_ACTION.RESOLVE_ADVENTURE, option)
         }
     }
 

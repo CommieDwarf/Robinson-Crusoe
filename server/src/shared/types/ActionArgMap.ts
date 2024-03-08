@@ -11,13 +11,15 @@ import {Cloud} from "@shared/types/Game/Weather/Weather";
 import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
 import {INVENTION} from "@shared/types/Game/InventionService/Invention";
+import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
+import {AbilityArgMap} from "@shared/types/Game/Skill/AbilityArgMap";
 
 
 type Id = string;
 type ActionId = string;
 type Option = 1 | 2;
 
-export type SetNextActionArgs = [Id]
+export type SetNextActionArgs = []
 
 export type RollActionDicesArgs = [Id]
 
@@ -33,7 +35,12 @@ export type UnsetPawnArgs = [destinationId: string, draggableId: string];
 
 export type RemoveHealthThresholdArgs = [num: number];
 
-export type UseAbilityArgs = [abilityName: string, target: ICharacter | ActionDice | Cloud];
+export type UseAbilityArgs<T extends ABILITY> = [
+    {
+        abilityName: T,
+        args: AbilityArgMap[T]
+    }
+];
 
 export type ResolveEventMysteryArgs = [];
 
@@ -83,7 +90,7 @@ export interface ActionArgMap {
     [CHARACTER_CONTROLLER_ACTION.SET_PAWN]: SetPawnArgs;
     [CHARACTER_CONTROLLER_ACTION.UNSET_PAWN]: UnsetPawnArgs;
     [CHARACTER_CONTROLLER_ACTION.REMOVE_HEALTH_THRESHOLD]: RemoveHealthThresholdArgs;
-    [CHARACTER_CONTROLLER_ACTION.USE_ABILITY]: UseAbilityArgs;
+    [CHARACTER_CONTROLLER_ACTION.USE_ABILITY]: UseAbilityArgs<ABILITY>;
 
 
     [MYSTERY_CONTROLLER_ACTION.RESOLVE_EVENT_MYSTERY]: ResolveEventMysteryArgs;

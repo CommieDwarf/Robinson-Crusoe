@@ -1,9 +1,15 @@
-import {IMysteryCard, IMysteryCardRenderData, MYSTERY_CARD_TYPE,} from "@shared/types/Game/MysteryService/MysteryCard";
+import {
+    IBaseMysteryCard, IMysteryCard,
+    IMysteryCardRenderData,
+    MYSTERY_CARD_TYPE,
+} from "@shared/types/Game/MysteryService/MysteryCard";
 import {IGame} from "@shared/types/Game/Game";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
+import {MysteryCardName} from "@shared/types/Game/MysteryService/MYSTERY_CARD";
 
-export abstract class MysteryCard implements IMysteryCard {
-    protected readonly _name: string;
+
+export abstract class MysteryCard<Name extends MysteryCardName> implements IMysteryCard {
+    protected declare _name: Name
     protected readonly _namePL: string;
     protected readonly _shuffleable: boolean;
     private readonly _eventName: string;
@@ -16,11 +22,11 @@ export abstract class MysteryCard implements IMysteryCard {
     protected readonly _drawLabel: string;
     protected _drawResolved: boolean = false;
 
-    declare renderData: IMysteryCardRenderData
+    abstract get renderData(): IMysteryCardRenderData<Name>
 
     protected constructor(
         game: IGame,
-        name: string,
+        name: Name,
         namePL: string,
         shuffleable: boolean,
         eventName: string,
@@ -36,7 +42,7 @@ export abstract class MysteryCard implements IMysteryCard {
         this._drawLabel = drawLabel;
     }
 
-    protected getRenderData(): IMysteryCardRenderData {
+    protected getRenderData(): IMysteryCardRenderData<Name> {
         return {
             name: this._name,
             namePL: this._namePL,
@@ -45,7 +51,6 @@ export abstract class MysteryCard implements IMysteryCard {
             eventLabel: this._eventLabel,
             drawLabel: this._drawLabel,
             drawResolved: this._drawResolved,
-            uses: this._uses === Infinity ? 1 : this._uses,
             usedCount: this._usedCount,
         };
     }
@@ -59,7 +64,7 @@ export abstract class MysteryCard implements IMysteryCard {
         return this._eventName;
     }
 
-    get name(): string {
+    get name(): Name {
         return this._name;
     }
 

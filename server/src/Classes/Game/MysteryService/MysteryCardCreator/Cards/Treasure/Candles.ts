@@ -3,10 +3,11 @@ import {IGame} from "@shared/types/Game/Game";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
 import {PAWN_HELPER_ACTION} from "@shared/types/Game/Pawns/Pawn";
 import {ITreasureMysteryCard} from "@shared/types/Game/MysteryService/MysteryCard";
+import {TREASURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_CARD";
 
 export class Candles extends TreasureMysteryCard implements ITreasureMysteryCard {
     constructor(game: IGame) {
-        super(game, "candles", "świeczki", false, "", 0, "", "");
+        super(game, TREASURE_MYSTERY_CARD.CANDLES, "świeczki", false, "", 0, "", "");
     }
 
 

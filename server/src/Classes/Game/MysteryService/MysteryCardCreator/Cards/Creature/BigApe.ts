@@ -1,15 +1,14 @@
 import {CreatureMysteryCard} from "./CreatureMysteryCard/CreatureMysteryCard";
-import {IMysteryCard} from "@shared/types/Game/MysteryService/MysteryCard";
 import {IGame} from "@shared/types/Game/Game";
 import {BeastStats} from "../../../../BeastService/BeastCreator/BeastCreator";
 import {BasicResources} from "../../../../ResourceService/BasicResources";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
+import {CREATURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_CARD";
 
 export class BigApe
-    extends CreatureMysteryCard
-    implements IMysteryCard {
+    extends CreatureMysteryCard {
     constructor(game: IGame) {
-        super(game, "big ape", "wielka małpa", true, "nocny demon", "Walcz");
+        super(game, CREATURE_MYSTERY_CARD.BIG_APE, "wielka małpa", true, "nocny demon", "Walcz");
     }
 
     triggerDrawEffect(drawer: ICharacter) {

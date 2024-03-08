@@ -1,16 +1,17 @@
-import {Skill} from "../Skill/Skill";
+import {Ability} from "../Skill/Ability";
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 import {IGame} from "@shared/types/Game/Game";
 import {PHASE} from "@shared/types/Game/PhaseService/Phase";
-import {ISkill} from "@shared/types/Game/Skill/Skill";
+import {IAbility} from "@shared/types/Game/Skill/IAbility";
 import {Cloud} from "@shared/types/Game/Weather/Weather";
 import {hooch} from "@shared/constants/SkillDescriptions/Cook";
+import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
 
-export class Hooch extends Skill implements ISkill<Cloud> {
+export class Hooch extends Ability implements IAbility<Cloud> {
 
     constructor(game: IGame, character: IPlayerCharacter) {
         super(
-            hooch.name,
+            ABILITY.HOOCH,
             hooch.namePL,
             hooch.description,
             hooch.quote,

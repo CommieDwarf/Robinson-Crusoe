@@ -1,11 +1,11 @@
 import {TrapMysteryCard} from "./TrapMysteryCard/TrapMysteryCard";
-import {IMysteryCard} from "@shared/types/Game/MysteryService/MysteryCard";
 import {IGame} from "@shared/types/Game/Game";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
+import {TRAP_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_CARD";
 
-export class Collapse extends TrapMysteryCard implements IMysteryCard {
+export class Collapse extends TrapMysteryCard {
     constructor(game: IGame) {
-        super(game, "collapse", "zapadło się");
+        super(game, TRAP_MYSTERY_CARD.COLLAPSE, "zapadło się");
     }
 
     triggerDrawEffect(drawer: ICharacter) {

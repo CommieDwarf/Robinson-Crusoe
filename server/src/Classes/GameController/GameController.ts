@@ -9,6 +9,7 @@ import {IGame} from "@shared/types/Game/Game";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
 import {ActionHandler, BaseController, GameControllerInterface} from "../../types/GameController/Controllers";
 import {CONTROLLER_ACTION, OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
+import {ACTION} from "@shared/types/Game/ACTION";
 
 export enum STORAGE_ACTION {
     WITHDRAW = "withdraw",
@@ -28,6 +29,7 @@ export class GameController implements GameControllerInterface, BaseController {
         this._game = game;
         this._players = players;
         this.initActionHandlers();
+        this.testingStuff();
     }
 
     get game(): IGame {
@@ -41,6 +43,11 @@ export class GameController implements GameControllerInterface, BaseController {
             throw new Error(`There isn't matching handler to: ${action}.`);
         }
         handler(player, ...args);
+    }
+
+    private testingStuff() {
+        this._game.actionService.setReRollToken(ACTION.EXPLORE, true, "test");
+        this._game.mysteryService.startDrawingCards(1, 2, 3, this._players[0].getCharacter());
     }
 
     private initActionHandlers() {

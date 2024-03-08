@@ -5,14 +5,14 @@ import {useAppDispatch} from "../../store/hooks";
 import Game from "../../components/Game/Game";
 import {IGameRenderData} from "@shared/types/Game/Game";
 import {socket} from "../_app";
-import {globalCostModified} from "../../components/Game/features/globalCostModifiers";
-import {actionSlotsUpdated, markedSlotUpdated} from "../../components/Game/features/actionSlots";
+import {globalCostModified} from "../../components/Game/reduxSlices/globalCostModifiers";
+import {actionSlotsUpdated, markedSlotUpdated} from "../../components/Game/reduxSlices/actionSlots";
 import {
     dogPawnsUpdated,
     fridayPawnsUpdated,
     localCharacterPawnsUpdated
-} from "../../components/Game/features/freePawns";
-import {phaseUpdated} from "../../components/Game/features/phase";
+} from "../../components/Game/reduxSlices/freePawns";
+import {phaseUpdated} from "../../components/Game/reduxSlices/phase";
 import {batch} from "react-redux";
 
 

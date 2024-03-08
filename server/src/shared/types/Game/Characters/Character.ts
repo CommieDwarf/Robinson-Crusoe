@@ -1,11 +1,12 @@
 import {ICharEffects} from "./CharEffects";
 import {IPawnService, IPawnServiceRenderData} from "../Pawns/PawnService";
-import {ISkill, ISkillRenderData} from "../Skill/Skill";
+import {IAbility, ISkillRenderData} from "../Skill/IAbility";
 import {ActionDice} from "../RollDice/RollDice";
 import {Cloud} from "../Weather/Weather";
 import {ISideCharacterRenderData} from "./SideCharacter";
 import {PawnOwner} from "../PawnOwner/PawnOwner";
 import {IPlayerCharacterRenderData} from "./PlayerCharacter";
+import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
 
 export interface ICharacterRenderData {
     pawnService: IPawnServiceRenderData<ICharacterRenderData>;
@@ -25,8 +26,8 @@ export interface ICharacter extends PawnOwner<IPlayerCharacterRenderData | ISide
     id: number;
     maxHealth: number;
     effects: ICharEffects;
-    skills: ISkill<any>[];
-    useSkill: (name: string, target: ICharacter | ActionDice | Cloud | null) => void;
+    skills: IAbility<any>[];
+    useAbility: (name: ABILITY, target: ICharacter | ActionDice | Cloud | null) => void;
     namePL: string;
     health: number;
     gender: Gender;

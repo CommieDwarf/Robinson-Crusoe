@@ -25,8 +25,10 @@ type Props = {
 export const Mystery = (props: Props) => {
     function handleDrawClick() {
         if (props.currentResolve?.drawResolved === false) {
+            console.log("TRIGGER")
             emitAction(MYSTERY_CONTROLLER_ACTION.TRIGGER_MYSTERY_DRAW_EFFECT)
         } else if (props.canDraw) {
+            console.log("DRAW")
             emitAction(MYSTERY_CONTROLLER_ACTION.DRAW_MYSTERY_CARD)
         }
     }
@@ -52,6 +54,9 @@ export const Mystery = (props: Props) => {
             props.currentResolve.name
         )}.png`
         : `/UI/cards/reverse/mystery.png`;
+
+
+    console.log(props.currentResolve)
 
     return (
         <>

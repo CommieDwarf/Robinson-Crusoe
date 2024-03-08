@@ -1,9 +1,0 @@
-.container {
-    height: 400px;
-    width: 400px;
-    background-color: blue;
-    position: absolute;
-    z-index: 999999;
-    top: calc(50% - 200px);
-    left: calc(50% - 100px)
-}
