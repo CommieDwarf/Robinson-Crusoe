@@ -1,7 +1,7 @@
 import {IPawn, PAWN_HELPER_ACTION,} from "@shared/types/Game/Pawns/Pawn";
 import {IInvention} from "@shared/types/Game/InventionService/Invention";
 import {ITreasureMysteryCard} from "@shared/types/Game/MysteryService/MysteryCard";
-import {v4 as uuid} from "uuid";
+import {uuid} from "uuidv4";
 import {isCardInvention} from "@shared/utils/typeGuards/isCardInvention";
 import {isMysteryCard} from "@shared/utils/typeGuards/isMysteryCard";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
@@ -68,6 +68,7 @@ export class Pawn<Owner extends IInvention | ITreasureMysteryCard | ICharacter>
         } else {
             holderType = "character";
         }
-        return `${this._owner.name}-pawn-${holderType}-${uuid()}`;
+
+        return `${this._owner.name}-pawn-${holderType}-${uuid()}`
     }
 }

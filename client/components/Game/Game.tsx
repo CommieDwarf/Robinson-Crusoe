@@ -146,6 +146,7 @@ export default function Game(props: Props) {
     }
 
     function onDragUpdate(update: DragUpdate) {
+        console.log("draggableId", update.draggableId)
         unselectActionSlots();
         const pawn = gameRenderData.allPawns.find(
             (p) => p.draggableId === update.draggableId
@@ -234,32 +235,21 @@ export default function Game(props: Props) {
             })
         })
 
-
         if (!canAffordItem) {
             //TODO zrob stan dla alerta
             // handleSetAlert("Brakuje materiałów")
             return;
         }
 
-        emitAction(CHARACTER_CONTROLLER_ACTION.SET_PAWN, {
-            destinationId,
-            draggableId: draggedPawn.draggableId
-        })
-        emitAction(CHARACTER_CONTROLLER_ACTION.UNSET_PAWN, {
-            destinationId: sourceId,
-            draggableId: draggedPawn.draggableId
-        })
-
+        emitAction(CHARACTER_CONTROLLER_ACTION.SET_PAWN, destinationId, draggedPawn.draggableId)
+        emitAction(CHARACTER_CONTROLLER_ACTION.UNSET_PAWN, sourceId, draggedPawn.draggableId)
 
         // Sleep is used here, because if both pawns are switched in the same time,
         // beautiful DND loses draggable.
         await sleep(100);
 
         if (pawnAtActionSlot) {
-            emitAction(CHARACTER_CONTROLLER_ACTION.SET_PAWN, {
-                destinationId: sourceId,
-                draggableId: pawnAtActionSlot.draggableId
-            })
+            emitAction(CHARACTER_CONTROLLER_ACTION.SET_PAWN, sourceId, pawnAtActionSlot.draggableId)
         }
     }
 

@@ -25,7 +25,6 @@ export class GameController implements GameControllerInterface, BaseController {
     private readonly _actionHandlers = new Map<CONTROLLER_ACTION, ActionHandler>()
 
     constructor(game: IGame, players: IPlayer[]) {
-        console.log(game.gameStatus);
         this._game = game;
         this._players = players;
         this.initActionHandlers();
@@ -37,6 +36,7 @@ export class GameController implements GameControllerInterface, BaseController {
 
     public handleAction(action: CONTROLLER_ACTION, player: IPlayer, ...args: any[]): void {
         const handler = this._actionHandlers.get(action);
+
         if (!handler) {
             throw new Error(`There isn't matching handler to: ${action}.`);
         }
@@ -89,7 +89,6 @@ export class GameController implements GameControllerInterface, BaseController {
 
     private setNextPhase(player: IPlayer): void {
 
-        console.log(this._game);
         this._game.phaseService.goNextPhase();
     }
 

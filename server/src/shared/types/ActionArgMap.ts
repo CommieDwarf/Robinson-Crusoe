@@ -10,118 +10,66 @@ import {ActionDice} from "@shared/types/Game/RollDice/RollDice";
 import {Cloud} from "@shared/types/Game/Weather/Weather";
 import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
+import {INVENTION} from "@shared/types/Game/InventionService/Invention";
 
 
-export interface SetNextActionArgs {
-}
+type Id = string;
+type ActionId = string;
+type Option = 1 | 2;
 
-export interface RollActionDicesArgs {
-    actionId: string;
-}
+export type SetNextActionArgs = [Id]
 
-export interface ResolveActionArgs {
-    actionId: string;
-}
+export type RollActionDicesArgs = [Id]
 
-export interface ResolveAdventureArgs {
-    option: 1 | 2;
-}
+export type ResolveActionArgs = [ActionId]
 
-export interface ReRollActionDiceArgs {
-    resolvableItemID: string;
-}
+export type ResolveAdventureArgs = [Option]
 
-export interface SetPawnArgs {
-    destinationId: string;
-    draggableId: string;
-}
+export type ReRollActionDiceArgs = [resolvableItemID: string];
 
-export interface UnsetPawnArgs {
-    destinationId: string;
-    draggableId: string;
-}
+export type SetPawnArgs = [destinationId: string, draggableId: string];
 
-export interface RemoveHealthThresholdArgs {
-    num: number;
-}
+export type UnsetPawnArgs = [destinationId: string, draggableId: string];
 
-export interface UseAbilityArgs {
-    abilityName: string;
-    target: ICharacter | ActionDice | Cloud;
-}
+export type RemoveHealthThresholdArgs = [num: number];
 
-export interface ResolveEventMysteryArgs {
-}
+export type UseAbilityArgs = [abilityName: string, target: ICharacter | ActionDice | Cloud];
 
-export interface TriggerMysteryDrawEffectArgs {
-}
+export type ResolveEventMysteryArgs = [];
 
-export interface UseTreasureCardArgs {
-    cardName: string;
-}
+export type TriggerMysteryDrawEffectArgs = [];
 
-export interface DrawMysteryCardArgs {
-}
+export type UseTreasureCardArgs = [cardName: string];
 
-export interface FinishDrawingMysteryCardsArgs {
-}
+export type DrawMysteryCardArgs = [];
 
-export interface ManageCardStorageArgs {
-    cardName: string;
-    action: "withdraw" | "deposit";
-}
+export type FinishDrawingMysteryCardsArgs = [];
 
-export interface TriggerTileActionArgs {
-    tileId: number;
-}
+export type ManageCardStorageArgs = [cardName: string, action: "withdraw" | "deposit"];
 
-export interface TriggerTileResourceActionArgs {
-    tileID: number;
-    side: Side;
-}
+export type TriggerTileActionArgs = [tileId: number];
 
-export interface MoveCampArgs {
-    tileID: number;
-}
+export type TriggerTileResourceActionArgs = [tileID: number, side: Side];
 
-export interface AddWoodToPileArgs {
-}
+export type MoveCampArgs = [tileID: number];
 
-export interface ResolveEventAdventureArgs {
-    option: 1 | 2;
-}
+export type AddWoodToPileArgs = [];
 
-export interface RollWeatherDicesArgs {
-}
+export type ResolveEventAdventureArgs = [option: 1 | 2];
 
-export interface SetNextPhaseArgs {
-}
+export type RollWeatherDicesArgs = [];
 
-export interface SwitchCommittedResourcesTypeArgs {
-    construction: CONSTRUCTION;
-}
+export type SetNextPhaseArgs = [];
 
-export interface UseInventionArgs {
-    inventionName: string;
-}
+export type SwitchCommittedResourcesTypeArgs = [construction: CONSTRUCTION];
 
-export interface UseItemArgs {
-    item: ITEM;
-}
+export type UseInventionArgs = [inventionName: INVENTION];
 
-export interface UseDiscoveryTokenArgs {
-    tokenId: string;
-    targetCharName: string;
-}
+export type UseItemArgs = [item: ITEM];
 
-export interface SetBibleUsageArgs {
-    actionId: string,
-    value: boolean
-}
+export type UseDiscoveryTokenArgs = [tokenId: string, targetCharName: string];
 
-export interface resolveEventAdventureArgs {
-    option: 1 | 2
-}
+export type SetBibleUsageArgs = [actionId: string, value: boolean];
 
 export interface ActionArgMap {
     [ACTION_CONTROLLER_ACTION.SET_BIBLE_USAGE]: SetBibleUsageArgs;

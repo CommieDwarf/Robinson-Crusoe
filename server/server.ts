@@ -61,6 +61,7 @@ io.on("connection", (socket: typeof Socket) => {
     })
 
     socket.on("playerAction", (actionData: ActionPayload) => {
+        console.log("playerAction", actionData)
         session.handleAction(user, actionData.actionType, ...actionData.arguments);
         socket.emit("game_instance_sent", game.renderData);
     })
@@ -69,8 +70,8 @@ io.on("connection", (socket: typeof Socket) => {
         const {methodName, methodArgs} = methodData;
 
         if (typeof game[methodName] === 'function') {
-            const func = game[methodName] as Function;
-            func.bind(game);
+            const func = game[methodName].bind(game) as Function;
+            console.log(func.prototype)
             const result = func(...methodArgs);
 
             socket.emit("gameMethodResponse", {result});

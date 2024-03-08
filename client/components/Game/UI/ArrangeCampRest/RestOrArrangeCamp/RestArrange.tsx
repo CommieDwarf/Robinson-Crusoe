@@ -78,7 +78,6 @@ export default function RestArrange(props: Props) {
     return (
         <div className={styles[props.type] + " " + styles.activity}>
             <div className={`${styles.activityName} ${props.type === ACTION.REST ? styles.activityNameRest : ""}`}>
-                {t("ss")}
                 {capitalize(t(`action.${props.type}`))}
             </div>
             {rewardLabel}
