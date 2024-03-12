@@ -18,7 +18,7 @@ export class LackOfHope extends BuildAdventureCard implements IAdventureCard {
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
         //todo: discard 3 inventions
     }
 }

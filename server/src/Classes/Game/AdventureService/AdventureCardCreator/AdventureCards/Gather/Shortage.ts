@@ -19,7 +19,7 @@ export class Shortage extends GatherAdventureCard implements IAdventureCard {
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
         const tile = this.getTile();
         const side = this.getSide();
         this._game.tileService.gather(side, tile.id, this._namePL);

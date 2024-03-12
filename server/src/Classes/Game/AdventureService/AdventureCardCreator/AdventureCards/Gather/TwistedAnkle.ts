@@ -20,7 +20,7 @@ export class TwistedAnkle
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
         this.setResolver(resolver);
         resolver.setWound("leg", this._action, this._namePL);
         this.shuffleIntoEventDeck();

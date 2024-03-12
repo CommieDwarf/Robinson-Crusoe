@@ -40,13 +40,39 @@ import {CONFIRM_WINDOW} from "./UI/ConfirmWindow/messages";
 import Scenario from "./UI/Scenario/Scenario";
 import {canPawnBeSettled} from "@shared/utils/canPawnBeSettled";
 import {IBasicResourcesAmount} from "@shared/types/Game/Resources/Resources";
-import {INVENTION_TYPE} from "@shared/types/Game/InventionService/Invention";
+import {INVENTION_STARTER, INVENTION_TYPE} from "@shared/types/Game/InventionService/Invention";
 import {IGameRenderData} from "@shared/types/Game/Game";
 import {ITileRenderData} from "@shared/types/Game/TileService/ITile";
 import {emitAction} from "../../pages/api/emitAction";
 import {CHARACTER_CONTROLLER_ACTION, OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {socket} from "../../pages/_app";
 import {MethodData} from "@shared/types/MethodData";
+import {MysteryCardDraw} from "./UI/MysteryCardDraw/MysteryCardDraw";
+
+
+const vehicle = {
+    color: "red",
+    yearOfProduction: 1993,
+    enginePower: 203,
+    turbo: true,
+    fuelInLiters: 10,
+
+    paint(color: string) {
+        this.color = color;
+    },
+
+    tank(gallons: number) {
+        this.fuelInLiters = 3.785 * gallons;
+    },
+
+    getFuelInGalllons() {
+        const gallons = this.fuelInLiters / 3.785;
+        return gallons;
+    }
+}
+
+
+vehicle.tank(400)
 
 
 interface Props {
@@ -146,7 +172,6 @@ export default function Game(props: Props) {
     }
 
     function onDragUpdate(update: DragUpdate) {
-        console.log("draggableId", update.draggableId)
         unselectActionSlots();
         const pawn = gameRenderData.allPawns.find(
             (p) => p.draggableId === update.draggableId
@@ -261,6 +286,7 @@ export default function Game(props: Props) {
         fontSize: gameHeight / 100,
     }
 
+
     // @ts-ignore
     const isFirefox = typeof InstallTrigger !== 'undefined';
 
@@ -277,25 +303,24 @@ export default function Game(props: Props) {
             {/*<Background columnStart={3} columnEnd={6} rowStart={6} rowEnd={7}/>*/}
             {props.gameRenderData.adventureService.currentCard && (
                 <CardResolve
-                    renderData={props.gameRenderData.adventureService.currentCard}
+                    card={props.gameRenderData.adventureService.currentCard}
                     eventStage={false}
                 />
             )}
             {props.gameRenderData.mysteryService.isDrawingOn && (
-                <CardResolve
-                    renderData={props.gameRenderData.mysteryService}
-                    eventStage={false}
+                <MysteryCardDraw
+                    mysteryService={props.gameRenderData.mysteryService}
                 />
             )}
             {props.gameRenderData.eventService.currentAdventureCard && (
                 <CardResolve
-                    renderData={props.gameRenderData.eventService.currentAdventureCard}
+                    card={props.gameRenderData.eventService.currentAdventureCard}
                     eventStage={true}
                 />
             )}
             {props.gameRenderData.eventService.currentMysteryCard && (
                 <CardResolve
-                    renderData={props.gameRenderData.eventService.currentMysteryCard}
+                    card={props.gameRenderData.eventService.currentMysteryCard}
                     eventStage={true}
                 />
             )}

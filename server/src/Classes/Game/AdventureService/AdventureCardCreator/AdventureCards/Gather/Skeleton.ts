@@ -18,7 +18,7 @@ export class Skeleton extends GatherAdventureCard implements IAdventureCard {
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
         this.shuffleIntoEventDeck();
     }
 

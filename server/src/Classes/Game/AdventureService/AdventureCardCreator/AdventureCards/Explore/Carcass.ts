@@ -7,6 +7,7 @@ import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 export class Carcass extends ExploreAdventureCard implements IAdventureCard {
     protected _eventNamePL = "biegunka";
 
+
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_EXPLORE.CARCASS,
@@ -18,10 +19,10 @@ export class Carcass extends ExploreAdventureCard implements IAdventureCard {
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
     }
 
-    option2(resolver: IPlayerCharacter) {
+    resolveOption2(resolver: IPlayerCharacter) {
         this._game.resourceService.addBasicResourceToFuture("food", 2, this._namePL);
         this._game.resourceService.addBasicResourceToFuture(
             "leather",
@@ -30,6 +31,7 @@ export class Carcass extends ExploreAdventureCard implements IAdventureCard {
         );
         this.shuffleIntoEventDeck();
     }
+
 
     triggerEventEffect() {
         this._game.characterService.hurtAllPlayerCharacters(1, this._eventNamePL);

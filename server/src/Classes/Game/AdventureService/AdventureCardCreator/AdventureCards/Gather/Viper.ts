@@ -12,7 +12,7 @@ export class Viper extends GatherAdventureCard implements IAdventureCard {
         super(ADVENTURE_CARD_GATHER.VIPER, "żmija", false, game, "shuffle", "");
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
         this.shuffleIntoEventDeck();
     }
 

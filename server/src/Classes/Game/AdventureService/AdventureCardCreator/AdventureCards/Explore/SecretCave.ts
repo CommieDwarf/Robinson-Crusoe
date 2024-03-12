@@ -18,10 +18,10 @@ export class SecretCave extends ExploreAdventureCard implements IAdventureCard {
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
     }
 
-    option2(resolver: IPlayerCharacter) {
+    resolveOption2(resolver: IPlayerCharacter) {
         //TODO: implement option 1 creature and 2 treasures OR 1 trap and 2 treasures in the future.
         this.startDrawingMysteryCards(1, 0, 2, resolver);
         this.shuffleIntoEventDeck();

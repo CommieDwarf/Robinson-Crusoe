@@ -9,6 +9,7 @@ export class DangerousTerrain
     implements IAdventureCard {
     protected _eventNamePL = "";
 
+
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_EXPLORE.DANGEROUS_TERRAIN,
@@ -20,7 +21,7 @@ export class DangerousTerrain
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
         //TODO: implement beast token on tile and requirement 1 weapon or get hurt on any action on this tile.
         this.getTile().setTileModifier("greaterDanger", this._namePL);
     }

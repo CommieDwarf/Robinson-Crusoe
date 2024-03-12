@@ -48,8 +48,8 @@ export class MoraleService implements IMorale {
         if (this._lvl < 3) {
             this._lvl += amount;
             this._game.logService.addMessage({
-                code: LOG_CODE.MORALE_INCREASED,
-                amount,
+                code: LOG_CODE.MORALE_INCREASED_TO_LVL,
+                amount: this._lvl,
                 subject1: "",
                 subject2: ""
             }, "positive", logSource)
@@ -61,7 +61,7 @@ export class MoraleService implements IMorale {
 
 
         this._game.logService.addMessage({
-            code: LOG_CODE.MORALE_DECREASED,
+            code: LOG_CODE.MORALE_DECREASED_TO_LVL,
             amount,
             subject1: "",
             subject2: ""

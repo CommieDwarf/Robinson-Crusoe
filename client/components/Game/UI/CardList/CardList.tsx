@@ -5,7 +5,9 @@ import styles from "./CardList.module.css";
 import {Tabs} from "./Tabs/Tabs";
 import Cards from "./Cards/Cards";
 import {IItemRenderData} from "@shared/types/Game/Equipment/Item";
-import {IMysteryCardRenderData} from "@shared/types/Game/MysteryService/MysteryCard";
+import {
+    IMysteryCardRenderData
+} from "@shared/types/Game/MysteryService/MysteryCard";
 import {IInventionRenderData} from "@shared/types/Game/InventionService/Invention";
 
 type Props = {

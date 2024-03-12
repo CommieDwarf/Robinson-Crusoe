@@ -19,7 +19,7 @@ export class WindStorm extends BuildAdventureCard implements IAdventureCard {
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
         this._game.constructionService.lvlDownOrGetHurt(
             CONSTRUCTION.PALISADE,
             1,

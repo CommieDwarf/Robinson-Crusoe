@@ -9,6 +9,7 @@ interface Props {
 
 export default function ChatLog(props: Props) {
 
+
     const scrollRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
         if (scrollRef.current) {

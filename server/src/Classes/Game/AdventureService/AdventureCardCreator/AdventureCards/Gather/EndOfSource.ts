@@ -19,7 +19,7 @@ export class EndOfSource extends GatherAdventureCard implements IAdventureCard {
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
         this.getTile().tileResourceService?.deplete(this.getSide(), this._namePL);
     }
 }

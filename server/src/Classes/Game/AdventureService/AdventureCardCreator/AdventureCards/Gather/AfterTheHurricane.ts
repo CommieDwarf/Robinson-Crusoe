@@ -22,7 +22,7 @@ export class AfterTheHurricane
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
         this._game.resourceService.addBasicResourceToFuture("wood", 2, this._namePL);
         const tile = this.getTile();
         tile.setTileModifier("timeConsumingAction", this._namePL);

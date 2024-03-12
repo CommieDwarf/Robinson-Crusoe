@@ -20,7 +20,7 @@ export class SurprisingDiscovery
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
         //TODO: keep card with temporary +3 weapon usage.
     }
 }

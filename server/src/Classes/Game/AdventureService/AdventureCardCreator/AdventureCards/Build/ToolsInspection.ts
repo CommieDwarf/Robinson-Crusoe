@@ -20,7 +20,7 @@ export class ToolsInspection
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
         //TODO: implement marks on 2 inventions
     }
 

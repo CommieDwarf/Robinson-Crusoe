@@ -21,10 +21,10 @@ export class NiceSurprise
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
     }
 
-    option2(resolver: IPlayerCharacter) {
+    resolveOption2(resolver: IPlayerCharacter) {
         this._game.resourceService.addBasicResourceToOwned("wood", 3, this._namePL);
         this.shuffleIntoEventDeck();
     }

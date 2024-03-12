@@ -1,7 +1,7 @@
 import {
     IBaseMysteryCard,
     IMysteryCard,
-    IMysteryCardRenderData,
+    IBaseMysteryCardRenderData,
     MYSTERY_CARD_TYPE,
 } from "@shared/types/Game/MysteryService/MysteryCard";
 import {IGame} from "@shared/types/Game/Game";
@@ -30,7 +30,7 @@ export abstract class CreatureMysteryCard
         return this.getRenderData();
     }
 
-    protected getRenderData(): IMysteryCardRenderData<CREATURE_MYSTERY_CARD> {
+    protected getRenderData(): IBaseMysteryCardRenderData<CREATURE_MYSTERY_CARD> {
         return super.getRenderData();
     }
 }

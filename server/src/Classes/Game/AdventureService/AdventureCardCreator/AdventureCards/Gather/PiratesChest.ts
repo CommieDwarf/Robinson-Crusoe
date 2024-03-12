@@ -20,10 +20,10 @@ export class PiratesChest
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
     }
 
-    option2(resolver: IPlayerCharacter) {
+    resolveOption2(resolver: IPlayerCharacter) {
         this.startDrawingMysteryCards(0, 0, 2, resolver);
     }
 

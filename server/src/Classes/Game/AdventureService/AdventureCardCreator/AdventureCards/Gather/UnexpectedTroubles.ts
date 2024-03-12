@@ -20,7 +20,7 @@ export class UnexpectedTroubles
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
         const tileId = this._game.adventureService.currentAdventure?.relatedActionInfo?.tileId;
         if (tileId !== undefined) {
             this._game.tileService.getTile(tileId).setTileModifier("terrainDepleted", this._namePL);

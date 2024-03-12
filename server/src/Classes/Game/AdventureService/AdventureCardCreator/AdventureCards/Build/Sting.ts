@@ -11,7 +11,7 @@ export class Sting extends BuildAdventureCard implements IAdventureCard {
         super(ADVENTURE_CARD_BUILD.STING, "użądlenie", false, game, "shuffle", "");
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
         this.setResolver(resolver);
         resolver.setWound("stomach", this._action, this._namePL);
     }

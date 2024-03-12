@@ -20,7 +20,7 @@ export class StormOnTheHorizon
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
         this.shuffleIntoEventDeck();
     }
 

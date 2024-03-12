@@ -3,17 +3,35 @@ import * as React from "react";
 import {useState} from "react";
 import styles from "./CardResolve.module.css";
 import Draggable from "react-draggable";
-import {Adventure} from "./Adventure/Adventure";
-import {Mystery} from "./Mystery/Mystery";
+import {AdventureCardResolve} from "./Adventure/AdventureCardResolve";
+import {MysteryCardResolve} from "./Mystery/MysteryCardResolve";
 import {objectsEqual} from "@shared/utils/objectsEqual";
 import {IAdventureCardRenderData} from "@shared/types/Game/AdventureService/AdventureCard";
+import {isAdventureCard, isAdventureCardRenderData} from "@shared/utils/typeGuards/isAdventureCard";
+import {emitAction} from "../../../../pages/api/emitAction";
+import {
+    ACTION_CONTROLLER_ACTION,
+    MYSTERY_CONTROLLER_ACTION,
+    OTHER_CONTROLLER_ACTION
+} from "@shared/types/CONTROLLER_ACTION";
 import {IMysteryCardRenderData} from "@shared/types/Game/MysteryService/MysteryCard";
-import {IMysteryServiceRenderData} from "@shared/types/Game/MysteryService/MysteryService";
+import {ResolveButtons} from "./ResolveButtons/ResolveButtons";
+import {kebabCase} from "lodash";
+
+
+export interface CardResolveButtonProp {
+    label: string,
+    triggerEffect: () => void;
+    locked: boolean;
+}
+
 
 type Props = {
-    renderData: IAdventureCardRenderData | IMysteryServiceRenderData | IMysteryCardRenderData
+    card: IAdventureCardRenderData | IMysteryCardRenderData
     eventStage: boolean;
 };
+
+
 const CardResolve = (props: Props) => {
     const [enlarged, setEnlarged] = useState(false);
 
@@ -21,25 +39,65 @@ const CardResolve = (props: Props) => {
         setEnlarged((state) => !state);
     }
 
-    console.log(props.renderData)
+
+    let button1: CardResolveButtonProp;
+    let button2: CardResolveButtonProp | undefined;
+
+    if (isAdventureCardRenderData(props.card)) {
+        const {eventOption1, eventOption2, option1Label, option2Label, shouldDecide} = props.card;
+        if (props.eventStage) {
+            button1 = {
+                label: eventOption1?.label || "next",
+                triggerEffect: () => emitAction(OTHER_CONTROLLER_ACTION.RESOLVE_EVENT_ADVENTURE, 1),
+                locked: false,
+            };
+
+            if (eventOption2) {
+                button2 = {
+                    label: eventOption2.label,
+                    triggerEffect: () => emitAction(OTHER_CONTROLLER_ACTION.RESOLVE_EVENT_ADVENTURE, 2),
+                    locked: false,
+                };
+            }
+        } else {
+            button1 = {
+                label: option1Label,
+                triggerEffect: () => emitAction(ACTION_CONTROLLER_ACTION.RESOLVE_ADVENTURE, 1),
+                locked: false,
+            };
+
+            if (shouldDecide) {
+                button2 = {
+                    label: option2Label,
+                    triggerEffect: () => emitAction(ACTION_CONTROLLER_ACTION.RESOLVE_ADVENTURE, 2),
+                    locked: false,
+                };
+            }
+        }
+    } else {
+
+        button1 = {
+            label: props.card.eventLabel,
+            triggerEffect: () => emitAction(MYSTERY_CONTROLLER_ACTION.RESOLVE_EVENT_MYSTERY),
+            locked: false,
+        };
+    }
 
     return (
         <Draggable bounds={"parent"}>
             <div className={styles.container}>
                 <div className={`${styles.card} ${enlarged ? styles.enlarged : ""}`}>
-                    {"action" in props.renderData || "eventLabel" in props.renderData ? (
-                        <Adventure
-                            card={props.renderData}
-                            toggleZoom={toggleZoom}
-                            eventStage={props.eventStage}
+                    {isAdventureCardRenderData(props.card) ? (
+                        <AdventureCardResolve
+                            card={props.card}
                         />
                     ) : (
-                        <Mystery
-                            {...props.renderData}
-                            toggleZoom={toggleZoom}
+                        <MysteryCardResolve
+                            card={props.card}
                         />
                     )}
                 </div>
+                <ResolveButtons button1={button1} button2={button2}/>
             </div>
         </Draggable>
     );

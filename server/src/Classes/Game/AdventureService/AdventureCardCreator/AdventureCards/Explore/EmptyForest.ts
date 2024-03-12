@@ -20,7 +20,7 @@ export class EmptyForest
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
         this.shuffleIntoEventDeck();
     }
 

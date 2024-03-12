@@ -11,10 +11,10 @@ export class Furs extends GatherAdventureCard implements IAdventureCard {
         super(ADVENTURE_CARD_GATHER.FURS, "skóry", true, game, "discard", "");
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
     }
 
-    option2(resolver: IPlayerCharacter) {
+    resolveOption2(resolver: IPlayerCharacter) {
         this._game.resourceService.addBasicResourceToOwned(
             "leather",
             2,

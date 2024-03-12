@@ -20,7 +20,7 @@ export class ComingToTerms
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
         //TODO: implement discarding inventions.
         this.shuffleIntoEventDeck();
     }

@@ -18,7 +18,7 @@ export class Breakdown extends BuildAdventureCard implements IAdventureCard {
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
         this._game.moraleService.lvlDown(1, this.namePL);
         this.shuffleIntoEventDeck();
     }

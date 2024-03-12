@@ -6,6 +6,7 @@ import skullImg from "/public/UI/icons/skull.png";
 import Threshold from "./Threshold";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
 import {ICharacterServiceRenderData} from "@shared/types/Game/CharacterService/CharacterService";
+import {getPropsComparator} from "../../../../utils/getPropsComparator";
 
 interface Props {
     value: number;
@@ -52,4 +53,4 @@ function Health(props: Props) {
     );
 }
 
-export default React.memo(Health);
+export default React.memo(Health, getPropsComparator());

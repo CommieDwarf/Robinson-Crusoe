@@ -21,7 +21,7 @@ export class LaboriousWork
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
         this._game.actionService.addGlobalCostModifier(ACTION.BUILD, "helper", true, this._namePL);
     }
 }

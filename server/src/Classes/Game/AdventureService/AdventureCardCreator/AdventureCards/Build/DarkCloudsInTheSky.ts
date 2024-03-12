@@ -21,7 +21,7 @@ export class DarkCloudsInTheSky
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
         this._game.weatherService.setToken("rain", true, this.namePL);
         this.shuffleIntoEventDeck();
     }

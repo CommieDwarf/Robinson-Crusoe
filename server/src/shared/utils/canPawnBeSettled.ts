@@ -19,10 +19,10 @@ export function canPawnBeSettled(
         return false;
     }
 
+
     const droppableIdObject = getDroppableIdObject(droppableId);
 
     if (pawn.action) {
-        console.log(pawn.action.includes(uniqueActionToAction(droppableIdObject.itemType)), pawn.action, uniqueActionToAction(droppableIdObject.itemType))
         return (pawn.action.includes(uniqueActionToAction(droppableIdObject.itemType)) && !droppableId.includes("leader"));
     }
 

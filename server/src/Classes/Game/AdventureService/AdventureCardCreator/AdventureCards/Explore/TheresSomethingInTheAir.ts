@@ -22,7 +22,7 @@ export class TheresSomethingInTheAir
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
         this._game.actionService.setAdventureToken(ACTION.EXPLORE, true, this._namePL);
         this.shuffleIntoEventDeck();
     }

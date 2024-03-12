@@ -42,6 +42,8 @@ export class EventService implements IEventService {
         this._eventCardDeck = this.initEventCards();
 
         // this.testEventCards(Play);
+
+
     }
 
     get renderData(): IEventServiceRenderData {
@@ -151,6 +153,7 @@ export class EventService implements IEventService {
     public shuffleCardInToDeck(card: IAdventureCard | IMysteryCard) {
         this._eventCardDeck.push(card);
         this._eventCardDeck = shuffle(this._eventCardDeck);
+
     }
 
     public switchCardFromTopToBottomOfStack() {
@@ -175,12 +178,8 @@ export class EventService implements IEventService {
     }
 
     public resolveEventAdventure(option: 1 | 2) {
-        const options = this._currentAdventureCard?.eventOptions;
-        if (options && options[option - 1].canBeResolved()) {
-            options[option - 1].resolve();
-        } else {
-            this._currentAdventureCard?.triggerEventEffect();
-        }
+
+        this._currentAdventureCard?.triggerEventEffect();
         this._currentAdventureCard = null;
         this._adventureNeedsToBeResolved = false;
         this.pullCard();

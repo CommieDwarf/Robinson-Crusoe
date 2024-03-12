@@ -1,9 +1,7 @@
 const {Socket} = require("socket.io");
 const {CONTROLLER_ACTION} = require("./src/shared/types/CONTROLLER_ACTION");
-const {SessionData} = require("./src/types/Session/Session");
 const {BaseController} = require("./src/types/GameController/Controllers");
 const {IGame} = require("./src/shared/types/Game/Game");
-const {UserData} = require("./src/types/UserData/UserData");
 const {SessionService} = require("./src/Classes/SessionService/SessionService");
 const {User} = require("./src/Classes/User/User");
 const {MethodData} = require("./src/shared/types/MethodData");
@@ -48,7 +46,7 @@ const game: typeof IGame = gameController.game;
 io.on("connection", (socket: typeof Socket) => {
 
     if (!session) {
-        throw new Error("SHIT");
+        throw new Error("xD");
     }
 
 
@@ -80,8 +78,7 @@ io.on("connection", (socket: typeof Socket) => {
         }
     });
 
-    console.log("connected!", socket.id)
-
+    console.log("connected!", socket.id);
 })
 
 

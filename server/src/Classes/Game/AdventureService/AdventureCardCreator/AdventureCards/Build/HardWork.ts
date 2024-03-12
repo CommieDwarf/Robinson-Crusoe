@@ -18,7 +18,7 @@ export class HardWork extends BuildAdventureCard implements IAdventureCard {
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
         this._game.resourceService.spendBasicResourceIfPossible(
             "food",
             1,

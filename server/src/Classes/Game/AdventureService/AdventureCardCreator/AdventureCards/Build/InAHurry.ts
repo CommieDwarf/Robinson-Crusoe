@@ -19,11 +19,11 @@ export class InAHurry extends BuildAdventureCard implements IAdventureCard {
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
 
     }
 
-    option2(resolver: IPlayerCharacter) {
+    resolveOption2(resolver: IPlayerCharacter) {
         this._game.tokenService.addRandomTokensToOwned(2);
         this.shuffleIntoEventDeck();
     }

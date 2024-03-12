@@ -11,7 +11,7 @@ export class Vipers extends ExploreAdventureCard implements IAdventureCard {
         super(ADVENTURE_CARD_EXPLORE.VIPERS, "żmije!", false, game, "shuffle", "");
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
         //TODO: put wound.
         this.shuffleIntoEventDeck();
     }

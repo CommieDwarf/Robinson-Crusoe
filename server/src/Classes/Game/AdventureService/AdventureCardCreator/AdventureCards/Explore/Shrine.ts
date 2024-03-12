@@ -20,10 +20,10 @@ export class Shrine extends ExploreAdventureCard implements IAdventureCard {
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
     }
 
-    option2(resolver: IPlayerCharacter) {
+    resolveOption2(resolver: IPlayerCharacter) {
         this.startDrawingMysteryCards(0, 0, 1, resolver);
         this.shuffleIntoEventDeck();
     }

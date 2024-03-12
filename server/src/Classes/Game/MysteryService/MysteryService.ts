@@ -41,14 +41,7 @@ export class MysteryService implements IMysteryService {
             cardsAsReminders: this._cardsAsReminders.map((card) => card.renderData),
         };
     }
-
-    get currentCardThatRequiresTarget(): IMysteryCard | null {
-        return this._currentCardThatRequiresTarget;
-    }
-
-    set currentCardThatRequiresTarget(value: IMysteryCard | null) {
-        this._currentCardThatRequiresTarget = value;
-    }
+    
 
     get isDrawingOn(): boolean {
         return Boolean(this._cardDrawer);
@@ -62,9 +55,6 @@ export class MysteryService implements IMysteryService {
         return this._cardStack;
     }
 
-
-    startTargeting() {
-    }
 
     public useCard(user: IPlayerCharacter | string, cardName: string, target1?: any, target2?: any) {
         const card = this.getOwnedMysteryCard(cardName);

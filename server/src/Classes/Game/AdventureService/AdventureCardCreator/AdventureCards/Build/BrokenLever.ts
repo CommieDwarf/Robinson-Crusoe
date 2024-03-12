@@ -19,7 +19,7 @@ export class BrokenLever extends BuildAdventureCard implements IAdventureCard {
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
         this._game.constructionService.lvlDownOrGetHurt(
             CONSTRUCTION.WEAPON,
             1,

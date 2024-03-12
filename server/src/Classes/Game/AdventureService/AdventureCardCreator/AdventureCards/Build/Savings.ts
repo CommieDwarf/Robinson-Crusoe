@@ -18,12 +18,12 @@ export class Savings extends BuildAdventureCard implements IAdventureCard {
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
         this._game.resourceService.addBasicResourceToFuture("wood", 2, this._namePL);
         this.shuffleIntoEventDeck();
     }
 
-    option2(resolver: IPlayerCharacter) {
+    resolveOption2(resolver: IPlayerCharacter) {
 
     }
 

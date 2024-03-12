@@ -20,9 +20,7 @@ export default function Threshold(props: Props) {
 
     const handleClick = () => {
         if (props.thresholdAmountForRemoval > 0 && !props.removed) {
-            emitAction(CHARACTER_CONTROLLER_ACTION.REMOVE_HEALTH_THRESHOLD, {
-                num: props.id
-            })
+            emitAction(CHARACTER_CONTROLLER_ACTION.REMOVE_HEALTH_THRESHOLD, props.id)
         }
     };
 
@@ -31,7 +29,10 @@ export default function Threshold(props: Props) {
         <div className={`${styles.arrow} ${blinkClass}`} onClick={handleClick}>
             <ResizableImage src={moraleArrowLeftImg} fill alt="morale" sizes={styles.arrow}/>
             {props.removed && (
-                <ResizableImage src={xMark} alt="usunięty próg" sizes={styles.xMark} className={styles.xMark}/>
+                <div className={styles.xMark}>
+                    <ResizableImage src={xMark} alt="usunięty próg"/>
+
+                </div>
             )}
         </div>
     );

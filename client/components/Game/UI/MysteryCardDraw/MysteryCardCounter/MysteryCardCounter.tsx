@@ -1,8 +1,8 @@
 // @flow
 import * as React from "react";
 import styles from "./MysteryCardCounter.module.css";
-import {MysteryCardsAmount} from "../../../../../../../server/src/types/MysteryService/MysteryService";
-import ResizableImage from "../../../../../ResizableImage/ResizableImage";
+import ResizableImage from "../../../../ResizableImage/ResizableImage";
+import {MysteryCardsAmount} from "@shared/types/Game/MysteryService/MysteryService";
 
 type Props = {
     cardsLeft: MysteryCardsAmount;

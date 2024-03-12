@@ -14,7 +14,7 @@ export class Accident extends BuildAdventureCard implements IAdventureCard {
         super(ADVENTURE_CARD_BUILD.ACCIDENT, "wypadek", false, game, "shuffle", "");
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
         resolver.setWound("leg", ACTION.BUILD, this._namePL);
         this.setResolver(resolver);
         this.shuffleIntoEventDeck();

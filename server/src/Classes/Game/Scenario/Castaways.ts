@@ -79,7 +79,7 @@ export class Castaways implements IScenarioService {
         if (this.canAddWood()) {
             this._committedWood++;
             this._game.resourceService.spendBasicResourceIfPossible("wood", 1, "");
-            this.addLogMessage(1, this._game.localPlayer.getCharacter().namePL);
+            this.addLogMessage(1, this._game.localPlayer.getCharacter().name);
             if (this._committedWood === this._woodStashLvl) {
                 this.lvlUpStash();
             }

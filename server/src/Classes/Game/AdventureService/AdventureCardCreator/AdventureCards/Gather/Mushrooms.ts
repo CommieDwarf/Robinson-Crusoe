@@ -19,10 +19,10 @@ export class Mushrooms extends GatherAdventureCard implements IAdventureCard {
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
     }
 
-    option2(resolver: IPlayerCharacter) {
+    resolveOption2(resolver: IPlayerCharacter) {
         this._game.resourceService.addBasicResourceToOwned("food", this._game.playerService.players.length, this._namePL);
         this.shuffleIntoEventDeck();
     }

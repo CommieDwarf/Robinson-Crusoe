@@ -21,7 +21,7 @@ export class HungryPredator
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
         const character = this.getPrimeCharacter();
         this._game.characterService.hurt(character, 2, this._namePL);
         this._game.resourceService.addBasicResourceToOwned("food", 2, this.namePL);
@@ -32,7 +32,7 @@ export class HungryPredator
         );
     }
 
-    option2(resolver: IPlayerCharacter) {
+    resolveOption2(resolver: IPlayerCharacter) {
         this._game.resourceService.spendBasicResourceOrGetHurt(
             "food",
             1,

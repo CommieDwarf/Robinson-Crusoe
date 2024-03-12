@@ -3,7 +3,7 @@ import styles from "./Cards.module.css";
 import {IItemRenderData} from "@shared/types/Game/Equipment/Item";
 import {objectsEqual} from "@shared/utils/objectsEqual";
 import {Tab} from "../CardList";
-import {IMysteryCardRenderData} from "@shared/types/Game/MysteryService/MysteryCard";
+import {IBaseMysteryCardRenderData, IMysteryCardRenderData} from "@shared/types/Game/MysteryService/MysteryCard";
 import {IInventionRenderData} from "@shared/types/Game/InventionService/Invention";
 import {Card} from "./Card/Card";
 

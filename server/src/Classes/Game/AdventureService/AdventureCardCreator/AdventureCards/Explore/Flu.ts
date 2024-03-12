@@ -18,7 +18,7 @@ export class Flu extends ExploreAdventureCard implements IAdventureCard {
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
         this._game.resourceService.spendBasicResourceOrGetHurt(
             "food",
             1,
@@ -26,7 +26,7 @@ export class Flu extends ExploreAdventureCard implements IAdventureCard {
         );
     }
 
-    option2(resolver: IPlayerCharacter) {
+    resolveOption2(resolver: IPlayerCharacter) {
         this.shuffleIntoEventDeck();
     }
 

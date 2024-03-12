@@ -19,7 +19,7 @@ export class NastyWound extends BuildAdventureCard implements IAdventureCard {
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
         this.setResolver(resolver);
         resolver.setWound("arm", this._action, this._namePL);
         this.shuffleIntoEventDeck();

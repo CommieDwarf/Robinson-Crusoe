@@ -20,7 +20,7 @@ export class HowlingInTheBushes
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
         this.shuffleIntoEventDeck();
     }
 

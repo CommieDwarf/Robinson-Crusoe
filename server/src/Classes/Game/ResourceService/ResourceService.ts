@@ -207,7 +207,7 @@ export class ResourceService implements IResourceService {
         const owned = this._owned.basic.getResource(resource)
         const realAmountToSpend = amount >= owned ? owned : amount;
 
-        if (logSource.length > 0 && realAmountToSpend !== 0) {
+        if (realAmountToSpend !== 0) {
             this.spendResourceFromOwned(resource, realAmountToSpend, logSource);
         }
     }
@@ -235,7 +235,7 @@ export class ResourceService implements IResourceService {
         const ownedAmount = this._owned.basic.getResource(resource)
         const diff = ownedAmount - amount;
         if (diff < 0) {
-            this._owned.basic.setResource(resource, 0);
+            // this._owned.basic.setResource(resource, 0);
             this.spendResourceFromOwned(resource, ownedAmount, logSource)
             this._game.characterService.hurtAllPlayerCharacters(
                 Math.abs(diff),

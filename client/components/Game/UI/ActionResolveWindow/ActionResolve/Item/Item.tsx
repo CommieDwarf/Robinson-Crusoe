@@ -38,10 +38,8 @@ export const Item = (props: Props) => {
 
 
     function handleBibleCheckBoxClick() {
-        emitAction(ACTION_CONTROLLER_ACTION.SET_BIBLE_USAGE, {
-            actionId: props.resolvableItem.id,
-            value: !props.resolvableItem.bibleChecked
-        })
+        emitAction(ACTION_CONTROLLER_ACTION.SET_BIBLE_USAGE, props.resolvableItem.id, !props.resolvableItem.bibleChecked
+        )
     }
 
     if (props.resolvableItem.action === ACTION.THREAT) {

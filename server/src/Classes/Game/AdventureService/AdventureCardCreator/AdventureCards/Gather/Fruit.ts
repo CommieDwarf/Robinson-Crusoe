@@ -11,7 +11,7 @@ export class Fruit extends GatherAdventureCard implements IAdventureCard {
         super(ADVENTURE_CARD_GATHER.FRUIT, "owoce", false, game, "shuffle", "");
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
         this.setResolver(resolver);
         resolver.setWound("stomach", this._action, this._eventNamePL);
         this.shuffleIntoEventDeck();

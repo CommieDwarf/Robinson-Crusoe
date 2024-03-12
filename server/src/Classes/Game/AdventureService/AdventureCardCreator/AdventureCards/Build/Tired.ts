@@ -18,12 +18,12 @@ export class Tired extends BuildAdventureCard implements IAdventureCard {
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
         this._game.characterService.heal(resolver, 2, this.namePL);
         this.shuffleIntoEventDeck();
     }
 
-    option2(resolver: IPlayerCharacter) {
+    resolveOption2(resolver: IPlayerCharacter) {
     }
 
     triggerEventEffect() {

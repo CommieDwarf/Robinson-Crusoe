@@ -26,13 +26,16 @@ export interface ITreasureMysteryCard extends IBaseMysteryCard<TREASURE_MYSTERY_
     renderData: ITreasureMysteryCardRenderData
 }
 
-export interface ITreasureMysteryCardRenderData extends IMysteryCardRenderData<TREASURE_MYSTERY_CARD> {
+export interface ITreasureMysteryCardRenderData extends IBaseMysteryCardRenderData<TREASURE_MYSTERY_CARD> {
     pawnService: IPawnServiceRenderData<ITreasureMysteryCardRenderData> | null;
     uses: number;
 }
 
 export interface IMysteryCard extends IBaseMysteryCard<MysteryCardName> {
-};
+}
+
+export interface IMysteryCardRenderData extends IBaseMysteryCardRenderData<MysteryCardName> {
+}
 
 export interface IBaseMysteryCard<Name> {
     name: Name
@@ -48,11 +51,11 @@ export interface IBaseMysteryCard<Name> {
     triggerDrawEffect: (drawer: ICharacter) => void;
     triggerEventEffect: () => void;
 
-    renderData: IMysteryCardRenderData<Name>
+    renderData: IBaseMysteryCardRenderData<Name>
 
 }
 
-export interface IMysteryCardRenderData<Name> {
+export interface IBaseMysteryCardRenderData<Name> {
     name: Name;
     namePL: string;
     type: MYSTERY_CARD_TYPE;

@@ -20,7 +20,7 @@ export class Misadventure
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
         //TODO: implement wound
         this.shuffleIntoEventDeck();
     }

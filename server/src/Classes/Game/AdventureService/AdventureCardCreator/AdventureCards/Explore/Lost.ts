@@ -11,7 +11,7 @@ export class Lost extends ExploreAdventureCard implements IAdventureCard {
         super(ADVENTURE_CARD_EXPLORE.LOST, "zagubiony", false, game, "discard", "");
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
         //TODO: implement night out of camp and Morale down just before event Phase
     }
 }

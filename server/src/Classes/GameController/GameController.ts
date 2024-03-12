@@ -9,7 +9,7 @@ import {IGame} from "@shared/types/Game/Game";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
 import {ActionHandler, BaseController, GameControllerInterface} from "../../types/GameController/Controllers";
 import {CONTROLLER_ACTION, OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
-import {ACTION} from "@shared/types/Game/ACTION";
+import {TILE_ACTION} from "@shared/types/Game/TileService/ITile";
 
 export enum STORAGE_ACTION {
     WITHDRAW = "withdraw",
@@ -29,7 +29,7 @@ export class GameController implements GameControllerInterface, BaseController {
         this._game = game;
         this._players = players;
         this.initActionHandlers();
-        this.testingStuff();
+        this.testStuff();
     }
 
     get game(): IGame {
@@ -45,9 +45,9 @@ export class GameController implements GameControllerInterface, BaseController {
         handler(player, ...args);
     }
 
-    private testingStuff() {
-        this._game.actionService.setReRollToken(ACTION.EXPLORE, true, "test");
-        this._game.mysteryService.startDrawingCards(1, 2, 3, this._players[0].getCharacter());
+    private testStuff() {
+        this._game.resourceService.addBasicResourceToOwned("wood", 4, "test");
+        this._game.resourceService.addBasicResourceToOwned("leather", 4, "test");
     }
 
     private initActionHandlers() {
@@ -112,7 +112,7 @@ export class GameController implements GameControllerInterface, BaseController {
         this._game.equipmentService.useItem(item);
     }
 
-    private useDiscoveryToken(player: IPlayer, tokenId: string, target: ICharacter): void {
-        this._game.tokenService.useToken(tokenId, target.name);
+    private useDiscoveryToken(player: IPlayer, tokenId: string, targetName: string): void {
+        this._game.tokenService.useToken(tokenId, targetName);
     }
 }

@@ -20,7 +20,7 @@ export class WinterIsComing
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
         this.shuffleIntoEventDeck();
 
     }

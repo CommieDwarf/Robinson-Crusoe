@@ -1,16 +1,20 @@
 import treasureIcon from "/public/UI/misc/treasure.png";
 import plusImg from "/public/UI/misc/plus.png";
 import minusImg from "/public/UI/misc/minus.png";
-import styles from "./UseOverlay.module.css";
+import styles from "./UseButtons.module.css";
 import ResizableImage from "../../../../../../../ResizableImage/ResizableImage";
 import {kebabCase} from "lodash";
-import {IMysteryCardRenderData} from "@shared/types/Game/MysteryService/MysteryCard";
+import {
+    IBaseMysteryCardRenderData,
+    IMysteryCardRenderData,
+    ITreasureMysteryCardRenderData
+} from "@shared/types/Game/MysteryService/MysteryCard";
 import {isStorageCard} from "@shared/utils/typeGuards/isStorageCard";
 import {emitAction} from "../../../../../../../../pages/api/emitAction";
 import {MYSTERY_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 
 interface Props {
-    card: IMysteryCardRenderData;
+    card: ITreasureMysteryCardRenderData;
     onMouseEnterButton: () => void;
     onMouseLeaveButton: () => void;
     use: () => void;
@@ -18,6 +22,7 @@ interface Props {
 }
 
 export default function UseButtons(props: Props) {
+
     const buttonType =
         props.card.uses === 1 || props.card.uses === Infinity ? "single" : "multi";
     const usesMulti = [];
@@ -62,21 +67,22 @@ export default function UseButtons(props: Props) {
 
     function handleWithdraw() {
         if (isStorageCard(props.card)) {
-            emitAction(MYSTERY_CONTROLLER_ACTION.MANAGE_CARD_STORAGE, {
-                cardName: props.card.name,
-                action: "withdraw"
-            })
+            emitAction(MYSTERY_CONTROLLER_ACTION.MANAGE_CARD_STORAGE,
+                props.card.name,
+                "withdraw"
+            )
         }
     }
 
     function handleDeposit() {
         if (isStorageCard(props.card)) {
-            emitAction(MYSTERY_CONTROLLER_ACTION.MANAGE_CARD_STORAGE, {
-                cardName: props.card.name,
-                action: "deposit"
-            })
+            emitAction(MYSTERY_CONTROLLER_ACTION.MANAGE_CARD_STORAGE,
+                props.card.name,
+                "deposit"
+            )
         }
     }
+
 
     return (
         <div className={styles.container}>

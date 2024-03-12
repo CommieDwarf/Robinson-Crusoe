@@ -13,10 +13,10 @@ interface Props {
 
 export const ResourceActionButton = (props: Props) => {
     function handleClick() {
-        emitAction(TILE_CONTROLLER_ACTION.TRIGGER_TILE_RESOURCE_ACTION, {
-            tileID: props.tileID,
-            side: props.side,
-        })
+        emitAction(TILE_CONTROLLER_ACTION.TRIGGER_TILE_RESOURCE_ACTION,
+            props.tileID,
+            props.side,
+        )
     }
 
     return (

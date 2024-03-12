@@ -19,7 +19,7 @@ export class CutHead extends BuildAdventureCard implements IAdventureCard {
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
         const character = this.getPrimeCharacter();
         this._game.characterService.incrDetermination(character, 2, this._namePL);
         this._game.characterService.hurt(character, 1, this._namePL);

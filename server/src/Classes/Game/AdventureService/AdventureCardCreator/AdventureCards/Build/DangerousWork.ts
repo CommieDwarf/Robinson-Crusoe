@@ -21,7 +21,7 @@ export class DangerousWork
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
         this._game.actionService.setReRollToken(ACTION.BUILD, true, this._namePL);
         this._game.actionService.setAdventureToken(ACTION.BUILD, true, this._namePL);
     }

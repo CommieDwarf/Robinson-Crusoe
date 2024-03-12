@@ -78,6 +78,7 @@ export type UseDiscoveryTokenArgs = [tokenId: string, targetCharName: string];
 
 export type SetBibleUsageArgs = [actionId: string, value: boolean];
 
+
 export interface ActionArgMap {
     [ACTION_CONTROLLER_ACTION.SET_BIBLE_USAGE]: SetBibleUsageArgs;
     [ACTION_CONTROLLER_ACTION.SET_NEXT_ACTION]: SetNextActionArgs;

@@ -20,10 +20,10 @@ export class UnbelievableEffort
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
     }
 
-    option2(resolver: IPlayerCharacter) {
+    resolveOption2(resolver: IPlayerCharacter) {
         this._game.resourceService.addBasicResourceToOwned("wood", 2, this._namePL);
         this.setResolver(resolver);
         resolver.setWound("arm", this._action, this._namePL);

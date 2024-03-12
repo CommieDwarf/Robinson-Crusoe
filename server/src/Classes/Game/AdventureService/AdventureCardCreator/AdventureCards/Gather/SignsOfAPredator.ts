@@ -21,7 +21,7 @@ export class SignsOfAPredator
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
         const tile = this.getTile();
         tile.setTileModifier("greaterDanger", this._namePL);
     }

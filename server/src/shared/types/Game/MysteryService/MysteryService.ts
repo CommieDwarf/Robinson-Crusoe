@@ -1,4 +1,4 @@
-import {IMysteryCard, IMysteryCardRenderData, ITreasureMysteryCard} from "./MysteryCard";
+import {IMysteryCard, IBaseMysteryCardRenderData, ITreasureMysteryCard, IMysteryCardRenderData} from "./MysteryCard";
 import {ICharacter, ICharacterRenderData} from "../Characters/Character";
 import {IPlayerCharacter} from "../Characters/PlayerCharacter";
 import {TREASURE_MYSTERY_CARD} from "./MYSTERY_CARD";

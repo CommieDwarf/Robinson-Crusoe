@@ -55,9 +55,9 @@ export class AdventureService implements IAdventureService {
             throw new Error("Side character shouldn't have opportunity to resolve adventure card!")
         }
         if (option === 1 || !this._currentAdventure.card.shouldDecide) {
-            this._currentAdventure.card.option1(resolver);
+            this._currentAdventure.card.resolveOption1(resolver);
         } else {
-            this._currentAdventure.card.option2(resolver);
+            this._currentAdventure.card.resolveOption2(resolver);
         }
         this.unsetCurrentAdventure();
     }
@@ -69,7 +69,7 @@ export class AdventureService implements IAdventureService {
         const card = this.popAdventureCardFromStack(resolvableItem.action);
         let relatedActionInfo = this.getRelatedActionInfo(resolvableItem);
 
-        //Adventure Service must remember the action,
+        //AdventureCardResolve Service must remember the action,
         // that triggered it for some  adventure cards effects.
         this._currentAdventure = {
             card,

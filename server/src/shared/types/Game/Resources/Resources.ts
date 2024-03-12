@@ -1,4 +1,4 @@
-import {IMysteryCard, IMysteryCardRenderData,} from "../MysteryService/MysteryCard";
+import {IMysteryCard, IBaseMysteryCardRenderData,} from "../MysteryService/MysteryCard";
 import {IToken, ITokenRenderData} from "../TokenService/Token";
 
 export interface IResources {
@@ -9,7 +9,7 @@ export interface IResources {
 
 export interface IResourcesRenderData {
     basic: IBasicResourcesAmount;
-    treasures: IMysteryCardRenderData[];
+    treasures: IBaseMysteryCardRenderData[];
     tokens: ITokenRenderData[];
 }
 

@@ -11,7 +11,7 @@ export class Spider extends GatherAdventureCard implements IAdventureCard {
         super(ADVENTURE_CARD_GATHER.SPIDER, "pająk", false, game, "shuffle", "");
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
         this.setResolver(resolver);
         resolver.setWound("head", this._action, this._namePL);
     }

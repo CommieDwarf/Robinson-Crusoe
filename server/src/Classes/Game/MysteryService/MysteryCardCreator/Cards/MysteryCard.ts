@@ -1,6 +1,6 @@
 import {
     IBaseMysteryCard, IMysteryCard,
-    IMysteryCardRenderData,
+    IBaseMysteryCardRenderData,
     MYSTERY_CARD_TYPE,
 } from "@shared/types/Game/MysteryService/MysteryCard";
 import {IGame} from "@shared/types/Game/Game";
@@ -22,7 +22,7 @@ export abstract class MysteryCard<Name extends MysteryCardName> implements IMyst
     protected readonly _drawLabel: string;
     protected _drawResolved: boolean = false;
 
-    abstract get renderData(): IMysteryCardRenderData<Name>
+    abstract get renderData(): IBaseMysteryCardRenderData<Name>
 
     protected constructor(
         game: IGame,
@@ -42,7 +42,7 @@ export abstract class MysteryCard<Name extends MysteryCardName> implements IMyst
         this._drawLabel = drawLabel;
     }
 
-    protected getRenderData(): IMysteryCardRenderData<Name> {
+    protected getRenderData(): IBaseMysteryCardRenderData<Name> {
         return {
             name: this._name,
             namePL: this._namePL,

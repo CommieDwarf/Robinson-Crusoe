@@ -2,7 +2,7 @@ export enum LOG_CODE {
     OWNED_RESOURCE_ADDED = "owned resource added",
     OWNED_RESOURCE_REMOVED = "owned resource removed",
     FUTURE_RESOURCE_ADDED = "future resource added",
-    FUTURE_RESOURCE_REMOVED = "owned resource removed",
+    FUTURE_RESOURCE_REMOVED = "future resource removed",
     CHARACTER_GOT_WOUND = "character got wound",
     CHARACTER_LOST_WOUND = "character lost wound",
     CHARACTER_GOT_HURT = "character got hurt",
@@ -48,8 +48,8 @@ export enum LOG_CODE {
     GAME_WON = "game won",
     GAME_LOST = "game lost",
 
-    MORALE_INCREASED = "morale increased",
-    MORALE_DECREASED = "morale decreased",
+    MORALE_INCREASED_TO_LVL = "morale increased",
+    MORALE_DECREASED_TO_LVL = "morale decreased",
 
     WOOD_ADDED_TO_PILE = "wood added to pile",
 
@@ -60,3 +60,4 @@ export enum LOG_CODE {
 
     WEATHER_TOKEN_SET = "weather token set",
 }
+

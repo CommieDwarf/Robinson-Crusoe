@@ -18,10 +18,10 @@ export class OldHut extends ExploreAdventureCard implements IAdventureCard {
         );
     }
 
-    option1(resolver: IPlayerCharacter) {
+    resolveOption1(resolver: IPlayerCharacter) {
     }
 
-    option2(resolver: IPlayerCharacter) {
+    resolveOption2(resolver: IPlayerCharacter) {
         this.startDrawingMysteryCards(1, 0, 1, resolver, 1);
         this.shuffleIntoEventDeck();
     }

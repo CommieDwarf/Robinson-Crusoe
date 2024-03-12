@@ -4,11 +4,13 @@ import {AdventureAction} from "@shared/types/Game/ACTION";
 import {
     AdventureOptionLabel,
     IAdventureCard,
-    IAdventureEventOption,
+    IAdventureEventOption, IAdventureEventOptionRenderData,
 } from "@shared/types/Game/AdventureService/AdventureCard";
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 
 export abstract class AdventureCard implements IAdventureCard {
+
+
     protected readonly _name: ADVENTURE_CARD;
     protected readonly _namePL: string;
     protected readonly _shouldDecide: boolean;
@@ -17,9 +19,10 @@ export abstract class AdventureCard implements IAdventureCard {
     protected declare readonly _action: AdventureAction;
     protected readonly _option1Label: AdventureOptionLabel;
     protected readonly _option2Label: AdventureOptionLabel;
-    protected readonly _eventOptions: IAdventureEventOption[] | null = null;
-
+    protected readonly _eventOption1: IAdventureEventOption | null = null;
+    protected readonly _eventOption2: IAdventureEventOption | null = null;
     protected _resolver: IPlayerCharacter | null = null;
+
 
     protected constructor(
         name: ADVENTURE_CARD,
@@ -44,13 +47,18 @@ export abstract class AdventureCard implements IAdventureCard {
             action: this._action,
             option1Label: this._option1Label,
             option2Label: this._option2Label,
-            eventOptions: this._eventOptions?.map((option) => {
-                return {
-                    label: option.label,
-                    canBeResolved: option.canBeResolved(),
-                };
-            }) || null,
+            eventOption1: this._eventOption1 && this.getEventOptionRenderData(this._eventOption1),
+            eventOption2: this._eventOption2 && this.getEventOptionRenderData(this._eventOption2)
         };
+    }
+
+
+    get eventOption1(): IAdventureEventOption | null {
+        return this._eventOption1;
+    }
+
+    get eventOption2(): IAdventureEventOption | null {
+        return this._eventOption2;
     }
 
     get option1Label(): string {
@@ -81,14 +89,18 @@ export abstract class AdventureCard implements IAdventureCard {
         return this._eventNamePL;
     }
 
-    get eventOptions() {
-        return this._eventOptions;
+
+    private getEventOptionRenderData(eventOption: IAdventureEventOption): IAdventureEventOptionRenderData {
+        return {
+            label: eventOption.label,
+        }
     }
 
-    option1(resolver: IPlayerCharacter) {
+
+    resolveOption1(resolver: IPlayerCharacter) {
     }
 
-    option2(resolver: IPlayerCharacter) {
+    resolveOption2(resolver: IPlayerCharacter) {
         if (!this._shouldDecide) {
             throw new Error(
                 "Option2 method is triggered but card is marked as shouldn't decide" +

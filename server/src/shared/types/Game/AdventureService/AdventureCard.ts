@@ -7,12 +7,10 @@ export type AdventureOptionLabel = "" | "discard" | "shuffle" | "keep";
 export interface IAdventureEventOption {
     label: string,
     resolve: () => void;
-    canBeResolved: () => boolean;
 }
 
 export interface IAdventureEventOptionRenderData {
     label: string,
-    canBeResolved: boolean;
 }
 
 export interface IAdventureCard {
@@ -21,12 +19,14 @@ export interface IAdventureCard {
     eventNamePL: string;
     action: ACTION;
     shouldDecide: boolean;
-    option1Label: string;
-    option2Label: string;
-    eventOptions: IAdventureEventOption[] | null;
 
-    option1: (resolver: IPlayerCharacter) => void;
-    option2: (resolver: IPlayerCharacter) => void;
+    option2Label: string;
+
+    resolveOption1: (resolver: IPlayerCharacter) => void;
+    resolveOption2: (resolver: IPlayerCharacter) => void;
+
+    eventOption1: IAdventureEventOption | null;
+    eventOption2: IAdventureEventOption | null;
     triggerEventEffect: () => void;
 
     renderData: IAdventureCardRenderData;
@@ -38,5 +38,6 @@ export interface IAdventureCardRenderData {
     action: ACTION.EXPLORE | ACTION.GATHER | ACTION.BUILD;
     option1Label: AdventureOptionLabel;
     option2Label: AdventureOptionLabel;
-    eventOptions: IAdventureEventOptionRenderData[] | null;
+    eventOption1: IAdventureEventOptionRenderData | null;
+    eventOption2: IAdventureEventOptionRenderData | null;
 }

@@ -69,10 +69,7 @@ function Tokens(props: Props) {
             return;
         }
         setSelectedToken(null);
-        emitAction(OTHER_CONTROLLER_ACTION.USE_DISCOVERY_TOKEN, {
-            targetCharName: "cook",
-            tokenId: id
-        })
+        emitAction(OTHER_CONTROLLER_ACTION.USE_DISCOVERY_TOKEN, id, "cook")
     }
 
     return (

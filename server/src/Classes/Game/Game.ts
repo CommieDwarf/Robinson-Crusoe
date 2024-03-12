@@ -19,7 +19,6 @@ import {AlertService} from "./AlertService/AlertService";
 import {ArrangeCampRestService} from "./ArrangeCampRestService/ArrangeCampRestService";
 import {Castaways} from "./Scenario/Castaways";
 import {TokenService} from "./TokenService/TokenService";
-import {Cook} from "./CharacterService/Characters/Cook";
 import {AdventureService} from "./AdventureService/AdventureService";
 import {MysteryService} from "./MysteryService/MysteryService";
 import {IResourceService} from "@shared/types/Game/Resources/AllResources";
@@ -52,12 +51,7 @@ import {LOG_CODE} from "@shared/types/Game/ChatLog/LOG_CODE";
 import {IPlayer} from "@shared/types/Game/PlayerService/Player";
 
 
-type ScenarioName = "castaways";
-
-
 export class GameClass implements IGame {
-
-
     private _logService: ILogService = new LogService(this);
     private _actionService: ActionService = new ActionService(this);
     private readonly _playerService: IPlayerService;
@@ -101,6 +95,7 @@ export class GameClass implements IGame {
             [this.localPlayer.getCharacter()],
             this
         );
+        this._round = 7;
     }
 
     get renderData(): IGameRenderData {

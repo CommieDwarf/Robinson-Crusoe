@@ -99,7 +99,7 @@ export default function Tile(props: Props) {
     });
 
     function handleTileMarkClick() {
-        emitAction(TILE_CONTROLLER_ACTION.TRIGGER_TILE_ACTION, {tileId: props.tile.id})
+        emitAction(TILE_CONTROLLER_ACTION.TRIGGER_TILE_ACTION, props.tile.id)
     }
 
     const flippedClass = props.tile.modifiers.flipped ? styles.flipped : "";

@@ -15,12 +15,17 @@ export class AmuletWithPortraitOfBeautifulLady
             "medalion z portretem pięknej damy",
             false,
             "",
-            0,
+            1,
         );
     }
 
     triggerDrawEffect(drawer: ICharacter) {
+        this.addToResources();
+    }
+
+    use() {
         this._game.characterService.markThresholdsForRemoval(2);
+        super.use();
     }
 
 }

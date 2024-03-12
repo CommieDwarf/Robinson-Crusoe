@@ -1,0 +1,19 @@
+.container {
+    height: 55%;
+    aspect-ratio: var(--cardAspectRatio);
+    background-size: contain;
+    position: absolute;
+    z-index: 99999999;
+    left: 47%;
+    top: 10%;
+}
+
+.card {
+    height: 100%;
+    aspect-ratio: var(--cardAspectRatio);
+    position: relative;
+    margin: auto;
+    cursor: grab;
+    transition: all;
+    transition-duration: 0.3s;
+}
