@@ -11,12 +11,12 @@ export abstract class BuildAdventureCard
 
     protected constructor(
         name: ADVENTURE_CARD_BUILD,
-        namePL: string,
+        eventName: string,
         decide: boolean,
         game: IGame,
         option1Label: AdventureOptionLabel,
         option2Label: AdventureOptionLabel
     ) {
-        super(name, namePL, decide, game, option1Label, option2Label);
+        super(name, eventName, decide, game, option1Label, option2Label);
     }
 }

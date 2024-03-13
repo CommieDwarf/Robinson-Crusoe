@@ -5,7 +5,7 @@ import {TREASURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_C
 
 export class OldClothes extends TreasureMysteryCard {
     constructor(game: IGame) {
-        super(game, TREASURE_MYSTERY_CARD.OLD_CLOTHES, "komplet starych ubrań", false, "", 0);
+        super(game, TREASURE_MYSTERY_CARD.OLD_CLOTHES, false, "", 0);
     }
 
     triggerDrawEffect(drawer: ICharacter) {

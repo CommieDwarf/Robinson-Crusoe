@@ -12,7 +12,7 @@ export class FearOfTheBeasts
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_BUILD.FEAR_OF_THE_BEASTS,
-            "strach przed bestiami",
+            "expensive protection",
             false,
             game,
             "shuffle",

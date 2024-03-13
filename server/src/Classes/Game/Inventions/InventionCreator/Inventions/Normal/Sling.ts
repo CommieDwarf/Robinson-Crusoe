@@ -5,7 +5,6 @@ import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction"
 
 export class Sling extends Invention implements IInvention {
     protected _resourceChoice = true;
-    protected readonly _namePL = "proca";
 
     constructor(game: IGame) {
         super(

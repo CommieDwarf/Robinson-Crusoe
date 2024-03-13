@@ -8,12 +8,11 @@ import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 export class EyesInTheBushes
     extends GatherAdventureCard
     implements IAdventureCard {
-    protected _eventNamePL = "niespodziewana wizyta";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_GATHER.EYES_IN_THE_BUSHES,
-            "oczy w ciemności",
+            "unexpected visit",
             false,
             game,
             "shuffle",

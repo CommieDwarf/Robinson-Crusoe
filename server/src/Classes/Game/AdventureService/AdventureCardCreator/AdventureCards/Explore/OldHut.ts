@@ -5,12 +5,11 @@ import {ADVENTURE_CARD_EXPLORE} from "@shared/types/Game/AdventureService/ADVENT
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 
 export class OldHut extends ExploreAdventureCard implements IAdventureCard {
-    protected _eventNamePL = "duch rozbitka";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_EXPLORE.OLD_HUT,
-            "stara chata",
+            "ghost of a castaway",
             true,
             game,
             "discard",
@@ -29,7 +28,7 @@ export class OldHut extends ExploreAdventureCard implements IAdventureCard {
     triggerEventEffect() {
         this._game.characterService.decrDeterminationAllPlayerCharacters(
             1,
-            this._eventNamePL
+            this._eventName
         );
     }
 }

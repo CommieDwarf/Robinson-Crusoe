@@ -5,14 +5,14 @@ import {TREASURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_C
 
 export class CaveWithFurs extends TreasureMysteryCard {
     constructor(game: IGame) {
-        super(game, TREASURE_MYSTERY_CARD.CAVE_WITH_FURS, "grota ze skórami", false, "", 1);
+        super(game, TREASURE_MYSTERY_CARD.CAVE_WITH_FURS, false, "", 1);
     }
 
     triggerDrawEffect(drawer: ICharacter) {
         this._game.resourceService.addBasicResourceToFuture(
             "leather",
             2,
-            this._namePL
+            this._name
         );
     }
 }

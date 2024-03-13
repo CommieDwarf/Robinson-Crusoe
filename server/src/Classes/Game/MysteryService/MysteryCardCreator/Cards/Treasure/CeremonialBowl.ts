@@ -8,9 +8,8 @@ export class CeremonialBowl extends TreasureMysteryCard {
         super(
             game,
             TREASURE_MYSTERY_CARD.CEREMONIAL_BOWL,
-            "ceremonialna czara",
             true,
-            "klątwa pokonana!",
+            "curse defeated!",
             0
         );
     }

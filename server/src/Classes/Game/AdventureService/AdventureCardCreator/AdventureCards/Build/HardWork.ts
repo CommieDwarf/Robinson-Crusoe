@@ -5,12 +5,11 @@ import {ADVENTURE_CARD_BUILD} from "@shared/types/Game/AdventureService/ADVENTUR
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 
 export class HardWork extends BuildAdventureCard implements IAdventureCard {
-    protected _eventNamePL = "";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_BUILD.HARD_WORK,
-            "ciężka praca",
+            "",
             false,
             game,
             "discard",
@@ -22,7 +21,7 @@ export class HardWork extends BuildAdventureCard implements IAdventureCard {
         this._game.resourceService.spendBasicResourceIfPossible(
             "food",
             1,
-            this._namePL
+            this._name
         );
     }
 }

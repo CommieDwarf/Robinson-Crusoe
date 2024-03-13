@@ -5,7 +5,7 @@ import {TREASURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_C
 
 export class Ropes extends TreasureMysteryCard {
     constructor(game: IGame) {
-        super(game, TREASURE_MYSTERY_CARD.ROPES, "liny", false, "", 0);
+        super(game, TREASURE_MYSTERY_CARD.ROPES, false, "", 0);
     }
 
     triggerDrawEffect(drawer: ICharacter) {

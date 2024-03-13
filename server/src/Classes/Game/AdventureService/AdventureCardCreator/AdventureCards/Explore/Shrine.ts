@@ -7,12 +7,11 @@ import {IAdventureCard} from "@shared/types/Game/AdventureService/AdventureCard"
 import {IGame} from "@shared/types/Game/Game";
 
 export class Shrine extends ExploreAdventureCard implements IAdventureCard {
-    protected _eventNamePL = "koszmary";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_EXPLORE.SHRINE,
-            "kapliczka",
+            "nightmares",
             true,
             game,
             "discard",
@@ -29,8 +28,8 @@ export class Shrine extends ExploreAdventureCard implements IAdventureCard {
     }
 
     triggerEventEffect() {
-        this._game.actionService.setReRollToken(ACTION.EXPLORE, true, this._eventNamePL);
-        this._game.actionService.setReRollToken(ACTION.GATHER, true, this._eventNamePL);
-        this._game.actionService.setReRollToken(ACTION.BUILD, true, this._eventNamePL);
+        this._game.actionService.setReRollToken(ACTION.EXPLORE, true, this._eventName);
+        this._game.actionService.setReRollToken(ACTION.GATHER, true, this._eventName);
+        this._game.actionService.setReRollToken(ACTION.BUILD, true, this._eventName);
     }
 }

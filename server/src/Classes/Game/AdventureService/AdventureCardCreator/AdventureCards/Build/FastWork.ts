@@ -7,12 +7,11 @@ import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 
 
 export class FastWork extends BuildAdventureCard implements IAdventureCard {
-    protected _eventNamePL = "co nagle to po diable";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_BUILD.FAST_WORK,
-            "pośpiech",
+            "haste makes waste",
             true,
             game,
             "discard",
@@ -31,7 +30,7 @@ export class FastWork extends BuildAdventureCard implements IAdventureCard {
         this._game.constructionService.lvlDownOrGetHurt(
             CONSTRUCTION.PALISADE,
             1,
-            this._eventNamePL
+            this._eventName
         );
     }
 }

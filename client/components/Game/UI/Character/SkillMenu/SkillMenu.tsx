@@ -14,6 +14,8 @@ import {CHARACTER} from "@shared/types/Game/Characters/Character";
 import {useAppDispatch} from "../../../../../store/hooks";
 import {alertSlice, alertUpdated} from "../../../reduxSlices/alert";
 import {ALERT_CODE} from "../../../../../types/Alert/ALERT_CODE";
+import {useTranslation} from "react-i18next";
+import {capitalize} from "lodash";
 
 
 interface Props {
@@ -29,11 +31,17 @@ interface Props {
 }
 
 export default function SkillMenu(props: Props) {
+
+    const {t} = useTranslation();
     let description;
-    let quote;
+    let comment;
     if (props.skillDescription.skill) {
-        description = insertIconsIntoText(props.skillDescription.skill.description, styles.icon);
-        quote = insertIconsIntoText(props.skillDescription.skill.quote, styles.icon);
+        // @ts-ignore
+        description = t(`ability.${props.skillDescription.skill.name}.description`) as string;
+        // @ts-ignore
+        comment = t(`ability.${props.skillDescription.skill.name}.comment`) as string;
+        description = insertIconsIntoText(description, styles.icon);
+        comment = insertIconsIntoText(comment, styles.icon);
     }
     const visibilityClass = props.skillDescription.show
         ? styles.skillDescriptionVisible
@@ -101,11 +109,14 @@ export default function SkillMenu(props: Props) {
                 {props.skillDescription.skill && (
                     <>
                         <div className={styles.topBar}>
-                            <div className={styles.skillName}>{props.skillDescription.skill.namePL}</div>
+                            <div className={styles.skillName}>
+                                {/*@ts-ignore*/}
+                                {t(`ability.${props.skillDescription.skill.name}.name`)}
+                            </div>
                         </div>
 
                         <div className={styles.text}>
-                            <div className={styles.quote}>{quote}</div>
+                            <div className={styles.quote}>{comment}</div>
                             <hr className={styles.hr}/>
                             <div className={styles.description}>{description}</div>
                         </div>
@@ -125,7 +136,8 @@ export default function SkillMenu(props: Props) {
                                     </div>
                                 </div>
                                 }
-                                <div className={styles.useButton} onClick={handleButtonClick}>Użyj</div>
+                                <div className={styles.useButton}
+                                     onClick={handleButtonClick}>{capitalize(t("other.use"))}</div>
                             </>
                         }
                         {

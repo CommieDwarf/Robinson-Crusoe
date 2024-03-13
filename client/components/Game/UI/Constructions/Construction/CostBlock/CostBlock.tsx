@@ -47,7 +47,7 @@ export function CostBlock(props: Props) {
             </div>}
         {props.resource2 &&
             <div className={styles.diagonal}>
-                <ResizableImage src={crossLineImg} alt={""} fill/>
+                <ResizableImage src={crossLineImg} alt={""}/>
             </div>
         }
         {props.resource2 &&

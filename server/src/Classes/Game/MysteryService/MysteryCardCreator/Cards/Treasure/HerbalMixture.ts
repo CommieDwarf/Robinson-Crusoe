@@ -5,7 +5,7 @@ import {TREASURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_C
 
 export class HerbalMixture extends TreasureMysteryCard {
     constructor(game: IGame) {
-        super(game, TREASURE_MYSTERY_CARD.HERBAL_MIXTURE, "ziołowa mikstura", false, "", 1);
+        super(game, TREASURE_MYSTERY_CARD.HERBAL_MIXTURE, false, "", 1);
     }
 
     triggerDrawEffect(drawer: ICharacter) {

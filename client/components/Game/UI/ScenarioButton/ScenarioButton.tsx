@@ -6,6 +6,8 @@ import ResizableImage from "../../../ResizableImage/ResizableImage";
 import {IScenarioServiceRenderData} from "@shared/types/Game/ScenarioService/ScenarioService";
 import {IInventionRenderData} from "@shared/types/Game/InventionService/Invention";
 import {getPropsComparator} from "../../../../utils/getPropsComparator";
+import {useTranslation} from "react-i18next";
+import {capitalize} from "lodash";
 
 interface Props {
     inventions: IInventionRenderData[];
@@ -30,20 +32,23 @@ function ScenarioButton(props: Props) {
 
     const rotatedArrowClass = props.show ? styles.arrowRotated : "";
 
+    const {t} = useTranslation();
     return (
         <div className={`${styles.container} ${zIndexClass}`}>
             <div className={styles.button} onClick={handleClick}>
                 <div className={styles.arrowWrapper}>
                     <div className={`${styles.arrow} ${rotatedArrowClass}`}>
-                        <ResizableImage src={redArrowImg} fill alt="strzałka" sizes={styles.arrow}/>
+                        <ResizableImage src={redArrowImg} alt="strzałka"/>
                     </div>
                 </div>
                 <div className={styles.label}>
-                    Scenariusz: Rozbitkowie - Runda: {props.round}
+                    {`${capitalize(t("other.scenario", {defaultValue: "scenario"}))}:
+                     ${capitalize(t("scenario.castaways.name", {defaultValue: "castaways"}))}
+                      ${capitalize(t("other.round", {defaultValue: "round"}))}: ${props.round}`}
                 </div>
                 <div className={styles.arrowWrapper}>
                     <div className={`${styles.arrow} ${rotatedArrowClass}`}>
-                        <ResizableImage src={redArrowImg} fill alt="strzałka" sizes={styles.arrow}/>
+                        <ResizableImage src={redArrowImg} alt="strzałka"/>
                     </div>
                 </div>
             </div>

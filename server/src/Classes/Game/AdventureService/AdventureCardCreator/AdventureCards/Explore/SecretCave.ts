@@ -5,12 +5,11 @@ import {IGame} from "@shared/types/Game/Game";
 import {IAdventureCard} from "@shared/types/Game/AdventureService/AdventureCard";
 
 export class SecretCave extends ExploreAdventureCard implements IAdventureCard {
-    protected _eventNamePL = "przebudzenie bestii";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_EXPLORE.SECRET_CAVE,
-            "tajemnicza jaskinia",
+            "awakening of the beast",
             true,
             game,
             "discard",

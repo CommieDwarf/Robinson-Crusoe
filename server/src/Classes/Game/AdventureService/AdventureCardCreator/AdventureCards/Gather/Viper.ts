@@ -6,10 +6,9 @@ import {INVENTION_STARTER} from "@shared/types/Game/InventionService/Invention";
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 
 export class Viper extends GatherAdventureCard implements IAdventureCard {
-    protected _eventNamePL = "ukąszenie";
 
     constructor(game: IGame) {
-        super(ADVENTURE_CARD_GATHER.VIPER, "żmija", false, game, "shuffle", "");
+        super(ADVENTURE_CARD_GATHER.VIPER, "bite", false, game, "shuffle", "");
     }
 
     resolveOption1(resolver: IPlayerCharacter) {
@@ -21,13 +20,13 @@ export class Viper extends GatherAdventureCard implements IAdventureCard {
             this._game.characterService.hurt(
                 this.getPrimeCharacter(),
                 1,
-                this._eventNamePL
+                this._eventName
             );
         } else {
             this._game.characterService.hurt(
                 this.getPrimeCharacter(),
                 3,
-                this._eventNamePL
+                this._eventName
             );
         }
     }

@@ -40,10 +40,10 @@
     color: var(--brown);
 }
 
-.red {
+.negative {
     color: darkred;
 }
 
-.green {
+.positive {
     color: green;
 }

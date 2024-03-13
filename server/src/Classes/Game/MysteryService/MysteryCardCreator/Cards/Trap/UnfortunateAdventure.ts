@@ -7,7 +7,7 @@ import {TRAP_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_CARD"
 export class UnfortunateAdventure
     extends TrapMysteryCard {
     constructor(game: IGame) {
-        super(game, TRAP_MYSTERY_CARD.UNFORTUNATE_ADVENTURE, "nieszczęśliwa przygoda");
+        super(game, TRAP_MYSTERY_CARD.UNFORTUNATE_ADVENTURE);
     }
 
     triggerDrawEffect(drawer: ICharacter) {

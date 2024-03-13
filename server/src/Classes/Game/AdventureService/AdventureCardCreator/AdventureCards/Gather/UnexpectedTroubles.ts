@@ -7,12 +7,11 @@ import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 export class UnexpectedTroubles
     extends GatherAdventureCard
     implements IAdventureCard {
-    protected _eventNamePL = "";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_GATHER.UNEXPECTED_TROUBLES,
-            "niespodziewane trudności",
+            "",
             false,
             game,
             "discard",
@@ -23,7 +22,7 @@ export class UnexpectedTroubles
     resolveOption1(resolver: IPlayerCharacter) {
         const tileId = this._game.adventureService.currentAdventure?.relatedActionInfo?.tileId;
         if (tileId !== undefined) {
-            this._game.tileService.getTile(tileId).setTileModifier("terrainDepleted", this._namePL);
+            this._game.tileService.getTile(tileId).setTileModifier("terrainDepleted", this._name);
         } else {
             throw new Error("Can't get tile id from currentAdventure");
         }

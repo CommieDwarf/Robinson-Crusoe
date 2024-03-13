@@ -13,7 +13,7 @@ export class ConstructionIsWeak
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_BUILD.CONSTRUCTION_IS_WEAK,
-            "marna konstrukcja",
+            "bang!",
             false,
             game,
             "shuffle",

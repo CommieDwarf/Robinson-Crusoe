@@ -6,13 +6,13 @@ import {TRAP_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_CARD"
 
 export class SpiderWeb extends TrapMysteryCard {
     constructor(game: IGame) {
-        super(game, TRAP_MYSTERY_CARD.SPIDER_WEB, "pająk");
+        super(game, TRAP_MYSTERY_CARD.SPIDER_WEB);
     }
 
     private _drawer: ICharacter | null = null;
 
     triggerDrawEffect(drawer: ICharacter) {
-        this._game.characterService.hurt(drawer, 1, this._namePL);
+        this._game.characterService.hurt(drawer, 1, this._name);
         this._drawer = drawer;
         this._game.phaseService.addPhaseEffect(this.phaseEffect);
         this._game.mysteryService.addCardAsReminder(this);
@@ -25,7 +25,7 @@ export class SpiderWeb extends TrapMysteryCard {
                 throw new Error("Drawer is " + this._drawer);
             }
             if (!this._game.inventionService.isBuilt(INVENTION_STARTER.MEDICINE)) {
-                this._game.characterService.hurt(this._drawer, 1, this._namePL);
+                this._game.characterService.hurt(this._drawer, 1, this._name);
             }
         }
     }

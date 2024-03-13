@@ -4,6 +4,7 @@ import {useTranslation} from "react-i18next";
 
 import {PhaseType} from "../Phase";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
+import {capitalize} from "lodash";
 
 interface Props {
     currentPhase: PhaseType;
@@ -38,7 +39,9 @@ export default function PhaseDropDownMenu(props: Props) {
                  style={phaseStyle}
             >
                 <div className={`${styles.phaseLabel} ${styles[phase]}`}>
-                    {i + 1}. Faza {t(`phase.${phase}`)}
+                    {i + 1}. {capitalize(t(`phase.phase`, {
+                    phase: phase
+                }))}
                 </div>
                 <div className={styles.phasePicture}>
                     <ResizableImage

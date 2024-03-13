@@ -7,12 +7,11 @@ import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 export class LostInTheThicket
     extends ExploreAdventureCard
     implements IAdventureCard {
-    protected _eventNamePL = "";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_EXPLORE.LOST_IN_THE_THICKET,
-            "zagubiony w gęstwinie",
+            "",
             false,
             game,
             "discard",

@@ -5,12 +5,11 @@ import {ADVENTURE_CARD_BUILD} from "@shared/types/Game/AdventureService/ADVENTUR
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 
 export class Breakdown extends BuildAdventureCard implements IAdventureCard {
-    protected _eventNamePL = "dobrze idzie";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_BUILD.BREAKDOWN,
-            "załamanie",
+            "it's going well",
             false,
             game,
             "shuffle",
@@ -19,7 +18,7 @@ export class Breakdown extends BuildAdventureCard implements IAdventureCard {
     }
 
     resolveOption1(resolver: IPlayerCharacter) {
-        this._game.moraleService.lvlDown(1, this.namePL);
+        this._game.moraleService.lvlDown(1, this.name);
         this.shuffleIntoEventDeck();
     }
 
@@ -28,7 +27,7 @@ export class Breakdown extends BuildAdventureCard implements IAdventureCard {
         this._game.characterService.incrDetermination(
             character,
             2,
-            this.eventNamePL
+            this._eventName
         );
     }
 }

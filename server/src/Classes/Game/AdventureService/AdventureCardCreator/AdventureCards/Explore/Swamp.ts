@@ -5,13 +5,12 @@ import {ADVENTURE_CARD_EXPLORE} from "@shared/types/Game/AdventureService/ADVENT
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 
 export class Swamp extends ExploreAdventureCard implements IAdventureCard {
-    protected _eventNamePL = "";
 
     constructor(game: IGame) {
-        super(ADVENTURE_CARD_EXPLORE.SWAMP, "bagniska", false, game, "discard", "");
+        super(ADVENTURE_CARD_EXPLORE.SWAMP, "", false, game, "discard", "");
     }
 
     resolveOption1(resolver: IPlayerCharacter) {
-        this.getTile().setTileModifier("timeConsumingAction", this._namePL);
+        this.getTile().setTileModifier("timeConsumingAction", this._name);
     }
 }

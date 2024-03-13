@@ -5,12 +5,11 @@ import {ADVENTURE_CARD_EXPLORE} from "@shared/types/Game/AdventureService/ADVENT
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 
 export class Tiger extends ExploreAdventureCard implements IAdventureCard {
-    protected _eventNamePL = "tygrys was odnajduje";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_EXPLORE.TIGER,
-            "tygrys!",
+            "the tiger has found you",
             true,
             game,
             "discard",

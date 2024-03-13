@@ -7,7 +7,7 @@ import {TREASURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_C
 
 export class Candles extends TreasureMysteryCard implements ITreasureMysteryCard {
     constructor(game: IGame) {
-        super(game, TREASURE_MYSTERY_CARD.CANDLES, "świeczki", false, "", 0, "", "");
+        super(game, TREASURE_MYSTERY_CARD.CANDLES, false, "", 0, "", "");
     }
 
 

@@ -9,8 +9,9 @@ import {ActionTokens} from "@shared/types/Game/ActionService/ActionService";
 import {ACTION} from "@shared/types/Game/ACTION";
 import {isAdventureAction} from "@shared/utils/typeGuards/isAdventureAction";
 import {IGlobalCostModifierRenderData} from "@shared/types/Game/ActionService/GlobalCostModifier";
-import {kebabCase} from "lodash";
+import {capitalize, kebabCase} from "lodash";
 import {getPropsComparator} from "../../../../utils/getPropsComparator";
+import {useTranslation} from "react-i18next";
 
 type Props = {
     adventureTokens: ActionTokens;
@@ -77,9 +78,11 @@ function ActionOrder(props: Props) {
         );
     });
 
+    const {t} = useTranslation();
+
     return (
         <div className={styles.container} ref={props.containerRef}>
-            <div className={styles.label}>Kolejność akcji</div>
+            <div className={styles.label}>{capitalize(t("other.action order"))}</div>
             {actionIcons}
         </div>
     );

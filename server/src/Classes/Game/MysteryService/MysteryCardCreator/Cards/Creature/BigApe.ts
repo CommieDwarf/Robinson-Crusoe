@@ -8,7 +8,7 @@ import {CREATURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_C
 export class BigApe
     extends CreatureMysteryCard {
     constructor(game: IGame) {
-        super(game, CREATURE_MYSTERY_CARD.BIG_APE, "wielka małpa", true, "nocny demon", "Walcz");
+        super(game, CREATURE_MYSTERY_CARD.BIG_APE, true, "night demon", "fight");
     }
 
     triggerDrawEffect(drawer: ICharacter) {
@@ -18,7 +18,6 @@ export class BigApe
     triggerEventEffect() {
         const beastStats: BeastStats = {
             name: "big ape",
-            namePL: "wielka małpa",
             strength: 4,
             weaponLoss: 0,
             reward: new BasicResources(0, 0, 0, 2)

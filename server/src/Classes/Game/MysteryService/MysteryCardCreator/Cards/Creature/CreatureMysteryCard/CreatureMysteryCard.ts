@@ -17,13 +17,12 @@ export abstract class CreatureMysteryCard
     protected constructor(
         game: IGame,
         name: CREATURE_MYSTERY_CARD,
-        namePL: string,
         shuffleable: boolean,
         eventName: string,
         eventLabel: string = "",
         drawLabel: string = "",
     ) {
-        super(game, name, namePL, shuffleable, eventName, eventLabel, drawLabel);
+        super(game, name, shuffleable, eventName, eventLabel, drawLabel);
     }
 
     get renderData() {

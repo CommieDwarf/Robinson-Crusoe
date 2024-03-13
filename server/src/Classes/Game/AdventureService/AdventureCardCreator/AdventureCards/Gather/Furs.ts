@@ -5,10 +5,9 @@ import {ADVENTURE_CARD_GATHER} from "@shared/types/Game/AdventureService/ADVENTU
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 
 export class Furs extends GatherAdventureCard implements IAdventureCard {
-    protected _eventNamePL = "insekty";
 
     constructor(game: IGame) {
-        super(ADVENTURE_CARD_GATHER.FURS, "skóry", true, game, "discard", "");
+        super(ADVENTURE_CARD_GATHER.FURS, "insects", true, game, "discard", "");
     }
 
     resolveOption1(resolver: IPlayerCharacter) {
@@ -18,7 +17,7 @@ export class Furs extends GatherAdventureCard implements IAdventureCard {
         this._game.resourceService.addBasicResourceToOwned(
             "leather",
             2,
-            this._namePL
+            this._name
         );
     }
 

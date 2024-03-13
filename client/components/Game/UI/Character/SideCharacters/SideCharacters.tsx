@@ -12,6 +12,8 @@ import determinationTokenImg from "/public/UI/tokens/determination.png";
 import {objectsEqual} from "@shared/utils/objectsEqual";
 import {getOwnedDroppableId} from "@shared/utils/getOwnedDroppableId";
 import {ISideCharacterRenderData} from "@shared/types/Game/Characters/SideCharacter";
+import {useTranslation} from "react-i18next";
+import {capitalize} from "lodash";
 
 interface Props {
     friday: ISideCharacterRenderData;
@@ -29,6 +31,8 @@ function SideCharacters(props: Props) {
         (state) => state.freePawns.friday,
         objectsEqual
     );
+
+    const {t} = useTranslation();
 
     return (
         <div className={styles.container}>
@@ -56,7 +60,7 @@ function SideCharacters(props: Props) {
                         </div>
                     )}
                 </Droppable>
-                <div className={`${styles.name}`}>Piętaszek</div>
+                <div className={`${styles.name}`}>{capitalize(t("character.friday"))}</div>
                 <FridayHealth health={props.friday.health}/>
                 <div className={styles.determination}>
                     <div className={styles.determinationValue}>{props.friday.determination}</div>
@@ -98,7 +102,7 @@ function SideCharacters(props: Props) {
                         </div>
                     )}
                 </Droppable>
-                <div className={`${styles.name}`}>Pies</div>
+                <div className={`${styles.name}`}>{capitalize(t("character.dog"))}</div>
                 <div className={styles.dogUsage}>
                     <ResizableImage
                         src={dogUsageImg}

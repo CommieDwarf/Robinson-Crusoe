@@ -3,7 +3,6 @@ import {IInvention, INVENTION_NORMAL, INVENTION_TYPE,} from "@shared/types/Game/
 import {IGame} from "@shared/types/Game/Game";
 
 export class Diary extends Invention implements IInvention {
-    protected readonly _namePL = "dziennik";
 
     constructor(game: IGame) {
         super(

@@ -7,12 +7,11 @@ import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 export class WildBerries
     extends ExploreAdventureCard
     implements IAdventureCard {
-    protected _eventNamePL = "niestrawność";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_EXPLORE.WILD_BERRIES,
-            "dzikie jagody",
+            "indigestion",
             false,
             game,
             "shuffle",

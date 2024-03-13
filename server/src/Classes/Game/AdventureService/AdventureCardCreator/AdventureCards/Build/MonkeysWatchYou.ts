@@ -8,7 +8,6 @@ import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 export class MonkeysWatchYou
     extends BuildAdventureCard
     implements IAdventureCard {
-    protected _eventNamePL = "małpy w obozie!";
     // protected _eventOptions: IAdventureEventsOption[] | null = [
     //     {
     //         label: "dach",
@@ -34,7 +33,7 @@ export class MonkeysWatchYou
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_BUILD.MONKEYS_WATCH_YOU,
-            "małpy Cię obserwują",
+            "monkeys in the camp!",
             false,
             game,
             "shuffle",

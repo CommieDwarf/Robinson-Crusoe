@@ -5,7 +5,7 @@ import {TREASURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_C
 
 export class Hatched extends TreasureMysteryCard {
     constructor(game: IGame) {
-        super(game, TREASURE_MYSTERY_CARD.HATCHED, "siekiera", false, "", 1);
+        super(game, TREASURE_MYSTERY_CARD.HATCHED, false, "", 1);
     }
 
     triggerDrawEffect(drawer: ICharacter) {
@@ -13,7 +13,7 @@ export class Hatched extends TreasureMysteryCard {
     }
 
     use() {
-        this._game.tileService.campTile.addModifierByResource("wood", this.namePL);
+        this._game.tileService.campTile.addModifierByResource("wood", this.name);
         this.removeFromOwnedResources();
     }
 }

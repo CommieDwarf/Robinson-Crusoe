@@ -5,7 +5,7 @@ import {TREASURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_C
 
 export class Helmet extends TreasureMysteryCard {
     constructor(game: IGame) {
-        super(game, TREASURE_MYSTERY_CARD.HELMET, "hełm", false, "", 0);
+        super(game, TREASURE_MYSTERY_CARD.HELMET, false, "", 0);
     }
 
     triggerDrawEffect(drawer: ICharacter) {

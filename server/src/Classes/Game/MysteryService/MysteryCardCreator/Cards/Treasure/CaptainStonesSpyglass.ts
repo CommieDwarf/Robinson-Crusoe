@@ -8,7 +8,6 @@ export class CaptainStonesSpyglass extends TreasureMysteryCard {
         super(
             game,
             TREASURE_MYSTERY_CARD.CAPTAIN_STONES_SPYGLASS,
-            "luneta kapitana Stone'a",
             false,
             "",
             1

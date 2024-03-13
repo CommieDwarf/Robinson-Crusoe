@@ -5,13 +5,12 @@ import {ADVENTURE_CARD_EXPLORE} from "@shared/types/Game/AdventureService/ADVENT
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 
 export class Carcass extends ExploreAdventureCard implements IAdventureCard {
-    protected _eventNamePL = "biegunka";
 
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_EXPLORE.CARCASS,
-            "padlina",
+            "diarrhea",
             true,
             game,
             "discard",
@@ -23,17 +22,17 @@ export class Carcass extends ExploreAdventureCard implements IAdventureCard {
     }
 
     resolveOption2(resolver: IPlayerCharacter) {
-        this._game.resourceService.addBasicResourceToFuture("food", 2, this._namePL);
+        this._game.resourceService.addBasicResourceToFuture("food", 2, this._name);
         this._game.resourceService.addBasicResourceToFuture(
             "leather",
             1,
-            this._namePL
+            this._name
         );
         this.shuffleIntoEventDeck();
     }
 
 
     triggerEventEffect() {
-        this._game.characterService.hurtAllPlayerCharacters(1, this._eventNamePL);
+        this._game.characterService.hurtAllPlayerCharacters(1, this._eventName);
     }
 }

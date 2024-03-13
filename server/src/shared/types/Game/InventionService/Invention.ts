@@ -14,7 +14,6 @@ export type InventionResource = "wood" | 'leather'
 
 export interface IInvention extends IResourceCommittableItem<InventionResource>, PawnOwner<IInventionRenderData> {
     name: INVENTION;
-    namePL: string;
     locked: boolean;
     inventionType: INVENTION_TYPE;
     isBuilt: boolean;

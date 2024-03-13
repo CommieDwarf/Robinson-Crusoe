@@ -6,7 +6,6 @@ import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction";
 
 export class Bamboo extends ExploreAdventureCard implements IAdventureCard {
-    protected _eventNamePL = "trzask łamanego drewna!";
 
     // protected _eventOption1 = {
     //     label: "-1 $roof$",
@@ -36,7 +35,7 @@ export class Bamboo extends ExploreAdventureCard implements IAdventureCard {
     }
 
     resolveOption2(resolver: IPlayerCharacter) {
-        this._game.resourceService.addBasicResourceToOwned("wood", 2, this._namePL);
+        this._game.resourceService.addBasicResourceToOwned("wood", 2, this._name);
         this.shuffleIntoEventDeck();
     }
 

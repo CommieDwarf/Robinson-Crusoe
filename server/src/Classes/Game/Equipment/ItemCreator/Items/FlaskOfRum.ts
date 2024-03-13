@@ -6,17 +6,15 @@ import {ICharacter} from "@shared/types/Game/Characters/Character";
 
 export class FlaskOfRum extends Item implements IItem {
     constructor(game: IGame) {
-        super(ITEM.FLASK_OF_RUM, "Flaszka rumu", game);
+        super(ITEM.FLASK_OF_RUM, game);
     }
 
     use(user: IPlayer, target?: ICharacter) {
         if (this._game.phaseService.phase !== "night") {
-            this._game.alertService.setAlert(
-                "Tego przedmiotu można użyć tylko w nocy"
-            );
+            return
         } else {
             super.use(user);
-            this._game.characterService.heal(user.getCharacter(), 1, this.namePL);
+            this._game.characterService.heal(user.getCharacter(), 1, this.name);
         }
     }
 }

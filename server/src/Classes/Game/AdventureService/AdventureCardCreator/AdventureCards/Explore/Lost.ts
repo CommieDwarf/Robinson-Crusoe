@@ -5,10 +5,9 @@ import {ADVENTURE_CARD_EXPLORE} from "@shared/types/Game/AdventureService/ADVENT
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 
 export class Lost extends ExploreAdventureCard implements IAdventureCard {
-    protected _eventNamePL = "";
 
     constructor(game: IGame) {
-        super(ADVENTURE_CARD_EXPLORE.LOST, "zagubiony", false, game, "discard", "");
+        super(ADVENTURE_CARD_EXPLORE.LOST, "", false, game, "discard", "");
     }
 
     resolveOption1(resolver: IPlayerCharacter) {

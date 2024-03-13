@@ -9,7 +9,6 @@ import {IGame} from "@shared/types/Game/Game";
 import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction";
 
 export class Bow extends Invention implements IInvention {
-    protected readonly _namePL = "łuk";
 
     constructor(game: IGame) {
         super(

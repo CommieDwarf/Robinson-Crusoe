@@ -9,7 +9,6 @@ import {PAWN_HELPER_ACTION} from "@shared/types/Game/Pawns/Pawn";
 import {Invention} from "../../Invention";
 
 export class Belts extends Invention implements IInvention {
-    protected readonly _namePL = "pasy";
 
     constructor(game: IGame) {
         super(

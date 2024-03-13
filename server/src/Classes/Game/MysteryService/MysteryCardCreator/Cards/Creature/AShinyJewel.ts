@@ -5,7 +5,7 @@ import {CREATURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_C
 export class AShinyJewel
     extends CreatureMysteryCard {
     constructor(game: IGame) {
-        super(game, CREATURE_MYSTERY_CARD.A_SHINY_JEWEL, "wielki klejnot", false, "");
+        super(game, CREATURE_MYSTERY_CARD.A_SHINY_JEWEL, false, "");
     }
 
     triggerDrawEffect() {
@@ -15,7 +15,7 @@ export class AShinyJewel
 
     private phaseEffect = () => {
         if (this._game.phaseService.phase === "night") {
-            this._game.characterService.hurtAllPlayerCharacters(1, this._namePL);
+            this._game.characterService.hurtAllPlayerCharacters(1, this._name);
             this.removeCardAsReminder();
             this._game.phaseService.removePhaseEffect(this.phaseEffect);
         }

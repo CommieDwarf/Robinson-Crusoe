@@ -5,12 +5,11 @@ import {ADVENTURE_CARD_EXPLORE} from "@shared/types/Game/AdventureService/ADVENT
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 
 export class OldGrave extends ExploreAdventureCard implements IAdventureCard {
-    protected _eventNamePL = "wspomnienia o martwym rozbitku";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_EXPLORE.OLD_GRAVE,
-            "stary grób",
+            "memories of the dead castaway",
             false,
             game,
             "shuffle",
@@ -19,7 +18,7 @@ export class OldGrave extends ExploreAdventureCard implements IAdventureCard {
     }
 
     resolveOption1(resolver: IPlayerCharacter) {
-        this._game.characterService.decrDeterminationOrGetHurt(resolver, 1, this._namePL);
+        this._game.characterService.decrDeterminationOrGetHurt(resolver, 1, this._name);
         this.shuffleIntoEventDeck();
     }
 
@@ -28,7 +27,7 @@ export class OldGrave extends ExploreAdventureCard implements IAdventureCard {
         this._game.characterService.decrDeterminationOrGetHurt(
             character,
             2,
-            this._eventNamePL
+            this._eventName
         );
     }
 }

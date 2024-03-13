@@ -7,12 +7,11 @@ import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 export class PathOfAPredator
     extends GatherAdventureCard
     implements IAdventureCard {
-    protected _eventNamePL = "atak bestii";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_GATHER.PATH_OF_A_PREDATOR,
-            "ścieżka drapieżnika",
+            "attack of a beast",
             false,
             game,
             "shuffle",

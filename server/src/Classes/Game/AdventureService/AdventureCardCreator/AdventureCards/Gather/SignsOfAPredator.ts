@@ -8,12 +8,11 @@ import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 export class SignsOfAPredator
     extends GatherAdventureCard
     implements IAdventureCard {
-    protected _eventNamePL = "";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_GATHER.SIGNS_OF_A_PREDATOR,
-            "ślady drapieżnika",
+            "",
             false,
             game,
             "discard",
@@ -23,6 +22,6 @@ export class SignsOfAPredator
 
     resolveOption1(resolver: IPlayerCharacter) {
         const tile = this.getTile();
-        tile.setTileModifier("greaterDanger", this._namePL);
+        tile.setTileModifier("greaterDanger", this._name);
     }
 }

@@ -8,12 +8,11 @@ import {ACTION} from "@shared/types/Game/ACTION";
 export class LaboriousWork
     extends BuildAdventureCard
     implements IAdventureCard {
-    protected _eventNamePL = "";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_BUILD.LABORIOUS_WORK,
-            "mozolna praca",
+            "",
             false,
             game,
             "discard",
@@ -22,6 +21,6 @@ export class LaboriousWork
     }
 
     resolveOption1(resolver: IPlayerCharacter) {
-        this._game.actionService.addGlobalCostModifier(ACTION.BUILD, "helper", true, this._namePL);
+        this._game.actionService.addGlobalCostModifier(ACTION.BUILD, "helper", true, this._name);
     }
 }

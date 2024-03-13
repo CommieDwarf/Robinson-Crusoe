@@ -8,6 +8,8 @@ import styles from "./Construction.module.css";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
 import {CostBlock} from "./CostBlock/CostBlock";
 import React from "react";
+import {useTranslation} from "react-i18next";
+import {capitalize} from "lodash";
 
 
 type Props = {
@@ -25,6 +27,8 @@ function Construction(props: Props) {
             emitAction(OTHER_CONTROLLER_ACTION.SWITCH_COMMITTED_RESOURCES_TYPE, props.construction.name)
         }
     }
+
+    const {t} = useTranslation()
 
 
     if (props.construction.committedResources) {
@@ -59,7 +63,7 @@ function Construction(props: Props) {
     return (
         <div
             className={`${styles.construction} ${props.construction.name === "weapon" ? styles.noBottomBorder : ""}`}>
-            <div className={styles.lvlLabel}>Poziom {props.construction.lvl}
+            <div className={styles.lvlLabel}>{capitalize(t("other.level"))} {props.construction.lvl}
                 {props.construction.temporaryBoost > 0 &&
                     <span className={styles.lvlBoosted}>(+{props.construction.temporaryBoost})</span>
                 }
@@ -94,9 +98,6 @@ function Construction(props: Props) {
                     src={`/UI/constructions/${constrImgName}.png`}
                     fill
                     alt={props.construction.name}
-                    sizes={`${styles[props.construction.name]} ${
-                        props.construction.lvl === 0 ? styles.level0 : ""
-                    }`}
                 />
             </div>
             <div className={styles.structureIcon}>
@@ -104,7 +105,6 @@ function Construction(props: Props) {
                     src={`/UI/constructions/${props.construction.name}-icon.png`}
                     fill
                     alt={props.construction.name + " icon"}
-                    sizes={styles.structureIcon}
                 />
             </div>
         </div>

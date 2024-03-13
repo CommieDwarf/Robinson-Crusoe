@@ -4,7 +4,6 @@ import {IGame} from "@shared/types/Game/Game";
 import {TERRAIN_TYPE} from "@shared/types/Game/TileService/ITile";
 
 export class Drums extends Invention implements IInvention {
-    protected readonly _namePL = "bębny";
 
     constructor(game: IGame) {
         super(

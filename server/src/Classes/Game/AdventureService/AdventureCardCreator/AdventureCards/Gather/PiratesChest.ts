@@ -7,12 +7,11 @@ import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 export class PiratesChest
     extends GatherAdventureCard
     implements IAdventureCard {
-    protected _eventNamePL = "klątwa";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_GATHER.PIRATES_CHEST,
-            "skrzynia piratów",
+            "curse",
             true,
             game,
             "discard",

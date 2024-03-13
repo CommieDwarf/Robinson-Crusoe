@@ -18,14 +18,13 @@ export abstract class TreasureMysteryCard extends MysteryCard<TREASURE_MYSTERY_C
     protected constructor(
         game: IGame,
         name: TREASURE_MYSTERY_CARD,
-        namePL: string,
         shuffleable: boolean,
         eventName: string,
         uses: number,
         eventLabel: string = "",
         drawLabel: string = "",
     ) {
-        super(game, name, namePL, shuffleable, eventName, eventLabel, drawLabel);
+        super(game, name, shuffleable, eventName, eventLabel, drawLabel);
         this._name = name;
         this._uses = uses;
     }

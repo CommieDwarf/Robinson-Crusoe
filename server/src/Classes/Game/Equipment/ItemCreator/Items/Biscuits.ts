@@ -6,11 +6,11 @@ import {ICharacter} from "@shared/types/Game/Characters/Character";
 
 export class Biscuits extends Item implements IItem {
     constructor(game: IGame) {
-        super(ITEM.BISCUITS, "Suchary", game);
+        super(ITEM.BISCUITS, game);
     }
 
     use(user: IPlayer, target?: ICharacter) {
         super.use(user);
-        this._game.resourceService.addBasicResourceToOwned("dryFood", 1, this.namePL);
+        this._game.resourceService.addBasicResourceToOwned("dryFood", 1, this.name);
     }
 }

@@ -9,7 +9,6 @@ import {Invention} from "../../Invention";
 import {PAWN_HELPER_ACTION} from "@shared/types/Game/Pawns/Pawn";
 
 export class Raft extends Invention implements IInvention {
-    protected readonly _namePL = "tratwa";
 
     constructor(game: IGame) {
         super(

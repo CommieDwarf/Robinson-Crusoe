@@ -5,12 +5,11 @@ import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 import {IAdventureCard} from "@shared/types/Game/AdventureService/AdventureCard";
 
 export class RuinedHut extends ExploreAdventureCard implements IAdventureCard {
-    protected _eventNamePL = "niespokojne sny";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_EXPLORE.RUINED_HUT,
-            "zniszczona chatka",
+            "restless dreams",
             true,
             game,
             "discard",
@@ -27,6 +26,6 @@ export class RuinedHut extends ExploreAdventureCard implements IAdventureCard {
     }
 
     triggerEventEffect() {
-        this._game.moraleService.lvlDown(1, this._eventNamePL);
+        this._game.moraleService.lvlDown(1, this._eventName);
     }
 }

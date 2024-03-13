@@ -8,7 +8,6 @@ import {
 import {IGame} from "@shared/types/Game/Game";
 
 export class Furnace extends Invention implements IInvention {
-    protected readonly _namePL = "piec";
 
     constructor(game: IGame) {
         super(

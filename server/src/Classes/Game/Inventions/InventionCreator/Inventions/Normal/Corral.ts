@@ -11,7 +11,6 @@ import {ITile} from "@shared/types/Game/TileService/ITile";
 
 export class Corral extends Invention implements IInvention {
     protected _usable = true;
-    protected readonly _namePL = "zagroda";
     private _tiles: ITile[] | null = null;
 
     constructor(game: IGame) {

@@ -8,12 +8,11 @@ import {CREATURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_C
 
 export class Gremlins extends CreatureMysteryCard {
     constructor(game: IGame) {
-        super(game, CREATURE_MYSTERY_CARD.GREMLINS, "gremliny", true, "gremliny was wytropiły", "walcz", "walcz");
+        super(game, CREATURE_MYSTERY_CARD.GREMLINS, true, "gremlins have tracked you down", "fight");
     }
 
     private _beastStats: BeastStats = {
         name: "gremlins",
-        namePL: "gremliny",
         strength: 0,
         weaponLoss: 0,
         reward: new BasicResources(),

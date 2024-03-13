@@ -6,7 +6,7 @@ import {CREATURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_C
 export class UnleashedBeast
     extends CreatureMysteryCard {
     constructor(game: IGame) {
-        super(game, CREATURE_MYSTERY_CARD.UNLEASHED_BEAST, "bestia na wolności", false, "");
+        super(game, CREATURE_MYSTERY_CARD.UNLEASHED_BEAST, false, "");
     }
 
     triggerDrawEffect(drawer: ICharacter) {

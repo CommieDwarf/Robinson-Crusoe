@@ -7,13 +7,12 @@ import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 import {ITile} from "@shared/types/Game/TileService/ITile";
 
 export class NewFlock extends GatherAdventureCard implements IAdventureCard {
-    protected _eventNamePL = "wszystko przepadło";
     private _tile: ITile | null = null;
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_GATHER.NEW_FLOCK,
-            "nowe stado",
+            "all is gone",
             false,
             game,
             "shuffle",
@@ -26,7 +25,7 @@ export class NewFlock extends GatherAdventureCard implements IAdventureCard {
         const tile = this.getTile();
         const foodSide = tile.getSideByResource("food");
         if (foodSide) {
-            tile.tileResourceService?.addResourceBoostBySide(foodSide, this._namePL)
+            tile.tileResourceService?.addResourceBoostBySide(foodSide, this._name)
             this._tile = tile;
         }
 
@@ -37,8 +36,8 @@ export class NewFlock extends GatherAdventureCard implements IAdventureCard {
             const side = this._tile.getSideByResource("food");
             if (side) {
                 if (this._tile.canResourceBeDepleted(side)) {
-                    this._tile.depleteResource(side, this._eventNamePL);
-                    this._tile.tileResourceService?.removeBoost(side, this._eventNamePL)
+                    this._tile.depleteResource(side, this._eventName);
+                    this._tile.tileResourceService?.removeBoost(side, this._eventName)
                 }
 
             }

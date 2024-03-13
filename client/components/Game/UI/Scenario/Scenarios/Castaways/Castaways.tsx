@@ -1,6 +1,6 @@
 import styles from "./Castaways.module.css";
 import {Description} from "./Description/Description";
-import {WoodPile} from "./WoodStack/WoodPile";
+import {WoodPile} from "./WoodPile/WoodPile";
 import React, {useLayoutEffect, useRef, useState} from "react";
 
 import bookEffectImg from "/public/UI/scenarios/castaways/book-effect.png";
@@ -11,6 +11,8 @@ import {Card} from "../../../CardList/Cards/Card/Card";
 import ResizableImage from "../../../../../ResizableImage/ResizableImage";
 import {IScenarioServiceRenderData} from "@shared/types/Game/ScenarioService/ScenarioService";
 import {IInventionRenderData, INVENTION_STARTER} from "@shared/types/Game/InventionService/Invention";
+import {useTranslation} from "react-i18next";
+import {capitalize} from "lodash";
 
 interface Props {
     inventions: IInventionRenderData[];
@@ -54,11 +56,12 @@ export default function Castaways(props: Props) {
     const cardHeight = cardWidth / cardAspectRatio;
     const cardEnlargeScale = 1.5;
 
+    const {t} = useTranslation();
 
     return (
         <div className={styles.container}>
             <div className={styles.titleDiv}>
-                <span className={styles.title}>Rozbitkowie</span>
+                <span className={styles.title}>{capitalize(t("scenario.castaways.name"))}</span>
             </div>
             <Rounds current={props.round}/>
             <Description/>

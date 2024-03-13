@@ -7,12 +7,11 @@ import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 export class UnexpectedDiscovery
     extends GatherAdventureCard
     implements IAdventureCard {
-    protected _eventNamePL = "";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_GATHER.UNEXPECTED_DISCOVERY,
-            "niespodziewane znalezisko",
+            "",
             false,
             game,
             "discard",

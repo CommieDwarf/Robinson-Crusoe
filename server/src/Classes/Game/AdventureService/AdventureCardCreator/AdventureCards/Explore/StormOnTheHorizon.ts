@@ -7,12 +7,11 @@ import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 export class StormOnTheHorizon
     extends ExploreAdventureCard
     implements IAdventureCard {
-    protected _eventNamePL = "sztorm";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_EXPLORE.STORM_ON_THE_HORIZON,
-            "nadciąga sztorm",
+            "storm",
             false,
             game,
             "shuffle",
@@ -25,6 +24,6 @@ export class StormOnTheHorizon
     }
 
     triggerEventEffect() {
-        this._game.weatherService.setToken("storm", true, this._eventNamePL);
+        this._game.weatherService.setToken("storm", true, this._eventName);
     }
 }

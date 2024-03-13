@@ -6,7 +6,7 @@ import {CREATURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_C
 export class GiantSnake
     extends CreatureMysteryCard {
     constructor(game: IGame) {
-        super(game, CREATURE_MYSTERY_CARD.GIANT_SNAKE, "ogromny wąż", false, "");
+        super(game, CREATURE_MYSTERY_CARD.GIANT_SNAKE, false, "");
     }
 
     triggerDrawEffect(drawer: ICharacter) {
@@ -14,7 +14,7 @@ export class GiantSnake
         this._game.characterService.decrDeterminationOrGetHurt(
             drawer,
             drawer.determination,
-            this._namePL
+            this._name
         );
         this._game.mysteryService.disableFurtherCardDraw();
     }

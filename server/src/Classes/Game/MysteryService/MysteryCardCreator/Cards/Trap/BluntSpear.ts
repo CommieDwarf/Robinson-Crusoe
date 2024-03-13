@@ -5,10 +5,10 @@ import {TRAP_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_CARD"
 
 export class BluntSpear extends TrapMysteryCard {
     constructor(game: IGame) {
-        super(game, TRAP_MYSTERY_CARD.BLUNT_SPEAR, "stara dzida");
+        super(game, TRAP_MYSTERY_CARD.BLUNT_SPEAR);
     }
 
     triggerDrawEffect(drawer: ICharacter) {
-        this._game.characterService.hurt(drawer, 2, this._namePL);
+        this._game.characterService.hurt(drawer, 2, this._name);
     }
 }

@@ -8,8 +8,8 @@ export abstract class TrapMysteryCard
     implements IBaseMysteryCard<TRAP_MYSTERY_CARD> {
     protected _type = MYSTERY_CARD_TYPE.TRAP;
 
-    protected constructor(game: IGame, name: TRAP_MYSTERY_CARD, namePL: string, eventLabel: string = "", drawLabel: string = "") {
-        super(game, name, namePL, false, "", eventLabel, drawLabel);
+    protected constructor(game: IGame, name: TRAP_MYSTERY_CARD, eventLabel: string = "", drawLabel: string = "") {
+        super(game, name, false, "", eventLabel, drawLabel);
     }
 
     get renderData() {

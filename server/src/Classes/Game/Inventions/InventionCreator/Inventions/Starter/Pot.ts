@@ -5,7 +5,6 @@ import {TERRAIN_TYPE} from "@shared/types/Game/TileService/ITile";
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 
 export class Pot extends Invention implements IInvention {
-    protected readonly _namePL = "naczynia";
     protected _usable = true;
 
 

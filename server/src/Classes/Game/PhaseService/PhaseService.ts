@@ -122,8 +122,8 @@ export class PhaseService implements IPhaseService {
 
     private productionEffect = () => {
         const id = this._game.tileService.campTile.id;
-        this._game.tileService.gather("left", id, "produkcja", true);
-        this._game.tileService.gather("right", id, "produkcja", true);
+        this._game.tileService.gather("left", id, "production", true);
+        this._game.tileService.gather("right", id, "production", true);
     };
 
     private preActionEffect = () => {

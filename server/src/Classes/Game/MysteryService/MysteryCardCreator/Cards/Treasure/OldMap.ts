@@ -5,10 +5,10 @@ import {TREASURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_C
 
 export class OldMap extends TreasureMysteryCard {
     constructor(game: IGame) {
-        super(game, TREASURE_MYSTERY_CARD.OLD_MAP, "stara mapa", false, "", 0);
+        super(game, TREASURE_MYSTERY_CARD.OLD_MAP, false, "", 0);
     }
 
     triggerDrawEffect(drawer: ICharacter) {
-        this._game.characterService.incrDeterminationAllCharacters(1, this._namePL);
+        this._game.characterService.incrDeterminationAllCharacters(1, this._name);
     }
 }

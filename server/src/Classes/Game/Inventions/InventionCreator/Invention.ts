@@ -30,7 +30,7 @@ export class Invention extends ResourceCommittableItem<InventionResource> implem
     protected readonly _belongsTo: CHARACTER | null = null;
     protected readonly _usable: boolean = false;
     protected _used: boolean = false;
-    protected readonly _logSource = `karta pomysłu: ${this.namePL}`;
+    protected readonly _logSource = `${this.name}`;
 
     protected _pawnService: IPawnService<IInvention> = new PawnService<IInvention>(this._game, this);
 

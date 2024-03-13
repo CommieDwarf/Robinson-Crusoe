@@ -6,14 +6,14 @@ import {TREASURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_C
 
 export class AntiqueRapier extends TreasureMysteryCard {
     constructor(game: IGame) {
-        super(game, TREASURE_MYSTERY_CARD.ANTIQUE_RAPIER, "zabytkowy rapier", false, "", 0);
+        super(game, TREASURE_MYSTERY_CARD.ANTIQUE_RAPIER, false, "", 0);
     }
 
     triggerDrawEffect(drawer: ICharacter) {
         this._game.constructionService.lvlUpConstruction(
             CONSTRUCTION.WEAPON,
             2,
-            this._namePL
+            this._name
         );
     }
 }

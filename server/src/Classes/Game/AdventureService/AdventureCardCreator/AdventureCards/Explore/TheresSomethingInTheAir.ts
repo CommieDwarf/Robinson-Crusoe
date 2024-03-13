@@ -9,12 +9,11 @@ import {ACTION} from "@shared/types/Game/ACTION";
 export class TheresSomethingInTheAir
     extends ExploreAdventureCard
     implements IAdventureCard {
-    protected _eventNamePL = "przeklęta wyspa";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_EXPLORE.THERES_SOMETHING_IN_THE_AIR,
-            "coś się szykuje",
+            "cursed island",
             false,
             game,
             "shuffle",
@@ -23,11 +22,11 @@ export class TheresSomethingInTheAir
     }
 
     resolveOption1(resolver: IPlayerCharacter) {
-        this._game.actionService.setAdventureToken(ACTION.EXPLORE, true, this._namePL);
+        this._game.actionService.setAdventureToken(ACTION.EXPLORE, true, this._name);
         this.shuffleIntoEventDeck();
     }
 
     triggerEventEffect() {
-        this._game.actionService.setAdventureToken(ACTION.EXPLORE, true, this._namePL);
+        this._game.actionService.setAdventureToken(ACTION.EXPLORE, true, this._name);
     }
 }

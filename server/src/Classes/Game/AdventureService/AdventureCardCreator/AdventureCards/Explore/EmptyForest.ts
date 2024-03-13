@@ -7,12 +7,11 @@ import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 export class EmptyForest
     extends ExploreAdventureCard
     implements IAdventureCard {
-    protected _eventNamePL = "głodne drapieżniki";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_EXPLORE.EMPTY_FOREST,
-            "pusty las",
+            "hungry predators",
             false,
             game,
             "shuffle",

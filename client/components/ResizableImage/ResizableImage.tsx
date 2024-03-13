@@ -33,17 +33,15 @@ export default function ResizableImage(props: Props) {
     //     console.log("loading time", alt, loadingTime)
     // }
 
-    let blurDataURL = typeof props.src === "string" ? props.src : props.src.src;
-
 
     return (
-        <div ref={containerRef} className={`${styles.container}`}>
+        <div ref={containerRef} className={`${styles.container} ${props.className}`}>
             <Image {...props}
                    alt={props.alt}
                    fill
                    sizes={sizes}
-                   placeholder={"blur"}
-                   blurDataURL={blurDataURL}
+                   placeholder={typeof props.src === "string" ? "blur" : "empty"}
+                   blurDataURL={typeof props.src === "string" ? props.src : ""}
                    className={styles.preventSelect}
                    draggable={false}
             >

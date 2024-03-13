@@ -6,14 +6,14 @@ import {TRAP_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_CARD"
 
 export class HiddenRope extends TrapMysteryCard {
     constructor(game: IGame) {
-        super(game, TRAP_MYSTERY_CARD.HIDDEN_ROPE, "ukryta lina");
+        super(game, TRAP_MYSTERY_CARD.HIDDEN_ROPE);
     }
 
     triggerDrawEffect(drawer: ICharacter) {
         this._game.constructionService.lvlDownIfPossible(
             CONSTRUCTION.WEAPON,
             2,
-            this._namePL
+            this._name
         );
     }
 }

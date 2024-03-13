@@ -9,7 +9,7 @@ export class Sabre extends TreasureMysteryCard {
     private usedInRound = 0;
 
     constructor(game: IGame) {
-        super(game, TREASURE_MYSTERY_CARD.SABRE, "szabla", false, "", 1);
+        super(game, TREASURE_MYSTERY_CARD.SABRE, false, "", 1);
     }
 
     triggerDrawEffect(drawer: ICharacter) {
@@ -19,7 +19,7 @@ export class Sabre extends TreasureMysteryCard {
     use(): void {
         if (this.usedInRound !== this._game.round && this._game.actionService.action === "hunt") {
             this._game.constructionService.getConstruction(CONSTRUCTION.WEAPON).incrTemporaryBoost(3);
-            this._game.characterService.hurt(this._game.localPlayer.getCharacter(), 1, this._namePL);
+            this._game.characterService.hurt(this._game.localPlayer.getCharacter(), 1, this._name);
             this.usedInRound = this._game.round;
 
         }

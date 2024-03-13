@@ -5,7 +5,6 @@ import {TERRAIN_TYPE} from "@shared/types/Game/TileService/ITile";
 import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction";
 
 export class Knife extends Invention implements IInvention {
-    protected readonly _namePL = "nóż";
 
     constructor(game: IGame) {
         super(

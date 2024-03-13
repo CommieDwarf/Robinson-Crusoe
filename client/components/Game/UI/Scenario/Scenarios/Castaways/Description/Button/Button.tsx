@@ -1,27 +1,24 @@
 // @flow
 import * as React from "react";
 import styles from "./Button.module.css";
+import {capitalize} from "lodash";
+import {useTranslation} from "react-i18next";
 
-export enum BUTTON_PL {
-    description = "Opis",
-    objective = "Cel",
-    mechanics = "Budowa stosu",
-}
 
 type Props = {
-    buttonText: keyof typeof BUTTON_PL;
+    buttonText: string;
     text: string;
-    buttonClick: (info: string[]) => void;
+    buttonClick: (info: string) => void;
     selected: boolean;
 };
 
 export const Button = (props: Props) => {
     function handleClick() {
-        props.buttonClick([props.buttonText, props.text]);
+        props.buttonClick(props.buttonText);
     }
 
     const selectedClass = props.selected ? styles.selected : "";
-
+    const {t} = useTranslation();
     return (
         <div
             className={`${styles.button} ${
@@ -37,8 +34,9 @@ export const Button = (props: Props) => {
                 {/*    sizes={styles.background}*/}
                 {/*/>*/}
             </div>
-            <div className={`${styles.text} ${styles[props.buttonText]}`}>
-                {BUTTON_PL[props.buttonText]}
+            <div className={`${styles.text}`}>
+                {/*@ts-ignore*/}
+                <span>{capitalize(t(`other.${props.buttonText}`))}</span>
             </div>
         </div>
     );

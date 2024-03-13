@@ -9,7 +9,6 @@ import {IGame} from "@shared/types/Game/Game";
 
 export class Snare extends Invention implements IInvention {
     protected _usable = true;
-    protected readonly _namePL = "wnyki";
 
     constructor(game: IGame) {
         super(

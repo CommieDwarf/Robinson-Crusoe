@@ -6,14 +6,12 @@ import {ICharacter} from "@shared/types/Game/Characters/Character";
 export class Item implements IItem {
 
     protected readonly _name: ITEM;
-    private readonly _namePL: string;
     protected _uses = 2;
     protected readonly _game: IGame;
     private _discarded = false;
 
-    constructor(item: ITEM, namePL: string, game: IGame) {
+    constructor(item: ITEM, game: IGame) {
         this._name = item;
-        this._namePL = namePL;
         this._game = game;
     }
 
@@ -24,10 +22,7 @@ export class Item implements IItem {
     get name(): ITEM {
         return this._name;
     }
-
-    get namePL(): string {
-        return this._namePL;
-    }
+    
 
     get uses(): number {
         return this._uses;

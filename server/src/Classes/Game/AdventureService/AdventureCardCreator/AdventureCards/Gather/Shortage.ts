@@ -6,12 +6,11 @@ import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 
 
 export class Shortage extends GatherAdventureCard implements IAdventureCard {
-    protected _eventNamePL = "";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_GATHER.SHORTAGE,
-            "końcówka",
+            "",
             false,
             game,
             "discard",
@@ -22,7 +21,7 @@ export class Shortage extends GatherAdventureCard implements IAdventureCard {
     resolveOption1(resolver: IPlayerCharacter) {
         const tile = this.getTile();
         const side = this.getSide();
-        this._game.tileService.gather(side, tile.id, this._namePL);
-        tile.depleteResource(side, this._namePL);
+        this._game.tileService.gather(side, tile.id, this._name);
+        tile.depleteResource(side, this._name);
     }
 }

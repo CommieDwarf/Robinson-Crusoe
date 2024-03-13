@@ -7,7 +7,7 @@ import {ICharacter} from "@shared/types/Game/Characters/Character";
 
 export class Hammer extends Item implements IItem {
     constructor(game: IGame) {
-        super(ITEM.HAMMER, "Młotek", game);
+        super(ITEM.HAMMER, game);
     }
 
     use(user: IPlayer, target: ICharacter = user.getCharacter()) {

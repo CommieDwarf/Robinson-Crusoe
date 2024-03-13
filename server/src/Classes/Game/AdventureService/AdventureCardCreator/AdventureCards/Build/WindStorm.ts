@@ -6,12 +6,11 @@ import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction"
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 
 export class WindStorm extends BuildAdventureCard implements IAdventureCard {
-    protected _eventNamePL = "naturalna palisada";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_BUILD.WIND_STORM,
-            "wichura",
+            "natural palisade",
             false,
             game,
             "shuffle",
@@ -23,7 +22,7 @@ export class WindStorm extends BuildAdventureCard implements IAdventureCard {
         this._game.constructionService.lvlDownOrGetHurt(
             CONSTRUCTION.PALISADE,
             1,
-            this._namePL
+            this._name
         );
         this.shuffleIntoEventDeck();
     }
@@ -33,7 +32,7 @@ export class WindStorm extends BuildAdventureCard implements IAdventureCard {
             this._game.constructionService.lvlUpConstruction(
                 CONSTRUCTION.PALISADE,
                 1,
-                this._eventNamePL
+                this._eventName
             );
         }
     }

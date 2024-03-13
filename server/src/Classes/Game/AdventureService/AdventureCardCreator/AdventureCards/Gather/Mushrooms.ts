@@ -6,12 +6,11 @@ import {INVENTION_STARTER} from "@shared/types/Game/InventionService/Invention";
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 
 export class Mushrooms extends GatherAdventureCard implements IAdventureCard {
-    protected _eventNamePL = "rozwolnienie";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_GATHER.MUSHROOMS,
-            "grzyby",
+            "diarrhea",
             true,
             game,
             "discard",
@@ -23,13 +22,13 @@ export class Mushrooms extends GatherAdventureCard implements IAdventureCard {
     }
 
     resolveOption2(resolver: IPlayerCharacter) {
-        this._game.resourceService.addBasicResourceToOwned("food", this._game.playerService.players.length, this._namePL);
+        this._game.resourceService.addBasicResourceToOwned("food", this._game.playerService.players.length, this._name);
         this.shuffleIntoEventDeck();
     }
 
     triggerEventEffect() {
         if (!this._game.inventionService.isBuilt(INVENTION_STARTER.MEDICINE)) {
-            this._game.characterService.hurtAllPlayerCharacters(1, this._eventNamePL);
+            this._game.characterService.hurtAllPlayerCharacters(1, this._eventName);
         }
     }
 }

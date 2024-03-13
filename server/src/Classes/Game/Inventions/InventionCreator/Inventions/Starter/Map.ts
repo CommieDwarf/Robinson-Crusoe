@@ -5,7 +5,6 @@ import {PAWN_HELPER_ACTION} from "@shared/types/Game/Pawns/Pawn";
 import {Invention} from "../../Invention";
 
 export class Map extends Invention implements IInvention {
-    protected readonly _namePL = "mapa";
 
     constructor(game: IGame) {
         super(

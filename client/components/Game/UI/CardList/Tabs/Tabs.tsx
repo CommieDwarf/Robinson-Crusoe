@@ -2,6 +2,7 @@
 import * as React from "react";
 import styles from "./Tabs.module.css";
 import {Tab} from "../CardList";
+import {useTranslation} from "react-i18next";
 
 type Props = {
     switchTab: (tab: Tab) => void;
@@ -20,6 +21,8 @@ export const Tabs = (props: Props) => {
         props.switchTab("items");
     }
 
+    const {t} = useTranslation();
+
     return (
         <div className={styles.container}>
             <div
@@ -28,7 +31,7 @@ export const Tabs = (props: Props) => {
                 }`}
                 onClick={handleInventionsClick}
             >
-                Pomysły
+                {t("cardListTab.inventions")}
             </div>
             <div
                 className={`${styles.tab} ${
@@ -36,11 +39,11 @@ export const Tabs = (props: Props) => {
                 }`}
                 onClick={handleMysteryClick}
             >
-                K. Tajemnic
+                {t("cardListTab.mystery cards")}
             </div>
             <div className={`${styles.tab} ${props.currentTab === "items" && styles.selected}`}
                  onClick={handleItemsClick}>
-                Przedmioty
+                {t("cardListTab.items")}
             </div>
         </div>
     );

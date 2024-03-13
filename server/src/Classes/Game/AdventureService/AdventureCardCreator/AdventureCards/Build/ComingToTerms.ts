@@ -12,7 +12,7 @@ export class ComingToTerms
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_BUILD.COMING_TO_TERMS,
-            "realna ocena sytuacji",
+            "lack of ideas",
             false,
             game,
             "shuffle",

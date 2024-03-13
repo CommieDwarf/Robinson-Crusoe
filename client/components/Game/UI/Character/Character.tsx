@@ -14,12 +14,11 @@ import {useAppSelector} from "../../../../store/hooks";
 import Entries from "@shared/types/Entries";
 import Wound from "./Wound/Wound";
 import {getOwnedDroppableId} from "@shared/utils/getOwnedDroppableId";
-import {ActionDice} from "@shared/types/Game/RollDice/RollDice";
 import {ISkillRenderData} from "@shared/types/Game/Skill/IAbility";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
 import {ISideCharacterRenderData} from "@shared/types/Game/Characters/SideCharacter";
 import {capitalize, kebabCase} from "lodash";
-import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
+import {useTranslation} from "react-i18next";
 
 interface Props {
     character: IPlayerCharacterRenderData;
@@ -65,8 +64,6 @@ export default function Character(props: Props) {
         ? styles.zIndexIncreased
         : styles.zIndexTransition;
 
-    // const nameCapitalized = capitalize(props.Character.namePL);
-    const nameCapitalized = capitalize(props.character.namePL);
 
     const pawns = useAppSelector((state) => state.freePawns.localCharacter);
 
@@ -80,6 +77,7 @@ export default function Character(props: Props) {
         })
     })
 
+    const {t} = useTranslation();
 
     const charImgName = kebabCase(`${props.character.name} ${props.character.gender}`)
     const droppableId = getOwnedDroppableId(props.character.name, "character")
@@ -98,7 +96,7 @@ export default function Character(props: Props) {
             </div>
 
 
-            <div className={styles.characterName}>{nameCapitalized}</div>
+            <div className={styles.characterName}>{capitalize(t(`character.${props.character.name}`))}</div>
             <SkillMenu
                 skillDescription={skillDescription}
                 used={props.character.skills.find((skill) => skill.name === skillDescription.skill.name)?.usedInThisRound || false}

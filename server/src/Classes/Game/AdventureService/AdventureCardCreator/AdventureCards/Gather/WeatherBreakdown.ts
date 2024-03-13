@@ -8,12 +8,11 @@ import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 export class WeatherBreakdown
     extends GatherAdventureCard
     implements IAdventureCard {
-    protected _eventNamePL = "sztorm";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_GATHER.WEATHER_BREAKDOWN,
-            "załamanie pogody",
+            "storm",
             false,
             game,
             "shuffle",
@@ -26,6 +25,6 @@ export class WeatherBreakdown
     }
 
     triggerEventEffect() {
-        this._game.weatherService.setToken("storm", true, this._eventNamePL);
+        this._game.weatherService.setToken("storm", true, this._eventName);
     }
 }

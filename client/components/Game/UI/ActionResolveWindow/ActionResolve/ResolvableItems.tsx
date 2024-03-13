@@ -4,6 +4,7 @@ import styles from "./ResolveItems.module.css";
 import {Item} from "./Item/Item";
 import {IActionServiceRenderData} from "@shared/types/Game/ActionService/ActionService";
 import {capitalize} from "lodash";
+import {useTranslation} from "react-i18next";
 
 type Props = {
     actionService: IActionServiceRenderData;
@@ -36,10 +37,12 @@ export const ResolvableItems = (props: Props) => {
         );
     });
 
+    const {t} = useTranslation();
+
     return (
         <div className={styles.container}>
             <div className={styles.title + " " + styles[props.actionService.action]}>
-                {capitalize(props.actionService.action)}
+                {capitalize(t(`action.${props.actionService.action}`))}
             </div>
             <div className={styles.items}>{items}</div>
         </div>

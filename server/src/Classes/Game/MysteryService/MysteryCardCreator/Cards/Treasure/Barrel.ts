@@ -6,7 +6,7 @@ import {TREASURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_C
 
 export class Barrel extends TreasureMysteryCard implements StorageCard {
     constructor(game: IGame) {
-        super(game, TREASURE_MYSTERY_CARD.BARREL, "beczka", false, "", 1);
+        super(game, TREASURE_MYSTERY_CARD.BARREL, false, "", 1);
     }
 
     private _used: boolean = false;
@@ -23,7 +23,7 @@ export class Barrel extends TreasureMysteryCard implements StorageCard {
 
     use(): void {
         if (!this._used) {
-            this._game.characterService.healAllCharacters(1, this._namePL);
+            this._game.characterService.healAllCharacters(1, this._name);
             this._used = true;
             super.use();
         }

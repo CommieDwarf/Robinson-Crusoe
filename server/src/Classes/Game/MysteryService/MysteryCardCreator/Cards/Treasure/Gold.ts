@@ -5,7 +5,7 @@ import {TREASURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_C
 
 export class Gold extends TreasureMysteryCard {
     constructor(game: IGame) {
-        super(game, TREASURE_MYSTERY_CARD.GOLD, "złoto!", false, "", 0);
+        super(game, TREASURE_MYSTERY_CARD.GOLD, false, "", 0);
     }
 
     triggerDrawEffect(drawer: ICharacter) {

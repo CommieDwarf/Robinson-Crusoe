@@ -5,12 +5,11 @@ import {ADVENTURE_CARD_BUILD} from "@shared/types/Game/AdventureService/ADVENTUR
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 
 export class Savings extends BuildAdventureCard implements IAdventureCard {
-    protected _eventNamePL = "licha konstrukcja";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_BUILD.SAVINGS,
-            "oszczędności",
+            "bad construction",
             true,
             game,
             "shuffle",
@@ -19,7 +18,7 @@ export class Savings extends BuildAdventureCard implements IAdventureCard {
     }
 
     resolveOption1(resolver: IPlayerCharacter) {
-        this._game.resourceService.addBasicResourceToFuture("wood", 2, this._namePL);
+        this._game.resourceService.addBasicResourceToFuture("wood", 2, this._name);
         this.shuffleIntoEventDeck();
     }
 
@@ -28,6 +27,6 @@ export class Savings extends BuildAdventureCard implements IAdventureCard {
     }
 
     triggerEventEffect() {
-        this._game.moraleService.lvlDown(1, this._eventNamePL);
+        this._game.moraleService.lvlDown(1, this._eventName);
     }
 }

@@ -6,12 +6,11 @@ import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction"
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 
 export class BrokenLever extends BuildAdventureCard implements IAdventureCard {
-    protected _eventNamePL = "";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_BUILD.BROKEN_LEVER,
-            "złamana dźwignia",
+            "",
             false,
             game,
             "discard",
@@ -23,7 +22,7 @@ export class BrokenLever extends BuildAdventureCard implements IAdventureCard {
         this._game.constructionService.lvlDownOrGetHurt(
             CONSTRUCTION.WEAPON,
             1,
-            this.namePL
+            this.name
         );
     }
 }

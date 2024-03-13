@@ -12,10 +12,9 @@ export class AmuletWithPortraitOfBeautifulLady
         super(
             game,
             TREASURE_MYSTERY_CARD.AMULET_WITH_PORTRAIT_OF_BEAUTIFUL_LADY,
-            "medalion z portretem pięknej damy",
             false,
             "",
-            1,
+            1
         );
     }
 

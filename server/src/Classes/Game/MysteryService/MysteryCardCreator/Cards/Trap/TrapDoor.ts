@@ -6,7 +6,7 @@ import {TRAP_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_CARD"
 
 export class TrapDoor extends TrapMysteryCard {
     constructor(game: IGame) {
-        super(game, TRAP_MYSTERY_CARD.TRAP_DOOR, "zapadnia");
+        super(game, TRAP_MYSTERY_CARD.TRAP_DOOR);
     }
 
     triggerDrawEffect(drawer: ICharacter) {

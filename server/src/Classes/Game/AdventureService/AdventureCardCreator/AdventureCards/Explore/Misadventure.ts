@@ -7,12 +7,11 @@ import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 export class Misadventure
     extends ExploreAdventureCard
     implements IAdventureCard {
-    protected _eventNamePL = "spuchnięta kostka";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_EXPLORE.MISADVENTURE,
-            "nieszczęśliwy wypadek",
+            "swollen ankle",
             false,
             game,
             "shuffle",

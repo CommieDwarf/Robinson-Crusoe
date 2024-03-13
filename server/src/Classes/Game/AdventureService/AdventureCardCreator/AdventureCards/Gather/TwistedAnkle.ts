@@ -7,12 +7,11 @@ import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 export class TwistedAnkle
     extends GatherAdventureCard
     implements IAdventureCard {
-    protected _eventNamePL = "spuchnięta kostka";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_GATHER.TWISTED_ANKLE,
-            "skręcona kostka",
+            "swollen ankle",
             false,
             game,
             "shuffle",
@@ -22,7 +21,7 @@ export class TwistedAnkle
 
     resolveOption1(resolver: IPlayerCharacter) {
         this.setResolver(resolver);
-        resolver.setWound("leg", this._action, this._namePL);
+        resolver.setWound("leg", this._action, this._name);
         this.shuffleIntoEventDeck();
     }
 

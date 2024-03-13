@@ -6,12 +6,11 @@ import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 
 
 export class EndOfSource extends GatherAdventureCard implements IAdventureCard {
-    protected _eventNamePL = "";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_GATHER.END_OF_SOURCE,
-            "koniec źródła",
+            "",
             false,
             game,
             "discard",
@@ -20,6 +19,6 @@ export class EndOfSource extends GatherAdventureCard implements IAdventureCard {
     }
 
     resolveOption1(resolver: IPlayerCharacter) {
-        this.getTile().tileResourceService?.deplete(this.getSide(), this._namePL);
+        this.getTile().tileResourceService?.deplete(this.getSide(), this._name);
     }
 }

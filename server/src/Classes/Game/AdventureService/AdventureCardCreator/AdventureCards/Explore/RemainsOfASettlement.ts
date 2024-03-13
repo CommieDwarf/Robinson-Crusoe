@@ -7,12 +7,11 @@ import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 export class RemainsOfASettlement
     extends ExploreAdventureCard
     implements IAdventureCard {
-    protected _eventNamePL = "epidemia";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_EXPLORE.REMAINS_OF_A_SETTLEMENT,
-            "pozostałości osady",
+            "epidemic",
             true,
             game,
             "discard",
@@ -29,6 +28,6 @@ export class RemainsOfASettlement
     }
 
     triggerEventEffect() {
-        this._game.characterService.hurtAllPlayerCharacters(1, this._eventNamePL);
+        this._game.characterService.hurtAllPlayerCharacters(1, this._eventName);
     }
 }

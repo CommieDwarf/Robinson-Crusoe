@@ -22,7 +22,6 @@ import {IBasicResources} from "@shared/types/Game/Resources/Resources";
 
 export interface BeastStats {
     name: string,
-    namePL: string,
     strength: number,
     weaponLoss: number,
     reward: IBasicResources,
@@ -38,7 +37,6 @@ export class BeastCreator implements ICreator<Beast, BEAST> {
     createCustomBeast(stats: BeastStats) {
         return new Beast(
             stats.name,
-            stats.namePL,
             stats.strength,
             stats.weaponLoss,
             stats.reward,

@@ -6,32 +6,42 @@ import ResizableImage from "../../../../ResizableImage/ResizableImage";
 import {capitalize} from "lodash";
 import {ILogMessageRenderData} from "@shared/types/Game/ChatLog/LogMessage";
 import {LOG_CODE} from "@shared/types/Game/ChatLog/LOG_CODE";
-import i18next from "i18next";
-import {resources} from "../../../../../I18n/resources";
-import {Cloud} from "@shared/types/Game/Weather/Weather";
 import {useTranslation} from 'react-i18next';
+import {resources} from "../../../../../I18n/resources";
 
 type Props = {
     message: ILogMessageRenderData;
 };
 
 
-//TODO: zrób odkodowywanie
 export const LogMessage = (props: Props) => {
 
-    const {t} = useTranslation();
+    const {t, i18n} = useTranslation();
     const msg = props.message;
-    const {content} = msg;
+    const {content, source} = msg;
     const {code, subject1, subject2, amount} = content;
 
-    const translated = t(code, {
+    const translatedContent = t(code, {
         subject1,
         subject2,
         amount,
         ns: "logMessages",
         defaultValue: code
     })
-    
+
+    let translatedSource
+
+
+    //TODO: hardcoded.
+    const categories = Object.keys(resources.pl.translation);
+
+    categories.forEach((category) => {
+        if (i18n.exists(`${category}.${source}`)) {
+            // @ts-ignore
+            translatedSource = t(`${category}.${source}`)
+        }
+    })
+
 
     return (
         <div className={styles.container}>
@@ -53,11 +63,10 @@ export const LogMessage = (props: Props) => {
             {}
             <div className={styles.messageContent}>
         <span className={styles.messageSource}>
-          {capitalize(msg.source)} -{" "}
+          {capitalize(translatedSource || source)} -{" "}
         </span>
                 <span className={styles.message + " " + styles[msg.color]}>
-
-                    {translated}
+                    {translatedContent}
         </span>
             </div>
         </div>

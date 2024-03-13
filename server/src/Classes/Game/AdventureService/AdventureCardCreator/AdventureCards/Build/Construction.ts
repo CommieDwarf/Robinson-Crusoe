@@ -6,12 +6,11 @@ import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction"
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 
 export class Construction extends BuildAdventureCard implements IAdventureCard {
-    protected _eventNamePL = "mocniejsza konstrukcja";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_BUILD.CONSTRUCTION,
-            "konstrukcja",
+            "stronger construction",
             false,
             game,
             "shuffle",
@@ -31,7 +30,7 @@ export class Construction extends BuildAdventureCard implements IAdventureCard {
             this._game.constructionService.lvlUpConstruction(
                 CONSTRUCTION.PALISADE,
                 1,
-                this._eventNamePL
+                this._eventName
             );
         }
     }

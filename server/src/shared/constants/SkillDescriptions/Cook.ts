@@ -1,5 +1,5 @@
 export const grandmasRecipe = {
-    name: "grandma's recipe",
+    name: "Grandma's Recipe",
     namePL: "Babcina Receptura",
     description:
         "Odrzuć 2 $determination$ aby uleczyć 2 $heart$ odrzucając 1 $food$",
@@ -7,7 +7,7 @@ export const grandmasRecipe = {
 };
 
 export const scrounger = {
-    name: "scrounger",
+    name: "Scrounger",
     namePL: "Bystre oko",
     description:
         "Odrzuć 2 $determination$, aby $reroll$ dowolną szarą kość podczas swojej Akcji.",
@@ -16,7 +16,7 @@ export const scrounger = {
 };
 
 export const stoneSoup = {
-    name: "stoneSoup",
+    name: "Stone Soup",
     namePL: "Zupa z gwoździa",
     description: "Odrzuć 3 $determination$, aby otrzymać 1 $food$.",
     quote:
@@ -24,7 +24,7 @@ export const stoneSoup = {
 };
 
 export const hooch = {
-    name: "hooch",
+    name: "Hooch",
     namePL: "Samogon",
     description:
         "Odrzuć 3 $determination$, aby usunąć 1 $rain-cloud$ lub zamienić 1 $snow-cloud$ w 1 $rain-cloud$",

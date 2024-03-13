@@ -8,12 +8,11 @@ import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 export class SignsOfFire
     extends ExploreAdventureCard
     implements IAdventureCard {
-    protected _eventNamePL = "";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_EXPLORE.SIGNS_OF_FIRE,
-            "ślady ognia",
+            "",
             false,
             game,
             "discard",
@@ -23,6 +22,6 @@ export class SignsOfFire
 
     resolveOption1(resolver: IPlayerCharacter) {
         const tile = this.getTile();
-        this._game.tileService.markTileResourcesForAction([tile], TILE_RESOURCE_ACTION.DEPLETE, this._namePL, null);
+        this._game.tileService.markTileResourcesForAction([tile], TILE_RESOURCE_ACTION.DEPLETE, this._name, null);
     }
 }

@@ -8,7 +8,7 @@ export class Compass extends TreasureMysteryCard {
 
 
     constructor(game: IGame) {
-        super(game, TREASURE_MYSTERY_CARD.COMPASS, "kompas", false, "", 0, "", "");
+        super(game, TREASURE_MYSTERY_CARD.COMPASS, false, "", 0, "", "");
     }
 
 

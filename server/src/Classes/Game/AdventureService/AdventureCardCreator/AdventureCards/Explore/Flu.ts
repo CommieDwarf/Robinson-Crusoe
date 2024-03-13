@@ -5,12 +5,11 @@ import {ADVENTURE_CARD_EXPLORE} from "@shared/types/Game/AdventureService/ADVENT
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 
 export class Flu extends ExploreAdventureCard implements IAdventureCard {
-    protected _eventNamePL = "ból gardła";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_EXPLORE.FLU,
-            "grypa",
+            "sore throat",
             true,
             game,
             "discard",
@@ -22,7 +21,7 @@ export class Flu extends ExploreAdventureCard implements IAdventureCard {
         this._game.resourceService.spendBasicResourceOrGetHurt(
             "food",
             1,
-            this._namePL
+            this._name
         );
     }
 

@@ -3,12 +3,10 @@ import {IBasicResources} from "../Resources/Resources";
 
 export interface IBeastRenderData extends IAssignablePawnsItemRenderData {
     name: string;
-    namePL: string;
 }
 
 export interface IBeast extends IAssignablePawnsItem {
     name: string;
-    namePL: string;
     strength: number;
     weaponLoss: number;
     requiredPawnAmount: number;

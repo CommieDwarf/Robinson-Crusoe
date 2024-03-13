@@ -7,12 +7,12 @@ import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 export class VisitOfAPredator
     extends BuildAdventureCard
     implements IAdventureCard {
-    protected _eventNamePL = "nocna wizyta";
+    protected _eventName = "nocna wizyta";
 
     constructor(game: IGame) {
         super(
-            ADVENTURE_CARD_BUILD.UNMOTIVATED,
-            "wizyta bestii",
+            ADVENTURE_CARD_BUILD.VISIT_OF_A_PREDATOR,
+            "night visit",
             false,
             game,
             "shuffle",
@@ -24,7 +24,7 @@ export class VisitOfAPredator
         this._game.resourceService.spendBasicResourceOrGetHurt(
             "food",
             1,
-            this._namePL
+            this._name
         );
         this.shuffleIntoEventDeck();
     }

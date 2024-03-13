@@ -7,12 +7,11 @@ import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 export class PredatorInTheCamp
     extends BuildAdventureCard
     implements IAdventureCard {
-    protected _eventNamePL = "nosił wilk razy kilka...";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_BUILD.PREDATOR_IN_THE_CAMP,
-            "bestia w obozie",
+            "what goes around...",
             false,
             game,
             "shuffle",
@@ -29,12 +28,12 @@ export class PredatorInTheCamp
         this._game.resourceService.addBasicResourceToOwned(
             "food",
             2,
-            this.eventNamePL
+            this.eventName
         );
         this._game.resourceService.addBasicResourceToOwned(
             "leather",
             1,
-            this.eventNamePL
+            this.eventName
         );
     }
 }

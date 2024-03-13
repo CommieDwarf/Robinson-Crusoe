@@ -8,12 +8,11 @@ import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 export class SurpriseInTheBushes
     extends GatherAdventureCard
     implements IAdventureCard {
-    protected _eventNamePL = "wspomnienia";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_GATHER.SURPRISE_IN_THE_BUSHES,
-            "znalezisko w krzakach",
+            "memories",
             true,
             game,
             "discard",
@@ -29,6 +28,6 @@ export class SurpriseInTheBushes
     }
 
     triggerEventEffect() {
-        this._game.moraleService.lvlDown(1, this._eventNamePL);
+        this._game.moraleService.lvlDown(1, this._eventName);
     }
 }

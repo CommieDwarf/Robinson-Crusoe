@@ -6,12 +6,11 @@ import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction"
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 
 export class InAHurry extends BuildAdventureCard implements IAdventureCard {
-    protected _eventNamePL = "trzask!";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_BUILD.IN_A_HURRY,
-            "w pośpiechu",
+            "snap!",
             true,
             game,
             "discard",
@@ -32,7 +31,7 @@ export class InAHurry extends BuildAdventureCard implements IAdventureCard {
         this._game.constructionService.lvlDownOrGetHurt(
             CONSTRUCTION.PALISADE,
             1,
-            this.eventNamePL
+            this.eventName
         );
     }
 

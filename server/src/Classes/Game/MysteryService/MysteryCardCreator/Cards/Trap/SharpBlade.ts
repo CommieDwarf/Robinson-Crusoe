@@ -10,6 +10,6 @@ export class SharpBlade
     }
 
     triggerDrawEffect(drawer: ICharacter) {
-        this._game.characterService.hurt(drawer, 2, this._namePL);
+        this._game.characterService.hurt(drawer, 2, this._name);
     }
 }

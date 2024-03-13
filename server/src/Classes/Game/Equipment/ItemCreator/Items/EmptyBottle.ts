@@ -7,7 +7,7 @@ import {ICharacter} from "@shared/types/Game/Characters/Character";
 
 export class EmptyBottle extends Item implements IItem {
     constructor(game: IGame) {
-        super(ITEM.EMPTY_BOTTLE, "Pusta butelka", game);
+        super(ITEM.EMPTY_BOTTLE, game);
     }
 
     use(user: IPlayer, target?: ICharacter) {
@@ -15,7 +15,7 @@ export class EmptyBottle extends Item implements IItem {
         this._game.constructionService.lvlUpConstruction(
             CONSTRUCTION.WEAPON,
             1,
-            this.namePL
+            this.name
         );
     }
 }

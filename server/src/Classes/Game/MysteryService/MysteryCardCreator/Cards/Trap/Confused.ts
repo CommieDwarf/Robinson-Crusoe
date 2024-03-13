@@ -5,7 +5,7 @@ import {TRAP_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_CARD"
 
 export class Confused extends TrapMysteryCard {
     constructor(game: IGame) {
-        super(game, TRAP_MYSTERY_CARD.CONFUSED, "otumaniony");
+        super(game, TRAP_MYSTERY_CARD.CONFUSED);
     }
 
     triggerDrawEffect(drawer: ICharacter) {

@@ -6,10 +6,8 @@ import {IPlayer} from "@shared/types/Game/PlayerService/Player";
 import {ITEM} from "@shared/types/Game/Equipment/Item";
 import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction";
 import {IGame} from "@shared/types/Game/Game";
-import {ICharacter} from "@shared/types/Game/Characters/Character";
 import {ActionHandler, BaseController, GameControllerInterface} from "../../types/GameController/Controllers";
 import {CONTROLLER_ACTION, OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
-import {TILE_ACTION} from "@shared/types/Game/TileService/ITile";
 
 export enum STORAGE_ACTION {
     WITHDRAW = "withdraw",

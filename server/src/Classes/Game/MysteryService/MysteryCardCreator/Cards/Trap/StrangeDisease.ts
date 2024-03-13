@@ -5,7 +5,7 @@ import {TRAP_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_CARD"
 
 export class StrangeDisease extends TrapMysteryCard {
     constructor(game: IGame) {
-        super(game, TRAP_MYSTERY_CARD.STRANGE_DISEASE, "dziwne schorzenie");
+        super(game, TRAP_MYSTERY_CARD.STRANGE_DISEASE);
     }
 
     triggerDrawEffect(drawer: ICharacter) {

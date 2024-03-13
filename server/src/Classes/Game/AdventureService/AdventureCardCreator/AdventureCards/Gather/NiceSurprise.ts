@@ -8,12 +8,11 @@ import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 export class NiceSurprise
     extends GatherAdventureCard
     implements IAdventureCard {
-    protected _eventNamePL = "zapadnięty dach";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_GATHER.NICE_SURPRISE,
-            "okazja",
+            "collapsed roof",
             true,
             game,
             "discard",
@@ -25,14 +24,14 @@ export class NiceSurprise
     }
 
     resolveOption2(resolver: IPlayerCharacter) {
-        this._game.resourceService.addBasicResourceToOwned("wood", 3, this._namePL);
+        this._game.resourceService.addBasicResourceToOwned("wood", 3, this._name);
         this.shuffleIntoEventDeck();
     }
 
     triggerEventEffect() {
         this._game.constructionService.setDividedLvlByTwoRoundedDown(
             CONSTRUCTION.ROOF,
-            this._eventNamePL
+            this._eventName
         );
     }
 }

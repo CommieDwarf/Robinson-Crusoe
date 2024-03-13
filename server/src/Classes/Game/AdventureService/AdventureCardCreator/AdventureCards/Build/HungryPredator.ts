@@ -8,12 +8,11 @@ import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 export class HungryPredator
     extends BuildAdventureCard
     implements IAdventureCard {
-    protected _eventNamePL = "rewizyta";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_BUILD.HUNGRY_PREDATOR,
-            "wygłodniały drapieżnik",
+            "revisit",
             true,
             game,
             "discard",
@@ -23,12 +22,12 @@ export class HungryPredator
 
     resolveOption1(resolver: IPlayerCharacter) {
         const character = this.getPrimeCharacter();
-        this._game.characterService.hurt(character, 2, this._namePL);
-        this._game.resourceService.addBasicResourceToOwned("food", 2, this.namePL);
+        this._game.characterService.hurt(character, 2, this._name);
+        this._game.resourceService.addBasicResourceToOwned("food", 2, this.name);
         this._game.resourceService.addBasicResourceToOwned(
             "leather",
             1,
-            this.namePL
+            this.name
         );
     }
 
@@ -36,12 +35,12 @@ export class HungryPredator
         this._game.resourceService.spendBasicResourceOrGetHurt(
             "food",
             1,
-            this.namePL
+            this.name
         );
         this._game.constructionService.lvlDownOrGetHurt(
             CONSTRUCTION.PALISADE,
             1,
-            this.namePL
+            this.name
         );
         this.shuffleIntoEventDeck();
     }

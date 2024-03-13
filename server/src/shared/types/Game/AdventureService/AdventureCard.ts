@@ -15,8 +15,7 @@ export interface IAdventureEventOptionRenderData {
 
 export interface IAdventureCard {
     name: ADVENTURE_CARD;
-    namePL: string;
-    eventNamePL: string;
+    eventName: string;
     action: ACTION;
     shouldDecide: boolean;
 
@@ -28,7 +27,6 @@ export interface IAdventureCard {
     eventOption1: IAdventureEventOption | null;
     eventOption2: IAdventureEventOption | null;
     triggerEventEffect: () => void;
-
     renderData: IAdventureCardRenderData;
 }
 

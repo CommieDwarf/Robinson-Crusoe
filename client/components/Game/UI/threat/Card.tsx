@@ -23,7 +23,7 @@ export default function Card(props: Props) {
     }
 
     useEffect(() => {
-        if (props.slot === "right") {
+        if (props.slot === "right" && props.card) {
             setEnlarged(true);
         }
     }, [props.card, props.slot])

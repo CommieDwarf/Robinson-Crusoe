@@ -12,9 +12,8 @@ export abstract class AdventureCard implements IAdventureCard {
 
 
     protected readonly _name: ADVENTURE_CARD;
-    protected readonly _namePL: string;
+    protected readonly _eventName: string;
     protected readonly _shouldDecide: boolean;
-    protected readonly _eventNamePL: string = "";
     protected readonly _game: IGame;
     protected declare readonly _action: AdventureAction;
     protected readonly _option1Label: AdventureOptionLabel;
@@ -26,14 +25,14 @@ export abstract class AdventureCard implements IAdventureCard {
 
     protected constructor(
         name: ADVENTURE_CARD,
-        namePL: string,
+        eventName: string,
         shouldDecide: boolean,
         game: IGame,
         option1Label: AdventureOptionLabel,
         option2Label: AdventureOptionLabel
     ) {
         this._name = name;
-        this._namePL = namePL;
+        this._eventName = eventName;
         this._shouldDecide = shouldDecide;
         this._game = game;
         this._option1Label = option1Label;
@@ -81,12 +80,8 @@ export abstract class AdventureCard implements IAdventureCard {
         return this._name;
     }
 
-    get namePL(): string {
-        return this._namePL;
-    }
-
-    get eventNamePL(): string {
-        return this._eventNamePL;
+    get eventName(): string {
+        return this._eventName;
     }
 
 

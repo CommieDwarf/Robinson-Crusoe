@@ -6,14 +6,14 @@ import {TRAP_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_CARD"
 
 export class TerribleScream extends TrapMysteryCard {
     constructor(game: IGame) {
-        super(game, TRAP_MYSTERY_CARD.TERRIBLE_SCREAM, "przeraźliwy krzyk");
+        super(game, TRAP_MYSTERY_CARD.TERRIBLE_SCREAM);
     }
 
     triggerDrawEffect(drawer: ICharacter) {
         this._game.characterService.decrDeterminationOrGetHurt(
             drawer,
             drawer.determination,
-            this._namePL
+            this._name
         );
     }
 }

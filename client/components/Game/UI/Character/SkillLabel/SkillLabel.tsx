@@ -1,7 +1,8 @@
 import React, {Dispatch, SetStateAction} from "react";
 
 import styles from "./SkillLabel.module.css";
-import {ISkillRenderData} from "@shared/types/Skill/Skill";
+import {useTranslation} from "react-i18next";
+import {ISkillRenderData} from "@shared/types/Game/Skill/IAbility";
 
 interface Props {
     skill: ISkillRenderData;
@@ -29,14 +30,16 @@ export default function SkillLabel(props: Props) {
         });
     }
 
-    const selectedClass = props.selected ? styles.skillNameSelected : "";
+    const selectedClass = props.selected ? styles.abilityNameSelected : "";
+    const {t} = useTranslation();
 
     return (
         <div
             className={styles.container + " " + selectedClass}
             onClick={handleClick}
         >
-            <span className={styles.skillName}>{props.skill.namePL}</span>
+            {/*// @ts-ignore*/}
+            <span className={styles.abilityName}>{t(`ability.${props.skill.name}.name`)}</span>
         </div>
     );
 }

@@ -5,12 +5,11 @@ import {ADVENTURE_CARD_EXPLORE} from "@shared/types/Game/AdventureService/ADVENT
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 
 export class WildDog extends ExploreAdventureCard implements IAdventureCard {
-    protected _eventNamePL = "stary znajomy";
 
     constructor(game: IGame) {
         super(
-            ADVENTURE_CARD_EXPLORE.WILD_BERRIES,
-            "dziki znajomy",
+            ADVENTURE_CARD_EXPLORE.WILD_DOG,
+            "old buddy",
             false,
             game,
             "shuffle",
@@ -20,7 +19,7 @@ export class WildDog extends ExploreAdventureCard implements IAdventureCard {
 
     resolveOption1(resolver: IPlayerCharacter) {
         const character = this.getPrimeCharacter();
-        this._game.characterService.hurt(character, 1, this._namePL);
+        this._game.characterService.hurt(character, 1, this._name);
         this.shuffleIntoEventDeck();
     }
 

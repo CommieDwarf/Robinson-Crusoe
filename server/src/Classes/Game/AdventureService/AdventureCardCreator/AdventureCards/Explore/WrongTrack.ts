@@ -5,7 +5,6 @@ import {ADVENTURE_CARD_EXPLORE} from "@shared/types/Game/AdventureService/ADVENT
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 
 export class WrongTrack extends ExploreAdventureCard implements IAdventureCard {
-    protected _eventNamePL = "";
 
     constructor(game: IGame) {
         super(
@@ -26,7 +25,7 @@ export class WrongTrack extends ExploreAdventureCard implements IAdventureCard {
         this._game.resourceService.addBasicResourceToOwned(
             "wood",
             2,
-            this._eventNamePL
+            this._eventName
         );
     }
 }

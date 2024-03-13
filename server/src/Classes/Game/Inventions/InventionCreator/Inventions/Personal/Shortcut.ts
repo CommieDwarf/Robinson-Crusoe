@@ -8,7 +8,6 @@ import {
 import {IGame} from "@shared/types/Game/Game";
 
 export class Shortcut extends Invention implements IInvention {
-    protected readonly _namePL = "skrót";
 
     constructor(game: IGame) {
         super(

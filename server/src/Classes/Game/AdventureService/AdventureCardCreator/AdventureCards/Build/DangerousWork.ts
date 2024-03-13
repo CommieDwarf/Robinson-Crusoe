@@ -8,12 +8,11 @@ import {ACTION} from "@shared/types/Game/ACTION";
 export class DangerousWork
     extends BuildAdventureCard
     implements IAdventureCard {
-    protected _eventNamePL = "";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_BUILD.DANGEROUS_WORK,
-            "niebezpieczna praca",
+            "",
             false,
             game,
             "discard",
@@ -22,7 +21,7 @@ export class DangerousWork
     }
 
     resolveOption1(resolver: IPlayerCharacter) {
-        this._game.actionService.setReRollToken(ACTION.BUILD, true, this._namePL);
-        this._game.actionService.setAdventureToken(ACTION.BUILD, true, this._namePL);
+        this._game.actionService.setReRollToken(ACTION.BUILD, true, this.name);
+        this._game.actionService.setAdventureToken(ACTION.BUILD, true, this.name);
     }
 }

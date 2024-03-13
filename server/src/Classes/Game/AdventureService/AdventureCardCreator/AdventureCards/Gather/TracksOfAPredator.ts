@@ -8,12 +8,11 @@ import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 export class TracksOfAPredator
     extends GatherAdventureCard
     implements IAdventureCard {
-    protected _eventNamePL = "atak wygłodniałego drapieżnika";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_GATHER.TRACKS_OF_A_PREDATOR,
-            "niebezpieczne ślady",
+            "attack of a hungry predator",
             false,
             game,
             "shuffle",
@@ -33,9 +32,9 @@ export class TracksOfAPredator
             const campTile = this._game.tileService.campTile;
             const side = campTile.getSideByResource("food");
             if (side) {
-                campTile.depleteResource(side, this._eventNamePL);
+                campTile.depleteResource(side, this._eventName);
             } else {
-                this._game.characterService.hurtAllPlayerCharacters(1, this._eventNamePL);
+                this._game.characterService.hurtAllPlayerCharacters(1, this._eventName);
             }
         }
     }

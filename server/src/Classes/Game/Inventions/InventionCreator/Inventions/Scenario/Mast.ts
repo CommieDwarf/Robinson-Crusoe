@@ -8,7 +8,6 @@ import {
 import {IGame} from "@shared/types/Game/Game";
 
 export class Mast extends Invention implements IInvention {
-    protected readonly _namePL = "maszt";
 
     constructor(game: IGame) {
         super(

@@ -10,15 +10,12 @@ import ResizableImage from "../../../../../../ResizableImage/ResizableImage";
 import {castaways} from "@shared/constants/scenarios/castaways";
 import Entries from "@shared/types/Entries";
 import {ScenarioText} from "@shared/types/Game/ScenarioService/ScenarioService";
+import {useTranslation} from "react-i18next";
 
-type Props = {};
-
-export const Description = (props: Props) => {
+export const Description = () => {
     const [unrolled, setUnrolled] = useState(false);
-    const [currentInfo, setCurrentInfo] = useState([
-        "description",
-        castaways.text.description,
-    ]);
+    const [buttonClicked, setButtonClicked] = useState("description")
+
 
     const containerRef = useRef<HTMLDivElement>(null)
     const [containerWidth, setContainerWidth] = useState(0);
@@ -29,15 +26,13 @@ export const Description = (props: Props) => {
         }
     }, [])
 
-    const [selectedButton, setSelectedButton] = useState("");
-
-    function handleButtonClick(info: string[]) {
-        setUnrolled((prev) => {
-            return !(currentInfo[0] === info[0] && prev);
-        });
-
-        setCurrentInfo(info);
-        setSelectedButton(info[1]);
+    function handleButtonClick(button: string) {
+        if (button !== buttonClicked) {
+            setUnrolled(true);
+        } else {
+            setUnrolled((prev) => !prev)
+        }
+        setButtonClicked(button);
     }
 
     function handleRollClick() {
@@ -48,11 +43,13 @@ export const Description = (props: Props) => {
 
     const textEntries = Object.entries(castaways.text) as Entries<ScenarioText>;
 
+    const {t} = useTranslation();
+
     textEntries.forEach(([key, value], i) => {
         buttons.push(
             <Button
                 buttonText={key}
-                selected={currentInfo[0] === key && unrolled}
+                selected={buttonClicked === key}
                 text={value}
                 buttonClick={handleButtonClick}
                 key={i}
@@ -60,7 +57,6 @@ export const Description = (props: Props) => {
         );
     });
 
-    const containerExtendedClass = unrolled ? styles["containerExtended"] : "";
 
     const paperStyle = {
         width: containerWidth * 0.8 + "px"
@@ -77,13 +73,13 @@ export const Description = (props: Props) => {
                 <div className={`${styles.paperWrapper} ${unrolled ? styles.paperWrapperUnrolled : ""}`}>
                     <div className={styles.paper} style={paperStyle}>
                         <div className={styles.text}>
-                            {currentInfo[1]}
+                            {/*@ts-ignore*/}
+                            {t(`scenario.castaways.${buttonClicked}`)}
                         </div>
                         <div className={styles.paperImg}>
                             <ResizableImage src={yellowPaperImg} alt={""} fill sizes={styles.paperImg}/>
                         </div>
                     </div>
-
                 </div>
                 <div className={`${styles.rightScroll} ${unrolled ? styles.rightScrollUnrolled : ""}`}
                      onClick={handleRollClick}>

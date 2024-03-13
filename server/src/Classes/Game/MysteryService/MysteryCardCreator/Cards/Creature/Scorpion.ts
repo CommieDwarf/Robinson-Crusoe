@@ -6,12 +6,12 @@ import {CREATURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_C
 
 export class Scorpion extends CreatureMysteryCard {
     constructor(game: IGame) {
-        super(game, CREATURE_MYSTERY_CARD.SCORPION, "skorpion", false, "");
+        super(game, CREATURE_MYSTERY_CARD.SCORPION, false, "");
     }
 
     triggerDrawEffect(drawer: ICharacter) {
         if (!this._game.inventionService.isBuilt(INVENTION_STARTER.MEDICINE)) {
-            this._game.characterService.hurt(drawer, 3, this._namePL);
+            this._game.characterService.hurt(drawer, 3, this._name);
         }
     }
 }

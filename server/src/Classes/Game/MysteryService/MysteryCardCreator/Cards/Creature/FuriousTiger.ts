@@ -7,13 +7,12 @@ import {CREATURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_C
 
 export class FuriousTiger extends CreatureMysteryCard {
     constructor(game: IGame) {
-        super(game, CREATURE_MYSTERY_CARD.FURIOUS_TIGER, "rozszalały tygrys", false, "", "", "Walcz");
+        super(game, CREATURE_MYSTERY_CARD.FURIOUS_TIGER, false, "", "", "fight");
     }
 
     triggerDrawEffect(drawer: ICharacter) {
         const beastStats: BeastStats = {
             name: this._name,
-            namePL: this._namePL,
             strength: 4,
             weaponLoss: 0,
             reward: new BasicResources()

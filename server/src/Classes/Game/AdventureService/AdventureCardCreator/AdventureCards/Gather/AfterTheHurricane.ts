@@ -8,13 +8,12 @@ import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 export class AfterTheHurricane
     extends GatherAdventureCard
     implements IAdventureCard {
-    protected _eventNamePL = "kolejny huragan";
     private _tile: ITile | null = null;
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_GATHER.AFTER_THE_HURRICANE,
-            "po huraganie",
+            "another hurricane",
             false,
             game,
             "shuffle",
@@ -23,15 +22,15 @@ export class AfterTheHurricane
     }
 
     resolveOption1(resolver: IPlayerCharacter) {
-        this._game.resourceService.addBasicResourceToFuture("wood", 2, this._namePL);
+        this._game.resourceService.addBasicResourceToFuture("wood", 2, this._name);
         const tile = this.getTile();
-        tile.setTileModifier("timeConsumingAction", this._namePL);
+        tile.setTileModifier("timeConsumingAction", this._name);
         this._tile = tile;
     }
 
     triggerEventEffect() {
         if (this._tile) {
-            this._tile.setTileModifier("flipped", this._eventNamePL);
+            this._tile.setTileModifier("flipped", this._eventName);
         }
     }
 }

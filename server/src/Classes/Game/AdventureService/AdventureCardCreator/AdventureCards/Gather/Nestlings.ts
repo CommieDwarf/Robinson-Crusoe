@@ -6,12 +6,11 @@ import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction"
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 
 export class Nestlings extends GatherAdventureCard implements IAdventureCard {
-    protected _eventNamePL = "wściekłe ptaszysko";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_GATHER.NESTLINGS,
-            "pisklaki",
+            "angry bird",
             true,
             game,
             "discard",
@@ -27,7 +26,7 @@ export class Nestlings extends GatherAdventureCard implements IAdventureCard {
         this._game.resourceService.addBasicResourceToOwned(
             "food",
             playerAmount,
-            this._namePL
+            this._name
         );
         this.shuffleIntoEventDeck();
     }
@@ -36,7 +35,7 @@ export class Nestlings extends GatherAdventureCard implements IAdventureCard {
         this._game.constructionService.lvlDownOrGetHurt(
             CONSTRUCTION.ROOF,
             1,
-            this._eventNamePL
+            this._eventName
         );
     }
 }

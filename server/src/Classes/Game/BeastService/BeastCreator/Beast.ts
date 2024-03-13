@@ -12,11 +12,9 @@ export class Beast extends AssignablePawnsItem implements IBeast {
     protected readonly _weaponLoss: number;
     protected readonly _reward: IBasicResources;
     protected readonly _name: string;
-    protected readonly _namePL: string;
 
     constructor(
         name: string,
-        namePL: string,
         strength: number,
         weaponLoss: number,
         reward: IBasicResources,
@@ -24,7 +22,6 @@ export class Beast extends AssignablePawnsItem implements IBeast {
     ) {
         super(ACTION.HUNT, ACTION_ITEM.HUNT, game);
         this._name = name;
-        this._namePL = namePL;
         this._strength = strength;
         this._weaponLoss = weaponLoss;
         this._reward = reward;
@@ -33,7 +30,6 @@ export class Beast extends AssignablePawnsItem implements IBeast {
     get renderData(): IBeastRenderData {
         return {
             name: this.name,
-            namePL: this.namePL,
             ...super.getAssignablePawnsRenderData(),
         };
     }
@@ -46,10 +42,6 @@ export class Beast extends AssignablePawnsItem implements IBeast {
 
     get name(): string {
         return this._name;
-    }
-
-    get namePL(): string {
-        return this._namePL;
     }
 
 

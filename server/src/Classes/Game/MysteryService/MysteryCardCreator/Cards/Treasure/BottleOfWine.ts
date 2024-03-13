@@ -5,12 +5,12 @@ import {TREASURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_C
 
 export class BottleOfWine extends TreasureMysteryCard {
     constructor(game: IGame) {
-        super(game, TREASURE_MYSTERY_CARD.BOTTLE_OF_WINE, "butelka wina", false, "", 1);
+        super(game, TREASURE_MYSTERY_CARD.BOTTLE_OF_WINE, false, "", 1);
     }
 
     use(): void {
         super.use();
-        this._game.characterService.heal(this._game.localPlayer.getCharacter(), 2, this._namePL);
+        this._game.characterService.heal(this._game.localPlayer.getCharacter(), 2, this._name);
         this.removeFromOwnedResources();
     }
 

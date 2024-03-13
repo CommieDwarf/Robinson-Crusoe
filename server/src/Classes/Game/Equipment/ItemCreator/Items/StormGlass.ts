@@ -6,7 +6,7 @@ import {ICharacter} from "@shared/types/Game/Characters/Character";
 
 export class StormGlass extends Item implements IItem {
     constructor(game: IGame) {
-        super(ITEM.STORM_GLASS, "Barometr", game);
+        super(ITEM.STORM_GLASS, game);
     }
 
     use(user: IPlayer, target?: ICharacter) {

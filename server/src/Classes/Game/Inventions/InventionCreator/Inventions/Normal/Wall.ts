@@ -9,7 +9,6 @@ import {IGame} from "@shared/types/Game/Game";
 import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction";
 
 export class Wall extends Invention implements IInvention {
-    protected readonly _namePL = "mur";
 
     constructor(game: IGame) {
         super(

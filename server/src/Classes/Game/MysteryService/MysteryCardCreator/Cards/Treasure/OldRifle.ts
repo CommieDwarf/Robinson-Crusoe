@@ -6,7 +6,7 @@ import {TREASURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_C
 
 export class OldRifle extends TreasureMysteryCard {
     constructor(game: IGame) {
-        super(game, TREASURE_MYSTERY_CARD.OLD_RIFLE, "stara strzelba", false, "", 1);
+        super(game, TREASURE_MYSTERY_CARD.OLD_RIFLE, false, "", 1);
     }
 
     use(): void {

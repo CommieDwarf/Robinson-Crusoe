@@ -5,15 +5,14 @@ import {ADVENTURE_CARD_GATHER} from "@shared/types/Game/AdventureService/ADVENTU
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 
 export class Fruit extends GatherAdventureCard implements IAdventureCard {
-    protected _eventNamePL = "ból brzucha";
 
     constructor(game: IGame) {
-        super(ADVENTURE_CARD_GATHER.FRUIT, "owoce", false, game, "shuffle", "");
+        super(ADVENTURE_CARD_GATHER.FRUIT, "stomachache", false, game, "shuffle", "");
     }
 
     resolveOption1(resolver: IPlayerCharacter) {
         this.setResolver(resolver);
-        resolver.setWound("stomach", this._action, this._eventNamePL);
+        resolver.setWound("stomach", this._action, this._eventName);
         this.shuffleIntoEventDeck();
     }
 

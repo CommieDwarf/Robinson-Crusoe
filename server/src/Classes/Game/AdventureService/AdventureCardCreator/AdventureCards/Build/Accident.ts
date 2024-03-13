@@ -8,14 +8,12 @@ import {INVENTION_STARTER} from "@shared/types/Game/InventionService/Invention";
 
 //TODO: unimplemented.
 export class Accident extends BuildAdventureCard implements IAdventureCard {
-    protected _eventNamePL = "gangrena";
-
     constructor(game: IGame) {
-        super(ADVENTURE_CARD_BUILD.ACCIDENT, "wypadek", false, game, "shuffle", "");
+        super(ADVENTURE_CARD_BUILD.ACCIDENT, "gangrene", false, game, "shuffle", "");
     }
 
     resolveOption1(resolver: IPlayerCharacter) {
-        resolver.setWound("leg", ACTION.BUILD, this._namePL);
+        resolver.setWound("leg", ACTION.BUILD, this.name);
         this.setResolver(resolver);
         this.shuffleIntoEventDeck();
     }
@@ -23,10 +21,10 @@ export class Accident extends BuildAdventureCard implements IAdventureCard {
     triggerEventEffect() {
         const resolver = this.getResolver();
         if (this._game.inventionService.isBuilt(INVENTION_STARTER.MEDICINE)) {
-            this._game.characterService.hurt(resolver, 1, this._eventNamePL);
+            this._game.characterService.hurt(resolver, 1, this._eventName);
         } else {
-            this._game.characterService.hurt(resolver, 3, this._eventNamePL);
+            this._game.characterService.hurt(resolver, 3, this._eventName);
         }
-        resolver.unsetWound("leg", ACTION.BUILD, this._eventNamePL);
+        resolver.unsetWound("leg", ACTION.BUILD, this._eventName);
     }
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import styles from "./Threat.module.css";
 import Card from "./Card";
 import redArrowImg from "/public/UI/misc/red-arrow.png";
@@ -15,14 +15,16 @@ interface Props {
 
 function Threat(props: Props) {
 
-    const zIndexClass = props.zIndex.includes("threat")
-        ? styles.zIndexIncreased
-        : "";
+
+    const zIndexClass = props.zIndex.includes("threat") && styles.zIndexIncreased;
+
 
     return (
         <div className={styles.container + " " + zIndexClass}>
-            <Card card={props.threat.leftSlot} slot={"left"}/>
-            <Card card={props.threat.rightSlot} slot={"right"}/>
+            <Card card={props.threat.leftSlot} slot={"left"}
+            />
+            <Card card={props.threat.rightSlot} slot={"right"}
+            />
             <div className={styles.arrow}>
                 <ResizableImage src={redArrowImg} fill alt="strzałka" sizes={styles.arrow}/>
             </div>

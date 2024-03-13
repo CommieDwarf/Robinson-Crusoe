@@ -5,12 +5,11 @@ import {ADVENTURE_CARD_GATHER} from "@shared/types/Game/AdventureService/ADVENTU
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 
 export class Skeleton extends GatherAdventureCard implements IAdventureCard {
-    protected _eventNamePL = "wspomnienia martwego odkrywcy";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_GATHER.SKELETON,
-            "szkielet",
+            "memories of the dead explorer",
             false,
             game,
             "shuffle",
@@ -24,6 +23,6 @@ export class Skeleton extends GatherAdventureCard implements IAdventureCard {
 
     triggerEventEffect() {
         //TODO: add random invention.
-        this._game.moraleService.lvlUp(1, this._eventNamePL);
+        this._game.moraleService.lvlDown(1, this._eventName);
     }
 }

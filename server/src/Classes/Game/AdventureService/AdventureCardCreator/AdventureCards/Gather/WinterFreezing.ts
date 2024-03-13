@@ -8,12 +8,11 @@ import {TILE_RESOURCE_ACTION} from "@shared/types/Game/TileService/TileResourceS
 export class WinterFreezing
     extends GatherAdventureCard
     implements IAdventureCard {
-    protected _eventNamePL = "";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_GATHER.WINTER_FREEZING,
-            "zimowy chłód",
+            "",
             false,
             game,
             "discard",
@@ -23,6 +22,6 @@ export class WinterFreezing
 
     resolveOption1(resolver: IPlayerCharacter) {
         const tile = this.getTile();
-        this._game.tileService.markTileResourcesForAction([tile], TILE_RESOURCE_ACTION.DEPLETE, this._namePL, null);
+        this._game.tileService.markTileResourcesForAction([tile], TILE_RESOURCE_ACTION.DEPLETE, this._name, null);
     }
 }

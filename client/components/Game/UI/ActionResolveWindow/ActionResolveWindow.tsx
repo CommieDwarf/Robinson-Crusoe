@@ -18,7 +18,8 @@ import sharedStyles from "../../../../styles/shared.module.css";
 import Draggable from "react-draggable";
 import {RollDiceWindow} from "./RollDiceWindow/RollDiceWindow";
 import actionIconImg from "/public/UI/phase/action.png";
-import {kebabCase} from "lodash";
+import {capitalize, kebabCase} from "lodash";
+import {useTranslation} from "react-i18next";
 
 
 type Props = {
@@ -117,6 +118,9 @@ export const ActionResolveWindow = (props: Props) => {
         return item;
     }
 
+    const {t} = useTranslation();
+
+
     return (
         <Draggable bounds="parent" defaultClassNameDragging={sharedStyles.grabbing}>
 
@@ -158,7 +162,9 @@ export const ActionResolveWindow = (props: Props) => {
                             className={styles.actionIcon}
                         />
                     </div>
-                    <div className={styles.title}>Faza Akcji</div>
+                    <div className={styles.title}>{capitalize(t("phase.phase", {
+                        phase: "action"
+                    }))}</div>
                     <div className={styles.actionIcon}>
                         <ResizableImage
                             src={`/UI/actions/${kebabCase(props.actionService.action)}.png`}
@@ -166,6 +172,7 @@ export const ActionResolveWindow = (props: Props) => {
                         />
                     </div>
                 </div>
+                
                 <ResolvableItems
                     actionService={props.actionService}
                     resolve={setItemResolved}

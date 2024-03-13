@@ -39,7 +39,6 @@ export interface IMysteryCardRenderData extends IBaseMysteryCardRenderData<Myste
 
 export interface IBaseMysteryCard<Name> {
     name: Name
-    namePL: string;
     type: MYSTERY_CARD_TYPE;
     shuffleable: boolean;
     eventName: string;
@@ -57,7 +56,6 @@ export interface IBaseMysteryCard<Name> {
 
 export interface IBaseMysteryCardRenderData<Name> {
     name: Name;
-    namePL: string;
     type: MYSTERY_CARD_TYPE;
     shuffleable: boolean;
     drawLabel: string;

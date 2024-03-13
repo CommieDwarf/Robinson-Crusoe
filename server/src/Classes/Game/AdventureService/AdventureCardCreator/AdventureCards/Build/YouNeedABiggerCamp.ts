@@ -7,12 +7,11 @@ import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 export class YouNeedABiggerCamp
     extends BuildAdventureCard
     implements IAdventureCard {
-    protected _eventNamePL = "rozbudowa obozowiska";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_BUILD.YOU_NEED_A_BIGGER_CAMP,
-            "potrzeba zmian",
+            "camp expansion",
             false,
             game,
             "shuffle",

@@ -8,12 +8,11 @@ import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 export class DarkCloudsInTheSky
     extends BuildAdventureCard
     implements IAdventureCard {
-    protected _eventNamePL = "koniec ulewy";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_BUILD.DARK_CLOUDS_IN_THE_SKY,
-            "zachmurzone niebo",
+            "heavy rain is over",
             false,
             game,
             "shuffle",
@@ -22,7 +21,7 @@ export class DarkCloudsInTheSky
     }
 
     resolveOption1(resolver: IPlayerCharacter) {
-        this._game.weatherService.setToken("rain", true, this.namePL);
+        this._game.weatherService.setToken("rain", true, this.name);
         this.shuffleIntoEventDeck();
     }
 
@@ -31,7 +30,7 @@ export class DarkCloudsInTheSky
             this._game.constructionService.lvlUpConstruction(
                 CONSTRUCTION.PALISADE,
                 1,
-                this._eventNamePL
+                this._eventName
             );
         }
     }

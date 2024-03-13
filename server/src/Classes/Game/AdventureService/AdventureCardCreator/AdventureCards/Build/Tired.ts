@@ -5,12 +5,11 @@ import {ADVENTURE_CARD_BUILD} from "@shared/types/Game/AdventureService/ADVENTUR
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 
 export class Tired extends BuildAdventureCard implements IAdventureCard {
-    protected _eventNamePL = "spór";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_BUILD.TIRED,
-            "wyczerpany",
+            "dispute",
             true,
             game,
             "shuffle",
@@ -19,7 +18,7 @@ export class Tired extends BuildAdventureCard implements IAdventureCard {
     }
 
     resolveOption1(resolver: IPlayerCharacter) {
-        this._game.characterService.heal(resolver, 2, this.namePL);
+        this._game.characterService.heal(resolver, 2, this.name);
         this.shuffleIntoEventDeck();
     }
 
@@ -27,6 +26,6 @@ export class Tired extends BuildAdventureCard implements IAdventureCard {
     }
 
     triggerEventEffect() {
-        this._game.moraleService.lvlDown(1, this._eventNamePL);
+        this._game.moraleService.lvlDown(1, this._eventName);
     }
 }

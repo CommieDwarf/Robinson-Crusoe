@@ -6,6 +6,7 @@ import {useTranslation} from "react-i18next";
 
 import triangle from "/public/UI/misc/triangle.png";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
+import capitalize from "@shared/utils/capitalize";
 
 export type PhaseType =
     | "production"
@@ -41,8 +42,11 @@ function Phase(props: Props) {
     return (
         <div className={styles.container} ref={containerRef}>
             <strong>
-                Faza{" "}
-                <span className={styles[props.phase]}>{t(`phase.${props.phase}`)}</span>
+
+                <span className={styles[props.phase]}>{capitalize(t(`phase.phase`, {
+                    phase: props.phase
+                }))}
+                </span>
             </strong>
             <div className={styles.phaseIcon}>
                 <ResizableImage
@@ -53,7 +57,7 @@ function Phase(props: Props) {
             </div>
             <div className={styles.dropDownButton} onClick={toggleShowMenu}>
                  <span className={styles.dropDownText}>
-                    Kolejność
+                    {t("other.order")}
                 </span>
                 <div className={styles.triangle}>
                     <ResizableImage src={triangle} alt={""}/>

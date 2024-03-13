@@ -5,10 +5,9 @@ import {ADVENTURE_CARD_EXPLORE} from "@shared/types/Game/AdventureService/ADVENT
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 
 export class Vipers extends ExploreAdventureCard implements IAdventureCard {
-    protected _eventNamePL = "gorączka";
 
     constructor(game: IGame) {
-        super(ADVENTURE_CARD_EXPLORE.VIPERS, "żmije!", false, game, "shuffle", "");
+        super(ADVENTURE_CARD_EXPLORE.VIPERS, "fewer", false, game, "shuffle", "");
     }
 
     resolveOption1(resolver: IPlayerCharacter) {

@@ -1,5 +1,4 @@
 import {CreatureMysteryCard} from "./CreatureMysteryCard/CreatureMysteryCard";
-import {IMysteryCard} from "@shared/types/Game/MysteryService/MysteryCard";
 import {IGame} from "@shared/types/Game/Game";
 import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
@@ -8,7 +7,7 @@ import {CREATURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_C
 export class Savage
     extends CreatureMysteryCard {
     constructor(game: IGame) {
-        super(game, CREATURE_MYSTERY_CARD.SAVAGE, "dzikus", true, "nieudane polowanie");
+        super(game, CREATURE_MYSTERY_CARD.SAVAGE, true, "failed hunt");
     }
 
     triggerDrawEffect(drawer: ICharacter) {
@@ -19,7 +18,7 @@ export class Savage
             this._game.constructionService.lvlDownConstruction(
                 CONSTRUCTION.WEAPON,
                 weapon.lvl,
-                this._namePL
+                this._name
             );
         }
         this.shuffleIntoEventDeck();

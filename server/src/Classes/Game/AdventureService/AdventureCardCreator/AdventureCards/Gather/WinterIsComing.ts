@@ -7,12 +7,11 @@ import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 export class WinterIsComing
     extends GatherAdventureCard
     implements IAdventureCard {
-    protected _eventNamePL = "przymrozek";
 
     constructor(game: IGame) {
         super(
             ADVENTURE_CARD_GATHER.WINTER_IS_COMING,
-            "nadchodzi zima",
+            "frost",
             false,
             game,
             "shuffle",
@@ -26,6 +25,6 @@ export class WinterIsComing
     }
 
     triggerEventEffect() {
-        this._game.weatherService.setToken("snow", true, this._eventNamePL);
+        this._game.weatherService.setToken("snow", true, this._eventName);
     }
 }

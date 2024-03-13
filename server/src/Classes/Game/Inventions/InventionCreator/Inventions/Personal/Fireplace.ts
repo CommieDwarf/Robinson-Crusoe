@@ -10,7 +10,6 @@ import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 
 export class Fireplace extends Invention implements IInvention {
     protected _usable = true;
-    protected readonly _namePL = "palenisko";
     private usedInRound: number = 0;
 
     constructor(game: IGame) {

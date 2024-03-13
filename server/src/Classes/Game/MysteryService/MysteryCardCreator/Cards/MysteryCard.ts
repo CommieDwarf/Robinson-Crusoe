@@ -10,7 +10,6 @@ import {MysteryCardName} from "@shared/types/Game/MysteryService/MYSTERY_CARD";
 
 export abstract class MysteryCard<Name extends MysteryCardName> implements IMysteryCard {
     protected declare _name: Name
-    protected readonly _namePL: string;
     protected readonly _shuffleable: boolean;
     private readonly _eventName: string;
     protected readonly _game: IGame;
@@ -27,7 +26,6 @@ export abstract class MysteryCard<Name extends MysteryCardName> implements IMyst
     protected constructor(
         game: IGame,
         name: Name,
-        namePL: string,
         shuffleable: boolean,
         eventName: string,
         eventLabel: string,
@@ -35,7 +33,6 @@ export abstract class MysteryCard<Name extends MysteryCardName> implements IMyst
     ) {
         this._game = game;
         this._name = name;
-        this._namePL = namePL;
         this._shuffleable = shuffleable;
         this._eventName = eventName;
         this._eventLabel = eventLabel;
@@ -45,7 +42,6 @@ export abstract class MysteryCard<Name extends MysteryCardName> implements IMyst
     protected getRenderData(): IBaseMysteryCardRenderData<Name> {
         return {
             name: this._name,
-            namePL: this._namePL,
             type: this._type,
             shuffleable: this._shuffleable,
             eventLabel: this._eventLabel,
@@ -68,9 +64,6 @@ export abstract class MysteryCard<Name extends MysteryCardName> implements IMyst
         return this._name;
     }
 
-    get namePL(): string {
-        return this._namePL;
-    }
 
     get type(): MYSTERY_CARD_TYPE {
         return this._type;
