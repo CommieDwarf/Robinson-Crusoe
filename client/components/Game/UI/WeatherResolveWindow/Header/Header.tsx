@@ -7,8 +7,8 @@ import weatherImg from "/public/UI/phase/weather.png";
 import redArrowImg from "/public/UI/misc/red-arrow.png";
 import nightImg from "/public/UI/phase/night.png";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
-import {emitAction} from "../../../../../pages/api/emitAction";
 import {OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
+import {socketEmitter} from "../../../../../pages/_app";
 
 type Props = {
     round: number;
@@ -16,7 +16,7 @@ type Props = {
 };
 export const Header = (props: Props) => {
     function handleClick() {
-        emitAction(OTHER_CONTROLLER_ACTION.SET_NEXT_PHASE);
+        socketEmitter.emitAction(OTHER_CONTROLLER_ACTION.SET_NEXT_PHASE);
     }
 
     return (

@@ -1,16 +1,18 @@
 import {IPlayer} from "@shared/types/Game/PlayerService/Player";
 import {Player} from "../Game/Players/Player";
-import {UserData} from "../../types/UserData/UserData";
+import {IUser} from "../../types/UserData/IUser";
 import {BaseController} from "../../types/GameController/Controllers";
 import {GameClass} from "../Game/Game";
 import {GameController} from "../GameController/GameController";
-import {SessionData} from "../../types/Session/Session";
+import {GAME_SESSION_MODE, SessionData} from "../../types/Session/Session";
 import {PAWN_COLOR} from "@shared/types/Game/PAWN_COLOR";
 import {uuid} from "uuidv4";
 import {CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {CHARACTER} from "@shared/types/Game/Characters/Character";
 
+
 export class Session implements SessionData {
+
     private _players: IPlayer[] = [];
 
     private _gameController: BaseController | null = null;
@@ -21,8 +23,11 @@ export class Session implements SessionData {
 
     private _characters: CHARACTER[] = [CHARACTER.COOK];
 
+    private readonly _mode: GAME_SESSION_MODE;
 
-    constructor(creator: UserData) {
+
+    constructor(creator: IUser, mode: GAME_SESSION_MODE) {
+        this._mode = mode;
         this.joinSession(creator);
     }
 
@@ -38,21 +43,25 @@ export class Session implements SessionData {
         return this._id;
     }
 
-    public handleAction(user: UserData, action: CONTROLLER_ACTION, ...args: any[]): void {
-        const player = this.getPlayer(user);
+    get mode(): GAME_SESSION_MODE {
+        return this._mode;
+    }
+
+    public handleAction(userId: string, action: CONTROLLER_ACTION, ...args: any[]): void {
+        const player = this.getPlayer(userId);
         this._gameController?.handleAction(action, player, ...args);
     }
 
-    public joinSession(user: UserData) {
+    public joinSession(user: IUser) {
         const player = new Player(user);
         this._players.push(player);
-        this.assignColor(user, this.findAvailableColor());
-        this.assignCharacter(user, CHARACTER.COOK);
+        this.assignColor(user._id, this.findAvailableColor());
+        this.assignCharacter(user._id, CHARACTER.COOK);
     }
 
 
-    public leaveSession(user: UserData) {
-        this._players = this._players.filter((player) => player.user.id !== user.id);
+    public leaveSession(user: IUser) {
+        this._players = this._players.filter((player) => player.user._id !== user._id);
     }
 
     public startGame(): BaseController {
@@ -62,23 +71,27 @@ export class Session implements SessionData {
         return gameController;
     }
 
-    public assignColor(user: UserData, color: PAWN_COLOR): void {
+    public assignColor(userId: string, color: PAWN_COLOR): void {
         if (!this.isColorTaken(color)) {
-            this.getPlayer(user).assignColor(color);
+            this.getPlayer(userId).assignColor(color);
         }
     }
 
-    public assignCharacter(user: UserData, character: CHARACTER) {
+    public assignCharacter(userId: string, character: CHARACTER) {
         if (!this.isCharacterTaken(character)) {
-            this.getPlayer(user).assignCharacter(character);
+            this.getPlayer(userId).assignCharacter(character);
         }
     }
 
+    public getGame() {
+        return this._gameController?.game;
+    }
 
-    private getPlayer(user: UserData): IPlayer {
-        const searched = this._players.find((player) => player.user.id === user.id);
+
+    private getPlayer(userId: string): IPlayer {
+        const searched = this._players.find((player) => player.user._id === userId);
         if (!searched) {
-            throw new Error(`There is no player that belongs to user: ${user}`);
+            throw new Error(`There is no player that belongs to user: ${userId}`);
         }
         return searched;
     }

@@ -66,7 +66,7 @@ export const LogMessage = (props: Props) => {
           {capitalize(translatedSource || source)} -{" "}
         </span>
                 <span className={styles.message + " " + styles[msg.color]}>
-                    {translatedContent}
+                    {capitalize(translatedContent)}
         </span>
             </div>
         </div>

@@ -6,9 +6,9 @@ import fireImg from "/public/UI/scenarios/fire.png";
 import woodImg from "/public/UI/resources/wood.png";
 import ResizableImage from "../../../../../../ResizableImage/ResizableImage";
 import {OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
-import {emitAction} from "../../../../../../../pages/api/emitAction";
 import {useTranslation} from "react-i18next";
 import {capitalize} from "lodash";
+import {socketEmitter} from "../../../../../../../pages/_app";
 
 type Props = {
     lvl: number;
@@ -19,7 +19,7 @@ type Props = {
 export const WoodPile = (props: Props) => {
 
     function handleButtonClick() {
-        emitAction(OTHER_CONTROLLER_ACTION.ADD_WOOD_TO_PILE);
+        socketEmitter.emitAction(OTHER_CONTROLLER_ACTION.ADD_WOOD_TO_PILE);
     }
 
 

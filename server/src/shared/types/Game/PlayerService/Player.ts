@@ -1,6 +1,6 @@
 import {IPlayerCharacter, IPlayerCharacterRenderData,} from "../Characters/PlayerCharacter";
 import {PAWN_COLOR} from "@shared/types/Game/PAWN_COLOR";
-import {UserData} from "../../../../types/UserData/UserData";
+import {IUser} from "../../../../types/UserData/IUser";
 import {CHARACTER} from "@shared/types/Game/Characters/Character";
 import {IGame} from "@shared/types/Game/Game";
 
@@ -16,7 +16,7 @@ export interface IPlayer {
     assignColor: (color: PAWN_COLOR) => void;
     initCharacter: (game: IGame) => void;
 
-    user: UserData;
+    user: IUser;
     renderData: IPlayerRenderData;
 }
 

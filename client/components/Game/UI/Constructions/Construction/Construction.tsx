@@ -1,6 +1,5 @@
 import {IConstructionRenderData} from "@shared/types/Game/ConstructionService/Construction";
 import {IBasicResourcesAmount} from "@shared/types/Game/Resources/Resources";
-import {emitAction} from "../../../../../pages/api/emitAction";
 import {OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import getActionSlots from "../../getActionSlots";
 import {objectsEqual} from "@shared/utils/objectsEqual";
@@ -10,6 +9,7 @@ import {CostBlock} from "./CostBlock/CostBlock";
 import React from "react";
 import {useTranslation} from "react-i18next";
 import {capitalize} from "lodash";
+import {socketEmitter} from "../../../../../pages/_app";
 
 
 type Props = {
@@ -24,7 +24,7 @@ function Construction(props: Props) {
 
     function handleResourceClick(resource: "wood" | "leather") {
         if (props.construction.canResourceBeSwitched && props.construction.committedResources?.type !== resource) {
-            emitAction(OTHER_CONTROLLER_ACTION.SWITCH_COMMITTED_RESOURCES_TYPE, props.construction.name)
+            socketEmitter.emitAction(OTHER_CONTROLLER_ACTION.SWITCH_COMMITTED_RESOURCES_TYPE, props.construction.name)
         }
     }
 

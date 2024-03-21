@@ -17,8 +17,8 @@ import {IConstruction} from "@shared/types/Game/ConstructionService/Construction
 import {IInventionRenderData} from "@shared/types/Game/InventionService/Invention";
 import {ITileRenderData} from "@shared/types/Game/TileService/ITile";
 import {kebabCase} from "lodash";
-import {emitAction} from "../../../../../../pages/api/emitAction";
 import {ACTION_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
+import {socketEmitter} from "../../../../../../pages/_app";
 
 type Props = {
     resolvableItem: IResolvableItemRenderData;
@@ -38,7 +38,7 @@ export const Item = (props: Props) => {
 
 
     function handleBibleCheckBoxClick() {
-        emitAction(ACTION_CONTROLLER_ACTION.SET_BIBLE_USAGE, props.resolvableItem.id, !props.resolvableItem.bibleChecked
+        socketEmitter.emitAction(ACTION_CONTROLLER_ACTION.SET_BIBLE_USAGE, props.resolvableItem.id, !props.resolvableItem.bibleChecked
         )
     }
 

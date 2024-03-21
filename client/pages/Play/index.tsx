@@ -4,17 +4,17 @@ import {useEffect, useState} from "react";
 import {useAppDispatch} from "../../store/hooks";
 import Game from "../../components/Game/Game";
 import {IGameRenderData} from "@shared/types/Game/Game";
-import {socket} from "../_app";
-import {globalCostModified} from "../../components/Game/reduxSlices/globalCostModifiers";
-import {actionSlotsUpdated, markedSlotUpdated} from "../../components/Game/reduxSlices/actionSlots";
+import {globalCostModified} from "../../reduxSlices/globalCostModifiers";
+import {actionSlotsUpdated} from "../../reduxSlices/actionSlots";
 import {
     dogPawnsUpdated,
     fridayPawnsUpdated,
     localCharacterPawnsUpdated
-} from "../../components/Game/reduxSlices/freePawns";
-import {phaseUpdated} from "../../components/Game/reduxSlices/phase";
+} from "../../reduxSlices/freePawns";
+import {phaseUpdated} from "../../reduxSlices/phase";
 import {batch} from "react-redux";
-
+import AuthGuard from "../../components/AuthGuard/AuthGuard";
+import {socket, socketEmitter} from "../_app";
 
 type Props = {};
 
@@ -23,17 +23,19 @@ function Play(props: Props) {
 
 
     useEffect(() => {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        socket.emit("game_instance_requested");
+        socketEmitter.requestGameInstance();
+        socket.on("game_instance_sent", (payload: IGameRenderData) => {
+            console.log("game instance sent!")
+            updateGameRenderData(payload)
+        })
 
+        return () => {
+            socket.off();
+        }
     }, []);
 
-    const dispatch = useAppDispatch();
 
-    socket.on("game_instance_sent", (payload: IGameRenderData) => {
-        console.log("przyszlo")
-        updateGameRenderData(payload)
-    })
+    const dispatch = useAppDispatch();
 
 
     function updateGameRenderData(renderData: IGameRenderData) {
@@ -62,13 +64,16 @@ function Play(props: Props) {
 
 
     return (
-        <div className={styles.container}>
-            {gameRenderData ? (
-                <Game
-                    gameRenderData={gameRenderData}
-                />
-            ) : <Loading/>}
-        </div>
+        <AuthGuard>
+            <div className={styles.container}>
+                {gameRenderData ? (
+                    <Game
+                        gameRenderData={gameRenderData}
+                    />
+                ) : <Loading/>}
+            </div>
+        </AuthGuard>
+
     )
 }
 

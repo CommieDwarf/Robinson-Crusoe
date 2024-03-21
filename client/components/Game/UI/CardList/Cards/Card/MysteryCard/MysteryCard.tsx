@@ -9,9 +9,9 @@ import {
     IMysteryCardRenderData
 } from "@shared/types/Game/MysteryService/MysteryCard";
 import {kebabCase} from "lodash";
-import {emitAction} from "../../../../../../../pages/api/emitAction";
 import {MYSTERY_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {isTreasureCard, isTreasureCardRenderData} from "@shared/utils/typeGuards/isTreasureCard";
+import {socketEmitter} from "../../../../../../../pages/_app";
 
 
 type Props = {
@@ -32,7 +32,7 @@ export const MysteryCard = (props: Props) => {
 
 
     function use() {
-        emitAction(MYSTERY_CONTROLLER_ACTION.USE_TREASURE_CARD, props.mysteryCard.name);
+        socketEmitter.emitAction(MYSTERY_CONTROLLER_ACTION.USE_TREASURE_CARD, props.mysteryCard.name);
         props.handleMouseOverButtons(false);
     }
 

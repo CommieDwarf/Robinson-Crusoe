@@ -50,7 +50,7 @@ export class Equipment implements IEquipment {
             subject2: ""
         }, "positive", logSource)
 
-        this.items.push(this._itemCreator.create(this.popItem()));
+        this.items.push(item);
     }
 
     useItem(item: ITEM) {

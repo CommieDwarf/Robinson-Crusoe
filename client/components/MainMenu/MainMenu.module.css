@@ -1,0 +1,98 @@
+.container {
+    font-size: 30px;
+    color: var(--brown);
+    padding: 0;
+    margin: 0;
+    display: grid;
+    font-style: italic;
+}
+
+
+.title {
+    width: 250px;
+    aspect-ratio: 362 / 172;
+    margin: auto;
+}
+
+.wrapper {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    display: grid;
+}
+
+.menu {
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 1;
+    list-style: none;
+    display: flex;
+    row-gap: 10px;
+    height: 300px;
+    flex-direction: column;
+    margin: 0 auto auto;
+}
+
+.menuItem {
+    text-align: center;
+    width: 200px;
+    border: 1px solid var(--brown);
+    border-radius: 10px;
+    padding: 5px 20px;
+    background-color: white;
+    font-weight: 500;
+    background-image: url("../../public/UI/paper-background.png");
+    background-size: 500px 300px;
+
+}
+
+.menuItemDisabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.menuItemDisabled:hover {
+    scale: none !important;
+}
+
+
+.button2 {
+    background-position: -100px -50px;
+}
+
+.button3 {
+    background-position: -100px -100px;
+}
+
+.menuItem:hover {
+    scale: 1.1;
+}
+
+
+.userPanelContainer {
+    grid-column: 2 / span 1;
+    grid-row: 1 / span 1;
+    position: relative;
+    vertical-align: top;
+}
+
+.userPanel {
+    width: 340px;
+    margin: auto;
+}
+
+.pulsateOnce {
+    animation-name: pulsating;
+    animation-duration: 0.2s;
+    animation-iteration-count: 1;
+}
+
+@keyframes pulsating {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}

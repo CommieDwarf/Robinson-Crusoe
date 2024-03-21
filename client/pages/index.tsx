@@ -1,17 +1,20 @@
 import type {NextPage} from "next";
 import "../I18n/I18n";
-import Link from "next/link";
-import styles from "./index.module.css";
+import {MainMenu} from "../components/MainMenu/MainMenu";
+import AuthGuard from "../components/AuthGuard/AuthGuard";
+import React from "react";
+import {UserProfile} from "../components/UserProfile/UserProfile";
+
 
 const Home: NextPage = () => {
 
 
     return (
-        <div className={styles.container}>
-            <h1>Tu Będzie kiedyś menu</h1>
-            <Link href={"./Play"}>Graj</Link>
-        </div>
+        <AuthGuard>
+            <MainMenu UserComponent={<UserProfile/>}/>
+        </AuthGuard>
     );
 };
 
-export default Home;
+
+export default Home

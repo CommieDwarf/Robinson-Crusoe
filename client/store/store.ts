@@ -1,9 +1,10 @@
 import {configureStore} from "@reduxjs/toolkit";
-import {actionSlotsSlice} from "../components/Game/reduxSlices/actionSlots";
-import {freePawnsSlice} from "../components/Game/reduxSlices/freePawns";
-import {globalCostModifiersSlice} from "../components/Game/reduxSlices/globalCostModifiers";
-import {phaseSlice} from "../components/Game/reduxSlices/phase";
-import {alertSlice} from "../components/Game/reduxSlices/alert";
+import {actionSlotsSlice} from "../reduxSlices/actionSlots";
+import {freePawnsSlice} from "../reduxSlices/freePawns";
+import {globalCostModifiersSlice} from "../reduxSlices/globalCostModifiers";
+import {phaseSlice} from "../reduxSlices/phase";
+import {alertSlice} from "../reduxSlices/alert";
+import {authSlice} from "../reduxSlices/auth";
 
 export const store = configureStore({
     reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
         [globalCostModifiersSlice.name]: globalCostModifiersSlice.reducer,
         [phaseSlice.name]: phaseSlice.reducer,
         [alertSlice.name]: alertSlice.reducer,
+        [authSlice.name]: authSlice.reducer,
     },
     devTools: true,
 });

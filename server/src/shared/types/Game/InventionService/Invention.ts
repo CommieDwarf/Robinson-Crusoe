@@ -35,7 +35,7 @@ export interface IInvention extends IResourceCommittableItem<InventionResource>,
 }
 
 export interface IInventionRenderData extends IResourceCommittableItemRenderData<InventionResource> {
-    name: string;
+    name: INVENTION;
     locked: boolean;
     assignedPawnAmount: number;
     inventionType: INVENTION_TYPE;

@@ -95,7 +95,6 @@ export class GameClass implements IGame {
             [this.localPlayer.getCharacter()],
             this
         );
-        this._round = 7;
     }
 
     get renderData(): IGameRenderData {

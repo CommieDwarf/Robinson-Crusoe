@@ -1,4 +1,4 @@
-import React, {useLayoutEffect, useRef, useState} from "react";
+import React, {useEffect, useLayoutEffect, useRef, useState} from "react";
 import Phase from "./UI/Phase/Phase";
 import Morale from "./UI/Morale/Morale";
 import styles from "./Game.module.css";
@@ -40,39 +40,13 @@ import {CONFIRM_WINDOW} from "./UI/ConfirmWindow/messages";
 import Scenario from "./UI/Scenario/Scenario";
 import {canPawnBeSettled} from "@shared/utils/canPawnBeSettled";
 import {IBasicResourcesAmount} from "@shared/types/Game/Resources/Resources";
-import {INVENTION_STARTER, INVENTION_TYPE} from "@shared/types/Game/InventionService/Invention";
+import {INVENTION_TYPE} from "@shared/types/Game/InventionService/Invention";
 import {IGameRenderData} from "@shared/types/Game/Game";
 import {ITileRenderData} from "@shared/types/Game/TileService/ITile";
-import {emitAction} from "../../pages/api/emitAction";
 import {CHARACTER_CONTROLLER_ACTION, OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
-import {socket} from "../../pages/_app";
-import {MethodData} from "@shared/types/MethodData";
 import {MysteryCardDraw} from "./UI/MysteryCardDraw/MysteryCardDraw";
-
-
-const vehicle = {
-    color: "red",
-    yearOfProduction: 1993,
-    enginePower: 203,
-    turbo: true,
-    fuelInLiters: 10,
-
-    paint(color: string) {
-        this.color = color;
-    },
-
-    tank(gallons: number) {
-        this.fuelInLiters = 3.785 * gallons;
-    },
-
-    getFuelInGalllons() {
-        const gallons = this.fuelInLiters / 3.785;
-        return gallons;
-    }
-}
-
-
-vehicle.tank(400)
+import {MenuButton} from "./UI/MenuButton/MenuButton";
+import {socket, socketEmitter} from "../../pages/_app";
 
 
 interface Props {
@@ -102,7 +76,7 @@ export default function Game(props: Props) {
     const [actionOrderHeight, setActionOrderHeight] = useState<number>(0);
 
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         if (mapRef.current) setMapHeight(mapRef.current.offsetHeight);
         if (actionOrderRef.current) setActionOrderHeight(actionOrderRef.current.offsetHeight)
     }, [])
@@ -143,7 +117,7 @@ export default function Game(props: Props) {
     }
 
     function unselectActionSlots() {
-        Object.entries(actionSlots).forEach(([droppableID, pawn]) => {
+        Object.entries(actionSlots).forEach(([droppableID]) => {
             const actionSlot = document.getElementById(droppableID);
             if (actionSlot) {
                 actionSlot.classList.remove(actionSlotStyles.canBeSettled);
@@ -247,15 +221,10 @@ export default function Game(props: Props) {
         }
 
 
-        //TODO: przenies moze logike do gry
-        const canAffordItem: boolean = await new Promise((resolve, reject) => {
-            const methodData: MethodData = {
-                methodName: "shouldCommitResources",
-                methodArgs: [destinationId]
-            }
-            socket.emit("executeGameMethodAndSendResponse", methodData);
-            socket.on("gameMethodResponse", (result: boolean) => {
-                socket.off("gameMethodResponse");
+        const canAffordItem: boolean = await new Promise((resolve) => {
+            socketEmitter.executeGameMethodAndSendResponse("shouldCommitResources", [destinationId])
+            socket.on("game_method_response", (result: boolean) => {
+                socket.off("game_method_response");
                 resolve(result);
             })
         })
@@ -266,15 +235,15 @@ export default function Game(props: Props) {
             return;
         }
 
-        emitAction(CHARACTER_CONTROLLER_ACTION.SET_PAWN, destinationId, draggedPawn.draggableId)
-        emitAction(CHARACTER_CONTROLLER_ACTION.UNSET_PAWN, sourceId, draggedPawn.draggableId)
+        socketEmitter.emitAction(CHARACTER_CONTROLLER_ACTION.SET_PAWN, destinationId, draggedPawn.draggableId)
+        socketEmitter.emitAction(CHARACTER_CONTROLLER_ACTION.UNSET_PAWN, sourceId, draggedPawn.draggableId)
 
         // Sleep is used here, because if both pawns are switched in the same time,
         // beautiful DND loses draggable.
         await sleep(100);
 
         if (pawnAtActionSlot) {
-            emitAction(CHARACTER_CONTROLLER_ACTION.SET_PAWN, sourceId, pawnAtActionSlot.draggableId)
+            socketEmitter.emitAction(CHARACTER_CONTROLLER_ACTION.SET_PAWN, sourceId, pawnAtActionSlot.draggableId)
         }
     }
 
@@ -452,7 +421,6 @@ export default function Game(props: Props) {
                         actionService={gameRenderData.actionService}
                     />
                 )}
-            <Alerts/>
 
             {gameRenderData.phaseService.phase === "weather" && (
                 <WeatherResolveWindow
@@ -472,14 +440,15 @@ export default function Game(props: Props) {
             {confirmWindow ? <ConfirmWindow
                 name={confirmWindow}
                 onAccept={() => {
-                    emitAction(OTHER_CONTROLLER_ACTION.SET_NEXT_PHASE)
+                    socketEmitter.emitAction(OTHER_CONTROLLER_ACTION.SET_NEXT_PHASE)
                     setConfirmWindow(null);
                 }}
                 onRefuse={() => {
                     setConfirmWindow(null)
                 }}
             /> : ""}
-
+            <Alerts/>
+            <MenuButton/>
 
         </div>
     );

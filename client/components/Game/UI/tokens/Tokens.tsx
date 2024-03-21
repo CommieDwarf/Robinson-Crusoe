@@ -5,8 +5,8 @@ import Token from "./Token/Token";
 import {ContextMenu} from "./ContextMenu/ContextMenu";
 import {ITokenRenderData} from "@shared/types/Game/TokenService/Token";
 import {getPropsComparator} from "../../../../utils/getPropsComparator";
-import {emitAction} from "../../../../pages/api/emitAction";
 import {OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
+import {socketEmitter} from "../../../../pages/_app";
 
 interface Props {
     owned: ITokenRenderData[];
@@ -69,7 +69,7 @@ function Tokens(props: Props) {
             return;
         }
         setSelectedToken(null);
-        emitAction(OTHER_CONTROLLER_ACTION.USE_DISCOVERY_TOKEN, id, "cook")
+        socketEmitter.emitAction(OTHER_CONTROLLER_ACTION.USE_DISCOVERY_TOKEN, id, "cook")
     }
 
     return (

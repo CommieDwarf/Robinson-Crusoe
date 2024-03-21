@@ -1,33 +1,69 @@
-import {UserData} from "../../types/UserData/UserData";
+import {IUser} from "../../types/UserData/IUser";
 import {ISessionService} from "../../types/SessionService/SessionService";
-import {SessionData} from "../../types/Session/Session";
+import {GAME_SESSION_MODE, SessionData} from "../../types/Session/Session";
 import {Session} from "../Session/Session";
+
+
+type UserId = string;
+type GameSessionId = string;
 
 export class SessionService implements ISessionService {
 
-    private _activeSessions = new Map<string, SessionData>();
-
-
+    private _activeSessions = new Map<GameSessionId, SessionData>();
+    private _userGameSessions = new Map<UserId, GameSessionId>(); //userId  gameSessionIds
     constructor() {
 
     }
 
-    createSession(user: UserData): SessionData {
-        const session = new Session(user);
-        user.setSession(session);
+
+    public createSession(user: IUser, mode: GAME_SESSION_MODE): SessionData {
+        const session = new Session(user, mode);
         this._activeSessions.set(session.id, session);
+        this.associateUserWithSession(user._id, session.id);
+        if (mode === GAME_SESSION_MODE.QUICK) {
+            session.startGame();
+        }
+
         return session;
     }
 
-    public getSession(id: string): SessionData {
-        const session = this._activeSessions.get(id);
+
+    public getSession(userId: string): SessionData {
+        const sessionId = this._userGameSessions.get(userId);
+        if (!sessionId) {
+            throw new Error(`User with id: ${userId} doesn't own a session`);
+        }
+        const session = this._activeSessions.get(sessionId);
         if (!session) {
-            throw new Error(`Can't find session with id: ${id}`)
+            throw new Error(`Can't find session with id: ${userId}`)
         }
         return session;
     }
 
     public closeSession(sessionId: string) {
+        const session = this.getSession(sessionId);
+        session.players.forEach((player) => {
+            this.freeUserFromSession(player.user._id);
+        })
         this._activeSessions.delete(sessionId);
+    }
+
+
+    private freeUserFromSession(userId: string) {
+        let sessions = this._userGameSessions.get(userId);
+        if (!sessions) {
+            throw new Error(`User ${userId} has no active sessions`);
+        }
+        this._userGameSessions.delete(userId);
+        // sessions = sessions.filter((id) => id !== sessionId);
+        // if (sessions.length === 0) {
+        //     this._userGameSessions.delete(userId);
+        // } else {
+        //     this._userGameSessions.set(userId, sessions);
+        // }
+    }
+
+    private associateUserWithSession(userId: string, gameSessionId: string) {
+        this._userGameSessions.set(userId, gameSessionId);
     }
 }

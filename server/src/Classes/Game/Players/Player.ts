@@ -1,6 +1,6 @@
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 import {IPlayer, IPlayerRenderData} from "@shared/types/Game/PlayerService/Player";
-import {UserData} from "../../../types/UserData/UserData";
+import {IUser} from "../../../types/UserData/IUser";
 import {PAWN_COLOR} from "@shared/types/Game/PAWN_COLOR";
 import {uuid} from "uuidv4";
 import {CHARACTER} from "@shared/types/Game/Characters/Character";
@@ -13,13 +13,13 @@ export class Player implements IPlayer {
     private readonly _username: string;
     private _color: PAWN_COLOR | null = null;
     private _character: IPlayerCharacter | null = null;
-    private readonly _user: UserData;
+    private readonly _user: IUser;
     private readonly _id = uuid();
 
     private assignedCharacter: CHARACTER | null = null;
 
 
-    constructor(user: UserData) {
+    constructor(user: IUser) {
         this._user = user;
         this._username = user.username;
     }
@@ -45,7 +45,7 @@ export class Player implements IPlayer {
         return this._character;
     }
 
-    get user(): UserData {
+    get user(): IUser {
         return this._user;
     }
 

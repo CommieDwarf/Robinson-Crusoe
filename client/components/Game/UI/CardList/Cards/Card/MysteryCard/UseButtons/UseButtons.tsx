@@ -5,13 +5,11 @@ import styles from "./UseButtons.module.css";
 import ResizableImage from "../../../../../../../ResizableImage/ResizableImage";
 import {kebabCase} from "lodash";
 import {
-    IBaseMysteryCardRenderData,
-    IMysteryCardRenderData,
     ITreasureMysteryCardRenderData
 } from "@shared/types/Game/MysteryService/MysteryCard";
 import {isStorageCard} from "@shared/utils/typeGuards/isStorageCard";
-import {emitAction} from "../../../../../../../../pages/api/emitAction";
 import {MYSTERY_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
+import {socketEmitter} from "../../../../../../../../pages/_app";
 
 interface Props {
     card: ITreasureMysteryCardRenderData;
@@ -67,7 +65,7 @@ export default function UseButtons(props: Props) {
 
     function handleWithdraw() {
         if (isStorageCard(props.card)) {
-            emitAction(MYSTERY_CONTROLLER_ACTION.MANAGE_CARD_STORAGE,
+            socketEmitter.emitAction(MYSTERY_CONTROLLER_ACTION.MANAGE_CARD_STORAGE,
                 props.card.name,
                 "withdraw"
             )
@@ -76,7 +74,7 @@ export default function UseButtons(props: Props) {
 
     function handleDeposit() {
         if (isStorageCard(props.card)) {
-            emitAction(MYSTERY_CONTROLLER_ACTION.MANAGE_CARD_STORAGE,
+            socketEmitter.emitAction(MYSTERY_CONTROLLER_ACTION.MANAGE_CARD_STORAGE,
                 props.card.name,
                 "deposit"
             )

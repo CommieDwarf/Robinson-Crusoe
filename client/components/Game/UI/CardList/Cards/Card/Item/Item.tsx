@@ -4,8 +4,8 @@ import useImg from "/public/UI/icons/use-mark.png";
 import ResizableImage from "../../../../../../ResizableImage/ResizableImage";
 import {kebabCase} from "lodash";
 import {IItemRenderData, ITEM} from "@shared/types/Game/Equipment/Item";
-import {emitAction} from "../../../../../../../pages/api/emitAction";
 import {OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
+import {socketEmitter} from "../../../../../../../pages/_app";
 
 interface Props {
     item: IItemRenderData;
@@ -23,7 +23,7 @@ export default function Item(props: Props) {
 
     function handleButtonClick() {
         if (props.item.name !== ITEM.BIBLE) {
-            emitAction(OTHER_CONTROLLER_ACTION.USE_ITEM, props.item.name)
+            socketEmitter.emitAction(OTHER_CONTROLLER_ACTION.USE_ITEM, props.item.name)
             handleMouseLeave();
         }
     }

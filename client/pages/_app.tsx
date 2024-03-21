@@ -1,23 +1,24 @@
 import "../styles/globals.css";
-import React from "react";
+import React, {useEffect} from "react";
 import type {AppProps} from "next/app";
 import {Provider} from "react-redux";
 import {store} from "../store/store";
-import socketClient from "./api/socket";
-import i18next from "../I18n/I18n";
 
-const socket = socketClient();
-export {socket}
+import createSocketClient from "./api/socket";
+import {GlobalWrapper} from "./GlobalWrapper";
+import {SocketEmitter} from "./api/socketEmitter";
 
-export default function MyApp({Component, pageProps}: AppProps) {
-    const d = i18next
+export const socket = createSocketClient();
+export const socketEmitter = new SocketEmitter(socket);
+export default function MyApp<Props>({Component, pageProps}: AppProps) {
+
+
     return (
         <Provider store={store}>
-            <Component {...pageProps} />
+            <GlobalWrapper>
+                <Component {...pageProps} />
+            </GlobalWrapper>
         </Provider>
     );
 }
 
-
-// Piętaszek i karty przygody
-//

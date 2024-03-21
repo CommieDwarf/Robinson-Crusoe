@@ -8,7 +8,6 @@ import {MysteryCardResolve} from "./Mystery/MysteryCardResolve";
 import {objectsEqual} from "@shared/utils/objectsEqual";
 import {IAdventureCardRenderData} from "@shared/types/Game/AdventureService/AdventureCard";
 import {isAdventureCard, isAdventureCardRenderData} from "@shared/utils/typeGuards/isAdventureCard";
-import {emitAction} from "../../../../pages/api/emitAction";
 import {
     ACTION_CONTROLLER_ACTION,
     MYSTERY_CONTROLLER_ACTION,
@@ -17,6 +16,7 @@ import {
 import {IMysteryCardRenderData} from "@shared/types/Game/MysteryService/MysteryCard";
 import {ResolveButtons} from "./ResolveButtons/ResolveButtons";
 import {kebabCase} from "lodash";
+import {socketEmitter} from "../../../../pages/_app";
 
 
 export interface CardResolveButtonProp {
@@ -48,28 +48,28 @@ const CardResolve = (props: Props) => {
         if (props.eventStage) {
             button1 = {
                 label: eventOption1?.label || "next",
-                triggerEffect: () => emitAction(OTHER_CONTROLLER_ACTION.RESOLVE_EVENT_ADVENTURE, 1),
+                triggerEffect: () => socketEmitter.emitAction(OTHER_CONTROLLER_ACTION.RESOLVE_EVENT_ADVENTURE, 1),
                 locked: false,
             };
 
             if (eventOption2) {
                 button2 = {
                     label: eventOption2.label,
-                    triggerEffect: () => emitAction(OTHER_CONTROLLER_ACTION.RESOLVE_EVENT_ADVENTURE, 2),
+                    triggerEffect: () => socketEmitter.emitAction(OTHER_CONTROLLER_ACTION.RESOLVE_EVENT_ADVENTURE, 2),
                     locked: false,
                 };
             }
         } else {
             button1 = {
                 label: option1Label,
-                triggerEffect: () => emitAction(ACTION_CONTROLLER_ACTION.RESOLVE_ADVENTURE, 1),
+                triggerEffect: () => socketEmitter.emitAction(ACTION_CONTROLLER_ACTION.RESOLVE_ADVENTURE, 1),
                 locked: false,
             };
 
             if (shouldDecide) {
                 button2 = {
                     label: option2Label,
-                    triggerEffect: () => emitAction(ACTION_CONTROLLER_ACTION.RESOLVE_ADVENTURE, 2),
+                    triggerEffect: () => socketEmitter.emitAction(ACTION_CONTROLLER_ACTION.RESOLVE_ADVENTURE, 2),
                     locked: false,
                 };
             }
@@ -78,7 +78,7 @@ const CardResolve = (props: Props) => {
 
         button1 = {
             label: props.card.eventLabel,
-            triggerEffect: () => emitAction(MYSTERY_CONTROLLER_ACTION.RESOLVE_EVENT_MYSTERY),
+            triggerEffect: () => socketEmitter.emitAction(MYSTERY_CONTROLLER_ACTION.RESOLVE_EVENT_MYSTERY),
             locked: false,
         };
     }

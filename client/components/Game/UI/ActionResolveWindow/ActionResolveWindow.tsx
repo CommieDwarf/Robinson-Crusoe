@@ -4,7 +4,6 @@ import styles from "./ActionResolveWindow.module.css";
 import {ResolvableItems} from "./ActionResolve/ResolvableItems";
 import {ActionDice} from "@shared/types/Game/RollDice/RollDice";
 import {sleep} from "@shared/utils/sleep";
-import {emitAction} from "../../../../pages/api/emitAction";
 import {RESOLVE_ITEM_STATUS} from "@shared/types/Game/ActionService/IResolvableItem";
 import {IActionServiceRenderData} from "@shared/types/Game/ActionService/ActionService";
 import {NextActionButton} from "./NextActionButton/NextActionButton";
@@ -20,6 +19,7 @@ import {RollDiceWindow} from "./RollDiceWindow/RollDiceWindow";
 import actionIconImg from "/public/UI/phase/action.png";
 import {capitalize, kebabCase} from "lodash";
 import {useTranslation} from "react-i18next";
+import {socketEmitter} from "../../../../pages/_app";
 
 
 type Props = {
@@ -68,7 +68,7 @@ export const ActionResolveWindow = (props: Props) => {
             setReRolledDice(null);
             await sleep(10);
         }
-        emitAction(ACTION_CONTROLLER_ACTION.REROLL_ACTION_DICE, resolvableItemID)
+        socketEmitter.emitAction(ACTION_CONTROLLER_ACTION.REROLL_ACTION_DICE, resolvableItemID)
 
         setReRolledDice("success");
     }
@@ -79,7 +79,7 @@ export const ActionResolveWindow = (props: Props) => {
 
     function setNextAction() {
         setResolvedItems(new Map());
-        emitAction(ACTION_CONTROLLER_ACTION.SET_NEXT_ACTION);
+        socketEmitter.emitAction(ACTION_CONTROLLER_ACTION.SET_NEXT_ACTION);
     }
 
     function rollDices(actionItem: string) {
@@ -89,7 +89,7 @@ export const ActionResolveWindow = (props: Props) => {
             item.shouldRollDices &&
             item.resolveStatus === RESOLVE_ITEM_STATUS.PENDING
         ) {
-            emitAction(ACTION_CONTROLLER_ACTION.ROLL_ACTION_DICES, actionItem)
+            socketEmitter.emitAction(ACTION_CONTROLLER_ACTION.ROLL_ACTION_DICES, actionItem)
         }
     }
 
@@ -98,7 +98,7 @@ export const ActionResolveWindow = (props: Props) => {
             setReRolledDice(null);
         }
 
-        emitAction(ACTION_CONTROLLER_ACTION.RESOLVE_ACTION, actionId)
+        socketEmitter.emitAction(ACTION_CONTROLLER_ACTION.RESOLVE_ACTION, actionId)
 
         setResolvedItems((prevState) => {
             const copy = new Map(prevState);
@@ -172,7 +172,7 @@ export const ActionResolveWindow = (props: Props) => {
                         />
                     </div>
                 </div>
-                
+
                 <ResolvableItems
                     actionService={props.actionService}
                     resolve={setItemResolved}

@@ -1,0 +1,92 @@
+.container {
+    width: 100%;
+    font-size: 30px;
+    padding: 10px 20px;
+    color: var(--brown);
+    border-radius: 2%;
+    text-align: center;
+    border: 1px solid var(--brown);
+    position: relative;
+}
+
+.container::before {
+    border-radius: 2%;
+    content: "";
+    background-image: url("../../public/UI/paper-background.png");
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.80;
+}
+
+.container > h3 {
+    position: relative;
+}
+
+.form {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    margin-top: 10px;
+}
+
+.input {
+    height: 40px;
+    width: 100%;
+    font-size: 25px;
+    color: var(--brown);
+    outline-color: var(--brown);
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 1);
+}
+
+
+.row {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    height: 60px;
+}
+
+.button {
+    cursor: pointer;
+    background-color: limegreen;
+    color: white;
+    border-color: green;
+}
+
+.button:hover {
+    filter: brightness(90%);
+}
+
+.buttonActive {
+    filter: brightness(90%);
+    border-top: 2px solid black;
+    border-left: 2px solid black;
+    border-right: 2px solid green;
+    border-bottom: 2px solid green;
+}
+
+
+.redirectText {
+    font-size: 15px;
+    font-weight: 500;
+    position: relative;
+}
+
+.link {
+    text-decoration: underline;
+    color: green;
+}
+
+.error {
+    margin: 0;
+    color: var(--hunt);
+    font-weight: 700;
+    font-size: 12px;
+    text-align: left;
+}

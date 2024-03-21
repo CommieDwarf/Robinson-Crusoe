@@ -1,9 +1,11 @@
 .container {
     grid-column: 6 / span 1;
     grid-row: 5 / span 2;
-    width: 75%;
+    width: 50%;
     height: 100%;
-    margin-left: 1%;
+    left: 20%;
+    position: relative;
+    display: inline-block;
 }
 
 .alertMessage {

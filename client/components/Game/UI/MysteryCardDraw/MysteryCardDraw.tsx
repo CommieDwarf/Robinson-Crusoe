@@ -1,7 +1,6 @@
 import {MysteryCardCounter} from "./MysteryCardCounter/MysteryCardCounter";
 import * as React from "react";
 import {IMysteryServiceRenderData} from "@shared/types/Game/MysteryService/MysteryService";
-import {emitAction} from "../../../../pages/api/emitAction";
 import {MYSTERY_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {useTranslation} from "react-i18next";
 import {CardResolveButtonProp} from "../CardResolve/CardResolve";
@@ -10,6 +9,7 @@ import styles from "./MysteryCardDraw.module.css";
 import {ResolveButtons} from "../CardResolve/ResolveButtons/ResolveButtons";
 import {useState} from "react";
 import Draggable from "react-draggable";
+import {socketEmitter} from "../../../../pages/_app";
 
 export interface Props {
     mysteryService: IMysteryServiceRenderData,
@@ -37,15 +37,15 @@ export function MysteryCardDraw(props: Props) {
 
     function drawOrTriggerEffect() {
         if (props.mysteryService.currentResolve?.drawResolved === false) {
-            emitAction(MYSTERY_CONTROLLER_ACTION.TRIGGER_MYSTERY_DRAW_EFFECT)
+            socketEmitter.emitAction(MYSTERY_CONTROLLER_ACTION.TRIGGER_MYSTERY_DRAW_EFFECT)
         } else if (props.mysteryService.canDraw) {
-            emitAction(MYSTERY_CONTROLLER_ACTION.DRAW_MYSTERY_CARD)
+            socketEmitter.emitAction(MYSTERY_CONTROLLER_ACTION.DRAW_MYSTERY_CARD)
         }
     }
 
     function finish() {
         if (props.mysteryService.canFinish) {
-            emitAction(MYSTERY_CONTROLLER_ACTION.FINISH_DRAWING_MYSTERY_CARDS);
+            socketEmitter.emitAction(MYSTERY_CONTROLLER_ACTION.FINISH_DRAWING_MYSTERY_CARDS);
         }
     }
 

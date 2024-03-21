@@ -1,12 +1,12 @@
 import {IEventCard, IEventCardRenderData} from "./EventCard";
 import {IAdventureCard, IAdventureCardRenderData} from "../AdventureService/AdventureCard";
-import {IMysteryCard, IBaseMysteryCardRenderData} from "../MysteryService/MysteryCard";
+import {IMysteryCard, IBaseMysteryCardRenderData, IMysteryCardRenderData} from "../MysteryService/MysteryCard";
 
 export interface IEventServiceRenderData {
     leftSlot: IEventCardRenderData | null;
     rightSlot: IEventCardRenderData | null;
     currentAdventureCard: IAdventureCardRenderData | null;
-    currentMysteryCard: IBaseMysteryCardRenderData | null;
+    currentMysteryCard: IMysteryCardRenderData | null;
 }
 
 export interface ThreatSpecialEffects {

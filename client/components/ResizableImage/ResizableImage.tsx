@@ -1,4 +1,4 @@
-import React, {useLayoutEffect, useRef, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
 import Image, {ImageProps, StaticImageData} from 'next/image';
 import styles from "./ResizableImage.module.css";
 
@@ -15,7 +15,7 @@ export default function ResizableImage(props: Props) {
 
     const scale = props.scale ?? 1;
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         const parentWidth = containerRef.current?.getBoundingClientRect().width ?? 0;
         setContainerWidth(parentWidth * scale);
         // setContainerHeight(containerHeight);

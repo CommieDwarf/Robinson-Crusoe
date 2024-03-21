@@ -6,7 +6,7 @@ import ResizableImage from "../../../ResizableImage/ResizableImage";
 
 import {ITileRenderData} from "@shared/types/Game/TileService/ITile";
 import {TILE_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
-import {emitAction} from "../../../../pages/api/emitAction";
+import {socketEmitter} from "../../../../pages/_app";
 
 type Props = {
     currentCamp: ITileRenderData;
@@ -15,7 +15,7 @@ type Props = {
 };
 export const ConfirmCampMove = (props: Props) => {
     function handleConfirmClick() {
-        emitAction(TILE_CONTROLLER_ACTION.MOVE_CAMP, props.nextCamp.id)
+        socketEmitter.emitAction(TILE_CONTROLLER_ACTION.MOVE_CAMP, props.nextCamp.id)
         props.hide();
     }
 

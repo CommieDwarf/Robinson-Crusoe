@@ -26,7 +26,7 @@ export abstract class Token implements IToken {
         this._name = name;
         this._namePL = namePL;
         this._description = description;
-        this._sourceLog = "Żeton: " + this.namePL;
+        this._sourceLog = this.name;
     }
 
     get renderData(): ITokenRenderData {

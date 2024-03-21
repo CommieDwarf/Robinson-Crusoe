@@ -10,8 +10,8 @@ import {ResourceActionButton} from "./ResourceActionButton/ResourceActionButton"
 import getActionSlots from "../../getActionSlots";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
 import {ITileRenderData} from "@shared/types/Game/TileService/ITile";
-import {emitAction} from "../../../../../pages/api/emitAction";
 import {TILE_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
+import {socketEmitter} from "../../../../../pages/_app";
 
 interface Props {
     tile: ITileRenderData;
@@ -99,7 +99,7 @@ export default function Tile(props: Props) {
     });
 
     function handleTileMarkClick() {
-        emitAction(TILE_CONTROLLER_ACTION.TRIGGER_TILE_ACTION, props.tile.id)
+        socketEmitter.emitAction(TILE_CONTROLLER_ACTION.TRIGGER_TILE_ACTION, props.tile.id)
     }
 
     const flippedClass = props.tile.modifiers.flipped ? styles.flipped : "";

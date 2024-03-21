@@ -3,15 +3,15 @@ import ActionSlot from "../../../../ActionSlot";
 import styles from "./Invention.module.css";
 import getActionSlots from "../../../../getActionSlots";
 import {useAppSelector} from "../../../../../../../store/hooks";
-import {selectModifiersByAction} from "../../../../../reduxSlices/globalCostModifiers";
+import {selectModifiersByAction} from "../../../../../../../reduxSlices/globalCostModifiers";
 import ResizableImage from "../../../../../../ResizableImage/ResizableImage";
 import {kebabCase} from "lodash";
-import {emitAction} from "../../../../../../../pages/api/emitAction";
 import {OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {ACTION} from "@shared/types/Game/ACTION";
 import {IInventionRenderData} from "@shared/types/Game/InventionService/Invention";
 import {getOwnedDroppableId} from "@shared/utils/getOwnedDroppableId";
 import {getPropsComparator} from "../../../../../../../utils/getPropsComparator";
+import {socketEmitter} from "../../../../../../../pages/_app";
 
 type Props = {
     invention: IInventionRenderData;
@@ -31,9 +31,9 @@ function Invention(props: Props) {
 
 
     function handleUseButtonClick() {
-        emitAction(OTHER_CONTROLLER_ACTION.USE_INVENTION, {
-            inventionName: props.invention.name
-        })
+        socketEmitter.emitAction(OTHER_CONTROLLER_ACTION.USE_INVENTION,
+            props.invention.name
+        )
         props.handleMouseOverButtons(false);
     }
 
