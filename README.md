@@ -56,15 +56,4 @@ Game can be played solo or with max. 4 players.
     * react-beautiful-dnd
     * web-sockets
 
-## What I've learned:
-
-* Became more skilled at OOP concept
-* Improved knowledge of Typescript and React.
-* Next.js framework.
-* React Redux
-
-## What I'll learn in the future:
-
-* MongoDB
-* Unit tests
 
