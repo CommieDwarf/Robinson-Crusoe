@@ -1,19 +1,21 @@
 import styles from "./MainMenu.module.css";
 import ResizableImage from "../ResizableImage/ResizableImage";
 import Link from "next/link";
-import React, {ReactElement, useState} from "react";
+import React, {ReactElement, useEffect, useState} from "react";
 import {useAppSelector} from "../../store/hooks";
-import {socketEmitter} from "../../pages/_app";
+import {socket, socketEmitter} from "../../pages/_app";
+import {IsGameInProgressResponsePayload} from "@shared/types/Requests/Socket";
 
 interface Props {
     UserComponent: ReactElement,
-    authToken?: string
 }
 
-export function MainMenu({UserComponent, authToken}: Props) {
+export function MainMenu({UserComponent}: Props) {
 
     const [isAnimated, setIsAnimated] = useState(false);
     const animationDurationMs = 200;
+
+    const [gameInProgress, setGameInProgress] = useState(false);
 
     const user = useAppSelector((state) => state.auth.user);
 
@@ -29,6 +31,20 @@ export function MainMenu({UserComponent, authToken}: Props) {
         }
     }
 
+    useEffect(() => {
+        if (!user) {
+            return;
+        }
+        socketEmitter.isGameInProgress();
+        socket.on("is_game_in_progress_response", (payload: IsGameInProgressResponsePayload) => {
+            setGameInProgress(payload.value)
+        })
+
+        return () => {
+            socket.off("is_game_in_progress_response");
+        }
+    }, [user])
+
 
     return (
         <div className={styles.container}>
@@ -37,25 +53,34 @@ export function MainMenu({UserComponent, authToken}: Props) {
             </div>
             <div className={styles.wrapper}>
                 <ul className={styles.menu}>
+                    {gameInProgress && <Link
+                        aria-disabled={!user}
+                        href={"./Play"}
+                    >
+                        <li className={`${styles.menuItem} ${!user && styles.menuItemDisabled}`}>
+                            Continue
+                        </li>
+                    </Link>}
                     <Link
                         aria-disabled={!user}
                         href={"./Play"}
                         onClick={handleButtonClick}
                     >
                         <li className={`${styles.menuItem} ${!user && styles.menuItemDisabled}`}>
-                            Szybka gra
+                            Quick game
                         </li>
                     </Link>
                     <Link href={"./Play"}
                           aria-disabled={!user}
                           onClick={handleButtonClick}
                     >
-                        <li className={`${styles.menuItem} ${styles.button2} ${!user && styles.menuItemDisabled}`}
+                        <li className={`${styles.menuItem} ${styles.button2} ${styles.menuItemDisabled}`}
                         >
                             Multiplayer
                         </li>
                     </Link>
-                    <li className={`${styles.menuItem} ${styles.button3}`}><Link href={"./Play"}>Opcje</Link></li>
+                    <li className={`${styles.menuItem} ${styles.button3} ${styles.menuItemDisabled}`}><Link
+                        href={"./Play"}>Settings</Link></li>
                 </ul>
                 <div className={styles.UserPanelContainer}>
                     <div className={`${styles.userPanel} ${isAnimated && styles.pulsateOnce}`}>

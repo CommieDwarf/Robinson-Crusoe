@@ -11,7 +11,7 @@ import {CHARACTER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {AbilityArgMap} from "@shared/types/Game/Skill/AbilityArgMap";
 import {CHARACTER} from "@shared/types/Game/Characters/Character";
 import {useAppDispatch} from "../../../../../store/hooks";
-import {alertSlice, alertUpdated} from "../../../../../reduxSlices/alert";
+import {alertUpdated} from "../../../../../reduxSlices/alert";
 import {ALERT_CODE} from "../../../../../types/Alert/ALERT_CODE";
 import {useTranslation} from "react-i18next";
 import {capitalize} from "lodash";

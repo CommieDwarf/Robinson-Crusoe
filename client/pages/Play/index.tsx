@@ -15,23 +15,23 @@ import {phaseUpdated} from "../../reduxSlices/phase";
 import {batch} from "react-redux";
 import AuthGuard from "../../components/AuthGuard/AuthGuard";
 import {socket, socketEmitter} from "../_app";
+import {GameInstanceSentPayload, IsGameInProgressResponsePayload} from "@shared/types/Requests/Socket";
 
 type Props = {};
 
 function Play(props: Props) {
     const [gameRenderData, setGameRenderData] = useState<IGameRenderData>();
 
-
     useEffect(() => {
         socketEmitter.requestGameInstance();
-        socket.on("game_instance_sent", (payload: IGameRenderData) => {
+        socket.on("game_instance_sent", (payload: GameInstanceSentPayload) => {
             console.log("game instance sent!")
-            updateGameRenderData(payload)
+            updateGameRenderData(payload.gameRenderData);
         })
-
         return () => {
-            socket.off();
+            socket.off("game_instance_sent");
         }
+
     }, []);
 
 
@@ -79,15 +79,3 @@ function Play(props: Props) {
 
 export default Play;
 
-// export const getStaticProps: GetServerSideProps = async ({ query }) => {
-//   // for beautiful DND to work correctly...
-//   resetServerContext(); // <-- CALL RESET SERVER CONTEXT, SERVER SIDE
-//
-//   // const gameDataJSON = getGameRenderData();
-//   // const gameData = await JSON.parse(gameDataJSON);
-//   return {
-//     props: {
-//       // gameData,
-//     },
-//   };
-// };

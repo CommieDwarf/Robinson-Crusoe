@@ -5,7 +5,6 @@ import {RoundSquare} from "../../Scenario/Scenarios/Castaways/Rounds/RoundSquare
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
 import {capitalize} from "lodash";
 import {ILogMessageRenderData} from "@shared/types/Game/ChatLog/LogMessage";
-import {LOG_CODE} from "@shared/types/Game/ChatLog/LOG_CODE";
 import {useTranslation} from 'react-i18next';
 import {resources} from "../../../../../I18n/resources";
 

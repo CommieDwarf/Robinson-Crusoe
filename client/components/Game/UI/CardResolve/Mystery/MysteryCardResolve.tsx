@@ -1,7 +1,6 @@
 // @flow
 import * as React from "react";
 import cardResolveStyles from "../CardResolve.module.css";
-import {ZoomButton} from "../ZoomButton/ZoomButton";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
 import {IMysteryCardRenderData} from "@shared/types/Game/MysteryService/MysteryCard";
 import {kebabCase} from "lodash";

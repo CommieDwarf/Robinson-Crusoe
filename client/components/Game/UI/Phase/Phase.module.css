@@ -23,6 +23,9 @@
     aspect-ratio: 1;
 }
 
+.phaseName {
+    font-weight: bold;
+}
 
 .event {
     color: #6b814a;
@@ -65,7 +68,7 @@
 
 .dropDownText {
     font-weight: bold;
-    font-size: 0.7em;
+    font-size: 0.8em;
     color: black;
     height: 90%;
     font-style: italic;

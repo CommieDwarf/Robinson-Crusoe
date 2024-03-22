@@ -1,6 +1,5 @@
 import React, {ReactNode, useEffect} from "react";
 import {useRouter} from "next/router";
-import Cookies from "js-cookie";
 import {isAuthenticated} from "../../utils/auth/isAuthenticated";
 
 type Props = {

@@ -1,4 +1,4 @@
-import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import Image, {ImageProps, StaticImageData} from 'next/image';
 import styles from "./ResizableImage.module.css";
 
@@ -40,8 +40,6 @@ export default function ResizableImage(props: Props) {
                    alt={props.alt}
                    fill
                    sizes={sizes}
-                   placeholder={typeof props.src === "string" ? "blur" : "empty"}
-                   blurDataURL={typeof props.src === "string" ? props.src : ""}
                    className={styles.preventSelect}
                    draggable={false}
             >

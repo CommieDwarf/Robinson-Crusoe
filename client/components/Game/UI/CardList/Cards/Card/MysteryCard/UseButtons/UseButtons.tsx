@@ -4,9 +4,7 @@ import minusImg from "/public/UI/misc/minus.png";
 import styles from "./UseButtons.module.css";
 import ResizableImage from "../../../../../../../ResizableImage/ResizableImage";
 import {kebabCase} from "lodash";
-import {
-    ITreasureMysteryCardRenderData
-} from "@shared/types/Game/MysteryService/MysteryCard";
+import {ITreasureMysteryCardRenderData} from "@shared/types/Game/MysteryService/MysteryCard";
 import {isStorageCard} from "@shared/utils/typeGuards/isStorageCard";
 import {MYSTERY_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {socketEmitter} from "../../../../../../../../pages/_app";

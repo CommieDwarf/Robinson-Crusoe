@@ -4,17 +4,19 @@ import {body, validationResult} from "express-validator";
 import {jwtSecret} from "./src/config/jwt";
 import {SessionService} from "./src/Classes/SessionService/SessionService";
 import {GAME_SESSION_MODE} from "./src/types/Session/Session";
-import {ActionPayload} from "./src/shared/types/Game/ActionPayload";
-import {IGame} from "./src/shared/types/Game/Game";
 import {jwtDecode} from "jwt-decode";
+import {
+    ExecuteGameMethodAndSendResponsePayload,
+    GameInstanceSentPayload, IsGameInProgressResponsePayload,
+    PlayerActionPayload
+} from "./src/shared/types/Requests/Socket";
 
 const passport = require("passport");
 const {Socket} = require("socket.io");
 
-const {MethodData} = require("./src/shared/types/MethodData");
 
 const express = require("express");
-const {Request, Response, NextFunction} = require('express');
+const {Request, Response} = require('express');
 const app = express();
 const http = require("http");
 const cors = require("cors");
@@ -57,7 +59,7 @@ const io = new Server(server, {
 app.post('/login', (req, res, next: NextFunction) => {
     passport.authenticate('local', (err: Error, user: UserDocument, info: any) => {
         if (err || !user) {
-            return res.status(400).json({message: 'Nieprawidłowe dane logowania.'});
+            return res.status(401).json({message: 'Nieprawidłowe dane logowania.'});
         }
 
         req.login(user, {session: false}, (err: Error) => {
@@ -100,11 +102,10 @@ app.post("/register",
                     password: body.password
                 })
                 user.save();
+                const token = jwt.sign({_id: user._id}, jwtSecret, {expiresIn: '1h'});
+                res.setHeader('Authorization', `Bearer ${token}`);
                 return res.status(201).json({
-                    message: "Account created successfully", user: {
-                        username: body.username,
-                        email: body.email,
-                    }
+                    message: "Account created successfully"
                 })
             }
         } catch (error) {
@@ -161,8 +162,6 @@ app.get("/emailExists/:email", async (req: typeof Request, res: typeof Request) 
 io.use((socket: typeof Socket, next: Function) => {
     let token = socket.handshake.headers.authorization;
     token = token.split(" ")[1]; // removing "Bearer ";
-    console.log(socket.handshake);
-    console.log("verifing socket...", token);
     if (!token) {
         console.log("!token")
         return next(new Error("Authentication error: Token missing"));
@@ -184,88 +183,128 @@ io.use((socket: typeof Socket, next: Function) => {
 const sessionService = new SessionService();
 
 
-interface SocketPayload {
-    userId: string
-}
-
 interface TokenPayload {
     _id: string;
 }
 
+
 io.on("connection", (socket: typeof Socket) => {
     const userId = jwtDecode<TokenPayload>(socket.handshake.headers.authorization)._id;
-    console.log(userId);
-    socket.on("create_quick_game", async (payload: SocketPayload) => {
+
+
+    socket.on("create_quick_game", async () => {
         try {
-            const user = await User.findOne({_id: userId});
-            if (!user) {
-                throw new Error("Can't find user");
-            }
-            const gameSession = sessionService.createSession({
-                username: user.username,
-                _id: user._id.toString(),
-            }, GAME_SESSION_MODE.QUICK);
-
-            const gameRenderData = gameSession.getGame()?.renderData;
-            if (!gameRenderData) {
-                throw new Error("Game couldn't be instanced")
-            }
-
-            const responsePayload = {
-                gameRenderData,
-                gameSessionId: gameSession.id
-            }
-            console.log("game created");
-            if (gameRenderData) {
-                socket.emit("game_instance_sent", responsePayload)
-            }
-
+            await createQuickGame(userId, socket);
+            sendGameInstance(userId, socket);
         } catch (e) {
             console.error(e);
         }
     })
 
 
-    socket.on("game_instance_requested", (payload: SocketPayload) => {
-        const game = sessionService.getSession(userId).getGame();
-        if (!game) {
-            throw new Error("Game session not found");
+    socket.on("game_instance_requested", async () => {
+        const gameInProgress = sessionService.hasSession(userId);
+        if (!gameInProgress) {
+            await createQuickGame(userId, socket);
         }
-        console.log("game instance requested!")
-        socket.emit("game_instance_sent", game.renderData);
+        sendGameInstance(userId, socket);
     })
 
     socket.on("disconnect", () => {
         // sessionService.closeSession(gameSession.id);
     })
 
-    socket.on("player_action", async (actionData: ActionPayload) => {
-        const gameSession = sessionService.getSession(userId);
-        console.log(gameSession, actionData);
-        gameSession.handleAction(userId, actionData.actionType, ...actionData.arguments);
-        const game = gameSession.getGame();
-        if (!game) {
-            throw new Error("Game not found")
+    socket.on("player_action", async (actionData: PlayerActionPayload) => {
+        try {
+            const gameSession = sessionService.getSessionByUserId(userId);
+            if (!gameSession) {
+                throw new Error("Game session not found")
+            }
+            gameSession.handleAction(userId, actionData.actionType, ...actionData.arguments);
+            const game = gameSession?.getGame();
+            if (!game) {
+                throw new Error("Game not found")
+            }
+            const payload: GameInstanceSentPayload = {
+                gameSessionId: gameSession.id,
+                gameRenderData: game.renderData
+            }
+            socket.emit("game_instance_sent", payload);
+        } catch (e) {
+            console.error(e);
         }
-        socket.emit("game_instance_sent", game.renderData);
+
     })
 
-    socket.on("execute_game_method_and_send_response", (methodData: typeof MethodData) => {
-        const game = sessionService.getSession(userId).getGame();
-        if (!game) {
-            throw new Error("Can't find game session")
+    socket.on("execute_game_method_and_send_response", (methodData: ExecuteGameMethodAndSendResponsePayload) => {
+        try {
+            const game = sessionService.getSessionByUserId(userId)?.getGame();
+            if (!game) {
+                throw new Error("Can't find game session")
+            }
+            const {methodName, methodArgs} = methodData;
+            if (typeof game[methodName] === 'function') {
+                //@ts-ignore
+                const func = game[methodName].bind(game) as Function;
+                const result = func(...methodArgs);
+                socket.emit("game_method_response", {result});
+            } else {
+                throw new Error(`Method ${String(methodName)} does not exist on game instance.`);
+            }
+        } catch (e) {
+            console.error(e);
         }
-        const {methodName, methodArgs}: { methodName: keyof IGame, methodArgs: any[] } = methodData;
-        if (typeof game[methodName] === 'function') {
-            //@ts-ignore
-            const func = game[methodName].bind(game) as Function;
-            const result = func(...methodArgs);
-            socket.emit("game_method_response", {result});
-        } else {
-            console.error(`Method ${String(methodName)} does not exist on game instance.`);
-        }
+
     });
+
+    socket.on("is_game_in_progress", () => {
+        try {
+            const game = sessionService.getSessionByUserId(userId)?.getGame();
+            const payload: IsGameInProgressResponsePayload = {
+                value: Boolean(game)
+            }
+            socket.emit("is_game_in_progress_response", payload)
+        } catch (e) {
+            console.error(e);
+        }
+    })
 })
+
+
+async function createQuickGame(userId: string, socket: typeof Socket) {
+    const user = await User.findOne({_id: userId});
+    if (!user) {
+        throw new Error("Can't find user");
+    }
+
+    console.log("quick game created");
+    sessionService.createSession({
+        username: user.username,
+        _id: user._id.toString(),
+    }, GAME_SESSION_MODE.QUICK);
+
+}
+
+function sendGameInstance(userId: string, socket: typeof Socket) {
+    try {
+        const gameSession = sessionService.getSessionByUserId(userId)
+        if (!gameSession) {
+            throw new Error("Game session not found")
+        }
+        const game = gameSession?.getGame();
+        if (!game) {
+            throw new Error("Game Session not found!")
+        }
+        const payload: GameInstanceSentPayload = {
+            gameRenderData: game.renderData,
+            gameSessionId: gameSession.id,
+        }
+        console.log("game instance sent")
+        socket.emit("game_instance_sent", payload);
+    } catch (e) {
+        console.error(e);
+    }
+}
 
 
 server.listen(PORT, () => {

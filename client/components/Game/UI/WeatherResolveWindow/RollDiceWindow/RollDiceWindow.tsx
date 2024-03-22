@@ -1,11 +1,7 @@
 import * as React from "react";
 import styles from "./RollDiceWindow.module.css";
 import {RollDiceAnimation} from "../../RollDiceAnimation/RollDiceAnimation";
-import {
-    WeatherDice,
-    WeatherDiceResult,
-    WeatherDiceResults,
-} from "@shared/types/RollDice/RollDice";
+import {WeatherDice, WeatherDiceResult, WeatherDiceResults,} from "@shared/types/RollDice/RollDice";
 import {IWeatherServiceRenderData} from "@shared/types/Weather/Weather";
 import Entries from "../../../../../../server/src/types/Entries";
 

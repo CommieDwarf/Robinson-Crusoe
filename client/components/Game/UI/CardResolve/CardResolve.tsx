@@ -7,7 +7,7 @@ import {AdventureCardResolve} from "./Adventure/AdventureCardResolve";
 import {MysteryCardResolve} from "./Mystery/MysteryCardResolve";
 import {objectsEqual} from "@shared/utils/objectsEqual";
 import {IAdventureCardRenderData} from "@shared/types/Game/AdventureService/AdventureCard";
-import {isAdventureCard, isAdventureCardRenderData} from "@shared/utils/typeGuards/isAdventureCard";
+import {isAdventureCardRenderData} from "@shared/utils/typeGuards/isAdventureCard";
 import {
     ACTION_CONTROLLER_ACTION,
     MYSTERY_CONTROLLER_ACTION,
@@ -15,7 +15,6 @@ import {
 } from "@shared/types/CONTROLLER_ACTION";
 import {IMysteryCardRenderData} from "@shared/types/Game/MysteryService/MysteryCard";
 import {ResolveButtons} from "./ResolveButtons/ResolveButtons";
-import {kebabCase} from "lodash";
 import {socketEmitter} from "../../../../pages/_app";
 
 

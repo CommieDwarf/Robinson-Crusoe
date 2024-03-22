@@ -4,6 +4,6 @@ export function GameLobby() {
 
 
     return <div className={styles.container}>
-        
+
     </div>
 }

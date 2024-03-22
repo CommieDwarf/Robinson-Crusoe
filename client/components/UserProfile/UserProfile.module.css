@@ -4,10 +4,13 @@
     background-image: url("../../public/UI/paper-background.png");
     border-radius: 5%;
     border: 1px solid var(--brown);
-    font-style: normal;
     padding: 20px;
+    font-style: normal;
 }
 
+.container > h2 {
+    font-weight: 400;
+}
 
 .avatar {
     height: 100px;
@@ -21,8 +24,9 @@
 
 
 .signOutLink {
-    font-size: 15px;
+    font-size: 20px;
     text-decoration: underline;
     color: green;
     cursor: pointer;
+    font-weight: 600;
 }

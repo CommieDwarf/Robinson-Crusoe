@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import styles from "./Threat.module.css";
 import Card from "./Card";
 import redArrowImg from "/public/UI/misc/red-arrow.png";

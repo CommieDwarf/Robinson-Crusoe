@@ -47,8 +47,6 @@ export default function PhaseDropDownMenu(props: Props) {
                     <ResizableImage
                         src={`/UI/phase/${phase}-pic.png`}
                         alt={phase}
-                        fill
-                        sizes={styles.phasePicture}
                     />
                 </div>
             </div>

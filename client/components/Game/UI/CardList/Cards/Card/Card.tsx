@@ -4,7 +4,7 @@ import {useState} from "react";
 import {isCardInvention} from "@shared/utils/typeGuards/isCardInvention";
 import {IItemRenderData} from "@shared/types/Game/Equipment/Item";
 import {MysteryCard} from "./MysteryCard/MysteryCard";
-import {IBaseMysteryCardRenderData, IMysteryCardRenderData} from "@shared/types/Game/MysteryService/MysteryCard";
+import {IMysteryCardRenderData} from "@shared/types/Game/MysteryService/MysteryCard";
 import styles from "./Card.module.css"
 import Invention from "./Invention/Invention";
 import {isMysteryCard} from "@shared/utils/typeGuards/isMysteryCard";

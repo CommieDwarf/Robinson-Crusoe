@@ -8,7 +8,7 @@ import {useAppDispatch} from "../../store/hooks";
 import {fetchUser} from "../../utils/auth/fetchUser";
 import {LoginReqBody} from "@shared/types/Requests/Post";
 import Cookies from "js-cookie";
-import {socket, socketEmitter} from "../../pages/_app";
+import {socketEmitter} from "../../pages/_app";
 import {userUpdated} from "../../reduxSlices/auth";
 
 interface Props {
@@ -51,6 +51,22 @@ export default function AuthForm(props: Props) {
     }, [])
 
 
+    function isDataValid() {
+        if (!username) {
+            return false;
+        }
+        if (!email || !validateEmail(email)) {
+            return false;
+        }
+        if (!password || password.length < 8) {
+            return false;
+        }
+        if (!passwordRepeat || passwordRepeat !== password) {
+            return false;
+        }
+        return true;
+    }
+
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (props.isLogin) {
@@ -73,10 +89,18 @@ export default function AuthForm(props: Props) {
         })
         if (response.status === 200) {
             await handleAuthentication(response);
+        } else if (response.status === 401) {
+            setError("form", "Provided email or password is incorrect.")
+        } else {
+            setError("form", "Attempt to sign in failed.")
         }
     }
 
     async function signUp() {
+        if (!isDataValid()) {
+            setError("form", "Provided data is incorrect.");
+            return;
+        }
         const body = JSON.stringify({email, username, password});
         const url = `${config.SERVER_URL}/register`;
         const response = await fetch(url, {
@@ -88,6 +112,10 @@ export default function AuthForm(props: Props) {
         })
         if (response.status === 201) {
             await handleAuthentication(response);
+        } else if (response.status === 422) {
+            setError("form", "Provided data is incorrect.")
+        } else {
+            setError("form", "Attempt to sign up failed.")
         }
     }
 
@@ -134,12 +162,14 @@ export default function AuthForm(props: Props) {
         }
     }
 
+
     async function handleEmailBlur() {
         if (props.isLogin) {
             return;
         }
         const isEmail = validateEmail(email);
         if (!isEmail) {
+            setError("email", "Provided e-mail isn't valid.");
             return;
         }
         const emailTaken = await emailExists(email);
@@ -249,7 +279,8 @@ export default function AuthForm(props: Props) {
                         onBlur={handleUsernameBlur}
                         required
                     />
-                    <div className={styles.error}>{errors.username}</div>
+                    <div className={styles.error}>{errors.username &&
+                        <i className="icon-warning"></i>}{errors.username}</div>
                 </div>}
                 <div className={styles.row}>
                     <input
@@ -262,7 +293,7 @@ export default function AuthForm(props: Props) {
                         onBlur={handleEmailBlur}
                         required
                     />
-                    <div className={styles.error}>{errors.email}</div>
+                    <div className={styles.error}>{errors.email && <i className="icon-warning"></i>}{errors.email}</div>
                 </div>
                 <div className={styles.row}>
                     <input
@@ -275,7 +306,10 @@ export default function AuthForm(props: Props) {
                         onBlur={handlePasswordBlur}
                         required
                     />
-                    <div className={styles.error}>{errors.password}</div>
+                    <div className={styles.error}>
+                        {errors.password && <i className="icon-warning"></i>}
+                        {errors.password}
+                    </div>
                 </div>
                 {!props.isLogin &&
                     <div className={styles.row}>
@@ -288,11 +322,21 @@ export default function AuthForm(props: Props) {
                             onChange={handlePasswordRepeatChange}
                             required
                         />
-                        <div className={styles.error}>{errors.passwordRepeat}</div>
+                        <div className={styles.error}>
+                            {errors.passwordRepeat && <i className="icon-warning"></i>}
+                            {errors.passwordRepeat}
+                        </div>
                     </div>
                 }
+                <div className={styles.error}>
+                    {errors.form && <i className="icon-warning"></i>}
+                    {errors.form}
+                </div>
                 <button type="submit"
-                        className={`${styles.input} ${styles.button} ${buttonActive && styles.buttonActive}`}>{props.isLogin ? "Sign in" : "Sign up"}</button>
+                        className={`${styles.input} 
+                        ${styles.button}
+                        ${buttonActive && styles.buttonActive}`}>
+                    {props.isLogin ? "Sign in" : "Sign up"}</button>
             </form>
 
             {props.isLogin ?

@@ -3,14 +3,10 @@ import * as React from "react";
 import styles from "./MysteryCard.module.css";
 import UseButtons from "./UseButtons/UseButtons";
 import ResizableImage from "../../../../../../ResizableImage/ResizableImage";
-import {
-    IBaseMysteryCardRenderData,
-    IMysteryCard,
-    IMysteryCardRenderData
-} from "@shared/types/Game/MysteryService/MysteryCard";
+import {IMysteryCardRenderData} from "@shared/types/Game/MysteryService/MysteryCard";
 import {kebabCase} from "lodash";
 import {MYSTERY_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
-import {isTreasureCard, isTreasureCardRenderData} from "@shared/utils/typeGuards/isTreasureCard";
+import {isTreasureCardRenderData} from "@shared/utils/typeGuards/isTreasureCard";
 import {socketEmitter} from "../../../../../../../pages/_app";
 
 

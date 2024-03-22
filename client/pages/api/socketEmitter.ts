@@ -1,8 +1,8 @@
 import {CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
-import {ActionPayload} from "@shared/types/Game/ActionPayload";
 import {ActionArgMap} from "@shared/types/ActionArgMap";
 import {Socket} from "socket.io-client";
 import {IGame} from "@shared/types/Game/Game";
+import {PlayerActionPayload} from "@shared/types/Requests/Socket";
 
 
 export class SocketEmitter {
@@ -22,7 +22,7 @@ export class SocketEmitter {
     }
 
     public emitAction<T extends CONTROLLER_ACTION>(action: T, ...args: ActionArgMap[T]) {
-        const payload: ActionPayload = {
+        const payload: PlayerActionPayload = {
             actionType: action,
             arguments: args,
             userId: this._userId,
@@ -57,6 +57,10 @@ export class SocketEmitter {
 
     public executeGameMethodAndSendResponse(methodName: keyof IGame, methodArgs: any[]) {
         this._socket.emit("execute_game_method_and_send_response", {methodName, methodArgs, userId: this._userId})
+    }
+
+    public isGameInProgress() {
+        this._socket.emit("is_game_in_progress");
     }
 }
 

@@ -28,24 +28,26 @@ export class SessionService implements ISessionService {
     }
 
 
-    public getSession(userId: string): SessionData {
+    public getSessionByUserId(userId: string): SessionData | undefined {
         const sessionId = this._userGameSessions.get(userId);
         if (!sessionId) {
             throw new Error(`User with id: ${userId} doesn't own a session`);
         }
-        const session = this._activeSessions.get(sessionId);
-        if (!session) {
-            throw new Error(`Can't find session with id: ${userId}`)
-        }
-        return session;
+        return this._activeSessions.get(sessionId);
+    }
+
+    public hasSession(userId: string): boolean {
+        return Boolean(this._userGameSessions.get(userId));
     }
 
     public closeSession(sessionId: string) {
-        const session = this.getSession(sessionId);
-        session.players.forEach((player) => {
-            this.freeUserFromSession(player.user._id);
-        })
-        this._activeSessions.delete(sessionId);
+        const session = this.getSessionByUserId(sessionId);
+        if (session) {
+            session.players.forEach((player) => {
+                this.freeUserFromSession(player.user._id);
+            })
+            this._activeSessions.delete(sessionId);
+        }
     }
 
 

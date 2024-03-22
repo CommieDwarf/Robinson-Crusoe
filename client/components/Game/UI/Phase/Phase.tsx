@@ -43,7 +43,7 @@ function Phase(props: Props) {
         <div className={styles.container} ref={containerRef}>
             <strong>
 
-                <span className={styles[props.phase]}>{capitalize(t(`phase.phase`, {
+                <span className={`${styles[props.phase]} ${styles.phaseName}`}>{capitalize(t(`phase.phase`, {
                     phase: props.phase
                 }))}
                 </span>
@@ -57,7 +57,7 @@ function Phase(props: Props) {
             </div>
             <div className={styles.dropDownButton} onClick={toggleShowMenu}>
                  <span className={styles.dropDownText}>
-                    {t("other.order")}
+                    {capitalize(t("other.order"))}
                 </span>
                 <div className={styles.triangle}>
                     <ResizableImage src={triangle} alt={""}/>
