@@ -13,7 +13,7 @@ export class Cook extends PlayerCharacter implements IPlayerCharacter {
     protected readonly _skills: IAbility<any>[];
 
     constructor(gender: Gender, game: IGame, player: IPlayer) {
-        super(CHARACTER.COOK, "Kucharz", 2, 13, game, gender, [2, 4, 6, 9], player);
+        super(CHARACTER.COOK, 2, 13, game, gender, [2, 4, 6, 9], player);
         this._skills = this.initSkills();
     }
 

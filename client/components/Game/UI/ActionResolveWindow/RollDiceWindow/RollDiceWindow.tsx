@@ -1,10 +1,10 @@
 import * as React from "react";
 import styles from "./RollDiceWindow.module.css";
 import RollDiceAnimation from "../../RollDiceAnimation/RollDiceAnimation";
-import {ActionDice, ActionDiceResults,} from "../../../../../../server/src/types/RollDice/RollDice";
-import {IResolvableItemRenderData} from "../../../../../../server/src/types/ActionService/IResolvableItem";
-import Entries from "../../../../../../server/src/types/Entries";
-import {AdventureAction} from "../../../../../../server/src/types/ACTION";
+import Entries from "@shared/types/Entries";
+import {AdventureAction} from "@shared/types/Game/ACTION";
+import {IResolvableItemRenderData} from "@shared/types/Game/ActionService/IResolvableItem";
+import {ActionDice, ActionDiceResults} from "@shared/types/Game/RollDice/RollDice";
 
 type Props = {
     resolvableItem: IResolvableItemRenderData | null;

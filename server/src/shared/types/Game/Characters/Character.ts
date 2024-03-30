@@ -11,7 +11,6 @@ import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
 export interface ICharacterRenderData {
     pawnService: IPawnServiceRenderData<ICharacterRenderData>;
     name: CHARACTER;
-    namePL: string;
     id: number;
     health: number;
     maxHealth: number;
@@ -28,7 +27,6 @@ export interface ICharacter extends PawnOwner<IPlayerCharacterRenderData | ISide
     effects: ICharEffects;
     skills: IAbility<any>[];
     useAbility: (name: ABILITY, target: ICharacter | ActionDice | Cloud | null) => void;
-    namePL: string;
     health: number;
     gender: Gender;
     renderData: ICharacterRenderData;
@@ -42,6 +40,7 @@ export interface ICharacter extends PawnOwner<IPlayerCharacterRenderData | ISide
 
 export enum CHARACTER {
     COOK = "cook",
+    EXPLORER = "explorer",
     DOG = "dog",
     FRIDAY = "friday",
 }

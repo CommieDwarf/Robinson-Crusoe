@@ -14,9 +14,7 @@
 }
 
 .notClicked:hover {
-    height: 70px;
-    top: -5px;
-    font-size: 35px;
+    scale: 1.1;
 }
 
 .clicked {

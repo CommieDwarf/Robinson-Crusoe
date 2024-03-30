@@ -11,7 +11,6 @@ export class GrandmasRecipe extends Ability implements IAbility<ICharacter> {
     constructor(game: IGame, character: IPlayerCharacter) {
         super(
             ABILITY.GRANDMAS_RECIPE,
-            grandmasRecipe.namePL,
             grandmasRecipe.description,
             grandmasRecipe.quote,
             "all",
@@ -24,7 +23,7 @@ export class GrandmasRecipe extends Ability implements IAbility<ICharacter> {
 
     use(target: ICharacter) {
         if (this._game.resourceService.canAffordResource("food", 1)) {
-            this._game.characterService.heal(target, 2, this._namePL);
+            this._game.characterService.heal(target, 2, this._name);
             this._game.resourceService.spendBasicResourceIfPossible("food", 1, "");
             super.use(target);
         } else {

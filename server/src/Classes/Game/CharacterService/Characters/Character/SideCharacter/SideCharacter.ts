@@ -18,12 +18,11 @@ export class SideCharacter extends Character implements ISideCharacter {
 
     constructor(
         name: SideCharacterName,
-        namePL: string,
         id: number,
         maxHealth: number,
         game: IGame
     ) {
-        super(name, namePL, id, maxHealth, game);
+        super(name, id, maxHealth, game);
         this._pawnService = new PawnService<ICharacter>(this._game, this);
         this.pawnService.initPawns(1, false, null);
         this._effects = new SideCharEffects(this);

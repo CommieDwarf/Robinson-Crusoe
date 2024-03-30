@@ -30,7 +30,7 @@ export default function SkillLabel(props: Props) {
         });
     }
 
-    const selectedClass = props.selected ? styles.abilityNameSelected : "";
+    const selectedClass = props.selected ? styles.abilitySelected : "";
     const {t} = useTranslation();
 
     return (

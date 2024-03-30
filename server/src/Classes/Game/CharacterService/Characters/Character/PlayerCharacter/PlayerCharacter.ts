@@ -39,7 +39,6 @@ export abstract class PlayerCharacter
 
     protected constructor(
         name: PlayerCharacterName,
-        namePL: string,
         id: number,
         maxHealth: number,
         game: IGame,
@@ -47,7 +46,7 @@ export abstract class PlayerCharacter
         moraleThresholds: number[],
         player: IPlayer
     ) {
-        super(name, namePL, id, maxHealth, game);
+        super(name, id, maxHealth, game);
         this._player = player;
         this._moraleThresholds = moraleThresholds;
         this._gender = gender;

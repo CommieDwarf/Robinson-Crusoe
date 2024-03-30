@@ -16,7 +16,6 @@ export class ReRoll extends Ability implements IAbility<ActionDice> {
             ABILITY.FRIDAYS_ABILITY,
             "Przerzut dowolnej kości akcji",
             "",
-            "",
             [PHASE.ACTION],
             null,
             2,

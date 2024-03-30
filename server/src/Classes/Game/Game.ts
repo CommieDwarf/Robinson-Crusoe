@@ -49,6 +49,9 @@ import {IActionSlotServiceRenderData} from "@shared/types/Game/ActionSlots";
 import {ILogService} from "@shared/types/Game/ChatLog/ChatLog";
 import {LOG_CODE} from "@shared/types/Game/ChatLog/LOG_CODE";
 import {IPlayer} from "@shared/types/Game/PlayerService/Player";
+import {ObjectPicker} from "./ObjectPicker/ObjectPicker";
+import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
+import {PickableObject, PickSubject} from "@shared/types/Game/ObjectPicker/ObjectPicker";
 
 
 export class GameClass implements IGame {
@@ -76,7 +79,7 @@ export class GameClass implements IGame {
     private _beastService: IBeastService = new BeastService(this);
     private _actionSlotService = new ActionSlotService(this);
     private _moraleService = new MoraleService(this);
-    private _round = 1;
+    private _round = 9;
     private _scenarioService: IScenarioService = new Castaways(this);
     private _tokenService = new TokenService(this);
     private _adventureService = new AdventureService(this);
@@ -84,6 +87,8 @@ export class GameClass implements IGame {
     private _otherPawns: IPawn[] = [];
 
     private _gameStatus: GAME_STATUS = GAME_STATUS.PENDING;
+
+    private _objectPickers: ObjectPicker<any>[] = [];
 
     constructor(players: IPlayer[]) {
         // this is hardcoded for demo purpose.
@@ -122,7 +127,8 @@ export class GameClass implements IGame {
             tokenService: this._tokenService.renderData,
             adventureService: this._adventureService.renderData,
             mysteryService: this._mysteryService.renderData,
-            actionSlotRenderData: this._actionSlotService.renderData
+            actionSlotRenderData: this._actionSlotService.renderData,
+            objectPickers: this._objectPickers.map((objPicker) => objPicker.renderData)
         };
     }
 
@@ -261,6 +267,32 @@ export class GameClass implements IGame {
     }
 
 
+    public startPickingObject<T extends PickableObject>(objects: T[],
+                                                        picker: IPlayerCharacter,
+                                                        amount: number,
+                                                        source: string,
+                                                        pickSubject: PickSubject,
+                                                        pickEffect: (object: T) => void,
+    ) {
+        this._objectPickers.push(new ObjectPicker<T>(
+            this,
+            objects,
+            picker,
+            amount,
+            source,
+            pickSubject,
+            pickEffect));
+    }
+
+    public pickObjects(pickerId: string, objectIds: string[]) {
+        const objPicker = this._objectPickers.find((objectPicker) => objectPicker.id === pickerId)
+        if (objPicker) {
+            objPicker.pick(objectIds);
+            this._objectPickers = this._objectPickers.filter((objPicker) => pickerId !== objPicker.id);
+        }
+    }
+
+
     public addToOtherPawns(pawn: IPawn[] | IPawn) {
         if (Array.isArray(pawn)) {
             this._otherPawns = this._otherPawns.concat(pawn)
@@ -291,8 +323,6 @@ export class GameClass implements IGame {
         if (isCommittableResourcesItem(item) && droppableId.includes("leader")) {
             item.unCommitResources();
         }
-
-
         if (droppableId.includes("owner")) {
             const pawn = this.allPawns.find((pawn) => pawn.draggableId === draggableId);
             if (pawn) {
@@ -314,7 +344,7 @@ export class GameClass implements IGame {
         this._round++;
     }
 
-    setGameStatus(status: GAME_STATUS.WIN | GAME_STATUS.LOSE, reason: string = "") {
+    setGameStatus(status: GAME_STATUS.WIN | GAME_STATUS.LOSE, logSource: string = "") {
         this._gameStatus = status;
         if (status === GAME_STATUS.LOSE) {
             this._logService.addMessage({
@@ -322,14 +352,14 @@ export class GameClass implements IGame {
                 subject1: "",
                 subject2: "",
                 amount: 0,
-            }, "negative", reason);
+            }, "negative", logSource);
         } else {
             this._logService.addMessage({
                 code: LOG_CODE.GAME_WON,
                 subject1: "",
                 subject2: "",
                 amount: 0,
-            }, "positive", reason);
+            }, "positive", logSource);
         }
     }
 

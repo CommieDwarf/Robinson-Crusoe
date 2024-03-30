@@ -9,7 +9,7 @@
 }
 
 .alertMessage {
-    color: red;
+    color: var(--hunt);
     font-weight: bold;
     font-size: 2.5em;
 }

@@ -29,7 +29,7 @@ import {NightTip} from "./UI/NightTip/NightTip";
 import {ConfirmCampMove} from "./UI/ConfirmCampMove/ConfirmCampMove";
 import {sleep} from "@shared/utils/sleep";
 
-import {useAppSelector} from "../../store/hooks";
+import {useAppDispatch, useAppSelector} from "../../store/hooks";
 
 import CardResolve from "./UI/CardResolve/CardResolve";
 
@@ -47,6 +47,9 @@ import {CHARACTER_CONTROLLER_ACTION, OTHER_CONTROLLER_ACTION} from "@shared/type
 import {MysteryCardDraw} from "./UI/MysteryCardDraw/MysteryCardDraw";
 import {MenuButton} from "./UI/MenuButton/MenuButton";
 import {socket, socketEmitter} from "../../pages/_app";
+import {alertUpdated} from "../../reduxSlices/alert";
+import {ALERT_CODE} from "../../types/Alert/ALERT_CODE";
+import {PickOne} from "./UI/PickOne/PickOne";
 
 
 interface Props {
@@ -74,6 +77,8 @@ export default function Game(props: Props) {
     const [mapHeight, setMapHeight] = useState<number>(0);
     const actionOrderRef = useRef<HTMLDivElement>(null);
     const [actionOrderHeight, setActionOrderHeight] = useState<number>(0);
+
+    const dispatch = useAppDispatch();
 
 
     useEffect(() => {
@@ -216,24 +221,22 @@ export default function Game(props: Props) {
             !canPawnBeSettled(draggedPawn, destinationId) ||
             !canPawnBeSettled(pawnAtActionSlot, sourceId)
         ) {
-
             return;
         }
 
+        //TODO: przenieś to na stronę klienta
+        // const canAfford: { value: boolean } = await new Promise((resolve) => {
+        //     socketEmitter.executeGameMethodAndSendResponse("shouldCommitResources", [destinationId])
+        //     socket.on("game_method_response", (result: { value: boolean }) => {
+        //         socket.off("game_method_response");
+        //         resolve(result);
+        //     })
+        // })
+        // if (!canAfford.value) {
+        //     dispatch(alertUpdated(ALERT_CODE.NOT_ENOUGH_MATERIALS_FOR_ACTION))
+        //     return;
+        // }
 
-        const canAffordItem: boolean = await new Promise((resolve) => {
-            socketEmitter.executeGameMethodAndSendResponse("shouldCommitResources", [destinationId])
-            socket.on("game_method_response", (result: boolean) => {
-                socket.off("game_method_response");
-                resolve(result);
-            })
-        })
-
-        if (!canAffordItem) {
-            //TODO zrob stan dla alerta
-            // handleSetAlert("Brakuje materiałów")
-            return;
-        }
 
         socketEmitter.emitAction(CHARACTER_CONTROLLER_ACTION.SET_PAWN, destinationId, draggedPawn.draggableId)
         socketEmitter.emitAction(CHARACTER_CONTROLLER_ACTION.UNSET_PAWN, sourceId, draggedPawn.draggableId)
@@ -270,6 +273,11 @@ export default function Game(props: Props) {
             {/*<Background columnStart={6} columnEnd={7} rowStart={1} rowEnd={3}/>*/}
             {/*<Background columnStart={6} columnEnd={7} rowStart={3} rowEnd={7}/>*/}
             {/*<Background columnStart={3} columnEnd={6} rowStart={6} rowEnd={7}/>*/}
+
+
+            {props.gameRenderData.objectPickers.map((objPicker) => {
+                return <PickOne objectPicker={objPicker} key={objPicker.id}/>
+            })}
             {props.gameRenderData.adventureService.currentCard && (
                 <CardResolve
                     card={props.gameRenderData.adventureService.currentCard}

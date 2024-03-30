@@ -14,6 +14,6 @@ export interface AbilityArgMap {
     [ABILITY.HOOCH]: HoochArgs,
     [ABILITY.SCROUNGER]: ScroungerArgs,
     [ABILITY.STONE_SOUP]: StoneSoupArgs,
-    [ABILITY.FRIDAYS_ABILITY]: FridaysAbilityArgs
-
+    [ABILITY.FRIDAYS_ABILITY]: FridaysAbilityArgs,
+    [ABILITY.RECONNAISSANCE]: [],
 }

@@ -2,7 +2,7 @@ import {IPawn, PAWN_HELPER_ACTION,} from "@shared/types/Game/Pawns/Pawn";
 import {IInvention} from "@shared/types/Game/InventionService/Invention";
 import {ITreasureMysteryCard} from "@shared/types/Game/MysteryService/MysteryCard";
 import {uuid} from "uuidv4";
-import {isCardInvention} from "@shared/utils/typeGuards/isCardInvention";
+import {isInventionRenderData} from "@shared/utils/typeGuards/isInventionRenderData";
 import {isMysteryCard} from "@shared/utils/typeGuards/isMysteryCard";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
 
@@ -61,7 +61,7 @@ export class Pawn<Owner extends IInvention | ITreasureMysteryCard | ICharacter>
     private generatePawnId() {
         let holderType;
 
-        if (isCardInvention(this.owner)) {
+        if (isInventionRenderData(this.owner)) {
             holderType = "invention";
         } else if (isMysteryCard(this.owner)) {
             holderType = "treasure";

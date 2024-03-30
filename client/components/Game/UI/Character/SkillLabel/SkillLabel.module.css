@@ -5,22 +5,25 @@
     cursor: pointer;
     position: relative;
     z-index: 100;
+    display: flex;
+    align-items: center;
 }
+
+.container:hover {
+    background-color: #451e14;
+    color: white;
+}
+
+.abilitySelected {
+    background-color: #451e14;
+    color: white;
+}
+
 
 .abilityName {
     text-align: center;
     margin: auto;
     display: block;
-    font-size: 1.8em;
-    height: 100%;
-}
-
-.abilityName:hover {
-    background-color: #451e14;
-    color: white;
-}
-
-.abilityNameSelected {
-    background-color: #451e14;
-    color: white;
+    font-size: 1.7em;
+    line-height: 100%;
 }

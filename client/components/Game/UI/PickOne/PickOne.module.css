@@ -1,0 +1,70 @@
+.container {
+    background-image: url("../../../../public/UI/paper-background.png");
+    left: 30%;
+    top: 25%;
+    position: absolute;
+    z-index: 99999;
+    border-radius: 5px;
+    border: 1px solid var(--borderColor);
+    padding: 10px;
+    -webkit-box-shadow: inset 0 0 5px 2px var(--brown);
+    -moz-box-shadow: inset 0 0 5px 2px var(--brown);
+    box-shadow: inset 0 0 5px 2px var(--brown);
+}
+
+.source {
+    text-align: center;
+    font-size: 2em;
+
+}
+
+.description {
+    text-align: center;
+    font-size: 2em;
+    display: block;
+    font-style: italic;
+    margin: 5px auto auto;
+    font-weight: bold;
+}
+
+.pickObjects {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-top: 10px;
+    column-gap: 2px;
+}
+
+
+.buttons {
+    display: flex;
+    justify-content: space-around;
+    width: 180px;
+    height: 30px;
+    margin: 10px auto auto;
+}
+
+.button {
+    width: 40%;
+    height: 100%;
+    border-radius: 5px;
+    background-color: white;
+    font-size: 2em;
+    font-weight: bolder;
+    text-align: center;
+    line-height: 2em;
+    border: 1px solid var(--borderColor);
+    cursor: pointer;
+}
+
+.button:hover {
+    scale: 1.1;
+}
+
+.buttonConfirm {
+    color: var(--explore);
+}
+
+.buttonCancel {
+    color: var(--hunt);
+}

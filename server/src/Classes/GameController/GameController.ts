@@ -8,6 +8,7 @@ import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction"
 import {IGame} from "@shared/types/Game/Game";
 import {ActionHandler, BaseController, GameControllerInterface} from "../../types/GameController/Controllers";
 import {CONTROLLER_ACTION, OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
+import {ACTION} from "@shared/types/Game/ACTION";
 
 export enum STORAGE_ACTION {
     WITHDRAW = "withdraw",
@@ -27,7 +28,7 @@ export class GameController implements GameControllerInterface, BaseController {
         this._game = game;
         this._players = players;
         this.initActionHandlers();
-        // this.testStuff();
+        this.testStuff();
     }
 
     get game(): IGame {
@@ -44,8 +45,11 @@ export class GameController implements GameControllerInterface, BaseController {
     }
 
     private testStuff() {
-        this._game.resourceService.addBasicResourceToOwned("wood", 4, "test");
-        this._game.resourceService.addBasicResourceToOwned("leather", 4, "test");
+        this._game.localPlayer.getCharacter().incrDetermination(10);
+        this._game.localPlayer.getCharacter().setWound("head", ACTION.EXPLORE, "xD");
+        this._game.localPlayer.getCharacter().setWound("stomach", ACTION.GATHER, "AA");
+        this._game.localPlayer.getCharacter().setWound("arm", ACTION.BUILD, "AA");
+        this._game.localPlayer.getCharacter().setWound("leg", ACTION.EXPLORE, "AA");
     }
 
     private initActionHandlers() {
@@ -73,6 +77,7 @@ export class GameController implements GameControllerInterface, BaseController {
         handlers.set(OTHER_CONTROLLER_ACTION.USE_INVENTION, this.useInvention.bind(this));
         handlers.set(OTHER_CONTROLLER_ACTION.USE_ITEM, this.useItem.bind(this));
         handlers.set(OTHER_CONTROLLER_ACTION.USE_DISCOVERY_TOKEN, this.useDiscoveryToken.bind(this));
+        handlers.set(OTHER_CONTROLLER_ACTION.PICK_OBJECT, this.pickObject.bind(this));
         return handlers;
     }
 
@@ -111,6 +116,10 @@ export class GameController implements GameControllerInterface, BaseController {
     }
 
     private useDiscoveryToken(player: IPlayer, tokenId: string, targetName: string): void {
-        this._game.tokenService.useToken(tokenId, targetName);
+        this._game.tokenService.useToken(tokenId, player.getCharacter().name);
+    }
+
+    private pickObject(player: IPlayer, objPickerId: string, objectIds: string[]): void {
+        this._game.pickObjects(objPickerId, objectIds);
     }
 }

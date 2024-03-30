@@ -6,10 +6,7 @@ import {
 } from "@shared/types/CONTROLLER_ACTION";
 import {Side} from "@shared/types/Game/TileService/TileResourceService";
 import {ITEM} from "@shared/types/Game/Equipment/Item";
-import {ActionDice} from "@shared/types/Game/RollDice/RollDice";
-import {Cloud} from "@shared/types/Game/Weather/Weather";
 import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction";
-import {ICharacter} from "@shared/types/Game/Characters/Character";
 import {INVENTION} from "@shared/types/Game/InventionService/Invention";
 import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
 import {AbilityArgMap} from "@shared/types/Game/Skill/AbilityArgMap";
@@ -78,6 +75,8 @@ export type UseDiscoveryTokenArgs = [tokenId: string, targetCharName: string];
 
 export type SetBibleUsageArgs = [actionId: string, value: boolean];
 
+export type PickObjectArgs = [objectPickerId: string, objectIds: string[]]
+
 
 export interface ActionArgMap {
     [ACTION_CONTROLLER_ACTION.SET_BIBLE_USAGE]: SetBibleUsageArgs;
@@ -114,6 +113,6 @@ export interface ActionArgMap {
     [OTHER_CONTROLLER_ACTION.USE_INVENTION]: UseInventionArgs;
     [OTHER_CONTROLLER_ACTION.USE_ITEM]: UseItemArgs;
     [OTHER_CONTROLLER_ACTION.USE_DISCOVERY_TOKEN]: UseDiscoveryTokenArgs;
-
     [OTHER_CONTROLLER_ACTION.RESOLVE_EVENT_ADVENTURE]: ResolveAdventureArgs;
+    [OTHER_CONTROLLER_ACTION.PICK_OBJECT]: PickObjectArgs;
 }

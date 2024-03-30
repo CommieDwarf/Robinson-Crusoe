@@ -7,6 +7,7 @@ const icons = [
     "rain-cloud",
     "snow-cloud",
     "food",
+    "discovery",
 ];
 
 export function insertIconsIntoText(string: string, className: string) {

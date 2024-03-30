@@ -62,7 +62,7 @@ export abstract class Token implements IToken {
         this._game.logService.addMessage({
             code: LOG_CODE.CHARACTER_USED_TOKEN,
             amount: 1,
-            subject1: user.getCharacter().namePL,
+            subject1: user.getCharacter().name,
             subject2: this._name
         }, "neutral", TERMS.DISCOVERY_TOKEN)
     }

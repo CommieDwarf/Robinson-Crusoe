@@ -13,7 +13,7 @@
     width: 100%;
     top: -25%;
     font-weight: 700;
-    font-size: 3em;
+    font-size: 2.5em;
     color: var(--brown);
 }
 
@@ -42,7 +42,7 @@
 
 .cloudCount {
     position: absolute;
-    font-size: 5em;
+    font-size: 3.7em;
     font-weight: bold;
     z-index: 2;
     left: 0;

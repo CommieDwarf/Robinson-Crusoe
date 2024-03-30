@@ -1,5 +1,6 @@
 import {ITile, ITileRenderData, TERRAIN_TYPE, TILE_ACTION} from "./ITile";
 import {Side, TILE_RESOURCE_ACTION} from "./TileResourceService";
+import {TileType} from "@shared/types/Game/TileService/TileResourceInfo";
 
 export interface ITilesServiceRenderData {
     tiles: ITileRenderData[];
@@ -30,6 +31,10 @@ export interface ITileService {
     countHowManyTilesCanBeMarkedForAction: (tiles: ITile[], action: TILE_ACTION) => number;
     countHowManyResourcesCanBeMarkedForAction: (tiles: ITile[], action: TILE_RESOURCE_ACTION, source: string, concreteResource?: "wood" | "food" | null) => number;
     resetResourceAssignedPawns: () => void;
+
+    switchOrderInTileStack: (tileType: TileType, targetPosition: "top" | "bottom" | number) => void
+
+    pickTileTypesFromStack: (amount: number) => TileType[];
     gather: (side: "left" | "right", tileId: number, logSource: string, production?: boolean) => void;
     getTile: (id: number) => ITile;
     moveCamp: (tileID: number) => void;

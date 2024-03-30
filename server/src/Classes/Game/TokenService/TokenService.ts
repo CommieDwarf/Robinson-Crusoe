@@ -82,14 +82,23 @@ export class TokenService implements ITokenService {
 
     public addRandomTokensToFuture(amount: number) {
         for (let i = 0; i < amount; i++) {
-            this._future.push(this.getRandomToken())
+            this._future.push(this.getRandomTokenFromStack())
         }
     }
 
     public addRandomTokensToOwned(amount: number) {
         for (let i = 0; i < amount; i++) {
-            this._owned.push(this.getRandomToken())
+            this._owned.push(this.getRandomTokenFromStack())
         }
+    }
+
+    public addTokenToOwned(token: IToken) {
+        this._owned.push(token);
+    }
+
+    public shuffleInToStack(token: DISCOVERY_TOKEN) {
+        this._tokenStack.push(token);
+        this._tokenStack = shuffle(this._tokenStack);
     }
 
     private moveFutureToOwned() {
@@ -102,7 +111,7 @@ export class TokenService implements ITokenService {
         this.moveFutureToOwned();
     }
 
-    private getRandomToken(): IToken {
+    public getRandomTokenFromStack(): IToken {
         const tokenName = this._tokenStack.pop();
         if (tokenName) {
             return this._tokenCreator.create(tokenName);

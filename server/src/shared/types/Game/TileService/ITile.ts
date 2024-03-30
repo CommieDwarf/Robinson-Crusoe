@@ -5,7 +5,7 @@ import {
     Side,
     TILE_RESOURCE_ACTION,
 } from "./TileResourceService";
-import {FixedTileResources} from "./TileResourceInfo";
+import {TileType} from "./TileResourceInfo";
 import {IAssignablePawnsItem, IAssignablePawnsItemRenderData} from "../AssignablePawnsItem/AssignablePawnsItem";
 
 export interface ITile extends IAssignablePawnsItem {
@@ -39,7 +39,7 @@ export interface ITile extends IAssignablePawnsItem {
 
 
     triggerAction: () => void;
-    reveal: (resources: FixedTileResources) => void;
+    reveal: (resources: TileType) => void;
     resetStructures: () => void;
     setStructureLvl: (structure: BuiltTileStructure, amount: number) => void;
 

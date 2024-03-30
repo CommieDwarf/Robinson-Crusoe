@@ -10,7 +10,6 @@ export class StoneSoup extends Ability implements IAbility<null> {
     constructor(game: IGame, character: IPlayerCharacter) {
         super(
             ABILITY.STONE_SOUP,
-            stoneSoup.namePL,
             stoneSoup.description,
             stoneSoup.quote,
             "all",
@@ -26,13 +25,13 @@ export class StoneSoup extends Ability implements IAbility<null> {
             this._game.resourceService.addBasicResourceToFuture(
                 "food",
                 1,
-                this._namePL
+                this._name
             );
         } else {
             this._game.resourceService.addBasicResourceToOwned(
                 "food",
                 1,
-                this._namePL
+                this._name
             );
         }
         super.use(target);

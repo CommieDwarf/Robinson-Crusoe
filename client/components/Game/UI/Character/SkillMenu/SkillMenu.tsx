@@ -73,8 +73,7 @@ export default function SkillMenu(props: Props) {
             dispatch(alertUpdated(ALERT_CODE.NOT_ENOUGH_DETERMINATION_FOR_ABILITY));
         }
 
-        const ability = props.skillDescription.skill.name;
-        //TODO: emituj akcje
+        const ability = props.skillDescription.skill.name as ABILITY;
         switch (ability) {
             case ABILITY.HOOCH:
                 activateAbility(ability, cloud)
@@ -88,11 +87,13 @@ export default function SkillMenu(props: Props) {
                 //TODO: zrób wybór postaci.
                 activateAbility(ability, CHARACTER.COOK);
                 break;
+            default:
+                activateAbility(ability)
         }
     }
 
 
-    function activateAbility<T extends ABILITY>(abilityName: T, ...args: AbilityArgMap[T]) {
+    function activateAbility<T extends ABILITY>(abilityName: T, ...args: AbilityArgMap[T][]) {
         socketEmitter.emitAction(CHARACTER_CONTROLLER_ACTION.USE_ABILITY, {
             abilityName,
             args

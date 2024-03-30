@@ -26,6 +26,9 @@ import {IScenarioService, IScenarioServiceRenderData,} from "./ScenarioService/S
 import {ITokenService, ITokenServiceRenderData,} from "./TokenService/TokenService";
 import {IAdventureService, IAdventureServiceRenderData,} from "./AdventureService/AdventureService";
 import {IMysteryService, IMysteryServiceRenderData,} from "./MysteryService/MysteryService";
+import {IObjectPickerRenderData, PickableObject, PickSubject} from "@shared/types/Game/ObjectPicker/ObjectPicker";
+import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
+import {ObjectPicker} from "../../../Classes/Game/ObjectPicker/ObjectPicker";
 
 export enum GAME_STATUS {
     PENDING = "pending",
@@ -52,7 +55,7 @@ export interface IGameRenderData {
     actionService: IActionServiceRenderData;
 
     actionSlotRenderData: IActionSlotServiceRenderData;
-    
+
     alertService: IAlertServiceRenderData;
     scenarioService: IScenarioServiceRenderData;
     weatherService: IWeatherServiceRenderData;
@@ -60,6 +63,7 @@ export interface IGameRenderData {
     tokenService: ITokenServiceRenderData;
     adventureService: IAdventureServiceRenderData;
     mysteryService: IMysteryServiceRenderData;
+    objectPickers: IObjectPickerRenderData<any>[];
 }
 
 export interface IGame {
@@ -101,5 +105,15 @@ export interface IGame {
     addToOtherPawns: (pawn: IPawn[] | IPawn) => void;
 
     setGameStatus: (status: GAME_STATUS.WIN | GAME_STATUS.LOSE, reason?: string) => void;
+
+    startPickingObject: <T extends PickableObject> (objects: T[],
+                                                    picker: IPlayerCharacter,
+                                                    amount: number,
+                                                    source: string,
+                                                    pickSubject: PickSubject,
+                                                    pickEffect: (object: T) => void) => void;
+
+    pickObjects: (objectPickerId: string, objectIds: string[]) => void;
     renderData: IGameRenderData;
 }
+

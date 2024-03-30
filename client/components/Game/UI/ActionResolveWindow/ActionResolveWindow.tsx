@@ -123,7 +123,6 @@ export const ActionResolveWindow = (props: Props) => {
 
     return (
         <Draggable bounds="parent" defaultClassNameDragging={sharedStyles.grabbing}>
-
             <div className={styles.container} ref={containerRef}>
                 {reRollButtonClicked && (
                     <div className={styles.reRollArrowTip}>

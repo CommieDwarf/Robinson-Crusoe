@@ -10,9 +10,9 @@ import {ActionDice} from "@shared/types/Game/RollDice/RollDice";
 import {Cloud} from "@shared/types/Game/Weather/Weather";
 import {PlayerCharacter} from "./PlayerCharacter/PlayerCharacter";
 import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
+import {STATUS_CODES} from "http";
 
 export abstract class Character implements ICharacter {
-    protected _namePL: string;
     protected _name: PlayerCharacterName | SideCharacterName;
     protected _gender: Gender = "male";
     protected _determination = 0;
@@ -26,12 +26,10 @@ export abstract class Character implements ICharacter {
 
     protected constructor(
         name: PlayerCharacterName | SideCharacterName,
-        namePL: string,
         id: number,
         maxHealth: number,
         game: IGame
     ) {
-        this._namePL = namePL;
         this._name = name;
         this._id = id;
         this._maxHealth = maxHealth;
@@ -54,7 +52,6 @@ export abstract class Character implements ICharacter {
             id: this._id,
             maxHealth: this._maxHealth,
             name: this._name,
-            namePL: this._namePL,
             skills: this._skills.map((skill) => skill.renderData),
         };
     }
@@ -87,13 +84,6 @@ export abstract class Character implements ICharacter {
         return this._id;
     }
 
-    get namePL(): string {
-        return this._namePL;
-    }
-
-    set namePL(value: string) {
-        this._namePL = value;
-    }
 
     get health(): number {
         return this._health;
@@ -122,7 +112,7 @@ export abstract class Character implements ICharacter {
     hurt(by: number) {
         this._health -= by;
         if (this instanceof PlayerCharacter && this._health <= 0) {
-            this._game.setGameStatus(GAME_STATUS.LOSE, `${this._namePL} nie żyje`);
+            this._game.setGameStatus(GAME_STATUS.LOSE);
         }
     }
 

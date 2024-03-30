@@ -41,7 +41,7 @@ export class MysteryService implements IMysteryService {
             cardsAsReminders: this._cardsAsReminders.map((card) => card.renderData),
         };
     }
-    
+
 
     get isDrawingOn(): boolean {
         return Boolean(this._cardDrawer);

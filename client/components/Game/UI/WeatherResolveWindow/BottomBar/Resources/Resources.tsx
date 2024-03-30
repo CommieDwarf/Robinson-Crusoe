@@ -62,7 +62,8 @@ export const Resources = (props: Props) => {
         <div className={styles.container}>
             <ul className={styles.tips}>
                 <li className={styles.tip}>
-                    Za każdy brakujący surowiec i strukturę (oprócz dachu) każdy gracz
+                    Za każdy brakujący surowiec <br/>
+                    i strukturę (oprócz dachu) każdy gracz
                     otrzymuje ranę
                 </li>
                 <li className={styles.tip}>Dach nie ulega zniszczeniom.</li>

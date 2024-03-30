@@ -1,4 +1,4 @@
-import {IToken, ITokenRenderData} from "./Token";
+import {DISCOVERY_TOKEN, IToken, ITokenRenderData} from "./Token";
 
 export interface ITokenService {
     ownedTokens: IToken[];
@@ -6,7 +6,10 @@ export interface ITokenService {
     useToken: (id: string, targetName: string | null) => void;
     addRandomTokensToOwned: (amount: number) => void;
     addRandomTokensToFuture: (amount: number) => void;
+    getRandomTokenFromStack: () => IToken;
 
+    addTokenToOwned: (token: IToken) => void;
+    shuffleInToStack: (token: DISCOVERY_TOKEN) => void;
     onActionEnd: () => void;
 
 }

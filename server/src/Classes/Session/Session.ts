@@ -21,7 +21,7 @@ export class Session implements SessionData {
 
     private _id = uuid();
 
-    private _characters: CHARACTER[] = [CHARACTER.COOK];
+    private _characters: CHARACTER[] = [CHARACTER.COOK, CHARACTER.EXPLORER];
 
     private readonly _mode: GAME_SESSION_MODE;
 
@@ -56,7 +56,7 @@ export class Session implements SessionData {
         const player = new Player(user);
         this._players.push(player);
         this.assignColor(user._id, this.findAvailableColor());
-        this.assignCharacter(user._id, CHARACTER.COOK);
+        this.assignCharacter(user._id, CHARACTER.EXPLORER);
     }
 
 

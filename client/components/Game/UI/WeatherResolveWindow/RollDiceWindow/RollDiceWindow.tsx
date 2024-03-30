@@ -1,11 +1,12 @@
 import * as React from "react";
 import styles from "./RollDiceWindow.module.css";
 import {RollDiceAnimation} from "../../RollDiceAnimation/RollDiceAnimation";
-import {WeatherDice, WeatherDiceResult, WeatherDiceResults,} from "@shared/types/RollDice/RollDice";
-import {IWeatherServiceRenderData} from "@shared/types/Weather/Weather";
-import Entries from "../../../../../../server/src/types/Entries";
+import {IWeatherServiceRenderData} from "@shared/types/Game/Weather/Weather";
+import {WeatherDice, WeatherDiceResult, WeatherDiceResults} from "@shared/types/Game/RollDice/RollDice";
+import Entries from "@shared/types/Entries";
 
 type Props = {
+    // @ts-ignore
     weatherService: IWeatherServiceRenderData;
     setResolved: (name: string) => void;
     resolved: boolean;

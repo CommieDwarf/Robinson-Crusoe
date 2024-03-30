@@ -37,7 +37,8 @@ export enum OTHER_CONTROLLER_ACTION {
     SWITCH_COMMITTED_RESOURCES_TYPE = "switch committed resources type",
     USE_INVENTION = "use invention",
     USE_ITEM = "use item",
-    USE_DISCOVERY_TOKEN = "use discovery token"
+    USE_DISCOVERY_TOKEN = "use discovery token",
+    PICK_OBJECT = "pick object",
 }
 
 

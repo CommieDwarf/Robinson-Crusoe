@@ -17,7 +17,7 @@ import {
     Side,
     TILE_RESOURCE_ACTION,
 } from "@shared/types/Game/TileService/TileResourceService";
-import {FixedTileResources} from "@shared/types/Game/TileService/TileResourceInfo";
+import {TileType} from "@shared/types/Game/TileService/TileResourceInfo";
 import {TileResourceService} from "./TileResourceService/TileResourceService";
 import {AssignablePawnsItem} from "../../AssignablePawnsItem/AssignablePawnsItem";
 import {ACTION, ACTION_ITEM} from "@shared/types/Game/ACTION";
@@ -319,7 +319,7 @@ export class Tile extends AssignablePawnsItem implements ITile {
         this.tileResourceService?.triggerAction(side, source);
     }
 
-    public reveal(resources: FixedTileResources) {
+    public reveal(resources: TileType) {
         this._tileResourceService = new TileResourceService(
             this._game,
             resources.id,

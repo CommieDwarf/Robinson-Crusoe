@@ -1,0 +1,16 @@
+.container {
+    position: relative;
+    width: 100px;
+    border-radius: 5px;
+    height: 100px;
+    cursor: pointer;
+}
+
+
+.container:hover {
+    background-color: var(--explore);
+}
+
+.containerSelected {
+    background-color: var(--explore);
+}

@@ -13,7 +13,6 @@ export class Scrounger extends Ability implements IAbility<ActionDice> {
     constructor(game: IGame, character: IPlayerCharacter) {
         super(
             ABILITY.SCROUNGER,
-            scrounger.namePL,
             scrounger.description,
             scrounger.quote,
             [PHASE.ACTION],

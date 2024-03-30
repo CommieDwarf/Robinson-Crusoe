@@ -5,7 +5,7 @@ import {IGame} from "@shared/types/Game/Game";
 import {TileGraph} from "./TileGraph/TileGraph";
 import {ITileGraph} from "@shared/types/Game/TileService/ITileGraph";
 import {Side, TILE_RESOURCE_ACTION} from "@shared/types/Game/TileService/TileResourceService";
-import {FixedTileResources} from "@shared/types/Game/TileService/TileResourceInfo";
+import {TileType} from "@shared/types/Game/TileService/TileResourceInfo";
 import {fixedTileResources} from "@shared/constants/tileResourceServices";
 import {INVENTION_NORMAL} from "@shared/types/Game/InventionService/Invention";
 import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction";
@@ -14,13 +14,10 @@ import {TERMS} from "@shared/types/Terms/TERMS";
 
 export class TileService implements ITileService {
 
+
     private _tileGraph: ITileGraph;
-    private _fixedTileResourcesStack: FixedTileResources[];
+    private _tileTypeStack: TileType[];
     private _exploredTerrainTypes: Set<TERRAIN_TYPE>;
-    private _campTransition = {
-        status: false,
-        forced: false,
-    };
     private _game: IGame;
     private _campJustMoved = false;
 
@@ -28,17 +25,17 @@ export class TileService implements ITileService {
 
     private _actionQueue: Function[] = [];
 
+
     private readonly _sides: Side[] = ["left", "right"];
     private _roundBasketUsed: number = 0;
     private _roundSackUsed: number = 0;
-    axe: boolean = false;
     resourceAmountToDeplete: number = 0;
     private readonly _startCamp = 7;
 
 
     constructor(game: IGame, campTileID: number) {
         this._game = game;
-        this._fixedTileResourcesStack = shuffle(fixedTileResources);
+        this._tileTypeStack = shuffle(fixedTileResources);
         this._exploredTerrainTypes = new Set<TERRAIN_TYPE>([TERRAIN_TYPE.BEACH]);
         this._tileGraph = new TileGraph(this._startCamp, game);
         this.showAdjacentTiles(campTileID);
@@ -53,6 +50,7 @@ export class TileService implements ITileService {
             isTileMarkedForAction: this.isTileMarkedForAction,
         };
     }
+
 
     get isTileMarkedForAction() {
         return this._tileGraph.vertices.some((vertex) => vertex.data.isMarkedForAction())
@@ -74,9 +72,6 @@ export class TileService implements ITileService {
         return this._exploredTerrainTypes;
     }
 
-    get campTransition(): { forced: boolean; status: boolean } {
-        return this._campTransition;
-    }
 
     get previousCampTile(): ITile | null {
         const tile = this._tileGraph.previousCampTileVertex?.data;
@@ -99,6 +94,22 @@ export class TileService implements ITileService {
 
     public updateDistance() {
         this._tileGraph.updateDistance();
+    }
+
+    public switchOrderInTileStack(tileType: TileType, targetPosition: "top" | "bottom" | number): void {
+        const index = this._tileTypeStack.indexOf(tileType);
+        const newTileTypeStack = this._tileTypeStack.filter((type) => type !== tileType);
+        if (targetPosition === "top") {
+            newTileTypeStack.push(tileType)
+        } else if (targetPosition === "bottom") {
+            newTileTypeStack.unshift(tileType);
+        } else {
+            const temp = this._tileTypeStack[targetPosition];
+            newTileTypeStack[targetPosition] = tileType;
+            newTileTypeStack[index] = temp;
+        }
+
+        this._tileTypeStack = newTileTypeStack;
     }
 
 
@@ -257,7 +268,7 @@ export class TileService implements ITileService {
     }
 
     explore(id: number) {
-        const tileFixedResources = this._fixedTileResourcesStack.pop();
+        const tileFixedResources = this._tileTypeStack.pop();
         if (!tileFixedResources) {
             throw new Error("Empty tileFixedResources stack!");
         }
@@ -340,6 +351,7 @@ export class TileService implements ITileService {
         }
     }
 
+
     private moveConstructions() {
         const logSource = TERMS.CAMP_MOVEMENT;
         const constructionService = this._game.constructionService;
@@ -377,6 +389,9 @@ export class TileService implements ITileService {
         }
     }
 
+    public pickTileTypesFromStack(amount: number) {
+        return this._tileTypeStack.slice(-amount);
+    }
 
     private showAdjacentTiles(id: number) {
         const tile = this.getTile(id);

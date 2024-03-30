@@ -6,6 +6,7 @@ import {uuid} from "uuidv4";
 import {CHARACTER} from "@shared/types/Game/Characters/Character";
 import {IGame} from "@shared/types/Game/Game";
 import {Cook} from "../CharacterService/Characters/Cook";
+import {Explorer} from "../CharacterService/Characters/Explorer";
 
 
 export class Player implements IPlayer {
@@ -62,7 +63,7 @@ export class Player implements IPlayer {
     }
 
     initCharacter(game: IGame): void {
-        this._character = new Cook("male", game, this);
+        this._character = new Explorer("male", game, this);
     }
 
 

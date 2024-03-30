@@ -1,5 +1,5 @@
 import {TERRAIN_TYPE, TileResource} from "@shared/types/Game/TileService/ITile";
-import {FixedTileResources} from "@shared/types/Game/TileService/TileResourceInfo";
+import {TileType} from "@shared/types/Game/TileService/TileResourceInfo";
 
 
 function createFixedTileResources(
@@ -14,7 +14,7 @@ function createFixedTileResources(
         totem: boolean;
         naturalShelter: boolean;
     }
-): FixedTileResources {
+): TileType {
     return {
         id,
         terrainType,
@@ -23,7 +23,7 @@ function createFixedTileResources(
     };
 }
 
-export const fixedTileResources: FixedTileResources[] = [
+export const fixedTileResources: TileType[] = [
     createFixedTileResources(
         1,
         TERRAIN_TYPE.HILLS,
@@ -86,7 +86,7 @@ export const fixedTileResources: FixedTileResources[] = [
     ),
 ];
 
-export const starterTile: FixedTileResources = createFixedTileResources(
+export const starterTile: TileType = createFixedTileResources(
     0,
     TERRAIN_TYPE.BEACH,
     {left: "wood", right: "food"},

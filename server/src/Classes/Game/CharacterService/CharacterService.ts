@@ -143,7 +143,7 @@ export class CharacterService implements ICharacterService {
         }
         if (char instanceof PlayerCharacter) {
             if (char.shouldMoraleDrop) {
-                this._game.moraleService.lvlDown(1, char.namePL);
+                this._game.moraleService.lvlDown(1, char.name);
             }
         }
     }
@@ -225,7 +225,7 @@ export class CharacterService implements ICharacterService {
         if (logSource) {
             this._game.logService.addMessage({
                 code: LOG_CODE.CHARACTER_LOST_DETERMINATION,
-                subject1: char.namePL,
+                subject1: char.name,
                 subject2: "",
                 amount
             }, "negative", logSource)

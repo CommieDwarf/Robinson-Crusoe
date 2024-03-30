@@ -11,7 +11,7 @@ export class Friday extends SideCharacter implements ISideCharacter {
     protected readonly _skills: IAbility<ActionDice>[];
 
     constructor(gender: Gender, game: IGame) {
-        super(CHARACTER.FRIDAY, "Piętaszek", 0, 4, game);
+        super(CHARACTER.FRIDAY, 0, 4, game);
         this._skills = this.initSkills();
     }
 

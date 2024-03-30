@@ -7,6 +7,7 @@ import {capitalize} from "lodash";
 import {ILogMessageRenderData} from "@shared/types/Game/ChatLog/LogMessage";
 import {useTranslation} from 'react-i18next';
 import {resources} from "../../../../../I18n/resources";
+import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
 
 type Props = {
     message: ILogMessageRenderData;
@@ -36,8 +37,14 @@ export const LogMessage = (props: Props) => {
 
     categories.forEach((category) => {
         if (i18n.exists(`${category}.${source}`)) {
-            // @ts-ignore
-            translatedSource = t(`${category}.${source}`)
+
+            if (Object.values(ABILITY).includes(source as ABILITY)) {
+                // @ts-ignore
+                translatedSource = t(`${category}.${source}.name`)
+            } else {
+                // @ts-ignore
+                translatedSource = t(`${category}.${source}`)
+            }
         }
     })
 
@@ -66,7 +73,7 @@ export const LogMessage = (props: Props) => {
         </span>
                 <span className={styles.message + " " + styles[msg.color]}>
                     {capitalize(translatedContent)}
-        </span>
+                </span>
             </div>
         </div>
     );

@@ -8,6 +8,6 @@ export class Dog extends SideCharacter implements ISideCharacter {
     protected readonly _skills: IAbility<any>[] = [];
 
     constructor(gender: Gender, game: IGame) {
-        super(CHARACTER.DOG, "Pies", 1, Infinity, game);
+        super(CHARACTER.DOG, 1, Infinity, game);
     }
 }

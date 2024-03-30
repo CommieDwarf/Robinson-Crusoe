@@ -11,7 +11,6 @@ import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
 
 export abstract class Ability implements IAbility<ICharacter> {
     protected readonly _name: ABILITY;
-    protected readonly _namePL: string;
     protected readonly _description: string;
     protected readonly _quote: string;
 
@@ -26,7 +25,6 @@ export abstract class Ability implements IAbility<ICharacter> {
 
     protected constructor(
         name: ABILITY,
-        namePL: string,
         description: string,
         quote: string,
         phasesAllowed: Phase[] | "all",
@@ -36,7 +34,6 @@ export abstract class Ability implements IAbility<ICharacter> {
         character: ICharacter,
     ) {
         this._name = name;
-        this._namePL = namePL;
         this._description = description;
         this._quote = quote;
         if (phasesAllowed === "all") {
@@ -53,7 +50,6 @@ export abstract class Ability implements IAbility<ICharacter> {
     get renderData() {
         return {
             name: this._name,
-            namePL: this._namePL,
             description: this._description,
             quote: this._quote,
             phasesAllowed: this._phasesAllowed,
@@ -66,10 +62,6 @@ export abstract class Ability implements IAbility<ICharacter> {
 
     get name(): ABILITY {
         return this._name;
-    }
-
-    get namePL(): string {
-        return this._namePL;
     }
 
     get description(): string {
@@ -107,7 +99,7 @@ export abstract class Ability implements IAbility<ICharacter> {
     public use(target: ICharacter | ActionDice | Cloud | null) {
         this.updateLastRoundUsed();
         this._character.decrDetermination(this.cost);
-        this.addLogMsg(this._character.namePL);
+        this.addLogMsg(this._character.name);
     }
 
 
@@ -121,6 +113,6 @@ export abstract class Ability implements IAbility<ICharacter> {
             amount: 1,
             subject1: charName,
             subject2: this._name
-        }, "neutral", "")
+        }, "neutral", "ability")
     }
 }

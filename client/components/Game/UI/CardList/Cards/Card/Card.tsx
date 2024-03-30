@@ -1,7 +1,7 @@
 // @flow
 import * as React from "react";
 import {useState} from "react";
-import {isCardInvention} from "@shared/utils/typeGuards/isCardInvention";
+import {isInventionRenderData} from "@shared/utils/typeGuards/isInventionRenderData";
 import {IItemRenderData} from "@shared/types/Game/Equipment/Item";
 import {MysteryCard} from "./MysteryCard/MysteryCard";
 import {IMysteryCardRenderData} from "@shared/types/Game/MysteryService/MysteryCard";
@@ -62,7 +62,7 @@ export const Card = (props: Props) => {
 
     const zIndexClass = props.zIndexIncreased ? styles.zIndexIncreased : "";
 
-    if (isCardInvention(props.card)) {
+    if (isInventionRenderData(props.card)) {
         card = <Invention
             invention={props.card}
             handleMouseOverButtons={handleMouseOverButtons}

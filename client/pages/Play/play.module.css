@@ -2,6 +2,7 @@
     width: 100%;
     color: var(--brown);
     position: relative;
+    /*overflow-y: hidden;*/
     overflow: hidden;
 }
 

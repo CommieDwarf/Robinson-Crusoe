@@ -11,6 +11,7 @@ import {
 } from "@shared/types/Game/MysteryService/MYSTERY_CARD";
 import {ITEM} from "@shared/types/Game/Equipment/Item";
 import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
+import {ALERT_CODE} from "../types/Alert/ALERT_CODE";
 
 
 export const resources = {
@@ -19,6 +20,7 @@ export const resources = {
             character: {
                 cook: "kucharz",
                 cook_female: "kucharka",
+                explorer: "odkrywca",
                 friday: "piętaszek",
                 dog: "pies",
             },
@@ -68,6 +70,82 @@ export const resources = {
                     description: "Odrzuć 3 \$determination\$, aby otrzymać 1 \$food\$.",
                     comment: "Brak składników to nie przeszkoda, to wyzwanie. Dobry kucharz poradzi sobie w każdej sytuacji!"
                 },
+                [ABILITY.LUCKY]: {
+                    name: "Dziecko szczęścia",
+                    name_genitive: "Dziecka szczęścia",
+                    description: "Odrzuć 2 \$determination\$, aby \$reroll\$ dowolną zieloną kość podczas swojej Akcji.",
+                    comment: "Wygląda na to, że szczęście mi dziś sprzyja!",
+                },
+                [ABILITY.RECONNAISSANCE]: {
+                    name: "Rekonesans",
+                    name_genitive: "Rekonesansu",
+                    description: `Odrzuć 2 \$determination\$, aby pociągnąć 3 kafelki Wyspy
+                        ze stosu, wybrać 1 z nich i położyć go na wierzchu stosu.`,
+                    comment: "Wracamy do dziczy? Nareszcie!"
+                },
+                [ABILITY.MOTIVATIONAL_SPEECH]: {
+                    name: "Mowa ku pokrzepieniu serc",
+                    name_genitive: "Mowy ku pokrzepieniu serc",
+                    description: `Odrzuć 3 \$determination\$ aby \$morale\$.`,
+                    comment: "Nie martwcie się! Z nie takich opałów wychodziłem bez szwanku."
+                },
+                [ABILITY.SCOUTING]: {
+                    name: "Zwiad",
+                    name_genitive: "Zwiadu",
+                    description: "Odrzuć 3 \$determination\$, aby pociągnąć 2 \$discovery$\$ i wybrać z nich 1.",
+                    comment: "A to ci ciekawe. Przyjrzę się temu bliżej."
+                },
+                [ABILITY.ECONOMICAL_CONSTRUCTION]: {
+                    name: "Oszczędna konstrukcja",
+                    name_genitive: "Oszczędnej konstrukcji",
+                    description: "Odrzuć 2 \$determination\$, aby zużyć 1 \$wood\$ mniej podczas jednej swojej Akcji dowolnego typu.",
+                    comment: "Za mało materiału? O czym ty mówisz? Mamy go aż nadto!"
+                },
+                [ABILITY.CRAFTSMANSHIP]: {
+                    name: "Rzemiosło",
+                    name_genitive: "Rzemiosła",
+                    description: "Odrzuć 2 \$determination\$, aby \$reroll\$ dowolną brązową kość podczas swojej Akcji.",
+                    comment: "Mógłbym to wbić z zamkniętymi oczami"
+                },
+                [ABILITY.A_NEW_IDEA]: {
+                    name: "Nowy pomysł",
+                    name_genitive: "Nowego pomysłu",
+                    description: "Odrzuć 3 \$determinaton\$, aby pociągnąć 5 kart z talii Pomysłów i wybrać1 z nich.",
+                    comment: "Zdaje się, że wiem, jak ulepszyć nasze obozowisko…"
+                },
+                [ABILITY.HANDYMAN]: {
+                    name: "Złota rączka",
+                    name_genitive: "Złotej rączki",
+                    description: "Odrzuć 3 \$determination\$, aby uzyskać dodatkowego \$build-pawn\$ podczas Akcji Budowy, którą wykonujesz",
+                    comment: "To w sumie dość proste, zajmie ledwie parę chwil."
+                },
+                [ABILITY.TRACKING]: {
+                    name: "Tropienie",
+                    name_genitive: "Tropienia",
+                    description: "Odrzuć 2 \$determination\$, aby spojrzeć na górną kartę z talii Polowania" +
+                        " i umieścić ją z powrotem na wierzchu talii lub na jej spodzie.",
+                    comment: "Chwilę temu przemknął tędy tygrys. Wielki tygrys…"
+                },
+                [ABILITY.THE_HUNT]: {
+                    name: "Polowanie",
+                    name_genitive: "Polowania",
+                    description: "Odrzuć 4 \$determination\$, aby wziąć wierzchnią kartę z talii Bestii i położyć na wierzchu" +
+                        "talii Polowania, bez oglądania jej.",
+                    comment: "Kici-kici, bestyjko!",
+                },
+                [ABILITY.FRENZY]: {
+                    name: "Furia",
+                    name_genitive: "Furii",
+                    description: "Odrzuć 3 \$determination\$, a by tymczasowo otrzymać +3 \$weapon\$ podczas swojej akcji.",
+                    comment: "Teraz to jestem naprawdę wściekły. Przysięgam, nie polubicie mnie takiego!"
+                },
+                [ABILITY.DEFENSIVE_PLAN]: {
+                    name: "Plan zapasowy",
+                    name_genitive: "Planu zapasowego",
+                    description: "Odrzuć 3 \$determination\$, aby zwiększyć poziom \$palisade\$ lub \$weapon\$ o 1.",
+                    comment: "A ty, kucharzu, zabiezpieczasz lewą flankę…"
+                }
+
             },
             "phase": {
                 "phase": "faza $t(phase.{{phase}}, {\"context\": \"genitive\"})",
@@ -465,10 +543,25 @@ export const resources = {
                 "wild pig": "dzika świnia",
                 "wild pig_accusative": "dziką świnię"
             },
+            discoveryToken: {},
             cardListTab: {
                 "inventions": "K. Pomysłów",
                 "mystery cards": "K. Tajemnic",
                 "items": "Przedmioty",
+            },
+            alerts: {
+                [ALERT_CODE.NOT_ENOUGH_MATERIALS_FOR_ACTION]: "Brakuje materiałów do wykonania tej akcji.",
+                [ALERT_CODE.NOT_ENOUGH_DETERMINATION_FOR_ABILITY]: "Brakuje punktów determinacji do użycia tej umiejętności."
+            },
+            pickObject: {
+                [ABILITY.RECONNAISSANCE]: {
+                    source: `$t(translation:ability.${ABILITY.RECONNAISSANCE}.name)`,
+                    description: "Wybierz kafelek, który zostanie umieszczony na wierzchu stosu.",
+                },
+                [ABILITY.SCOUTING]: {
+                    source: `$t(translation:ability.${ABILITY.SCOUTING}.name)`,
+                    description: "Dobierz token."
+                }
             },
             other: {
                 "sleeping under open sky": "sen pod gołym niebem",
@@ -484,7 +577,12 @@ export const resources = {
                 "description": "opis",
                 "mechanics": "budowa stosu",
                 "wood pile": "stos drewna",
-            }
+                "camp movement": "przeniesienie obozu",
+                "confirm": "zatwierdź",
+                "cancel": "anuluj",
+                "ability": "umiejętność"
+            },
+
         },
 
         logMessages: {
@@ -510,9 +608,9 @@ export const resources = {
             [LOG_CODE.BEAST_SHUFFLED_INTO_EVENT_DECK]: "Wtasowano bestię do talii wydarzeń.",
             [LOG_CODE.CONSTRUCTION_UPGRADED]: "Ulepszono $t(translation:construction.{{subject1}}, {\"context\": \"accusative\"}) do poziomu {{amount}}-ego.",
             [LOG_CODE.CONSTRUCTION_DOWNGRADED]: "Poziom $t(translation:construction.{{subject1}}, {\"context\": \"accusative\"}) spadł do poziomu {{amount}}-ego.",
-            [LOG_CODE.ITEM_GRANTED]: "Otrzymano $t(translation:item.{{subject1}}, {\"context\": \"accusative\"}).",
-            [LOG_CODE.CHARACTER_USED_TOKEN]: "$t(translation:character.{{subject1}}) użył $t(translation:discoveryToken.{{subject2}}, {\"context\": \"genitive\"}).",
-            [LOG_CODE.CHARACTER_USED_ABILITY]: "$t(translation:character.{{subject1}}) użył $t(translation:ability.{{subject2}}, {\"context\": \"genitive \"}).",
+            [LOG_CODE.ITEM_GRANTED]: "Otrzymano $t(translation:item.{{subject1}}, {\"context\"\: \"accusative\"}).",
+            [LOG_CODE.CHARACTER_USED_TOKEN]: "$t(translation:character.{{subject1}}) użył tokenu $t(translation:discoveryToken.{{subject2}}, {\"context\": \"genitive\"}).",
+            [LOG_CODE.CHARACTER_USED_ABILITY]: "$t(translation:character.{{subject1}}) użył $t(translation:ability.{{subject2}}.name, {\"context\": \"genitive\"}).",
             [LOG_CODE.CHARACTER_GOT_HURT]: "$t(translation:character).{{subject1}} otrzymał {{amount}} obrażeń.",
             [LOG_CODE.RESOURCE_BOOST_REMOVED]: "Źródło $t(translation:resource.{{subject1}}, {\"context\": \"genitive\"}) nie daje już dodatkowego surowca.",
             [LOG_CODE.RESOURCE_BOOST_ADDED]: "Źródło $t(translation:resource.{{subject1}}, {\"context\": \"genitive\"}) będzie dawać dodatkowy surowiec.",

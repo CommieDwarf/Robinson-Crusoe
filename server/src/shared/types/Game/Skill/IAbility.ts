@@ -11,7 +11,6 @@ export type SkillTarget = ICharacter | ActionDice | Cloud | null;
 
 export interface IAbility<Target extends SkillTarget> {
     name: ABILITY;
-    namePL: string;
     description: string;
     quote: string;
     phasesAllowed: Phase[] | "all";
@@ -27,7 +26,6 @@ export interface IAbility<Target extends SkillTarget> {
 
 export interface ISkillRenderData {
     name: string;
-    namePL: string;
     description: string;
     quote: string;
     phasesAllowed: Phase[] | "all";

@@ -7,9 +7,15 @@
     z-index: 2;
 }
 
+
 .cookMaleHead {
     right: 22%;
     top: 5%;
+}
+
+.explorerMaleHead {
+    right: 26%;
+    top: 0;
 }
 
 .cookMaleStomach {
@@ -17,12 +23,27 @@
     left: 6%;
 }
 
+.explorerMaleStomach {
+    top: 65%;
+    right: 10%;
+}
+
 .cookMaleArm {
     bottom: 13%;
     right: 5%;
 }
 
+.explorerMaleArm {
+    top: 30%;
+    left: 10%;
+}
+
 .cookMaleLeg {
     bottom: 2%;
     left: 7%;
+}
+
+.explorerMaleLeg {
+    bottom: 0;
+    left: 14%;
 }

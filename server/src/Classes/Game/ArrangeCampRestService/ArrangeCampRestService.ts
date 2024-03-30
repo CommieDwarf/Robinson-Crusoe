@@ -65,7 +65,7 @@ export class ArrangeCampRestService implements IArrangeCampRestService {
             characterService.heal(character, 1, logSource);
             this._game.equipmentService.useItem(ITEM.BIBLE)
         }
-        this._game.moraleService.lvlUp(1, character.namePL);
+        this._game.moraleService.lvlUp(1, character.name);
         characterService.incrDetermination(character, determination, logSource);
     }
 }
