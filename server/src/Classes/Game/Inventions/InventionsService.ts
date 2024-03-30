@@ -22,12 +22,15 @@ export class InventionsService implements IInventionService {
     private _tiles: ITileService;
     private readonly _game: IGame;
     fireplace: boolean = false;
+    private _inventionStack: IInvention[] = [];
+
 
     constructor(scenario: "castaways", tiles: ITileService, game: IGame) {
         this._game = game;
         this.scenario = scenario;
         this._tiles = tiles;
-        this._inventions = this.getInitialInventions(scenario);
+        this._inventionStack = this.initStack();
+        this._inventions = this.initInventions(scenario);
         this.updateLocks();
         this.sortInventions();
     }
@@ -50,16 +53,46 @@ export class InventionsService implements IInventionService {
         return this.getInvention(invention).isBuilt;
     }
 
-    private getInitialInventions(scenarioName: "castaways") {
+    public addInvention(invention: IInvention) {
+        this._inventions.push(invention);
+        this.updateLocks();
+        this.sortInventions();
+    }
+
+    public pickInventionsFromStack(amount: number) {
+        return this._inventionStack.slice(-amount);
+    }
+
+    public shuffleInventionStack() {
+        this._inventionStack = shuffle(this._inventionStack);
+    }
+
+
+    private initInventions(scenarioName: "castaways") {
         const starters = Object.values(INVENTION_STARTER);
-        const normal = shuffle(Object.values(INVENTION_NORMAL))
+        const normal = this.popInventionsFromStack(5);
         const scenario = Object.values(INVENTION_CASTAWAYS);
         const creator = new InventionCreator(this._game);
         const personal = INVENTION_PERSONAL.FIREPLACE;
 
-        return [...starters, ...normal, ...scenario, personal].map((invention) =>
+        return [...normal, ...[...starters, ...scenario, personal].map((invention) =>
             creator.create(invention)
-        );
+        )];
+    }
+
+    private initStack(): IInvention[] {
+        const creator = new InventionCreator(this._game);
+        return shuffle(Object.values(INVENTION_NORMAL)).map((invention) => {
+            return creator.create(invention);
+        })
+    }
+
+    private popInventionsFromStack(amount: number) {
+        let popped: (IInvention | undefined)[] = [];
+        for (let i = 0; i < amount; i++) {
+            popped.push(this._inventionStack.pop());
+        }
+        return popped.filter((obj) => obj !== undefined) as IInvention[];
     }
 
     build(name: INVENTION, builder: ICharacter) {
@@ -106,7 +139,7 @@ export class InventionsService implements IInventionService {
         });
     }
 
-    public useInvention(name: string): void {
+    public useInvention(name: INVENTION): void {
         const char = this._game.localPlayer.getCharacter();
         this.getInvention(name).use(char);
     }
@@ -140,8 +173,11 @@ export class InventionsService implements IInventionService {
     }
 
 
-    getInvention(name: string): IInvention {
-        const invention = this._inventions.find((inv) => inv.name === name);
+    getInvention(name: INVENTION): IInvention {
+        let invention = this._inventions.find((inv) => inv.name === name);
+        if (!invention) {
+            invention = this._inventionStack.find((inv) => inv.name === name);
+        }
         if (!invention) {
             throw new Error("Can find invention with specific name: " + name);
         }

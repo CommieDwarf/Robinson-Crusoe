@@ -21,7 +21,7 @@ export class Session implements SessionData {
 
     private _id = uuid();
 
-    private _characters: CHARACTER[] = [CHARACTER.COOK, CHARACTER.EXPLORER];
+    private _characters: CHARACTER[] = Object.values(CHARACTER);
 
     private readonly _mode: GAME_SESSION_MODE;
 
@@ -56,7 +56,7 @@ export class Session implements SessionData {
         const player = new Player(user);
         this._players.push(player);
         this.assignColor(user._id, this.findAvailableColor());
-        this.assignCharacter(user._id, CHARACTER.EXPLORER);
+        this.assignCharacter(user._id, CHARACTER.CARPENTER);
     }
 
 
@@ -79,7 +79,9 @@ export class Session implements SessionData {
 
     public assignCharacter(userId: string, character: CHARACTER) {
         if (!this.isCharacterTaken(character)) {
-            this.getPlayer(userId).assignCharacter(character);
+            this.getPlayer(userId).assignCharacter({char: character, gender: "male"});
+        } else {
+            throw new Error(`Character ${character} is taken!`);
         }
     }
 
@@ -114,6 +116,6 @@ export class Session implements SessionData {
     }
 
     private isCharacterTaken(character: CHARACTER) {
-        return this._players.some((player) => player.getCharacter)
+        return this._players.some((player) => player.assignedCharacter?.char === character)
     }
 }

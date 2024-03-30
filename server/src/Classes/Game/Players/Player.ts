@@ -3,13 +3,15 @@ import {IPlayer, IPlayerRenderData} from "@shared/types/Game/PlayerService/Playe
 import {IUser} from "../../../types/UserData/IUser";
 import {PAWN_COLOR} from "@shared/types/Game/PAWN_COLOR";
 import {uuid} from "uuidv4";
-import {CHARACTER} from "@shared/types/Game/Characters/Character";
+import {CHARACTER, Gender} from "@shared/types/Game/Characters/Character";
 import {IGame} from "@shared/types/Game/Game";
-import {Cook} from "../CharacterService/Characters/Cook";
 import {Explorer} from "../CharacterService/Characters/Explorer";
+import {Cook} from "../CharacterService/Characters/Cook";
+import {Carpenter} from "../CharacterService/Characters/Carpenter";
 
 
 export class Player implements IPlayer {
+
 
     private readonly _username: string;
     private _color: PAWN_COLOR | null = null;
@@ -17,7 +19,7 @@ export class Player implements IPlayer {
     private readonly _user: IUser;
     private readonly _id = uuid();
 
-    private assignedCharacter: CHARACTER | null = null;
+    private _assignedCharacter: { char: CHARACTER, gender: Gender } | null = null;
 
 
     constructor(user: IUser) {
@@ -42,6 +44,10 @@ export class Player implements IPlayer {
         return this._color;
     }
 
+    get assignedCharacter(): { char: CHARACTER; gender: Gender } | null {
+        return this._assignedCharacter;
+    }
+
     get character(): IPlayerCharacter | null {
         return this._character;
     }
@@ -58,12 +64,23 @@ export class Player implements IPlayer {
         this._color = color;
     }
 
-    assignCharacter(character: CHARACTER) {
-        this.assignedCharacter = character;
+    assignCharacter(character: { char: CHARACTER, gender: Gender }) {
+        this._assignedCharacter = character;
     }
 
     initCharacter(game: IGame): void {
-        this._character = new Explorer("male", game, this);
+        switch (this._assignedCharacter?.char) {
+            case CHARACTER.COOK:
+                this._character = new Cook(this._assignedCharacter.gender, game, this);
+                break;
+            case CHARACTER.EXPLORER:
+                this._character = new Explorer(this._assignedCharacter.gender, game, this);
+                break;
+            case CHARACTER.CARPENTER:
+                console.log("CARPENTER")
+                this._character = new Carpenter(this._assignedCharacter.gender, game, this);
+                break
+        }
     }
 
 

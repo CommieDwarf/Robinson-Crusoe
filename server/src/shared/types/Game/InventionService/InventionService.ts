@@ -1,4 +1,4 @@
-import {IInvention, IInventionRenderData, INVENTION} from "./Invention";
+import {IInvention, IInventionRenderData, INVENTION, INVENTION_NORMAL} from "./Invention";
 import {ICharacter} from "../Characters/Character";
 
 export interface IInventionServiceRenderData {
@@ -13,14 +13,19 @@ export interface IInventionService {
     destroy: (invention: INVENTION) => void;
     updateLocks: () => void;
     getInvention: (invention: INVENTION) => IInvention;
+
+    shuffleInventionStack: () => void;
     fireplace: boolean;
     isBuilt: (invention: INVENTION) => boolean;
 
-    useInvention: (name: string) => void;
+    addInvention: (invention: IInvention) => void;
 
+    useInvention: (name: INVENTION) => void;
+    pickInventionsFromStack: (amount: number) => IInvention[];
     resetCardPawns: () => void;
 
     onMapExplore: () => void;
+
 
     renderData: IInventionServiceRenderData;
 }

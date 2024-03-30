@@ -35,12 +35,13 @@ export interface ICharacter extends PawnOwner<IPlayerCharacterRenderData | ISide
     decrDetermination: (by: number) => void;
     hurt: (by: number) => void;
     heal: (by: number) => void;
-
 }
 
 export enum CHARACTER {
     COOK = "cook",
     EXPLORER = "explorer",
+    CARPENTER = "carpenter",
+    SOLDIER = "solder",
     DOG = "dog",
     FRIDAY = "friday",
 }

@@ -1,4 +1,4 @@
-import {Ability} from "../Skill/Ability";
+import {Ability} from "../Ability/Ability";
 import {IGame} from "@shared/types/Game/Game";
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 import {IAbility} from "@shared/types/Game/Skill/IAbility";

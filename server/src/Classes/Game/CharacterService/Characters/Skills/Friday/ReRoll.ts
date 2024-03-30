@@ -1,4 +1,4 @@
-import {Ability} from "../Skill/Ability";
+import {Ability} from "../Ability/Ability";
 import {PHASE} from "@shared/types/Game/PhaseService/Phase";
 import {ISideCharacter} from "@shared/types/Game/Characters/SideCharacter";
 import {ACTION} from "@shared/types/Game/ACTION";

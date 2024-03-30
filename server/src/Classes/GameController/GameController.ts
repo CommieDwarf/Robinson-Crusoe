@@ -9,6 +9,7 @@ import {IGame} from "@shared/types/Game/Game";
 import {ActionHandler, BaseController, GameControllerInterface} from "../../types/GameController/Controllers";
 import {CONTROLLER_ACTION, OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {ACTION} from "@shared/types/Game/ACTION";
+import {INVENTION} from "@shared/types/Game/InventionService/Invention";
 
 export enum STORAGE_ACTION {
     WITHDRAW = "withdraw",
@@ -107,7 +108,7 @@ export class GameController implements GameControllerInterface, BaseController {
         this._game.constructionService.switchCommittedResources(construction);
     }
 
-    private useInvention(player: IPlayer, inventionName: string): void {
+    private useInvention(player: IPlayer, inventionName: INVENTION): void {
         this._game.inventionService.useInvention(inventionName);
     }
 

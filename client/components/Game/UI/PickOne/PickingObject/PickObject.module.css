@@ -2,7 +2,6 @@
     position: relative;
     width: 100px;
     border-radius: 5px;
-    height: 100px;
     cursor: pointer;
 }
 
@@ -13,4 +12,20 @@
 
 .containerSelected {
     background-color: var(--explore);
+}
+
+.tileType, .token {
+    aspect-ratio: 1;
+}
+
+.invention {
+    aspect-ratio: var(--cardAspectRatio);
+}
+
+.invention > div {
+    width: 95%;
+    height: 95%;
+    top: 2.5%;
+    margin: auto;
+    aspect-ratio: var(--cardAspectRatio);
 }

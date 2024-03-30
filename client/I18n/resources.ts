@@ -21,6 +21,8 @@ export const resources = {
                 cook: "kucharz",
                 cook_female: "kucharka",
                 explorer: "odkrywca",
+                carpenter: "cieśla",
+                soldier: "żołnierz",
                 friday: "piętaszek",
                 dog: "pies",
             },
@@ -110,7 +112,7 @@ export const resources = {
                 [ABILITY.A_NEW_IDEA]: {
                     name: "Nowy pomysł",
                     name_genitive: "Nowego pomysłu",
-                    description: "Odrzuć 3 \$determinaton\$, aby pociągnąć 5 kart z talii Pomysłów i wybrać1 z nich.",
+                    description: "Odrzuć 3 \$determination\$, aby pociągnąć 5 kart z talii Pomysłów i wybrać1 z nich.",
                     comment: "Zdaje się, że wiem, jak ulepszyć nasze obozowisko…"
                 },
                 [ABILITY.HANDYMAN]: {
@@ -561,6 +563,10 @@ export const resources = {
                 [ABILITY.SCOUTING]: {
                     source: `$t(translation:ability.${ABILITY.SCOUTING}.name)`,
                     description: "Dobierz token."
+                },
+                [ABILITY.A_NEW_IDEA]: {
+                    source: `$t(translation:ability.${ABILITY.A_NEW_IDEA}.name)`,
+                    description: "Dobierz kartę pomysłu."
                 }
             },
             other: {
