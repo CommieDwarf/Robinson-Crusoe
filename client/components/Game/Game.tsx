@@ -48,7 +48,7 @@ import {MysteryCardDraw} from "./UI/MysteryCardDraw/MysteryCardDraw";
 import {MenuButton} from "./UI/MenuButton/MenuButton";
 import {socket, socketEmitter} from "../../pages/_app";
 import {alertUpdated} from "../../reduxSlices/alert";
-import {ALERT_CODE} from "../../types/Alert/ALERT_CODE";
+import {ALERT_CODE} from "@shared/types/ALERT_CODE";
 import {PickOne} from "./UI/PickOne/PickOne";
 
 

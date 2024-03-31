@@ -8,17 +8,19 @@ const icons = [
     "snow-cloud",
     "food",
     "discovery",
-    "wood"
+    "wood",
+    "weapon",
+    "palisade",
 ];
 
-export function insertIconsIntoText(string: string, className: string) {
+export function insertIconsIntoText(string: string, elementClassName: string) {
     const array = string.split("$");
 
 
     return array.map((str, i) => {
         if (icons.includes(str)) {
             return (
-                <div key={i} className={className}>
+                <div key={i} className={elementClassName}>
                     <ResizableImage
                         src={`/UI/icons/${str}.png`}
                         alt={str}

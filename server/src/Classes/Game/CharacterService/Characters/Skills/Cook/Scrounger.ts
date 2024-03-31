@@ -13,8 +13,6 @@ export class Scrounger extends Ability implements IAbility<ActionDice> {
     constructor(game: IGame, character: IPlayerCharacter) {
         super(
             ABILITY.SCROUNGER,
-            scrounger.description,
-            scrounger.quote,
             [PHASE.ACTION],
             ACTION.GATHER,
             2,
@@ -24,6 +22,9 @@ export class Scrounger extends Ability implements IAbility<ActionDice> {
     }
 
     use(target: ActionDice) {
+        if (!target) {
+            throw new Error("this error requires target")
+        }
         if (this._game.actionService.action !== ACTION.GATHER) {
             this._game.alertService.setAlert(
                 "Tej umiejętności można użyć tylko na kostkach zbierania"

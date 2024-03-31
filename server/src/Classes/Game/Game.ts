@@ -274,6 +274,7 @@ export class GameClass implements IGame {
                                                         source: string,
                                                         pickSubject: PickSubject,
                                                         pickEffect: (object: T) => void,
+                                                        secondaryEffect?: (object: T) => void,
     ) {
         this._objectPickers.push(new ObjectPicker<T>(
             this,
@@ -282,14 +283,17 @@ export class GameClass implements IGame {
             amount,
             source,
             pickSubject,
-            pickEffect));
+            pickEffect,
+            secondaryEffect));
     }
 
-    public pickObjects(pickerId: string, objectIds: string[]) {
+    public pickObjects(pickerId: string, objectIds: string[], secondaryEffect: boolean) {
         const objPicker = this._objectPickers.find((objectPicker) => objectPicker.id === pickerId)
         if (objPicker) {
-            objPicker.pick(objectIds);
+            objPicker.pick(objectIds, secondaryEffect);
             this._objectPickers = this._objectPickers.filter((objPicker) => pickerId !== objPicker.id);
+        } else {
+            throw new Error("objPicker is missing")
         }
     }
 

@@ -111,9 +111,11 @@ export interface IGame {
                                                     amount: number,
                                                     source: string,
                                                     pickSubject: PickSubject,
-                                                    pickEffect: (object: T) => void) => void;
+                                                    pickEffect: (object: T) => void,
+                                                    secondaryEffect?: (object: T) => void
+    ) => void,
 
-    pickObjects: (objectPickerId: string, objectIds: string[]) => void;
+    pickObjects: (objectPickerId: string, objectIds: string[], secondary: boolean) => void;
     renderData: IGameRenderData;
 }
 

@@ -78,12 +78,12 @@ export default function Character(props: Props) {
     })
 
     const {t} = useTranslation();
-
-    const charImgName = kebabCase(`${props.character.name} ${props.character.gender}`)
-    const droppableId = getOwnedDroppableId(props.character.name, "character")
+    const charWrapperClass = styles[props.character.name + capitalize(props.character.gender) + "WrapperPic"];
+    const charImgName = kebabCase(`${props.character.name} ${props.character.gender}`);
+    const droppableId = getOwnedDroppableId(props.character.name, "character");
     return (
         <div className={styles.container + " " + zIndexClass} ref={containerRef}>
-            <div className={styles.characterPictureWrapper}>
+            <div className={`${styles.characterPictureWrapper} ${charWrapperClass}`}>
                 <div className={styles.characterPicture}>
                     {wounds}
                     <ResizableImage

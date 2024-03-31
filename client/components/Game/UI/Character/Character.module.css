@@ -25,13 +25,17 @@
     justify-content: center;
 }
 
+.explorerFemaleWrapperPic, .soldierMaleWrapperPic {
+    top: 8%;
+}
+
+
 .characterPicture {
     height: 120%;
     top: -20%;
     aspect-ratio: 1;
     position: absolute;
 }
-
 
 .rightTop {
     width: 100%;

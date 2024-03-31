@@ -12,7 +12,7 @@ import {AbilityArgMap} from "@shared/types/Game/Skill/AbilityArgMap";
 import {CHARACTER} from "@shared/types/Game/Characters/Character";
 import {useAppDispatch} from "../../../../../store/hooks";
 import {alertUpdated} from "../../../../../reduxSlices/alert";
-import {ALERT_CODE} from "../../../../../types/Alert/ALERT_CODE";
+import {ALERT_CODE} from "@shared/types/ALERT_CODE";
 import {useTranslation} from "react-i18next";
 import {capitalize} from "lodash";
 import {socketEmitter} from "../../../../../pages/_app";

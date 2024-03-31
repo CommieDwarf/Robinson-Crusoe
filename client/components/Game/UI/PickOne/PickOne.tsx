@@ -7,6 +7,7 @@ import {useTranslation} from "react-i18next";
 import {capitalize} from "lodash";
 import {socketEmitter} from "../../../../pages/_app";
 import {OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
+import {insertIconsIntoText} from "../../../../utils/insertIconsIntoText";
 
 interface Props {
     objectPicker: IObjectPickerRenderData<any>;
@@ -14,7 +15,7 @@ interface Props {
 
 export function PickOne(props: Props) {
     const [selectedObjectIds, setSelectedObjectIds] = useState<string[]>([]);
-    const {picker, amount, objects, source, pickSubject} = props.objectPicker;
+    const {amount, objects, source, pickSubject, hasSecondEffect} = props.objectPicker;
 
 
     function selectObject(id: string) {
@@ -23,7 +24,6 @@ export function PickOne(props: Props) {
         } else {
             setSelectedObjectIds((prev) => [...prev, id])
         }
-
     }
 
     function unselectObject(id: string) {
@@ -31,11 +31,20 @@ export function PickOne(props: Props) {
     }
 
     function handleConfirmClick() {
+        pickObject(false);
+    }
+
+    function pickObject(secondary: boolean) {
         if (selectedObjectIds.length === amount) {
-            socketEmitter.emitAction(OTHER_CONTROLLER_ACTION.PICK_OBJECT, props.objectPicker.id, selectedObjectIds);
+            socketEmitter.emitAction(OTHER_CONTROLLER_ACTION.PICK_OBJECT, props.objectPicker.id, selectedObjectIds, true);
         }
     }
 
+    function handleSecondaryClick() {
+        pickObject(true);
+    }
+
+    console.log(props.objectPicker.objects, "there should be a beast");
 
     const {t} = useTranslation();
 
@@ -61,13 +70,23 @@ export function PickOne(props: Props) {
                             pickObject={obj} key={index}
                             selectObject={selectObject}
                             selected={selectedObjectIds.includes(obj.id)}
+                            selectable={amount !== 0}
                         />
                     })}
                 </div>
                 <div className={styles.buttons}>
                     <div className={`${styles.button} ${styles.buttonConfirm}`}
-                         onClick={handleConfirmClick}>{capitalize(t("other.confirm"))}</div>
-                    <div className={`${styles.button} ${styles.buttonCancel}`}>{capitalize(t("other.cancel"))}</div>
+                         onClick={handleConfirmClick}>
+
+                        {insertIconsIntoText(capitalize(t(`pickObject.${source}.effectLabel`, {defaultValue: t(`pickObject.other.confirm`)})), styles.icon)}
+
+                    </div>
+                    {hasSecondEffect && <div className={`${styles.button} ${styles.buttonConfirm}`}
+                                             onClick={handleSecondaryClick}>
+                        {/*@ts-ignore*/}
+                        {insertIconsIntoText(capitalize(t(`pickObject.${source}.secondaryEffectLabel`)), styles.icon)}
+                    </div>}
+
                 </div>
             </div>
         </Draggable>

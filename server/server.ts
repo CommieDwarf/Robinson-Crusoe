@@ -10,6 +10,7 @@ import {
     GameInstanceSentPayload, IsGameInProgressResponsePayload,
     PlayerActionPayload
 } from "./src/shared/types/Requests/Socket";
+import {ForbiddenPlayerAction} from "./src/Errors/ForbiddenPlayerAction";
 
 const passport = require("passport");
 const {Socket} = require("socket.io");
@@ -231,7 +232,11 @@ io.on("connection", (socket: typeof Socket) => {
             }
             socket.emit("game_instance_sent", payload);
         } catch (e) {
-            console.error(e);
+            if (e instanceof ForbiddenPlayerAction) {
+                socket.emit("alert_sent", {message: e.message});
+            } else {
+                console.error(e);
+            }
         }
 
     })

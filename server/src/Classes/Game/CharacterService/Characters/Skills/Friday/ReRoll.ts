@@ -14,8 +14,6 @@ export class ReRoll extends Ability implements IAbility<ActionDice> {
     constructor(game: IGame, character: ISideCharacter) {
         super(
             ABILITY.FRIDAYS_ABILITY,
-            "Przerzut dowolnej kości akcji",
-            "",
             [PHASE.ACTION],
             null,
             2,

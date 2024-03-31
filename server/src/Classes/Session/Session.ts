@@ -8,7 +8,7 @@ import {GAME_SESSION_MODE, SessionData} from "../../types/Session/Session";
 import {PAWN_COLOR} from "@shared/types/Game/PAWN_COLOR";
 import {uuid} from "uuidv4";
 import {CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
-import {CHARACTER} from "@shared/types/Game/Characters/Character";
+import {CHARACTER, Gender} from "@shared/types/Game/Characters/Character";
 
 
 export class Session implements SessionData {
@@ -56,7 +56,7 @@ export class Session implements SessionData {
         const player = new Player(user);
         this._players.push(player);
         this.assignColor(user._id, this.findAvailableColor());
-        this.assignCharacter(user._id, CHARACTER.CARPENTER);
+        this.assignCharacter(user._id, CHARACTER.SOLDIER, "male");
     }
 
 
@@ -77,9 +77,9 @@ export class Session implements SessionData {
         }
     }
 
-    public assignCharacter(userId: string, character: CHARACTER) {
+    public assignCharacter(userId: string, character: CHARACTER, gender: Gender) {
         if (!this.isCharacterTaken(character)) {
-            this.getPlayer(userId).assignCharacter({char: character, gender: "male"});
+            this.getPlayer(userId).assignCharacter({char: character, gender});
         } else {
             throw new Error(`Character ${character} is taken!`);
         }

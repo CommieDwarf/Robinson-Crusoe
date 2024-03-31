@@ -8,22 +8,22 @@ export interface IConstructionService {
     constructions: IConstruction[];
     lvlUpConstruction: (
         construction: CONSTRUCTION,
-        by: number,
+        amount: number,
         logSource: string
     ) => void;
     lvlDownConstruction: (
         construction: CONSTRUCTION,
-        by: number,
+        amount: number,
         logSource: string
     ) => void;
     lvlDownOrGetHurt: (
         construction: CONSTRUCTION,
-        by: number,
+        amount: number,
         logSource: string
     ) => void;
     lvlDownIfPossible: (
         construction: CONSTRUCTION,
-        by: number,
+        amount: number,
         logSource: string
     ) => void;
     setDividedLvlByTwoRoundedDown: (construction: CONSTRUCTION, sourceLog: string) => void;

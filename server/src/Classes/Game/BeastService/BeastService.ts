@@ -7,6 +7,7 @@ import {TREASURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_C
 import {ICharacter} from "@shared/types/Game/Characters/Character";
 import {LOG_CODE} from "@shared/types/Game/ChatLog/LOG_CODE";
 import {ACTION} from "@shared/types/Game/ACTION";
+import {isPlayerCharacter} from "@shared/utils/typeGuards/isPlayerCharacter";
 
 export class BeastService implements IBeastService {
     private _deck: IBeast[] = [];
@@ -76,28 +77,13 @@ export class BeastService implements IBeastService {
         return beasts;
     }
 
-    fightBeast(leader: ICharacter, beast: IBeast) {
-        const modifiedStrength = this.getStrengthWithModifiers(beast);
-        const weapon = this._game.constructionService.getConstruction(CONSTRUCTION.WEAPON);
-        const weaponLvl = weapon.boostedLvl;
-        const diff = weaponLvl - modifiedStrength;
-        this._game.logService.addMessage({
-            code: LOG_CODE.BEAST_GOT_HUNTED,
-            subject1: "",
-            subject2: "",
-            amount: 1,
-        }, "positive", ACTION.HUNT);
-        if (diff < 0) {
-            this._game.characterService.hurt(leader, Math.abs(diff), ACTION.HUNT);
-        }
-        this._game.constructionService.lvlDownOrGetHurt(CONSTRUCTION.WEAPON, beast.weaponLoss, ACTION.HUNT);
+    public fightBeast(leader: ICharacter, beast: IBeast) {
+        const strengthDiff = this.calcStrengthDiff(leader, beast)
+        this.logBeastGotHunted();
+        this.applyHuntEffects(strengthDiff, leader, beast);
         beast.applySpecialEffect();
-        if (this._game.phaseService.phase === "action") {
-            this._game.resourceService.addBasicResourcesToFuture(beast.reward, ACTION.HUNT);
-        } else {
-            this._game.resourceService.addBasicResourcesToOwned(beast.reward);
-        }
-        weapon.resetTemporaryBoost();
+        this.addHuntReward(beast);
+        this.resetWeaponBoosts(leader);
     }
 
     fightCustomBeast(leader: ICharacter, beastStats: BeastStats) {
@@ -116,6 +102,52 @@ export class BeastService implements IBeastService {
         });
 
         return current;
+    }
+
+    private resetWeaponBoosts(hunter: ICharacter) {
+        this._game.constructionService.getConstruction(CONSTRUCTION.WEAPON).resetTemporaryBoost();
+        if (isPlayerCharacter(hunter)) {
+            hunter.weaponBoost = 0;
+        }
+    }
+
+    private addHuntReward(beast: IBeast) {
+        if (this._game.phaseService.phase === "action") {
+            this._game.resourceService.addBasicResourcesToFuture(beast.reward, ACTION.HUNT);
+        } else {
+            this._game.resourceService.addBasicResourcesToOwned(beast.reward);
+        }
+    }
+
+    private applyHuntEffects(strengthDiff: number, hunter: ICharacter, beast: IBeast) {
+        if (strengthDiff < 0) {
+            this._game.characterService.hurt(hunter, Math.abs(strengthDiff), ACTION.HUNT);
+        }
+        this._game.constructionService.lvlDownOrGetHurt(CONSTRUCTION.WEAPON, beast.weaponLoss, ACTION.HUNT);
+    }
+
+    private calcStrengthDiff(hunter: ICharacter, beast: IBeast) {
+        const beastStrength = this.getStrengthWithModifiers(beast);
+        const weaponStrength = this.calculateWeaponStrength(hunter);
+        return weaponStrength - beastStrength;
+    }
+
+    private logBeastGotHunted() {
+        this._game.logService.addMessage({
+            code: LOG_CODE.BEAST_GOT_HUNTED,
+            subject1: "",
+            subject2: "",
+            amount: 1,
+        }, "positive", ACTION.HUNT);
+    }
+
+    private calculateWeaponStrength(hunter: ICharacter) {
+        const weapon = this._game.constructionService.getConstruction(CONSTRUCTION.WEAPON);
+        let weaponLvl = weapon.boostedLvl;
+        if (isPlayerCharacter(hunter)) {
+            weaponLvl += hunter.weaponBoost;
+        }
+        return weaponLvl;
     }
 
 

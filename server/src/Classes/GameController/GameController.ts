@@ -46,11 +46,13 @@ export class GameController implements GameControllerInterface, BaseController {
     }
 
     private testStuff() {
+        const char = this._game.localPlayer.getCharacter();
         this._game.localPlayer.getCharacter().incrDetermination(10);
         this._game.localPlayer.getCharacter().setWound("head", ACTION.EXPLORE, "xD");
         this._game.localPlayer.getCharacter().setWound("stomach", ACTION.GATHER, "AA");
         this._game.localPlayer.getCharacter().setWound("arm", ACTION.BUILD, "AA");
         this._game.localPlayer.getCharacter().setWound("leg", ACTION.EXPLORE, "AA");
+        this._game.constructionService.lvlUpConstruction(CONSTRUCTION.SHELTER, 1, "dasedas")
     }
 
     private initActionHandlers() {
@@ -120,7 +122,7 @@ export class GameController implements GameControllerInterface, BaseController {
         this._game.tokenService.useToken(tokenId, player.getCharacter().name);
     }
 
-    private pickObject(player: IPlayer, objPickerId: string, objectIds: string[]): void {
-        this._game.pickObjects(objPickerId, objectIds);
+    private pickObject(player: IPlayer, objPickerId: string, objectIds: string[], secondaryEffect: boolean): void {
+        this._game.pickObjects(objPickerId, objectIds, secondaryEffect);
     }
 }

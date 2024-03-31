@@ -12,8 +12,6 @@ export class Hooch extends Ability implements IAbility<Cloud> {
     constructor(game: IGame, character: IPlayerCharacter) {
         super(
             ABILITY.HOOCH,
-            hooch.description,
-            hooch.quote,
             [PHASE.WEATHER],
             null,
             3,
@@ -23,6 +21,9 @@ export class Hooch extends Ability implements IAbility<Cloud> {
     }
 
     use(target: Cloud) {
+        if (!target) {
+            throw new Error("this ability required target")
+        }
         if (target === "rain") {
             this._game.weatherService.incrementModifier(target, -1, this._name);
         } else {

@@ -10,6 +10,7 @@ interface Props {
     pickObject: PickableRenderData<PickableObject>,
     selectObject: (id: string) => void;
     selected: boolean;
+    selectable: boolean;
 }
 
 export function PickObject(props: Props) {
@@ -38,11 +39,23 @@ export function PickObject(props: Props) {
 
 
     function handleClick() {
+        if (!props.selectable) {
+            return;
+        }
         props.selectObject(props.pickObject.id)
     }
 
+    const aspectRatio = props.pickSubject === "token" || props.pickSubject === "tileType" ? "square" : "card";
+
+
     return <div
-        className={`${styles.container} ${props.selected && styles.containerSelected} ${styles[props.pickSubject]}`}
+        className={`
+            ${styles.container}
+            ${props.selectable && styles.containerSelectable}
+            ${props.selected && styles.containerSelected}
+            ${styles[props.pickSubject]}
+            ${aspectRatio === "card" && styles.card}
+             `}
         onClick={handleClick}
     >
         <ResizableImage src={imgUrlPath} alt={"dd"} fill/>

@@ -21,6 +21,8 @@ export interface IPlayerCharacter extends ICharacter {
     shouldMoraleDrop: boolean;
     skills: IAbility<any>[];
 
+    weaponBoost: number;
+
     wounds: Wounds;
 
     setWound: (part: keyof Wounds, action: AdventureAction, source: string) => void;
@@ -35,4 +37,5 @@ export interface IPlayerCharacterRenderData extends ICharacterRenderData {
     moraleThresholdsRemoved: number[];
     skills: ISkillRenderData[];
     wounds: Wounds;
+    weaponBoost: number;
 }

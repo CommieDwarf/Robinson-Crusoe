@@ -29,6 +29,7 @@ export abstract class PlayerCharacter
     protected _pawnService: IPawnService<IPlayerCharacter>
     protected declare _name: PlayerCharacterName;
     protected declare _skills: IAbility<any>[];
+    private _weaponBoost = 0;
 
     protected _wounds: Wounds = {
         head: [],
@@ -72,6 +73,7 @@ export abstract class PlayerCharacter
             skills: this._skills.map((skill) => skill.renderData),
             moraleThresholdsRemoved: this._moraleThresholdsRemoved,
             wounds: this._wounds,
+            weaponBoost: this._weaponBoost
         }
 
     }
@@ -124,6 +126,14 @@ export abstract class PlayerCharacter
 
     get shouldMoraleDrop(): boolean {
         return this._moraleThresholds.includes(this.health);
+    }
+
+    get weaponBoost(): number {
+        return this._weaponBoost;
+    }
+
+    set weaponBoost(value: number) {
+        this._weaponBoost = value;
     }
 
     // ---------------------------------------------

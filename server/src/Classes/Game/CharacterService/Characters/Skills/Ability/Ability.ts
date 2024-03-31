@@ -1,4 +1,4 @@
-import {AdventureAction} from "@shared/types/Game/ACTION";
+import {ACTION, AdventureAction} from "@shared/types/Game/ACTION";
 import {IGame} from "@shared/types/Game/Game";
 import {IAbility} from "@shared/types/Game/Skill/IAbility";
 import {ActionDice} from "@shared/types/Game/RollDice/RollDice";
@@ -8,14 +8,13 @@ import {ICharacter} from "@shared/types/Game/Characters/Character";
 import {phaseOrder} from "@shared/constants/phaseOrder";
 import {LOG_CODE} from "@shared/types/Game/ChatLog/LOG_CODE";
 import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
+import {PHASE} from "@shared/types/Game/PhaseService/Phase";
 
-export abstract class Ability implements IAbility<ICharacter> {
+export abstract class Ability implements IAbility<any> {
     protected readonly _name: ABILITY;
-    protected readonly _description: string;
-    protected readonly _quote: string;
 
     protected readonly _phasesAllowed: Phase[];
-    protected readonly _actionAllowed: AdventureAction | null;
+    protected readonly _actionAllowed: ACTION | null;
     protected readonly _game: IGame;
 
     protected _lastRoundUsed = 0;
@@ -25,17 +24,13 @@ export abstract class Ability implements IAbility<ICharacter> {
 
     protected constructor(
         name: ABILITY,
-        description: string,
-        quote: string,
         phasesAllowed: Phase[] | "all",
-        actionAllowed: AdventureAction | null,
+        actionAllowed: ACTION | null,
         cost: number,
         game: IGame,
         character: ICharacter,
     ) {
         this._name = name;
-        this._description = description;
-        this._quote = quote;
         if (phasesAllowed === "all") {
             this._phasesAllowed = [...phaseOrder];
         } else {
@@ -50,8 +45,6 @@ export abstract class Ability implements IAbility<ICharacter> {
     get renderData() {
         return {
             name: this._name,
-            description: this._description,
-            quote: this._quote,
             phasesAllowed: this._phasesAllowed,
             actionAllowed: this._actionAllowed,
             usedInThisRound: this.usedInThisRound,
@@ -64,23 +57,15 @@ export abstract class Ability implements IAbility<ICharacter> {
         return this._name;
     }
 
-    get description(): string {
-        return this._description;
-    }
-
     get cost(): number {
         return this._cost;
-    }
-
-    get quote(): string {
-        return this._quote;
     }
 
     get phasesAllowed(): Phase[] {
         return this._phasesAllowed;
     }
 
-    get actionAllowed(): AdventureAction | null {
+    get actionAllowed(): ACTION | null {
         return this._actionAllowed;
     }
 
@@ -96,7 +81,7 @@ export abstract class Ability implements IAbility<ICharacter> {
         )
     }
 
-    public use(target: ICharacter | ActionDice | Cloud | null) {
+    public use(target: any) {
         this.updateLastRoundUsed();
         this._character.decrDetermination(this.cost);
         this.addLogMsg(this._character.name);

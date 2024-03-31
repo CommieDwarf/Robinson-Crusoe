@@ -16,6 +16,8 @@ import {batch} from "react-redux";
 import AuthGuard from "../../components/AuthGuard/AuthGuard";
 import {socket, socketEmitter} from "../_app";
 import {GameInstanceSentPayload, IsGameInProgressResponsePayload} from "@shared/types/Requests/Socket";
+import {ALERT_CODE} from "@shared/types/ALERT_CODE";
+import {alertUpdated} from "../../reduxSlices/alert";
 
 type Props = {};
 
@@ -27,6 +29,10 @@ function Play(props: Props) {
         socket.on("game_instance_sent", (payload: GameInstanceSentPayload) => {
             console.log("game instance sent!")
             updateGameRenderData(payload.gameRenderData);
+        });
+
+        socket.on("alert_sent", (payload: { message: ALERT_CODE }) => {
+            dispatch(alertUpdated(payload.message));
         })
         return () => {
             socket.off("game_instance_sent");

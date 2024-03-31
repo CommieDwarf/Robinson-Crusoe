@@ -75,7 +75,7 @@ export type UseDiscoveryTokenArgs = [tokenId: string, targetCharName: string];
 
 export type SetBibleUsageArgs = [actionId: string, value: boolean];
 
-export type PickObjectArgs = [objectPickerId: string, objectIds: string[]]
+export type PickObjectArgs = [objectPickerId: string, objectIds: string[], secondaryEffect: boolean]
 
 
 export interface ActionArgMap {

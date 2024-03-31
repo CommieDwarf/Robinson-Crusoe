@@ -8,6 +8,7 @@ import {IGame} from "@shared/types/Game/Game";
 import {Explorer} from "../CharacterService/Characters/Explorer";
 import {Cook} from "../CharacterService/Characters/Cook";
 import {Carpenter} from "../CharacterService/Characters/Carpenter";
+import {Soldier} from "../CharacterService/Characters/Soldier";
 
 
 export class Player implements IPlayer {
@@ -77,9 +78,10 @@ export class Player implements IPlayer {
                 this._character = new Explorer(this._assignedCharacter.gender, game, this);
                 break;
             case CHARACTER.CARPENTER:
-                console.log("CARPENTER")
                 this._character = new Carpenter(this._assignedCharacter.gender, game, this);
                 break
+            case CHARACTER.SOLDIER:
+                this._character = new Soldier(this._assignedCharacter.gender, game, this);
         }
     }
 

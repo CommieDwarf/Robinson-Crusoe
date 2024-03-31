@@ -41,7 +41,7 @@ export enum CHARACTER {
     COOK = "cook",
     EXPLORER = "explorer",
     CARPENTER = "carpenter",
-    SOLDIER = "solder",
+    SOLDIER = "soldier",
     DOG = "dog",
     FRIDAY = "friday",
 }

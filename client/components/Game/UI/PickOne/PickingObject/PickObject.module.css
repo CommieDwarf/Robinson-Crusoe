@@ -5,9 +5,9 @@
     cursor: pointer;
 }
 
-
-.container:hover {
+.containerSelectable:hover {
     background-color: var(--explore);
+
 }
 
 .containerSelected {
@@ -18,11 +18,11 @@
     aspect-ratio: 1;
 }
 
-.invention {
+.card {
     aspect-ratio: var(--cardAspectRatio);
 }
 
-.invention > div {
+.card > div {
     width: 95%;
     height: 95%;
     top: 2.5%;

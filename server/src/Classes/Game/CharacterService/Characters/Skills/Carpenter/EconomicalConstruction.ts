@@ -9,8 +9,6 @@ export class EconomicalConstruction extends Ability implements IAbility<any> {
 
     constructor(game: IGame, character: IPlayerCharacter) {
         super(ABILITY.ECONOMICAL_CONSTRUCTION,
-            "",
-            "",
             [PHASE.ACTION],
             null,
             2,

@@ -2,7 +2,6 @@ import {Ability} from "../Ability/Ability";
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 import {IGame} from "@shared/types/Game/Game";
 import {IAbility} from "@shared/types/Game/Skill/IAbility";
-import {stoneSoup} from "@shared/constants/SkillDescriptions/Cook";
 import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
 
 export class StoneSoup extends Ability implements IAbility<null> {
@@ -10,8 +9,6 @@ export class StoneSoup extends Ability implements IAbility<null> {
     constructor(game: IGame, character: IPlayerCharacter) {
         super(
             ABILITY.STONE_SOUP,
-            stoneSoup.description,
-            stoneSoup.quote,
             "all",
             null,
             3,
@@ -20,7 +17,7 @@ export class StoneSoup extends Ability implements IAbility<null> {
         );
     }
 
-    use(target: null) {
+    use() {
         if (this._game.phaseService.phase === "action") {
             this._game.resourceService.addBasicResourceToFuture(
                 "food",
@@ -34,6 +31,6 @@ export class StoneSoup extends Ability implements IAbility<null> {
                 this._name
             );
         }
-        super.use(target);
+        super.use(null);
     }
 }

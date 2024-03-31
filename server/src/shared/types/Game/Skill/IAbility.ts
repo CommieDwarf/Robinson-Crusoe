@@ -1,4 +1,4 @@
-import {AdventureAction} from "../ACTION";
+import {ACTION, AdventureAction} from "../ACTION";
 import {ActionDice} from "../RollDice/RollDice";
 import {Phase} from "../PhaseService/PhaseService";
 import {Cloud} from "../Weather/Weather";
@@ -11,10 +11,8 @@ export type SkillTarget = ICharacter | ActionDice | Cloud | null;
 
 export interface IAbility<Target extends SkillTarget> {
     name: ABILITY;
-    description: string;
-    quote: string;
     phasesAllowed: Phase[] | "all";
-    actionAllowed: AdventureAction | null;
+    actionAllowed: ACTION | null;
 
     usedInThisRound: boolean;
 
@@ -26,10 +24,8 @@ export interface IAbility<Target extends SkillTarget> {
 
 export interface ISkillRenderData {
     name: string;
-    description: string;
-    quote: string;
     phasesAllowed: Phase[] | "all";
-    actionAllowed: AdventureAction | null;
+    actionAllowed: ACTION | null;
     cost: number;
     canBeUsed: boolean;
     usedInThisRound: boolean;

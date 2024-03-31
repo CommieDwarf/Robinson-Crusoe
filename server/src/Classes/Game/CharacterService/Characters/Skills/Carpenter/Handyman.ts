@@ -9,8 +9,6 @@ export class Handyman extends Ability implements IAbility<any> {
 
     constructor(game: IGame, character: IPlayerCharacter) {
         super(ABILITY.HANDYMAN,
-            "",
-            "",
             "all",
             null,
             3,

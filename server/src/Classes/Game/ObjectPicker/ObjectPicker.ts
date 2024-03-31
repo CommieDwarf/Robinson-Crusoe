@@ -7,11 +7,6 @@ import {
     PickableObject,
     PickableRenderData, PickSubject
 } from "@shared/types/Game/ObjectPicker/ObjectPicker";
-import {Beast} from "../BeastService/BeastCreator/Beast";
-import {Invention} from "../Inventions/InventionCreator/Invention";
-import {Item} from "../Equipment/ItemCreator/Item";
-import {Token} from "../TokenService/Tokens/Token/Token";
-import {Character} from "../CharacterService/Characters/Character/Character";
 
 
 export class ObjectPicker<T extends PickableObject> implements IObjectPicker<T> {
@@ -21,6 +16,7 @@ export class ObjectPicker<T extends PickableObject> implements IObjectPicker<T> 
     private readonly _objects: Pickable<T>[];
     private readonly _picker: IPlayerCharacter;
     private readonly _pickEffect: (object: T) => any;
+    private readonly _secondaryEffect: ((object: T) => any) | undefined;
     private readonly _amount: number;
     private readonly _pickSubject: PickSubject;
     private readonly _id = uuid();
@@ -32,6 +28,7 @@ export class ObjectPicker<T extends PickableObject> implements IObjectPicker<T> 
                 source: string,
                 pickSubject: PickSubject,
                 pickEffect: (object: T) => void,
+                secondEffect?: (object: T) => void,
     ) {
         this._game = game;
         this._objects = objects.map((obj) => {
@@ -42,6 +39,7 @@ export class ObjectPicker<T extends PickableObject> implements IObjectPicker<T> 
         })
         this._picker = picker;
         this._pickEffect = pickEffect;
+        this._secondaryEffect = secondEffect;
         this._amount = amount;
         this._source = source;
         this._pickSubject = pickSubject
@@ -85,21 +83,37 @@ export class ObjectPicker<T extends PickableObject> implements IObjectPicker<T> 
             pickSubject: this.pickSubject,
             source: this._source,
             id: this._id,
+            hasSecondEffect: this.hasSecondEffect()
         }
     }
 
     private readonly _source: string;
 
 
-    public pick(id: string | string[]): void {
+    public pick(id: string | string[], secondaryEffect: boolean): void {
+        if (secondaryEffect && !this._secondaryEffect) {
+            throw new Error(`This ObjPicker (id: ${this._id}) has no secondaryEffect assigned!`)
+        }
+        const effect = secondaryEffect ? this._secondaryEffect as typeof this._pickEffect : this._pickEffect;
+
+        if (this._amount === 0) {
+            // @ts-ignore
+            effect(null as unknown as T);
+            return;
+        }
+
         if (typeof id === "string") {
-            this._pickEffect(this.getObject(id).object);
+            effect(this.getObject(id).object);
         } else {
             if (this._amount > id.length) {
                 throw new Error(`Picked too many objects. (${id.length})`)
             }
-            id.forEach((i) => this._pickEffect(this.getObject(i).object));
+            id.forEach((i) => effect(this.getObject(i).object));
         }
+    }
+
+    public hasSecondEffect() {
+        return Boolean(this._secondaryEffect);
     }
 
     private getObject(id: string): Pickable<T> {

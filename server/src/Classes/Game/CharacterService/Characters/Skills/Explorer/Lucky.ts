@@ -5,14 +5,23 @@ import {ACTION} from "@shared/types/Game/ACTION";
 import {IGame} from "@shared/types/Game/Game";
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 import {ActionDice} from "@shared/types/Game/RollDice/RollDice";
+import {IAbility} from "@shared/types/Game/Skill/IAbility";
 
-export class Lucky extends Ability {
+export class Lucky extends Ability implements IAbility<ActionDice> {
     constructor(game: IGame, character: IPlayerCharacter) {
-        super(ABILITY.LUCKY, "description", "quote", [PHASE.ACTION], ACTION.EXPLORE, 2, game, character);
+        super(ABILITY.LUCKY,
+            [PHASE.ACTION],
+            ACTION.EXPLORE,
+            2,
+            game,
+            character);
     }
 
 
     use(target: ActionDice) {
+        if (!target) {
+            throw new Error("This ability requires target")
+        }
         if (this._game.actionService.action !== ACTION.EXPLORE) {
             return;
         }

@@ -7,7 +7,7 @@ import {IPlayerCharacter, IPlayerCharacterRenderData} from "@shared/types/Game/C
 import {TileType} from "@shared/types/Game/TileService/TileResourceInfo";
 
 export type PickableObject = IBeast | IInvention | IItem | IToken | TileType | ICharacter;
-export type PickSubject = "beast" | "invention" | "item" | "token" | "tileType" | "character";
+export type PickSubject = "beast" | "invention" | "item" | "token" | "tileType" | "character" | "custom";
 
 export type Pickable<T extends PickableObject> = {
     object: T,
@@ -26,9 +26,10 @@ export interface IObjectPicker<T extends PickableObject> {
 
     pickSubject: PickSubject;
     amount: number;
-
     source: string;
     id: string;
+
+    hasSecondEffect: () => boolean;
     renderData: IObjectPickerRenderData<T>;
 }
 
@@ -37,6 +38,7 @@ export interface IObjectPickerRenderData<T extends PickableObject> {
     objects: PickableRenderData<T>[];
     pickSubject: PickSubject;
     picker: IPlayerCharacterRenderData;
+    hasSecondEffect: boolean;
     amount: number;
     source: string;
     id: string;

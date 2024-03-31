@@ -10,8 +10,6 @@ export class ANewIdea extends Ability implements IAbility<any> {
 
     constructor(game: IGame, character: IPlayerCharacter) {
         super(ABILITY.A_NEW_IDEA,
-            "",
-            "",
             "all",
             null,
             3,

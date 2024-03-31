@@ -11,7 +11,7 @@ import {
 } from "@shared/types/Game/MysteryService/MYSTERY_CARD";
 import {ITEM} from "@shared/types/Game/Equipment/Item";
 import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
-import {ALERT_CODE} from "../types/Alert/ALERT_CODE";
+import {ALERT_CODE} from "@shared/types/ALERT_CODE";
 
 
 export const resources = {
@@ -553,7 +553,8 @@ export const resources = {
             },
             alerts: {
                 [ALERT_CODE.NOT_ENOUGH_MATERIALS_FOR_ACTION]: "Brakuje materiałów do wykonania tej akcji.",
-                [ALERT_CODE.NOT_ENOUGH_DETERMINATION_FOR_ABILITY]: "Brakuje punktów determinacji do użycia tej umiejętności."
+                [ALERT_CODE.NOT_ENOUGH_DETERMINATION_FOR_ABILITY]: "Brakuje punktów determinacji do użycia tej umiejętności.",
+                [ALERT_CODE.BEAST_DECK_IS_EMPTY]: "Stos z bestiami jest pusty."
             },
             pickObject: {
                 [ABILITY.RECONNAISSANCE]: {
@@ -567,6 +568,18 @@ export const resources = {
                 [ABILITY.A_NEW_IDEA]: {
                     source: `$t(translation:ability.${ABILITY.A_NEW_IDEA}.name)`,
                     description: "Dobierz kartę pomysłu."
+                },
+                [ABILITY.TRACKING]: {
+                    source: `$t(translation:ability.${ABILITY.TRACKING}.name)`,
+                    description: "",
+                    effectLabel: "Na wierzch",
+                    secondaryEffectLabel: "Na spód"
+                },
+                [ABILITY.DEFENSIVE_PLAN]: {
+                    source: `$t(translation:ability.${ABILITY.DEFENSIVE_PLAN}.name)`,
+                    description: `$t(translation:ability.${ABILITY.DEFENSIVE_PLAN}.comment)`,
+                    effectLabel: "+\$weapon\$",
+                    secondaryEffectLabel: "+\$palisade\$"
                 }
             },
             other: {

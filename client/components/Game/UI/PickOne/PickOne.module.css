@@ -45,7 +45,9 @@
 }
 
 .button {
-    width: 40%;
+    min-width: 30%;
+    padding-left: 5%;
+    padding-right: 5%;
     height: 100%;
     border-radius: 5px;
     background-color: white;
@@ -61,10 +63,20 @@
     scale: 1.1;
 }
 
-.buttonConfirm {
-    color: var(--explore);
-}
 
 .buttonCancel {
     color: var(--hunt);
+}
+
+.button > span {
+    font-size: 1.5em;
+    vertical-align: top;
+    line-height: 1.6em;
+}
+
+.icon {
+    height: 100%;
+    position: relative;
+    aspect-ratio: 1;
+    display: inline-block;
 }

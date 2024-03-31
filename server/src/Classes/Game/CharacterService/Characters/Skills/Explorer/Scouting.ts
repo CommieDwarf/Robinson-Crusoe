@@ -6,7 +6,12 @@ import {ActionDice} from "@shared/types/Game/RollDice/RollDice";
 
 export class Scouting extends Ability {
     constructor(game: IGame, character: IPlayerCharacter) {
-        super(ABILITY.SCOUTING, "description", "quote", "all", null, 2, game, character);
+        super(ABILITY.SCOUTING,
+            "all",
+            null,
+            2,
+            game,
+            character);
     }
 
 
