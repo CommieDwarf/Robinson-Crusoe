@@ -2,7 +2,7 @@ import React, {useLayoutEffect, useRef, useState} from "react";
 import styles from "./Character.module.css";
 import SideCharacters from "./SideCharacters/SideCharacters";
 
-import Determination from "./Determination/Determination";
+import Determination from "./Expendables/Determination/Determination";
 import SkillLabel from "./SkillLabel/SkillLabel";
 import SkillMenu from "./SkillMenu/SkillMenu";
 import Pawn from "../Pawn";
@@ -19,6 +19,8 @@ import ResizableImage from "../../../ResizableImage/ResizableImage";
 import {ISideCharacterRenderData} from "@shared/types/Game/Characters/SideCharacter";
 import {capitalize, kebabCase} from "lodash";
 import {useTranslation} from "react-i18next";
+import {Expendable} from "./Expendables/Expendable/Expendable/Expendable";
+import {Expendables} from "./Expendables/Expendables";
 
 interface Props {
     character: IPlayerCharacterRenderData;
@@ -108,7 +110,8 @@ export default function Character(props: Props) {
                 {skills}
             </div>
             <div className={styles.rightTop}>
-                <Determination value={props.character.determination}/>
+                <Expendables determination={props.character.determination}
+                             weapon={props.character.weaponBoost}/>
             </div>
 
             <div className={styles.scroll}>

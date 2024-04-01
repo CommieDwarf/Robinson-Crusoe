@@ -578,8 +578,8 @@ export const resources = {
                 [ABILITY.DEFENSIVE_PLAN]: {
                     source: `$t(translation:ability.${ABILITY.DEFENSIVE_PLAN}.name)`,
                     description: `$t(translation:ability.${ABILITY.DEFENSIVE_PLAN}.comment)`,
-                    effectLabel: "+\$weapon\$",
-                    secondaryEffectLabel: "+\$palisade\$"
+                    effectLabel: "+\$palisade\$",
+                    secondaryEffectLabel: "+\$weapon\$"
                 }
             },
             other: {

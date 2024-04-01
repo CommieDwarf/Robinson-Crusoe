@@ -86,7 +86,6 @@ export function PickOne(props: Props) {
                         {/*@ts-ignore*/}
                         {insertIconsIntoText(capitalize(t(`pickObject.${source}.secondaryEffectLabel`)), styles.icon)}
                     </div>}
-
                 </div>
             </div>
         </Draggable>
