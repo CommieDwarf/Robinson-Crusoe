@@ -1,0 +1,40 @@
+.container {
+    height: 25px;
+    width: calc(100% - 75px);
+    border-radius: 5px;
+    color: var(--brown);
+    border-top: 1px solid var(--borderColor);
+    border-bottom: 1px solid var(--borderColor);
+    display: grid;
+    grid-template-columns: 4fr 3fr 2fr 2fr 2fr;
+    padding-right: 5px;
+}
+
+.container > div {
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
+    border-right: 1px solid var(--borderColor);
+}
+
+.name {
+    grid-column: 1 / span 1;
+}
+
+.host {
+    grid-column: 2 / span 1;
+
+}
+
+.playerAmount {
+    grid-column: 3 / span 1;
+}
+
+.scenario {
+    grid-column: 4 / span 1;
+}
+
+.password {
+    grid-column: 5 / span 1;
+    border-right: none !important;
+}

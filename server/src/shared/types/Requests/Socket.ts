@@ -1,5 +1,6 @@
 import {IGame, IGameRenderData} from "@shared/types/Game/Game";
 import {CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
+import {SessionSettings} from "@shared/types/SessionSettings";
 
 export interface GameInstanceSentPayload {
     gameSessionId: string;
@@ -22,4 +23,8 @@ export interface PlayerActionPayload {
 
 export interface IsGameInProgressResponsePayload {
     value: boolean;
+}
+
+export interface CreateGamePayload {
+    settings: SessionSettings;
 }

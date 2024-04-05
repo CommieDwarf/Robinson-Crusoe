@@ -18,11 +18,11 @@ export function insertIconsIntoText(string: string, elementClassName: string) {
 
 
     return array.map((str, i) => {
-        if (icons.includes(str)) {
+        if (icons.includes(str.toLowerCase())) {
             return (
                 <div key={i} className={elementClassName}>
                     <ResizableImage
-                        src={`/UI/icons/${str}.png`}
+                        src={`/UI/icons/${str.toLowerCase()}.png`}
                         alt={str}
                     />
                 </div>

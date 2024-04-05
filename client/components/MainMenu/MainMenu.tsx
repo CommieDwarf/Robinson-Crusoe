@@ -70,11 +70,11 @@ export function MainMenu({UserComponent}: Props) {
                             Quick game
                         </li>
                     </Link>
-                    <Link href={"./Play"}
+                    <Link href={"./multiplayer"}
                           aria-disabled={!user}
                           onClick={handleButtonClick}
                     >
-                        <li className={`${styles.menuItem} ${styles.button2} ${styles.menuItemDisabled}`}
+                        <li className={`${styles.menuItem} ${styles.button2} ${!user && styles.menuItemDisabled}`}
                         >
                             Multiplayer
                         </li>

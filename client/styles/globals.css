@@ -43,6 +43,7 @@ a {
 
 :root {
     --brown: #451e14;
+    --tan: #D2B48C;
     --beastRed: rgb(186, 51, 28);
     --threat: #241f21;
     --hunt: #a90c1c;
@@ -61,7 +62,6 @@ a {
     --goldenRatio: 1.618;
     --gameBaseFontSize: 10;
 
-    --resourceValueChangeColor: black;
     --borderColor: #b49c7d;
     --blackToBrown: invert(11%) sepia(11%) saturate(7369%) hue-rotate(342deg) brightness(95%) contrast(91%);
     --blackToBorderColor: invert(86%) sepia(5%) saturate(2312%) hue-rotate(348deg) brightness(76%) contrast(78%);

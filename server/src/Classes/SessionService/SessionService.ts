@@ -1,11 +1,14 @@
 import {IUser} from "../../types/UserData/IUser";
 import {ISessionService} from "../../types/SessionService/SessionService";
-import {GAME_SESSION_MODE, SessionData} from "../../types/Session/Session";
+import {SessionData} from "../../types/Session/Session";
 import {Session} from "../Session/Session";
+import {SCENARIO} from "@shared/types/Game/ScenarioService/SCENARIO";
+import {SessionSettings} from "@shared/types/SessionSettings";
 
 
 type UserId = string;
 type GameSessionId = string;
+
 
 export class SessionService implements ISessionService {
 
@@ -15,15 +18,23 @@ export class SessionService implements ISessionService {
 
     }
 
-
-    public createSession(user: IUser, mode: GAME_SESSION_MODE): SessionData {
-        const session = new Session(user, mode);
+    public createSession(user: IUser, settings: SessionSettings) {
+        const session = new Session(user, settings);
         this._activeSessions.set(session.id, session);
         this.associateUserWithSession(user._id, session.id);
-        if (mode === GAME_SESSION_MODE.QUICK) {
-            session.startGame();
-        }
+        return session;
+    }
 
+    public createQuickGame(user: IUser): SessionData {
+        const session = new Session(user, {
+            password: "",
+            private: true,
+            scenario: SCENARIO.CASTAWAYS,
+            maxPlayers: 1
+        });
+        this._activeSessions.set(session.id, session);
+        this.associateUserWithSession(user._id, session.id);
+        session.startGame();
         return session;
     }
 
@@ -34,6 +45,14 @@ export class SessionService implements ISessionService {
             throw new Error(`User with id: ${userId} doesn't own a session`);
         }
         return this._activeSessions.get(sessionId);
+    }
+
+    public getSessionById(sessionId: string): SessionData {
+        const session = this._activeSessions.get(sessionId);
+        if (!session) {
+            throw new Error("Session doesn't exist");
+        }
+        return session;
     }
 
     public hasSession(userId: string): boolean {

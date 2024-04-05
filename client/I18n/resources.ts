@@ -601,8 +601,22 @@ export const resources = {
                 "cancel": "anuluj",
                 "ability": "umiejętność"
             },
-
+            menu: {
+                "refresh": "odśwież",
+                "create game": "stwórz grę",
+                "join with game code": "dołącz wpisując kod gry",
+                "join": "dołącz",
+                "name": "nazwa",
+                "host": "gospodarz",
+                "players": "gracze",
+                "scenario": "scenariusz",
+                "password": "hasło",
+                "visibility": "widoczność",
+                "public": "publiczna",
+                "private": "prywatna",
+            },
         },
+
 
         logMessages: {
             [LOG_CODE.WEATHER_TOKEN_SET]: "Położono token $t(translation:weatherToken.{{subject1}}, {\"context\": \"genitive\"}) na polu przygody.",
@@ -643,6 +657,7 @@ export const resources = {
             [LOG_CODE.ALL_PLAYERS_LOST_DETERMINATION]: "Wszyscy gracze tracą {{amount}} determinacji.",
             [LOG_CODE.ALL_PLAYERS_GOT_HURT]: "Wszyscy gracze otrzymują {{amount}} obrażeń.",
             [LOG_CODE.ALL_PLAYERS_GOT_HEALED]: "Wszyscy gracze leczą się z {{amount}} obrażeń.",
-        }
+        },
+
     }
 }

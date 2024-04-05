@@ -4,14 +4,16 @@ import {IUser} from "../../types/UserData/IUser";
 import {BaseController} from "../../types/GameController/Controllers";
 import {GameClass} from "../Game/Game";
 import {GameController} from "../GameController/GameController";
-import {GAME_SESSION_MODE, SessionData} from "../../types/Session/Session";
+import {SessionData} from "../../types/Session/Session";
 import {PAWN_COLOR} from "@shared/types/Game/PAWN_COLOR";
 import {uuid} from "uuidv4";
 import {CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {CHARACTER, Gender} from "@shared/types/Game/Characters/Character";
+import {SessionSettings} from "@shared/types/SessionSettings";
 
 
 export class Session implements SessionData {
+
 
     private _players: IPlayer[] = [];
 
@@ -23,11 +25,11 @@ export class Session implements SessionData {
 
     private _characters: CHARACTER[] = Object.values(CHARACTER);
 
-    private readonly _mode: GAME_SESSION_MODE;
+    private readonly _settings: SessionSettings;
 
 
-    constructor(creator: IUser, mode: GAME_SESSION_MODE) {
-        this._mode = mode;
+    constructor(creator: IUser, settings: SessionSettings) {
+        this._settings = settings;
         this.joinSession(creator);
     }
 
@@ -43,9 +45,10 @@ export class Session implements SessionData {
         return this._id;
     }
 
-    get mode(): GAME_SESSION_MODE {
-        return this._mode;
+    get settings(): SessionSettings {
+        return this._settings;
     }
+
 
     public handleAction(userId: string, action: CONTROLLER_ACTION, ...args: any[]): void {
         const player = this.getPlayer(userId);

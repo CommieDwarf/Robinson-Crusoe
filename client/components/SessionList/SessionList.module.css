@@ -1,0 +1,35 @@
+.container {
+    width: 100%;
+    height: 100%;
+    grid-column: 1 / span 2;
+    grid-row: 2 / span 1;
+    position: relative;
+}
+
+.sessionList {
+    width: 100%;
+    max-height: calc(100% - 30px);
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    position: relative;
+}
+
+.sessionList::-webkit-scrollbar {
+    width: 20px;
+
+}
+
+/* Track */
+.sessionList::-webkit-scrollbar-track {
+    width: 20px;
+}
+
+/* Handle */
+.sessionList::-webkit-scrollbar-thumb {
+    background-image: url("../../public/UI/misc/board-vert.jpg");
+    background-size: cover;
+    border-radius: 5px;
+    border: 1px solid var(--brown);
+}

@@ -1,0 +1,68 @@
+.container {
+    width: 100%;
+    height: 25px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    padding-right: 10px;
+}
+
+
+.sessionInfo {
+    display: inline-grid;
+    grid-template-columns: 4fr 3fr 2fr 2fr 2fr;
+    width: calc(100% - 55px);
+    height: 100%;
+    border-radius: 5px;
+    justify-content: space-evenly;
+    line-height: 20px;
+    border: 2px solid var(--borderColor);
+    background-color: var(--brown);
+}
+
+.sessionInfo > div {
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
+    color: white;
+    font-size: 0.7rem;
+}
+
+.name {
+    grid-column: 1 / span 1;
+}
+
+.host {
+    grid-column: 2 / span 1;
+
+}
+
+.playerAmount {
+    grid-column: 3 / span 1;
+}
+
+.scenario {
+    grid-column: 4 / span 1;
+}
+
+.password {
+    grid-column: 5 / span 1;
+}
+
+.button {
+    height: 86%;
+    width: 50px;
+    border-radius: 5px;
+    color: var(--brown) !important;
+    border: 1px solid var(--brown);
+    cursor: pointer;
+    font-weight: 500;
+    text-align: center;
+    font-size: 13px;
+    position: relative;
+    top: 7%;
+}
+
+.button:hover {
+    scale: 1.1;
+}
