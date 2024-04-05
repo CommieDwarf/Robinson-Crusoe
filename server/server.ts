@@ -194,6 +194,7 @@ io.on("connection", async (socket: typeof Socket) => {
     try {
         const userId = jwtDecode<TokenPayload>(socket.handshake.headers.authorization)._id;
         const user = await User.findOne({_id: userId});
+        // @ts-ignore
         const {username} = user;
         if (!user) {
             socket.disconnect();
