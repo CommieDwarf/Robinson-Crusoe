@@ -56,12 +56,12 @@ Game can be played solo or with max. 4 players.
     * react-beautiful-dnd
     * web-sockets
 
-
 ## How to run dev server:
-   * Install Node.js
-   * Open terminal in project's root folder
-   * Install project's depndencies by typing: npm i --force
-   * Do the same in /client nad /server
-   * In separate terminals both in /client and /server type: npm run dev 
-   * open browser at http://localhost:3000/
-   * enjoy
+
+* Install Node.js
+* Open terminal in project's root folder
+* Install project's dependencies by typing: npm i
+* Do the same in /client nad /server
+* In separate terminals both in /client and /server type: npm run dev
+* open browser at http://localhost:3000/
+* enjoy
