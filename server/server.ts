@@ -223,31 +223,33 @@ io.on("connection", async (socket: typeof Socket) => {
             // sessionService.closeSession(gameSession.id);
         })
 
-        socket.on("player_action", async (actionData: PlayerActionPayload) => {
-            try {
-                const gameSession = sessionService.getSessionByUserId(userId);
-                if (!gameSession) {
-                    throw new Error("Game session not found")
-                }
-                gameSession.handleAction(userId, actionData.actionType, ...actionData.arguments);
-                const game = gameSession?.getGame();
-                if (!game) {
-                    throw new Error("Game not found")
-                }
-                const payload: GameInstanceSentPayload = {
-                    gameSessionId: gameSession.id,
-                    gameRenderData: game.renderData
-                }
-                socket.emit("game_instance_sent", payload);
-            } catch (e) {
-                if (e instanceof ForbiddenPlayerAction) {
-                    socket.emit("alert_sent", {message: e.message});
-                } else {
-                    console.error(e);
-                }
-            }
+        socket.on("player_action",
 
-        })
+            async (actionData: PlayerActionPayload) => {
+                try {
+                    const gameSession = sessionService.getSessionByUserId(userId);
+                    if (!gameSession) {
+                        throw new Error("Game session not found")
+                    }
+                    gameSession.handleAction(userId, actionData.actionType, ...actionData.arguments);
+                    const game = gameSession?.getGame();
+                    if (!game) {
+                        throw new Error("Game not found")
+                    }
+                    const payload: GameInstanceSentPayload = {
+                        gameSessionId: gameSession.id,
+                        gameRenderData: game.renderData
+                    }
+                    socket.emit("game_instance_sent", payload);
+                } catch (e) {
+                    if (e instanceof ForbiddenPlayerAction) {
+                        socket.emit("alert_sent", {message: e.message});
+                    } else {
+                        console.error(e);
+                    }
+                }
+
+            })
 
         socket.on("execute_game_method_and_send_response", (methodData: ExecuteGameMethodAndSendResponsePayload) => {
             try {
