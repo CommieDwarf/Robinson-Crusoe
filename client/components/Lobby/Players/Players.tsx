@@ -1,12 +1,18 @@
 import styles from "./Players.module.css";
-import {PlayerList} from "./PlayerList/PlayerList";
+import {IPlayerRenderData} from "@shared/types/Game/PlayerService/Player";
+import {Player} from "./Player/Player";
 
-export function Players() {
+interface Props {
+    players: IPlayerRenderData[]
+}
 
 
+export function Players(props: Props) {
     return <div className={styles.container}>
         <div className={styles.playerList}>
-            <PlayerList/>
+            {props.players.map((player) => {
+                return <Player player={player} key={player.id}/>
+            })}
         </div>
     </div>
 }

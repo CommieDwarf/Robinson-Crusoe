@@ -1,31 +1,35 @@
 import React from "react";
 import styles from "./Cards.module.css";
-import {IItemRenderData} from "@shared/types/Game/Equipment/Item";
 import {objectsEqual} from "@shared/utils/objectsEqual";
 import {Tab} from "../CardList";
-import {IMysteryCardRenderData} from "@shared/types/Game/MysteryService/MysteryCard";
-import {IInventionRenderData} from "@shared/types/Game/InventionService/Invention";
 import {Card} from "./Card/Card";
+import {useAppSelector} from "../../../../../store/hooks";
+import {selectGame} from "../../../../../reduxSlices/gameSession";
+import {INVENTION_TYPE} from "@shared/types/Game/InventionService/Invention";
 
 interface Props {
-    inventions: IInventionRenderData[];
-    mysteryCards: IMysteryCardRenderData[];
-    items: IItemRenderData[];
     tab: Tab;
     isBeingDragged: boolean;
-    zIndex: string;
+    topLayerElement: string;
+    topLayer: boolean;
     scrollTop: number;
-
     containerWidth: number;
 }
 
 function Cards(props: Props) {
-    const zIndexClass =
-        props.zIndex.includes("invention") || props.zIndex.includes("mystery")
-            ? styles.zIndexIncreased
-            : "";
 
-    let cardsSelected = props[props.tab];
+    const cards = useAppSelector((state) => {
+        return {
+            inventions: selectGame(state).inventionService.inventions.filter(inv => inv.inventionType !== INVENTION_TYPE.SCENARIO)!,
+            mysteryCards: [...selectGame(state).mysteryService.cardsAsReminders!,
+                ...selectGame(state).resourceService.owned.treasures!
+            ],
+            items: selectGame(state).equipmentService.items!
+        }
+    })
+
+
+    let cardsSelected = cards[props.tab];
 
 
     let column = -1;
@@ -43,7 +47,7 @@ function Cards(props: Props) {
 
     const maxColumns = 4;
 
-    const cards = cardsSelected.map((card) => {
+    const cardElements = cardsSelected.map((card) => {
         column = column == maxColumns - 1 ? 0 : column + 1;
         row = column == 0 ? row + 1 : row;
         return (
@@ -53,7 +57,7 @@ function Cards(props: Props) {
                 row={row}
                 card={card}
                 key={card.name}
-                zIndexIncreased={props.zIndex.includes(card.name)}
+                zIndexIncreased={props.topLayerElement.includes(card.name)}
                 height={cardHeight}
                 width={cardWidth}
                 totalWidth={totalWidth}
@@ -65,8 +69,8 @@ function Cards(props: Props) {
     };
 
     return (
-        <div className={`${styles.container} ${zIndexClass}`} style={contentStyle}>
-            {cards}
+        <div className={`${styles.container} ${props.topLayer && styles.zIndexIncreased}`} style={contentStyle}>
+            {cardElements}
         </div>
     );
 }

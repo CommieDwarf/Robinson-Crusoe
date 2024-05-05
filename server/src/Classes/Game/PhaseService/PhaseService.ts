@@ -84,7 +84,7 @@ export class PhaseService implements IPhaseService {
                 : "Brakuje pionka do wykonania tej akcji";
 
         this._game.alertService.setAlert(message);
-        this._game.actionSlotService.pawnDropIDAlert = error.droppableID;
+        this._game.actionSlotService.markedActionSlotId = error.droppableID;
     }
 
     goNextPhase() {
@@ -98,7 +98,7 @@ export class PhaseService implements IPhaseService {
                 this._phaseIndex === phaseOrder.length - 1 ? 0 : ++this._phaseIndex;
             this._phase = phaseOrder[this._phaseIndex];
             this._game.alertService.clearAlert();
-            this._game.actionSlotService.pawnDropIDAlert = null;
+            this._game.actionSlotService.markedActionSlotId = null;
         } catch (error) {
             if (
                 error instanceof MissingLeaderError ||
@@ -130,7 +130,7 @@ export class PhaseService implements IPhaseService {
         const occupiedSlots = this._game.actionSlotService.getOccupiedActionSlots();
         ActionSlotService.checkMissingPawns(occupiedSlots, this._game);
         this._game.actionService.loadItems();
-        this._game.actionSlotService.pawnDropIDAlert = null;
+        this._game.actionSlotService.markedActionSlotId = null;
     };
 
     private actionEffect = () => {
@@ -152,7 +152,7 @@ export class PhaseService implements IPhaseService {
         this.eatOrGetHurt();
         this.rotFood();
         this.sleepInShelterOrHurt();
-        this._game.resetPawns();
+        this._game.globalPawnService.resetPawns();
     };
 
 

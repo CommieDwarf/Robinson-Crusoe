@@ -6,6 +6,7 @@ import ResizableImage from "../../ResizableImage/ResizableImage";
 import {kebabCase} from "lodash";
 import {ACTION} from "@shared/types/Game/ACTION";
 import {IPawnRenderData} from "@shared/types/Game/Pawns/Pawn";
+import {selectGame} from "../../../reduxSlices/gameSession";
 
 interface Props {
     pawn: IPawnRenderData<any>;
@@ -30,7 +31,10 @@ export default function Pawn(props: Props) {
             ? props.context + "ContextSideCharacter"
             : props.context + "Context";
 
-    const disabled = useAppSelector(state => state.phase.current) !== "preAction";
+
+    const disabled = useAppSelector((state) => {
+        return selectGame(state).phaseService.phase !== "preAction";
+    })
     return (
         <Draggable draggableId={props.pawn.draggableId} index={props.index} isDragDisabled={disabled}>
             {(provided, snapshot) => {

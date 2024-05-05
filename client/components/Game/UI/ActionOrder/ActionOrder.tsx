@@ -5,23 +5,27 @@ import reRollTokenImg from "/public/UI/tokens/reroll.png";
 import styles from "./ActionOrder.module.css";
 import React from "react";
 import {actionOrder} from "@shared/constants/actionOrder";
-import {ActionTokens} from "@shared/types/Game/ActionService/ActionService";
-import {ACTION} from "@shared/types/Game/ACTION";
 import {isAdventureAction} from "@shared/utils/typeGuards/isAdventureAction";
-import {IGlobalCostModifierRenderData} from "@shared/types/Game/ActionService/GlobalCostModifier";
 import {capitalize, kebabCase} from "lodash";
-import {getPropsComparator} from "../../../../utils/getPropsComparator";
 import {useTranslation} from "react-i18next";
+import {useAppSelector} from "../../../../store/hooks";
+import {selectGame} from "../../../../reduxSlices/gameSession";
 
 type Props = {
-    adventureTokens: ActionTokens;
-    reRollTokens: ActionTokens;
-    globalCostModifiers: Record<ACTION, IGlobalCostModifierRenderData[]>
-    containerRef: React.RefObject<HTMLDivElement>
+    actionOrderContainerRef: React.RefObject<HTMLDivElement>
 }
 
-function ActionOrder(props: Props) {
+export default function ActionOrder(props: Props) {
     let actionIcons: JSX.Element[] = [];
+
+    const tokenModifiers = useAppSelector((state) => {
+        const actionService = selectGame(state).actionService!;
+        return {
+            adventure: actionService.adventureTokens,
+            reRoll: actionService.reRollTokens,
+            globalCostModifiers: actionService.globalCostModifiers,
+        }
+    })
 
 
     actionOrder.forEach((action, i) => {
@@ -38,11 +42,11 @@ function ActionOrder(props: Props) {
         let adventureTokenSrc = `/UI/actions/${kebabCase(action)}.png`;
         let reRollToken;
         if (isAdventureAction(action)) {
-            if (props.adventureTokens[action]) {
+            if (tokenModifiers.adventure[action]) {
                 adventureTokenSrc = `/UI/tokens/adventure/${action}.png`;
             }
 
-            if (props.reRollTokens[action]) {
+            if (tokenModifiers.reRoll[action]) {
                 reRollToken = (
                     <div className={styles.token}>
                         <ResizableImage
@@ -55,7 +59,7 @@ function ActionOrder(props: Props) {
             }
         }
         let timeConsumingActionIcon;
-        if (props.globalCostModifiers[action].some((modifier) => modifier.resource === "helper")) {
+        if (tokenModifiers.globalCostModifiers[action].some((modifier) => modifier.resource === "helper")) {
             timeConsumingActionIcon = <div className={styles.token}>
                 <ResizableImage
                     src={timeConsumingActionToken}
@@ -81,12 +85,9 @@ function ActionOrder(props: Props) {
     const {t} = useTranslation();
 
     return (
-        <div className={styles.container} ref={props.containerRef}>
+        <div className={styles.container} ref={props.actionOrderContainerRef}>
             <div className={styles.label}>{capitalize(t("other.action order"))}</div>
             {actionIcons}
         </div>
     );
 }
-
-export default React.memo(ActionOrder, getPropsComparator(["containerRef"]));
-

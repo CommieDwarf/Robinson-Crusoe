@@ -9,19 +9,25 @@ import scenarioTokensImg from "/public/UI/scenarios/castaways/tokens.png";
 import Rounds from "./Rounds/Rounds";
 import {Card} from "../../../CardList/Cards/Card/Card";
 import ResizableImage from "../../../../../ResizableImage/ResizableImage";
-import {IScenarioServiceRenderData} from "@shared/types/Game/ScenarioService/ScenarioService";
-import {IInventionRenderData, INVENTION_STARTER} from "@shared/types/Game/InventionService/Invention";
 import {useTranslation} from "react-i18next";
 import {capitalize} from "lodash";
+import {useAppSelector} from "../../../../../../store/hooks";
+import {selectGame} from "../../../../../../reduxSlices/gameSession";
 
 interface Props {
-    inventions: IInventionRenderData[];
     zIndex: string;
-    round: number;
-    scenario: IScenarioServiceRenderData;
 }
 
 export default function Castaways(props: Props) {
+    const inventions = useAppSelector((state) => {
+        return selectGame(state).inventionService.inventions!
+    })
+
+    const currentRound = useAppSelector((state) => selectGame(state).round!);
+
+
+    const scenarioInventions = inventions
+        .filter((inv) => inv.inventionType === "scenario");
 
     const inventionContRef = useRef<HTMLDivElement>(null);
     const [inventionContWidth, setInventionContWidth] = useState<number>(0);
@@ -47,8 +53,6 @@ export default function Castaways(props: Props) {
     }, [])
 
 
-    const fireBuilt = Boolean(props.inventions.find((inv) => inv.name === INVENTION_STARTER.FIRE)?.isBuilt);
-
     const cardAspectRatio = Number(getComputedStyle(document.documentElement)
         .getPropertyValue('--cardAspectRatio'));
 
@@ -63,7 +67,7 @@ export default function Castaways(props: Props) {
             <div className={styles.titleDiv}>
                 <span className={styles.title}>{capitalize(t("scenario.castaways.name"))}</span>
             </div>
-            <Rounds current={props.round}/>
+            <Rounds current={currentRound}/>
             <Description/>
             <div className={styles.eventEffects}>
                 <div className={styles.eventEffect + " " + styles.bookEffect}>
@@ -74,7 +78,6 @@ export default function Castaways(props: Props) {
                         sizes={styles.eventEffect}
                     />
                 </div>
-
                 <div className={styles.eventEffect}>
                     <ResizableImage
                         src={totemEffectImg}
@@ -84,10 +87,7 @@ export default function Castaways(props: Props) {
                     />
                 </div>
             </div>
-            <WoodPile lvl={props.scenario.woodStashLvl} committedWood={props.scenario.committedWood}
-                      canAddWood={props.scenario.canAddWood}
-                      isFireBuilt={props.scenario.isFireBuilt}
-            />
+            <WoodPile/>
             <div className={styles.bottomHalf}>
                 <div className={styles.tokens}>
                     <ResizableImage
@@ -98,7 +98,7 @@ export default function Castaways(props: Props) {
                     />
                 </div>
                 <div className={styles.inventions} ref={inventionContRef}>
-                    {props.inventions.map((inv, i) => {
+                    {scenarioInventions.map((inv, i) => {
                         return (
                             <Card
                                 key={inv.name}

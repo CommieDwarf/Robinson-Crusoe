@@ -14,7 +14,7 @@
     position: absolute;
 }
 
-.skillDescriptionVisible {
+.abilityDescriptionVisible {
     width: 200%;
     margin-left: -200%;
 
@@ -37,7 +37,7 @@
     font-style: italic;
 }
 
-.skillName {
+.abilityName {
     text-align: center;
     font-size: 1.5em;
     margin-top: -5px;

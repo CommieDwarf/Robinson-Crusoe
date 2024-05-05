@@ -6,6 +6,7 @@ import Link from "next/link";
 import {useState} from "react";
 import {SCENARIO} from "@shared/types/Game/ScenarioService/SCENARIO";
 import {GameSettings} from "../../../components/Lobby/GameSettings/GameSettings";
+import {socketEmitter} from "../../_app";
 
 export interface Props {
 
@@ -14,14 +15,12 @@ export interface Props {
 
 export function CreateGame() {
 
-    const [scenario, setScenario] = useState<SCENARIO>(SCENARIO.CASTAWAYS);
-    const [visibility, setVisibility] = useState<"public" | "private">("public");
-    const [playerAmount, setPlayerAmount] = useState<number>(4);
 
     const {t} = useTranslation();
 
+
     return <div className={styles.container}>
-        <Link href={"./"}>
+        <Link href={"../"}>
             <div className={styles.menuButton}>
                 <ResizableImage src={redArrowCurvedImg} alt={"menu"}/>
             </div>

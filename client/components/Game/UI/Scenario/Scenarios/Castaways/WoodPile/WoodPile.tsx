@@ -9,22 +9,22 @@ import {OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {useTranslation} from "react-i18next";
 import {capitalize} from "lodash";
 import {socketEmitter} from "../../../../../../../pages/_app";
+import {useAppSelector} from "../../../../../../../store/hooks";
+import {selectGame} from "../../../../../../../reduxSlices/gameSession";
 
-type Props = {
-    lvl: number;
-    committedWood: number;
-    canAddWood: boolean;
-    isFireBuilt: boolean;
-};
+type Props = {};
 export const WoodPile = (props: Props) => {
+
+    const scenarioService = useAppSelector((state) => selectGame(state).scenarioService!);
+
 
     function handleButtonClick() {
         socketEmitter.emitAction(OTHER_CONTROLLER_ACTION.ADD_WOOD_TO_PILE);
     }
 
 
-    const buttonLockedClass = props.canAddWood ? "" : styles.buttonLocked;
-    const fireNotBuiltClass = props.isFireBuilt ? "" : styles.fireNotBuilt;
+    const buttonLockedClass = scenarioService.canAddWood ? "" : styles.buttonLocked;
+    const fireNotBuiltClass = scenarioService.isFireBuilt ? "" : styles.fireNotBuilt;
 
     const {t} = useTranslation();
 
@@ -34,26 +34,26 @@ export const WoodPile = (props: Props) => {
                 <ResizableImage src={fireImg} fill alt={"ogień"} sizes={styles.fire}/>
             </div>
             <div
-                className={`${styles.woodStack} ${styles["level" + props.lvl]}`}
+                className={`${styles.woodStack} ${styles["level" + scenarioService.woodStashLvl]}`}
             >
                 <ResizableImage
-                    src={`/UI/scenarios/castaways/woodStack${props.lvl}.png`}
+                    src={`/UI/scenarios/castaways/woodStack${scenarioService.woodStashLvl}.png`}
                     fill
                     sizes={styles.woodStack}
                     alt={"stos drewna"}
                 />
             </div>
-            <div className={styles.title}>{capitalize(t("other.wood pile"))} {props.lvl}/5</div>
-            {props.lvl < 5 &&
+            <div className={styles.title}>{capitalize(t("other.wood pile"))} {scenarioService.woodStashLvl}/5</div>
+            {scenarioService.woodStashLvl < 5 &&
                 <div className={styles.wood}>
 
                     <div className={styles.woodAmount}>
-                        {props.committedWood}/{props.lvl}
+                        {scenarioService.committedWood}/{scenarioService.woodStashLvl}
                     </div>
                     <div className={styles.woodImage}>
                         <ResizableImage src={woodImg} fill alt={"drewno"} sizes={styles.woodImage}/>
                     </div>
-                    {props.lvl < 5 &&
+                    {scenarioService.woodStashLvl < 5 &&
                         <div className={`${styles.woodButton} ${styles.addWoodButton} ${buttonLockedClass}`}
                              onClick={handleButtonClick}>+
                         </div>

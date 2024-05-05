@@ -6,11 +6,11 @@ import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction"
 import {IBasicResourcesAmount} from "@shared/types/Game/Resources/Resources";
 import {OverallWeather} from "@shared/types/Game/Weather/Weather";
 import {IConstructionServiceRenderData} from "@shared/types/Game/ConstructionService/IConstructionService";
+import {useAppSelector} from "../../../../../../store/hooks";
+import {selectGame} from "../../../../../../reduxSlices/gameSession";
 
 
 type Props = {
-    constructionService: IConstructionServiceRenderData;
-    resources: IBasicResourcesAmount;
     overallWeather: OverallWeather;
     storm: boolean;
     resolved: boolean;
@@ -19,8 +19,12 @@ type Props = {
 export type Subtrahend = "snow" | "roof" | "cloud" | "storm";
 
 export const Resources = (props: Props) => {
+
+    const constructionService = useAppSelector((state) => selectGame(state).constructionService!)
+    const ownedResourcesAmount = useAppSelector((state) => selectGame(state).resourceService.owned.basic!)
+
     function getConstruct(construct: CONSTRUCTION) {
-        const construction = props.constructionService.constructions.find(
+        const construction = constructionService.constructions.find(
             (struct) => struct.name === construct
         );
         if (!construction) {
@@ -92,14 +96,14 @@ export const Resources = (props: Props) => {
             />
             <Resource
                 type={"wood"}
-                amount={props.resources.wood}
+                amount={ownedResourcesAmount.wood}
                 overallWeather={props.overallWeather}
                 subtrahends={subtrahends.wood}
                 resolved={props.resolved}
             />
             <Resource
                 type={"food"}
-                amount={props.resources.food}
+                amount={ownedResourcesAmount.food}
                 overallWeather={props.overallWeather}
                 subtrahends={subtrahends.food}
                 resolved={props.resolved}

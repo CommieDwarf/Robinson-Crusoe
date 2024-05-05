@@ -17,11 +17,11 @@ export const ReRoll = (props: Props) => {
     if (character) {
         switch (character.name) {
             case "cook":
-                skill = character.skills.find((skill) => skill.name === "scrounger");
+                skill = character.abilities.find((skill) => skill.name === "scrounger");
                 actionRestrict = ACTION.GATHER;
                 break;
             case "friday":
-                skill = character.skills.find((skill) => skill.name === "reRoll");
+                skill = character.abilities.find((skill) => skill.name === "reRoll");
                 actionRestrict = null;
                 break;
         }
@@ -31,7 +31,7 @@ export const ReRoll = (props: Props) => {
         <div className={styles.container}>
             {skill && character && (props.actionService.action === actionRestrict || !actionRestrict) && (
                 <>
-                    <div>{skill.namePL}</div>
+                    <div>{skill.name}</div>
                     <div
                         className={`${styles.button} ${
                             character.determination > skill.cost ? styles.buttonClickable : ""

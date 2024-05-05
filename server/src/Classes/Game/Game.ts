@@ -29,16 +29,10 @@ import {IAlertService} from "@shared/types/Game/AlertService/AlertService";
 import {IPhaseService} from "@shared/types/Game/PhaseService/PhaseService";
 import {IEquipment} from "@shared/types/Game/Equipment/Equipment";
 import {GAME_STATUS, IGame, IGameRenderData} from "@shared/types/Game/Game";
-import {canPawnBeSettled} from "@shared/utils/canPawnBeSettled";
 import {ICharacterService} from "@shared/types/Game/CharacterService/CharacterService";
 import {ITileService} from "@shared/types/Game/TileService/ITileService";
-import {IPawn} from "@shared/types/Game/Pawns/Pawn";
-import {getItemFromDroppableId} from "../../utils/getItemFromDroppableId";
 import {IMysteryService} from "@shared/types/Game/MysteryService/MysteryService";
 import {IWeatherService} from "@shared/types/Game/Weather/Weather";
-import {IBasicResources} from "@shared/types/Game/Resources/Resources";
-import {isCommittableResourcesItem} from "@shared/utils/typeGuards/isCommittableResourcesItem";
-import {IResourceCommittableItem} from "@shared/types/Game/ResourceCommitableItem/ResourceCommittableItem";
 import {IConstructionService} from "@shared/types/Game/ConstructionService/IConstructionService";
 import {IEventService} from "@shared/types/Game/EventService/EventService";
 import {IInventionService} from "@shared/types/Game/InventionService/InventionService";
@@ -52,9 +46,11 @@ import {IPlayer} from "@shared/types/Game/PlayerService/Player";
 import {ObjectPicker} from "./ObjectPicker/ObjectPicker";
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 import {PickableObject, PickSubject} from "@shared/types/Game/ObjectPicker/ObjectPicker";
+import {GlobalPawnService} from "./GlobalPawnService/GlobalPawnService";
 
 
 export class GameClass implements IGame {
+
     private _logService: ILogService = new LogService(this);
     private _actionService: ActionService = new ActionService(this);
     private readonly _playerService: IPlayerService;
@@ -84,7 +80,7 @@ export class GameClass implements IGame {
     private _tokenService = new TokenService(this);
     private _adventureService = new AdventureService(this);
     private _mysteryService = new MysteryService(this);
-    private _otherPawns: IPawn[] = [];
+    private _globalPawnService = new GlobalPawnService(this);
 
     private _gameStatus: GAME_STATUS = GAME_STATUS.PENDING;
 
@@ -124,11 +120,11 @@ export class GameClass implements IGame {
             alertService: this.alertService.renderData,
             scenarioService: this._scenarioService.renderData,
             weatherService: this._weatherService.renderData,
-            allPawns: this.allPawns.map((pawn) => pawn.renderData),
+            globalPawnService: this.globalPawnService.renderData,
             tokenService: this._tokenService.renderData,
             adventureService: this._adventureService.renderData,
             mysteryService: this._mysteryService.renderData,
-            actionSlotRenderData: this._actionSlotService.renderData,
+            actionSlotService: this._actionSlotService.renderData,
             objectPickers: this._objectPickers.map((objPicker) => objPicker.renderData)
         };
     }
@@ -229,42 +225,13 @@ export class GameClass implements IGame {
         return this._beastService;
     }
 
-    get allPawns() {
-        let pawns: IPawn[] = [];
-        this.characterService.allCharacters.forEach((char) => {
-            pawns = pawns.concat(char.pawnService.pawns);
-        });
-        pawns = pawns.concat(this._otherPawns);
-        return pawns;
+    get globalPawnService(): GlobalPawnService {
+        return this._globalPawnService;
     }
 
-    get otherPawns() {
-        return this._otherPawns;
-    }
 
     get gameStatus(): GAME_STATUS {
         return this._gameStatus;
-    }
-
-    setPawn(droppableId: string, draggableId: string) {
-        const pawn = this.allPawns.find((p) => p.draggableId === draggableId);
-        if (!pawn) {
-            throw new Error("cant find pawn with id: " + draggableId);
-        }
-        if (!canPawnBeSettled(pawn.renderData, droppableId) ||
-            (this.shouldCommitResources(droppableId) && !this.canCommitResources(droppableId))) {
-            return;
-        }
-
-        if (droppableId.includes("owner")) {
-            pawn.owner.pawnService.copyPawnToFreePawns(pawn.draggableId);
-        } else {
-            if (this.shouldCommitResources(droppableId) && this.canCommitResources(droppableId)) {
-                const item = getItemFromDroppableId(droppableId, this) as IResourceCommittableItem<keyof IBasicResources>;
-                item.commitResource();
-            }
-            this._actionSlotService.setPawn(droppableId, pawn);
-        }
     }
 
 
@@ -298,53 +265,6 @@ export class GameClass implements IGame {
     }
 
 
-    public addToOtherPawns(pawn: IPawn[] | IPawn) {
-        if (Array.isArray(pawn)) {
-            this._otherPawns = this._otherPawns.concat(pawn)
-        } else {
-            this._otherPawns.push(pawn);
-        }
-    }
-
-    public shouldCommitResources(droppableId: string): boolean {
-        const item = getItemFromDroppableId(droppableId, this);
-        return isCommittableResourcesItem(item) && Boolean(item.resourceCost) && droppableId.includes("leader");
-    }
-
-    public canCommitResources(droppableId: string): boolean {
-        const item = getItemFromDroppableId(droppableId, this);
-        // if (!droppableId.includes("leader")) {
-        //     return true;
-        // }
-        if (isCommittableResourcesItem(item)) {
-            return item.canCommitResource(false) || item.canCommitResource(true);
-        } else {
-            return false;
-        }
-    }
-
-    unsetPawn(droppableId: string, draggableId: string) {
-        const item = getItemFromDroppableId(droppableId, this);
-        if (isCommittableResourcesItem(item) && droppableId.includes("leader")) {
-            item.unCommitResources();
-        }
-        if (droppableId.includes("owner")) {
-            const pawn = this.allPawns.find((pawn) => pawn.draggableId === draggableId);
-            if (pawn) {
-                pawn.owner.pawnService.removePawn(draggableId, "freePawns");
-            }
-        } else {
-            this._actionSlotService.unsetPawn(droppableId);
-        }
-    }
-
-    resetPawns() {
-        this.characterService.resetPawns();
-        this.actionSlotService.clearSlots();
-        this._arrangeCampRestService.pawnAmount.rest = 0;
-        this._arrangeCampRestService.pawnAmount.arrangeCamp = 0;
-    }
-
     setNextRound() {
         this._round++;
     }
@@ -367,5 +287,6 @@ export class GameClass implements IGame {
             }, "positive", logSource);
         }
     }
+
 
 }

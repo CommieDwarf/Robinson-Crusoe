@@ -29,32 +29,28 @@ Game can be played solo or with max. 4 players.
 * Single-player
 * One scenario
     * castaways
-* One character
-    * cook
+* 4 characters
 * Two Side characters
     * Friday
     * Dog
 
 ## Upcoming features
 
-* Multiplayer with up to 3 friends via internet
+* Multiplayer with up to 4 players.
 * 5 more playable scenarios
 * 4 characters
-* Text and voice chat
+* Text chat
 * Register and login system
 * Game history
-* Sound effects
 
 ## Technologies:
 
 * Typescript
 * React
 * Next.js
-* Vertex.js
 * Redux
-* Additional libraries:
-    * react-beautiful-dnd
-    * web-sockets
+* Node.js
+* Express.js
 
 ## How to run dev server:
 

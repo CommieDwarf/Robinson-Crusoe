@@ -10,11 +10,13 @@ interface Props {
     maxPlayerAmount: number,
     scenario: string,
     password: boolean,
+    id: string,
 }
 
 
 export function Session(props: Props) {
     const {t} = useTranslation();
+
 
     return <div className={`${styles.container}`}>
         <div className={`${styles.sessionInfo} ${styles.sessionInfoGrid}`}>

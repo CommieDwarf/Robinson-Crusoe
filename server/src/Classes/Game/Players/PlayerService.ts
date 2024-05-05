@@ -23,7 +23,7 @@ export class PlayerService implements IPlayerService {
     setNextPrimePlayer(): void {
     }
 
-    getPlayerById(id: number) {
+    getPlayerById(id: string) {
         const searchedPlayer = this.players.find((player) => player.id === id);
         if (!searchedPlayer) {
             throw new Error("Can't find player with given id: " + searchedPlayer);

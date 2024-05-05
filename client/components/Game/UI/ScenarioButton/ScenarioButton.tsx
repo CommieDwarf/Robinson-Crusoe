@@ -4,37 +4,44 @@ import styles from "./ScenarioButton.module.css";
 import redArrowImg from "/public/UI/misc/red-arrow.png";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
 import {IScenarioServiceRenderData} from "@shared/types/Game/ScenarioService/ScenarioService";
-import {IInventionRenderData} from "@shared/types/Game/InventionService/Invention";
+import {IInventionRenderData, INVENTION_TYPE} from "@shared/types/Game/InventionService/Invention";
 import {getPropsComparator} from "../../../../utils/getPropsComparator";
 import {useTranslation} from "react-i18next";
 import {capitalize} from "lodash";
+import {useAppSelector} from "../../../../store/hooks";
+import {selectGame} from "../../../../reduxSlices/gameSession";
 
 interface Props {
-    inventions: IInventionRenderData[];
-    zIndex: string;
+    topLayerElement: string;
     show: boolean;
-    setShow: React.Dispatch<React.SetStateAction<boolean>>;
-    round: number;
-
-    scenario: IScenarioServiceRenderData;
+    toggleShowScenario: () => void;
 }
 
 function ScenarioButton(props: Props) {
-    const zIndexClass = props.inventions.some((inv) =>
-        props.zIndex.includes(inv.name)
+
+    const inventions = useAppSelector((state) => {
+        return selectGame(state).inventionService.inventions
+            .filter((inv) => inv.inventionType === INVENTION_TYPE.SCENARIO)!;
+    })
+
+    const currentRound = useAppSelector((state) => {
+        return selectGame(state).round!;
+    })
+
+    const topLayer = inventions.some((inv) =>
+        props.topLayerElement.includes(inv.name)
     )
-        ? styles.zIndexIncreased
-        : "";
+
 
     function handleClick() {
-        props.setShow((prev) => !prev);
+        props.toggleShowScenario();
     }
 
     const rotatedArrowClass = props.show ? styles.arrowRotated : "";
 
     const {t} = useTranslation();
     return (
-        <div className={`${styles.container} ${zIndexClass}`}>
+        <div className={`${styles.container} ${topLayer && styles.zIndexIncreased}`}>
             <div className={styles.button} onClick={handleClick}>
                 <div className={styles.arrowWrapper}>
                     <div className={`${styles.arrow} ${rotatedArrowClass}`}>
@@ -44,7 +51,7 @@ function ScenarioButton(props: Props) {
                 <div className={styles.label}>
                     {`${capitalize(t("other.scenario", {defaultValue: "scenario"}))}:
                      ${capitalize(t("scenario.castaways.name", {defaultValue: "castaways"}))}
-                      ${capitalize(t("other.round", {defaultValue: "round"}))}: ${props.round}`}
+                      ${capitalize(t("other.round", {defaultValue: "round"}))}: ${currentRound}`}
                 </div>
                 <div className={styles.arrowWrapper}>
                     <div className={`${styles.arrow} ${rotatedArrowClass}`}>

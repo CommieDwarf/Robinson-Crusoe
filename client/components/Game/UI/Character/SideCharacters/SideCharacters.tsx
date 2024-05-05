@@ -14,23 +14,15 @@ import {getOwnedDroppableId} from "@shared/utils/getOwnedDroppableId";
 import {ISideCharacterRenderData} from "@shared/types/Game/Characters/SideCharacter";
 import {useTranslation} from "react-i18next";
 import {capitalize} from "lodash";
+import {selectGame} from "../../../../../reduxSlices/gameSession";
 
 interface Props {
-    friday: ISideCharacterRenderData;
-    dog: ISideCharacterRenderData;
 }
 
-// interface Props extends OwnProps {
-//   fridayPawns: IPawnRenderData[];
-//   dogPawns: IPawnRenderData[];
-// }
 
 function SideCharacters(props: Props) {
-    const dogPawns = useAppSelector((state) => state.freePawns.dog, objectsEqual);
-    const fridayPawns = useAppSelector(
-        (state) => state.freePawns.friday,
-        objectsEqual
-    );
+    const friday = useAppSelector((state) => selectGame(state).characterService.friday!);
+    const dog = useAppSelector((state) => selectGame(state).characterService.dog!);
 
     const {t} = useTranslation();
 
@@ -45,25 +37,24 @@ function SideCharacters(props: Props) {
                             ref={provided.innerRef}
                             {...provided.droppableProps}
                         >
-                            {fridayPawns[0] &&
-                                fridayPawns.map((pawn, i) => {
-                                    return (
-                                        <Pawn
-                                            pawn={pawn}
-                                            context="character"
-                                            index={i}
-                                            key={pawn.draggableId}
-                                        />
-                                    );
-                                })}
+                            {friday.pawnService.freePawns.map((pawn, i) => {
+                                return (
+                                    <Pawn
+                                        pawn={pawn}
+                                        context="character"
+                                        index={i}
+                                        key={pawn.draggableId}
+                                    />
+                                );
+                            })}
                             {provided.placeholder}
                         </div>
                     )}
                 </Droppable>
                 <div className={`${styles.name}`}>{capitalize(t("character.friday"))}</div>
-                <FridayHealth health={props.friday.health}/>
+                <FridayHealth health={friday.health}/>
                 <div className={styles.determination}>
-                    <div className={styles.determinationValue}>{props.friday.determination}</div>
+                    <div className={styles.determinationValue}>{friday.determination}</div>
                     <div className={styles.determinationIcon}>
                         <ResizableImage src={determinationTokenImg} alt={"determinacja"}/>
                     </div>
@@ -87,17 +78,16 @@ function SideCharacters(props: Props) {
                             {...provided.droppableProps}
                             id={"dog-droppable"}
                         >
-                            {dogPawns[0] &&
-                                dogPawns.map((pawn, i) => {
-                                    return (
-                                        <Pawn
-                                            pawn={pawn}
-                                            context="character"
-                                            index={i}
-                                            key={pawn.draggableId}
-                                        />
-                                    );
-                                })}
+                            {dog.pawnService.freePawns.map((pawn, i) => {
+                                return (
+                                    <Pawn
+                                        pawn={pawn}
+                                        context="character"
+                                        index={i}
+                                        key={pawn.draggableId}
+                                    />
+                                );
+                            })}
                             {provided.placeholder}
                         </div>
                     )}

@@ -19,7 +19,7 @@ import {getItemFromDroppableId} from "../../../utils/getItemFromDroppableId";
 export class ActionSlotService implements IActionSlotService {
     private _slots: Map<string, null | IPawn>;
     private readonly _game: IGame;
-    private _pawnDropIDAlert: string | null = null;
+    private _markedActionSlotId: string | null = null;
 
     constructor(game: IGame) {
         this._game = game;
@@ -37,7 +37,7 @@ export class ActionSlotService implements IActionSlotService {
         });
         return {
             slots,
-            pawnDropIDAlert: this._pawnDropIDAlert,
+            markedActionSlotId: this._markedActionSlotId,
         };
 
     }
@@ -52,12 +52,12 @@ export class ActionSlotService implements IActionSlotService {
         return this._slots;
     }
 
-    get pawnDropIDAlert(): string | null {
-        return this._pawnDropIDAlert;
+    get markedActionSlotId(): string | null {
+        return this._markedActionSlotId;
     }
 
-    set pawnDropIDAlert(value: string | null) {
-        this._pawnDropIDAlert = value;
+    set markedActionSlotId(value: string | null) {
+        this._markedActionSlotId = value;
     }
 
     getOccupiedActionSlots(): OccupiedSlots {

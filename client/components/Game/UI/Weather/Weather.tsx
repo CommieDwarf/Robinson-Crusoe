@@ -1,19 +1,20 @@
 // @flow
 import * as React from "react";
 import styles from "./Weather.module.css";
-import {IWeatherTokens} from "@shared/types/Weather/Weather";
 import {WeatherToken} from "./WeatherToken/WeatherToken";
+import {useAppSelector} from "../../../../store/hooks";
+import {selectGame} from "../../../../reduxSlices/gameSession";
 
-type Props = {
-    tokens: IWeatherTokens;
-};
+type Props = {};
 
 export const Weather = (props: Props) => {
+    const weatherTokens = useAppSelector((state) => selectGame(state).weatherService.tokens!);
+
     return (
         <div className={styles.container}>
-            {props.tokens.storm && <WeatherToken token={"storm"}/>}
-            {props.tokens.snow && <WeatherToken token={"snow"}/>}
-            {props.tokens.rain && <WeatherToken token={"rain"}/>}
+            {weatherTokens.storm && <WeatherToken token={"storm"}/>}
+            {weatherTokens.snow && <WeatherToken token={"snow"}/>}
+            {weatherTokens.rain && <WeatherToken token={"rain"}/>}
         </div>
     );
 };

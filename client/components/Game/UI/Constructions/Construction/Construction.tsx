@@ -1,5 +1,4 @@
-import {IConstructionRenderData} from "@shared/types/Game/ConstructionService/Construction";
-import {IBasicResourcesAmount} from "@shared/types/Game/Resources/Resources";
+import {CONSTRUCTION, IConstructionRenderData} from "@shared/types/Game/ConstructionService/Construction";
 import {OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import getActionSlots from "../../getActionSlots";
 import {objectsEqual} from "@shared/utils/objectsEqual";
@@ -10,17 +9,25 @@ import React from "react";
 import {useTranslation} from "react-i18next";
 import {capitalize} from "lodash";
 import {socketEmitter} from "../../../../../pages/_app";
+import {useAppSelector} from "../../../../../store/hooks";
+import {selectGame} from "../../../../../reduxSlices/gameSession";
 
 
 type Props = {
     construction: IConstructionRenderData;
-    hideActionSlots?: boolean;
-    ownedResources: IBasicResourcesAmount;
-    naturalShelter: boolean;
 };
 
 function Construction(props: Props) {
     const resources: JSX.Element[] = [];
+    const naturalShelter = useAppSelector((state) => {
+        return selectGame(state).tileService.campTile.tileResourceService?.extras.naturalShelter || false
+    })
+
+    const ownedResourcesAmount = useAppSelector((state) => {
+        return selectGame(state).resourceService.owned.basic!
+    })
+
+    const hideActionSlots = props.construction.lvl > 0 && props.construction.name === CONSTRUCTION.SHELTER;
 
     function handleResourceClick(resource: "wood" | "leather") {
         if (props.construction.canResourceBeSwitched && props.construction.committedResources?.type !== resource) {
@@ -55,7 +62,7 @@ function Construction(props: Props) {
 
     let constrImgName = props.construction.name as string;
 
-    if (constrImgName === "shelter" && props.construction.lvl === 0 && props.naturalShelter) {
+    if (constrImgName === "shelter" && props.construction.lvl === 0 && naturalShelter) {
         constrImgName = "natural-shelter";
     }
 
@@ -75,12 +82,12 @@ function Construction(props: Props) {
                            canBeSwitched={props.construction.canResourceBeSwitched}
                            committedResourceType={props.construction.committedResources?.type || null}
                            onClick={handleResourceClick}
-                           ownedResources={props.ownedResources}
+                           ownedResources={ownedResourcesAmount}
                 />
             </div>
             <div className={styles.build}>
                 <div className={styles.actionSlots}>
-                    {!props.construction.locked && !props?.hideActionSlots && (
+                    {!props.construction.locked && !hideActionSlots && (
                         <>
                             {actionSlots}
 

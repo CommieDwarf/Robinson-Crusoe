@@ -19,10 +19,10 @@ export interface IAbility<Target extends SkillTarget> {
     canBeUsed: () => boolean;
     use: (target: Target) => void;
     cost: number;
-    renderData: ISkillRenderData;
+    renderData: IAbilityRenderData;
 }
 
-export interface ISkillRenderData {
+export interface IAbilityRenderData {
     name: string;
     phasesAllowed: Phase[] | "all";
     actionAllowed: ACTION | null;

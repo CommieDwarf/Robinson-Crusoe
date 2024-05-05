@@ -2,13 +2,15 @@ import React, {useEffect, useRef} from "react";
 import styles from "./ChatLog.module.css";
 import {LogMessage} from "./LogMessage/LogMessage";
 import {ILogMessageRenderData} from "@shared/types/Game/ChatLog/LogMessage";
+import {useAppSelector} from "../../../../store/hooks";
+import {selectGame} from "../../../../reduxSlices/gameSession";
 
 interface Props {
-    logMessages: ILogMessageRenderData[];
 }
 
 export default function ChatLog(props: Props) {
 
+    const logMessages = useAppSelector((state) => selectGame(state).logs!);
 
     const scrollRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
@@ -23,7 +25,7 @@ export default function ChatLog(props: Props) {
             <div className={styles.scrollWrapper}>
                 <div className={styles.scroll} ref={scrollRef}>
                     <div className={styles.messages}>
-                        {props.logMessages.map((msg, i) => {
+                        {logMessages.map((msg, i) => {
                             return <LogMessage message={msg} key={i}/>;
                         })}
                     </div>

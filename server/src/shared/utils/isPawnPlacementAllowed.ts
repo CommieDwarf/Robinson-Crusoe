@@ -3,7 +3,7 @@ import {IPawnRenderData} from "@shared/types/Game/Pawns/Pawn";
 import {ACTION, ACTION_ITEM, UniqueAction} from "@shared/types/Game/ACTION";
 
 
-export function canPawnBeSettled(
+export function isPawnPlacementAllowed(
     pawn: null | IPawnRenderData<any>,
     droppableId: string
 ): boolean {

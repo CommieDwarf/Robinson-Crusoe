@@ -1,33 +1,36 @@
 import {CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {ActionArgMap} from "@shared/types/ActionArgMap";
 import {Socket} from "socket.io-client";
-import {IGame} from "@shared/types/Game/Game";
-import {PlayerActionPayload} from "@shared/types/Requests/Socket";
-
+import {CreateSessionPayload, SOCKET_EMITTER, SocketPayloadMap} from "@shared/types/Requests/Socket";
+import {SessionSettings} from "@shared/types/SessionSettings";
 
 export class SocketEmitter {
     private _userId: string = "";
+    private _currentSessionId: string = "";
     private _socket: Socket;
 
     constructor(socket: Socket) {
         this._socket = socket;
     }
 
-    public initialize(userId: string) {
-        console.log("init", userId);
+    public setUser(userId: string) {
         if (!userId) {
             throw new Error(`userId is ${userId}`)
         }
         this._userId = userId;
     }
 
+    public setCurrentSessionId(sessionId: string) {
+        this._currentSessionId = sessionId;
+    }
+
     public emitAction<T extends CONTROLLER_ACTION>(action: T, ...args: ActionArgMap[T]) {
-        const payload: PlayerActionPayload = {
+        const payload: SocketPayloadMap[SOCKET_EMITTER.PLAYER_ACTION] = {
             actionType: action,
             arguments: args,
-            userId: this._userId,
+            sessionId: this._currentSessionId,
         }
-        this._socket.emit("player_action", payload);
+        this.emitSocket(SOCKET_EMITTER.PLAYER_ACTION, payload);
     }
 
     public connectSocketWithAuthToken(authToken: string) {
@@ -45,22 +48,52 @@ export class SocketEmitter {
         })
     }
 
-    public createQuickGame() {
-        console.log(this._userId, "userID");
-        this._socket.emit("create_quick_game", {userId: this._userId});
+    public emitCreateQuickGame() {
+        this.emitSocket(SOCKET_EMITTER.CREATE_QUICK_GAME, {})
     }
 
-    public requestGameInstance() {
-        console.log("emitting request game instance", this._userId);
-        this._socket.emit("game_instance_requested", {userId: this._userId});
+    public emitRequestGameSession() {
+        this.emitSocket(SOCKET_EMITTER.SESSION_DATA_REQUESTED, {sessionId: this._currentSessionId})
     }
 
-    public executeGameMethodAndSendResponse(methodName: keyof IGame, methodArgs: any[]) {
-        this._socket.emit("execute_game_method_and_send_response", {methodName, methodArgs, userId: this._userId})
+    public emitRequestSessionList() {
+        this.emitSocket(SOCKET_EMITTER.SESSION_LIST_REQUESTED, {});
     }
 
-    public isGameInProgress() {
-        this._socket.emit("is_game_in_progress");
+    // public async emitExecuteGameMethodAndSendResponse<T extends keyof IGame>(methodName: keyof IGame, methodArgs: any[]): Promise<ReturnType<any>> {
+    //     return new Promise((resolve, reject) => {
+    //         const requestId = uuid();
+    //         const onResponse = (payload: SocketPayloadMap[SOCKET_EMITTER.GAME_METHOD_RESPONDED]) => {
+    //             if (payload.requestId === requestId) {
+    //                 resolve(payload);
+    //                 console.log("resolved!");
+    //                 this._socket.off(SOCKET_EMITTER.GAME_METHOD_RESPONDED, onResponse);
+    //             }
+    //         }
+    //         this._socket.on(SOCKET_EMITTER.GAME_METHOD_RESPONDED, onResponse);
+    //         const payload = {methodName, methodArgs, userId: this._userId, requestId, sessionId: this._currentSessionId}
+    //         this.emitSocket(SOCKET_EMITTER.EXECUTE_GAME_METHOD_AND_SEND_RESPONSE, payload)
+    //         //TODO: dodaj obsługe błędów
+    //     })
+    // }
+
+    public emitIsGameInProgress() {
+        this.emitSocket(SOCKET_EMITTER.IS_QUICK_GAME_IN_PROGRESS, {})
+    }
+
+    public emitCreateSession(settings: SessionSettings) {
+        const payload: CreateSessionPayload = {
+            settings,
+        }
+        this.emitSocket(SOCKET_EMITTER.CREATE_SESSION, payload);
+    }
+
+    public emitJoinSession(sessionId: string, password: string) {
+        this.emitSocket(SOCKET_EMITTER.JOIN_SESSION, {password, id: sessionId});
+    }
+
+    private emitSocket<T extends keyof SocketPayloadMap>(socketEmitter: T, payload: SocketPayloadMap[T]) {
+        this._socket.emit(socketEmitter, payload);
     }
 }
 

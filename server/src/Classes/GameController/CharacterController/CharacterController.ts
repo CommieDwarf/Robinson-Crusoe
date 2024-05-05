@@ -6,6 +6,7 @@ import {IGame} from "@shared/types/Game/Game";
 import {ActionHandler, GameControllerInterface} from "../../../types/GameController/Controllers";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
 import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
+import {PawnMovementData} from "@shared/types/Game/GlobalPawnService/GlobalPawnService";
 
 
 export class CharacterController implements GameControllerInterface {
@@ -17,21 +18,17 @@ export class CharacterController implements GameControllerInterface {
 
     public getActionHandlers(): Map<CHARACTER_CONTROLLER_ACTION, ActionHandler> {
         const handlers = new Map<CHARACTER_CONTROLLER_ACTION, ActionHandler>();
-        handlers.set(CHARACTER_CONTROLLER_ACTION.SET_PAWN, this.setPawn.bind(this));
-        handlers.set(CHARACTER_CONTROLLER_ACTION.UNSET_PAWN, this.unsetPawn.bind(this));
+        handlers.set(CHARACTER_CONTROLLER_ACTION.MOVE_PAWN, this.movePawn.bind(this));
         handlers.set(CHARACTER_CONTROLLER_ACTION.REMOVE_HEALTH_THRESHOLD, this.removeHealthThreshold.bind(this));
         handlers.set(CHARACTER_CONTROLLER_ACTION.USE_ABILITY, this.useAbility.bind(this));
         return handlers;
     }
 
 
-    private setPawn(player: IPlayer, destinationId: string, draggableId: string): void {
-        this._game.setPawn(destinationId, draggableId)
+    private movePawn(player: IPlayer, source: PawnMovementData, target: PawnMovementData): void {
+        this._game.globalPawnService.handlePawnMovement(source, target);
     }
 
-    private unsetPawn(player: IPlayer, destinationId: string, draggableId: string): void {
-        this._game.unsetPawn(destinationId, draggableId);
-    }
 
     private removeHealthThreshold(player: IPlayer, num: number): void {
         this._game.characterService.removeMoraleThreshold(player.getCharacter(), num);

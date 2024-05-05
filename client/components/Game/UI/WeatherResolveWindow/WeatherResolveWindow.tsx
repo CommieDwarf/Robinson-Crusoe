@@ -10,29 +10,20 @@ import {Dices} from "./Dices/Dices";
 import {RollDiceButton} from "./RollDiceButton/RollDiceButton";
 import {RollDiceWindow} from "./RollDiceWindow/RollDiceWindow";
 import Draggable from "react-draggable";
-import {ISkillRenderData} from "@shared/types/Game/Skill/IAbility";
-import {IWeatherServiceRenderData} from "@shared/types/Game/Weather/Weather";
-import {IBasicResourcesAmount} from "@shared/types/Game/Resources/Resources";
-import {WeatherDays} from "@shared/types/Game/ScenarioService/ScenarioService";
-import {IConstructionServiceRenderData} from "@shared/types/Game/ConstructionService/IConstructionService";
+import {useAppSelector} from "../../../../store/hooks";
+import {selectGame} from "../../../../reduxSlices/gameSession";
 
 
-type Props = {
-    weatherService: IWeatherServiceRenderData;
-    round: number;
-    constructionService: IConstructionServiceRenderData;
-    resourcesAmount: IBasicResourcesAmount;
-    dices: WeatherDays;
-    skills: ISkillRenderData[];
-    determination: number;
-};
+type Props = {};
 export const WeatherResolveWindow = (props: Props) => {
+    const weatherDices = useAppSelector((state) => selectGame(state).scenarioService.weather!)
+    const currentRound = useAppSelector((state) => selectGame(state).round!);
+    const weatherService = useAppSelector((state) => selectGame(state).weatherService!);
     const [resolved, setResolved] = useState(
-        !props.dices.animals.includes(props.round) &&
-        !props.dices.rain.includes(props.round) &&
-        !props.dices.winter.includes(props.round)
+        !weatherDices.animals.includes(currentRound) &&
+        !weatherDices.rain.includes(currentRound) &&
+        !weatherDices.winter.includes(currentRound)
     );
-
 
     function setWeatherResolved() {
         setResolved(true);
@@ -43,34 +34,32 @@ export const WeatherResolveWindow = (props: Props) => {
         <Draggable bounds="parent" defaultClassNameDragging={sharedStyles.grabbing}>
             <div className={styles.container}>
                 <RollDiceWindow
-                    weatherService={props.weatherService}
+                    weatherService={weatherService}
                     setResolved={setWeatherResolved}
                     resolved={resolved}
                 />
 
                 <Header
-                    round={props.round}
+                    round={currentRound}
                     resolved={resolved}
                 />
                 <Dices
-                    animals={props.dices.animals.includes(props.round)}
-                    rain={props.dices.rain.includes(props.round)}
-                    snow={props.dices.winter.includes(props.round)}
+                    animals={weatherDices.animals.includes(currentRound)}
+                    rain={weatherDices.rain.includes(currentRound)}
+                    snow={weatherDices.winter.includes(currentRound)}
                 />
-                {props.weatherService.shouldRollDices && (
+                {weatherService.shouldRollDices && (
                     <RollDiceButton/>
                 )}
                 <div className={styles.bottomBar}>
-                    <WeatherTokens tokens={props.weatherService.tokens}/>
+                    <WeatherTokens tokens={weatherService.tokens}/>
                     <CloudsTotal
-                        weatherService={props.weatherService}
+                        weatherService={weatherService}
                         resolved={resolved}
                     />
                     <Resources
-                        constructionService={props.constructionService}
-                        resources={props.resourcesAmount}
-                        overallWeather={props.weatherService.overallWeather}
-                        storm={props.weatherService.tokens.storm}
+                        overallWeather={weatherService.overallWeather}
+                        storm={weatherService.tokens.storm}
                         resolved={resolved}
                     />
                 </div>

@@ -4,23 +4,24 @@ import RestArrange from "./RestOrArrangeCamp/RestArrange";
 import {ACTION} from "@shared/types/Game/ACTION";
 import {objectsEqual} from "@shared/utils/objectsEqual";
 import {IArrangeCampRestServiceRenderData} from "@shared/types/Game/RestArrangeCampService/ArrangeCampRestService";
+import {useAppSelector} from "../../../../store/hooks";
+import {selectGame} from "../../../../reduxSlices/gameSession";
 
 interface Props {
-    arrangeCampRestService: IArrangeCampRestServiceRenderData;
-    zIndex: boolean;
+    topLayer: boolean;
 }
 
 function ArrangeCampRest(props: Props) {
-    const zIndexClass = props.zIndex ? styles.zIndexIncreased : "";
+    const arrangeCampRestService = useAppSelector((state) => selectGame(state).arrangeCampRestService!);
 
     return (
-        <div className={styles.container + " " + zIndexClass}>
+        <div className={`${styles.container} ${props.topLayer && styles.zIndexIncreased}`}>
             <RestArrange
-                pawnAmount={props.arrangeCampRestService.pawnAmount.rest}
+                pawnAmount={arrangeCampRestService.pawnAmount.rest}
                 type={ACTION.REST}
             />
             <RestArrange
-                pawnAmount={props.arrangeCampRestService.pawnAmount.arrangeCamp}
+                pawnAmount={arrangeCampRestService.pawnAmount.arrangeCamp}
                 type={ACTION.ARRANGE_CAMP}
             />
         </div>

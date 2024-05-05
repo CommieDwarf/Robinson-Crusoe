@@ -1,30 +1,21 @@
 import React from "react";
 import Construction from "./Construction/Construction";
 import styles from "./Constructions.module.css";
-import {CONSTRUCTION, IConstructionRenderData} from "@shared/types/Game/ConstructionService/Construction";
-import {IBasicResourcesAmount} from "@shared/types/Game/Resources/Resources";
+import {useAppSelector} from "../../../../store/hooks";
+import {selectGame} from "../../../../reduxSlices/gameSession";
 
 
 interface Props {
-    constructions: IConstructionRenderData[];
-    zIndex: string;
-    ownedResources: IBasicResourcesAmount;
-    naturalShelter: boolean;
+    topLayer: boolean;
 }
 
 export default function Constructions(props: Props) {
 
-    let zIndexIncreasedClass = props.zIndex.includes("construction")
-        ? styles.zIndexIncreased
-        : "";
-
+    const constructions = useAppSelector((state) => selectGame(state).constructionService.constructions!)
     return (
-        <div className={styles.container + " " + zIndexIncreasedClass}>
-            {props.constructions.map((construction, i) => {
-                return <Construction construction={props.constructions[i]} key={i}
-                                     ownedResources={props.ownedResources}
-                                     naturalShelter={props.naturalShelter}
-                                     hideActionSlots={props.constructions[i].lvl > 0 && props.constructions[i].name === CONSTRUCTION.SHELTER}
+        <div className={styles.container + " " + (props.topLayer && styles.zIndexIncreased)}>
+            {constructions.map((construction, i) => {
+                return <Construction construction={construction} key={i}
                 />
             })}
         </div>

@@ -4,7 +4,8 @@ import Link from "next/link";
 import React, {ReactElement, useEffect, useState} from "react";
 import {useAppSelector} from "../../store/hooks";
 import {socket, socketEmitter} from "../../pages/_app";
-import {IsGameInProgressResponsePayload} from "@shared/types/Requests/Socket";
+import {useRouter} from "next/router";
+import {SOCKET_EMITTER, SocketPayloadMap} from "@shared/types/Requests/Socket";
 
 interface Props {
     UserComponent: ReactElement,
@@ -19,6 +20,8 @@ export function MainMenu({UserComponent}: Props) {
 
     const user = useAppSelector((state) => state.auth.user);
 
+    const router = useRouter();
+
     function handleButtonClick(event: React.MouseEvent) {
         if (!user) {
             event.preventDefault();
@@ -27,7 +30,7 @@ export function MainMenu({UserComponent}: Props) {
                 setIsAnimated(false);
             }, animationDurationMs)
         } else {
-            socketEmitter.createQuickGame();
+            socketEmitter.emitCreateQuickGame();
         }
     }
 
@@ -35,13 +38,14 @@ export function MainMenu({UserComponent}: Props) {
         if (!user) {
             return;
         }
-        socketEmitter.isGameInProgress();
-        socket.on("is_game_in_progress_response", (payload: IsGameInProgressResponsePayload) => {
-            setGameInProgress(payload.value)
-        })
+        socketEmitter.emitIsGameInProgress();
+        socket.on(SOCKET_EMITTER.IS_QUICK_GAME_IN_PROGRESS_RESPONSE,
+            (payload: SocketPayloadMap[SOCKET_EMITTER.IS_QUICK_GAME_IN_PROGRESS_RESPONSE]) => {
+                setGameInProgress(payload.value)
+            })
 
         return () => {
-            socket.off("is_game_in_progress_response");
+            socket.off(SOCKET_EMITTER.IS_QUICK_GAME_IN_PROGRESS_RESPONSE);
         }
     }, [user])
 
@@ -63,7 +67,7 @@ export function MainMenu({UserComponent}: Props) {
                     </Link>}
                     <Link
                         aria-disabled={!user}
-                        href={"./Play"}
+                        href={"./Play/?sessionId=quickgame"}
                         onClick={handleButtonClick}
                     >
                         <li className={`${styles.menuItem} ${!user && styles.menuItemDisabled}`}>

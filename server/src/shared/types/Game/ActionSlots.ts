@@ -3,7 +3,7 @@ import {IPawn} from "./Pawns/Pawn";
 
 export interface IActionSlotServiceRenderData {
     slots: Object;
-    pawnDropIDAlert: string | null;
+    markedActionSlotId: string | null;
 }
 
 export type OccupiedSlots = {
@@ -18,6 +18,6 @@ export interface IActionSlotService {
     getPawn: (droppableId: string) => IPawn<any> | null;
     renderData: IActionSlotServiceRenderData;
     getOccupiedActionSlots: () => OccupiedSlots;
-    pawnDropIDAlert: string | null;
+    markedActionSlotId: string | null;
 }
 

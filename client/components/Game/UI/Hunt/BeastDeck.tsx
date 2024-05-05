@@ -5,29 +5,27 @@ import React from "react";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
 import {getActionSlotDroppableId} from "@shared/utils/getActionSlotDroppableId";
 import {ACTION} from "@shared/types/Game/ACTION";
+import {useAppSelector} from "../../../../store/hooks";
+import {selectGame} from "../../../../reduxSlices/gameSession";
 
 interface Props {
-    zIndex: string;
-    beastCount: number;
+    topLayer: boolean;
     isDragDisabled: boolean;
 }
 
-export default function Hunt(props: Props) {
-    const zIndexClass = props.zIndex.includes("hunt")
-        ? styles.zIndexIncreased
-        : "";
-    const lockedClass = props.beastCount === 0;
+export default function BeastDeck(props: Props) {
+    const beastAmount = useAppSelector((state) => selectGame(state).beastService.deckCount!);
 
     return (
-        <div className={styles.container + " " + zIndexClass}>
-            <div className={styles.card + " " + lockedClass}>
+        <div className={styles.container + " " + (props.topLayer && styles.zIndexIncreased)}>
+            <div className={styles.card + " " + (beastAmount === 0 && styles.locked)}>
                 <ResizableImage src={beastReverseImg} alt="Bestia"/>
             </div>
             <div className={styles.beastCount + " " + styles.locked}>
-                {props.beastCount}
+                {beastAmount}
             </div>
 
-            {props.beastCount > 0 && (
+            {beastAmount > 0 && (
                 <div className={styles.actionSlots}>
                     <div className={styles.actionSlot}>
                         <ActionSlot

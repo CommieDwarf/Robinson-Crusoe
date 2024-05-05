@@ -1,16 +1,22 @@
 import styles from "./Player.module.css";
 import bootKickImg from "/public/UI/boot-kick.png";
-import ResizableImage from "../../../../ResizableImage/ResizableImage";
-import gatherImg from "/public/UI/actions/gather.png";
+import ResizableImage from "../../../ResizableImage/ResizableImage";
 import {useTranslation} from "react-i18next";
+import {IPlayerRenderData} from "@shared/types/Game/PlayerService/Player";
 
-export function Player() {
+
+interface Props {
+    player: IPlayerRenderData
+}
+
+
+export function Player(props: Props) {
 
     const {t} = useTranslation();
 
     return <div className={styles.container}>
         <div className={styles.name}>
-            User22
+            {props.player.username}
         </div>
         <div className={styles.character}>
             <select>

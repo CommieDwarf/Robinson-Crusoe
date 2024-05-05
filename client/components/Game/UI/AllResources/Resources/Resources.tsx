@@ -2,39 +2,37 @@
 import * as React from "react";
 import {useEffect, useRef} from "react";
 import styles from "./Resources.module.css";
-import {IBasicResourcesAmount} from "@shared/types/Resources/Resources";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
 import {kebabCase} from "lodash";
+import {IBasicResourcesAmount, IResourcesRenderData} from "@shared/types/Game/Resources/Resources";
+import Entries from "@shared/types/Entries";
 
 type Props = {
     type: "future" | "owned";
-    basic: Map<keyof IBasicResourcesAmount, number>;
-    tokenAmount: number;
-    treasureAmount: number;
+    resources: IResourcesRenderData
 };
 
 interface AllResources extends IBasicResourcesAmount {
     token: number;
     treasure: number;
-
 }
 
 
 export const Resources = (props: Props) => {
     const resources: JSX.Element[] = [];
 
-    const allResources = new Map<keyof AllResources, number>(
-        [...props.basic,
-            ["token", props.tokenAmount],
-            ["treasure", props.treasureAmount]
-        ]
+
+    const resourceAmounts = new Map<keyof AllResources, number>(
+        [...Object.entries(props.resources.basic) as Entries<typeof props.resources.basic>,
+            ["token", props.resources.tokens.length],
+            ["treasure", props.resources.treasures.length]]
     );
 
 
-    const oldValues = usePreviousValue(allResources);
+    const oldValues = usePreviousValue(resourceAmounts);
     let color = "black";
 
-    allResources.forEach((value, key) => {
+    resourceAmounts.forEach((value, key) => {
         let valueChanged = false;
         if (oldValues) {
             const oldValue = oldValues.get(key) as number;

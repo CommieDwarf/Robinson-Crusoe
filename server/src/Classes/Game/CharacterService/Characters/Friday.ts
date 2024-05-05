@@ -15,7 +15,7 @@ export class Friday extends SideCharacter implements ISideCharacter {
         this._skills = this.initSkills();
     }
 
-    get skills(): IAbility<ActionDice>[] {
+    get abilities(): IAbility<ActionDice>[] {
         return this._skills;
     }
 

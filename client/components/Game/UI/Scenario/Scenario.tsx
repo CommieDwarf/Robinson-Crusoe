@@ -3,15 +3,13 @@ import styles from "./Scenario.module.css";
 import React from "react";
 
 import Castaways from "./Scenarios/Castaways/Castaways";
-import {IInventionRenderData} from "@shared/types/InventionService/Invention";
-import {IScenarioServiceRenderData} from "@shared/types/ScenarioService/ScenarioService";
+import {IInventionRenderData} from "@shared/types/Game/InventionService/Invention";
+import {IScenarioServiceRenderData} from "@shared/types/Game/ScenarioService/ScenarioService";
+
 
 interface Props {
-    inventions: IInventionRenderData[];
     show: boolean;
     zIndex: string;
-    round: number;
-    scenario: IScenarioServiceRenderData;
     contentHeight: number;
 }
 
@@ -29,10 +27,7 @@ export default function Scenario(props: Props) {
         <div className={styles.container + " " + hiddenClass}>
             <div className={styles.content} style={contentStyle}>
                 <Castaways
-                    inventions={props.inventions}
                     zIndex={props.zIndex}
-                    round={props.round}
-                    scenario={props.scenario}
                 />
             </div>
         </div>

@@ -1,14 +1,14 @@
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
-import {IPlayer, IPlayerRenderData} from "@shared/types/Game/PlayerService/Player";
-import {IUser} from "../../../types/UserData/IUser";
+import {AssignedCharacter, IPlayer, IPlayerRenderData} from "@shared/types/Game/PlayerService/Player";
 import {PAWN_COLOR} from "@shared/types/Game/PAWN_COLOR";
 import {uuid} from "uuidv4";
 import {CHARACTER, Gender} from "@shared/types/Game/Characters/Character";
 import {IGame} from "@shared/types/Game/Game";
-import {Explorer} from "../CharacterService/Characters/Explorer";
-import {Cook} from "../CharacterService/Characters/Cook";
-import {Carpenter} from "../CharacterService/Characters/Carpenter";
-import {Soldier} from "../CharacterService/Characters/Soldier";
+import {IUser} from "../../types/UserData/IUser";
+import {Soldier} from "../Game/CharacterService/Characters/Soldier";
+import {Cook} from "../Game/CharacterService/Characters/Cook";
+import {Explorer} from "../Game/CharacterService/Characters/Explorer";
+import {Carpenter} from "../Game/CharacterService/Characters/Carpenter";
 
 
 export class Player implements IPlayer {
@@ -20,12 +20,12 @@ export class Player implements IPlayer {
     private readonly _user: IUser;
     private readonly _id = uuid();
 
-    private _assignedCharacter: { char: CHARACTER, gender: Gender } | null = null;
+    private _assignedCharacter: AssignedCharacter
 
-
-    constructor(user: IUser) {
+    constructor(user: IUser, assignedCharacter: AssignedCharacter) {
         this._user = user;
         this._username = user.username;
+        this._assignedCharacter = assignedCharacter;
     }
 
     get renderData(): IPlayerRenderData {
@@ -33,7 +33,8 @@ export class Player implements IPlayer {
             username: this._username,
             color: this._color || "black",
             id: this.id,
-            character: this.getCharacter().renderData,
+            character: this._character?.renderData || null,
+            assignedCharacter: this._assignedCharacter
         };
     }
 
@@ -45,7 +46,7 @@ export class Player implements IPlayer {
         return this._color;
     }
 
-    get assignedCharacter(): { char: CHARACTER; gender: Gender } | null {
+    get assignedCharacter(): AssignedCharacter {
         return this._assignedCharacter;
     }
 
@@ -57,7 +58,7 @@ export class Player implements IPlayer {
         return this._user;
     }
 
-    get id(): any {
+    get id(): string {
         return this._id;
     }
 
@@ -88,12 +89,8 @@ export class Player implements IPlayer {
 
     getCharacter(): IPlayerCharacter {
         if (!this._character) {
-            throw new Error(
-                "There is no Character assigned to player: " + this.username
-            );
+            throw new Error("Character not initialized");
         }
         return this._character;
     }
-
-
 }

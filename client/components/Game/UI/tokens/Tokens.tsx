@@ -7,10 +7,10 @@ import {ITokenRenderData} from "@shared/types/Game/TokenService/Token";
 import {getPropsComparator} from "../../../../utils/getPropsComparator";
 import {OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {socketEmitter} from "../../../../pages/_app";
+import {useAppSelector} from "../../../../store/hooks";
+import {selectGame} from "../../../../reduxSlices/gameSession";
 
 interface Props {
-    owned: ITokenRenderData[];
-    future: ITokenRenderData[];
     menuDisabled: boolean;
 }
 
@@ -24,11 +24,20 @@ function Tokens(props: Props) {
     const [contextMenuLeft, setContextMenuLeft] = useState(0);
     const [tokenLocked, setTokenLocked] = useState(false);
 
+    const tokens = useAppSelector((state) => {
+        const tokenService = selectGame(state).tokenService!;
+        return {
+            owned: tokenService.owned,
+            future: tokenService.future
+        }
+    })
+
     function handleScroll(event: React.UIEvent<HTMLDivElement>) {
         setScrollLeft(event.currentTarget.scrollLeft);
     }
 
     const scrollRef = useRef<HTMLDivElement>(null);
+
 
     function handleWheel(event: React.WheelEvent) {
         event.preventDefault()
@@ -87,7 +96,7 @@ function Tokens(props: Props) {
                 )}
             <div className={styles.scroll} onScroll={handleScroll} onWheel={handleWheel} ref={scrollRef}>
                 <div className={styles.content}>
-                    {props.owned.map((token, i) => {
+                    {tokens.owned.map((token, i) => {
                         return (
                             <Token
                                 key={i}
@@ -98,7 +107,7 @@ function Tokens(props: Props) {
                             />
                         );
                     })}
-                    {props.future.map((token, i) => {
+                    {tokens.future.map((token, i) => {
                         return (
                             <Token
                                 key={i}

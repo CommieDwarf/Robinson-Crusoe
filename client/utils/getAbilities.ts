@@ -1,7 +1,7 @@
 import {CHARACTER} from "@shared/types/Game/Characters/Character";
 import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
 
-export function mapAbilities(character: CHARACTER): ABILITY[] {
+export function getAbilities(character: CHARACTER): ABILITY[] {
     switch (character) {
         case CHARACTER.COOK:
             return [ABILITY.STONE_SOUP, ABILITY.GRANDMAS_RECIPE, ABILITY.HOOCH, ABILITY.SCROUNGER];

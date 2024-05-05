@@ -10,7 +10,7 @@
     border-radius: 5px;
     border: 1px solid var(--brown);
     color: var(--brown);
-    padding: 0 15px 15px 15px;
+    padding: 15px;
 }
 
 .menuButton {

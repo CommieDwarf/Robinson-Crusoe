@@ -4,24 +4,31 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 5px;
+}
+
+.title {
+    text-align: center;
+    font-weight: 700;
+    font-size: 15px;
 }
 
 .abilityName {
     text-align: center;
     font-weight: 600;
-    font-size: 15px;
+    font-size: 13px;
     font-style: italic;
+    margin-top: 3px;
 }
 
-.description {
-    line-height: 25px;
-    font-size: 15px;
+.abilityDescription {
+    line-height: 17px;
+    font-size: 13px;
+    height: 50px;
+    margin-top: 3px;
 }
 
 .selectAbility {
     width: 100%;
-    margin-top: 5px;
     display: flex;
     flex-wrap: wrap;
     column-gap: 5px;
@@ -35,8 +42,19 @@
     text-align: center;
     padding-left: 5px;
     padding-right: 5px;
-    font-size: 10px;
+    font-size: 9px;
     line-height: 20px;
+    cursor: pointer;
+}
+
+.abilityOption:hover {
+    scale: 1.1;
+}
+
+.abilityOptionSelected {
+    background-color: var(--brown);
+    color: white;
+    font-weight: 500;
 }
 
 .icon {
@@ -45,4 +63,11 @@
     aspect-ratio: 1;
     position: relative;
     display: inline-block;
+}
+
+.hr {
+    border-top: 1px solid var(--borderColor);
+    border-bottom: 1px solid var(--borderColor);
+    display: block;
+    width: 100%;
 }

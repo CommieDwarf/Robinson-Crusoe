@@ -20,7 +20,7 @@ export interface IResourceCommittableItem<Resource> extends IAssignablePawnsItem
     unCommitResources: () => void;
 
     consumeCommittedResources: () => void;
-    canCommitResource: (optional: boolean) => boolean;
+    canCommitResource: (optionalResource: boolean) => boolean;
 
     renderData: IResourceCommittableItemRenderData<Resource>
 }

@@ -7,28 +7,33 @@ import {Resources} from "./Resources/Resources";
 import productionImg from "/public/UI/phase/production.png";
 import boardImg from "/public/UI/misc/board.jpg";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
-import {IBasicResourcesAmount} from "@shared/types/Game/Resources/Resources";
 import {objectsEqual} from "@shared/utils/objectsEqual";
+import {useAppSelector} from "../../../../store/hooks";
+import {selectGame} from "../../../../reduxSlices/gameSession";
 
 interface Props {
-    owned: {
-        basic: Map<keyof IBasicResourcesAmount, number>;
-        tokenAmount: number;
-        treasureAmount: number;
-    };
-    future: {
-        basic: Map<keyof IBasicResourcesAmount, number>;
-        tokenAmount: number;
-        treasureAmount: number;
-    };
+
 }
 
 function AllResources(props: Props) {
+
+    const resources = useAppSelector((state) => {
+        const resourceService = selectGame(state).resourceService!;
+        return {
+            future: resourceService.future,
+            owned: resourceService.owned,
+        }
+    })
+
+
     return (
         <div className={styles.container}>
             <Frame/>
             <div className={`${styles.resources} ${styles.future}`}>
-                <Resources type={"future"} {...props.future} />
+                <Resources type={"future"}
+                           resources={resources.future}
+
+                />
             </div>
             <div className={frameStyles.midBar}>
                 <ResizableImage src={boardImg} alt={"ramka"}/>
@@ -42,7 +47,7 @@ function AllResources(props: Props) {
                 </div>
             </div>
             <div className={`${styles.resources} ${styles.owned}`}>
-                <Resources type={"owned"} {...props.owned} />
+                <Resources type={"owned"} resources={resources.owned}/>
             </div>
         </div>
     );

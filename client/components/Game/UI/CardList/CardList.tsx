@@ -7,12 +7,10 @@ import Cards from "./Cards/Cards";
 import {IItemRenderData} from "@shared/types/Game/Equipment/Item";
 import {IMysteryCardRenderData} from "@shared/types/Game/MysteryService/MysteryCard";
 import {IInventionRenderData} from "@shared/types/Game/InventionService/Invention";
+import {useAppSelector} from "../../../../store/hooks";
 
 type Props = {
-    zIndex: string;
-    inventions: IInventionRenderData[];
-    mysteryCards: IMysteryCardRenderData[];
-    items: IItemRenderData[];
+    topLayerElement: string;
     isBeingDragged: boolean;
 };
 
@@ -35,30 +33,29 @@ export const CardList = (props: Props) => {
         }
     }
 
-    const zIndexClass = props.zIndex.includes("invention")
-        ? styles.zIndexIncreased
-        : "";
-
 
     function handleScroll(event: React.UIEvent<HTMLDivElement>) {
         setScrollTop(event.currentTarget.scrollTop)
     }
 
-    const disabledScrollClass = props.isBeingDragged ? styles.disabledScroll : "";
+    const topLayer = props.topLayerElement.includes("invention") ||
+        props.topLayerElement.includes("mystery");
 
     return (
         <>
             <Tabs switchTab={switchTab} currentTab={selectedTab}/>
-            <div className={`${styles.container} ${zIndexClass} ${disabledScrollClass}`} ref={containerRef}
+            <div className={`${styles.container}
+                 ${topLayer && styles.zIndexIncreased}
+                 ${props.isBeingDragged && styles.disabledScroll}`
+            }
+                 ref={containerRef}
                  onScroll={handleScroll}>
 
                 <Cards
-                    inventions={props.inventions}
-                    mysteryCards={props.mysteryCards}
-                    items={props.items}
                     tab={selectedTab}
                     isBeingDragged={props.isBeingDragged}
-                    zIndex={props.zIndex}
+                    topLayerElement={props.topLayerElement}
+                    topLayer={topLayer}
                     scrollTop={scrollTop}
                     containerWidth={containerWidth}
                 />

@@ -4,17 +4,19 @@ import MoraleBar from "./MoraleBar/MoraleBar";
 import moraleArrowLeftImg from "/public/UI/icons/morale-arrow-left.png";
 import moraleArrowRightImg from "/public/UI/icons/morale-arrow-right.png";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
+import {useAppSelector} from "../../../../store/hooks";
+import {selectGame} from "../../../../reduxSlices/gameSession";
 
 interface Props {
-    current: number;
 }
 
 function Morale(props: Props) {
     const moraleBars = [];
+    const currentMorale = useAppSelector((state) => selectGame(state).moraleService.lvl!);
 
     for (let i = -3; i <= 3; i++) {
         moraleBars.push(
-            <MoraleBar current={i === props.current} value={i} key={i}/>
+            <MoraleBar current={i === currentMorale} value={i} key={i}/>
         );
     }
 

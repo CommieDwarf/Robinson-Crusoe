@@ -75,11 +75,9 @@ export class PawnService<Owner extends IPawnOwner> implements IPawnService<Owner
     }
 
     public destroyPawn(draggableId: string): void {
-        const pawn = this.getPawn(draggableId);
         this.removePawn(draggableId, "pawns");
         this.removePawn(draggableId, "freePawns");
-        this._game.allPawns = this._game.allPawns.filter((p) => p !== pawn);
-        this._game.otherPawns = this._game.otherPawns.filter((p) => p !== pawn);
+        this._game.globalPawnService.removeItemPawn(draggableId);
     }
 
     public destroyAllPawns(): void {
@@ -93,7 +91,6 @@ export class PawnService<Owner extends IPawnOwner> implements IPawnService<Owner
         }
         this._pawns = [...pawns];
         this._freePawns = [...pawns];
-        this._game.addToOtherPawns([...pawns]);
     }
 
     private getPawn(draggableId: string) {

@@ -3,7 +3,6 @@ import ActionSlot from "../../../../ActionSlot";
 import styles from "./Invention.module.css";
 import getActionSlots from "../../../../getActionSlots";
 import {useAppSelector} from "../../../../../../../store/hooks";
-import {selectModifiersByAction} from "../../../../../../../reduxSlices/globalCostModifiers";
 import ResizableImage from "../../../../../../ResizableImage/ResizableImage";
 import {kebabCase} from "lodash";
 import {OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
@@ -12,6 +11,7 @@ import {IInventionRenderData} from "@shared/types/Game/InventionService/Inventio
 import {getOwnedDroppableId} from "@shared/utils/getOwnedDroppableId";
 import {getPropsComparator} from "../../../../../../../utils/getPropsComparator";
 import {socketEmitter} from "../../../../../../../pages/_app";
+import {selectGame} from "../../../../../../../reduxSlices/gameSession";
 
 type Props = {
     invention: IInventionRenderData;
@@ -65,8 +65,8 @@ function Invention(props: Props) {
         </div>
     );
 
-    const state = useAppSelector((state) => state.globalCostModifiers);
-    const modifiers = selectModifiersByAction(state, ACTION.BUILD);
+    const state = useAppSelector((state) => selectGame(state).actionService.globalCostModifiers!);
+    const modifiers = state[ACTION.BUILD];
     const extraPawnNeeded = modifiers.some((mod) => mod.resource === "helper")
         ? 1
         : 0;

@@ -7,13 +7,17 @@ import ResizableImage from "../../../ResizableImage/ResizableImage";
 import {ITileRenderData} from "@shared/types/Game/TileService/ITile";
 import {TILE_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {socketEmitter} from "../../../../pages/_app";
+import {useAppSelector} from "../../../../store/hooks";
+import {selectGame} from "../../../../reduxSlices/gameSession";
 
 type Props = {
-    currentCamp: ITileRenderData;
     nextCamp: ITileRenderData;
     hide: () => void;
 };
 export const ConfirmCampMove = (props: Props) => {
+
+    const currentCamp = useAppSelector((state) => selectGame(state).tileService.campTile!);
+
     function handleConfirmClick() {
         socketEmitter.emitAction(TILE_CONTROLLER_ACTION.MOVE_CAMP, props.nextCamp.id)
         props.hide();
@@ -28,7 +32,7 @@ export const ConfirmCampMove = (props: Props) => {
             <h3>Czy na pewno chcesz przenieść obóz?</h3>
             <div className={styles.tile}>
                 <ResizableImage
-                    src={"/UI/Map/tiles/" + props.currentCamp.tileResourceService?.id + ".png"}
+                    src={"/UI/Map/tiles/" + currentCamp.tileResourceService?.id + ".png"}
                     alt={"Obecny obóz"}
                     fill
                     sizes={styles.tile}

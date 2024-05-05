@@ -21,7 +21,7 @@ export class Carpenter extends PlayerCharacter implements IPlayerCharacter {
         this._skills = this.initSkills();
     }
 
-    get skills(): IAbility<any>[] {
+    get abilities(): IAbility<any>[] {
         return this._skills;
     }
 

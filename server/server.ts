@@ -4,14 +4,8 @@ import {body, validationResult} from "express-validator";
 import {jwtSecret} from "./src/config/jwt";
 import {SessionService} from "./src/Classes/SessionService/SessionService";
 import {jwtDecode} from "jwt-decode";
-import {
-    CreateGamePayload,
-    ExecuteGameMethodAndSendResponsePayload,
-    GameInstanceSentPayload, IsGameInProgressResponsePayload,
-    PlayerActionPayload
-} from "./src/shared/types/Requests/Socket";
+import {SOCKET_EMITTER, SocketPayloadMap} from "./src/shared/types/Requests/Socket";
 import {ForbiddenPlayerAction} from "./src/Errors/ForbiddenPlayerAction";
-import {use} from "passport";
 
 const passport = require("passport");
 const {Socket} = require("socket.io");
@@ -193,54 +187,62 @@ interface TokenPayload {
 io.on("connection", async (socket: typeof Socket) => {
     try {
         const userId = jwtDecode<TokenPayload>(socket.handshake.headers.authorization)._id;
-        const user = await User.findOne({_id: userId});
-        // @ts-ignore
-        const {username} = user;
-        if (!user) {
+
+        const userDocument = await User.findOne({_id: userId});
+        if (!userDocument) {
             socket.disconnect();
             return;
         }
 
-        socket.on("create_quick_game", async () => {
-            sessionService.createQuickGame({_id: userId, username});
-            sendGameInstance(userId, socket);
+        const emitSocket = getEmitSocket(socket);
+
+        const user = sessionService.addToActiveUsers(userDocument);
+
+
+        socket.on(SOCKET_EMITTER.CREATE_QUICK_GAME, async () => {
+            const session = sessionService.createQuickGameSession(user.id);
+            emitSocket(SOCKET_EMITTER.GAME_SESSION_CREATED, {sessionId: "quickgame"})
         })
 
-        socket.on("create_session", async (payload: CreateGamePayload) => {
+        socket.on(SOCKET_EMITTER.CREATE_SESSION, async (payload: SocketPayloadMap[SOCKET_EMITTER.CREATE_SESSION]) => {
             const {settings} = payload;
-            const session = sessionService.createSession({_id: userId, username}, settings);
+            const session = sessionService.createSession(user.id, settings);
+            emitSocket(SOCKET_EMITTER.GAME_SESSION_CREATED, {sessionId: session.id})
         })
 
-        socket.on("game_instance_requested", async () => {
-            const gameInProgress = sessionService.hasSession(userId);
-            if (!gameInProgress) {
-                await sessionService.createQuickGame(user);
+        socket.on(SOCKET_EMITTER.SESSION_DATA_REQUESTED, (payload: SocketPayloadMap[SOCKET_EMITTER.SESSION_DATA_REQUESTED]) => {
+            let session;
+            if (payload.sessionId === "quickgame") {
+                session = sessionService.getQuickGameByUserId(user.id);
+                if (!session) {
+                    session = sessionService.createQuickGameSession(user.id);
+                }
+            } else {
+                session = sessionService.getSession(user.id, payload.sessionId);
             }
-            sendGameInstance(userId, socket);
+
+            if (session) {
+                emitSocket(SOCKET_EMITTER.SESSION_DATA_SENT, {sessionData: session.renderData})
+            } else {
+                //TODO: obsłuż wyjątek
+            }
         })
 
-        socket.on("disconnect", () => {
+        socket.on(SOCKET_EMITTER.DISCONNECT, () => {
             // sessionService.closeSession(gameSession.id);
         })
 
-        socket.on("player_action",
-
-            async (actionData: PlayerActionPayload) => {
+        socket.on(SOCKET_EMITTER.PLAYER_ACTION,
+            async (actionData: SocketPayloadMap[SOCKET_EMITTER.PLAYER_ACTION]) => {
                 try {
-                    const gameSession = sessionService.getSessionByUserId(userId);
-                    if (!gameSession) {
+                    console.log("SESSION ID", actionData.sessionId);
+                    const session = sessionService.getSession(user.id, actionData.sessionId);
+                    if (!session) {
                         throw new Error("Game session not found")
                     }
-                    gameSession.handleAction(userId, actionData.actionType, ...actionData.arguments);
-                    const game = gameSession?.getGame();
-                    if (!game) {
-                        throw new Error("Game not found")
-                    }
-                    const payload: GameInstanceSentPayload = {
-                        gameSessionId: gameSession.id,
-                        gameRenderData: game.renderData
-                    }
-                    socket.emit("game_instance_sent", payload);
+                    session.handleAction(user.id, actionData.actionType, ...actionData.arguments);
+                    //TODO: Zrób autoryzację gracz - sesja
+                    emitSocket(SOCKET_EMITTER.SESSION_DATA_SENT, {sessionData: session.renderData});
                 } catch (e) {
                     if (e instanceof ForbiddenPlayerAction) {
                         socket.emit("alert_sent", {message: e.message});
@@ -251,71 +253,53 @@ io.on("connection", async (socket: typeof Socket) => {
 
             })
 
-        socket.on("execute_game_method_and_send_response", (methodData: ExecuteGameMethodAndSendResponsePayload) => {
-            try {
-                const game = sessionService.getSessionByUserId(userId)?.getGame();
-                if (!game) {
-                    throw new Error("Can't find game session")
+        socket.on(SOCKET_EMITTER.EXECUTE_GAME_METHOD_AND_SEND_RESPONSE,
+            (payload: SocketPayloadMap[SOCKET_EMITTER.EXECUTE_GAME_METHOD_AND_SEND_RESPONSE]) => {
+                try {
+                    const game = sessionService.getSession(user.id, payload.sessionId)?.getGame();
+                    if (!game) {
+                        throw new Error("Can't find game session")
+                    }
+                    const {methodName, methodArgs} = payload;
+                    if (typeof game[methodName] === 'function') {
+                        //@ts-ignore
+                        const func = game[methodName].bind(game) as Function;
+                        const result = func(...methodArgs);
+                        socket.emit("game_method_response", {result});
+                        emitSocket(SOCKET_EMITTER.GAME_METHOD_RESPONDED, {result, requestId: payload.requestId})
+                    } else {
+                        throw new Error(`Method ${String(methodName)} does not exist on game instance.`);
+                    }
+                } catch (e) {
+                    console.error(e);
                 }
-                const {methodName, methodArgs} = methodData;
-                if (typeof game[methodName] === 'function') {
-                    //@ts-ignore
-                    const func = game[methodName].bind(game) as Function;
-                    const result = func(...methodArgs);
-                    socket.emit("game_method_response", {result});
-                } else {
-                    throw new Error(`Method ${String(methodName)} does not exist on game instance.`);
-                }
-            } catch (e) {
-                console.error(e);
-            }
+            });
 
-        });
-
-        socket.on("is_game_in_progress", () => {
+        socket.on(SOCKET_EMITTER.IS_QUICK_GAME_IN_PROGRESS_RESPONSE, () => {
             try {
-                const game = sessionService.getSessionByUserId(userId)?.getGame();
-                const payload: IsGameInProgressResponsePayload = {
-                    value: Boolean(game)
-                }
-                socket.emit("is_game_in_progress_response", payload)
+                const game = sessionService.getQuickGameByUserId(user.id)?.getGame();
+                emitSocket(SOCKET_EMITTER.IS_QUICK_GAME_IN_PROGRESS_RESPONSE, {value: Boolean(game)});
             } catch (e) {
                 console.error(e);
             }
         })
+
+        socket.on(SOCKET_EMITTER.SESSION_LIST_REQUESTED, () => {
+            emitSocket(SOCKET_EMITTER.SESSION_LIST_SENT, {sessionList: sessionService.getPublicSessionList()});
+        })
+
     } catch (e) {
         console.error(e)
     }
 })
-
-function sendSessionData(userId: string, sessionId: string) {
-
-}
-
-function sendGameInstance(userId: string, socket: typeof Socket) {
-    try {
-        const gameSession = sessionService.getSessionByUserId(userId)
-        if (!gameSession) {
-            throw new Error("Game session not found")
-        }
-        const game = gameSession?.getGame();
-        if (!game) {
-            throw new Error("Game Session not found!")
-        }
-        const payload: GameInstanceSentPayload = {
-            gameRenderData: game.renderData,
-            gameSessionId: gameSession.id,
-        }
-        console.log("game instance sent")
-        socket.emit("game_instance_sent", payload);
-    } catch (e) {
-        console.error(e);
-    }
-}
 
 
 server.listen(PORT, () => {
     console.log('server running on port:', PORT);
 })
 
-
+function getEmitSocket(socket: typeof Socket) {
+    return function <T extends keyof SocketPayloadMap>(socketEmitter: T, payload: SocketPayloadMap[T]) {
+        socket.emit(socketEmitter, payload);
+    }
+}

@@ -7,35 +7,35 @@ import Threshold from "./Threshold";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
 import {ICharacterServiceRenderData} from "@shared/types/Game/CharacterService/CharacterService";
 import {getPropsComparator} from "../../../../utils/getPropsComparator";
+import {useAppSelector} from "../../../../store/hooks";
+import {selectGame} from "../../../../reduxSlices/gameSession";
 
 interface Props {
-    value: number;
-    maxHealth: number;
-    moraleThresholds: number[];
-    characterService: ICharacterServiceRenderData;
+
 }
 
 function Health(props: Props) {
     let marks: JSX.Element[] = [];
+    const characterService = useAppSelector((state) => selectGame(state).characterService!)
+    const character = useAppSelector((state) => selectGame(state).localPlayer.character!);
 
 
-    for (let i = props.maxHealth; i > 0; i--) {
+    for (let i = character.maxHealth; i > 0; i--) {
         marks.push(
             <div className={styles.heart} key={i}>
                 <ResizableImage
-                    src={i === props.value ? redHeartImg : heartImg}
+                    src={i === character.health ? redHeartImg : heartImg}
                     fill
                     alt="serce"
                     sizes={styles.heart}
                 />
             </div>
         );
-        if (props.moraleThresholds.includes(i - 1)) {
+        if (character.moraleThresholds.includes(i - 1)) {
             marks.push(
                 <Threshold id={i - 1}
-                           thresholdAmountForRemoval={props.characterService.thresholdAmountForRemoval}
-                    //TODO: CHANGE HARDCODED CHAR
-                           removed={props.characterService.playerCharacters[0].moraleThresholdsRemoved.includes(i - 1)}
+                           thresholdAmountForRemoval={characterService.thresholdAmountForRemoval}
+                           removed={character.moraleThresholdsRemoved.includes(i - 1)}
                            key={i + 100}
                 />
             );

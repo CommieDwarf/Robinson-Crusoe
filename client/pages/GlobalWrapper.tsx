@@ -27,7 +27,7 @@ export function GlobalWrapper(props: Props) {
     useEffect(() => {
         if (user) {
             const token = getAuthToken();
-            socketEmitter.initialize(user._id);
+            socketEmitter.setUser(user._id);
             if (token) {
                 socketEmitter.connectSocketWithAuthToken(token)
             }

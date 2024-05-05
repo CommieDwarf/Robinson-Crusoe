@@ -28,7 +28,7 @@ import {IAdventureService, IAdventureServiceRenderData,} from "./AdventureServic
 import {IMysteryService, IMysteryServiceRenderData,} from "./MysteryService/MysteryService";
 import {IObjectPickerRenderData, PickableObject, PickSubject} from "@shared/types/Game/ObjectPicker/ObjectPicker";
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
-import {ObjectPicker} from "../../../Classes/Game/ObjectPicker/ObjectPicker";
+import {IGlobalPawnService, IGlobalPawnServiceRenderData} from "@shared/types/Game/GlobalPawnService/GlobalPawnService";
 
 export enum GAME_STATUS {
     PENDING = "pending",
@@ -54,12 +54,12 @@ export interface IGameRenderData {
     logs: ILogMessageRenderData[];
     actionService: IActionServiceRenderData;
 
-    actionSlotRenderData: IActionSlotServiceRenderData;
+    actionSlotService: IActionSlotServiceRenderData;
 
     alertService: IAlertServiceRenderData;
     scenarioService: IScenarioServiceRenderData;
     weatherService: IWeatherServiceRenderData;
-    allPawns: IPawnRenderData<any>[];
+    globalPawnService: IGlobalPawnServiceRenderData;
     tokenService: ITokenServiceRenderData;
     adventureService: IAdventureServiceRenderData;
     mysteryService: IMysteryServiceRenderData;
@@ -87,22 +87,16 @@ export interface IGame {
     logService: ILogService;
     alertService: IAlertService;
     scenarioService: IScenarioService;
-    allPawns: IPawn[];
+
+    globalPawnService: IGlobalPawnService;
     round: number;
-    otherPawns: IPawn[];
     setNextRound: () => void;
-    setPawn: (droppableId: string, draggableId: string) => void;
 
     gameStatus: GAME_STATUS;
-    unsetPawn: (droppableId: string, draggableId: string) => void;
 
-    canCommitResources: (droppableId: string) => boolean;
-    shouldCommitResources: (droppableId: string) => boolean;
-    resetPawns: () => void;
     adventureService: IAdventureService;
     mysteryService: IMysteryService;
 
-    addToOtherPawns: (pawn: IPawn[] | IPawn) => void;
 
     setGameStatus: (status: GAME_STATUS.WIN | GAME_STATUS.LOSE, reason?: string) => void;
 

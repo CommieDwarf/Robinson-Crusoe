@@ -5,7 +5,6 @@ import {ResolvableItems} from "./ActionResolve/ResolvableItems";
 import {ActionDice} from "@shared/types/Game/RollDice/RollDice";
 import {sleep} from "@shared/utils/sleep";
 import {RESOLVE_ITEM_STATUS} from "@shared/types/Game/ActionService/IResolvableItem";
-import {IActionServiceRenderData} from "@shared/types/Game/ActionService/ActionService";
 import {NextActionButton} from "./NextActionButton/NextActionButton";
 import redArrowImg from "/public/UI/misc/red-arrow.png";
 import {ReRoll} from "./ReRoll/ReRoll";
@@ -20,13 +19,14 @@ import actionIconImg from "/public/UI/phase/action.png";
 import {capitalize, kebabCase} from "lodash";
 import {useTranslation} from "react-i18next";
 import {socketEmitter} from "../../../../pages/_app";
+import {useAppSelector} from "../../../../store/hooks";
+import {selectGame} from "../../../../reduxSlices/gameSession";
 
 
-type Props = {
-    actionService: IActionServiceRenderData;
-};
+type Props = {};
 export const ActionResolveWindow = (props: Props) => {
     let containerRef = React.createRef<HTMLDivElement>();
+    const actionService = useAppSelector(state => selectGame(state).actionService!);
 
     const [resolvedItems, setResolvedItems] = useState<Map<string, boolean>>(
         new Map()
@@ -40,7 +40,7 @@ export const ActionResolveWindow = (props: Props) => {
     const [reRollSkillUsed, setReRollSkillUsed] = useState(false);
 
     function onReRollButtonClick() {
-        const leader = props.actionService.lastRolledItem?.leaderPawn.owner as unknown as ICharacter;
+        const leader = actionService.lastRolledItem?.leaderPawn.owner as unknown as ICharacter;
 
         if (leader.determination &&
             leader.determination > 3
@@ -94,7 +94,7 @@ export const ActionResolveWindow = (props: Props) => {
     }
 
     function setItemResolved(actionId: string) {
-        if (actionId !== props.actionService.lastRolledItem?.id) {
+        if (actionId !== actionService.lastRolledItem?.id) {
             setReRolledDice(null);
         }
 
@@ -109,7 +109,7 @@ export const ActionResolveWindow = (props: Props) => {
     }
 
     function getResolvableItem(id: string) {
-        const item = props.actionService.resolvableItems.find(
+        const item = actionService.resolvableItems.find(
             (resItem) => resItem.id === id
         );
         if (!item) {
@@ -132,21 +132,21 @@ export const ActionResolveWindow = (props: Props) => {
                         />
                     </div>
                 )}
-                {props.actionService.lastRolledItem &&
-                    !resolvedItems.has(props.actionService.lastRolledItem.id) &&
-                    !props.actionService.lastRolledItem.shouldReRollSuccess &&
+                {actionService.lastRolledItem &&
+                    !resolvedItems.has(actionService.lastRolledItem.id) &&
+                    !actionService.lastRolledItem.shouldReRollSuccess &&
                     !reRollSkillUsed && (
                         <ReRoll
-                            actionService={props.actionService}
+                            actionService={actionService}
                             onReRollButtonClick={onReRollButtonClick}
                         />
                     )}
 
-                {props.actionService.lastRolledItem &&
-                    isAdventureAction(props.actionService.action) && (
+                {actionService.lastRolledItem &&
+                    isAdventureAction(actionService.action) && (
                         <RollDiceWindow
-                            resolvableItem={props.actionService.lastRolledItem}
-                            type={props.actionService.action}
+                            resolvableItem={actionService.lastRolledItem}
+                            type={actionService.action}
                             setItemAnimationDone={setItemAnimationDone}
                             reRollClicked={reRollButtonClicked}
                             reRoll={onReRollSkillUse}
@@ -166,28 +166,28 @@ export const ActionResolveWindow = (props: Props) => {
                     }))}</div>
                     <div className={styles.actionIcon}>
                         <ResizableImage
-                            src={`/UI/actions/${kebabCase(props.actionService.action)}.png`}
+                            src={`/UI/actions/${kebabCase(actionService.action)}.png`}
                             alt={"akcja"}
                         />
                     </div>
                 </div>
 
                 <ResolvableItems
-                    actionService={props.actionService}
+                    actionService={actionService}
                     resolve={setItemResolved}
                     resolvedItems={resolvedItems}
                     locked={
-                        props.actionService.lastRolledItem
-                            ? props.actionService.lastRolledItem.id !== resItemAnimationDoneID
+                        actionService.lastRolledItem
+                            ? actionService.lastRolledItem.id !== resItemAnimationDoneID
                             : false
                     }
                     rollDices={rollDices}
                     reRoll={onReRollSuccess}
                 />
-                {props.actionService.resolvableItems.length === resolvedItems.size && (
+                {actionService.resolvableItems.length === resolvedItems.size && (
                     <NextActionButton
                         setNextAction={setNextAction}
-                        actionService={props.actionService}
+                        actionService={actionService}
                     />
                 )}
             </div>

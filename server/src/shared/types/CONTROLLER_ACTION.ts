@@ -8,8 +8,7 @@ export enum ACTION_CONTROLLER_ACTION {
 }
 
 export enum CHARACTER_CONTROLLER_ACTION {
-    SET_PAWN = "set pawn",
-    UNSET_PAWN = "unset pawn",
+    MOVE_PAWN = "set pawn",
     REMOVE_HEALTH_THRESHOLD = "remove health threshold",
     USE_ABILITY = "use ability"
 }

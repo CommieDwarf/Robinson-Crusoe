@@ -1,11 +1,11 @@
 // @flow
 import * as React from "react";
 import styles from "./Skill.module.css";
-import {ISkillRenderData} from "@shared/types/Game/Skill/IAbility";
+import {IAbilityRenderData} from "@shared/types/Game/Skill/IAbility";
 import {insertIconsIntoText} from "../../../../../../utils/insertIconsIntoText";
 
 type Props = {
-    skill: ISkillRenderData;
+    skill: IAbilityRenderData;
     selected: boolean;
     select: (name: string) => void;
 };

@@ -1,52 +1,51 @@
 import React, {RefObject, useEffect, useRef, useState} from "react";
 import styles from "./Map.module.css";
 import Tile from "./Tile/Tile";
-import Hunt from "../Hunt/Hunt";
+import BeastDeck from "../Hunt/BeastDeck";
 import map from "/public/UI/map/map.png";
 import redArrowImg from "/public/UI/misc/red-arrow.png";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
 import {getPropsComparator} from "../../../../utils/getPropsComparator";
-import {ITilesServiceRenderData} from "@shared/types/Game/TileService/ITileService";
 import getMouseDownHandle from "../../../../utils/dragAndScrollHandle";
 import {ITileRenderData} from "@shared/types/Game/TileService/ITile";
+import {useAppSelector} from "../../../../store/hooks";
+import {selectGame} from "../../../../reduxSlices/gameSession";
 
 interface Props {
-    tileService: ITilesServiceRenderData;
     scrollDisabled: boolean;
-    beastCount: number;
     showScenario: boolean;
-    zIndex: string;
-    night: boolean;
+    topLayerElement: string;
     showCampMoveConfirm: (tile: ITileRenderData) => void;
-    containerRef: RefObject<HTMLDivElement>
+    mapContainerRef: RefObject<HTMLDivElement>
 }
 
 function Map(props: Props) {
     const [contentScale, setContentScale] = useState(100);
-    const tiles: JSX.Element[] = [];
+    const tileService = useAppSelector((state) => selectGame(state).tileService!);
 
-    const campSettableTiles = props.tileService.tiles.filter(
+    const tiles: JSX.Element[] = [];
+    const campSettableTiles = tileService.tiles.filter(
         (tile) => tile.canCampBeSettled
     );
 
-    props.tileService.tiles.forEach((tile, i) => {
+    tileService.tiles.forEach((tile, i) => {
         tiles.push(
             <Tile
                 tile={tile}
                 key={i}
                 contentScale={contentScale}
                 isDragDisabled={props.showScenario}
-                zIndex={props.zIndex}
+                zIndex={props.topLayerElement}
                 showCampMoveConfirm={props.showCampMoveConfirm}
                 campSettableTiles={
-                    tile.camp && !props.tileService.campJustMoved ? campSettableTiles : []
+                    tile.camp && !tileService.campJustMoved ? campSettableTiles : []
                 }
             />
         );
     });
 
     const scrollbar = useRef<HTMLDivElement>(null);
-    const container = props.containerRef
+    const container = props.mapContainerRef
 
     const mouseDownHandle = getMouseDownHandle(scrollbar, container);
 
@@ -72,8 +71,6 @@ function Map(props: Props) {
                         behavior: "smooth"
                     })
                 }
-
-
             } else {
                 zoomOut();
                 if (scrollbar.current) {
@@ -122,8 +119,8 @@ function Map(props: Props) {
     };
 
     const zIndexClass =
-        props.zIndex.includes("tile") ||
-        props.tileService.isTileMarkedForAction
+        props.topLayerElement.includes("tile") ||
+        tileService.isTileMarkedForAction
             ? styles.zIndexIncreased
             : "";
 
@@ -136,7 +133,7 @@ function Map(props: Props) {
             ref={container}
             onMouseDown={mouseDownHandle}
         >
-            {props.tileService.isTileMarkedForAction && (
+            {tileService.isTileMarkedForAction && (
                 <div className={styles.tipArrow}>
                     <ResizableImage
                         src={redArrowImg}
@@ -156,10 +153,9 @@ function Map(props: Props) {
           </span>
                 </div>
             </div>
-            <Hunt
-                beastCount={props.beastCount}
+            <BeastDeck
                 isDragDisabled={props.showScenario}
-                zIndex={props.zIndex}
+                topLayer={props.topLayerElement.includes("hunt")}
             />
             <div className={`${styles.scroll} ${scrollDisabledClass}`} ref={scrollbar}>
                 <div className={`${styles.content}`} style={contentStyle}>

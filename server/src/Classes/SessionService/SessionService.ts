@@ -1,90 +1,106 @@
 import {IUser} from "../../types/UserData/IUser";
 import {ISessionService} from "../../types/SessionService/SessionService";
-import {SessionData} from "../../types/Session/Session";
+import {SessionBasicInfo, SessionData} from "@shared/types/Session/Session";
 import {Session} from "../Session/Session";
 import {SCENARIO} from "@shared/types/Game/ScenarioService/SCENARIO";
 import {SessionSettings} from "@shared/types/SessionSettings";
-
-
-type UserId = string;
-type GameSessionId = string;
+import {UserDocument} from "../../Models/User";
+import {User} from "../User/User";
+import {Player} from "../Player/Player";
 
 
 export class SessionService implements ISessionService {
 
-    private _activeSessions = new Map<GameSessionId, SessionData>();
-    private _userGameSessions = new Map<UserId, GameSessionId>(); //userId  gameSessionIds
+    private _activeSessions = new Map<SessionData["id"], SessionData>();
+
+    private _activeUsers = new Map<IUser["id"], IUser>();
+
     constructor() {
 
     }
 
-    public createSession(user: IUser, settings: SessionSettings) {
+    public createSession(userId: string, settings: SessionSettings) {
+        const user = this.getUser(userId);
         const session = new Session(user, settings);
+        user.addActiveSession(session);
         this._activeSessions.set(session.id, session);
-        this.associateUserWithSession(user._id, session.id);
         return session;
     }
 
-    public createQuickGame(user: IUser): SessionData {
+    public createQuickGameSession(userId: string): SessionData {
+        const user = this.getUser(userId);
         const session = new Session(user, {
             password: "",
+            quickGame: true,
             private: true,
             scenario: SCENARIO.CASTAWAYS,
-            maxPlayers: 1
+            maxPlayers: 1,
+            name: "",
         });
+        user.setQuickGameSession(session);
         this._activeSessions.set(session.id, session);
-        this.associateUserWithSession(user._id, session.id);
         session.startGame();
         return session;
     }
 
 
-    public getSessionByUserId(userId: string): SessionData | undefined {
-        const sessionId = this._userGameSessions.get(userId);
-        if (!sessionId) {
-            throw new Error(`User with id: ${userId} doesn't own a session`);
-        }
-        return this._activeSessions.get(sessionId);
-    }
-
-    public getSessionById(sessionId: string): SessionData {
+    public closeSession(sessionId: string): void {
         const session = this._activeSessions.get(sessionId);
         if (!session) {
-            throw new Error("Session doesn't exist");
+            return;
         }
-        return session;
-    }
 
-    public hasSession(userId: string): boolean {
-        return Boolean(this._userGameSessions.get(userId));
-    }
-
-    public closeSession(sessionId: string) {
-        const session = this.getSessionByUserId(sessionId);
-        if (session) {
+        if (!session.settings.quickGame) {
             session.players.forEach((player) => {
-                this.freeUserFromSession(player.user._id);
-            })
-            this._activeSessions.delete(sessionId);
+                player.user.removeActiveSession(session.id)
+            });
+        } else {
+            session.players[0].user.unsetSinglePlayerSession();
+        }
+        this._activeSessions.delete(sessionId);
+    }
+
+    public getSession(userId: string, sessionId: string): SessionData | null {
+        if (sessionId === "quickgame") {
+            return this.getQuickGameByUserId(userId);
+        } else {
+            return this._activeSessions.get(sessionId) || null;
         }
     }
 
-
-    private freeUserFromSession(userId: string) {
-        let sessions = this._userGameSessions.get(userId);
-        if (!sessions) {
-            throw new Error(`User ${userId} has no active sessions`);
+    public addToActiveUsers(userDocument: UserDocument) {
+        let user = this._activeUsers.get(userDocument._id.toString());
+        if (!user) {
+            user = new User(userDocument);
+            this._activeUsers.set(user.id, user);
+            return user;
         }
-        this._userGameSessions.delete(userId);
-        // sessions = sessions.filter((id) => id !== sessionId);
-        // if (sessions.length === 0) {
-        //     this._userGameSessions.delete(userId);
-        // } else {
-        //     this._userGameSessions.set(userId, sessions);
-        // }
+        return user;
     }
 
-    private associateUserWithSession(userId: string, gameSessionId: string) {
-        this._userGameSessions.set(userId, gameSessionId);
+    public removeFromActiveUsers(userId: string) {
+        this._activeUsers.delete(userId);
     }
+
+    public getQuickGameByUserId(userId: string): SessionData | null {
+        return this.getUser(userId).quickGameSession;
+    }
+
+    public getPublicSessionList(): SessionBasicInfo[] {
+        return Array.from(this._activeSessions.values())
+            .filter((session) => !session.settings.private)
+            .map((session) => session.getBasicInfo());
+    }
+
+    private getUser(userId: string): IUser {
+        console.log(this._activeUsers)
+        console.log("GETTING USER WITH ID", userId);
+        const user = this._activeUsers.get(userId);
+        console.log("got user", user);
+        if (!user) {
+            throw new Error("Can't find user with id: " + userId);
+        }
+        return user;
+    }
+
 }

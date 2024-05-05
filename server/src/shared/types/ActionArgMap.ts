@@ -9,7 +9,7 @@ import {ITEM} from "@shared/types/Game/Equipment/Item";
 import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction";
 import {INVENTION} from "@shared/types/Game/InventionService/Invention";
 import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
-import {AbilityArgMap} from "@shared/types/Game/Skill/AbilityArgMap";
+import {PawnMovementData} from "@shared/types/Game/GlobalPawnService/GlobalPawnService";
 
 
 type Id = string;
@@ -26,18 +26,13 @@ export type ResolveAdventureArgs = [Option]
 
 export type ReRollActionDiceArgs = [resolvableItemID: string];
 
-export type SetPawnArgs = [destinationId: string, draggableId: string];
+export type SetPawnArgs = [source: PawnMovementData, target: PawnMovementData];
 
 export type UnsetPawnArgs = [destinationId: string, draggableId: string];
 
 export type RemoveHealthThresholdArgs = [num: number];
 
-export type UseAbilityArgs<T extends ABILITY> = [
-    {
-        abilityName: T,
-        args: AbilityArgMap[T]
-    }
-];
+export type UseAbilityArgs = [abilityName: ABILITY];
 
 export type ResolveEventMysteryArgs = [];
 
@@ -87,10 +82,9 @@ export interface ActionArgMap {
     [ACTION_CONTROLLER_ACTION.REROLL_ACTION_DICE]: ReRollActionDiceArgs;
 
 
-    [CHARACTER_CONTROLLER_ACTION.SET_PAWN]: SetPawnArgs;
-    [CHARACTER_CONTROLLER_ACTION.UNSET_PAWN]: UnsetPawnArgs;
+    [CHARACTER_CONTROLLER_ACTION.MOVE_PAWN]: SetPawnArgs;
     [CHARACTER_CONTROLLER_ACTION.REMOVE_HEALTH_THRESHOLD]: RemoveHealthThresholdArgs;
-    [CHARACTER_CONTROLLER_ACTION.USE_ABILITY]: UseAbilityArgs<ABILITY>;
+    [CHARACTER_CONTROLLER_ACTION.USE_ABILITY]: UseAbilityArgs;
 
 
     [MYSTERY_CONTROLLER_ACTION.RESOLVE_EVENT_MYSTERY]: ResolveEventMysteryArgs;

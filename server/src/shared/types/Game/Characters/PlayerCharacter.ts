@@ -1,6 +1,6 @@
 import {IPlayer} from "../PlayerService/Player";
 import {CHARACTER, ICharacter, ICharacterRenderData} from "./Character";
-import {IAbility, ISkillRenderData} from "../Skill/IAbility";
+import {IAbility, IAbilityRenderData} from "../Skill/IAbility";
 import {AdventureAction} from "../ACTION";
 
 export type PlayerCharacterName = Exclude<CHARACTER, "dog" | "friday">;
@@ -19,7 +19,7 @@ export interface IPlayerCharacter extends ICharacter {
     moraleThresholdsRemoved: number[];
     renderData: IPlayerCharacterRenderData;
     shouldMoraleDrop: boolean;
-    skills: IAbility<any>[];
+    abilities: IAbility<any>[];
 
     weaponBoost: number;
 
@@ -35,7 +35,7 @@ export interface IPlayerCharacterRenderData extends ICharacterRenderData {
     name: PlayerCharacterName;
     moraleThresholds: number[];
     moraleThresholdsRemoved: number[];
-    skills: ISkillRenderData[];
+    abilities: IAbilityRenderData[];
     wounds: Wounds;
     weaponBoost: number;
 }

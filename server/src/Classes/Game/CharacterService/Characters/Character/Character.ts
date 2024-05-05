@@ -52,11 +52,11 @@ export abstract class Character implements ICharacter {
             id: this._id,
             maxHealth: this._maxHealth,
             name: this._name,
-            skills: this._skills.map((skill) => skill.renderData),
+            abilities: this._skills.map((skill) => skill.renderData),
         };
     }
 
-    get skills(): IAbility<any>[] {
+    get abilities(): IAbility<any>[] {
         return this._skills;
     }
 

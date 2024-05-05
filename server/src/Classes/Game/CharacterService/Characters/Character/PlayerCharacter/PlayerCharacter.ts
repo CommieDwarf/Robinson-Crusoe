@@ -70,7 +70,7 @@ export abstract class PlayerCharacter
             moraleThresholds: this._moraleThresholds,
             playerId: 0,
             name: this.name,
-            skills: this._skills.map((skill) => skill.renderData),
+            abilities: this._skills.map((skill) => skill.renderData),
             moraleThresholdsRemoved: this._moraleThresholdsRemoved,
             wounds: this._wounds,
             weaponBoost: this._weaponBoost
@@ -88,7 +88,7 @@ export abstract class PlayerCharacter
         return this._moraleThresholdsRemoved;
     }
 
-    get skills(): IAbility<any>[] {
+    get abilities(): IAbility<any>[] {
         return this._skills;
     }
 

@@ -63,13 +63,16 @@
     flex-direction: column;
     justify-content: start;
     padding-top: 12px;
+    padding-bottom: 12px;
     row-gap: 8px;
     font-size: 13px;
+    padding-right: 10px;
 }
 
 .invention {
     width: 100%;
     text-align: center;
+    margin: 0;
 }
 
 .abilities {
