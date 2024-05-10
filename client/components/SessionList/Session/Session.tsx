@@ -1,6 +1,7 @@
 import styles from "./Session.module.css";
 import {capitalize} from "lodash";
 import {useTranslation} from "react-i18next";
+import {socketEmitter} from "../../../pages/_app";
 
 
 interface Props {
@@ -11,11 +12,20 @@ interface Props {
     scenario: string,
     password: boolean,
     id: string,
+    setEnterSessionId: (sessionId: string) => void;
 }
 
 
 export function Session(props: Props) {
     const {t} = useTranslation();
+
+    function handleClick() {
+        if (props.password) {
+            props.setEnterSessionId(props.id);
+        } else {
+            socketEmitter.emitJoinSession(props.id, "");
+        }
+    }
 
 
     return <div className={`${styles.container}`}>
@@ -31,6 +41,6 @@ export function Session(props: Props) {
                 }
             </div>
         </div>
-        <div className={styles.button}>{capitalize(t("menu.join"))}</div>
+        <div className={styles.button} onClick={handleClick}>{capitalize(t("menu.join"))}</div>
     </div>
 }

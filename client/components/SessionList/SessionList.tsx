@@ -7,12 +7,14 @@ import {SOCKET_EMITTER, SocketPayloadMap} from "@shared/types/Requests/Socket";
 import {SessionBasicInfo} from "@shared/types/Session/Session";
 
 
-// max 25 znakow dla nazwy
-export function SessionList() {
+interface Props {
+    setSessionIdToEnter: (sessionId: string) => void;
+}
+
+export function SessionList(props: Props) {
     const [sessionList, setSessionList] = useState<SessionBasicInfo[]>([]);
 
     useEffect(() => {
-
         socket.on((SOCKET_EMITTER.SESSION_LIST_SENT), (payload: SocketPayloadMap[SOCKET_EMITTER.SESSION_LIST_SENT]) => {
             setSessionList(payload.sessionList);
         })
@@ -36,6 +38,7 @@ export function SessionList() {
                     password={session.password}
                     id={session.id}
                     key={i}
+                    setEnterSessionId={props.setSessionIdToEnter}
                 />
             })}
         </div>

@@ -10,6 +10,7 @@ export interface IUser {
     setQuickGameSession: (session: Session) => void;
     unsetSinglePlayerSession: () => void;
     removeActiveSession: (sessionId: string) => void;
+    leaveSessionLobbies: (callback: (sessionId: string) => void) => void;
 
 }
 

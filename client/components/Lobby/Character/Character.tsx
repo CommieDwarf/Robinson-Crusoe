@@ -25,6 +25,8 @@ export function Character(props: Props) {
         props.gender !== "female" && props.setGender("female");
     }
 
+    console.log("character component")
+
     return <div className={styles.container}>
         <div className={styles.characterDisplay}>
             <div className={styles.characterName}>

@@ -3,7 +3,9 @@ import {IPlayerRenderData} from "@shared/types/Game/PlayerService/Player";
 import {Player} from "./Player/Player";
 
 interface Props {
-    players: IPlayerRenderData[]
+    players: IPlayerRenderData[],
+    localPlayer: IPlayerRenderData,
+    host: IPlayerRenderData
 }
 
 
@@ -11,7 +13,12 @@ export function Players(props: Props) {
     return <div className={styles.container}>
         <div className={styles.playerList}>
             {props.players.map((player) => {
-                return <Player player={player} key={player.id}/>
+                return <Player
+                    player={player}
+                    key={player.id}
+                    local={props.localPlayer.id === player.id}
+                    host={props.host.id === player.id}
+                />
             })}
         </div>
     </div>

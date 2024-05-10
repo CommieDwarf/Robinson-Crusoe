@@ -6,6 +6,13 @@ import menuIcon from "/public/UI/icons/menu.png";
 import {useTranslation} from "react-i18next";
 import {capitalize} from "lodash";
 import Link from "next/link";
+import {useEffect, useState} from "react";
+import {socket, socketEmitter} from "../_app";
+import {SOCKET_EMITTER, SocketPayloadMap} from "@shared/types/Requests/Socket";
+import {useRouter} from "next/router";
+import {SmallWindow} from "../../components/SessionList/SmallWindow/SmallWindow";
+import {EnterPassword} from "../../components/SessionList/SmallWindow/EnterPassword/EnterPassword";
+import {Error} from "../../components/SessionList/SmallWindow/Error/Error";
 
 interface Props {
 
@@ -14,6 +21,39 @@ interface Props {
 export function Multiplayer() {
 
     const {t} = useTranslation();
+
+    const [sessionIdToJoin, setSessionIdToJoin] = useState("");
+    const [error, setError] = useState("");
+
+    const router = useRouter();
+
+
+    function setSessionIdToEnter(sessionId: string) {
+        setSessionIdToJoin(sessionId);
+    }
+
+    function closeWindow() {
+        setSessionIdToJoin("");
+        setError("");
+    }
+
+    function handleRefreshClick() {
+        socketEmitter.emitRequestSessionList();
+    }
+
+
+    useEffect(() => {
+        socket.on(SOCKET_EMITTER.JOIN_SESSION_RESPONSE, (payload: SocketPayloadMap[SOCKET_EMITTER.JOIN_SESSION_RESPONSE]) => {
+            if (payload.error) {
+                setError(payload.error);
+                return;
+            }
+            if (payload.sessionId) {
+                router.push(`/multiplayer/lobby/?sessionId=${payload.sessionId}`);
+            }
+        })
+    }, [])
+
 
     return (
         <div className={styles.container}>
@@ -24,7 +64,7 @@ export function Multiplayer() {
                             <ResizableImage src={menuIcon} alt={"Menu"}/>
                         </div>
                     </Link>
-                    <div className={`${styles.button} ${styles.buttonRefresh}`}>
+                    <div className={`${styles.button} ${styles.buttonRefresh}`} onClick={handleRefreshClick}>
                         {capitalize(t("menu.refresh"))}
                     </div>
                     <Link href={"./multiplayer/creategame"}>
@@ -45,7 +85,13 @@ export function Multiplayer() {
                     </div>
                 </div>
             </div>
-            <SessionList/>
+            <SessionList setSessionIdToEnter={setSessionIdToEnter}/>
+            {sessionIdToJoin && <SmallWindow closeWindow={closeWindow}>
+                <EnterPassword sessionId={sessionIdToJoin} setSessionIdToEnter={setSessionIdToEnter}/>
+            </SmallWindow>}
+            {error && <SmallWindow closeWindow={closeWindow}>
+                <Error message={error}/>
+            </SmallWindow>}
         </div>)
 }
 

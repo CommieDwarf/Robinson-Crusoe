@@ -287,6 +287,4 @@ export class GameClass implements IGame {
             }, "positive", logSource);
         }
     }
-
-
 }

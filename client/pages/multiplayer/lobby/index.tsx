@@ -7,7 +7,7 @@ import {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import {socket, socketEmitter} from "../../_app";
 import {SOCKET_EMITTER, SocketPayloadMap} from "@shared/types/Requests/Socket";
-import {actionSlotUpdated, gameSessionUpdated} from "../../../reduxSlices/gameSession";
+import {gameSessionUpdated} from "../../../reduxSlices/gameSession";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks";
 
 export function Lobby() {
@@ -15,44 +15,71 @@ export function Lobby() {
     const router = useRouter();
     const dispatch = useAppDispatch();
 
+    const sessionId = router.query.sessionId as string;
+
     function handleSetGender(gender: Gender) {
         setGender(gender);
     }
 
     useEffect(() => {
-        const sessionId = router.query.sessionId as string;
+        const handleRouteChange = () => {
+            socketEmitter.emitLeaveSession(router.query.sessionId as string);
+        };
 
+        router.events.on('routeChangeStart', handleRouteChange);
+
+        return () => {
+            router.events.off('routeChangeStart', handleRouteChange);
+        };
+    }, [router]);
+
+    useEffect(() => {
         socket.on(SOCKET_EMITTER.SESSION_DATA_SENT, (payload: SocketPayloadMap[SOCKET_EMITTER.SESSION_DATA_SENT]) => {
             const gameSession = payload.sessionData;
             if (gameSession) {
                 dispatch(gameSessionUpdated(gameSession));
-                console.log("game session sent")
             }
         });
+
+        socket.on(SOCKET_EMITTER.SESSION_CHANGED, () => {
+            socketEmitter.emitRequestGameSession();
+        })
+
         socketEmitter.setCurrentSessionId(sessionId);
         socketEmitter.emitRequestGameSession();
         return () => {
             socket.off(SOCKET_EMITTER.SESSION_DATA_SENT);
+            socket.off(SOCKET_EMITTER.SESSION_CHANGED);
         }
     }, [])
 
     const sessionData = useAppSelector(state => state.gameSession.data);
+
+    if (!sessionData) {
+        socketEmitter.setCurrentSessionId(sessionId);
+        socketEmitter.emitRequestGameSession();
+    }
 
     return (
         <div className={styles.container}>
             {sessionData && <>
                 <div className={styles.chat}>CHAT</div>
                 <div className={styles.players}>
-                    <Players players={sessionData.players}/>
+                    <Players
+                        players={sessionData.players}
+                        localPlayer={sessionData.localPlayer}
+                        host={sessionData.hostPlayer}
+                    />
                 </div>
                 <div className={styles.settings}>
                     <GameSettings createGame={false}/>
                 </div>
-                <div className={styles.char}><Character
-                    character={CHARACTER.EXPLORER}
-                    gender={gender}
-                    setGender={handleSetGender}
-                /></div>
+                <div className={styles.char}>
+                    <Character
+                        character={sessionData.localPlayer.assignedCharacter.char}
+                        gender={sessionData.localPlayer.assignedCharacter.gender}
+                        setGender={handleSetGender}
+                    /></div>
             </>}
         </div>
     )

@@ -1,8 +1,6 @@
 import {IUser} from "../../types/UserData/IUser";
 import {UserDocument} from "../../Models/User";
-import {SessionData} from "../../shared/types/Session/Session";
-import {Session} from "../Session/Session";
-import {ObjectId} from "mongodb";
+import {SessionData} from "@shared/types/Session/Session";
 
 export class User implements IUser {
 
@@ -51,5 +49,14 @@ export class User implements IUser {
 
     public unsetSinglePlayerSession() {
         this._singlePlayerSession = null;
+    }
+
+    public leaveSessionLobbies(callback: (sessionId: string) => void) {
+        this._activeSessions
+            .filter((session) => session.isGameInProgress)
+            .forEach((session) => {
+                session.leaveSession(this);
+                callback(this.id);
+            })
     }
 }

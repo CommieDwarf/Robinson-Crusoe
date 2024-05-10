@@ -336,7 +336,8 @@ export default function AuthForm(props: Props) {
                         className={`${styles.input} 
                         ${styles.button}
                         ${buttonActive && styles.buttonActive}`}>
-                    {props.isLogin ? "Sign in" : "Sign up"}</button>
+                    {props.isLogin ? "Sign in" : "Sign up"}
+                </button>
             </form>
 
             {props.isLogin ?

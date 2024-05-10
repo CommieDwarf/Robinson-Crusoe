@@ -2,6 +2,8 @@ import {IGame, IGameRenderData} from "@shared/types/Game/Game";
 import {CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {SessionSettings} from "@shared/types/SessionSettings";
 import {SessionBasicInfo, SessionRenderData} from "../Session/Session";
+import {SESSION_JOIN_ERROR_CODE} from "@shared/types/Errors/SESSION_JOIN_ERROR_CODE";
+import {AssignedCharacter} from "@shared/types/Game/PlayerService/Player";
 
 export enum SOCKET_EMITTER {
     EXECUTE_GAME_METHOD_AND_SEND_RESPONSE = "execute game method nad send response",
@@ -18,6 +20,10 @@ export enum SOCKET_EMITTER {
     SESSION_LIST_REQUESTED = "session list requested",
     SESSION_LIST_SENT = "session list sent",
     JOIN_SESSION = "join session",
+    JOIN_SESSION_RESPONSE = "join session response",
+    LEAVE_SESSION = "leave session",
+    SESSION_CHANGED = "session changed",
+    CHANGE_CHARACTER = "change character",
 }
 
 
@@ -64,8 +70,22 @@ export interface SessionListSentPayload {
 }
 
 export interface JoinSessionPayload {
-    id: string,
+    sessionId: string,
     password: string,
+}
+
+export interface JoinSessionResponsePayload {
+    sessionId: string;
+    error?: SESSION_JOIN_ERROR_CODE;
+}
+
+interface LeaveSessionPayload {
+    sessionId: string
+}
+
+interface ChangeCharacterPayload {
+    sessionId: string;
+    character: Partial<AssignedCharacter>;
 }
 
 
@@ -83,4 +103,7 @@ export type SocketPayloadMap = {
     [SOCKET_EMITTER.SESSION_LIST_REQUESTED]: {};
     [SOCKET_EMITTER.SESSION_LIST_SENT]: SessionListSentPayload;
     [SOCKET_EMITTER.JOIN_SESSION]: JoinSessionPayload;
+    [SOCKET_EMITTER.JOIN_SESSION_RESPONSE]: JoinSessionResponsePayload;
+    [SOCKET_EMITTER.LEAVE_SESSION]: LeaveSessionPayload;
+    [SOCKET_EMITTER.CHANGE_CHARACTER]: ChangeCharacterPayload
 };

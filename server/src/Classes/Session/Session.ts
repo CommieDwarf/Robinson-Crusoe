@@ -1,8 +1,8 @@
-import {IPlayer} from "@shared/types/Game/PlayerService/Player";
+import {AssignedCharacter, IPlayer} from "@shared/types/Game/PlayerService/Player";
 import {BaseController} from "../../types/GameController/Controllers";
 import {GameClass} from "../Game/Game";
 import {GameController} from "../GameController/GameController";
-import {SessionBasicInfo, SessionData} from "../../shared/types/Session/Session";
+import {SessionBasicInfo, SessionData, SessionRenderData} from "@shared/types/Session/Session";
 import {PAWN_COLOR} from "@shared/types/Game/PAWN_COLOR";
 import {uuid} from "uuidv4";
 import {CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
@@ -23,25 +23,25 @@ export class Session implements SessionData {
     private _connectCode = uuid();
     private _characters: CHARACTER[] = Object.values(CHARACTER);
     private readonly _settings: SessionSettings;
-    private _host: IPlayer;
+    private _host: IUser;
     private _singleplayer: boolean;
 
     constructor(host: IUser, settings: SessionSettings, singleplayer = false) {
         this._settings = settings;
-        const player = new Player(host, {char: this.getUnassignedCharacter(), gender: "male"});
-        this.joinSession(player);
-        this._host = player;
+        this.joinSession(host);
+        this._host = host;
         this._singleplayer = singleplayer;
     }
 
-    get renderData() {
+    public getRenderData(userId: string): SessionRenderData {
         return {
             id: this._id,
             connectCode: this._connectCode,
             settings: this._settings,
             players: this._players.map((player) => player.renderData),
-            host: this._host.renderData,
             game: this.gameController?.game.renderData || null,
+            localPlayer: this.getPlayerByUserId(userId).renderData,
+            hostPlayer: this.getPlayerByUserId(this._host.id).renderData,
         }
     }
 
@@ -61,20 +61,24 @@ export class Session implements SessionData {
         return this._settings;
     }
 
-    get host(): IPlayer {
+    get host(): IUser {
         return this._host;
+    }
+
+    get isGameInProgress() {
+        return !!this._gameController?.game
     }
 
 
     public getBasicInfo(): SessionBasicInfo {
         return {
             name: this._settings.name,
-            host: this._host.user.username,
+            host: this._host.username,
             players: this._players.length,
             maxPlayers: this._settings.maxPlayers,
             scenario: this._settings.scenario,
             password: !!this._settings.password,
-            id: this._id
+            id: this._id,
         }
     }
 
@@ -83,15 +87,15 @@ export class Session implements SessionData {
         this._gameController?.handleAction(action, player, ...args);
     }
 
-    public joinSession(player: IPlayer) {
+    public joinSession(user: IUser) {
+        const player = new Player(user, {gender: "male", char: this.getUnassignedCharacter()});
         this._players.push(player);
         this.assignColor(player.id, this.findAvailableColor());
         this.assignCharacter(player.id, CHARACTER.SOLDIER, "male");
     }
 
-
-    public leaveSession(player: IPlayer) {
-        this._players = this._players.filter((pl) => pl.id !== player.id);
+    public leaveSession(user: IUser) {
+        this._players = this._players.filter((pl) => pl.user.id !== user.id);
     }
 
     public startGame(): BaseController {
@@ -108,12 +112,17 @@ export class Session implements SessionData {
     }
 
     public assignCharacter(userId: string, character: CHARACTER, gender: Gender) {
-        if (!this.isCharacterTaken(character)) {
-            this.getPlayerById(userId).assignCharacter({char: character, gender});
-        } else {
-            throw new Error(`Character ${character} is taken!`);
-        }
+        this.getPlayerById(userId).assignCharacter({char: character, gender});
     }
+
+    public changeCharacter(userId: string, character: Partial<AssignedCharacter>) {
+        const player = this.getPlayerByUserId(userId)
+        player.assignCharacter({
+            ...player.assignedCharacter,
+            ...character,
+        })
+    }
+
 
     private getUnassignedCharacter(): CHARACTER {
         const char = this._characters.find((char) => !this.isCharacterTaken(char));
@@ -126,6 +135,7 @@ export class Session implements SessionData {
     public getGame() {
         return this._gameController?.game;
     }
+
 
     private getPlayerByUserId(userId: string): IPlayer {
         const player = this._players.find((player) => player.user.id === userId);
@@ -163,5 +173,9 @@ export class Session implements SessionData {
 
     private isCharacterTaken(character: CHARACTER) {
         return this._players.some((player) => player.assignedCharacter?.char === character)
+    }
+
+    isUserInSession(userId: string): boolean {
+        return this._players.some((player) => player.user.id === userId);
     }
 }

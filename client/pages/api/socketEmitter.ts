@@ -3,6 +3,7 @@ import {ActionArgMap} from "@shared/types/ActionArgMap";
 import {Socket} from "socket.io-client";
 import {CreateSessionPayload, SOCKET_EMITTER, SocketPayloadMap} from "@shared/types/Requests/Socket";
 import {SessionSettings} from "@shared/types/SessionSettings";
+import {AssignedCharacter} from "@shared/types/Game/PlayerService/Player";
 
 export class SocketEmitter {
     private _userId: string = "";
@@ -89,7 +90,15 @@ export class SocketEmitter {
     }
 
     public emitJoinSession(sessionId: string, password: string) {
-        this.emitSocket(SOCKET_EMITTER.JOIN_SESSION, {password, id: sessionId});
+        this.emitSocket(SOCKET_EMITTER.JOIN_SESSION, {password, sessionId: sessionId});
+    }
+
+    public emitLeaveSession(sessionId: string) {
+        this.emitSocket(SOCKET_EMITTER.LEAVE_SESSION, {sessionId})
+    }
+
+    public emitChangeCharacter(character: Partial<AssignedCharacter>) {
+        this.emitSocket(SOCKET_EMITTER.CHANGE_CHARACTER, {sessionId: this._currentSessionId, character})
     }
 
     private emitSocket<T extends keyof SocketPayloadMap>(socketEmitter: T, payload: SocketPayloadMap[T]) {

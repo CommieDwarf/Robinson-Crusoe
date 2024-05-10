@@ -12,6 +12,7 @@ import {
 import {ITEM} from "@shared/types/Game/Equipment/Item";
 import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
 import {ALERT_CODE} from "@shared/types/ALERT_CODE";
+import {SESSION_JOIN_ERROR_CODE} from "@shared/types/Errors/SESSION_JOIN_ERROR_CODE";
 
 
 export const resources = {
@@ -611,10 +612,17 @@ export const resources = {
                 "players": "gracze",
                 "scenario": "scenariusz",
                 "password": "hasło",
-                "visibility": "widoczność",
                 "public": "publiczna",
-                "private": "prywatna",
+                "private game": "gra prywatna",
+                "enter password": "wpisz hasło",
+                "error": "błąd",
             },
+            error: {
+                [SESSION_JOIN_ERROR_CODE.SESSION_NOT_FOUND]: "Nie znaleziono sesji",
+                [SESSION_JOIN_ERROR_CODE.GAME_IN_PROGRESS]: "Gra już się zaczeła",
+                [SESSION_JOIN_ERROR_CODE.SESSION_FULL]: "Sesja jest pełna",
+                [SESSION_JOIN_ERROR_CODE.INCORRECT_PASSWORD]: "nieprawidłowe hasło",
+            }
         },
 
 

@@ -6,13 +6,13 @@ import {SCENARIO} from "@shared/types/Game/ScenarioService/SCENARIO";
 import {SessionSettings} from "@shared/types/SessionSettings";
 import {UserDocument} from "../../Models/User";
 import {User} from "../User/User";
-import {Player} from "../Player/Player";
+import {SessionConnectError} from "../../Errors/Session/SessionConnectError";
+import {SESSION_JOIN_ERROR_CODE} from "@shared/types/Errors/SESSION_JOIN_ERROR_CODE";
 
 
 export class SessionService implements ISessionService {
 
     private _activeSessions = new Map<SessionData["id"], SessionData>();
-
     private _activeUsers = new Map<IUser["id"], IUser>();
 
     constructor() {
@@ -26,6 +26,7 @@ export class SessionService implements ISessionService {
         this._activeSessions.set(session.id, session);
         return session;
     }
+
 
     public createQuickGameSession(userId: string): SessionData {
         const user = this.getUser(userId);
@@ -43,6 +44,28 @@ export class SessionService implements ISessionService {
         return session;
     }
 
+    public joinSession(user: IUser, sessionId: string, password: string) {
+        const session = this.getSession(user.id, sessionId);
+        if (!session) {
+            throw new SessionConnectError("Can't find session with id: " + sessionId, SESSION_JOIN_ERROR_CODE.SESSION_NOT_FOUND);
+        }
+        if (session.settings.password !== password) {
+            throw new SessionConnectError("Passwords don't match.", SESSION_JOIN_ERROR_CODE.INCORRECT_PASSWORD);
+        }
+
+        if (session.players.length >= session.settings.maxPlayers) {
+            throw new SessionConnectError("Server is full", SESSION_JOIN_ERROR_CODE.SESSION_FULL);
+        }
+        session.joinSession(user);
+    }
+
+    public leaveSession(user: IUser, sessionId: string) {
+        const session = this.getSession(user.id, sessionId);
+        session?.leaveSession(user);
+        if (session?.players.length === 0) {
+            this.closeSession(sessionId);
+        }
+    }
 
     public closeSession(sessionId: string): void {
         const session = this._activeSessions.get(sessionId);
@@ -64,7 +87,8 @@ export class SessionService implements ISessionService {
         if (sessionId === "quickgame") {
             return this.getQuickGameByUserId(userId);
         } else {
-            return this._activeSessions.get(sessionId) || null;
+            const session = this._activeSessions.get(sessionId);
+            return session || null;
         }
     }
 
@@ -92,11 +116,9 @@ export class SessionService implements ISessionService {
             .map((session) => session.getBasicInfo());
     }
 
+
     private getUser(userId: string): IUser {
-        console.log(this._activeUsers)
-        console.log("GETTING USER WITH ID", userId);
         const user = this._activeUsers.get(userId);
-        console.log("got user", user);
         if (!user) {
             throw new Error("Can't find user with id: " + userId);
         }

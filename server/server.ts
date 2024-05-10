@@ -6,6 +6,7 @@ import {SessionService} from "./src/Classes/SessionService/SessionService";
 import {jwtDecode} from "jwt-decode";
 import {SOCKET_EMITTER, SocketPayloadMap} from "./src/shared/types/Requests/Socket";
 import {ForbiddenPlayerAction} from "./src/Errors/ForbiddenPlayerAction";
+import {SessionConnectError} from "./src/Errors/Session/SessionConnectError";
 
 const passport = require("passport");
 const {Socket} = require("socket.io");
@@ -199,6 +200,15 @@ io.on("connection", async (socket: typeof Socket) => {
         const user = sessionService.addToActiveUsers(userDocument);
 
 
+        socket.on(SOCKET_EMITTER.DISCONNECT, () => {
+            console.log("DISCONNECT");
+            user.leaveSessionLobbies((sessionId) => {
+                socket.to(sessionId).except(socket.id).emit(SOCKET_EMITTER.SESSION_CHANGED);
+                socket.leave(sessionId);
+            });
+        })
+
+
         socket.on(SOCKET_EMITTER.CREATE_QUICK_GAME, async () => {
             const session = sessionService.createQuickGameSession(user.id);
             emitSocket(SOCKET_EMITTER.GAME_SESSION_CREATED, {sessionId: "quickgame"})
@@ -207,6 +217,7 @@ io.on("connection", async (socket: typeof Socket) => {
         socket.on(SOCKET_EMITTER.CREATE_SESSION, async (payload: SocketPayloadMap[SOCKET_EMITTER.CREATE_SESSION]) => {
             const {settings} = payload;
             const session = sessionService.createSession(user.id, settings);
+            socket.join(session.id);
             emitSocket(SOCKET_EMITTER.GAME_SESSION_CREATED, {sessionId: session.id})
         })
 
@@ -219,18 +230,19 @@ io.on("connection", async (socket: typeof Socket) => {
                 }
             } else {
                 session = sessionService.getSession(user.id, payload.sessionId);
+                if (session && !session.isUserInSession(userId)) {
+                    console.error("user not in session");
+                    //TODO: rzuć i obsłuż wyjątek
+                }
             }
 
             if (session) {
-                emitSocket(SOCKET_EMITTER.SESSION_DATA_SENT, {sessionData: session.renderData})
+                emitSocket(SOCKET_EMITTER.SESSION_DATA_SENT, {sessionData: session.getRenderData(user.id)})
             } else {
                 //TODO: obsłuż wyjątek
             }
         })
 
-        socket.on(SOCKET_EMITTER.DISCONNECT, () => {
-            // sessionService.closeSession(gameSession.id);
-        })
 
         socket.on(SOCKET_EMITTER.PLAYER_ACTION,
             async (actionData: SocketPayloadMap[SOCKET_EMITTER.PLAYER_ACTION]) => {
@@ -242,7 +254,7 @@ io.on("connection", async (socket: typeof Socket) => {
                     }
                     session.handleAction(user.id, actionData.actionType, ...actionData.arguments);
                     //TODO: Zrób autoryzację gracz - sesja
-                    emitSocket(SOCKET_EMITTER.SESSION_DATA_SENT, {sessionData: session.renderData});
+                    emitSocket(SOCKET_EMITTER.SESSION_DATA_SENT, {sessionData: session.getRenderData(user.id)});
                 } catch (e) {
                     if (e instanceof ForbiddenPlayerAction) {
                         socket.emit("alert_sent", {message: e.message});
@@ -287,6 +299,40 @@ io.on("connection", async (socket: typeof Socket) => {
         socket.on(SOCKET_EMITTER.SESSION_LIST_REQUESTED, () => {
             emitSocket(SOCKET_EMITTER.SESSION_LIST_SENT, {sessionList: sessionService.getPublicSessionList()});
         })
+
+        socket.on(SOCKET_EMITTER.JOIN_SESSION, (payload: SocketPayloadMap[SOCKET_EMITTER.JOIN_SESSION]) => {
+            try {
+                sessionService.joinSession(user, payload.sessionId, payload.password);
+                emitSocket(SOCKET_EMITTER.JOIN_SESSION_RESPONSE, {
+                    sessionId: payload.sessionId,
+                })
+                socket.join(payload.sessionId);
+                socket.to(payload.sessionId).emit(SOCKET_EMITTER.SESSION_CHANGED)
+            } catch (error) {
+                if (error instanceof SessionConnectError) {
+                    emitSocket(SOCKET_EMITTER.JOIN_SESSION_RESPONSE, {
+                        sessionId: payload.sessionId,
+                        error: error.code,
+                    })
+                }
+            }
+        })
+
+        socket.on(SOCKET_EMITTER.LEAVE_SESSION, (payload: SocketPayloadMap[SOCKET_EMITTER.LEAVE_SESSION]) => {
+            sessionService.leaveSession(user, payload.sessionId);
+            socket.to(payload.sessionId).except(socket.id).emit(SOCKET_EMITTER.SESSION_CHANGED)
+            socket.leave(payload.sessionId);
+        })
+
+        socket.on(SOCKET_EMITTER.CHANGE_CHARACTER, (payload: SocketPayloadMap[SOCKET_EMITTER.CHANGE_CHARACTER]) => {
+            const session = sessionService.getSession(userId, payload.sessionId);
+            if (!session || (session && session.isGameInProgress)) {
+                return;
+            }
+            session.changeCharacter(user.id, payload.character);
+            io.to(session.id).emit(SOCKET_EMITTER.SESSION_CHANGED);
+        })
+
 
     } catch (e) {
         console.error(e)

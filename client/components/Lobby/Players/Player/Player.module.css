@@ -20,9 +20,24 @@
 
 }
 
+.host {
+    width: 20px;
+    height: 20px !important;
+    position: relative;
+    filter: brightness(0) saturate(100%) invert(84%) sepia(19%) saturate(6919%) hue-rotate(344deg) brightness(105%) contrast(94%);
+}
+
 .kickButton {
     position: relative;
     aspect-ratio: 1;
     filter: var(--blackToBrown);
 }
 
+.charName {
+    font-size: 15px;
+}
+
+.localPlayer {
+    color: var(--explore);
+    font-weight: 500;
+}

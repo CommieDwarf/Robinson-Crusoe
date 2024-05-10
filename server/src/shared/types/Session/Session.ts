@@ -1,28 +1,45 @@
 import {IUser} from "../../../types/UserData/IUser";
-import {IPlayer, IPlayerRenderData} from "@shared/types/Game/PlayerService/Player";
+import {AssignedCharacter, IPlayer, IPlayerRenderData} from "@shared/types/Game/PlayerService/Player";
 import {PAWN_COLOR} from "@shared/types/Game/PAWN_COLOR";
 import {BaseController} from "../../../types/GameController/Controllers";
 import {CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {IGame, IGameRenderData} from "@shared/types/Game/Game";
 import {SessionSettings} from "@shared/types/SessionSettings";
+import {CHARACTER, Gender} from "@shared/types/Game/Characters/Character";
 
+
+// public changeCharacter(userId: string, character: CHARACTER) {
+//     const player = this.getPlayerById(userId)
+//     player.assignCharacter({
+//         char: character,
+//         gender: player.assignedCharacter.gender,
+//     })
+// }
+//
+// public changeGender(userId: string, gender: Gender) {
 
 export interface SessionData {
     players: IPlayer[];
-    host: IPlayer;
+    host: IUser;
     id: string;
+
+    isGameInProgress: boolean;
     settings: SessionSettings;
-    joinSession: (user: IPlayer) => void;
-    leaveSession: (user: IPlayer) => void;
+    joinSession: (user: IUser) => void;
+    leaveSession: (user: IUser) => void;
     startGame: () => BaseController;
     assignColor: (userId: string, color: PAWN_COLOR) => void;
     handleAction: (userId: string, action: CONTROLLER_ACTION, ...args: any[]) => void;
     gameController: BaseController | null;
     getGame: () => IGame | undefined;
 
+    isUserInSession: (userId: string) => boolean;
+
+    changeCharacter: (userId: string, character: Partial<AssignedCharacter>) => void;
+
     getBasicInfo: () => SessionBasicInfo;
 
-    renderData: SessionRenderData
+    getRenderData: (userId: string) => SessionRenderData
 }
 
 export interface SessionRenderData {
@@ -30,8 +47,10 @@ export interface SessionRenderData {
     connectCode: string;
     settings: SessionSettings;
     players: IPlayerRenderData[];
-    host: IPlayerRenderData;
+    // host: IPlayerRenderData;
     game: IGameRenderData | null;
+    localPlayer: IPlayerRenderData;
+    hostPlayer: IPlayerRenderData
 }
 
 export interface SessionBasicInfo {

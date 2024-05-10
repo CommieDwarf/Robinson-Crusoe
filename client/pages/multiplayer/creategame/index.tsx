@@ -20,7 +20,7 @@ export function CreateGame() {
 
 
     return <div className={styles.container}>
-        <Link href={"../"}>
+        <Link href={"./"}>
             <div className={styles.menuButton}>
                 <ResizableImage src={redArrowCurvedImg} alt={"menu"}/>
             </div>
