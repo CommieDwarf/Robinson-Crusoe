@@ -101,6 +101,22 @@ export class SocketEmitter {
         this.emitSocket(SOCKET_EMITTER.CHANGE_CHARACTER, {sessionId: this._currentSessionId, character})
     }
 
+    public emitSetPlayerReady(value: boolean) {
+        this.emitSocket(SOCKET_EMITTER.SET_PLAYER_READY, {sessionId: this._currentSessionId, value})
+    }
+
+    public emitKickPlayer(playerId: string) {
+        this.emitSocket(SOCKET_EMITTER.KICK_PLAYER, {sessionId: this._currentSessionId, playerId})
+    }
+
+    public emitPong(payload: SocketPayloadMap[SOCKET_EMITTER.PING]) {
+        this.emitSocket(SOCKET_EMITTER.PONG, payload)
+    }
+
+    public emitDisconnect() {
+        this.emitSocket(SOCKET_EMITTER.DISCONNECT, {});
+    }
+
     private emitSocket<T extends keyof SocketPayloadMap>(socketEmitter: T, payload: SocketPayloadMap[T]) {
         this._socket.emit(socketEmitter, payload);
     }

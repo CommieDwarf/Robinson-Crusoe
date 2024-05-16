@@ -8,6 +8,7 @@ import {UserDocument} from "../../Models/User";
 import {User} from "../User/User";
 import {SessionConnectError} from "../../Errors/Session/SessionConnectError";
 import {SESSION_JOIN_ERROR_CODE} from "@shared/types/Errors/SESSION_JOIN_ERROR_CODE";
+import {Socket} from "socket.io";
 
 
 export class SessionService implements ISessionService {
@@ -22,7 +23,6 @@ export class SessionService implements ISessionService {
     public createSession(userId: string, settings: SessionSettings) {
         const user = this.getUser(userId);
         const session = new Session(user, settings);
-        user.addActiveSession(session);
         this._activeSessions.set(session.id, session);
         return session;
     }
@@ -61,7 +61,8 @@ export class SessionService implements ISessionService {
 
     public leaveSession(user: IUser, sessionId: string) {
         const session = this.getSession(user.id, sessionId);
-        session?.leaveSession(user);
+        const player = session?.players.find((pl) => pl.user.id === user.id);
+        player && session?.leaveSession(player);
         if (session?.players.length === 0) {
             this.closeSession(sessionId);
         }
@@ -92,12 +93,14 @@ export class SessionService implements ISessionService {
         }
     }
 
-    public addToActiveUsers(userDocument: UserDocument) {
+    public addToActiveUsers(userDocument: UserDocument, socket: Socket) {
         let user = this._activeUsers.get(userDocument._id.toString());
         if (!user) {
-            user = new User(userDocument);
+            user = new User(userDocument, socket, this);
             this._activeUsers.set(user.id, user);
             return user;
+        } else {
+            user.updateSocket(socket);
         }
         return user;
     }
@@ -114,6 +117,10 @@ export class SessionService implements ISessionService {
         return Array.from(this._activeSessions.values())
             .filter((session) => !session.settings.private)
             .map((session) => session.getBasicInfo());
+    }
+
+    public userInSession(userId: string, sessionId: string): boolean {
+        return this.getSession(userId, sessionId)?.isUserInSession(userId) || false;
     }
 
 

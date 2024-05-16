@@ -1,0 +1,33 @@
+.container {
+    align-self: center;
+    height: 100%;
+    aspect-ratio: 1;
+    position: relative;
+}
+
+
+.ready {
+    filter: brightness(0) saturate(100%) invert(52%) sepia(93%) saturate(316%) hue-rotate(50deg) brightness(96%) contrast(87%);
+}
+
+.notReady {
+    filter: invert(24%) sepia(83%) saturate(3654%) hue-rotate(341deg) brightness(65%) contrast(111%);
+}
+
+.readyImg {
+    aspect-ratio: 1;
+    top: 15%;
+    left: 10%;
+    height: 70%;
+    position: absolute;
+    cursor: pointer;
+}
+
+
+.circle {
+    aspect-ratio: 1;
+    height: 90%;
+    top: 5%;
+    position: absolute;
+    pointer-events: none;
+}

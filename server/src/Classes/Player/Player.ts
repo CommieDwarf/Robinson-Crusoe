@@ -9,7 +9,15 @@ import {Soldier} from "../Game/CharacterService/Characters/Soldier";
 import {Cook} from "../Game/CharacterService/Characters/Cook";
 import {Explorer} from "../Game/CharacterService/Characters/Explorer";
 import {Carpenter} from "../Game/CharacterService/Characters/Carpenter";
+import {clearInterval} from "timers";
+import {pingClient} from "../../utils/pingClient";
+import {SOCKET_EMITTER, SocketPayloadMap} from "@shared/types/Requests/Socket";
+import {io} from "../../../server";
 
+export interface PingHandles {
+    pingInterval: NodeJS.Timeout | null,
+    timeoutHandle: NodeJS.Timeout | null,
+}
 
 export class Player implements IPlayer {
 
@@ -19,10 +27,13 @@ export class Player implements IPlayer {
     private _character: IPlayerCharacter | null = null;
     private readonly _user: IUser;
     private readonly _id = uuid();
-
+    private _ready = false;
     private _assignedCharacter: AssignedCharacter
 
-    constructor(user: IUser, assignedCharacter: AssignedCharacter) {
+    private _pingHandles: PingHandles | null = null;
+
+    constructor(user: IUser,
+                assignedCharacter: AssignedCharacter) {
         this._user = user;
         this._username = user.username;
         this._assignedCharacter = assignedCharacter;
@@ -34,7 +45,8 @@ export class Player implements IPlayer {
             color: this._color || "black",
             id: this.id,
             character: this._character?.renderData || null,
-            assignedCharacter: this._assignedCharacter
+            assignedCharacter: this._assignedCharacter,
+            ready: this._ready,
         };
     }
 
@@ -62,6 +74,14 @@ export class Player implements IPlayer {
         return this._id;
     }
 
+    get ready(): boolean {
+        return this._ready;
+    }
+
+    set ready(value: boolean) {
+        this._ready = value;
+    }
+
     assignColor(color: PAWN_COLOR) {
         this._color = color;
     }
@@ -86,11 +106,27 @@ export class Player implements IPlayer {
         }
     }
 
-
     getCharacter(): IPlayerCharacter {
         if (!this._character) {
             throw new Error("Character not initialized");
         }
         return this._character;
     }
+
+    public clearPingIntervals() {
+        if (this._pingHandles) {
+            this._pingHandles.pingInterval && clearInterval(this._pingHandles.pingInterval);
+            this._pingHandles.timeoutHandle && clearInterval(this._pingHandles.timeoutHandle);
+        }
+    }
+
+    public ping(onPong: (latency: number) => void, onTimeout: () => void, sessionId: string) {
+        this.clearPingIntervals();
+        const [pingInterval, timeoutHandle] = pingClient(this.user.socket, 15000, 1000, onPong, onTimeout, sessionId);
+        this._pingHandles = {
+            pingInterval,
+            timeoutHandle
+        }
+    }
+
 }

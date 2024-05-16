@@ -2,13 +2,14 @@ import styles from "./index.module.css";
 import {GameSettings} from "../../../components/Lobby/GameSettings/GameSettings";
 import {Players} from "../../../components/Lobby/Players/Players";
 import {Character} from "../../../components/Lobby/Character/Character";
-import {CHARACTER, Gender} from "@shared/types/Game/Characters/Character";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import {socket, socketEmitter} from "../../_app";
 import {SOCKET_EMITTER, SocketPayloadMap} from "@shared/types/Requests/Socket";
 import {gameSessionUpdated} from "../../../reduxSlices/gameSession";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks";
+import {StartGamePanel} from "../../../components/Lobby/StartGame/StartGamePanel";
+import {Gender} from "@shared/types/Game/Characters/Character";
 
 export function Lobby() {
     const [gender, setGender] = useState<Gender>("male");
@@ -21,12 +22,14 @@ export function Lobby() {
         setGender(gender);
     }
 
+
     useEffect(() => {
         const handleRouteChange = () => {
             socketEmitter.emitLeaveSession(router.query.sessionId as string);
         };
 
         router.events.on('routeChangeStart', handleRouteChange);
+
 
         return () => {
             router.events.off('routeChangeStart', handleRouteChange);
@@ -41,15 +44,28 @@ export function Lobby() {
             }
         });
 
+        socket.on(SOCKET_EMITTER.PLAYER_KICKED, () => {
+            router.push("./?msg=kicked")
+        })
+
         socket.on(SOCKET_EMITTER.SESSION_CHANGED, () => {
             socketEmitter.emitRequestGameSession();
         })
 
+        socket.on(SOCKET_EMITTER.PING, (payload: SocketPayloadMap[SOCKET_EMITTER.PING]) => {
+            socketEmitter.emitPong(payload);
+        })
+
+
         socketEmitter.setCurrentSessionId(sessionId);
         socketEmitter.emitRequestGameSession();
+
+
         return () => {
             socket.off(SOCKET_EMITTER.SESSION_DATA_SENT);
             socket.off(SOCKET_EMITTER.SESSION_CHANGED);
+            socket.off(SOCKET_EMITTER.PLAYER_KICKED);
+            socket.off(SOCKET_EMITTER.PING)
         }
     }, [])
 
@@ -59,6 +75,7 @@ export function Lobby() {
         socketEmitter.setCurrentSessionId(sessionId);
         socketEmitter.emitRequestGameSession();
     }
+
 
     return (
         <div className={styles.container}>
@@ -70,6 +87,9 @@ export function Lobby() {
                         localPlayer={sessionData.localPlayer}
                         host={sessionData.hostPlayer}
                     />
+                </div>
+                <div className={styles.startPanel}>
+                    <StartGamePanel ready={sessionData.localPlayer.ready}/>
                 </div>
                 <div className={styles.settings}>
                     <GameSettings createGame={false}/>
@@ -84,6 +104,5 @@ export function Lobby() {
         </div>
     )
 }
-
 
 export default Lobby;

@@ -5,7 +5,7 @@ interface Props {
     message: string;
 }
 
-export function Error(props: Props) {
+export function Message(props: Props) {
     const {t} = useTranslation();
 
     return <div><h4>{capitalize(t("menu.error"))}</h4>

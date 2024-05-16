@@ -22,15 +22,24 @@ export function MainMenu({UserComponent}: Props) {
 
     const router = useRouter();
 
-    function handleButtonClick(event: React.MouseEvent) {
+    function animateAuth(event: React.MouseEvent) {
+        event.preventDefault();
+        setIsAnimated(true)
+        setTimeout(() => {
+            setIsAnimated(false);
+        }, animationDurationMs)
+    }
+
+    function handleQuickGameClick(event: React.MouseEvent) {
         if (!user) {
-            event.preventDefault();
-            setIsAnimated(true)
-            setTimeout(() => {
-                setIsAnimated(false);
-            }, animationDurationMs)
-        } else {
-            socketEmitter.emitCreateQuickGame();
+            animateAuth(event)
+        }
+        socketEmitter.emitCreateQuickGame();
+    }
+
+    function handleMultiPlayerClick(event: React.MouseEvent) {
+        if (!user) {
+            animateAuth(event)
         }
     }
 
@@ -68,7 +77,7 @@ export function MainMenu({UserComponent}: Props) {
                     <Link
                         aria-disabled={!user}
                         href={"./Play/?sessionId=quickgame"}
-                        onClick={handleButtonClick}
+                        onClick={handleQuickGameClick}
                     >
                         <li className={`${styles.menuItem} ${!user && styles.menuItemDisabled}`}>
                             Quick game
@@ -76,7 +85,7 @@ export function MainMenu({UserComponent}: Props) {
                     </Link>
                     <Link href={"./multiplayer"}
                           aria-disabled={!user}
-                          onClick={handleButtonClick}
+                          onClick={handleMultiPlayerClick}
                     >
                         <li className={`${styles.menuItem} ${styles.button2} ${!user && styles.menuItemDisabled}`}
                         >

@@ -26,12 +26,16 @@ export interface SessionData {
     isGameInProgress: boolean;
     settings: SessionSettings;
     joinSession: (user: IUser) => void;
-    leaveSession: (user: IUser) => void;
+    leaveSession: (player: IPlayer | IUser) => void;
     startGame: () => BaseController;
     assignColor: (userId: string, color: PAWN_COLOR) => void;
     handleAction: (userId: string, action: CONTROLLER_ACTION, ...args: any[]) => void;
     gameController: BaseController | null;
     getGame: () => IGame | undefined;
+
+    setPlayerReady: (userId: string, ready: boolean) => void;
+
+    kickPlayer: (playerId: string) => void;
 
     isUserInSession: (userId: string) => boolean;
 

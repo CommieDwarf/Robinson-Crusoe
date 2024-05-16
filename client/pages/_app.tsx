@@ -1,5 +1,5 @@
 import "../styles/globals.css";
-import React from "react";
+import React, {useEffect} from "react";
 import type {AppProps} from "next/app";
 import {Provider} from "react-redux";
 import {store} from "../store/store";
@@ -11,11 +11,13 @@ import {SocketEmitter} from "./api/socketEmitter";
 import "../public/fontello-3e0b8b4b/css/fontello.css";
 import "../I18n/I18n";
 import Head from "next/head";
+import {SOCKET_EMITTER, SocketPayloadMap} from "@shared/types/Requests/Socket";
 
 export const socket = createSocketClient();
 export const socketEmitter = new SocketEmitter(socket);
 
 export default function MyApp<Props>({Component, pageProps}: AppProps) {
+
 
     return (
         <>

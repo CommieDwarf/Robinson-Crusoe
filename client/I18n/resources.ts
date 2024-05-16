@@ -622,6 +622,7 @@ export const resources = {
                 [SESSION_JOIN_ERROR_CODE.GAME_IN_PROGRESS]: "Gra już się zaczeła",
                 [SESSION_JOIN_ERROR_CODE.SESSION_FULL]: "Sesja jest pełna",
                 [SESSION_JOIN_ERROR_CODE.INCORRECT_PASSWORD]: "nieprawidłowe hasło",
+                "kicked": "Zostałeś wyrzucony",
             }
         },
 

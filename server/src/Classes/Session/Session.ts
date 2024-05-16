@@ -10,6 +10,9 @@ import {CHARACTER, Gender} from "@shared/types/Game/Characters/Character";
 import {SessionSettings} from "@shared/types/SessionSettings";
 import {IUser} from "../../types/UserData/IUser";
 import {Player} from "../Player/Player";
+import {io} from "../../../server";
+import {SOCKET_EMITTER, SocketPayloadMap} from "@shared/types/Requests/Socket";
+import {isPlayer} from "../../utils/isPlayer";
 
 
 export class Session implements SessionData {
@@ -18,7 +21,6 @@ export class Session implements SessionData {
     private _players: IPlayer[] = [];
     private _gameController: BaseController | null = null;
     private _colors: PAWN_COLOR[] = Object.values(PAWN_COLOR);
-
     private _id = uuid();
     private _connectCode = uuid();
     private _characters: CHARACTER[] = Object.values(CHARACTER);
@@ -66,7 +68,7 @@ export class Session implements SessionData {
     }
 
     get isGameInProgress() {
-        return !!this._gameController?.game
+        return Boolean(this._gameController?.game);
     }
 
 
@@ -88,17 +90,36 @@ export class Session implements SessionData {
     }
 
     public joinSession(user: IUser) {
-        const player = new Player(user, {gender: "male", char: this.getUnassignedCharacter()});
+        const player = new Player(user,
+            {
+                gender: "male",
+                char: this.getUnassignedCharacter()
+            });
         this._players.push(player);
         this.assignColor(player.id, this.findAvailableColor());
         this.assignCharacter(player.id, CHARACTER.SOLDIER, "male");
+        this.pingPlayer(player);
+        user.addActiveSession(this);
     }
 
-    public leaveSession(user: IUser) {
-        this._players = this._players.filter((pl) => pl.user.id !== user.id);
+    public leaveSession(user: IPlayer | IUser) {
+        let player = user;
+        if (!isPlayer(player)) {
+            const searched = this._players.find((pl) => pl.user.id === user.id);
+            if (!searched) {
+                return;
+            } else {
+                player = searched;
+            }
+        }
+        player.clearPingIntervals();
+        this._players = this._players.filter((pl) => pl !== player);
+        io.to(this.id).emit(SOCKET_EMITTER.SESSION_CHANGED);
+        console.log("left");
     }
 
     public startGame(): BaseController {
+        // throw new Error("STARTING GAME")
         const game = new GameClass(this._players);
         const gameController = new GameController(game, this._players);
         this._gameController = gameController
@@ -124,6 +145,24 @@ export class Session implements SessionData {
     }
 
 
+    private pingPlayer(player: IPlayer) {
+        player.ping((latency) => {
+            const payload: SocketPayloadMap[SOCKET_EMITTER.PLAYER_LATENCY_SENT] = {
+                playerId: player.id,
+                latency
+            }
+            io.to(this.id).emit(SOCKET_EMITTER.PLAYER_LATENCY_SENT, payload)
+        }, () => {
+            console.log("WTF")
+            if (!this.isGameInProgress) {
+                this.leaveSession(player)
+                io.to(this.id).emit(SOCKET_EMITTER.SESSION_CHANGED, {});
+            } else {
+            }
+        }, this.id)
+    }
+
+
     private getUnassignedCharacter(): CHARACTER {
         const char = this._characters.find((char) => !this.isCharacterTaken(char));
         if (!char) {
@@ -134,6 +173,15 @@ export class Session implements SessionData {
 
     public getGame() {
         return this._gameController?.game;
+    }
+
+    public setPlayerReady(userId: string, ready: boolean) {
+        this.getPlayerByUserId(userId).ready = ready;
+    }
+
+    public kickPlayer(playerId: string) {
+        const player = this.getPlayerById(playerId);
+        this.leaveSession(player);
     }
 
 

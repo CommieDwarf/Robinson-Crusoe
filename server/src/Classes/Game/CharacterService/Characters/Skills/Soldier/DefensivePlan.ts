@@ -27,11 +27,9 @@ export class DefensivePlan extends Ability implements IAbility<null> {
             this._name,
             "custom",
             () => {
-                console.log("aa")
                 this._game.constructionService.lvlUpConstruction(CONSTRUCTION.WEAPON, 1, this._name);
             },
             isShelterBuilt ? () => {
-                console.log("DASDASD")
                 this._game.constructionService.lvlUpConstruction(CONSTRUCTION.PALISADE, 1, this._name);
             } : undefined,
         )

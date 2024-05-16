@@ -11,17 +11,23 @@
     transform: translate(-50%, -50%);
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 250px;
+    grid-template-rows: 1fr 50px 250px;
     color: var(--brown);
     padding: 10px;
     grid-column-gap: 10px;
     grid-row-gap: 10px;
+    box-sizing: border-box;
 }
 
 .chat {
     grid-column: 2 / span 1;
-    grid-row: 2 / span 1;
+    grid-row: 3 / span 1;
     border: 1px solid var(--brown);
+}
+
+.startPanel {
+    grid-column: 2 / span 1;
+    grid-row: 2 / span 1;
 }
 
 .players {
@@ -31,11 +37,11 @@
 
 .settings {
     grid-column: 1 / span 1;
-    grid-row: 2 / span 1;
+    grid-row: 3 / span 1;
 }
 
 
 .char {
     grid-column: 1 / span 1;
-    grid-row: 1 / span 1;
+    grid-row: 1 / span 2;
 }

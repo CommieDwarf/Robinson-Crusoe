@@ -14,17 +14,24 @@ interface Props {
 export function SessionList(props: Props) {
     const [sessionList, setSessionList] = useState<SessionBasicInfo[]>([]);
 
+
     useEffect(() => {
+        console.log("USE EFFECT")
         socket.on((SOCKET_EMITTER.SESSION_LIST_SENT), (payload: SocketPayloadMap[SOCKET_EMITTER.SESSION_LIST_SENT]) => {
             setSessionList(payload.sessionList);
+        });
+        socket.on((SOCKET_EMITTER.SESSION_LIST_CHANGED), () => {
+            socketEmitter.emitRequestSessionList();
         })
-        socketEmitter.emitRequestSessionList();
 
+        socketEmitter.emitRequestSessionList();
         return () => {
             socket.off(SOCKET_EMITTER.SESSION_LIST_SENT);
+            socket.off(SOCKET_EMITTER.SESSION_LIST_CHANGED)
         }
     }, [])
 
+    socketEmitter.emitRequestSessionList();
     return <div className={styles.container}>
         <Header/>
         <div className={styles.sessionList}>

@@ -44,7 +44,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-const io = new Server(server, {
+export const io = new Server(server, {
     cors: {
         origin: "*",
         methods: ["POST", "GET"]
@@ -196,21 +196,20 @@ io.on("connection", async (socket: typeof Socket) => {
         }
 
         const emitSocket = getEmitSocket(socket);
-
-        const user = sessionService.addToActiveUsers(userDocument);
-
+        const setListener = getSetListener(socket);
+        const user = sessionService.addToActiveUsers(userDocument, socket);
 
         socket.on(SOCKET_EMITTER.DISCONNECT, () => {
-            console.log("DISCONNECT");
-            user.leaveSessionLobbies((sessionId) => {
-                socket.to(sessionId).except(socket.id).emit(SOCKET_EMITTER.SESSION_CHANGED);
-                socket.leave(sessionId);
+            console.log("disconnect!")
+            user.leaveNotStartedSessions((sessionId) => {
+                emitChangeAndLeaveRoom(socket, sessionId);
             });
         })
 
 
         socket.on(SOCKET_EMITTER.CREATE_QUICK_GAME, async () => {
-            const session = sessionService.createQuickGameSession(user.id);
+            console.log("CREATE QUICK GAME RECIEVED")
+            sessionService.createQuickGameSession(user.id);
             emitSocket(SOCKET_EMITTER.GAME_SESSION_CREATED, {sessionId: "quickgame"})
         })
 
@@ -218,6 +217,9 @@ io.on("connection", async (socket: typeof Socket) => {
             const {settings} = payload;
             const session = sessionService.createSession(user.id, settings);
             socket.join(session.id);
+            if (!session.settings.private) {
+                emitSocket(SOCKET_EMITTER.SESSION_LIST_CHANGED, {});
+            }
             emitSocket(SOCKET_EMITTER.GAME_SESSION_CREATED, {sessionId: session.id})
         })
 
@@ -232,7 +234,7 @@ io.on("connection", async (socket: typeof Socket) => {
                 session = sessionService.getSession(user.id, payload.sessionId);
                 if (session && !session.isUserInSession(userId)) {
                     console.error("user not in session");
-                    //TODO: rzuć i obsłuż wyjątek
+                    return;
                 }
             }
 
@@ -302,12 +304,19 @@ io.on("connection", async (socket: typeof Socket) => {
 
         socket.on(SOCKET_EMITTER.JOIN_SESSION, (payload: SocketPayloadMap[SOCKET_EMITTER.JOIN_SESSION]) => {
             try {
+                if (sessionService.userInSession(user.id, payload.sessionId)) {
+                    emitSocket(SOCKET_EMITTER.JOIN_SESSION_RESPONSE, {
+                        sessionId: payload.sessionId,
+                    })
+                    return;
+                }
                 sessionService.joinSession(user, payload.sessionId, payload.password);
+                socket.join(payload.sessionId);
+                socket.to(payload.sessionId).emit(SOCKET_EMITTER.SESSION_CHANGED)
                 emitSocket(SOCKET_EMITTER.JOIN_SESSION_RESPONSE, {
                     sessionId: payload.sessionId,
                 })
-                socket.join(payload.sessionId);
-                socket.to(payload.sessionId).emit(SOCKET_EMITTER.SESSION_CHANGED)
+                emitSocket(SOCKET_EMITTER.SESSION_LIST_CHANGED, {});
             } catch (error) {
                 if (error instanceof SessionConnectError) {
                     emitSocket(SOCKET_EMITTER.JOIN_SESSION_RESPONSE, {
@@ -320,7 +329,8 @@ io.on("connection", async (socket: typeof Socket) => {
 
         socket.on(SOCKET_EMITTER.LEAVE_SESSION, (payload: SocketPayloadMap[SOCKET_EMITTER.LEAVE_SESSION]) => {
             sessionService.leaveSession(user, payload.sessionId);
-            socket.to(payload.sessionId).except(socket.id).emit(SOCKET_EMITTER.SESSION_CHANGED)
+            socket.to(payload.sessionId).except(socket.id).emit(SOCKET_EMITTER.SESSION_CHANGED);
+            emitSocket(SOCKET_EMITTER.SESSION_LIST_CHANGED, {});
             socket.leave(payload.sessionId);
         })
 
@@ -331,6 +341,37 @@ io.on("connection", async (socket: typeof Socket) => {
             }
             session.changeCharacter(user.id, payload.character);
             io.to(session.id).emit(SOCKET_EMITTER.SESSION_CHANGED);
+        })
+
+        socket.on(SOCKET_EMITTER.SET_PLAYER_READY, (payload: SocketPayloadMap[SOCKET_EMITTER.SET_PLAYER_READY]) => {
+            const session = sessionService.getSession(userId, payload.sessionId);
+            if (!session || (session && session.isGameInProgress)) {
+                return;
+            }
+            session.setPlayerReady(userId, payload.value);
+            io.to(session.id).emit(SOCKET_EMITTER.SESSION_CHANGED);
+        })
+
+        setListener(SOCKET_EMITTER.KICK_PLAYER, async (payload) => {
+            const session = sessionService.getSession(userId, payload.sessionId);
+            if (!session || (session && session.isGameInProgress) || session.host !== user) {
+                return;
+            }
+            const kickedPlayer = session.players.find((pl) => pl.id === payload.playerId);
+            if (!kickedPlayer) {
+                console.error("SHIT");
+                return;
+            }
+            session.kickPlayer(kickedPlayer.id);
+            const userSockets: (typeof Socket)[] = await io.of("/").in(session.id).fetchSockets();
+            const userSocket: typeof Socket = userSockets.find(socket => socket.id.toString() === kickedPlayer.user.socket.id);
+            if (!userSocket) {
+                return;
+            }
+            userSocket.leave(session.id);
+            io.to(session.id).emit(SOCKET_EMITTER.SESSION_CHANGED);
+            emitSocket(SOCKET_EMITTER.SESSION_LIST_CHANGED, {});
+            userSocket.emit(SOCKET_EMITTER.PLAYER_KICKED, {});
         })
 
 
@@ -344,8 +385,20 @@ server.listen(PORT, () => {
     console.log('server running on port:', PORT);
 })
 
+
+function getSetListener(socket: typeof Socket) {
+    return function <T extends keyof SocketPayloadMap>(socketEmitter: T, func: (payload: SocketPayloadMap[T]) => void) {
+        return socket.on(socketEmitter, func);
+    }
+}
+
 function getEmitSocket(socket: typeof Socket) {
     return function <T extends keyof SocketPayloadMap>(socketEmitter: T, payload: SocketPayloadMap[T]) {
         socket.emit(socketEmitter, payload);
     }
+}
+
+function emitChangeAndLeaveRoom(socket: typeof Socket, sessionId: string) {
+    socket.to(sessionId).except(socket.id).emit(SOCKET_EMITTER.SESSION_CHANGED);
+    socket.leave(sessionId);
 }

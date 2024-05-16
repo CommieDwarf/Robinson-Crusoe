@@ -12,7 +12,7 @@ import {SOCKET_EMITTER, SocketPayloadMap} from "@shared/types/Requests/Socket";
 import {useRouter} from "next/router";
 import {SmallWindow} from "../../components/SessionList/SmallWindow/SmallWindow";
 import {EnterPassword} from "../../components/SessionList/SmallWindow/EnterPassword/EnterPassword";
-import {Error} from "../../components/SessionList/SmallWindow/Error/Error";
+import {Message} from "../../components/SessionList/SmallWindow/Error/Message";
 
 interface Props {
 
@@ -23,9 +23,8 @@ export function Multiplayer() {
     const {t} = useTranslation();
 
     const [sessionIdToJoin, setSessionIdToJoin] = useState("");
-    const [error, setError] = useState("");
-
     const router = useRouter();
+    const [message, setMessage] = useState(router.query.msg as string);
 
 
     function setSessionIdToEnter(sessionId: string) {
@@ -34,7 +33,7 @@ export function Multiplayer() {
 
     function closeWindow() {
         setSessionIdToJoin("");
-        setError("");
+        setMessage("");
     }
 
     function handleRefreshClick() {
@@ -45,7 +44,7 @@ export function Multiplayer() {
     useEffect(() => {
         socket.on(SOCKET_EMITTER.JOIN_SESSION_RESPONSE, (payload: SocketPayloadMap[SOCKET_EMITTER.JOIN_SESSION_RESPONSE]) => {
             if (payload.error) {
-                setError(payload.error);
+                setMessage(payload.error);
                 return;
             }
             if (payload.sessionId) {
@@ -89,8 +88,8 @@ export function Multiplayer() {
             {sessionIdToJoin && <SmallWindow closeWindow={closeWindow}>
                 <EnterPassword sessionId={sessionIdToJoin} setSessionIdToEnter={setSessionIdToEnter}/>
             </SmallWindow>}
-            {error && <SmallWindow closeWindow={closeWindow}>
-                <Error message={error}/>
+            {message && <SmallWindow closeWindow={closeWindow}>
+                <Message message={message}/>
             </SmallWindow>}
         </div>)
 }

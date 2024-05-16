@@ -19,11 +19,18 @@ export enum SOCKET_EMITTER {
     DISCONNECT = "disconnect",
     SESSION_LIST_REQUESTED = "session list requested",
     SESSION_LIST_SENT = "session list sent",
+    SESSION_LIST_CHANGED = "session list changed",
     JOIN_SESSION = "join session",
     JOIN_SESSION_RESPONSE = "join session response",
     LEAVE_SESSION = "leave session",
     SESSION_CHANGED = "session changed",
     CHANGE_CHARACTER = "change character",
+    SET_PLAYER_READY = "set player ready",
+    KICK_PLAYER = "kick player",
+    PLAYER_KICKED = "player kicked",
+    PING = "ping",
+    PONG = "pong",
+    PLAYER_LATENCY_SENT = "players ping sent"
 }
 
 
@@ -88,6 +95,30 @@ interface ChangeCharacterPayload {
     character: Partial<AssignedCharacter>;
 }
 
+interface SetPlayerReadyPayload {
+    sessionId: string;
+    value: boolean;
+}
+
+interface KickPlayerPayload {
+    sessionId: string;
+    playerId: string;
+}
+
+interface PingPayload {
+    timestamp: number;
+    sessionId: string;
+}
+
+interface PongPayload {
+    timestamp: number;
+}
+
+interface PlayerLatencySentPayload {
+    playerId: string;
+    latency: number | null;
+}
+
 
 export type SocketPayloadMap = {
     [SOCKET_EMITTER.EXECUTE_GAME_METHOD_AND_SEND_RESPONSE]: ExecuteGameMethodAndSendResponsePayload;
@@ -105,5 +136,14 @@ export type SocketPayloadMap = {
     [SOCKET_EMITTER.JOIN_SESSION]: JoinSessionPayload;
     [SOCKET_EMITTER.JOIN_SESSION_RESPONSE]: JoinSessionResponsePayload;
     [SOCKET_EMITTER.LEAVE_SESSION]: LeaveSessionPayload;
-    [SOCKET_EMITTER.CHANGE_CHARACTER]: ChangeCharacterPayload
+    [SOCKET_EMITTER.CHANGE_CHARACTER]: ChangeCharacterPayload;
+    [SOCKET_EMITTER.SET_PLAYER_READY]: SetPlayerReadyPayload;
+    [SOCKET_EMITTER.KICK_PLAYER]: KickPlayerPayload;
+    [SOCKET_EMITTER.SESSION_CHANGED]: {};
+    [SOCKET_EMITTER.PLAYER_KICKED]: {};
+    [SOCKET_EMITTER.SESSION_LIST_CHANGED]: {};
+    [SOCKET_EMITTER.PING]: PingPayload;
+    [SOCKET_EMITTER.PONG]: PongPayload;
+    [SOCKET_EMITTER.DISCONNECT]: any;
+    [SOCKET_EMITTER.PLAYER_LATENCY_SENT]: PlayerLatencySentPayload;
 };

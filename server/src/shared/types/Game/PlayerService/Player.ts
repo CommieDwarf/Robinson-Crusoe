@@ -22,6 +22,9 @@ export interface IPlayer {
     assignColor: (color: PAWN_COLOR) => void;
     initCharacter: (game: IGame) => void;
     user: IUser;
+    ping: (onPong: (latency: number) => void, onTimeout: () => void, sessionId: string) => void;
+    clearPingIntervals: () => void;
+    ready: boolean;
     renderData: IPlayerRenderData;
 }
 
@@ -31,5 +34,6 @@ export interface IPlayerRenderData {
     color: string;
     character: IPlayerCharacterRenderData | null;
     assignedCharacter: AssignedCharacter;
+    ready: boolean;
     id: string;
 }

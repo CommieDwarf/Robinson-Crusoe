@@ -1,8 +1,10 @@
-import {SessionData} from "../../shared/types/Session/Session";
 import {Session} from "../../Classes/Session/Session";
+import {SessionData} from "@shared/types/Session/Session";
+import {Socket} from "socket.io";
 
 export interface IUser {
     id: string,
+    socket: Socket,
     username: string,
     activeSessions: SessionData[],
     quickGameSession: SessionData | null,
@@ -10,7 +12,10 @@ export interface IUser {
     setQuickGameSession: (session: Session) => void;
     unsetSinglePlayerSession: () => void;
     removeActiveSession: (sessionId: string) => void;
-    leaveSessionLobbies: (callback: (sessionId: string) => void) => void;
+    leaveNotStartedSessions: (callback: (sessionId: string) => void) => void;
 
+    ping: number;
+
+    updateSocket: (socket: Socket) => void;
 }
 

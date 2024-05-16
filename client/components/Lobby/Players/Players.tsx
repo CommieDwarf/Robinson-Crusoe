@@ -10,6 +10,10 @@ interface Props {
 
 
 export function Players(props: Props) {
+
+
+    const hostControls = props.localPlayer.id === props.host.id;
+
     return <div className={styles.container}>
         <div className={styles.playerList}>
             {props.players.map((player) => {
@@ -18,6 +22,7 @@ export function Players(props: Props) {
                     key={player.id}
                     local={props.localPlayer.id === player.id}
                     host={props.host.id === player.id}
+                    hostControls={hostControls}
                 />
             })}
         </div>

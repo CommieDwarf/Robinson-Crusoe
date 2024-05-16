@@ -90,7 +90,6 @@ export class GameClass implements IGame {
         // this is hardcoded for demo purpose.
         this._localPlayer = players[0]
         players.forEach((player) => player.initCharacter(this))
-        console.log(players)
 
         this._playerService = new PlayerService([this.localPlayer]);
         this._characterService = new CharacterService(

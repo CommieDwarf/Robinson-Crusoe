@@ -3,6 +3,7 @@
     height: 40px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding-left: 10px;
     padding-right: 10px;
     font-size: 20px;
@@ -16,6 +17,10 @@
     align-items: center;
 }
 
+.name {
+    width: 100px;
+}
+
 .character {
 
 }
@@ -25,6 +30,11 @@
     height: 20px !important;
     position: relative;
     filter: brightness(0) saturate(100%) invert(84%) sepia(19%) saturate(6919%) hue-rotate(344deg) brightness(105%) contrast(94%);
+}
+
+.latency {
+    width: 30px;
+    height: 20px !important;
 }
 
 .kickButton {
@@ -40,4 +50,22 @@
 .localPlayer {
     color: var(--explore);
     font-weight: 500;
+}
+
+.disabled {
+    filter: opacity(20%);
+}
+
+.readiness {
+    height: 30px !important;
+    width: 35px;
+    margin-top: 5px;
+}
+
+.readinessReady {
+    filter: brightness(0) saturate(100%) invert(52%) sepia(93%) saturate(316%) hue-rotate(50deg) brightness(96%) contrast(87%);
+}
+
+.readinessNotReady {
+
 }
