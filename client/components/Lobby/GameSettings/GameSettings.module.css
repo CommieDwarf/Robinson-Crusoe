@@ -53,3 +53,6 @@
     margin-top: 5px;
 }
 
+.option:disabled {
+    background-color: lightgray;
+}

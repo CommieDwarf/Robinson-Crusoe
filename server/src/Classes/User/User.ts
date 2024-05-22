@@ -11,7 +11,7 @@ export class User implements IUser {
     private readonly _username: string;
     private _activeSessions: SessionData[] = [];
     private _singlePlayerSession: SessionData | null = null;
-    private _socket: Socket;
+    private _sockets: Socket[];
     private _ping = 0;
     private readonly _sessionService: ISessionService;
 
@@ -19,7 +19,7 @@ export class User implements IUser {
     constructor(userDocument: UserDocument, socket: Socket, sessionService: ISessionService) {
         this._id = userDocument._id.toString();
         this._username = userDocument.username;
-        this._socket = socket;
+        this._sockets = [socket];
         this._sessionService = sessionService;
     }
 
@@ -40,8 +40,8 @@ export class User implements IUser {
         return this._singlePlayerSession;
     }
 
-    get socket() {
-        return this._socket;
+    get sockets() {
+        return this._sockets;
     }
 
     get ping(): number {
@@ -70,18 +70,25 @@ export class User implements IUser {
         this._singlePlayerSession = null;
     }
 
-    public leaveNotStartedSessions(callback: (sessionId: string) => void) {
+    public leaveNotStartedSessions() {
         this._activeSessions
             .filter((session) => !session.isGameInProgress)
             .forEach((session) => {
                 console.log("leaving, " + session.id);
                 this._sessionService.leaveSession(this, session.id);
-                callback(this.id);
             })
-
     }
 
-    public updateSocket(socket: Socket) {
-        this._socket = socket;
+    public addSocket(socket: Socket) {
+        if (!this._sockets.includes(socket)) {
+            this._sockets.push(socket);
+        }
+    }
+
+    public removeSocket(socket: Socket) {
+        this._sockets = this._sockets.filter((sct) => sct !== socket);
+        if (this._sockets.length === 0) {
+            this.leaveNotStartedSessions()
+        }
     }
 }

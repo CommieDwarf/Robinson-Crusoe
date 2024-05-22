@@ -195,15 +195,13 @@ io.on("connection", async (socket: typeof Socket) => {
             return;
         }
 
+
         const emitSocket = getEmitSocket(socket);
         const setListener = getSetListener(socket);
         const user = sessionService.addToActiveUsers(userDocument, socket);
 
         socket.on(SOCKET_EMITTER.DISCONNECT, () => {
-            console.log("disconnect!")
-            user.leaveNotStartedSessions((sessionId) => {
-                emitChangeAndLeaveRoom(socket, sessionId);
-            });
+            user.removeSocket(socket);
         })
 
 
@@ -363,15 +361,20 @@ io.on("connection", async (socket: typeof Socket) => {
                 return;
             }
             session.kickPlayer(kickedPlayer.id);
-            const userSockets: (typeof Socket)[] = await io.of("/").in(session.id).fetchSockets();
-            const userSocket: typeof Socket = userSockets.find(socket => socket.id.toString() === kickedPlayer.user.socket.id);
-            if (!userSocket) {
+            const allUsersSockets: (typeof Socket)[] = await io.of("/").in(session.id).fetchSockets();
+            const userSockets: typeof Socket = kickedPlayer.user.sockets;
+            if (userSockets.length === 0) {
                 return;
             }
-            userSocket.leave(session.id);
+            userSockets.forEach((socket: typeof Socket) => socket.leave(session.id))
             io.to(session.id).emit(SOCKET_EMITTER.SESSION_CHANGED);
             emitSocket(SOCKET_EMITTER.SESSION_LIST_CHANGED, {});
-            userSocket.emit(SOCKET_EMITTER.PLAYER_KICKED, {});
+            userSockets.forEach((socket: typeof Socket) => socket.emit(SOCKET_EMITTER.PLAYER_KICKED, {}))
+        })
+
+        setListener(SOCKET_EMITTER.SEND_MESSAGE, (payload) => {
+            sessionService.addMessage(user.id, payload.message, payload.sessionId);
+            io.to(payload.sessionId).emit(SOCKET_EMITTER.SESSION_CHANGED);
         })
 
 

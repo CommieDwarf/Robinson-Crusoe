@@ -13,6 +13,8 @@ import {Player} from "../Player/Player";
 import {io} from "../../../server";
 import {SOCKET_EMITTER, SocketPayloadMap} from "@shared/types/Requests/Socket";
 import {isPlayer} from "../../utils/isPlayer";
+import {ChatService} from "../ChatService/ChatService";
+import {IChatService} from "@shared/types/ChatService/ChatService";
 
 
 export class Session implements SessionData {
@@ -27,6 +29,7 @@ export class Session implements SessionData {
     private readonly _settings: SessionSettings;
     private _host: IUser;
     private _singleplayer: boolean;
+    private _chatService: IChatService = new ChatService(this);
 
     constructor(host: IUser, settings: SessionSettings, singleplayer = false) {
         this._settings = settings;
@@ -44,6 +47,7 @@ export class Session implements SessionData {
             game: this.gameController?.game.renderData || null,
             localPlayer: this.getPlayerByUserId(userId).renderData,
             hostPlayer: this.getPlayerByUserId(this._host.id).renderData,
+            chatService: this.chatService.renderData,
         }
     }
 
@@ -69,6 +73,10 @@ export class Session implements SessionData {
 
     get isGameInProgress() {
         return Boolean(this._gameController?.game);
+    }
+
+    get chatService(): IChatService {
+        return this._chatService;
     }
 
 
@@ -154,22 +162,14 @@ export class Session implements SessionData {
             io.to(this.id).emit(SOCKET_EMITTER.PLAYER_LATENCY_SENT, payload)
         }, () => {
             console.log("WTF")
-            if (!this.isGameInProgress) {
-                this.leaveSession(player)
-                io.to(this.id).emit(SOCKET_EMITTER.SESSION_CHANGED, {});
-            } else {
-            }
+            // if (!this.isGameInProgress) {
+            //     this.leaveSession(player)
+            //     io.to(this.id).emit(SOCKET_EMITTER.SESSION_CHANGED, {});
+            // } else {
+            // }
         }, this.id)
     }
 
-
-    private getUnassignedCharacter(): CHARACTER {
-        const char = this._characters.find((char) => !this.isCharacterTaken(char));
-        if (!char) {
-            throw new Error("No more unassigned characters.")
-        }
-        return char
-    }
 
     public getGame() {
         return this._gameController?.game;
@@ -182,6 +182,20 @@ export class Session implements SessionData {
     public kickPlayer(playerId: string) {
         const player = this.getPlayerById(playerId);
         this.leaveSession(player);
+    }
+
+    public addMessage(userId: string, message: string) {
+        const player = this.getPlayerByUserId(userId);
+        this._chatService.addMsg(player.username, message);
+    }
+
+
+    private getUnassignedCharacter(): CHARACTER {
+        const char = this._characters.find((char) => !this.isCharacterTaken(char));
+        if (!char) {
+            throw new Error("No more unassigned characters.")
+        }
+        return char
     }
 
 

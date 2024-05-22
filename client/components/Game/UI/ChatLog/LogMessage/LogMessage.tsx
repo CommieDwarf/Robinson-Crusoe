@@ -68,9 +68,9 @@ export const LogMessage = (props: Props) => {
             </div>
             {}
             <div className={styles.messageContent}>
-        <span className={styles.messageSource}>
-          {capitalize(translatedSource || source)} -{" "}
-        </span>
+                <span className={styles.messageSource}>
+                  {capitalize(translatedSource || source)} -{" "}
+                </span>
                 <span className={styles.message + " " + styles[msg.color]}>
                     {capitalize(translatedContent)}
                 </span>

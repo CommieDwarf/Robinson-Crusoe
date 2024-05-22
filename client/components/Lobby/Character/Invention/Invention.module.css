@@ -1,0 +1,13 @@
+.container {
+    width: 100%;
+    text-align: center;
+    margin: 0;
+}
+
+
+.icon {
+    height: 20px;
+    aspect-ratio: 1;
+    display: inline-block;
+    vertical-align: middle;
+}

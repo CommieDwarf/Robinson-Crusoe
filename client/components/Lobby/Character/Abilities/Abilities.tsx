@@ -5,7 +5,7 @@ import {capitalize} from "lodash";
 import {insertIconsIntoText} from "../../../../utils/insertIconsIntoText";
 import {CHARACTER} from "@shared/types/Game/Characters/Character";
 import {getAbilities} from "../../../../utils/getAbilities";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {AbilityOption} from "./AbilityOption/AbilityOption";
 
 
@@ -19,6 +19,11 @@ export function Abilities(props: Props) {
 
     const [selectedAbility, setSelectedAbility] = useState<ABILITY>(abilities[0]);
 
+
+    useEffect(() => {
+        setSelectedAbility(getAbilities(props.character)[0]);
+    }, [props.character])
+
     function selectAbility(ability: ABILITY) {
         setSelectedAbility(ability)
     }
@@ -28,12 +33,14 @@ export function Abilities(props: Props) {
 
     return <div className={styles.container}>
 
-        <div className={styles.title}><h3>Umiejętności</h3></div>
+        <div className={styles.title}><h3>Podgląd umiejętności</h3></div>
         <hr className={styles.hr}/>
         <div className={styles.abilityName}>
+            {/* @ts-ignore*/}
             <h4>{t(`ability.${selectedAbility}.name`)}</h4>
         </div>
         <div className={styles.abilityDescription}>
+            {/* @ts-ignore*/}
             {insertIconsIntoText(capitalize(t(`ability.${selectedAbility}.description`)), styles.icon)}
         </div>
         <div className={styles.selectAbility}>

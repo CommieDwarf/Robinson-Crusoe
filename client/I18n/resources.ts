@@ -13,6 +13,7 @@ import {ITEM} from "@shared/types/Game/Equipment/Item";
 import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
 import {ALERT_CODE} from "@shared/types/ALERT_CODE";
 import {SESSION_JOIN_ERROR_CODE} from "@shared/types/Errors/SESSION_JOIN_ERROR_CODE";
+import {INVENTION_PERSONAL} from "@shared/types/Game/InventionService/Invention";
 
 
 export const resources = {
@@ -149,6 +150,12 @@ export const resources = {
                     comment: "A ty, kucharzu, zabiezpieczasz lewą flankę…"
                 }
 
+            },
+            "personalInventionDescription": {
+                [INVENTION_PERSONAL.SPEAR]: "+3 \$weapon\$",
+                [INVENTION_PERSONAL.FIREPLACE]: "\$food\$ -> +2\$heart\$ (w fazie nocy)",
+                [INVENTION_PERSONAL.SHORTCUT]: "+1 surowiec z wybranego kafelka w okół obozu w fazie produkcji",
+                [INVENTION_PERSONAL.SNARE]: "+1 \$food\$ (na kafelku obozu)"
             },
             "phase": {
                 "phase": "faza $t(phase.{{phase}}, {\"context\": \"genitive\"})",

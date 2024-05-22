@@ -100,7 +100,7 @@ export class SessionService implements ISessionService {
             this._activeUsers.set(user.id, user);
             return user;
         } else {
-            user.updateSocket(socket);
+            user.addSocket(socket);
         }
         return user;
     }
@@ -121,6 +121,14 @@ export class SessionService implements ISessionService {
 
     public userInSession(userId: string, sessionId: string): boolean {
         return this.getSession(userId, sessionId)?.isUserInSession(userId) || false;
+    }
+
+    public addMessage(userId: string, message: string, sessionId: string) {
+        const session = this.getSession(userId, sessionId);
+        if (!session) {
+            throw new Error("Session not found");
+        }
+        session.addMessage(userId, message);
     }
 
 

@@ -11,8 +11,6 @@ import {Explorer} from "../Game/CharacterService/Characters/Explorer";
 import {Carpenter} from "../Game/CharacterService/Characters/Carpenter";
 import {clearInterval} from "timers";
 import {pingClient} from "../../utils/pingClient";
-import {SOCKET_EMITTER, SocketPayloadMap} from "@shared/types/Requests/Socket";
-import {io} from "../../../server";
 
 export interface PingHandles {
     pingInterval: NodeJS.Timeout | null,
@@ -122,7 +120,7 @@ export class Player implements IPlayer {
 
     public ping(onPong: (latency: number) => void, onTimeout: () => void, sessionId: string) {
         this.clearPingIntervals();
-        const [pingInterval, timeoutHandle] = pingClient(this.user.socket, 15000, 1000, onPong, onTimeout, sessionId);
+        const [pingInterval, timeoutHandle] = pingClient(this.user.sockets[0], 15000, 1000, onPong, onTimeout, sessionId);
         this._pingHandles = {
             pingInterval,
             timeoutHandle

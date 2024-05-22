@@ -1,0 +1,27 @@
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    column-gap: 5px;
+    margin-top: 5px;
+}
+
+.genderOption {
+    border: 1px solid var(--borderColor);
+    border-radius: 5px;
+    padding-left: 2px;
+    padding-right: 2px;
+    cursor: pointer;
+    line-height: 100%;
+    padding-top: 3px;
+}
+
+.genderOption:hover {
+    scale: 1.1;
+}
+
+.genderOptionSelected {
+    background-color: var(--brown);
+    color: white;
+}

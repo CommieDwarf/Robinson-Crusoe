@@ -30,7 +30,8 @@ export enum SOCKET_EMITTER {
     PLAYER_KICKED = "player kicked",
     PING = "ping",
     PONG = "pong",
-    PLAYER_LATENCY_SENT = "players ping sent"
+    PLAYER_LATENCY_SENT = "players ping sent",
+    SEND_MESSAGE = "send message"
 }
 
 
@@ -119,6 +120,11 @@ interface PlayerLatencySentPayload {
     latency: number | null;
 }
 
+interface SendMessagePayload {
+    sessionId: string;
+    message: string;
+}
+
 
 export type SocketPayloadMap = {
     [SOCKET_EMITTER.EXECUTE_GAME_METHOD_AND_SEND_RESPONSE]: ExecuteGameMethodAndSendResponsePayload;
@@ -146,4 +152,5 @@ export type SocketPayloadMap = {
     [SOCKET_EMITTER.PONG]: PongPayload;
     [SOCKET_EMITTER.DISCONNECT]: any;
     [SOCKET_EMITTER.PLAYER_LATENCY_SENT]: PlayerLatencySentPayload;
+    [SOCKET_EMITTER.SEND_MESSAGE]: SendMessagePayload
 };

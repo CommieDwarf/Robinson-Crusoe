@@ -5,7 +5,7 @@ import {BaseController} from "../../../types/GameController/Controllers";
 import {CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {IGame, IGameRenderData} from "@shared/types/Game/Game";
 import {SessionSettings} from "@shared/types/SessionSettings";
-import {CHARACTER, Gender} from "@shared/types/Game/Characters/Character";
+import {IChatServiceRenderData} from "@shared/types/ChatService/ChatService";
 
 
 // public changeCharacter(userId: string, character: CHARACTER) {
@@ -33,6 +33,8 @@ export interface SessionData {
     gameController: BaseController | null;
     getGame: () => IGame | undefined;
 
+
+    addMessage: (userId: string, message: string) => void;
     setPlayerReady: (userId: string, ready: boolean) => void;
 
     kickPlayer: (playerId: string) => void;
@@ -54,7 +56,8 @@ export interface SessionRenderData {
     // host: IPlayerRenderData;
     game: IGameRenderData | null;
     localPlayer: IPlayerRenderData;
-    hostPlayer: IPlayerRenderData
+    hostPlayer: IPlayerRenderData;
+    chatService: IChatServiceRenderData;
 }
 
 export interface SessionBasicInfo {

@@ -117,6 +117,13 @@ export class SocketEmitter {
         this.emitSocket(SOCKET_EMITTER.DISCONNECT, {});
     }
 
+    public emitSendMessage(message: string) {
+        this.emitSocket(SOCKET_EMITTER.SEND_MESSAGE, {
+            message,
+            sessionId: this._currentSessionId
+        })
+    }
+
     private emitSocket<T extends keyof SocketPayloadMap>(socketEmitter: T, payload: SocketPayloadMap[T]) {
         this._socket.emit(socketEmitter, payload);
     }

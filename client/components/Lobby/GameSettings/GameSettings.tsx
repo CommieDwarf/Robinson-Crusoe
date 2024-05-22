@@ -7,6 +7,7 @@ import {socket, socketEmitter} from "../../../pages/_app";
 import {GameSessionCreatedPayload, SOCKET_EMITTER} from "@shared/types/Requests/Socket";
 import {useRouter} from "next/router";
 import {sessionValidationConfig as valConfig} from "@shared/constants/sessionValidationConfig";
+import {useAppSelector} from "../../../store/hooks";
 
 interface Props {
     createGame: boolean;
@@ -22,6 +23,7 @@ export function GameSettings(props: Props) {
     const [maxPlayers, setMaxPlayers] = useState<number>(4);
     const [password, setPassword] = useState("");
 
+    const sessionData = useAppSelector((state) => state.gameSession.data);
 
     const router = useRouter();
 
@@ -112,7 +114,8 @@ export function GameSettings(props: Props) {
             <span>Liczba graczy</span>
             <select onChange={handleMaxPlayersChange} value={maxPlayers}>
                 {[1, 2, 3, 4].map((num) => {
-                    return <option value={num} key={num}>{num}</option>
+                    const disabled = Boolean(sessionData?.players.length && sessionData.players.length > num);
+                    return <option value={num} key={num} disabled={disabled} className={styles.option}>{num}</option>
                 })}
             </select>
         </div>

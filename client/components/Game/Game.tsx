@@ -377,7 +377,9 @@ export default function Game(props: Props) {
                 <ActionsOrder
                     actionOrderContainerRef={actionOrderRef}
                 />
-                <ChatLog/>
+                <div className={styles.chatLog}>
+                    <ChatLog enableLog={true}/>
+                </div>
                 <Weather/>
                 <Tokens
                     menuDisabled={isPawnBeingDragged || topLayerElement !== ""}

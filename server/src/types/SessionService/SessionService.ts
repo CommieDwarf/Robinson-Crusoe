@@ -21,5 +21,7 @@ export interface ISessionService {
 
     closeSession: (sessionId: string) => void;
 
+    addMessage: (userId: string, message: string, sessionId: string) => void;
+
     userInSession: (userId: string, sessionId: string) => boolean
 }

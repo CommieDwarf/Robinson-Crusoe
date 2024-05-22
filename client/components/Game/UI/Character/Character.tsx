@@ -76,7 +76,7 @@ export default function Character(props: Props) {
 
 
     const pawns = useAppSelector((state) => {
-            return selectGame(state).localPlayer.character.pawnService.freePawns!
+            return selectGame(state).localPlayer.character?.pawnService.freePawns!
         }
     );
 

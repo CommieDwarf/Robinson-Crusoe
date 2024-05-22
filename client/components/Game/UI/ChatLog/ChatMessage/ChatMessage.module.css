@@ -1,0 +1,18 @@
+
+.container {
+    font-size: 0.9rem;
+    border-bottom: 1px dashed var(--borderColor);
+}
+
+.author, .time {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.messageContent {
+    word-wrap: break-word;
+}
+
+.localUser {
+    color: var(--explore);
+}

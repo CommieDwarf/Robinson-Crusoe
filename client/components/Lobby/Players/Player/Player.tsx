@@ -10,6 +10,7 @@ import checkMark from "/public/UI/misc/check-mark.png";
 import xMarkImg from "/public/UI/misc/x-mark.png";
 import {SOCKET_EMITTER, SocketPayloadMap} from "@shared/types/Requests/Socket";
 import {PlayerLatency} from "../../../PlayerLatency/PlayerLatency";
+import capitalize from "@shared/utils/capitalize";
 
 interface Props {
     player: IPlayerRenderData,
@@ -25,7 +26,7 @@ export function Player(props: Props) {
 
     const [character, setCharacter] = useState<CHARACTER>(props.player.assignedCharacter.char);
     const [latency, setLatency] = useState<number | null>(null);
-
+    
 
     useEffect(() => {
         socket.on(SOCKET_EMITTER.PLAYER_LATENCY_SENT, (payload: SocketPayloadMap[SOCKET_EMITTER.PLAYER_LATENCY_SENT]) => {
@@ -60,11 +61,11 @@ export function Player(props: Props) {
 
         <div className={styles.character}>
             <select onChange={handleChange} defaultValue={character} disabled={!props.local}>
-                <option value={CHARACTER.COOK}>{t("character.cook")}
+                <option value={CHARACTER.COOK}>{capitalize(t("character.cook"))}
                 </option>
-                <option value={CHARACTER.EXPLORER}>{t("character.explorer")}</option>
-                <option value={CHARACTER.CARPENTER}>{t("character.carpenter")}</option>
-                <option value={CHARACTER.SOLDIER}>{t("character.soldier")}</option>
+                <option value={CHARACTER.EXPLORER}>{capitalize(t("character.explorer"))}</option>
+                <option value={CHARACTER.CARPENTER}>{capitalize(t("character.carpenter"))}</option>
+                <option value={CHARACTER.SOLDIER}>{capitalize(t("character.soldier"))}</option>
             </select>
         </div>
         <div className={`${styles.readiness} ${props.player.ready && styles.readinessReady}`}>

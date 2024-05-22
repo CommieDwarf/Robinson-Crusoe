@@ -30,31 +30,10 @@
     height: 15%;
     font-size: 1.6rem;
     font-style: italic;
+    position: relative;
+    top: 5px;
 }
 
-.genderSelect {
-    display: flex;
-    justify-content: center;
-    column-gap: 5px;
-    margin-top: 5px;
-}
-
-.genderOption {
-    border: 1px solid var(--borderColor);
-    border-radius: 5px;
-    padding-left: 2px;
-    padding-right: 2px;
-    cursor: pointer;
-}
-
-.genderOption:hover {
-    scale: 1.1;
-}
-
-.genderOptionSelected {
-    background-color: var(--brown);
-    color: white;
-}
 
 .characterInfo {
     width: 55%;
@@ -69,19 +48,16 @@
     padding-right: 10px;
 }
 
-.invention {
-    width: 100%;
-    text-align: center;
-    margin: 0;
-}
 
 .abilities {
     width: 100%;
 }
 
-.icon {
-    height: 20px;
-    aspect-ratio: 1;
-    display: inline-block;
-    vertical-align: middle;
+
+.hr {
+    border-top: 1px solid var(--borderColor);
+    border-bottom: 1px solid var(--borderColor);
+    display: block;
+    width: 100%;
+    margin-left: 5px;
 }

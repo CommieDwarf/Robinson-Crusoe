@@ -4,7 +4,7 @@ import {Socket} from "socket.io";
 
 export interface IUser {
     id: string,
-    socket: Socket,
+    sockets: Socket[],
     username: string,
     activeSessions: SessionData[],
     quickGameSession: SessionData | null,
@@ -16,6 +16,7 @@ export interface IUser {
 
     ping: number;
 
-    updateSocket: (socket: Socket) => void;
+    addSocket: (socket: Socket) => void;
+    removeSocket: (socket: Socket) => void;
 }
 

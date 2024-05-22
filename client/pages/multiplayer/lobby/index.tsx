@@ -10,6 +10,7 @@ import {gameSessionUpdated} from "../../../reduxSlices/gameSession";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks";
 import {StartGamePanel} from "../../../components/Lobby/StartGame/StartGamePanel";
 import {Gender} from "@shared/types/Game/Characters/Character";
+import ChatLog from "../../../components/Game/UI/ChatLog/ChatLog";
 
 export function Lobby() {
     const [gender, setGender] = useState<Gender>("male");
@@ -80,7 +81,9 @@ export function Lobby() {
     return (
         <div className={styles.container}>
             {sessionData && <>
-                <div className={styles.chat}>CHAT</div>
+                <div className={styles.chat}>
+                    <ChatLog enableLog={false} localUser={sessionData.localPlayer.username}/>
+                </div>
                 <div className={styles.players}>
                     <Players
                         players={sessionData.players}

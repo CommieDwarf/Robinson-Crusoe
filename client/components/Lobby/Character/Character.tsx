@@ -6,6 +6,9 @@ import {insertIconsIntoText} from "../../../utils/insertIconsIntoText";
 import {useTranslation} from "react-i18next";
 import {capitalize} from "lodash";
 import abilityStyles from "./Abilities/Abilities.module.css";
+import {GenderSwitch} from "./GenderSwitch/GenderSwitch";
+import {characterToInventionMap} from "@shared/constants/CharacterToInventionMap";
+import {Invention} from "./Invention/Invention";
 
 interface Props {
     character: CHARACTER,
@@ -17,13 +20,6 @@ export function Character(props: Props) {
 
     const {t} = useTranslation();
 
-    function handleMaleClick() {
-        props.gender !== "male" && props.setGender("male");
-    }
-
-    function handleFemaleClick() {
-        props.gender !== "female" && props.setGender("female");
-    }
 
     console.log("character component")
 
@@ -37,24 +33,16 @@ export function Character(props: Props) {
                     src={`/UI/characters/player-characters/no-wounds/${props.character}-${props.gender}.png`}
                     alt={"character"}/>
             </div>
-            <div className={styles.genderSelect}>
-                <div className={`${styles.genderOption} ${props.gender === "male" && styles.genderOptionSelected}`}
-                     onClick={handleMaleClick}>Male
-                </div>
-                <div className={`${styles.genderOption} ${props.gender === "female" && styles.genderOptionSelected}`}
-                     onClick={handleFemaleClick}>Female
-                </div>
+            <div className={styles.genderSwitch}>
+                <GenderSwitch gender={props.gender}/>
             </div>
         </div>
         <div className={styles.characterInfo}>
             <div className={styles.abilities}>
-                <Abilities character={CHARACTER.EXPLORER}/>
+                <Abilities character={props.character}/>
             </div>
-            <hr className={abilityStyles.hr}/>
-            <div className={styles.invention}>
-                Karta Pomysłu: <strong><i>Siekiera</i></strong>
-                <br/> {insertIconsIntoText("(+1 $wood$ na kafelku z obozem)", styles.icon)}
-            </div>
+            <hr className={styles.hr}/>
+            <Invention character={props.character}/>
         </div>
 
     </div>

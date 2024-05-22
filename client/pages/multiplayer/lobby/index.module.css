@@ -10,19 +10,20 @@
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 450px 450px;
     grid-template-rows: 1fr 50px 250px;
     color: var(--brown);
-    padding: 10px;
+    padding: 10px 20px 10px 10px;
     grid-column-gap: 10px;
     grid-row-gap: 10px;
-    box-sizing: border-box;
+    box-sizing: content-box;
 }
 
 .chat {
     grid-column: 2 / span 1;
     grid-row: 3 / span 1;
     border: 1px solid var(--brown);
+    font-size: 8px;
 }
 
 .startPanel {
