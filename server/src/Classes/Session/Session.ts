@@ -26,7 +26,7 @@ export class Session implements SessionData {
     private _id = uuid();
     private _connectCode = uuid();
     private _characters: CHARACTER[] = Object.values(CHARACTER);
-    private readonly _settings: SessionSettings;
+    private _settings: SessionSettings;
     private _host: IUser;
     private _singleplayer: boolean;
     private _chatService: IChatService = new ChatService(this);
@@ -187,6 +187,13 @@ export class Session implements SessionData {
     public addMessage(userId: string, message: string) {
         const player = this.getPlayerByUserId(userId);
         this._chatService.addMsg(player.username, message);
+    }
+
+    public updateSettings(settings: Partial<SessionSettings>) {
+        this._settings = {
+            ...this._settings,
+            ...settings
+        }
     }
 
 

@@ -82,7 +82,7 @@ export class SocketEmitter {
         this.emitSocket(SOCKET_EMITTER.IS_QUICK_GAME_IN_PROGRESS, {})
     }
 
-    public emitCreateSession(settings: SessionSettings) {
+    public emitCreateSession(settings: Omit<SessionSettings, "quickGame">) {
         const payload: CreateSessionPayload = {
             settings,
         }
@@ -121,6 +121,13 @@ export class SocketEmitter {
         this.emitSocket(SOCKET_EMITTER.SEND_MESSAGE, {
             message,
             sessionId: this._currentSessionId
+        })
+    }
+
+    public emitUpdateSessionSettings(settings: Partial<SessionSettings>) {
+        this.emitSocket(SOCKET_EMITTER.UPDATE_SESSION_SETTINGS, {
+            sessionId: this._currentSessionId,
+            settings
         })
     }
 

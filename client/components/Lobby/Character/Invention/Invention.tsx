@@ -16,7 +16,6 @@ export function Invention(props: Props) {
 
 
     return <div className={styles.container}>
-
         {"Karta Pomysłu: "}
         <strong>
             {/*@ts-ignore*/}

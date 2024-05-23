@@ -623,6 +623,7 @@ export const resources = {
                 "private game": "gra prywatna",
                 "enter password": "wpisz hasło",
                 "error": "błąd",
+                "save": "zapisz",
             },
             error: {
                 [SESSION_JOIN_ERROR_CODE.SESSION_NOT_FOUND]: "Nie znaleziono sesji",

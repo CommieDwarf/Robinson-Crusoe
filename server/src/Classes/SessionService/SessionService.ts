@@ -131,6 +131,14 @@ export class SessionService implements ISessionService {
         session.addMessage(userId, message);
     }
 
+    public updateSessionSettings(userId: string, sessionId: string, settings: Partial<SessionSettings>) {
+        const session = this.getSession(userId, sessionId);
+        if (!session || session.host.id !== userId) {
+            return;
+        }
+        session.updateSettings(settings);
+    }
+
 
     private getUser(userId: string): IUser {
         const user = this._activeUsers.get(userId);

@@ -43,6 +43,8 @@ export interface SessionData {
 
     changeCharacter: (userId: string, character: Partial<AssignedCharacter>) => void;
 
+    updateSettings: (settings: Partial<SessionSettings>) => void;
+
     getBasicInfo: () => SessionBasicInfo;
 
     getRenderData: (userId: string) => SessionRenderData

@@ -212,7 +212,7 @@ io.on("connection", async (socket: typeof Socket) => {
         })
 
         socket.on(SOCKET_EMITTER.CREATE_SESSION, async (payload: SocketPayloadMap[SOCKET_EMITTER.CREATE_SESSION]) => {
-            const {settings} = payload;
+            const settings = {...payload.settings, quickGame: false};
             const session = sessionService.createSession(user.id, settings);
             socket.join(session.id);
             if (!session.settings.private) {
@@ -377,6 +377,11 @@ io.on("connection", async (socket: typeof Socket) => {
             io.to(payload.sessionId).emit(SOCKET_EMITTER.SESSION_CHANGED);
         })
 
+        setListener(SOCKET_EMITTER.UPDATE_SESSION_SETTINGS, (payload) => {
+            sessionService.updateSessionSettings(userId, payload.sessionId, payload.settings);
+            io.to(payload.sessionId).emit(SOCKET_EMITTER.SESSION_CHANGED);
+            console.log("update session settings received", payload.settings.maxPlayers)
+        })
 
     } catch (e) {
         console.error(e)

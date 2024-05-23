@@ -95,7 +95,7 @@ export function Lobby() {
                     <StartGamePanel ready={sessionData.localPlayer.ready}/>
                 </div>
                 <div className={styles.settings}>
-                    <GameSettings createGame={false}/>
+                    <GameSettings editMode={true} host={sessionData.localPlayer.id === sessionData.hostPlayer.id}/>
                 </div>
                 <div className={styles.char}>
                     <Character

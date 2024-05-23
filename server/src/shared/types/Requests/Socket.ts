@@ -31,7 +31,8 @@ export enum SOCKET_EMITTER {
     PING = "ping",
     PONG = "pong",
     PLAYER_LATENCY_SENT = "players ping sent",
-    SEND_MESSAGE = "send message"
+    SEND_MESSAGE = "send message",
+    UPDATE_SESSION_SETTINGS = "update session settings",
 }
 
 
@@ -53,7 +54,7 @@ export interface PlayerActionPayload extends SessionId {
 
 
 export interface CreateSessionPayload {
-    settings: SessionSettings;
+    settings: Omit<SessionSettings, "quickGame">;
 }
 
 export interface SessionDataRequestedPayload extends SessionId {
@@ -125,6 +126,11 @@ interface SendMessagePayload {
     message: string;
 }
 
+interface UpdateSessionSettingsPayload {
+    sessionId: string;
+    settings: Partial<SessionSettings>;
+}
+
 
 export type SocketPayloadMap = {
     [SOCKET_EMITTER.EXECUTE_GAME_METHOD_AND_SEND_RESPONSE]: ExecuteGameMethodAndSendResponsePayload;
@@ -152,5 +158,6 @@ export type SocketPayloadMap = {
     [SOCKET_EMITTER.PONG]: PongPayload;
     [SOCKET_EMITTER.DISCONNECT]: any;
     [SOCKET_EMITTER.PLAYER_LATENCY_SENT]: PlayerLatencySentPayload;
-    [SOCKET_EMITTER.SEND_MESSAGE]: SendMessagePayload
+    [SOCKET_EMITTER.SEND_MESSAGE]: SendMessagePayload,
+    [SOCKET_EMITTER.UPDATE_SESSION_SETTINGS]: UpdateSessionSettingsPayload,
 };

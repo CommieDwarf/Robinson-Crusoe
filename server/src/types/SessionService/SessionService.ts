@@ -24,4 +24,6 @@ export interface ISessionService {
     addMessage: (userId: string, message: string, sessionId: string) => void;
 
     userInSession: (userId: string, sessionId: string) => boolean
+
+    updateSessionSettings: (userId: string, sessionId: string, settings: Partial<SessionSettings>) => void;
 }

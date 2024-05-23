@@ -53,6 +53,8 @@
     margin-top: 5px;
 }
 
-.option:disabled {
+.option:disabled, .select:disabled {
     background-color: lightgray;
 }
+
+

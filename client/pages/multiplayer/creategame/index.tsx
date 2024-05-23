@@ -26,7 +26,7 @@ export function CreateGame() {
             </div>
         </Link>
         <div className={styles.gameSettings}>
-            <GameSettings createGame={true}/>
+            <GameSettings editMode={false} host={true}/>
         </div>
     </div>
 }
