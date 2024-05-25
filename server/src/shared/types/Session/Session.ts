@@ -37,6 +37,10 @@ export interface SessionData {
     addMessage: (userId: string, message: string) => void;
     setPlayerReady: (userId: string, ready: boolean) => void;
 
+    canStart: () => boolean;
+
+    isHost: (userId: string) => boolean;
+
     kickPlayer: (playerId: string) => void;
 
     isUserInSession: (userId: string) => boolean;

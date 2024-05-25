@@ -19,11 +19,23 @@ function Play(props: Props) {
     });
     const router = useRouter();
     const dispatch = useAppDispatch();
+    const sessionId = router.query.sessionId as string;
+
+    if (!gameDataExists) {
+        socketEmitter.setCurrentSessionId(sessionId);
+        socketEmitter.emitRequestGameSession();
+        console.log("requesting in component")
+    } else {
+        console.log("powinno być git?", gameDataExists)
+    }
+
 
     useEffect(() => {
         socket.on(SOCKET_EMITTER.SESSION_DATA_SENT, (payload: SocketPayloadMap[SOCKET_EMITTER.SESSION_DATA_SENT]) => {
             const gameSession = payload.sessionData;
+            console.log("got something!")
             if (gameSession) {
+                console.log("got gameSession")
                 dispatch(gameSessionUpdated(gameSession));
                 dispatch(actionSlotUpdated(gameSession.game?.actionSlotService.slots));
             }
@@ -31,13 +43,14 @@ function Play(props: Props) {
         socket.on("alert_sent", (payload: { message: ALERT_CODE }) => {
             dispatch(alertUpdated(payload.message));
         })
-        const sessionId = router.query.sessionId as string;
+
         socketEmitter.setCurrentSessionId(sessionId);
         socketEmitter.emitRequestGameSession();
+        console.log("requesting in useEffect")
         return () => {
             socket.off(SOCKET_EMITTER.SESSION_DATA_SENT);
         }
-    }, []);
+    }, [dispatch, router.query.sessionId, sessionId]);
 
 
     return (

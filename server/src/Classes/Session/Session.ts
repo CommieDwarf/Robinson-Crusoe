@@ -15,6 +15,7 @@ import {SOCKET_EMITTER, SocketPayloadMap} from "@shared/types/Requests/Socket";
 import {isPlayer} from "../../utils/isPlayer";
 import {ChatService} from "../ChatService/ChatService";
 import {IChatService} from "@shared/types/ChatService/ChatService";
+import {getDuplicatedElements} from "@shared/utils/getDuplicatedElements";
 
 
 export class Session implements SessionData {
@@ -123,7 +124,6 @@ export class Session implements SessionData {
         player.clearPingIntervals();
         this._players = this._players.filter((pl) => pl !== player);
         io.to(this.id).emit(SOCKET_EMITTER.SESSION_CHANGED);
-        console.log("left");
     }
 
     public startGame(): BaseController {
@@ -152,6 +152,18 @@ export class Session implements SessionData {
         })
     }
 
+    public isHost(userId: string) {
+        return this._host.id === userId;
+    }
+
+    public canStart() {
+        const duplicated = getDuplicatedElements(this._players
+            .map((player) => player.assignedCharacter.char)).length > 0;
+        const allReady = this._players.every((player) => player.ready);
+
+        return !duplicated && allReady;
+    }
+
 
     private pingPlayer(player: IPlayer) {
         player.ping((latency) => {
@@ -161,7 +173,6 @@ export class Session implements SessionData {
             }
             io.to(this.id).emit(SOCKET_EMITTER.PLAYER_LATENCY_SENT, payload)
         }, () => {
-            console.log("WTF")
             // if (!this.isGameInProgress) {
             //     this.leaveSession(player)
             //     io.to(this.id).emit(SOCKET_EMITTER.SESSION_CHANGED, {});

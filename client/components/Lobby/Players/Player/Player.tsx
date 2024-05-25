@@ -17,6 +17,7 @@ interface Props {
     local: boolean,
     host: boolean,
     hostControls: boolean,
+    duplicatedCharacter: boolean,
 }
 
 
@@ -26,7 +27,10 @@ export function Player(props: Props) {
 
     const [character, setCharacter] = useState<CHARACTER>(props.player.assignedCharacter.char);
     const [latency, setLatency] = useState<number | null>(null);
-    
+
+    useEffect(() => {
+        setCharacter(props.player.assignedCharacter.char);
+    }, [props.player.assignedCharacter.char])
 
     useEffect(() => {
         socket.on(SOCKET_EMITTER.PLAYER_LATENCY_SENT, (payload: SocketPayloadMap[SOCKET_EMITTER.PLAYER_LATENCY_SENT]) => {
@@ -44,9 +48,16 @@ export function Player(props: Props) {
         })
     }
 
+
     function handleKickClick() {
         if (props.hostControls) {
             socketEmitter.emitKickPlayer(props.player.id);
+        }
+    }
+
+    function handleReadyClick() {
+        if (props.local) {
+            socketEmitter.emitSetPlayerReady(props.player.ready);
         }
     }
 
@@ -59,8 +70,14 @@ export function Player(props: Props) {
             </div>}
         </div>
 
-        <div className={styles.character}>
-            <select onChange={handleChange} defaultValue={character} disabled={!props.local}>
+        <div className={`${styles.character}`}>
+            <select
+                onChange={handleChange}
+                defaultValue={character}
+                disabled={!props.local}
+                value={character}
+                className={`${props.duplicatedCharacter && styles.duplicatedCharacter}`}
+            >
                 <option value={CHARACTER.COOK}>{capitalize(t("character.cook"))}
                 </option>
                 <option value={CHARACTER.EXPLORER}>{capitalize(t("character.explorer"))}</option>
@@ -68,7 +85,8 @@ export function Player(props: Props) {
                 <option value={CHARACTER.SOLDIER}>{capitalize(t("character.soldier"))}</option>
             </select>
         </div>
-        <div className={`${styles.readiness} ${props.player.ready && styles.readinessReady}`}>
+        <div className={`${styles.readiness} ${props.player.ready && styles.readinessReady}`}
+             onClick={handleReadyClick}>
             {props.player.ready ? <ResizableImage src={checkMark} alt={"readiness"}/>
                 : <ResizableImage src={xMarkImg} alt={"readiness"}/>
             }

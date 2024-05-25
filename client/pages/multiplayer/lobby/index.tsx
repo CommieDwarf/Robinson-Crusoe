@@ -26,7 +26,7 @@ export function Lobby() {
 
     useEffect(() => {
         const handleRouteChange = () => {
-            socketEmitter.emitLeaveSession(router.query.sessionId as string);
+            socketEmitter.emitUserLeftLobby();
         };
 
         router.events.on('routeChangeStart', handleRouteChange);
@@ -92,7 +92,8 @@ export function Lobby() {
                     />
                 </div>
                 <div className={styles.startPanel}>
-                    <StartGamePanel ready={sessionData.localPlayer.ready}/>
+                    <StartGamePanel ready={sessionData.localPlayer.ready}
+                                    startEnabled={sessionData.players.every((player) => player.ready)}/>
                 </div>
                 <div className={styles.settings}>
                     <GameSettings editMode={true} host={sessionData.localPlayer.id === sessionData.hostPlayer.id}/>

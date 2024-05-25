@@ -33,6 +33,9 @@ export enum SOCKET_EMITTER {
     PLAYER_LATENCY_SENT = "players ping sent",
     SEND_MESSAGE = "send message",
     UPDATE_SESSION_SETTINGS = "update session settings",
+    START_GAME = "start game",
+    GAME_STARTED = "game started",
+    USER_LEFT_LOBBY = "user left lobby",
 }
 
 
@@ -131,6 +134,17 @@ interface UpdateSessionSettingsPayload {
     settings: Partial<SessionSettings>;
 }
 
+interface StartGamePayload {
+    sessionId: string;
+}
+
+interface GameStartedPayload {
+    sessionId: string
+}
+
+interface UserLeftLobbyPayload {
+    sessionId: string
+}
 
 export type SocketPayloadMap = {
     [SOCKET_EMITTER.EXECUTE_GAME_METHOD_AND_SEND_RESPONSE]: ExecuteGameMethodAndSendResponsePayload;
@@ -160,4 +174,7 @@ export type SocketPayloadMap = {
     [SOCKET_EMITTER.PLAYER_LATENCY_SENT]: PlayerLatencySentPayload;
     [SOCKET_EMITTER.SEND_MESSAGE]: SendMessagePayload,
     [SOCKET_EMITTER.UPDATE_SESSION_SETTINGS]: UpdateSessionSettingsPayload,
+    [SOCKET_EMITTER.START_GAME]: StartGamePayload,
+    [SOCKET_EMITTER.GAME_STARTED]: GameStartedPayload,
+    [SOCKET_EMITTER.USER_LEFT_LOBBY]: UserLeftLobbyPayload,
 };

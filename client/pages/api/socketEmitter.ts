@@ -54,6 +54,7 @@ export class SocketEmitter {
     }
 
     public emitRequestGameSession() {
+        console.log("requesting SESSION ID: ", this._currentSessionId);
         this.emitSocket(SOCKET_EMITTER.SESSION_DATA_REQUESTED, {sessionId: this._currentSessionId})
     }
 
@@ -128,6 +129,18 @@ export class SocketEmitter {
         this.emitSocket(SOCKET_EMITTER.UPDATE_SESSION_SETTINGS, {
             sessionId: this._currentSessionId,
             settings
+        })
+    }
+
+    public emitStartGame() {
+        this.emitSocket(SOCKET_EMITTER.START_GAME, {
+            sessionId: this._currentSessionId
+        })
+    }
+
+    public emitUserLeftLobby() {
+        this.emitSocket(SOCKET_EMITTER.USER_LEFT_LOBBY, {
+            sessionId: this._currentSessionId
         })
     }
 

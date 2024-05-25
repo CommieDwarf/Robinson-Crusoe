@@ -11,7 +11,7 @@
     transform: translate(-50%, -50%);
     display: grid;
     grid-template-columns: 450px 450px;
-    grid-template-rows: 1fr 50px 250px;
+    grid-template-rows: 1fr 75px 250px;
     color: var(--brown);
     padding: 10px 20px 10px 10px;
     grid-column-gap: 10px;

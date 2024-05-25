@@ -60,6 +60,7 @@ export class SessionService implements ISessionService {
     }
 
     public leaveSession(user: IUser, sessionId: string) {
+        console.log("LEAVING SESSION")
         const session = this.getSession(user.id, sessionId);
         const player = session?.players.find((pl) => pl.user.id === user.id);
         player && session?.leaveSession(player);
@@ -73,7 +74,6 @@ export class SessionService implements ISessionService {
         if (!session) {
             return;
         }
-
         if (!session.settings.quickGame) {
             session.players.forEach((player) => {
                 player.user.removeActiveSession(session.id)
@@ -137,6 +137,17 @@ export class SessionService implements ISessionService {
             return;
         }
         session.updateSettings(settings);
+    }
+
+    public startGame(userId: string, sessionId: string) {
+        const session = this.getSession(userId, sessionId);
+        if (!session) {
+            return;
+        }
+        if (!session.isHost(userId) || !session.canStart() || session.isGameInProgress) {
+            return;
+        }
+        session.startGame();
     }
 
 

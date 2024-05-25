@@ -74,7 +74,6 @@ export class User implements IUser {
         this._activeSessions
             .filter((session) => !session.isGameInProgress)
             .forEach((session) => {
-                console.log("leaving, " + session.id);
                 this._sessionService.leaveSession(this, session.id);
             })
     }
@@ -88,6 +87,7 @@ export class User implements IUser {
     public removeSocket(socket: Socket) {
         this._sockets = this._sockets.filter((sct) => sct !== socket);
         if (this._sockets.length === 0) {
+            console.log("LEAVING NOST STARTED SESSIONS")
             this.leaveNotStartedSessions()
         }
     }

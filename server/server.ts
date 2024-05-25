@@ -165,10 +165,8 @@ io.use((socket: typeof Socket, next: Function) => {
     }
 
     try {
-        if (typeof token === "string") {
-            socket.user = jwt.verify(token, jwtSecret, {});
-            console.log(socket.user, "user verified");
-        }
+        socket.user = jwt.verify(token, jwtSecret, {});
+        console.log(socket.user, "user verified");
         console.log("socked verified")
         next();
     } catch (error) {
@@ -201,12 +199,13 @@ io.on("connection", async (socket: typeof Socket) => {
         const user = sessionService.addToActiveUsers(userDocument, socket);
 
         socket.on(SOCKET_EMITTER.DISCONNECT, () => {
+            console.log("disconnected")
             user.removeSocket(socket);
         })
 
 
         socket.on(SOCKET_EMITTER.CREATE_QUICK_GAME, async () => {
-            console.log("CREATE QUICK GAME RECIEVED")
+            console.log("CREATE QUICK GAME RECEI VED")
             sessionService.createQuickGameSession(user.id);
             emitSocket(SOCKET_EMITTER.GAME_SESSION_CREATED, {sessionId: "quickgame"})
         })
@@ -223,13 +222,16 @@ io.on("connection", async (socket: typeof Socket) => {
 
         socket.on(SOCKET_EMITTER.SESSION_DATA_REQUESTED, (payload: SocketPayloadMap[SOCKET_EMITTER.SESSION_DATA_REQUESTED]) => {
             let session;
+            console.log("requested")
             if (payload.sessionId === "quickgame") {
                 session = sessionService.getQuickGameByUserId(user.id);
                 if (!session) {
                     session = sessionService.createQuickGameSession(user.id);
                 }
             } else {
+                console.log("searching for SESSION ID: ", payload.sessionId);
                 session = sessionService.getSession(user.id, payload.sessionId);
+                console.log("getting session", session);
                 if (session && !session.isUserInSession(userId)) {
                     console.error("user not in session");
                     return;
@@ -237,6 +239,7 @@ io.on("connection", async (socket: typeof Socket) => {
             }
 
             if (session) {
+                console.log("sending data!")
                 emitSocket(SOCKET_EMITTER.SESSION_DATA_SENT, {sessionData: session.getRenderData(user.id)})
             } else {
                 //TODO: obsłuż wyjątek
@@ -338,6 +341,7 @@ io.on("connection", async (socket: typeof Socket) => {
                 return;
             }
             session.changeCharacter(user.id, payload.character);
+            console.log("character changed!", payload.character.char);
             io.to(session.id).emit(SOCKET_EMITTER.SESSION_CHANGED);
         })
 
@@ -381,6 +385,27 @@ io.on("connection", async (socket: typeof Socket) => {
             sessionService.updateSessionSettings(userId, payload.sessionId, payload.settings);
             io.to(payload.sessionId).emit(SOCKET_EMITTER.SESSION_CHANGED);
             console.log("update session settings received", payload.settings.maxPlayers)
+        })
+
+        setListener(SOCKET_EMITTER.START_GAME, (payload) => {
+            try {
+                sessionService.startGame(userId, payload.sessionId);
+                console.log("STARTING GAME WITH ID: ", payload.sessionId);
+                io.to(payload.sessionId).emit(SOCKET_EMITTER.GAME_STARTED, payload);
+            } catch (e) {
+                console.error(e);
+            }
+        })
+
+        setListener(SOCKET_EMITTER.USER_LEFT_LOBBY, payload => {
+            try {
+                const session = sessionService.getSession(user.id, payload.sessionId);
+                if (session && !session.isGameInProgress) {
+                    sessionService.leaveSession(user, session.id);
+                }
+            } catch (e) {
+                console.error(e);
+            }
         })
 
     } catch (e) {

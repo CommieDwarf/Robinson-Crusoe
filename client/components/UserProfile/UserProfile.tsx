@@ -16,6 +16,7 @@ export function UserProfile(props: Props) {
     const user = useAppSelector(state => state.auth.user);
     const dispatch = useAppDispatch();
 
+
     function handleSignOut() {
         deleteAuthCookie();
         dispatch(userUpdated(null));

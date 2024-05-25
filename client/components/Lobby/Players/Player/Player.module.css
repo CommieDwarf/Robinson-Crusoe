@@ -68,3 +68,7 @@
 .readinessNotReady {
 
 }
+
+.duplicatedCharacter {
+    border: 1px solid var(--hunt);
+}

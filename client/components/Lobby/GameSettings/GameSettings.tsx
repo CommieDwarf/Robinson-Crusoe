@@ -55,8 +55,9 @@ export function GameSettings(props: Props) {
         })
         socket.on(SOCKET_EMITTER.GAME_SESSION_CREATED, (payload: GameSessionCreatedPayload) => {
             console.log("created", payload);
-            router.push(`./lobby/?sessionId=${payload.sessionId}`);
-            socket.off(SOCKET_EMITTER.GAME_SESSION_CREATED);
+            router.push(`./lobby/?sessionId=${payload.sessionId}`).then(() => {
+                socket.off(SOCKET_EMITTER.GAME_SESSION_CREATED);
+            });
         })
     }
 

@@ -15,6 +15,8 @@ export interface ISessionService {
     removeFromActiveUsers: (userId: string) => void;
     getSession: (userId: string, sessionId: string) => SessionData | null;
 
+    startGame: (userId: string, sessionId: string) => void;
+
     getPublicSessionList: () => SessionBasicInfo[];
 
     getQuickGameByUserId(userId: string): SessionData | null;
