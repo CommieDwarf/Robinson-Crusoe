@@ -9,8 +9,8 @@ export class Tobacco extends Item implements IItem {
         super(ITEM.TOBACCO, game);
     }
 
-    use(user: IPlayer, target?: ICharacter) {
-        super.use(user);
-        this._game.characterService.incrDetermination(user.getCharacter(), 2, this.name);
+    use(character: ICharacter, target?: ICharacter) {
+        super.use(character);
+        this._game.characterService.incrDetermination(character, 2, this.name);
     }
 }

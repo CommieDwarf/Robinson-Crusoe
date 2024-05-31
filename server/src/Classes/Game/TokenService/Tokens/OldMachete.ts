@@ -10,8 +10,8 @@ export class OldMachete extends Token {
         super(game, DISCOVERY_TOKEN.OLD_MACHETE, "stara maczeta", "Otrzymujesz +1 do broni");
     }
 
-    use(user: IPlayer, target?: ICharacter) {
-        super.use(user);
+    use(character: ICharacter, target?: ICharacter) {
+        super.use(character);
         this._game.constructionService.lvlUpConstruction(
             CONSTRUCTION.WEAPON,
             1,

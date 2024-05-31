@@ -15,11 +15,11 @@ export class HealingHerbs extends Token {
         );
     }
 
-    use(user: IPlayer, target?: ICharacter) {
+    use(character: ICharacter, target?: ICharacter) {
         if (
             this._game.inventionService.getInvention(INVENTION_STARTER.POT).isBuilt
         ) {
-            super.use(user);
+            super.use(character);
             this._game.moraleService.lvlUp(1, this._sourceLog);
             this._used = true;
         } else {

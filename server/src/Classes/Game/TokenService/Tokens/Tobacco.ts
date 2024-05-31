@@ -11,8 +11,8 @@ export class Tobacco extends Token {
             "Otrzymujesz +1 do morali.");
     }
 
-    use(user: IPlayer, target?: ICharacter) {
-        super.use(user);
+    use(character: ICharacter, target?: ICharacter) {
+        super.use(character);
         this._game.moraleService.lvlUp(1, this._sourceLog);
         this._used = true;
     }

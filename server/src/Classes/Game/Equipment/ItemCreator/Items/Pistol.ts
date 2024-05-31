@@ -10,8 +10,8 @@ export class Pistol extends Item implements IItem {
         super(ITEM.PISTOL, game);
     }
 
-    use(user: IPlayer, target?: ICharacter) {
-        super.use(user);
+    use(character: ICharacter, target?: ICharacter) {
+        super.use(character);
         this._game.constructionService.getConstruction(CONSTRUCTION.WEAPON).incrTemporaryBoost(3);
     }
 }

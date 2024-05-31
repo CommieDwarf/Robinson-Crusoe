@@ -9,10 +9,10 @@ export class Castaways4 extends Token {
         super(game, DISCOVERY_TOKEN.SCENARIO_4, "medalik z portretem damy", "Daje 3 żetony determinacji.");
     }
 
-    use(user: IPlayer, target?: ICharacter) {
+    use(character: ICharacter, target?: ICharacter) {
 
-        super.use(user, target);
-        this._game.characterService.incrDetermination(user.getCharacter(), 3, this._sourceLog);
+        super.use(character, target);
+        this._game.characterService.incrDetermination(character, 3, this._sourceLog);
         this._used = true;
     }
 

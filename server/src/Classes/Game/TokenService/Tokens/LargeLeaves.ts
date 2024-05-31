@@ -14,12 +14,12 @@ export class LargeLeaves extends Token {
         );
     }
 
-    use(user: IPlayer, target?: ICharacter) {
+    use(character: ICharacter, target?: ICharacter) {
         if (this._game.phaseService.phase === "weather") {
             if (this._game.weatherService.getOverallWeather().rain === 0) {
                 this._game.alertService.setAlert("Nie ma żadnej deszczowej chmury.")
             } else {
-                super.use(user);
+                super.use(character);
                 this._game.weatherService.incrementModifier("rain", -1, this._sourceLog);
                 this._used = true;
             }

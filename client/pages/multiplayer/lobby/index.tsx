@@ -26,7 +26,9 @@ export function Lobby() {
 
     useEffect(() => {
         const handleRouteChange = () => {
-            socketEmitter.emitUserLeftLobby();
+            if (sessionData?.id && !sessionId.includes(sessionData?.id)) {
+                socketEmitter.emitUserLeftLobby();
+            }
         };
 
         router.events.on('routeChangeStart', handleRouteChange);
@@ -42,6 +44,9 @@ export function Lobby() {
             const gameSession = payload.sessionData;
             if (gameSession) {
                 dispatch(gameSessionUpdated(gameSession));
+                if (gameSession.game) {
+                    router.push("/Play/?sessionId=" + sessionId);
+                }
             }
         });
 

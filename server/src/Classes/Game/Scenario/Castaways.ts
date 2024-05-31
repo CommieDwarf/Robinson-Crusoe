@@ -9,6 +9,8 @@ import {castaways} from "@shared/constants/scenarios/castaways";
 import {GAME_STATUS, IGame} from "@shared/types/Game/Game";
 import {INVENTION_STARTER} from "@shared/types/Game/InventionService/Invention";
 import {LOG_CODE} from "@shared/types/Game/ChatLog/LOG_CODE";
+import {IPlayer} from "@shared/types/Game/PlayerService/Player";
+import {ICharacter} from "@shared/types/Game/Characters/Character";
 
 export class Castaways implements IScenarioService {
 
@@ -75,11 +77,11 @@ export class Castaways implements IScenarioService {
         return this._game.inventionService.isBuilt(INVENTION_STARTER.FIRE);
     }
 
-    public addWood() {
+    public addWood(character: ICharacter) {
         if (this.canAddWood()) {
             this._committedWood++;
             this._game.resourceService.spendBasicResourceIfPossible("wood", 1, "");
-            this.addLogMessage(1, this._game.localPlayer.getCharacter().name);
+            this.addLogMessage(1, character.name);
             if (this._committedWood === this._woodStashLvl) {
                 this.lvlUpStash();
             }

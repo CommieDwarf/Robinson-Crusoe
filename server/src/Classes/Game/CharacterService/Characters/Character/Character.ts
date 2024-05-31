@@ -10,7 +10,7 @@ import {ActionDice} from "@shared/types/Game/RollDice/RollDice";
 import {Cloud} from "@shared/types/Game/Weather/Weather";
 import {PlayerCharacter} from "./PlayerCharacter/PlayerCharacter";
 import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
-import {STATUS_CODES} from "http";
+import {IPlayer} from "@shared/types/Game/PlayerService/Player";
 
 export abstract class Character implements ICharacter {
     protected _name: PlayerCharacterName | SideCharacterName;
@@ -135,7 +135,7 @@ export abstract class Character implements ICharacter {
     public useAbility(name: ABILITY, target: ICharacter | ActionDice | Cloud | null = null) {
         const skill = this.getAbility(name);
         if (!target) {
-            target = this._game.localPlayer.getCharacter();
+            target = this;
         }
         if (skill.usedInThisRound) {
             this._game.alertService.setAlert("Ta umiejętność została już użyta w tej rundzie.");

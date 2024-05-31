@@ -123,6 +123,7 @@ export class Session implements SessionData {
         }
         player.clearPingIntervals();
         this._players = this._players.filter((pl) => pl !== player);
+        console.log("leaving session!");
         io.to(this.id).emit(SOCKET_EMITTER.SESSION_CHANGED);
     }
 

@@ -16,7 +16,6 @@ import ResizableImage from "../../../ResizableImage/ResizableImage";
 import {capitalize, kebabCase} from "lodash";
 import {useTranslation} from "react-i18next";
 import {Expendables} from "./Expendables/Expendables";
-import {selectGame} from "../../../../reduxSlices/gameSession";
 
 
 export interface DisplayedAbilityInfo {
@@ -31,7 +30,7 @@ interface Props {
 
 
 export default function Character(props: Props) {
-    const character = useAppSelector((state) => selectGame(state).localPlayer.character!);
+    const character = useAppSelector((state) => state.gameSession.data?.localPlayer.character!);
     const [displayedAbilityInfo, setDisplayedAbilityInfo] = useState<DisplayedAbilityInfo>(
         {
             ability: character.abilities[0],
@@ -76,7 +75,7 @@ export default function Character(props: Props) {
 
 
     const pawns = useAppSelector((state) => {
-            return selectGame(state).localPlayer.character?.pawnService.freePawns!
+            return state.gameSession.data!.localPlayer.character?.pawnService.freePawns!
         }
     );
 

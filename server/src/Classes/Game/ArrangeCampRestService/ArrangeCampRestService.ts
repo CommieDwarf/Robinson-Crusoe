@@ -3,6 +3,7 @@ import {IGame} from "@shared/types/Game/Game";
 import {TREASURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_CARD";
 import {INVENTION_NORMAL} from "@shared/types/Game/InventionService/Invention";
 import {ITEM} from "@shared/types/Game/Equipment/Item";
+import {IPlayer} from "@shared/types/Game/PlayerService/Player";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
 
 export class ArrangeCampRestService implements IArrangeCampRestService {
@@ -63,7 +64,7 @@ export class ArrangeCampRestService implements IArrangeCampRestService {
             logSource += " (Biblia)"
             determination = 3;
             characterService.heal(character, 1, logSource);
-            this._game.equipmentService.useItem(ITEM.BIBLE)
+            this._game.equipmentService.useItem(ITEM.BIBLE, character)
         }
         this._game.moraleService.lvlUp(1, character.name);
         characterService.incrDetermination(character, determination, logSource);

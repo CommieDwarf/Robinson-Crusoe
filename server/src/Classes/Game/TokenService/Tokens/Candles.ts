@@ -15,9 +15,9 @@ export class Candles extends Token implements IToken {
         );
     }
 
-    use(user: IPlayer, target?: ICharacter) {
-        super.use(user, target);
-        user.getCharacter().pawnService.addPawn(true, PAWN_HELPER_ACTION.BUILD);
+    use(character: ICharacter, target?: ICharacter) {
+        super.use(character, target);
+        character.pawnService.addPawn(true, PAWN_HELPER_ACTION.BUILD);
         this._used = true;
     }
 

@@ -23,6 +23,6 @@ export interface IItem {
     uses: number;
     game: IGame;
     hasUses: boolean;
-    use: (user: IPlayer, target?: ICharacter) => void;
+    use: (user: ICharacter, target?: ICharacter) => void;
     renderData: IItemRenderData;
 }

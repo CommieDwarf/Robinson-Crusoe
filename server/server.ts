@@ -205,7 +205,7 @@ io.on("connection", async (socket: typeof Socket) => {
 
 
         socket.on(SOCKET_EMITTER.CREATE_QUICK_GAME, async () => {
-            console.log("CREATE QUICK GAME RECEI VED")
+            console.log("CREATE QUICK GAME")
             sessionService.createQuickGameSession(user.id);
             emitSocket(SOCKET_EMITTER.GAME_SESSION_CREATED, {sessionId: "quickgame"})
         })
@@ -406,6 +406,14 @@ io.on("connection", async (socket: typeof Socket) => {
             } catch (e) {
                 console.error(e);
             }
+        })
+
+        setListener(SOCKET_EMITTER.GAMES_IN_PROGRESS_LIST_REQUESTED, () => {
+            emitSocket(SOCKET_EMITTER.SESSION_LIST_SENT, {
+                sessionList: user.activeSessions
+                    .filter((session) => session.isGameInProgress)
+                    .map(session => session.getBasicInfo())
+            })
         })
 
     } catch (e) {

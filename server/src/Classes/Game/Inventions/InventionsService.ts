@@ -14,6 +14,8 @@ import {IGame} from "@shared/types/Game/Game";
 import {InventionCreator} from "./InventionCreator/InventionCreator";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
 import {LOG_CODE} from "@shared/types/Game/ChatLog/LOG_CODE";
+import {IPlayer} from "@shared/types/Game/PlayerService/Player";
+import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 
 export class InventionsService implements IInventionService {
     private _builtInventions: IInvention[] = [];
@@ -139,9 +141,8 @@ export class InventionsService implements IInventionService {
         });
     }
 
-    public useInvention(name: INVENTION): void {
-        const char = this._game.localPlayer.getCharacter();
-        this.getInvention(name).use(char);
+    public useInvention(name: INVENTION, character: IPlayerCharacter): void {
+        this.getInvention(name).use(character);
     }
 
     private isInvRequirementMet(invention: IInvention) {

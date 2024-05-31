@@ -9,8 +9,8 @@ export class Biscuits extends Item implements IItem {
         super(ITEM.BISCUITS, game);
     }
 
-    use(user: IPlayer, target?: ICharacter) {
-        super.use(user);
+    use(character: ICharacter, target?: ICharacter) {
+        super.use(character);
         this._game.resourceService.addBasicResourceToOwned("dryFood", 1, this.name);
     }
 }

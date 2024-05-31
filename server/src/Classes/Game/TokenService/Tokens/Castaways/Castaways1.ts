@@ -9,12 +9,12 @@ export class Castaways1 extends Token {
         super(game, DISCOVERY_TOKEN.SCENARIO_1, "zioła", "Leczy 1 ranę w nocy.");
     }
 
-    use(user: IPlayer, target?: ICharacter) {
+    use(character: ICharacter, target?: ICharacter) {
         if (!target) {
             throw new Error("No target specified");
         }
         if (this._game.phaseService.phase === "night") {
-            super.use(user, target);
+            super.use(character, target);
             this._game.characterService.heal(target, 1, this._sourceLog);
             this._used = true;
         } else {

@@ -8,7 +8,6 @@ import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction"
 import {IGame} from "@shared/types/Game/Game";
 import {ActionHandler, BaseController, GameControllerInterface} from "../../types/GameController/Controllers";
 import {CONTROLLER_ACTION, OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
-import {ACTION} from "@shared/types/Game/ACTION";
 import {INVENTION} from "@shared/types/Game/InventionService/Invention";
 
 export enum STORAGE_ACTION {
@@ -29,7 +28,7 @@ export class GameController implements GameControllerInterface, BaseController {
         this._game = game;
         this._players = players;
         this.initActionHandlers();
-        this.testStuff();
+        // this.testStuff();
     }
 
     get game(): IGame {
@@ -46,12 +45,6 @@ export class GameController implements GameControllerInterface, BaseController {
     }
 
     private testStuff() {
-        const char = this._game.localPlayer.getCharacter();
-        this._game.localPlayer.getCharacter().incrDetermination(10);
-        this._game.localPlayer.getCharacter().setWound("head", ACTION.EXPLORE, "xD");
-        this._game.localPlayer.getCharacter().setWound("stomach", ACTION.GATHER, "AA");
-        this._game.localPlayer.getCharacter().setWound("arm", ACTION.BUILD, "AA");
-        this._game.localPlayer.getCharacter().setWound("leg", ACTION.EXPLORE, "AA");
         this._game.constructionService.lvlUpConstruction(CONSTRUCTION.SHELTER, 1, "dasedas")
     }
 
@@ -86,7 +79,7 @@ export class GameController implements GameControllerInterface, BaseController {
 
 
     private addWoodToPile(player: IPlayer): void {
-        this._game.scenarioService.addWood();
+        this._game.scenarioService.addWood(player.getCharacter());
     }
 
 
@@ -101,7 +94,6 @@ export class GameController implements GameControllerInterface, BaseController {
 
 
     private setNextPhase(player: IPlayer): void {
-
         this._game.phaseService.goNextPhase();
     }
 
@@ -111,15 +103,15 @@ export class GameController implements GameControllerInterface, BaseController {
     }
 
     private useInvention(player: IPlayer, inventionName: INVENTION): void {
-        this._game.inventionService.useInvention(inventionName);
+        this._game.inventionService.useInvention(inventionName, player.getCharacter());
     }
 
     private useItem(player: IPlayer, item: ITEM): void {
-        this._game.equipmentService.useItem(item);
+        this._game.equipmentService.useItem(item, player.getCharacter());
     }
 
-    private useDiscoveryToken(player: IPlayer, tokenId: string, targetName: string): void {
-        this._game.tokenService.useToken(tokenId, player.getCharacter().name);
+    private useDiscoveryToken(player: IPlayer, tokenId: string): void {
+        this._game.tokenService.useToken(tokenId, player.getCharacter());
     }
 
     private pickObject(player: IPlayer, objPickerId: string, objectIds: string[], secondaryEffect: boolean): void {

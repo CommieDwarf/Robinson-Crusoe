@@ -38,7 +38,6 @@ export enum GAME_STATUS {
 
 export interface IGameRenderData {
     players: IPlayerRenderData[];
-    localPlayer: IPlayerRenderData;
     tileService: ITilesServiceRenderData;
     characterService: ICharacterServiceRenderData;
     resourceService: IResourceServiceRenderData;
@@ -68,7 +67,6 @@ export interface IGameRenderData {
 
 export interface IGame {
     playerService: IPlayerService;
-    localPlayer: IPlayer;
     characterService: ICharacterService;
     tileService: ITileService;
     resourceService: IResourceService;
@@ -110,6 +108,6 @@ export interface IGame {
     ) => void,
 
     pickObjects: (objectPickerId: string, objectIds: string[], secondary: boolean) => void;
-    renderData: IGameRenderData;
+    renderData: Omit<IGameRenderData, "localPlayer">;
 }
 

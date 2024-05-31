@@ -1,3 +1,6 @@
+import {IPlayer} from "@shared/types/Game/PlayerService/Player";
+import {ICharacter} from "@shared/types/Game/Characters/Character";
+
 export enum SCENARIO_STATUS {
     DEFEAT = "defeat",
     WIN = "win",
@@ -15,7 +18,7 @@ export interface IScenarioService {
 
     committedWood: number;
 
-    addWood: () => void;
+    addWood: (player: ICharacter) => void;
     onItemUse: (amount: number, sourceLog: string) => void;
 }
 

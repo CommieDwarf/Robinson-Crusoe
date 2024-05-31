@@ -36,6 +36,7 @@ export enum SOCKET_EMITTER {
     START_GAME = "start game",
     GAME_STARTED = "game started",
     USER_LEFT_LOBBY = "user left lobby",
+    GAMES_IN_PROGRESS_LIST_REQUESTED = "games in progress list requested",
 }
 
 
@@ -146,6 +147,7 @@ interface UserLeftLobbyPayload {
     sessionId: string
 }
 
+
 export type SocketPayloadMap = {
     [SOCKET_EMITTER.EXECUTE_GAME_METHOD_AND_SEND_RESPONSE]: ExecuteGameMethodAndSendResponsePayload;
     [SOCKET_EMITTER.PLAYER_ACTION]: PlayerActionPayload;
@@ -177,4 +179,5 @@ export type SocketPayloadMap = {
     [SOCKET_EMITTER.START_GAME]: StartGamePayload,
     [SOCKET_EMITTER.GAME_STARTED]: GameStartedPayload,
     [SOCKET_EMITTER.USER_LEFT_LOBBY]: UserLeftLobbyPayload,
+    [SOCKET_EMITTER.GAMES_IN_PROGRESS_LIST_REQUESTED]: {},
 };

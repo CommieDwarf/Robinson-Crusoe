@@ -11,9 +11,9 @@ export class Treasure extends Token {
             "pociągnij 1 Skarb z talii Tajemnic");
     }
 
-    use(user: IPlayer, target?: ICharacter) {
-        super.use(user);
-        this._game.mysteryService.startDrawingCards(0, 0, 1, user.getCharacter());
+    use(character: ICharacter, target?: ICharacter) {
+        super.use(character);
+        this._game.mysteryService.startDrawingCards(0, 0, 1, character);
         this._used = true;
     }
 

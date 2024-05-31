@@ -16,11 +16,11 @@ export class Poison extends Token {
         );
     }
 
-    use(user: IPlayer, target?: ICharacter) {
+    use(character: ICharacter, target?: ICharacter) {
         if (
             this._game.inventionService.getInvention(INVENTION_STARTER.POT).isBuilt
         ) {
-            super.use(user);
+            super.use(character);
             this._game.constructionService.lvlUpConstruction(
                 CONSTRUCTION.WEAPON,
                 2,

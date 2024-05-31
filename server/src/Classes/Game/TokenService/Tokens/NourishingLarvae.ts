@@ -15,8 +15,8 @@ export class NourishingLarvae extends Token {
         );
     }
 
-    use(user: IPlayer, target?: ICharacter) {
-        super.use(user);
+    use(character: ICharacter, target?: ICharacter) {
+        super.use(character);
         this._game.resourceService.addBasicResourceToOwned(
             "food",
             2,

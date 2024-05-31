@@ -15,12 +15,12 @@ export class ThornyBushes extends Token {
         );
     }
 
-    use(user: IPlayer, target?: ICharacter) {
+    use(character: ICharacter, target?: ICharacter) {
         if (
             this._game.constructionService.getConstruction(CONSTRUCTION.SHELTER).lvl >
             0
         ) {
-            super.use(user);
+            super.use(character);
             this._game.constructionService.lvlUpConstruction(
                 CONSTRUCTION.PALISADE,
                 1,

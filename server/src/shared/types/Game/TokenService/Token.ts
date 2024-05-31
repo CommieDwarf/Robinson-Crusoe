@@ -8,7 +8,7 @@ export interface IToken {
     used: boolean;
     renderData: ITokenRenderData;
     //TODO: ADD TARGET PARAMETER
-    use: (user: IPlayer, target?: ICharacter) => void;
+    use: (character: ICharacter, target?: ICharacter) => void;
     autoDiscard: () => void;
     id: string;
 }

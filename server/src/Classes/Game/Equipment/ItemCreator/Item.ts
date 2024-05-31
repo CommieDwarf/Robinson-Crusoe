@@ -1,7 +1,7 @@
 import {IGame} from "@shared/types/Game/Game";
 import {IItem, IItemRenderData, ITEM,} from "@shared/types/Game/Equipment/Item";
-import {IPlayer} from "@shared/types/Game/PlayerService/Player";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
+import {IPlayer} from "@shared/types/Game/PlayerService/Player";
 
 export class Item implements IItem {
 
@@ -22,7 +22,7 @@ export class Item implements IItem {
     get name(): ITEM {
         return this._name;
     }
-    
+
 
     get uses(): number {
         return this._uses;
@@ -43,7 +43,7 @@ export class Item implements IItem {
         }
     }
 
-    use(user: IPlayer, target?: ICharacter) {
+    use(character: ICharacter, target?: ICharacter) {
         this.decrementUses();
     }
 }

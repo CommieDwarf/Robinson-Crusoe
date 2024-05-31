@@ -9,7 +9,7 @@ export class Bible extends Item implements IItem {
         super(ITEM.BIBLE, game);
     }
 
-    use(user: IPlayer, target?: ICharacter) {
-        super.use(user, target);
+    use(character: ICharacter, target?: ICharacter) {
+        super.use(character, target);
     }
 }

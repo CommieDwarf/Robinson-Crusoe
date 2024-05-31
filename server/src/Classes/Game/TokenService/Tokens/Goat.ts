@@ -16,12 +16,12 @@ export class Goat extends Token {
         );
     }
 
-    use(user: IPlayer, target?: ICharacter) {
+    use(character: ICharacter, target?: ICharacter) {
         if (
             this._game.constructionService.getConstruction(CONSTRUCTION.WEAPON).lvl >
             0
         ) {
-            super.use(user, target);
+            super.use(character, target);
             const resources = new BasicResources(1, 0, 0, 1)
             if (this._game.phaseService.phase === "action") {
                 this._game.resourceService.addBasicResourcesToFuture(resources, this._sourceLog);

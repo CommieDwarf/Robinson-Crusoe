@@ -10,8 +10,8 @@ export class Castaways3 extends Token {
         super(game, DISCOVERY_TOKEN.SCENARIO_3, "szabla pirata", "Daje +1 do broni ");
     }
 
-    use(user: IPlayer, target?: ICharacter) {
-        super.use(user, target);
+    use(character: ICharacter, target?: ICharacter) {
+        super.use(character, target);
         this._game.constructionService.lvlUpConstruction(
             CONSTRUCTION.WEAPON,
             1,

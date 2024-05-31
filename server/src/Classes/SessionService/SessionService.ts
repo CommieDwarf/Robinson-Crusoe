@@ -71,6 +71,7 @@ export class SessionService implements ISessionService {
 
     public closeSession(sessionId: string): void {
         const session = this._activeSessions.get(sessionId);
+        console.log("Closing session!")
         if (!session) {
             return;
         }

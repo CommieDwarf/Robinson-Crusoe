@@ -9,12 +9,12 @@ export class FlaskOfRum extends Item implements IItem {
         super(ITEM.FLASK_OF_RUM, game);
     }
 
-    use(user: IPlayer, target?: ICharacter) {
+    use(character: ICharacter, target?: ICharacter) {
         if (this._game.phaseService.phase !== "night") {
             return
         } else {
-            super.use(user);
-            this._game.characterService.heal(user.getCharacter(), 1, this.name);
+            super.use(character);
+            this._game.characterService.heal(character, 1, this.name);
         }
     }
 }

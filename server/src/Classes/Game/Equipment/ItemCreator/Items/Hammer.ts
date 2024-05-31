@@ -10,8 +10,8 @@ export class Hammer extends Item implements IItem {
         super(ITEM.HAMMER, game);
     }
 
-    use(user: IPlayer, target: ICharacter = user.getCharacter()) {
-        super.use(user, target);
-        user.getCharacter().pawnService.addPawn(true, PAWN_HELPER_ACTION.BUILD);
+    use(character: ICharacter, target: ICharacter = character) {
+        super.use(character, target);
+        character.pawnService.addPawn(true, PAWN_HELPER_ACTION.BUILD);
     }
 }

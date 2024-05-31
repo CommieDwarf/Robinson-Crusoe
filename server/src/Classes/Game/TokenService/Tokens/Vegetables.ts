@@ -15,12 +15,12 @@ export class Vegetables extends Token {
         );
     }
 
-    use(user: IPlayer, target?: ICharacter) {
+    use(character: ICharacter, target?: ICharacter) {
 
         if (this._game.phaseService.phase === "night") {
-            super.use(user);
+            super.use(character);
             if (this._game.inventionService.isBuilt(INVENTION_STARTER.POT)) {
-                this._game.characterService.heal(user.getCharacter(), 2, this._sourceLog);
+                this._game.characterService.heal(character, 2, this._sourceLog);
                 this._used = true;
             }
         } else {

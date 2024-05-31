@@ -15,13 +15,13 @@ export class Herbs extends Token {
         );
     }
 
-    use(user: IPlayer, target?: ICharacter) {
+    use(character: ICharacter, target?: ICharacter) {
         if (
             this._game.inventionService.getInvention(INVENTION_STARTER.POT).isBuilt
         ) {
-            super.use(user);
+            super.use(character);
             this._used = true;
-            this._game.inventionService.build(INVENTION_STARTER.MEDICINE, user.getCharacter());
+            this._game.inventionService.build(INVENTION_STARTER.MEDICINE, character);
         } else {
             this._game.alertService.setAlert("Nie masz zbudowanych Naczyń.")
         }

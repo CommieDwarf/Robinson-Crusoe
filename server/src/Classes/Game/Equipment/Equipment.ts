@@ -4,6 +4,7 @@ import {IItem, ITEM} from "@shared/types/Game/Equipment/Item";
 import {IGame} from "@shared/types/Game/Game";
 import {ItemCreator} from "./ItemCreator/ItemCreator";
 import {LOG_CODE} from "@shared/types/Game/ChatLog/LOG_CODE";
+import {ICharacter} from "@shared/types/Game/Characters/Character";
 
 export class Equipment implements IEquipment {
     get renderData(): IEquipmentRenderData {
@@ -53,9 +54,8 @@ export class Equipment implements IEquipment {
         this.items.push(item);
     }
 
-    useItem(item: ITEM) {
-        const user = this.game.localPlayer;
-        this.getItem(item).use(user);
+    useItem(item: ITEM, character: ICharacter) {
+        this.getItem(item).use(character);
         this.items = this.filterOutUsed(this.items);
     }
 

@@ -9,8 +9,8 @@ export class StormGlass extends Item implements IItem {
         super(ITEM.STORM_GLASS, game);
     }
 
-    use(user: IPlayer, target?: ICharacter) {
-        super.use(user);
+    use(character: ICharacter, target?: ICharacter) {
+        super.use(character);
         //TODO: implement weather dice before action Phase.
     }
 }

@@ -5,6 +5,8 @@ import {TokenCreator} from "./TokenCreator/TokenCreator";
 import {doubledDiscoveryTokens} from "@shared/constants/doubledDiscoveryTokens";
 import shuffle from "@shared/utils/shuffleArray";
 import {ICreator} from "@shared/types/Game/Creator/Creator";
+import {IPlayer} from "@shared/types/Game/PlayerService/Player";
+import {ICharacter} from "@shared/types/Game/Characters/Character";
 
 export class TokenService implements ITokenService {
     private _tokenStack: DISCOVERY_TOKEN[];
@@ -65,16 +67,11 @@ export class TokenService implements ITokenService {
         this._owned.forEach((token) => token.autoDiscard());
     }
 
-    public useToken(id: string, targetName: string | null = null) {
-        const user = this._game.localPlayer
-        const target = targetName
-            ? this._game.characterService.getCharacter(targetName)
-            : null;
+    public useToken(id: string, character: ICharacter) {
 
-        //target fixed for now.
         //TODO: make targeting other characters.
         const token = this.getOwnedToken(id)
-        token.use(user, user.getCharacter());
+        token.use(character, character);
         if (token.used) {
             this._owned = this._owned.filter((tok) => tok !== token);
         }

@@ -1,5 +1,7 @@
 import {IInvention, IInventionRenderData, INVENTION, INVENTION_NORMAL} from "./Invention";
 import {ICharacter} from "../Characters/Character";
+import {IPlayer} from "@shared/types/Game/PlayerService/Player";
+import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 
 export interface IInventionServiceRenderData {
     inventions: IInventionRenderData[];
@@ -20,7 +22,7 @@ export interface IInventionService {
 
     addInvention: (invention: IInvention) => void;
 
-    useInvention: (name: INVENTION) => void;
+    useInvention: (name: INVENTION, character: IPlayerCharacter) => void;
     pickInventionsFromStack: (amount: number) => IInvention[];
     resetCardPawns: () => void;
 

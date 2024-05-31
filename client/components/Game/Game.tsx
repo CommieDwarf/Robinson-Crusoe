@@ -378,7 +378,8 @@ export default function Game(props: Props) {
                     actionOrderContainerRef={actionOrderRef}
                 />
                 <div className={styles.chatLog}>
-                    <ChatLog enableLog={true}/>
+                    {/*TODO: zmień ""*/}
+                    <ChatLog enableLog={true} localUser={""}/>
                 </div>
                 <Weather/>
                 <Tokens

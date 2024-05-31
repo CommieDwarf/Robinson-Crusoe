@@ -58,11 +58,11 @@ export abstract class Token implements IToken {
         return this._description;
     }
 
-    public use(user: IPlayer, target?: ICharacter): void {
+    public use(character: ICharacter, target?: ICharacter): void {
         this._game.logService.addMessage({
             code: LOG_CODE.CHARACTER_USED_TOKEN,
             amount: 1,
-            subject1: user.getCharacter().name,
+            subject1: character.name,
             subject2: this._name
         }, "neutral", TERMS.DISCOVERY_TOKEN)
     }

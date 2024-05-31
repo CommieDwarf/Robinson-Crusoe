@@ -10,8 +10,8 @@ export class EmptyBottle extends Item implements IItem {
         super(ITEM.EMPTY_BOTTLE, game);
     }
 
-    use(user: IPlayer, target?: ICharacter) {
-        super.use(user);
+    use(character: ICharacter, target?: ICharacter) {
+        super.use(character);
         this._game.constructionService.lvlUpConstruction(
             CONSTRUCTION.WEAPON,
             1,

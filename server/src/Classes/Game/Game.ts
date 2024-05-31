@@ -54,7 +54,6 @@ export class GameClass implements IGame {
     private _logService: ILogService = new LogService(this);
     private _actionService: ActionService = new ActionService(this);
     private readonly _playerService: IPlayerService;
-    private readonly _localPlayer: IPlayer;
     private _tileService: ITileService = new TileService(this, 7);
     private _resourceService: IResourceService = new ResourceService(this);
     private _constructionService: IConstructionService = new ConstructionService(
@@ -75,7 +74,7 @@ export class GameClass implements IGame {
     private _beastService: IBeastService = new BeastService(this);
     private _actionSlotService = new ActionSlotService(this);
     private _moraleService = new MoraleService(this);
-    private _round = 9;
+    private _round = 1;
     private _scenarioService: IScenarioService = new Castaways(this);
     private _tokenService = new TokenService(this);
     private _adventureService = new AdventureService(this);
@@ -87,18 +86,16 @@ export class GameClass implements IGame {
     private _objectPickers: ObjectPicker<any>[] = [];
 
     constructor(players: IPlayer[]) {
-        // this is hardcoded for demo purpose.
-        this._localPlayer = players[0]
         players.forEach((player) => player.initCharacter(this))
 
-        this._playerService = new PlayerService([this.localPlayer]);
+        this._playerService = new PlayerService(players);
         this._characterService = new CharacterService(
-            [this.localPlayer.getCharacter()],
+            players.map((player) => player.getCharacter()),
             this
         );
     }
 
-    get renderData(): IGameRenderData {
+    get renderData(): Omit<IGameRenderData, "localPlayer"> {
         return {
             characterService: this._characterService.renderData,
             resourceService: this.resourceService.renderData,
@@ -106,7 +103,6 @@ export class GameClass implements IGame {
             beastService: this.beastService.renderData,
             equipmentService: this.equipmentService.renderData,
             inventionService: this.inventionService.renderData,
-            localPlayer: this.localPlayer.renderData,
             players: this._playerService.renderData,
             constructionService: this.constructionService.renderData,
             eventService: this.eventService.renderData,
@@ -192,9 +188,6 @@ export class GameClass implements IGame {
         return this._moraleService;
     }
 
-    get localPlayer(): IPlayer {
-        return this._localPlayer;
-    }
 
     get tileService(): ITileService {
         return this._tileService;

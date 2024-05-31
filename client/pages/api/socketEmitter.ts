@@ -144,6 +144,10 @@ export class SocketEmitter {
         })
     }
 
+    public emitRequestGamesInProgressList() {
+        this.emitSocket(SOCKET_EMITTER.GAMES_IN_PROGRESS_LIST_REQUESTED, {})
+    }
+
     private emitSocket<T extends keyof SocketPayloadMap>(socketEmitter: T, payload: SocketPayloadMap[T]) {
         this._socket.emit(socketEmitter, payload);
     }

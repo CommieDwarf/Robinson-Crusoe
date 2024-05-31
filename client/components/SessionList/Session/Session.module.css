@@ -20,6 +20,10 @@
     background-color: var(--brown);
 }
 
+.sessionInfoShortened {
+    grid-template-columns: 4fr 3fr 2fr 2fr;
+}
+
 .sessionInfo > div {
     padding-left: 10px;
     padding-right: 10px;
