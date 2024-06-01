@@ -14,19 +14,19 @@ import {actionSlotUpdated, gameSessionUpdated, selectGame} from "../../reduxSlic
 type Props = {};
 
 function Play(props: Props) {
-    const gameDataExists = useAppSelector((state) => {
-        return Boolean(selectGame(state));
+    const gameData = useAppSelector((state) => {
+        return state.gameSession.data?.game;
     });
     const router = useRouter();
     const dispatch = useAppDispatch();
     const sessionId = router.query.sessionId as string;
 
-    if (!gameDataExists) {
+    if (!gameData) {
         socketEmitter.setCurrentSessionId(sessionId);
         socketEmitter.emitRequestGameSession();
         console.log("requesting in component")
     } else {
-        console.log("powinno być git?", gameDataExists)
+        console.log("powinno być git?", !!gameData)
     }
 
 
@@ -52,11 +52,11 @@ function Play(props: Props) {
         }
     }, [dispatch, router.query.sessionId, sessionId]);
 
-
+    console.log("gameDataExists", gameData);
     return (
         <AuthGuard>
             <div className={styles.container}>
-                {gameDataExists ? (
+                {gameData ? (
                     <Game
                     />
                 ) : <Loading/>}

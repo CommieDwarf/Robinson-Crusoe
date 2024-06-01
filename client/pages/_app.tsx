@@ -23,6 +23,7 @@ export default function MyApp<Props>({Component, pageProps}: AppProps) {
         <>
             <Provider store={store}>
                 <GlobalWrapper>
+
                     <Component {...pageProps} />
                 </GlobalWrapper>
             </Provider>

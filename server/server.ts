@@ -329,6 +329,7 @@ io.on("connection", async (socket: typeof Socket) => {
         })
 
         socket.on(SOCKET_EMITTER.LEAVE_SESSION, (payload: SocketPayloadMap[SOCKET_EMITTER.LEAVE_SESSION]) => {
+            console.log("got leave session request!")
             sessionService.leaveSession(user, payload.sessionId);
             socket.to(payload.sessionId).except(socket.id).emit(SOCKET_EMITTER.SESSION_CHANGED);
             emitSocket(SOCKET_EMITTER.SESSION_LIST_CHANGED, {});
@@ -401,6 +402,7 @@ io.on("connection", async (socket: typeof Socket) => {
             try {
                 const session = sessionService.getSession(user.id, payload.sessionId);
                 if (session && !session.isGameInProgress) {
+                    console.log("user left lobby. Leaving session!")
                     sessionService.leaveSession(user, session.id);
                 }
             } catch (e) {
