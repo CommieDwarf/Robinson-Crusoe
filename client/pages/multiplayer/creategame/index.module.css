@@ -20,7 +20,7 @@
     left: 5px;
     top: 5px;
     cursor: pointer;
-    rotate: 90deg;
+    filter: var(--blackToBrown);
 }
 
 .menuButton:hover {

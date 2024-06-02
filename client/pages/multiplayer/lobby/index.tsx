@@ -8,7 +8,7 @@ import {socket, socketEmitter} from "../../_app";
 import {SOCKET_EMITTER, SocketPayloadMap} from "@shared/types/Requests/Socket";
 import {gameSessionUpdated} from "../../../reduxSlices/gameSession";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks";
-import {StartGamePanel} from "../../../components/Lobby/StartGame/StartGamePanel";
+import {ControlPanel} from "../../../components/Lobby/ControlPanel/ControlPanel";
 import {Gender} from "@shared/types/Game/Characters/Character";
 import ChatLog from "../../../components/Game/UI/ChatLog/ChatLog";
 
@@ -16,11 +16,20 @@ export function Lobby() {
     const [gender, setGender] = useState<Gender>("male");
     const router = useRouter();
     const dispatch = useAppDispatch();
+    const [loaded, setLoaded] = useState(false);
 
     const sessionId = router.query.sessionId as string;
 
-    function handleSetGender(gender: Gender) {
-        setGender(gender);
+    const sessionData = useAppSelector(state => state.gameSession.data);
+
+    if (sessionData?.game && loaded) {
+        console.log("Redirecting")
+        router.push(`/play?sessionId=${sessionData.id}`).then();
+    }
+
+    if (!sessionData) {
+        socketEmitter.setCurrentSessionId(sessionId);
+        socketEmitter.emitRequestGameSession();
     }
 
 
@@ -34,16 +43,11 @@ export function Lobby() {
         router.events.on('routeChangeStart', handleRouteChange);
 
 
-        return () => {
-            router.events.off('routeChangeStart', handleRouteChange);
-        };
-    }, [router]);
-
-    useEffect(() => {
         socket.on(SOCKET_EMITTER.SESSION_DATA_SENT, (payload: SocketPayloadMap[SOCKET_EMITTER.SESSION_DATA_SENT]) => {
             const gameSession = payload.sessionData;
             if (gameSession) {
                 dispatch(gameSessionUpdated(gameSession));
+                setLoaded(true);
                 if (gameSession.game) {
                     router.push("/Play/?sessionId=" + sessionId);
                 }
@@ -72,16 +76,15 @@ export function Lobby() {
             socket.off(SOCKET_EMITTER.SESSION_CHANGED);
             socket.off(SOCKET_EMITTER.PLAYER_KICKED);
             socket.off(SOCKET_EMITTER.PING)
+
+            router.events.off('routeChangeStart', handleRouteChange);
         }
-    }, [])
+    }, [dispatch, router, sessionData?.id, sessionId])
 
-    const sessionData = useAppSelector(state => state.gameSession.data);
 
-    if (!sessionData) {
-        socketEmitter.setCurrentSessionId(sessionId);
-        socketEmitter.emitRequestGameSession();
+    function handleSetGender(gender: Gender) {
+        setGender(gender);
     }
-
 
     return (
         <div className={styles.container}>
@@ -97,8 +100,8 @@ export function Lobby() {
                     />
                 </div>
                 <div className={styles.startPanel}>
-                    <StartGamePanel ready={sessionData.localPlayer.ready}
-                                    startEnabled={sessionData.players.every((player) => player.ready)}/>
+                    <ControlPanel ready={sessionData.localPlayer.ready}
+                                  startEnabled={sessionData.players.every((player) => player.ready)}/>
                 </div>
                 <div className={styles.settings}>
                     <GameSettings editMode={true} host={sessionData.localPlayer.id === sessionData.hostPlayer.id}/>

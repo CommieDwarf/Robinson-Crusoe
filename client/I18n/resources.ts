@@ -12,7 +12,7 @@ import {
 import {ITEM} from "@shared/types/Game/Equipment/Item";
 import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
 import {ALERT_CODE} from "@shared/types/ALERT_CODE";
-import {SESSION_JOIN_ERROR_CODE} from "@shared/types/Errors/SESSION_JOIN_ERROR_CODE";
+import {SESSION_CONNECTION_ERROR_CODE} from "@shared/types/Errors/SESSION_CONNECTION_ERROR_CODE";
 import {INVENTION_PERSONAL} from "@shared/types/Game/InventionService/Invention";
 
 
@@ -626,10 +626,10 @@ export const resources = {
                 "save": "zapisz",
             },
             error: {
-                [SESSION_JOIN_ERROR_CODE.SESSION_NOT_FOUND]: "Nie znaleziono sesji",
-                [SESSION_JOIN_ERROR_CODE.GAME_IN_PROGRESS]: "Gra już się zaczeła",
-                [SESSION_JOIN_ERROR_CODE.SESSION_FULL]: "Sesja jest pełna",
-                [SESSION_JOIN_ERROR_CODE.INCORRECT_PASSWORD]: "nieprawidłowe hasło",
+                [SESSION_CONNECTION_ERROR_CODE.SESSION_NOT_FOUND]: "Nie znaleziono sesji",
+                [SESSION_CONNECTION_ERROR_CODE.GAME_IN_PROGRESS]: "Gra już się zaczeła",
+                [SESSION_CONNECTION_ERROR_CODE.SESSION_FULL]: "Sesja jest pełna",
+                [SESSION_CONNECTION_ERROR_CODE.INCORRECT_PASSWORD]: "nieprawidłowe hasło",
                 "kicked": "Zostałeś wyrzucony",
             }
         },

@@ -3,6 +3,8 @@ import {UserDocument} from "../../Models/User";
 import {SessionData} from "@shared/types/Session/Session";
 import {Socket} from "socket.io";
 import {ISessionService} from "../../types/SessionService/SessionService";
+import {SessionConnectError} from "../../Errors/Session/SessionConnectError";
+import {SESSION_CONNECTION_ERROR_CODE} from "@shared/types/Errors/SESSION_CONNECTION_ERROR_CODE";
 
 export class User implements IUser {
 
@@ -90,5 +92,13 @@ export class User implements IUser {
             console.log("LEAVING NOST STARTED SESSIONS")
             this.leaveNotStartedSessions()
         }
+    }
+
+    public getSession(sessionId: string) {
+        const session = this._activeSessions.find((sessionData) => sessionData.id === sessionId);
+        if (!session) {
+            throw new SessionConnectError(`Session id: ${sessionId} not found in user's activeSessions`, SESSION_CONNECTION_ERROR_CODE.SESSION_NOT_FOUND);
+        }
+        return session;
     }
 }

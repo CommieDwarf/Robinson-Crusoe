@@ -1,4 +1,4 @@
-import styles from "./StartGame.module.css";
+import styles from "./ControlPanel.module.css";
 import {ReadyButton} from "../ReadyButton";
 import {useEffect, useState} from "react";
 import {socket, socketEmitter} from "../../../pages/_app";
@@ -6,6 +6,7 @@ import compassImg from "/public/UI/tokens/compass.png";
 import ResizableImage from "../../ResizableImage/ResizableImage";
 import {useRouter} from "next/router";
 import {SOCKET_EMITTER, SocketPayloadMap} from "@shared/types/Requests/Socket";
+import {BackButton} from "../../BackButton/BackButton";
 
 interface Props {
     ready: boolean;
@@ -13,7 +14,7 @@ interface Props {
 }
 
 
-export function StartGamePanel(props: Props) {
+export function ControlPanel(props: Props) {
 
     const [ready, setReady] = useState(props.ready);
 
@@ -21,7 +22,9 @@ export function StartGamePanel(props: Props) {
 
     useEffect(() => {
         socket.on(SOCKET_EMITTER.GAME_STARTED, (payload: SocketPayloadMap[SOCKET_EMITTER.GAME_STARTED]) => {
-            router.push(`/Play?sessionId=${payload.sessionId}`).then(() => {
+            console.log("Game started!!")
+            router.push(`/play?sessionId=${payload.sessionId}`).then(() => {
+
                 socket.off(SOCKET_EMITTER.GAME_STARTED);
             })
         })
@@ -47,6 +50,9 @@ export function StartGamePanel(props: Props) {
     }
 
     return <div className={styles.container}>
+        <div className={`${styles.item} ${styles.backButton}`}>
+            <BackButton/>
+        </div>
         <div className={`${styles.item} ${styles.readiness} ${ready ? styles.ready : styles.notReady}`}>
             <ReadyButton ready={ready} disabled={false} onClick={toggleReady}/>
             <h4 className={`${styles.buttonText}`}>GOTOWY?</h4>

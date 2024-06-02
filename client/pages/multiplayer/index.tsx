@@ -2,7 +2,7 @@ import styles from "./index.module.css";
 import {SessionList} from "../../components/SessionList/SessionList";
 import ResizableImage from "../../components/ResizableImage/ResizableImage";
 
-import menuIcon from "/public/UI/icons/menu.png";
+import exitIcon from "/public/UI/icons/exit4.png";
 import {useTranslation} from "react-i18next";
 import {capitalize} from "lodash";
 import Link from "next/link";
@@ -13,6 +13,7 @@ import {useRouter} from "next/router";
 import {SmallWindow} from "../../components/SessionList/SmallWindow/SmallWindow";
 import {EnterPassword} from "../../components/SessionList/SmallWindow/EnterPassword/EnterPassword";
 import {Message} from "../../components/SessionList/SmallWindow/Error/Message";
+import {BackButton} from "../../components/BackButton/BackButton";
 
 interface Props {
 
@@ -40,7 +41,6 @@ export function Multiplayer() {
         socketEmitter.emitRequestSessionList();
     }
 
-
     useEffect(() => {
         socket.on(SOCKET_EMITTER.JOIN_SESSION_RESPONSE, (payload: SocketPayloadMap[SOCKET_EMITTER.JOIN_SESSION_RESPONSE]) => {
             if (payload.error) {
@@ -58,16 +58,14 @@ export function Multiplayer() {
         <div className={styles.container}>
             <div className={styles.panel}>
                 <div className={styles.buttons}>
-                    <Link href={"../"}>
-                        <div className={styles.menuButton}>
-                            <ResizableImage src={menuIcon} alt={"Menu"}/>
-                        </div>
-                    </Link>
-                    <div className={`${styles.button} ${styles.buttonRefresh}`} onClick={handleRefreshClick}>
+                    <div className={styles.backButton}>
+                        <BackButton/>
+                    </div>
+                    <div className={`menuButton`} onClick={handleRefreshClick}>
                         {capitalize(t("menu.refresh"))}
                     </div>
-                    <Link href={"./multiplayer/creategame"}>
-                        <div className={styles.button}>
+                    <Link href={"./multiplayer/creategame"} className={"menuButton"}>
+                        <div>
                             {capitalize(t("menu.create game"))}
                         </div>
                     </Link>
@@ -79,7 +77,7 @@ export function Multiplayer() {
                     <div className={styles.joinBySessionIdInput}>
                         <input type={"text"}></input>
                     </div>
-                    <div className={styles.button}>
+                    <div className={"menuButton"}>
                         {capitalize(t("menu.join"))}
                     </div>
                 </div>

@@ -65,6 +65,8 @@ export function Session(props: Props) {
                 }
             </div>}
         </div>
-        <div className={styles.button} onClick={handleClick}>{capitalize(t("menu.join"))}</div>
+        <div className={styles.buttonWrapper}>
+            <div className={"menuButton"} onClick={handleClick}>{capitalize(t("menu.join"))}</div>
+        </div>
     </div>
 }

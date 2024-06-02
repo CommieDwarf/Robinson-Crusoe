@@ -1,12 +1,9 @@
 import styles from "./index.module.css";
 import {useTranslation} from "react-i18next";
 import ResizableImage from "../../../components/ResizableImage/ResizableImage";
-import redArrowCurvedImg from "/public/UI/misc/red-arrow-curved.png";
 import Link from "next/link";
-import {useState} from "react";
-import {SCENARIO} from "@shared/types/Game/ScenarioService/SCENARIO";
 import {GameSettings} from "../../../components/Lobby/GameSettings/GameSettings";
-import {socketEmitter} from "../../_app";
+import exitIcon from "/public/UI/icons/exit4.png";
 
 export interface Props {
 
@@ -22,7 +19,7 @@ export function CreateGame() {
     return <div className={styles.container}>
         <Link href={"./"}>
             <div className={styles.menuButton}>
-                <ResizableImage src={redArrowCurvedImg} alt={"menu"}/>
+                <ResizableImage src={exitIcon} alt={"menu"}/>
             </div>
         </Link>
         <div className={styles.gameSettings}>

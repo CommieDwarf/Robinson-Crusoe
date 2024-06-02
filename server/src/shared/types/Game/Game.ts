@@ -31,9 +31,10 @@ import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 import {IGlobalPawnService, IGlobalPawnServiceRenderData} from "@shared/types/Game/GlobalPawnService/GlobalPawnService";
 
 export enum GAME_STATUS {
-    PENDING = "pending",
-    LOSE = "lose",
-    WIN = "win",
+    IN_LOBBY = "in lobby",
+    IN_PROGRESS = "in progress",
+    LOST = "lost",
+    WON = "won",
 }
 
 export interface IGameRenderData {
@@ -96,7 +97,7 @@ export interface IGame {
     mysteryService: IMysteryService;
 
 
-    setGameStatus: (status: GAME_STATUS.WIN | GAME_STATUS.LOSE, reason?: string) => void;
+    setGameStatus: (status: GAME_STATUS.WON | GAME_STATUS.LOST, reason?: string) => void;
 
     startPickingObject: <T extends PickableObject> (objects: T[],
                                                     picker: IPlayerCharacter,

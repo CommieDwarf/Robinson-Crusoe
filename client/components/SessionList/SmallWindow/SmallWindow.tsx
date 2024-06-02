@@ -1,7 +1,7 @@
 import styles from "./SmallWindow.module.css";
 import React from "react";
 import ResizableImage from "../../ResizableImage/ResizableImage";
-import xMarkImg from "public/UI/misc/x-mark.png";
+import xMarkImg from "/public/UI/misc/x-mark.png";
 
 
 interface Props {

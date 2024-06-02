@@ -32,23 +32,22 @@
 .buttons {
     height: 25px;
     display: flex;
-    column-gap: 5px;
+    column-gap: 10px;
+    align-items: center;
+    width: 300px;
 }
 
-.menuButton {
-    height: 25px;
-    aspect-ratio: 1;
-    position: relative;
-    filter: var(--blackToBrown);
-    cursor: pointer;
 
-}
-
-.menuButton:hover {
-    scale: 1.1;
+.backButton {
+    height: 110%;
 }
 
 .button {
+    
+}
+
+
+.imgWrapper {
     height: 25px;
     border: 1px solid var(--brown);
     display: inline-block;
@@ -59,7 +58,7 @@
     cursor: pointer;
 }
 
-.button:hover {
+.imgWrapper:hover {
     scale: 1.1;
 }
 

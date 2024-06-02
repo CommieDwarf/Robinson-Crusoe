@@ -23,7 +23,7 @@
 }
 
 
-.button {
+.imgWrapper {
     padding: 5px;
     border: 1px solid var(--brown);
     border-radius: 5px;
@@ -33,7 +33,7 @@
     font-weight: 500;
 }
 
-.button:hover {
+.imgWrapper:hover {
     scale: 1.1;
 }
 
@@ -41,6 +41,11 @@
     border-top: 1px solid var(--brown);
     border-bottom: 1px solid var(--tan);
     margin-top: 10px;
+}
+
+
+.button:hover {
+    scale: 1.1;
 }
 
 .scenarioInfo {

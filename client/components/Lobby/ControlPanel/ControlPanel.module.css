@@ -4,7 +4,7 @@
     border: 1px solid var(--brown);
     border-radius: 5px;
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
     padding: 0 10px 0 10px;
     align-items: center;
 }
@@ -20,7 +20,7 @@
 
 
 .startButton {
-    height: 80%;
+    height: 90%;
     position: relative;
     aspect-ratio: 1;
 }
@@ -29,6 +29,10 @@
     height: 20%;
     align-self: center;
     font-size: 10px;
+}
+
+.backButton {
+    height: 80%;
 }
 
 

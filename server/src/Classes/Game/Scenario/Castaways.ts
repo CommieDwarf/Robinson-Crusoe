@@ -9,7 +9,6 @@ import {castaways} from "@shared/constants/scenarios/castaways";
 import {GAME_STATUS, IGame} from "@shared/types/Game/Game";
 import {INVENTION_STARTER} from "@shared/types/Game/InventionService/Invention";
 import {LOG_CODE} from "@shared/types/Game/ChatLog/LOG_CODE";
-import {IPlayer} from "@shared/types/Game/PlayerService/Player";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
 
 export class Castaways implements IScenarioService {
@@ -121,9 +120,9 @@ export class Castaways implements IScenarioService {
             this._woodStashLvl === this._maxWoodStashLvl &&
             this._shipRounds.includes(this._game.round)
         ) {
-            this._game.setGameStatus(GAME_STATUS.WIN);
+            this._game.setGameStatus(GAME_STATUS.WON);
         } else if (this._game.round > this._lastRound) {
-            this._game.setGameStatus(GAME_STATUS.LOSE);
+            this._game.setGameStatus(GAME_STATUS.LOST);
         }
     }
 

@@ -1,0 +1,13 @@
+.container {
+    grid-column: 6 / span 1;
+    grid-row: 5 / span 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    padding: 0 5px 0 5px;
+}
+
+.backButtonWrapper {
+    height: 80%;
+}

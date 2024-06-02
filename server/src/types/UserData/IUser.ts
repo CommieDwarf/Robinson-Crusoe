@@ -17,6 +17,8 @@ export interface IUser {
     ping: number;
 
     addSocket: (socket: Socket) => void;
+
+    getSession: (sessionId: string) => SessionData;
     removeSocket: (socket: Socket) => void;
 }
 

@@ -7,7 +7,7 @@ import {SessionSettings} from "@shared/types/SessionSettings";
 import {UserDocument} from "../../Models/User";
 import {User} from "../User/User";
 import {SessionConnectError} from "../../Errors/Session/SessionConnectError";
-import {SESSION_JOIN_ERROR_CODE} from "@shared/types/Errors/SESSION_JOIN_ERROR_CODE";
+import {SESSION_CONNECTION_ERROR_CODE} from "@shared/types/Errors/SESSION_CONNECTION_ERROR_CODE";
 import {Socket} from "socket.io";
 
 
@@ -47,14 +47,14 @@ export class SessionService implements ISessionService {
     public joinSession(user: IUser, sessionId: string, password: string) {
         const session = this.getSession(user.id, sessionId);
         if (!session) {
-            throw new SessionConnectError("Can't find session with id: " + sessionId, SESSION_JOIN_ERROR_CODE.SESSION_NOT_FOUND);
+            throw new SessionConnectError("Can't find session with id: " + sessionId, SESSION_CONNECTION_ERROR_CODE.SESSION_NOT_FOUND);
         }
         if (session.settings.password !== password) {
-            throw new SessionConnectError("Passwords don't match.", SESSION_JOIN_ERROR_CODE.INCORRECT_PASSWORD);
+            throw new SessionConnectError("Passwords don't match.", SESSION_CONNECTION_ERROR_CODE.INCORRECT_PASSWORD);
         }
 
         if (session.players.length >= session.settings.maxPlayers) {
-            throw new SessionConnectError("Server is full", SESSION_JOIN_ERROR_CODE.SESSION_FULL);
+            throw new SessionConnectError("Server is full", SESSION_CONNECTION_ERROR_CODE.SESSION_FULL);
         }
         session.joinSession(user);
     }

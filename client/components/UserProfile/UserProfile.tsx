@@ -1,6 +1,6 @@
 import styles from "./UserProfile.module.css";
 import ResizableImage from "../ResizableImage/ResizableImage";
-import dummyAvatarImg from "public/dummy-avatar.jpg";
+import dummyAvatarImg from "/public/dummy-avatar.jpg";
 
 import {useRouter} from "next/router";
 import {useAppDispatch, useAppSelector} from "../../store/hooks";

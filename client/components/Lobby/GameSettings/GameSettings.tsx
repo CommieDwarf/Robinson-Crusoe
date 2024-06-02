@@ -7,7 +7,7 @@ import {socket, socketEmitter} from "../../../pages/_app";
 import {GameSessionCreatedPayload, SOCKET_EMITTER} from "@shared/types/Requests/Socket";
 import {useRouter} from "next/router";
 import {sessionValidationConfig as valConfig} from "@shared/constants/sessionValidationConfig";
-import {useAppSelector} from "../../../store/hooks";
+import {useAppDispatch, useAppSelector} from "../../../store/hooks";
 import {SessionSettings} from "@shared/types/SessionSettings";
 
 interface Props {
@@ -45,6 +45,7 @@ export function GameSettings(props: Props) {
         }
     }
 
+
     function createSession() {
         socketEmitter.emitCreateSession({
             scenario: localSettings.scenario,
@@ -54,8 +55,9 @@ export function GameSettings(props: Props) {
             name: localSettings.name,
         })
         socket.on(SOCKET_EMITTER.GAME_SESSION_CREATED, (payload: GameSessionCreatedPayload) => {
-            console.log("created", payload);
-            router.push(`./lobby/?sessionId=${payload.sessionId}`).then(() => {
+            socketEmitter.setCurrentSessionId(payload.sessionId);
+
+            router.push(`./lobby?sessionId=${payload.sessionId}`).then(() => {
                 socket.off(SOCKET_EMITTER.GAME_SESSION_CREATED);
             });
         })
@@ -152,7 +154,7 @@ export function GameSettings(props: Props) {
             </select> : <span>{localSettings.maxPlayers}</span>}
         </div>
         {!props.editMode &&
-            <div className={styles.button} onClick={handleClick}>{capitalize(t("menu.create game"))}</div>}
+            <div className={"menuButton"} onClick={handleClick}>{capitalize(t("menu.create game"))}</div>}
     </form>)
 
     return <div className={styles.container}>

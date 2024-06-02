@@ -3,7 +3,7 @@ import {AssignedCharacter, IPlayer, IPlayerRenderData} from "@shared/types/Game/
 import {PAWN_COLOR} from "@shared/types/Game/PAWN_COLOR";
 import {BaseController} from "../../../types/GameController/Controllers";
 import {CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
-import {IGame, IGameRenderData} from "@shared/types/Game/Game";
+import {GAME_STATUS, IGame, IGameRenderData} from "@shared/types/Game/Game";
 import {SessionSettings} from "@shared/types/SessionSettings";
 import {IChatServiceRenderData} from "@shared/types/ChatService/ChatService";
 
@@ -22,6 +22,8 @@ export interface SessionData {
     players: IPlayer[];
     host: IUser;
     id: string;
+
+    gameStatus: GAME_STATUS;
 
     isGameInProgress: boolean;
     settings: SessionSettings;

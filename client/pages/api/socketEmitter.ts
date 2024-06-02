@@ -4,6 +4,8 @@ import {Socket} from "socket.io-client";
 import {CreateSessionPayload, SOCKET_EMITTER, SocketPayloadMap} from "@shared/types/Requests/Socket";
 import {SessionSettings} from "@shared/types/SessionSettings";
 import {AssignedCharacter} from "@shared/types/Game/PlayerService/Player";
+import {socket} from "../_app";
+import {GAME_STATUS} from "@shared/types/Game/Game";
 
 export class SocketEmitter {
     private _userId: string = "";
@@ -146,6 +148,24 @@ export class SocketEmitter {
 
     public emitRequestGamesInProgressList() {
         this.emitSocket(SOCKET_EMITTER.GAMES_IN_PROGRESS_LIST_REQUESTED, {})
+    }
+
+    public getGameStatus(): Promise<GAME_STATUS | null> {
+        return new Promise((resolve, reject) => {
+            this._socket.on((SOCKET_EMITTER.GAME_STATUS_SENT), handleGameStatusSent)
+
+            function handleGameStatusSent(payload: SocketPayloadMap[SOCKET_EMITTER.GAME_STATUS_SENT]) {
+                console.log("receiving shit!")
+                if (payload.error) {
+                    reject(payload.error);
+                } else {
+                    resolve(payload.gameStatus);
+                }
+                socket.off(SOCKET_EMITTER.GAME_STATUS_SENT, handleGameStatusSent);
+            }
+
+            this.emitSocket(SOCKET_EMITTER.GAME_STATUS_REQUESTED, {sessionId: this._currentSessionId});
+        })
     }
 
     private emitSocket<T extends keyof SocketPayloadMap>(socketEmitter: T, payload: SocketPayloadMap[T]) {

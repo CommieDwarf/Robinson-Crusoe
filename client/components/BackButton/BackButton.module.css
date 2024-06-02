@@ -1,0 +1,17 @@
+.container {
+    height: 100%;
+    aspect-ratio: 1;
+    position: relative;
+}
+
+.imgWrapper {
+    position: relative;
+    height: 100%;
+    aspect-ratio: 1;
+    cursor: pointer;
+    filter: var(--blackToBrown);
+}
+
+.imgWrapper:hover {
+    scale: 1.1;
+}

@@ -42,11 +42,12 @@ import {isPawnPlacementAllowed} from "@shared/utils/isPawnPlacementAllowed";
 import {ITileRenderData} from "@shared/types/Game/TileService/ITile";
 import {CHARACTER_CONTROLLER_ACTION, OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {MysteryCardDraw} from "./UI/MysteryCardDraw/MysteryCardDraw";
-import {MenuButton} from "./UI/MenuButton/MenuButton";
 import {socketEmitter} from "../../pages/_app";
 import {PickOne} from "./UI/PickOne/PickOne";
 import {IPawnRenderData} from "@shared/types/Game/Pawns/Pawn";
 import {actionSlotUpdated, selectGame} from "../../reduxSlices/gameSession";
+import {BackButton} from "../BackButton/BackButton";
+import {ControlPanel} from "./UI/ControlPanel/ControlPanel";
 
 
 interface Props {
@@ -387,18 +388,15 @@ export default function Game(props: Props) {
                 />
 
                 {/*<Players />*/}
-                <NextPhaseButton
-                    locked={gameData.phaseChangeLocked || !!confirmWindow}
-                />
+
             </DragDropContext>
             <ScenarioButton
                 topLayerElement={topLayerElement}
                 show={showScenario}
                 toggleShowScenario={toggleShowScenario}
             />
-            <Alerts/>
-            <MenuButton/>
 
+            <ControlPanel confirmWindowOpen={!!confirmWindow} phaseChangeLocked={gameData.phaseChangeLocked}/>
         </div>
     );
 }

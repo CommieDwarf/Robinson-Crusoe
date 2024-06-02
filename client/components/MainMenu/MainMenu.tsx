@@ -47,11 +47,12 @@ export function MainMenu({UserComponent}: Props) {
         if (!user) {
             return;
         }
-        socketEmitter.emitIsGameInProgress();
         socket.on(SOCKET_EMITTER.IS_QUICK_GAME_IN_PROGRESS_RESPONSE,
             (payload: SocketPayloadMap[SOCKET_EMITTER.IS_QUICK_GAME_IN_PROGRESS_RESPONSE]) => {
                 setGameInProgress(payload.value)
             })
+        socketEmitter.emitIsGameInProgress();
+
 
         return () => {
             socket.off(SOCKET_EMITTER.IS_QUICK_GAME_IN_PROGRESS_RESPONSE);
@@ -68,7 +69,7 @@ export function MainMenu({UserComponent}: Props) {
                 <ul className={styles.menu}>
                     {gameInProgress && <Link
                         aria-disabled={!user}
-                        href={"./Play"}
+                        href={"./play/?sessionId=quickgame"}
                     >
                         <li className={`${styles.menuItem} ${!user && styles.menuItemDisabled}`}>
                             Continue
@@ -76,7 +77,7 @@ export function MainMenu({UserComponent}: Props) {
                     </Link>}
                     <Link
                         aria-disabled={!user}
-                        href={"./Play/?sessionId=quickgame"}
+                        href={"./play/?sessionId=quickgame"}
                         onClick={handleQuickGameClick}
                     >
                         <li className={`${styles.menuItem} ${!user && styles.menuItemDisabled}`}>

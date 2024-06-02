@@ -418,6 +418,30 @@ io.on("connection", async (socket: typeof Socket) => {
             })
         })
 
+        setListener(SOCKET_EMITTER.GAME_STATUS_REQUESTED, (payload) => {
+            console.log("game status requested")
+            let responsePayload: SocketPayloadMap[SOCKET_EMITTER.GAME_STATUS_SENT] = {
+                gameStatus: null,
+            }
+            try {
+                const session = user.getSession(payload.sessionId);
+                responsePayload.gameStatus = session.gameStatus;
+                emitSocket(SOCKET_EMITTER.GAME_STATUS_SENT, responsePayload);
+                console.log("game status sent")
+            } catch (error) {
+                if (error instanceof SessionConnectError) {
+                    console.log("game status error", error.code);
+                    responsePayload.error = error.code;
+                    emitSocket(SOCKET_EMITTER.GAME_STATUS_SENT, responsePayload);
+
+                } else {
+                    console.error(error);
+                }
+            } finally {
+                console.log("sending game status!")
+            }
+        })
+
     } catch (e) {
         console.error(e)
     }

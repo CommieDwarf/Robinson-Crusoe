@@ -3,7 +3,6 @@ import Loading from "../Loading";
 import {useEffect, useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../store/hooks";
 import Game from "../../components/Game/Game";
-import AuthGuard from "../../components/AuthGuard/AuthGuard";
 import {socket, socketEmitter} from "../_app";
 import {SOCKET_EMITTER, SocketPayloadMap} from "@shared/types/Requests/Socket";
 import {ALERT_CODE} from "@shared/types/ALERT_CODE";
@@ -24,18 +23,25 @@ function Play(props: Props) {
     if (!gameData) {
         socketEmitter.setCurrentSessionId(sessionId);
         socketEmitter.emitRequestGameSession();
-        console.log("requesting in component")
-    } else {
-        console.log("powinno być git?", !!gameData)
     }
 
+    useEffect(() => {
+        const handlePopState = (event: PopStateEvent) => {
+            router.push("/").then();
+        };
+
+        window.addEventListener('popstate', handlePopState);
+
+        return () => {
+            window.removeEventListener('popstate', handlePopState);
+        };
+    }, [router]);
 
     useEffect(() => {
         socket.on(SOCKET_EMITTER.SESSION_DATA_SENT, (payload: SocketPayloadMap[SOCKET_EMITTER.SESSION_DATA_SENT]) => {
             const gameSession = payload.sessionData;
-            console.log("got something!")
             if (gameSession) {
-                console.log("got gameSession")
+                console.log("gameSession received")
                 dispatch(gameSessionUpdated(gameSession));
                 dispatch(actionSlotUpdated(gameSession.game?.actionSlotService.slots));
             }
@@ -46,22 +52,19 @@ function Play(props: Props) {
 
         socketEmitter.setCurrentSessionId(sessionId);
         socketEmitter.emitRequestGameSession();
-        console.log("requesting in useEffect")
         return () => {
+            socket.off("alert_sent")
             socket.off(SOCKET_EMITTER.SESSION_DATA_SENT);
         }
     }, [dispatch, router.query.sessionId, sessionId]);
 
-    console.log("gameDataExists", gameData);
     return (
-        <AuthGuard>
-            <div className={styles.container}>
-                {gameData ? (
-                    <Game
-                    />
-                ) : <Loading/>}
-            </div>
-        </AuthGuard>
+        <div className={styles.container}>
+            {gameData ? (
+                <Game
+                />
+            ) : <Loading/>}
+        </div>
     )
 }
 

@@ -4,6 +4,7 @@
     color: white;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding-right: 10px;
 }
 
@@ -53,7 +54,7 @@
     grid-column: 5 / span 1;
 }
 
-.button {
+.imgWrapper {
     height: 86%;
     width: 50px;
     border-radius: 5px;
@@ -67,6 +68,12 @@
     top: 7%;
 }
 
-.button:hover {
+.imgWrapper:hover {
     scale: 1.1;
+}
+
+.buttonWrapper {
+    height: 80%;
+    font-size: 13px;
+    margin-left: 5px;
 }

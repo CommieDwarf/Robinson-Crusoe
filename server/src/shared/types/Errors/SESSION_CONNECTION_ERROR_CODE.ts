@@ -1,4 +1,4 @@
-export enum SESSION_JOIN_ERROR_CODE {
+export enum SESSION_CONNECTION_ERROR_CODE {
     SESSION_FULL = "server full",
     INCORRECT_PASSWORD = "incorrect password",
     SESSION_NOT_FOUND = "session not found",

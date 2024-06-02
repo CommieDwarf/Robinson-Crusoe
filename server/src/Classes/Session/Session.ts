@@ -16,6 +16,7 @@ import {isPlayer} from "../../utils/isPlayer";
 import {ChatService} from "../ChatService/ChatService";
 import {IChatService} from "@shared/types/ChatService/ChatService";
 import {getDuplicatedElements} from "@shared/utils/getDuplicatedElements";
+import {GAME_STATUS} from "@shared/types/Game/Game";
 
 
 export class Session implements SessionData {
@@ -49,6 +50,14 @@ export class Session implements SessionData {
             localPlayer: this.getPlayerByUserId(userId).renderData,
             hostPlayer: this.getPlayerByUserId(this._host.id).renderData,
             chatService: this.chatService.renderData,
+        }
+    }
+
+    get gameStatus() {
+        if (this._gameController?.game) {
+            return this._gameController.game.gameStatus;
+        } else {
+            return GAME_STATUS.IN_LOBBY
         }
     }
 

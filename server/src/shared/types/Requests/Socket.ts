@@ -1,8 +1,8 @@
-import {IGame, IGameRenderData} from "@shared/types/Game/Game";
+import {GAME_STATUS, IGame, IGameRenderData} from "@shared/types/Game/Game";
 import {CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {SessionSettings} from "@shared/types/SessionSettings";
 import {SessionBasicInfo, SessionRenderData} from "../Session/Session";
-import {SESSION_JOIN_ERROR_CODE} from "@shared/types/Errors/SESSION_JOIN_ERROR_CODE";
+import {SESSION_CONNECTION_ERROR_CODE} from "@shared/types/Errors/SESSION_CONNECTION_ERROR_CODE";
 import {AssignedCharacter} from "@shared/types/Game/PlayerService/Player";
 
 export enum SOCKET_EMITTER {
@@ -37,6 +37,9 @@ export enum SOCKET_EMITTER {
     GAME_STARTED = "game started",
     USER_LEFT_LOBBY = "user left lobby",
     GAMES_IN_PROGRESS_LIST_REQUESTED = "games in progress list requested",
+    GAME_STATUS_REQUESTED = "game status requested",
+    GAME_STATUS_SENT = "game status sent",
+
 }
 
 
@@ -89,7 +92,7 @@ export interface JoinSessionPayload {
 
 export interface JoinSessionResponsePayload {
     sessionId: string;
-    error?: SESSION_JOIN_ERROR_CODE;
+    error?: SESSION_CONNECTION_ERROR_CODE;
 }
 
 interface LeaveSessionPayload {
@@ -147,6 +150,15 @@ interface UserLeftLobbyPayload {
     sessionId: string
 }
 
+interface GameStatusRequestedPayload {
+    sessionId: string;
+}
+
+interface GameStatusSentPayload {
+    gameStatus: GAME_STATUS | null,
+    error?: SESSION_CONNECTION_ERROR_CODE
+}
+
 
 export type SocketPayloadMap = {
     [SOCKET_EMITTER.EXECUTE_GAME_METHOD_AND_SEND_RESPONSE]: ExecuteGameMethodAndSendResponsePayload;
@@ -180,4 +192,6 @@ export type SocketPayloadMap = {
     [SOCKET_EMITTER.GAME_STARTED]: GameStartedPayload,
     [SOCKET_EMITTER.USER_LEFT_LOBBY]: UserLeftLobbyPayload,
     [SOCKET_EMITTER.GAMES_IN_PROGRESS_LIST_REQUESTED]: {},
+    [SOCKET_EMITTER.GAME_STATUS_REQUESTED]: GameStatusRequestedPayload;
+    [SOCKET_EMITTER.GAME_STATUS_SENT]: GameStatusSentPayload;
 };

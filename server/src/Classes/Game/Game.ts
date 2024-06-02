@@ -81,7 +81,7 @@ export class GameClass implements IGame {
     private _mysteryService = new MysteryService(this);
     private _globalPawnService = new GlobalPawnService(this);
 
-    private _gameStatus: GAME_STATUS = GAME_STATUS.PENDING;
+    private _gameStatus: GAME_STATUS = GAME_STATUS.IN_PROGRESS;
 
     private _objectPickers: ObjectPicker<any>[] = [];
 
@@ -261,9 +261,9 @@ export class GameClass implements IGame {
         this._round++;
     }
 
-    setGameStatus(status: GAME_STATUS.WIN | GAME_STATUS.LOSE, logSource: string = "") {
+    setGameStatus(status: GAME_STATUS.WON | GAME_STATUS.LOST, logSource: string = "") {
         this._gameStatus = status;
-        if (status === GAME_STATUS.LOSE) {
+        if (status === GAME_STATUS.LOST) {
             this._logService.addMessage({
                 code: LOG_CODE.GAME_LOST,
                 subject1: "",
