@@ -8,15 +8,17 @@ import {MysteryCardResolve} from "../CardResolve/Mystery/MysteryCardResolve";
 import styles from "./MysteryCardDraw.module.css";
 import {ResolveButtons} from "../CardResolve/ResolveButtons/ResolveButtons";
 import Draggable from "react-draggable";
-import {socketEmitter} from "../../../../pages/_app";
-import {useAppSelector} from "../../../../store/hooks";
+import {useAppDispatch, useAppSelector} from "../../../../store/hooks";
 import {selectGame} from "../../../../reduxSlices/gameSession";
+import {socketEmitAction} from "../../../../middleware/socketMiddleware";
 
 
 export function MysteryCardDraw() {
 
     const mysteryService = useAppSelector((state) => selectGame(state).mysteryService!)
     const mysteryCard = mysteryService?.currentResolve;
+
+    const dispatch = useAppDispatch();
 
     //TODO przetłumacz
     const button1: CardResolveButtonProp = {
@@ -34,15 +36,15 @@ export function MysteryCardDraw() {
 
     function drawOrTriggerEffect() {
         if (mysteryService.currentResolve?.drawResolved === false) {
-            socketEmitter.emitAction(MYSTERY_CONTROLLER_ACTION.TRIGGER_MYSTERY_DRAW_EFFECT)
+            dispatch(socketEmitAction(MYSTERY_CONTROLLER_ACTION.TRIGGER_MYSTERY_DRAW_EFFECT));
         } else if (mysteryService.canDraw) {
-            socketEmitter.emitAction(MYSTERY_CONTROLLER_ACTION.DRAW_MYSTERY_CARD)
+            dispatch(socketEmitAction(MYSTERY_CONTROLLER_ACTION.DRAW_MYSTERY_CARD));
         }
     }
 
     function finish() {
         if (mysteryService.canFinish) {
-            socketEmitter.emitAction(MYSTERY_CONTROLLER_ACTION.FINISH_DRAWING_MYSTERY_CARDS);
+            dispatch(socketEmitAction(MYSTERY_CONTROLLER_ACTION.FINISH_DRAWING_MYSTERY_CARDS));
         }
     }
 

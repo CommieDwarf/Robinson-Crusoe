@@ -1,30 +1,26 @@
 import styles from "./index.module.css";
 import {SessionList} from "../../components/SessionList/SessionList";
-import ResizableImage from "../../components/ResizableImage/ResizableImage";
-
-import exitIcon from "/public/UI/icons/exit4.png";
 import {useTranslation} from "react-i18next";
 import {capitalize} from "lodash";
 import Link from "next/link";
 import {useEffect, useState} from "react";
-import {socket, socketEmitter} from "../_app";
-import {SOCKET_EMITTER, SocketPayloadMap} from "@shared/types/Requests/Socket";
+import {SOCKET_EVENT, SocketPayloadMap} from "@shared/types/Requests/Socket";
 import {useRouter} from "next/router";
 import {SmallWindow} from "../../components/SessionList/SmallWindow/SmallWindow";
 import {EnterPassword} from "../../components/SessionList/SmallWindow/EnterPassword/EnterPassword";
 import {Message} from "../../components/SessionList/SmallWindow/Error/Message";
 import {BackButton} from "../../components/BackButton/BackButton";
-
-interface Props {
-
-}
+import {useAppDispatch} from "../../store/hooks";
+import {socketEmit} from "../../middleware/socketMiddleware";
+import {setSocketListener} from "../api/socket";
 
 export function Multiplayer() {
 
     const {t} = useTranslation();
+    const router = useRouter();
+    const dispatch = useAppDispatch()
 
     const [sessionIdToJoin, setSessionIdToJoin] = useState("");
-    const router = useRouter();
     const [message, setMessage] = useState(router.query.msg as string);
 
 
@@ -38,20 +34,26 @@ export function Multiplayer() {
     }
 
     function handleRefreshClick() {
-        socketEmitter.emitRequestSessionList();
+        dispatch(socketEmit(SOCKET_EVENT.SESSION_LIST_REQUESTED, null))
     }
 
     useEffect(() => {
-        socket.on(SOCKET_EMITTER.JOIN_SESSION_RESPONSE, (payload: SocketPayloadMap[SOCKET_EMITTER.JOIN_SESSION_RESPONSE]) => {
-            if (payload.error) {
-                setMessage(payload.error);
-                return;
-            }
-            if (payload.sessionId) {
-                router.push(`/multiplayer/lobby/?sessionId=${payload.sessionId}`);
-            }
-        })
-    }, [])
+        const listeners = [
+            setSocketListener(SOCKET_EVENT.JOIN_SESSION_RESPONSE, (payload) => {
+                if (payload.error) {
+                    setMessage(payload.error);
+                    return;
+                }
+                if (payload.sessionId) {
+                    router.push(`/multiplayer/lobby/?sessionId=${payload.sessionId}`).then();
+                }
+            })
+        ]
+
+        return () => {
+            listeners.forEach((listener) => listener.off())
+        }
+    }, [router])
 
 
     return (

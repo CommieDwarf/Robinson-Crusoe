@@ -7,7 +7,8 @@ import {kebabCase} from "lodash";
 import {ITreasureMysteryCardRenderData} from "@shared/types/Game/MysteryService/MysteryCard";
 import {isStorageCard} from "@shared/utils/typeGuards/isStorageCard";
 import {MYSTERY_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
-import {socketEmitter} from "../../../../../../../../pages/_app";
+import {useAppDispatch} from "../../../../../../../../store/hooks";
+import {socketEmitAction} from "../../../../../../../../middleware/socketMiddleware";
 
 interface Props {
     card: ITreasureMysteryCardRenderData;
@@ -18,6 +19,8 @@ interface Props {
 }
 
 export default function UseButtons(props: Props) {
+
+    const dispatch = useAppDispatch();
 
     const buttonType =
         props.card.uses === 1 || props.card.uses === Infinity ? "single" : "multi";
@@ -63,19 +66,19 @@ export default function UseButtons(props: Props) {
 
     function handleWithdraw() {
         if (isStorageCard(props.card)) {
-            socketEmitter.emitAction(MYSTERY_CONTROLLER_ACTION.MANAGE_CARD_STORAGE,
+            dispatch(socketEmitAction(MYSTERY_CONTROLLER_ACTION.MANAGE_CARD_STORAGE,
                 props.card.name,
                 "withdraw"
-            )
+            ));
         }
     }
 
     function handleDeposit() {
         if (isStorageCard(props.card)) {
-            socketEmitter.emitAction(MYSTERY_CONTROLLER_ACTION.MANAGE_CARD_STORAGE,
+            dispatch(socketEmitAction(MYSTERY_CONTROLLER_ACTION.MANAGE_CARD_STORAGE,
                 props.card.name,
                 "deposit"
-            )
+            ));
         }
     }
 

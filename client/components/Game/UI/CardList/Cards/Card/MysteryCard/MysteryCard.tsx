@@ -7,7 +7,8 @@ import {IMysteryCardRenderData} from "@shared/types/Game/MysteryService/MysteryC
 import {kebabCase} from "lodash";
 import {MYSTERY_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {isTreasureCardRenderData} from "@shared/utils/typeGuards/isTreasureCard";
-import {socketEmitter} from "../../../../../../../pages/_app";
+import {useAppDispatch} from "../../../../../../../store/hooks";
+import {socketEmitAction} from "../../../../../../../middleware/socketMiddleware";
 
 
 type Props = {
@@ -17,6 +18,7 @@ type Props = {
 };
 export const MysteryCard = (props: Props) => {
 
+    const dispatch = useAppDispatch();
 
     function onMouseEnterButton() {
         props.handleMouseOverButtons(true)
@@ -28,7 +30,7 @@ export const MysteryCard = (props: Props) => {
 
 
     function use() {
-        socketEmitter.emitAction(MYSTERY_CONTROLLER_ACTION.USE_TREASURE_CARD, props.mysteryCard.name);
+        dispatch(socketEmitAction(MYSTERY_CONTROLLER_ACTION.USE_TREASURE_CARD, props.mysteryCard.name));
         props.handleMouseOverButtons(false);
     }
 

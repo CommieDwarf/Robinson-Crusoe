@@ -1,13 +1,13 @@
-import React, {ChangeEvent, ChangeEventHandler, useEffect, useRef, useState} from "react";
+import React, {ChangeEvent, useEffect, useRef, useState} from "react";
 import styles from "./ChatLog.module.css";
 import {LogMessage} from "./LogMessage/LogMessage";
-import {useAppSelector} from "../../../../store/hooks";
+import {useAppDispatch, useAppSelector} from "../../../../store/hooks";
 import {selectGame} from "../../../../reduxSlices/gameSession";
 import {isLogMessage} from "@shared/utils/typeGuards/isLogMessage";
 import {ChatMessage} from "./ChatMessage/ChatMessage";
 import {ModeSwitch} from "./ModeSwitch/ModeSwitch";
-import {IChatMessageRenderData} from "@shared/types/ChatService/ChatService";
-import {socketEmitter} from "../../../../pages/_app";
+import {socketEmit} from "../../../../middleware/socketMiddleware";
+import {SOCKET_EVENT} from "@shared/types/Requests/Socket";
 
 
 interface Props {
@@ -21,6 +21,7 @@ export default function ChatLog(props: Props) {
     const [logMode, setLogMode] = useState(false); // false means chat
 
     const [message, setMessage] = useState("");
+    const scrollRef = useRef<HTMLDivElement>(null);
 
     const messages = useAppSelector((state) => {
             if (logMode) {
@@ -32,7 +33,8 @@ export default function ChatLog(props: Props) {
     );
 
 
-    const scrollRef = useRef<HTMLDivElement>(null);
+    const dispatch = useAppDispatch();
+
     useEffect(() => {
         if (scrollRef.current) {
             scrollRef.current.scrollBy({behavior: "smooth", top: scrollRef.current.offsetTop})
@@ -46,11 +48,6 @@ export default function ChatLog(props: Props) {
         setLogMode((prev) => !prev);
     }
 
-    const msg: IChatMessageRenderData = {
-        timestamp: Date.now(),
-        author: "Wiesiek",
-        content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tincidunt euismod enim, quis fringilla metus rutrum et. Curabitur dictum risus in mattis efficitur. Pellentesque sit amet metus enim. Etiam ultrices nibh lectus, nec eleifend leo tempor nec. Nulla euismod sodales tortor bibendum pretium. Nam massa justo, interdum eu egestas non, auctor quis leo. Duis et neque ac nisl facilisis blandit.",
-    }
 
     function onTextAreaChange(event: ChangeEvent<HTMLTextAreaElement>) {
         setMessage(event.currentTarget.value);
@@ -65,7 +62,7 @@ export default function ChatLog(props: Props) {
 
     function onSendMsgClick() {
         if (message.trim().length > 0) {
-            socketEmitter.emitSendMessage(message.trim());
+            dispatch(socketEmit(SOCKET_EVENT.SEND_MESSAGE, {message: message.trim(), sessionId: true}))
             setMessage("");
         }
     }

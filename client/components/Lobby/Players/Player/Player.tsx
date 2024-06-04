@@ -5,12 +5,14 @@ import {useTranslation} from "react-i18next";
 import {IPlayerRenderData} from "@shared/types/Game/PlayerService/Player";
 import {ChangeEvent, useEffect, useState} from "react";
 import {CHARACTER} from "@shared/types/Game/Characters/Character";
-import {socket, socketEmitter} from "../../../../pages/_app";
 import checkMark from "/public/UI/misc/check-mark.png";
 import xMarkImg from "/public/UI/misc/x-mark.png";
-import {SOCKET_EMITTER, SocketPayloadMap} from "@shared/types/Requests/Socket";
+import {SOCKET_EVENT} from "@shared/types/Requests/Socket";
 import {PlayerLatency} from "../../../PlayerLatency/PlayerLatency";
 import capitalize from "@shared/utils/capitalize";
+import {setSocketListener} from "../../../../pages/api/socket";
+import {useAppDispatch} from "../../../../store/hooks";
+import {socketEmit} from "../../../../middleware/socketMiddleware";
 
 interface Props {
     player: IPlayerRenderData,
@@ -23,41 +25,55 @@ interface Props {
 
 export function Player(props: Props) {
 
-    const {t} = useTranslation();
 
     const [character, setCharacter] = useState<CHARACTER>(props.player.assignedCharacter.char);
     const [latency, setLatency] = useState<number | null>(null);
+
+    const {t} = useTranslation();
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         setCharacter(props.player.assignedCharacter.char);
     }, [props.player.assignedCharacter.char])
 
     useEffect(() => {
-        socket.on(SOCKET_EMITTER.PLAYER_LATENCY_SENT, (payload: SocketPayloadMap[SOCKET_EMITTER.PLAYER_LATENCY_SENT]) => {
+        const listener = setSocketListener(SOCKET_EVENT.PLAYER_LATENCY_SENT, (payload) => {
             if (payload.playerId === props.player.id) {
                 setLatency(payload.latency);
             }
-
         })
+        return () => {
+            listener.off();
+        }
+
     }, [props.player.id])
 
     function handleChange(event: ChangeEvent<HTMLSelectElement>) {
         setCharacter(event.currentTarget.value as CHARACTER);
-        socketEmitter.emitChangeCharacter({
-            char: event.currentTarget.value as CHARACTER
-        })
+        dispatch(socketEmit(SOCKET_EVENT.CHANGE_CHARACTER, {
+            character: {
+                char: event.currentTarget.value as CHARACTER
+            },
+            sessionId: true,
+        }))
     }
 
 
     function handleKickClick() {
         if (props.hostControls) {
-            socketEmitter.emitKickPlayer(props.player.id);
+            dispatch(socketEmit(SOCKET_EVENT.KICK_PLAYER, {
+                playerId: props.player.id,
+                sessionId: true,
+            }))
         }
     }
 
     function handleReadyClick() {
         if (props.local) {
-            socketEmitter.emitSetPlayerReady(props.player.ready);
+            dispatch(socketEmit(SOCKET_EVENT.SET_PLAYER_READY, {
+                value: props.player.ready,
+                sessionId: true,
+            }))
         }
     }
 

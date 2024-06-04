@@ -4,13 +4,14 @@ import {Players} from "../../../components/Lobby/Players/Players";
 import {Character} from "../../../components/Lobby/Character/Character";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import {socket, socketEmitter} from "../../_app";
-import {SOCKET_EMITTER, SocketPayloadMap} from "@shared/types/Requests/Socket";
-import {gameSessionUpdated} from "../../../reduxSlices/gameSession";
+import {SOCKET_EVENT} from "@shared/types/Requests/Socket";
+import {gameSessionUpdated, sessionIdUpdated} from "../../../reduxSlices/gameSession";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks";
 import {ControlPanel} from "../../../components/Lobby/ControlPanel/ControlPanel";
 import {Gender} from "@shared/types/Game/Characters/Character";
 import ChatLog from "../../../components/Game/UI/ChatLog/ChatLog";
+import {socketEmit} from "../../../middleware/socketMiddleware";
+import {setSocketListener} from "../../api/socket";
 
 export function Lobby() {
     const [gender, setGender] = useState<Gender>("male");
@@ -18,68 +19,71 @@ export function Lobby() {
     const dispatch = useAppDispatch();
     const [loaded, setLoaded] = useState(false);
 
-    const sessionId = router.query.sessionId as string;
+    const sessionIdQuery = router.query.sessionId as string;
 
+    const sessionId = useAppSelector(state => state.gameSession.sessionId);
     const sessionData = useAppSelector(state => state.gameSession.data);
 
     if (sessionData?.game && loaded) {
-        console.log("Redirecting")
-        router.push(`/play?sessionId=${sessionData.id}`).then();
+        router.push(`/play/${sessionData.id}`).then();
     }
-
-    if (!sessionData) {
-        socketEmitter.setCurrentSessionId(sessionId);
-        socketEmitter.emitRequestGameSession();
-    }
-
 
     useEffect(() => {
-        const handleRouteChange = () => {
-            if (sessionData?.id && !sessionId.includes(sessionData?.id)) {
-                socketEmitter.emitUserLeftLobby();
+        dispatch(sessionIdUpdated(sessionIdQuery));
+        console.log("getting session id", sessionIdQuery)
+    }, [sessionIdQuery, dispatch])
+
+    useEffect(() => {
+        const handleRouteChange = (url: string) => {
+            if (sessionIdQuery && !url.includes(sessionIdQuery)) {
+                dispatch(socketEmit(SOCKET_EVENT.USER_LEFT_LOBBY, {
+                    sessionId: true,
+                }))
             }
         };
-
         router.events.on('routeChangeStart', handleRouteChange);
-
-
-        socket.on(SOCKET_EMITTER.SESSION_DATA_SENT, (payload: SocketPayloadMap[SOCKET_EMITTER.SESSION_DATA_SENT]) => {
-            const gameSession = payload.sessionData;
-            if (gameSession) {
-                dispatch(gameSessionUpdated(gameSession));
-                setLoaded(true);
-                if (gameSession.game) {
-                    router.push("/Play/?sessionId=" + sessionId);
-                }
-            }
-        });
-
-        socket.on(SOCKET_EMITTER.PLAYER_KICKED, () => {
-            router.push("./?msg=kicked")
-        })
-
-        socket.on(SOCKET_EMITTER.SESSION_CHANGED, () => {
-            socketEmitter.emitRequestGameSession();
-        })
-
-        socket.on(SOCKET_EMITTER.PING, (payload: SocketPayloadMap[SOCKET_EMITTER.PING]) => {
-            socketEmitter.emitPong(payload);
-        })
-
-
-        socketEmitter.setCurrentSessionId(sessionId);
-        socketEmitter.emitRequestGameSession();
-
-
         return () => {
-            socket.off(SOCKET_EMITTER.SESSION_DATA_SENT);
-            socket.off(SOCKET_EMITTER.SESSION_CHANGED);
-            socket.off(SOCKET_EMITTER.PLAYER_KICKED);
-            socket.off(SOCKET_EMITTER.PING)
-
             router.events.off('routeChangeStart', handleRouteChange);
         }
-    }, [dispatch, router, sessionData?.id, sessionId])
+    }, [router, sessionId, dispatch])
+
+    useEffect(() => {
+        if (!sessionId) {
+            return;
+        }
+        const listeners = [
+            setSocketListener(SOCKET_EVENT.SESSION_DATA_SENT, (payload) => {
+                const gameSession = payload.sessionData;
+                console.log('received session data');
+                if (gameSession) {
+                    dispatch(gameSessionUpdated(gameSession));
+                    setLoaded(true);
+                    if (gameSession.game) {
+                        router.push("/play/" + sessionId).then();
+                    }
+                }
+            }),
+            setSocketListener(SOCKET_EVENT.PLAYER_KICKED, () => {
+                router.push("./?msg=kicked").then();
+            }),
+            setSocketListener(SOCKET_EVENT.SESSION_CHANGED, () => {
+                dispatch(socketEmit(SOCKET_EVENT.SESSION_DATA_REQUESTED, {sessionId: true}))
+            }),
+            setSocketListener(SOCKET_EVENT.PING, (payload) => {
+                dispatch(socketEmit(SOCKET_EVENT.PONG, payload));
+            }),
+            setSocketListener(SOCKET_EVENT.GAME_STARTED, (payload) => {
+                router.push(`/play/${payload.sessionId}`).then();
+            })
+        ]
+
+        console.log("requested session data id:", sessionId);
+        dispatch(socketEmit(SOCKET_EVENT.SESSION_DATA_REQUESTED, {sessionId: true}))
+
+        return () => {
+            listeners.forEach(listener => listener.off());
+        }
+    }, [dispatch, router, sessionId])
 
 
     function handleSetGender(gender: Gender) {
@@ -118,3 +122,6 @@ export function Lobby() {
 }
 
 export default Lobby;
+
+
+

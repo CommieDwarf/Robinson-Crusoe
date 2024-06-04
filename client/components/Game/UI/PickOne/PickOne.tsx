@@ -5,9 +5,10 @@ import {IObjectPickerRenderData,} from "@shared/types/Game/ObjectPicker/ObjectPi
 import {useState} from "react";
 import {useTranslation} from "react-i18next";
 import {capitalize} from "lodash";
-import {socketEmitter} from "../../../../pages/_app";
 import {OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {insertIconsIntoText} from "../../../../utils/insertIconsIntoText";
+import {useAppDispatch} from "../../../../store/hooks";
+import {socketEmitAction} from "../../../../middleware/socketMiddleware";
 
 interface Props {
     objectPicker: IObjectPickerRenderData<any>;
@@ -17,6 +18,7 @@ export function PickOne(props: Props) {
     const [selectedObjectIds, setSelectedObjectIds] = useState<string[]>([]);
     const {amount, objects, source, pickSubject, hasSecondEffect} = props.objectPicker;
 
+    const dispatch = useAppDispatch();
 
     function selectObject(id: string) {
         if (selectedObjectIds.length >= amount) {
@@ -26,9 +28,6 @@ export function PickOne(props: Props) {
         }
     }
 
-    function unselectObject(id: string) {
-        setSelectedObjectIds((prev) => prev.filter((i) => i !== id));
-    }
 
     function handleConfirmClick() {
         pickObject(false);
@@ -36,7 +35,7 @@ export function PickOne(props: Props) {
 
     function pickObject(secondary: boolean) {
         if (selectedObjectIds.length === amount) {
-            socketEmitter.emitAction(OTHER_CONTROLLER_ACTION.PICK_OBJECT, props.objectPicker.id, selectedObjectIds, true);
+            dispatch(socketEmitAction(OTHER_CONTROLLER_ACTION.PICK_OBJECT, props.objectPicker.id, selectedObjectIds, true));
         }
     }
 
@@ -44,7 +43,6 @@ export function PickOne(props: Props) {
         pickObject(true);
     }
 
-    console.log(props.objectPicker.objects, "there should be a beast");
 
     const {t} = useTranslation();
 
@@ -77,7 +75,7 @@ export function PickOne(props: Props) {
                 <div className={styles.buttons}>
                     <div className={`${styles.button} ${styles.buttonConfirm}`}
                          onClick={handleConfirmClick}>
-
+                        {/* @ts-ignore*/}
                         {insertIconsIntoText(capitalize(t(`pickObject.${source}.effectLabel`, {defaultValue: t(`pickObject.other.confirm`)})), styles.icon)}
 
                     </div>

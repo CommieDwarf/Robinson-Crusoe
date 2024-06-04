@@ -6,7 +6,7 @@ import {BackButton} from "../../../BackButton/BackButton";
 
 interface Props {
     phaseChangeLocked: boolean,
-    confirmWindowOpen: boolean;
+    confirmWindowIsOpen: boolean;
 }
 
 
@@ -15,11 +15,11 @@ export function ControlPanel(props: Props) {
 
     return <div className={styles.container}>
         <div className={styles.backButtonWrapper}>
-            <BackButton/>
+            <BackButton url={"/"}/>
         </div>
         <Alerts/>
         <NextPhaseButton
-            locked={props.phaseChangeLocked || props.confirmWindowOpen}
+            locked={props.phaseChangeLocked || props.confirmWindowIsOpen}
         />
     </div>
 }

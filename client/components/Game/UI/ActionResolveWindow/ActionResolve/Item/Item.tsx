@@ -18,7 +18,8 @@ import {IInventionRenderData} from "@shared/types/Game/InventionService/Inventio
 import {ITileRenderData} from "@shared/types/Game/TileService/ITile";
 import {kebabCase} from "lodash";
 import {ACTION_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
-import {socketEmitter} from "../../../../../../pages/_app";
+import {useAppDispatch} from "../../../../../../store/hooks";
+import {socketEmitAction} from "../../../../../../middleware/socketMiddleware";
 
 type Props = {
     resolvableItem: IResolvableItemRenderData;
@@ -35,11 +36,13 @@ export const Item = (props: Props) => {
     let itemTypeStatusClass = "";
 
     const [used, setUsed] = useState(false);
+    const dispatch = useAppDispatch();
 
 
     function handleBibleCheckBoxClick() {
-        socketEmitter.emitAction(ACTION_CONTROLLER_ACTION.SET_BIBLE_USAGE, props.resolvableItem.id, !props.resolvableItem.bibleChecked
-        )
+        dispatch(socketEmitAction(ACTION_CONTROLLER_ACTION.SET_BIBLE_USAGE,
+            props.resolvableItem.id, !props.resolvableItem.bibleChecked,
+        ))
     }
 
     if (props.resolvableItem.action === ACTION.THREAT) {

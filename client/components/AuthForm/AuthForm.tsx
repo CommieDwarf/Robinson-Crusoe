@@ -8,8 +8,8 @@ import {useAppDispatch} from "../../store/hooks";
 import {fetchUser} from "../../utils/auth/fetchUser";
 import {LoginReqBody} from "@shared/types/Requests/Post";
 import Cookies from "js-cookie";
-import {socketEmitter} from "../../pages/_app";
 import {userUpdated} from "../../reduxSlices/auth";
+import {socketConnect} from "../../middleware/socketMiddleware";
 
 interface Props {
     isLogin: boolean;
@@ -120,11 +120,11 @@ export default function AuthForm(props: Props) {
     }
 
     async function handleAuthentication(response: Response) {
-        const token = response.headers.get("Authorization");
-        if (token) {
-            Cookies.set("Authorization", token);
-            socketEmitter.connectSocketWithAuthToken(token);
-            const user = await fetchUser(token);
+        const authToken = response.headers.get("Authorization");
+        if (authToken) {
+            Cookies.set("Authorization", authToken);
+            dispatch(socketConnect({authToken}))
+            const user = await fetchUser(authToken);
             dispatch(userUpdated(user));
             router.push("/").catch((e) => console.error(e));
         }

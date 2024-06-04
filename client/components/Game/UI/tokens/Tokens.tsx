@@ -6,9 +6,9 @@ import {ContextMenu} from "./ContextMenu/ContextMenu";
 import {ITokenRenderData} from "@shared/types/Game/TokenService/Token";
 import {getPropsComparator} from "../../../../utils/getPropsComparator";
 import {OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
-import {socketEmitter} from "../../../../pages/_app";
-import {useAppSelector} from "../../../../store/hooks";
+import {useAppDispatch, useAppSelector} from "../../../../store/hooks";
 import {selectGame} from "../../../../reduxSlices/gameSession";
+import {socketEmitAction} from "../../../../middleware/socketMiddleware";
 
 interface Props {
     menuDisabled: boolean;
@@ -23,6 +23,8 @@ function Tokens(props: Props) {
     );
     const [contextMenuLeft, setContextMenuLeft] = useState(0);
     const [tokenLocked, setTokenLocked] = useState(false);
+
+    const dispatch = useAppDispatch();
 
     const tokens = useAppSelector((state) => {
         const tokenService = selectGame(state).tokenService!;
@@ -78,7 +80,7 @@ function Tokens(props: Props) {
             return;
         }
         setSelectedToken(null);
-        socketEmitter.emitAction(OTHER_CONTROLLER_ACTION.USE_DISCOVERY_TOKEN, id, "cook")
+        dispatch(socketEmitAction(OTHER_CONTROLLER_ACTION.USE_DISCOVERY_TOKEN, id, "cook"));
     }
 
     return (

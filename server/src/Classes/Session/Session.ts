@@ -11,7 +11,7 @@ import {SessionSettings} from "@shared/types/SessionSettings";
 import {IUser} from "../../types/UserData/IUser";
 import {Player} from "../Player/Player";
 import {io} from "../../../server";
-import {SOCKET_EMITTER, SocketPayloadMap} from "@shared/types/Requests/Socket";
+import {SOCKET_EVENT, SocketPayloadMap} from "@shared/types/Requests/Socket";
 import {isPlayer} from "../../utils/isPlayer";
 import {ChatService} from "../ChatService/ChatService";
 import {IChatService} from "@shared/types/ChatService/ChatService";
@@ -116,7 +116,7 @@ export class Session implements SessionData {
         this._players.push(player);
         this.assignColor(player.id, this.findAvailableColor());
         this.assignCharacter(player.id, CHARACTER.SOLDIER, "male");
-        this.pingPlayer(player);
+        // this.pingPlayer(player);
         user.addActiveSession(this);
     }
 
@@ -133,7 +133,7 @@ export class Session implements SessionData {
         player.clearPingIntervals();
         this._players = this._players.filter((pl) => pl !== player);
         console.log("leaving session!");
-        io.to(this.id).emit(SOCKET_EMITTER.SESSION_CHANGED);
+        io.to(this.id).emit(SOCKET_EVENT.SESSION_CHANGED);
     }
 
     public startGame(): BaseController {
@@ -177,11 +177,11 @@ export class Session implements SessionData {
 
     private pingPlayer(player: IPlayer) {
         player.ping((latency) => {
-            const payload: SocketPayloadMap[SOCKET_EMITTER.PLAYER_LATENCY_SENT] = {
+            const payload: SocketPayloadMap[SOCKET_EVENT.PLAYER_LATENCY_SENT] = {
                 playerId: player.id,
                 latency
             }
-            io.to(this.id).emit(SOCKET_EMITTER.PLAYER_LATENCY_SENT, payload)
+            io.to(this.id).emit(SOCKET_EVENT.PLAYER_LATENCY_SENT, payload)
         }, () => {
             // if (!this.isGameInProgress) {
             //     this.leaveSession(player)

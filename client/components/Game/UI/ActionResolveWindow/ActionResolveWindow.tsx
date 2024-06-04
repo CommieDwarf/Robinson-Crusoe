@@ -18,9 +18,9 @@ import {RollDiceWindow} from "./RollDiceWindow/RollDiceWindow";
 import actionIconImg from "/public/UI/phase/action.png";
 import {capitalize, kebabCase} from "lodash";
 import {useTranslation} from "react-i18next";
-import {socketEmitter} from "../../../../pages/_app";
-import {useAppSelector} from "../../../../store/hooks";
+import {useAppDispatch, useAppSelector} from "../../../../store/hooks";
 import {selectGame} from "../../../../reduxSlices/gameSession";
+import {socketEmitAction} from "../../../../middleware/socketMiddleware";
 
 
 type Props = {};
@@ -38,6 +38,8 @@ export const ActionResolveWindow = (props: Props) => {
     const [reRollButtonClicked, setReRollButtonClicked] = useState(false);
     const [reRolledDice, setReRolledDice] = useState<ActionDice | null>(null);
     const [reRollSkillUsed, setReRollSkillUsed] = useState(false);
+
+    const dispatch = useAppDispatch();
 
     function onReRollButtonClick() {
         const leader = actionService.lastRolledItem?.leaderPawn.owner as unknown as ICharacter;
@@ -68,7 +70,8 @@ export const ActionResolveWindow = (props: Props) => {
             setReRolledDice(null);
             await sleep(10);
         }
-        socketEmitter.emitAction(ACTION_CONTROLLER_ACTION.REROLL_ACTION_DICE, resolvableItemID)
+
+        dispatch(socketEmitAction(ACTION_CONTROLLER_ACTION.REROLL_ACTION_DICE, resolvableItemID));
 
         setReRolledDice("success");
     }
@@ -79,7 +82,7 @@ export const ActionResolveWindow = (props: Props) => {
 
     function setNextAction() {
         setResolvedItems(new Map());
-        socketEmitter.emitAction(ACTION_CONTROLLER_ACTION.SET_NEXT_ACTION);
+        dispatch(socketEmitAction(ACTION_CONTROLLER_ACTION.SET_NEXT_ACTION));
     }
 
     function rollDices(actionItem: string) {
@@ -89,7 +92,7 @@ export const ActionResolveWindow = (props: Props) => {
             item.shouldRollDices &&
             item.resolveStatus === RESOLVE_ITEM_STATUS.PENDING
         ) {
-            socketEmitter.emitAction(ACTION_CONTROLLER_ACTION.ROLL_ACTION_DICES, actionItem)
+            dispatch(socketEmitAction(ACTION_CONTROLLER_ACTION.ROLL_ACTION_DICES, actionItem));
         }
     }
 
@@ -98,7 +101,7 @@ export const ActionResolveWindow = (props: Props) => {
             setReRolledDice(null);
         }
 
-        socketEmitter.emitAction(ACTION_CONTROLLER_ACTION.RESOLVE_ACTION, actionId)
+        dispatch(socketEmitAction(ACTION_CONTROLLER_ACTION.RESOLVE_ACTION, actionId));
 
         setResolvedItems((prevState) => {
             const copy = new Map(prevState);

@@ -19,15 +19,10 @@ import ArrangeCampRest from "./UI/ArrangeCampRest/ArrangeCampRest";
 
 import {DragDropContext, DragStart, DragUpdate, DropResult,} from "react-beautiful-dnd";
 import {Weather} from "./UI/Weather/Weather";
-
-import {NextPhaseButton} from "./UI/NextPhaseButton/NextPhaseButton";
 import {ActionResolveWindow} from "./UI/ActionResolveWindow/ActionResolveWindow";
-
-import {Alerts} from "./UI/Alerts/Alerts";
 import {WeatherResolveWindow} from "./UI/WeatherResolveWindow/WeatherResolveWindow";
 import {NightTip} from "./UI/NightTip/NightTip";
 import {ConfirmCampMove} from "./UI/ConfirmCampMove/ConfirmCampMove";
-import {sleep} from "@shared/utils/sleep";
 
 import {useAppDispatch, useAppSelector} from "../../store/hooks";
 
@@ -40,14 +35,13 @@ import {CONFIRM_WINDOW} from "./UI/ConfirmWindow/messages";
 import Scenario from "./UI/Scenario/Scenario";
 import {isPawnPlacementAllowed} from "@shared/utils/isPawnPlacementAllowed";
 import {ITileRenderData} from "@shared/types/Game/TileService/ITile";
-import {CHARACTER_CONTROLLER_ACTION, OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
+import {CHARACTER_CONTROLLER_ACTION, OTHER_CONTROLLER_ACTION,} from "@shared/types/CONTROLLER_ACTION";
 import {MysteryCardDraw} from "./UI/MysteryCardDraw/MysteryCardDraw";
-import {socketEmitter} from "../../pages/_app";
 import {PickOne} from "./UI/PickOne/PickOne";
 import {IPawnRenderData} from "@shared/types/Game/Pawns/Pawn";
 import {actionSlotUpdated, selectGame} from "../../reduxSlices/gameSession";
-import {BackButton} from "../BackButton/BackButton";
 import {ControlPanel} from "./UI/ControlPanel/ControlPanel";
+import {socketEmitAction} from "../../middleware/socketMiddleware";
 
 
 interface Props {
@@ -167,44 +161,44 @@ export default function Game(props: Props) {
     }
 
     function onDragUpdate(update: DragUpdate) {
-        // unselectActionSlots();
-        // const pawn = gameData.allPawns.find(
-        //     (p) => p.draggableId === update.draggableId
-        // );
-        // const destinationId = update.destination?.droppableId;
-        // if (
-        //     destinationId?.includes("owner") ||
-        //     destinationId === update.source.droppableId
-        // ) {
-        //     return;
-        // }
-        //
-        //
-        // if (destinationId && pawn) {
-        //     const destinationSlotElement = document.getElementById(destinationId);
-        //
-        //     if (isPawnPlacementAllowed(pawn, destinationId)) {
-        //         destinationSlotElement?.classList.add(actionSlotStyles.canBeSettled);
-        //     } else {
-        //         destinationSlotElement?.classList.add(actionSlotStyles.cantBeSettled);
-        //     }
-        //     const pawnAtDestination = gameData.actionSlots.get(destinationId);
-        //     const sourceSlotElement = document.getElementById(
-        //         update.source.droppableId
-        //     );
-        //     if (
-        //         update.source.droppableId.includes("owner") ||
-        //         !pawnAtDestination
-        //     ) {
-        //         return;
-        //     }
-        //
-        //     if (isPawnPlacementAllowed(pawnAtDestination, update.source.droppableId)) {
-        //         sourceSlotElement?.classList.add(actionSlotStyles.canBeSettled);
-        //     } else {
-        //         sourceSlotElement?.classList.add(actionSlotStyles.cantBeSettled);
-        //     }
-        // }
+        unselectActionSlots();
+        const pawn = gameData.allPawns.find(
+            (p) => p.draggableId === update.draggableId
+        );
+        const destinationId = update.destination?.droppableId;
+        if (
+            destinationId?.includes("owner") ||
+            destinationId === update.source.droppableId
+        ) {
+            return;
+        }
+
+
+        if (destinationId && pawn) {
+            const destinationSlotElement = document.getElementById(destinationId);
+
+            if (isPawnPlacementAllowed(pawn, destinationId)) {
+                destinationSlotElement?.classList.add(actionSlotStyles.canBeSettled);
+            } else {
+                destinationSlotElement?.classList.add(actionSlotStyles.cantBeSettled);
+            }
+            const pawnAtDestination = gameData.actionSlots.get(destinationId);
+            const sourceSlotElement = document.getElementById(
+                update.source.droppableId
+            );
+            if (
+                update.source.droppableId.includes("owner") ||
+                !pawnAtDestination
+            ) {
+                return;
+            }
+
+            if (isPawnPlacementAllowed(pawnAtDestination, update.source.droppableId)) {
+                sourceSlotElement?.classList.add(actionSlotStyles.canBeSettled);
+            } else {
+                sourceSlotElement?.classList.add(actionSlotStyles.cantBeSettled);
+            }
+        }
     }
 
     async function onDragEnd(result: DropResult) {
@@ -249,13 +243,16 @@ export default function Game(props: Props) {
         dispatch(actionSlotUpdated(Object.fromEntries(gameData.actionSlots.entries())));
 
 
-        socketEmitter.emitAction(CHARACTER_CONTROLLER_ACTION.MOVE_PAWN, {
+        const source = {
             draggableId: draggedPawn.draggableId,
             droppableId: sourceId,
-        }, {
+        }
+        const target = {
             draggableId: pawnAtActionSlot?.draggableId || "",
             droppableId: destinationId,
-        })
+        }
+
+        dispatch(socketEmitAction(CHARACTER_CONTROLLER_ACTION.MOVE_PAWN, source, target))
     }
 
 
@@ -327,7 +324,7 @@ export default function Game(props: Props) {
             {confirmWindow ? <ConfirmWindow
                 name={confirmWindow}
                 onAccept={() => {
-                    socketEmitter.emitAction(OTHER_CONTROLLER_ACTION.SET_NEXT_PHASE)
+                    dispatch(socketEmitAction(OTHER_CONTROLLER_ACTION.SET_NEXT_PHASE))
                     setConfirmWindow(null);
                 }}
                 onRefuse={() => {
@@ -396,7 +393,7 @@ export default function Game(props: Props) {
                 toggleShowScenario={toggleShowScenario}
             />
 
-            <ControlPanel confirmWindowOpen={!!confirmWindow} phaseChangeLocked={gameData.phaseChangeLocked}/>
+            <ControlPanel confirmWindowIsOpen={!!confirmWindow} phaseChangeLocked={gameData.phaseChangeLocked}/>
         </div>
     );
 }

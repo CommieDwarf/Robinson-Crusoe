@@ -5,7 +5,8 @@ import moraleArrowLeftImg from "/public/UI/icons/morale-arrow-left.png";
 import React from "react";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
 import {CHARACTER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
-import {socketEmitter} from "../../../../pages/_app";
+import {useAppDispatch} from "../../../../store/hooks";
+import {socketEmitAction} from "../../../../middleware/socketMiddleware";
 
 interface Props {
     id: number;
@@ -15,12 +16,14 @@ interface Props {
 
 export default function Threshold(props: Props) {
 
+    const dispatch = useAppDispatch();
+
     let blinkClass =
         props.thresholdAmountForRemoval > 0 && !props.removed ? styles.thresholdMarkedForRemoval : "";
 
     const handleClick = () => {
         if (props.thresholdAmountForRemoval > 0 && !props.removed) {
-            socketEmitter.emitAction(CHARACTER_CONTROLLER_ACTION.REMOVE_HEALTH_THRESHOLD, props.id)
+            dispatch(socketEmitAction(CHARACTER_CONTROLLER_ACTION.REMOVE_HEALTH_THRESHOLD, props.id));
         }
     };
 

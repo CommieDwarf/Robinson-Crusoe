@@ -6,9 +6,9 @@ import ResizableImage from "../../../ResizableImage/ResizableImage";
 
 import {ITileRenderData} from "@shared/types/Game/TileService/ITile";
 import {TILE_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
-import {socketEmitter} from "../../../../pages/_app";
-import {useAppSelector} from "../../../../store/hooks";
+import {useAppDispatch, useAppSelector} from "../../../../store/hooks";
 import {selectGame} from "../../../../reduxSlices/gameSession";
+import {socketEmitAction} from "../../../../middleware/socketMiddleware";
 
 type Props = {
     nextCamp: ITileRenderData;
@@ -17,9 +17,10 @@ type Props = {
 export const ConfirmCampMove = (props: Props) => {
 
     const currentCamp = useAppSelector((state) => selectGame(state).tileService.campTile!);
+    const dispatch = useAppDispatch();
 
     function handleConfirmClick() {
-        socketEmitter.emitAction(TILE_CONTROLLER_ACTION.MOVE_CAMP, props.nextCamp.id)
+        dispatch(socketEmitAction(TILE_CONTROLLER_ACTION.MOVE_CAMP, props.nextCamp.id));
         props.hide();
     }
 

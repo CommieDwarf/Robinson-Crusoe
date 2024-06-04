@@ -1,8 +1,10 @@
 import styles from "./Session.module.css";
 import {capitalize} from "lodash";
 import {useTranslation} from "react-i18next";
-import {socketEmitter} from "../../../pages/_app";
 import {shortenWithTripleDots} from "../../../utils/shortenWithTripleDots";
+import {useAppDispatch} from "../../../store/hooks";
+import {socketEmit} from "../../../middleware/socketMiddleware";
+import {SOCKET_EVENT} from "@shared/types/Requests/Socket";
 
 
 interface Props {
@@ -22,11 +24,13 @@ interface Props {
 export function Session(props: Props) {
     const {t} = useTranslation();
 
+    const dispatch = useAppDispatch();
+
     function handleClick() {
         if (props.password) {
             props.setEnterSessionId(props.id);
         } else {
-            socketEmitter.emitJoinSession(props.id, "");
+            dispatch(socketEmit(SOCKET_EVENT.JOIN_SESSION, {password: "", sessionId: true}))
         }
     }
 

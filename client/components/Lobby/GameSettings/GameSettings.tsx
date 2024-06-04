@@ -3,12 +3,14 @@ import {capitalize} from "lodash";
 import {SCENARIO} from "@shared/types/Game/ScenarioService/SCENARIO";
 import {useTranslation} from "react-i18next";
 import React, {useEffect, useState} from "react";
-import {socket, socketEmitter} from "../../../pages/_app";
-import {GameSessionCreatedPayload, SOCKET_EMITTER} from "@shared/types/Requests/Socket";
+import {SOCKET_EVENT} from "@shared/types/Requests/Socket";
 import {useRouter} from "next/router";
 import {sessionValidationConfig as valConfig} from "@shared/constants/sessionValidationConfig";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks";
 import {SessionSettings} from "@shared/types/SessionSettings";
+import {setSocketListener} from "../../../pages/api/socket";
+import {socketEmit} from "../../../middleware/socketMiddleware";
+import {sessionIdUpdated} from "../../../reduxSlices/gameSession";
 
 interface Props {
     editMode: boolean;
@@ -27,7 +29,7 @@ export function GameSettings(props: Props) {
     const playerAmount = useAppSelector((state) => state.gameSession.data?.players.length);
     const serverSettings = useAppSelector((state) => state.gameSession.data?.settings);
 
-
+    const dispatch = useAppDispatch();
     const {t} = useTranslation();
 
     useEffect(() => {
@@ -47,20 +49,26 @@ export function GameSettings(props: Props) {
 
 
     function createSession() {
-        socketEmitter.emitCreateSession({
+        const settings = {
             scenario: localSettings.scenario,
             maxPlayers: localSettings.maxPlayers,
             private: localSettings.private,
             password: localSettings.password,
             name: localSettings.name,
-        })
-        socket.on(SOCKET_EMITTER.GAME_SESSION_CREATED, (payload: GameSessionCreatedPayload) => {
-            socketEmitter.setCurrentSessionId(payload.sessionId);
+        }
 
-            router.push(`./lobby?sessionId=${payload.sessionId}`).then(() => {
-                socket.off(SOCKET_EMITTER.GAME_SESSION_CREATED);
-            });
-        })
+        const listeners = [
+            setSocketListener(SOCKET_EVENT.GAME_SESSION_CREATED, (payload) => {
+                dispatch(sessionIdUpdated(payload.sessionId));
+                router.push(`./lobby/${payload.sessionId}`).then();
+            })
+        ];
+
+        dispatch(socketEmit(SOCKET_EVENT.CREATE_SESSION, {settings}))
+
+        return () => {
+            listeners.forEach((listener) => listener.off());
+        }
     }
 
     function handleNameChange(event: React.FormEvent<HTMLInputElement>) {
@@ -85,7 +93,7 @@ export function GameSettings(props: Props) {
         } else if (value < minPlayers) {
             value = minPlayers;
         }
-        socketEmitter.emitUpdateSessionSettings({maxPlayers: value});
+        saveSettings({maxPlayers: value})
     }
 
     function handlePasswordChange(event: React.FormEvent<HTMLInputElement>) {
@@ -107,7 +115,7 @@ export function GameSettings(props: Props) {
     }
 
     function updateServerSettings(settings: Partial<SessionSettings>) {
-        socketEmitter.emitUpdateSessionSettings(settings);
+        dispatch(socketEmit(SOCKET_EVENT.UPDATE_SESSION_SETTINGS, {settings, sessionId: true}))
     }
 
 

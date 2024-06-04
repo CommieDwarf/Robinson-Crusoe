@@ -6,15 +6,18 @@ import styles from "./RollDiceButton.module.css";
 import dicesImg from "/public/UI/misc/dices.png";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
 import {OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
-import {socketEmitter} from "../../../../../pages/_app";
+import {useAppDispatch} from "../../../../../store/hooks";
+import {socketEmitAction} from "../../../../../middleware/socketMiddleware";
 
 type Props = {};
 export const RollDiceButton = (props: Props) => {
     const [clicked, setClicked] = useState(false);
 
+    const dispatch = useAppDispatch();
+
     function handleClick() {
         if (!clicked) {
-            socketEmitter.emitAction(OTHER_CONTROLLER_ACTION.ROLL_WEATHER_DICES);
+            dispatch(socketEmitAction(OTHER_CONTROLLER_ACTION.ROLL_WEATHER_DICES));
             setClicked(true);
         }
     }

@@ -4,8 +4,9 @@ import {SessionSettings} from "@shared/types/SessionSettings";
 import {SessionBasicInfo, SessionRenderData} from "../Session/Session";
 import {SESSION_CONNECTION_ERROR_CODE} from "@shared/types/Errors/SESSION_CONNECTION_ERROR_CODE";
 import {AssignedCharacter} from "@shared/types/Game/PlayerService/Player";
+import {ALERT_CODE} from "@shared/types/ALERT_CODE";
 
-export enum SOCKET_EMITTER {
+export enum SOCKET_EVENT {
     EXECUTE_GAME_METHOD_AND_SEND_RESPONSE = "execute game method nad send response",
     GAME_METHOD_RESPONDED = "game method responded",
     PLAYER_ACTION = "player action",
@@ -39,7 +40,10 @@ export enum SOCKET_EMITTER {
     GAMES_IN_PROGRESS_LIST_REQUESTED = "games in progress list requested",
     GAME_STATUS_REQUESTED = "game status requested",
     GAME_STATUS_SENT = "game status sent",
-
+    SESSION_CONNECTION_FAILED = "session connection failed",
+    CONNECTED = "connected",
+    GAMES_IN_PROGRESS_SENT = "games in progress sent",
+    ALERT_SENT = "alert sent",
 }
 
 
@@ -159,39 +163,51 @@ interface GameStatusSentPayload {
     error?: SESSION_CONNECTION_ERROR_CODE
 }
 
+interface SessionConnectionFailedPayload {
+    error: SESSION_CONNECTION_ERROR_CODE
+}
+
+interface AlertSentPayload {
+    code: ALERT_CODE
+}
+
 
 export type SocketPayloadMap = {
-    [SOCKET_EMITTER.EXECUTE_GAME_METHOD_AND_SEND_RESPONSE]: ExecuteGameMethodAndSendResponsePayload;
-    [SOCKET_EMITTER.PLAYER_ACTION]: PlayerActionPayload;
-    [SOCKET_EMITTER.IS_QUICK_GAME_IN_PROGRESS]: {};
-    [SOCKET_EMITTER.CREATE_SESSION]: CreateSessionPayload;
-    [SOCKET_EMITTER.SESSION_DATA_REQUESTED]: SessionDataRequestedPayload;
-    [SOCKET_EMITTER.SESSION_DATA_SENT]: SessionDataSentPayload;
-    [SOCKET_EMITTER.GAME_METHOD_RESPONDED]: GameMethodRespondedPayload;
-    [SOCKET_EMITTER.IS_QUICK_GAME_IN_PROGRESS_RESPONSE]: { value: boolean };
-    [SOCKET_EMITTER.CREATE_QUICK_GAME]: {};
-    [SOCKET_EMITTER.GAME_SESSION_CREATED]: GameSessionCreatedPayload;
-    [SOCKET_EMITTER.SESSION_LIST_REQUESTED]: {};
-    [SOCKET_EMITTER.SESSION_LIST_SENT]: SessionListSentPayload;
-    [SOCKET_EMITTER.JOIN_SESSION]: JoinSessionPayload;
-    [SOCKET_EMITTER.JOIN_SESSION_RESPONSE]: JoinSessionResponsePayload;
-    [SOCKET_EMITTER.LEAVE_SESSION]: LeaveSessionPayload;
-    [SOCKET_EMITTER.CHANGE_CHARACTER]: ChangeCharacterPayload;
-    [SOCKET_EMITTER.SET_PLAYER_READY]: SetPlayerReadyPayload;
-    [SOCKET_EMITTER.KICK_PLAYER]: KickPlayerPayload;
-    [SOCKET_EMITTER.SESSION_CHANGED]: {};
-    [SOCKET_EMITTER.PLAYER_KICKED]: {};
-    [SOCKET_EMITTER.SESSION_LIST_CHANGED]: {};
-    [SOCKET_EMITTER.PING]: PingPayload;
-    [SOCKET_EMITTER.PONG]: PongPayload;
-    [SOCKET_EMITTER.DISCONNECT]: any;
-    [SOCKET_EMITTER.PLAYER_LATENCY_SENT]: PlayerLatencySentPayload;
-    [SOCKET_EMITTER.SEND_MESSAGE]: SendMessagePayload,
-    [SOCKET_EMITTER.UPDATE_SESSION_SETTINGS]: UpdateSessionSettingsPayload,
-    [SOCKET_EMITTER.START_GAME]: StartGamePayload,
-    [SOCKET_EMITTER.GAME_STARTED]: GameStartedPayload,
-    [SOCKET_EMITTER.USER_LEFT_LOBBY]: UserLeftLobbyPayload,
-    [SOCKET_EMITTER.GAMES_IN_PROGRESS_LIST_REQUESTED]: {},
-    [SOCKET_EMITTER.GAME_STATUS_REQUESTED]: GameStatusRequestedPayload;
-    [SOCKET_EMITTER.GAME_STATUS_SENT]: GameStatusSentPayload;
+    [SOCKET_EVENT.EXECUTE_GAME_METHOD_AND_SEND_RESPONSE]: ExecuteGameMethodAndSendResponsePayload;
+    [SOCKET_EVENT.PLAYER_ACTION]: PlayerActionPayload;
+    [SOCKET_EVENT.IS_QUICK_GAME_IN_PROGRESS]: any;
+    [SOCKET_EVENT.CREATE_SESSION]: CreateSessionPayload;
+    [SOCKET_EVENT.SESSION_DATA_REQUESTED]: SessionDataRequestedPayload;
+    [SOCKET_EVENT.SESSION_DATA_SENT]: SessionDataSentPayload;
+    [SOCKET_EVENT.GAME_METHOD_RESPONDED]: GameMethodRespondedPayload;
+    [SOCKET_EVENT.IS_QUICK_GAME_IN_PROGRESS_RESPONSE]: { value: boolean };
+    [SOCKET_EVENT.CREATE_QUICK_GAME]: any;
+    [SOCKET_EVENT.GAME_SESSION_CREATED]: GameSessionCreatedPayload;
+    [SOCKET_EVENT.SESSION_LIST_REQUESTED]: any;
+    [SOCKET_EVENT.SESSION_LIST_SENT]: SessionListSentPayload;
+    [SOCKET_EVENT.GAMES_IN_PROGRESS_SENT]: SessionListSentPayload;
+    [SOCKET_EVENT.JOIN_SESSION]: JoinSessionPayload;
+    [SOCKET_EVENT.JOIN_SESSION_RESPONSE]: JoinSessionResponsePayload;
+    [SOCKET_EVENT.LEAVE_SESSION]: LeaveSessionPayload;
+    [SOCKET_EVENT.CHANGE_CHARACTER]: ChangeCharacterPayload;
+    [SOCKET_EVENT.SET_PLAYER_READY]: SetPlayerReadyPayload;
+    [SOCKET_EVENT.KICK_PLAYER]: KickPlayerPayload;
+    [SOCKET_EVENT.SESSION_CHANGED]: any;
+    [SOCKET_EVENT.PLAYER_KICKED]: any;
+    [SOCKET_EVENT.SESSION_LIST_CHANGED]: any;
+    [SOCKET_EVENT.PING]: PingPayload;
+    [SOCKET_EVENT.PONG]: PongPayload;
+    [SOCKET_EVENT.DISCONNECT]: any;
+    [SOCKET_EVENT.PLAYER_LATENCY_SENT]: PlayerLatencySentPayload;
+    [SOCKET_EVENT.SEND_MESSAGE]: SendMessagePayload,
+    [SOCKET_EVENT.UPDATE_SESSION_SETTINGS]: UpdateSessionSettingsPayload,
+    [SOCKET_EVENT.START_GAME]: StartGamePayload,
+    [SOCKET_EVENT.GAME_STARTED]: GameStartedPayload,
+    [SOCKET_EVENT.USER_LEFT_LOBBY]: UserLeftLobbyPayload,
+    [SOCKET_EVENT.GAMES_IN_PROGRESS_LIST_REQUESTED]: any,
+    [SOCKET_EVENT.GAME_STATUS_REQUESTED]: GameStatusRequestedPayload;
+    [SOCKET_EVENT.GAME_STATUS_SENT]: GameStatusSentPayload;
+    [SOCKET_EVENT.SESSION_CONNECTION_FAILED]: SessionConnectionFailedPayload;
+    [SOCKET_EVENT.CONNECTED]: any;
+    [SOCKET_EVENT.ALERT_SENT]: AlertSentPayload;
 };

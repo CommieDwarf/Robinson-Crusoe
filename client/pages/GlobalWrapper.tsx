@@ -4,7 +4,7 @@ import {isAuthenticated} from "../utils/auth/isAuthenticated";
 import {getAuthToken} from "../utils/auth/getAuthToken";
 import {fetchUser} from "../utils/auth/fetchUser";
 import {userUpdated} from "../reduxSlices/auth";
-import {socketEmitter} from "./_app";
+import {socketConnect} from "../middleware/socketMiddleware";
 
 interface Props {
     children: ReactNode;
@@ -19,20 +19,22 @@ export function GlobalWrapper(props: Props) {
         if (authenticated && !user) {
             const token = getAuthToken() as string;
             fetchUser(token).then((response) => {
-                dispatch(userUpdated(response));
+                console.log("updating user", response);
+                dispatch(userUpdated(response))
+                console.log("dispatched")
             })
         }
-    });
+    }, [user]);
 
     useEffect(() => {
         if (user) {
             const token = getAuthToken();
-            socketEmitter.setUser(user._id);
             if (token) {
-                socketEmitter.connectSocketWithAuthToken(token)
+                console.log("connecting ")
+                dispatch(socketConnect({authToken: token}));
             }
         }
-    }, [user])
+    }, [dispatch, user])
 
     return <>
         {props.children}

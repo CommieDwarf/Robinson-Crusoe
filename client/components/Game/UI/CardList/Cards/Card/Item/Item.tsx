@@ -5,7 +5,8 @@ import ResizableImage from "../../../../../../ResizableImage/ResizableImage";
 import {kebabCase} from "lodash";
 import {IItemRenderData, ITEM} from "@shared/types/Game/Equipment/Item";
 import {OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
-import {socketEmitter} from "../../../../../../../pages/_app";
+import {useAppDispatch} from "../../../../../../../store/hooks";
+import {socketEmitAction} from "../../../../../../../middleware/socketMiddleware";
 
 interface Props {
     item: IItemRenderData;
@@ -18,12 +19,13 @@ interface Props {
 
 export default function Item(props: Props) {
 
+    const dispatch = useAppDispatch();
 
     const buttons = [];
 
     function handleButtonClick() {
         if (props.item.name !== ITEM.BIBLE) {
-            socketEmitter.emitAction(OTHER_CONTROLLER_ACTION.USE_ITEM, props.item.name)
+            dispatch(socketEmitAction(OTHER_CONTROLLER_ACTION.USE_ITEM, props.item.name));
             handleMouseLeave();
         }
     }

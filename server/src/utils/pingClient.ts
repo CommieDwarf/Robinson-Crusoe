@@ -1,4 +1,4 @@
-import {SOCKET_EMITTER, SocketPayloadMap} from "@shared/types/Requests/Socket";
+import {SOCKET_EVENT, SocketPayloadMap} from "@shared/types/Requests/Socket";
 import {Socket} from "socket.io";
 
 export function pingClient(socket: Socket,
@@ -10,7 +10,7 @@ export function pingClient(socket: Socket,
     let pingInterval: NodeJS.Timeout | null = null;
     let timeoutHandle: NodeJS.Timeout | null = null;
 
-    const handlePong = (payload: SocketPayloadMap[SOCKET_EMITTER.PING]) => {
+    const handlePong = (payload: SocketPayloadMap[SOCKET_EVENT.PING]) => {
         if (timeoutHandle && payload.sessionId === sessionId) {
             clearTimeout(timeoutHandle);
             const latency = Date.now() - payload.timestamp;
@@ -33,11 +33,11 @@ export function pingClient(socket: Socket,
             handleTimeout();
         }, timeoutMs);
 
-        socket.off(SOCKET_EMITTER.PONG, handlePong); // Usuwanie istniejącego nasłuchiwacza
-        socket.once(SOCKET_EMITTER.PONG, handlePong); // Dodanie nowego nasłuchiwacza
+        socket.off(SOCKET_EVENT.PONG, handlePong); // Usuwanie istniejącego nasłuchiwacza
+        socket.once(SOCKET_EVENT.PONG, handlePong); // Dodanie nowego nasłuchiwacza
 
-        const payload: SocketPayloadMap[SOCKET_EMITTER.PING] = {timestamp, sessionId};
-        socket.emit(SOCKET_EMITTER.PING, payload);
+        const payload: SocketPayloadMap[SOCKET_EVENT.PING] = {timestamp, sessionId};
+        socket.emit(SOCKET_EVENT.PING, payload);
     };
 
     // Start pinging
@@ -51,7 +51,7 @@ export function pingClient(socket: Socket,
         if (timeoutHandle) {
             clearTimeout(timeoutHandle);
         }
-        socket.off(SOCKET_EMITTER.PONG, handlePong); // Usuwanie nasłuchiwacza przy rozłączeniu
+        socket.off(SOCKET_EVENT.PONG, handlePong); // Usuwanie nasłuchiwacza przy rozłączeniu
     });
 
     return [pingInterval, timeoutHandle];

@@ -8,15 +8,19 @@ import redArrowImg from "/public/UI/misc/red-arrow.png";
 import nightImg from "/public/UI/phase/night.png";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
 import {OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
-import {socketEmitter} from "../../../../../pages/_app";
+import {useAppDispatch} from "../../../../../store/hooks";
+import {socketEmitAction} from "../../../../../middleware/socketMiddleware";
 
 type Props = {
     round: number;
     resolved: boolean;
 };
 export const Header = (props: Props) => {
+
+    const dispatch = useAppDispatch();
+
     function handleClick() {
-        socketEmitter.emitAction(OTHER_CONTROLLER_ACTION.SET_NEXT_PHASE);
+        dispatch(socketEmitAction(OTHER_CONTROLLER_ACTION.SET_NEXT_PHASE));
     }
 
     return (

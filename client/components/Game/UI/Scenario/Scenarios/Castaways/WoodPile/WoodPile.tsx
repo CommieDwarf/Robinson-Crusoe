@@ -8,18 +8,19 @@ import ResizableImage from "../../../../../../ResizableImage/ResizableImage";
 import {OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {useTranslation} from "react-i18next";
 import {capitalize} from "lodash";
-import {socketEmitter} from "../../../../../../../pages/_app";
-import {useAppSelector} from "../../../../../../../store/hooks";
+import {useAppDispatch, useAppSelector} from "../../../../../../../store/hooks";
 import {selectGame} from "../../../../../../../reduxSlices/gameSession";
+import {socketEmitAction} from "../../../../../../../middleware/socketMiddleware";
 
 type Props = {};
 export const WoodPile = (props: Props) => {
 
     const scenarioService = useAppSelector((state) => selectGame(state).scenarioService!);
 
+    const dispatch = useAppDispatch();
 
     function handleButtonClick() {
-        socketEmitter.emitAction(OTHER_CONTROLLER_ACTION.ADD_WOOD_TO_PILE);
+        dispatch(socketEmitAction(OTHER_CONTROLLER_ACTION.ADD_WOOD_TO_PILE));
     }
 
 

@@ -8,9 +8,9 @@ import {CostBlock} from "./CostBlock/CostBlock";
 import React from "react";
 import {useTranslation} from "react-i18next";
 import {capitalize} from "lodash";
-import {socketEmitter} from "../../../../../pages/_app";
-import {useAppSelector} from "../../../../../store/hooks";
+import {useAppDispatch, useAppSelector} from "../../../../../store/hooks";
 import {selectGame} from "../../../../../reduxSlices/gameSession";
+import {socketEmitAction} from "../../../../../middleware/socketMiddleware";
 
 
 type Props = {
@@ -18,6 +18,9 @@ type Props = {
 };
 
 function Construction(props: Props) {
+
+    const dispatch = useAppDispatch();
+
     const resources: JSX.Element[] = [];
     const naturalShelter = useAppSelector((state) => {
         return selectGame(state).tileService.campTile.tileResourceService?.extras.naturalShelter || false
@@ -31,7 +34,7 @@ function Construction(props: Props) {
 
     function handleResourceClick(resource: "wood" | "leather") {
         if (props.construction.canResourceBeSwitched && props.construction.committedResources?.type !== resource) {
-            socketEmitter.emitAction(OTHER_CONTROLLER_ACTION.SWITCH_COMMITTED_RESOURCES_TYPE, props.construction.name)
+            dispatch(socketEmitAction(OTHER_CONTROLLER_ACTION.SWITCH_COMMITTED_RESOURCES_TYPE, props.construction.name));
         }
     }
 

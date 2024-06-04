@@ -2,9 +2,11 @@ import styles from "./SessionList.module.css";
 import {Session} from "./Session/Session";
 import {Header} from "./Header/Header";
 import {useEffect, useState} from "react";
-import {socket, socketEmitter} from "../../pages/_app";
-import {SOCKET_EMITTER, SocketPayloadMap} from "@shared/types/Requests/Socket";
+import {SOCKET_EVENT, SocketPayloadMap} from "@shared/types/Requests/Socket";
 import {SessionBasicInfo} from "@shared/types/Session/Session";
+import {useAppDispatch} from "../../store/hooks";
+import {socketEmit} from "../../middleware/socketMiddleware";
+import {setSocketListener} from "../../pages/api/socket";
 
 
 interface Props {
@@ -13,25 +15,27 @@ interface Props {
 
 export function SessionList(props: Props) {
     const [sessionList, setSessionList] = useState<SessionBasicInfo[]>([]);
+    const dispatch = useAppDispatch();
 
+    function requestList() {
+        dispatch(socketEmit(SOCKET_EVENT.GAMES_IN_PROGRESS_LIST_REQUESTED, null))
+    }
 
     useEffect(() => {
-        console.log("USE EFFECT")
-        socket.on((SOCKET_EMITTER.SESSION_LIST_SENT), (payload: SocketPayloadMap[SOCKET_EMITTER.SESSION_LIST_SENT]) => {
-            setSessionList(payload.sessionList);
-        });
-        socket.on((SOCKET_EMITTER.SESSION_LIST_CHANGED), () => {
-            socketEmitter.emitRequestSessionList();
-        })
-
-        socketEmitter.emitRequestSessionList();
+        const listeners = [
+            setSocketListener(SOCKET_EVENT.SESSION_LIST_CHANGED, () => {
+                requestList();
+            }),
+            setSocketListener(SOCKET_EVENT.SESSION_LIST_SENT, (payload) => {
+                setSessionList(payload.sessionList);
+            })
+        ]
+        requestList()
         return () => {
-            socket.off(SOCKET_EMITTER.SESSION_LIST_SENT);
-            socket.off(SOCKET_EMITTER.SESSION_LIST_CHANGED)
+            listeners.forEach((listener) => listener.off());
         }
-    }, [])
+    })
 
-    socketEmitter.emitRequestSessionList();
     return <div className={styles.container}>
         <Header/>
         <div className={styles.sessionList}>

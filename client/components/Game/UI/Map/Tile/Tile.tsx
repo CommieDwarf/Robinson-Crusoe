@@ -11,7 +11,8 @@ import getActionSlots from "../../getActionSlots";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
 import {ITileRenderData} from "@shared/types/Game/TileService/ITile";
 import {TILE_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
-import {socketEmitter} from "../../../../../pages/_app";
+import {useAppDispatch} from "../../../../../store/hooks";
+import {socketEmit, socketEmitAction} from "../../../../../middleware/socketMiddleware";
 
 interface Props {
     tile: ITileRenderData;
@@ -23,6 +24,9 @@ interface Props {
 }
 
 export default function Tile(props: Props) {
+
+    const dispatch = useAppDispatch();
+
     let style = {
         top: props.tile.position.cords.top + "%",
         left: props.tile.position.cords.left + "%",
@@ -99,7 +103,7 @@ export default function Tile(props: Props) {
     });
 
     function handleTileMarkClick() {
-        socketEmitter.emitAction(TILE_CONTROLLER_ACTION.TRIGGER_TILE_ACTION, props.tile.id)
+        dispatch(socketEmitAction(TILE_CONTROLLER_ACTION.TRIGGER_TILE_ACTION, props.tile.id));
     }
 
     const flippedClass = props.tile.modifiers.flipped ? styles.flipped : "";

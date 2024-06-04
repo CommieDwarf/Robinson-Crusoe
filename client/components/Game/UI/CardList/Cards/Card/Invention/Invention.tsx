@@ -2,7 +2,7 @@ import React from "react";
 import ActionSlot from "../../../../ActionSlot";
 import styles from "./Invention.module.css";
 import getActionSlots from "../../../../getActionSlots";
-import {useAppSelector} from "../../../../../../../store/hooks";
+import {useAppDispatch, useAppSelector} from "../../../../../../../store/hooks";
 import ResizableImage from "../../../../../../ResizableImage/ResizableImage";
 import {kebabCase} from "lodash";
 import {OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
@@ -10,8 +10,8 @@ import {ACTION} from "@shared/types/Game/ACTION";
 import {IInventionRenderData} from "@shared/types/Game/InventionService/Invention";
 import {getOwnedDroppableId} from "@shared/utils/getOwnedDroppableId";
 import {getPropsComparator} from "../../../../../../../utils/getPropsComparator";
-import {socketEmitter} from "../../../../../../../pages/_app";
 import {selectGame} from "../../../../../../../reduxSlices/gameSession";
+import {socketEmitAction} from "../../../../../../../middleware/socketMiddleware";
 
 type Props = {
     invention: IInventionRenderData;
@@ -20,6 +20,8 @@ type Props = {
 };
 
 function Invention(props: Props) {
+
+    const dispatch = useAppDispatch();
 
     function handleMouseEnter() {
         props.handleMouseOverButtons(true);
@@ -31,9 +33,9 @@ function Invention(props: Props) {
 
 
     function handleUseButtonClick() {
-        socketEmitter.emitAction(OTHER_CONTROLLER_ACTION.USE_INVENTION,
+        dispatch(socketEmitAction(OTHER_CONTROLLER_ACTION.USE_INVENTION,
             props.invention.name
-        )
+        ));
         props.handleMouseOverButtons(false);
     }
 

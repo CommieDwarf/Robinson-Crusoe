@@ -1,8 +1,9 @@
 import styles from "./GenderSwitch.module.css";
 import {Gender} from "@shared/types/Game/Characters/Character";
 import {useState} from "react";
-import {socketEmitter} from "../../../../pages/_app";
-
+import {useAppDispatch} from "../../../../store/hooks";
+import {socketEmit} from "../../../../middleware/socketMiddleware";
+import {SOCKET_EVENT} from "@shared/types/Requests/Socket";
 
 interface Props {
     gender: Gender;
@@ -11,6 +12,7 @@ interface Props {
 export function GenderSwitch(props: Props) {
 
     const [gender, setGender] = useState<Gender>(props.gender);
+    const dispatch = useAppDispatch();
 
     function handleMaleClick() {
         gender !== "male" && switchGender("male");
@@ -18,9 +20,12 @@ export function GenderSwitch(props: Props) {
 
     function switchGender(gender: Gender) {
         setGender(gender);
-        socketEmitter.emitChangeCharacter({
-            gender,
-        })
+        dispatch(socketEmit(SOCKET_EVENT.CHANGE_CHARACTER, {
+            character: {
+                gender
+            },
+            sessionId: true,
+        }))
     }
 
     function handleFemaleClick() {

@@ -8,12 +8,14 @@ import {IActionSlotServiceRenderData} from "@shared/types/Game/ActionSlots";
 export interface SessionDataSlice {
     data: SessionRenderData | null,
     actionSlots: IActionSlotServiceRenderData | null,
+    sessionId: string,
 }
 
 
 const initialState: SessionDataSlice = {
     data: null,
     actionSlots: null,
+    sessionId: "",
 };
 
 export const gameSessionSlice = createSlice({
@@ -21,11 +23,16 @@ export const gameSessionSlice = createSlice({
     initialState,
     reducers: {
         gameSessionUpdated(state, action) {
-            state.data = action.payload
+            state.data = action.payload;
+            state.sessionId = action.payload.id;
         },
 
         actionSlotUpdated(state, action) {
             state.actionSlots = action.payload;
+        },
+
+        sessionIdUpdated(state, action) {
+            state.sessionId = action.payload;
         }
     },
 });
@@ -33,6 +40,7 @@ export const gameSessionSlice = createSlice({
 export const {
     gameSessionUpdated,
     actionSlotUpdated,
+    sessionIdUpdated
 } = gameSessionSlice.actions;
 
 export const selectActionSlotById = (state: ReturnType<typeof store.getState>, actionSlotId: string): IPawnRenderData<any> | null => {
@@ -42,4 +50,8 @@ export const selectActionSlotById = (state: ReturnType<typeof store.getState>, a
 
 export const selectGame = (state: ReturnType<typeof store.getState>): IGameRenderData => {
     return state.gameSession.data?.game!;
+}
+
+export const sessionIdMatch = (state: ReturnType<typeof store.getState>): boolean => {
+    return state.gameSession.data?.id === state.gameSession.sessionId;
 }

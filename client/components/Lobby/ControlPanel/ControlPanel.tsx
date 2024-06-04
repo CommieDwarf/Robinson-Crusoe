@@ -1,12 +1,13 @@
 import styles from "./ControlPanel.module.css";
 import {ReadyButton} from "../ReadyButton";
 import {useEffect, useState} from "react";
-import {socket, socketEmitter} from "../../../pages/_app";
 import compassImg from "/public/UI/tokens/compass.png";
 import ResizableImage from "../../ResizableImage/ResizableImage";
 import {useRouter} from "next/router";
-import {SOCKET_EMITTER, SocketPayloadMap} from "@shared/types/Requests/Socket";
+import {SOCKET_EVENT} from "@shared/types/Requests/Socket";
 import {BackButton} from "../../BackButton/BackButton";
+import {useAppDispatch} from "../../../store/hooks";
+import {socketEmit} from "../../../middleware/socketMiddleware";
 
 interface Props {
     ready: boolean;
@@ -19,17 +20,7 @@ export function ControlPanel(props: Props) {
     const [ready, setReady] = useState(props.ready);
 
     const router = useRouter();
-
-    useEffect(() => {
-        socket.on(SOCKET_EMITTER.GAME_STARTED, (payload: SocketPayloadMap[SOCKET_EMITTER.GAME_STARTED]) => {
-            console.log("Game started!!")
-            router.push(`/play?sessionId=${payload.sessionId}`).then(() => {
-
-                socket.off(SOCKET_EMITTER.GAME_STARTED);
-            })
-        })
-    }, [router])
-
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         setReady(props.ready);
@@ -37,21 +28,20 @@ export function ControlPanel(props: Props) {
 
     function toggleReady() {
         setReady((prev) => {
-            socketEmitter.emitSetPlayerReady(!prev);
+            dispatch(socketEmit(SOCKET_EVENT.SET_PLAYER_READY, {sessionId: true, value: !prev}))
             return !prev
         });
     }
 
     function handleStartClick() {
         if (props.startEnabled && props.ready) {
-            socketEmitter.emitStartGame();
-            console.log("handle start click")
+            dispatch(socketEmit(SOCKET_EVENT.START_GAME, {sessionId: true}))
         }
     }
 
     return <div className={styles.container}>
         <div className={`${styles.item} ${styles.backButton}`}>
-            <BackButton/>
+            <BackButton url={"/multiplayer"}/>
         </div>
         <div className={`${styles.item} ${styles.readiness} ${ready ? styles.ready : styles.notReady}`}>
             <ReadyButton ready={ready} disabled={false} onClick={toggleReady}/>

@@ -15,7 +15,8 @@ import {
 } from "@shared/types/CONTROLLER_ACTION";
 import {IMysteryCardRenderData} from "@shared/types/Game/MysteryService/MysteryCard";
 import {ResolveButtons} from "./ResolveButtons/ResolveButtons";
-import {socketEmitter} from "../../../../pages/_app";
+import {useAppDispatch} from "../../../../store/hooks";
+import {socketEmitAction} from "../../../../middleware/socketMiddleware";
 
 
 export interface CardResolveButtonProp {
@@ -34,6 +35,8 @@ type Props = {
 const CardResolve = (props: Props) => {
     const [enlarged, setEnlarged] = useState(false);
 
+    const dispatch = useAppDispatch();
+
     function toggleZoom() {
         setEnlarged((state) => !state);
     }
@@ -47,39 +50,36 @@ const CardResolve = (props: Props) => {
         if (props.eventStage) {
             button1 = {
                 label: eventOption1?.label || "next",
-                triggerEffect: () => socketEmitter.emitAction(OTHER_CONTROLLER_ACTION.RESOLVE_EVENT_ADVENTURE, 1),
+                triggerEffect: () => dispatch(socketEmitAction(OTHER_CONTROLLER_ACTION.RESOLVE_EVENT_ADVENTURE, 1)),
                 locked: false,
             };
-
             if (eventOption2) {
                 button2 = {
                     label: eventOption2.label,
-                    triggerEffect: () => socketEmitter.emitAction(OTHER_CONTROLLER_ACTION.RESOLVE_EVENT_ADVENTURE, 2),
+                    triggerEffect: () => dispatch(socketEmitAction(OTHER_CONTROLLER_ACTION.RESOLVE_EVENT_ADVENTURE, 2)),
                     locked: false,
-                };
+                }
             }
         } else {
             button1 = {
                 label: option1Label,
-                triggerEffect: () => socketEmitter.emitAction(ACTION_CONTROLLER_ACTION.RESOLVE_ADVENTURE, 1),
+                triggerEffect: () => dispatch(socketEmitAction(ACTION_CONTROLLER_ACTION.RESOLVE_ADVENTURE, 1)),
                 locked: false,
-            };
-
+            }
             if (shouldDecide) {
                 button2 = {
                     label: option2Label,
-                    triggerEffect: () => socketEmitter.emitAction(ACTION_CONTROLLER_ACTION.RESOLVE_ADVENTURE, 2),
+                    triggerEffect: () => dispatch(socketEmitAction(ACTION_CONTROLLER_ACTION.RESOLVE_ADVENTURE, 2)),
                     locked: false,
-                };
+                }
             }
         }
     } else {
-
         button1 = {
             label: props.card.eventLabel,
-            triggerEffect: () => socketEmitter.emitAction(MYSTERY_CONTROLLER_ACTION.RESOLVE_EVENT_MYSTERY),
+            triggerEffect: () => dispatch(socketEmitAction(MYSTERY_CONTROLLER_ACTION.RESOLVE_EVENT_MYSTERY)),
             locked: false,
-        };
+        }
     }
 
     return (

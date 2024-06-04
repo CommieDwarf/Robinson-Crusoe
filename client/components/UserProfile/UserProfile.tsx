@@ -7,10 +7,10 @@ import {useAppDispatch, useAppSelector} from "../../store/hooks";
 import {deleteAuthCookie} from "../../utils/auth/deleteAuthCookie";
 import {userUpdated} from "../../reduxSlices/auth";
 import {useEffect, useState} from "react";
-import {socket, socketEmitter} from "../../pages/_app";
-import {SOCKET_EMITTER, SocketPayloadMap} from "@shared/types/Requests/Socket";
+import {SOCKET_EVENT, SocketPayloadMap} from "@shared/types/Requests/Socket";
+import {socket} from "../../store/store";
+import {setSocketListener} from "../../pages/api/socket";
 import {SessionBasicInfo} from "@shared/types/Session/Session";
-import {Session} from "../SessionList/Session/Session";
 
 interface Props {
 }
@@ -22,6 +22,7 @@ export function UserProfile(props: Props) {
     const dispatch = useAppDispatch();
     const [sessionsInProgress, setSessionsInProgress] = useState<SessionBasicInfo[] | null>(null);
 
+
     function handleSignOut() {
         deleteAuthCookie();
         dispatch(userUpdated(null));
@@ -29,22 +30,24 @@ export function UserProfile(props: Props) {
     }
 
     if (!sessionsInProgress) {
-        socketEmitter.emitRequestGamesInProgressList();
+        requestGameList()
     }
 
     useEffect(() => {
-        socket.on(SOCKET_EMITTER.SESSION_LIST_SENT, (payload: SocketPayloadMap[SOCKET_EMITTER.SESSION_LIST_SENT]) => {
+        const listener = setSocketListener(SOCKET_EVENT.SESSION_LIST_SENT, (payload) => {
             setSessionsInProgress(payload.sessionList);
-            console.log("got sessions in progress", payload.sessionList)
         })
 
-        socketEmitter.emitRequestGamesInProgressList();
-
+        requestGameList();
 
         return () => {
-            socket.off(SOCKET_EMITTER.SESSION_LIST_SENT);
+            listener.off();
         }
     }, [])
+
+    function requestGameList() {
+        // dispatch(socketEmit(SOCKET_EMITTER.GAMES_IN_PROGRESS_LIST_REQUESTED, null))
+    }
 
 
     return <div className={styles.container}>
@@ -57,20 +60,20 @@ export function UserProfile(props: Props) {
         {sessionsInProgress && <>
             <div className={styles.gamesInProgress}>
                 <h5 className={styles.gameInProgressTitle}>Zaczęte gry</h5>
-                {sessionsInProgress.map((session) => {
-                    return <div key={session.id} className={styles.session}>
-                        <Session name={session.name} host={session.host} playerAmount={session.players}
-                                 maxPlayerAmount={session.maxPlayers}
-                                 scenario={session.scenario}
-                                 password={false}
-                                 id={session.id}
-                                 setEnterSessionId={() => {
-                                 }}
-                                 shortMode={true}
-                                 hidePassword={true}
-                        />
-                    </div>
-                })}
+                {/*{sessionsInProgress.map((session) => {*/}
+                {/*    return <div key={session.id} className={styles.session}>*/}
+                {/*        <Session name={session.name} host={session.host} playerAmount={session.players}*/}
+                {/*                 maxPlayerAmount={session.maxPlayers}*/}
+                {/*                 scenario={session.scenario}*/}
+                {/*                 password={false}*/}
+                {/*                 id={session.id}*/}
+                {/*                 setEnterSessionId={() => {*/}
+                {/*                 }}*/}
+                {/*                 shortMode={true}*/}
+                {/*                 hidePassword={true}*/}
+                {/*        />*/}
+                {/*    </div>*/}
+                {/*})}*/}
             </div>
             <hr/>
         </>}

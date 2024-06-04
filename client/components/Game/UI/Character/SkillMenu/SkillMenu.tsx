@@ -11,9 +11,9 @@ import {alertUpdated} from "../../../../../reduxSlices/alert";
 import {ALERT_CODE} from "@shared/types/ALERT_CODE";
 import {useTranslation} from "react-i18next";
 import {capitalize} from "lodash";
-import {socketEmitter} from "../../../../../pages/_app";
 import {DisplayedAbilityInfo} from "../Character";
 import {selectGame} from "../../../../../reduxSlices/gameSession";
+import {socketEmitAction} from "../../../../../middleware/socketMiddleware";
 
 
 interface Props {
@@ -72,7 +72,7 @@ export default function SkillMenu(props: Props) {
 
 
     function activateAbility(abilityName: ABILITY) {
-        socketEmitter.emitAction(CHARACTER_CONTROLLER_ACTION.USE_ABILITY, abilityName)
+        dispatch(socketEmitAction(CHARACTER_CONTROLLER_ACTION.USE_ABILITY, abilityName))
     }
 
     const containerStyle = {

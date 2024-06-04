@@ -4,7 +4,8 @@ import styles from "./ResourceActionButton.module.css";
 import circleImg from "/public/UI/misc/red-circle-2.png";
 import ResizableImage from "../../../../../ResizableImage/ResizableImage";
 import {TILE_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
-import {socketEmitter} from "../../../../../../pages/_app";
+import {socketEmitAction} from "../../../../../../middleware/socketMiddleware";
+import {useAppDispatch} from "../../../../../../store/hooks";
 
 interface Props {
     side: "left" | "right";
@@ -12,11 +13,13 @@ interface Props {
 }
 
 export const ResourceActionButton = (props: Props) => {
+    const dispatch = useAppDispatch();
+
     function handleClick() {
-        socketEmitter.emitAction(TILE_CONTROLLER_ACTION.TRIGGER_TILE_RESOURCE_ACTION,
+        dispatch(socketEmitAction(TILE_CONTROLLER_ACTION.TRIGGER_TILE_RESOURCE_ACTION,
             props.tileID,
-            props.side,
-        )
+            props.side
+        ))
     }
 
     return (
