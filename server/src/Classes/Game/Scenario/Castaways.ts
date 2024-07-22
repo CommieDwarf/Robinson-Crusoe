@@ -132,7 +132,7 @@ export class Castaways implements IScenarioService {
             code: LOG_CODE.WOOD_ADDED_TO_PILE,
             amount: woodAdded,
             subject1: "",
-            subject2: ""
+            subject2: "",
         }, "positive", sourceLog);
     }
 }

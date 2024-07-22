@@ -226,7 +226,7 @@ io.on("connection", async (socket: typeof Socket) => {
 
         socket.on(SOCKET_EVENT.SESSION_DATA_REQUESTED, (payload: SocketPayloadMap[SOCKET_EVENT.SESSION_DATA_REQUESTED]) => {
             let session;
-            console.log("requested session data")
+            console.log("requested session data", payload)
             if (payload.sessionId === "quickgame") {
                 session = sessionService.getQuickGameByUserId(user.id);
                 if (!session) {
@@ -234,17 +234,18 @@ io.on("connection", async (socket: typeof Socket) => {
                 }
             } else {
                 console.log("searching for SESSION ID: ", payload.sessionId);
-                session = sessionService.getSession(user.id, payload.sessionId);
+                session = sessionService.searchSession(user.id, payload.sessionId);
                 if (session && !session.isUserInSession(userId)) {
                     socketEmit(SOCKET_EVENT.SESSION_CONNECTION_FAILED, {
                         error: SESSION_CONNECTION_ERROR_CODE.ACCESS_DENIED
                     })
+                    console.log("access denied");
                     return;
                 }
             }
 
             if (session) {
-                console.log("sending data!")
+                console.log("sending data to:", user.username);
                 socketEmit(SOCKET_EVENT.SESSION_DATA_SENT, {sessionData: session.getRenderData(user.id)})
             } else {
                 socketEmit(SOCKET_EVENT.SESSION_CONNECTION_FAILED, {
@@ -259,13 +260,14 @@ io.on("connection", async (socket: typeof Socket) => {
             async (actionData: SocketPayloadMap[SOCKET_EVENT.PLAYER_ACTION]) => {
                 try {
                     console.log("SESSION ID", actionData.sessionId);
-                    const session = sessionService.getSession(user.id, actionData.sessionId);
+                    const session = sessionService.searchSession(user.id, actionData.sessionId);
                     if (!session) {
                         throw new Error("Game session not found")
                     }
                     session.handleAction(user.id, actionData.actionType, ...actionData.arguments);
+                    io.to(session.id).emit(SOCKET_EVENT.SESSION_CHANGED);
                     //TODO: Zrób autoryzację gracz - sesja
-                    socketEmit(SOCKET_EVENT.SESSION_DATA_SENT, {sessionData: session.getRenderData(user.id)});
+                    io.to(actionData.sessionId).emit(SOCKET_EVENT.SESSION_CHANGED);
                 } catch (e) {
                     if (e instanceof ForbiddenPlayerAction) {
                         socketEmit(SOCKET_EVENT.ALERT_SENT, {code: e.message})
@@ -279,7 +281,7 @@ io.on("connection", async (socket: typeof Socket) => {
         socket.on(SOCKET_EVENT.EXECUTE_GAME_METHOD_AND_SEND_RESPONSE,
             (payload: SocketPayloadMap[SOCKET_EVENT.EXECUTE_GAME_METHOD_AND_SEND_RESPONSE]) => {
                 try {
-                    const game = sessionService.getSession(user.id, payload.sessionId)?.getGame();
+                    const game = sessionService.searchSession(user.id, payload.sessionId)?.getGame();
                     if (!game) {
                         throw new Error("Can't find game session")
                     }
@@ -345,7 +347,7 @@ io.on("connection", async (socket: typeof Socket) => {
         })
 
         socket.on(SOCKET_EVENT.CHANGE_CHARACTER, (payload: SocketPayloadMap[SOCKET_EVENT.CHANGE_CHARACTER]) => {
-            const session = sessionService.getSession(userId, payload.sessionId);
+            const session = sessionService.searchSession(userId, payload.sessionId);
             if (!session || (session && session.isGameInProgress)) {
                 return;
             }
@@ -354,9 +356,22 @@ io.on("connection", async (socket: typeof Socket) => {
             io.to(session.id).emit(SOCKET_EVENT.SESSION_CHANGED);
         })
 
+        setListener(SOCKET_EVENT.CHANGE_PLAYER_COLOR, (payload) => {
+            try {
+                const session = sessionService.searchSession(user.id, payload.sessionId);
+                if (!session) {
+                    console.error("XASRFsdg")
+                }
+                session?.assignColor(user.id, payload.color);
+                io.to(session!.id).emit(SOCKET_EVENT.SESSION_CHANGED);
+            } catch (e) {
+                console.error(e);
+            }
+        })
+
         socket.on(SOCKET_EVENT.SET_PLAYER_READY, (payload: SocketPayloadMap[SOCKET_EVENT.SET_PLAYER_READY]) => {
-            const session = sessionService.getSession(userId, payload.sessionId);
-            if (!session || (session && session.isGameInProgress)) {
+            const session = sessionService.searchSession(userId, payload.sessionId);
+            if (!session) {
                 return;
             }
             session.setPlayerReady(userId, payload.value);
@@ -364,7 +379,7 @@ io.on("connection", async (socket: typeof Socket) => {
         })
 
         setListener(SOCKET_EVENT.KICK_PLAYER, async (payload) => {
-            const session = sessionService.getSession(userId, payload.sessionId);
+            const session = sessionService.searchSession(userId, payload.sessionId);
             if (!session || (session && session.isGameInProgress) || session.host !== user) {
                 return;
             }
@@ -408,7 +423,7 @@ io.on("connection", async (socket: typeof Socket) => {
 
         setListener(SOCKET_EVENT.USER_LEFT_LOBBY, payload => {
             try {
-                const session = sessionService.getSession(user.id, payload.sessionId);
+                const session = sessionService.searchSession(user.id, payload.sessionId);
                 if (session && !session.isGameInProgress) {
                     console.log("user left lobby. Leaving session!")
                     sessionService.leaveSession(user, session.id);
@@ -448,7 +463,9 @@ io.on("connection", async (socket: typeof Socket) => {
             } finally {
                 console.log("sending game status!")
             }
-        })
+        });
+
+
         socketEmit(SOCKET_EVENT.CONNECTED, null);
 
     } catch (e) {

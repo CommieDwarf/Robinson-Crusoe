@@ -7,10 +7,10 @@ import {useAppDispatch, useAppSelector} from "../../store/hooks";
 import {deleteAuthCookie} from "../../utils/auth/deleteAuthCookie";
 import {userUpdated} from "../../reduxSlices/auth";
 import {useEffect, useState} from "react";
-import {SOCKET_EVENT, SocketPayloadMap} from "@shared/types/Requests/Socket";
-import {socket} from "../../store/store";
+import {SOCKET_EVENT} from "@shared/types/Requests/Socket";
 import {setSocketListener} from "../../pages/api/socket";
 import {SessionBasicInfo} from "@shared/types/Session/Session";
+import {socketEmit} from "../../middleware/socketMiddleware";
 
 interface Props {
 }
@@ -26,6 +26,7 @@ export function UserProfile(props: Props) {
     function handleSignOut() {
         deleteAuthCookie();
         dispatch(userUpdated(null));
+        dispatch(socketEmit(SOCKET_EVENT.DISCONNECT, {}));
         router.push("/signIn").catch((e) => console.error(e));
     }
 

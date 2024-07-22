@@ -1,5 +1,5 @@
 import {Dispatch, Middleware, MiddlewareAPI} from "redux";
-import {SOCKET_EVENT} from "@shared/types/Requests/Socket";
+import {SOCKET_EVENT, SocketPayloadMap} from "@shared/types/Requests/Socket";
 import {MyStore, RootState} from "../store/store";
 import {Socket} from "socket.io-client";
 import {connectedUpdated} from "../reduxSlices/auth";
@@ -11,6 +11,7 @@ import {
 } from "../types/middleware/SocketMiddleware";
 import {CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {ActionArgMap} from "@shared/types/ActionArgMap";
+import {gameSessionUpdated} from "../reduxSlices/gameSession";
 
 export const SOCKET_CONNECT = "socket connect";
 export const SOCKET_DISCONNECT = "socket disconnect";
@@ -33,7 +34,7 @@ export const socketEmitAction = <A extends CONTROLLER_ACTION>(action: A, ...args
     return socketEmit(SOCKET_EVENT.PLAYER_ACTION, {
         actionType: action,
         arguments: args,
-        sessionId: true
+        hydrateSessionId: true
     })
 }
 
@@ -64,6 +65,8 @@ const socketMiddleware = (socket: Socket): Middleware => (api: MiddlewareAPI<Dis
                         console.log('Socket disconnected');
                         store.dispatch(connectedUpdated(false))
                     });
+
+
                     console.log("TRYING TO CONNECT");
                     socket.connect()
                     break;
@@ -74,6 +77,7 @@ const socketMiddleware = (socket: Socket): Middleware => (api: MiddlewareAPI<Dis
                     if (!socket.connected) {
                         emitQueue.push(action);
                     }
+                    console.log('emiting', action.event, hydratePayload(action.payload))
                     socket.emit(action.event, hydratePayload(action.payload));
                     break;
                 case SOCKET_EMIT_ACTION:
@@ -81,7 +85,7 @@ const socketMiddleware = (socket: Socket): Middleware => (api: MiddlewareAPI<Dis
                         emitQueue.push(action);
                         socket.emit(action.event, hydratePayload({
                             ...action.payload,
-                            sessionId: true,
+                            hydrateSessionId: true
                         }))
                     }
             }
@@ -91,12 +95,15 @@ const socketMiddleware = (socket: Socket): Middleware => (api: MiddlewareAPI<Dis
         return next(action);
 
 
-        function hydratePayload<T extends Object | undefined>(payload: T) {
-            if (payload && "sessionId" in payload) {
-                console.log(api.getState(), "get state")
+        function hydratePayload<T extends keyof SocketPayloadMap, P extends ModifiedPayload<T>>(payload: P): SocketPayloadMap[T] {
+            if (payload && "hydrateSessionId" in payload) {
+                console.log("hydrating!")
                 // const sessionId = api.getState().getState().gameSession.data?.id;
                 const state = api.getState() as unknown as RootState;
-                payload.sessionId = state.gameSession.sessionId;
+                return {
+                    ...payload,
+                    sessionId: state.gameSession.sessionId
+                }
             }
             return payload;
         }

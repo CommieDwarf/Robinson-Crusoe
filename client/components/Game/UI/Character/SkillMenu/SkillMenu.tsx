@@ -27,7 +27,7 @@ export default function SkillMenu(props: Props) {
 
     const {t} = useTranslation();
 
-    const overallWeather = useAppSelector((state) => selectGame(state).weatherService.overallWeather!)
+    const overallWeather = useAppSelector((state) => selectGame(state)!.weatherService.overallWeather!)
     let description;
     let comment;
     if (props.abilityInfo.ability) {

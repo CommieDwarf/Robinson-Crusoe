@@ -5,6 +5,7 @@ import {SessionBasicInfo, SessionRenderData} from "../Session/Session";
 import {SESSION_CONNECTION_ERROR_CODE} from "@shared/types/Errors/SESSION_CONNECTION_ERROR_CODE";
 import {AssignedCharacter} from "@shared/types/Game/PlayerService/Player";
 import {ALERT_CODE} from "@shared/types/ALERT_CODE";
+import {PLAYER_COLOR} from "@shared/types/Game/PLAYER_COLOR";
 
 export enum SOCKET_EVENT {
     EXECUTE_GAME_METHOD_AND_SEND_RESPONSE = "execute game method nad send response",
@@ -44,6 +45,7 @@ export enum SOCKET_EVENT {
     CONNECTED = "connected",
     GAMES_IN_PROGRESS_SENT = "games in progress sent",
     ALERT_SENT = "alert sent",
+    CHANGE_PLAYER_COLOR = "change color"
 }
 
 
@@ -171,6 +173,11 @@ interface AlertSentPayload {
     code: ALERT_CODE
 }
 
+interface ChangeColorPayload {
+    color: PLAYER_COLOR,
+    sessionId: string,
+}
+
 
 export type SocketPayloadMap = {
     [SOCKET_EVENT.EXECUTE_GAME_METHOD_AND_SEND_RESPONSE]: ExecuteGameMethodAndSendResponsePayload;
@@ -210,4 +217,5 @@ export type SocketPayloadMap = {
     [SOCKET_EVENT.SESSION_CONNECTION_FAILED]: SessionConnectionFailedPayload;
     [SOCKET_EVENT.CONNECTED]: any;
     [SOCKET_EVENT.ALERT_SENT]: AlertSentPayload;
+    [SOCKET_EVENT.CHANGE_PLAYER_COLOR]: ChangeColorPayload;
 };

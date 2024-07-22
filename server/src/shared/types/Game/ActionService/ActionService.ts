@@ -2,6 +2,8 @@ import {IResolvableItem, IResolvableItemRenderData} from "./IResolvableItem";
 import {ACTION, AdventureAction} from "../ACTION";
 import {IGlobalCostModifier, IGlobalCostModifierRenderData} from "./GlobalCostModifier";
 import {IBasicResourcesAmount} from "../Resources/Resources";
+import {IDice} from "@shared/types/Game/Dice/Dice";
+import {ActionDice} from "@shared/types/Game/RollDice/RollDice";
 
 export interface ActionTokens {
     build: boolean;
@@ -23,6 +25,9 @@ export interface IActionService {
     resolve: (resolvableItemID: string) => void;
     rollDices: (resolvableItemID: string) => void;
     reRollSuccess: (resolvableItemID: string) => void;
+
+    reRollDice: (dice: ActionDice) => void;
+
     skippableActions: ACTION[];
     setAdventureToken: (
         action: AdventureAction,
@@ -35,6 +40,7 @@ export interface IActionService {
         sourceLog: string
     ) => void;
 
+
     bibleUses: number;
     hasGlobalModifier: (action: ACTION, resource: "helper" | keyof IBasicResourcesAmount) => boolean;
     addGlobalCostModifier: (action: ACTION, resource: "helper" | keyof IBasicResourcesAmount, disposable: boolean, source: string) => void;
@@ -45,6 +51,7 @@ export interface IActionService {
     renderData: IActionServiceRenderData;
     adventureTokens: ActionTokens;
     reRollTokens: ActionTokens;
+
 
     setBibleUsage: (resolvableItemId: string, value: boolean) => void;
 }

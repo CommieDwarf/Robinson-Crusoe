@@ -30,7 +30,7 @@ export function Session(props: Props) {
         if (props.password) {
             props.setEnterSessionId(props.id);
         } else {
-            dispatch(socketEmit(SOCKET_EVENT.JOIN_SESSION, {password: "", sessionId: true}))
+            dispatch(socketEmit(SOCKET_EVENT.JOIN_SESSION, {password: "", sessionId: props.id}))
         }
     }
 

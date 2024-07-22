@@ -72,7 +72,7 @@ export class ObjectPicker<T extends PickableObject> implements IObjectPicker<T> 
     get renderData() {
         return {
             objects: this._objects.map((obj) => {
-                const renderData = "renderData" in obj.object ? obj.object.renderData : obj.object
+                const renderData = typeof obj.object === "object" && "renderData" in obj.object ? obj.object.renderData : obj.object
                 return {
                     object: renderData,
                     id: obj.id

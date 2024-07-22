@@ -6,11 +6,10 @@ import Pawn from "./Pawn";
 import {kebabCase} from "lodash";
 import {IPawn, IPawnRenderData} from "@shared/types/Game/Pawns/Pawn";
 import {ACTION, UniqueAction} from "@shared/types/Game/ACTION";
-import {useAppSelector} from "../../../store/hooks";
 import {selectActionSlotById, selectGame} from "../../../reduxSlices/gameSession";
 import {RootState} from "../../../store/store";
 import {connect} from "react-redux";
-import {getPropsComparator} from "../../../utils/getPropsComparator";
+import {getObjectsComparator} from "../../../utils/getObjectsComparator";
 
 
 interface Props {
@@ -36,7 +35,7 @@ function ActionSlot(props: Props & StateProps) {
     const pawn = props.pawn
 
     if (pawn) {
-        pawnElement = <Pawn pawn={pawn} context={props.action} index={1}/>;
+        pawnElement = <Pawn pawn={pawn} context={props.action} index={1} key={props.pawn?.draggableId}/>;
     }
     let helperClass = "";
 
@@ -90,5 +89,5 @@ function mapStateToProps(state: RootState, props: Props): Props & StateProps {
 
 export default connect(mapStateToProps)(React.memo(
     ActionSlot,
-    getPropsComparator(["onMouseEnter", "onMouseLeave"])
+    getObjectsComparator(["onMouseEnter", "onMouseLeave"])
 ));

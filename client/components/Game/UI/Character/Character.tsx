@@ -4,8 +4,6 @@ import SideCharacters from "./SideCharacters/SideCharacters";
 
 import SkillLabel from "./SkillLabel/SkillLabel";
 import SkillMenu from "./SkillMenu/SkillMenu";
-import Pawn from "../Pawn";
-import {Droppable} from "react-beautiful-dnd";
 import {Wounds} from "@shared/types/Game/Characters/PlayerCharacter";
 import {useAppSelector} from "../../../../store/hooks";
 import Entries from "@shared/types/Entries";
@@ -16,6 +14,9 @@ import ResizableImage from "../../../ResizableImage/ResizableImage";
 import {capitalize, kebabCase} from "lodash";
 import {useTranslation} from "react-i18next";
 import {Expendables} from "./Expendables/Expendables";
+import CharacterImg from "./CharacterImg/CharacterImg";
+import Pawns from "./Pawns/Pawns";
+import starImg from "/public/UI/icons/star.png";
 
 
 export interface DisplayedAbilityInfo {
@@ -95,20 +96,16 @@ export default function Character(props: Props) {
     const droppableId = getOwnedDroppableId(character.name, "character");
     return (
         <div className={styles.container + " " + zIndexClass} ref={containerRef}>
+
             <div className={`${styles.characterPictureWrapper} ${charWrapperClass}`}>
-                <div className={styles.characterPicture}>
-                    {wounds}
-                    <ResizableImage
-                        src={`/UI/characters/player-characters/${charImgName}.png`}
-                        fill
-                        alt="character"
-                        sizes={styles.characterPicture}
-                    />
+                <CharacterImg character={character}/>
+            </div>
+            <div className={styles.characterName}>{capitalize(t(`character.${character.name}`))}
+                <div className={styles.primePlayerIcon}>
+                    <ResizableImage src={starImg} alt={"prime player"}/>
                 </div>
             </div>
 
-
-            <div className={styles.characterName}>{capitalize(t(`character.${character.name}`))}</div>
             <SkillMenu
                 abilityInfo={displayedAbilityInfo}
                 used={character.abilities.find((skill) => skill.name === displayedAbilityInfo.ability.name)?.usedInThisRound || false}
@@ -123,31 +120,8 @@ export default function Character(props: Props) {
                              weapon={character.weaponBoost}/>
             </div>
 
-            <div className={styles.scroll}>
-                <Droppable droppableId={droppableId}>
-                    {(provided) => (
-                        <div
-                            id={droppableId}
-                            className={styles.pawns}
-                            ref={provided.innerRef}
-                            {...provided.droppableProps}
-                        >
-                            {pawns &&
-                                pawns.map((pawn, i) => {
-                                    return (
-                                        <Pawn
-                                            pawn={pawn}
-                                            context={"character"}
-                                            index={i}
-                                            key={pawn.draggableId}
-                                        />
-                                    );
-                                })}
-
-                            {provided.placeholder}
-                        </div>
-                    )}
-                </Droppable>
+            <div className={styles.pawns}>
+                <Pawns character={character} pawns={pawns} dragDisabled={false} droppableId={droppableId}/>
             </div>
             <SideCharacters/>
         </div>

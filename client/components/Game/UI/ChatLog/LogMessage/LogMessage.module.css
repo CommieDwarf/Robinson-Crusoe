@@ -5,6 +5,13 @@
     padding-bottom: 0.5%;
 }
 
+.icon {
+    height: 10px;
+    aspect-ratio: 1;
+    display: inline-block;
+    scale: 2;
+    margin-right: 2px;
+}
 
 .roundContainer {
     width: 25px;

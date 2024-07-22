@@ -39,9 +39,15 @@ import {CHARACTER_CONTROLLER_ACTION, OTHER_CONTROLLER_ACTION,} from "@shared/typ
 import {MysteryCardDraw} from "./UI/MysteryCardDraw/MysteryCardDraw";
 import {PickOne} from "./UI/PickOne/PickOne";
 import {IPawnRenderData} from "@shared/types/Game/Pawns/Pawn";
-import {actionSlotUpdated, selectGame} from "../../reduxSlices/gameSession";
+import {
+    actionSlotUpdated,
+    selectGameData,
+} from "../../reduxSlices/gameSession";
 import {ControlPanel} from "./UI/ControlPanel/ControlPanel";
 import {socketEmitAction} from "../../middleware/socketMiddleware";
+import {PlayerList} from "./UI/PlayerList/PlayerList";
+import {DraggableWindow} from "./UI/DraggableWindow/DraggableWindow";
+import {Alerts} from "./UI/Alerts/Alerts";
 
 
 interface Props {
@@ -49,6 +55,7 @@ interface Props {
 
 export default function Game(props: Props) {
     const [isPawnBeingDragged, setIsPawnBeingDragged] = useState(false);
+
 
     const [showScenario, setShowScenario] = useState(false);
 
@@ -64,6 +71,7 @@ export default function Game(props: Props) {
 
 
     const [confirmWindow, setConfirmWindow] = useState<null | CONFIRM_WINDOW>(null);
+    const [playerListOpen, setPlayerListOpen] = useState(false);
 
     const mapRef = useRef<HTMLDivElement>(null)
     const [mapHeight, setMapHeight] = useState<number>(0);
@@ -72,22 +80,10 @@ export default function Game(props: Props) {
 
     const dispatch = useAppDispatch();
 
+
     const gameData = useAppSelector((state) => {
-        const game = selectGame(state);
-        return {
-            actionSlots: new Map<string, IPawnRenderData<any> | null>(Object.entries(game.actionSlotService.slots!)),
-            allPawns: game.globalPawnService.allPawns!,
-            inventions: game.inventionService.inventions!,
-            objectPickers: game.objectPickers!,
-            adventureCardToResolve: game.adventureService.currentCard!,
-            isMysteryCardDrawingOn: game.mysteryService.isDrawingOn,
-            adventureCardToResolveAsEvent: game.adventureService.currentCard,
-            mysteryCardToResolveAsEvent: game.eventService.currentMysteryCard,
-            currentPhase: game.phaseService.phase!,
-            actionResolveFinished: game.actionService.finished,
-            phaseChangeLocked: game.phaseService.locked,
-        }
-    })
+        return selectGameData(state);
+    })!
 
 
     useEffect(() => {
@@ -128,6 +124,10 @@ export default function Game(props: Props) {
 
     function hideNightTip() {
         setShowNightTip(false);
+    }
+
+    function togglePlayerListOpen() {
+        setPlayerListOpen((prev) => !prev);
     }
 
 
@@ -280,9 +280,10 @@ export default function Game(props: Props) {
             {gameData.objectPickers.map((objPicker) => {
                 return <PickOne objectPicker={objPicker} key={objPicker.id}/>
             })}
-            {gameData.adventureCardToResolve && (
+            {gameData.adventureToResolve && (
                 <CardResolve
-                    card={gameData.adventureCardToResolve}
+                    card={gameData.adventureToResolve.card}
+                    player={gameData.adventureToResolve?.player}
                     eventStage={false}
                 />
             )}
@@ -363,8 +364,9 @@ export default function Game(props: Props) {
                 <Character
                     zIndex={topLayerElement}
                 />
-
-                <Health/>
+                <div className={styles.health}>
+                    <Health character={gameData.localPlayer.character!}/>
+                </div>
                 <Threat topLayer={topLayerElement.includes("threat")}/>
                 <ArrangeCampRest
                     topLayer={
@@ -376,15 +378,21 @@ export default function Game(props: Props) {
                     actionOrderContainerRef={actionOrderRef}
                 />
                 <div className={styles.chatLog}>
-                    {/*TODO: zmień ""*/}
-                    <ChatLog enableLog={true} localUser={""}/>
+                    <ChatLog enableLog={true}/>
+                    <Alerts/>
                 </div>
+
+
                 <Weather/>
                 <Tokens
                     menuDisabled={isPawnBeingDragged || topLayerElement !== ""}
                 />
 
-                {/*<Players />*/}
+                {playerListOpen &&
+                    <DraggableWindow width={500} height={300} padding={0}>
+                        <PlayerList/>
+                    </DraggableWindow>
+                }
 
             </DragDropContext>
             <ScenarioButton
@@ -393,7 +401,10 @@ export default function Game(props: Props) {
                 toggleShowScenario={toggleShowScenario}
             />
 
-            <ControlPanel confirmWindowIsOpen={!!confirmWindow} phaseChangeLocked={gameData.phaseChangeLocked}/>
+
+            <ControlPanel confirmWindowIsOpen={!!confirmWindow} phaseChangeLocked={gameData.phaseChangeLocked}
+                          togglePlayerListOpen={togglePlayerListOpen}
+            />
         </div>
     );
 }

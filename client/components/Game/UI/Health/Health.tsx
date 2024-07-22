@@ -6,37 +6,39 @@ import skullImg from "/public/UI/icons/skull.png";
 import Threshold from "./Threshold";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
 import {ICharacterServiceRenderData} from "@shared/types/Game/CharacterService/CharacterService";
-import {getPropsComparator} from "../../../../utils/getPropsComparator";
+import {getObjectsComparator} from "../../../../utils/getObjectsComparator";
 import {useAppSelector} from "../../../../store/hooks";
 import {selectGame} from "../../../../reduxSlices/gameSession";
+import {IPlayerCharacterRenderData} from "@shared/types/Game/Characters/PlayerCharacter";
 
 interface Props {
-
+    vertical?: boolean;
+    character: IPlayerCharacterRenderData
 }
 
 function Health(props: Props) {
     let marks: JSX.Element[] = [];
     const characterService = useAppSelector((state) => selectGame(state).characterService!)
-    const character = useAppSelector((state) => state.gameSession.data!.localPlayer.character!);
 
 
-    for (let i = character.maxHealth; i > 0; i--) {
+    for (let i = props.character.maxHealth; i > 0; i--) {
         marks.push(
             <div className={styles.heart} key={i}>
                 <ResizableImage
-                    src={i === character.health ? redHeartImg : heartImg}
+                    src={i === props.character.health ? redHeartImg : heartImg}
                     fill
                     alt="serce"
                     sizes={styles.heart}
                 />
             </div>
         );
-        if (character.moraleThresholds.includes(i - 1)) {
+        if (props.character.moraleThresholds.includes(i - 1)) {
             marks.push(
                 <Threshold id={i - 1}
                            thresholdAmountForRemoval={characterService.thresholdAmountForRemoval}
-                           removed={character.moraleThresholdsRemoved.includes(i - 1)}
+                           removed={props.character.moraleThresholdsRemoved.includes(i - 1)}
                            key={i + 100}
+                           vertical={props.vertical}
                 />
             );
         }
@@ -47,10 +49,10 @@ function Health(props: Props) {
         </div>
     );
     return (
-        <div className={styles.container}>
-            <div className={styles.health}>{marks}</div>
+        <div className={`${styles.container} `}>
+            <div className={`${styles.health} ${props.vertical && styles.healthVertical}`}>{marks}</div>
         </div>
     );
 }
 
-export default React.memo(Health, getPropsComparator());
+export default React.memo(Health, getObjectsComparator());

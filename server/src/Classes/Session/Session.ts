@@ -3,7 +3,7 @@ import {BaseController} from "../../types/GameController/Controllers";
 import {GameClass} from "../Game/Game";
 import {GameController} from "../GameController/GameController";
 import {SessionBasicInfo, SessionData, SessionRenderData} from "@shared/types/Session/Session";
-import {PAWN_COLOR} from "@shared/types/Game/PAWN_COLOR";
+import {PLAYER_COLOR} from "@shared/types/Game/PLAYER_COLOR";
 import {uuid} from "uuidv4";
 import {CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {CHARACTER, Gender} from "@shared/types/Game/Characters/Character";
@@ -24,7 +24,7 @@ export class Session implements SessionData {
 
     private _players: IPlayer[] = [];
     private _gameController: BaseController | null = null;
-    private _colors: PAWN_COLOR[] = Object.values(PAWN_COLOR);
+    private _colors: PLAYER_COLOR[] = Object.values(PLAYER_COLOR);
     private _id = uuid();
     private _connectCode = uuid();
     private _characters: CHARACTER[] = Object.values(CHARACTER);
@@ -111,10 +111,11 @@ export class Session implements SessionData {
         const player = new Player(user,
             {
                 gender: "male",
-                char: this.getUnassignedCharacter()
-            });
+                char: this.getUnassignedCharacter(),
+            },
+            this.findAvailableColor(),
+        );
         this._players.push(player);
-        this.assignColor(player.id, this.findAvailableColor());
         this.assignCharacter(player.id, CHARACTER.SOLDIER, "male");
         // this.pingPlayer(player);
         user.addActiveSession(this);
@@ -144,10 +145,9 @@ export class Session implements SessionData {
         return gameController;
     }
 
-    public assignColor(userId: string, color: PAWN_COLOR): void {
-        if (!this.isColorTaken(color)) {
-            this.getPlayerById(userId).assignColor(color);
-        }
+    public assignColor(userId: string, color: PLAYER_COLOR): void {
+        console.log("color assigned!", color)
+        this.getPlayerByUserId(userId).assignColor(color);
     }
 
     public assignCharacter(userId: string, character: CHARACTER, gender: Gender) {
@@ -243,7 +243,7 @@ export class Session implements SessionData {
         return player;
     }
 
-    private findAvailableColor(): PAWN_COLOR {
+    private findAvailableColor(): PLAYER_COLOR {
         let searched;
         this._colors.forEach((color) => {
             if (!this.isColorTaken(color)) {
@@ -257,7 +257,7 @@ export class Session implements SessionData {
     }
 
 
-    private isColorTaken(color: PAWN_COLOR) {
+    private isColorTaken(color: PLAYER_COLOR) {
         return this._players.some((player) => player.color === color);
     }
 

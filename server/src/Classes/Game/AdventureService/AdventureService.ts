@@ -15,6 +15,8 @@ import {TileService} from "../TileService/TileService";
 import {isPlayerCharacter} from "@shared/utils/typeGuards/isPlayerCharacter";
 import {isAdventureAction} from "@shared/utils/typeGuards/isAdventureAction";
 import shuffle from "@shared/utils/shuffleArray";
+import {ICharacter} from "@shared/types/Game/Characters/Character";
+import {IPlayer} from "@shared/types/Game/PlayerService/Player";
 
 export class AdventureService implements IAdventureService {
     private readonly _game: IGame;
@@ -35,8 +37,11 @@ export class AdventureService implements IAdventureService {
 
     get renderData(): IAdventureServiceRenderData {
         return {
-            currentCard: this._currentAdventure
-                ? this._currentAdventure.card.renderData
+            currentAdventure: this._currentAdventure
+                ? {
+                    card: this._currentAdventure.card.renderData,
+                    player: this._currentAdventure.player.renderData,
+                }
                 : null,
         };
     }
@@ -74,6 +79,7 @@ export class AdventureService implements IAdventureService {
         this._currentAdventure = {
             card,
             relatedActionInfo,
+            player: this._game.playerService.players.find((player => player.getCharacter().name === resolvableItem.leaderPawn.owner.name)) as IPlayer
         };
     }
 

@@ -1,27 +1,41 @@
 .container {
-    grid-column: 3 / span 3;
-    grid-row: 5 / span 1;
     background-image: url("../../../../public/UI/characters/background.png");
     background-size: cover;
-    border: 1px solid var(--borderColor);
-    border-top: none;
+    width: 100%;
+    height: 100%;
 }
 
 .health {
     width: 100%;
     height: 100%;
     display: flex;
-    margin-top: 2px;
-    justify-content: space-between;
+    justify-content: space-around;
+    align-items: center;
 }
+
+.healthVertical {
+    flex-direction: column;
+}
+
+.arrowWrapper {
+    height: 88%;
+}
+
 
 .arrow {
     position: relative;
     display: inline-block;
-    height: 50%;
+    height: 60%;
     aspect-ratio: 2.2;
     top: 20%;
 }
+
+.arrowVertical {
+    transform: rotate(-90deg);
+    top: 0;
+    height: 50%;
+}
+
 
 .skull {
     position: relative;

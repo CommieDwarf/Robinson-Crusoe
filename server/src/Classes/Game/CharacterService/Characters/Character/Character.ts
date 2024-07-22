@@ -20,7 +20,7 @@ export abstract class Character implements ICharacter {
     protected readonly _maxHealth;
     protected _health: number;
     protected _game: IGame;
-    protected declare _effects: ICharEffects;
+    protected declare _effects: ICharEffects; //do wywalenia chyba
     protected declare _pawnService: IPawnService<ICharacter>;
     protected declare _skills: IAbility<any>[];
 

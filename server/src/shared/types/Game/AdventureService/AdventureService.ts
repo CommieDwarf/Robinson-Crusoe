@@ -1,6 +1,8 @@
 import {AdventureAction} from "../ACTION";
 import {IAdventureCard, IAdventureCardRenderData} from "./AdventureCard";
 import {IResolvableItem} from "../ActionService/IResolvableItem";
+import {IPlayer, IPlayerRenderData} from "@shared/types/Game/PlayerService/Player";
+import {ICharacter, ICharacterRenderData} from "@shared/types/Game/Characters/Character";
 
 export type AdventureCardStacks = {
     [key in AdventureAction]: IAdventureCard[];
@@ -14,6 +16,7 @@ export interface AdventureRelatedActionInfo {
 export interface CurrentAdventure {
     card: IAdventureCard;
     relatedActionInfo: AdventureRelatedActionInfo | null;
+    player: IPlayer;
 }
 
 export interface IAdventureService {
@@ -24,5 +27,5 @@ export interface IAdventureService {
 }
 
 export interface IAdventureServiceRenderData {
-    currentCard: IAdventureCardRenderData | null;
+    currentAdventure: { card: IAdventureCardRenderData, player: IPlayerRenderData } | null;
 }

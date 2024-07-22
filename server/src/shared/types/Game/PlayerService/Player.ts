@@ -1,9 +1,8 @@
 import {IPlayerCharacter, IPlayerCharacterRenderData,} from "../Characters/PlayerCharacter";
-import {PAWN_COLOR} from "@shared/types/Game/PAWN_COLOR";
+import {PLAYER_COLOR} from "@shared/types/Game/PLAYER_COLOR";
 import {IUser} from "../../../../types/UserData/IUser";
 import {CHARACTER, Gender} from "@shared/types/Game/Characters/Character";
 import {IGame} from "@shared/types/Game/Game";
-import {SessionData} from "../../Session/Session";
 
 
 export interface AssignedCharacter {
@@ -16,24 +15,27 @@ export interface IPlayer {
     username: string;
     getCharacter: () => IPlayerCharacter;
     id: string;
-    color: string | null;
+    color: PLAYER_COLOR;
     assignCharacter: (character: AssignedCharacter) => void;
     assignedCharacter: AssignedCharacter;
-    assignColor: (color: PAWN_COLOR) => void;
+    assignColor: (color: PLAYER_COLOR) => void;
     initCharacter: (game: IGame) => void;
     user: IUser;
     ping: (onPong: (latency: number) => void, onTimeout: () => void, sessionId: string) => void;
     clearPingIntervals: () => void;
     ready: boolean;
+
+    prime: boolean;
     renderData: IPlayerRenderData;
 }
 
 
 export interface IPlayerRenderData {
     username: string;
-    color: string;
+    color: PLAYER_COLOR;
     character: IPlayerCharacterRenderData | null;
     assignedCharacter: AssignedCharacter;
+    prime: boolean;
     ready: boolean;
     id: string;
 }

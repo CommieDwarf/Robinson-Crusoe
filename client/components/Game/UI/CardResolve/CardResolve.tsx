@@ -15,19 +15,24 @@ import {
 } from "@shared/types/CONTROLLER_ACTION";
 import {IMysteryCardRenderData} from "@shared/types/Game/MysteryService/MysteryCard";
 import {ResolveButtons} from "./ResolveButtons/ResolveButtons";
-import {useAppDispatch} from "../../../../store/hooks";
+import {useAppDispatch, useAppSelector} from "../../../../store/hooks";
 import {socketEmitAction} from "../../../../middleware/socketMiddleware";
+import {ICharacterRenderData} from "@shared/types/Game/Characters/Character";
+import {IPlayerRenderData} from "@shared/types/Game/PlayerService/Player";
+import {PLAYER_COLOR} from "@shared/types/Game/PLAYER_COLOR";
 
 
 export interface CardResolveButtonProp {
     label: string,
     triggerEffect: () => void;
     locked: boolean;
+    color?: PLAYER_COLOR
 }
 
 
 type Props = {
-    card: IAdventureCardRenderData | IMysteryCardRenderData
+    card: IAdventureCardRenderData | IMysteryCardRenderData,
+    player: IPlayerRenderData,
     eventStage: boolean;
 };
 
@@ -37,10 +42,13 @@ const CardResolve = (props: Props) => {
 
     const dispatch = useAppDispatch();
 
+    const localPlayer = useAppSelector((state) => state.gameSession.data?.localPlayer)!;
+
     function toggleZoom() {
         setEnlarged((state) => !state);
     }
 
+    const actionAllowed = props.player.id === localPlayer.id;
 
     let button1: CardResolveButtonProp;
     let button2: CardResolveButtonProp | undefined;
@@ -51,26 +59,26 @@ const CardResolve = (props: Props) => {
             button1 = {
                 label: eventOption1?.label || "next",
                 triggerEffect: () => dispatch(socketEmitAction(OTHER_CONTROLLER_ACTION.RESOLVE_EVENT_ADVENTURE, 1)),
-                locked: false,
+                locked: !actionAllowed,
             };
             if (eventOption2) {
                 button2 = {
                     label: eventOption2.label,
                     triggerEffect: () => dispatch(socketEmitAction(OTHER_CONTROLLER_ACTION.RESOLVE_EVENT_ADVENTURE, 2)),
-                    locked: false,
+                    locked: !actionAllowed,
                 }
             }
         } else {
             button1 = {
                 label: option1Label,
                 triggerEffect: () => dispatch(socketEmitAction(ACTION_CONTROLLER_ACTION.RESOLVE_ADVENTURE, 1)),
-                locked: false,
+                locked: !actionAllowed,
             }
             if (shouldDecide) {
                 button2 = {
                     label: option2Label,
                     triggerEffect: () => dispatch(socketEmitAction(ACTION_CONTROLLER_ACTION.RESOLVE_ADVENTURE, 2)),
-                    locked: false,
+                    locked: !actionAllowed,
                 }
             }
         }
@@ -78,9 +86,11 @@ const CardResolve = (props: Props) => {
         button1 = {
             label: props.card.eventLabel,
             triggerEffect: () => dispatch(socketEmitAction(MYSTERY_CONTROLLER_ACTION.RESOLVE_EVENT_MYSTERY)),
-            locked: false,
+            locked: !actionAllowed,
+
         }
     }
+
 
     return (
         <Draggable bounds={"parent"}>
@@ -96,7 +106,7 @@ const CardResolve = (props: Props) => {
                         />
                     )}
                 </div>
-                <ResolveButtons button1={button1} button2={button2}/>
+                <ResolveButtons button1={button1} button2={button2} color={props.player.color}/>
             </div>
         </Draggable>
     );

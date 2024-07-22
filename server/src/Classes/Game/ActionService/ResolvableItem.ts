@@ -158,12 +158,14 @@ export class ResolvableItem implements IResolvableItem {
         );
     }
 
-    reRollDice(dice: ActionDice, action: AdventureAction) {
+    public reRollDice(dice: ActionDice, action: AdventureAction) {
         if (this._rollDiceResults) {
+            console.log("prev result", this._rollDiceResults[dice]);
             this._rollDiceResults[dice] = RollDiceService.getActionRollDiceResult(
                 action,
                 dice
             );
+            console.log("new result", this._rollDiceResults[dice]);
         }
     }
 

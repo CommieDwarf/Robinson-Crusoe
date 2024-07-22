@@ -2,7 +2,7 @@ import {ACTION_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {IGame} from "@shared/types/Game/Game";
 import {ActionHandler, GameControllerInterface} from "../../../types/GameController/Controllers";
 import {IPlayer} from "@shared/types/Game/PlayerService/Player";
-import {SetBibleUsageArgs} from "@shared/types/ActionArgMap";
+import {ActionDice} from "@shared/types/Game/RollDice/RollDice";
 
 export class ActionController implements GameControllerInterface {
 
@@ -19,6 +19,7 @@ export class ActionController implements GameControllerInterface {
         handlers.set(ACTION_CONTROLLER_ACTION.ROLL_ACTION_DICES, this.rollActionDices.bind(this));
         handlers.set(ACTION_CONTROLLER_ACTION.RESOLVE_ACTION, this.resolveAction.bind(this));
         handlers.set(ACTION_CONTROLLER_ACTION.RESOLVE_ADVENTURE, this.resolveAdventure.bind(this));
+        handlers.set(ACTION_CONTROLLER_ACTION.REROLL_SUCCESS, this.reRollSuccess.bind(this));
         handlers.set(ACTION_CONTROLLER_ACTION.REROLL_ACTION_DICE, this.reRollActionDice.bind(this));
         return handlers;
     }
@@ -44,7 +45,11 @@ export class ActionController implements GameControllerInterface {
         this._game.adventureService.resolveAdventureCard(option, player.getCharacter().name);
     }
 
-    private reRollActionDice(player: IPlayer, resolvableItemID: string): void {
+    private reRollSuccess(player: IPlayer, resolvableItemID: string): void {
         this._game.actionService.reRollSuccess(resolvableItemID);
+    }
+
+    private reRollActionDice(player: IPlayer, dice: ActionDice): void {
+        this._game.actionService.reRollDice(dice);
     }
 }

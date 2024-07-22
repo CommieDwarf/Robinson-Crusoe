@@ -5,7 +5,7 @@ import BeastDeck from "../Hunt/BeastDeck";
 import map from "/public/UI/map/map.png";
 import redArrowImg from "/public/UI/misc/red-arrow.png";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
-import {getPropsComparator} from "../../../../utils/getPropsComparator";
+import {getObjectsComparator} from "../../../../utils/getObjectsComparator";
 import getMouseDownHandle from "../../../../utils/dragAndScrollHandle";
 import {ITileRenderData} from "@shared/types/Game/TileService/ITile";
 import {useAppSelector} from "../../../../store/hooks";
@@ -171,4 +171,4 @@ function Map(props: Props) {
 }
 
 
-export default React.memo(Map, getPropsComparator([]));
+export default React.memo(Map, getObjectsComparator([]));

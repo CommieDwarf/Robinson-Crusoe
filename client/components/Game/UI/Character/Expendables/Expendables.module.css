@@ -6,3 +6,9 @@
     padding-right: 2%;
     flex-wrap: nowrap;
 }
+
+.primePlayerToken {
+    height: 100%;
+    aspect-ratio: 1;
+    position: relative;
+}

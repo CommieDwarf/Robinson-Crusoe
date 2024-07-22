@@ -1,9 +1,9 @@
-import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
+import {IPlayerCharacter, IPlayerCharacterRenderData} from "@shared/types/Game/Characters/PlayerCharacter";
 
 export const isPlayerCharacter = (
     candidate: Object
-): candidate is IPlayerCharacter => {
+): candidate is IPlayerCharacter | IPlayerCharacterRenderData => {
     return (
-        "player" in candidate
+        "wounds" in candidate
     );
 };

@@ -2,6 +2,9 @@
     height: 100%;
     aspect-ratio: 1;
     cursor: pointer;
+    border-radius: 100%;
+    padding: 2px;
+    border: 1px solid var(--brown);
 }
 
 .token {

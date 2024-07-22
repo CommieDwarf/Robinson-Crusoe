@@ -18,8 +18,11 @@ import {IInventionRenderData} from "@shared/types/Game/InventionService/Inventio
 import {ITileRenderData} from "@shared/types/Game/TileService/ITile";
 import {kebabCase} from "lodash";
 import {ACTION_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
-import {useAppDispatch} from "../../../../../../store/hooks";
+import {useAppDispatch, useAppSelector} from "../../../../../../store/hooks";
 import {socketEmitAction} from "../../../../../../middleware/socketMiddleware";
+import Pawn from "../../../Pawn";
+import {isPlayerCharacter} from "@shared/utils/typeGuards/isPlayerCharacter";
+import {IPlayerCharacterRenderData} from "@shared/types/Game/Characters/PlayerCharacter";
 
 type Props = {
     resolvableItem: IResolvableItemRenderData;
@@ -31,12 +34,19 @@ type Props = {
     resolved: boolean;
 };
 export const Item = (props: Props) => {
+
+
     let image;
     let extraInfoDiv;
     let itemTypeStatusClass = "";
 
     const [used, setUsed] = useState(false);
     const dispatch = useAppDispatch();
+
+    const localPlayer = useAppSelector((state) => state.gameSession.data?.localPlayer!);
+    const pawnOwner = props.resolvableItem.leaderPawn.owner;
+    const isActionAllowed = !("wounds" in pawnOwner //TODO: zrob tak samo na backendzie
+        && pawnOwner.name !== localPlayer.character?.name)
 
 
     function handleBibleCheckBoxClick() {
@@ -164,9 +174,10 @@ export const Item = (props: Props) => {
     }
 
     function handleClick() {
-        if (used || props.locked) {
+        if (used || props.locked || !isActionAllowed) {
             return;
         }
+
         if (props.resolvableItem.shouldReRollSuccess) {
             props.reRoll(props.resolvableItem.id);
         } else if (
@@ -181,8 +192,7 @@ export const Item = (props: Props) => {
     }
 
     const lockedButtonClass =
-        used || props.locked ? styles.locked : styles.clickableButton;
-    const imageName = `${props.resolvableItem.leaderPawn.owner.name}-${props.resolvableItem.leaderPawn.owner.gender}`;
+        used || props.locked || !isActionAllowed ? styles.locked : styles.clickableButton;
     const statusClass =
         props.resolvableItem.resolveStatus === RESOLVE_ITEM_STATUS.SUCCESS
             ? styles.success
@@ -240,10 +250,7 @@ export const Item = (props: Props) => {
                 {buttonText}
             </div>
             <div className={styles.character}>
-                <ResizableImage
-                    src={`/UI/characters/pawns/${imageName}.png`}
-                    alt="pionek"
-                />
+                <Pawn pawn={props.resolvableItem.leaderPawn} context={"other"} index={0} disabled={true}/>
             </div>
         </div>
     );

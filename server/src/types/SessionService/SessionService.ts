@@ -13,7 +13,7 @@ export interface ISessionService {
     leaveSession: (user: IUser, sessionId: string) => void;
     addToActiveUsers: (userDocument: UserDocument, socket: Socket) => void;
     removeFromActiveUsers: (userId: string) => void;
-    getSession: (userId: string, sessionId: string) => SessionData | null;
+    searchSession: (userId: string, sessionId: string) => SessionData | null;
 
     startGame: (userId: string, sessionId: string) => void;
 

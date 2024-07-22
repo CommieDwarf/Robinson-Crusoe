@@ -23,7 +23,7 @@ export interface IAbility<Target extends SkillTarget> {
 }
 
 export interface IAbilityRenderData {
-    name: string;
+    name: ABILITY;
     phasesAllowed: Phase[] | "all";
     actionAllowed: ACTION | null;
     cost: number;

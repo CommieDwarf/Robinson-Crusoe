@@ -115,7 +115,7 @@ export function GameSettings(props: Props) {
     }
 
     function updateServerSettings(settings: Partial<SessionSettings>) {
-        dispatch(socketEmit(SOCKET_EVENT.UPDATE_SESSION_SETTINGS, {settings, sessionId: true}))
+        dispatch(socketEmit(SOCKET_EVENT.UPDATE_SESSION_SETTINGS, {settings, hydrateSessionId: true}))
     }
 
 

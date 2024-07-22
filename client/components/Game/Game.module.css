@@ -69,5 +69,14 @@
 .chatLog {
     grid-column: 6 / span 1;
     grid-row: 3 / span 2;
+    height: 100%;
 }
 
+
+.health {
+    grid-column: 3 / span 3;
+    grid-row: 5 / span 1;
+    border: 1px solid var(--borderColor);
+    border-top: none;
+    background-color: blue;
+}

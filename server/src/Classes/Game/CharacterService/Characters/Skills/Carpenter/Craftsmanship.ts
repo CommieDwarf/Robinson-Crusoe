@@ -18,7 +18,6 @@ export class Craftsmanship extends Ability implements IAbility<any> {
     }
 
     use() {
-        // super.use();
-        //TODO: implement
+        super.use(null);
     }
 }

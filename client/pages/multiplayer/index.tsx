@@ -45,7 +45,7 @@ export function Multiplayer() {
                     return;
                 }
                 if (payload.sessionId) {
-                    router.push(`/multiplayer/lobby/?sessionId=${payload.sessionId}`).then();
+                    router.push(`/multiplayer/lobby/${payload.sessionId}`).then();
                 }
             })
         ]

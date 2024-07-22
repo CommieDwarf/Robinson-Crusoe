@@ -6,10 +6,20 @@ import * as React from "react";
 
 export function Button(props: CardResolveButtonProp) {
 
+    function handleClick() {
+        if (!props.locked) {
+            props.triggerEffect();
+        }
+    }
+
+    const style = {
+        backgroundColor: props.color
+    }
 
     return <div
         className={`${styles.container} ${props.locked ? styles.locked : ""}`}
-        onClick={props.triggerEffect}
+        onClick={handleClick}
+        style={style}
     >
         {capitalize(props.label)}
     </div>

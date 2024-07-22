@@ -6,7 +6,7 @@ import ResizableImage from "../../ResizableImage/ResizableImage";
 import {useRouter} from "next/router";
 import {SOCKET_EVENT} from "@shared/types/Requests/Socket";
 import {BackButton} from "../../BackButton/BackButton";
-import {useAppDispatch} from "../../../store/hooks";
+import {useAppDispatch, useAppSelector} from "../../../store/hooks";
 import {socketEmit} from "../../../middleware/socketMiddleware";
 
 interface Props {
@@ -22,20 +22,25 @@ export function ControlPanel(props: Props) {
     const router = useRouter();
     const dispatch = useAppDispatch();
 
+    const isHost = useAppSelector((state) =>
+        state.gameSession.data?.hostPlayer.id === state.gameSession.data?.localPlayer.id);
+
+    const startAllowed = props.startEnabled && isHost;
+
     useEffect(() => {
         setReady(props.ready);
     }, [props.ready])
 
     function toggleReady() {
         setReady((prev) => {
-            dispatch(socketEmit(SOCKET_EVENT.SET_PLAYER_READY, {sessionId: true, value: !prev}))
+            dispatch(socketEmit(SOCKET_EVENT.SET_PLAYER_READY, {hydrateSessionId: true, value: !prev}))
             return !prev
         });
     }
 
     function handleStartClick() {
-        if (props.startEnabled && props.ready) {
-            dispatch(socketEmit(SOCKET_EVENT.START_GAME, {sessionId: true}))
+        if (startAllowed && props.ready) {
+            dispatch(socketEmit(SOCKET_EVENT.START_GAME, {hydrateSessionId: true}))
         }
     }
 
@@ -47,9 +52,10 @@ export function ControlPanel(props: Props) {
             <ReadyButton ready={ready} disabled={false} onClick={toggleReady}/>
             <h4 className={`${styles.buttonText}`}>GOTOWY?</h4>
         </div>
-        <div className={`${styles.item} ${!props.startEnabled && styles.disabled}`} onClick={handleStartClick}>
+        <div className={`${styles.item} ${!startAllowed ? styles.disabled : styles.startEnabled}`}
+             onClick={handleStartClick}>
             <div className={`${styles.startButton}`}>
-                <ResizableImage src={compassImg} alt={"start"}/>
+                <ResizableImage src={compassImg} alt={"start"} priority={true}/>
             </div>
             <h4 className={`${styles.buttonText}`}>START</h4>
         </div>

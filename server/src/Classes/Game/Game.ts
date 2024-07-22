@@ -11,7 +11,7 @@ import {CharacterService} from "./CharacterService/CharacterService";
 import {MoraleService} from "./MoraleService/MoraleService";
 import {WeatherService} from "./WeatherService/WeatherService";
 
-import {PlayerService} from "./Players/PlayerService";
+import {PlayerService} from "./PlayerService/PlayerService";
 import {ActionService} from "./ActionService/ActionService";
 import {PhaseService} from "./PhaseService/PhaseService";
 import {LogService} from "./LogService/LogService";
@@ -45,8 +45,9 @@ import {LOG_CODE} from "@shared/types/Game/ChatLog/LOG_CODE";
 import {IPlayer} from "@shared/types/Game/PlayerService/Player";
 import {ObjectPicker} from "./ObjectPicker/ObjectPicker";
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
-import {PickableObject, PickSubject} from "@shared/types/Game/ObjectPicker/ObjectPicker";
+import {PickableConstruction, PickableObject, PickSubject} from "@shared/types/Game/ObjectPicker/ObjectPicker";
 import {GlobalPawnService} from "./GlobalPawnService/GlobalPawnService";
+import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction";
 
 
 export class GameClass implements IGame {
@@ -86,9 +87,12 @@ export class GameClass implements IGame {
     private _objectPickers: ObjectPicker<any>[] = [];
 
     constructor(players: IPlayer[]) {
-        players.forEach((player) => player.initCharacter(this))
+        players.forEach((player) => {
+            player.initCharacter(this);
+            player.ready = false;
+        })
 
-        this._playerService = new PlayerService(players);
+        this._playerService = new PlayerService(players, this);
         this._characterService = new CharacterService(
             players.map((player) => player.getCharacter()),
             this
@@ -120,7 +124,8 @@ export class GameClass implements IGame {
             adventureService: this._adventureService.renderData,
             mysteryService: this._mysteryService.renderData,
             actionSlotService: this._actionSlotService.renderData,
-            objectPickers: this._objectPickers.map((objPicker) => objPicker.renderData)
+            objectPickers: this._objectPickers.map((objPicker) => objPicker.renderData),
+            primePlayer: this._playerService.primePlayer.renderData,
         };
     }
 
@@ -227,7 +232,7 @@ export class GameClass implements IGame {
     }
 
 
-    public startPickingObject<T extends PickableObject>(objects: T[],
+    public startPickingObject<T extends PickableObject>(objects: (Exclude<T, PickableConstruction> | CONSTRUCTION)[],
                                                         picker: IPlayerCharacter,
                                                         amount: number,
                                                         source: string,
@@ -235,9 +240,20 @@ export class GameClass implements IGame {
                                                         pickEffect: (object: T) => void,
                                                         secondaryEffect?: (object: T) => void,
     ) {
+
+
+        const mappedObjects = objects.map(obj => {
+            if (typeof obj !== "object") {
+                return {name: obj} as T
+            } else {
+                return obj as T;
+            }
+        })
+
+
         this._objectPickers.push(new ObjectPicker<T>(
             this,
-            objects,
+            mappedObjects,
             picker,
             amount,
             source,

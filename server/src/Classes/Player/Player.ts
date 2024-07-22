@@ -1,6 +1,6 @@
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 import {AssignedCharacter, IPlayer, IPlayerRenderData} from "@shared/types/Game/PlayerService/Player";
-import {PAWN_COLOR} from "@shared/types/Game/PAWN_COLOR";
+import {PLAYER_COLOR} from "@shared/types/Game/PLAYER_COLOR";
 import {uuid} from "uuidv4";
 import {CHARACTER, Gender} from "@shared/types/Game/Characters/Character";
 import {IGame} from "@shared/types/Game/Game";
@@ -21,20 +21,22 @@ export class Player implements IPlayer {
 
 
     private readonly _username: string;
-    private _color: PAWN_COLOR | null = null;
+    private _color: PLAYER_COLOR;
     private _character: IPlayerCharacter | null = null;
     private readonly _user: IUser;
     private readonly _id = uuid();
     private _ready = false;
-    private _assignedCharacter: AssignedCharacter
+    private _assignedCharacter: AssignedCharacter;
+    private _prime = false;
 
     private _pingHandles: PingHandles | null = null;
 
     constructor(user: IUser,
-                assignedCharacter: AssignedCharacter) {
+                assignedCharacter: AssignedCharacter, color: PLAYER_COLOR) {
         this._user = user;
         this._username = user.username;
         this._assignedCharacter = assignedCharacter;
+        this._color = color;
     }
 
     get renderData(): IPlayerRenderData {
@@ -45,6 +47,7 @@ export class Player implements IPlayer {
             character: this._character?.renderData || null,
             assignedCharacter: this._assignedCharacter,
             ready: this._ready,
+            prime: this._prime,
         };
     }
 
@@ -52,7 +55,7 @@ export class Player implements IPlayer {
         return this._username;
     }
 
-    get color(): string | null {
+    get color(): PLAYER_COLOR {
         return this._color;
     }
 
@@ -80,7 +83,15 @@ export class Player implements IPlayer {
         this._ready = value;
     }
 
-    assignColor(color: PAWN_COLOR) {
+    get prime(): boolean {
+        return this._prime;
+    }
+
+    set prime(value: boolean) {
+        this._prime = value;
+    }
+
+    assignColor(color: PLAYER_COLOR) {
         this._color = color;
     }
 

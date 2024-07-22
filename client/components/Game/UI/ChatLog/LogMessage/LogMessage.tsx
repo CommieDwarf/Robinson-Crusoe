@@ -8,6 +8,7 @@ import {ILogMessageRenderData} from "@shared/types/Game/ChatLog/LogMessage";
 import {useTranslation} from 'react-i18next';
 import {resources} from "../../../../../I18n/resources";
 import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
+import {insertIconsIntoText} from "../../../../../utils/insertIconsIntoText";
 
 type Props = {
     message: ILogMessageRenderData;
@@ -69,7 +70,7 @@ export const LogMessage = (props: Props) => {
             {}
             <div className={styles.messageContent}>
                 <span className={styles.messageSource}>
-                  {capitalize(translatedSource || source)} -{" "}
+                  {insertIconsIntoText(capitalize(translatedSource || source), styles.icon)} -{" "}
                 </span>
                 <span className={styles.message + " " + styles[msg.color]}>
                     {capitalize(translatedContent)}

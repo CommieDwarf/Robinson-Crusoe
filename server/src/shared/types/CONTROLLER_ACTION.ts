@@ -4,7 +4,8 @@ export enum ACTION_CONTROLLER_ACTION {
     ROLL_ACTION_DICES = "roll action dices",
     RESOLVE_ACTION = "resolve action",
     RESOLVE_ADVENTURE = "resolve adventure",
-    REROLL_ACTION_DICE = "reroll action dice"
+    REROLL_SUCCESS = "reroll success",
+    REROLL_ACTION_DICE = "reroll dice",
 }
 
 export enum CHARACTER_CONTROLLER_ACTION {

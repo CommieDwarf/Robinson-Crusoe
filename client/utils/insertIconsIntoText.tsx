@@ -11,6 +11,7 @@ const icons = [
     "wood",
     "weapon",
     "palisade",
+    "star"
 ];
 
 export function insertIconsIntoText(string: string, elementClassName: string) {

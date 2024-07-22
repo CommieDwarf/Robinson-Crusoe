@@ -24,7 +24,7 @@ export function EnterPassword(props: Props) {
     }
 
     function handleClickJoin() {
-        dispatch(socketEmit(SOCKET_EVENT.JOIN_SESSION, {password, sessionId: true}))
+        dispatch(socketEmit(SOCKET_EVENT.JOIN_SESSION, {password, sessionId: props.sessionId}))
     }
 
 

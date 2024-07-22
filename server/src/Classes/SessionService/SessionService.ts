@@ -45,7 +45,7 @@ export class SessionService implements ISessionService {
     }
 
     public joinSession(user: IUser, sessionId: string, password: string) {
-        const session = this.getSession(user.id, sessionId);
+        const session = this.searchSession(user.id, sessionId);
         if (!session) {
             throw new SessionConnectError("Can't find session with id: " + sessionId, SESSION_CONNECTION_ERROR_CODE.SESSION_NOT_FOUND);
         }
@@ -60,8 +60,8 @@ export class SessionService implements ISessionService {
     }
 
     public leaveSession(user: IUser, sessionId: string) {
-        console.log("LEAVING SESSION")
-        const session = this.getSession(user.id, sessionId);
+        console.log("leaving session fro msessionService")
+        const session = this.searchSession(user.id, sessionId);
         const player = session?.players.find((pl) => pl.user.id === user.id);
         player && session?.leaveSession(player);
         if (session?.players.length === 0) {
@@ -71,7 +71,7 @@ export class SessionService implements ISessionService {
 
     public closeSession(sessionId: string): void {
         const session = this._activeSessions.get(sessionId);
-        console.log("Closing session!")
+        console.log("Closing session! from sessionService")
         if (!session) {
             return;
         }
@@ -85,7 +85,7 @@ export class SessionService implements ISessionService {
         this._activeSessions.delete(sessionId);
     }
 
-    public getSession(userId: string, sessionId: string): SessionData | null {
+    public searchSession(userId: string, sessionId: string): SessionData | null {
         if (sessionId === "quickgame") {
             return this.getQuickGameByUserId(userId);
         } else {
@@ -116,16 +116,16 @@ export class SessionService implements ISessionService {
 
     public getPublicSessionList(): SessionBasicInfo[] {
         return Array.from(this._activeSessions.values())
-            .filter((session) => !session.settings.private)
+            .filter((session) => !session.settings.private && !session.isGameInProgress)
             .map((session) => session.getBasicInfo());
     }
 
     public userInSession(userId: string, sessionId: string): boolean {
-        return this.getSession(userId, sessionId)?.isUserInSession(userId) || false;
+        return this.searchSession(userId, sessionId)?.isUserInSession(userId) || false;
     }
 
     public addMessage(userId: string, message: string, sessionId: string) {
-        const session = this.getSession(userId, sessionId);
+        const session = this.searchSession(userId, sessionId);
         if (!session) {
             throw new Error("Session not found");
         }
@@ -133,7 +133,7 @@ export class SessionService implements ISessionService {
     }
 
     public updateSessionSettings(userId: string, sessionId: string, settings: Partial<SessionSettings>) {
-        const session = this.getSession(userId, sessionId);
+        const session = this.searchSession(userId, sessionId);
         if (!session || session.host.id !== userId) {
             return;
         }
@@ -141,13 +141,12 @@ export class SessionService implements ISessionService {
     }
 
     public startGame(userId: string, sessionId: string) {
-        const session = this.getSession(userId, sessionId);
-        if (!session) {
-            return;
-        }
+        const session = this.getSession(sessionId);
         if (!session.isHost(userId) || !session.canStart() || session.isGameInProgress) {
             return;
         }
+
+
         session.startGame();
     }
 
@@ -158,6 +157,15 @@ export class SessionService implements ISessionService {
             throw new Error("Can't find user with id: " + userId);
         }
         return user;
+    }
+
+    private getSession(sessionId: string) {
+        const session = this._activeSessions.get(sessionId);
+        if (!session) {
+            throw new Error("Can't find session with id: " + sessionId);
+        }
+
+        return session;
     }
 
 }

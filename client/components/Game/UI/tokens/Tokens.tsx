@@ -4,10 +4,10 @@ import styles from "./Tokens.module.css";
 import Token from "./Token/Token";
 import {ContextMenu} from "./ContextMenu/ContextMenu";
 import {ITokenRenderData} from "@shared/types/Game/TokenService/Token";
-import {getPropsComparator} from "../../../../utils/getPropsComparator";
+import {getObjectsComparator} from "../../../../utils/getObjectsComparator";
 import {OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {useAppDispatch, useAppSelector} from "../../../../store/hooks";
-import {selectGame} from "../../../../reduxSlices/gameSession";
+import {selectGame, selectTokenService} from "../../../../reduxSlices/gameSession";
 import {socketEmitAction} from "../../../../middleware/socketMiddleware";
 
 interface Props {
@@ -26,13 +26,7 @@ function Tokens(props: Props) {
 
     const dispatch = useAppDispatch();
 
-    const tokens = useAppSelector((state) => {
-        const tokenService = selectGame(state).tokenService!;
-        return {
-            owned: tokenService.owned,
-            future: tokenService.future
-        }
-    })
+    const {owned, future} = useAppSelector((state) => selectTokenService(state));
 
     function handleScroll(event: React.UIEvent<HTMLDivElement>) {
         setScrollLeft(event.currentTarget.scrollLeft);
@@ -98,7 +92,7 @@ function Tokens(props: Props) {
                 )}
             <div className={styles.scroll} onScroll={handleScroll} onWheel={handleWheel} ref={scrollRef}>
                 <div className={styles.content}>
-                    {tokens.owned.map((token, i) => {
+                    {owned.map((token, i) => {
                         return (
                             <Token
                                 key={i}
@@ -109,7 +103,7 @@ function Tokens(props: Props) {
                             />
                         );
                     })}
-                    {tokens.future.map((token, i) => {
+                    {future.map((token, i) => {
                         return (
                             <Token
                                 key={i}
@@ -126,4 +120,4 @@ function Tokens(props: Props) {
     );
 }
 
-export default React.memo(Tokens, getPropsComparator());
+export default React.memo(Tokens, getObjectsComparator());

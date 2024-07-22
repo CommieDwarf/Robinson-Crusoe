@@ -203,10 +203,6 @@
     aspect-ratio: 1;
     height: 25%;
     position: relative;
-    border: 2px solid orange;
-    border-radius: 100% !important;
-    overflow: hidden;
     margin: 5px auto auto;
-    background-color: bisque;
 }
 

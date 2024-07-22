@@ -1,5 +1,8 @@
 import styles from "./Expendables.module.css";
 import {Expendable} from "./Expendable/Expendable/Expendable";
+import ResizableImage from "../../../../ResizableImage/ResizableImage";
+import compassImg from "/public/UI/tokens/compass.png";
+import React from "react";
 
 
 interface Props {

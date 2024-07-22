@@ -11,7 +11,7 @@ export class Frenzy extends Ability implements IAbility<null> {
         super(
             ABILITY.FRENZY,
             "all",
-            ACTION.HUNT,
+            null,
             3,
             game,
             character

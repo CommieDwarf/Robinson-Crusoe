@@ -10,6 +10,7 @@ import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction"
 import {INVENTION} from "@shared/types/Game/InventionService/Invention";
 import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
 import {PawnMovementData} from "@shared/types/Game/GlobalPawnService/GlobalPawnService";
+import {ActionDice} from "@shared/types/Game/RollDice/RollDice";
 
 
 type Id = string;
@@ -24,7 +25,7 @@ export type ResolveActionArgs = [ActionId]
 
 export type ResolveAdventureArgs = [Option]
 
-export type ReRollActionDiceArgs = [resolvableItemID: string];
+export type ReRollActionDiceArgs = [dice: ActionDice];
 
 export type SetPawnArgs = [source: PawnMovementData, target: PawnMovementData];
 

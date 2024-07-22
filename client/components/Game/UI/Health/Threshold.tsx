@@ -12,6 +12,7 @@ interface Props {
     id: number;
     thresholdAmountForRemoval: number;
     removed: boolean;
+    vertical?: boolean;
 }
 
 export default function Threshold(props: Props) {
@@ -29,14 +30,17 @@ export default function Threshold(props: Props) {
 
 
     return (
-        <div className={`${styles.arrow} ${blinkClass}`} onClick={handleClick}>
-            <ResizableImage src={moraleArrowLeftImg} fill alt="morale" sizes={styles.arrow}/>
-            {props.removed && (
-                <div className={styles.xMark}>
-                    <ResizableImage src={xMark} alt="usunięty próg"/>
-
-                </div>
-            )}
+        <div className={styles.arrowWrapper}>
+            <div className={`${styles.arrow} ${blinkClass} ${props.vertical && styles.arrowVertical}`}
+                 onClick={handleClick}>
+                <ResizableImage src={moraleArrowLeftImg} fill alt="morale" sizes={styles.arrow}/>
+                {props.removed && (
+                    <div className={styles.xMark}>
+                        <ResizableImage src={xMark} alt="usunięty próg"/>
+                    </div>
+                )}
+            </div>
         </div>
+
     );
 }

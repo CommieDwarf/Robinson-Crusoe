@@ -10,8 +10,9 @@ import {selectGame} from "../../../reduxSlices/gameSession";
 
 interface Props {
     pawn: IPawnRenderData<any>;
-    context: ACTION | "character";
+    context: ACTION | "character" | "other";
     index: number;
+    disabled: boolean;
 }
 
 export default function Pawn(props: Props) {
@@ -32,34 +33,55 @@ export default function Pawn(props: Props) {
             : props.context + "Context";
 
 
+    const player = useAppSelector((state) => selectGame(state)?.players.find((player) => props.pawn.owner.name === player.character?.name));
     const disabled = useAppSelector((state) => {
-        return selectGame(state).phaseService.phase !== "preAction";
-    })
+        return selectGame(state).phaseService.phase !== "preAction" || (player && player.id !== state.gameSession.data?.localPlayer.id)
+    }) || props.disabled
+
+    const style = {
+        backgroundColor: player && !props.pawn.action ? player.color : undefined,
+        borderColor: player && props.pawn.action ? player.color : undefined,
+        borderWidth: player && props.pawn.action ? 2 : 1,
+    }
+
+
+    const pawn = <div
+        className={styles.pawn + " " + styles[pawnClass]}
+        id={props.pawn.draggableId}
+        style={style}
+    >
+        <div
+            className={`${styles.imgWrapper} ${player && !props.pawn.action && styles.imgWrapperDarkened}`}>
+            <ResizableImage
+                src={`/UI/characters/pawns/${imageName}.png`}
+                fill
+                alt="pionek"
+                sizes={styles.pawn}
+            />
+        </div>
+
+    </div>
+
     return (
-        <Draggable draggableId={props.pawn.draggableId} index={props.index} isDragDisabled={disabled}>
-            {(provided, snapshot) => {
-                return (
-                    <div
-                        className={styles.container + " " + styles[context]}
-                        id={props.pawn.draggableId}
-                        {...provided.dragHandleProps}
-                        {...provided.draggableProps}
-                        ref={provided.innerRef}
-                    >
+        <> {props.disabled ? <div className={styles.container + " " + styles[context]}>{pawn}</div> :
+            <Draggable draggableId={props.pawn.draggableId} index={props.index} isDragDisabled={disabled}>
+                {(provided, snapshot) => {
+                    return (
                         <div
-                            className={styles.pawn + " " + styles[pawnClass]}
+                            className={styles.container + " " + styles[context]}
                             id={props.pawn.draggableId}
+                            {...provided.dragHandleProps}
+                            {...provided.draggableProps}
+                            ref={provided.innerRef}
                         >
-                            <ResizableImage
-                                src={`/UI/characters/pawns/${imageName}.png`}
-                                fill
-                                alt="pionek"
-                                sizes={styles.pawn}
-                            />
+                            {pawn}
                         </div>
-                    </div>
-                );
-            }}
-        </Draggable>
+                    );
+                }}
+            </Draggable>
+        }
+
+        </>
+
     );
 }

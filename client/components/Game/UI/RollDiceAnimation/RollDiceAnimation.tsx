@@ -1,5 +1,5 @@
 import * as React from "react";
-import {useLayoutEffect, useState} from "react";
+import {useEffect, useLayoutEffect, useRef, useState} from "react";
 import * as THREE from "three";
 import {SpotLight} from "three";
 import styles from "./RollDiceAnimation.module.css";
@@ -21,6 +21,9 @@ import {
     WeatherDice,
     WeatherDiceResult
 } from "@shared/types/Game/RollDice/RollDice";
+import {usePrevious} from "@restart/hooks";
+import {arraysEqual} from "../../../../utils/arraysEqual";
+import Entries from "@shared/types/Entries";
 
 const structures = {
     gather,
@@ -46,6 +49,10 @@ type Props = {
 
 export const RollDiceAnimation = (props: Props) => {
     const containerRef = React.createRef<HTMLDivElement>();
+
+    const prevResults = usePrevious(props.results);
+
+    console.log("RESULTS ----------------------- ", props.results);
     const [renderer, setRenderer] = useState(
         new THREE.WebGLRenderer({
             antialias: true,
@@ -131,9 +138,10 @@ export const RollDiceAnimation = (props: Props) => {
 
         const dices = new Map<ActionDice | WeatherDice, IDice>();
         let index = 0;
-        props.results.forEach((value: any, key: any) => {
-            let fixed =
-                (props.reRolledDice && key !== props.reRolledDice) || props.fixed;
+        props.results.forEach((value, key) => {
+
+            // @ts-ignore
+            let fixed = Boolean(prevResults && value?.result === prevResults.get(key).result);
             if (value && key) {
                 dices.set(key, new Dice(value, key, cubeSize, translateX[index], fixed));
                 index++;
@@ -366,11 +374,24 @@ export const RollDiceAnimation = (props: Props) => {
 };
 
 function areEqual(prevProps: Props, nextProps: Props) {
+
+    let resultsEqual = true;
+
+    prevProps.results.forEach((value, key) => {
+        // @ts-ignore
+        if (value !== nextProps.results.get(key)) {
+            resultsEqual = false;
+        }
+    })
+
+
     return (
         prevProps.name === nextProps.name &&
         prevProps.reRolledDice === nextProps.reRolledDice &&
-        prevProps.fixed === nextProps.fixed
+        prevProps.fixed === nextProps.fixed &&
+        resultsEqual
     );
 }
+
 
 export default React.memo(RollDiceAnimation, areEqual);

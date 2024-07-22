@@ -25,7 +25,7 @@ export const ResolvableItems = (props: Props) => {
         }
         return (
             <Item
-                resolved={props.resolvedItems.has(resItem.id)}
+                resolved={!!props.resolvedItems.get(resItem.id)}
                 resolvableItem={resItem}
                 actionService={props.actionService}
                 resolve={props.resolve}

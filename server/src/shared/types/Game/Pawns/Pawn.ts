@@ -1,6 +1,7 @@
 import {IInvention} from "../InventionService/Invention";
 import {ICharacter} from "../Characters/Character";
 import {ITreasureMysteryCard} from "../MysteryService/MysteryCard";
+import {PLAYER_COLOR} from "@shared/types/Game/PLAYER_COLOR";
 
 
 export type IPawnOwner = IInvention | ITreasureMysteryCard | ICharacter;
@@ -21,6 +22,7 @@ export interface IPawnRenderData<OwnerRenderData extends IPawnOwnerRenderData> {
     disposable: boolean;
     action: PAWN_HELPER_ACTION | null;
     owner: Omit<OwnerRenderData, "pawnService">
+    color?: PLAYER_COLOR,
 }
 
 export enum PAWN_HELPER_ACTION {

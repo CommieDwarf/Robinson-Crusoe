@@ -5,9 +5,23 @@ import {IToken} from "@shared/types/Game/TokenService/Token";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
 import {IPlayerCharacter, IPlayerCharacterRenderData} from "@shared/types/Game/Characters/PlayerCharacter";
 import {TileType} from "@shared/types/Game/TileService/TileResourceInfo";
+import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction";
 
-export type PickableObject = IBeast | IInvention | IItem | IToken | TileType | ICharacter;
-export type PickSubject = "beast" | "invention" | "item" | "token" | "tileType" | "character" | "custom";
+
+export interface PickableConstruction {
+    name: CONSTRUCTION
+}
+
+export type PickableObject = IBeast | IInvention | IItem | IToken | TileType | ICharacter | PickableConstruction;
+export type PickSubject =
+    "beast"
+    | "invention"
+    | "item"
+    | "token"
+    | "tileType"
+    | "character"
+    | "construction"
+    | "custom";
 
 export type Pickable<T extends PickableObject> = {
     object: T,

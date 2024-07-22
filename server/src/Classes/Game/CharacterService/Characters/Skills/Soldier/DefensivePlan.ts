@@ -18,14 +18,15 @@ export class DefensivePlan extends Ability implements IAbility<null> {
         );
     }
 
-    use() {
-        const isShelterBuilt = this._game.constructionService.isBuilt(CONSTRUCTION.SHELTER);
+
+    public use() {
         super.use(null);
-        this._game.startPickingObject([],
+        const isShelterBuilt = this._game.constructionService.isBuilt(CONSTRUCTION.SHELTER);
+        this._game.startPickingObject([CONSTRUCTION.WEAPON, CONSTRUCTION.PALISADE],
             this._character as IPlayerCharacter,
             0,
             this._name,
-            "custom",
+            "construction",
             () => {
                 this._game.constructionService.lvlUpConstruction(CONSTRUCTION.WEAPON, 1, this._name);
             },

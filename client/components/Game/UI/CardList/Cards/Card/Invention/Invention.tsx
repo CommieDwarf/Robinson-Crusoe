@@ -9,7 +9,7 @@ import {OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {ACTION} from "@shared/types/Game/ACTION";
 import {IInventionRenderData} from "@shared/types/Game/InventionService/Invention";
 import {getOwnedDroppableId} from "@shared/utils/getOwnedDroppableId";
-import {getPropsComparator} from "../../../../../../../utils/getPropsComparator";
+import {getObjectsComparator} from "../../../../../../../utils/getObjectsComparator";
 import {selectGame} from "../../../../../../../reduxSlices/gameSession";
 import {socketEmitAction} from "../../../../../../../middleware/socketMiddleware";
 
@@ -141,4 +141,4 @@ function Invention(props: Props) {
     );
 }
 
-export default React.memo(Invention, getPropsComparator([]));
+export default React.memo(Invention, getObjectsComparator([]));

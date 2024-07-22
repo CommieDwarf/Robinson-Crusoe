@@ -1,0 +1,7 @@
+.container {
+    background-image: url("../../../../public/UI/paper-background.png");
+    z-index: 999;
+    position: absolute;
+    border: 1px solid var(--borderColor);
+    border-radius: 5px;
+}

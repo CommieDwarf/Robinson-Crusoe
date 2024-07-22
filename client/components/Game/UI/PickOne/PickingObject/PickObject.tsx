@@ -1,9 +1,8 @@
-import {isInventionRenderData} from "@shared/utils/typeGuards/isInventionRenderData";
 import styles from "./PickObject.module.css";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
 import {PickableObject, PickableRenderData, PickSubject} from "@shared/types/Game/ObjectPicker/ObjectPicker";
 import {kebabCase} from "lodash";
-import {IInvention, IInventionRenderData} from "@shared/types/Game/InventionService/Invention";
+import {IInventionRenderData} from "@shared/types/Game/InventionService/Invention";
 
 interface Props {
     pickSubject: PickSubject,
@@ -15,7 +14,7 @@ interface Props {
 
 export function PickObject(props: Props) {
     const basePath = "/UI";
-    let imgUrlPath = ""
+    let imgUrlPath = "";
     let name = "name" in props.pickObject.object ? kebabCase(props.pickObject.object.name) : props.pickObject.object.id;
 
     switch (true) {
@@ -34,6 +33,9 @@ export function PickObject(props: Props) {
             break;
         case props.pickSubject === "tileType":
             imgUrlPath = `${basePath}/map/tiles/${name}.png`;
+            break;
+        case props.pickSubject === "construction":
+            imgUrlPath = `${basePath}/constructions/${name}-icon.png`;
             break;
     }
 
@@ -58,6 +60,6 @@ export function PickObject(props: Props) {
              `}
         onClick={handleClick}
     >
-        <ResizableImage src={imgUrlPath} alt={"dd"} fill/>
+        <ResizableImage src={imgUrlPath} alt={String(name)} fill/>
     </div>
 }

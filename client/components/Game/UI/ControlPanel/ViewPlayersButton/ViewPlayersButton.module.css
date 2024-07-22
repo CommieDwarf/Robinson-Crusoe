@@ -1,0 +1,24 @@
+.container {
+    height: 100%;
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: 100%;
+    border: 2px solid var(--brown);
+    cursor: pointer;
+}
+
+.container:hover {
+    scale: 1.1;
+}
+
+.imgWrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 85%;
+    aspect-ratio: 1;
+    filter: var(--blackToBrown);
+}
+
+

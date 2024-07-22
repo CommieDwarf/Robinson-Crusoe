@@ -18,7 +18,7 @@ export function SessionList(props: Props) {
     const dispatch = useAppDispatch();
 
     function requestList() {
-        dispatch(socketEmit(SOCKET_EVENT.GAMES_IN_PROGRESS_LIST_REQUESTED, null))
+        dispatch(socketEmit(SOCKET_EVENT.SESSION_LIST_REQUESTED, null))
     }
 
     useEffect(() => {

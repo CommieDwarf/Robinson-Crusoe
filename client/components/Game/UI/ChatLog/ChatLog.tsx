@@ -12,7 +12,6 @@ import {SOCKET_EVENT} from "@shared/types/Requests/Socket";
 
 interface Props {
     enableLog: boolean;
-    localUser: string;
 }
 
 export default function ChatLog(props: Props) {
@@ -22,6 +21,8 @@ export default function ChatLog(props: Props) {
 
     const [message, setMessage] = useState("");
     const scrollRef = useRef<HTMLDivElement>(null);
+
+    const localUsername = useAppSelector((state) => state.gameSession.data?.localPlayer.username!);
 
     const messages = useAppSelector((state) => {
             if (logMode) {
@@ -62,7 +63,7 @@ export default function ChatLog(props: Props) {
 
     function onSendMsgClick() {
         if (message.trim().length > 0) {
-            dispatch(socketEmit(SOCKET_EVENT.SEND_MESSAGE, {message: message.trim(), sessionId: true}))
+            dispatch(socketEmit(SOCKET_EVENT.SEND_MESSAGE, {message: message.trim(), hydrateSessionId: true}))
             setMessage("");
         }
     }
@@ -77,7 +78,7 @@ export default function ChatLog(props: Props) {
                             if (isLogMessage(msg)) {
                                 return <LogMessage message={msg} key={i}/>;
                             } else {
-                                return <ChatMessage message={msg} key={i} localUser={props.localUser}/>
+                                return <ChatMessage message={msg} key={i} localUser={localUsername}/>
                             }
                         })}
                     </div>

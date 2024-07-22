@@ -114,7 +114,7 @@ export const resources = {
                 [ABILITY.A_NEW_IDEA]: {
                     name: "Nowy pomysł",
                     name_genitive: "Nowego pomysłu",
-                    description: "Odrzuć 3 \$determination\$, aby pociągnąć 5 kart z talii Pomysłów i wybrać1 z nich.",
+                    description: "Odrzuć 3 \$determination\$, aby pociągnąć 5 kart z talii Pomysłów i wybrać 1 z nich.",
                     comment: "Zdaje się, że wiem, jak ulepszyć nasze obozowisko…"
                 },
                 [ABILITY.HANDYMAN]: {
@@ -140,7 +140,7 @@ export const resources = {
                 [ABILITY.FRENZY]: {
                     name: "Furia",
                     name_genitive: "Furii",
-                    description: "Odrzuć 3 \$determination\$, a by tymczasowo otrzymać +3 \$weapon\$ podczas swojej akcji.",
+                    description: "Odrzuć 3 \$determination\$, a by tymczasowo otrzymać +3 \$weapon\$ do kolejnej walki.",
                     comment: "Teraz to jestem naprawdę wściekły. Przysięgam, nie polubicie mnie takiego!"
                 },
                 [ABILITY.DEFENSIVE_PLAN]: {
@@ -562,7 +562,9 @@ export const resources = {
             alerts: {
                 [ALERT_CODE.NOT_ENOUGH_MATERIALS_FOR_ACTION]: "Brakuje materiałów do wykonania tej akcji.",
                 [ALERT_CODE.NOT_ENOUGH_DETERMINATION_FOR_ABILITY]: "Brakuje punktów determinacji do użycia tej umiejętności.",
-                [ALERT_CODE.BEAST_DECK_IS_EMPTY]: "Stos z bestiami jest pusty."
+                [ALERT_CODE.BEAST_DECK_IS_EMPTY]: "Stos z bestiami jest pusty.",
+                [ALERT_CODE.PLAYERS_NOT_READY_FOR_ACTION]: "Gracze muszą zgłosić gotowość",
+                [ALERT_CODE.CHANGE_PHASE_IS_PRIME_PLAYER_ACTION]: "Zmianę fazy podejmuje pierwszy gracz"
             },
             pickObject: {
                 [ABILITY.RECONNAISSANCE]: {
@@ -586,8 +588,8 @@ export const resources = {
                 [ABILITY.DEFENSIVE_PLAN]: {
                     source: `$t(translation:ability.${ABILITY.DEFENSIVE_PLAN}.name)`,
                     description: `$t(translation:ability.${ABILITY.DEFENSIVE_PLAN}.comment)`,
-                    effectLabel: "+\$palisade\$",
-                    secondaryEffectLabel: "+\$weapon\$"
+                    effectLabel: "+\$weapon\$",
+                    secondaryEffectLabel: "+\$palisade\$"
                 }
             },
             other: {
@@ -661,7 +663,7 @@ export const resources = {
             [LOG_CODE.ITEM_GRANTED]: "Otrzymano $t(translation:item.{{subject1}}, {\"context\"\: \"accusative\"}).",
             [LOG_CODE.CHARACTER_USED_TOKEN]: "$t(translation:character.{{subject1}}) użył tokenu $t(translation:discoveryToken.{{subject2}}, {\"context\": \"genitive\"}).",
             [LOG_CODE.CHARACTER_USED_ABILITY]: "$t(translation:character.{{subject1}}) użył $t(translation:ability.{{subject2}}.name, {\"context\": \"genitive\"}).",
-            [LOG_CODE.CHARACTER_GOT_HURT]: "$t(translation:character).{{subject1}} otrzymał {{amount}} obrażeń.",
+            [LOG_CODE.CHARACTER_GOT_HURT]: "$t(translation:character.{{subject1}}) otrzymał {{amount}} obrażeń.",
             [LOG_CODE.RESOURCE_BOOST_REMOVED]: "Źródło $t(translation:resource.{{subject1}}, {\"context\": \"genitive\"}) nie daje już dodatkowego surowca.",
             [LOG_CODE.RESOURCE_BOOST_ADDED]: "Źródło $t(translation:resource.{{subject1}}, {\"context\": \"genitive\"}) będzie dawać dodatkowy surowiec.",
             [LOG_CODE.RESOURCE_DEPLETED]: "Źródło $t(translation:resource.{{subject1}}, {\"context\": \"genitive\"}) zostało wyczerpane.",
@@ -674,6 +676,9 @@ export const resources = {
             [LOG_CODE.ALL_PLAYERS_LOST_DETERMINATION]: "Wszyscy gracze tracą {{amount}} determinacji.",
             [LOG_CODE.ALL_PLAYERS_GOT_HURT]: "Wszyscy gracze otrzymują {{amount}} obrażeń.",
             [LOG_CODE.ALL_PLAYERS_GOT_HEALED]: "Wszyscy gracze leczą się z {{amount}} obrażeń.",
+            [LOG_CODE.NEW_PRIME_PLAYER]: "Gracz {{subject1}} jest teraz pierwszym graczem.",
+            [LOG_CODE.CHARACTER_LOST_DETERMINATION]: "$t(translation:character.{{subject1}}) traci {{amount}} determinacji.",
+            [LOG_CODE.CHARACTER_GOT_DETERMINATION]: "$t(translation:character.{{subject1}}) zyskuje {{amount}} determinacji.",
         },
 
     }

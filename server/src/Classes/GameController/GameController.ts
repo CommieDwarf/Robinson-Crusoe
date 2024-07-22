@@ -10,6 +10,7 @@ import {ActionHandler, BaseController, GameControllerInterface} from "../../type
 import {CONTROLLER_ACTION, OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {INVENTION} from "@shared/types/Game/InventionService/Invention";
 
+
 export enum STORAGE_ACTION {
     WITHDRAW = "withdraw",
     DEPOSIT = "deposit",
@@ -28,7 +29,7 @@ export class GameController implements GameControllerInterface, BaseController {
         this._game = game;
         this._players = players;
         this.initActionHandlers();
-        // this.testStuff();
+        this.testStuff();
     }
 
     get game(): IGame {
@@ -45,7 +46,9 @@ export class GameController implements GameControllerInterface, BaseController {
     }
 
     private testStuff() {
-        this._game.constructionService.lvlUpConstruction(CONSTRUCTION.SHELTER, 1, "dasedas")
+        this._game.playerService.players.forEach((player) => {
+            this._game.characterService.incrDetermination(player.getCharacter(), 10, "test");
+        })
     }
 
     private initActionHandlers() {

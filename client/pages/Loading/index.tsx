@@ -1,4 +1,4 @@
-import styles from "../Play/play.module.css";
+import styles from "../play/index.module.css";
 import compassImg from "/public/UI/tokens/compass.png";
 import * as React from "react";
 import {NextPage} from "next";

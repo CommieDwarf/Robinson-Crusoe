@@ -9,7 +9,7 @@ import boardImg from "/public/UI/misc/board.jpg";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
 import {objectsEqual} from "@shared/utils/objectsEqual";
 import {useAppSelector} from "../../../../store/hooks";
-import {selectGame} from "../../../../reduxSlices/gameSession";
+import {selectResourceService} from "../../../../reduxSlices/gameSession";
 
 interface Props {
 
@@ -17,13 +17,7 @@ interface Props {
 
 function AllResources(props: Props) {
 
-    const resources = useAppSelector((state) => {
-        const resourceService = selectGame(state).resourceService!;
-        return {
-            future: resourceService.future,
-            owned: resourceService.owned,
-        }
-    })
+    const {future, owned} = useAppSelector(selectResourceService);
 
 
     return (
@@ -31,7 +25,7 @@ function AllResources(props: Props) {
             <Frame/>
             <div className={`${styles.resources} ${styles.future}`}>
                 <Resources type={"future"}
-                           resources={resources.future}
+                           resources={future}
 
                 />
             </div>
@@ -47,7 +41,7 @@ function AllResources(props: Props) {
                 </div>
             </div>
             <div className={`${styles.resources} ${styles.owned}`}>
-                <Resources type={"owned"} resources={resources.owned}/>
+                <Resources type={"owned"} resources={owned}/>
             </div>
         </div>
     );

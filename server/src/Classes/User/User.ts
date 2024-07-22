@@ -76,7 +76,7 @@ export class User implements IUser {
         this._activeSessions
             .filter((session) => !session.isGameInProgress)
             .forEach((session) => {
-                this._sessionService.leaveSession(this, session.id);
+                // this._sessionService.leaveSession(this, session.id);
             })
     }
 

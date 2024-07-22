@@ -4,8 +4,34 @@ import {objectsEqual} from "@shared/utils/objectsEqual";
 import {Tab} from "../CardList";
 import {Card} from "./Card/Card";
 import {useAppSelector} from "../../../../../store/hooks";
-import {selectGame} from "../../../../../reduxSlices/gameSession";
+import {
+    selectEquipmentService,
+    selectInventionService,
+    selectMysteryService,
+    selectResourceService
+} from "../../../../../reduxSlices/gameSession";
+import {createSelector} from "reselect";
+import {RootState} from "../../../../../store/store";
+import {SCENARIO} from "@shared/types/Game/ScenarioService/SCENARIO";
 import {INVENTION_TYPE} from "@shared/types/Game/InventionService/Invention";
+
+
+const selectCards = createSelector([
+    (state: RootState) => selectInventionService(state).inventions.filter((card) => card.inventionType !== INVENTION_TYPE.SCENARIO),
+    (state: RootState) => selectMysteryService(state).cardsAsReminders,
+    (state: RootState) => selectResourceService(state).owned.treasures,
+    (state: RootState) => selectEquipmentService(state).items
+], (inventions,
+    mysteryReminderCards,
+    mysteryTreasures,
+    items) => {
+
+    return {
+        inventions,
+        mysteryCards: [...mysteryReminderCards, ...mysteryTreasures],
+        items,
+    }
+})
 
 interface Props {
     tab: Tab;
@@ -19,23 +45,11 @@ interface Props {
 function Cards(props: Props) {
 
     const cards = useAppSelector((state) => {
-        return {
-            inventions: selectGame(state).inventionService.inventions.filter(inv => inv.inventionType !== INVENTION_TYPE.SCENARIO)!,
-            mysteryCards: [...selectGame(state).mysteryService.cardsAsReminders!,
-                ...selectGame(state).resourceService.owned.treasures!
-            ],
-            items: selectGame(state).equipmentService.items!
-        }
+        return selectCards(state);
     })
-
-
     let cardsSelected = cards[props.tab];
-
-
     let column = -1;
     let row = -1;
-
-
     const aspectRatio = 0.654;
     const tabsHeight = 20;
     // const columnGap = 6;
@@ -43,7 +57,6 @@ function Cards(props: Props) {
     const totalWidth = props.containerWidth - scrollbar;
     const cardWidth = totalWidth / 4;
     const cardHeight = cardWidth / aspectRatio;
-
 
     const maxColumns = 4;
 

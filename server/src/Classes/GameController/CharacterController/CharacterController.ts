@@ -1,10 +1,7 @@
 import {CHARACTER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {IPlayer} from "@shared/types/Game/PlayerService/Player";
-import {ActionDice} from "@shared/types/Game/RollDice/RollDice";
-import {Cloud} from "@shared/types/Game/Weather/Weather";
 import {IGame} from "@shared/types/Game/Game";
 import {ActionHandler, GameControllerInterface} from "../../../types/GameController/Controllers";
-import {ICharacter} from "@shared/types/Game/Characters/Character";
 import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
 import {PawnMovementData} from "@shared/types/Game/GlobalPawnService/GlobalPawnService";
 
@@ -34,13 +31,7 @@ export class CharacterController implements GameControllerInterface {
         this._game.characterService.removeMoraleThreshold(player.getCharacter(), num);
     }
 
-    private useAbility(player: IPlayer, abilityInfo: {
-        abilityName: ABILITY,
-        target?: ICharacter | ActionDice | Cloud
-    },): void {
-
-        const {abilityName, target} = abilityInfo;
-
-        player.getCharacter().useAbility(abilityName, target || null);
+    private useAbility(player: IPlayer, ability: ABILITY,): void {
+        player.getCharacter().useAbility(ability, null);
     }
 }

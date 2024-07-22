@@ -5,7 +5,7 @@ import redArrowImg from "/public/UI/misc/red-arrow.png";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
 import {IScenarioServiceRenderData} from "@shared/types/Game/ScenarioService/ScenarioService";
 import {IInventionRenderData, INVENTION_TYPE} from "@shared/types/Game/InventionService/Invention";
-import {getPropsComparator} from "../../../../utils/getPropsComparator";
+import {getObjectsComparator} from "../../../../utils/getObjectsComparator";
 import {useTranslation} from "react-i18next";
 import {capitalize} from "lodash";
 import {useAppSelector} from "../../../../store/hooks";
@@ -19,19 +19,17 @@ interface Props {
 
 function ScenarioButton(props: Props) {
 
-    const inventions = useAppSelector((state) => {
+    const topLayer = useAppSelector((state) => {
         return selectGame(state).inventionService.inventions
-            .filter((inv) => inv.inventionType === INVENTION_TYPE.SCENARIO)!;
+            .filter((inv) => inv.inventionType === INVENTION_TYPE.SCENARIO)!
+            .some((inv) => {
+                props.topLayerElement.includes(inv.name);
+            });
     })
 
     const currentRound = useAppSelector((state) => {
         return selectGame(state).round!;
     })
-
-    const topLayer = inventions.some((inv) =>
-        props.topLayerElement.includes(inv.name)
-    )
-
 
     function handleClick() {
         props.toggleShowScenario();
@@ -65,4 +63,4 @@ function ScenarioButton(props: Props) {
 }
 
 
-export default React.memo(ScenarioButton, getPropsComparator());
+export default React.memo(ScenarioButton, getObjectsComparator());

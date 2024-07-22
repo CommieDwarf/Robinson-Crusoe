@@ -1,0 +1,34 @@
+.container {
+    height: 26px;
+    aspect-ratio: 1;
+    border: 1px solid var(--borderColor);
+}
+
+.containerAnimated {
+    animation-name: pulsating;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+.checkImg {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    filter: brightness(0) saturate(100%) invert(52%) sepia(93%) saturate(316%) hue-rotate(50deg) brightness(66%) contrast(87%);
+}
+
+.local {
+    cursor: pointer;
+}
+
+@keyframes pulsating {
+    0% {
+        scale: 1
+    }
+    50% {
+        scale: 1.2
+    }
+    100% {
+        scale: 1
+    }
+}

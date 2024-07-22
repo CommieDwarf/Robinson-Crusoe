@@ -16,13 +16,19 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 
 .startButton {
-    height: 90%;
+    height: 75%;
     position: relative;
     aspect-ratio: 1;
+}
+
+.startEnabled:hover {
+    scale: 1.1;
+    cursor: pointer;
 }
 
 .buttonText {

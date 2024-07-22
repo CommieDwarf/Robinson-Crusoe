@@ -6,7 +6,6 @@
     text-align: center;
     font-weight: bold;
     z-index: 9999999;
-    background-image: url("../../../../../../public/UI/scenarios/background.png");
     background-position-x: -40px;
     background-position-y: -40px;
     cursor: pointer;

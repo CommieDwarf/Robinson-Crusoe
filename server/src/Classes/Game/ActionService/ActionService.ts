@@ -22,6 +22,7 @@ import {IGlobalCostModifierRenderData} from "@shared/types/Game/ActionService/Gl
 import {MissingLeaderError} from "../Errors/MissingLeaderError";
 import {getItemFromDroppableId} from "../../../utils/getItemFromDroppableId";
 import {LOG_CODE} from "@shared/types/Game/ChatLog/LOG_CODE";
+import {ActionDice} from "@shared/types/Game/RollDice/RollDice";
 
 
 export class ActionService implements IActionService {
@@ -295,6 +296,13 @@ export class ActionService implements IActionService {
         if (isAdventureAction(this._action)) {
             this.getResolvableItem(resolvableItemID).reRollSuccess();
             this.setReRollToken(this._action, false, "");
+        }
+    }
+
+    public reRollDice(dice: ActionDice) {
+        if (isAdventureAction(this._action) && this._lastRolledItem) {
+            this._lastRolledItem?.reRollDice(dice, this._action);
+            console.log("re-rolling dice!", dice)
         }
     }
 

@@ -6,7 +6,7 @@ import redArrowCurvedImg from "/public/UI/misc/red-arrow-curved.png";
 import getActionSlots from "../getActionSlots";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
 import {selectGame} from "../../../../reduxSlices/gameSession";
-import {getPropsComparator} from "../../../../utils/getPropsComparator";
+import {getObjectsComparator} from "../../../../utils/getObjectsComparator";
 import {RootState} from "../../../../store/store";
 import {connect} from "react-redux";
 import {IEventCardRenderData} from "@shared/types/Game/EventService/EventCard";
@@ -64,4 +64,4 @@ const mapStateToProps = (state: RootState, props: Props) => {
     }
 };
 
-export default connect(mapStateToProps)(React.memo(Threat, getPropsComparator()));
+export default connect(mapStateToProps)(React.memo(Threat, getObjectsComparator()));

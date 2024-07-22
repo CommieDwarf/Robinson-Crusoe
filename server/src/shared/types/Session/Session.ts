@@ -1,6 +1,6 @@
 import {IUser} from "../../../types/UserData/IUser";
 import {AssignedCharacter, IPlayer, IPlayerRenderData} from "@shared/types/Game/PlayerService/Player";
-import {PAWN_COLOR} from "@shared/types/Game/PAWN_COLOR";
+import {PLAYER_COLOR} from "@shared/types/Game/PLAYER_COLOR";
 import {BaseController} from "../../../types/GameController/Controllers";
 import {CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {GAME_STATUS, IGame, IGameRenderData} from "@shared/types/Game/Game";
@@ -30,7 +30,7 @@ export interface SessionData {
     joinSession: (user: IUser) => void;
     leaveSession: (player: IPlayer | IUser) => void;
     startGame: () => BaseController;
-    assignColor: (userId: string, color: PAWN_COLOR) => void;
+    assignColor: (userId: string, color: PLAYER_COLOR) => void;
     handleAction: (userId: string, action: CONTROLLER_ACTION, ...args: any[]) => void;
     gameController: BaseController | null;
     getGame: () => IGame | undefined;

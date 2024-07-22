@@ -33,9 +33,9 @@ export function PickOne(props: Props) {
         pickObject(false);
     }
 
-    function pickObject(secondary: boolean) {
+    function pickObject(isSecondary: boolean) {
         if (selectedObjectIds.length === amount) {
-            dispatch(socketEmitAction(OTHER_CONTROLLER_ACTION.PICK_OBJECT, props.objectPicker.id, selectedObjectIds, true));
+            dispatch(socketEmitAction(OTHER_CONTROLLER_ACTION.PICK_OBJECT, props.objectPicker.id, selectedObjectIds, isSecondary));
         }
     }
 
@@ -61,7 +61,7 @@ export function PickOne(props: Props) {
                     {t(`pickObject.${source}.description`)}
                 </span>
 
-                <div className={styles.pickObjects}>
+                {props.objectPicker.pickSubject !== "construction" && <div className={styles.pickObjects}>
                     {objects.map((obj, index) => {
                         return <PickObject
                             pickSubject={pickSubject}
@@ -71,12 +71,12 @@ export function PickOne(props: Props) {
                             selectable={amount !== 0}
                         />
                     })}
-                </div>
+                </div>}
                 <div className={styles.buttons}>
                     <div className={`${styles.button} ${styles.buttonConfirm}`}
                          onClick={handleConfirmClick}>
                         {/* @ts-ignore*/}
-                        {insertIconsIntoText(capitalize(t(`pickObject.${source}.effectLabel`, {defaultValue: t(`pickObject.other.confirm`)})), styles.icon)}
+                        {insertIconsIntoText(capitalize(t(`pickObject.${source}.effectLabel`, {defaultValue: t(`other.confirm`)})), styles.icon)}
 
                     </div>
                     {hasSecondEffect && <div className={`${styles.button} ${styles.buttonConfirm}`}

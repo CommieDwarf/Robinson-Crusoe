@@ -4,7 +4,7 @@ import {SOCKET_CONNECT, SOCKET_DISCONNECT, SOCKET_EMIT} from "../../middleware/s
 type IsRequired<T, K extends keyof T> = T extends T[K] ? false : true;
 export type ModifiedPayload<T extends keyof SocketPayloadMap> =
     IsRequired<SocketPayloadMap[T], 'sessionId'> extends true
-        ? Omit<SocketPayloadMap[T], 'sessionId'> & { sessionId: true }
+        ? Omit<SocketPayloadMap[T], 'sessionId'> & { hydrateSessionId: true } | SocketPayloadMap[T]
         : SocketPayloadMap[T]
 
 

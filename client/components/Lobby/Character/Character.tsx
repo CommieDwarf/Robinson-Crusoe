@@ -2,12 +2,9 @@ import styles from "./Character.module.css";
 import ResizableImage from "../../ResizableImage/ResizableImage";
 import {CHARACTER, Gender} from "@shared/types/Game/Characters/Character";
 import {Abilities} from "./Abilities/Abilities";
-import {insertIconsIntoText} from "../../../utils/insertIconsIntoText";
 import {useTranslation} from "react-i18next";
 import {capitalize} from "lodash";
-import abilityStyles from "./Abilities/Abilities.module.css";
 import {GenderSwitch} from "./GenderSwitch/GenderSwitch";
-import {characterToInventionMap} from "@shared/constants/CharacterToInventionMap";
 import {Invention} from "./Invention/Invention";
 
 interface Props {
@@ -20,8 +17,6 @@ export function Character(props: Props) {
 
     const {t} = useTranslation();
 
-
-    console.log("character component")
 
     return <div className={styles.container}>
         <div className={styles.characterDisplay}>

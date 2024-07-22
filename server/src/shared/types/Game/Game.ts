@@ -26,9 +26,15 @@ import {IScenarioService, IScenarioServiceRenderData,} from "./ScenarioService/S
 import {ITokenService, ITokenServiceRenderData,} from "./TokenService/TokenService";
 import {IAdventureService, IAdventureServiceRenderData,} from "./AdventureService/AdventureService";
 import {IMysteryService, IMysteryServiceRenderData,} from "./MysteryService/MysteryService";
-import {IObjectPickerRenderData, PickableObject, PickSubject} from "@shared/types/Game/ObjectPicker/ObjectPicker";
+import {
+    IObjectPickerRenderData,
+    PickableConstruction,
+    PickableObject,
+    PickSubject
+} from "@shared/types/Game/ObjectPicker/ObjectPicker";
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 import {IGlobalPawnService, IGlobalPawnServiceRenderData} from "@shared/types/Game/GlobalPawnService/GlobalPawnService";
+import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction";
 
 export enum GAME_STATUS {
     IN_LOBBY = "in lobby",
@@ -64,6 +70,7 @@ export interface IGameRenderData {
     adventureService: IAdventureServiceRenderData;
     mysteryService: IMysteryServiceRenderData;
     objectPickers: IObjectPickerRenderData<any>[];
+    primePlayer: IPlayerRenderData;
 }
 
 export interface IGame {
@@ -99,7 +106,7 @@ export interface IGame {
 
     setGameStatus: (status: GAME_STATUS.WON | GAME_STATUS.LOST, reason?: string) => void;
 
-    startPickingObject: <T extends PickableObject> (objects: T[],
+    startPickingObject: <T extends PickableObject> (objects: (Exclude<T, PickableConstruction> | CONSTRUCTION)[],
                                                     picker: IPlayerCharacter,
                                                     amount: number,
                                                     source: string,

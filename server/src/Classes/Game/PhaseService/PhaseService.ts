@@ -148,11 +148,12 @@ export class PhaseService implements IPhaseService {
     private nightEffect = () => {
         this._game.setNextRound();
         this._game.tileService.campJustMoved = false;
-        //TODO: IMPLEMENT EATING;
         this.eatOrGetHurt();
         this.rotFood();
         this.sleepInShelterOrHurt();
         this._game.globalPawnService.resetPawns();
+        this._game.playerService.setNextPrimePlayer();
+
     };
 
 

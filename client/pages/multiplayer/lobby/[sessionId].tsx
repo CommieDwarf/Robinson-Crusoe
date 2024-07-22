@@ -36,8 +36,9 @@ export function Lobby() {
     useEffect(() => {
         const handleRouteChange = (url: string) => {
             if (sessionIdQuery && !url.includes(sessionIdQuery)) {
+                console.log(sessionIdQuery, url);
                 dispatch(socketEmit(SOCKET_EVENT.USER_LEFT_LOBBY, {
-                    sessionId: true,
+                    hydrateSessionId: true,
                 }))
             }
         };
@@ -67,7 +68,7 @@ export function Lobby() {
                 router.push("./?msg=kicked").then();
             }),
             setSocketListener(SOCKET_EVENT.SESSION_CHANGED, () => {
-                dispatch(socketEmit(SOCKET_EVENT.SESSION_DATA_REQUESTED, {sessionId: true}))
+                dispatch(socketEmit(SOCKET_EVENT.SESSION_DATA_REQUESTED, {hydrateSessionId: true}))
             }),
             setSocketListener(SOCKET_EVENT.PING, (payload) => {
                 dispatch(socketEmit(SOCKET_EVENT.PONG, payload));
@@ -78,7 +79,7 @@ export function Lobby() {
         ]
 
         console.log("requested session data id:", sessionId);
-        dispatch(socketEmit(SOCKET_EVENT.SESSION_DATA_REQUESTED, {sessionId: true}))
+        dispatch(socketEmit(SOCKET_EVENT.SESSION_DATA_REQUESTED, {hydrateSessionId: true}))
 
         return () => {
             listeners.forEach(listener => listener.off());
@@ -94,7 +95,7 @@ export function Lobby() {
         <div className={styles.container}>
             {sessionData && <>
                 <div className={styles.chat}>
-                    <ChatLog enableLog={false} localUser={sessionData.localPlayer.username}/>
+                    <ChatLog enableLog={false}/>
                 </div>
                 <div className={styles.players}>
                     <Players

@@ -1,5 +1,5 @@
 import * as React from "react";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import styles from "./ActionResolveWindow.module.css";
 import {ResolvableItems} from "./ActionResolve/ResolvableItems";
 import {ActionDice} from "@shared/types/Game/RollDice/RollDice";
@@ -7,11 +7,11 @@ import {sleep} from "@shared/utils/sleep";
 import {RESOLVE_ITEM_STATUS} from "@shared/types/Game/ActionService/IResolvableItem";
 import {NextActionButton} from "./NextActionButton/NextActionButton";
 import redArrowImg from "/public/UI/misc/red-arrow.png";
-import {ReRoll} from "./ReRoll/ReRoll";
+import {getCharacterRerollAbility, ReRoll} from "./ReRoll/ReRoll";
 import {isAdventureAction} from "@shared/utils/typeGuards/isAdventureAction";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
-import {ICharacter} from "@shared/types/Game/Characters/Character";
-import {ACTION_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
+import {ICharacterRenderData} from "@shared/types/Game/Characters/Character";
+import {ACTION_CONTROLLER_ACTION, CHARACTER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import sharedStyles from "../../../../styles/shared.module.css";
 import Draggable from "react-draggable";
 import {RollDiceWindow} from "./RollDiceWindow/RollDiceWindow";
@@ -21,12 +21,13 @@ import {useTranslation} from "react-i18next";
 import {useAppDispatch, useAppSelector} from "../../../../store/hooks";
 import {selectGame} from "../../../../reduxSlices/gameSession";
 import {socketEmitAction} from "../../../../middleware/socketMiddleware";
+import Entries from "@shared/types/Entries";
 
 
 type Props = {};
 export const ActionResolveWindow = (props: Props) => {
     let containerRef = React.createRef<HTMLDivElement>();
-    const actionService = useAppSelector(state => selectGame(state).actionService!);
+    const actionService = useAppSelector(state => selectGame(state)!.actionService!);
 
     const [resolvedItems, setResolvedItems] = useState<Map<string, boolean>>(
         new Map()
@@ -41,27 +42,32 @@ export const ActionResolveWindow = (props: Props) => {
 
     const dispatch = useAppDispatch();
 
-    function onReRollButtonClick() {
-        const leader = actionService.lastRolledItem?.leaderPawn.owner as unknown as ICharacter;
+    useEffect(() => {
+        const entries = actionService.resolvableItems.map((item) => {
+            return [item.id, item.resolveStatus !== RESOLVE_ITEM_STATUS.PENDING];
+        }) as Entries<{ [id: string]: boolean }>
+        setResolvedItems((prev) => {
+            return new Map(entries);
+        })
+    }, [actionService.resolvableItems])
 
-        if (leader.determination &&
-            leader.determination > 3
+    function onReRollButtonClick() {
+        const leader = actionService.lastRolledItem?.leaderPawn.owner as ICharacterRenderData;
+        const ability = getCharacterRerollAbility(leader);
+        if (ability && leader.determination >= ability.cost
         ) {
             setReRollButtonClicked(true);
+            dispatch(socketEmitAction(CHARACTER_CONTROLLER_ACTION.USE_ABILITY, ability.name))
         }
     }
 
     function onReRollSkillUse(dice: ActionDice) {
         setResItemAnimationDoneID(null);
-
-        // TODO: zaimplementuj
-        // emitAction(CHARACTER_CONTROLLER_ACTION.USE_ABILITY, {
-        //     abilityName: ,
-        //     target: dice
-        //
-        // })
         setReRollButtonClicked(false);
+
         setReRolledDice(dice);
+        dispatch(socketEmitAction(ACTION_CONTROLLER_ACTION.REROLL_ACTION_DICE, dice))
+
         setReRollSkillUsed(true);
     }
 
@@ -71,8 +77,7 @@ export const ActionResolveWindow = (props: Props) => {
             await sleep(10);
         }
 
-        dispatch(socketEmitAction(ACTION_CONTROLLER_ACTION.REROLL_ACTION_DICE, resolvableItemID));
-
+        dispatch(socketEmitAction(ACTION_CONTROLLER_ACTION.REROLL_ACTION_DICE, "success"));
         setReRolledDice("success");
     }
 
@@ -100,16 +105,15 @@ export const ActionResolveWindow = (props: Props) => {
         if (actionId !== actionService.lastRolledItem?.id) {
             setReRolledDice(null);
         }
-
-        dispatch(socketEmitAction(ACTION_CONTROLLER_ACTION.RESOLVE_ACTION, actionId));
-
         setResolvedItems((prevState) => {
             const copy = new Map(prevState);
             copy.set(actionId, true);
             return copy;
         });
         setReRollButtonClicked(false);
+        dispatch(socketEmitAction(ACTION_CONTROLLER_ACTION.RESOLVE_ACTION, actionId));
     }
+
 
     function getResolvableItem(id: string) {
         const item = actionService.resolvableItems.find(
@@ -123,7 +127,6 @@ export const ActionResolveWindow = (props: Props) => {
 
     const {t} = useTranslation();
 
-
     return (
         <Draggable bounds="parent" defaultClassNameDragging={sharedStyles.grabbing}>
             <div className={styles.container} ref={containerRef}>
@@ -135,15 +138,19 @@ export const ActionResolveWindow = (props: Props) => {
                         />
                     </div>
                 )}
+
+
                 {actionService.lastRolledItem &&
-                    !resolvedItems.has(actionService.lastRolledItem.id) &&
-                    !actionService.lastRolledItem.shouldReRollSuccess &&
-                    !reRollSkillUsed && (
+                    (actionService.lastRolledItem.resolveStatus === RESOLVE_ITEM_STATUS.PENDING &&
+                        !actionService.lastRolledItem.shouldReRollSuccess &&
+                        !reRollSkillUsed) && (
                         <ReRoll
                             actionService={actionService}
                             onReRollButtonClick={onReRollButtonClick}
+                            currentAction={actionService.action}
                         />
-                    )}
+                    )
+                }
 
                 {actionService.lastRolledItem &&
                     isAdventureAction(actionService.action) && (
@@ -187,7 +194,7 @@ export const ActionResolveWindow = (props: Props) => {
                     rollDices={rollDices}
                     reRoll={onReRollSuccess}
                 />
-                {actionService.resolvableItems.length === resolvedItems.size && (
+                {(Array.from(resolvedItems.values()).every(value => value)) && (
                     <NextActionButton
                         setNextAction={setNextAction}
                         actionService={actionService}

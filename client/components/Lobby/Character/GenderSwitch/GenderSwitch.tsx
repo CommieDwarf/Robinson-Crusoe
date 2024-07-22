@@ -24,7 +24,7 @@ export function GenderSwitch(props: Props) {
             character: {
                 gender
             },
-            sessionId: true,
+            hydrateSessionId: true,
         }))
     }
 
