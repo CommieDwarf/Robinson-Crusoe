@@ -49,6 +49,7 @@ export class GameController implements GameControllerInterface, BaseController {
         this._game.playerService.players.forEach((player) => {
             this._game.characterService.incrDetermination(player.getCharacter(), 10, "test");
         })
+        this._game.tileService.explore(6);
     }
 
     private initActionHandlers() {

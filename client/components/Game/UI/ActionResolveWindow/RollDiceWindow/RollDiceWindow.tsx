@@ -10,7 +10,6 @@ type Props = {
     resolvableItem: IResolvableItemRenderData | null;
     type: AdventureAction;
     setItemAnimationDone: (id: string) => void;
-    reRollClicked: boolean;
     reRoll: (dice: ActionDice) => void;
     reRolledDice: ActionDice | null;
 };
@@ -30,7 +29,6 @@ export const RollDiceWindow = (props: Props) => {
                     type={props.type}
                     onFinish={props.setItemAnimationDone}
                     reRolledDice={props.reRolledDice}
-                    fixed={props.reRollClicked}
                     reRoll={props.reRoll}
                 />
             )}

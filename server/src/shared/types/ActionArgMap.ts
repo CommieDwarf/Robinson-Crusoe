@@ -33,7 +33,7 @@ export type UnsetPawnArgs = [destinationId: string, draggableId: string];
 
 export type RemoveHealthThresholdArgs = [num: number];
 
-export type UseAbilityArgs = [abilityName: ABILITY];
+export type UseAbilityArgs = [abilityName: ABILITY, target?: string];
 
 export type ResolveEventMysteryArgs = [];
 

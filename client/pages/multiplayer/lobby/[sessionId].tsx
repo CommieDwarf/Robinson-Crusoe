@@ -30,13 +30,11 @@ export function Lobby() {
 
     useEffect(() => {
         dispatch(sessionIdUpdated(sessionIdQuery));
-        console.log("getting session id", sessionIdQuery)
     }, [sessionIdQuery, dispatch])
 
     useEffect(() => {
         const handleRouteChange = (url: string) => {
             if (sessionIdQuery && !url.includes(sessionIdQuery)) {
-                console.log(sessionIdQuery, url);
                 dispatch(socketEmit(SOCKET_EVENT.USER_LEFT_LOBBY, {
                     hydrateSessionId: true,
                 }))
@@ -55,7 +53,6 @@ export function Lobby() {
         const listeners = [
             setSocketListener(SOCKET_EVENT.SESSION_DATA_SENT, (payload) => {
                 const gameSession = payload.sessionData;
-                console.log('received session data');
                 if (gameSession) {
                     dispatch(gameSessionUpdated(gameSession));
                     setLoaded(true);
@@ -78,7 +75,6 @@ export function Lobby() {
             })
         ]
 
-        console.log("requested session data id:", sessionId);
         dispatch(socketEmit(SOCKET_EVENT.SESSION_DATA_REQUESTED, {hydrateSessionId: true}))
 
         return () => {

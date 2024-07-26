@@ -27,7 +27,7 @@ export class Lucky extends Ability implements IAbility<ActionDice> {
         }
 
         if (this._game.actionService.lastRolledItem) {
-            this._game.actionService.lastRolledItem.reRollDice(target, ACTION.EXPLORE);
+            this._game.actionService.reRollDice(target);
             super.use(target);
         }
     }

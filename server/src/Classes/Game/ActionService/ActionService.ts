@@ -302,7 +302,8 @@ export class ActionService implements IActionService {
     public reRollDice(dice: ActionDice) {
         if (isAdventureAction(this._action) && this._lastRolledItem) {
             this._lastRolledItem?.reRollDice(dice, this._action);
-            console.log("re-rolling dice!", dice)
+            console.log("re-rolling dice!", dice);
+            console.log('------------------------------------------------------------------')
         }
     }
 
@@ -338,6 +339,8 @@ export class ActionService implements IActionService {
                 resolvableItem.action
             );
         }
+        this._lastRolledItem = null;
+        
     }
 
     private shouldSetAdventureCard(resolvableItem: IResolvableItem): boolean {

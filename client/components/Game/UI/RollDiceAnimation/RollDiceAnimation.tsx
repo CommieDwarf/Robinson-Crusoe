@@ -1,19 +1,9 @@
 import * as React from "react";
 import {useEffect, useLayoutEffect, useRef, useState} from "react";
 import * as THREE from "three";
-import {SpotLight} from "three";
 import styles from "./RollDiceAnimation.module.css";
-
-import {RoundedBoxGeometry} from "three/examples/jsm/geometries/RoundedBoxGeometry";
-import {kebabCase} from "lodash";
-import {explore} from "@shared/constants/diceStructures/explore";
 import {AdventureAction} from "@shared/types/Game/ACTION";
 import {isActionDice} from "@shared/utils/typeGuards/isActionDice";
-import {build} from "@shared/constants/diceStructures/build";
-import {IDice} from "@shared/types/Game/Dice/Dice";
-import {weather} from "@shared/constants/diceStructures/weather";
-import {gather} from "@shared/constants/diceStructures/gather";
-import {degreesToRadians} from "../../../../utils/degreesToRadians";
 import {
     ActionDice,
     ActionDiceResult,
@@ -21,16 +11,10 @@ import {
     WeatherDice,
     WeatherDiceResult
 } from "@shared/types/Game/RollDice/RollDice";
-import {usePrevious} from "@restart/hooks";
-import {arraysEqual} from "../../../../utils/arraysEqual";
-import Entries from "@shared/types/Entries";
+import {getObjectsComparator} from "../../../../utils/getObjectsComparator";
+import {Dice} from "./Dice/Dice";
+import {IDice} from "../../../../types/Dice/Dice";
 
-const structures = {
-    gather,
-    explore,
-    build,
-    weather,
-};
 
 type Props = {
     name: string;
@@ -39,150 +23,49 @@ type Props = {
         | Map<keyof ActionDiceResults, ActionDiceResult>;
     type: "weather" | AdventureAction;
     onFinish: (name: string) => void;
-    // @ts-ignore
     reRolledDice: ActionDice | null;
-    fixed: boolean;
-    // @ts-ignore
     reRoll: (dice: ActionDice) => void | ((dice: WeatherDice) => void);
 
 };
 
 export const RollDiceAnimation = (props: Props) => {
-    const containerRef = React.createRef<HTMLDivElement>();
 
-    const prevResults = usePrevious(props.results);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const sceneRef = useRef<THREE.Scene | null>(null);
+    const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
+    const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+    const diceMapRef = useRef<Map<ActionDice | WeatherDice, IDice>>(new Map());
 
-    console.log("RESULTS ----------------------- ", props.results);
-    const [renderer, setRenderer] = useState(
-        new THREE.WebGLRenderer({
-            antialias: true,
-            alpha: true,
-        })
-    );
 
-    useLayoutEffect(() => {
-        const {current} = containerRef;
-        if (!current || !renderer) {
+    const [animationDone, setAnimationDone] = useState(false);
+
+    useEffect(() => {
+
+        if (!props.reRolledDice) {
             return;
         }
-        const camera = new THREE.PerspectiveCamera(
-            80,
-            current.offsetWidth / current.offsetHeight,
-            0.01,
-            10
-        );
-        camera.position.z = 4;
-        camera.position.x = 0;
-        camera.position.y = 0;
-
-        const scene = new THREE.Scene();
-
-        // const controls = new OrbitControls(camera, renderer.domElement);
-        // controls.target.set(0, 0, 0);
-        // controls.update();
-
-        const backgroundGeometry = new THREE.BoxGeometry(19, 11, 1);
-        const backgroundTexture = new THREE.TextureLoader().load(
-            "/UI/dice/background.png"
-        );
-        const backgroundMaterial = new THREE.MeshPhongMaterial({
-            map: backgroundTexture,
-            transparent: true,
-            shininess: 0,
-        });
-
-        const background = new THREE.Mesh(backgroundGeometry, backgroundMaterial);
-        background.receiveShadow = true;
-        background.position.x = 0;
-        background.position.y = 0;
-        background.position.z = -2;
-        scene.add(background);
-
-        const directionalLightColor = 0xffffff;
-        const directionalLightIntensity = 0.5;
-        const directionalLight = new THREE.SpotLight(
-            directionalLightColor,
-            directionalLightIntensity
-        );
-        directionalLight.castShadow = true;
-        directionalLight.position.set(2, 3, 9);
-        directionalLight.target.position.set(0, 0, -1);
-        directionalLight.shadow.mapSize.width = 1024;
-        directionalLight.shadow.mapSize.height = 1024;
-        scene.add(directionalLight);
-
-        const ambientLightColor = 0xffffff;
-        const ambientLightIntensity = 0.6;
-        const ambientLight = new THREE.AmbientLight(
-            ambientLightColor,
-            ambientLightIntensity
-        );
-        scene.add(ambientLight);
-
-        renderer.shadowMap.enabled = true;
-
-        let translateX: number[] = [];
-
-        switch (props.results.size) {
-            case 1:
-                translateX = [0];
-                break;
-            case 2:
-                translateX = [-1.5, 1.5];
-                break;
-            default:
-                translateX = [-3, 0, 3];
+        const dice = diceMapRef.current.get(props.reRolledDice);
+        if (!dice) {
+            return;
+        }
+        // @ts-ignore
+        const result = props.results.get(props.reRolledDice);
+        if (!result) {
+            throw new Error("result is " + result);
         }
 
-        const cubeSize = 2;
+        console.log("SETTING NEW RESULT +++++++++++", result);
+        dice.setNewResult(result);
+        setAnimationDone(false);
+        // @ts-ignore
+    }, [props.reRolledDice, props.results]);
 
-        const dices = new Map<ActionDice | WeatherDice, IDice>();
-        let index = 0;
-        props.results.forEach((value, key) => {
-
-            // @ts-ignore
-            let fixed = Boolean(prevResults && value?.result === prevResults.get(key).result);
-            if (value && key) {
-                dices.set(key, new Dice(value, key, cubeSize, translateX[index], fixed));
-                index++;
-            }
-
-        });
-
-        dices.forEach((dice) => {
-            scene.add(dice.mesh);
-            scene.add(dice.light);
-            scene.add(dice.light.target);
-        });
-
-
-        function animation() {
-            let finished = true;
-            dices.forEach((dice) => {
-                if (!dice.finished && !dice.fixed) {
-                    finished = false;
-                    dice.rotate();
-                }
-            });
-
-            if (finished) {
-                props.onFinish(props.name);
-            }
-
-            animationId = requestAnimationFrame(animation);
-
-            renderer.render(scene, camera);
+    useEffect(() => {
+        const {current} = containerRef;
+        if (!current) {
+            return;
         }
-
-        let animationId = 0;
-        // if (!props.animationLocked) {
-
-        animationId = requestAnimationFrame(animation);
-        // }
-        current.appendChild(renderer.domElement);
-        renderer.setSize(current.offsetWidth, current.offsetHeight);
-        const diceArr: IDice[] = [];
-        dices.forEach((dice) => diceArr.push(dice));
+        const diceArr: IDice[] = Array.from(diceMapRef.current.values());
 
         function getDiceFromOffset(
             current: HTMLDivElement,
@@ -206,20 +89,20 @@ export const RollDiceAnimation = (props: Props) => {
         }
 
         function handleMouseMove(event: MouseEvent) {
-            if (!current || !props.fixed) {
+            if (!current) {
                 return;
             }
             getDiceFromOffset(current, diceArr, event)?.onMouseEnter();
         }
 
         function handleMouseLeave(event: MouseEvent) {
-            dices.forEach((dice) => {
+            diceArr.forEach((dice) => {
                 dice.onMouseLeave();
             });
         }
 
         function handleMouseClick(event: MouseEvent) {
-            if (!current || !props.fixed) {
+            if (!current) {
                 return;
             }
             const dice = getDiceFromOffset(current, diceArr, event);
@@ -233,165 +116,147 @@ export const RollDiceAnimation = (props: Props) => {
         current.addEventListener("click", handleMouseClick);
 
         return () => {
-            scene.children = [];
             current.removeEventListener("mousemove", handleMouseMove);
             current.removeEventListener("mouseleave", handleMouseLeave);
             current.removeEventListener("click", handleMouseClick);
-            current.removeChild(renderer.domElement);
-            cancelAnimationFrame(animationId);
-        };
-    });
-
-    class Dice implements IDice {
-        get light(): SpotLight {
-            return this._light;
         }
 
-        result: WeatherDiceResult | ActionDiceResult;
-        finished = false;
-        axesFinished = {
-            x: false,
-            y: false,
-            z: false,
-        };
-        mesh: THREE.Mesh<RoundedBoxGeometry, THREE.MeshPhysicalMaterial[]>;
-        _light = new THREE.SpotLight(0xffffff, 0);
-        fixed: boolean;
 
-        public onMouseEnter() {
-            this.light.intensity = 0.7;
+    }, [containerRef.current])
 
-            this.mesh.material.forEach((material) => {
-                material.reflectivity = 0.2;
+    useLayoutEffect(() => {
+        if (!containerRef.current) return;
+
+        const currentContainer = containerRef.current;
+
+        const currentDiceMap = diceMapRef.current;
+
+        if (!rendererRef.current) {
+            rendererRef.current = new THREE.WebGLRenderer({
+                antialias: true,
+                alpha: true,
             });
+            rendererRef.current.setSize(currentContainer.offsetWidth, currentContainer.offsetHeight);
+            currentContainer.appendChild(rendererRef.current.domElement);
         }
 
-        public onMouseLeave() {
-            this.light.intensity = 0;
-            this.mesh.material.forEach((material) => {
-                material.reflectivity = 0.5;
+        if (!cameraRef.current) {
+            cameraRef.current = new THREE.PerspectiveCamera(
+                80,
+                currentContainer.offsetWidth / currentContainer.offsetHeight,
+                0.01,
+                10
+            );
+            cameraRef.current.position.z = 4;
+        }
+
+        if (!sceneRef.current) {
+            sceneRef.current = new THREE.Scene();
+            // Tutaj dodajemy wszystkie elementy, które są stałe w scenie (np. światło, tło)
+            const backgroundGeometry = new THREE.BoxGeometry(19, 11, 1);
+            const backgroundTexture = new THREE.TextureLoader().load(
+                "/UI/dice/background.png"
+            );
+            const backgroundMaterial = new THREE.MeshPhongMaterial({
+                map: backgroundTexture,
+                transparent: true,
+                shininess: 0,
             });
+            const background = new THREE.Mesh(backgroundGeometry, backgroundMaterial);
+            background.receiveShadow = true;
+            background.position.set(0, 0, -2);
+            sceneRef.current.add(background);
+
+            const directionalLight = new THREE.SpotLight(0xffffff, 0.5);
+            directionalLight.castShadow = true;
+            directionalLight.position.set(2, 3, 9);
+            directionalLight.target.position.set(0, 0, -1);
+            directionalLight.shadow.mapSize.set(1024, 1024);
+            sceneRef.current.add(directionalLight);
+
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+            sceneRef.current.add(ambientLight);
         }
 
-        name: WeatherDice | ActionDice;
+        const renderer = rendererRef.current;
+        const scene = sceneRef.current;
+        const camera = cameraRef.current;
 
-        constructor(
-            result: WeatherDiceResult | ActionDiceResult,
-            diceName: WeatherDice | ActionDice,
-            cubeSize: number,
-            translateX: number,
-            fixed: boolean
-        ) {
-            this.result = result;
-            this.name = diceName;
-            this.mesh = getCube(props.type, diceName, translateX, cubeSize);
-            this._light.position.set(translateX * 0.9, 0, 3);
-            this._light.target = this.mesh;
-            // this._light.castShadow = true;
-            this._light.penumbra = 1;
-            this.fixed = fixed;
-            if (fixed) {
-                this.mesh.rotation.set(
-                    degreesToRadians(result.axes.x),
-                    degreesToRadians(result.axes.y),
-                    degreesToRadians(result.axes.z)
-                );
+        // Aktualizacja kości
+        const translateX: number[] = props.results.size === 1 ? [0] : props.results.size === 2 ? [-1.5, 1.5] : [-3, 0, 3];
+        let index = 0;
+
+        props.results.forEach((value, key) => {
+
+            if (value && key) {
+                if (!diceMapRef.current.has(key)) {
+                    const dice = new Dice(value, key, 2, translateX[index], props.type);
+                    diceMapRef.current.set(key, dice);
+                    scene.add(dice.mesh);
+                    scene.add(dice.light);
+                    scene.add(dice.light.target);
+                } else {
+                    const dice = diceMapRef.current.get(key);
+                    if (dice) {
+                        dice.result = value;
+                    }
+                }
+                index++;
             }
-        }
-
-        private rotateAxis(axis: "x" | "y" | "z", degrees: number) {
-            let radians = degreesToRadians(degrees);
-            const diff = radians - this.mesh.rotation[axis];
-            if (diff > 0.01) {
-                this.mesh.rotation[axis] += diff / 16;
-            } else {
-                this.axesFinished[axis] = true;
-            }
-        }
-
-        rotate() {
-            this.rotateAxis("x", this.result.axes.x);
-            this.rotateAxis("y", this.result.axes.y);
-            this.rotateAxis("z", this.result.axes.z);
-            if (this.axesFinished.x && this.axesFinished.y && this.axesFinished.z) {
-                this.finished = true;
-            }
-        }
-    }
-
-    function getCube(
-        type: AdventureAction | "weather",
-        dice: ActionDice | WeatherDice,
-        x: number,
-        size: number
-    ) {
-        const textureCube = getCubeTextures(type, dice);
-        const geometry = new RoundedBoxGeometry(size, size, size, 2, 0.4);
-
-        const edges = new THREE.EdgesGeometry(geometry);
-        const line = new THREE.LineSegments(
-            edges,
-            new THREE.LineBasicMaterial({color: "#565655"})
-        );
-        const mesh = new THREE.Mesh(geometry, textureCube);
-        mesh.castShadow = true;
-        mesh.receiveShadow = true;
-        mesh.position.x = x;
-        line.position.x = x;
-
-        return mesh;
-    }
-
-    function getCubeTextures(
-        type: AdventureAction | "weather",
-        dice: ActionDice | WeatherDice
-    ) {
-        const loader = new THREE.TextureLoader();
-        const basePath = "/UI/dice";
-        const path =
-            type === "weather"
-                ? basePath + "/weather/" + dice
-                : basePath + "/action/" + type;
-        loader.setPath(path);
-
-        const structure =
-            type === "weather"
-                ? structures.weather[dice as WeatherDice]
-                : structures[type][dice as ActionDice];
-
-        return Object.entries(structure).map(([key, side]) => {
-            return new THREE.MeshPhysicalMaterial({
-                map: loader.load(`/${kebabCase(side)}.png`),
-                clearcoat: 0,
-                clearcoatRoughness: 0,
-                metalness: 0,
-                roughness: 0.2,
-            });
         });
-    }
+
+        function animate() {
+            let finished = true;
+            diceMapRef.current.forEach((dice) => {
+                if (!dice.finished) {
+                    console.log(dice);
+                    finished = false;
+                    dice.rotate();
+                }
+            });
+
+            if (finished && !animationDone) {
+                props.onFinish(props.name);
+                setAnimationDone(true);
+            }
+
+            renderer.render(scene, camera);
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        return () => {
+            currentDiceMap.forEach((dice) => {
+                scene.remove(dice.mesh);
+                scene.remove(dice.light);
+                scene.remove(dice.light.target);
+            });
+
+            currentDiceMap.clear();
+        };
+    }, []);
 
     return <div ref={containerRef} className={styles.container}></div>;
-};
-
-function areEqual(prevProps: Props, nextProps: Props) {
-
-    let resultsEqual = true;
-
-    prevProps.results.forEach((value, key) => {
-        // @ts-ignore
-        if (value !== nextProps.results.get(key)) {
-            resultsEqual = false;
-        }
-    })
-
-
-    return (
-        prevProps.name === nextProps.name &&
-        prevProps.reRolledDice === nextProps.reRolledDice &&
-        prevProps.fixed === nextProps.fixed &&
-        resultsEqual
-    );
 }
 
 
+function areEqual(prevProps: Props, nextProps: Props) {
+    const areResultsEqual = resultsEqual(prevProps, nextProps);
+    return (
+        getObjectsComparator(["onFinish", "reRoll", "results"])(prevProps, nextProps) &&
+        areResultsEqual
+    );
+}
+
 export default React.memo(RollDiceAnimation, areEqual);
+
+function resultsEqual(prevProps: Props, nextProps: Props) {
+    let resultsEqual = true;
+    prevProps.results.forEach((value, key) => {
+        if (value?.result !== nextProps.results.get(key)?.result) {
+            resultsEqual = false;
+        }
+    });
+    return resultsEqual;
+}

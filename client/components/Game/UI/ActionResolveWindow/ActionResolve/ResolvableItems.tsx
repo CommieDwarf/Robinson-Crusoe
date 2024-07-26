@@ -20,9 +20,10 @@ export const ResolvableItems = (props: Props) => {
         let locked = false;
         if (props.actionService.lastRolledItem) {
             locked =
-                !props.resolvedItems.has(props.actionService.lastRolledItem.id) &&
+                !props.resolvedItems.get(props.actionService.lastRolledItem.id) &&
                 resItem.id !== props.actionService.lastRolledItem.id;
         }
+
         return (
             <Item
                 resolved={!!props.resolvedItems.get(resItem.id)}

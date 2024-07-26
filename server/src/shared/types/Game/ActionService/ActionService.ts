@@ -2,7 +2,6 @@ import {IResolvableItem, IResolvableItemRenderData} from "./IResolvableItem";
 import {ACTION, AdventureAction} from "../ACTION";
 import {IGlobalCostModifier, IGlobalCostModifierRenderData} from "./GlobalCostModifier";
 import {IBasicResourcesAmount} from "../Resources/Resources";
-import {IDice} from "@shared/types/Game/Dice/Dice";
 import {ActionDice} from "@shared/types/Game/RollDice/RollDice";
 
 export interface ActionTokens {

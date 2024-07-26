@@ -32,7 +32,7 @@ export class Scrounger extends Ability implements IAbility<ActionDice> {
         }
 
         if (this._game.actionService.lastRolledItem) {
-            this._game.actionService.lastRolledItem.reRollDice(target, ACTION.GATHER);
+            this._game.actionService.reRollDice(target);
             super.use(target);
         }
     }

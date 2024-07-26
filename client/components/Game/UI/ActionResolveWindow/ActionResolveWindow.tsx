@@ -1,5 +1,5 @@
 import * as React from "react";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import styles from "./ActionResolveWindow.module.css";
 import {ResolvableItems} from "./ActionResolve/ResolvableItems";
 import {ActionDice} from "@shared/types/Game/RollDice/RollDice";
@@ -7,7 +7,6 @@ import {sleep} from "@shared/utils/sleep";
 import {RESOLVE_ITEM_STATUS} from "@shared/types/Game/ActionService/IResolvableItem";
 import {NextActionButton} from "./NextActionButton/NextActionButton";
 import redArrowImg from "/public/UI/misc/red-arrow.png";
-import {getCharacterRerollAbility, ReRoll} from "./ReRoll/ReRoll";
 import {isAdventureAction} from "@shared/utils/typeGuards/isAdventureAction";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
 import {ICharacterRenderData} from "@shared/types/Game/Characters/Character";
@@ -22,12 +21,14 @@ import {useAppDispatch, useAppSelector} from "../../../../store/hooks";
 import {selectGame} from "../../../../reduxSlices/gameSession";
 import {socketEmitAction} from "../../../../middleware/socketMiddleware";
 import Entries from "@shared/types/Entries";
+import {getCharacterRerollAbility} from "./getReRollAbility";
+import {ReRollButton} from "./ReRollButton/ReRollButton";
 
 
-type Props = {};
-export const ActionResolveWindow = (props: Props) => {
+export const ActionResolveWindow = () => {
     let containerRef = React.createRef<HTMLDivElement>();
     const actionService = useAppSelector(state => selectGame(state)!.actionService!);
+    const localPlayerCharName = useAppSelector(state => state.gameSession.data?.localPlayer.character?.name);
 
     const [resolvedItems, setResolvedItems] = useState<Map<string, boolean>>(
         new Map()
@@ -37,6 +38,14 @@ export const ActionResolveWindow = (props: Props) => {
     >(null);
 
     const [reRollButtonClicked, setReRollButtonClicked] = useState(false);
+
+    const reRollButtonClickedRef = useRef(false);
+
+    useEffect(() => {
+        reRollButtonClickedRef.current = reRollButtonClicked;
+    }, [reRollButtonClicked]);
+
+
     const [reRolledDice, setReRolledDice] = useState<ActionDice | null>(null);
     const [reRollSkillUsed, setReRollSkillUsed] = useState(false);
 
@@ -46,32 +55,43 @@ export const ActionResolveWindow = (props: Props) => {
         const entries = actionService.resolvableItems.map((item) => {
             return [item.id, item.resolveStatus !== RESOLVE_ITEM_STATUS.PENDING];
         }) as Entries<{ [id: string]: boolean }>
-        setResolvedItems((prev) => {
-            return new Map(entries);
-        })
-    }, [actionService.resolvableItems])
+        setResolvedItems(new Map(entries));
+    }, [actionService.resolvableItems]);
+
 
     function onReRollButtonClick() {
+        if (reRollButtonClicked) {
+            return;
+        }
         const leader = actionService.lastRolledItem?.leaderPawn.owner as ICharacterRenderData;
         const ability = getCharacterRerollAbility(leader);
         if (ability && leader.determination >= ability.cost
         ) {
             setReRollButtonClicked(true);
-            dispatch(socketEmitAction(CHARACTER_CONTROLLER_ACTION.USE_ABILITY, ability.name))
         }
     }
 
-    function onReRollSkillUse(dice: ActionDice) {
+    const onReRollSkillUse = (dice: ActionDice) => {
+        if (!reRollButtonClickedRef.current) {
+            return;
+        }
+
+
+        const leader = actionService.lastRolledItem?.leaderPawn.owner as ICharacterRenderData;
+        const ability = getCharacterRerollAbility(leader);
+        if (!leader || !ability || reRollSkillUsed) {
+            return;
+        }
+
+
         setResItemAnimationDoneID(null);
         setReRollButtonClicked(false);
-
         setReRolledDice(dice);
-        dispatch(socketEmitAction(ACTION_CONTROLLER_ACTION.REROLL_ACTION_DICE, dice))
-
+        dispatch(socketEmitAction(CHARACTER_CONTROLLER_ACTION.USE_ABILITY, ability?.name, dice));
         setReRollSkillUsed(true);
     }
 
-    async function onReRollSuccess(resolvableItemID: string) {
+    async function onReRollSuccess() {
         if (reRolledDice === "success") {
             setReRolledDice(null);
             await sleep(10);
@@ -143,8 +163,10 @@ export const ActionResolveWindow = (props: Props) => {
                 {actionService.lastRolledItem &&
                     (actionService.lastRolledItem.resolveStatus === RESOLVE_ITEM_STATUS.PENDING &&
                         !actionService.lastRolledItem.shouldReRollSuccess &&
-                        !reRollSkillUsed) && (
-                        <ReRoll
+                        !reRollSkillUsed &&
+                        localPlayerCharName === actionService.lastRolledItem.leaderPawn.owner.name
+                    ) && (
+                        <ReRollButton
                             actionService={actionService}
                             onReRollButtonClick={onReRollButtonClick}
                             currentAction={actionService.action}
@@ -158,7 +180,6 @@ export const ActionResolveWindow = (props: Props) => {
                             resolvableItem={actionService.lastRolledItem}
                             type={actionService.action}
                             setItemAnimationDone={setItemAnimationDone}
-                            reRollClicked={reRollButtonClicked}
                             reRoll={onReRollSkillUse}
                             reRolledDice={reRolledDice}
                         />

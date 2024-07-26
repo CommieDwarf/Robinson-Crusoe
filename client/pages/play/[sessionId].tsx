@@ -25,7 +25,6 @@ type Props = {};
 
 function Play(props: Props) {
 
-    console.log("hello from sessionId")
     const gameData = useAppSelector((state) => {
         return state.gameSession.data?.game;
     });
@@ -41,10 +40,8 @@ function Play(props: Props) {
 
     useEffect(() => {
         if (sessionId !== sessionIdQuery) {
-            console.log("updating session id")
             dispatch(sessionIdUpdated(sessionIdQuery));
         } else {
-            console.log("not updating session id")
         }
     }, [sessionId, sessionIdQuery, dispatch])
 
@@ -72,8 +69,6 @@ function Play(props: Props) {
             if (gameSession) {
                 const date = new Date();
                 const time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-                console.log("gameSession received at:", time);
-                console.log(gameSession);
                 dispatch(gameSessionUpdated(gameSession));
                 dispatch(actionSlotUpdated(gameSession.game?.actionSlotService.slots));
 
@@ -94,9 +89,7 @@ function Play(props: Props) {
             dispatch(socketEmit(SOCKET_EVENT.SESSION_DATA_REQUESTED, {hydrateSessionId: true}))
         }))
 
-        console.log("requesting session", sessionIdQuery)
         dispatch(socketEmit(SOCKET_EVENT.SESSION_DATA_REQUESTED, {hydrateSessionId: true}))
-        console.log("requesting session data", sessionId);
 
         return () => {
             listeners.forEach((listener) => listener.off());

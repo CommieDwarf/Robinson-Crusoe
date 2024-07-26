@@ -31,7 +31,7 @@ export class CharacterController implements GameControllerInterface {
         this._game.characterService.removeMoraleThreshold(player.getCharacter(), num);
     }
 
-    private useAbility(player: IPlayer, ability: ABILITY,): void {
-        player.getCharacter().useAbility(ability, null);
+    private useAbility(player: IPlayer, ability: ABILITY, target: any): void {
+        player.getCharacter().useAbility(ability, target);
     }
 }

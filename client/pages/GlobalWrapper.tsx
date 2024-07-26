@@ -19,9 +19,7 @@ export function GlobalWrapper(props: Props) {
         if (authenticated && !user) {
             const token = getAuthToken() as string;
             fetchUser(token).then((response) => {
-                console.log("updating user", response);
                 dispatch(userUpdated(response))
-                console.log("dispatched")
             })
         }
     }, [user]);
@@ -30,7 +28,6 @@ export function GlobalWrapper(props: Props) {
         if (user) {
             const token = getAuthToken();
             if (token) {
-                console.log("connecting ")
                 dispatch(socketConnect({authToken: token}));
             }
         }

@@ -97,7 +97,6 @@ const socketMiddleware = (socket: Socket): Middleware => (api: MiddlewareAPI<Dis
 
         function hydratePayload<T extends keyof SocketPayloadMap, P extends ModifiedPayload<T>>(payload: P): SocketPayloadMap[T] {
             if (payload && "hydrateSessionId" in payload) {
-                console.log("hydrating!")
                 // const sessionId = api.getState().getState().gameSession.data?.id;
                 const state = api.getState() as unknown as RootState;
                 return {
