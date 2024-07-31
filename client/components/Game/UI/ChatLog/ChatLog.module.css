@@ -16,6 +16,9 @@
     overflow-y: scroll;
 }
 
+.messages {
+}
+
 .scroll::-webkit-scrollbar {
     width: 15px;
 }
@@ -74,13 +77,16 @@
 
 .sendButton {
     height: 92%;
-    padding-top: 2px;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     color: white;
     aspect-ratio: 1;
     border-radius: 100%;
     background-color: var(--brown);
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 1px;
 }
 
 .sendButton:hover {

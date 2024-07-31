@@ -8,6 +8,7 @@ import {ChatMessage} from "./ChatMessage/ChatMessage";
 import {ModeSwitch} from "./ModeSwitch/ModeSwitch";
 import {socketEmit} from "../../../../middleware/socketMiddleware";
 import {SOCKET_EVENT} from "@shared/types/Requests/Socket";
+import {usePrevious} from "@restart/hooks";
 
 
 interface Props {
@@ -17,37 +18,73 @@ interface Props {
 export default function ChatLog(props: Props) {
 
 
-    const [logMode, setLogMode] = useState(false); // false means chat
+    const [logMode, setLogMode] = useState<boolean>(props.enableLog); // false means chat
 
     const [message, setMessage] = useState("");
+
+    const [isScrollAtBottom, setIsScrollAtBottom] = useState(true);
+
+    const [unreadMessages, setUnreadMessages] = useState({
+        log: false,
+        chat: false
+    })
+
+
     const scrollRef = useRef<HTMLDivElement>(null);
+    const messagesRef = useRef<HTMLDivElement>(null);
 
     const localUsername = useAppSelector((state) => state.gameSession.data?.localPlayer.username!);
-
-    const messages = useAppSelector((state) => {
-            if (logMode) {
-                return selectGame(state).logs!
-            } else {
-                return state.gameSession.data?.chatService.messages!;
-            }
-        }
-    );
-
+    const chatMessages = useAppSelector((state) => state.gameSession.data?.chatService.messages);
+    const logMessages = useAppSelector((state) => selectGame(state)?.logs)
 
     const dispatch = useAppDispatch();
 
+
+    const prevChatMessages = usePrevious(chatMessages);
+    const prevLogMessages = usePrevious(logMessages);
+
     useEffect(() => {
-        if (scrollRef.current) {
-            scrollRef.current.scrollBy({behavior: "smooth", top: scrollRef.current.offsetTop})
+        if (!prevChatMessages || !prevLogMessages) {
+            return;
         }
-    })
+        const chatMessagesChanged = prevChatMessages?.length !== chatMessages?.length;
+        const logMessagesChanged = prevLogMessages?.length !== logMessages?.length;
+
+        if (logMode && chatMessagesChanged) {
+            setUnreadMessages(prev => ({...prev, chat: true}));
+        }
+        if (!logMode && logMessagesChanged) {
+            setUnreadMessages(prev => ({...prev, log: true}));
+        }
+
+
+        if (((logMode && logMessagesChanged) || (!logMode && chatMessagesChanged))
+            && isScrollAtBottom) {
+            console.log("should be scrolling!")
+            scrollToBottom(true);
+        }
+
+
+    }, [chatMessages?.length, logMessages?.length, logMode, prevChatMessages, prevLogMessages, isScrollAtBottom])
+
 
     function switchMode() {
         if (!props.enableLog && !logMode) {
             return;
         }
-        setLogMode((prev) => !prev);
+        setLogMode((prev) => {
+            return !prev
+        });
+        scrollToBottom();
     }
+
+    useEffect(() => {
+        setUnreadMessages((prev) => {
+            const newState = {...prev};
+            logMode ? newState.log = false : newState.chat = false;
+            return newState;
+        })
+    }, [logMode])
 
 
     function onTextAreaChange(event: ChangeEvent<HTMLTextAreaElement>) {
@@ -65,16 +102,44 @@ export default function ChatLog(props: Props) {
         if (message.trim().length > 0) {
             dispatch(socketEmit(SOCKET_EVENT.SEND_MESSAGE, {message: message.trim(), hydrateSessionId: true}))
             setMessage("");
+            scrollToBottom(true);
         }
     }
+
+    function handleScroll(event: React.UIEvent<HTMLDivElement>) {
+        const messagesHeight = messagesRef.current?.clientHeight;
+        const scrollHeight = scrollRef.current?.clientHeight;
+        if (!messagesHeight || !scrollHeight) {
+            return;
+        }
+        const scrollTolerance = 10;
+        if (messagesHeight - scrollHeight < event.currentTarget.scrollTop + scrollTolerance) {
+            setIsScrollAtBottom(true);
+        } else {
+            setIsScrollAtBottom(false)
+        }
+    }
+
+    function scrollToBottom(smooth?: boolean) {
+        if (!scrollRef.current) {
+            return;
+        }
+        scrollRef.current.scrollBy({
+            behavior: smooth ? "smooth" : "auto",
+            top: scrollRef.current.scrollHeight
+        });
+    }
+
+
+    const messages = logMode ? logMessages : chatMessages;
 
 
     return (
         <div className={styles.container}>
             <div className={styles.scrollWrapper}>
-                <div className={styles.scroll} ref={scrollRef}>
-                    <div className={styles.messages}>
-                        {messages.map((msg, i) => {
+                <div className={styles.scroll} ref={scrollRef} onScroll={handleScroll}>
+                    <div className={styles.messages} ref={messagesRef}>
+                        {messages?.map((msg, i) => {
                             if (isLogMessage(msg)) {
                                 return <LogMessage message={msg} key={i}/>;
                             } else {
@@ -85,7 +150,11 @@ export default function ChatLog(props: Props) {
                 </div>
             </div>
             <div className={styles.bottomBar}>
-                {props.enableLog && <ModeSwitch logMode={logMode} switchMode={switchMode}/>}
+                {props.enableLog &&
+                    <ModeSwitch logMode={logMode}
+                                switchMode={switchMode}
+                                unreadMessages={unreadMessages}/>
+                }
                 {!logMode && <><textarea className={styles.textArea} onChange={onTextAreaChange} value={message}
                                          onKeyDown={onTestAreaKeyDown}/>
                     <div className={styles.sendButton} onClick={onSendMsgClick}>

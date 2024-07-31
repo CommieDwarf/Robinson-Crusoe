@@ -21,8 +21,6 @@ import {ACTION_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {useAppDispatch, useAppSelector} from "../../../../../../store/hooks";
 import {socketEmitAction} from "../../../../../../middleware/socketMiddleware";
 import Pawn from "../../../Pawn";
-import {isPlayerCharacter} from "@shared/utils/typeGuards/isPlayerCharacter";
-import {IPlayerCharacterRenderData} from "@shared/types/Game/Characters/PlayerCharacter";
 
 type Props = {
     resolvableItem: IResolvableItemRenderData;
@@ -101,27 +99,12 @@ export const Item = (props: Props) => {
                 />
             </div>
         );
-        const arrowAndNextLvl =
-            props.resolvableItem.resolveStatus === RESOLVE_ITEM_STATUS.PENDING ? (
-                ""
-            ) : (
-                <>
-                    <div className={styles.arrow}>
-                        <ResizableImage src={redArrowImg} alt="lvl"/>
-                    </div>
-                    <span className={styles.nextLvl + " " + styles.lvl}>
-            {construction.lvl + 1}
-                        <span className={styles.lvlSpan}>lvl</span>
-          </span>
-                </>
-            );
         extraInfoDiv = (
             <div className={styles.structureLvl}>
         <span className={styles.currentLvl + " " + styles.lvl}>
           {construction.lvl}
             <span className={styles.lvlSpan}>lvl</span>
         </span>
-                {arrowAndNextLvl}
             </div>
         );
     } else if (

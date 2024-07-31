@@ -32,8 +32,6 @@ export const LogMessage = (props: Props) => {
 
     let translatedSource
 
-
-    //TODO: hardcoded.
     const categories = Object.keys(resources.pl.translation);
 
     categories.forEach((category) => {
