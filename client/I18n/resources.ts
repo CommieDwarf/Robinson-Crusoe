@@ -14,6 +14,8 @@ import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
 import {ALERT_CODE} from "@shared/types/ALERT_CODE";
 import {SESSION_CONNECTION_ERROR_CODE} from "@shared/types/Errors/SESSION_CONNECTION_ERROR_CODE";
 import {INVENTION_PERSONAL} from "@shared/types/Game/InventionService/Invention";
+import {DISCOVERY_TOKEN} from "@shared/types/Game/TokenService/Token";
+import {SCENARIO} from "@shared/types/Game/ScenarioService/SCENARIO";
 
 
 export const resources = {
@@ -133,8 +135,7 @@ export const resources = {
                 [ABILITY.THE_HUNT]: {
                     name: "Polowanie",
                     name_genitive: "Polowania",
-                    description: "Odrzuć 4 \$determination\$, aby wziąć wierzchnią kartę z talii Bestii i położyć na wierzchu" +
-                        "talii Polowania, bez oglądania jej.",
+                    description: `Odrzuć 4 $determination$, aby wziąć wierzchnią kartę z talii Bestii i położyć na wierzchu talii polowania, bez oglądania jej.`,
                     comment: "Kici-kici, bestyjko!",
                 },
                 [ABILITY.FRENZY]: {
@@ -242,6 +243,7 @@ export const resources = {
                 adventure_genitive: "przygody",
                 reroll: "przerzut",
                 reroll_genitive: "przerzutu",
+                "discovery token": "token odkryć"
             },
             adventureCard: {
                 [ADVENTURE_CARD_BUILD.ACCIDENT]: "wypadek",
@@ -553,7 +555,27 @@ export const resources = {
                 "wild pig": "dzika świnia",
                 "wild pig_accusative": "dziką świnię"
             },
-            discoveryToken: {},
+            discoveryToken: {
+                [DISCOVERY_TOKEN.CANDLES]: "Świece",
+                [`${DISCOVERY_TOKEN.CANDLES}_genitive`]: "Świec",
+                [DISCOVERY_TOKEN.FALLEN_TREE]: "Powalone drzewo",
+                [`${DISCOVERY_TOKEN.FALLEN_TREE}_genitive`]: "Powalonego drzewa",
+                [DISCOVERY_TOKEN.GOAT]: "Koza",
+                [DISCOVERY_TOKEN.HEALING_HERBS]: "Zioła",
+                [DISCOVERY_TOKEN.HERBS]: "Przyprawy",
+                [DISCOVERY_TOKEN.LARGE_LEAVES]: "Wielkie liście",
+                [DISCOVERY_TOKEN.NOURISHING_LARVAE]: "Pożywne larwy",
+                [DISCOVERY_TOKEN.OLD_MACHETE]: "Stara Maczeta",
+                [DISCOVERY_TOKEN.POISON]: "Trujące Pędy",
+                [`${DISCOVERY_TOKEN.SCENARIO_1}_${SCENARIO.CASTAWAYS}`]: "Zioła",
+                [`${DISCOVERY_TOKEN.SCENARIO_2}_${SCENARIO.CASTAWAYS}`]: "Oliwa",
+                [`${DISCOVERY_TOKEN.SCENARIO_3}_${SCENARIO.CASTAWAYS}`]: "Szabla pirata",
+                [`${DISCOVERY_TOKEN.SCENARIO_4}_${SCENARIO.CASTAWAYS}`]: "Medalik z portretem Kobiety",
+                [DISCOVERY_TOKEN.THORNY_BUSHES]: "Cierniste krzewy",
+                [DISCOVERY_TOKEN.TOBACCO]: "Tytoń",
+                [DISCOVERY_TOKEN.TREASURE]: "Znalezisko",
+                [DISCOVERY_TOKEN.VEGETABLES]: "Jadalne kłącza"
+            },
             cardListTab: {
                 "inventions": "K. Pomysłów",
                 "mystery cards": "K. Tajemnic",
@@ -582,8 +604,8 @@ export const resources = {
                 [ABILITY.TRACKING]: {
                     source: `$t(translation:ability.${ABILITY.TRACKING}.name)`,
                     description: "",
-                    effectLabel: "Na wierzch",
-                    secondaryEffectLabel: "Na spód"
+                    effectLabel: "Na spód",
+                    secondaryEffectLabel: "Na wierzch"
                 },
                 [ABILITY.DEFENSIVE_PLAN]: {
                     source: `$t(translation:ability.${ABILITY.DEFENSIVE_PLAN}.name)`,
@@ -639,8 +661,8 @@ export const resources = {
 
         logMessages: {
             [LOG_CODE.WEATHER_TOKEN_SET]: "Położono token $t(translation:weatherToken.{{subject1}}, {\"context\": \"genitive\"}) na polu przygody.",
-            [LOG_CODE.ACTION_GOT_TOKEN]: "Położono token $t(translation:tokens.{{subject2}}, {\"context\": \"genitive\"}) na polu $t(translation:action.{{subject1}}, {\"context\": \"genitive\"}).",
-            [LOG_CODE.ACTION_LOST_TOKEN]: "Zabrano token $t(translation:tokens.{{subject2}}, {\"context\": \"genitive\"}) z pola $t(translation:action.{{subject1}}, {\"context\": \"genitive\"}).",
+            [LOG_CODE.ACTION_GOT_TOKEN]: "Położono token $t(translation:tokens.{{subject1}}, {\"context\": \"genitive\"}) na polu $t(translation:action.{{subject2}}, {\"context\": \"genitive\"}).",
+            [LOG_CODE.ACTION_LOST_TOKEN]: "Zabrano token $t(translation:tokens.{{subject1}}, {\"context\": \"genitive\"}) z pola $t(translation:action.{{subject2}}, {\"context\": \"genitive\"}).",
             [LOG_CODE.OWNED_RESOURCE_ADDED]: "Dodano {{amount}} $t(translation:resource.{{subject1}}, {\"count\": {{amount}}}) do posiadanych surowców.",
             [LOG_CODE.FUTURE_RESOURCE_ADDED]: "Dodano {{amount}} $t(translation:resource.{{subject1}}, {\"count\": {{amount}}}) do przyszłych surowców.",
             [LOG_CODE.OWNED_RESOURCE_REMOVED]: "Odrzucono {{amount}} $t(translation:resource.{{subject1}}, {\"count\": {{amount}}}) z posiadanych surowców.",
@@ -648,8 +670,8 @@ export const resources = {
             [LOG_CODE.TILE_MODIFIER_ADDED]: "",
             [LOG_CODE.TILE_MODIFIER_REMOVED]: "",
             [LOG_CODE.WOOD_ADDED_TO_PILE]: "Dodano drewno na stos.",
-            [LOG_CODE.MORALE_INCREASED_TO_LVL]: "Morale zwiększyły się do poziomu {{amount}}-ego.",
-            [LOG_CODE.MORALE_DECREASED_TO_LVL]: "Morale zmniejszyły sie do poziomu {{amount}}-ego.",
+            [LOG_CODE.MORALE_INCREASED_TO_LVL]: "Morale zwiększyły się do poziomu {{amount}}.",
+            [LOG_CODE.MORALE_DECREASED_TO_LVL]: "Morale zmniejszyły sie do poziomu {{amount}}.",
             [LOG_CODE.INVENTION_BUILT]: "Zbudowano $t(translation:invention.{{subject1}}, {\"context\": \"accusative\"}).",
             [LOG_CODE.GAME_WON]: "Gra wygrana!",
             [LOG_CODE.GAME_LOST]: "Gra przegrana!",
@@ -658,10 +680,10 @@ export const resources = {
             [LOG_CODE.BEAST_MOVED_TO_BOTTOM_OF_DECK]: "Bestia została przeniesiona na dno talii.",
             [LOG_CODE.BEAST_GOT_HUNTED]: "Upolowano $t(translation:beast.{{subject1}}, {\"context\": \"accusative\"}).",
             [LOG_CODE.BEAST_SHUFFLED_INTO_EVENT_DECK]: "Wtasowano bestię do talii wydarzeń.",
-            [LOG_CODE.CONSTRUCTION_UPGRADED]: "Ulepszono $t(translation:construction.{{subject1}}, {\"context\": \"accusative\"}) do poziomu {{amount}}-ego.",
-            [LOG_CODE.CONSTRUCTION_DOWNGRADED]: "Poziom $t(translation:construction.{{subject1}}, {\"context\": \"accusative\"}) spadł do poziomu {{amount}}-ego.",
+            [LOG_CODE.CONSTRUCTION_UPGRADED]: "Ulepszono $t(translation:construction.{{subject1}}, {\"context\": \"genitive\"}) do poziomu {{amount}}.",
+            [LOG_CODE.CONSTRUCTION_DOWNGRADED]: "Poziom $t(translation:construction.{{subject1}}, {\"context\": \"genitive\"}) spadł do poziomu {{amount}}.",
             [LOG_CODE.ITEM_GRANTED]: "Otrzymano $t(translation:item.{{subject1}}, {\"context\"\: \"accusative\"}).",
-            [LOG_CODE.CHARACTER_USED_TOKEN]: "$t(translation:character.{{subject1}}) użył tokenu $t(translation:discoveryToken.{{subject2}}, {\"context\": \"genitive\"}).",
+            [LOG_CODE.CHARACTER_USED_TOKEN]: "$t(translation:character.{{subject1}}) użył tokenu: $t(translation:discoveryToken.{{subject2}}, {\"context\": \"genitive\"}).",
             [LOG_CODE.CHARACTER_USED_ABILITY]: "$t(translation:character.{{subject1}}) użył $t(translation:ability.{{subject2}}.name, {\"context\": \"genitive\"}).",
             [LOG_CODE.CHARACTER_GOT_HURT]: "$t(translation:character.{{subject1}}) otrzymał {{amount}} obrażeń.",
             [LOG_CODE.RESOURCE_BOOST_REMOVED]: "Źródło $t(translation:resource.{{subject1}}, {\"context\": \"genitive\"}) nie daje już dodatkowego surowca.",

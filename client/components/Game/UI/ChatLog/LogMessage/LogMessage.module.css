@@ -1,8 +1,12 @@
 .container {
     width: 100%;
-    border-bottom: 1px dashed var(--brown);
+    border-top: 1px dashed var(--brown);
     padding-top: 0.5%;
     padding-bottom: 0.5%;
+}
+
+.containerBorderless {
+    border: none;
 }
 
 .icon {

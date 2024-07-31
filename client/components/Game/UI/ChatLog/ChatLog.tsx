@@ -44,6 +44,10 @@ export default function ChatLog(props: Props) {
     const prevLogMessages = usePrevious(logMessages);
 
     useEffect(() => {
+        scrollToBottom();
+    }, [logMode]);
+
+    useEffect(() => {
         if (!prevChatMessages || !prevLogMessages) {
             return;
         }
@@ -60,7 +64,6 @@ export default function ChatLog(props: Props) {
 
         if (((logMode && logMessagesChanged) || (!logMode && chatMessagesChanged))
             && isScrollAtBottom) {
-            console.log("should be scrolling!")
             scrollToBottom(true);
         }
 
@@ -75,7 +78,6 @@ export default function ChatLog(props: Props) {
         setLogMode((prev) => {
             return !prev
         });
-        scrollToBottom();
     }
 
     useEffect(() => {
@@ -122,8 +124,10 @@ export default function ChatLog(props: Props) {
 
     function scrollToBottom(smooth?: boolean) {
         if (!scrollRef.current) {
+            console.log("SCROLLREF NO CURRENT RETURNING")
             return;
         }
+        console.log("SCROLLING", scrollRef.current.scrollHeight)
         scrollRef.current.scrollBy({
             behavior: smooth ? "smooth" : "auto",
             top: scrollRef.current.scrollHeight
@@ -141,9 +145,9 @@ export default function ChatLog(props: Props) {
                     <div className={styles.messages} ref={messagesRef}>
                         {messages?.map((msg, i) => {
                             if (isLogMessage(msg)) {
-                                return <LogMessage message={msg} key={i}/>;
+                                return <LogMessage message={msg} key={i} first={i === 0}/>;
                             } else {
-                                return <ChatMessage message={msg} key={i} localUser={localUsername}/>
+                                return <ChatMessage message={msg} key={i} localUser={localUsername} first={i === 0}/>
                             }
                         })}
                     </div>

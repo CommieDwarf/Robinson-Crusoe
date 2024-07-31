@@ -3,15 +3,16 @@ import * as React from "react";
 import styles from "./LogMessage.module.css";
 import {RoundSquare} from "../../Scenario/Scenarios/Castaways/Rounds/RoundSquare";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
-import {capitalize} from "lodash";
 import {ILogMessageRenderData} from "@shared/types/Game/ChatLog/LogMessage";
 import {useTranslation} from 'react-i18next';
 import {resources} from "../../../../../I18n/resources";
 import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
 import {insertIconsIntoText} from "../../../../../utils/insertIconsIntoText";
+import capitalize from "@shared/utils/capitalize";
 
 type Props = {
     message: ILogMessageRenderData;
+    first: boolean;
 };
 
 
@@ -36,10 +37,9 @@ export const LogMessage = (props: Props) => {
 
     categories.forEach((category) => {
         if (i18n.exists(`${category}.${source}`)) {
-
             if (Object.values(ABILITY).includes(source as ABILITY)) {
                 // @ts-ignore
-                translatedSource = t(`${category}.${source}.name`)
+                translatedSource = t(`ability.${source}.name`)
             } else {
                 // @ts-ignore
                 translatedSource = t(`${category}.${source}`)
@@ -49,7 +49,7 @@ export const LogMessage = (props: Props) => {
 
 
     return (
-        <div className={styles.container}>
+        <div className={`${styles.container} ${props.first && styles.containerBorderless}`}>
             <RoundSquare
                 round={msg.round}
                 currentRound={true}

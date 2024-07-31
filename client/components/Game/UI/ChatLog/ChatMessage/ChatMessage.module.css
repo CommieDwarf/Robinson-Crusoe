@@ -1,7 +1,11 @@
 
 .container {
     font-size: 0.9rem;
-    border-bottom: 1px dashed var(--borderColor);
+    border-top: 1px dashed var(--borderColor);
+}
+
+.containerBorderless {
+    border: none;
 }
 
 .author, .time {

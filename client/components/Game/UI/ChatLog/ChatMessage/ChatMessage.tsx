@@ -6,6 +6,7 @@ import styles from "./ChatMessage.module.css";
 interface Props {
     message: IChatMessageRenderData,
     localUser: string,
+    first: boolean,
 }
 
 export function ChatMessage(props: Props) {
@@ -15,7 +16,7 @@ export function ChatMessage(props: Props) {
     let minute = date.getMinutes().toString();
     minute = minute.length === 1 ? "0" + minute : minute;
 
-    return <div className={styles.container}>
+    return <div className={`${styles.container} ${props.first && styles.containerBorderless}`}>
         <span className={styles.time}>{`${hour}:${minute}`}</span>
         <span
             className={`${styles.author} ${props.localUser === props.message.author && styles.localUser}`}>{props.message.author}:</span>

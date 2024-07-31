@@ -13,6 +13,16 @@ i18next
         resources,
         lng: "pl", // if you're using a language detector, do not define the lng option
         debug: true,
+        interpolation: {
+            escapeValue: false,
+            // eslint-disable-next-line no-unused-vars
+            format: function (value, format, lng) {
+                if (format === 'uppercase') return value.toUpperCase();
+                if (format === 'lowercase') return value.toLowerCase();
+                if (format === 'capitalize') return `${value.substring(0, 1).toUpperCase()}${value.substring(1)}`;
+                return value;
+            },
+        },
     });
 
 
