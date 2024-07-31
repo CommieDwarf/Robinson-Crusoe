@@ -11,6 +11,7 @@ import {INVENTION} from "@shared/types/Game/InventionService/Invention";
 import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
 import {PawnMovementData} from "@shared/types/Game/GlobalPawnService/GlobalPawnService";
 import {ActionDice} from "@shared/types/Game/RollDice/RollDice";
+import {CHARACTER, ICharacter} from "@shared/types/Game/Characters/Character";
 
 
 type Id = string;
@@ -33,7 +34,7 @@ export type UnsetPawnArgs = [destinationId: string, draggableId: string];
 
 export type RemoveHealthThresholdArgs = [num: number];
 
-export type UseAbilityArgs = [abilityName: ABILITY, target?: string];
+export type UseAbilityArgs = [character: CHARACTER, abilityName: ABILITY, target?: string];
 
 export type ResolveEventMysteryArgs = [];
 

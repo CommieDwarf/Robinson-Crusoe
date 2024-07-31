@@ -9,6 +9,7 @@ import {IGame} from "@shared/types/Game/Game";
 import {ActionHandler, BaseController, GameControllerInterface} from "../../types/GameController/Controllers";
 import {CONTROLLER_ACTION, OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {INVENTION} from "@shared/types/Game/InventionService/Invention";
+import {CHARACTER} from "@shared/types/Game/Characters/Character";
 
 
 export enum STORAGE_ACTION {
@@ -52,7 +53,8 @@ export class GameController implements GameControllerInterface, BaseController {
         this._game.tileService.explore(6);
         this._game.tileService.explore(11);
         this._game.resourceService.addBasicResourceToOwned("wood", 1, "TEST");
-        this._game.constructionService.lvlUpConstruction(CONSTRUCTION.SHELTER, 1, "TEST")
+        this._game.constructionService.lvlUpConstruction(CONSTRUCTION.SHELTER, 1, "TEST");
+        this._game.characterService.incrDetermination(CHARACTER.FRIDAY, 4, "test piętaszka");
     }
 
     private initActionHandlers() {

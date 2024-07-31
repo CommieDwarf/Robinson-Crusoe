@@ -5,7 +5,6 @@ import {PHASE} from "@shared/types/Game/PhaseService/Phase";
 import {IAbility} from "@shared/types/Game/Skill/IAbility";
 import {ACTION} from "@shared/types/Game/ACTION";
 import {ActionDice} from "@shared/types/Game/RollDice/RollDice";
-import {scrounger} from "@shared/constants/SkillDescriptions/Cook";
 import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
 
 export class Scrounger extends Ability implements IAbility<ActionDice> {
@@ -32,8 +31,8 @@ export class Scrounger extends Ability implements IAbility<ActionDice> {
         }
 
         if (this._game.actionService.lastRolledItem) {
-            this._game.actionService.reRollDice(target);
             super.use(target);
+            this._game.actionService.reRollDice(target);
         }
     }
 }

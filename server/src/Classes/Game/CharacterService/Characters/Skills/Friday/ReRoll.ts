@@ -23,9 +23,13 @@ export class ReRoll extends Ability implements IAbility<ActionDice> {
     }
 
     use(target: ActionDice) {
+        if (!target) {
+            throw new Error("This ability requires target");
+        }
         if (this._game.actionService.lastRolledItem) {
-            this._game.actionService.lastRolledItem.reRollDice(target, ACTION.GATHER);
             super.use(target);
+            this._game.actionService.reRollDice(target);
+            console.log("RE ROLLING !")
         }
     }
 }

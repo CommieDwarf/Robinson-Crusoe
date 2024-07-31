@@ -149,6 +149,11 @@ export const resources = {
                     name_genitive: "Planu zapasowego",
                     description: "Odrzuć 3 \$determination\$, aby zwiększyć poziom \$palisade\$ lub \$weapon\$ o 1.",
                     comment: "A ty, kucharzu, zabiezpieczasz lewą flankę…"
+                },
+                [ABILITY.FRIDAYS_ABILITY]: {
+                    name: "Przerzut kości akcji",
+                    name_genitive: "Przerzutu kości akcji",
+                    description: "Odrzuć 3 \$determination\$, aby przerzucić dowolną kość akcji.",
                 }
 
             },
@@ -187,7 +192,8 @@ export const resources = {
                 "wood_few": "drewna",
                 "leather": "skóra",
                 "leather_many": "skór",
-                "leather_few": "skóry"
+                "leather_few": "skóry",
+                "leather_genitive": "skórę",
             },
             "action": {
                 "threat": "zagrożenie",
@@ -663,9 +669,9 @@ export const resources = {
             [LOG_CODE.WEATHER_TOKEN_SET]: "Położono token $t(translation:weatherToken.{{subject1}}, {\"context\": \"genitive\"}) na polu przygody.",
             [LOG_CODE.ACTION_GOT_TOKEN]: "Położono token $t(translation:tokens.{{subject1}}, {\"context\": \"genitive\"}) na polu $t(translation:action.{{subject2}}, {\"context\": \"genitive\"}).",
             [LOG_CODE.ACTION_LOST_TOKEN]: "Zabrano token $t(translation:tokens.{{subject1}}, {\"context\": \"genitive\"}) z pola $t(translation:action.{{subject2}}, {\"context\": \"genitive\"}).",
-            [LOG_CODE.OWNED_RESOURCE_ADDED]: "Dodano {{amount}} $t(translation:resource.{{subject1}}, {\"count\": {{amount}}}) do posiadanych surowców.",
-            [LOG_CODE.FUTURE_RESOURCE_ADDED]: "Dodano {{amount}} $t(translation:resource.{{subject1}}, {\"count\": {{amount}}}) do przyszłych surowców.",
-            [LOG_CODE.OWNED_RESOURCE_REMOVED]: "Odrzucono {{amount}} $t(translation:resource.{{subject1}}, {\"count\": {{amount}}}) z posiadanych surowców.",
+            [LOG_CODE.OWNED_RESOURCE_ADDED]: "Dodano {{amount}} $t(translation:resource.{{subject1}}, {\"count\": {{amount}}, \"context\": \"genitive\"}) do posiadanych surowców.",
+            [LOG_CODE.FUTURE_RESOURCE_ADDED]: "Dodano {{amount}} $t(translation:resource.{{subject1}}, {\"count\": {{amount}}, \"context\": \"genitive\"}) do przyszłych surowców.",
+            [LOG_CODE.OWNED_RESOURCE_REMOVED]: "Odrzucono {{amount}} $t(translation:resource.{{subject1}}, {\"count\": {{amount}}, \"context\": \"genitive\"}) z posiadanych surowców.",
             [LOG_CODE.CAMP_MOVED]: "Przeniesiono obóz.",
             [LOG_CODE.TILE_MODIFIER_ADDED]: "",
             [LOG_CODE.TILE_MODIFIER_REMOVED]: "",

@@ -3,7 +3,6 @@ import styles from "./ArrangeCampRest.module.css";
 import RestArrange from "./RestOrArrangeCamp/RestArrange";
 import {ACTION} from "@shared/types/Game/ACTION";
 import {objectsEqual} from "@shared/utils/objectsEqual";
-import {IArrangeCampRestServiceRenderData} from "@shared/types/Game/RestArrangeCampService/ArrangeCampRestService";
 import {useAppSelector} from "../../../../store/hooks";
 import {selectGame} from "../../../../reduxSlices/gameSession";
 
@@ -12,7 +11,7 @@ interface Props {
 }
 
 function ArrangeCampRest(props: Props) {
-    const arrangeCampRestService = useAppSelector((state) => selectGame(state).arrangeCampRestService!);
+    const arrangeCampRestService = useAppSelector((state) => selectGame(state)!.arrangeCampRestService!);
 
     return (
         <div className={`${styles.container} ${props.topLayer && styles.zIndexIncreased}`}>

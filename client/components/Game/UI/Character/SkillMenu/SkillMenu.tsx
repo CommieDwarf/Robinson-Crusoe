@@ -26,6 +26,7 @@ interface Props {
 export default function SkillMenu(props: Props) {
 
     const {t} = useTranslation();
+    const localCharacter = useAppSelector(state => state.gameSession.data?.localPlayer.character!);
 
     const overallWeather = useAppSelector((state) => selectGame(state)!.weatherService.overallWeather!)
     let description;
@@ -72,7 +73,7 @@ export default function SkillMenu(props: Props) {
 
 
     function activateAbility(abilityName: ABILITY) {
-        dispatch(socketEmitAction(CHARACTER_CONTROLLER_ACTION.USE_ABILITY, abilityName))
+        dispatch(socketEmitAction(CHARACTER_CONTROLLER_ACTION.USE_ABILITY, localCharacter.name, abilityName))
     }
 
     const containerStyle = {

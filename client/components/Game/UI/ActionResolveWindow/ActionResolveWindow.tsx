@@ -9,7 +9,7 @@ import {NextActionButton} from "./NextActionButton/NextActionButton";
 import redArrowImg from "/public/UI/misc/red-arrow.png";
 import {isAdventureAction} from "@shared/utils/typeGuards/isAdventureAction";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
-import {ICharacterRenderData} from "@shared/types/Game/Characters/Character";
+import {CHARACTER, ICharacterRenderData} from "@shared/types/Game/Characters/Character";
 import {ACTION_CONTROLLER_ACTION, CHARACTER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import sharedStyles from "../../../../styles/shared.module.css";
 import Draggable from "react-draggable";
@@ -87,7 +87,11 @@ export const ActionResolveWindow = () => {
         setResItemAnimationDoneID(null);
         setReRollButtonClicked(false);
         setReRolledDice(dice);
-        dispatch(socketEmitAction(CHARACTER_CONTROLLER_ACTION.USE_ABILITY, ability?.name, dice));
+        dispatch(
+            socketEmitAction(CHARACTER_CONTROLLER_ACTION.USE_ABILITY,
+                leader.name,
+                ability?.name,
+                dice));
         setReRollSkillUsed(true);
     }
 
@@ -147,6 +151,7 @@ export const ActionResolveWindow = () => {
 
     const {t} = useTranslation();
 
+
     return (
         <Draggable bounds="parent" defaultClassNameDragging={sharedStyles.grabbing}>
             <div className={styles.container} ref={containerRef}>
@@ -164,7 +169,8 @@ export const ActionResolveWindow = () => {
                     (actionService.lastRolledItem.resolveStatus === RESOLVE_ITEM_STATUS.PENDING &&
                         !actionService.lastRolledItem.shouldReRollSuccess &&
                         !reRollSkillUsed &&
-                        localPlayerCharName === actionService.lastRolledItem.leaderPawn.owner.name
+                        (localPlayerCharName === actionService.lastRolledItem.leaderPawn.owner.name
+                            || actionService.lastRolledItem.leaderPawn.owner.name === CHARACTER.FRIDAY)
                     ) && (
                         <ReRollButton
                             actionService={actionService}

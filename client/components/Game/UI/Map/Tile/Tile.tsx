@@ -11,8 +11,11 @@ import getActionSlots from "../../getActionSlots";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
 import {ITileRenderData} from "@shared/types/Game/TileService/ITile";
 import {TILE_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
-import {useAppDispatch} from "../../../../../store/hooks";
+import {useAppDispatch, useAppSelector} from "../../../../../store/hooks";
 import {socketEmit, socketEmitAction} from "../../../../../middleware/socketMiddleware";
+import {selectGame} from "../../../../../reduxSlices/gameSession";
+import construction from "../../Constructions/Construction/Construction";
+import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction";
 
 interface Props {
     tile: ITileRenderData;
@@ -26,6 +29,9 @@ interface Props {
 export default function Tile(props: Props) {
 
     const dispatch = useAppDispatch();
+    const shelterBuilt = useAppSelector(state =>
+        selectGame(state)?.constructionService.constructions
+            .find((construction) => construction.name === CONSTRUCTION.SHELTER)?.lvl === 1)
 
     let style = {
         top: props.tile.position.cords.top + "%",
@@ -132,10 +138,9 @@ export default function Tile(props: Props) {
                     {props.tile.camp && (
                         <div className={styles.campIcon}>
                             <ResizableImage
-                                src={"/UI/tokens/camp.png"}
+                                src={`/UI/tokens/${shelterBuilt ? "shelter" : "camp"}.png`}
                                 fill
                                 alt={"obóz"}
-                                className={styles.campIcon}
                             />
                         </div>
                     )}

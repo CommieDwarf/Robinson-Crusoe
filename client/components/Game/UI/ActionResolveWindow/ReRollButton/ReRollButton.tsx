@@ -16,6 +16,7 @@ type Props = {
 export const ReRollButton = (props: Props) => {
     let character = props.actionService.lastRolledItem?.leaderPawn.owner;
     let reRollAbility = character ? getCharacterRerollAbility(character) : undefined;
+
     const {t} = useTranslation();
 
     function handleClick() {
@@ -24,7 +25,7 @@ export const ReRollButton = (props: Props) => {
 
     return (
         <div className={styles.container}>
-            {reRollAbility && character && (props.currentAction === reRollAbility.actionAllowed) && (
+            {reRollAbility && character && (props.currentAction === reRollAbility.actionAllowed || reRollAbility.actionAllowed === null) && (
                 <>
                     {/*@ts-ignore*/}
                     <div>{capitalize(t(`ability.${reRollAbility.name}.name`))}</div>

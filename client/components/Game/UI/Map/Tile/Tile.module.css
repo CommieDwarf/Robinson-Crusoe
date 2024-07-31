@@ -176,11 +176,11 @@
 }
 
 .campIcon {
-    width: 20%;
-    height: 20%;
+    height: 25%;
+    aspect-ratio: 1;
     position: relative;
     margin: auto;
-    top: 25%;
+    top: 20%;
 }
 
 .modifiers {

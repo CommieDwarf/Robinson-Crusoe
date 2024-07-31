@@ -4,6 +4,7 @@ import {IGame} from "@shared/types/Game/Game";
 import {ActionHandler, GameControllerInterface} from "../../../types/GameController/Controllers";
 import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
 import {PawnMovementData} from "@shared/types/Game/GlobalPawnService/GlobalPawnService";
+import {CHARACTER, ICharacter} from "@shared/types/Game/Characters/Character";
 
 
 export class CharacterController implements GameControllerInterface {
@@ -31,7 +32,7 @@ export class CharacterController implements GameControllerInterface {
         this._game.characterService.removeMoraleThreshold(player.getCharacter(), num);
     }
 
-    private useAbility(player: IPlayer, ability: ABILITY, target: any): void {
-        player.getCharacter().useAbility(ability, target);
+    private useAbility(player: IPlayer, character: CHARACTER, ability: ABILITY, target: any): void {
+        this._game.characterService.getCharacter(character).useAbility(ability, target);
     }
 }

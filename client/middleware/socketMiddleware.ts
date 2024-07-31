@@ -1,6 +1,6 @@
 import {Dispatch, Middleware, MiddlewareAPI} from "redux";
 import {SOCKET_EVENT, SocketPayloadMap} from "@shared/types/Requests/Socket";
-import {MyStore, RootState} from "../store/store";
+import {store, RootState} from "../store/store";
 import {Socket} from "socket.io-client";
 import {connectedUpdated} from "../reduxSlices/auth";
 import {
@@ -9,9 +9,7 @@ import {
     SocketDisconnectAction,
     SocketEmitAction
 } from "../types/middleware/SocketMiddleware";
-import {CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {ActionArgMap} from "@shared/types/ActionArgMap";
-import {gameSessionUpdated} from "../reduxSlices/gameSession";
 
 export const SOCKET_CONNECT = "socket connect";
 export const SOCKET_DISCONNECT = "socket disconnect";
@@ -30,7 +28,7 @@ export const socketEmit = <T extends SOCKET_EVENT>(event: T, payload: ModifiedPa
 });
 
 
-export const socketEmitAction = <A extends CONTROLLER_ACTION>(action: A, ...args: ActionArgMap[A]) => {
+export const socketEmitAction = <A extends keyof ActionArgMap>(action: A, ...args: ActionArgMap[A]) => {
     return socketEmit(SOCKET_EVENT.PLAYER_ACTION, {
         actionType: action,
         arguments: args,
@@ -39,7 +37,7 @@ export const socketEmitAction = <A extends CONTROLLER_ACTION>(action: A, ...args
 }
 
 
-const socketMiddleware = (socket: Socket): Middleware => (api: MiddlewareAPI<Dispatch<SocketActions>, MyStore>) => (next: Dispatch<SocketActions>) => {
+const socketMiddleware = (socket: Socket): Middleware => (api: MiddlewareAPI<Dispatch<SocketActions>, typeof store>) => (next: Dispatch<SocketActions>) => {
     const emitQueue: SocketEmitAction<SOCKET_EVENT>[] = [];
     return (action: any) => {
 
@@ -65,8 +63,7 @@ const socketMiddleware = (socket: Socket): Middleware => (api: MiddlewareAPI<Dis
                         console.log('Socket disconnected');
                         store.dispatch(connectedUpdated(false))
                     });
-
-
+                    
                     console.log("TRYING TO CONNECT");
                     socket.connect()
                     break;
