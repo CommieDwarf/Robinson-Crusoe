@@ -117,7 +117,9 @@ export default function Character(props: Props) {
             </div>
             <div className={styles.rightTop}>
                 <Expendables determination={character.determination}
-                             weapon={character.weaponBoost}/>
+                             weapon={character.weaponBoost}
+                             wood={character.hasPersonalResource.wood}
+                />
             </div>
 
             <div className={styles.pawns}>

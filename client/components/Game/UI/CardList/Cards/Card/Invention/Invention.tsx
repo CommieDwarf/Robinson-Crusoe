@@ -12,6 +12,7 @@ import {getOwnedDroppableId} from "@shared/utils/getOwnedDroppableId";
 import {getObjectsComparator} from "../../../../../../../utils/getObjectsComparator";
 import {selectGame} from "../../../../../../../reduxSlices/gameSession";
 import {socketEmitAction} from "../../../../../../../middleware/socketMiddleware";
+import CommittedResources from "../../../../CommittedResources/CommittedResources";
 
 type Props = {
     invention: IInventionRenderData;
@@ -107,7 +108,17 @@ function Invention(props: Props) {
             {props.invention.inventionType === "scenario" &&
                 props.invention.isBuilt &&
                 scenarioBuiltDiv}
-            <div className={styles.committedResources}>{resources}</div>
+            <div className={styles.committedResources}>
+                {props.invention.committedResources &&
+                    <CommittedResources committedResources={props.invention.committedResources}
+                                        personalResourceUsed={props.invention.personalResourceUsed}
+                                        background={true}
+                                        justifyContent={"center"}
+                    />
+
+                }
+
+            </div>
             {props.invention.isBuilt && props.invention.usable &&
                 (<div className={styles.useButton} onClick={handleUseButtonClick}
                       onMouseEnter={handleMouseEnter}

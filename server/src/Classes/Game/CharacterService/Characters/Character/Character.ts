@@ -10,7 +10,6 @@ import {ActionDice} from "@shared/types/Game/RollDice/RollDice";
 import {Cloud} from "@shared/types/Game/Weather/Weather";
 import {PlayerCharacter} from "./PlayerCharacter/PlayerCharacter";
 import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
-import {IPlayer} from "@shared/types/Game/PlayerService/Player";
 
 export abstract class Character implements ICharacter {
     protected _name: PlayerCharacterName | SideCharacterName;

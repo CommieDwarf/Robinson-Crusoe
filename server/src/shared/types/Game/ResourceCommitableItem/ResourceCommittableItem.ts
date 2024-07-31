@@ -1,4 +1,5 @@
 import {IAssignablePawnsItem, IAssignablePawnsItemRenderData} from "../AssignablePawnsItem/AssignablePawnsItem";
+import {IPawnOwner} from "@shared/types/Game/Pawns/Pawn";
 
 export interface ResourceRequirement<Resource> {
     resource: SingleResourceRequirement<Resource>,
@@ -13,14 +14,15 @@ export interface SingleResourceRequirement<Resource> {
 export interface IResourceCommittableItem<Resource> extends IAssignablePawnsItem {
 
     resourceCost: SingleResourceRequirement<Resource> | null;
-    optionalResourceCost: SingleResourceRequirement<Resource> | null;
+    secondaryResourceCost: SingleResourceRequirement<Resource> | null;
     committedResources: SingleResourceRequirement<Resource> | null;
 
-    commitResource: () => void;
-    unCommitResources: () => void;
+    commitResource: (pawnOwner: IPawnOwner) => void;
+    unCommitResources: (pawnOwner: IPawnOwner) => void;
 
     consumeCommittedResources: () => void;
-    canCommitResource: (optionalResource: boolean) => boolean;
+    canCommitResource: (optionalResource: boolean, pawnOwned: IPawnOwner) => boolean;
+
 
     renderData: IResourceCommittableItemRenderData<Resource>
 }
@@ -30,4 +32,5 @@ export interface IResourceCommittableItemRenderData<Resource> extends IAssignabl
     committedResources: SingleResourceRequirement<Resource> | null,
     resourceCost: SingleResourceRequirement<Resource> | null;
     optionalResourceCost: SingleResourceRequirement<Resource> | null;
+    personalResourceUsed: boolean;
 }

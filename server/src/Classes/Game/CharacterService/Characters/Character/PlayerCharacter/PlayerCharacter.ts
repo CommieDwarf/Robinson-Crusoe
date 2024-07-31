@@ -16,6 +16,7 @@ import {IAbility} from "@shared/types/Game/Skill/IAbility";
 import {AdventureAction} from "@shared/types/Game/ACTION";
 import {removeFromArray} from "@shared/utils/removeFromArray";
 import {LOG_CODE} from "@shared/types/Game/ChatLog/LOG_CODE";
+import {IBasicResourcesAmount} from "@shared/types/Game/Resources/Resources";
 
 
 export abstract class PlayerCharacter
@@ -30,6 +31,13 @@ export abstract class PlayerCharacter
     protected declare _name: PlayerCharacterName;
     protected declare _skills: IAbility<any>[];
     private _weaponBoost = 0;
+
+    private _hasPersonalResource = {
+        wood: false,
+        leather: false,
+        food: false,
+        dryFood: false
+    }
 
     protected _wounds: Wounds = {
         head: [],
@@ -57,12 +65,14 @@ export abstract class PlayerCharacter
         this.pawnService.initPawns(2, false, null);
     }
 
+
     get renderData(): IPlayerCharacterRenderData {
         return {
             ...this.getPawnOwnerRenderData(),
             pawnService: this._pawnService.renderData,
         }
     }
+
 
     public getPawnOwnerRenderData(): Omit<IPlayerCharacterRenderData, "pawnService"> {
         return {
@@ -73,12 +83,17 @@ export abstract class PlayerCharacter
             abilities: this._skills.map((skill) => skill.renderData),
             moraleThresholdsRemoved: this._moraleThresholdsRemoved,
             wounds: this._wounds,
-            weaponBoost: this._weaponBoost
+            weaponBoost: this._weaponBoost,
+            hasPersonalResource: this._hasPersonalResource
         }
-
     }
 
     // ---------------------------------------------
+
+
+    get hasPersonalResource() {
+        return this._hasPersonalResource;
+    }
 
     get wounds(): Wounds {
         return this._wounds;
@@ -136,8 +151,12 @@ export abstract class PlayerCharacter
         this._weaponBoost = value;
     }
 
+
     // ---------------------------------------------
 
+    setPersonalResource(resource: keyof IBasicResourcesAmount, value: boolean) {
+        this._hasPersonalResource[resource] = value;
+    }
 
     setWound(part: keyof Wounds, action: AdventureAction, source: string) {
         this._wounds[part].push(action);

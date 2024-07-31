@@ -199,7 +199,7 @@ export class ResolvableItem implements IResolvableItem {
 
         if (this.resolveStatus === RESOLVE_ITEM_STATUS.FAILURE) {
             if (isCommittableResourcesItem(item)) {
-                item.unCommitResources();
+                item.unCommitResources(this._leaderPawn.owner);
             }
             return;
         }

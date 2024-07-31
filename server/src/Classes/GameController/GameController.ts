@@ -50,6 +50,7 @@ export class GameController implements GameControllerInterface, BaseController {
             this._game.characterService.incrDetermination(player.getCharacter(), 10, "test");
         })
         this._game.tileService.explore(6);
+        this._game.resourceService.addBasicResourceToOwned("wood", 1, "TEST");
     }
 
     private initActionHandlers() {

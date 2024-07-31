@@ -11,6 +11,10 @@ import {capitalize} from "lodash";
 import {useAppDispatch, useAppSelector} from "../../../../../store/hooks";
 import {selectGame} from "../../../../../reduxSlices/gameSession";
 import {socketEmitAction} from "../../../../../middleware/socketMiddleware";
+import {
+    PersonalResourceIcon
+} from "../../Character/Expendables/Expendable/Expendable/PersonalResourceIcon/PersonalResourceIcon";
+import CommittedResources from "../../CommittedResources/CommittedResources";
 
 
 type Props = {
@@ -21,13 +25,12 @@ function Construction(props: Props) {
 
     const dispatch = useAppDispatch();
 
-    const resources: JSX.Element[] = [];
     const naturalShelter = useAppSelector((state) => {
-        return selectGame(state).tileService.campTile.tileResourceService?.extras.naturalShelter || false
+        return selectGame(state)!.tileService.campTile.tileResourceService?.extras.naturalShelter || false
     })
 
     const ownedResourcesAmount = useAppSelector((state) => {
-        return selectGame(state).resourceService.owned.basic!
+        return selectGame(state)!.resourceService.owned.basic!
     })
 
     const hideActionSlots = props.construction.lvl > 0 && props.construction.name === CONSTRUCTION.SHELTER;
@@ -39,23 +42,6 @@ function Construction(props: Props) {
     }
 
     const {t} = useTranslation()
-
-
-    if (props.construction.committedResources) {
-        const resType = props.construction.committedResources.type;
-        for (let i = 0; i < props.construction.committedResources?.amount; i++) {
-            resources.push(
-                <div className={styles.committedResource} key={i}>
-                    <ResizableImage
-                        src={`/UI/resources/${resType}.png`}
-                        fill
-                        alt={resType}
-                        sizes={styles.committedResource}
-                    />
-                </div>
-            );
-        }
-    }
 
 
     let actionSlots;
@@ -97,7 +83,14 @@ function Construction(props: Props) {
                         </>
                     )}
                 </div>
-                <div className={styles.committedResources}>{resources}</div>
+                <div className={styles.committedResources}>
+                    {props.construction.committedResources && <CommittedResources
+                        committedResources={props.construction.committedResources}
+                        personalResourceUsed={props.construction.personalResourceUsed}
+                        background={true}
+                        justifyContent={"start"}
+                    />}
+                </div>
             </div>
             <div
                 className={`${styles[props.construction.name]} ${

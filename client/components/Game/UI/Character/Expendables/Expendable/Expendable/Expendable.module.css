@@ -4,19 +4,19 @@
     column-gap: 3px;
     position: relative;
     height: 100%;
-    aspect-ratio: 2;
 }
 
 
 .iconWrapper {
-    width: 50%;
     aspect-ratio: 1;
     position: relative;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+
 }
 
 .icon {
-    height: 1.5rem;
+    height: 1.2rem;
     aspect-ratio: 1;
 }
 
@@ -29,9 +29,10 @@
 .value {
     width: 50%;
     aspect-ratio: 1;
-    display: inline-block;
-    vertical-align: top;
     font-weight: bold;
-    font-size: 1.3rem;
+    font-size: 1rem;
     text-align: right;
+    display: flex;
+    align-items: center;
 }
+

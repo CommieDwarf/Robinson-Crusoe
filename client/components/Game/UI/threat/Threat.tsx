@@ -10,6 +10,7 @@ import {getObjectsComparator} from "../../../../utils/getObjectsComparator";
 import {RootState} from "../../../../store/store";
 import {connect} from "react-redux";
 import {IEventCardRenderData} from "@shared/types/Game/EventService/EventCard";
+import CommittedResources from "../CommittedResources/CommittedResources";
 
 
 interface StateProps {
@@ -40,23 +41,39 @@ function Threat(props: StateProps & Props) {
                     sizes={styles.curvedArrow}
                 />
             </div>
+            <div className={styles.committedResources}>
+                {props.leftSlot?.committedResources &&
+                    <CommittedResources committedResources={props.leftSlot.committedResources}
+                                        personalResourceUsed={props.leftSlot.personalResourceUsed}
+                                        background={true}
+                                        justifyContent={"center"}
+                    />
+                }
+            </div>
+            <div className={styles.committedResources}>
+                {props.rightSlot?.committedResources &&
+                    <CommittedResources committedResources={props.rightSlot.committedResources}
+                                        personalResourceUsed={props.rightSlot.personalResourceUsed}
+                                        background={true}
+                                        justifyContent={"center"}
+                    />
+                }
+            </div>
             <div className={styles.actionSlots}>
-                {props.leftSlot &&
-                    (props.leftSlot.meetsRequirement ||
-                        props.leftSlot.committedResources)
+                {props.leftSlot
                     && getActionSlots(props.leftSlot, 0, "left")}
             </div>
             <div className={styles.actionSlots}>
-                {props.rightSlot && (props.rightSlot.meetsRequirement
-                        || props.rightSlot.committedResources) &&
+                {props.rightSlot &&
                     getActionSlots(props.rightSlot, 0, "right")}
             </div>
+
         </div>
     );
 }
 
 const mapStateToProps = (state: RootState, props: Props) => {
-    const game = selectGame(state);
+    const game = selectGame(state)!;
     return {
         leftSlot: game.eventService.leftSlot,
         rightSlot: game.eventService.rightSlot,

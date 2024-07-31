@@ -7,7 +7,6 @@ import {ISideCharacterRenderData} from "./SideCharacter";
 import {PawnOwner} from "../PawnOwner/PawnOwner";
 import {IPlayerCharacterRenderData} from "./PlayerCharacter";
 import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
-import {IPlayer} from "@shared/types/Game/PlayerService/Player";
 
 export interface ICharacterRenderData {
     pawnService: IPawnServiceRenderData<ICharacterRenderData>;

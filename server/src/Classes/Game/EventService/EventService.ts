@@ -12,7 +12,7 @@ import {isEventCard} from "@shared/utils/typeGuards/isEventCard";
 import {IMysteryCard} from "@shared/types/Game/MysteryService/MysteryCard";
 import {isMysteryCard} from "@shared/utils/typeGuards/isMysteryCard";
 import {isAdventureCard} from "@shared/utils/typeGuards/isAdventureCard";
-import {WRECKAGE_CARD} from "@shared/types/Game/EventService/EVENT_CARD";
+import {EVENT_CARD, WRECKAGE_CARD} from "@shared/types/Game/EventService/EVENT_CARD";
 import shuffle from "@shared/utils/shuffleArray";
 
 interface EventSlots {
@@ -206,7 +206,8 @@ export class EventService implements IEventService {
         // this._eventSlots.right = creator.create(WRECKAGE_CARD.SUPPLY_CRATES);
         let cards = implementedEventCards.map((card) => creator.create(card));
         cards = shuffle(cards).slice(0, 11)
-        cards.push(creator.create(WRECKAGE_CARD.CAPTAINS_CHEST))
+        cards.push(creator.create(WRECKAGE_CARD.CAPTAINS_CHEST));
+        cards.push(creator.create(EVENT_CARD.AWFUL_WEATHER));
         // 29 kart ogólnie
 
 

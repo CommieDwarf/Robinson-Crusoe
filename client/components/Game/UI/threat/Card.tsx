@@ -5,15 +5,18 @@ import {kebabCase} from "lodash";
 import {IEventCardRenderData} from "@shared/types/Game/EventService/EventCard";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
 import {Side} from "@shared/types/Game/TileService/TileResourceService";
+import {getObjectsComparator} from "../../../../utils/getObjectsComparator";
+import CommittedResources from "../CommittedResources/CommittedResources";
 
 interface Props {
     card: IEventCardRenderData | null;
     slot?: Side;
 }
 
-export default function Card(props: Props) {
+export function Card(props: Props) {
     const [enlarged, setEnlarged] = useState(false);
     const cardContainerRef = useRef<HTMLDivElement>(null);
+    const beenEnlarged = useRef(false);
 
     function handleClick() {
         if (!props.card) {
@@ -23,8 +26,12 @@ export default function Card(props: Props) {
     }
 
     useEffect(() => {
-        if (props.slot === "right" && props.card) {
+        if (props.slot === "right" && props.card && !beenEnlarged.current) {
             setEnlarged(true);
+            beenEnlarged.current = true;
+        }
+        if (!props.card) {
+            beenEnlarged.current = false;
         }
     }, [props.card, props.slot])
 
@@ -43,12 +50,6 @@ export default function Card(props: Props) {
         >
             {props.card && (
                 <div className={styles.card} ref={cardContainerRef}>
-                    {/*<ResizableImage*/}
-                    {/*    src={`/UI/cards/event/${getImgName(props.card.name)}.png`}*/}
-                    {/*    fill*/}
-                    {/*    alt={props.card.name}*/}
-                    {/*    sizes={"50vw"}*/}
-                    {/*/>*/}
                     <ResizableImage src={`/UI/cards/event/${kebabCase(props.card.name)}.png`}
                                     alt={props.card.name}
                                     scale={4}
@@ -58,3 +59,6 @@ export default function Card(props: Props) {
         </div>
     );
 }
+
+
+export default React.memo(Card, getObjectsComparator());

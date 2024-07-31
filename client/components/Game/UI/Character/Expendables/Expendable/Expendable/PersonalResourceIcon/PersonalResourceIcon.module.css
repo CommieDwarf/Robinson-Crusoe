@@ -1,0 +1,15 @@
+.container {
+    height: 100%;
+    aspect-ratio: 1;
+    position: relative;
+    background-image: url("../../../../../../../../public/UI/phase/action.png");
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container > div {
+    margin-bottom: -2px;
+}
+

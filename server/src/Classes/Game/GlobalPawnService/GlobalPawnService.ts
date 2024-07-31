@@ -47,12 +47,17 @@ export class GlobalPawnService implements IGlobalPawnService {
             return;
         }
 
-        this.setPawn(target.droppableId, pawnAtSource);
+
+        if (pawnAtTarget) {
+            this.unsetPawn(target.droppableId, pawnAtTarget.draggableId);
+        }
+        this.unsetPawn(source.droppableId, pawnAtSource.draggableId);
+        
         if (pawnAtTarget) {
             this.setPawn(source.droppableId, pawnAtTarget);
-        } else {
-            this.unsetPawn(source.droppableId, pawnAtSource.draggableId);
         }
+        this.setPawn(target.droppableId, pawnAtSource);
+
     }
 
     public resetPawns(): void {
@@ -83,9 +88,6 @@ export class GlobalPawnService implements IGlobalPawnService {
         return pawn;
     }
 
-    private getPawnByDroppableId(droppableId: string): IPawn | null {
-        return this._game.actionSlotService.getPawn(droppableId);
-    }
 
     private removePawnFromOwnerFreePawns(draggableId: string) {
         const pawn = this.allPawns.find((pawn) => pawn.draggableId === draggableId);
@@ -100,13 +102,11 @@ export class GlobalPawnService implements IGlobalPawnService {
         return isCommittableResourcesItem(item) && Boolean(item.resourceCost) && droppableId.includes("leader");
     }
 
-    private canCommitResources(droppableId: string): boolean {
+    private canCommitResources(droppableId: string, draggableId: string): boolean {
         const item = getItemFromDroppableId(droppableId, this._game);
-        // if (!droppableId.includes("leader")) {
-        //     return true;
-        // }
         if (isCommittableResourcesItem(item)) {
-            return item.canCommitResource(false) || item.canCommitResource(true);
+            const pawn = this.getPawnByDraggableId(draggableId);
+            return item.canCommitResource(false, pawn.owner) || item.canCommitResource(true, pawn.owner);
         } else {
             return false;
         }
@@ -114,8 +114,9 @@ export class GlobalPawnService implements IGlobalPawnService {
 
     private unsetPawn(droppableId: string, draggableId: string): void {
         const item = getItemFromDroppableId(droppableId, this._game);
+        const pawn = this.getPawnByDraggableId(draggableId)
         if (isCommittableResourcesItem(item) && droppableId.includes("leader")) {
-            item.unCommitResources();
+            item.unCommitResources(pawn.owner);
         }
         if (droppableId.includes("owner")) {
             this.removePawnFromOwnerFreePawns(draggableId);
@@ -133,21 +134,18 @@ export class GlobalPawnService implements IGlobalPawnService {
         if (droppableId.includes("owner")) {
             pawn.owner.pawnService.copyPawnToFreePawns(pawn.draggableId);
         } else {
-            if (this.shouldCommitResources(droppableId) && this.canCommitResources(droppableId)) {
+            if (this.shouldCommitResources(droppableId) && this.canCommitResources(droppableId, pawn.draggableId)) {
                 const item = getItemFromDroppableId(droppableId, this._game) as IResourceCommittableItem<keyof IBasicResources>;
-                item.commitResource();
+                item.commitResource(pawn.owner);
             }
             this._game.actionSlotService.setPawn(droppableId, pawn);
         }
     }
 
-    private canBothPawnsBeMoved() {
-
-    }
 
     private canPawnBeMoved(pawn: IPawn, droppableId: string): boolean {
         return isPawnPlacementAllowed(pawn.renderData, droppableId)
-            && (!this.shouldCommitResources(droppableId) || this.canCommitResources(droppableId));
+            && (!this.shouldCommitResources(droppableId) || this.canCommitResources(droppableId, pawn.draggableId));
     }
 
 }
