@@ -3,6 +3,7 @@ import {IGame} from "@shared/types/Game/Game";
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 import {IAbility} from "@shared/types/Game/Skill/IAbility";
 import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
+import {CHARACTER} from "@shared/types/Game/Characters/Character";
 
 export class GrandmasRecipe extends Ability implements IAbility<null> {
 
@@ -19,7 +20,7 @@ export class GrandmasRecipe extends Ability implements IAbility<null> {
 
     use(target = null) {
         if (this._game.resourceService.canAffordResource("food", 1)) {
-            const characters = this._game.characterService.allCharacters;
+            const characters = this._game.characterService.allCharacters.filter((char) => char.name !== CHARACTER.DOG);
             this._game.resourceService.spendBasicResourceIfPossible("food", 1, "");
             this._game.startPickingObject(characters,
                 this._character as IPlayerCharacter,

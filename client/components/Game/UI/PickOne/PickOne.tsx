@@ -1,5 +1,5 @@
 import Draggable from "react-draggable";
-import {PickObject} from "./PickingObject/PickObject";
+import {PickObject} from "./PickObject/PickObject";
 import styles from "./PickOne.module.css";
 import {IObjectPickerRenderData,} from "@shared/types/Game/ObjectPicker/ObjectPicker";
 import {useState} from "react";
@@ -9,6 +9,8 @@ import {OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {insertIconsIntoText} from "../../../../utils/insertIconsIntoText";
 import {useAppDispatch} from "../../../../store/hooks";
 import {socketEmitAction} from "../../../../middleware/socketMiddleware";
+import {useDynamicTranslation} from "../../../../utils/hooks/useDynamicTranslation";
+import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
 
 interface Props {
     objectPicker: IObjectPickerRenderData<any>;
@@ -53,13 +55,18 @@ export function PickOne(props: Props) {
                 <span className={styles.source}>
                     <h1>
                         {/*@ts-ignore*/}
-                        {t(`pickObject.${source}.source`)}
+                        {useDynamicTranslation(props.objectPicker.source)}
                     </h1>
                 </span>
-                <span className={styles.description}>
-                    {/*@ts-ignore*/}
-                    {t(`pickObject.${source}.description`)}
-                </span>
+                {Object.values(ABILITY).includes(props.objectPicker.source as ABILITY) &&
+                    <div className={styles.descriptionWrapper}>
+                        <span className={styles.description}>
+                        {/*@ts-ignore*/}
+                            {insertIconsIntoText(t(`ability.${props.objectPicker.source}.description`), styles.icon)}
+                      </span>
+                    </div>
+
+                }
 
                 {props.objectPicker.pickSubject !== "construction" && <div className={styles.pickObjects}>
                     {objects.map((obj, index) => {

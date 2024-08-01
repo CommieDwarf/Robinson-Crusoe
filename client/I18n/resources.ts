@@ -16,6 +16,7 @@ import {SESSION_CONNECTION_ERROR_CODE} from "@shared/types/Errors/SESSION_CONNEC
 import {INVENTION_PERSONAL} from "@shared/types/Game/InventionService/Invention";
 import {DISCOVERY_TOKEN} from "@shared/types/Game/TokenService/Token";
 import {SCENARIO} from "@shared/types/Game/ScenarioService/SCENARIO";
+import {PAWN_HELPER_ACTION} from "@shared/types/Game/Pawns/Pawn";
 
 
 export const resources = {
@@ -51,7 +52,7 @@ export const resources = {
             },
             ability: {
                 [ABILITY.GRANDMAS_RECIPE]: {
-                    name: "Babcina Beceptura",
+                    name: "Babcina Receptura",
                     name_genitive: "Babcinej Receptury",
                     description: "Odrzuć 2 \$determination\$ aby uleczyć 2 \$heart\$ odrzucając 1 \$food\$",
                     comment: "Po zupie mojej babci na pewno poczujesz się lepiej."
@@ -61,7 +62,6 @@ export const resources = {
                     name_genitive: "Samogonu",
                     description: "Odrzuć 3 $determination$, aby usunąć 1 $rain-cloud$ lub zamienić 1 $snow-cloud$ w 1 $rain-cloud$",
                     comment: "Wiem, że jest zimno i w ogóle, ale mam tu coś co ogrzeje ciało i rozjaśni umysł."
-
                 },
                 [ABILITY.SCROUNGER]: {
                     name: "Bystre Oko",
@@ -122,7 +122,7 @@ export const resources = {
                 [ABILITY.HANDYMAN]: {
                     name: "Złota rączka",
                     name_genitive: "Złotej rączki",
-                    description: "Odrzuć 3 \$determination\$, aby uzyskać dodatkowego \$build-pawn\$ podczas Akcji Budowy, którą wykonujesz",
+                    description: `Odrzuć 3 $determination$, aby uzyskać jednorazowego $${PAWN_HELPER_ACTION.BUILD}$ podczas akcji budowy, którą wykonujesz`,
                     comment: "To w sumie dość proste, zajmie ledwie parę chwil."
                 },
                 [ABILITY.TRACKING]: {
@@ -667,6 +667,8 @@ export const resources = {
 
         logMessages: {
             [LOG_CODE.WEATHER_TOKEN_SET]: "Położono token $t(translation:weatherToken.{{subject1}}, {\"context\": \"genitive\"}) na polu przygody.",
+            [LOG_CODE.WEATHER_CLOUD_DECREMENTED]: `Odjęto {{amount}} chmurkę $t(translation:weatherToken.{{subject1}}, {\"context\": \"genitive\"}).`,
+            [LOG_CODE.WEATHER_CLOUD_INCREMENTED]: `Dodano {{amount}} chmurkę $t(translation:weatherToken.{{subject1}}, {\"context\": \"genitive\"}).`,
             [LOG_CODE.ACTION_GOT_TOKEN]: "Położono token $t(translation:tokens.{{subject1}}, {\"context\": \"genitive\"}) na polu $t(translation:action.{{subject2}}, {\"context\": \"genitive\"}).",
             [LOG_CODE.ACTION_LOST_TOKEN]: "Zabrano token $t(translation:tokens.{{subject1}}, {\"context\": \"genitive\"}) z pola $t(translation:action.{{subject2}}, {\"context\": \"genitive\"}).",
             [LOG_CODE.OWNED_RESOURCE_ADDED]: "Dodano {{amount}} $t(translation:resource.{{subject1}}, {\"count\": {{amount}}, \"context\": \"genitive\"}) do posiadanych surowców.",
@@ -692,6 +694,7 @@ export const resources = {
             [LOG_CODE.CHARACTER_USED_TOKEN]: "$t(translation:character.{{subject1}}) użył tokenu: $t(translation:discoveryToken.{{subject2}}, {\"context\": \"genitive\"}).",
             [LOG_CODE.CHARACTER_USED_ABILITY]: "$t(translation:character.{{subject1}}) użył $t(translation:ability.{{subject2}}.name, {\"context\": \"genitive\"}).",
             [LOG_CODE.CHARACTER_GOT_HURT]: "$t(translation:character.{{subject1}}) otrzymał {{amount}} obrażeń.",
+            [LOG_CODE.CHARACTER_GOT_HEALED]: "$t(translation:character.{{subject1}}) został uleczony z {{amount}} obrażeń.",
             [LOG_CODE.RESOURCE_BOOST_REMOVED]: "Źródło $t(translation:resource.{{subject1}}, {\"context\": \"genitive\"}) nie daje już dodatkowego surowca.",
             [LOG_CODE.RESOURCE_BOOST_ADDED]: "Źródło $t(translation:resource.{{subject1}}, {\"context\": \"genitive\"}) będzie dawać dodatkowy surowiec.",
             [LOG_CODE.RESOURCE_DEPLETED]: "Źródło $t(translation:resource.{{subject1}}, {\"context\": \"genitive\"}) zostało wyczerpane.",

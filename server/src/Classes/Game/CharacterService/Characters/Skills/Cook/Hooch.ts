@@ -6,6 +6,7 @@ import {IAbility} from "@shared/types/Game/Skill/IAbility";
 import {Cloud} from "@shared/types/Game/Weather/Weather";
 import {hooch} from "@shared/constants/SkillDescriptions/Cook";
 import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
+import {LOG_CODE} from "@shared/types/Game/ChatLog/LOG_CODE";
 
 export class Hooch extends Ability implements IAbility<Cloud> {
 
@@ -24,13 +25,15 @@ export class Hooch extends Ability implements IAbility<Cloud> {
         if (!target) {
             throw new Error("this ability required target")
         }
+        super.use(target);
+        
         if (target === "rain") {
             this._game.weatherService.incrementModifier(target, -1, this._name);
         } else {
             this._game.weatherService.incrementModifier(target, -1, this._name);
             this._game.weatherService.incrementModifier("rain", 1, this._name);
         }
-        super.use(target);
+
     }
 
     canBeUsed(): boolean {

@@ -5,10 +5,9 @@ import {RoundSquare} from "../../Scenario/Scenarios/Castaways/Rounds/RoundSquare
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
 import {ILogMessageRenderData} from "@shared/types/Game/ChatLog/LogMessage";
 import {useTranslation} from 'react-i18next';
-import {resources} from "../../../../../I18n/resources";
-import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
 import {insertIconsIntoText} from "../../../../../utils/insertIconsIntoText";
 import capitalize from "@shared/utils/capitalize";
+import {useDynamicTranslation} from "../../../../../utils/hooks/useDynamicTranslation";
 
 type Props = {
     message: ILogMessageRenderData;
@@ -18,7 +17,7 @@ type Props = {
 
 export const LogMessage = (props: Props) => {
 
-    const {t, i18n} = useTranslation();
+    const {t} = useTranslation();
     const msg = props.message;
     const {content, source} = msg;
     const {code, subject1, subject2, amount} = content;
@@ -30,23 +29,6 @@ export const LogMessage = (props: Props) => {
         ns: "logMessages",
         defaultValue: code
     })
-
-    let translatedSource
-
-    const categories = Object.keys(resources.pl.translation);
-
-    categories.forEach((category) => {
-        if (i18n.exists(`${category}.${source}`)) {
-            if (Object.values(ABILITY).includes(source as ABILITY)) {
-                // @ts-ignore
-                translatedSource = t(`ability.${source}.name`)
-            } else {
-                // @ts-ignore
-                translatedSource = t(`${category}.${source}`)
-            }
-        }
-    })
-
 
     return (
         <div className={`${styles.container} ${props.first && styles.containerBorderless}`}>
@@ -68,7 +50,7 @@ export const LogMessage = (props: Props) => {
             {}
             <div className={styles.messageContent}>
                 <span className={styles.messageSource}>
-                  {insertIconsIntoText(capitalize(translatedSource || source), styles.icon)} -{" "}
+                  {insertIconsIntoText(capitalize(useDynamicTranslation(source)), styles.icon)} -{" "}
                 </span>
                 <span className={styles.message + " " + styles[msg.color]}>
                     {capitalize(translatedContent)}

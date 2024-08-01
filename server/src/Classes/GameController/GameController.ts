@@ -48,13 +48,23 @@ export class GameController implements GameControllerInterface, BaseController {
 
     private testStuff() {
         this._game.playerService.players.forEach((player) => {
-            this._game.characterService.incrDetermination(player.getCharacter(), 10, "test");
+            this._game.characterService.incrDetermination(player.getCharacter(), 16, "test");
         })
-        this._game.tileService.explore(6);
-        this._game.tileService.explore(11);
+        // this._game.tileService.explore(6);
+        // this._game.tileService.explore(11);
         this._game.resourceService.addBasicResourceToOwned("wood", 1, "TEST");
         this._game.constructionService.lvlUpConstruction(CONSTRUCTION.SHELTER, 1, "TEST");
         this._game.characterService.incrDetermination(CHARACTER.FRIDAY, 4, "test piętaszka");
+        this._game.characterService.hurt(CHARACTER.FRIDAY, 3, "test");
+        this._game.characterService.hurt(CHARACTER.DOG, 3, "test");
+        this._game.setNextRound()
+        this._game.setNextRound()
+        this._game.setNextRound()
+        this._game.setNextRound()
+        this._game.setNextRound()
+        this._game.setNextRound()
+        this._game.setNextRound()
+        this._game.setNextRound()
     }
 
     private initActionHandlers() {

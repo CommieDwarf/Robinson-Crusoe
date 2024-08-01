@@ -92,3 +92,7 @@ body::-webkit-scrollbar-track {
 .menuButton:hover {
     scale: 1.1;
 }
+
+.borderless {
+    border: none !important;
+}

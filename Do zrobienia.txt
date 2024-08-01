@@ -1,11 +1,13 @@
 Piętaszek i karty przygód
 Okno pogody do przerobienia (layout).
+mystery card drawer przetłumaczyć przyciski i dodać tło.
+dodac log wiadomosci o połączącym/rozłączonym graczu.
+dodac wyswietlenie pingu gracza lokalnego i innych.
+karty pomysłów postaci.
 
-
-
-Piętaszek i jego pula determinacji
-Rzuciłem koścmi budowy i mimo że był token przygody nie pociągnąłem karty przygody. Budował kucharz.
-Przy budowanie konstrukcji podaje lvl za dużo.
+Piętaszek i jego pula determinacji x 
+Rzuciłem koścmi budowy i mimo że był token przygody nie pociągnąłem karty przygody. Budował kucharz. x 
+Przy budowanie konstrukcji podaje lvl za dużo. x 
 
 
 Ikonki surowców w ramki i nazwy po najechaniu x

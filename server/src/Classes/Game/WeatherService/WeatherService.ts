@@ -104,8 +104,29 @@ export class WeatherService implements IWeatherService {
         );
     }
 
-    incrementModifier(type: keyof WeatherModifiers, value: number) {
+    incrementModifier(type: keyof WeatherModifiers, value: number, sourceLog: string) {
         this._modifiers[type] += value;
+        if (value < 0) {
+            this._game.logService.addMessage(
+                {
+                    code: LOG_CODE.WEATHER_CLOUD_DECREMENTED,
+                    subject1: type,
+                    subject2: "",
+                    amount: Math.abs(value),
+                },
+                "positive",
+                sourceLog);
+        } else if (value > 0) {
+            this._game.logService.addMessage(
+                {
+                    code: LOG_CODE.WEATHER_CLOUD_INCREMENTED,
+                    subject1: type,
+                    subject2: "",
+                    amount: value,
+                },
+                "negative",
+                sourceLog);
+        }
     }
 
     public applyEffects() {

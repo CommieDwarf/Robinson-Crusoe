@@ -80,7 +80,6 @@ export default function Pawn(props: Props) {
                 }}
             </Draggable>
         }
-
         </>
 
     );

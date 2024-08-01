@@ -29,3 +29,8 @@
     margin: auto;
     aspect-ratio: var(--cardAspectRatio);
 }
+
+.square {
+    aspect-ratio: 1;
+    height: 100%;
+}

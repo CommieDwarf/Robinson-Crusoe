@@ -3,6 +3,8 @@ import ResizableImage from "../../../../ResizableImage/ResizableImage";
 import {PickableObject, PickableRenderData, PickSubject} from "@shared/types/Game/ObjectPicker/ObjectPicker";
 import {kebabCase} from "lodash";
 import {IInventionRenderData} from "@shared/types/Game/InventionService/Invention";
+import {isPlayerCharacter} from "@shared/utils/typeGuards/isPlayerCharacter";
+import {ICharacterRenderData} from "@shared/types/Game/Characters/Character";
 
 interface Props {
     pickSubject: PickSubject,
@@ -37,6 +39,12 @@ export function PickObject(props: Props) {
         case props.pickSubject === "construction":
             imgUrlPath = `${basePath}/constructions/${name}-icon.png`;
             break;
+        case props.pickSubject === "character":
+            const character = props.pickObject.object as ICharacterRenderData;
+            imgUrlPath = isPlayerCharacter(character)
+                ? `${basePath}/characters/player-characters/${name}-${character.gender}.png` :
+                `${basePath}/characters/side-characters/${name}-pic.png`;
+            break;
     }
 
 
@@ -47,7 +55,10 @@ export function PickObject(props: Props) {
         props.selectObject(props.pickObject.id)
     }
 
-    const aspectRatio = props.pickSubject === "token" || props.pickSubject === "tileType" ? "square" : "card";
+    const aspectRatio = props.pickSubject === "token" ||
+    props.pickSubject === "tileType" ||
+    props.pickSubject === "character"
+        ? "square" : "card";
 
 
     return <div
@@ -56,8 +67,7 @@ export function PickObject(props: Props) {
             ${props.selectable && styles.containerSelectable}
             ${props.selected && styles.containerSelected}
             ${styles[props.pickSubject]}
-            ${aspectRatio === "card" && styles.card}
-             `}
+            ${styles[aspectRatio]}`}
         onClick={handleClick}
     >
         <ResizableImage src={imgUrlPath} alt={String(name)} fill/>

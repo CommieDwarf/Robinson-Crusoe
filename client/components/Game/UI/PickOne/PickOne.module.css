@@ -18,13 +18,27 @@
 
 }
 
-.description {
+.descriptionWrapper {
+    max-width: 300px;
+    margin: auto;
     text-align: center;
+}
+
+.description {
     font-size: 2em;
-    display: block;
     font-style: italic;
     margin: 5px auto auto;
     font-weight: bold;
+}
+
+
+.icon {
+    height: 1em;
+    width: 1em;
+    aspect-ratio: 1;
+    position: relative;
+    margin-left: 3px;
+    display: inline-block;
 }
 
 .pickObjects {

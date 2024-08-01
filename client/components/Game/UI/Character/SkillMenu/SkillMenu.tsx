@@ -73,7 +73,11 @@ export default function SkillMenu(props: Props) {
 
 
     function activateAbility(abilityName: ABILITY) {
-        dispatch(socketEmitAction(CHARACTER_CONTROLLER_ACTION.USE_ABILITY, localCharacter.name, abilityName))
+        let target;
+        if (abilityName === ABILITY.HOOCH) {
+            target = cloud;
+        }
+        dispatch(socketEmitAction(CHARACTER_CONTROLLER_ACTION.USE_ABILITY, localCharacter.name, abilityName, target))
     }
 
     const containerStyle = {

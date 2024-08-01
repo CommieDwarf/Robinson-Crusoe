@@ -1,0 +1,24 @@
+import {PAWN_HELPER_ACTION} from "@shared/types/Game/Pawns/Pawn";
+import styles from "./Pawn.module.css";
+import {Draggable} from "react-beautiful-dnd";
+import React from "react";
+import ResizableImage from "../../ResizableImage/ResizableImage";
+import {kebabCase} from "lodash";
+
+
+interface Props {
+    action: PAWN_HELPER_ACTION
+}
+
+export function StaticPawnHelper(props: Props) {
+
+    return (
+        <div className={styles.container}>
+            <div className={`${styles.pawn} ${styles[kebabCase(props.action)]} borderless`}>
+                <ResizableImage src={`/UI/characters/pawns/helper.png`} alt={"helper"}/>
+            </div>
+        </div>
+    )
+
+
+}

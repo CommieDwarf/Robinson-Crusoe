@@ -1,4 +1,7 @@
 import ResizableImage from "../components/ResizableImage/ResizableImage";
+import Pawn from "../components/Game/UI/Pawn";
+import {IPawnRenderData, PAWN_HELPER_ACTION} from "@shared/types/Game/Pawns/Pawn";
+import {StaticPawnHelper} from "../components/Game/UI/StaticPawnHelper";
 
 const icons = [
     "determination",
@@ -11,8 +14,9 @@ const icons = [
     "wood",
     "weapon",
     "palisade",
-    "star"
+    "star",
 ];
+
 
 export function insertIconsIntoText(string: string, elementClassName: string) {
     const array = string.split("$");
@@ -28,6 +32,12 @@ export function insertIconsIntoText(string: string, elementClassName: string) {
                     />
                 </div>
             );
+        } else if (Object.values(PAWN_HELPER_ACTION).includes(str as PAWN_HELPER_ACTION)) {
+            return (
+                <div key={i} className={elementClassName}>
+                    <StaticPawnHelper action={str as PAWN_HELPER_ACTION}/>
+                </div>
+            )
         } else {
             return <span key={i}>{str}</span>;
         }

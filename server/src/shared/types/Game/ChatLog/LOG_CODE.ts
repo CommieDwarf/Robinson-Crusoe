@@ -59,6 +59,8 @@ export enum LOG_CODE {
     CAMP_MOVED = "camp moved",
 
     WEATHER_TOKEN_SET = "weather token set",
+    WEATHER_CLOUD_DECREMENTED = "weather cloud decremented",
+    WEATHER_CLOUD_INCREMENTED = "weather cloud incremented",
     NEW_PRIME_PLAYER = "new prime player"
 }
 
