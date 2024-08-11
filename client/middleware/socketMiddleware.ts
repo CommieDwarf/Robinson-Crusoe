@@ -1,15 +1,18 @@
 import {Dispatch, Middleware, MiddlewareAPI} from "redux";
 import {SOCKET_EVENT, SocketPayloadMap} from "@shared/types/Requests/Socket";
-import {store, RootState} from "../store/store";
+import {RootState, store} from "../store/store";
 import {Socket} from "socket.io-client";
-import {connectedUpdated} from "../reduxSlices/auth";
+import {connectedUpdated, latencyUpdated} from "../reduxSlices/connection";
 import {
-    ModifiedPayload, SocketActions,
+    ModifiedPayload,
+    SocketActions,
     SocketConnectAction,
     SocketDisconnectAction,
     SocketEmitAction
 } from "../types/middleware/SocketMiddleware";
 import {ActionArgMap} from "@shared/types/ActionArgMap";
+import {setSocketListener, SocketListener} from "../pages/api/socket";
+import {playerListLatencyUpdated} from "../reduxSlices/gameSession";
 
 export const SOCKET_CONNECT = "socket connect";
 export const SOCKET_DISCONNECT = "socket disconnect";
@@ -37,39 +40,52 @@ export const socketEmitAction = <A extends keyof ActionArgMap>(action: A, ...arg
 }
 
 
-const socketMiddleware = (socket: Socket): Middleware => (api: MiddlewareAPI<Dispatch<SocketActions>, typeof store>) => (next: Dispatch<SocketActions>) => {
+const socketMiddleware = (socket: Socket): Middleware => (api: MiddlewareAPI<Dispatch, typeof store>) => (next: Dispatch<SocketActions>) => {
     const emitQueue: SocketEmitAction<SOCKET_EVENT>[] = [];
+    let listeners: SocketListener[];
     return (action: any) => {
-
         if (api) {
             const store = api.getState();
-
             switch (action.type) {
                 case SOCKET_CONNECT:
                     console.log(action);
                     socket.io.opts.extraHeaders = {
                         Authorization: action.payload.authToken,
                     };
-                    socket.on(SOCKET_EVENT.CONNECTED, () => {
-                        console.log('Socket connected');
-                        // store.dispatch(connectedUpdated(true))
-                        if (emitQueue.length > 0) {
-                            emitQueue.forEach((action) => {
-                                socket.emit(action.event, hydratePayload(action.payload));
-                            })
-                        }
-                    });
-                    socket.on('disconnect', () => {
-                        console.log('Socket disconnected');
-                        store.dispatch(connectedUpdated(false))
-                    });
-                    
-                    console.log("TRYING TO CONNECT");
+                    listeners = [
+                        setSocketListener(SOCKET_EVENT.CONNECTED, () => {
+                            console.log('Socket connected');
+                            if (emitQueue.length > 0) {
+                                emitQueue.forEach((action) => {
+                                    socket.emit(action.event, hydratePayload(action.payload));
+                                })
+                            }
+                            api.dispatch(connectedUpdated(true))
+                        }),
+                        setSocketListener(SOCKET_EVENT.DISCONNECT, () => {
+                            console.log('Socket disconnected');
+                            alert("Disconnected");
+                            api.dispatch(connectedUpdated(false))
+                        }),
+                        setSocketListener(SOCKET_EVENT.PING, (payload) => {
+                            console.log('receiving ping')
+                            api.dispatch(socketEmit(SOCKET_EVENT.PONG, payload));
+                        }),
+                        setSocketListener(SOCKET_EVENT.USER_LATENCY_SENT, (payload) => {
+                            api.dispatch(latencyUpdated(payload.latency));
+                        }),
+                        setSocketListener(SOCKET_EVENT.PLAYER_LATENCY_LIST_SENT, (payload) => {
+                            api.dispatch(playerListLatencyUpdated(payload.list));
+                        })
+                    ]
                     socket.connect()
                     break;
+
                 case SOCKET_DISCONNECT:
                     socket.close();
+                    listeners.forEach((listener) => listener.off());
                     break;
+
                 case SOCKET_EMIT:
                     if (!socket.connected) {
                         emitQueue.push(action);
@@ -77,6 +93,7 @@ const socketMiddleware = (socket: Socket): Middleware => (api: MiddlewareAPI<Dis
                     console.log('emiting', action.event, hydratePayload(action.payload))
                     socket.emit(action.event, hydratePayload(action.payload));
                     break;
+
                 case SOCKET_EMIT_ACTION:
                     if (!socket.connected) {
                         emitQueue.push(action);
@@ -87,7 +104,6 @@ const socketMiddleware = (socket: Socket): Middleware => (api: MiddlewareAPI<Dis
                     }
             }
         }
-
 
         return next(action);
 

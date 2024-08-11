@@ -8,10 +8,19 @@ import {createSelector} from "reselect";
 import {IPlayerCharacterRenderData} from "@shared/types/Game/Characters/PlayerCharacter";
 import {IPlayerRenderData} from "@shared/types/Game/PlayerService/Player";
 
+
+enum CONNECTION_STATUS {
+    CONNECTED = "connected",
+    DISCONNECTED = "disconnected",
+    NOT_CONNECTED = "not connected", // default
+}
+
 export interface SessionDataSlice {
     data: SessionRenderData | null,
     actionSlots: IActionSlotServiceRenderData | null,
     sessionId: string,
+    connectionStatus: CONNECTION_STATUS,
+    playerLatencyList: { playerId: string, latency: number }[]
 }
 
 
@@ -19,6 +28,8 @@ const initialState: SessionDataSlice = {
     data: null,
     actionSlots: null,
     sessionId: "",
+    connectionStatus: CONNECTION_STATUS.NOT_CONNECTED,
+    playerLatencyList: [],
 };
 
 export const gameSessionSlice = createSlice({
@@ -40,9 +51,14 @@ export const gameSessionSlice = createSlice({
                 ...action.payload,
             }
         },
-
         sessionIdUpdated(state, action) {
             state.sessionId = action.payload;
+        },
+        connectionStatusUpdated(state, action) {
+            state.connectionStatus = action.payload
+        },
+        playerListLatencyUpdated(state, action) {
+            state.playerLatencyList = action.payload;
         }
     },
 });
@@ -51,7 +67,9 @@ export const {
     gameSessionUpdated,
     actionSlotUpdated,
     sessionIdUpdated,
-    actionSlotsPartiallyUpdated
+    actionSlotsPartiallyUpdated,
+    connectionStatusUpdated,
+    playerListLatencyUpdated
 } = gameSessionSlice.actions;
 
 export const selectActionSlotById = (state: ReturnType<typeof store.getState>, actionSlotId: string): IPawnRenderData<any> | null => {
@@ -63,6 +81,14 @@ export const selectGame = (state: ReturnType<typeof store.getState>) => {
     return state.gameSession.data?.game;
 }
 
+export const selectPlayerLatency = (state: ReturnType<typeof store.getState>, playerId: string) => {
+    const list = state.gameSession.playerLatencyList;
+    if (list) {
+        return list.find((o) => o.playerId === playerId)?.latency
+    } else {
+        return undefined;
+    }
+}
 
 export const selectActionSlotService = (state: RootState) => selectGame(state)?.actionSlotService;
 export const selectGlobalPawnService = (state: RootState) => selectGame(state)?.globalPawnService;

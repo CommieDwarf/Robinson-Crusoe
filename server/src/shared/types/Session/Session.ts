@@ -35,6 +35,7 @@ export interface SessionData {
     gameController: BaseController | null;
     getGame: () => IGame | undefined;
 
+    closeSession: () => void;
 
     addMessage: (userId: string, message: string) => void;
     setPlayerReady: (userId: string, ready: boolean) => void;

@@ -203,8 +203,8 @@ io.on("connection", async (socket: typeof Socket) => {
         console.log("socket connected");
 
         socket.on(SOCKET_EVENT.DISCONNECT, () => {
-            console.log("disconnected")
-            user.removeSocket(socket);
+            user.closeConnection(socket);
+            socket.disconnect();
         })
 
 
@@ -245,6 +245,9 @@ io.on("connection", async (socket: typeof Socket) => {
             }
 
             if (session) {
+                if (!socket.rooms.has(session.id)) {
+                    socket.join(session.id);
+                }
                 console.log("sending data to:", user.username);
                 socketEmit(SOCKET_EVENT.SESSION_DATA_SENT, {sessionData: session.getRenderData(user.id)})
             } else {
@@ -275,7 +278,6 @@ io.on("connection", async (socket: typeof Socket) => {
                         console.error(e);
                     }
                 }
-
             })
 
         socket.on(SOCKET_EVENT.EXECUTE_GAME_METHOD_AND_SEND_RESPONSE,
@@ -315,6 +317,7 @@ io.on("connection", async (socket: typeof Socket) => {
 
         socket.on(SOCKET_EVENT.JOIN_SESSION, (payload: SocketPayloadMap[SOCKET_EVENT.JOIN_SESSION]) => {
             try {
+                socket.join(payload.sessionId);
                 if (sessionService.userInSession(user.id, payload.sessionId)) {
                     socketEmit(SOCKET_EVENT.JOIN_SESSION_RESPONSE, {
                         sessionId: payload.sessionId,
@@ -322,7 +325,6 @@ io.on("connection", async (socket: typeof Socket) => {
                     return;
                 }
                 sessionService.joinSession(user, payload.sessionId, payload.password);
-                socket.join(payload.sessionId);
                 socket.to(payload.sessionId).emit(SOCKET_EVENT.SESSION_CHANGED)
                 socketEmit(SOCKET_EVENT.JOIN_SESSION_RESPONSE, {
                     sessionId: payload.sessionId,
@@ -403,6 +405,8 @@ io.on("connection", async (socket: typeof Socket) => {
         setListener(SOCKET_EVENT.SEND_MESSAGE, (payload) => {
             sessionService.addMessage(user.id, payload.message, payload.sessionId);
             io.to(payload.sessionId).emit(SOCKET_EVENT.SESSION_CHANGED);
+            console.log(sessionService.searchSession(user.id, payload.sessionId)
+                ?.players.map((player) => player.user.sockets));
         })
 
         setListener(SOCKET_EVENT.UPDATE_SESSION_SETTINGS, (payload) => {
@@ -456,7 +460,6 @@ io.on("connection", async (socket: typeof Socket) => {
                     console.log("game status error", error.code);
                     responsePayload.error = error.code;
                     socketEmit(SOCKET_EVENT.GAME_STATUS_SENT, responsePayload);
-
                 } else {
                     console.error(error);
                 }
@@ -464,9 +467,15 @@ io.on("connection", async (socket: typeof Socket) => {
                 console.log("sending game status!")
             }
         });
-
-
         socketEmit(SOCKET_EVENT.CONNECTED, null);
+
+        user.ping((latency) => {
+            socketEmit(SOCKET_EVENT.USER_LATENCY_SENT, {latency})
+        }, () => {
+            console.warn("User timeout");
+            console.warn(user);
+        })
+
 
     } catch (e) {
         console.error(e)

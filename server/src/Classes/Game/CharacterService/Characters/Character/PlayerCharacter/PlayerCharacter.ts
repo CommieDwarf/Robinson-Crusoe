@@ -78,7 +78,7 @@ export abstract class PlayerCharacter
         return {
             ...super.getPawnOwnerRenderData(),
             moraleThresholds: this._moraleThresholds,
-            playerId: 0,
+            playerId: this._player.id,
             name: this.name,
             abilities: this._skills.map((skill) => skill.renderData),
             moraleThresholdsRemoved: this._moraleThresholdsRemoved,

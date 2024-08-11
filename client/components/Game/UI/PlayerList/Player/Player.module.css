@@ -2,21 +2,28 @@
     width: 150px;
     height: 300px;
     color: var(--brown);
-    background-image: url("../../../../../public/UI/characters/background.png");
-    background-size: cover;
+
     font-size: 15px;
     font-weight: bold;
     font-style: italic;
     border: 1px solid var(--borderColor);
     box-sizing: content-box;
     padding: 5px;
+    position: relative;
+}
+
+.latency {
+    position: absolute;
+    top: 5px;
+    right: 25px;
+    width: 20px;
+    aspect-ratio: 1;
 }
 
 .health {
     width: 20px;
     height: 100%;
     float: right;
-    background-color: red;
     display: inline-block;
 }
 

@@ -14,6 +14,7 @@ export interface ITile extends IAssignablePawnsItem {
     distance: number | null;
     camp: boolean;
     show: boolean;
+
     tileResourceService: ITileResourceService | null;
     modifiers: TileModifiers;
     markedForAction: MarkedForAction | null;
@@ -42,7 +43,7 @@ export interface ITile extends IAssignablePawnsItem {
     reveal: (resources: TileType) => void;
     resetStructures: () => void;
     setStructureLvl: (structure: BuiltTileStructure, amount: number) => void;
-
+    setShortcut: (side: Side, value: boolean) => void;
 
     incrementStructureLvl: (
         structure: BuiltTileStructure,

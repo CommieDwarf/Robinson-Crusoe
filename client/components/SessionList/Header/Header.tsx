@@ -7,7 +7,7 @@ export function Header() {
 
     const {t} = useTranslation();
 
-    return <div className={`${styles.container}`}>
+    return <div className={`${styles.container} nonSelectable`}>
         <div className={`${styles.name}`}>{capitalize(t("menu.name"))}</div>
         <div className={styles.host}>{capitalize(t("menu.host"))}</div>
         <div className={styles.playerAmount}>{capitalize(t("menu.players"))}</div>

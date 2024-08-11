@@ -15,11 +15,6 @@ import {
 import {SESSION_CONNECTION_ERROR_CODE} from "@shared/types/Errors/SESSION_CONNECTION_ERROR_CODE";
 import {socketEmit} from "../../middleware/socketMiddleware";
 import {setSocketListener, SocketListener} from "../api/socket";
-import {getObjectsComparator} from "../../utils/getObjectsComparator";
-import {sleep} from "@shared/utils/sleep";
-import {IActionSlotServiceRenderData} from "@shared/types/Game/ActionSlots";
-import {IPawnRenderData} from "@shared/types/Game/Pawns/Pawn";
-import {resetServerContext} from "react-beautiful-dnd";
 
 type Props = {};
 

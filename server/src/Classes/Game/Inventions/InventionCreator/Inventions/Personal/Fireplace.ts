@@ -7,6 +7,7 @@ import {
 } from "@shared/types/Game/InventionService/Invention";
 import {IGame} from "@shared/types/Game/Game";
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
+import {CHARACTER} from "@shared/types/Game/Characters/Character";
 
 export class Fireplace extends Invention implements IInvention {
     protected _usable = true;
@@ -27,7 +28,15 @@ export class Fireplace extends Invention implements IInvention {
             return;
         }
         this._game.resourceService.owned.basic.spendResource("food", 1);
-        this._game.characterService.heal(character, 2, this._namePL);
+        this._game.startPickingObject(this._game.characterService.healableCharacters,
+            character,
+            1,
+            this._name,
+            "character",
+            (char) => {
+                this._game.characterService.heal(char, 2, this._name)
+            }
+        )
         this.usedInRound = this._game.round;
     }
 }

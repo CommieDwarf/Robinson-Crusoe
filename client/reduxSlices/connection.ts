@@ -4,13 +4,17 @@ import {UserData} from "@shared/types/User/User";
 type State = {
     user: UserData | null;
     connected: boolean;
+    latency: number;
 }
 
 const initialState: State = {
     user: null,
     connected: false,
+    latency: Infinity,
 }
-export const authSlice = createSlice({
+
+
+export const connectionSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
@@ -23,8 +27,11 @@ export const authSlice = createSlice({
         },
         connectedUpdated(state, action) {
             state.connected = action.payload
+        },
+        latencyUpdated(state, action) {
+            state.latency = action.payload
         }
     }
 });
 
-export const {userUpdated, connectedUpdated} = authSlice.actions
+export const {userUpdated, connectedUpdated, latencyUpdated} = connectionSlice.actions

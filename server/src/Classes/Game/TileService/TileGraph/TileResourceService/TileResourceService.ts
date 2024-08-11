@@ -30,20 +30,8 @@ export class TileResourceService implements ITileResourceService {
         this._terrainType = terrainType;
         this._extras = extras;
         this._resources = {
-            left: {
-                resource: resources.left,
-                depleted: false,
-                modifiers: [],
-                markedForAction: null,
-                assignedPawns: 0,
-            },
-            right: {
-                resource: resources.right,
-                depleted: false,
-                modifiers: [],
-                markedForAction: null,
-                assignedPawns: 0,
-            },
+            left: this.initResources(resources.left),
+            right: this.initResources(resources.right),
         };
     }
 
@@ -115,15 +103,25 @@ export class TileResourceService implements ITileResourceService {
     }
 
     public canActionBePerformed(action: TILE_RESOURCE_ACTION, side: Side, source: string) {
+        const {
+            depleted,
+            modifiers,
+            shortcut
+        } = this._resources[side];
+
         switch (action) {
             case TILE_RESOURCE_ACTION.ADD_MODIFIER:
                 return true;
             case TILE_RESOURCE_ACTION.REMOVE_MODIFIER:
-                return this._resources[side].modifiers.some((mod) => mod.source === source);
+                return modifiers.some((mod) => mod.source === source);
             case TILE_RESOURCE_ACTION.UN_DEPLETE:
-                return this._resources[side].depleted;
+                return depleted;
             case TILE_RESOURCE_ACTION.DEPLETE:
                 return this.canBeDepleted(side);
+            case TILE_RESOURCE_ACTION.SET_SHORTCUT:
+                return !depleted && !shortcut;
+            case TILE_RESOURCE_ACTION.UNSET_SHORTCUT:
+                return shortcut;
         }
     }
 
@@ -145,6 +143,12 @@ export class TileResourceService implements ITileResourceService {
                 break;
             case TILE_RESOURCE_ACTION.REMOVE_MODIFIER:
                 trigger = this.removeBoost;
+                break;
+            case TILE_RESOURCE_ACTION.SET_SHORTCUT:
+                trigger = () => this.setShortcut(side, true);
+                break;
+            case TILE_RESOURCE_ACTION.UNSET_SHORTCUT:
+                trigger = () => this.setShortcut(side, false);
                 break;
         }
         this._resources[side].markedForAction = {
@@ -222,6 +226,16 @@ export class TileResourceService implements ITileResourceService {
         );
     }
 
+    public setShortcut(side: Side, value: boolean) {
+        if (value && this._resources[side].resource === "beast") {
+            throw new Error("Can't place shortcut on a beast!");
+        }
+        if (value && this._resources[side].depleted) {
+            throw new Error("Can't place shortcut on depleted resource");
+        }
+        this._resources[side].shortcut = value;
+    }
+
     public clearModifiers() {
         this._resources.left.modifiers = [];
         this._resources.right.modifiers = [];
@@ -242,6 +256,17 @@ export class TileResourceService implements ITileResourceService {
                 return "right";
             default:
                 return null;
+        }
+    }
+
+    private initResources(resource: TileResource) {
+        return {
+            resource: resource,
+            depleted: false,
+            modifiers: [],
+            markedForAction: null,
+            assignedPawns: 0,
+            shortcut: false,
         }
     }
 }

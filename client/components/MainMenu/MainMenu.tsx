@@ -20,7 +20,7 @@ export function MainMenu({UserComponent}: Props) {
 
     const [gameInProgress, setGameInProgress] = useState(false);
 
-    const user = useAppSelector((state) => state.auth.user);
+    const user = useAppSelector((state) => state.connection.user);
 
     const dispatch = useAppDispatch();
 

@@ -86,6 +86,7 @@ body::-webkit-scrollbar-track {
     font-weight: 500;
     line-height: 140%;
     font-size: 100%;
+    user-select: none;
 }
 
 
@@ -95,4 +96,8 @@ body::-webkit-scrollbar-track {
 
 .borderless {
     border: none !important;
+}
+
+.nonSelectable {
+    user-select: none;
 }

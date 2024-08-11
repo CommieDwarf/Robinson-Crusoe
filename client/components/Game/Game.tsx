@@ -365,7 +365,7 @@ export default function Game(props: Props) {
                     zIndex={topLayerElement}
                 />
                 <div className={styles.health}>
-                    <Health character={gameData.localPlayer.character!}/>
+                    <Health character={gameData.localPlayer.character!} background={true}/>
                 </div>
                 <Threat topLayer={topLayerElement.includes("threat")}/>
                 <ArrangeCampRest

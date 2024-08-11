@@ -67,9 +67,7 @@ export function Lobby() {
             setSocketListener(SOCKET_EVENT.SESSION_CHANGED, () => {
                 dispatch(socketEmit(SOCKET_EVENT.SESSION_DATA_REQUESTED, {hydrateSessionId: true}))
             }),
-            setSocketListener(SOCKET_EVENT.PING, (payload) => {
-                dispatch(socketEmit(SOCKET_EVENT.PONG, payload));
-            }),
+
             setSocketListener(SOCKET_EVENT.GAME_STARTED, (payload) => {
                 router.push(`/play/${payload.sessionId}`).then();
             })

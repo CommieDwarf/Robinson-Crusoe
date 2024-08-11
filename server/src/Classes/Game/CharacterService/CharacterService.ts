@@ -3,7 +3,7 @@ import {ICharacterService, ICharacterServiceRenderData,} from "@shared/types/Gam
 import {ISideCharacter} from "@shared/types/Game/Characters/SideCharacter";
 import {PlayerCharacter} from "./Characters/Character/PlayerCharacter/PlayerCharacter";
 import {IGame} from "@shared/types/Game/Game";
-import {ICharacter} from "@shared/types/Game/Characters/Character";
+import {CHARACTER, ICharacter} from "@shared/types/Game/Characters/Character";
 import {Dog} from "./Characters/Dog";
 import {Friday} from "./Characters/Friday";
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
@@ -41,6 +41,10 @@ export class CharacterService implements ICharacterService {
 
     get allCharacters(): ICharacter[] {
         return this._allCharacters;
+    }
+
+    get healableCharacters(): ICharacter[] {
+        return this._allCharacters.filter((char) => char.name !== CHARACTER.DOG);
     }
 
     get playerCharacters(): IPlayerCharacter[] {

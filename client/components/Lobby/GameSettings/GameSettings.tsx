@@ -155,7 +155,7 @@ export function GameSettings(props: Props) {
             <span>Liczba graczy</span>
             {props.host ? <select onChange={handleMaxPlayersChange} value={localSettings.maxPlayers}>
                 {[1, 2, 3, 4].map((num) => {
-                    const disabled = Boolean(playerAmount && playerAmount > num);
+                    const disabled = Boolean(playerAmount && playerAmount > num && props.editMode);
                     return <option value={num} key={num} disabled={disabled}
                                    className={styles.option}>{num}</option>
                 })}

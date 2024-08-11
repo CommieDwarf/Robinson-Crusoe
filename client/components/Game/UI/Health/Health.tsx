@@ -13,7 +13,8 @@ import {IPlayerCharacterRenderData} from "@shared/types/Game/Characters/PlayerCh
 
 interface Props {
     vertical?: boolean;
-    character: IPlayerCharacterRenderData
+    character: IPlayerCharacterRenderData;
+    background: boolean;
 }
 
 function Health(props: Props) {
@@ -49,7 +50,7 @@ function Health(props: Props) {
         </div>
     );
     return (
-        <div className={`${styles.container} `}>
+        <div className={`${styles.container} ${props.background && styles.containerBackground}`}>
             <div className={`${styles.health} ${props.vertical && styles.healthVertical}`}>{marks}</div>
         </div>
     );

@@ -39,7 +39,7 @@ export interface IPlayerCharacter extends ICharacter {
 }
 
 export interface IPlayerCharacterRenderData extends ICharacterRenderData {
-    playerId: number;
+    playerId: string;
     name: PlayerCharacterName;
     moraleThresholds: number[];
     moraleThresholdsRemoved: number[];

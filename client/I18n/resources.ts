@@ -122,7 +122,7 @@ export const resources = {
                 [ABILITY.HANDYMAN]: {
                     name: "Złota rączka",
                     name_genitive: "Złotej rączki",
-                    description: `Odrzuć 3 $determination$, aby uzyskać jednorazowego $${PAWN_HELPER_ACTION.BUILD}$ podczas akcji budowy, którą wykonujesz`,
+                    description: `Odrzuć 3 $determination$, aby uzyskać jednorazowego $${PAWN_HELPER_ACTION.BUILD}$.`,
                     comment: "To w sumie dość proste, zajmie ledwie parę chwil."
                 },
                 [ABILITY.TRACKING]: {

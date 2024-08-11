@@ -8,6 +8,7 @@ import {GlobalWrapper} from "./GlobalWrapper";
 
 import "../public/fontello-3e0b8b4b/css/fontello.css";
 import "../I18n/I18n";
+import {InfoBadge} from "../components/InfoBadge/InfoBadge";
 
 
 export default function MyApp<Props>({Component, pageProps}: AppProps) {
@@ -17,7 +18,7 @@ export default function MyApp<Props>({Component, pageProps}: AppProps) {
         <>
             <Provider store={store}>
                 <GlobalWrapper>
-
+                    <InfoBadge/>
                     <Component {...pageProps} />
                 </GlobalWrapper>
             </Provider>

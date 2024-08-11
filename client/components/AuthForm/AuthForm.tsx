@@ -8,7 +8,7 @@ import {useAppDispatch} from "../../store/hooks";
 import {fetchUser} from "../../utils/auth/fetchUser";
 import {LoginReqBody} from "@shared/types/Requests/Post";
 import Cookies from "js-cookie";
-import {userUpdated} from "../../reduxSlices/auth";
+import {userUpdated} from "../../reduxSlices/connection";
 import {socketConnect} from "../../middleware/socketMiddleware";
 
 interface Props {

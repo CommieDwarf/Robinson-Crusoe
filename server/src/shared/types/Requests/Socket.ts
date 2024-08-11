@@ -32,7 +32,7 @@ export enum SOCKET_EVENT {
     PLAYER_KICKED = "player kicked",
     PING = "ping",
     PONG = "pong",
-    PLAYER_LATENCY_SENT = "players ping sent",
+    USER_LATENCY_SENT = "players ping sent",
     SEND_MESSAGE = "send message",
     UPDATE_SESSION_SETTINGS = "update session settings",
     START_GAME = "start game",
@@ -45,7 +45,8 @@ export enum SOCKET_EVENT {
     CONNECTED = "connected",
     GAMES_IN_PROGRESS_SENT = "games in progress sent",
     ALERT_SENT = "alert sent",
-    CHANGE_PLAYER_COLOR = "change color"
+    CHANGE_PLAYER_COLOR = "change color",
+    PLAYER_LATENCY_LIST_SENT = "player latency list sent",
 }
 
 
@@ -122,15 +123,13 @@ interface KickPlayerPayload {
 
 interface PingPayload {
     timestamp: number;
-    sessionId: string;
 }
 
 interface PongPayload {
     timestamp: number;
 }
 
-interface PlayerLatencySentPayload {
-    playerId: string;
+interface UserLatencySentPayload {
     latency: number | null;
 }
 
@@ -178,6 +177,13 @@ interface ChangeColorPayload {
     sessionId: string,
 }
 
+interface PlayerLatencyListSentPayload {
+    list: {
+        playerId: string,
+        latency: string
+    }[]
+}
+
 
 export type SocketPayloadMap = {
     [SOCKET_EVENT.EXECUTE_GAME_METHOD_AND_SEND_RESPONSE]: ExecuteGameMethodAndSendResponsePayload;
@@ -205,7 +211,7 @@ export type SocketPayloadMap = {
     [SOCKET_EVENT.PING]: PingPayload;
     [SOCKET_EVENT.PONG]: PongPayload;
     [SOCKET_EVENT.DISCONNECT]: any;
-    [SOCKET_EVENT.PLAYER_LATENCY_SENT]: PlayerLatencySentPayload;
+    [SOCKET_EVENT.USER_LATENCY_SENT]: UserLatencySentPayload;
     [SOCKET_EVENT.SEND_MESSAGE]: SendMessagePayload,
     [SOCKET_EVENT.UPDATE_SESSION_SETTINGS]: UpdateSessionSettingsPayload,
     [SOCKET_EVENT.START_GAME]: StartGamePayload,
@@ -218,4 +224,5 @@ export type SocketPayloadMap = {
     [SOCKET_EVENT.CONNECTED]: any;
     [SOCKET_EVENT.ALERT_SENT]: AlertSentPayload;
     [SOCKET_EVENT.CHANGE_PLAYER_COLOR]: ChangeColorPayload;
+    [SOCKET_EVENT.PLAYER_LATENCY_LIST_SENT]: PlayerLatencyListSentPayload;
 };

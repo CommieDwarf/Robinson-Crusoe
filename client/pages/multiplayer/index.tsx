@@ -73,7 +73,7 @@ export function Multiplayer() {
                     </Link>
                 </div>
                 <div className={styles.joinBySessionId}>
-                    <div className={styles.joinBySessionIdText}>
+                    <div className={`${styles.joinBySessionIdText} nonSelectable`}>
                         {capitalize(t("menu.join with game code"))}
                     </div>
                     <div className={styles.joinBySessionIdInput}>

@@ -2,7 +2,7 @@ import styles from "./PlayerLatency.module.css";
 
 
 interface Props {
-    latency: number | null;
+    latency: number | null | undefined;
 }
 
 export function PlayerLatency(props: Props) {
@@ -11,7 +11,7 @@ export function PlayerLatency(props: Props) {
 
 
     let latencyValue: string;
-    if (props.latency === null) {
+    if (typeof props.latency !== "number") {
         latencyValue = "offline"
     } else if (props.latency <= 60) {
         latencyValue = "low"

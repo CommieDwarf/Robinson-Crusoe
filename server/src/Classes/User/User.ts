@@ -5,6 +5,10 @@ import {Socket} from "socket.io";
 import {ISessionService} from "../../types/SessionService/SessionService";
 import {SessionConnectError} from "../../Errors/Session/SessionConnectError";
 import {SESSION_CONNECTION_ERROR_CODE} from "@shared/types/Errors/SESSION_CONNECTION_ERROR_CODE";
+import {pingClient} from "../../utils/pingClient";
+import {clearInterval} from "timers";
+import {PingHandles} from "../Player/Player";
+import {PING_FREQUENCY, PING_TIMEOUT} from "../../config/connection";
 
 export class User implements IUser {
 
@@ -14,8 +18,10 @@ export class User implements IUser {
     private _activeSessions: SessionData[] = [];
     private _singlePlayerSession: SessionData | null = null;
     private _sockets: Socket[];
-    private _ping = 0;
+    private _latency = 0;
     private readonly _sessionService: ISessionService;
+
+    private _pingHandles: PingHandles | null = null;
 
 
     constructor(userDocument: UserDocument, socket: Socket, sessionService: ISessionService) {
@@ -46,12 +52,12 @@ export class User implements IUser {
         return this._sockets;
     }
 
-    get ping(): number {
-        return this._ping;
+    get latency(): number {
+        return this._latency;
     }
 
-    set ping(value: number) {
-        this._ping = value;
+    set latency(value: number) {
+        this._latency = value;
     }
 
     public addActiveSession(session: SessionData): void {
@@ -72,11 +78,11 @@ export class User implements IUser {
         this._singlePlayerSession = null;
     }
 
-    public leaveNotStartedSessions() {
+    public leaveLobbies() {
         this._activeSessions
             .filter((session) => !session.isGameInProgress)
             .forEach((session) => {
-                // this._sessionService.leaveSession(this, session.id);
+                this._sessionService.leaveSession(this, session.id);
             })
     }
 
@@ -86,11 +92,11 @@ export class User implements IUser {
         }
     }
 
-    public removeSocket(socket: Socket) {
-        this._sockets = this._sockets.filter((sct) => sct !== socket);
+    public closeConnection(socket: Socket) {
+        this.removeSocket(socket);
         if (this._sockets.length === 0) {
-            console.log("LEAVING NOST STARTED SESSIONS")
-            this.leaveNotStartedSessions()
+            this.clearPingIntervals();
+            this.leaveLobbies();
         }
     }
 
@@ -100,5 +106,25 @@ export class User implements IUser {
             throw new SessionConnectError(`Session id: ${sessionId} not found in user's activeSessions`, SESSION_CONNECTION_ERROR_CODE.SESSION_NOT_FOUND);
         }
         return session;
+    }
+
+    public ping(onPong: (latency: number) => void, onTimeout: () => void) {
+        this.clearPingIntervals();
+        const [pingInterval, timeoutHandle] = pingClient(this.sockets[0], PING_TIMEOUT, PING_FREQUENCY, onPong, onTimeout);
+        this._pingHandles = {
+            pingInterval,
+            timeoutHandle
+        }
+    }
+
+    public clearPingIntervals() {
+        if (this._pingHandles) {
+            this._pingHandles.pingInterval && clearInterval(this._pingHandles.pingInterval);
+            this._pingHandles.timeoutHandle && clearInterval(this._pingHandles.timeoutHandle);
+        }
+    }
+
+    private removeSocket(socket: Socket) {
+        this._sockets = this._sockets.filter((sct) => sct !== socket);
     }
 }

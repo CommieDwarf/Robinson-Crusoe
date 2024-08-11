@@ -21,8 +21,7 @@ export interface IPlayer {
     assignColor: (color: PLAYER_COLOR) => void;
     initCharacter: (game: IGame) => void;
     user: IUser;
-    ping: (onPong: (latency: number) => void, onTimeout: () => void, sessionId: string) => void;
-    clearPingIntervals: () => void;
+
     ready: boolean;
 
     prime: boolean;

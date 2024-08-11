@@ -9,6 +9,9 @@ import {capitalize} from "lodash";
 import starImg from "/public/UI/icons/star.png";
 import Pawns from "../../Character/Pawns/Pawns";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
+import {PlayerLatency} from "../../../../PlayerLatency/PlayerLatency";
+import {useAppSelector} from "../../../../../store/hooks";
+import {selectPlayerLatency} from "../../../../../reduxSlices/gameSession";
 
 interface Props {
     player: IPlayerRenderData
@@ -20,10 +23,13 @@ export function Player(props: Props) {
 
     const {t} = useTranslation();
 
+    const latency = useAppSelector(state => selectPlayerLatency(state, character.playerId));
 
     return <div className={styles.container}>
         <div className={styles.mainWrapper}>
-
+            <div className={styles.latency}>
+                <PlayerLatency latency={latency}/>
+            </div>
             <div className={styles.userNameWrapper}
             >
                 <span className={styles.userName} style={{backgroundColor: props.player.color}}>
@@ -43,7 +49,7 @@ export function Player(props: Props) {
             </div>
         </div>
         <div className={styles.health}>
-            <Health vertical={true} character={character}/>
+            <Health vertical={true} character={character} background={false}/>
         </div>
         <div className={styles.pawns}>
             <Pawns character={character} pawns={character.pawnService.pawns} dragDisabled={true}

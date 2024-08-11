@@ -4,6 +4,9 @@ import {Player} from "./Player/Player";
 import {getDuplicatedElements} from "@shared/utils/getDuplicatedElements";
 
 interface Props {
+    players: IPlayerRenderData[],
+    localPlayer: IPlayerRenderData,
+    host: IPlayerRenderData,
 }
 
 

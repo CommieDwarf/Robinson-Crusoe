@@ -2,17 +2,17 @@ import {configureStore, Store} from '@reduxjs/toolkit';
 import {combineReducers} from 'redux';
 import {Context, createWrapper} from 'next-redux-wrapper';
 import {alertSlice} from '../reduxSlices/alert';
-import {authSlice} from '../reduxSlices/auth';
 import {gameSessionSlice} from '../reduxSlices/gameSession';
 import socketMiddleware from '../middleware/socketMiddleware';
 import createSocketClient from '../pages/api/socket';
+import {connectionSlice} from "../reduxSlices/connection";
 
 export const socket = createSocketClient();
 
 // Reducery
 const rootReducer = combineReducers({
     alert: alertSlice.reducer,
-    auth: authSlice.reducer,
+    connection: connectionSlice.reducer,
     gameSession: gameSessionSlice.reducer,
 });
 

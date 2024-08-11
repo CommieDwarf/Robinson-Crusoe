@@ -4,7 +4,7 @@ import {authMiddleware} from "./middleware/authMiddleware";
 export async function middleware(request: NextRequest) {
     const authResponse = authMiddleware(request);
     if (!authResponse.ok) {
-        console.log("auth not ok")
+        console.log("connection not ok")
         return authResponse;
     }
 

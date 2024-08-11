@@ -12,7 +12,7 @@ export interface TileResourceInfo {
     depleted: boolean;
     modifiers: TileResourceModifier[];
     markedForAction: MarkedForAction | null;
-
+    shortcut: boolean;
     assignedPawns: number;
 
 }
@@ -32,6 +32,8 @@ export enum TILE_RESOURCE_ACTION {
     UN_DEPLETE = "unDeplete",
     ADD_MODIFIER = "add modifier",
     REMOVE_MODIFIER = "remove modifier",
+    SET_SHORTCUT = "set shortcut",
+    UNSET_SHORTCUT = "unset shortcut"
 }
 
 export interface GatherableResourceAmount {
@@ -58,6 +60,8 @@ export interface ITileResourceService {
     isSideMarkedForAction: (side: Side) => boolean;
     isMarkedForAction: () => boolean;
 
+
+    setShortcut: (side: Side, value: boolean) => void;
 
     getModifiedBasicResourceAmount: (
         side: "left" | "right"

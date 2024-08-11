@@ -5,7 +5,7 @@ import dummyAvatarImg from "/public/dummy-avatar.jpg";
 import {useRouter} from "next/router";
 import {useAppDispatch, useAppSelector} from "../../store/hooks";
 import {deleteAuthCookie} from "../../utils/auth/deleteAuthCookie";
-import {userUpdated} from "../../reduxSlices/auth";
+import {userUpdated} from "../../reduxSlices/connection";
 import {useEffect, useState} from "react";
 import {SOCKET_EVENT} from "@shared/types/Requests/Socket";
 import {setSocketListener} from "../../pages/api/socket";
@@ -18,7 +18,7 @@ interface Props {
 export function UserProfile(props: Props) {
 
     const router = useRouter();
-    const user = useAppSelector(state => state.auth.user);
+    const user = useAppSelector(state => state.connection.user);
     const dispatch = useAppDispatch();
     const [sessionsInProgress, setSessionsInProgress] = useState<SessionBasicInfo[] | null>(null);
 

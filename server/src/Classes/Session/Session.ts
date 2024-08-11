@@ -17,6 +17,7 @@ import {ChatService} from "../ChatService/ChatService";
 import {IChatService} from "@shared/types/ChatService/ChatService";
 import {getDuplicatedElements} from "@shared/utils/getDuplicatedElements";
 import {GAME_STATUS} from "@shared/types/Game/Game";
+import {SEND_LATENCY_FREQUENCY} from "../../config/connection";
 
 
 export class Session implements SessionData {
@@ -33,11 +34,17 @@ export class Session implements SessionData {
     private _singleplayer: boolean;
     private _chatService: IChatService = new ChatService(this);
 
+    private readonly _sendLatencyInterval: NodeJS.Timeout;
+
+
     constructor(host: IUser, settings: SessionSettings, singleplayer = false) {
         this._settings = settings;
         this.joinSession(host);
         this._host = host;
         this._singleplayer = singleplayer;
+        this._sendLatencyInterval = setInterval(() => {
+            this.sendLatencyListToAllPlayers()
+        }, SEND_LATENCY_FREQUENCY)
     }
 
     public getRenderData(userId: string): SessionRenderData {
@@ -117,7 +124,6 @@ export class Session implements SessionData {
         );
         this._players.push(player);
         this.assignCharacter(player.id, CHARACTER.SOLDIER, "male");
-        // this.pingPlayer(player);
         user.addActiveSession(this);
     }
 
@@ -131,14 +137,11 @@ export class Session implements SessionData {
                 player = searched;
             }
         }
-        player.clearPingIntervals();
         this._players = this._players.filter((pl) => pl !== player);
-        console.log("leaving session!");
         io.to(this.id).emit(SOCKET_EVENT.SESSION_CHANGED);
     }
 
     public startGame(): BaseController {
-        // throw new Error("STARTING GAME")
         const game = new GameClass(this._players);
         const gameController = new GameController(game, this._players);
         this._gameController = gameController
@@ -175,23 +178,6 @@ export class Session implements SessionData {
     }
 
 
-    private pingPlayer(player: IPlayer) {
-        player.ping((latency) => {
-            const payload: SocketPayloadMap[SOCKET_EVENT.PLAYER_LATENCY_SENT] = {
-                playerId: player.id,
-                latency
-            }
-            io.to(this.id).emit(SOCKET_EVENT.PLAYER_LATENCY_SENT, payload)
-        }, () => {
-            // if (!this.isGameInProgress) {
-            //     this.leaveSession(player)
-            //     io.to(this.id).emit(SOCKET_EMITTER.SESSION_CHANGED, {});
-            // } else {
-            // }
-        }, this.id)
-    }
-
-
     public getGame() {
         return this._gameController?.game;
     }
@@ -215,6 +201,10 @@ export class Session implements SessionData {
             ...this._settings,
             ...settings
         }
+    }
+
+    public closeSession() {
+        clearInterval(this._sendLatencyInterval);
     }
 
 
@@ -263,6 +253,14 @@ export class Session implements SessionData {
 
     private isCharacterTaken(character: CHARACTER) {
         return this._players.some((player) => player.assignedCharacter?.char === character)
+    }
+
+    private sendLatencyListToAllPlayers() {
+        const list = this._players.map((player) => ({
+            playerId: player.id,
+            latency: player.user.latency
+        }))
+        io.to(this.id).emit(SOCKET_EVENT.PLAYER_LATENCY_LIST_SENT, {list});
     }
 
     isUserInSession(userId: string): boolean {

@@ -13,6 +13,8 @@ export interface ICharacterServiceRenderData {
 export interface ICharacterService {
     allCharacters: ICharacter[];
 
+    healableCharacters: ICharacter[];
+
     dog: ISideCharacter;
     friday: ISideCharacter;
     thresholdAmountForRemoval: number;

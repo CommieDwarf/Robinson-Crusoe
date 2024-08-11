@@ -11,10 +11,11 @@ import {SOCKET_EVENT} from "@shared/types/Requests/Socket";
 import {PlayerLatency} from "../../../PlayerLatency/PlayerLatency";
 import capitalize from "@shared/utils/capitalize";
 import {setSocketListener} from "../../../../pages/api/socket";
-import {useAppDispatch} from "../../../../store/hooks";
+import {useAppDispatch, useAppSelector} from "../../../../store/hooks";
 import {socketEmit} from "../../../../middleware/socketMiddleware";
 import Select from 'react-select'
 import {PLAYER_COLOR} from "@shared/types/Game/PLAYER_COLOR";
+import {selectPlayerLatency} from "../../../../reduxSlices/gameSession";
 
 interface Props {
     player: IPlayerRenderData,
@@ -30,11 +31,11 @@ export function Player(props: Props) {
 
     const [character, setCharacter] = useState<CHARACTER>(props.player.assignedCharacter.char);
     const [playerColor, setPlayerColor] = useState<PLAYER_COLOR>(props.player.color);
-    const [latency, setLatency] = useState<number | null>(null);
 
     const {t} = useTranslation();
     const dispatch = useAppDispatch();
 
+    const latency = useAppSelector(state => selectPlayerLatency(state, props.player.id))
 
     useEffect(() => {
         setCharacter(props.player.assignedCharacter.char);
@@ -44,17 +45,6 @@ export function Player(props: Props) {
         setPlayerColor(props.player.color);
     }, [props.player.color])
 
-    useEffect(() => {
-        const listener = setSocketListener(SOCKET_EVENT.PLAYER_LATENCY_SENT, (payload) => {
-            if (payload.playerId === props.player.id) {
-                setLatency(payload.latency);
-            }
-        })
-        return () => {
-            listener.off();
-        }
-
-    }, [props.player.id])
 
     function handleCharacterChange(event: ChangeEvent<HTMLSelectElement>) {
         setCharacter(event.currentTarget.value as CHARACTER);

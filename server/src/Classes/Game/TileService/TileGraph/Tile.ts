@@ -167,12 +167,11 @@ export class Tile extends AssignablePawnsItem implements ITile {
     }
 
 
-    public incrDecrSideAssignedPawn(side: "left" | "right", amount: number) {
-        if (this._tileResourceService) {
-            this._tileResourceService.resources[side].assignedPawns += amount;
-        } else {
-            throw new Error("Can't assign gather pawn because tileResourceService is undefined. tileId: " + this._id)
+    public setShortcut(side: Side, value: boolean) {
+        if (!this._tileResourceService) {
+            return;
         }
+        this._tileResourceService.setShortcut(side, value);
     }
 
     public resetResourceAssignedPawns() {

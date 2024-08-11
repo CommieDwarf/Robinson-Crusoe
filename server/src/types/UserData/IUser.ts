@@ -12,13 +12,15 @@ export interface IUser {
     setQuickGameSession: (session: Session) => void;
     unsetSinglePlayerSession: () => void;
     removeActiveSession: (sessionId: string) => void;
-    leaveNotStartedSessions: (callback: (sessionId: string) => void) => void;
+    leaveLobbies: () => void;
 
-    ping: number;
+    latency: number;
+    ping: (onPong: (latency: number) => void, onTimeout: () => void) => void;
+    clearPingIntervals: () => void;
 
     addSocket: (socket: Socket) => void;
 
     getSession: (sessionId: string) => SessionData;
-    removeSocket: (socket: Socket) => void;
+    closeConnection: (socket: Socket) => void;
 }
 

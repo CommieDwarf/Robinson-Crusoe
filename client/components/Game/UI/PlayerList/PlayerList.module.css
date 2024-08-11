@@ -2,4 +2,10 @@
     z-index: 999;
     display: flex;
     cursor: grab;
+
+    background-image: url("../../../../public/UI/characters/background.png");
+    background-size: cover;
+    -webkit-box-shadow: inset 0px 0px 63px -14px rgba(180, 156, 125, 1);
+    -moz-box-shadow: inset 0px 0px 63px -14px rgba(180, 156, 125, 1);
+    box-shadow: inset 0px 0px 63px -14px rgba(180, 156, 125, 1);
 }

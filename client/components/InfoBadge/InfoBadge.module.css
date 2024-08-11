@@ -1,0 +1,23 @@
+
+.container {
+    position: absolute;
+    display: flex;
+    font-size: 10px;
+    z-index: 9999999999;
+    column-gap: 5px;
+    color: white;
+    bottom: 0;
+    left: 0;
+    background-color: black;
+    padding-left: 5px;
+    padding-right: 5px;
+    user-select: none;
+}
+
+.connected {
+    color: green;
+}
+
+.disconnected {
+    color: red;
+}

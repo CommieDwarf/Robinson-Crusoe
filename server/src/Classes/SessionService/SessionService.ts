@@ -22,6 +22,7 @@ export class SessionService implements ISessionService {
 
     public createSession(userId: string, settings: SessionSettings) {
         const user = this.getUser(userId);
+        user.leaveLobbies()
         const session = new Session(user, settings);
         this._activeSessions.set(session.id, session);
         return session;
@@ -56,11 +57,12 @@ export class SessionService implements ISessionService {
         if (session.players.length >= session.settings.maxPlayers) {
             throw new SessionConnectError("Server is full", SESSION_CONNECTION_ERROR_CODE.SESSION_FULL);
         }
+        user.leaveLobbies()
         session.joinSession(user);
     }
 
     public leaveSession(user: IUser, sessionId: string) {
-        console.log("leaving session fro msessionService")
+        console.log("leaving session from sessionService")
         const session = this.searchSession(user.id, sessionId);
         const player = session?.players.find((pl) => pl.user.id === user.id);
         player && session?.leaveSession(player);
@@ -82,6 +84,7 @@ export class SessionService implements ISessionService {
         } else {
             session.players[0].user.unsetSinglePlayerSession();
         }
+        session.closeSession();
         this._activeSessions.delete(sessionId);
     }
 

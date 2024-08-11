@@ -29,7 +29,6 @@ export class Player implements IPlayer {
     private _assignedCharacter: AssignedCharacter;
     private _prime = false;
 
-    private _pingHandles: PingHandles | null = null;
 
     constructor(user: IUser,
                 assignedCharacter: AssignedCharacter, color: PLAYER_COLOR) {
@@ -122,20 +121,5 @@ export class Player implements IPlayer {
         return this._character;
     }
 
-    public clearPingIntervals() {
-        if (this._pingHandles) {
-            this._pingHandles.pingInterval && clearInterval(this._pingHandles.pingInterval);
-            this._pingHandles.timeoutHandle && clearInterval(this._pingHandles.timeoutHandle);
-        }
-    }
-
-    public ping(onPong: (latency: number) => void, onTimeout: () => void, sessionId: string) {
-        this.clearPingIntervals();
-        const [pingInterval, timeoutHandle] = pingClient(this.user.sockets[0], 15000, 1000, onPong, onTimeout, sessionId);
-        this._pingHandles = {
-            pingInterval,
-            timeoutHandle
-        }
-    }
 
 }
