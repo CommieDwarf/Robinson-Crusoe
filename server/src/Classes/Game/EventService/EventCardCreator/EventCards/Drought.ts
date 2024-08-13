@@ -27,7 +27,13 @@ export class Drought extends EventCard implements IEventCard {
     triggerEventEffect() {
         const tiles = this._game.tileService.tiles.filter((tile) => tile.tileResourceService?.terrainType === TERRAIN_TYPE.RIVER);
         if (tiles.length > 0) {
-            this._game.tileService.markTilesForAction(tiles, TILE_ACTION.DEPLETE_TERRAIN_TYPE, 1, this._namePL);
+            this._game.tileService.markTilesForAction(
+                tiles,
+                TILE_ACTION.DEPLETE_TERRAIN_TYPE,
+                1,
+                this._name,
+                false
+            );
         }
     }
 
@@ -36,8 +42,9 @@ export class Drought extends EventCard implements IEventCard {
     }
 
     fullFill() {
-        const tile = this._game.tileService.tiles.find((tile) => tile.modifiers.terrainDepleted?.source === this._namePL);
+        const tile = this._game.tileService.tiles.find((tile) => tile.modifiers.terrainDepleted?.source === this._name);
         if (tile) {
+            //TODO: ogarnij tłumaczenie
             tile.unsetTileModifier("terrainDepleted", this._resolutionPL);
         }
         this.incrDetermination(1);

@@ -61,15 +61,12 @@ export class GameClass implements IGame {
         this
     );
     private _alertService: IAlertService = new AlertService();
-    private readonly _inventionService: IInventionService = new InventionsService(
-        "castaways",
-        this._tileService,
-        this
-    );
+
     private _weatherService: IWeatherService = new WeatherService(this);
     private _eventService: IEventService = new EventService(this);
     private _phaseService: IPhaseService = new PhaseService(this);
     private readonly _characterService: ICharacterService;
+    private readonly _inventionService: IInventionService;
     private _equipmentService: IEquipment = new Equipment(this);
     private _arrangeCampRestService = new ArrangeCampRestService(this);
     private _beastService: IBeastService = new BeastService(this);
@@ -97,6 +94,11 @@ export class GameClass implements IGame {
             players.map((player) => player.getCharacter()),
             this
         );
+        this._inventionService = new InventionsService(
+            "castaways",
+            this._tileService,
+            this
+        )
     }
 
     get renderData(): Omit<IGameRenderData, "localPlayer"> {
@@ -229,6 +231,10 @@ export class GameClass implements IGame {
 
     get gameStatus(): GAME_STATUS {
         return this._gameStatus;
+    }
+
+    get areObjectsBeingPicked(): boolean {
+        return this._objectPickers.length !== 0;
     }
 
 

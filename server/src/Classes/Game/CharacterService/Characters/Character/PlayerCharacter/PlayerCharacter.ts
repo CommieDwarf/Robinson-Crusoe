@@ -17,6 +17,7 @@ import {AdventureAction} from "@shared/types/Game/ACTION";
 import {removeFromArray} from "@shared/utils/removeFromArray";
 import {LOG_CODE} from "@shared/types/Game/ChatLog/LOG_CODE";
 import {IBasicResourcesAmount} from "@shared/types/Game/Resources/Resources";
+import {INVENTION_PERSONAL} from "@shared/types/Game/InventionService/Invention";
 
 
 export abstract class PlayerCharacter
@@ -31,6 +32,7 @@ export abstract class PlayerCharacter
     protected declare _name: PlayerCharacterName;
     protected declare _skills: IAbility<any>[];
     private _weaponBoost = 0;
+    private readonly _invention: INVENTION_PERSONAL;
 
     private _hasPersonalResource = {
         wood: false,
@@ -53,7 +55,8 @@ export abstract class PlayerCharacter
         game: IGame,
         gender: Gender,
         moraleThresholds: number[],
-        player: IPlayer
+        invention: INVENTION_PERSONAL,
+        player: IPlayer,
     ) {
         super(name, id, maxHealth, game);
         this._player = player;
@@ -61,6 +64,7 @@ export abstract class PlayerCharacter
         this._gender = gender;
         this._effects = new PlayerCharEffects(this);
         this._pawnService = new PawnService(this._game, this);
+        this._invention = invention;
 
         this.pawnService.initPawns(2, false, null);
     }
@@ -84,12 +88,16 @@ export abstract class PlayerCharacter
             moraleThresholdsRemoved: this._moraleThresholdsRemoved,
             wounds: this._wounds,
             weaponBoost: this._weaponBoost,
-            hasPersonalResource: this._hasPersonalResource
+            hasPersonalResource: this._hasPersonalResource,
+            invention: this._invention
         }
     }
 
     // ---------------------------------------------
 
+    get invention(): INVENTION_PERSONAL {
+        return this._invention;
+    }
 
     get hasPersonalResource() {
         return this._hasPersonalResource;

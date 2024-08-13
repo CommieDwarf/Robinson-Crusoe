@@ -12,6 +12,7 @@ export interface ICharacterServiceRenderData {
 
 export interface ICharacterService {
     allCharacters: ICharacter[];
+    playerCharacters: IPlayerCharacter[];
 
     healableCharacters: ICharacter[];
 

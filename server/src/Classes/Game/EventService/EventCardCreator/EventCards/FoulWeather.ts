@@ -25,12 +25,18 @@ export class FoulWeather extends EventCard implements IEventCard {
     }
 
     triggerEventEffect() {
-        this._game.actionService.addGlobalCostModifier(ACTION.GATHER, "helper", true, this._namePL)
+        this._game.actionService.addGlobalCostModifier(ACTION.GATHER, "helper", true, this._name)
     }
 
     triggerThreatEffect() {
         const tiles = this._game.tileService.tilesAroundCamp;
-        this._game.tileService.markResourceTilesForActionOrGetHurt(tiles, TILE_RESOURCE_ACTION.DEPLETE, 2, this._namePL, null);
+        this._game.tileService.markTileResourcesForAction(tiles,
+            TILE_RESOURCE_ACTION.DEPLETE,
+            this._name,
+            null,
+            2,
+            true
+        );
     }
 
     fullFill() {

@@ -14,7 +14,7 @@ export class Spear extends Invention implements IInvention {
         super(
             INVENTION_PERSONAL.SPEAR,
             {terrainType: null, inventions: [INVENTION_STARTER.KNIFE]},
-            INVENTION_TYPE.NORMAL,
+            INVENTION_TYPE.PERSONAL,
             game,
             {type: "wood", amount: 1}
         );
@@ -24,7 +24,7 @@ export class Spear extends Invention implements IInvention {
         this._game.constructionService.lvlUpConstruction(
             CONSTRUCTION.WEAPON,
             3,
-            this._logSource
+            this._name
         );
     }
 
@@ -32,7 +32,7 @@ export class Spear extends Invention implements IInvention {
         this._game.constructionService.lvlDownIfPossible(
             CONSTRUCTION.WEAPON,
             3,
-            this._logSource
+            this._name
         );
     }
 }

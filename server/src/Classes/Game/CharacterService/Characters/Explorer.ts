@@ -8,12 +8,13 @@ import {Lucky} from "./Skills/Explorer/Lucky";
 import {MotivationalSpeech} from "./Skills/Explorer/MotivationalSpeech";
 import {Reconnaissance} from "./Skills/Explorer/Reconnaissance";
 import {Scouting} from "./Skills/Explorer/Scouting";
+import {INVENTION_PERSONAL} from "@shared/types/Game/InventionService/Invention";
 
 export class Explorer extends PlayerCharacter implements IPlayerCharacter {
     protected readonly _skills: IAbility<any>[];
 
     constructor(gender: Gender, game: IGame, player: IPlayer) {
-        super(CHARACTER.EXPLORER, 3, 12, game, gender, [1, 6], player);
+        super(CHARACTER.EXPLORER, 3, 12, game, gender, [1, 6], INVENTION_PERSONAL.SHORTCUT, player);
         this._skills = this.initSkills();
     }
 

@@ -361,9 +361,6 @@ io.on("connection", async (socket: typeof Socket) => {
         setListener(SOCKET_EVENT.CHANGE_PLAYER_COLOR, (payload) => {
             try {
                 const session = sessionService.searchSession(user.id, payload.sessionId);
-                if (!session) {
-                    console.error("XASRFsdg")
-                }
                 session?.assignColor(user.id, payload.color);
                 io.to(session!.id).emit(SOCKET_EVENT.SESSION_CHANGED);
             } catch (e) {
@@ -405,8 +402,6 @@ io.on("connection", async (socket: typeof Socket) => {
         setListener(SOCKET_EVENT.SEND_MESSAGE, (payload) => {
             sessionService.addMessage(user.id, payload.message, payload.sessionId);
             io.to(payload.sessionId).emit(SOCKET_EVENT.SESSION_CHANGED);
-            console.log(sessionService.searchSession(user.id, payload.sessionId)
-                ?.players.map((player) => player.user.sockets));
         })
 
         setListener(SOCKET_EVENT.UPDATE_SESSION_SETTINGS, (payload) => {

@@ -106,7 +106,8 @@ export class TileResourceService implements ITileResourceService {
         const {
             depleted,
             modifiers,
-            shortcut
+            shortcut,
+            resource,
         } = this._resources[side];
 
         switch (action) {
@@ -119,7 +120,7 @@ export class TileResourceService implements ITileResourceService {
             case TILE_RESOURCE_ACTION.DEPLETE:
                 return this.canBeDepleted(side);
             case TILE_RESOURCE_ACTION.SET_SHORTCUT:
-                return !depleted && !shortcut;
+                return !depleted && !shortcut && resource !== "beast";
             case TILE_RESOURCE_ACTION.UNSET_SHORTCUT:
                 return shortcut;
         }

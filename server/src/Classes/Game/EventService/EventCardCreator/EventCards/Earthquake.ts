@@ -26,10 +26,7 @@ export class Earthquake extends EventCard implements IEventCard {
 
     triggerEventEffect() {
         const tiles = this._game.tileService.tilesAroundCamp;
-        if (this._game.tileService.countHowManyTilesCanBeMarkedForAction(tiles, TILE_ACTION.FLIP) > 0) {
-            this._game.tileService.markTilesForAction(tiles, TILE_ACTION.FLIP, 1, this._namePL);
-        }
-
+        this._game.tileService.markTilesForAction(tiles, TILE_ACTION.FLIP, 1, this._name, false);
     }
 
     triggerThreatEffect() {
@@ -37,8 +34,9 @@ export class Earthquake extends EventCard implements IEventCard {
     }
 
     fullFill() {
-        const tile = this._game.tileService.tiles.find((t) => t.modifiers.flipped?.source === this._namePL);
+        const tile = this._game.tileService.tiles.find((t) => t.modifiers.flipped?.source === this._name);
         if (tile) {
+            //TODO: ogarnij normalne tlumaczenie
             tile.unsetTileModifier("flipped", this._resolutionPL);
         }
     }

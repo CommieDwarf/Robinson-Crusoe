@@ -57,6 +57,7 @@ export interface ITileResourceService {
     hasBasicResource: (resource: "food" | "wood") => boolean;
 
     canActionBePerformed: (action: TILE_RESOURCE_ACTION, side: Side, source: string) => boolean;
+
     isSideMarkedForAction: (side: Side) => boolean;
     isMarkedForAction: () => boolean;
 
@@ -80,6 +81,7 @@ export interface ITileResourceService {
         actionName: TILE_RESOURCE_ACTION,
         source: string
     ) => void;
+
 
     resetActionMarks: () => void;
     triggerAction: (side: Side, source: string) => void;

@@ -38,6 +38,7 @@ export const Card = (props: Props) => {
     }
 
     function handleMouseOverButtons(value: boolean) {
+        console.log("mouse over button?", value);
         setMouseOnButtons(value);
     }
 

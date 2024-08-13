@@ -7,12 +7,13 @@ import ResizableImage from "../../../../../../ResizableImage/ResizableImage";
 import {kebabCase} from "lodash";
 import {OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {ACTION} from "@shared/types/Game/ACTION";
-import {IInventionRenderData} from "@shared/types/Game/InventionService/Invention";
+import {IInventionRenderData, INVENTION_TYPE} from "@shared/types/Game/InventionService/Invention";
 import {getOwnedDroppableId} from "@shared/utils/getOwnedDroppableId";
 import {getObjectsComparator} from "../../../../../../../utils/getObjectsComparator";
 import {selectGame} from "../../../../../../../reduxSlices/gameSession";
 import {socketEmitAction} from "../../../../../../../middleware/socketMiddleware";
 import CommittedResources from "../../../../CommittedResources/CommittedResources";
+import buildIconImg from "/public/UI/actionSlots/build.png";
 
 type Props = {
     invention: IInventionRenderData;
@@ -68,36 +69,40 @@ function Invention(props: Props) {
         </div>
     );
 
-    const state = useAppSelector((state) => selectGame(state).actionService.globalCostModifiers!);
+    const state = useAppSelector((state) => selectGame(state)!.actionService.globalCostModifiers!);
     const modifiers = state[ACTION.BUILD];
     const extraPawnNeeded = modifiers.some((mod) => mod.resource === "helper")
         ? 1
         : 0;
 
+    const players = useAppSelector((state) => selectGame(state)!.players);
+    let color: string | undefined;
+    if (props.invention.inventionType === INVENTION_TYPE.PERSONAL) {
+        color = players.find((player) => player.character?.invention === props.invention.name)?.color;
+    }
+    const style: React.CSSProperties = {
+        boxShadow: `inset 0px 0px 5px 2px ${color}`
+    }
 
     return (
         <div
-            className={`${styles.container}`}
+            className={`${styles.container} `}
         >
+            <div className={styles.boxShadowOverlay} style={style}>
+
+            </div>
             <ResizableImage
                 src={`/UI/inventions/${props.invention.inventionType}/${kebabCase(
                     props.invention.name
                 )}${reverse}.png`}
                 alt={"karta pomysłu"}
             />
+            {color && <div
+                className={`${styles.personalColorMark} ${props.invention.isBuilt && styles.personalColorMarkBuilt}`}
+                style={{backgroundColor: color}}>
+                <ResizableImage src={buildIconImg} alt={"build"}/>
+            </div>}
 
-
-            {
-                // <div className={styles.placeholder}>
-                //   <ResizableImage
-                //     src={actionSlotBuildImg}
-                //     fill
-                //     alt={"loading"}
-                //     sizes={styles.placeholder}
-                //     placeholder={"blur"}
-                //   />
-                // </div>
-            }
             {!props.invention.isBuilt &&
                 !props.invention.locked &&
                 !props?.hideActionSlots && (
@@ -119,8 +124,8 @@ function Invention(props: Props) {
                 }
 
             </div>
-            {props.invention.isBuilt && props.invention.usable &&
-                (<div className={styles.useButton} onClick={handleUseButtonClick}
+            {props.invention.isBuilt && props.invention.canBeUsed &&
+                (<div className={`${styles.useButton}`} onClick={handleUseButtonClick}
                       onMouseEnter={handleMouseEnter}
                       onMouseLeave={handleMouseLeave}
                 >

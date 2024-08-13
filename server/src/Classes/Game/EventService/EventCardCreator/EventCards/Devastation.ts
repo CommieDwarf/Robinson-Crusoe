@@ -26,12 +26,22 @@ export class Devastation extends EventCard implements IEventCard {
 
     triggerEventEffect() {
         const tiles = this._game.tileService.tilesAroundCamp;
-        this._game.tileService.markResourceTilesForActionOrGetHurt(tiles, TILE_RESOURCE_ACTION.DEPLETE, 2, this._namePL, null);
+        this._game.tileService.markTileResourcesForAction(tiles,
+            TILE_RESOURCE_ACTION.DEPLETE,
+            this._name,
+            null,
+            2,
+            true);
     }
 
     triggerThreatEffect() {
         const tiles = this._game.tileService.tilesAroundCamp;
-        this._game.tileService.markResourceTilesForActionOrGetHurt(tiles, TILE_RESOURCE_ACTION.DEPLETE, 1, this._namePL, null)
+        this._game.tileService.markTileResourcesForAction(tiles,
+            TILE_RESOURCE_ACTION.DEPLETE,
+            this._name,
+            null,
+            1,
+            true);
     }
 
     fullFill() {

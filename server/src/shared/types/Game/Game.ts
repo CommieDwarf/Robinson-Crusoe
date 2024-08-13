@@ -98,6 +98,8 @@ export interface IGame {
     round: number;
     setNextRound: () => void;
 
+    areObjectsBeingPicked: boolean;
+
     gameStatus: GAME_STATUS;
 
     adventureService: IAdventureService;

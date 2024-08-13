@@ -3,6 +3,7 @@ import {CHARACTER, ICharacter, ICharacterRenderData} from "./Character";
 import {IAbility, IAbilityRenderData} from "../Skill/IAbility";
 import {AdventureAction} from "../ACTION";
 import {IBasicResourcesAmount} from "@shared/types/Game/Resources/Resources";
+import {INVENTION_PERSONAL} from "@shared/types/Game/InventionService/Invention";
 
 export type PlayerCharacterName = Exclude<CHARACTER, "dog" | "friday">;
 
@@ -21,6 +22,8 @@ export interface IPlayerCharacter extends ICharacter {
     renderData: IPlayerCharacterRenderData;
     shouldMoraleDrop: boolean;
     abilities: IAbility<any>[];
+
+    invention: INVENTION_PERSONAL;
 
     weaponBoost: number;
 
@@ -50,4 +53,5 @@ export interface IPlayerCharacterRenderData extends ICharacterRenderData {
     abilities: IAbilityRenderData[];
     wounds: Wounds;
     weaponBoost: number;
+    invention: INVENTION_PERSONAL;
 }

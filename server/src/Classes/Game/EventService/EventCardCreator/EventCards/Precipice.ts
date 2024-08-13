@@ -27,8 +27,7 @@ export class Precipice extends EventCard implements IEventCard {
 
     triggerEventEffect() {
         const tiles = this._game.tileService.tilesAroundCamp;
-        this._game.tileService.markTilesForAction(tiles, TILE_ACTION.FLIP, 1, this._namePL);
-        //TODO: if possible make tile next to camp unavailable
+        this._game.tileService.markTilesForAction(tiles, TILE_ACTION.FLIP, 1, this._name, false);
     }
 
     triggerThreatEffect() {
@@ -36,7 +35,7 @@ export class Precipice extends EventCard implements IEventCard {
     }
 
     fullFill() {
-        const tile = this._game.tileService.tiles.find((tile) => tile.modifiers.flipped?.source === this._namePL);
+        const tile = this._game.tileService.tiles.find((tile) => tile.modifiers.flipped?.source === this._name);
         if (tile) {
             tile.unsetTileModifier("flipped", this._resolutionPL);
         }

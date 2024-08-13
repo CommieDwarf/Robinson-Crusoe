@@ -72,6 +72,7 @@ export enum EVENT_CARD {
     WRECKED_BALLOON = "wrecked balloon",
 }
 
+
 export enum WRECKAGE_CARD {
     SUPPLY_CRATES = "supply crates",
     CAPTAINS_CHEST = "captain's chest",

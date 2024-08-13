@@ -8,12 +8,13 @@ import {Hooch} from "./Skills/Cook/Hooch";
 import {Scrounger} from "./Skills/Cook/Scrounger";
 import {StoneSoup} from "./Skills/Cook/StoneSoup";
 import {IAbility} from "@shared/types/Game/Skill/IAbility";
+import {INVENTION_PERSONAL} from "@shared/types/Game/InventionService/Invention";
 
 export class Cook extends PlayerCharacter implements IPlayerCharacter {
     protected readonly _skills: IAbility<any>[];
 
     constructor(gender: Gender, game: IGame, player: IPlayer) {
-        super(CHARACTER.COOK, 2, 13, game, gender, [2, 4, 6, 9], player);
+        super(CHARACTER.COOK, 2, 13, game, gender, [2, 4, 6, 9], INVENTION_PERSONAL.FIREPLACE, player);
         this._skills = this.initSkills();
     }
 

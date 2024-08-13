@@ -10,7 +10,6 @@ import {TILE_RESOURCE_ACTION} from "@shared/types/Game/TileService/TileResourceS
 import {ITile} from "@shared/types/Game/TileService/ITile";
 
 export class Corral extends Invention implements IInvention {
-    protected _usable = true;
     private _tiles: ITile[] | null = null;
 
     constructor(game: IGame) {
@@ -29,7 +28,7 @@ export class Corral extends Invention implements IInvention {
         const canUse = tiles.some((tile) => tile.hasBasicResource("food"));
 
         if (canUse) {
-            this._game.tileService.markTileResourcesForAction(tiles, TILE_RESOURCE_ACTION.ADD_MODIFIER, this._namePL, "food");
+            // this._game.tileService.markTileResourcesForAction(tiles, TILE_RESOURCE_ACTION.ADD_MODIFIER, this._namePL, "food");
             this._used = true;
         }
     }

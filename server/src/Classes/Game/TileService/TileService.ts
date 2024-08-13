@@ -11,6 +11,7 @@ import {INVENTION_NORMAL} from "@shared/types/Game/InventionService/Invention";
 import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction";
 import {LOG_CODE} from "@shared/types/Game/ChatLog/LOG_CODE";
 import {TERMS} from "@shared/types/Terms/TERMS";
+import {TileMarkerService} from "./TileMarkerService/TileMarkerService";
 
 export class TileService implements ITileService {
 
@@ -20,17 +21,10 @@ export class TileService implements ITileService {
     private _exploredTerrainTypes: Set<TERRAIN_TYPE>;
     private _game: IGame;
     private _campJustMoved = false;
-
-    private _requiredActionCount = 0;
-
-    private _actionQueue: Function[] = [];
-
-
-    private readonly _sides: Side[] = ["left", "right"];
     private _roundBasketUsed: number = 0;
     private _roundSackUsed: number = 0;
-    resourceAmountToDeplete: number = 0;
     private readonly _startCamp = 7;
+    private readonly _tileMarkerService: TileMarkerService;
 
 
     constructor(game: IGame, campTileID: number) {
@@ -38,7 +32,8 @@ export class TileService implements ITileService {
         this._tileTypeStack = shuffle(fixedTileResources);
         this._exploredTerrainTypes = new Set<TERRAIN_TYPE>([TERRAIN_TYPE.BEACH]);
         this._tileGraph = new TileGraph(this._startCamp, game);
-        this.showAdjacentTiles(campTileID);
+        this.revealAdjacentTiles(campTileID);
+        this._tileMarkerService = new TileMarkerService(game);
     }
 
     get renderData(): ITilesServiceRenderData {
@@ -46,15 +41,15 @@ export class TileService implements ITileService {
             tiles: this._tileGraph.vertices.map((vertex) => vertex.data.renderData),
             campJustMoved: this.campJustMoved,
             campTile: this.campTile.renderData,
-            resourceAmountToDeplete: this.resourceAmountToDeplete,
-            isTileMarkedForAction: this.isTileMarkedForAction,
+            isMarkedActionRemaining: this.isMarkedActionRemaining,
         };
     }
 
 
-    get isTileMarkedForAction() {
-        return this._tileGraph.vertices.some((vertex) => vertex.data.isMarkedForAction())
+    get isMarkedActionRemaining(): boolean {
+        return this._tileMarkerService.isActionRemaining;
     }
+
 
     get campJustMoved(): boolean {
         return this._campJustMoved;
@@ -113,130 +108,6 @@ export class TileService implements ITileService {
     }
 
 
-    triggerMarkedTileAction(tileId: number) {
-        const tile = this.getTile(tileId);
-        if (tile.markedForAction) {
-            tile.triggerAction();
-        }
-        this.decrRequiredActionCount();
-        if (this._requiredActionCount === 0) {
-            this.finishMarkedTileActions();
-        }
-    }
-
-    private decrRequiredActionCount() {
-        this._requiredActionCount--;
-        if (this._requiredActionCount === 0) {
-            this.finishMarkedTileActions();
-        }
-
-    }
-
-    public triggerMarkedTileResourceAction(tileId: number, side: Side) {
-        const tile = this.getTile(tileId);
-        tile.triggerResourceAction(side, "");
-        this.decrRequiredActionCount();
-    }
-
-    private finishMarkedTileActions() {
-        this.tiles.forEach((tile) => {
-            tile.resetTileResourceActionMarks()
-            tile.resetTileActionMark()
-        });
-        this._actionQueue.shift();
-        if (this._actionQueue[0]) {
-            this._actionQueue[0]();
-        }
-    }
-
-
-    markTilesForAction(tiles: ITile[], action: TILE_ACTION, requiredCount: number, source: string) {
-        tiles.forEach((tile) => {
-            const mark = () => {
-                this._requiredActionCount = requiredCount;
-                tile.markTileForActon(action, source);
-            }
-            if (tile.canActionBePerformed(action)) {
-
-                if (this._actionQueue.length > 0) {
-                    this._actionQueue.push(mark);
-                } else {
-                    mark();
-                }
-            }
-        })
-    }
-
-    markTileResourcesForAction(tiles: ITile[], action: TILE_RESOURCE_ACTION, source: string, concreteResource: "food" | "wood" | null) {
-        tiles.forEach((tile) => {
-            if (concreteResource && tile.hasBasicResource(concreteResource)) {
-                const side = tile.getSideByResource(concreteResource) as Side;
-                if (tile.canResourceActionBePerformed(action, side, source)) {
-                    tile.markResourceForAction(side, action, source)
-                }
-            } else if (!concreteResource) {
-                this._sides.forEach((side) => {
-                    if (tile.canResourceActionBePerformed(action, side, source)) {
-                        tile.markResourceForAction(side, action, source);
-                    }
-                })
-            }
-
-        })
-
-    }
-
-    public countHowManyTilesCanBeMarkedForAction(tiles: ITile[], action: TILE_ACTION) {
-        let count = 0;
-        tiles.forEach((tile) => {
-            if (tile.canActionBePerformed(action)) {
-                count++;
-            }
-        })
-        return count;
-    }
-
-    public markResourceTilesForActionOrGetHurt(tiles: ITile[], action: TILE_RESOURCE_ACTION, requiredMarkCount: number, source: string, concreteResource: "food" | "wood" | null = null) {
-        const mark = () => {
-            const markableActionsCount = this.countHowManyResourcesCanBeMarkedForAction(tiles, action, source, concreteResource);
-            const diff = requiredMarkCount - markableActionsCount;
-            if (diff > 0) {
-                this._game.characterService.hurtAllPlayerCharacters(diff, source);
-                this._requiredActionCount = diff;
-            } else {
-                this._requiredActionCount = requiredMarkCount;
-            }
-            if (markableActionsCount > 0) {
-                this.markTileResourcesForAction(tiles, action, source, concreteResource)
-            }
-        }
-        this._actionQueue.push(mark);
-        if (this._actionQueue[0] === mark) {
-            mark();
-        }
-    }
-
-    public countHowManyResourcesCanBeMarkedForAction(tiles: ITile[], action: TILE_RESOURCE_ACTION, source: string, concreteResource: "wood" | "food" | null = null) {
-        let count = 0;
-        tiles.forEach((tile) => {
-            if (concreteResource && tile.hasBasicResource(concreteResource)) {
-                const side = tile.getSideByResource(concreteResource) as Side;
-                if (tile.canResourceActionBePerformed(action, side, source)) {
-                    count++
-                }
-            } else if (!concreteResource) {
-                this._sides.forEach((side) => {
-                    if (tile.canResourceActionBePerformed(action, side, source)) {
-                        count++;
-                    }
-                })
-            }
-        })
-
-        return count;
-    }
-
-
     resetResourceAssignedPawns() {
         this.tiles.forEach((tile) => tile.resetResourceAssignedPawns());
     }
@@ -279,7 +150,7 @@ export class TileService implements ITileService {
             tile.canCampBeSettled = true;
         }
         this.exploredTerrainTypes.add(tileFixedResources.terrainType);
-        this.showAdjacentTiles(id);
+        this.revealAdjacentTiles(id);
         this._tileGraph.addEdges(id);
         this._tileGraph.updateDistance();
         if (tile.tileResourceService?.extras.discoveryToken) {
@@ -351,6 +222,33 @@ export class TileService implements ITileService {
         }
     }
 
+    public markTilesForAction(tiles: ITile[],
+                              action: TILE_ACTION,
+                              requiredActionAmount: number,
+                              source: string,
+                              shouldApplyDmg: boolean
+    ): void {
+        this._tileMarkerService.markTilesForAction(tiles, action, requiredActionAmount, source, shouldApplyDmg);
+    }
+
+    public markTileResourcesForAction(tiles: ITile[],
+                                      action: TILE_RESOURCE_ACTION,
+                                      source: string,
+                                      resource: "food" | "wood" | null,
+                                      requiredActionAmount: number,
+                                      shouldApplyDmg: boolean
+    ): void {
+        this._tileMarkerService.markTileResourcesForAction(tiles, action, source, resource, requiredActionAmount, shouldApplyDmg)
+    }
+
+    public triggerMarkedResourceAction(tileId: number, side: Side): void {
+        this._tileMarkerService.triggerMarkedResourceAction(tileId, side);
+    }
+
+    public triggerMarkedAction(tileId: number): void {
+        this._tileMarkerService.triggerMarkedAction(tileId);
+    }
+
 
     private moveConstructions() {
         const logSource = TERMS.CAMP_MOVEMENT;
@@ -383,22 +281,17 @@ export class TileService implements ITileService {
     }
 
 
-    public forceCampMovement() {
-        if (this.tilesAroundCamp.some((tile) => tile.canCampBeSettled)) {
-
-        }
-    }
-
     public pickTileTypesFromStack(amount: number) {
         return this._tileTypeStack.slice(-amount);
     }
 
-    private showAdjacentTiles(id: number) {
+    private revealAdjacentTiles(id: number) {
         const tile = this.getTile(id);
         tile.position.borderTiles.forEach((id) => {
             this.getTile(id).show = true;
         });
     }
+
 
     static getSourceSideFromDroppableId(
         droppableId: string

@@ -94,6 +94,12 @@ export class Tile extends AssignablePawnsItem implements ITile {
         this._distance = value;
     }
 
+    get hasShortcut(): boolean {
+        return Boolean(this._tileResourceService &&
+            (this._tileResourceService.resources.left.shortcut ||
+                this._tileResourceService?.resources.right.shortcut));
+    }
+
 
     public isSideRequiredPawnsSatisfied(side: Side): boolean {
         if (this._tileResourceService && this.requiredPawnAmount !== null) {
@@ -233,18 +239,23 @@ export class Tile extends AssignablePawnsItem implements ITile {
     }
 
     public markResourceForAction(
-        side: Side,
+        arg: Side | TileResource,
         actionName: TILE_RESOURCE_ACTION,
         source: string
     ) {
         if (!this.tileResourceService) {
             throw new Error(`tile is not revealed. id: ${this.id}`);
         }
+        const side = isSide(arg) ? arg : this.getSideByResource(arg);
+        if (!side) {
+            throw new Error(`Can't find side based on resource! ${side}`)
+        }
         this.tileResourceService.markResourceForAction(side, actionName, source);
     }
 
-    public canResourceActionBePerformed(action: TILE_RESOURCE_ACTION, side: Side, source: string) {
-        return Boolean(this._tileResourceService?.canActionBePerformed(action, side, source));
+    public canResourceActionBePerformed(action: TILE_RESOURCE_ACTION, arg: Side | TileResource, source: string) {
+        let side = isSide(arg) ? arg : this.getSideByResource(arg);
+        return Boolean(side && this._tileResourceService?.canActionBePerformed(action, side, source));
     }
 
 
@@ -430,4 +441,14 @@ export class Tile extends AssignablePawnsItem implements ITile {
             amount: 1
         }, "negative", source)
     }
+
+    public unsetShortcut(): void {
+        this.setShortcut("left", false);
+        this.setShortcut("right", true);
+    }
+}
+
+
+function isSide(candidate: any): candidate is Side {
+    return candidate === "left" || candidate === "right"
 }

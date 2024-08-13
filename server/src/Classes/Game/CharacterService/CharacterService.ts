@@ -44,7 +44,8 @@ export class CharacterService implements ICharacterService {
     }
 
     get healableCharacters(): ICharacter[] {
-        return this._allCharacters.filter((char) => char.name !== CHARACTER.DOG);
+        return this._allCharacters
+            .filter((char) => char.name !== CHARACTER.DOG && char.health !== char.maxHealth);
     }
 
     get playerCharacters(): IPlayerCharacter[] {

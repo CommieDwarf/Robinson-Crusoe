@@ -4,7 +4,6 @@ import {
     INVENTION,
     INVENTION_CASTAWAYS,
     INVENTION_NORMAL,
-    INVENTION_PERSONAL,
     INVENTION_STARTER,
     INVENTION_TYPE,
 } from "@shared/types/Game/InventionService/Invention";
@@ -14,8 +13,8 @@ import {IGame} from "@shared/types/Game/Game";
 import {InventionCreator} from "./InventionCreator/InventionCreator";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
 import {LOG_CODE} from "@shared/types/Game/ChatLog/LOG_CODE";
-import {IPlayer} from "@shared/types/Game/PlayerService/Player";
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
+import {isPlayerCharacter} from "@shared/utils/typeGuards/isPlayerCharacter";
 
 export class InventionsService implements IInventionService {
     private _builtInventions: IInvention[] = [];
@@ -75,11 +74,11 @@ export class InventionsService implements IInventionService {
         const normal = this.popInventionsFromStack(5);
         const scenario = Object.values(INVENTION_CASTAWAYS);
         const creator = new InventionCreator(this._game);
-        const personal = INVENTION_PERSONAL.FIREPLACE;
+        const personal = this._game.characterService.playerCharacters.map((char) => char.invention);
 
-        return [...normal, ...[...starters, ...scenario, personal].map((invention) =>
-            creator.create(invention)
-        )];
+        return [...normal, ...[...starters, ...scenario, ...personal].map((invention) => {
+            return creator.create(invention);
+        })];
     }
 
     private initStack(): IInvention[] {
@@ -97,14 +96,23 @@ export class InventionsService implements IInventionService {
         return popped.filter((obj) => obj !== undefined) as IInvention[];
     }
 
-    build(name: INVENTION, builder: ICharacter) {
-        const invention = this.getInvention(name);
+    build(inventionName: INVENTION, builder: ICharacter) {
+        const invention = this.getInvention(inventionName);
         if (this._builtInventions.includes(invention)) {
             throw new Error("Invention is already has been built " + invention.name);
         }
-        if (name !== INVENTION_CASTAWAYS.MAST) {
+        if (inventionName !== INVENTION_CASTAWAYS.MAST) {
             this._builtInventions.push(invention);
             invention.isBuilt = true;
+        }
+
+        if (invention.inventionType === INVENTION_TYPE.PERSONAL) {
+            if (!isPlayerCharacter(builder)) {
+                throw new Error("Non player character can't build personal invention")
+            }
+            if (builder.invention !== inventionName) {
+                throw new Error(`${inventionName} isn't ${builder.name}'s personal invention!`);
+            }
         }
 
         this._game.logService.addMessage({
@@ -113,7 +121,6 @@ export class InventionsService implements IInventionService {
             subject2: "",
             amount: 1,
         }, "positive", builder.name)
-
 
         invention.onBuild();
         this.updateLocks();
@@ -142,7 +149,12 @@ export class InventionsService implements IInventionService {
     }
 
     public useInvention(name: INVENTION, character: IPlayerCharacter): void {
-        this.getInvention(name).use(character);
+        const invention = this.getInvention(name);
+        if (!invention.canBeUsed) {
+            console.warn(`Invention ${name} can't be used now`);
+            return;
+        }
+        invention.use(character);
     }
 
     private isInvRequirementMet(invention: IInvention) {

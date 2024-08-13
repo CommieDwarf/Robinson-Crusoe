@@ -9,7 +9,7 @@ import {IPawn} from "@shared/types/Game/Pawns/Pawn";
 import {RollDiceService} from "../RollDiceService/RollDiceService";
 import {EventCard} from "../EventService/EventCardCreator/EventCard";
 import {isCommittableResourcesItem} from "@shared/utils/typeGuards/isCommittableResourcesItem";
-import {Tile} from "../TileService/TileGraph/Tile";
+import {Tile} from "../TileService/Tile/Tile";
 import {Beast} from "../BeastService/BeastCreator/Beast";
 import {IBeast} from "@shared/types/Game/Beasts/Beast";
 import {ActionDice, ActionDiceResults} from "@shared/types/Game/RollDice/RollDice";

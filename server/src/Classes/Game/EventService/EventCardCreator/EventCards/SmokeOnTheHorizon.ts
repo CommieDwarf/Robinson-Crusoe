@@ -16,7 +16,8 @@ export class SmokeOnTheHorizon extends EventCard implements IEventCard {
                 pawns: 1,
                 invention: null,
                 construction: null,
-                resource: null, optionalResource: null,
+                resource: null,
+                optionalResource: null,
             },
             game
         );
@@ -24,7 +25,7 @@ export class SmokeOnTheHorizon extends EventCard implements IEventCard {
 
     triggerEventEffect() {
         const tiles = this._game.tileService.tiles.filter((tile) => tile.tileResourceService?.terrainType === TERRAIN_TYPE.PLAINS);
-        this._game.tileService.markTilesForAction(tiles, TILE_ACTION.DEPLETE_TERRAIN_TYPE, 1, this._namePL);
+        this._game.tileService.markTilesForAction(tiles, TILE_ACTION.DEPLETE_TERRAIN_TYPE, 1, this._name, false);
     }
 
     triggerThreatEffect() {
@@ -32,7 +33,7 @@ export class SmokeOnTheHorizon extends EventCard implements IEventCard {
     }
 
     fullFill() {
-        const tile = this._game.tileService.tiles.find((tile) => tile.modifiers.terrainDepleted?.source === this._namePL);
+        const tile = this._game.tileService.tiles.find((tile) => tile.modifiers.terrainDepleted?.source === this._name);
         if (tile) {
             tile.unsetTileModifier("terrainDepleted", this._resolutionPL);
         }

@@ -21,11 +21,11 @@ export class TileController implements GameControllerInterface {
     }
 
     private triggerTileAction(player: IPlayer, tileId: number): void {
-        this._game.tileService.triggerMarkedTileAction(tileId);
+        this._game.tileService.triggerMarkedAction(tileId);
     }
 
     private triggerTileResourceAction(player: IPlayer, tileID: number, side: Side): void {
-        this._game.tileService.triggerMarkedTileResourceAction(tileID, side);
+        this._game.tileService.triggerMarkedResourceAction(tileID, side);
     }
 
     private moveCamp(player: IPlayer, tileID: number): void {

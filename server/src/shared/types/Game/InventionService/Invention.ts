@@ -20,8 +20,9 @@ export interface IInvention extends IResourceCommittableItem<InventionResource>,
     requirements: InventionRequirements;
     belongsTo: CHARACTER | null;
     resourceChoice: boolean;
-    usable: boolean;
     used: boolean;
+
+    canBeUsed: boolean;
 
     onBuild: () => void;
     onDestruction: () => void;
@@ -40,8 +41,7 @@ export interface IInventionRenderData extends IResourceCommittableItemRenderData
     assignedPawnAmount: number;
     inventionType: INVENTION_TYPE;
     isBuilt: boolean;
-
-    usable: boolean;
+    canBeUsed: boolean;
     pawnService: IPawnServiceRenderData<IInventionRenderData>;
 }
 

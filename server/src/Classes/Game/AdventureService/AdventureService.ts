@@ -10,7 +10,7 @@ import {
 } from "@shared/types/Game/AdventureService/AdventureService";
 import {AdventureCardCreator} from "./AdventureCardCreator/Creators/AdventureCardCreator";
 import {IResolvableItem} from "@shared/types/Game/ActionService/IResolvableItem";
-import {Tile} from "../TileService/TileGraph/Tile";
+import {Tile} from "../TileService/Tile/Tile";
 import {TileService} from "../TileService/TileService";
 import {isPlayerCharacter} from "@shared/utils/typeGuards/isPlayerCharacter";
 import {isAdventureAction} from "@shared/utils/typeGuards/isAdventureAction";

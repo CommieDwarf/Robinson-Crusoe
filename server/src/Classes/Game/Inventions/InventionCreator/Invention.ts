@@ -24,13 +24,11 @@ export class Invention extends ResourceCommittableItem<InventionResource> implem
     protected _locked = true;
     protected readonly _requirements: InventionRequirements;
     protected readonly _resourceChoice: boolean = false;
-    //temporary fixed value
     protected readonly _inventionType: INVENTION_TYPE;
     protected _built = false;
     protected readonly _belongsTo: CHARACTER | null = null;
-    protected readonly _usable: boolean = false;
     protected _used: boolean = false;
-    protected readonly _logSource = `${this.name}`;
+    protected readonly _logSource;
 
     protected _pawnService: IPawnService<IInvention> = new PawnService<IInvention>(this._game, this);
 
@@ -46,6 +44,7 @@ export class Invention extends ResourceCommittableItem<InventionResource> implem
 
         super(ACTION.BUILD, ACTION_ITEM.INVENTION, game, resourceCost, optionalResource);
         this._name = name;
+        this._logSource = name;
         this._requirements = requirements;
         this._inventionType = inventionType;
     }
@@ -64,10 +63,13 @@ export class Invention extends ResourceCommittableItem<InventionResource> implem
             inventionType: this._inventionType,
             isBuilt: this.isBuilt,
             ...super.getResourceCommittableRenderData(),
-            usable: this._usable && !this._used,
+            canBeUsed: this.canBeUsed,
         };
     }
 
+    get canBeUsed() {
+        return false;
+    }
 
     get pawnService(): IPawnService<IInvention> {
         return this._pawnService;
@@ -102,10 +104,7 @@ export class Invention extends ResourceCommittableItem<InventionResource> implem
     set locked(value: boolean) {
         this._locked = value;
     }
-
-    get usable(): boolean {
-        return this._usable;
-    }
+    
 
     get used(): boolean {
         return this._used;
@@ -129,7 +128,6 @@ export class Invention extends ResourceCommittableItem<InventionResource> implem
         return this._namePL;
     }
 
-
     public onBuild() {
         return;
     }
@@ -145,4 +143,5 @@ export class Invention extends ResourceCommittableItem<InventionResource> implem
     public use(character: IPlayerCharacter) {
         return;
     }
+
 }

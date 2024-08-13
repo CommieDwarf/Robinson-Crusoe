@@ -22,11 +22,14 @@ export class Fireplace extends Invention implements IInvention {
         );
     }
 
-    use(character: IPlayerCharacter) {
+    get canBeUsed() {
         const canAfford = this._game.resourceService.canAffordResource("food", 1);
-        if (!canAfford || this._game.phaseService.phase !== "night" || this.usedInRound === this._game.round) {
-            return;
-        }
+        return (canAfford &&
+            this._game.phaseService.phase === "night" &&
+            this.usedInRound !== this._game.round);
+    }
+
+    use(character: IPlayerCharacter) {
         this._game.resourceService.owned.basic.spendResource("food", 1);
         this._game.startPickingObject(this._game.characterService.healableCharacters,
             character,
@@ -39,4 +42,6 @@ export class Fireplace extends Invention implements IInvention {
         )
         this.usedInRound = this._game.round;
     }
+
+
 }

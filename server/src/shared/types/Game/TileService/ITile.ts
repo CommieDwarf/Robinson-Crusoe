@@ -15,6 +15,7 @@ export interface ITile extends IAssignablePawnsItem {
     camp: boolean;
     show: boolean;
 
+    hasShortcut: boolean;
     tileResourceService: ITileResourceService | null;
     modifiers: TileModifiers;
     markedForAction: MarkedForAction | null;
@@ -73,12 +74,12 @@ export interface ITile extends IAssignablePawnsItem {
     clearResourceModifiers: () => void;
 
 
-    canResourceActionBePerformed: (action: TILE_RESOURCE_ACTION, side: Side, source: string) => boolean
+    canResourceActionBePerformed: (action: TILE_RESOURCE_ACTION, arg: Side | TileResource, source: string) => boolean
 
 
     canActionBePerformed: (action: TILE_ACTION) => boolean
     markResourceForAction: (
-        side: Side,
+        arg: Side | TileResource,
         actionName: TILE_RESOURCE_ACTION,
         source: string
     ) => void;
@@ -88,6 +89,8 @@ export interface ITile extends IAssignablePawnsItem {
     resetTileResourceActionMarks: () => void;
 
     triggerResourceAction: (side: Side, source: string) => void;
+
+    unsetShortcut: () => void
 }
 
 export interface ITileRenderData extends IAssignablePawnsItemRenderData {

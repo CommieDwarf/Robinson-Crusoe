@@ -6,8 +6,7 @@ export interface ITilesServiceRenderData {
     tiles: ITileRenderData[];
     campJustMoved: boolean;
     campTile: ITileRenderData;
-    resourceAmountToDeplete: number;
-    isTileMarkedForAction: boolean;
+    isMarkedActionRemaining: boolean;
 
 }
 
@@ -17,19 +16,27 @@ export interface ITileService {
     previousCampTile: ITile | null;
     campJustMoved: boolean;
     tilesAroundCamp: ITile[]
-    isTileMarkedForAction: boolean;
+    isMarkedActionRemaining: boolean;
     exploredTerrainTypes: Set<TERRAIN_TYPE>;
     canCampBeMoved: () => boolean;
-    forceCampMovement: () => void;
     updateDistance: () => void;
-    triggerMarkedTileAction: (tileId: number) => void;
-    triggerMarkedTileResourceAction: (tileId: number, side: Side) => void;
-    markTilesForAction: (tiles: ITile[], action: TILE_ACTION, requiredCount: number, source: string) => void;
-    markTileResourcesForAction: (tiles: ITile[], action: TILE_RESOURCE_ACTION, source: string, concreteResource: "food" | "wood" | null) => void;
-    markResourceTilesForActionOrGetHurt: (tiles: ITile[], action: TILE_RESOURCE_ACTION, requiredMarkCount: number, source: string, concreteResource: "food" | "wood" | null) => void;
+    triggerMarkedAction: (tileId: number) => void;
+    triggerMarkedResourceAction: (tileId: number, side: Side) => void;
+    markTilesForAction: (tiles: ITile[],
+                         action: TILE_ACTION,
+                         requiredActionAmount: number,
+                         source: string,
+                         shouldApplyDmg: boolean
+    ) => void;
 
-    countHowManyTilesCanBeMarkedForAction: (tiles: ITile[], action: TILE_ACTION) => number;
-    countHowManyResourcesCanBeMarkedForAction: (tiles: ITile[], action: TILE_RESOURCE_ACTION, source: string, concreteResource?: "wood" | "food" | null) => number;
+    markTileResourcesForAction: (tiles: ITile[],
+                                 action: TILE_RESOURCE_ACTION,
+                                 source: string,
+                                 resource: "food" | "wood" | null,
+                                 requiredActionAmount: number,
+                                 shouldApplyDmg: boolean) => void;
+
+
     resetResourceAssignedPawns: () => void;
 
     switchOrderInTileStack: (tileType: TileType, targetPosition: "top" | "bottom" | number) => void

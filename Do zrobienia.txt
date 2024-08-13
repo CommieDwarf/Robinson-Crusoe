@@ -1,11 +1,16 @@
 
+pomysł - zrób samo znikające alerty.
+
+
 
 popraw obszar postaci pobocznych
 Jesli friday + gracz robi akcje, gracz ma być liderem.
 Okno pogody do przerobienia (layout).
 mystery card drawer przetłumaczyć przyciski i dodać tło.
 dodac log wiadomosci o połączącym/rozłączonym graczu.
-
+napraw animacje dodawania i odejmowania wartości liczbowych surowców i innych statystyk.
+dodaj przycisk do zamykania listy graczy.
+shortcut totalnie zbugowany
 
 karty pomysłów postaci.
 

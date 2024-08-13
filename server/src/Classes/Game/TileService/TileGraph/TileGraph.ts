@@ -1,12 +1,12 @@
 import {Graph} from "../../Utility/Graph/Graph";
 import {ITile} from "@shared/types/Game/TileService/ITile";
-import {Tile} from "./Tile";
+import {Tile} from "../Tile/Tile";
 import {tilePositions} from "@shared/constants/tilePositions";
 import {ITileGraph} from "@shared/types/Game/TileService/ITileGraph";
 import {IVertex} from "@shared/types/Game/Graph/Vertex";
 import {IGame} from "@shared/types/Game/Game";
 import {starterTile} from "@shared/constants/tileResourceServices";
-import {TileResourceService} from "./TileResourceService/TileResourceService";
+import {TileResourceService} from "../Tile/TileResourceService/TileResourceService";
 
 export class TileGraph extends Graph<ITile> implements ITileGraph {
     campTileVertex: IVertex<ITile>;

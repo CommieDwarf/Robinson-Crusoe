@@ -22,6 +22,6 @@ export class SignsOfFire
 
     resolveOption1(resolver: IPlayerCharacter) {
         const tile = this.getTile();
-        this._game.tileService.markTileResourcesForAction([tile], TILE_RESOURCE_ACTION.DEPLETE, this._name, null);
+        // this._game.tileService.markTileResourcesForAction([tile], TILE_RESOURCE_ACTION.DEPLETE, this._name, null);
     }
 }
