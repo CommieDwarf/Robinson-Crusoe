@@ -32,6 +32,7 @@ export class Bow extends Invention implements IInvention {
     }
 
     onDestruction() {
+        super.onDestruction()
         this._game.constructionService.lvlDownIfPossible(
             CONSTRUCTION.WEAPON,
             3,

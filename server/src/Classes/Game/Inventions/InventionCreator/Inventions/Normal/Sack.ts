@@ -14,9 +14,4 @@ export class Sack extends Invention implements IInvention {
         );
     }
 
-    onBuild() {
-    }
-
-    onDestruction() {
-    }
 }

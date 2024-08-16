@@ -1,0 +1,15 @@
+.container {
+    width: 22%;
+    height: 22%;
+    position: absolute;
+    bottom: 22%;
+    opacity: 0.7;
+}
+
+.left {
+    left: 18%;
+}
+
+.right {
+    right: 23%;
+}

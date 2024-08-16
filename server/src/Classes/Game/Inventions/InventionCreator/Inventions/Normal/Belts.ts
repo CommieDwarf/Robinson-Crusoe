@@ -21,11 +21,12 @@ export class Belts extends Invention implements IInvention {
     }
 
     onBuild() {
+        super.onBuild()
         this._pawnService.initPawns(1, false, PAWN_HELPER_ACTION.GATHER)
     }
 
     onDestruction() {
-        this._pawnService.destroyAllPawns();
         super.onDestruction();
+        this._pawnService.destroyAllPawns();
     }
 }

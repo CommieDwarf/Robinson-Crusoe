@@ -231,7 +231,7 @@ export class ResolvableItem implements IResolvableItem {
                 } else {
                     const side = this._droppableID.includes("left") ? "left" : "right";
                     this._game.tileService.gather(
-                        side,
+                        [side],
                         tile.id,
                         this._leaderPawn.owner.name
                     );

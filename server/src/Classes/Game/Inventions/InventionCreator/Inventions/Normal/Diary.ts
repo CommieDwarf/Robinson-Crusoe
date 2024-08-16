@@ -14,9 +14,5 @@ export class Diary extends Invention implements IInvention {
         );
     }
 
-    onBuild() {
-    }
 
-    onDestruction() {
-    }
 }

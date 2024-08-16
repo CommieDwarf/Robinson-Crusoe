@@ -15,9 +15,4 @@ export class Drums extends Invention implements IInvention {
         );
     }
 
-    onBuild() {
-    }
-
-    onDestruction() {
-    }
 }

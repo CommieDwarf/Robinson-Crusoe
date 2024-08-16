@@ -21,7 +21,7 @@ interface Props {
 
 function Map(props: Props) {
     const [contentScale, setContentScale] = useState(100);
-    const tileService = useAppSelector((state) => selectGame(state).tileService!);
+    const tileService = useAppSelector((state) => selectGame(state)!.tileService);
 
     const tiles: JSX.Element[] = [];
     const campSettableTiles = tileService.tiles.filter(
@@ -120,7 +120,7 @@ function Map(props: Props) {
 
     const zIndexClass =
         props.topLayerElement.includes("tile") ||
-        tileService.isTileMarkedForAction
+        tileService.isMarkedActionRemaining
             ? styles.zIndexIncreased
             : "";
 
@@ -133,7 +133,7 @@ function Map(props: Props) {
             ref={container}
             onMouseDown={mouseDownHandle}
         >
-            {tileService.isTileMarkedForAction && (
+            {tileService.isMarkedActionRemaining && (
                 <div className={styles.tipArrow}>
                     <ResizableImage
                         src={redArrowImg}

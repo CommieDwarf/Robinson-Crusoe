@@ -14,11 +14,4 @@ export class Shovel extends Invention implements IInvention {
         );
     }
 
-    onBuild() {
-        return;
-    }
-
-    onDestruction() {
-        return;
-    }
 }

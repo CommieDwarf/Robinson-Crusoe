@@ -19,10 +19,8 @@ export class Lantern extends Invention implements IInvention {
         );
     }
 
-    onBuild() {
-    }
-
     onDestruction() {
+        super.onDestruction();
         this._pawnService?.pawns.map((pawn) => this._pawnService?.destroyPawn(pawn.draggableId))
     }
 }

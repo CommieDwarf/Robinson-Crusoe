@@ -104,7 +104,7 @@ export class Invention extends ResourceCommittableItem<InventionResource> implem
     set locked(value: boolean) {
         this._locked = value;
     }
-    
+
 
     get used(): boolean {
         return this._used;
@@ -133,6 +133,7 @@ export class Invention extends ResourceCommittableItem<InventionResource> implem
     }
 
     public onDestruction() {
+        this.isBuilt = false;
         return;
     }
 

@@ -42,7 +42,7 @@ export interface ITileService {
     switchOrderInTileStack: (tileType: TileType, targetPosition: "top" | "bottom" | number) => void
 
     pickTileTypesFromStack: (amount: number) => TileType[];
-    gather: (side: "left" | "right", tileId: number, logSource: string, production?: boolean) => void;
+    gather: (sides: Side[], tileId: number, logSource: string, production?: boolean) => void;
     getTile: (id: number) => ITile;
     moveCamp: (tileID: number) => void;
     explore: (id: number) => void;

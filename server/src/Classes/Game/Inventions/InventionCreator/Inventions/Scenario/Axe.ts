@@ -16,10 +16,12 @@ export class Axe extends Invention implements IInvention {
     }
 
     onBuild() {
-        this._game.tileService.campTile.addModifierByResource("wood", this._namePL);
+        super.onBuild();
+        this._game.tileService.campTile.addModifier("wood", this._name);
     }
 
     onDestruction() {
-        this._game.tileService.campTile.removeResourceModifier(null, "wood", this._namePL);
+        super.onDestruction();
+        this._game.tileService.campTile.removeResourceModifier(null, "wood", this._name);
     }
 }

@@ -13,7 +13,7 @@ export class Hatched extends TreasureMysteryCard {
     }
 
     use() {
-        this._game.tileService.campTile.addModifierByResource("wood", this.name);
+        this._game.tileService.campTile.addModifier("wood", this.name);
         this.removeFromOwnedResources();
     }
 }

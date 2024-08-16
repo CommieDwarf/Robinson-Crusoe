@@ -136,7 +136,7 @@ export class InventionsService implements IInventionService {
         this._builtInventions = this._builtInventions.filter((inv) => {
             return inv.name !== invention.name;
         });
-        invention.isBuilt = false;
+        invention.onDestruction();
     }
 
     updateLocks() {

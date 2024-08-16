@@ -14,9 +14,4 @@ export class Bed extends Invention implements IInvention {
         );
     }
 
-    onBuild() {
-    }
-
-    onDestruction() {
-    }
 }

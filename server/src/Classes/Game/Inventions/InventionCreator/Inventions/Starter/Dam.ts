@@ -16,6 +16,7 @@ export class Dam extends Invention implements IInvention {
     }
 
     onBuild() {
+        super.onBuild();
         this._game.resourceService.addBasicResourceToFuture(
             "dryFood",
             2,
@@ -24,6 +25,7 @@ export class Dam extends Invention implements IInvention {
     }
 
     onDestruction() {
+        super.onDestruction();
         this._game.resourceService.spendBasicResourceIfPossible(
             "dryFood",
             2,

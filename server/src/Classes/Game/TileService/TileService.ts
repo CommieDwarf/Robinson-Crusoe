@@ -1,13 +1,13 @@
 import shuffle from "@shared/utils/shuffleArray";
 import {ITileService, ITilesServiceRenderData,} from "@shared/types/Game/TileService/ITileService";
-import {ITile, TERRAIN_TYPE, TILE_ACTION} from "@shared/types/Game/TileService/ITile";
+import {ITile, TERRAIN_TYPE, TILE_ACTION, TileResource} from "@shared/types/Game/TileService/ITile";
 import {IGame} from "@shared/types/Game/Game";
 import {TileGraph} from "./TileGraph/TileGraph";
 import {ITileGraph} from "@shared/types/Game/TileService/ITileGraph";
 import {Side, TILE_RESOURCE_ACTION} from "@shared/types/Game/TileService/TileResourceService";
 import {TileType} from "@shared/types/Game/TileService/TileResourceInfo";
 import {fixedTileResources} from "@shared/constants/tileResourceServices";
-import {INVENTION_NORMAL} from "@shared/types/Game/InventionService/Invention";
+import {INVENTION_NORMAL, INVENTION_PERSONAL} from "@shared/types/Game/InventionService/Invention";
 import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction";
 import {LOG_CODE} from "@shared/types/Game/ChatLog/LOG_CODE";
 import {TERMS} from "@shared/types/Terms/TERMS";
@@ -20,10 +20,10 @@ export class TileService implements ITileService {
     private _tileTypeStack: TileType[];
     private _exploredTerrainTypes: Set<TERRAIN_TYPE>;
     private _game: IGame;
-    private _campJustMoved = false;
     private _roundBasketUsed: number = 0;
     private _roundSackUsed: number = 0;
     private readonly _startCamp = 7;
+    private _roundCampMoved = 0;
     private readonly _tileMarkerService: TileMarkerService;
 
 
@@ -52,12 +52,9 @@ export class TileService implements ITileService {
 
 
     get campJustMoved(): boolean {
-        return this._campJustMoved;
+        return this._game.round === this._roundCampMoved
     }
 
-    set campJustMoved(value: boolean) {
-        this._campJustMoved = value;
-    }
 
     get tiles() {
         return this._tileGraph.vertices.map((vertex) => vertex.data);
@@ -113,29 +110,33 @@ export class TileService implements ITileService {
     }
 
 
-    gather(side: "left" | "right", tileID: number, logSource: string, production?: boolean) {
+    gather(sides: Side[], tileID: number, logSource: string, production?: boolean) {
         const tile = this.getTile(tileID);
-        const resource = tile.getGatherableResourceAmount(side);
-
-        if (resource) {
-            if (this._game.phaseService.phase === "action") {
-                resource.amount = this.addResourceAmountFromItems(resource.amount);
+        sides.forEach((side) => {
+            const resource = tile.getGatherableResourceAmount(side);
+            if (resource) {
+                if (this._game.phaseService.phase === "action") {
+                    resource.amount = this.addResourceAmountFromItems(resource.amount);
+                }
+                if (!production) {
+                    this._game.resourceService.addBasicResourceToFuture(
+                        resource.resource,
+                        resource.amount,
+                        logSource
+                    );
+                } else {
+                    this._game.resourceService.addBasicResourceToOwned(
+                        resource.resource,
+                        resource.amount,
+                        logSource
+                    );
+                }
             }
-            if (!production) {
-                this._game.resourceService.addBasicResourceToFuture(
-                    resource.resource,
-                    resource.amount,
-                    logSource
-                );
-            } else {
-                this._game.resourceService.addBasicResourceToOwned(
-                    resource.resource,
-                    resource.amount,
-                    logSource
-                );
-            }
-
+        })
+        if (production) {
+            this.addResourcesFromShortcut();
         }
+
     }
 
     explore(id: number) {
@@ -179,6 +180,20 @@ export class TileService implements ITileService {
         this._exploredTerrainTypes = terrainTypes;
     }
 
+    public addResourcesFromShortcut() {
+        const tile = this.tilesAroundCamp.find((tile) => tile.hasShortcut);
+        if (!tile) {
+            return;
+        }
+        const resource = tile.getShortcutResource()!;
+        const side = tile.getSideByResource(resource)!;
+        const amount = tile.getGatherableResourceAmount(side)?.amount;
+        if (!amount) {
+            return;
+        }
+        this._game.resourceService.addBasicResourceToOwned(resource, amount, INVENTION_PERSONAL.SHORTCUT);
+    }
+
     private addResourceAmountFromItems(amount: number) {
         let newAmount = amount;
         const inventionService = this._game.inventionService;
@@ -194,7 +209,7 @@ export class TileService implements ITileService {
     }
 
     public canCampBeMoved(): boolean {
-        return this._tileGraph.canCampBeMoved();
+        return this._tileGraph.canCampBeMoved() && this.campJustMoved;
     }
 
     public getTile(id: number) {
@@ -202,25 +217,14 @@ export class TileService implements ITileService {
     }
 
     public moveCamp(tileID: number) {
-        if (
-            this._game.phaseService.phase === "night" &&
-            this.getTile(tileID).canCampBeSettled
-        ) {
-            this.moveModifiers(this.campTile.id, tileID);
-            this._tileGraph.moveCamp(tileID);
-            this.campJustMoved = true;
-            this._game.constructionService.updateLocks();
-            this._game.logService.addMessage({
-                code: LOG_CODE.CAMP_MOVED,
-                amount: 1,
-                subject1: "",
-                subject2: ""
-            }, "neutral", TERMS.NIGHT)
-            this.moveConstructions();
-        } else {
-            throw Error(`Cant transfer camp. tileID: ${tileID}`);
+        const tile = this.getTile(tileID);
+
+        if (!this.canMoveCamp(tile)) {
+            throw new Error(`Cannot transfer camp. tileID: ${tileID}`);
         }
+        this.executeCampMove(tile);
     }
+
 
     public markTilesForAction(tiles: ITile[],
                               action: TILE_ACTION,
@@ -304,5 +308,39 @@ export class TileService implements ITileService {
             default:
                 return null;
         }
+    }
+
+    private executeCampMove(tile: ITile) {
+        this.moveModifiers(this.campTile.id, tile.id);
+        this._tileGraph.moveCamp(tile.id);
+        this._roundCampMoved = this._game.round;
+        this._game.constructionService.updateLocks();
+        this.logCampMoved();
+        this.moveConstructions();
+        this.handleShortcutDestruction(tile);
+    }
+
+    private handleShortcutDestruction(tile: ITile) {
+        if (tile.hasShortcut) {
+            this._game.inventionService.destroy(INVENTION_PERSONAL.SHORTCUT);
+        }
+
+        const shortcutTile = this.tiles.find((t) => t.hasShortcut);
+        if (shortcutTile && !this.tilesAroundCamp.includes(tile)) {
+            this._game.inventionService.destroy(INVENTION_PERSONAL.SHORTCUT);
+        }
+    }
+
+    private logCampMoved() {
+        this._game.logService.addMessage({
+            code: LOG_CODE.CAMP_MOVED,
+            amount: 1,
+            subject1: "",
+            subject2: ""
+        }, "neutral", TERMS.NIGHT);
+    }
+
+    private canMoveCamp(tile: ITile): boolean {
+        return this._game.phaseService.phase === "night" && tile.canCampBeSettled;
     }
 }

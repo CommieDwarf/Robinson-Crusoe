@@ -18,9 +18,4 @@ export class Cellar extends Invention implements IInvention {
         );
     }
 
-    onBuild() {
-    }
-
-    onDestruction() {
-    }
 }

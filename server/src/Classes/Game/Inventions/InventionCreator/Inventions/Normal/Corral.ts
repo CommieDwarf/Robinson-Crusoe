@@ -33,11 +33,9 @@ export class Corral extends Invention implements IInvention {
         }
     }
 
-    onBuild() {
-
-    }
 
     onDestruction() {
+        super.onDestruction();
         if (this._tiles) {
             this._tiles.forEach((tile) => {
                 tile.removeResourceModifier(null, "food", this._namePL)

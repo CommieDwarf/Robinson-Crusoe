@@ -6,9 +6,11 @@ import {
     INVENTION_TYPE,
 } from "@shared/types/Game/InventionService/Invention";
 import {IGame} from "@shared/types/Game/Game";
+import {TILE_RESOURCE_ACTION} from "@shared/types/Game/TileService/TileResourceService";
+import {ITile} from "@shared/types/Game/TileService/ITile";
 
 export class Snare extends Invention implements IInvention {
-    protected _usable = true;
+    private _tile: ITile | null = null;
 
     constructor(game: IGame) {
         super(
@@ -19,11 +21,28 @@ export class Snare extends Invention implements IInvention {
         );
     }
 
+    get canBeUsed() {
+        return !this._used
+    }
+
     use() {
-        //TODO: implement
+        const tile = this._game.tileService.campTile;
+        this._game.tileService.markTileResourcesForAction(
+            [tile],
+            TILE_RESOURCE_ACTION.ADD_MODIFIER,
+            this._name,
+            null,
+            1,
+            false
+        )
+        this._tile = tile;
+        this._used = true;
     }
 
     onDestruction() {
-        //TODO: implement
+        super.onDestruction();
+        this._tile?.getSideByResource("food");
+        this._tile?.removeResourceModifier(null, "food", this.name);
+        this._used = false;
     }
 }

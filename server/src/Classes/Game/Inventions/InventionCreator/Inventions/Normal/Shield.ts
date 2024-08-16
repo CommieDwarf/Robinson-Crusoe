@@ -21,10 +21,12 @@ export class Shield extends Invention implements IInvention {
     }
 
     onBuild() {
+        super.onBuild()
         this._pawnService.initPawns(1, false, PAWN_HELPER_ACTION.HUNT);
     }
 
     onDestruction() {
+        super.onDestruction();
         this._pawnService.destroyAllPawns()
     }
 }

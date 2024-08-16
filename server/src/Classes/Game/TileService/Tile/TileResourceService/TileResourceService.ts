@@ -39,7 +39,18 @@ export class TileResourceService implements ITileResourceService {
         return {
             id: this._id,
             terrainType: this._terrainType,
-            resources: this._resources,
+            resources: {
+                left: {
+                    ...this._resources.left,
+                    canBeGathered: this.canResourceBeGathered("left")
+                },
+                right: {
+                    ...this._resources.right,
+                    canBeGathered: this.canResourceBeGathered("right")
+                }
+
+            },
+
             extras: this._extras,
         };
     }
@@ -58,6 +69,14 @@ export class TileResourceService implements ITileResourceService {
 
     get extras(): TileExtras {
         return this._extras;
+    }
+
+
+    public canResourceBeGathered(side: Side): boolean {
+        const resourceInfo = this._resources[side]
+        return resourceInfo.resource !== "beast" &&
+            !resourceInfo.shortcut &&
+            !resourceInfo.depleted
     }
 
     public hasModifier(side: Side) {
@@ -259,6 +278,17 @@ export class TileResourceService implements ITileResourceService {
                 return null;
         }
     }
+
+    public getShortcutResource() {
+        if (this._resources.left.shortcut) {
+            return this._resources.left.resource as TileGatherableResource
+        } else if (this._resources.right.shortcut) {
+            return this._resources.right.resource as TileGatherableResource
+        } else {
+            return null;
+        }
+    }
+
 
     private initResources(resource: TileResource) {
         return {

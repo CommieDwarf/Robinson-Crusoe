@@ -120,8 +120,7 @@ export class PhaseService implements IPhaseService {
 
     private productionEffect = () => {
         const id = this._game.tileService.campTile.id;
-        this._game.tileService.gather("left", id, "production", true);
-        this._game.tileService.gather("right", id, "production", true);
+        this._game.tileService.gather(["left", "right"], id, "production", true);
     };
 
     private preActionEffect = () => {
@@ -145,13 +144,11 @@ export class PhaseService implements IPhaseService {
 
     private nightEffect = () => {
         this._game.setNextRound();
-        this._game.tileService.campJustMoved = false;
         this.eatOrGetHurt();
         this.rotFood();
         this.sleepInShelterOrHurt();
         this._game.globalPawnService.resetPawns();
         this._game.playerService.setNextPrimePlayer();
-
     };
 
 

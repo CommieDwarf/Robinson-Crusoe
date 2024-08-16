@@ -15,11 +15,4 @@ export class Medicine extends Invention implements IInvention {
     }
 
 
-    onBuild() {
-        return;
-    }
-
-    onDestruction() {
-        return;
-    }
 }

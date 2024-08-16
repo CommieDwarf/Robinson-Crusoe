@@ -14,9 +14,4 @@ export class Basket extends Invention implements IInvention {
         );
     }
 
-    onBuild() {
-    }
-
-    onDestruction() {
-    }
 }

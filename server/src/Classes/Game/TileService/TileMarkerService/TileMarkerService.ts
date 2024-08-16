@@ -37,8 +37,9 @@ export class TileMarkerService {
             markableTiles.forEach((tile) => {
                 tile.markTileForActon(action, source);
             })
+
         }
-        this.enqueueOrExecute(markAction)
+        this.enqueueAndOrExecute(markAction)
     }
 
 
@@ -57,7 +58,7 @@ export class TileMarkerService {
             this._remainingToFinishAction = Math.min(requiredActionAmount, markableAmount);
             tiles.forEach((tile) => this.markResourcesOnTile(tile, action, source, resource));
         }
-        this.enqueueOrExecute(markAction)
+        this.enqueueAndOrExecute(markAction)
     }
 
     public triggerMarkedResourceAction(tileId: number, side: Side): void {
@@ -95,18 +96,19 @@ export class TileMarkerService {
     }
 
 
-    private enqueueOrExecute(markAction: () => void): void {
+    private enqueueAndOrExecute(markAction: () => void): void {
         if (this.isActionRemaining) {
             this._actionQueue.push(markAction);
         } else {
+            this._actionQueue.push(markAction);
             markAction();
         }
     }
 
     private dequeueAndExecuteNext(): void {
-        const markAction = this._actionQueue.shift();
-        if (markAction) {
-            markAction();
+        this._actionQueue.shift();
+        if (this.isActionRemaining) {
+            this._actionQueue[0]();
         }
     }
 

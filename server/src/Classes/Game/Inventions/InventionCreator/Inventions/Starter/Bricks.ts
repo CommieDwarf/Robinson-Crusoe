@@ -16,6 +16,7 @@ export class Bricks extends Invention implements IInvention {
     }
 
     onBuild() {
+        super.onBuild();
         this._game.constructionService.lvlUpConstruction(
             CONSTRUCTION.PALISADE,
             1,
@@ -24,6 +25,8 @@ export class Bricks extends Invention implements IInvention {
     }
 
     onDestruction() {
+        super.onDestruction();
+
         this._game.constructionService.lvlDownIfPossible(
             CONSTRUCTION.PALISADE,
             1,

@@ -21,6 +21,7 @@ export class Spear extends Invention implements IInvention {
     }
 
     onBuild() {
+        super.onBuild();
         this._game.constructionService.lvlUpConstruction(
             CONSTRUCTION.WEAPON,
             3,
@@ -29,6 +30,7 @@ export class Spear extends Invention implements IInvention {
     }
 
     onDestruction() {
+        super.onDestruction();
         this._game.constructionService.lvlDownIfPossible(
             CONSTRUCTION.WEAPON,
             3,

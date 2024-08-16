@@ -14,8 +14,12 @@ export interface TileResourceInfo {
     markedForAction: MarkedForAction | null;
     shortcut: boolean;
     assignedPawns: number;
-
 }
+
+export interface TileResourceInfoRenderData extends TileResourceInfo {
+    canBeGathered: boolean
+}
+
 
 export interface MarkedForAction {
     source: string;
@@ -76,12 +80,15 @@ export interface ITileResourceService {
     removeBoost: (side: Side, source: string) => void;
     clearModifiers: () => void;
 
+    canResourceBeGathered: (side: Side) => void;
+
     markResourceForAction: (
         side: Side,
         actionName: TILE_RESOURCE_ACTION,
         source: string
     ) => void;
 
+    getShortcutResource: () => TileGatherableResource | null;
 
     resetActionMarks: () => void;
     triggerAction: (side: Side, source: string) => void;
@@ -91,8 +98,8 @@ export interface ITileResourceServiceRenderData {
     id: number;
     terrainType: TERRAIN_TYPE;
     resources: {
-        left: TileResourceInfo;
-        right: TileResourceInfo;
+        left: TileResourceInfoRenderData;
+        right: TileResourceInfoRenderData;
     };
     extras: TileExtras;
 }

@@ -26,11 +26,4 @@ export class Pot extends Invention implements IInvention {
         }
     }
 
-    onBuild() {
-        return;
-    }
-
-    onDestruction() {
-        return;
-    }
 }

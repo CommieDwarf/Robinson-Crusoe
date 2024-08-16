@@ -1,0 +1,15 @@
+
+.container {
+    aspect-ratio: 1;
+    height: 17%;
+    position: absolute;
+    bottom: 25%;
+}
+
+.left {
+    left: 15%;
+}
+
+.right {
+    right: 20%;
+}

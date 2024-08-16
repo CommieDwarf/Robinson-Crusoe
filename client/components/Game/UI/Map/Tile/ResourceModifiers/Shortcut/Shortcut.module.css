@@ -1,0 +1,17 @@
+.container {
+    height: 23%;
+    width: 23%;
+    position: absolute;
+    top: 40%;
+    z-index: 994312451242149;
+}
+
+
+.left {
+    left: 18%;
+}
+
+
+.right {
+    right: 22%;
+}

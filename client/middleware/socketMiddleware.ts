@@ -68,7 +68,6 @@ const socketMiddleware = (socket: Socket): Middleware => (api: MiddlewareAPI<Dis
                             api.dispatch(connectedUpdated(false))
                         }),
                         setSocketListener(SOCKET_EVENT.PING, (payload) => {
-                            console.log('receiving ping')
                             api.dispatch(socketEmit(SOCKET_EVENT.PONG, payload));
                         }),
                         setSocketListener(SOCKET_EVENT.USER_LATENCY_SENT, (payload) => {
@@ -90,7 +89,6 @@ const socketMiddleware = (socket: Socket): Middleware => (api: MiddlewareAPI<Dis
                     if (!socket.connected) {
                         emitQueue.push(action);
                     }
-                    console.log('emiting', action.event, hydratePayload(action.payload))
                     socket.emit(action.event, hydratePayload(action.payload));
                     break;
 

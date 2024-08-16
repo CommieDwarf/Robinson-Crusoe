@@ -17,21 +17,6 @@
     filter: contrast(100%);
 }
 
-.resourceModifier {
-    aspect-ratio: 1;
-    height: 17%;
-    position: absolute;
-    bottom: 25%;
-}
-
-.resourceModifierLeft {
-    left: 15%;
-}
-
-.resourceModifierRight {
-    right: 20%;
-}
-
 
 .markedForAction {
     position: absolute;
@@ -69,31 +54,6 @@
     filter: brightness(70%) !important;
 }
 
-.depletedMark {
-    width: 22%;
-    height: 22%;
-    position: absolute;
-    bottom: 22%;
-    opacity: 0.7;
-}
-
-.depletedMarkLeft {
-    left: 18%;
-}
-
-.depletedMarkRight {
-    right: 23%;
-}
-
-.terrainDepleted {
-    width: 20%;
-    height: 20%;
-    position: absolute;
-    bottom: 24%;
-    left: 38%;
-    opacity: 0.6;
-}
-
 
 .tileConstantHighlight {
     filter: contrast(150%) !important;
@@ -118,62 +78,6 @@
     }
 }
 
-.explorePlayerSlots {
-    width: 60%;
-    height: 60%;
-    display: flex;
-    flex-wrap: wrap;
-    margin: auto;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    top: 25%;
-    right: 2%;
-    z-index: 1;
-}
-
-
-.gatherActionSlots {
-    width: 100%;
-    z-index: 10;
-    position: relative;
-    margin-top: -5%;
-    cursor: default;
-}
-
-.gatherActionSlotsLeft {
-    width: 45%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    float: left;
-    position: relative;
-    right: -5%;
-    top: 5%;
-}
-
-.gatherActionSlotsFew {
-    top: 10% !important;
-}
-
-.gatherActionSlotsRight {
-    width: 45%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    position: relative;
-    float: right;
-    top: 5%;
-}
-
-.actionSlot {
-    width: 50%;
-    aspect-ratio: 1;
-}
-
-.actionSlotGather {
-    width: 70%;
-}
 
 .campIcon {
     height: 25%;
@@ -193,35 +97,5 @@
     justify-content: center;
 }
 
-.modifier {
-    aspect-ratio: 1;
-    height: 100%;
-    position: relative;
 
-}
-
-.scroll {
-    width: 60% !important;
-    height: 45% !important;
-    z-index: 1;
-    margin: auto;
-    position: relative;
-    top: 20%;
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
-
-
-/* width */
-.scroll::-webkit-scrollbar {
-    width: 10px;
-}
-
-/* Handle */
-.scroll::-webkit-scrollbar-thumb {
-    background-image: url("../../../../../public/UI/misc/board-vert.jpg");
-    background-size: cover;
-    border-radius: 5px;
-    border: 1px solid var(--borderColor);
-}
 

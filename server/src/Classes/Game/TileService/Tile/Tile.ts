@@ -23,6 +23,8 @@ import {AssignablePawnsItem} from "../../AssignablePawnsItem/AssignablePawnsItem
 import {ACTION, ACTION_ITEM} from "@shared/types/Game/ACTION";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
 import {LOG_CODE} from "@shared/types/Game/ChatLog/LOG_CODE";
+import {INVENTION_PERSONAL} from "@shared/types/Game/InventionService/Invention";
+import {isSide} from "@shared/utils/typeGuards/isSide";
 
 export class Tile extends AssignablePawnsItem implements ITile {
 
@@ -82,7 +84,11 @@ export class Tile extends AssignablePawnsItem implements ITile {
             modifiers: this._modifiers,
             markedForAction: Boolean(this._markedForAction),
             requiredPawnAmount: this.requiredPawnAmount,
+            isExplored: this.isExplored,
+            canBeExplored: this.canBeExplored,
+            canBeGathered: this.canBeGathered
         };
+
     }
 
 
@@ -172,6 +178,18 @@ export class Tile extends AssignablePawnsItem implements ITile {
         return this._tileResourceService;
     }
 
+    get isExplored() {
+        return Boolean(this._tileResourceService);
+    }
+
+    get canBeExplored() {
+        return !this.isExplored && !this._modifiers.flipped;
+    }
+
+    get canBeGathered(): boolean {
+        return (["left", "right"] as Side[]).some((side) => Boolean(this._tileResourceService?.canResourceBeGathered(side)));
+    }
+
 
     public setShortcut(side: Side, value: boolean) {
         if (!this._tileResourceService) {
@@ -207,10 +225,6 @@ export class Tile extends AssignablePawnsItem implements ITile {
         return this._tileResourceService?.hasBasicResource(resource) || false;
     }
 
-    public canBeGathered(side: "left" | "right"): boolean {
-        const resourceAmount = this.getGatherableResourceAmount(side)?.amount;
-        return resourceAmount ? resourceAmount > 0 : false;
-    }
 
     public getGatherableResourceAmount(
         side: "left" | "right"
@@ -351,9 +365,6 @@ export class Tile extends AssignablePawnsItem implements ITile {
         this.builtStructures[structure] += amount;
     }
 
-    public isExplored() {
-        return Boolean(this._tileResourceService);
-    }
 
     // TODO: implement edge cases
     decrementStructureLvl(structure: BuiltTileStructure, amount: number) {
@@ -377,13 +388,14 @@ export class Tile extends AssignablePawnsItem implements ITile {
         }
     }
 
-    public addModifierBySide(side: Side, source: string): void {
-        this._tileResourceService?.addResourceBoostBySide(side, source);
+    public addModifier(arg: Side | TileGatherableResource, source: string): void {
+        if (isSide(arg)) {
+            this._tileResourceService?.addResourceBoostBySide(arg, source);
+        } else {
+            this._tileResourceService?.addModifierByResource(arg, source);
+        }
     }
 
-    public addModifierByResource(resource: TileGatherableResource, source: string) {
-        this._tileResourceService?.addModifierByResource(resource, source);
-    }
 
     public removeResourceModifier(side: Side | null, resource: "wood" | "food", source: string): void {
         const resSide = side ? side : this.getSideByResource(resource);
@@ -406,6 +418,9 @@ export class Tile extends AssignablePawnsItem implements ITile {
                                    source: string) {
         return () => {
             if (value) {
+                if (modifier === "flipped" && this.hasShortcut) {
+                    this._game.inventionService.destroy(INVENTION_PERSONAL.SHORTCUT);
+                }
                 this.setTileModifier(modifier, source);
             } else {
                 this.unsetTileModifier(modifier, source);
@@ -444,11 +459,13 @@ export class Tile extends AssignablePawnsItem implements ITile {
 
     public unsetShortcut(): void {
         this.setShortcut("left", false);
-        this.setShortcut("right", true);
+        this.setShortcut("right", false);
+    }
+
+    public getShortcutResource() {
+        return this._tileResourceService?.getShortcutResource() || null;
     }
 }
 
 
-function isSide(candidate: any): candidate is Side {
-    return candidate === "left" || candidate === "right"
-}
+

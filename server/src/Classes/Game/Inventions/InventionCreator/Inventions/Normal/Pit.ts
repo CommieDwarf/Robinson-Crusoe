@@ -23,10 +23,12 @@ export class Pit extends Invention implements IInvention {
     }
 
     onBuild() {
+        super.onBuild();
         this._game.resourceService.pit = true;
     }
 
     onDestruction() {
+        super.onDestruction();
         this._game.resourceService.pit = false;
     }
 }

@@ -21,6 +21,7 @@ export class Moat extends Invention implements IInvention {
     }
 
     onBuild() {
+        super.onBuild()
         this._game.constructionService.lvlUpConstruction(
             CONSTRUCTION.PALISADE,
             2,
@@ -29,6 +30,7 @@ export class Moat extends Invention implements IInvention {
     }
 
     onDestruction() {
+        super.onDestruction();
         this._game.constructionService.lvlDownIfPossible(
             CONSTRUCTION.PALISADE,
             2,

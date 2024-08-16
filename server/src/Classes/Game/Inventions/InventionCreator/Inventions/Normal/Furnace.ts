@@ -18,9 +18,4 @@ export class Furnace extends Invention implements IInvention {
         );
     }
 
-    onBuild() {
-    }
-
-    onDestruction() {
-    }
 }

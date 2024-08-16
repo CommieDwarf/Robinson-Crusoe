@@ -16,6 +16,11 @@ export interface ITile extends IAssignablePawnsItem {
     show: boolean;
 
     hasShortcut: boolean;
+
+    isExplored: boolean;
+
+    canBeExplored: boolean;
+
     tileResourceService: ITileResourceService | null;
     modifiers: TileModifiers;
     markedForAction: MarkedForAction | null;
@@ -25,14 +30,14 @@ export interface ITile extends IAssignablePawnsItem {
 
     isMarkedForAction: () => boolean;
 
-    isExplored: () => boolean;
+
     isSideRequiredPawnsSatisfied: (side: Side) => boolean;
     isAnySideRequiredPawnsSatisfied: () => boolean;
 
     canCampBeSettled: boolean;
     canResourceBeDepleted: (side: "left" | "right") => boolean;
     hasBasicResource: (resource: "wood" | "food") => boolean;
-    canBeGathered: (side: "left" | "right") => boolean;
+    canBeGathered: boolean;
 
     getSideByResource: (resource: TileResource) => "left" | "right" | null;
     getGatherableResourceAmount: (
@@ -61,8 +66,7 @@ export interface ITile extends IAssignablePawnsItem {
 
     depleteResource: (side: "left" | "right", source: string) => void;
     unDepleteResource: (side: "left" | "right", source: string) => void;
-    addModifierBySide: (side: Side, source: string) => void;
-    addModifierByResource: (resource: TileGatherableResource, source: string) => void;
+    addModifier: (arg: Side | TileGatherableResource, source: string) => void;
     removeResourceModifier: (side: Side | null, resource: "wood" | "food", source: string) => void;
     setTileModifier: (
         modifier: keyof TileModifiers,
@@ -90,6 +94,8 @@ export interface ITile extends IAssignablePawnsItem {
 
     triggerResourceAction: (side: Side, source: string) => void;
 
+    getShortcutResource: () => TileGatherableResource | null;
+
     unsetShortcut: () => void
 }
 
@@ -109,6 +115,9 @@ export interface ITileRenderData extends IAssignablePawnsItemRenderData {
     }
 
     requiredPawnAmount: number | null;
+    isExplored: boolean,
+    canBeExplored: boolean,
+    canBeGathered: boolean,
 }
 
 export interface MarkedForAction {

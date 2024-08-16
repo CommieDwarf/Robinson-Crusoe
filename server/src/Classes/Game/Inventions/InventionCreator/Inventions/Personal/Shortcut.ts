@@ -20,19 +20,29 @@ export class Shortcut extends Invention implements IInvention {
     }
 
     get canBeUsed() {
-        return this._game.tileService.tilesAroundCamp.filter((tile) => tile.isExplored()).length > 0;
+        return this._game.tileService.tilesAroundCamp.filter((tile) => tile.isExplored).length > 0 && !this._used;
     }
 
     use() {
         const tileService = this._game.tileService;
-        const tiles = tileService.tilesAroundCamp.filter((tile) => tile.isExplored());
-        tileService.markTileResourcesForAction(tiles, TILE_RESOURCE_ACTION.ADD_MODIFIER, this._name, null, 1, false);
+        const tiles = tileService.tilesAroundCamp.filter((tile) => tile.isExplored);
+        tileService.markTileResourcesForAction(
+            tiles,
+            TILE_RESOURCE_ACTION.SET_SHORTCUT,
+            this._name,
+            null,
+            1,
+            false
+        );
+        this._used = true;
     }
 
     onDestruction() {
+        super.onDestruction()
         const tile = this._game.tileService.tiles.find((tile) => tile.hasShortcut);
         if (tile) {
             tile.unsetShortcut();
         }
+        this._used = false;
     }
 }

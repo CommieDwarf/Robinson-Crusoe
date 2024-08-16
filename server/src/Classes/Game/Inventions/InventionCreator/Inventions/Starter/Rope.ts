@@ -14,11 +14,4 @@ export class Rope extends Invention implements IInvention {
         );
     }
 
-    onBuild() {
-        return;
-    }
-
-    onDestruction() {
-        return;
-    }
 }
