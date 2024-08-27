@@ -1,0 +1,31 @@
+.container {
+    text-align: center;
+    color: var(--brown);
+}
+
+.list {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-color: white;
+    width: 600px;
+    height: 100px;
+    border-radius: 5px;
+    border: 1px solid var(--borderColor);
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.buttons {
+    display: flex;
+    column-gap: 15px;
+    justify-content: space-evenly;
+}
+
+.button {
+    width: 75px;
+}
+
+.buttonDelete {
+    color: red;
+    border-color: red;
+}

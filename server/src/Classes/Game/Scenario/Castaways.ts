@@ -10,6 +10,7 @@ import {GAME_STATUS, IGame} from "@shared/types/Game/Game";
 import {INVENTION_STARTER} from "@shared/types/Game/InventionService/Invention";
 import {LOG_CODE} from "@shared/types/Game/ChatLog/LOG_CODE";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
+import {SCENARIO} from "@shared/types/Game/ScenarioService/SCENARIO";
 
 export class Castaways implements IScenarioService {
 
@@ -24,7 +25,7 @@ export class Castaways implements IScenarioService {
     private readonly _maxWoodStashLvl: number = 5;
 
     private _committedWood: number = 0;
-    private _name: "castaways" = "castaways";
+    private _scenario = SCENARIO.CASTAWAYS;
 
     private _lastRoundStashUpgraded = 0;
 
@@ -52,8 +53,8 @@ export class Castaways implements IScenarioService {
         this._status = value;
     }
 
-    get name(): "castaways" {
-        return this._name;
+    get scenario(): SCENARIO.CASTAWAYS {
+        return this._scenario;
     }
 
     get woodStashLvl(): number {

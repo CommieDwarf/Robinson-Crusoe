@@ -13,7 +13,7 @@ export class Equipment implements IEquipment {
         };
     }
 
-    private _stack = shuffle(Object.values(ITEM).filter(item => item !== ITEM.STORM_GLASS));
+    private _stack: ITEM[];
 
     items: IItem[];
     game: IGame;
@@ -22,6 +22,7 @@ export class Equipment implements IEquipment {
     constructor(game: IGame) {
         this.game = game;
         this._itemCreator = new ItemCreator(game);
+        this._stack = shuffle(Object.values(ITEM).filter(item => item !== ITEM.STORM_GLASS), game.getRandomNumber)
         this.items = this.getInitialItems(2);
     }
 
@@ -33,6 +34,7 @@ export class Equipment implements IEquipment {
 
         return items;
     }
+
 
     private popItem(): ITEM {
         const item = this._stack.pop();
@@ -76,7 +78,7 @@ export class Equipment implements IEquipment {
             return it.name === item;
         });
         if (!found) {
-            throw new Error("You don't have equipment item with such name: " + item);
+            throw new Error("You don't have equipment item with such scenario: " + item);
         }
         return found;
     }

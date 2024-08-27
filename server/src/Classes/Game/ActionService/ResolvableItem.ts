@@ -17,7 +17,6 @@ import {ITile} from "@shared/types/Game/TileService/ITile";
 import {IEventCard} from "@shared/types/Game/EventService/EventCard";
 import {IGame} from "@shared/types/Game/Game";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
-import {uuid} from "uuidv4"
 import {Construction} from "../ConstructionService/Construction";
 
 export class ResolvableItem implements IResolvableItem {
@@ -26,7 +25,6 @@ export class ResolvableItem implements IResolvableItem {
     private readonly _action: ACTION;
     private readonly _game: IGame;
     private _resolved: boolean = false;
-    private readonly _id = uuid();
     private _helperAmount: number = 0;
     private _reRolledSuccess = false;
     private _reRolledDice = null;
@@ -63,7 +61,7 @@ export class ResolvableItem implements IResolvableItem {
         return {
             itemName: "xD",
             item: itemRenderData,
-            id: this._id,
+            id: this.id,
             leaderPawn: this._leaderPawn.renderData,
             resolved: this._resolved,
             action: this._action,
@@ -112,7 +110,7 @@ export class ResolvableItem implements IResolvableItem {
     }
 
     get id(): string {
-        return this._id;
+        return this.droppableID;
     }
 
     get item(): Item {
@@ -154,18 +152,18 @@ export class ResolvableItem implements IResolvableItem {
             return;
         }
         this._rollDiceResults = RollDiceService.getActionRollDiceResults(
-            this._action
+            this._action,
+            this._game.getRandomNumber
         );
     }
 
     public reRollDice(dice: ActionDice, action: AdventureAction) {
         if (this._rollDiceResults) {
-            console.log("prev result", this._rollDiceResults[dice]);
             this._rollDiceResults[dice] = RollDiceService.getActionRollDiceResult(
                 action,
-                dice
+                dice,
+                this._game.getRandomNumber
             );
-            console.log("new result", this._rollDiceResults[dice]);
         }
     }
 
@@ -176,7 +174,8 @@ export class ResolvableItem implements IResolvableItem {
         if (isAdventureAction(this._action) && this._rollDiceResults) {
             this._rollDiceResults.success = RollDiceService.getActionRollDiceResult(
                 this._action,
-                "success"
+                "success",
+                this._game.getRandomNumber
             );
             this._reRolledSuccess = true;
         }

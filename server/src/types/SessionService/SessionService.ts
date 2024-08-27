@@ -3,17 +3,18 @@ import {SessionBasicInfo, SessionData} from "../../shared/types/Session/Session"
 import {SessionSettings} from "@shared/types/SessionSettings";
 import {UserDocument} from "../../Models/User";
 import {Socket} from "socket.io";
+import {SaveGameDocument} from "../../Models/SaveGame";
 
 export interface ISessionService {
     createQuickGameSession: (user: string) => SessionData;
-    createSession: (userId: string, settings: SessionSettings) => SessionData;
+    createSession: (userId: string, settings: SessionSettings, loadData?: SaveGameDocument) => SessionData;
 
     joinSession: (user: IUser, sessionId: string, password: string) => void;
 
     leaveSession: (user: IUser, sessionId: string) => void;
-    addToActiveUsers: (userDocument: UserDocument, socket: Socket) => void;
+    getOrCreateUser: (userDocument: UserDocument, socket: Socket) => IUser;
     removeFromActiveUsers: (userId: string) => void;
-    searchSession: (userId: string, sessionId: string) => SessionData | null;
+    findSession: (userId: string, sessionId: string) => SessionData | null;
 
     startGame: (userId: string, sessionId: string) => void;
 

@@ -7,7 +7,7 @@ import {useAppDispatch, useAppSelector} from "../../store/hooks";
 import {deleteAuthCookie} from "../../utils/auth/deleteAuthCookie";
 import {userUpdated} from "../../reduxSlices/connection";
 import {useEffect, useState} from "react";
-import {SOCKET_EVENT} from "@shared/types/Requests/Socket";
+import {SOCKET_EVENT_CLIENT} from "@shared/types/Requests/Socket";
 import {setSocketListener} from "../../pages/api/socket";
 import {SessionBasicInfo} from "@shared/types/Session/Session";
 import {socketEmit} from "../../middleware/socketMiddleware";
@@ -26,7 +26,7 @@ export function UserProfile(props: Props) {
     function handleSignOut() {
         deleteAuthCookie();
         dispatch(userUpdated(null));
-        dispatch(socketEmit(SOCKET_EVENT.DISCONNECT, {}));
+        dispatch(socketEmit(SOCKET_EVENT_CLIENT.DISCONNECT, {}));
         router.push("/signIn").catch((e) => console.error(e));
     }
 
@@ -35,7 +35,7 @@ export function UserProfile(props: Props) {
     }
 
     useEffect(() => {
-        const listener = setSocketListener(SOCKET_EVENT.SESSION_LIST_SENT, (payload) => {
+        const listener = setSocketListener(SOCKET_EVENT_CLIENT.SESSION_LIST_SENT, (payload) => {
             setSessionsInProgress(payload.sessionList);
         })
 
@@ -63,7 +63,7 @@ export function UserProfile(props: Props) {
                 <h5 className={styles.gameInProgressTitle}>Zaczęte gry</h5>
                 {/*{sessionsInProgress.map((session) => {*/}
                 {/*    return <div key={session.id} className={styles.session}>*/}
-                {/*        <Session name={session.name} host={session.host} playerAmount={session.players}*/}
+                {/*        <Session scenario={session.scenario} host={session.host} playerAmount={session.players}*/}
                 {/*                 maxPlayerAmount={session.maxPlayers}*/}
                 {/*                 scenario={session.scenario}*/}
                 {/*                 password={false}*/}

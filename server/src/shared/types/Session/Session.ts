@@ -27,7 +27,10 @@ export interface SessionData {
 
     isGameInProgress: boolean;
     settings: SessionSettings;
-    joinSession: (user: IUser) => void;
+    isLoadMode: boolean;
+
+
+    joinSession: (user: IUser, load: boolean) => void;
     leaveSession: (player: IPlayer | IUser) => void;
     startGame: () => BaseController;
     assignColor: (userId: string, color: PLAYER_COLOR) => void;
@@ -53,6 +56,8 @@ export interface SessionData {
     updateSettings: (settings: Partial<SessionSettings>) => void;
 
     getBasicInfo: () => SessionBasicInfo;
+
+    save: () => void;
 
     getRenderData: (userId: string) => SessionRenderData
 }

@@ -87,6 +87,7 @@ body::-webkit-scrollbar-track {
     line-height: 140%;
     font-size: 100%;
     user-select: none;
+    text-wrap: none;
 }
 
 

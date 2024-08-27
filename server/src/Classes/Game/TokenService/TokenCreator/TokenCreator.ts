@@ -21,6 +21,7 @@ import {ICreator} from "@shared/types/Game/Creator/Creator";
 
 export class TokenCreator implements ICreator<IToken, DISCOVERY_TOKEN> {
     private readonly _game: IGame;
+    private _counter = 0;
 
     constructor(game: IGame) {
         this._game = game;
@@ -31,40 +32,44 @@ export class TokenCreator implements ICreator<IToken, DISCOVERY_TOKEN> {
         const game = this._game;
         switch (discoveryToken) {
             case DISCOVERY_TOKEN.CANDLES:
-                return new Candles(game);
+                return new Candles(game, this.getId());
             case DISCOVERY_TOKEN.FALLEN_TREE:
-                return new FallenTree(game);
+                return new FallenTree(game, this.getId());
             case DISCOVERY_TOKEN.GOAT:
-                return new Goat(game);
+                return new Goat(game, this.getId());
             case DISCOVERY_TOKEN.HEALING_HERBS:
-                return new HealingHerbs(game);
+                return new HealingHerbs(game, this.getId());
             case DISCOVERY_TOKEN.HERBS:
-                return new Herbs(game);
+                return new Herbs(game, this.getId());
             case DISCOVERY_TOKEN.NOURISHING_LARVAE:
-                return new NourishingLarvae(game);
+                return new NourishingLarvae(game, this.getId());
             case DISCOVERY_TOKEN.LARGE_LEAVES:
-                return new LargeLeaves(game);
+                return new LargeLeaves(game, this.getId());
             case DISCOVERY_TOKEN.OLD_MACHETE:
-                return new OldMachete(game);
+                return new OldMachete(game, this.getId());
             case DISCOVERY_TOKEN.POISON:
-                return new Poison(game);
+                return new Poison(game, this.getId());
             case DISCOVERY_TOKEN.THORNY_BUSHES:
-                return new ThornyBushes(game);
+                return new ThornyBushes(game, this.getId());
             case DISCOVERY_TOKEN.TOBACCO:
-                return new Tobacco(game);
+                return new Tobacco(game, this.getId());
             case DISCOVERY_TOKEN.TREASURE:
-                return new Treasure(game);
+                return new Treasure(game, this.getId());
             case DISCOVERY_TOKEN.VEGETABLES:
-                return new Vegetables(game);
+                return new Vegetables(game, this.getId());
             // TODO: implement conditional statement in the future for multiple scenarios.
             case DISCOVERY_TOKEN.SCENARIO_1:
-                return new Castaways1(game);
+                return new Castaways1(game, this.getId());
             case DISCOVERY_TOKEN.SCENARIO_2:
-                return new Castaways2(game);
+                return new Castaways2(game, this.getId());
             case DISCOVERY_TOKEN.SCENARIO_3:
-                return new Castaways3(game);
+                return new Castaways3(game, this.getId());
             case DISCOVERY_TOKEN.SCENARIO_4:
-                return new Castaways4(game);
+                return new Castaways4(game, this.getId());
         }
+    }
+
+    private getId() {
+        return (this._counter++).toString();
     }
 }

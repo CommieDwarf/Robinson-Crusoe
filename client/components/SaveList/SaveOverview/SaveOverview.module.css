@@ -1,0 +1,51 @@
+.container {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 13px;
+    border-bottom: 1px dashed var(--borderColor);
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.containerSelected {
+    background-color: var(--brown);
+    color: white;
+}
+
+.index {
+    width: 25px;
+}
+
+.name {
+    width: 250px;
+}
+
+.date {
+    width: 160px;
+}
+
+.scenario {
+    width: 130px;
+}
+
+
+.playerAmount {
+    width: 50px;
+    display: flex;
+    column-gap: 5px;
+}
+
+
+.playersIcon {
+    position: relative;
+    aspect-ratio: 1;
+    height: 80%;
+    top: 10%;
+}
+
+.playersIconSelected {
+    filter: grayscale(1) invert(1);
+}
+

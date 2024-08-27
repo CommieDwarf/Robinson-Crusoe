@@ -18,7 +18,7 @@ export class TokenService implements ITokenService {
 
     constructor(game: IGame) {
         this._game = game;
-        this._tokenStack = shuffle(this.getTokenStack());
+        this._tokenStack = shuffle(this.getTokenStack(), this._game.getRandomNumber);
         this._tokenCreator = new TokenCreator(game);
         // this.testTokens();
     }
@@ -95,7 +95,7 @@ export class TokenService implements ITokenService {
 
     public shuffleInToStack(token: DISCOVERY_TOKEN) {
         this._tokenStack.push(token);
-        this._tokenStack = shuffle(this._tokenStack);
+        this._tokenStack = shuffle(this._tokenStack, this._game.getRandomNumber);
     }
 
     private moveFutureToOwned() {

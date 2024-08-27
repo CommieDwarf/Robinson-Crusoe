@@ -2,7 +2,7 @@ import styles from "./index.module.css";
 import {useTranslation} from "react-i18next";
 import ResizableImage from "../../../components/ResizableImage/ResizableImage";
 import Link from "next/link";
-import {GameSettings} from "../../../components/Lobby/GameSettings/GameSettings";
+import {GAME_SETTINGS_MODE, GameSettings} from "../../../components/Lobby/GameSettings/GameSettings";
 import exitIcon from "/public/UI/icons/exit4.png";
 
 export interface Props {
@@ -23,7 +23,7 @@ export function CreateGame() {
             </div>
         </Link>
         <div className={styles.gameSettings}>
-            <GameSettings editMode={false} host={true}/>
+            <GameSettings mode={GAME_SETTINGS_MODE.GAME_CREATE} host={true}/>
         </div>
     </div>
 }

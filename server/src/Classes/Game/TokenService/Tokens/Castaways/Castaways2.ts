@@ -5,12 +5,13 @@ import {IPlayer} from "@shared/types/Game/PlayerService/Player";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
 
 export class Castaways2 extends Token {
-    constructor(game: IGame) {
+    constructor(game: IGame, id: string) {
         super(
             game,
             DISCOVERY_TOKEN.SCENARIO_2,
             "oliwa",
-            "2 drewna tylko do odłożenia na stos."
+            "2 drewna tylko do odłożenia na stos.",
+            id
         );
     }
 

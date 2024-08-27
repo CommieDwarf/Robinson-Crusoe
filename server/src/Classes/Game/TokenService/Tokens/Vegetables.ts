@@ -6,12 +6,13 @@ import {ICharacter} from "@shared/types/Game/Characters/Character";
 import {INVENTION_STARTER} from "@shared/types/Game/InventionService/Invention";
 
 export class Vegetables extends Token {
-    constructor(game: IGame) {
+    constructor(game: IGame, id: string) {
         super(
             game,
             DISCOVERY_TOKEN.VEGETABLES,
             "jadalne kłącza",
-            "jeśli masz zbudowane Naczynia, ulecz 2 rany w fazie nocy."
+            "jeśli masz zbudowane Naczynia, ulecz 2 rany w fazie nocy.",
+            id
         );
     }
 

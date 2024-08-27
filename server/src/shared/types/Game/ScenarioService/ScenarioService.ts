@@ -1,5 +1,6 @@
 import {IPlayer} from "@shared/types/Game/PlayerService/Player";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
+import {SCENARIO} from "@shared/types/Game/ScenarioService/SCENARIO";
 
 export enum SCENARIO_STATUS {
     DEFEAT = "defeat",
@@ -8,7 +9,7 @@ export enum SCENARIO_STATUS {
 }
 
 export interface IScenarioService {
-    name: "castaways";
+    scenario: SCENARIO;
     weather: WeatherDays;
     text: ScenarioText;
     renderData: IScenarioServiceRenderData;

@@ -251,14 +251,14 @@ export class WeatherService implements IWeatherService {
         let animals = null;
 
         if (this.shouldRollDice("winter")) {
-            winter = RollDiceService.getWeatherRollDiceResult("winter");
+            winter = RollDiceService.getWeatherRollDiceResult("winter", this._game.getRandomNumber);
         }
         if (this.shouldRollDice("rain")) {
-            rain = RollDiceService.getWeatherRollDiceResult("rain");
+            rain = RollDiceService.getWeatherRollDiceResult("rain", this._game.getRandomNumber);
         }
 
         if (this.shouldRollDice("animals")) {
-            animals = RollDiceService.getWeatherRollDiceResult("animals");
+            animals = RollDiceService.getWeatherRollDiceResult("animals", this._game.getRandomNumber);
         }
         this._rollDiceResult = {
             winter,

@@ -39,7 +39,7 @@ import {IInventionService} from "@shared/types/Game/InventionService/InventionSe
 import {IMorale} from "@shared/types/Game/Morale/Morale";
 import {IScenarioService} from "@shared/types/Game/ScenarioService/ScenarioService";
 import {IActionService} from "@shared/types/Game/ActionService/ActionService";
-import {IActionSlotServiceRenderData} from "@shared/types/Game/ActionSlots";
+import {IActionSlotService, IActionSlotServiceRenderData} from "@shared/types/Game/ActionSlots";
 import {ILogService} from "@shared/types/Game/ChatLog/ChatLog";
 import {LOG_CODE} from "@shared/types/Game/ChatLog/LOG_CODE";
 import {IPlayer} from "@shared/types/Game/PlayerService/Player";
@@ -48,58 +48,96 @@ import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 import {PickableConstruction, PickableObject, PickSubject} from "@shared/types/Game/ObjectPicker/ObjectPicker";
 import {GlobalPawnService} from "./GlobalPawnService/GlobalPawnService";
 import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction";
+import seedrandom from "seedrandom";
+import {ITokenService} from "@shared/types/Game/TokenService/TokenService";
+import {IGlobalPawnService} from "@shared/types/Game/GlobalPawnService/GlobalPawnService";
+import {uuid} from "uuidv4";
 
 
 export class GameClass implements IGame {
+    get id(): string {
+        return this._id;
+    }
 
-    private _logService: ILogService = new LogService(this);
-    private _actionService: ActionService = new ActionService(this);
+
+    private readonly _rng: seedrandom.PRNG
+    private readonly _logService: ILogService
+    private readonly _actionService: ActionService
     private readonly _playerService: IPlayerService;
-    private _tileService: ITileService = new TileService(this, 7);
-    private _resourceService: IResourceService = new ResourceService(this);
-    private _constructionService: IConstructionService = new ConstructionService(
-        this
-    );
-    private _alertService: IAlertService = new AlertService();
+    private readonly _resourceService: IResourceService
+    private readonly _constructionService: IConstructionService
+    private readonly _alertService: IAlertService
 
-    private _weatherService: IWeatherService = new WeatherService(this);
-    private _eventService: IEventService = new EventService(this);
-    private _phaseService: IPhaseService = new PhaseService(this);
+    private readonly _weatherService: IWeatherService
+    private readonly _eventService: IEventService
+    private readonly _phaseService: IPhaseService
     private readonly _characterService: ICharacterService;
     private readonly _inventionService: IInventionService;
-    private _equipmentService: IEquipment = new Equipment(this);
-    private _arrangeCampRestService = new ArrangeCampRestService(this);
-    private _beastService: IBeastService = new BeastService(this);
-    private _actionSlotService = new ActionSlotService(this);
-    private _moraleService = new MoraleService(this);
+    private readonly _equipmentService: IEquipment
+    private readonly _arrangeCampRestService: ArrangeCampRestService
+    private readonly _beastService: IBeastService
+    private readonly _actionSlotService: IActionSlotService
+    private readonly _moraleService: IMorale
     private _round = 1;
-    private _scenarioService: IScenarioService = new Castaways(this);
-    private _tokenService = new TokenService(this);
-    private _adventureService = new AdventureService(this);
-    private _mysteryService = new MysteryService(this);
-    private _globalPawnService = new GlobalPawnService(this);
+    private readonly _scenarioService: IScenarioService
+    private readonly _tokenService: ITokenService
+    private readonly _adventureService: IAdventureService
+    private readonly _mysteryService: IMysteryService
+    private readonly _globalPawnService: IGlobalPawnService
 
+    private readonly _tileService: ITileService
     private _gameStatus: GAME_STATUS = GAME_STATUS.IN_PROGRESS;
 
     private _objectPickers: ObjectPicker<any>[] = [];
+    private readonly _seed: string;
+    private readonly _id: string;
 
-    constructor(players: IPlayer[]) {
+    public randomCounter = 0;
+
+    constructor(players: IPlayer[], loadData?: {
+        seed: string,
+        id: string,
+    }) {
         players.forEach((player) => {
             player.initCharacter(this);
             player.ready = false;
         })
+        this._seed = loadData?.seed || uuid();
+        this._id = loadData?.id || uuid();
+        this._rng = seedrandom("DUPA");
 
-        this._playerService = new PlayerService(players, this);
-        this._characterService = new CharacterService(
-            players.map((player) => player.getCharacter()),
+        this._actionService = new ActionService(this);
+
+        this._phaseService = new PhaseService(this);
+        this._logService = new LogService(this);
+        this._playerService = new PlayerService(players, this)
+        this._resourceService = new ResourceService(this);
+        this._constructionService = new ConstructionService(
             this
         );
-        this._inventionService = new InventionsService(
-            "castaways",
-            this._tileService,
-            this
-        )
+        this._alertService = new AlertService();
+
+
+        this._weatherService = new WeatherService(this);
+        this._eventService = new EventService(this);
+        this._tileService = new TileService(this, 7);
+        this._characterService = new CharacterService(players.map((player) => player.getCharacter()), this);
+        this._inventionService = new InventionsService("castaways", this.tileService, this);
+        this._equipmentService = new Equipment(this);
+        this._arrangeCampRestService = new ArrangeCampRestService(this);
+        this._beastService = new BeastService(this);
+        this._actionSlotService = new ActionSlotService(this);
+        this._moraleService = new MoraleService(this);
+        this._round = 1;
+
+        this._scenarioService = new Castaways(this);
+        this._tokenService = new TokenService(this);
+        this._adventureService = new AdventureService(this);
+        this._mysteryService = new MysteryService(this);
+        this._globalPawnService = new GlobalPawnService(this);
+
     }
+
 
     get renderData(): Omit<IGameRenderData, "localPlayer"> {
         return {
@@ -139,11 +177,11 @@ export class GameClass implements IGame {
         return this._adventureService;
     }
 
-    get actionSlotService(): ActionSlotService {
+    get actionSlotService(): IActionSlotService {
         return this._actionSlotService;
     }
 
-    get tokenService(): TokenService {
+    get tokenService(): ITokenService {
         return this._tokenService;
     }
 
@@ -224,7 +262,7 @@ export class GameClass implements IGame {
         return this._beastService;
     }
 
-    get globalPawnService(): GlobalPawnService {
+    get globalPawnService(): IGlobalPawnService {
         return this._globalPawnService;
     }
 
@@ -235,6 +273,15 @@ export class GameClass implements IGame {
 
     get areObjectsBeingPicked(): boolean {
         return this._objectPickers.length !== 0;
+    }
+
+    get seed(): string {
+        return this._seed;
+    }
+
+    public getRandomNumber = () => {
+        this.randomCounter++;
+        return this._rng();
     }
 
 
@@ -301,4 +348,6 @@ export class GameClass implements IGame {
             }, "positive", logSource);
         }
     }
+
+
 }

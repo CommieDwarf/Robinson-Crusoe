@@ -1,4 +1,4 @@
-import {SOCKET_EVENT, SocketPayloadMap} from "@shared/types/Requests/Socket";
+import {SOCKET_EVENT_CLIENT, SocketPayloadMap} from "@shared/types/Requests/Socket";
 import {SOCKET_CONNECT, SOCKET_DISCONNECT, SOCKET_EMIT} from "../../middleware/socketMiddleware";
 
 type IsRequired<T, K extends keyof T> = T extends T[K] ? false : true;
@@ -17,7 +17,7 @@ export interface SocketDisconnectAction {
     type: typeof SOCKET_DISCONNECT;
 }
 
-export interface SocketEmitAction<T extends SOCKET_EVENT> {
+export interface SocketEmitAction<T extends SOCKET_EVENT_CLIENT> {
     type: typeof SOCKET_EMIT;
     event: T;
     payload: ModifiedPayload<T>;
@@ -27,4 +27,4 @@ export interface SocketEmitAction<T extends SOCKET_EVENT> {
 export type SocketActions =
     | SocketConnectAction
     | SocketDisconnectAction
-    | SocketEmitAction<SOCKET_EVENT>
+    | SocketEmitAction<SOCKET_EVENT_CLIENT>

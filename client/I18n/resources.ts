@@ -17,6 +17,7 @@ import {INVENTION_PERSONAL} from "@shared/types/Game/InventionService/Invention"
 import {DISCOVERY_TOKEN} from "@shared/types/Game/TokenService/Token";
 import {SCENARIO} from "@shared/types/Game/ScenarioService/SCENARIO";
 import {PAWN_HELPER_ACTION} from "@shared/types/Game/Pawns/Pawn";
+import {SYSTEM_MSG} from "@shared/types/ChatService/ChatService";
 
 
 export const resources = {
@@ -637,11 +638,14 @@ export const resources = {
                 "camp movement": "przeniesienie obozu",
                 "confirm": "zatwierdź",
                 "cancel": "anuluj",
-                "ability": "umiejętność"
+                "ability": "umiejętność",
+                "draw": "dobierz",
+                "finish": "zakońćz"
             },
             menu: {
                 "refresh": "odśwież",
                 "create game": "stwórz grę",
+                "load game": "wczytaj grę",
                 "join with game code": "dołącz wpisując kod gry",
                 "join": "dołącz",
                 "name": "nazwa",
@@ -661,10 +665,12 @@ export const resources = {
                 [SESSION_CONNECTION_ERROR_CODE.SESSION_FULL]: "Sesja jest pełna",
                 [SESSION_CONNECTION_ERROR_CODE.INCORRECT_PASSWORD]: "nieprawidłowe hasło",
                 "kicked": "Zostałeś wyrzucony",
-            }
+            },
         },
-
-
+        systemMessages: {
+            [SYSTEM_MSG.PLAYER_HAS_JOINED_SESSION]: "{{subject1}} dołączył do sesji.",
+            [SYSTEM_MSG.PLAYER_HAS_LEFT_SESSION]: "{{subject1}} wyszedł z sesji."
+        },
         logMessages: {
             [LOG_CODE.WEATHER_TOKEN_SET]: "Położono token $t(translation:weatherToken.{{subject1}}, {\"context\": \"genitive\"}) na polu przygody.",
             [LOG_CODE.WEATHER_CLOUD_DECREMENTED]: `Odjęto {{amount}} chmurkę $t(translation:weatherToken.{{subject1}}, {\"context\": \"genitive\"}).`,
@@ -692,7 +698,7 @@ export const resources = {
             [LOG_CODE.CONSTRUCTION_DOWNGRADED]: "Poziom $t(translation:construction.{{subject1}}, {\"context\": \"genitive\"}) spadł do poziomu {{amount}}.",
             [LOG_CODE.ITEM_GRANTED]: "Otrzymano $t(translation:item.{{subject1}}, {\"context\"\: \"accusative\"}).",
             [LOG_CODE.CHARACTER_USED_TOKEN]: "$t(translation:character.{{subject1}}) użył tokenu: $t(translation:discoveryToken.{{subject2}}, {\"context\": \"genitive\"}).",
-            [LOG_CODE.CHARACTER_USED_ABILITY]: "$t(translation:character.{{subject1}}) użył $t(translation:ability.{{subject2}}.name, {\"context\": \"genitive\"}).",
+            [LOG_CODE.CHARACTER_USED_ABILITY]: "$t(translation:character.{{subject1}}) użył $t(translation:ability.{{subject2}}.scenario, {\"context\": \"genitive\"}).",
             [LOG_CODE.CHARACTER_GOT_HURT]: "$t(translation:character.{{subject1}}) otrzymał {{amount}} obrażeń.",
             [LOG_CODE.CHARACTER_GOT_HEALED]: "$t(translation:character.{{subject1}}) został uleczony z {{amount}} obrażeń.",
             [LOG_CODE.RESOURCE_BOOST_REMOVED]: "Źródło $t(translation:resource.{{subject1}}, {\"context\": \"genitive\"}) nie daje już dodatkowego surowca.",

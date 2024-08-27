@@ -28,7 +28,7 @@ export function MysteryCardDraw() {
     };
 
     const button2: CardResolveButtonProp = {
-        label: "Finish",
+        label: "finish",
         triggerEffect: finish,
         locked: !mysteryService.canFinish
     }

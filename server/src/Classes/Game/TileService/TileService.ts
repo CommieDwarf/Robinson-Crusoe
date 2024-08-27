@@ -29,7 +29,7 @@ export class TileService implements ITileService {
 
     constructor(game: IGame, campTileID: number) {
         this._game = game;
-        this._tileTypeStack = shuffle(fixedTileResources);
+        this._tileTypeStack = shuffle(fixedTileResources.map((resources) => ({...resources})), this._game.getRandomNumber);
         this._exploredTerrainTypes = new Set<TERRAIN_TYPE>([TERRAIN_TYPE.BEACH]);
         this._tileGraph = new TileGraph(this._startCamp, game);
         this.revealAdjacentTiles(campTileID);

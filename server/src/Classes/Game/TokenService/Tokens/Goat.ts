@@ -7,12 +7,13 @@ import {IPlayer} from "@shared/types/Game/PlayerService/Player";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
 
 export class Goat extends Token {
-    constructor(game: IGame) {
+    constructor(game: IGame, id: string) {
         super(
             game,
             DISCOVERY_TOKEN.GOAT,
             "koza",
-            "Jeśli posiadasz conajmniej 1 poziom broni, otrzymujesz 1 jedzenie i 1 skórę."
+            "Jeśli posiadasz conajmniej 1 poziom broni, otrzymujesz 1 jedzenie i 1 skórę.",
+            id
         );
     }
 

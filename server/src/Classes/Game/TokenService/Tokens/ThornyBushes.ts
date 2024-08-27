@@ -6,12 +6,13 @@ import {IPlayer} from "@shared/types/Game/PlayerService/Player";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
 
 export class ThornyBushes extends Token {
-    constructor(game: IGame) {
+    constructor(game: IGame, id: string) {
         super(
             game,
             DISCOVERY_TOKEN.THORNY_BUSHES,
             "cierniste krzewy",
-            "Jeśli schronienie jest zbudowane, otrzymujesz +1 do palisady."
+            "Jeśli schronienie jest zbudowane, otrzymujesz +1 do palisady.",
+            id
         );
     }
 

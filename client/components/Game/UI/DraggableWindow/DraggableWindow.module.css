@@ -2,6 +2,21 @@
     background-image: url("../../../../public/UI/paper-background.png");
     z-index: 999;
     position: absolute;
-    border: 1px solid var(--borderColor);
+    border: 1px solid var(--brown);
     border-radius: 5px;
+    box-shadow: inset 0px 0px 10px -5px var(--brown);
+    cursor: grab;
+}
+
+.close {
+    height: 25px;
+    width: 25px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+
+.close:hover {
+    scale: 1.1;
 }

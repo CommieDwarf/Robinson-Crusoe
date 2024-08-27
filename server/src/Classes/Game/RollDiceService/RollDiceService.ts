@@ -72,9 +72,10 @@ export class RollDiceService {
 
     public static getActionRollDiceResult(
         action: AdventureAction,
-        dice: ActionDice
+        dice: ActionDice,
+        rngFunc: () => number
     ): ActionDiceResult {
-        const random = Math.floor(Math.random() * 6);
+        const random = Math.floor(rngFunc() * 6);
         const axes = this.getAxes(random);
 
         const result = diceStructures[action][dice][random];
@@ -86,17 +87,18 @@ export class RollDiceService {
     }
 
     public static getActionRollDiceResults(
-        actionType: AdventureAction
+        actionType: AdventureAction,
+        rngFunc: () => number,
     ): ActionDiceResults {
         return {
-            success: this.getActionRollDiceResult(actionType, "success"),
-            mystery: this.getActionRollDiceResult(actionType, "mystery"),
-            hurt: this.getActionRollDiceResult(actionType, "hurt"),
+            success: this.getActionRollDiceResult(actionType, "success", rngFunc),
+            mystery: this.getActionRollDiceResult(actionType, "mystery", rngFunc),
+            hurt: this.getActionRollDiceResult(actionType, "hurt", rngFunc),
         };
     }
 
-    public static getWeatherRollDiceResult(dice: WeatherDice) {
-        const random = Math.floor(Math.random() * 6);
+    public static getWeatherRollDiceResult(dice: WeatherDice, rngFunc: () => number) {
+        const random = Math.floor(rngFunc() * 6);
         const axes = this.getAxes(random);
 
         const result = weather[dice][random];

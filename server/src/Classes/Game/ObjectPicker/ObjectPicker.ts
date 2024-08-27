@@ -1,6 +1,5 @@
 import {IGame} from "@shared/types/Game/Game";
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
-import {uuid} from "uuidv4";
 import {
     IObjectPicker,
     Pickable,
@@ -19,7 +18,7 @@ export class ObjectPicker<T extends PickableObject> implements IObjectPicker<T> 
     private readonly _secondaryEffect: ((object: T) => any) | undefined;
     private readonly _amount: number;
     private readonly _pickSubject: PickSubject;
-    private readonly _id = uuid();
+    private readonly _id;
 
     constructor(game: IGame,
                 objects: T[],
@@ -31,9 +30,9 @@ export class ObjectPicker<T extends PickableObject> implements IObjectPicker<T> 
                 secondEffect?: (object: T) => void,
     ) {
         this._game = game;
-        this._objects = objects.map((obj) => {
+        this._objects = objects.map((obj, i) => {
             return {
-                id: uuid(),
+                id: i.toString(),
                 object: obj
             }
         })
@@ -43,6 +42,7 @@ export class ObjectPicker<T extends PickableObject> implements IObjectPicker<T> 
         this._amount = amount;
         this._source = source;
         this._pickSubject = pickSubject
+        this._id = picker.name + source + amount + objects.length
     }
 
     get id(): string {

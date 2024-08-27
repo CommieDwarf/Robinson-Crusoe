@@ -74,6 +74,10 @@ export interface IGameRenderData {
 }
 
 export interface IGame {
+
+    id: string;
+    round: number;
+    seed: string;
     playerService: IPlayerService;
     characterService: ICharacterService;
     tileService: ITileService;
@@ -95,7 +99,7 @@ export interface IGame {
     scenarioService: IScenarioService;
 
     globalPawnService: IGlobalPawnService;
-    round: number;
+
     setNextRound: () => void;
 
     areObjectsBeingPicked: boolean;
@@ -105,8 +109,13 @@ export interface IGame {
     adventureService: IAdventureService;
     mysteryService: IMysteryService;
 
+    randomCounter: number;
+
 
     setGameStatus: (status: GAME_STATUS.WON | GAME_STATUS.LOST, reason?: string) => void;
+
+    getRandomNumber: () => number;
+
 
     startPickingObject: <T extends PickableObject> (objects: (Exclude<T, PickableConstruction> | CONSTRUCTION)[],
                                                     picker: IPlayerCharacter,

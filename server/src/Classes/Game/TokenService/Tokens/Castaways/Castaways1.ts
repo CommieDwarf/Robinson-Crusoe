@@ -5,8 +5,8 @@ import {IPlayer} from "@shared/types/Game/PlayerService/Player";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
 
 export class Castaways1 extends Token {
-    constructor(game: IGame) {
-        super(game, DISCOVERY_TOKEN.SCENARIO_1, "zioła", "Leczy 1 ranę w nocy.");
+    constructor(game: IGame, id: string) {
+        super(game, DISCOVERY_TOKEN.SCENARIO_1, "zioła", "Leczy 1 ranę w nocy.", id);
     }
 
     use(character: ICharacter, target?: ICharacter) {

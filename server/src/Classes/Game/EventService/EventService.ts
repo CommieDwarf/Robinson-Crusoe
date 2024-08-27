@@ -152,7 +152,7 @@ export class EventService implements IEventService {
 
     public shuffleCardInToDeck(card: IAdventureCard | IMysteryCard) {
         this._eventCardDeck.push(card);
-        this._eventCardDeck = shuffle(this._eventCardDeck);
+        this._eventCardDeck = shuffle([...this._eventCardDeck], this._game.getRandomNumber);
 
     }
 
@@ -166,7 +166,7 @@ export class EventService implements IEventService {
             return "right";
         }
 
-        throw new Error("There is no card with name: " + cardName + "in any slot");
+        throw new Error("There is no card with scenario: " + cardName + "in any slot");
     }
 
     public setSpecialEffect(
@@ -205,7 +205,7 @@ export class EventService implements IEventService {
         const creator = new EventCardCreator(this._game);
         // this._eventSlots.right = creator.create(WRECKAGE_CARD.SUPPLY_CRATES);
         let cards = implementedEventCards.map((card) => creator.create(card));
-        cards = shuffle(cards).slice(0, 11)
+        cards = shuffle(cards, this._game.getRandomNumber).slice(0, 11)
         cards.push(creator.create(WRECKAGE_CARD.CAPTAINS_CHEST));
         cards.push(creator.create(EVENT_CARD.AWFUL_WEATHER));
         // 29 kart ogólnie

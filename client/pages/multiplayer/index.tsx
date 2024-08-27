@@ -4,7 +4,7 @@ import {useTranslation} from "react-i18next";
 import {capitalize} from "lodash";
 import Link from "next/link";
 import {useEffect, useState} from "react";
-import {SOCKET_EVENT, SocketPayloadMap} from "@shared/types/Requests/Socket";
+import {SOCKET_EVENT_CLIENT} from "@shared/types/Requests/Socket";
 import {useRouter} from "next/router";
 import {SmallWindow} from "../../components/SessionList/SmallWindow/SmallWindow";
 import {EnterPassword} from "../../components/SessionList/SmallWindow/EnterPassword/EnterPassword";
@@ -13,6 +13,8 @@ import {BackButton} from "../../components/BackButton/BackButton";
 import {useAppDispatch} from "../../store/hooks";
 import {socketEmit} from "../../middleware/socketMiddleware";
 import {setSocketListener} from "../api/socket";
+import {SaveList} from "../../components/SaveList/SaveList";
+import {DraggableWindow} from "../../components/Game/UI/DraggableWindow/DraggableWindow";
 
 export function Multiplayer() {
 
@@ -22,6 +24,8 @@ export function Multiplayer() {
 
     const [sessionIdToJoin, setSessionIdToJoin] = useState("");
     const [message, setMessage] = useState(router.query.msg as string);
+
+    const [showSaveList, setShowSaveList] = useState(false);
 
 
     function setSessionIdToEnter(sessionId: string) {
@@ -34,12 +38,16 @@ export function Multiplayer() {
     }
 
     function handleRefreshClick() {
-        dispatch(socketEmit(SOCKET_EVENT.SESSION_LIST_REQUESTED, null))
+        dispatch(socketEmit(SOCKET_EVENT_CLIENT.SESSION_LIST_REQUESTED, null))
+    }
+
+    function handleLoadClick() {
+        setShowSaveList((prev) => !prev);
     }
 
     useEffect(() => {
         const listeners = [
-            setSocketListener(SOCKET_EVENT.JOIN_SESSION_RESPONSE, (payload) => {
+            setSocketListener(SOCKET_EVENT_CLIENT.JOIN_SESSION_RESPONSE, (payload) => {
                 if (payload.error) {
                     setMessage(payload.error);
                     return;
@@ -55,6 +63,13 @@ export function Multiplayer() {
         }
     }, [router])
 
+    useEffect(() => {
+        dispatch(socketEmit(SOCKET_EVENT_CLIENT.SEND_SAVE_LIST, {}));
+    }, [])
+
+    function loadSaveGame() {
+
+    }
 
     return (
         <div className={styles.container}>
@@ -71,6 +86,10 @@ export function Multiplayer() {
                             {capitalize(t("menu.create game"))}
                         </div>
                     </Link>
+                    <div className={`menuButton`} onClick={handleLoadClick}>
+                        {capitalize(t("menu.load game"))}
+                    </div>
+
                 </div>
                 <div className={styles.joinBySessionId}>
                     <div className={`${styles.joinBySessionIdText} nonSelectable`}>
@@ -91,6 +110,11 @@ export function Multiplayer() {
             {message && <SmallWindow closeWindow={closeWindow}>
                 <Message message={message}/>
             </SmallWindow>}
+
+            {showSaveList && <DraggableWindow padding={"5px 10px 5px 10px"} onClose={handleLoadClick}>
+                <SaveList/>
+            </DraggableWindow>}
+
         </div>)
 }
 

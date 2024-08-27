@@ -9,6 +9,8 @@ import {User} from "../User/User";
 import {SessionConnectError} from "../../Errors/Session/SessionConnectError";
 import {SESSION_CONNECTION_ERROR_CODE} from "@shared/types/Errors/SESSION_CONNECTION_ERROR_CODE";
 import {Socket} from "socket.io";
+import {isUser} from "../../utils/TypeGuards/isUser";
+import {SaveGameDocument} from "../../Models/SaveGame";
 
 
 export class SessionService implements ISessionService {
@@ -20,10 +22,10 @@ export class SessionService implements ISessionService {
 
     }
 
-    public createSession(userId: string, settings: SessionSettings) {
+    public createSession(userId: string, settings: SessionSettings, loadData?: SaveGameDocument) {
         const user = this.getUser(userId);
         user.leaveLobbies()
-        const session = new Session(user, settings);
+        const session = new Session(user, settings, false, loadData);
         this._activeSessions.set(session.id, session);
         return session;
     }
@@ -46,7 +48,7 @@ export class SessionService implements ISessionService {
     }
 
     public joinSession(user: IUser, sessionId: string, password: string) {
-        const session = this.searchSession(user.id, sessionId);
+        const session = this.findSession(user.id, sessionId);
         if (!session) {
             throw new SessionConnectError("Can't find session with id: " + sessionId, SESSION_CONNECTION_ERROR_CODE.SESSION_NOT_FOUND);
         }
@@ -58,12 +60,11 @@ export class SessionService implements ISessionService {
             throw new SessionConnectError("Server is full", SESSION_CONNECTION_ERROR_CODE.SESSION_FULL);
         }
         user.leaveLobbies()
-        session.joinSession(user);
+        session.joinSession(user, true);
     }
 
     public leaveSession(user: IUser, sessionId: string) {
-        console.log("leaving session from sessionService")
-        const session = this.searchSession(user.id, sessionId);
+        const session = this.findSession(user.id, sessionId);
         const player = session?.players.find((pl) => pl.user.id === user.id);
         player && session?.leaveSession(player);
         if (session?.players.length === 0) {
@@ -73,22 +74,21 @@ export class SessionService implements ISessionService {
 
     public closeSession(sessionId: string): void {
         const session = this._activeSessions.get(sessionId);
-        console.log("Closing session! from sessionService")
         if (!session) {
             return;
         }
         if (!session.settings.quickGame) {
             session.players.forEach((player) => {
-                player.user.removeActiveSession(session.id)
+                isUser(player.user) && player.user.removeActiveSession(session.id)
             });
         } else {
-            session.players[0].user.unsetSinglePlayerSession();
+            isUser(session.players[0].user) && session.players[0].user.unsetSinglePlayerSession();
         }
         session.closeSession();
         this._activeSessions.delete(sessionId);
     }
 
-    public searchSession(userId: string, sessionId: string): SessionData | null {
+    public findSession(userId: string, sessionId: string): SessionData | null {
         if (sessionId === "quickgame") {
             return this.getQuickGameByUserId(userId);
         } else {
@@ -97,7 +97,7 @@ export class SessionService implements ISessionService {
         }
     }
 
-    public addToActiveUsers(userDocument: UserDocument, socket: Socket) {
+    public getOrCreateUser(userDocument: UserDocument, socket: Socket) {
         let user = this._activeUsers.get(userDocument._id.toString());
         if (!user) {
             user = new User(userDocument, socket, this);
@@ -124,11 +124,11 @@ export class SessionService implements ISessionService {
     }
 
     public userInSession(userId: string, sessionId: string): boolean {
-        return this.searchSession(userId, sessionId)?.isUserInSession(userId) || false;
+        return this.findSession(userId, sessionId)?.isUserInSession(userId) || false;
     }
 
     public addMessage(userId: string, message: string, sessionId: string) {
-        const session = this.searchSession(userId, sessionId);
+        const session = this.findSession(userId, sessionId);
         if (!session) {
             throw new Error("Session not found");
         }
@@ -136,7 +136,7 @@ export class SessionService implements ISessionService {
     }
 
     public updateSessionSettings(userId: string, sessionId: string, settings: Partial<SessionSettings>) {
-        const session = this.searchSession(userId, sessionId);
+        const session = this.findSession(userId, sessionId);
         if (!session || session.host.id !== userId) {
             return;
         }
@@ -148,8 +148,6 @@ export class SessionService implements ISessionService {
         if (!session.isHost(userId) || !session.canStart() || session.isGameInProgress) {
             return;
         }
-
-
         session.startGame();
     }
 

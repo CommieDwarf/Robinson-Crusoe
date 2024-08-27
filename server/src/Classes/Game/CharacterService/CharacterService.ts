@@ -115,7 +115,7 @@ export class CharacterService implements ICharacterService {
         const char = this.getCharacter(charName);
         if (!(char instanceof PlayerCharacter)) {
             throw new Error(
-                "Couldn't find PlayerCharacter with given name: " + charName
+                "Couldn't find PlayerCharacter with given scenario: " + charName
             );
         }
         return char;
@@ -126,7 +126,7 @@ export class CharacterService implements ICharacterService {
             (char) => char.name === charName
         );
         if (!character) {
-            throw new Error("Couldn't find Character with name: " + charName);
+            throw new Error("Couldn't find Character with scenario: " + charName);
         }
         return character;
     }

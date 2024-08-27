@@ -65,7 +65,6 @@ export abstract class PlayerCharacter
         this._effects = new PlayerCharEffects(this);
         this._pawnService = new PawnService(this._game, this);
         this._invention = invention;
-
         this.pawnService.initPawns(2, false, null);
     }
 

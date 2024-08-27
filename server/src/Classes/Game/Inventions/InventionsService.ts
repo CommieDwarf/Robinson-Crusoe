@@ -65,7 +65,7 @@ export class InventionsService implements IInventionService {
     }
 
     public shuffleInventionStack() {
-        this._inventionStack = shuffle(this._inventionStack);
+        this._inventionStack = shuffle(this._inventionStack, this._game.getRandomNumber);
     }
 
 
@@ -83,7 +83,7 @@ export class InventionsService implements IInventionService {
 
     private initStack(): IInvention[] {
         const creator = new InventionCreator(this._game);
-        return shuffle(Object.values(INVENTION_NORMAL)).map((invention) => {
+        return shuffle(Object.values(INVENTION_NORMAL), this._game.getRandomNumber).map((invention) => {
             return creator.create(invention);
         })
     }
@@ -192,7 +192,7 @@ export class InventionsService implements IInventionService {
             invention = this._inventionStack.find((inv) => inv.name === name);
         }
         if (!invention) {
-            throw new Error("Can find invention with specific name: " + name);
+            throw new Error("Can find invention with specific scenario: " + name);
         }
         return invention;
     }

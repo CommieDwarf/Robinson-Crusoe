@@ -1,5 +1,5 @@
 import {io} from "socket.io-client"
-import {SOCKET_EVENT, SocketPayloadMap} from "@shared/types/Requests/Socket";
+import {ServerPayloadMap, SOCKET_EVENT_SERVER} from "@shared/types/Requests/Socket";
 import config from "../../config";
 import {socket} from "../../store/store";
 
@@ -13,7 +13,7 @@ export interface SocketListener {
     off: () => void;
 }
 
-export function setSocketListener<E extends SOCKET_EVENT>(event: E, listener: (payload: SocketPayloadMap[E]) => any): SocketListener {
+export function setSocketListener<E extends keyof ServerPayloadMap>(event: E, listener: (payload: ServerPayloadMap[E]) => any): SocketListener {
 
     socket.on(event as string, listener);
 

@@ -1,0 +1,6 @@
+export const VALIDATION_CONFIG = {
+    MAX_NAME_LENGTH: 20,
+    MAX_PASSWORD_LENGTH: 16,
+    MAX_PLAYERS: 4,
+    MIN_PLAYERS: 1,
+}

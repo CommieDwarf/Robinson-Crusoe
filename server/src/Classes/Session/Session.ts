@@ -11,14 +11,16 @@ import {SessionSettings} from "@shared/types/SessionSettings";
 import {IUser} from "../../types/UserData/IUser";
 import {Player} from "../Player/Player";
 import {io} from "../../../server";
-import {SOCKET_EVENT, SocketPayloadMap} from "@shared/types/Requests/Socket";
+import {SOCKET_EVENT_CLIENT, SOCKET_EVENT_SERVER} from "@shared/types/Requests/Socket";
 import {isPlayer} from "../../utils/isPlayer";
 import {ChatService} from "../ChatService/ChatService";
-import {IChatService} from "@shared/types/ChatService/ChatService";
+import {IChatService, SYSTEM_MSG} from "@shared/types/ChatService/ChatService";
 import {getDuplicatedElements} from "@shared/utils/getDuplicatedElements";
 import {GAME_STATUS} from "@shared/types/Game/Game";
 import {SEND_LATENCY_FREQUENCY} from "../../config/connection";
-
+import {SaveService} from "../SaveService/SaveService";
+import {SaveGameDocument} from "../../Models/SaveGame";
+import {isUser} from "../../utils/TypeGuards/isUser";
 
 export class Session implements SessionData {
 
@@ -33,14 +35,24 @@ export class Session implements SessionData {
     private _host: IUser;
     private _singleplayer: boolean;
     private _chatService: IChatService = new ChatService(this);
+    private _loadMode = false;
 
     private readonly _sendLatencyInterval: NodeJS.Timeout;
+    private readonly _saveService = new SaveService(this);
 
+    private _loadData: SaveGameDocument | null = null;
 
-    constructor(host: IUser, settings: SessionSettings, singleplayer = false) {
+    constructor(host: IUser,
+                settings: SessionSettings,
+                singleplayer = false,
+                loadData?: SaveGameDocument) {
         this._settings = settings;
-        this.joinSession(host);
+        if (loadData) {
+            this._loadData = loadData;
+            this.loadSessionData(loadData);
+        }
         this._host = host;
+        this.joinSession(host, Boolean(loadData))
         this._singleplayer = singleplayer;
         this._sendLatencyInterval = setInterval(() => {
             this.sendLatencyListToAllPlayers()
@@ -96,6 +108,10 @@ export class Session implements SessionData {
         return this._chatService;
     }
 
+    get isLoadMode(): boolean {
+        return Boolean(this._loadData);
+    }
+
 
     public getBasicInfo(): SessionBasicInfo {
         return {
@@ -112,44 +128,50 @@ export class Session implements SessionData {
     public handleAction(userId: string, action: CONTROLLER_ACTION, ...args: any[]): void {
         const player = this.getPlayerByUserId(userId);
         this._gameController?.handleAction(action, player, ...args);
+        this._saveService.saveAction(userId, action, args);
     }
 
-    public joinSession(user: IUser) {
-        const player = new Player(user,
-            {
-                gender: "male",
-                char: this.getUnassignedCharacter(),
-            },
-            this.findAvailableColor(),
-        );
-        this._players.push(player);
-        this.assignCharacter(player.id, CHARACTER.SOLDIER, "male");
+    public joinSession(user: IUser, load: boolean) {
+        if (load) {
+            this.getPlayerByUserId(user.id).setUser(user);
+        } else {
+            this.addNewPlayer(user);
+        }
         user.addActiveSession(this);
+        this.addJoinMessage(user.username);
     }
 
     public leaveSession(user: IPlayer | IUser) {
         let player = user;
         if (!isPlayer(player)) {
-            const searched = this._players.find((pl) => pl.user.id === user.id);
+            const searched = this._players.find((pl) => pl.user!.id === user.id);
             if (!searched) {
                 return;
             } else {
                 player = searched;
             }
         }
+        this.addLeaveMessage(player.username);
         this._players = this._players.filter((pl) => pl !== player);
-        io.to(this.id).emit(SOCKET_EVENT.SESSION_CHANGED);
     }
 
     public startGame(): BaseController {
+        const loadData = this._loadData ? {
+            seed: this._loadData.seed,
+            id: this._loadData.gameId
+        } : undefined;
         const game = new GameClass(this._players);
         const gameController = new GameController(game, this._players);
         this._gameController = gameController
+        this._chatService.clearSystemMessages();
+        if (this._loadData) {
+            this._gameController.loadBySteps(this._loadData.playerActions);
+        }
+
         return gameController;
     }
 
     public assignColor(userId: string, color: PLAYER_COLOR): void {
-        console.log("color assigned!", color)
         this.getPlayerByUserId(userId).assignColor(color);
     }
 
@@ -207,6 +229,25 @@ export class Session implements SessionData {
         clearInterval(this._sendLatencyInterval);
     }
 
+    public async save() {
+        const game = this.getGame();
+        if (game) {
+            const result = await this._saveService.saveGame(game);
+        }
+    }
+
+
+    private addNewPlayer(user: IUser) {
+        const player = new Player(user, {
+                gender: "male",
+                char: this.getUnassignedCharacter(),
+            },
+            this.findAvailableColor(),
+            user.username
+        )
+        this._players.push(player);
+    }
+
 
     private getUnassignedCharacter(): CHARACTER {
         const char = this._characters.find((char) => !this.isCharacterTaken(char));
@@ -258,10 +299,38 @@ export class Session implements SessionData {
     private sendLatencyListToAllPlayers() {
         const list = this._players.map((player) => ({
             playerId: player.id,
-            latency: player.user.latency
+            latency: isUser(player.user) ? player.user.latency : null
         }))
-        io.to(this.id).emit(SOCKET_EVENT.PLAYER_LATENCY_LIST_SENT, {list});
+        io.to(this.id).emit(SOCKET_EVENT_SERVER.PLAYER_LATENCY_LIST_SENT, {list});
     }
+
+    private addJoinMessage(playerName: string) {
+        this._chatService.addSystemMsg(SYSTEM_MSG.PLAYER_HAS_JOINED_SESSION, playerName);
+    }
+
+    private addLeaveMessage(playerName: string) {
+        this._chatService.addSystemMsg(SYSTEM_MSG.PLAYER_HAS_LEFT_SESSION, playerName);
+    }
+
+
+    private loadSessionData(saveGame: SaveGameDocument) {
+        try {
+            this._players = saveGame.players
+                .map((player) => {
+                    return new Player({username: player.username, id: player.userId},
+                        player.assignedCharacter,
+                        player.color,
+                        player.username
+                    )
+                })
+
+            // this._settings = saveGame.sessionSettings;
+            this._loadData = saveGame;
+        } catch (e) {
+            console.warn(e)
+        }
+    }
+
 
     isUserInSession(userId: string): boolean {
         return this._players.some((player) => player.user.id === userId);

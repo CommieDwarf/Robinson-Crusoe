@@ -116,9 +116,9 @@ export class AdventureService implements IAdventureService {
         const creator = new AdventureCardCreator(this._game);
         const implemented = creator.implemented;
         return {
-            build: shuffle(implemented.build.map((card) => creator.createBuildCard(card))),
-            explore: shuffle(implemented.explore.map((card) => creator.createExploreCard(card))),
-            gather: shuffle(implemented.gather.map((card) => creator.createGatherCard(card)))
+            build: shuffle(implemented.build.map((card) => creator.createBuildCard(card)), this._game.getRandomNumber),
+            explore: shuffle(implemented.explore.map((card) => creator.createExploreCard(card)), this._game.getRandomNumber),
+            gather: shuffle(implemented.gather.map((card) => creator.createGatherCard(card)), this._game.getRandomNumber)
         }
     }
 }

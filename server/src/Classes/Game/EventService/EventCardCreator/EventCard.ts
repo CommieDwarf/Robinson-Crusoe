@@ -13,7 +13,7 @@ import {IBasicResourcesAmount} from "@shared/types/Game/Resources/Resources";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
 import {getActionSlotDroppableId} from "@shared/utils/getActionSlotDroppableId";
 
-//TODO: implement name translations
+//TODO: implement scenario translations
 
 export abstract class EventCard extends ResourceCommittableItem<keyof IBasicResourcesAmount> implements IEventCard {
     protected declare _namePL: string;

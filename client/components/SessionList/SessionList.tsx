@@ -2,7 +2,7 @@ import styles from "./SessionList.module.css";
 import {Session} from "./Session/Session";
 import {Header} from "./Header/Header";
 import {useEffect, useState} from "react";
-import {SOCKET_EVENT, SocketPayloadMap} from "@shared/types/Requests/Socket";
+import {SOCKET_EVENT_CLIENT, SOCKET_EVENT_SERVER} from "@shared/types/Requests/Socket";
 import {SessionBasicInfo} from "@shared/types/Session/Session";
 import {useAppDispatch} from "../../store/hooks";
 import {socketEmit} from "../../middleware/socketMiddleware";
@@ -18,15 +18,15 @@ export function SessionList(props: Props) {
     const dispatch = useAppDispatch();
 
     function requestList() {
-        dispatch(socketEmit(SOCKET_EVENT.SESSION_LIST_REQUESTED, null))
+        dispatch(socketEmit(SOCKET_EVENT_CLIENT.SEND_SESSION_LIST, null))
     }
 
     useEffect(() => {
         const listeners = [
-            setSocketListener(SOCKET_EVENT.SESSION_LIST_CHANGED, () => {
+            setSocketListener(SOCKET_EVENT_SERVER.SESSION_LIST_CHANGED, () => {
                 requestList();
             }),
-            setSocketListener(SOCKET_EVENT.SESSION_LIST_SENT, (payload) => {
+            setSocketListener(SOCKET_EVENT_SERVER.SESSION_LIST_SENT, (payload) => {
                 setSessionList(payload.sessionList);
             })
         ]
@@ -34,7 +34,7 @@ export function SessionList(props: Props) {
         return () => {
             listeners.forEach((listener) => listener.off());
         }
-    })
+    }, [])
 
     return <div className={styles.container}>
         <Header/>

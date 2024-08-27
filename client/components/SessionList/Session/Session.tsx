@@ -4,7 +4,7 @@ import {useTranslation} from "react-i18next";
 import {shortenWithTripleDots} from "../../../utils/shortenWithTripleDots";
 import {useAppDispatch} from "../../../store/hooks";
 import {socketEmit} from "../../../middleware/socketMiddleware";
-import {SOCKET_EVENT} from "@shared/types/Requests/Socket";
+import {SOCKET_EVENT_CLIENT} from "@shared/types/Requests/Socket";
 
 
 interface Props {
@@ -30,7 +30,7 @@ export function Session(props: Props) {
         if (props.password) {
             props.setEnterSessionId(props.id);
         } else {
-            dispatch(socketEmit(SOCKET_EVENT.JOIN_SESSION, {password: "", sessionId: props.id}))
+            dispatch(socketEmit(SOCKET_EVENT_CLIENT.JOIN_SESSION, {password: "", sessionId: props.id}))
         }
     }
 

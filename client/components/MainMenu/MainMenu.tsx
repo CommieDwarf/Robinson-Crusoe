@@ -4,7 +4,7 @@ import Link from "next/link";
 import React, {ReactElement, useEffect, useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../store/hooks";
 import {useRouter} from "next/router";
-import {SOCKET_EVENT} from "@shared/types/Requests/Socket";
+import {SOCKET_EVENT_CLIENT} from "@shared/types/Requests/Socket";
 import sessionId from "../../pages/play/[sessionId]";
 import {setSocketListener} from "../../pages/api/socket";
 import {socketEmit} from "../../middleware/socketMiddleware";
@@ -38,7 +38,7 @@ export function MainMenu({UserComponent}: Props) {
         if (!user) {
             animateAuth(event)
         }
-        dispatch(socketEmit(SOCKET_EVENT.CREATE_QUICK_GAME, null))
+        dispatch(socketEmit(SOCKET_EVENT_CLIENT.CREATE_QUICK_GAME, null))
     }
 
     function handleMultiPlayerClick(event: React.MouseEvent) {
@@ -47,19 +47,19 @@ export function MainMenu({UserComponent}: Props) {
         }
     }
 
-    useEffect(() => {
-        if (!user) {
-            return;
-        }
+    // useEffect(() => {
+    //     if (!user) {
+    //         return;
+    //     }
 
-        const listener = setSocketListener(SOCKET_EVENT.IS_QUICK_GAME_IN_PROGRESS_RESPONSE, (payload) => {
-            setGameInProgress(payload.value);
-        })
-        dispatch(socketEmit(SOCKET_EVENT.IS_QUICK_GAME_IN_PROGRESS, null))
-        return () => {
-            listener.off();
-        }
-    }, [user, dispatch])
+    //     const listener = setSocketListener(SOCKET_EVENT_CLIENT.IS_QUICK_GAME_IN_PROGRESS_RESPONSE, (payload) => {
+    //         setGameInProgress(payload.value);
+    //     })
+    //     dispatch(socketEmit(SOCKET_EVENT_CLIENT.IS_QUICK_GAME_IN_PROGRESS, null))
+    //     return () => {
+    //         listener.off();
+    //     }
+    // }, [user, dispatch])
 
     return (
         <div className={styles.container}>

@@ -6,7 +6,7 @@ import ResizableImage from "../../../ResizableImage/ResizableImage";
 import {socketEmit, socketEmitAction} from "../../../../middleware/socketMiddleware";
 import {useAppDispatch, useAppSelector} from "../../../../store/hooks";
 import {OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
-import {SOCKET_EVENT} from "@shared/types/Requests/Socket";
+import {SOCKET_EVENT_CLIENT} from "@shared/types/Requests/Socket";
 import {selectGame} from "../../../../reduxSlices/gameSession";
 import {alertUpdated} from "../../../../reduxSlices/alert";
 import {ALERT_CODE} from "@shared/types/ALERT_CODE";

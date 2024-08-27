@@ -6,8 +6,8 @@ import {IPlayer} from "@shared/types/Game/PlayerService/Player";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
 
 export class OldMachete extends Token {
-    constructor(game: IGame) {
-        super(game, DISCOVERY_TOKEN.OLD_MACHETE, "stara maczeta", "Otrzymujesz +1 do broni");
+    constructor(game: IGame, id: string) {
+        super(game, DISCOVERY_TOKEN.OLD_MACHETE, "stara maczeta", "Otrzymujesz +1 do broni", id);
     }
 
     use(character: ICharacter, target?: ICharacter) {

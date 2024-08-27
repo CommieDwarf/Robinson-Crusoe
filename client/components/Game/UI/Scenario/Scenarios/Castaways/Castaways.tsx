@@ -65,7 +65,7 @@ export default function Castaways(props: Props) {
     return (
         <div className={styles.container}>
             <div className={styles.titleDiv}>
-                <span className={styles.title}>{capitalize(t("scenario.castaways.name"))}</span>
+                <span className={styles.title}>{capitalize(t("scenario.castaways.scenario"))}</span>
             </div>
             <Rounds current={currentRound}/>
             <Description/>

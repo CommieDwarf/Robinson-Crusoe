@@ -5,12 +5,13 @@ import {ICharacter} from "@shared/types/Game/Characters/Character";
 import {IPlayer} from "@shared/types/Game/PlayerService/Player";
 
 export class FallenTree extends Token {
-    constructor(game: IGame) {
+    constructor(game: IGame, id: string) {
         super(
             game,
             DISCOVERY_TOKEN.FALLEN_TREE,
             "powalone drzewo",
-            "Otrzymujesz 1 drewno. Żeton zostanie zrealizowany automatycznie po fazie akcji."
+            "Otrzymujesz 1 drewno. Żeton zostanie zrealizowany automatycznie po fazie akcji.",
+            id
         );
     }
 

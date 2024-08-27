@@ -29,6 +29,7 @@ export class PlayerService implements IPlayerService {
         return this._primePlayer;
     }
 
+
     public setNextPrimePlayer(): void {
         if (this._players.length === 0) {
             throw new Error("player length is 0");

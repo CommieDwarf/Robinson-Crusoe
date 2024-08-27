@@ -1,7 +1,6 @@
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 import {AssignedCharacter, IPlayer, IPlayerRenderData} from "@shared/types/Game/PlayerService/Player";
 import {PLAYER_COLOR} from "@shared/types/Game/PLAYER_COLOR";
-import {uuid} from "uuidv4";
 import {CHARACTER, Gender} from "@shared/types/Game/Characters/Character";
 import {IGame} from "@shared/types/Game/Game";
 import {IUser} from "../../types/UserData/IUser";
@@ -9,38 +8,47 @@ import {Soldier} from "../Game/CharacterService/Characters/Soldier";
 import {Cook} from "../Game/CharacterService/Characters/Cook";
 import {Explorer} from "../Game/CharacterService/Characters/Explorer";
 import {Carpenter} from "../Game/CharacterService/Characters/Carpenter";
-import {clearInterval} from "timers";
-import {pingClient} from "../../utils/pingClient";
+import {isUser} from "../../utils/TypeGuards/isUser";
 
 export interface PingHandles {
     pingInterval: NodeJS.Timeout | null,
     timeoutHandle: NodeJS.Timeout | null,
 }
 
+enum PLAYER_STATUS {
+    ONLINE = "online",
+    OFFLINE = "offline",
+}
+
+
+export interface UserPlaceHolder {
+    username: string,
+    id: string,
+}
+
 export class Player implements IPlayer {
 
 
-    private readonly _username: string;
     private _color: PLAYER_COLOR;
     private _character: IPlayerCharacter | null = null;
-    private readonly _user: IUser;
-    private readonly _id = uuid();
+    private _user: IUser | UserPlaceHolder;
     private _ready = false;
     private _assignedCharacter: AssignedCharacter;
     private _prime = false;
+    private _status = PLAYER_STATUS;
+    private readonly _id: string;
 
 
-    constructor(user: IUser,
-                assignedCharacter: AssignedCharacter, color: PLAYER_COLOR) {
+    constructor(user: IUser | UserPlaceHolder, assignedCharacter: AssignedCharacter, color: PLAYER_COLOR, id: string) {
         this._user = user;
-        this._username = user.username;
         this._assignedCharacter = assignedCharacter;
         this._color = color;
+        this._id = id;
     }
 
     get renderData(): IPlayerRenderData {
         return {
-            username: this._username,
+            username: this._user.username,
             color: this._color || "black",
             id: this.id,
             character: this._character?.renderData || null,
@@ -50,8 +58,17 @@ export class Player implements IPlayer {
         };
     }
 
+    get saveData() {
+        return {
+            userId: this._user.id,
+            username: this._user.username,
+            color: this._color,
+            assignedCharacter: this._assignedCharacter,
+        }
+    }
+
     get username(): string {
-        return this._username;
+        return this._user.username;
     }
 
     get color(): PLAYER_COLOR {
@@ -66,7 +83,7 @@ export class Player implements IPlayer {
         return this._character;
     }
 
-    get user(): IUser {
+    get user(): IUser | UserPlaceHolder {
         return this._user;
     }
 
@@ -88,6 +105,17 @@ export class Player implements IPlayer {
 
     set prime(value: boolean) {
         this._prime = value;
+    }
+
+
+    public setUser(user: IUser) {
+        this._user = user;
+    }
+
+    public unsetUser() {
+        if (isUser(this._user)) {
+            this._user = this._user.getPlaceHolder();
+        }
     }
 
     assignColor(color: PLAYER_COLOR) {
@@ -120,6 +148,4 @@ export class Player implements IPlayer {
         }
         return this._character;
     }
-
-
 }

@@ -1,15 +1,15 @@
-import styles from "./ViewPlayersButton.module.css";
+import styles from "./Button.module.css";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
-import playersIconImg from "/public/UI/icons/players.png";
 import {StaticImageData} from "next/image";
 
 export interface Props {
     onClick: () => void;
     imgSrc: string | StaticImageData;
+    borderless?: boolean
 }
 
 
-export function ViewPlayersButton(props: Props) {
+export function Button(props: Props) {
 
 
     function handleClick() {
@@ -17,7 +17,8 @@ export function ViewPlayersButton(props: Props) {
     }
 
 
-    return <div className={styles.container} onClick={handleClick}>
+    return <div className={`${styles.container} ${props.borderless && styles.containerBorderless}`}
+                onClick={handleClick}>
         <div className={styles.imgWrapper}>
             <ResizableImage src={props.imgSrc} alt={"button"}/>
         </div>

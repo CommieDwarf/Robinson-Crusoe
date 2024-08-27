@@ -5,12 +5,13 @@ import {IPlayer} from "@shared/types/Game/PlayerService/Player";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
 
 export class LargeLeaves extends Token {
-    constructor(game: IGame) {
+    constructor(game: IGame, id: string) {
         super(
             game,
             DISCOVERY_TOKEN.LARGE_LEAVES,
             "wielkie liście",
-            "Odejmij jedną deszczową chmurę."
+            "Odejmij jedną deszczową chmurę.",
+            id
         );
     }
 

@@ -7,7 +7,7 @@ import {isLogMessage} from "@shared/utils/typeGuards/isLogMessage";
 import {ChatMessage} from "./ChatMessage/ChatMessage";
 import {ModeSwitch} from "./ModeSwitch/ModeSwitch";
 import {socketEmit} from "../../../../middleware/socketMiddleware";
-import {SOCKET_EVENT} from "@shared/types/Requests/Socket";
+import {SOCKET_EVENT_CLIENT} from "@shared/types/Requests/Socket";
 import {usePrevious} from "@restart/hooks";
 
 
@@ -102,7 +102,7 @@ export default function ChatLog(props: Props) {
 
     function onSendMsgClick() {
         if (message.trim().length > 0) {
-            dispatch(socketEmit(SOCKET_EVENT.SEND_MESSAGE, {message: message.trim(), hydrateSessionId: true}))
+            dispatch(socketEmit(SOCKET_EVENT_CLIENT.SEND_MESSAGE, {message: message.trim(), hydrateSessionId: true}))
             setMessage("");
             scrollToBottom(true);
         }

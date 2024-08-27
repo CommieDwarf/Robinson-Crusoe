@@ -6,12 +6,13 @@ import {IPlayer} from "@shared/types/Game/PlayerService/Player";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
 
 export class HealingHerbs extends Token {
-    constructor(game: IGame) {
+    constructor(game: IGame, id: string) {
         super(
             game,
             DISCOVERY_TOKEN.HEALING_HERBS,
             "zioła",
-            "jeśli zbudowałeś Naczynia, otrzymujesz +1 do morali"
+            "jeśli zbudowałeś Naczynia, otrzymujesz +1 do morali",
+            id
         );
     }
 

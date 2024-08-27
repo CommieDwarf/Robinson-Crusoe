@@ -5,13 +5,14 @@ import {IPlayer} from "@shared/types/Game/PlayerService/Player";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
 
 export class NourishingLarvae extends Token {
-    constructor(game: IGame) {
+    constructor(game: IGame, id: string) {
         super(
             game,
             DISCOVERY_TOKEN.NOURISHING_LARVAE,
             "pożywne larwy",
             "Otrzymujesz 2 do jedzenia do posiadanych surowców." +
-            " Żeton jest automatycznie realizowany po fazie akcji."
+            " Żeton jest automatycznie realizowany po fazie akcji.",
+            id
         );
     }
 

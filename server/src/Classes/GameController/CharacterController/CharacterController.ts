@@ -33,7 +33,6 @@ export class CharacterController implements GameControllerInterface {
     }
 
     private useAbility(player: IPlayer, character: CHARACTER, ability: ABILITY, target: any): void {
-        console.log("args", arguments);
         this._game.characterService.getCharacter(character).useAbility(ability, target);
     }
 }

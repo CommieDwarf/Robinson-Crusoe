@@ -5,10 +5,10 @@ import {IPlayer} from "@shared/types/Game/PlayerService/Player";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
 
 export class Treasure extends Token {
-    constructor(game: IGame) {
+    constructor(game: IGame, id: string) {
         super(game, DISCOVERY_TOKEN.TREASURE,
             "znalezisko",
-            "pociągnij 1 Skarb z talii Tajemnic");
+            "pociągnij 1 Skarb z talii Tajemnic", id);
     }
 
     use(character: ICharacter, target?: ICharacter) {

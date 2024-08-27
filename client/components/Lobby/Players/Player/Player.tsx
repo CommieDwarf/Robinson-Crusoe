@@ -7,7 +7,7 @@ import React, {ChangeEvent, useEffect, useState} from "react";
 import {CHARACTER} from "@shared/types/Game/Characters/Character";
 import checkMark from "/public/UI/misc/check-mark.png";
 import xMarkImg from "/public/UI/misc/x-mark.png";
-import {SOCKET_EVENT} from "@shared/types/Requests/Socket";
+import {SOCKET_EVENT_CLIENT} from "@shared/types/Requests/Socket";
 import {PlayerLatency} from "../../../PlayerLatency/PlayerLatency";
 import capitalize from "@shared/utils/capitalize";
 import {setSocketListener} from "../../../../pages/api/socket";
@@ -48,7 +48,7 @@ export function Player(props: Props) {
 
     function handleCharacterChange(event: ChangeEvent<HTMLSelectElement>) {
         setCharacter(event.currentTarget.value as CHARACTER);
-        dispatch(socketEmit(SOCKET_EVENT.CHANGE_CHARACTER, {
+        dispatch(socketEmit(SOCKET_EVENT_CLIENT.CHANGE_CHARACTER, {
             character: {
                 char: event.currentTarget.value as CHARACTER
             },
@@ -57,7 +57,7 @@ export function Player(props: Props) {
     }
 
     function handleColorChange(color: PLAYER_COLOR) {
-        dispatch(socketEmit(SOCKET_EVENT.CHANGE_PLAYER_COLOR, {
+        dispatch(socketEmit(SOCKET_EVENT_CLIENT.CHANGE_PLAYER_COLOR, {
             hydrateSessionId: true,
             color
         }))
@@ -67,7 +67,7 @@ export function Player(props: Props) {
 
     function handleKickClick() {
         if (props.hostControls) {
-            dispatch(socketEmit(SOCKET_EVENT.KICK_PLAYER, {
+            dispatch(socketEmit(SOCKET_EVENT_CLIENT.KICK_PLAYER, {
                 playerId: props.player.id,
                 hydrateSessionId: true,
             }))
@@ -76,7 +76,7 @@ export function Player(props: Props) {
 
     function handleReadyClick() {
         if (props.local) {
-            dispatch(socketEmit(SOCKET_EVENT.SET_PLAYER_READY, {
+            dispatch(socketEmit(SOCKET_EVENT_CLIENT.SET_PLAYER_READY, {
                 value: props.player.ready,
                 hydrateSessionId: true,
             }))

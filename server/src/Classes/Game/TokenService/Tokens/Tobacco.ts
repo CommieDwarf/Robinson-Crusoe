@@ -5,10 +5,10 @@ import {IPlayer} from "@shared/types/Game/PlayerService/Player";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
 
 export class Tobacco extends Token {
-    constructor(game: IGame) {
+    constructor(game: IGame, id: string) {
         super(game, DISCOVERY_TOKEN.TOBACCO,
             "tytoń",
-            "Otrzymujesz +1 do morali.");
+            "Otrzymujesz +1 do morali.", id);
     }
 
     use(character: ICharacter, target?: ICharacter) {

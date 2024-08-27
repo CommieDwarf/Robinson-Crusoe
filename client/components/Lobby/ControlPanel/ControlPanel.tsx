@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 import compassImg from "/public/UI/tokens/compass.png";
 import ResizableImage from "../../ResizableImage/ResizableImage";
 import {useRouter} from "next/router";
-import {SOCKET_EVENT} from "@shared/types/Requests/Socket";
+import {SOCKET_EVENT_CLIENT} from "@shared/types/Requests/Socket";
 import {BackButton} from "../../BackButton/BackButton";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks";
 import {socketEmit} from "../../../middleware/socketMiddleware";
@@ -33,14 +33,14 @@ export function ControlPanel(props: Props) {
 
     function toggleReady() {
         setReady((prev) => {
-            dispatch(socketEmit(SOCKET_EVENT.SET_PLAYER_READY, {hydrateSessionId: true, value: !prev}))
+            dispatch(socketEmit(SOCKET_EVENT_CLIENT.SET_PLAYER_READY, {hydrateSessionId: true, value: !prev}))
             return !prev
         });
     }
 
     function handleStartClick() {
         if (startAllowed && props.ready) {
-            dispatch(socketEmit(SOCKET_EVENT.START_GAME, {hydrateSessionId: true}))
+            dispatch(socketEmit(SOCKET_EVENT_CLIENT.START_GAME, {hydrateSessionId: true}))
         }
     }
 

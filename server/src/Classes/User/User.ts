@@ -5,10 +5,6 @@ import {Socket} from "socket.io";
 import {ISessionService} from "../../types/SessionService/SessionService";
 import {SessionConnectError} from "../../Errors/Session/SessionConnectError";
 import {SESSION_CONNECTION_ERROR_CODE} from "@shared/types/Errors/SESSION_CONNECTION_ERROR_CODE";
-import {pingClient} from "../../utils/pingClient";
-import {clearInterval} from "timers";
-import {PingHandles} from "../Player/Player";
-import {PING_FREQUENCY, PING_TIMEOUT} from "../../config/connection";
 
 export class User implements IUser {
 
@@ -21,7 +17,6 @@ export class User implements IUser {
     private _latency = 0;
     private readonly _sessionService: ISessionService;
 
-    private _pingHandles: PingHandles | null = null;
 
 
     constructor(userDocument: UserDocument, socket: Socket, sessionService: ISessionService) {
@@ -95,7 +90,6 @@ export class User implements IUser {
     public closeConnection(socket: Socket) {
         this.removeSocket(socket);
         if (this._sockets.length === 0) {
-            this.clearPingIntervals();
             this.leaveLobbies();
         }
     }
@@ -108,19 +102,11 @@ export class User implements IUser {
         return session;
     }
 
-    public ping(onPong: (latency: number) => void, onTimeout: () => void) {
-        this.clearPingIntervals();
-        const [pingInterval, timeoutHandle] = pingClient(this.sockets[0], PING_TIMEOUT, PING_FREQUENCY, onPong, onTimeout);
-        this._pingHandles = {
-            pingInterval,
-            timeoutHandle
-        }
-    }
 
-    public clearPingIntervals() {
-        if (this._pingHandles) {
-            this._pingHandles.pingInterval && clearInterval(this._pingHandles.pingInterval);
-            this._pingHandles.timeoutHandle && clearInterval(this._pingHandles.timeoutHandle);
+    public getPlaceHolder() {
+        return {
+            username: this._username,
+            id: this._id
         }
     }
 

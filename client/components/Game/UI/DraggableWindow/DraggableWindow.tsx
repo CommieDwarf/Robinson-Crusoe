@@ -3,23 +3,32 @@ import Draggable from "react-draggable";
 import sharedStyles from "../../../../styles/shared.module.css";
 import {useLayoutEffect, useRef, useState} from "react";
 import {ViewStyleProps} from "@react-types/shared";
+import ResizableImage from "../../../ResizableImage/ResizableImage";
+import xMark from "/public/UI/misc/x-mark.png";
 
 
 interface Props {
     width?: number,
     height?: number,
     children?: string | JSX.Element | JSX.Element[],
-    padding?: number,
+    padding?: string | number,
+    onClose?: () => void;
 }
 
 export function DraggableWindow(props: Props) {
 
-    const [containerSize, setContainerSize] = useState({x: props.width || 0, y: props.height || 0});
+    const [containerSize, setContainerSize] = useState({
+            x: props.width || 0,
+            y: props.height || 0
+        }
+    );
 
     const containerRef = useRef<HTMLDivElement>(null);
 
     const style: ViewStyleProps = {
-        padding: props.padding
+        padding: props.padding,
+        width: props.width && props.width + "px",
+        height: props.height && props.height + "px",
     }
 
 
@@ -51,11 +60,18 @@ export function DraggableWindow(props: Props) {
         }
     }, [containerRef])
 
+    function handleClick() {
+        props.onClose && props.onClose();
+    }
+
 
     return <Draggable bounds="parent" defaultClassNameDragging={sharedStyles.grabbing}
     >
         <div className={styles.container} style={style} ref={containerRef}>
             {props.children}
+            <div className={styles.close} onClick={handleClick}>
+                <ResizableImage src={xMark} alt={"close"}/>
+            </div>
         </div>
     </Draggable>
 

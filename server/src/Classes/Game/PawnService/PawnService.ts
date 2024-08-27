@@ -9,12 +9,13 @@ export class PawnService<Owner extends IPawnOwner> implements IPawnService<Owner
     private readonly _owner: Owner;
 
     private readonly _game: IGame;
+    private _pawnIdCounter = 0;
 
     constructor(game: IGame, owner: Owner) {
         this._game = game;
         this._owner = owner;
+        // this._pawns = this.initPawns(2, false, null, this._pawnIdCounter++);
         this._freePawns = [...this._pawns];
-
     }
 
     get renderData(): IPawnServiceRenderData<Owner["renderData"]> {
@@ -69,7 +70,7 @@ export class PawnService<Owner extends IPawnOwner> implements IPawnService<Owner
     }
 
     public addPawn(disposable: boolean, action: PAWN_HELPER_ACTION | null) {
-        const pawn = new Pawn<Owner>(this._owner, disposable, action);
+        const pawn = new Pawn<Owner>(this._owner, disposable, action, ++this._pawnIdCounter);
         this._pawns.push(pawn);
         this._freePawns.push(pawn);
     }
@@ -84,10 +85,10 @@ export class PawnService<Owner extends IPawnOwner> implements IPawnService<Owner
         this._pawns.forEach((pawn) => this.destroyPawn(pawn.draggableId));
     }
 
-    public initPawns(initialQuantity: number, disposable: boolean, action: PAWN_HELPER_ACTION | null): void {
+    public initPawns = (initialQuantity: number, disposable: boolean, action: PAWN_HELPER_ACTION | null) => {
         const pawns: IPawn<Owner>[] = [];
         for (let i = 0; i < initialQuantity; i++) {
-            pawns.push(new Pawn(this.owner, disposable, action));
+            pawns.push(new Pawn(this.owner, disposable, action, ++this._pawnIdCounter));
         }
         this._pawns = [...pawns];
         this._freePawns = [...pawns];

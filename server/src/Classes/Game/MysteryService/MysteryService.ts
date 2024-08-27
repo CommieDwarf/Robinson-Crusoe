@@ -96,11 +96,11 @@ export class MysteryService implements IMysteryService {
             ...implemented.trap.map((card) => creator.createTrapCard(card)),
             ...implemented.creature.map((card) => creator.createCreatureCard(card))
         ]
-        return shuffle(cards);
+        return shuffle(cards, this._game.getRandomNumber);
     }
 
     public shuffleBackIntoStack(cards: IMysteryCard[]) {
-        this._cardStack = shuffle(this._cardStack.concat(cards));
+        this._cardStack = shuffle(this._cardStack.concat(cards), this._game.getRandomNumber);
     }
 
     public startDrawingCards(

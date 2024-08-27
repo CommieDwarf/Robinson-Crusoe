@@ -1,7 +1,6 @@
 import {IPawn, PAWN_HELPER_ACTION,} from "@shared/types/Game/Pawns/Pawn";
 import {IInvention} from "@shared/types/Game/InventionService/Invention";
 import {ITreasureMysteryCard} from "@shared/types/Game/MysteryService/MysteryCard";
-import {uuid} from "uuidv4";
 import {isInventionRenderData} from "@shared/utils/typeGuards/isInventionRenderData";
 import {isMysteryCard} from "@shared/utils/typeGuards/isMysteryCard";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
@@ -17,16 +16,16 @@ export class Pawn<Owner extends IInvention | ITreasureMysteryCard | ICharacter>
     private _disposed = false;
     private readonly _owner: Owner;
 
-
     constructor(
         owner: Owner,
         disposable: boolean,
         action: PAWN_HELPER_ACTION | null,
+        counter: number,
     ) {
         this._owner = owner;
         this._action = action;
         this._disposable = disposable;
-        this._draggableId = this.generatePawnId();
+        this._draggableId = this.generatePawnId(counter);
     }
 
 
@@ -58,17 +57,17 @@ export class Pawn<Owner extends IInvention | ITreasureMysteryCard | ICharacter>
         return this._owner;
     }
 
-    private generatePawnId() {
-        let holderType;
+    private generatePawnId(counter: number) {
+        let owner;
 
         if (isInventionRenderData(this.owner)) {
-            holderType = "invention";
+            owner = "invention";
         } else if (isMysteryCard(this.owner)) {
-            holderType = "treasure";
+            owner = "treasure";
         } else {
-            holderType = "character";
+            owner = "character";
         }
 
-        return `${this._owner.name}-pawn-${holderType}-${uuid()}`
+        return `${this._owner.name}-pawn-${owner}-${counter}`
     }
 }

@@ -1,7 +1,7 @@
 import styles from "./ReadyCheckbox.module.css";
 import {IPlayerRenderData} from "@shared/types/Game/PlayerService/Player";
 import {useAppDispatch} from "../../../../../../store/hooks";
-import {SOCKET_EVENT} from "@shared/types/Requests/Socket";
+import {SOCKET_EVENT_CLIENT} from "@shared/types/Requests/Socket";
 import {socketEmit} from "../../../../../../middleware/socketMiddleware";
 import {useState} from "react";
 import ResizableImage from "../../../../../ResizableImage/ResizableImage";
@@ -25,7 +25,7 @@ export function ReadyCheckbox(props: Props) {
 
     function handleClick() {
         if (props.local) {
-            dispatch(socketEmit(SOCKET_EVENT.SET_PLAYER_READY,
+            dispatch(socketEmit(SOCKET_EVENT_CLIENT.SET_PLAYER_READY,
                 {value: !ready, hydrateSessionId: true}))
             setReady((prev) => !prev);
         }

@@ -137,7 +137,7 @@ export default function AuthForm(props: Props) {
         }
         const response = await usernameExists(username);
         if (response.status === 409) {
-            setError("username", "This user name is taken")
+            setError("username", "This user scenario is taken")
         } else {
             setError("username", "");
         }

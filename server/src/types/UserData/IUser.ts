@@ -1,6 +1,7 @@
 import {Session} from "../../Classes/Session/Session";
 import {SessionData} from "@shared/types/Session/Session";
 import {Socket} from "socket.io";
+import {UserPlaceHolder} from "../../Classes/Player/Player";
 
 export interface IUser {
     id: string,
@@ -13,14 +14,10 @@ export interface IUser {
     unsetSinglePlayerSession: () => void;
     removeActiveSession: (sessionId: string) => void;
     leaveLobbies: () => void;
-
     latency: number;
-    ping: (onPong: (latency: number) => void, onTimeout: () => void) => void;
-    clearPingIntervals: () => void;
-
     addSocket: (socket: Socket) => void;
-
     getSession: (sessionId: string) => SessionData;
+    getPlaceHolder: () => UserPlaceHolder
     closeConnection: (socket: Socket) => void;
 }
 

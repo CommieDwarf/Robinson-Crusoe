@@ -48,6 +48,7 @@ import {socketEmitAction} from "../../middleware/socketMiddleware";
 import {PlayerList} from "./UI/PlayerList/PlayerList";
 import {DraggableWindow} from "./UI/DraggableWindow/DraggableWindow";
 import {Alerts} from "./UI/Alerts/Alerts";
+import {GameOptions} from "./UI/GameOptions/GameOptions";
 
 
 interface Props {
@@ -72,6 +73,7 @@ export default function Game(props: Props) {
 
     const [confirmWindow, setConfirmWindow] = useState<null | CONFIRM_WINDOW>(null);
     const [playerListOpen, setPlayerListOpen] = useState(false);
+    const [showOptions, setShowOptions] = useState(false);
 
     const mapRef = useRef<HTMLDivElement>(null)
     const [mapHeight, setMapHeight] = useState<number>(0);
@@ -255,6 +257,10 @@ export default function Game(props: Props) {
         dispatch(socketEmitAction(CHARACTER_CONTROLLER_ACTION.MOVE_PAWN, source, target))
     }
 
+    function toggleShowOptions() {
+        setShowOptions((prev) => !prev);
+    }
+
 
     const gameStyle = {
         fontSize: gameHeight / 100,
@@ -389,8 +395,14 @@ export default function Game(props: Props) {
                 />
 
                 {playerListOpen &&
-                    <DraggableWindow width={500} height={300} padding={0}>
+                    <DraggableWindow padding={0} onClose={togglePlayerListOpen}>
                         <PlayerList/>
+                    </DraggableWindow>
+                }
+
+                {showOptions &&
+                    <DraggableWindow width={400} padding={5} onClose={toggleShowOptions}>
+                        <GameOptions/>
                     </DraggableWindow>
                 }
 
@@ -402,8 +414,10 @@ export default function Game(props: Props) {
             />
 
 
-            <ControlPanel confirmWindowIsOpen={!!confirmWindow} phaseChangeLocked={gameData.phaseChangeLocked}
+            <ControlPanel confirmWindowIsOpen={!!confirmWindow}
+                          phaseChangeLocked={gameData.phaseChangeLocked}
                           togglePlayerListOpen={togglePlayerListOpen}
+                          toggleShowOptions={toggleShowOptions}
             />
         </div>
     );

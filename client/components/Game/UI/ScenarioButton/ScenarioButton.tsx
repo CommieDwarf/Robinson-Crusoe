@@ -48,7 +48,7 @@ function ScenarioButton(props: Props) {
                 </div>
                 <div className={styles.label}>
                     {`${capitalize(t("other.scenario", {defaultValue: "scenario"}))}:
-                     ${capitalize(t("scenario.castaways.name", {defaultValue: "castaways"}))}
+                     ${capitalize(t("scenario.castaways.scenario", {defaultValue: "castaways"}))}
                       ${capitalize(t("other.round", {defaultValue: "round"}))}: ${currentRound}`}
                 </div>
                 <div className={styles.arrowWrapper}>

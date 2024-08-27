@@ -5,8 +5,8 @@ import {ICharacter} from "@shared/types/Game/Characters/Character";
 import {IPlayer} from "@shared/types/Game/PlayerService/Player";
 
 export class Castaways4 extends Token {
-    constructor(game: IGame) {
-        super(game, DISCOVERY_TOKEN.SCENARIO_4, "medalik z portretem damy", "Daje 3 żetony determinacji.");
+    constructor(game: IGame, id: string) {
+        super(game, DISCOVERY_TOKEN.SCENARIO_4, "medalik z portretem damy", "Daje 3 żetony determinacji.", id);
     }
 
     use(character: ICharacter, target?: ICharacter) {

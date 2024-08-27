@@ -6,12 +6,13 @@ import {IPlayer} from "@shared/types/Game/PlayerService/Player";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
 
 export class Herbs extends Token {
-    constructor(game: IGame) {
+    constructor(game: IGame, id: string) {
         super(
             game,
             DISCOVERY_TOKEN.HERBS,
             "przyprawy",
-            "Jeśli zbudowałeś Naczynia, budujesz Lek bez poświęcania akcji"
+            "Jeśli zbudowałeś Naczynia, budujesz Lek bez poświęcania akcji",
+            id
         );
     }
 

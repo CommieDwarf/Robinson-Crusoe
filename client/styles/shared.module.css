@@ -1,3 +1,10 @@
 .grabbing {
     cursor: grabbing;
 }
+
+.hr {
+    border-top: 1px solid var(--borderColor);
+    border-bottom: 1px solid var(--borderColor);
+    display: block;
+    width: 100%;
+}

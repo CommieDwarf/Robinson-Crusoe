@@ -7,6 +7,10 @@
     cursor: pointer;
 }
 
+.containerBorderless {
+    border: none;
+}
+
 .container:hover {
     scale: 1.1;
 }

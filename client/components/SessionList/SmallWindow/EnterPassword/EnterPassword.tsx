@@ -1,10 +1,10 @@
 import capitalize from "@shared/utils/capitalize";
 import React, {useState} from "react";
 import {useTranslation} from "react-i18next";
-import {sessionValidationConfig} from "@shared/constants/sessionValidationConfig";
 import {socketEmit} from "../../../../middleware/socketMiddleware";
 import {useAppDispatch} from "../../../../store/hooks";
-import {SOCKET_EVENT} from "@shared/types/Requests/Socket";
+import {SOCKET_EVENT_CLIENT} from "@shared/types/Requests/Socket";
+import { VALIDATION_CONFIG } from "@shared/constants/VALIDATION_CONFIG";
 
 
 interface Props {
@@ -20,11 +20,11 @@ export function EnterPassword(props: Props) {
 
 
     function handleChange(event: React.FormEvent<HTMLInputElement>) {
-        setPassword(event.currentTarget.value.slice(0, sessionValidationConfig.maxPasswordLength));
+        setPassword(event.currentTarget.value.slice(0, VALIDATION_CONFIG.MAX_PASSWORD_LENGTH));
     }
 
     function handleClickJoin() {
-        dispatch(socketEmit(SOCKET_EVENT.JOIN_SESSION, {password, sessionId: props.sessionId}))
+        dispatch(socketEmit(SOCKET_EVENT_CLIENT.JOIN_SESSION, {password, sessionId: props.sessionId}))
     }
 
 

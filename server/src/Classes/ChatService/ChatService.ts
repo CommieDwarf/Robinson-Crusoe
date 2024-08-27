@@ -1,11 +1,19 @@
 import {SessionData} from "@shared/types/Session/Session";
-import {IChatMessage, IChatService} from "@shared/types/ChatService/ChatService";
+import {
+    IChatMessage,
+    IChatMessageRenderData,
+    IChatService,
+    SYSTEM_MSG,
+    SystemMessage
+} from "@shared/types/ChatService/ChatService";
+import {LOG_CODE} from "@shared/types/Game/ChatLog/LOG_CODE";
+import {isSystemMsg} from "@shared/utils/typeGuards/isSystemMsg";
 
 
 export class ChatService implements IChatService {
 
     private readonly _session: SessionData;
-    private _messages: IChatMessage[] = [];
+    private _messages: (IChatMessage | SystemMessage)[] = [];
 
     constructor(session: SessionData) {
         this._session = session;
@@ -22,18 +30,34 @@ export class ChatService implements IChatService {
                     timestamp: msg.date.valueOf(),
                     author: msg.author,
                     content: msg.content,
+                    subject1: "subject1" in msg ? msg.subject1 : null
                 }
-
             })
         }
     }
 
-    public addMsg(author: string, content: string) {
+    public addMsg(author: string, content: string, subject1?: string) {
+        if (content === "-save") {
+            this._session.save();
+        }
         this._messages.push({
             date: new Date(),
             author,
             content
         })
+    }
+
+    public addSystemMsg(code: SYSTEM_MSG, subject1: string) {
+        this._messages.push({
+            date: new Date(),
+            author: "system",
+            content: code,
+            subject1
+        })
+    }
+
+    public clearSystemMessages() {
+        this._messages = this._messages.filter((msg) => !isSystemMsg(msg))
     }
 
 }

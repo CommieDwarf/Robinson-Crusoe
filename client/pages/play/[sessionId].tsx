@@ -3,7 +3,7 @@ import Loading from "../Loading";
 import {useEffect, useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../store/hooks";
 import Game from "../../components/Game/Game";
-import {SOCKET_EVENT} from "@shared/types/Requests/Socket";
+import {SOCKET_EVENT_CLIENT, SOCKET_EVENT_SERVER} from "@shared/types/Requests/Socket";
 import {alertUpdated} from "../../reduxSlices/alert";
 import {useRouter} from "next/router";
 import {
@@ -59,7 +59,7 @@ function Play(props: Props) {
 
 
         const listeners: SocketListener[] = [];
-        listeners.push(setSocketListener(SOCKET_EVENT.SESSION_DATA_SENT, async (payload) => {
+        listeners.push(setSocketListener(SOCKET_EVENT_SERVER.SESSION_DATA_SENT, async (payload) => {
             const gameSession = payload.sessionData;
             if (gameSession) {
                 const date = new Date();
@@ -71,20 +71,20 @@ function Play(props: Props) {
             }
         }))
 
-        listeners.push(setSocketListener(SOCKET_EVENT.ALERT_SENT, (payload) => {
+        listeners.push(setSocketListener(SOCKET_EVENT_SERVER.ALERT_SENT, (payload) => {
             dispatch(alertUpdated(payload.code));
         }))
 
-        listeners.push(setSocketListener(SOCKET_EVENT.SESSION_CONNECTION_FAILED,
+        listeners.push(setSocketListener(SOCKET_EVENT_SERVER.SESSION_CONNECTION_STATUS_SENT,
             (payload) => {
-                setConnectError(payload.error);
+                payload.error && setConnectError(payload.error);
             }))
 
-        listeners.push(setSocketListener(SOCKET_EVENT.SESSION_CHANGED, () => {
-            dispatch(socketEmit(SOCKET_EVENT.SESSION_DATA_REQUESTED, {hydrateSessionId: true}))
+        listeners.push(setSocketListener(SOCKET_EVENT_SERVER.SESSION_CHANGED, () => {
+            dispatch(socketEmit(SOCKET_EVENT_CLIENT.SEND_SESSION_DATA, {hydrateSessionId: true}))
         }))
 
-        dispatch(socketEmit(SOCKET_EVENT.SESSION_DATA_REQUESTED, {hydrateSessionId: true}))
+        dispatch(socketEmit(SOCKET_EVENT_CLIENT.SEND_SESSION_DATA, {hydrateSessionId: true}))
 
         return () => {
             listeners.forEach((listener) => listener.off());

@@ -1,10 +1,10 @@
 import styles from "./index.module.css";
-import {GameSettings} from "../../../components/Lobby/GameSettings/GameSettings";
+import {GAME_SETTINGS_MODE, GameSettings} from "../../../components/Lobby/GameSettings/GameSettings";
 import {Players} from "../../../components/Lobby/Players/Players";
 import {Character} from "../../../components/Lobby/Character/Character";
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
-import {SOCKET_EVENT} from "@shared/types/Requests/Socket";
+import {SOCKET_EVENT_CLIENT, SOCKET_EVENT_SERVER} from "@shared/types/Requests/Socket";
 import {gameSessionUpdated, sessionIdUpdated} from "../../../reduxSlices/gameSession";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks";
 import {ControlPanel} from "../../../components/Lobby/ControlPanel/ControlPanel";
@@ -35,7 +35,7 @@ export function Lobby() {
     useEffect(() => {
         const handleRouteChange = (url: string) => {
             if (sessionIdQuery && !url.includes(sessionIdQuery)) {
-                dispatch(socketEmit(SOCKET_EVENT.USER_LEFT_LOBBY, {
+                dispatch(socketEmit(SOCKET_EVENT_CLIENT.LEAVE_SESSION, {
                     hydrateSessionId: true,
                 }))
             }
@@ -51,7 +51,7 @@ export function Lobby() {
             return;
         }
         const listeners = [
-            setSocketListener(SOCKET_EVENT.SESSION_DATA_SENT, (payload) => {
+            setSocketListener(SOCKET_EVENT_SERVER.SESSION_DATA_SENT, (payload) => {
                 const gameSession = payload.sessionData;
                 if (gameSession) {
                     dispatch(gameSessionUpdated(gameSession));
@@ -61,19 +61,19 @@ export function Lobby() {
                     }
                 }
             }),
-            setSocketListener(SOCKET_EVENT.PLAYER_KICKED, () => {
+            setSocketListener(SOCKET_EVENT_SERVER.PLAYER_KICKED, () => {
                 router.push("./?msg=kicked").then();
             }),
-            setSocketListener(SOCKET_EVENT.SESSION_CHANGED, () => {
-                dispatch(socketEmit(SOCKET_EVENT.SESSION_DATA_REQUESTED, {hydrateSessionId: true}))
+            setSocketListener(SOCKET_EVENT_SERVER.SESSION_CHANGED, () => {
+                dispatch(socketEmit(SOCKET_EVENT_CLIENT.SEND_SESSION_DATA, {hydrateSessionId: true}))
             }),
 
-            setSocketListener(SOCKET_EVENT.GAME_STARTED, (payload) => {
+            setSocketListener(SOCKET_EVENT_SERVER.GAME_STARTED, (payload) => {
                 router.push(`/play/${payload.sessionId}`).then();
             })
         ]
 
-        dispatch(socketEmit(SOCKET_EVENT.SESSION_DATA_REQUESTED, {hydrateSessionId: true}))
+        dispatch(socketEmit(SOCKET_EVENT_CLIENT.SEND_SESSION_DATA, {hydrateSessionId: true}))
 
         return () => {
             listeners.forEach(listener => listener.off());
@@ -103,7 +103,8 @@ export function Lobby() {
                                   startEnabled={sessionData.players.every((player) => player.ready)}/>
                 </div>
                 <div className={styles.settings}>
-                    <GameSettings editMode={true} host={sessionData.localPlayer.id === sessionData.hostPlayer.id}/>
+                    <GameSettings mode={GAME_SETTINGS_MODE.EDIT}
+                                  host={sessionData.localPlayer.id === sessionData.hostPlayer.id}/>
                 </div>
                 <div className={styles.char}>
                     <Character

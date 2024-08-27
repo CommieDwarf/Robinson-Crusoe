@@ -3,7 +3,7 @@ import {Gender} from "@shared/types/Game/Characters/Character";
 import {useState} from "react";
 import {useAppDispatch} from "../../../../store/hooks";
 import {socketEmit} from "../../../../middleware/socketMiddleware";
-import {SOCKET_EVENT} from "@shared/types/Requests/Socket";
+import {SOCKET_EVENT_CLIENT} from "@shared/types/Requests/Socket";
 
 interface Props {
     gender: Gender;
@@ -20,7 +20,7 @@ export function GenderSwitch(props: Props) {
 
     function switchGender(gender: Gender) {
         setGender(gender);
-        dispatch(socketEmit(SOCKET_EVENT.CHANGE_CHARACTER, {
+        dispatch(socketEmit(SOCKET_EVENT_CLIENT.CHANGE_CHARACTER, {
             character: {
                 gender
             },

@@ -7,12 +7,13 @@ import {IPlayer} from "@shared/types/Game/PlayerService/Player";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
 
 export class Poison extends Token {
-    constructor(game: IGame) {
+    constructor(game: IGame, id: string) {
         super(
             game,
             DISCOVERY_TOKEN.POISON,
             "trujące pędy",
-            "Jeśli masz zbudowane Naczynia, otrzymujesz +2 do broni"
+            "Jeśli masz zbudowane Naczynia, otrzymujesz +2 do broni",
+            id
         );
     }
 
