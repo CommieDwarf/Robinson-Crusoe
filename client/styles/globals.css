@@ -6,6 +6,7 @@
 }
 
 
+
 html, body {
     padding: 0;
     margin: 0;
@@ -43,6 +44,7 @@ a {
 }
 
 :root {
+    --toastify-color-dark: var(--brown) !important;
     --brown: #451e14;
     --tan: #D2B48C;
     --beastRed: rgb(186, 51, 28);

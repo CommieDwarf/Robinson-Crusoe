@@ -658,6 +658,16 @@ export const resources = {
                 "enter password": "wpisz hasło",
                 "error": "błąd",
                 "save": "zapisz",
+                "connect code": "Kod dołączenia",
+                "copy to clipboard": "kopiuj do schowka",
+                "show": "pokaż",
+                "hide": "ukryj",
+                
+            },
+            toast: {
+              "copied to clipboard": "skopiowano do schowka",
+              "game saved": "zapisano grę",
+              "unable to save game": "Nie udało się zapisać gry",
             },
             error: {
                 [SESSION_CONNECTION_ERROR_CODE.SESSION_NOT_FOUND]: "Nie znaleziono sesji",
@@ -669,7 +679,8 @@ export const resources = {
         },
         systemMessages: {
             [SYSTEM_MSG.PLAYER_HAS_JOINED_SESSION]: "{{subject1}} dołączył do sesji.",
-            [SYSTEM_MSG.PLAYER_HAS_LEFT_SESSION]: "{{subject1}} wyszedł z sesji."
+            [SYSTEM_MSG.PLAYER_HAS_LEFT_SESSION]: "{{subject1}} wyszedł z sesji.",
+            [SYSTEM_MSG.ONLY_PRESENT_PLAYERS_CAN_JOIN]: "Tylko gracze obecni przy zapisie gry mogą dołączyć do sesji."
         },
         logMessages: {
             [LOG_CODE.WEATHER_TOKEN_SET]: "Położono token $t(translation:weatherToken.{{subject1}}, {\"context\": \"genitive\"}) na polu przygody.",

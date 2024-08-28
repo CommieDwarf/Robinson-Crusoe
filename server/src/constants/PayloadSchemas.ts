@@ -5,6 +5,18 @@ import { SOCKET_EVENT_CLIENT } from "@shared/types/Requests/Socket";
 import Joi from "joi";
 import { VALIDATION_CONFIG } from "@shared/constants/VALIDATION_CONFIG";
 
+
+
+
+
+const password = Joi.string().allow("").max(
+	VALIDATION_CONFIG.MAX_PASSWORD_LENGTH
+);
+
+const settings = {
+	
+}
+
 export const ClientPayloadSchemas = {
 	[SOCKET_EVENT_CLIENT.EXECUTE_PLAYER_ACTION]: Joi.object({
 		actionType: Joi.string()
@@ -24,9 +36,7 @@ export const ClientPayloadSchemas = {
 				.max(VALIDATION_CONFIG.MAX_NAME_LENGTH),
 			quickGame: Joi.boolean().required(),
 			private: Joi.boolean().required(),
-			password: Joi.string().max(
-				VALIDATION_CONFIG.MAX_PASSWORD_LENGTH
-			).allow(""),
+			password,
 			maxPlayers: Joi.number()
 				.required()
 				.max(VALIDATION_CONFIG.MAX_PLAYERS)
@@ -41,7 +51,7 @@ export const ClientPayloadSchemas = {
 	[SOCKET_EVENT_CLIENT.SEND_SESSION_LIST]: Joi.any(),
 	[SOCKET_EVENT_CLIENT.JOIN_SESSION]: Joi.object({
 		sessionId: Joi.string().required(),
-		password: Joi.string().required(),
+		password,
 	}),
 	[SOCKET_EVENT_CLIENT.LEAVE_SESSION]: Joi.object({
 		sessionId: Joi.string().required(),
@@ -68,7 +78,16 @@ export const ClientPayloadSchemas = {
 	[SOCKET_EVENT_CLIENT.UPDATE_SESSION_SETTINGS]: Joi.object({
 		sessionId: Joi.string().required(),
 		settings: Joi.object({
-			// Partial<SessionSettings>
+			scenario: Joi.string()
+				.valid(...Object.values(SCENARIO)),
+			name: Joi.string()
+				.max(VALIDATION_CONFIG.MAX_NAME_LENGTH),
+			quickGame: Joi.boolean(),
+			private: Joi.boolean(),
+			password,
+			maxPlayers: Joi.number()
+				.max(VALIDATION_CONFIG.MAX_PLAYERS)
+				.min(VALIDATION_CONFIG.MIN_PLAYERS),
 		}).required(),
 	}),
 	[SOCKET_EVENT_CLIENT.START_GAME]: Joi.object({

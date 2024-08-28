@@ -4,7 +4,7 @@ import {useTranslation} from "react-i18next";
 import {capitalize} from "lodash";
 import Link from "next/link";
 import {useEffect, useState} from "react";
-import {SOCKET_EVENT_CLIENT} from "@shared/types/Requests/Socket";
+import {SOCKET_EVENT_CLIENT, SOCKET_EVENT_SERVER} from "@shared/types/Requests/Socket";
 import {useRouter} from "next/router";
 import {SmallWindow} from "../../components/SessionList/SmallWindow/SmallWindow";
 import {EnterPassword} from "../../components/SessionList/SmallWindow/EnterPassword/EnterPassword";
@@ -38,7 +38,7 @@ export function Multiplayer() {
     }
 
     function handleRefreshClick() {
-        dispatch(socketEmit(SOCKET_EVENT_CLIENT.SESSION_LIST_REQUESTED, null))
+        dispatch(socketEmit(SOCKET_EVENT_CLIENT.SEND_SESSION_LIST, null))
     }
 
     function handleLoadClick() {
@@ -47,7 +47,7 @@ export function Multiplayer() {
 
     useEffect(() => {
         const listeners = [
-            setSocketListener(SOCKET_EVENT_CLIENT.JOIN_SESSION_RESPONSE, (payload) => {
+            setSocketListener(SOCKET_EVENT_SERVER.JOIN_SESSION_RESPONSE, (payload) => {
                 if (payload.error) {
                     setMessage(payload.error);
                     return;
@@ -67,9 +67,7 @@ export function Multiplayer() {
         dispatch(socketEmit(SOCKET_EVENT_CLIENT.SEND_SAVE_LIST, {}));
     }, [])
 
-    function loadSaveGame() {
 
-    }
 
     return (
         <div className={styles.container}>

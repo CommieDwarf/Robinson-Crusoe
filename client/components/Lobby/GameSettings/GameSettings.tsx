@@ -11,6 +11,7 @@ import {setSocketListener} from "../../../pages/api/socket";
 import {socketEmit} from "../../../middleware/socketMiddleware";
 import {sessionIdUpdated} from "../../../reduxSlices/gameSession";
 import {VALIDATION_CONFIG} from "@shared/constants/VALIDATION_CONFIG";
+import { ConnectCode } from "./ConnectCode/ConnectCode";
 
 export enum GAME_SETTINGS_MODE {
     LOCKED = "locked",
@@ -178,6 +179,11 @@ export function GameSettings(props: Props) {
         </div>
         {props.mode === GAME_SETTINGS_MODE.GAME_CREATE &&
             <div className={"menuButton"} onClick={handleClick}>{capitalize(t("menu.create game"))}</div>}
+        {props.mode !== GAME_SETTINGS_MODE.GAME_CREATE &&
+         <div className={styles.row}>
+            <ConnectCode/>
+            </div>
+            }
     </form>)
 
     const hr = <hr className={styles.hr}/>;

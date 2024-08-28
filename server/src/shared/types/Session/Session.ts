@@ -6,6 +6,8 @@ import {CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {GAME_STATUS, IGame, IGameRenderData} from "@shared/types/Game/Game";
 import {SessionSettings} from "@shared/types/SessionSettings";
 import {IChatServiceRenderData} from "@shared/types/ChatService/ChatService";
+import { Document } from "mongoose";
+import { SaveGameDocument } from "../../../Models/SaveGame";
 
 
 // public changeCharacter(userId: string, character: CHARACTER) {
@@ -28,6 +30,9 @@ export interface SessionData {
     isGameInProgress: boolean;
     settings: SessionSettings;
     isLoadMode: boolean;
+    gameController: BaseController | null;
+    usersInSession: number;
+    connectCode: string;
 
 
     joinSession: (user: IUser, load: boolean) => void;
@@ -35,13 +40,10 @@ export interface SessionData {
     startGame: () => BaseController;
     assignColor: (userId: string, color: PLAYER_COLOR) => void;
     handleAction: (userId: string, action: CONTROLLER_ACTION, ...args: any[]) => void;
-    gameController: BaseController | null;
     getGame: () => IGame | undefined;
 
     closeSession: () => void;
 
-    addMessage: (userId: string, message: string) => void;
-    setPlayerReady: (userId: string, ready: boolean) => void;
 
     canStart: () => boolean;
 
@@ -55,9 +57,15 @@ export interface SessionData {
 
     updateSettings: (settings: Partial<SessionSettings>) => void;
 
-    getBasicInfo: () => SessionBasicInfo;
+    addMessage: (userId: string, message: string) => void;
+    setPlayerReady: (userId: string, ready: boolean) => void;
 
-    save: () => void;
+    getBasicInfo: () => SessionBasicInfo;
+    playerInstanceExists: (userId: string) => void;
+
+    save: () => Promise<(Document<unknown, {}, SaveGameDocument> & SaveGameDocument & Required<{
+        _id: string;
+    }>) | undefined>;
 
     getRenderData: (userId: string) => SessionRenderData
 }
@@ -67,11 +75,11 @@ export interface SessionRenderData {
     connectCode: string;
     settings: SessionSettings;
     players: IPlayerRenderData[];
-    // host: IPlayerRenderData;
     game: IGameRenderData | null;
     localPlayer: IPlayerRenderData;
     hostPlayer: IPlayerRenderData;
     chatService: IChatServiceRenderData;
+    loadMode: boolean;
 }
 
 export interface SessionBasicInfo {

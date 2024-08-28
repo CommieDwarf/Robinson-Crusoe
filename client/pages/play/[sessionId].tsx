@@ -15,6 +15,9 @@ import {
 import {SESSION_CONNECTION_ERROR_CODE} from "@shared/types/Errors/SESSION_CONNECTION_ERROR_CODE";
 import {socketEmit} from "../../middleware/socketMiddleware";
 import {setSocketListener, SocketListener} from "../api/socket";
+import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
+
 
 type Props = {};
 
@@ -24,6 +27,7 @@ function Play(props: Props) {
         return state.gameSession.data?.game;
     });
     const router = useRouter();
+    const {t} = useTranslation();
     const dispatch = useAppDispatch();
     const sessionIdQuery = router.query.sessionId as string;
 
@@ -82,6 +86,22 @@ function Play(props: Props) {
 
         listeners.push(setSocketListener(SOCKET_EVENT_SERVER.SESSION_CHANGED, () => {
             dispatch(socketEmit(SOCKET_EVENT_CLIENT.SEND_SESSION_DATA, {hydrateSessionId: true}))
+        }))
+
+        listeners.push(setSocketListener(SOCKET_EVENT_SERVER.GAME_SAVED_STATUS, (payload) => {
+            if (payload.success) {
+                toast(t("toast.game saved"), {
+                    type: "success",
+                    theme: "colored"
+                    
+                });
+            } else {
+                toast(t("toast.unable to save game"), {
+                    type: "error",
+                    theme: "colored"
+                });
+            }
+            
         }))
 
         dispatch(socketEmit(SOCKET_EVENT_CLIENT.SEND_SESSION_DATA, {hydrateSessionId: true}))

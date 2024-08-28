@@ -23,6 +23,7 @@ export function Lobby() {
 
     const sessionId = useAppSelector(state => state.gameSession.sessionId);
     const sessionData = useAppSelector(state => state.gameSession.data);
+    const connected = useAppSelector(state => state.connection.connected);
 
     if (sessionData?.game && loaded) {
         router.push(`/play/${sessionData.id}`).then();
@@ -47,9 +48,11 @@ export function Lobby() {
     }, [router, sessionId, dispatch])
 
     useEffect(() => {
-        if (!sessionId) {
+        if (!sessionId || !connected) {
             return;
         }
+
+        
         const listeners = [
             setSocketListener(SOCKET_EVENT_SERVER.SESSION_DATA_SENT, (payload) => {
                 const gameSession = payload.sessionData;
@@ -65,6 +68,7 @@ export function Lobby() {
                 router.push("./?msg=kicked").then();
             }),
             setSocketListener(SOCKET_EVENT_SERVER.SESSION_CHANGED, () => {
+
                 dispatch(socketEmit(SOCKET_EVENT_CLIENT.SEND_SESSION_DATA, {hydrateSessionId: true}))
             }),
 
@@ -73,12 +77,13 @@ export function Lobby() {
             })
         ]
 
+        console.log("requesting session data", connected);
         dispatch(socketEmit(SOCKET_EVENT_CLIENT.SEND_SESSION_DATA, {hydrateSessionId: true}))
 
         return () => {
             listeners.forEach(listener => listener.off());
         }
-    }, [dispatch, router, sessionId])
+    }, [dispatch, router, sessionId, connected])
 
 
     function handleSetGender(gender: Gender) {
@@ -103,7 +108,7 @@ export function Lobby() {
                                   startEnabled={sessionData.players.every((player) => player.ready)}/>
                 </div>
                 <div className={styles.settings}>
-                    <GameSettings mode={GAME_SETTINGS_MODE.EDIT}
+                    <GameSettings mode={sessionData.loadMode ? GAME_SETTINGS_MODE.LOCKED : GAME_SETTINGS_MODE.EDIT}
                                   host={sessionData.localPlayer.id === sessionData.hostPlayer.id}/>
                 </div>
                 <div className={styles.char}>

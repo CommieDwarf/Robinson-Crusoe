@@ -11,7 +11,7 @@ import {SESSION_CONNECTION_ERROR_CODE} from "@shared/types/Errors/SESSION_CONNEC
 import {Socket} from "socket.io";
 import {isUser} from "../../utils/TypeGuards/isUser";
 import {SaveGameDocument} from "../../Models/SaveGame";
-
+import { CONNECT_CODE_LENGTH } from "../../config/session";
 
 export class SessionService implements ISessionService {
 
@@ -25,7 +25,7 @@ export class SessionService implements ISessionService {
     public createSession(userId: string, settings: SessionSettings, loadData?: SaveGameDocument) {
         const user = this.getUser(userId);
         user.leaveLobbies()
-        const session = new Session(user, settings, false, loadData);
+        const session = new Session(this, user, settings, loadData);
         this._activeSessions.set(session.id, session);
         return session;
     }
@@ -33,7 +33,7 @@ export class SessionService implements ISessionService {
 
     public createQuickGameSession(userId: string): SessionData {
         const user = this.getUser(userId);
-        const session = new Session(user, {
+        const session = new Session(this, user, {
             password: "",
             quickGame: true,
             private: true,
@@ -59,15 +59,16 @@ export class SessionService implements ISessionService {
         if (session.players.length >= session.settings.maxPlayers) {
             throw new SessionConnectError("Server is full", SESSION_CONNECTION_ERROR_CODE.SESSION_FULL);
         }
-        user.leaveLobbies()
-        session.joinSession(user, true);
+        // user.leaveLobbies();
+        
+        session.joinSession(user, session.isLoadMode);
     }
 
     public leaveSession(user: IUser, sessionId: string) {
         const session = this.findSession(user.id, sessionId);
         const player = session?.players.find((pl) => pl.user.id === user.id);
         player && session?.leaveSession(player);
-        if (session?.players.length === 0) {
+        if (session?.usersInSession === 0) {
             this.closeSession(sessionId);
         }
     }
@@ -117,9 +118,10 @@ export class SessionService implements ISessionService {
         return this.getUser(userId).quickGameSession;
     }
 
-    public getPublicSessionList(): SessionBasicInfo[] {
+    public getPublicSessionList(userId: string): SessionBasicInfo[] {
         return Array.from(this._activeSessions.values())
             .filter((session) => !session.settings.private && !session.isGameInProgress)
+            .filter((session) => session.isLoadMode && session.playerInstanceExists(userId))
             .map((session) => session.getBasicInfo());
     }
 
@@ -169,4 +171,27 @@ export class SessionService implements ISessionService {
         return session;
     }
 
+
+    public generateUniqueConnectCode() {
+        let code: string;
+        do {
+            code = this.generateConnectCode(CONNECT_CODE_LENGTH);
+        } while (!this.isConnectCodeUnique(code))
+
+        return code;
+    }
+
+    private generateConnectCode(length: number): string {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        let sessionCode = '';
+        for (let i = 0; i < length; i++) {
+            const randomIndex = Math.floor(Math.random() * characters.length);
+            sessionCode += characters[randomIndex];
+        }
+        return sessionCode;
+    }
+
+    private isConnectCodeUnique(code: string) {
+       return !Array.from(this._activeSessions.values()).find((session) => session.connectCode === code);
+    }
 }

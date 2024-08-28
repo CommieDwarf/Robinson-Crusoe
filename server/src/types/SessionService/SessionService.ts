@@ -15,10 +15,11 @@ export interface ISessionService {
     getOrCreateUser: (userDocument: UserDocument, socket: Socket) => IUser;
     removeFromActiveUsers: (userId: string) => void;
     findSession: (userId: string, sessionId: string) => SessionData | null;
+    generateUniqueConnectCode: () => string;
 
     startGame: (userId: string, sessionId: string) => void;
 
-    getPublicSessionList: () => SessionBasicInfo[];
+    getPublicSessionList: (userId: string) => SessionBasicInfo[];
 
     getQuickGameByUserId(userId: string): SessionData | null;
 

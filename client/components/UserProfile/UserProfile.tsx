@@ -11,6 +11,7 @@ import {SOCKET_EVENT_CLIENT} from "@shared/types/Requests/Socket";
 import {setSocketListener} from "../../pages/api/socket";
 import {SessionBasicInfo} from "@shared/types/Session/Session";
 import {socketEmit} from "../../middleware/socketMiddleware";
+import { socket } from "../../store/store";
 
 interface Props {
 }
@@ -26,7 +27,7 @@ export function UserProfile(props: Props) {
     function handleSignOut() {
         deleteAuthCookie();
         dispatch(userUpdated(null));
-        dispatch(socketEmit(SOCKET_EVENT_CLIENT.DISCONNECT, {}));
+        socket.disconnect();
         router.push("/signIn").catch((e) => console.error(e));
     }
 
@@ -35,15 +36,15 @@ export function UserProfile(props: Props) {
     }
 
     useEffect(() => {
-        const listener = setSocketListener(SOCKET_EVENT_CLIENT.SESSION_LIST_SENT, (payload) => {
-            setSessionsInProgress(payload.sessionList);
-        })
+        // const listener = setSocketListener(SOCKET_EVENT_CLIENT.SESSION_LIST_SENT, (payload) => {
+        //     setSessionsInProgress(payload.sessionList);
+        // })
 
-        requestGameList();
+        // requestGameList();
 
-        return () => {
-            listener.off();
-        }
+        // return () => {
+        //     listener.off();
+        // }
     }, [])
 
     function requestGameList() {

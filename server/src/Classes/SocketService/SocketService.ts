@@ -28,7 +28,6 @@ export class SocketService {
     
     private async handleConnection(socket: Socket) {
         try {
-            console.log("connected");
             const userId = this.getUserIdFromToken(socket.handshake.headers.authorization);
             const userDoc = await User.findById(userId);
 
@@ -41,7 +40,7 @@ export class SocketService {
             const eventHandler = new EventHandler(user, socket, this._io, this._sessionService);
             eventHandler.startListening();
             eventHandler.pingClient();            
-
+            this.socketEmit(socket, SOCKET_EVENT_SERVER.CONNECTED, null);
 
         } catch (error) {
             console.error(error);

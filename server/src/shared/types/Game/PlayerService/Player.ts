@@ -23,6 +23,7 @@ export interface IPlayer {
     assignColor: (color: PLAYER_COLOR) => void;
     initCharacter: (game: IGame) => void;
     user: IUser | UserPlaceHolder;
+    isPlaceHolder: boolean;
 
     setUser: (user: IUser) => void;
     unsetUser: () => void;
@@ -39,6 +40,7 @@ export interface IPlayerRenderData {
     color: PLAYER_COLOR;
     character: IPlayerCharacterRenderData | null;
     assignedCharacter: AssignedCharacter;
+    isPlaceHolder: boolean;
     prime: boolean;
     ready: boolean;
     id: string;

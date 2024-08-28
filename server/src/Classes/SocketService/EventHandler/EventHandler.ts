@@ -93,7 +93,9 @@ export class EventHandler {
 		if (!error) {
 			const handler = this._eventMap.get(event);
 			if (handler) {
-				console.log("handling event ", event);
+				if (event !== SOCKET_EVENT_CLIENT.PONG) {
+					console.log("handling event: ", event);
+				}
 				handler.call(this, payload);
 			} else {
 				console.warn(`No handler found for event: ${event}`);
@@ -139,8 +141,16 @@ export class EventHandler {
 		payload: ClientPayloadMap[SOCKET_EVENT_CLIENT.SAVE_GAME]
 	) => {
 		const session = this.findSession(payload.sessionId);
-		if (this.validateSession(session)) {
-			session.save();
+		if (this.validateSession(session) && session.isHost(this._user.id)) {
+			try {
+				await session.save()
+				this.socketRoomEmit(SOCKET_EVENT_SERVER.GAME_SAVED_STATUS, {success: true}, session.id);
+			} catch (e) {
+				console.warn(e);
+				this.socketRoomEmit(SOCKET_EVENT_SERVER.GAME_SAVED_STATUS, {success: false}, session.id);
+			}
+
+
 		}
 	};
 
@@ -264,6 +274,7 @@ export class EventHandler {
 				payload.message,
 				payload.sessionId
 			);
+			this.emitSessionChanged(session.id);
 		}
 	};
 
@@ -331,9 +342,9 @@ export class EventHandler {
 		const session = this.findSession(payload.sessionId);
 		if (this.validateSession(session)) {
 			this._sessionService.leaveSession(this._user, payload.sessionId);
+			this._socket.leave(payload.sessionId);
 			this.emitSessionChanged(session.id);
 			this.socketEmit(SOCKET_EVENT_SERVER.SESSION_LIST_CHANGED, null);
-			this._socket.leave(payload.sessionId);
 		}
 	};
 
@@ -347,7 +358,7 @@ export class EventHandler {
 					this._sessionService.joinSession(
 						this._user,
 						payload.sessionId,
-						payload.password
+						payload.password,
 					);
 					this._socket.join(session.id);
 					this.emitSessionChanged(session.id);
@@ -358,6 +369,7 @@ export class EventHandler {
 						SOCKET_EVENT_SERVER.SESSION_LIST_CHANGED,
 						null
 					);
+					this.emitSessionChanged(session.id);
 				} catch (error) {
 					if (error instanceof SessionConnectError) {
 						this.emitConnectionError(error.code);
@@ -399,6 +411,7 @@ export class EventHandler {
 			if (!this._socket.rooms.has(session.id)) {
 				this._socket.join(session.id);
 			}
+			console.log("user in session?", session.isUserInSession(this._user.id));
 			this.socketEmit(SOCKET_EVENT_SERVER.SESSION_DATA_SENT, {
 				sessionData: session.getRenderData(this._user.id),
 			});
@@ -406,7 +419,7 @@ export class EventHandler {
 	};
 
 	private handleSendSessionList = () => {
-		const sessionList = this._sessionService.getPublicSessionList();
+		const sessionList = this._sessionService.getPublicSessionList(this._user.id);
 
 		this.socketEmit(SOCKET_EVENT_SERVER.SESSION_LIST_SENT, {sessionList})
 	}

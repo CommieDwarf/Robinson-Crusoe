@@ -84,7 +84,7 @@ export function Player(props: Props) {
     }
 
 
-    return <div className={`${styles.container} ${props.local && styles.localPlayer}`}>
+    return <div className={`${styles.container} ${props.local && styles.localPlayer} ${props.player.isPlaceHolder && styles.containerPlaceholder}`}>
         <div className={styles.name}>
             {props.player.username}
             {props.host && <div className={styles.host}>

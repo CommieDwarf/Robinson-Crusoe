@@ -27,8 +27,6 @@ export interface UserPlaceHolder {
 }
 
 export class Player implements IPlayer {
-
-
     private _color: PLAYER_COLOR;
     private _character: IPlayerCharacter | null = null;
     private _user: IUser | UserPlaceHolder;
@@ -55,6 +53,7 @@ export class Player implements IPlayer {
             assignedCharacter: this._assignedCharacter,
             ready: this._ready,
             prime: this._prime,
+            isPlaceHolder: this.isPlaceHolder
         };
     }
 
@@ -105,6 +104,10 @@ export class Player implements IPlayer {
 
     set prime(value: boolean) {
         this._prime = value;
+    }
+
+    get isPlaceHolder() {
+        return !isUser(this._user);
     }
 
 

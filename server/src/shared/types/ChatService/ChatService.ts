@@ -39,4 +39,5 @@ export interface SystemMessageRenderData extends Omit<SystemMessage, "date"> {
 export enum SYSTEM_MSG {
     PLAYER_HAS_JOINED_SESSION = "player has joined session",
     PLAYER_HAS_LEFT_SESSION = "player has left session",
+    ONLY_PRESENT_PLAYERS_CAN_JOIN = "only present players can join",
 }

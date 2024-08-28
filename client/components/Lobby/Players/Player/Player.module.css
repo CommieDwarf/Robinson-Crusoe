@@ -17,13 +17,18 @@
     align-items: center;
 }
 
+
+.containerPlaceholder {
+    opacity: 0.5;
+    color: gray;
+    filter: grayscale(0.5);
+}
+
 .name {
     width: 100px;
 }
 
-.character {
 
-}
 
 .host {
     width: 20px;

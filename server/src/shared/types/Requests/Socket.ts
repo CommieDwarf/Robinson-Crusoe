@@ -57,7 +57,8 @@ export enum SOCKET_EVENT_SERVER {
     ALERT_SENT = "alert sent",
     PLAYER_LATENCY_LIST_SENT = "player latency list sent",
     ERROR_SENT = "error",
-    SAVE_LIST_SENT = "save list sent"
+    SAVE_LIST_SENT = "save list sent",
+    GAME_SAVED_STATUS = "game saved status",
 }
 
 
@@ -192,6 +193,9 @@ export type ServerPayloadMap = {
     },
     [SOCKET_EVENT_SERVER.CONNECTED]: any,
     [SOCKET_EVENT_SERVER.DISCONNECTED]: any,
+    [SOCKET_EVENT_SERVER.GAME_SAVED_STATUS]: {
+        success: boolean
+    }
 }
 
 

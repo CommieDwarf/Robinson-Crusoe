@@ -3,8 +3,9 @@ import {ReactNode, useEffect} from "react";
 import {isAuthenticated} from "../utils/auth/isAuthenticated";
 import {getAuthToken} from "../utils/auth/getAuthToken";
 import {fetchUser} from "../utils/auth/fetchUser";
-import {userUpdated} from "../reduxSlices/connection";
+import {connectedUpdated, userUpdated} from "../reduxSlices/connection";
 import {socketConnect} from "../middleware/socketMiddleware";
+import { socket } from "../store/store";
 
 interface Props {
     children: ReactNode;
@@ -13,6 +14,7 @@ interface Props {
 export function GlobalWrapper(props: Props) {
     const user = useAppSelector(state => state.connection.user);
     const dispatch = useAppDispatch()
+
 
     useEffect(() => {
         const authenticated = isAuthenticated();

@@ -39,7 +39,7 @@ export const socketEmit = <T extends SOCKET_EVENT_CLIENT>(
 	if (!event) {
 		console.error("event is " + event);
 	}
-	console.log("emitting", event);
+
 	return {
 		type: SOCKET_EMIT,
 		event,
@@ -65,12 +65,14 @@ const socketMiddleware =
 	(next: Dispatch<SocketActions>) => {
 		const emitQueue: SocketEmitAction<SOCKET_EVENT_CLIENT>[] = [];
 		let listeners: SocketListener[];
+		
+
 		return (action: any) => {
 			if (api) {
 				const store = api.getState();
+
 				switch (action.type) {
 					case SOCKET_CONNECT:
-						console.log(action);
 						socket.io.opts.extraHeaders = {
 							Authorization: action.payload.authToken,
 						};
@@ -126,11 +128,11 @@ const socketMiddleware =
 								}
 							),
 						];
-						api.dispatch(connectedUpdated(true));
 						socket.connect();
 						break;
 
-					case SOCKET_DISCONNECT:
+					case "disconnect":
+						console.log("socket disconnected")
 						socket.close();
 						listeners.forEach((listener) => listener.off());
 						api.dispatch(connectedUpdated(false));
