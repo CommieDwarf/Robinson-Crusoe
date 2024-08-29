@@ -1,106 +1,129 @@
 @font-face {
-    font-family: "Lora";
-    src: local("Lora"),
-    url("../public/fonts/Lora/Lora-VariableFont_wght.ttf") format('truetype'),
-    url("../public/fonts/Lora/Lora-Italic-VariableFont_wght.ttf") format('truetype');
+	font-family: "Lora";
+	src: local("Lora"),
+		url("../public/fonts/Lora/Lora-VariableFont_wght.ttf")
+			format("truetype"),
+		url("../public/fonts/Lora/Lora-Italic-VariableFont_wght.ttf")
+			format("truetype");
 }
 
-
-
-html, body {
-    padding: 0;
-    margin: 0;
-    font-family: "Lora", serif;
-    font-optical-sizing: auto;
-    font-style: normal;
+html,
+body {
+	padding: 0;
+	margin: 0;
+	font-family: "Lora", serif;
+	font-optical-sizing: auto;
+	font-style: normal;
 }
-
 
 body {
-    background-size: cover;
-    background-position-y: -100px;
-    background-attachment: fixed;
-    background-image: url("../public/menu-background.jpg");
+	background-size: cover;
+	background-position-y: -100px;
+	background-attachment: fixed;
+	background-image: url("../public/menu-background.jpg");
+	position: relative;
+	height: 100vh;
+	scrollbar-color: var(--borderColor) transparent;
 }
 
-h1, h2, h3, h4, h5 {
-    margin: 0;
-    padding: 0;
+h1,
+h2,
+h3,
+h4,
+h5 {
+	margin: 0;
+	padding: 0;
 }
 
 #__next {
-    margin: 0 !important;
-    padding: 0 !important;
-    height: 0 !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	height: 100vh;
 }
 
 a {
-    color: inherit;
-    text-decoration: none;
+	color: inherit;
+	text-decoration: none;
 }
 
 * {
-    box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 :root {
-    --toastify-color-dark: var(--brown) !important;
-    --brown: #451e14;
-    --tan: #D2B48C;
-    --beastRed: rgb(186, 51, 28);
-    --threat: #241f21;
-    --hunt: #a90c1c;
-    --build: #7f584a;
-    --gather: #767472;
-    --explore: #6cac3a;
-    --arrangeCamp: #2e3563;
-    --rest: #f8b121;
-    --weather: #068ad4;
-    --cardAspectRatio: 0.67;
-    --beastCardAspectRatio: 409 / 610;
-    --shelterAspectRatio: 579 / 402;
-    --roofAspectRatio: 361 / 199;
-    --palisadeAspectRatio: 640 / 481;
-    --weaponAspectRatio: 366 / 681;
-    --goldenRatio: 1.618;
-    --gameBaseFontSize: 10;
+    --toastify-color-error: var(--hunt) !important;
+    --toastify-color-warning: #a77716 !important;
+	--brown: #451e14;
+	--tan: #d2b48c;
+	--beastRed: rgb(186, 51, 28);
+	--threat: #241f21;
+	--hunt: #a90c1c;
+	--build: #7f584a;
+	--gather: #767472;
+	--explore: #6cac3a;
+	--arrangeCamp: #2e3563;
+	--rest: #f8b121;
+	--weather: #068ad4;
+	--cardAspectRatio: 0.67;
+	--beastCardAspectRatio: 409 / 610;
+	--shelterAspectRatio: 579 / 402;
+	--roofAspectRatio: 361 / 199;
+	--palisadeAspectRatio: 640 / 481;
+	--weaponAspectRatio: 366 / 681;
+	--goldenRatio: 1.618;
+	--gameBaseFontSize: 10;
 
-    --borderColor: #b49c7d;
-    --blackToBrown: invert(11%) sepia(11%) saturate(7369%) hue-rotate(342deg) brightness(95%) contrast(91%);
-    --blackToBorderColor: invert(86%) sepia(5%) saturate(2312%) hue-rotate(348deg) brightness(76%) contrast(78%);
-}
-
-body::-webkit-scrollbar-track {
-    background-color: black;
+	--borderColor: #b49c7d;
+	--blackToBrown: invert(11%) sepia(11%) saturate(7369%) hue-rotate(342deg)
+		brightness(95%) contrast(91%);
+	--blackToBorderColor: invert(86%) sepia(5%) saturate(2312%)
+		hue-rotate(348deg) brightness(76%) contrast(78%);
 }
 
 .grabbing {
-    cursor: grabbing;
+	cursor: grabbing;
 }
 
 .menuButton {
-    height: 100%;
-    padding: 0 5px 0 5px;
-    border: 1px solid var(--brown);
-    cursor: pointer;
-    border-radius: 5px;
-    color: var(--brown);
-    font-weight: 500;
-    line-height: 140%;
-    font-size: 100%;
-    user-select: none;
-    text-wrap: none;
+	height: 100%;
+	padding: 0 5px 0 5px;
+	border: 1px solid var(--brown);
+	cursor: pointer;
+	border-radius: 5px;
+	color: var(--brown);
+	font-weight: 500;
+	line-height: 140%;
+	font-size: 100%;
+	user-select: none;
+	text-wrap: none;
 }
 
-
 .menuButton:hover {
-    scale: 1.1;
+	scale: 1.1;
 }
 
 .borderless {
-    border: none !important;
+	border: none !important;
 }
 
 .nonSelectable {
-    user-select: none;
+	user-select: none;
 }
+
+
+.Toastify__toast {
+	background: url("../public/UI/paper-background.png") !important;
+	box-shadow: inset 0px 0px 10px 0px var(--brown) !important;
+	border: 1px solid var(--brown) !important;
+	font-weight: 500 !important;
+	color: var(--brown) !important;
+}
+
+.Toastify__toast--success {
+    color: darkGreen !important;
+} 
+
+.Toastify__toast--error {
+    color: var(--hunt) !important;
+}
+

@@ -32,7 +32,7 @@ export interface SessionData {
     isLoadMode: boolean;
     gameController: BaseController | null;
     usersInSession: number;
-    connectCode: string;
+    invitationCode: string;
 
 
     joinSession: (user: IUser, load: boolean) => void;
@@ -72,7 +72,7 @@ export interface SessionData {
 
 export interface SessionRenderData {
     id: string;
-    connectCode: string;
+    invitationCode: string;
     settings: SessionSettings;
     players: IPlayerRenderData[];
     game: IGameRenderData | null;

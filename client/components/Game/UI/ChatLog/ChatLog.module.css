@@ -1,6 +1,6 @@
 .container {
     border-bottom: 1px solid var(--borderColor);
-    height: 90%;
+    height: 100%;
     position: relative;
     padding: 5px;
 }
@@ -8,12 +8,14 @@
 .scrollWrapper {
     height: 85%;
     width: 100%;
+    position: relative;
 }
 
 .scroll {
     width: 100%;
     height: 100%;
     overflow-y: scroll;
+    position: relative;
 }
 
 .messages {

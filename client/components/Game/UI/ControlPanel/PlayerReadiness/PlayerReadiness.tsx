@@ -1,10 +1,11 @@
 import styles from "./PlayerReadiness.module.css";
 import {useAppSelector} from "../../../../../store/hooks";
 import {ReadyCheckbox} from "./ReadyCheckbox/ReadyCheckbox";
+import { selectPlayers } from "../../../../../reduxSlices/gameSession";
 
 
 export function PlayerReadiness() {
-    const players = useAppSelector((state) => state.gameSession.data?.players.filter((p) => !p.prime))!;
+    const players = useAppSelector((state) => selectPlayers(state)!).filter((p) => !p.prime);
     const localPlayer = useAppSelector(state => state.gameSession.data?.localPlayer!);
 
     return <div className={styles.container}>

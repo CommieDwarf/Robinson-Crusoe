@@ -53,7 +53,7 @@ export class Session implements SessionData {
 	private readonly _saveService = new SaveService(this);
 
 	private _loadData: SaveGameDocument | null = null;
-    private _connectCode: string;
+    private _invitationCode: string;
 
 	constructor(
         sessionService: ISessionService,
@@ -66,7 +66,7 @@ export class Session implements SessionData {
 			this._loadData = loadData;
 			this.loadSessionData(loadData);
 		}
-        this._connectCode = sessionService.generateUniqueConnectCode();
+        this._invitationCode = sessionService.generateUniqueInvitationCode();
 		this._host = host;
 		this.joinSession(host, Boolean(loadData));
 		this._sendLatencyInterval = setInterval(() => {
@@ -77,7 +77,7 @@ export class Session implements SessionData {
 	public getRenderData(userId: string): SessionRenderData {
 		return {
 			id: this._id,
-			connectCode: this._connectCode,
+			invitationCode: this._invitationCode,
 			settings: this._settings,
 			players: this._players.map((player) => player.renderData),
 			game: this.gameController?.game.renderData || null,
@@ -134,8 +134,8 @@ export class Session implements SessionData {
 		}, 0);
 	}
 
-    get connectCode() {
-        return this._connectCode
+    get invitationCode() {
+        return this._invitationCode
     }
 
 	public getBasicInfo(): SessionBasicInfo {

@@ -66,7 +66,7 @@ export function Player(props: Props) {
 
 
     function handleKickClick() {
-        if (props.hostControls) {
+        if (props.hostControls && !props.host) {
             dispatch(socketEmit(SOCKET_EVENT_CLIENT.KICK_PLAYER, {
                 playerId: props.player.id,
                 hydrateSessionId: true,

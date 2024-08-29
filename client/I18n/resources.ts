@@ -658,16 +658,16 @@ export const resources = {
                 "enter password": "wpisz hasło",
                 "error": "błąd",
                 "save": "zapisz",
-                "connect code": "Kod dołączenia",
+                "invitation code": "kod zaproszenia",
                 "copy to clipboard": "kopiuj do schowka",
                 "show": "pokaż",
                 "hide": "ukryj",
                 
             },
             toast: {
-              "copied to clipboard": "skopiowano do schowka",
-              "game saved": "zapisano grę",
-              "unable to save game": "Nie udało się zapisać gry",
+              "copied to clipboard": "Skopiowano do schowka!",
+              "game saved": "Zapisano grę!",
+              "unable to save game": "Nie udało się zapisać gry!",
             },
             error: {
                 [SESSION_CONNECTION_ERROR_CODE.SESSION_NOT_FOUND]: "Nie znaleziono sesji",

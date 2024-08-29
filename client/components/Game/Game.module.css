@@ -1,8 +1,10 @@
 .game {
-    /*width: 100vw;*/
+    width: 100vw;
     height: 100vh;
-    position: relative !important;
-    display: grid;
+    max-height: 100vh;
+    position: relative;
+
+    display: inline-grid;
     background-image: url("../../public/UI/paper-background.png");
     background-size: cover;
     background-repeat: no-repeat;
@@ -14,38 +16,36 @@
     -moz-user-select: none; /* Old versions of Firefox */
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none;
+    background-color: red;
+
 }
 
 .gameMoz {
     height: inherit;
 }
 
-@media (max-aspect-ratio: 16 / 11) {
+/* @media (max-aspect-ratio: 16 / 11) {
     .game {
         aspect-ratio: 16 / 7 !important;
-        /*color: blue !important;*/
     }
 }
 
 @media (min-aspect-ratio: 16 / 8.5) {
     .gameMoz {
         aspect-ratio: 16 / 8.3 !important;
-        /*color: steelblue !important;*/
     }
 }
 
 
 @media (min-aspect-ratio: 16 / 8) {
     .gameMoz {
-        /*aspect-ratio: 16 / 7.8 !important;*/
     }
 }
 
 
 @media (min-aspect-ratio: 16 / 7.5) {
     .gameMoz {
-        aspect-ratio: 16 / 7.3 !important;
-        /*color: orange !important;*/
+        aspect-ratio: 16 / 7 !important;
     }
 }
 
@@ -53,18 +53,15 @@
 @media (min-aspect-ratio: 16 / 7) {
     .gameMoz {
         aspect-ratio: 16 / 7 !important;
-        /*color: brown !important;*/
     }
 }
 
 
-/*2,3333 - 21 : 9*/
 @media (min-aspect-ratio: 21 / 9) {
     .gameMoz {
         aspect-ratio: 21 / 8.5 !important;
-        /*color: green !important;*/
     }
-}
+} */
 
 .chatLog {
     grid-column: 6 / span 1;

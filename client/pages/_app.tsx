@@ -20,7 +20,7 @@ export default function MyApp<Props>({ Component, pageProps }: AppProps) {
 				<GlobalWrapper>
 					<ToastContainer
 						position="bottom-left"
-						autoClose={1000}
+						autoClose={1500}
 						hideProgressBar
 						newestOnTop={false}
 						closeOnClick
@@ -29,7 +29,6 @@ export default function MyApp<Props>({ Component, pageProps }: AppProps) {
 						draggable
 						pauseOnHover={false}
 						transition={Bounce}
-                        theme="dark"
 					/>
 					<InfoBadge />
 					<Component {...pageProps} />

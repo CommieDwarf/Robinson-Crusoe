@@ -53,6 +53,10 @@ export const ClientPayloadSchemas = {
 		sessionId: Joi.string().required(),
 		password,
 	}),
+	[SOCKET_EVENT_CLIENT.JOIN_SESSION_BY_CODE]: Joi.object({
+		code: Joi.string().required(),
+		password,
+	}),
 	[SOCKET_EVENT_CLIENT.LEAVE_SESSION]: Joi.object({
 		sessionId: Joi.string().required(),
 	}),

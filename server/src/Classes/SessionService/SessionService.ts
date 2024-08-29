@@ -11,7 +11,7 @@ import {SESSION_CONNECTION_ERROR_CODE} from "@shared/types/Errors/SESSION_CONNEC
 import {Socket} from "socket.io";
 import {isUser} from "../../utils/TypeGuards/isUser";
 import {SaveGameDocument} from "../../Models/SaveGame";
-import { CONNECT_CODE_LENGTH } from "../../config/session";
+import { CONNECT_CODE_LENGTH } from "../../shared/config/session";
 
 export class SessionService implements ISessionService {
 
@@ -98,6 +98,14 @@ export class SessionService implements ISessionService {
         }
     }
 
+    public findSessionByInvitationCode(invitationCode: string) {
+        for (const session of this._activeSessions.values()) {
+            if (session.invitationCode === invitationCode) {
+                return session;
+            }
+        }
+    }
+
     public getOrCreateUser(userDocument: UserDocument, socket: Socket) {
         let user = this._activeUsers.get(userDocument._id.toString());
         if (!user) {
@@ -172,16 +180,20 @@ export class SessionService implements ISessionService {
     }
 
 
-    public generateUniqueConnectCode() {
+    public generateUniqueInvitationCode() {
         let code: string;
         do {
-            code = this.generateConnectCode(CONNECT_CODE_LENGTH);
-        } while (!this.isConnectCodeUnique(code))
+            code = this.generateInvitationCode(CONNECT_CODE_LENGTH);
+        } while (!this.isInvitationCodeUnique(code))
 
         return code;
     }
 
-    private generateConnectCode(length: number): string {
+    
+
+    
+
+    private generateInvitationCode(length: number): string {
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         let sessionCode = '';
         for (let i = 0; i < length; i++) {
@@ -191,7 +203,7 @@ export class SessionService implements ISessionService {
         return sessionCode;
     }
 
-    private isConnectCodeUnique(code: string) {
-       return !Array.from(this._activeSessions.values()).find((session) => session.connectCode === code);
+    private isInvitationCodeUnique(code: string) {
+       return !Array.from(this._activeSessions.values()).find((session) => session.invitationCode === code);
     }
 }

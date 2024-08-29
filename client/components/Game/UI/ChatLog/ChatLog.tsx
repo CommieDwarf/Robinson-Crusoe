@@ -124,10 +124,8 @@ export default function ChatLog(props: Props) {
 
     function scrollToBottom(smooth?: boolean) {
         if (!scrollRef.current) {
-            console.log("SCROLLREF NO CURRENT RETURNING")
             return;
         }
-        console.log("SCROLLING", scrollRef.current.scrollHeight)
         scrollRef.current.scrollBy({
             behavior: smooth ? "smooth" : "auto",
             top: scrollRef.current.scrollHeight

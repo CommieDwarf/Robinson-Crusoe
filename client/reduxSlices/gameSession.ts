@@ -106,6 +106,7 @@ export const selectLogs = (state: RootState) => selectGame(state)?.logs;
 export const selectScenarioService = (state: RootState) => selectGame(state)?.scenarioService;
 export const selectResourceService = (state: RootState) => selectGame(state)?.resourceService;
 export const selectEquipmentService = (state: RootState) => selectGame(state)?.equipmentService;
+export const selectPlayers = (state: RootState) => state.gameSession.data?.players;
 
 
 export const selectGameData = createSelector([
@@ -121,6 +122,7 @@ export const selectGameData = createSelector([
     (state) => selectActionService(state)?.finished,
     (state) => selectPhaseService(state)?.locked,
     (state: RootState) => state.gameSession.data?.localPlayer!,
+    (state) => selectPlayers(state)
 ], (actionSlots,
     allPawns,
     inventions,
@@ -132,7 +134,8 @@ export const selectGameData = createSelector([
     currentPhase,
     actionResolveFinished,
     phaseChangeLocked,
-    localPlayer: IPlayerRenderData
+    localPlayer,
+    players
 ) => {
     return {
         actionSlots: actionSlots && new Map<string, IPawnRenderData<any> | null>(Object.entries(actionSlots)),
@@ -146,6 +149,7 @@ export const selectGameData = createSelector([
         currentPhase,
         actionResolveFinished,
         phaseChangeLocked,
-        localPlayer
+        localPlayer,
+        players
     }
 })

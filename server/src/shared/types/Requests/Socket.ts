@@ -20,6 +20,7 @@ export enum SOCKET_EVENT_CLIENT {
     DISCONNECT = "disconnect",
     SEND_SESSION_LIST = "send session list",
     JOIN_SESSION = "join session",
+    JOIN_SESSION_BY_CODE = "join session by code",
     LEAVE_SESSION = "leave session",
     CHANGE_CHARACTER = "change character",
     SET_PLAYER_READY = "set player ready",
@@ -129,6 +130,10 @@ export type ClientPayloadMap = {
     [SOCKET_EVENT_CLIENT.DELETE_SAVE]: {
         saveId: string,
     },
+    [SOCKET_EVENT_CLIENT.JOIN_SESSION_BY_CODE]: {
+        code: string,
+        password: string,
+    }
 
 }
 

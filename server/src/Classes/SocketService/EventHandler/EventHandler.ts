@@ -206,6 +206,8 @@ export class EventHandler {
 		}
 	};
 
+	
+
 	private handleSendGameStatus = (
 		payload: ClientPayloadMap[SOCKET_EVENT_CLIENT.SEND_GAME_STATUS]
 	) => {
@@ -290,7 +292,11 @@ export class EventHandler {
 			const kickedPlayer = session.players.find(
 				(pl) => pl.id === payload.playerId
 			);
+			
 			if (kickedPlayer) {
+				if (session.isHost(kickedPlayer?.user.id)) {
+					return;
+				}
 				session.kickPlayer(kickedPlayer.id);
 				if (isUser(kickedPlayer.user)) {
 					kickedPlayer.user.sockets.forEach((socket) => {
@@ -388,6 +394,12 @@ export class EventHandler {
 			);
 		}
 	};
+
+
+	private handleJoinGameByCode(payload: ClientPayloadMap[SOCKET_EVENT_CLIENT.JOIN_SESSION_BY_CODE]) {
+		const session = this._sessionService.findSessionByInvitationCode(payload.code);
+		this.handleJoinSession({sessionId: session?.id || "unknown", password: payload.password})
+	}
 
 	private handlePlayerAction = (
 		actionData: ClientPayloadMap[SOCKET_EVENT_CLIENT.EXECUTE_PLAYER_ACTION]
@@ -533,6 +545,7 @@ export class EventHandler {
 				[SOCKET_EVENT_CLIENT.EXECUTE_PLAYER_ACTION]:
 					this.handlePlayerAction,
 				[SOCKET_EVENT_CLIENT.JOIN_SESSION]: this.handleJoinSession,
+				[SOCKET_EVENT_CLIENT.JOIN_SESSION_BY_CODE]: this.handleJoinGameByCode,
 				[SOCKET_EVENT_CLIENT.LEAVE_SESSION]: this.handleLeaveSession,
 				[SOCKET_EVENT_CLIENT.CHANGE_CHARACTER]:
 					this.handleChangeCharacter,
@@ -554,6 +567,7 @@ export class EventHandler {
 				[SOCKET_EVENT_CLIENT.PONG]: this.handlePong,
 				[SOCKET_EVENT_CLIENT.SEND_SESSION_LIST]: this.handleSendSessionList,
 				"disconnect": this.handleDisconnect,
+				
 			})
 		);
 	}

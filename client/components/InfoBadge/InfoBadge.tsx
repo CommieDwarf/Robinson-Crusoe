@@ -3,9 +3,8 @@ import {useAppSelector} from "../../store/hooks";
 
 
 export function InfoBadge() {
-
-    const [connected, latency] = useAppSelector((state) =>
-        [state.connection.connected, state.connection.latency]);
+    const connected = useAppSelector((state) => state.connection.connected);
+    const latency = useAppSelector((state) => state.connection.latency);
 
     return <div className={styles.container}>
         <div>{

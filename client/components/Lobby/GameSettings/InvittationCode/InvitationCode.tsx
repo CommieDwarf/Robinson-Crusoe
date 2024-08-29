@@ -1,15 +1,15 @@
 import { useTranslation } from "react-i18next";
 import { useAppSelector } from "../../../../store/hooks";
-import styles from "./ConnectCode.module.css";
+import styles from "./InvitationCode.module.css";
 import { useState } from "react";
 import { toast } from 'react-toastify';
 import { capitalize } from "lodash";
 
 interface Props {}
 
-export function ConnectCode(props: Props) {
-	const connectCode = useAppSelector(
-		(state) => state.gameSession.data?.connectCode!
+export function InvitationCode(props: Props) {
+	const code = useAppSelector(
+		(state) => state.gameSession.data?.invitationCode!
 	);
 	const { t } = useTranslation();
 
@@ -20,22 +20,21 @@ export function ConnectCode(props: Props) {
 	}
 
 	function handleCopyClick() {
-		navigator.clipboard.writeText(connectCode).then(() => {
-			toast(<span>&#128203; {capitalize(t("toast.copied to clipboard"))}!</span>)
+		navigator.clipboard.writeText(code).then(() => {
+			toast(<span>&#128203; {t("toast.copied to clipboard")}</span>)
 		});
-		
 	}
 
 	return (
 		<>
-			<span>{t("menu.connect code")}</span>
+			<span>{capitalize(t("menu.invitation code"))}</span>
 			<span>
 				
 				{visible && (
 					<input
 						className={styles.input}
 						type="text"
-						value={connectCode}
+						value={code}
 						readOnly
 					></input>
 				)}

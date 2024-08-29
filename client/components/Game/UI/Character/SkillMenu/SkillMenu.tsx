@@ -14,6 +14,7 @@ import {capitalize} from "lodash";
 import {DisplayedAbilityInfo} from "../Character";
 import {selectGame} from "../../../../../reduxSlices/gameSession";
 import {socketEmitAction} from "../../../../../middleware/socketMiddleware";
+import { toast } from "react-toastify";
 
 
 interface Props {
@@ -64,7 +65,10 @@ export default function SkillMenu(props: Props) {
 
     function handleButtonClick() {
         if (props.abilityInfo.ability.cost > props.ownedDetermination) {
-            dispatch(alertUpdated(ALERT_CODE.NOT_ENOUGH_DETERMINATION_FOR_ABILITY));
+            toast(capitalize(t("alerts.not enough determination for ability")!), {
+                type: "error",
+            })
+            // dispatch(alertUpdated(ALERT_CODE.NOT_ENOUGH_DETERMINATION_FOR_ABILITY));
         }
 
         const ability = props.abilityInfo.ability.name as ABILITY;

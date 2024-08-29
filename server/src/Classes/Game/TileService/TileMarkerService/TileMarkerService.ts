@@ -51,7 +51,7 @@ export class TileMarkerService {
                                       shouldApplyDmg: boolean
     ): void {
         const markAction = () => {
-            const markableAmount = this.countMarkableResources(tiles, action, source);
+            const markableAmount = this.countMarkableResources(tiles, action, source, resource);
             if (shouldApplyDmg) {
                 this.applyDmgOnInsufficientAmount(requiredActionAmount, markableAmount, source);
             }
@@ -97,6 +97,9 @@ export class TileMarkerService {
 
 
     private enqueueAndOrExecute(markAction: () => void): void {
+        if (this._remainingToFinishAction <= 0) {
+            return;
+        }
         if (this.isActionRemaining) {
             this._actionQueue.push(markAction);
         } else {
@@ -158,6 +161,8 @@ export class TileMarkerService {
             args.forEach((arg) => {
                 if (tile.canResourceActionBePerformed(action, arg, source)) {
                     count++;
+                console.log("COUNT:", count);
+                console.log("arg", arg);
                 }
             })
         })

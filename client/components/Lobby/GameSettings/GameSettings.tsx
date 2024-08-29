@@ -2,7 +2,7 @@ import styles from "./GameSettings.module.css";
 import {capitalize} from "lodash";
 import {SCENARIO} from "@shared/types/Game/ScenarioService/SCENARIO";
 import {useTranslation} from "react-i18next";
-import React, {useEffect, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import { SOCKET_EVENT_CLIENT, SOCKET_EVENT_SERVER} from "@shared/types/Requests/Socket";
 import {useRouter} from "next/router";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks";
@@ -11,7 +11,7 @@ import {setSocketListener} from "../../../pages/api/socket";
 import {socketEmit} from "../../../middleware/socketMiddleware";
 import {sessionIdUpdated} from "../../../reduxSlices/gameSession";
 import {VALIDATION_CONFIG} from "@shared/constants/VALIDATION_CONFIG";
-import { ConnectCode } from "./ConnectCode/ConnectCode";
+import { InvitationCode } from "./InvittationCode/InvitationCode";
 
 export enum GAME_SETTINGS_MODE {
     LOCKED = "locked",
@@ -181,7 +181,7 @@ export function GameSettings(props: Props) {
             <div className={"menuButton"} onClick={handleClick}>{capitalize(t("menu.create game"))}</div>}
         {props.mode !== GAME_SETTINGS_MODE.GAME_CREATE &&
          <div className={styles.row}>
-            <ConnectCode/>
+            <InvitationCode/>
             </div>
             }
     </form>)
@@ -196,7 +196,7 @@ export function GameSettings(props: Props) {
 
 
     return <div className={styles.container}>
-        {displayOrder[props.mode]}
+        {displayOrder[props.mode].map((element, i) => <Fragment key={i}>{element}</Fragment>)}
     </div>
 }
 

@@ -7,9 +7,12 @@ import {socketEmit, socketEmitAction} from "../../../../middleware/socketMiddlew
 import {useAppDispatch, useAppSelector} from "../../../../store/hooks";
 import {OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {SOCKET_EVENT_CLIENT} from "@shared/types/Requests/Socket";
-import {selectGame} from "../../../../reduxSlices/gameSession";
+import {selectGame, selectPlayers} from "../../../../reduxSlices/gameSession";
 import {alertUpdated} from "../../../../reduxSlices/alert";
 import {ALERT_CODE} from "@shared/types/ALERT_CODE";
+import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
+import capitalize from "@shared/utils/capitalize";
 
 type Props = {
     locked: boolean;
@@ -18,21 +21,30 @@ export const NextPhaseButton = (props: Props) => {
 
     const dispatch = useAppDispatch();
 
-    const players = useAppSelector(state => state.gameSession.data?.players.filter(p => !p.prime))!;
+    const players = useAppSelector(state => selectPlayers(state))?.filter((player) => !player.prime)!;
+
+
     const phase = useAppSelector((state) => selectGame(state)?.phaseService.phase)!;
-    const primePlayer = useAppSelector(state => selectGame(state)?.primePlayer)!;
-    const localPlayer = useAppSelector((state) => state.gameSession.data?.localPlayer);
+    const primePlayerId = useAppSelector(state => selectGame(state)?.primePlayer.id)!;
+    const primePlayerColor = useAppSelector(state => selectGame(state)?.primePlayer.color);
+    const localPlayerId = useAppSelector((state) => state.gameSession.data?.localPlayer.id);
+
+    const {t} = useTranslation();
 
     function handleClick() {
         if (props.locked) {
             return;
         }
+
+        
         if (players.some(player => !player.ready) && phase === "preAction") {
-            dispatch(alertUpdated(ALERT_CODE.PLAYERS_NOT_READY_FOR_ACTION));
+            // dispatch(alertUpdated(ALERT_CODE.PLAYERS_NOT_READY_FOR_ACTION));
+            toast(capitalize(t('alerts.players not ready for action')), {type: "error"});
             return;
         }
-        if (localPlayer?.id !== primePlayer.id) {
-            dispatch(alertUpdated(ALERT_CODE.CHANGE_PHASE_IS_PRIME_PLAYER_ACTION));
+        if (localPlayerId !== primePlayerId) {
+            // dispatch(alertUpdated(ALERT_CODE.CHANGE_PHASE_IS_PRIME_PLAYER_ACTION));
+            toast(capitalize(t('alerts.this is prime player action')), {type: "error"});
             return;
         }
 
@@ -40,10 +52,10 @@ export const NextPhaseButton = (props: Props) => {
     }
 
     const style = {
-        backgroundColor: primePlayer.color
+        backgroundColor: primePlayerColor
     }
 
-    const locked = props.locked || localPlayer?.id !== primePlayer.id;
+    const locked = props.locked || localPlayerId !== primePlayerId;
 
     return (
         <div className={`${styles.container} ${locked && styles.locked}`}

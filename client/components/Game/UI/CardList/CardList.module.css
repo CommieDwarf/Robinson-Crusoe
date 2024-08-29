@@ -9,17 +9,16 @@
     position: relative;
     overflow-y: scroll;
     overflow-x: hidden;
+    
+
 }
 
 /* width */
 .container::-webkit-scrollbar {
     width: 20px;
-
 }
 
-/* Track */
-.container::-webkit-scrollbar-track {
-}
+
 
 /* Handle */
 .container::-webkit-scrollbar-thumb {
@@ -28,6 +27,8 @@
     border-radius: 5px;
     border: 1px solid var(--borderColor);
 }
+
+
 
 
 .disabledScroll {
