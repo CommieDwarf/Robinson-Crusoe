@@ -26,6 +26,9 @@ export function Player(props: Props) {
     const latency = useAppSelector(state => selectPlayerLatency(state, character.playerId));
 
     return <div className={styles.container}>
+        <div className={styles.health}>
+            <Health vertical={true} character={character} background={false}/>
+        </div>
         <div className={styles.mainWrapper}>
             <div className={styles.latency}>
                 <PlayerLatency latency={latency}/>
@@ -47,14 +50,13 @@ export function Player(props: Props) {
             <div className={styles.expendables}>
                 <Expendables determination={character.determination} weapon={character.weaponBoost}/>
             </div>
-        </div>
-        <div className={styles.health}>
-            <Health vertical={true} character={character} background={false}/>
-        </div>
-        <div className={styles.pawns}>
+            <div className={styles.pawns}>
             <Pawns character={character} pawns={character.pawnService.pawns} dragDisabled={true}
                    droppableId={character.name}/>
         </div>
+        </div>
+        
+      
 
     </div>
 }

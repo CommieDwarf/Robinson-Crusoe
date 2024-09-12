@@ -5,12 +5,14 @@ type State = {
     user: UserData | null;
     connected: boolean;
     latency: number;
+    avatar: string;
 }
 
 const initialState: State = {
     user: null,
     connected: false,
     latency: Infinity,
+    avatar: "",
 }
 
 

@@ -1,0 +1,7 @@
+.container {
+    height: 100%;
+    aspect-ratio: 1;
+    position: relative;
+    background-color: white;
+    user-select: none;
+}

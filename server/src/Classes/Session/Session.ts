@@ -19,7 +19,6 @@ import { IUser } from "../../types/UserData/IUser";
 import { Player, UserPlaceHolder } from "../Player/Player";
 import { io } from "../../../server";
 import {
-	SOCKET_EVENT_CLIENT,
 	SOCKET_EVENT_SERVER,
 } from "@shared/types/Requests/Socket";
 import { isPlayer } from "../../utils/isPlayer";
@@ -30,14 +29,13 @@ import {
 } from "@shared/types/ChatService/ChatService";
 import { getDuplicatedElements } from "@shared/utils/getDuplicatedElements";
 import { GAME_STATUS } from "@shared/types/Game/Game";
-import { SEND_LATENCY_FREQUENCY } from "../../config/connection";
 import { SaveService } from "../SaveService/SaveService";
 import { SaveGameDocument } from "../../Models/SaveGame";
 import { isUser } from "../../utils/TypeGuards/isUser";
 import { SessionConnectError } from "../../Errors/Session/SessionConnectError";
-import { SESSION_CANT_START_ERROR_CODE } from "../../Errors/Session/SessionActionError";
 import { SESSION_CONNECTION_ERROR_CODE } from "@shared/types/Errors/SESSION_CONNECTION_ERROR_CODE";
 import { ISessionService } from "../../types/SessionService/SessionService";
+import { config } from "../../config/config";
 
 export class Session implements SessionData {
 	private _players: IPlayer[] = [];
@@ -71,7 +69,7 @@ export class Session implements SessionData {
 		this.joinSession(host, Boolean(loadData));
 		this._sendLatencyInterval = setInterval(() => {
 			this.sendLatencyListToAllPlayers();
-		}, SEND_LATENCY_FREQUENCY);
+		}, config.ping.sendLatencyFrequency);
 	}
 
 	public getRenderData(userId: string): SessionRenderData {
@@ -86,6 +84,10 @@ export class Session implements SessionData {
 			chatService: this.chatService.renderData,
 			loadMode: this.isLoadMode,
 		};
+	}
+
+	get visible() {
+		return !this._settings.private && !this.isGameInProgress;
 	}
 
 	get gameStatus() {
@@ -139,6 +141,7 @@ export class Session implements SessionData {
     }
 
 	public getBasicInfo(): SessionBasicInfo {
+
 		return {
 			name: this._settings.name,
 			host: this._host.username,
@@ -147,6 +150,7 @@ export class Session implements SessionData {
 			scenario: this._settings.scenario,
 			password: !!this._settings.password,
 			id: this._id,
+			usersInSession: this.usersInSession,
 		};
 	}
 
@@ -161,11 +165,11 @@ export class Session implements SessionData {
 	}
 
 	public joinSession(user: IUser, load: boolean) {
-        if (load && !this.playerInstanceExists(user.id)) {
+        if (load && !this.usersPlayerExist(user.id)) {
             throw new SessionConnectError("user doesn't exist in save game", 
                 SESSION_CONNECTION_ERROR_CODE.ACCESS_DENIED)
         }
-		if (load) {
+		if (this.usersPlayerExist(user.id)) {
 			this.getPlayerByUserId(user.id).setUser(user);
 		} else {
 			this.addNewPlayer(user);
@@ -175,28 +179,20 @@ export class Session implements SessionData {
 		console.log(this.getPlayerByUserId(user.id));
 	}
 
-	public leaveSession(user: IPlayer | IUser) {
-		let player = user;
-		if (!isPlayer(player)) {
-			const searched = this._players.find(
-				(pl) => pl.user!.id === user.id
-			);
-			if (!searched) {
-				return;
-			} else {
-				player = searched;
-			}
-		}
+	public leaveSession(user: IUser) {
+
+		const player = this.getPlayerByUserId(user.id);
 		if (this._host === player.user && this.usersInSession > 1) {
 			this.changeHost();
 		}
-		this.addLeaveMessage(player.username);
-
-		if (this.isLoadMode) {
+		if (this.isLoadMode || this.isGameInProgress) {
 			player.unsetUser();
 		} else {
-			this._players = this._players.filter((pl) => pl !== player);
+			user.removeSession(this._id);
+			this.removePlayer(player.id);
 		}
+
+		this.addLeaveMessage(player.username);
 	}
 
 	public startGame(): BaseController {
@@ -264,7 +260,9 @@ export class Session implements SessionData {
 
 	public kickPlayer(playerId: string) {
 		const player = this.getPlayerById(playerId);
-		this.leaveSession(player);
+		if (isUser(player.user) && !this.isGameInProgress && !this.isLoadMode) {
+			this.leaveSession(player.user);
+		}
 	}
 
 	public addMessage(userId: string, message: string) {
@@ -281,7 +279,8 @@ export class Session implements SessionData {
 		}
 	}
 
-	public closeSession() {
+
+	public onSessionRemove() {
 		clearInterval(this._sendLatencyInterval);
 	}
 
@@ -343,7 +342,7 @@ export class Session implements SessionData {
 		return char;
 	}
 
-	private getPlayerByUserId(userId: string): IPlayer {
+	public getPlayerByUserId(userId: string): IPlayer {
 		const player = this._players.find(
 			(player) => player.user.id === userId
 		);
@@ -436,7 +435,11 @@ export class Session implements SessionData {
 		);
 	}
 
-    public playerInstanceExists(userId: string) {
+    public usersPlayerExist(userId: string) {
         return this._players.some((player) => player.user.id === userId);
     }
+
+	private removePlayer(playerId: string) {
+		this._players = this._players.filter((player) => player.id !== playerId);
+	}
 }

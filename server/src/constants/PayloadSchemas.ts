@@ -1,9 +1,9 @@
+import { VALIDATION_CONFIG } from "@shared/config/VALIDATION_CONFIG";
 import { CONTROLLER_ACTION_OBJECT } from "@shared/types/CONTROLLER_ACTION";
 import { PLAYER_COLOR } from "@shared/types/Game/PLAYER_COLOR";
 import { SCENARIO } from "@shared/types/Game/ScenarioService/SCENARIO";
 import { SOCKET_EVENT_CLIENT } from "@shared/types/Requests/Socket";
 import Joi from "joi";
-import { VALIDATION_CONFIG } from "@shared/constants/VALIDATION_CONFIG";
 
 
 

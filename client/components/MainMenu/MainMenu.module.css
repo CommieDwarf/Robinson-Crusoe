@@ -4,6 +4,7 @@
     padding: 0;
     margin: 0;
     display: grid;
+
 }
 
 
@@ -11,12 +12,14 @@
     width: 250px;
     aspect-ratio: 362 / 172;
     margin: auto;
+
 }
 
 .wrapper {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
     display: grid;
+
 }
 
 .menu {
@@ -28,6 +31,7 @@
     height: 300px;
     flex-direction: column;
     margin: 0 auto auto;
+
 }
 
 .menuItem {
@@ -41,6 +45,8 @@
     background-size: 500px 300px;
     font-style: italic;
     font-weight: 600;
+    user-select: none;
+    cursor: pointer;
 }
 
 .menuItemDisabled {
@@ -75,8 +81,23 @@
 
 .userPanel {
     width: 340px;
+    position: relative;
     margin: auto;
 }
+
+.userPanel::before {
+    border-radius: 2%;
+    content: "";
+    background-image: url("../../public/UI/paper-background.png");
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.80;
+}
+
 
 .pulsateOnce {
     animation-name: pulsating;

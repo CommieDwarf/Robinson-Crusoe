@@ -662,7 +662,20 @@ export const resources = {
                 "copy to clipboard": "kopiuj do schowka",
                 "show": "pokaż",
                 "hide": "ukryj",
-                
+                "sign in": "zaloguj",
+                "sign in_reflexive pronoun": "zaloguj się",
+                "sign up": "zarejestruj",
+                "sign out": "wyloguj",
+                "new account" : "nowe konto",
+                "username": "nazwa użytkownika",
+                "repeat password": "powtórz hasło",
+                "already have an account?" : "masz już konto?",
+                "don't have an account yet?": "nie masz jeszcze konta?",
+                "create one": "stwórz nowe",
+                "quick game": "szybka gra",
+                "settings": "opcje",
+                "multiplayer": "wielu graczy",
+                "default game name": "gra użytkownika {{username}}" 
             },
             toast: {
               "copied to clipboard": "Skopiowano do schowka!",
@@ -676,6 +689,16 @@ export const resources = {
                 [SESSION_CONNECTION_ERROR_CODE.INCORRECT_PASSWORD]: "nieprawidłowe hasło",
                 "kicked": "Zostałeś wyrzucony",
             },
+            emailActivation: {
+                title: "Zweryfikuj swój e-mail",
+                instructions: `Na Twój adres e-mail został wysłany link
+							weryfikacyjny. Aby dokończyć proces rejestracji,
+							kliknij w link w otrzymanej wiadomości. Jeśli nie
+							widzisz e-maila, sprawdź folder Spam lub Oferty`,
+                 gotNoMessages: "Nie dostałeś wiadomości?",
+                 sendAgain: "Wyślij jeszcze raz",
+                 sent: "Wysłano"      
+            }
         },
         systemMessages: {
             [SYSTEM_MSG.PLAYER_HAS_JOINED_SESSION]: "{{subject1}} dołączył do sesji.",

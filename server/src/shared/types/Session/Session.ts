@@ -33,16 +33,17 @@ export interface SessionData {
     gameController: BaseController | null;
     usersInSession: number;
     invitationCode: string;
+    visible: boolean;
 
 
     joinSession: (user: IUser, load: boolean) => void;
-    leaveSession: (player: IPlayer | IUser) => void;
+    leaveSession: (user: IUser) => void;
     startGame: () => BaseController;
     assignColor: (userId: string, color: PLAYER_COLOR) => void;
     handleAction: (userId: string, action: CONTROLLER_ACTION, ...args: any[]) => void;
     getGame: () => IGame | undefined;
-
-    closeSession: () => void;
+    getPlayerByUserId: (userId: string) => IPlayer
+    onSessionRemove: () => void;
 
 
     canStart: () => boolean;
@@ -61,7 +62,7 @@ export interface SessionData {
     setPlayerReady: (userId: string, ready: boolean) => void;
 
     getBasicInfo: () => SessionBasicInfo;
-    playerInstanceExists: (userId: string) => void;
+    usersPlayerExist: (userId: string) => boolean;
 
     save: () => Promise<(Document<unknown, {}, SaveGameDocument> & SaveGameDocument & Required<{
         _id: string;
@@ -90,4 +91,5 @@ export interface SessionBasicInfo {
     maxPlayers: number,
     scenario: string,
     password: boolean;
+    usersInSession: number,
 }

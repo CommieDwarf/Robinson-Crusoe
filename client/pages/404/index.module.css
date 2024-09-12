@@ -1,0 +1,21 @@
+.container {
+    width: 700px;
+    height: 400px;
+    background: url("../../public/UI/paper-background.png");
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--brown);
+    padding: 20px;
+    text-align: center;
+    font-size: 30px;
+}
+
+.backButton {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    left: 10px;
+    bottom: 10px;
+}

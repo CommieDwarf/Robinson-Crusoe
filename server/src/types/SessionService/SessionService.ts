@@ -10,20 +10,21 @@ export interface ISessionService {
     createSession: (userId: string, settings: SessionSettings, loadData?: SaveGameDocument) => SessionData;
 
     joinSession: (user: IUser, sessionId: string, password: string) => void;
-    leaveSession: (user: IUser, sessionId: string) => void;
+    leaveSession: (user: IUser, sessionId: string) => string;
     getOrCreateUser: (userDocument: UserDocument, socket: Socket) => IUser;
     removeFromActiveUsers: (userId: string) => void;
-    findSession: (userId: string, sessionId: string) => SessionData | null;
+    findSession: (sessionId: string) => SessionData | null;
     findSessionByInvitationCode: (invitationCode: string) => SessionData | undefined;
     generateUniqueInvitationCode: () => string;
+
+    getAllUsersFromSession: (sessionId: string) => IUser[];
 
     startGame: (userId: string, sessionId: string) => void;
 
     getPublicSessionList: (userId: string) => SessionBasicInfo[];
 
-    getQuickGameByUserId(userId: string): SessionData | null;
 
-    closeSession: (sessionId: string) => void;
+    removeSession: (sessionId: string) => void;
 
     addMessage: (userId: string, message: string, sessionId: string) => void;
 

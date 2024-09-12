@@ -22,8 +22,12 @@
 
 .arrowWrapper {
     height: 88%;
+    aspect-ratio: 1.4;
 }
 
+.wrapperVertical {
+    width: 100%;
+}
 
 .arrow {
     position: relative;
@@ -34,7 +38,7 @@
 }
 
 .arrowVertical {
-    transform: rotate(-90deg);
+    transform: rotate(90deg);
     top: 0;
     height: 50%;
 }

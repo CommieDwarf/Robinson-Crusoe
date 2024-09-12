@@ -1,0 +1,142 @@
+.container {
+    width: 700px;
+    font-size: 14px;
+    text-align: center;
+    font-weight: 500;
+    font-style: italic;
+    display: flex;
+    column-gap: 10px;
+}
+
+.page {
+    width: 500px;
+    display: inline-block;
+}
+
+.contents {
+    width: 200px;
+    vertical-align: top;
+    display: inline-block;
+    flex-grow: 100%;
+}
+
+
+.title {
+    color: var(--hunt);
+    font-family: "Kaz";
+    font-size: 2em;
+    font-style: normal;
+}
+
+.subTitle {
+    color: var(--hunt);
+    font-family: "Kaz";
+    font-size: 1.5em;
+    font-style: normal;
+}
+
+.p {
+    font-style: italic;
+    font-size: 0.9em;
+    text-align: left;
+}
+
+.list {
+    padding-left: 10px;
+    font-size: 0.8em;
+    text-align: left;
+}
+
+.li {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    flex-wrap: nowrap;
+    font-size: 0.8em;
+    margin-bottom: 2px;
+    font-style: italic;
+
+}
+
+.listItemImg {
+    height: 10px;
+    aspect-ratio: 1;
+    position: relative;
+    scale: 2;
+    display: inline-block;
+}
+
+.listItemDescription {
+    text-align: left;
+}
+
+.buttonNext {
+    float: right;
+}
+
+.titleImg {
+    height: 2.5em;
+    aspect-ratio: 1;
+    position: relative;
+}
+
+.flexBlock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 2px;
+}
+
+.cardExampleImg {
+    height: 150px;
+    aspect-ratio: 1080 / 650;
+    position: realtive;
+}
+
+.cardExampleImg2 {
+    height: 150px;
+    aspect-ratio: 391 / 272;
+    position: realtive;
+    border: 1px solid var(--brown);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.moraleIcon {
+    filter: brightness(95%)
+}
+
+.moraleBlock {
+    width: 50%;
+    height: 50px;
+    font-size: 0.3em;
+    border: 1px solid var(--brown);
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px auto 10px auto;
+}
+
+.icon {
+    height: 1em;
+    aspect-ratio: 1;
+    position: relative;
+    display: inline-block;
+    scale: 1.4;
+    top: 1px;
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+.iconMorale {
+    aspect-ratio: 2;
+    scale: 1;
+}
+
+
+
+
+.tile {
+    aspect-ratio: 1;
+    height: 100px;
+    position: relative;
+}

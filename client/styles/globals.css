@@ -7,6 +7,16 @@
 			format("truetype");
 }
 
+
+@font-face {
+	font-family: "Kaz";
+	src: local("Kaz"),
+		url("../public/fonts/Kaz/Kaz.ttf")
+			format("truetype"),
+		url("../public/fonts/Kaz/Kaz.ttf")
+			format("truetype");
+}
+
 html,
 body {
 	padding: 0;
@@ -72,6 +82,8 @@ a {
 	--weaponAspectRatio: 366 / 681;
 	--goldenRatio: 1.618;
 	--gameBaseFontSize: 10;
+
+	--kazFontFamily: "P22 Kaz W01SC Thin SC";
 
 	--borderColor: #b49c7d;
 	--blackToBrown: invert(11%) sepia(11%) saturate(7369%) hue-rotate(342deg)

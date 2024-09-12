@@ -1,0 +1,33 @@
+.container {
+    background: url("../../public/UI/paper-background.png");
+    padding: 10px 30px 15px 30px;
+    border-radius: 5px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--brown);
+    border: 1px solid var(--brown);
+    text-align: center;
+
+}
+
+.title {
+    font-size: 20px;
+}
+
+.positive {
+    color: darkgreen;
+    font-weight: bold;
+}
+
+.negative {
+    color: var(--hunt);
+    font-weight: bold;
+}
+
+
+.link {
+    text-decoration: underline;
+    font-weight: bold;
+}

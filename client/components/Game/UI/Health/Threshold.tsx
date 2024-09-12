@@ -30,7 +30,7 @@ export default function Threshold(props: Props) {
 
 
     return (
-        <div className={styles.arrowWrapper}>
+        <div className={`${styles.arrowWrapper} ${props.vertical && styles.wrapperVertical}`}>
             <div className={`${styles.arrow} ${blinkClass} ${props.vertical && styles.arrowVertical}`}
                  onClick={handleClick}>
                 <ResizableImage src={moraleArrowLeftImg} fill alt="morale" sizes={styles.arrow}/>

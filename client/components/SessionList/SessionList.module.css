@@ -33,3 +33,39 @@
     border-radius: 5px;
     border: 1px solid var(--brown);
 }
+
+.refreshIconWrapper {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 40px;
+    margin: auto;
+    animation-name: spin;
+    animation-duration: 0.7s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+    color: var(--brown);
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+}
+
+
+
+@keyframes spin {
+    0% {
+        transform: rotate(0);
+    }
+    50% {
+        transform: rotate(-180deg);
+    }
+
+    100% {
+        transform: rotate(-360deg);
+    }
+}

@@ -74,16 +74,17 @@
     position: absolute;
     width: 13%;
     aspect-ratio: 2;
-    top: 35%;
+    top: 31%;
     transform: rotate(180deg);
 }
 
-.curvedArrow {
+.xMark {
     position: absolute;
-    width: 13%;
+    width: 10%;
     aspect-ratio: 1;
     left: 0;
-    bottom: 20%;
+    top: 31%;
+    filter: brightness(120%);
 }
 
 

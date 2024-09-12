@@ -27,7 +27,7 @@ export function Multiplayer() {
 
 	const [sessionIdToJoin, setSessionIdToJoin] = useState("");
 	const [joinCode, setJoinCode] = useState("");
-
+	const [showSpinner, setShowSpinner] = useState(true);
 	const [message, setMessage] = useState(router.query.msg as string);
 
 	const [showSaveList, setShowSaveList] = useState(false);
@@ -42,6 +42,7 @@ export function Multiplayer() {
 	}
 
 	function handleRefreshClick() {
+		setShowSpinner(true);
 		dispatch(socketEmit(SOCKET_EVENT_CLIENT.SEND_SESSION_LIST, null));
 	}
 
@@ -59,6 +60,10 @@ export function Multiplayer() {
 	function handleJoinCodeChange(event: React.ChangeEvent<HTMLInputElement>) {
         setJoinCode(event.currentTarget.value);
     }
+
+	function updateShowSpinner(value: boolean) {
+		setShowSpinner(value);
+	}
 
 	useEffect(() => {
 		const listeners = [
@@ -126,7 +131,7 @@ export function Multiplayer() {
 					</div>
 				</div>
 			</div>
-			<SessionList setSessionIdToEnter={setSessionIdToEnter} />
+			<SessionList setSessionIdToEnter={setSessionIdToEnter} showSpinner={showSpinner} updateShowSpinner={updateShowSpinner}/>
 			{sessionIdToJoin && (
 				<SmallWindow closeWindow={closeWindow}>
 					<EnterPassword

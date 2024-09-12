@@ -11,11 +11,11 @@ export class User implements IUser {
 
     private readonly _id: string
     private readonly _username: string;
-    private _activeSessions: SessionData[] = [];
-    private _singlePlayerSession: SessionData | null = null;
+    private _sessions: SessionData[] = [];
     private _sockets: Socket[];
     private _latency = 0;
     private readonly _sessionService: ISessionService;
+    private _disconnectTimout: NodeJS.Timeout | null = null;
 
 
 
@@ -36,11 +36,7 @@ export class User implements IUser {
     }
 
     get activeSessions(): SessionData[] {
-        return this._activeSessions;
-    }
-
-    get quickGameSession(): SessionData | null {
-        return this._singlePlayerSession;
+        return this._sessions;
     }
 
     get sockets() {
@@ -56,46 +52,44 @@ export class User implements IUser {
     }
 
     public addActiveSession(session: SessionData): void {
-        if (!this._activeSessions.includes(session)) {
-            this._activeSessions.push(session);
+        if (!this._sessions.includes(session)) {
+            this._sessions.push(session);
         }
     }
 
-    public removeActiveSession(sessionId: string): void {
-        this._activeSessions = this._activeSessions.filter((session) => session.id !== sessionId);
-    }
-
-    public setQuickGameSession(session: SessionData) {
-        this._singlePlayerSession = session;
-    }
-
-    public unsetSinglePlayerSession() {
-        this._singlePlayerSession = null;
+    public removeSession(sessionId: string): void {
+        this._sessions = this._sessions.filter((session) => session.id !== sessionId);
     }
 
     public leaveLobbies() {
-        this._activeSessions
+        return this._sessions
             .filter((session) => !session.isGameInProgress)
-            .forEach((session) => {
-                this._sessionService.leaveSession(this, session.id);
+            .map((session) => {
+                return this._sessionService.leaveSession(this, session.id);
             })
     }
 
     public addSocket(socket: Socket) {
         if (!this._sockets.includes(socket)) {
             this._sockets.push(socket);
+            if (this._disconnectTimout) {
+                clearTimeout(this._disconnectTimout);
+            }
         }
     }
 
-    public closeConnection(socket: Socket) {
+    public onSocketDisconnect(socket: Socket, onLobbiesLeave?: (sessionIds: string[]) => void) {
         this.removeSocket(socket);
         if (this._sockets.length === 0) {
-            this.leaveLobbies();
+                this._disconnectTimout = setTimeout(() => {
+                    const sessionIds = this.leaveLobbies()
+                    onLobbiesLeave && onLobbiesLeave(sessionIds);
+                }, 5000);
         }
     }
 
     public getSession(sessionId: string) {
-        const session = this._activeSessions.find((sessionData) => sessionData.id === sessionId);
+        const session = this._sessions.find((sessionData) => sessionData.id === sessionId);
         if (!session) {
             throw new SessionConnectError(`Session id: ${sessionId} not found in user's activeSessions`, SESSION_CONNECTION_ERROR_CODE.SESSION_NOT_FOUND);
         }

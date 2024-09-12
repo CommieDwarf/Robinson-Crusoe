@@ -44,8 +44,7 @@ export const socketEmit = <T extends SOCKET_EVENT_CLIENT>(
 		type: SOCKET_EMIT,
 		event,
 		payload,
-	}
-	
+	};
 };
 
 export const socketEmitAction = <A extends keyof ActionArgMap>(
@@ -65,7 +64,6 @@ const socketMiddleware =
 	(next: Dispatch<SocketActions>) => {
 		const emitQueue: SocketEmitAction<SOCKET_EVENT_CLIENT>[] = [];
 		let listeners: SocketListener[];
-		
 
 		return (action: any) => {
 			if (api) {
@@ -128,11 +126,15 @@ const socketMiddleware =
 								}
 							),
 						];
-						socket.connect();
+						try {
+							socket.connect();
+						} catch (e) {
+							console.warn(e);
+						}
 						break;
 
 					case "disconnect":
-						console.log("socket disconnected")
+						console.log("socket disconnected");
 						socket.close();
 						listeners.forEach((listener) => listener.off());
 						api.dispatch(connectedUpdated(false));
@@ -174,9 +176,9 @@ const socketMiddleware =
 					const hydrated = {
 						...payload,
 						sessionId: state.gameSession.sessionId,
-					}
+					};
 					delete hydrated.hydrateSessionId;
-					
+
 					return hydrated;
 				}
 				return payload;

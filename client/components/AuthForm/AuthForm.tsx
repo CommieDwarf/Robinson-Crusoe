@@ -1,355 +1,390 @@
 import styles from "./AuthForm.module.css";
-import React, {FormEvent, useEffect, useState} from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import Link from "next/link";
 import config from "../../config";
-import {useRouter} from "next/router";
-import {isAuthenticated} from "../../utils/auth/isAuthenticated";
-import {useAppDispatch} from "../../store/hooks";
-import {fetchUser} from "../../utils/auth/fetchUser";
-import {LoginReqBody} from "@shared/types/Requests/Post";
+import { useRouter } from "next/router";
+import { isAuthenticated } from "../../utils/auth/isAuthenticated";
+import { useAppDispatch } from "../../store/hooks";
+import { fetchUser } from "../../lib/fetchUser";
+import { LoginReqBody } from "@shared/types/Requests/Post";
 import Cookies from "js-cookie";
-import {userUpdated} from "../../reduxSlices/connection";
-import {socketConnect} from "../../middleware/socketMiddleware";
-
+import { userUpdated } from "../../reduxSlices/connection";
+import { socketConnect } from "../../middleware/socketMiddleware";
+import { useTranslation } from "react-i18next";
+import capitalize from "@shared/utils/capitalize";
+import { capitalizeAll } from "@shared/utils/capitalizeAll";
 interface Props {
-    isLogin: boolean;
+	isLogin: boolean;
 }
 
-
 interface Errors {
-    username: string,
-    email: string,
-    password: string,
-    passwordRepeat: string,
-    form: string,
+	username: string;
+	email: string;
+	password: string;
+	passwordRepeat: string;
+	form: string;
 }
 
 export default function AuthForm(props: Props) {
+	const [username, setUsername] = useState("");
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [passwordRepeat, setPasswordRepeat] = useState("");
 
-    const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [passwordRepeat, setPasswordRepeat] = useState("");
+	const router = useRouter();
+	const dispatch = useAppDispatch();
+	const { t } = useTranslation();
 
-    const router = useRouter();
+	const [errors, setErrors] = useState<Errors>({
+		username: "",
+		email: "",
+		password: "",
+		passwordRepeat: "",
+		form: "",
+	});
 
-    const dispatch = useAppDispatch()
+	useEffect(() => {
+		if (isAuthenticated()) {
+			router.push("/").catch((e) => console.error(e));
+		}
+	}, []);
 
+	function isDataValid() {
+		if (!username) {
+			return false;
+		}
+		if (!email || !validateEmail(email)) {
+			return false;
+		}
+		if (!password || password.length < 8) {
+			return false;
+		}
+		if (!passwordRepeat || passwordRepeat !== password) {
+			return false;
+		}
+		return true;
+	}
 
-    const [errors, setErrors] = useState<Errors>({
-        username: "",
-        email: "",
-        password: "",
-        passwordRepeat: "",
-        form: "",
-    })
+	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		if (props.isLogin) {
+			await signIn();
+		} else {
+			await signUp();
+		}
+	};
 
-    useEffect(() => {
-        if (isAuthenticated()) {
-            router.push("/").catch(e => console.error(e));
-        }
-    }, [])
+	async function signIn() {
+		const body: LoginReqBody = { email, password };
+		const url = `${config.SERVER_URL}/login`;
+		const response = await fetch(url, {
+			method: "post",
+			body: JSON.stringify(body),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+		if (response.status === 200) {
+			await handleAuthentication(response);
+		} else if (response.status === 401) {
+			setError("form", "Provided email or password is incorrect.");
+		} else {
+			setError("form", "Attempt to sign in failed.");
+		}
+	}
 
+	async function signUp() {
+		if (!isDataValid()) {
+			setError("form", "Provided data is incorrect.");
+			return;
+		}
+		const body = JSON.stringify({ email, username, password });
+		const url = `${config.SERVER_URL}/register`;
+		const response = await fetch(url, {
+			method: "post",
+			body,
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+		if (response.status === 201) {
+			await handleAuthentication(response);
+		} else if (response.status === 422) {
+			setError("form", "Provided data is incorrect.");
+		} else {
+			setError("form", "Attempt to sign up failed.");
+		}
+	}
 
-    function isDataValid() {
-        if (!username) {
-            return false;
-        }
-        if (!email || !validateEmail(email)) {
-            return false;
-        }
-        if (!password || password.length < 8) {
-            return false;
-        }
-        if (!passwordRepeat || passwordRepeat !== password) {
-            return false;
-        }
-        return true;
-    }
+	async function handleAuthentication(response: Response) {
+		const authToken = response.headers.get("Authorization");
+		if (authToken) {
+			const user = await fetchUser(authToken);
+			dispatch(userUpdated(user));
+			Cookies.set("Authorization", authToken);
+			if (user.emailVerified) {
+				dispatch(socketConnect({ authToken }));
+				router.push("/").catch((e) => console.error(e));
+			} else {
+				router.push("/verify-your-email");
+			}
+		}
+	}
 
-    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        if (props.isLogin) {
-            await signIn();
-        } else {
-            await signUp();
-        }
-    };
+	async function handleUsernameBlur() {
+		if (!username) {
+			return;
+		}
+		const response = await usernameExists(username);
+		if (response.status === 409) {
+			setError("username", "This user name is taken");
+		} else {
+			setError("username", "");
+		}
+	}
 
+	async function handleUsernameChange(
+		event: React.ChangeEvent<HTMLInputElement>
+	) {
+		if (props.isLogin) {
+			return;
+		}
+		const username = event.target.value;
+		setUsername(username);
+	}
 
-    async function signIn() {
-        const body: LoginReqBody = {email, password};
-        const url = `${config.SERVER_URL}/login`;
-        const response = await fetch(url, {
-            method: "post",
-            body: JSON.stringify(body),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-        if (response.status === 200) {
-            await handleAuthentication(response);
-        } else if (response.status === 401) {
-            setError("form", "Provided email or password is incorrect.")
-        } else {
-            setError("form", "Attempt to sign in failed.")
-        }
-    }
+	function handlePasswordBlur() {
+		if (props.isLogin) {
+			return;
+		}
+		if (password && password.length < 8) {
+			setError(
+				"password",
+				"Password has to be at least 8 characters long."
+			);
+		} else {
+			setError("password", "");
+		}
+	}
 
-    async function signUp() {
-        if (!isDataValid()) {
-            setError("form", "Provided data is incorrect.");
-            return;
-        }
-        const body = JSON.stringify({email, username, password});
-        const url = `${config.SERVER_URL}/register`;
-        const response = await fetch(url, {
-            method: "post",
-            body,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-        if (response.status === 201) {
-            await handleAuthentication(response);
-        } else if (response.status === 422) {
-            setError("form", "Provided data is incorrect.")
-        } else {
-            setError("form", "Attempt to sign up failed.")
-        }
-    }
+	async function handleEmailBlur() {
+		if (props.isLogin) {
+			return;
+		}
+		const isEmail = validateEmail(email);
+		if (!isEmail) {
+			setError("email", "Provided e-mail isn't valid.");
+			return;
+		}
+		const emailTaken = await emailExists(email);
+		if (emailTaken) {
+			setError("email", "This e-mail is taken.");
+		} else {
+			setError("email", "");
+		}
+	}
 
-    async function handleAuthentication(response: Response) {
-        const authToken = response.headers.get("Authorization");
-        if (authToken) {
-            Cookies.set("Authorization", authToken);
-            dispatch(socketConnect({authToken}))
-            const user = await fetchUser(authToken);
-            dispatch(userUpdated(user));
-            router.push("/").catch((e) => console.error(e));
-        }
-    }
+	function setError(element: keyof Errors, value: string) {
+		setErrors((prev) => {
+			return {
+				...prev,
+				[element]: value,
+			};
+		});
+	}
 
+	function handlePasswordRepeatChange(
+		event: React.ChangeEvent<HTMLInputElement>
+	) {
+		const repeatPassword = event.target.value;
+		setPasswordRepeat(repeatPassword);
+		checkPasswordsSame(password, repeatPassword);
+	}
 
-    async function handleUsernameBlur() {
-        if (!username) {
-            return;
-        }
-        const response = await usernameExists(username);
-        if (response.status === 409) {
-            setError("username", "This user scenario is taken")
-        } else {
-            setError("username", "");
-        }
-    }
+	function handlePasswordChange(event: React.ChangeEvent<HTMLInputElement>) {
+		const password = event.target.value;
+		setPassword(password);
+		checkPasswordsSame(password, passwordRepeat);
+	}
 
-    async function handleUsernameChange(event: React.ChangeEvent<HTMLInputElement>) {
-        if (props.isLogin) {
-            return;
-        }
-        const username = event.target.value;
-        setUsername(username);
-    }
+	function checkPasswordsSame(password: string, repeatPassword: string) {
+		if (password && repeatPassword && password !== repeatPassword) {
+			setError("passwordRepeat", "Passwords must be the same.");
+		} else {
+			setError("passwordRepeat", "");
+		}
+	}
 
-    function handlePasswordBlur() {
-        if (props.isLogin) {
-            return;
-        }
-        if (password && password.length < 8) {
-            setError("password", "Password has to be at least 8 characters long.")
-        } else {
-            setError("password", "");
-        }
-    }
+	async function usernameExists(username: string) {
+		const url = `${config.SERVER_URL}/usernameExists/${username}`;
 
+		return fetch(url, {
+			method: "get",
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+	}
 
-    async function handleEmailBlur() {
-        if (props.isLogin) {
-            return;
-        }
-        const isEmail = validateEmail(email);
-        if (!isEmail) {
-            setError("email", "Provided e-mail isn't valid.");
-            return;
-        }
-        const emailTaken = await emailExists(email);
-        if (emailTaken) {
-            setError("email", "This e-mail is taken.")
-        } else {
-            setError("email", "");
-        }
-    }
+	const validateEmail = (email: string) => {
+		return String(email)
+			.toLowerCase()
+			.match(
+				/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+			);
+	};
 
-    function setError(element: keyof Errors, value: string) {
-        setErrors((prev) => {
-            return {
-                ...prev,
-                [element]: value,
-            }
-        })
-    }
+	async function emailExists(email: string) {
+		try {
+			const url = `${config.SERVER_URL}/emailExists/${email}`;
+			const result = await fetch(url, {
+				method: "get",
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
+			return result.status === 409;
+		} catch (error) {
+			console.log(error);
+		}
+	}
 
-    function handlePasswordRepeatChange(event: React.ChangeEvent<HTMLInputElement>) {
-        const repeatPassword = event.target.value;
-        setPasswordRepeat(repeatPassword);
-        checkPasswordsSame(password, repeatPassword);
-    }
+	const [buttonActive, setButtonActive] = useState(false);
 
-    function handlePasswordChange(event: React.ChangeEvent<HTMLInputElement>) {
-        const password = event.target.value;
-        setPassword(password);
-        checkPasswordsSame(password, passwordRepeat);
-    }
+	useEffect(() => {
+		document.addEventListener("keydown", handleEnterDown);
 
-    function checkPasswordsSame(password: string, repeatPassword: string) {
-        if (password && repeatPassword && password !== repeatPassword) {
-            setError("passwordRepeat", "Passwords must be the same.")
-        } else {
-            setError("passwordRepeat", "")
-        }
-    }
+		return () => {
+			document.removeEventListener("keydown", handleEnterDown);
+		};
+	});
 
+	function handleEnterDown(e: KeyboardEvent) {
+		if (e.key === "Enter") {
+			setButtonActive(true);
+			setTimeout(function () {
+				setButtonActive(false);
+			}, 200);
+		}
+	}
 
-    async function usernameExists(username: string) {
-        const url = `${config.SERVER_URL}/usernameExists/${username}`;
-
-        return fetch(url, {
-            method: "get",
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-    }
-
-    const validateEmail = (email: string) => {
-        return String(email)
-            .toLowerCase()
-            .match(
-                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-            );
-    };
-
-    async function emailExists(email: string) {
-        try {
-            const url = `${config.SERVER_URL}/emailExists/${email}`;
-            const result = await fetch(url, {
-                method: "get",
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            return result.status === 409;
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    const [buttonActive, setButtonActive] = useState(false);
-
-    useEffect(() => {
-        document.addEventListener("keydown", handleEnterDown);
-
-        return () => {
-            document.removeEventListener("keydown", handleEnterDown)
-        }
-    })
-
-    function handleEnterDown(e: KeyboardEvent) {
-        if (e.key === "Enter") {
-            setButtonActive(true);
-            setTimeout(function () {
-                setButtonActive(false);
-            }, 200);
-        }
-    }
-
-
-    return (
-        <div className={styles.container}>
-            <h3>{props.isLogin ? "Sign in" : "New Account"}</h3>
-            <form onSubmit={handleSubmit} className={styles.form}>
-                {!props.isLogin && <div className={styles.row}>
-                    <input
-                        placeholder={"username"}
-                        className={styles.input}
-                        type="text"
-                        id="username"
-                        value={username}
-                        onChange={handleUsernameChange}
-                        onBlur={handleUsernameBlur}
-                        required
-                    />
-                    <div className={styles.error}>{errors.username &&
-                        <i className="icon-warning"></i>}{errors.username}</div>
-                </div>}
-                <div className={styles.row}>
-                    <input
-                        placeholder={"e-mail"}
-                        className={styles.input}
-                        type="email"
-                        id="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        onBlur={handleEmailBlur}
-                        required
-                    />
-                    <div className={styles.error}>{errors.email && <i className="icon-warning"></i>}{errors.email}</div>
-                </div>
-                <div className={styles.row}>
-                    <input
-                        className={styles.input}
-                        placeholder={"password"}
-                        type="password"
-                        id="password"
-                        value={password}
-                        onChange={handlePasswordChange}
-                        onBlur={handlePasswordBlur}
-                        required
-                    />
-                    <div className={styles.error}>
-                        {errors.password && <i className="icon-warning"></i>}
-                        {errors.password}
-                    </div>
-                </div>
-                {!props.isLogin &&
-                    <div className={styles.row}>
-                        <input
-                            className={styles.input}
-                            placeholder={"repeat password"}
-                            type="password"
-                            id="rePassword"
-                            value={passwordRepeat}
-                            onChange={handlePasswordRepeatChange}
-                            required
-                        />
-                        <div className={styles.error}>
-                            {errors.passwordRepeat && <i className="icon-warning"></i>}
-                            {errors.passwordRepeat}
-                        </div>
-                    </div>
-                }
-                <div className={styles.error}>
-                    {errors.form && <i className="icon-warning"></i>}
-                    {errors.form}
-                </div>
-                <button type="submit"
-                        className={`${styles.input} 
+	return (
+		<div className={styles.container}>
+			<h3>
+				{props.isLogin
+					? capitalize(t("menu.sign in"))
+					: capitalizeAll(t("menu.new account"))}
+			</h3>
+			<form onSubmit={handleSubmit} className={styles.form}>
+				{!props.isLogin && (
+					<div className={styles.row}>
+						<input
+							placeholder={t("menu.username")}
+							className={styles.input}
+							type="text"
+							id="username"
+							value={username}
+							onChange={handleUsernameChange}
+							onBlur={handleUsernameBlur}
+							required
+						/>
+						<div className={styles.error}>
+							{errors.username && (
+								<i className="icon-warning"></i>
+							)}
+							{errors.username}
+						</div>
+					</div>
+				)}
+				<div className={styles.row}>
+					<input
+						placeholder={"e-mail"}
+						className={styles.input}
+						type="email"
+						id="email"
+						value={email}
+						onChange={(e) => setEmail(e.target.value)}
+						onBlur={handleEmailBlur}
+						required
+					/>
+					<div className={styles.error}>
+						{errors.email && <i className="icon-warning"></i>}
+						{errors.email}
+					</div>
+				</div>
+				<div className={styles.row}>
+					<input
+						className={styles.input}
+						placeholder={t("menu.password")}
+						type="password"
+						id="password"
+						value={password}
+						onChange={handlePasswordChange}
+						onBlur={handlePasswordBlur}
+						required
+					/>
+					<div className={styles.error}>
+						{errors.password && <i className="icon-warning"></i>}
+						{errors.password}
+					</div>
+				</div>
+				{!props.isLogin && (
+					<div className={styles.row}>
+						<input
+							className={styles.input}
+							placeholder={
+								t("menu.repeat password") || "repeat password"
+							}
+							type="password"
+							id="rePassword"
+							value={passwordRepeat}
+							onChange={handlePasswordRepeatChange}
+							required
+						/>
+						<div className={styles.error}>
+							{errors.passwordRepeat && (
+								<i className="icon-warning"></i>
+							)}
+							{errors.passwordRepeat}
+						</div>
+					</div>
+				)}
+				<div className={styles.error}>
+					{errors.form && <i className="icon-warning"></i>}
+					{errors.form}
+				</div>
+				<button
+					type="submit"
+					className={`${styles.input} 
                         ${styles.button}
-                        ${buttonActive && styles.buttonActive}`}>
-                    {props.isLogin ? "Sign in" : "Sign up"}
-                </button>
-            </form>
+                        ${buttonActive && styles.buttonActive}`}
+				>
+					{props.isLogin
+						? capitalize(t("menu.sign in"))
+						: capitalize(t("menu.sign up"))}
+				</button>
+			</form>
 
-            {props.isLogin ?
-                <span className={styles.redirectText}>
-                    Dont have an account yet? <Link href={"./signUp"} className={styles.link}>Create one!</Link>
-                </span> :
-                <span className={styles.redirectText}>
-                    Already have an account? <Link href={"./signIn"} className={styles.link}>Sign in!</Link>
-                </span>
-            }
-        </div>
-
-    );
+			{props.isLogin ? (
+				<span className={styles.redirectText}>
+					<p className={styles.question}>{capitalize(t("menu.don't have an account yet?"))}</p>
+					<Link href={"./signUp"} className={styles.link}>
+						{capitalize(t("menu.create one"))}!
+					</Link>
+				</span>
+			) : (
+				<span className={styles.redirectText}>
+					<p className={styles.question}>{capitalize(t("menu.already have an account?"))}</p>
+					<Link href={"./signIn"} className={styles.link}>
+						{capitalize(
+							t("menu.sign in", {
+								context: "reflexive pronoun",
+							})
+						)}
+						!
+					</Link>
+				</span>
+			)}
+		</div>
+	);
 }
-

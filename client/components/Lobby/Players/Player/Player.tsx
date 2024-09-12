@@ -16,6 +16,7 @@ import {socketEmit} from "../../../../middleware/socketMiddleware";
 import Select from 'react-select'
 import {PLAYER_COLOR} from "@shared/types/Game/PLAYER_COLOR";
 import {selectPlayerLatency} from "../../../../reduxSlices/gameSession";
+import { UserAvatar } from "../../../UserProfile/UserAvatar/UserAvatar";
 
 interface Props {
     player: IPlayerRenderData,
@@ -31,7 +32,6 @@ export function Player(props: Props) {
 
     const [character, setCharacter] = useState<CHARACTER>(props.player.assignedCharacter.char);
     const [playerColor, setPlayerColor] = useState<PLAYER_COLOR>(props.player.color);
-
     const {t} = useTranslation();
     const dispatch = useAppDispatch();
 
@@ -44,6 +44,7 @@ export function Player(props: Props) {
     useEffect(() => {
         setPlayerColor(props.player.color);
     }, [props.player.color])
+
 
 
     function handleCharacterChange(event: ChangeEvent<HTMLSelectElement>) {
@@ -85,6 +86,9 @@ export function Player(props: Props) {
 
 
     return <div className={`${styles.container} ${props.local && styles.localPlayer} ${props.player.isPlaceHolder && styles.containerPlaceholder}`}>
+        <div className={styles.avatar}>
+            {<UserAvatar username={props.player.username}/>}
+        </div>
         <div className={styles.name}>
             {props.player.username}
             {props.host && <div className={styles.host}>

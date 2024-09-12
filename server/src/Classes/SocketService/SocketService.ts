@@ -3,10 +3,10 @@ import { ISessionService } from '../../types/SessionService/SessionService';
 import { SessionService } from '../SessionService/SessionService';
 import {Server, Socket } from "socket.io";
 import jwt from 'jsonwebtoken';
-import { jwtSecret } from '../../config/jwt';
 import { User } from '../../Models/User';
 import { EventHandler } from './EventHandler/EventHandler';
 import { IUser } from '../../types/UserData/IUser';
+import { config } from '../../config/config';
 
 
 export class SocketService {
@@ -31,8 +31,9 @@ export class SocketService {
             const userId = this.getUserIdFromToken(socket.handshake.headers.authorization);
             const userDoc = await User.findById(userId);
 
-            if (!userDoc) {
+            if (!userDoc || !userDoc.emailVerified) {
                 socket.disconnect();
+                console.warn("no userDoc or mail not verified")
                 return;
             }
             console.log("user validated");
@@ -41,7 +42,7 @@ export class SocketService {
             eventHandler.startListening();
             eventHandler.pingClient();            
             this.socketEmit(socket, SOCKET_EVENT_SERVER.CONNECTED, null);
-
+            
         } catch (error) {
             console.error(error);
         }
@@ -54,23 +55,21 @@ export class SocketService {
         }
 
         try {
-            jwt.verify(token, jwtSecret);
+            jwt.verify(token, config.server.jwtSecret);
             next();
         } catch (error) {
             return next(new Error("Authentication error: Invalid token"));
         }
     }
 
-    private getUserIdFromToken(authorization: string | undefined): string {
-        const token = authorization?.split(" ")[1];
-        const decoded: any = jwt.verify(token!, jwtSecret);
-        return decoded._id;
-    }
 
-
-    
     private socketEmit<E extends keyof ServerPayloadMap>(socket: Socket, event: E, payload: ServerPayloadMap[E]) {
         socket.emit(event, payload);
     }
 
+    private getUserIdFromToken(authorization: string | undefined): string {
+        const token = authorization?.split(" ")[1];
+        const decoded: any = jwt.verify(token!, config.server.jwtSecret);
+        return decoded.userId;
+    }
 }

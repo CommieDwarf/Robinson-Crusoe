@@ -33,9 +33,9 @@ function Threat(props: StateProps & Props) {
             <div className={styles.arrow}>
                 <ResizableImage src={redArrowImg} fill alt="strzałka" sizes={styles.arrow}/>
             </div>
-            <div className={styles.curvedArrow}>
+            <div className={styles.xMark}>
                 <ResizableImage
-                    src={redArrowCurvedImg}
+                    src={"/UI/misc/x-mark.png"}
                     fill
                     alt="strzałka"
                     sizes={styles.curvedArrow}

@@ -8,16 +8,13 @@ export interface IUser {
     sockets: Socket[],
     username: string,
     activeSessions: SessionData[],
-    quickGameSession: SessionData | null,
     addActiveSession: (session: Session) => void;
-    setQuickGameSession: (session: Session) => void;
-    unsetSinglePlayerSession: () => void;
-    removeActiveSession: (sessionId: string) => void;
-    leaveLobbies: () => void;
+    removeSession: (sessionId: string) => void;
+    leaveLobbies: () => string[] | Promise<string[]>;
     latency: number;
     addSocket: (socket: Socket) => void;
     getSession: (sessionId: string) => SessionData;
     getPlaceHolder: () => UserPlaceHolder
-    closeConnection: (socket: Socket) => void;
+    onSocketDisconnect: (socket: Socket, onLobbyLeave?: (sessionIds: string[]) => void) => void;
 }
 

@@ -1,4 +1,4 @@
-import config from "../../config";
+import config from "../config";
 import {UserData} from "@shared/types/User/User";
 
 export async function fetchUser(authToken: string) {
@@ -11,6 +11,7 @@ export async function fetchUser(authToken: string) {
         }
     });
     if (!response.ok) {
+        console.log(response);
         throw new Error("Couldn't fetch user data.");
     }
     const json = await response.json();

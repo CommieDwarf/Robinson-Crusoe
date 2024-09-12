@@ -29,7 +29,7 @@ export enum SOCKET_EVENT_CLIENT {
     SEND_MESSAGE = "send message",
     UPDATE_SESSION_SETTINGS = "update session settings",
     START_GAME = "start game",
-    SEND_GAME_IN_PROGRESS_LIST = "games in progress list requested",
+    SEND_GAME_IN_PROGRESS_LIST = "send game in progress list",
     SEND_GAME_STATUS = "send game status",
     CHANGE_PLAYER_COLOR = "change color",
     SEND_SAVE_LIST = "send save list",
@@ -55,6 +55,7 @@ export enum SOCKET_EVENT_SERVER {
     GAME_STATUS_SENT = "game status sent",
     SESSION_CONNECTION_STATUS_SENT = "session connection sent",
     GAME_IN_PROGRESS_LIST_SENT = "game in progress list sent",
+    GAME_IN_PROGRESS_LIST_CHANGED = "game in progress lsit changed",
     ALERT_SENT = "alert sent",
     PLAYER_LATENCY_LIST_SENT = "player latency list sent",
     ERROR_SENT = "error",
@@ -133,7 +134,7 @@ export type ClientPayloadMap = {
     [SOCKET_EVENT_CLIENT.JOIN_SESSION_BY_CODE]: {
         code: string,
         password: string,
-    }
+    },
 
 }
 
@@ -200,7 +201,8 @@ export type ServerPayloadMap = {
     [SOCKET_EVENT_SERVER.DISCONNECTED]: any,
     [SOCKET_EVENT_SERVER.GAME_SAVED_STATUS]: {
         success: boolean
-    }
+    },
+    [SOCKET_EVENT_SERVER.GAME_IN_PROGRESS_LIST_CHANGED]: any,
 }
 
 

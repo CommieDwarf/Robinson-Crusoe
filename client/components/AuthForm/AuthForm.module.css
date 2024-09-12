@@ -9,18 +9,7 @@
     position: relative;
 }
 
-.container::before {
-    border-radius: 2%;
-    content: "";
-    background-image: url("../../public/UI/paper-background.png");
-    background-size: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    opacity: 0.80;
-}
+
 
 .container > h3 {
     position: relative;
@@ -30,7 +19,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    row-gap: 10px;
+    row-gap: 2px;
     margin-top: 10px;
 }
 
@@ -76,6 +65,9 @@
     font-size: 15px;
     font-weight: 500;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
 }
 
 .link {
@@ -89,4 +81,8 @@
     font-weight: 700;
     font-size: 12px;
     text-align: left;
+}
+
+.question {
+    margin: 0;
 }

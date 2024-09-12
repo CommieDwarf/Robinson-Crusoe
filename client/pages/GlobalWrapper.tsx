@@ -2,10 +2,9 @@ import {useAppDispatch, useAppSelector} from "../store/hooks";
 import {ReactNode, useEffect} from "react";
 import {isAuthenticated} from "../utils/auth/isAuthenticated";
 import {getAuthToken} from "../utils/auth/getAuthToken";
-import {fetchUser} from "../utils/auth/fetchUser";
-import {connectedUpdated, userUpdated} from "../reduxSlices/connection";
+import {fetchUser} from "../lib/fetchUser";
+import {userUpdated} from "../reduxSlices/connection";
 import {socketConnect} from "../middleware/socketMiddleware";
-import { socket } from "../store/store";
 
 interface Props {
     children: ReactNode;
@@ -15,9 +14,33 @@ export function GlobalWrapper(props: Props) {
     const user = useAppSelector(state => state.connection.user);
     const dispatch = useAppDispatch()
 
+    
+    useEffect(() => {
+        function handleStorage(event: StorageEvent) {
+            console.log("storage event fired!", event.key, event.newValue, event);
+            if (event.key === "emailVerified" && event.newValue !== null) {
+                const token = getAuthToken();
+                if (token) {
+                    console.log("fetching user")
+                    fetchUser(token).then((user) => {
+                        dispatch(userUpdated(user));
+                    })
+                } 
+                localStorage.removeItem('emailVerified');
+            }
+        }
+        window.addEventListener("storage", handleStorage)
+
+        return () => {
+            window.removeEventListener("storage", handleStorage);
+        }
+    }, [])
 
     useEffect(() => {
         const authenticated = isAuthenticated();
+        console.log("use Effect");
+        console.log("authenticated", authenticated);
+        console.log("user", user);
         if (authenticated && !user) {
             const token = getAuthToken() as string;
             fetchUser(token).then((response) => {
@@ -28,8 +51,12 @@ export function GlobalWrapper(props: Props) {
 
     useEffect(() => {
         if (user) {
+            console.log("use Effect");
             const token = getAuthToken();
-            if (token) {
+            console.log("auth token", token);
+            console.log("user", user);
+            if (token && user.emailVerified) {
+                console.log("dispatching socketConnect");
                 dispatch(socketConnect({authToken: token}));
             }
         }

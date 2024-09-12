@@ -76,7 +76,7 @@
 .lastMoraleBarValue {
     position: absolute;
     font-weight: bold;
-    font-size: 15px;
+    font-size: 2em;
     left: 0;
     top: -12%;
 }

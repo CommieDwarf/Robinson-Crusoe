@@ -12,7 +12,7 @@
     justify-content: center;
     column-gap: 6%;
     align-items: center;
-    border-left: 1px soliv var(--borderColor);
+    border-left: 1px solid var(--borderColor);
 }
 
 

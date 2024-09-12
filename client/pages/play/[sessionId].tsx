@@ -7,9 +7,8 @@ import {SOCKET_EVENT_CLIENT, SOCKET_EVENT_SERVER} from "@shared/types/Requests/S
 import {alertUpdated} from "../../reduxSlices/alert";
 import {useRouter} from "next/router";
 import {
-    actionSlotsPartiallyUpdated,
     actionSlotUpdated,
-    gameSessionUpdated, selectActionSlotService,
+    gameSessionUpdated,
     sessionIdUpdated
 } from "../../reduxSlices/gameSession";
 import {SESSION_CONNECTION_ERROR_CODE} from "@shared/types/Errors/SESSION_CONNECTION_ERROR_CODE";
@@ -31,11 +30,23 @@ function Play(props: Props) {
     const dispatch = useAppDispatch();
     const sessionIdQuery = router.query.sessionId as string;
 
-    const actionSlots = useAppSelector((state) => selectActionSlotService(state)?.slots);
 
     const sessionId = useAppSelector(state => state.gameSession.sessionId);
     const [connectError, setConnectError] = useState<SESSION_CONNECTION_ERROR_CODE | null>(null);
 
+    useEffect(() => {
+        const handleRouteChange = (url: string) => {
+            if (sessionIdQuery && !url.includes(sessionIdQuery)) {
+                dispatch(socketEmit(SOCKET_EVENT_CLIENT.LEAVE_SESSION, {
+                    hydrateSessionId: true,
+                }))
+            }
+        };
+        router.events.on('routeChangeStart', handleRouteChange);
+        return () => {
+            router.events.off('routeChangeStart', handleRouteChange);
+        }
+    }, [router, sessionId, dispatch])
 
     useEffect(() => {
         if (sessionId !== sessionIdQuery) {
@@ -61,13 +72,10 @@ function Play(props: Props) {
             return;
         }
 
-
         const listeners: SocketListener[] = [];
         listeners.push(setSocketListener(SOCKET_EVENT_SERVER.SESSION_DATA_SENT, async (payload) => {
             const gameSession = payload.sessionData;
             if (gameSession) {
-                const date = new Date();
-                const time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
                 dispatch(gameSessionUpdated(gameSession));
                 dispatch(actionSlotUpdated(gameSession.game?.actionSlotService.slots));
 
@@ -101,9 +109,7 @@ function Play(props: Props) {
                     theme: "colored"
                 });
             }
-            
         }))
-
         dispatch(socketEmit(SOCKET_EVENT_CLIENT.SEND_SESSION_DATA, {hydrateSessionId: true}))
 
         return () => {

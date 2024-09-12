@@ -5,8 +5,12 @@ export function isAuthenticated() {
     const authToken = getAuthToken();
     if (authToken) {
         const decoded = jwtDecode(authToken);
+        if (!decoded) {
+            return false;
+        }
         const currentTimestampInSeconds = Date.now() / 1000;
-        return (decoded.exp && decoded.exp > currentTimestampInSeconds) || false;
+        console.log(decoded);
+        return !decoded.exp || (decoded.exp && decoded.exp > currentTimestampInSeconds)
     }
     return false;
 }

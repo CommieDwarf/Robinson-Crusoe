@@ -10,12 +10,14 @@
     box-sizing: content-box;
     padding: 5px;
     position: relative;
+    padding-right: 5;
+    padding-left: 5;
 }
 
 .latency {
     position: absolute;
     top: 5px;
-    right: 25px;
+    left: 25px;
     width: 20px;
     aspect-ratio: 1;
 }
@@ -23,8 +25,8 @@
 .health {
     width: 20px;
     height: 100%;
-    float: right;
     display: inline-block;
+    margin-left: -5px;
 }
 
 .mainWrapper {

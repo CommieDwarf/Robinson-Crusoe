@@ -4,7 +4,7 @@ import {Strategy as LocalStrategy} from "passport-local";
 import {User, UserDocument} from "../Models/User";
 import bcrypt from "bcryptjs";
 import passportJwt from "passport-jwt";
-import {jwtSecret} from "./jwt";
+import { config } from "./config";
 
 const JwtStrategy = passportJwt.Strategy;
 const ExtractJwt = passportJwt.ExtractJwt;
@@ -12,20 +12,28 @@ const ExtractJwt = passportJwt.ExtractJwt;
 
 const jwtDecodeOptions = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: jwtSecret,
+    secretOrKey: config.server.jwtSecret,
 };
 
 passport.use(
     new JwtStrategy(jwtDecodeOptions, async (payload, done) => {
-        const currentTimestamp = Math.floor(Date.now() / 1000);
-        if (payload.exp && payload.exp < currentTimestamp) {
-            return done(null, false, {message: 'Token expired'});
+        try {
+            console.log("auth")
+            const currentTimestamp = Math.floor(Date.now() / 1000);
+            if (payload.exp && payload.exp < currentTimestamp) {
+                console.warn("token expired")
+                return done(null, false, {message: 'Token expired'});
+            }
+            const user = await User.findOne({_id: payload.userId})
+            if (!user) {
+                console.warn("can't find user. ID: " + payload.userId)
+                throw new Error("can't find user");
+            }
+            return done(null, user, payload.data);
+        } catch (e) {
+            console.error(e);
         }
-        const user = await User.findOne({_id: payload._id})
-        if (!user) {
-            throw new Error("can't find user");
-        }
-        return done(null, user, payload.data);
+        
     }),
 );
 
@@ -34,12 +42,16 @@ passport.use(new LocalStrategy({usernameField: "email"},
         try {
             const user = await User.findOne({email});
             if (!user) {
+                console.warn("Incorrect email")
                 return done(null, false, {message: 'Incorrect email.'});
             }
             const isPasswordValid = await bcrypt.compare(password, user.password);
             if (!isPasswordValid) {
+                console.warn("Incorrect password")
                 return done(null, false, {message: 'Incorrect password.'});
             }
+
+
 
             return done(null, user);
 

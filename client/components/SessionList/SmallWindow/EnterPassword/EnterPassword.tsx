@@ -4,7 +4,7 @@ import {useTranslation} from "react-i18next";
 import {socketEmit} from "../../../../middleware/socketMiddleware";
 import {useAppDispatch} from "../../../../store/hooks";
 import {SOCKET_EVENT_CLIENT} from "@shared/types/Requests/Socket";
-import { VALIDATION_CONFIG } from "@shared/constants/VALIDATION_CONFIG";
+import { VALIDATION_CONFIG } from "@shared/config/VALIDATION_CONFIG";
 
 
 interface Props {

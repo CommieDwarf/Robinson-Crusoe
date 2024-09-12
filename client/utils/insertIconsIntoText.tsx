@@ -15,6 +15,8 @@ const icons = [
     "weapon",
     "palisade",
     "star",
+    "morale-arrow",
+    "compass",
 ];
 
 

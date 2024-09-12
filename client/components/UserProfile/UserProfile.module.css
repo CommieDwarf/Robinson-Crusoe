@@ -1,11 +1,11 @@
 .container {
     width: 100%;
     text-align: center;
-    background-image: url("../../public/UI/paper-background.png");
     border-radius: 5%;
     border: 1px solid var(--brown);
     padding: 10px;
     font-style: normal;
+    position: relative;
 }
 
 .container > h2 {

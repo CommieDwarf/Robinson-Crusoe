@@ -10,8 +10,8 @@ import {SessionSettings} from "@shared/types/SessionSettings";
 import {setSocketListener} from "../../../pages/api/socket";
 import {socketEmit} from "../../../middleware/socketMiddleware";
 import {sessionIdUpdated} from "../../../reduxSlices/gameSession";
-import {VALIDATION_CONFIG} from "@shared/constants/VALIDATION_CONFIG";
 import { InvitationCode } from "./InvittationCode/InvitationCode";
+import { VALIDATION_CONFIG } from "@shared/config/VALIDATION_CONFIG";
 
 export enum GAME_SETTINGS_MODE {
     LOCKED = "locked",
@@ -25,10 +25,12 @@ interface Props {
 }
 
 export function GameSettings(props: Props) {
+    const {t} = useTranslation();
+    const username = useAppSelector((state) => state.connection.user?.username);
 
     const [localSettings, setLocalSettings] = useState<Omit<SessionSettings, "quickGame">>({
         maxPlayers: 4,
-        name: "Game",
+        name: capitalize(t("menu.default game name", {username})),
         password: "",
         private: false,
         scenario: SCENARIO.CASTAWAYS,
@@ -37,10 +39,9 @@ export function GameSettings(props: Props) {
     const serverSettings = useAppSelector((state) => state.gameSession.data?.settings);
 
     const dispatch = useAppDispatch();
-    const {t} = useTranslation();
 
     useEffect(() => {
-        if (props.mode && serverSettings) {
+        if (props.mode === GAME_SETTINGS_MODE.EDIT && serverSettings) {
             setLocalSettings(serverSettings);
         }
     }, [serverSettings, props.mode])

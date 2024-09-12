@@ -1,0 +1,17 @@
+.container {
+    width: 100%;
+    font-size: 13px;
+    padding: 10px 20px;
+    color: var(--brown);
+    border-radius: 2%;
+    text-align: center;
+    border: 1px solid var(--brown);
+    position: relative;
+}
+
+
+.link {
+    font-weight: bold;
+    text-decoration: underline;
+    cursor: pointer;
+}

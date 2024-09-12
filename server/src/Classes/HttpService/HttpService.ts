@@ -3,19 +3,24 @@ import passport from "passport";
 import { User, UserDocument } from "../../Models/User";
 import {Request, Response} from "express";
 import jwt from "jsonwebtoken";
-import { jwtSecret } from "../../config/jwt";
 import { validationResult } from "express-validator";
 import cors from "cors";
 import express from "express";
 import session from 'express-session';
 import App from "express";
 import http from "http";
+import { generateAvatar } from '../../utils/generateAvatar';
+import {GetUserAvatarRequest, GetUserAvatarResponse } from "@shared/types/Requests/Get";
+import { EmailService } from "../EmailService/EmailService";
+import { config } from "../../config/config";
 
 export class HttpService {
 
-    private _app: ReturnType<typeof App>;
+    private readonly _app: ReturnType<typeof App>;
+    private readonly _emailService: EmailService;
 
-    constructor(app: ReturnType<typeof App>) {
+    constructor(app: ReturnType<typeof App>, emailService: EmailService) {
+        this._emailService = emailService;
         this.initialize(app);
         this._app = app;
     }
@@ -41,28 +46,39 @@ export class HttpService {
         app.post('/login', this.login);
         app.post('/register', this.register);
         app.post("/getUser", passport.authenticate("jwt", { session: false }), this.getUser);
+        app.post("/resend-verification-email", passport.authenticate("jwt", { session: false }), this.resendVerificationEmail);
         app.get("/usernameExists/:username", this.usernameExists);
         app.get("/emailExists/:email", this.emailExists);
+        app.get("/getUserAvatar/:username", this.getUserAvatar);
+        app.get("/verify-email/:token", this.verifyEmail);
     }
 
-    private async login(req: Request, res: Response, next: NextFunction) {
-        passport.authenticate('local', (err: Error, user: UserDocument, info: any) => {
-            if (err || !user) {
-                return res.status(401).json({ message: 'Nieprawidłowe dane logowania.' });
-            }
+    private getUserAvatar(req: GetUserAvatarRequest, res: Response<GetUserAvatarResponse>) {
+        return res.json({svg: generateAvatar(req.params.username)})
+    }
 
-            req.login(user, { session: false }, (err: Error) => {
-                if (err) {
-                    res.status(500).json({ message: 'Błąd logowania.' });
+    private login = async(req: Request, res: Response, next: NextFunction) => {
+        passport.authenticate('local', (err: Error, user: UserDocument, info: any) => {
+            try {
+                if (err || !user) {
+                    return res.status(401).json({ message: 'Nieprawidłowe dane logowania.' });
                 }
-                const token = jwt.sign({ _id: user._id }, jwtSecret, { expiresIn: '1h' });
-                res.setHeader('Authorization', `Bearer ${token}`);
-                return res.json({ message: "Logged in successfully" });
-            });
+    
+                req.login(user, { session: false }, (err: Error) => {
+                    if (err) {
+                        res.status(500).json({ message: 'Błąd logowania.' });
+                    }
+                    const token = jwt.sign({ userId: user._id }, config.server.jwtSecret);
+                    res.setHeader('Authorization', `Bearer ${token}`);
+                    return res.json({ message: "Logged in successfully" });
+                });
+            } catch (e) {
+                console.error(e);
+            }
         })(req, res, next);
     }
 
-    private async register(req: Request, res: Response, next: NextFunction) {
+    private register = async(req: Request, res: Response, next: NextFunction) => {
         const body = req.body as UserDocument;
         try {
             const result = validationResult(req);
@@ -75,16 +91,19 @@ export class HttpService {
                     password: body.password
                 })
                 await user.save();
-                const token = jwt.sign({ _id: user._id }, jwtSecret);
+                const token = jwt.sign({ userId: user._id }, config.server.jwtSecret);
+                this._emailService.sendActivationMail({id: user.id, username: user.username});
+                
                 res.setHeader('Authorization', `Bearer ${token}`);
                 return res.status(201).json({ message: "Account created successfully" });
             }
         } catch (error) {
+            console.warn(error);
             return res.status(500).json({ message: "Internal server error" });
         }
     }
 
-    private async getUser(req: Request, res: Response) {
+    private getUser = async(req: Request, res: Response) => {
         try {
             const user = req.user as UserDocument;
             if (!user) {
@@ -94,6 +113,8 @@ export class HttpService {
                 username: user.username,
                 email: user.email,
                 _id: user._id,
+                avatar: generateAvatar(user.username),
+                emailVerified: user.emailVerified
             });
         } catch (error) {
             console.error('Błąd podczas pobierania danych użytkownika:', error);
@@ -101,7 +122,7 @@ export class HttpService {
         }
     }
 
-    private async usernameExists(req: Request, res: Response) {
+    private usernameExists = async (req: Request, res: Response) => {
         const { username } = req.params;
         try {
             const user = await User.findOne({ username });
@@ -115,7 +136,7 @@ export class HttpService {
         }
     }
 
-    private async emailExists(req: Request, res: Response) {
+    private emailExists =  async (req: Request, res: Response) => {
         const { email } = req.params;
         try {
             const user = await User.findOne({ email });
@@ -127,5 +148,47 @@ export class HttpService {
         } catch (error) {
             return res.status(500).json({ message: 'Wystąpił błąd serwera.' });
         }
+    }
+
+    private verifyEmail = async (req: Request, res: Response) => {
+        try {
+            console.log("GOT REQUEST!")
+            const {token} = req.params;
+            console.log("TOKEN", token);
+    
+            if (!token) {
+                res.status(401).json({message: "token is required"})
+                console.warn("token is required")
+                return;
+            }
+            const decoded = jwt.verify(token, config.server.jwtSecret) as {userId: string};
+            const userId = decoded.userId;
+            if (!userId) {
+                res.status(400).json({message: "E-mail verification failed"});
+                console.warn("Can't get userId from token");
+                return;
+            }
+            await User.updateOne({_id: decoded.userId}, {emailVerified: true});
+            res.status(200).json({message: "E-mail verified"})
+        } catch (e) {
+            res.status(400).json({message: "E-mail verification failed"});
+            console.warn(e);
+        }
+    }
+
+    private resendVerificationEmail = (req: Request, res: Response) => {
+        const user = req.user as UserDocument;
+        if (!user) {
+            throw new Error("User not found");
+        }
+        try {
+            this._emailService.reSendActivationEmail({username: user.username, id: user._id})
+            res.status(200).json({message: "E-mail sent"});
+        } catch (e) {
+            console.error(e);
+            res.status(400).json({message: "Something went wrong"})
+        }
+        
+    
     }
 }

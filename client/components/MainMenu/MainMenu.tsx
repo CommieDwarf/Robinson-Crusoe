@@ -4,10 +4,13 @@ import Link from "next/link";
 import React, {ReactElement, useEffect, useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../store/hooks";
 import {useRouter} from "next/router";
-import {SOCKET_EVENT_CLIENT} from "@shared/types/Requests/Socket";
+import {SOCKET_EVENT_CLIENT, SOCKET_EVENT_SERVER} from "@shared/types/Requests/Socket";
 import sessionId from "../../pages/play/[sessionId]";
 import {setSocketListener} from "../../pages/api/socket";
 import {socketEmit} from "../../middleware/socketMiddleware";
+import { capitalizeAll } from "@shared/utils/capitalizeAll";
+import { useTranslation } from "react-i18next";
+import capitalize from "@shared/utils/capitalize";
 
 interface Props {
     UserComponent: ReactElement,
@@ -20,11 +23,21 @@ export function MainMenu({UserComponent}: Props) {
 
     const [gameInProgress, setGameInProgress] = useState(false);
 
-    const user = useAppSelector((state) => state.connection.user);
-
+    const router = useRouter();
+    const {t} = useTranslation();
+    const socketConnected = useAppSelector((state) => state.connection.connected);
     const dispatch = useAppDispatch();
 
-    const router = useRouter();
+
+    useEffect(() => {
+        const listener = setSocketListener(SOCKET_EVENT_SERVER.GAME_SESSION_CREATED, (payload) => {
+            router.push("/play/" + payload.sessionId);
+        });
+        return () => {
+            listener.off();
+        }
+    })
+
 
     function animateAuth(event: React.MouseEvent) {
         event.preventDefault();
@@ -35,14 +48,14 @@ export function MainMenu({UserComponent}: Props) {
     }
 
     function handleQuickGameClick(event: React.MouseEvent) {
-        if (!user) {
+        if (!socketConnected) {
             animateAuth(event)
         }
         dispatch(socketEmit(SOCKET_EVENT_CLIENT.CREATE_QUICK_GAME, null))
     }
 
     function handleMultiPlayerClick(event: React.MouseEvent) {
-        if (!user) {
+        if (!socketConnected) {
             animateAuth(event)
         }
     }
@@ -69,33 +82,32 @@ export function MainMenu({UserComponent}: Props) {
             <div className={styles.wrapper}>
                 <ul className={styles.menu}>
                     {gameInProgress && <Link
-                        aria-disabled={!user}
+                        aria-disabled={!socketConnected}
                         href={`./play/${sessionId}`}
                     >
-                        <li className={`${styles.menuItem} ${!user && styles.menuItemDisabled}`}>
+                        <li className={`${styles.menuItem} ${!socketConnected && styles.menuItemDisabled}`}>
                             Continue
                         </li>
                     </Link>}
-                    <Link
-                        aria-disabled={!user}
-                        href={"./play/quickgame"}
+                    <span
+                        aria-disabled={!socketConnected}
                         onClick={handleQuickGameClick}
                     >
-                        <li className={`${styles.menuItem} ${!user && styles.menuItemDisabled}`}>
-                            Quick game
+                        <li className={`${styles.menuItem} ${!socketConnected && styles.menuItemDisabled}`}>
+                            {capitalizeAll(t("menu.quick game"))}
                         </li>
-                    </Link>
+                    </span>
                     <Link href={"./multiplayer"}
-                          aria-disabled={!user}
+                          aria-disabled={!socketConnected}
                           onClick={handleMultiPlayerClick}
                     >
-                        <li className={`${styles.menuItem} ${styles.button2} ${!user && styles.menuItemDisabled}`}
+                        <li className={`${styles.menuItem} ${styles.button2} ${!socketConnected && styles.menuItemDisabled}`}
                         >
-                            Multiplayer
+                            {capitalizeAll(t("menu.multiplayer"))}
                         </li>
                     </Link>
                     <li className={`${styles.menuItem} ${styles.button3} ${styles.menuItemDisabled}`}><Link
-                        href={"./Play"}>Settings</Link></li>
+                        href={"./Play"}>{capitalize(t("menu.settings"))}</Link></li>
                 </ul>
                 <div className={styles.UserPanelContainer}>
                     <div className={`${styles.userPanel} ${isAnimated && styles.pulsateOnce}`}>

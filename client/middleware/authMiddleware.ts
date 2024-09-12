@@ -3,7 +3,7 @@ import {NextRequest, NextResponse} from "next/server";
 
 export function authMiddleware(request: NextRequest) {
     const {pathname} = request.nextUrl;
-    const notProtectedPaths = ['/signIn', '/signOut'];
+    const notProtectedPaths = ['/signIn', '/signOut', "/u"];
     const requiresAuth = !notProtectedPaths.some((path) => pathname.startsWith(path));
 
     if (requiresAuth) {
