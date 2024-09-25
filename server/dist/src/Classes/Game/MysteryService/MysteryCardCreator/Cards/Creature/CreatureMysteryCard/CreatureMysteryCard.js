@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreatureMysteryCard = void 0;
-const MysteryCard_1 = require("@shared/types/Game/MysteryService/MysteryCard");
+const MysteryCard_1 = require("../../../../../../../shared/types/Game/MysteryService/MysteryCard");
 const MysteryCard_2 = require("../../MysteryCard");
 class CreatureMysteryCard extends MysteryCard_2.MysteryCard {
     constructor(game, name, shuffleable, eventName, eventLabel = "", drawLabel = "") {

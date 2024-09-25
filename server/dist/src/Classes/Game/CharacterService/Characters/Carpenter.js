@@ -2,12 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Carpenter = void 0;
 const PlayerCharacter_1 = require("./Character/PlayerCharacter/PlayerCharacter");
-const Character_1 = require("@shared/types/Game/Characters/Character");
+const Character_1 = require("../../../../shared/types/Game/Characters/Character");
 const ANewIdea_1 = require("./Skills/Carpenter/ANewIdea");
 const Craftsmanship_1 = require("./Skills/Carpenter/Craftsmanship");
 const EconomicalConstruction_1 = require("./Skills/Carpenter/EconomicalConstruction");
 const Handyman_1 = require("./Skills/Carpenter/Handyman");
-const Invention_1 = require("@shared/types/Game/InventionService/Invention");
+const Invention_1 = require("../../../../shared/types/Game/InventionService/Invention");
 class Carpenter extends PlayerCharacter_1.PlayerCharacter {
     constructor(gender, game, player) {
         super(Character_1.CHARACTER.CARPENTER, 2, 13, game, gender, [3, 5, 8], Invention_1.INVENTION_PERSONAL.SNARE, player);

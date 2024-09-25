@@ -2,9 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SearchingForANewPath = void 0;
 const EventCard_1 = require("../EventCard");
-const EventCard_2 = require("@shared/types/Game/EventService/EventCard");
-const EVENT_CARD_1 = require("@shared/types/Game/EventService/EVENT_CARD");
-const ACTION_1 = require("@shared/types/Game/ACTION");
+const EventCard_2 = require("../../../../../shared/types/Game/EventService/EventCard");
+const EVENT_CARD_1 = require("../../../../../shared/types/Game/EventService/EVENT_CARD");
+const ACTION_1 = require("../../../../../shared/types/Game/ACTION");
 class SearchingForANewPath extends EventCard_1.EventCard {
     constructor(game) {
         super(EVENT_CARD_1.EVENT_CARD.SEARCHING_FOR_A_NEW_PATH, EventCard_2.EVENT_TYPE.BOOK, {

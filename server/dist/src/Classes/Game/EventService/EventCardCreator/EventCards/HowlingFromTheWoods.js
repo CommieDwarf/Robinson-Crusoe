@@ -2,11 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.HowlingFromTheWoods = void 0;
 const EventCard_1 = require("../EventCard");
-const EventCard_2 = require("@shared/types/Game/EventService/EventCard");
+const EventCard_2 = require("../../../../../shared/types/Game/EventService/EventCard");
 const BeastService_1 = require("../../../BeastService/BeastService");
-const Invention_1 = require("@shared/types/Game/InventionService/Invention");
-const EVENT_CARD_1 = require("@shared/types/Game/EventService/EVENT_CARD");
-const LOG_CODE_1 = require("@shared/types/Game/ChatLog/LOG_CODE");
+const Invention_1 = require("../../../../../shared/types/Game/InventionService/Invention");
+const EVENT_CARD_1 = require("../../../../../shared/types/Game/EventService/EVENT_CARD");
+const LOG_CODE_1 = require("../../../../../shared/types/Game/ChatLog/LOG_CODE");
 class HowlingFromTheWoods extends EventCard_1.EventCard {
     constructor(game) {
         super(EVENT_CARD_1.EVENT_CARD.HOWLING_FROM_THE_WOODS, EventCard_2.EVENT_TYPE.BOOK, {

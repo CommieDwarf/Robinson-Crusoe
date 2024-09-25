@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ResourceCommittableItem = void 0;
 const AssignablePawnsItem_1 = require("../AssignablePawnsItem/AssignablePawnsItem");
-const isPlayerCharacter_1 = require("@shared/utils/typeGuards/isPlayerCharacter");
+const isPlayerCharacter_1 = require("../../../shared/utils/typeGuards/isPlayerCharacter");
 class ResourceCommittableItem extends AssignablePawnsItem_1.AssignablePawnsItem {
     constructor(action, actionItem, game, resource = null, optionalResource = null) {
         super(action, actionItem, game);

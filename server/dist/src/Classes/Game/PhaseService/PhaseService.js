@@ -2,14 +2,14 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PhaseService = void 0;
 const MissingLeaderError_1 = require("../Errors/MissingLeaderError");
-const phaseOrder_1 = require("@shared/constants/phaseOrder");
+const phaseOrder_1 = require("../../../shared/constants/phaseOrder");
 const ActionSlotService_1 = require("../ActionSlotsService/ActionSlotService");
 const MissingHelperError_1 = require("../Errors/MissingHelperError");
-const MYSTERY_CARD_1 = require("@shared/types/Game/MysteryService/MYSTERY_CARD");
-const Invention_1 = require("@shared/types/Game/InventionService/Invention");
-const Construction_1 = require("@shared/types/Game/ConstructionService/Construction");
-const LOG_CODE_1 = require("@shared/types/Game/ChatLog/LOG_CODE");
-const TERMS_1 = require("@shared/types/Terms/TERMS");
+const MYSTERY_CARD_1 = require("../../../shared/types/Game/MysteryService/MYSTERY_CARD");
+const Invention_1 = require("../../../shared/types/Game/InventionService/Invention");
+const Construction_1 = require("../../../shared/types/Game/ConstructionService/Construction");
+const LOG_CODE_1 = require("../../../shared/types/Game/ChatLog/LOG_CODE");
+const TERMS_1 = require("../../../shared/types/Terms/TERMS");
 class PhaseService {
     constructor(game) {
         this._phase = "event";

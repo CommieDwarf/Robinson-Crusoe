@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ArrangeCampRestService = void 0;
-const MYSTERY_CARD_1 = require("@shared/types/Game/MysteryService/MYSTERY_CARD");
-const Invention_1 = require("@shared/types/Game/InventionService/Invention");
-const Item_1 = require("@shared/types/Game/Equipment/Item");
+const MYSTERY_CARD_1 = require("../../../shared/types/Game/MysteryService/MYSTERY_CARD");
+const Invention_1 = require("../../../shared/types/Game/InventionService/Invention");
+const Item_1 = require("../../../shared/types/Game/Equipment/Item");
 class ArrangeCampRestService {
     constructor(game) {
         this._arrangeCampBonus = null;

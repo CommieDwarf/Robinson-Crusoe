@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ItemCreator = void 0;
-const Item_1 = require("@shared/types/Game/Equipment/Item");
+const Item_1 = require("../../../../shared/types/Game/Equipment/Item");
 const Bible_1 = require("./Items/Bible");
 const Biscuits_1 = require("./Items/Biscuits");
 const EmptyBottle_1 = require("./Items/EmptyBottle");

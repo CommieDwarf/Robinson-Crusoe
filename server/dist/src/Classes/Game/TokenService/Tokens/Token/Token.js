@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Token = void 0;
-const LOG_CODE_1 = require("@shared/types/Game/ChatLog/LOG_CODE");
-const TERMS_1 = require("@shared/types/Terms/TERMS");
+const LOG_CODE_1 = require("../../../../../shared/types/Game/ChatLog/LOG_CODE");
+const TERMS_1 = require("../../../../../shared/types/Terms/TERMS");
 class Token {
     constructor(game, name, namePL, description, id) {
         this._used = false;

@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Shortcut = void 0;
 const Invention_1 = require("../../Invention");
-const Invention_2 = require("@shared/types/Game/InventionService/Invention");
-const TileResourceService_1 = require("@shared/types/Game/TileService/TileResourceService");
+const Invention_2 = require("../../../../../../shared/types/Game/InventionService/Invention");
+const TileResourceService_1 = require("../../../../../../shared/types/Game/TileService/TileResourceService");
 class Shortcut extends Invention_1.Invention {
     constructor(game) {
         super(Invention_2.INVENTION_PERSONAL.SHORTCUT, { terrainType: null, inventions: [Invention_2.INVENTION_STARTER.MAP] }, Invention_2.INVENTION_TYPE.PERSONAL, game);

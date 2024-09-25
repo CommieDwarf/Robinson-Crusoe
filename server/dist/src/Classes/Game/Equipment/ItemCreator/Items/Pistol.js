@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Pistol = void 0;
 const Item_1 = require("../Item");
-const Item_2 = require("@shared/types/Game/Equipment/Item");
-const Construction_1 = require("@shared/types/Game/ConstructionService/Construction");
+const Item_2 = require("../../../../../shared/types/Game/Equipment/Item");
+const Construction_1 = require("../../../../../shared/types/Game/ConstructionService/Construction");
 class Pistol extends Item_1.Item {
     constructor(game) {
         super(Item_2.ITEM.PISTOL, game);

@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PlayerService = void 0;
-const LOG_CODE_1 = require("@shared/types/Game/ChatLog/LOG_CODE");
+const LOG_CODE_1 = require("../../../shared/types/Game/ChatLog/LOG_CODE");
 class PlayerService {
     constructor(players, game) {
         this._game = game;

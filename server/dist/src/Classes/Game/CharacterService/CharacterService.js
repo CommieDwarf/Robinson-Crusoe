@@ -2,11 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CharacterService = void 0;
 const PlayerCharacter_1 = require("./Characters/Character/PlayerCharacter/PlayerCharacter");
-const Character_1 = require("@shared/types/Game/Characters/Character");
+const Character_1 = require("../../../shared/types/Game/Characters/Character");
 const Dog_1 = require("./Characters/Dog");
 const Friday_1 = require("./Characters/Friday");
-const LOG_CODE_1 = require("@shared/types/Game/ChatLog/LOG_CODE");
-const TERMS_1 = require("@shared/types/Terms/TERMS");
+const LOG_CODE_1 = require("../../../shared/types/Game/ChatLog/LOG_CODE");
+const TERMS_1 = require("../../../shared/types/Terms/TERMS");
 class CharacterService {
     constructor(characters, game) {
         this._thresholdAmountForRemoval = 0;

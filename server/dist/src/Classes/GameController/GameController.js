@@ -5,7 +5,7 @@ const TileController_1 = require("./TileController/TileController");
 const MysteryController_1 = require("./MysteryController/MysteryController");
 const CharacterController_1 = require("./CharacterController/CharacterController");
 const ActionController_1 = require("./ActionController/ActionController");
-const CONTROLLER_ACTION_1 = require("@shared/types/CONTROLLER_ACTION");
+const CONTROLLER_ACTION_1 = require("../../shared/types/CONTROLLER_ACTION");
 var STORAGE_ACTION;
 (function (STORAGE_ACTION) {
     STORAGE_ACTION["WITHDRAW"] = "withdraw";

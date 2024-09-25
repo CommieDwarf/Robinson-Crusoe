@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ExploreAdventureCard = void 0;
-const ACTION_1 = require("@shared/types/Game/ACTION");
+const ACTION_1 = require("../../../../../../../shared/types/Game/ACTION");
 const AdventureCard_1 = require("../../../AdventureCard");
 class ExploreAdventureCard extends AdventureCard_1.AdventureCard {
     constructor(name, namePL, decide, game, option1Label, option2Label) {

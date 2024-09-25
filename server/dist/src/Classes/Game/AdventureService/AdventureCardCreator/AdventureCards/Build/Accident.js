@@ -2,9 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Accident = void 0;
 const BuildAdventureCard_1 = require("./BuildAdventureCard/BuildAdventureCard");
-const ADVENTURE_CARD_1 = require("@shared/types/Game/AdventureService/ADVENTURE_CARD");
-const ACTION_1 = require("@shared/types/Game/ACTION");
-const Invention_1 = require("@shared/types/Game/InventionService/Invention");
+const ADVENTURE_CARD_1 = require("../../../../../../shared/types/Game/AdventureService/ADVENTURE_CARD");
+const ACTION_1 = require("../../../../../../shared/types/Game/ACTION");
+const Invention_1 = require("../../../../../../shared/types/Game/InventionService/Invention");
 //TODO: unimplemented.
 class Accident extends BuildAdventureCard_1.BuildAdventureCard {
     constructor(game) {

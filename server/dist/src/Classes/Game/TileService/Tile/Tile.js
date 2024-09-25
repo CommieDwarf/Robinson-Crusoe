@@ -1,14 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Tile = void 0;
-const ITile_1 = require("@shared/types/Game/TileService/ITile");
-const Construction_1 = require("@shared/types/Game/ConstructionService/Construction");
+const ITile_1 = require("../../../../shared/types/Game/TileService/ITile");
+const Construction_1 = require("../../../../shared/types/Game/ConstructionService/Construction");
 const TileResourceService_1 = require("./TileResourceService/TileResourceService");
 const AssignablePawnsItem_1 = require("../../AssignablePawnsItem/AssignablePawnsItem");
-const ACTION_1 = require("@shared/types/Game/ACTION");
-const LOG_CODE_1 = require("@shared/types/Game/ChatLog/LOG_CODE");
-const Invention_1 = require("@shared/types/Game/InventionService/Invention");
-const isSide_1 = require("@shared/utils/typeGuards/isSide");
+const ACTION_1 = require("../../../../shared/types/Game/ACTION");
+const LOG_CODE_1 = require("../../../../shared/types/Game/ChatLog/LOG_CODE");
+const Invention_1 = require("../../../../shared/types/Game/InventionService/Invention");
+const isSide_1 = require("../../../../shared/utils/typeGuards/isSide");
 class Tile extends AssignablePawnsItem_1.AssignablePawnsItem {
     constructor(position, id, camp, tileType, game) {
         super(camp ? ACTION_1.ACTION.GATHER : ACTION_1.ACTION.EXPLORE, ACTION_1.ACTION_ITEM.TILE, game);

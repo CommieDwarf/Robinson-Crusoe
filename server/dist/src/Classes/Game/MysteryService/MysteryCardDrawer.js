@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MysteryCardDrawer = void 0;
-const MysteryCard_1 = require("@shared/types/Game/MysteryService/MysteryCard");
+const MysteryCard_1 = require("../../../shared/types/Game/MysteryService/MysteryCard");
 const TreasureMysteryCard_1 = require("./MysteryCardCreator/Cards/Treasure/TreasureMysteryCard/TreasureMysteryCard");
 class MysteryCardDrawer {
     constructor(mysteryService, creature, trap, treasure, drawer, max) {

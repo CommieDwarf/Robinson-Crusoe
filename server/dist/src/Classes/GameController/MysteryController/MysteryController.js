@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MysteryController = void 0;
 const GameController_1 = require("../GameController");
-const CONTROLLER_ACTION_1 = require("@shared/types/CONTROLLER_ACTION");
+const CONTROLLER_ACTION_1 = require("../../../shared/types/CONTROLLER_ACTION");
 class MysteryController {
     constructor(game) {
         this._game = game;

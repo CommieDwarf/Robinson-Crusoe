@@ -1,13 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ActionSlotService = void 0;
-const Invention_1 = require("@shared/types/Game/InventionService/Invention");
-const ACTION_1 = require("@shared/types/Game/ACTION");
+const Invention_1 = require("../../../shared/types/Game/InventionService/Invention");
+const ACTION_1 = require("../../../shared/types/Game/ACTION");
 const MissingLeaderError_1 = require("../Errors/MissingLeaderError");
 const MissingHelperError_1 = require("../Errors/MissingHelperError");
-const EVENT_CARD_1 = require("@shared/types/Game/EventService/EVENT_CARD");
-const getActionSlotDroppableId_1 = require("@shared/utils/getActionSlotDroppableId");
-const isEventCard_1 = require("@shared/utils/typeGuards/isEventCard");
+const EVENT_CARD_1 = require("../../../shared/types/Game/EventService/EVENT_CARD");
+const getActionSlotDroppableId_1 = require("../../../shared/utils/getActionSlotDroppableId");
+const isEventCard_1 = require("../../../shared/utils/typeGuards/isEventCard");
 const getItemFromDroppableId_1 = require("../../../utils/getItemFromDroppableId");
 class ActionSlotService {
     constructor(game) {

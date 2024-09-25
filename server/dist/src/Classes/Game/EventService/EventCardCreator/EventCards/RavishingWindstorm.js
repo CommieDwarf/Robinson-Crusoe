@@ -2,9 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RavishingWindstorm = void 0;
 const EventCard_1 = require("../EventCard");
-const Construction_1 = require("@shared/types/Game/ConstructionService/Construction");
-const EVENT_CARD_1 = require("@shared/types/Game/EventService/EVENT_CARD");
-const ACTION_1 = require("@shared/types/Game/ACTION");
+const Construction_1 = require("../../../../../shared/types/Game/ConstructionService/Construction");
+const EVENT_CARD_1 = require("../../../../../shared/types/Game/EventService/EVENT_CARD");
+const ACTION_1 = require("../../../../../shared/types/Game/ACTION");
 class RavishingWindstorm extends EventCard_1.EventCard {
     constructor(game) {
         super(EVENT_CARD_1.EVENT_CARD.RAVISHING_WINDSTORM, ACTION_1.ACTION.EXPLORE, {

@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ActionController = void 0;
-const CONTROLLER_ACTION_1 = require("@shared/types/CONTROLLER_ACTION");
+const CONTROLLER_ACTION_1 = require("../../../shared/types/CONTROLLER_ACTION");
 class ActionController {
     constructor(game) {
         this._game = game;

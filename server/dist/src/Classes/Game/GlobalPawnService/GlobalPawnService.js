@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GlobalPawnService = void 0;
-const isPawnPlacementAllowed_1 = require("@shared/utils/isPawnPlacementAllowed");
+const isPawnPlacementAllowed_1 = require("../../../shared/utils/isPawnPlacementAllowed");
 const getItemFromDroppableId_1 = require("../../../utils/getItemFromDroppableId");
-const isCommittableResourcesItem_1 = require("@shared/utils/typeGuards/isCommittableResourcesItem");
+const isCommittableResourcesItem_1 = require("../../../shared/utils/typeGuards/isCommittableResourcesItem");
 class GlobalPawnService {
     constructor(game) {
         this._itemPawns = [];

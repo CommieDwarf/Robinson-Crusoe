@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Gremlins = void 0;
 const CreatureMysteryCard_1 = require("./CreatureMysteryCard/CreatureMysteryCard");
 const BasicResources_1 = require("../../../../ResourceService/BasicResources");
-const MYSTERY_CARD_1 = require("@shared/types/Game/MysteryService/MYSTERY_CARD");
+const MYSTERY_CARD_1 = require("../../../../../../shared/types/Game/MysteryService/MYSTERY_CARD");
 class Gremlins extends CreatureMysteryCard_1.CreatureMysteryCard {
     constructor(game) {
         super(game, MYSTERY_CARD_1.CREATURE_MYSTERY_CARD.GREMLINS, true, "gremlins have tracked you down", "fight");

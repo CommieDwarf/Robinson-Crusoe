@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Character = void 0;
-const Game_1 = require("@shared/types/Game/Game");
+const Game_1 = require("../../../../../shared/types/Game/Game");
 const PlayerCharacter_1 = require("./PlayerCharacter/PlayerCharacter");
 class Character {
     constructor(name, id, maxHealth, game) {

@@ -1,18 +1,18 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ActionService = void 0;
-const IResolvableItem_1 = require("@shared/types/Game/ActionService/IResolvableItem");
+const IResolvableItem_1 = require("../../../shared/types/Game/ActionService/IResolvableItem");
 const ResolvableItem_1 = require("./ResolvableItem");
-const ACTION_1 = require("@shared/types/Game/ACTION");
-const Item_1 = require("@shared/types/Game/Equipment/Item");
-const isAdventureAction_1 = require("@shared/utils/typeGuards/isAdventureAction");
+const ACTION_1 = require("../../../shared/types/Game/ACTION");
+const Item_1 = require("../../../shared/types/Game/Equipment/Item");
+const isAdventureAction_1 = require("../../../shared/utils/typeGuards/isAdventureAction");
 const GlobalCostModifier_1 = require("./GlobalCostModifier/GlobalCostModifier");
-const Character_1 = require("@shared/types/Game/Characters/Character");
-const actionOrder_1 = require("@shared/constants/actionOrder");
-const getActionSlotDroppableId_1 = require("@shared/utils/getActionSlotDroppableId");
+const Character_1 = require("../../../shared/types/Game/Characters/Character");
+const actionOrder_1 = require("../../../shared/constants/actionOrder");
+const getActionSlotDroppableId_1 = require("../../../shared/utils/getActionSlotDroppableId");
 const MissingLeaderError_1 = require("../Errors/MissingLeaderError");
 const getItemFromDroppableId_1 = require("../../../utils/getItemFromDroppableId");
-const LOG_CODE_1 = require("@shared/types/Game/ChatLog/LOG_CODE");
+const LOG_CODE_1 = require("../../../shared/types/Game/ChatLog/LOG_CODE");
 class ActionService {
     constructor(game) {
         this._resolvableItems = [];

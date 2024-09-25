@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DarkCloudsInTheSky = void 0;
 const BuildAdventureCard_1 = require("./BuildAdventureCard/BuildAdventureCard");
-const ADVENTURE_CARD_1 = require("@shared/types/Game/AdventureService/ADVENTURE_CARD");
-const Construction_1 = require("@shared/types/Game/ConstructionService/Construction");
+const ADVENTURE_CARD_1 = require("../../../../../../shared/types/Game/AdventureService/ADVENTURE_CARD");
+const Construction_1 = require("../../../../../../shared/types/Game/ConstructionService/Construction");
 class DarkCloudsInTheSky extends BuildAdventureCard_1.BuildAdventureCard {
     constructor(game) {
         super(ADVENTURE_CARD_1.ADVENTURE_CARD_BUILD.DARK_CLOUDS_IN_THE_SKY, "heavy rain is over", false, game, "shuffle", "");

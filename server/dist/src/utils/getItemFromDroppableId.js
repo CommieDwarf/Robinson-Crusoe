@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getItemFromDroppableId = void 0;
-const ACTION_1 = require("@shared/types/Game/ACTION");
-const getActionSlotDroppableId_1 = require("@shared/utils/getActionSlotDroppableId");
+const ACTION_1 = require("../shared/types/Game/ACTION");
+const getActionSlotDroppableId_1 = require("../shared/utils/getActionSlotDroppableId");
 function getItemFromDroppableId(droppableId, game) {
     const obj = (0, getActionSlotDroppableId_1.getDroppableIdObject)(droppableId);
     switch (true) {

@@ -12,20 +12,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Session = void 0;
 const Game_1 = require("../Game/Game");
 const GameController_1 = require("../GameController/GameController");
-const PLAYER_COLOR_1 = require("@shared/types/Game/PLAYER_COLOR");
+const PLAYER_COLOR_1 = require("../../shared/types/Game/PLAYER_COLOR");
 const uuidv4_1 = require("uuidv4");
-const Character_1 = require("@shared/types/Game/Characters/Character");
+const Character_1 = require("../../shared/types/Game/Characters/Character");
 const Player_1 = require("../Player/Player");
 const server_1 = require("../../../server");
-const Socket_1 = require("@shared/types/Requests/Socket");
+const Socket_1 = require("../../shared/types/Requests/Socket");
 const ChatService_1 = require("../ChatService/ChatService");
-const ChatService_2 = require("@shared/types/ChatService/ChatService");
-const getDuplicatedElements_1 = require("@shared/utils/getDuplicatedElements");
-const Game_2 = require("@shared/types/Game/Game");
+const ChatService_2 = require("../../shared/types/ChatService/ChatService");
+const getDuplicatedElements_1 = require("../../shared/utils/getDuplicatedElements");
+const Game_2 = require("../../shared/types/Game/Game");
 const SaveService_1 = require("../SaveService/SaveService");
 const isUser_1 = require("../../utils/TypeGuards/isUser");
 const SessionConnectError_1 = require("../../Errors/Session/SessionConnectError");
-const SESSION_CONNECTION_ERROR_CODE_1 = require("@shared/types/Errors/SESSION_CONNECTION_ERROR_CODE");
+const SESSION_CONNECTION_ERROR_CODE_1 = require("../../shared/types/Errors/SESSION_CONNECTION_ERROR_CODE");
 const config_1 = require("../../config/config");
 class Session {
     constructor(sessionService, host, settings, loadData) {

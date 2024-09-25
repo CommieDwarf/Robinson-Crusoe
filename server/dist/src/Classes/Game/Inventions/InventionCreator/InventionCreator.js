@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.InventionCreator = void 0;
-const Invention_1 = require("@shared/types/Game/InventionService/Invention");
+const Invention_1 = require("../../../../shared/types/Game/InventionService/Invention");
 const Bricks_1 = require("./Inventions/Starter/Bricks");
 const Dam_1 = require("./Inventions/Starter/Dam");
 const Fire_1 = require("./Inventions/Starter/Fire");

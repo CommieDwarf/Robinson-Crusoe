@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StrokeOfFate = void 0;
 const EventCard_1 = require("../EventCard");
-const EVENT_CARD_1 = require("@shared/types/Game/EventService/EVENT_CARD");
-const ACTION_1 = require("@shared/types/Game/ACTION");
+const EVENT_CARD_1 = require("../../../../../shared/types/Game/EventService/EVENT_CARD");
+const ACTION_1 = require("../../../../../shared/types/Game/ACTION");
 class StrokeOfFate extends EventCard_1.EventCard {
     constructor(game) {
         super(EVENT_CARD_1.EVENT_CARD.STROKE_OF_FATE, ACTION_1.ACTION.GATHER, {

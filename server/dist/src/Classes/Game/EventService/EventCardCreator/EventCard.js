@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EventCard = void 0;
-const ACTION_1 = require("@shared/types/Game/ACTION");
+const ACTION_1 = require("../../../../shared/types/Game/ACTION");
 const ResourceCommittableItem_1 = require("../../ResourceCommittableItem/ResourceCommittableItem");
-const getActionSlotDroppableId_1 = require("@shared/utils/getActionSlotDroppableId");
+const getActionSlotDroppableId_1 = require("../../../../shared/utils/getActionSlotDroppableId");
 //TODO: implement scenario translations
 class EventCard extends ResourceCommittableItem_1.ResourceCommittableItem {
     constructor(name, type, requirements, game) {

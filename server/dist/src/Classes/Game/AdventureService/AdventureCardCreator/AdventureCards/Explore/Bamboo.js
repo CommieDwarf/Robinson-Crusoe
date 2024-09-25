@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Bamboo = void 0;
-const ADVENTURE_CARD_1 = require("@shared/types/Game/AdventureService/ADVENTURE_CARD");
+const ADVENTURE_CARD_1 = require("../../../../../../shared/types/Game/AdventureService/ADVENTURE_CARD");
 const ExploreAdventureCard_1 = require("./ExploreAdventureCard/ExploreAdventureCard");
 class Bamboo extends ExploreAdventureCard_1.ExploreAdventureCard {
     // protected _eventOption1 = {

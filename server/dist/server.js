@@ -14,6 +14,7 @@ const config_1 = require("./src/config/config");
 //Don't delete. It configures passport and mopngoose globally.
 require('./src/config/passport');
 require("./src/config/mongoose");
+require('module-alias/register');
 const app = (0, express_1.default)();
 const emailService = new EmailService_1.EmailService();
 const httpService = new HttpService_1.HttpService(app, emailService);

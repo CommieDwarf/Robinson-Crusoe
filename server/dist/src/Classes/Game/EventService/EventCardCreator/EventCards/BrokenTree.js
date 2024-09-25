@@ -2,9 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BrokenTree = void 0;
 const EventCard_1 = require("../EventCard");
-const Invention_1 = require("@shared/types/Game/InventionService/Invention");
-const EVENT_CARD_1 = require("@shared/types/Game/EventService/EVENT_CARD");
-const ACTION_1 = require("@shared/types/Game/ACTION");
+const Invention_1 = require("../../../../../shared/types/Game/InventionService/Invention");
+const EVENT_CARD_1 = require("../../../../../shared/types/Game/EventService/EVENT_CARD");
+const ACTION_1 = require("../../../../../shared/types/Game/ACTION");
 class BrokenTree extends EventCard_1.EventCard {
     constructor(game) {
         super(EVENT_CARD_1.EVENT_CARD.BROKEN_TREE, ACTION_1.ACTION.BUILD, {

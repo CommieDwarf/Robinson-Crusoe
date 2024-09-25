@@ -5,12 +5,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EventService = void 0;
 const EventCardCreator_1 = require("./EventCardCreator/EventCardCreator");
-const EventCards_1 = require("@shared/constants/cards/EventCards");
-const isEventCard_1 = require("@shared/utils/typeGuards/isEventCard");
-const isMysteryCard_1 = require("@shared/utils/typeGuards/isMysteryCard");
-const isAdventureCard_1 = require("@shared/utils/typeGuards/isAdventureCard");
-const EVENT_CARD_1 = require("@shared/types/Game/EventService/EVENT_CARD");
-const shuffleArray_1 = __importDefault(require("@shared/utils/shuffleArray"));
+const EventCards_1 = require("../../../shared/constants/cards/EventCards");
+const isEventCard_1 = require("../../../shared/utils/typeGuards/isEventCard");
+const isMysteryCard_1 = require("../../../shared/utils/typeGuards/isMysteryCard");
+const isAdventureCard_1 = require("../../../shared/utils/typeGuards/isAdventureCard");
+const EVENT_CARD_1 = require("../../../shared/types/Game/EventService/EVENT_CARD");
+const shuffleArray_1 = __importDefault(require("../../../shared/utils/shuffleArray"));
 class EventService {
     constructor(game) {
         this._currentAdventureCard = null;

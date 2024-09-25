@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.implementedEventCards = void 0;
-const EVENT_CARD_1 = require("@shared/types/Game/EventService/EVENT_CARD");
+const EVENT_CARD_1 = require("../../types/Game/EventService/EVENT_CARD");
 exports.implementedEventCards = [
     EVENT_CARD_1.EVENT_CARD.AWFUL_WEATHER,
     EVENT_CARD_1.EVENT_CARD.BAD_FEELINGS,

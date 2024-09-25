@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Moat = void 0;
 const Invention_1 = require("../../Invention");
-const Invention_2 = require("@shared/types/Game/InventionService/Invention");
-const Construction_1 = require("@shared/types/Game/ConstructionService/Construction");
+const Invention_2 = require("../../../../../../shared/types/Game/InventionService/Invention");
+const Construction_1 = require("../../../../../../shared/types/Game/ConstructionService/Construction");
 class Moat extends Invention_1.Invention {
     constructor(game) {
         super(Invention_2.INVENTION_NORMAL.MOAT, { terrainType: null, inventions: [Invention_2.INVENTION_STARTER.SHOVEL] }, Invention_2.INVENTION_TYPE.NORMAL, game, { type: "wood", amount: 1 });

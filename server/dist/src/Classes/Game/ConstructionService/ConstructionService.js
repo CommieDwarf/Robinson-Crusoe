@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ConstructionService = void 0;
-const Construction_1 = require("@shared/types/Game/ConstructionService/Construction");
+const Construction_1 = require("../../../shared/types/Game/ConstructionService/Construction");
 const Construction_2 = require("./Construction");
-const LOG_CODE_1 = require("@shared/types/Game/ChatLog/LOG_CODE");
+const LOG_CODE_1 = require("../../../shared/types/Game/ChatLog/LOG_CODE");
 const constructionPL = {
     shelter: "schronienie",
     roof: "dach",

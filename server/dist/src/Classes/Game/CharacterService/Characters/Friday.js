@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Friday = void 0;
-const Character_1 = require("@shared/types/Game/Characters/Character");
+const Character_1 = require("../../../../shared/types/Game/Characters/Character");
 const SideCharacter_1 = require("./Character/SideCharacter/SideCharacter");
 const ReRoll_1 = require("./Skills/Friday/ReRoll");
 class Friday extends SideCharacter_1.SideCharacter {

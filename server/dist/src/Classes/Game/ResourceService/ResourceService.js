@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ResourceService = void 0;
 const BasicResources_1 = require("./BasicResources");
-const LOG_CODE_1 = require("@shared/types/Game/ChatLog/LOG_CODE");
+const LOG_CODE_1 = require("../../../shared/types/Game/ChatLog/LOG_CODE");
 class ResourceService {
     get blockedProductionRound() {
         return this._blockedProductionRound;

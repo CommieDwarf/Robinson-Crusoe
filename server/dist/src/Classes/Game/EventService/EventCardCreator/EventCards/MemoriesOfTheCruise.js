@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MemoriesOfTheCruise = void 0;
 const EventCard_1 = require("../EventCard");
-const EVENT_CARD_1 = require("@shared/types/Game/EventService/EVENT_CARD");
-const ACTION_1 = require("@shared/types/Game/ACTION");
+const EVENT_CARD_1 = require("../../../../../shared/types/Game/EventService/EVENT_CARD");
+const ACTION_1 = require("../../../../../shared/types/Game/ACTION");
 class MemoriesOfTheCruise extends EventCard_1.EventCard {
     constructor(game) {
         super(EVENT_CARD_1.EVENT_CARD.MEMORIES_OF_THE_CRUISE, ACTION_1.ACTION.BUILD, {

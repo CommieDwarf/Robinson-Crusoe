@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.doubledDiscoveryTokens = void 0;
-const Token_1 = require("@shared/types/Game/TokenService/Token");
+const Token_1 = require("../types/Game/TokenService/Token");
 exports.doubledDiscoveryTokens = [
     Token_1.DISCOVERY_TOKEN.FALLEN_TREE,
     Token_1.DISCOVERY_TOKEN.NOURISHING_LARVAE,

@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdventureCardCreator = void 0;
-const ADVENTURE_CARD_1 = require("@shared/types/Game/AdventureService/ADVENTURE_CARD");
+const ADVENTURE_CARD_1 = require("../../../../../shared/types/Game/AdventureService/ADVENTURE_CARD");
 const AfterTheHurricane_1 = require("../AdventureCards/Gather/AfterTheHurricane");
 const EndOfSource_1 = require("../AdventureCards/Gather/EndOfSource");
 const EyesInTheBushes_1 = require("../AdventureCards/Gather/EyesInTheBushes");

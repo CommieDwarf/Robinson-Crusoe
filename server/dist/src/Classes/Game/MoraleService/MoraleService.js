@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MoraleService = void 0;
-const Invention_1 = require("@shared/types/Game/InventionService/Invention");
-const LOG_CODE_1 = require("@shared/types/Game/ChatLog/LOG_CODE");
-const TERMS_1 = require("@shared/types/Terms/TERMS");
+const Invention_1 = require("../../../shared/types/Game/InventionService/Invention");
+const LOG_CODE_1 = require("../../../shared/types/Game/ChatLog/LOG_CODE");
+const TERMS_1 = require("../../../shared/types/Terms/TERMS");
 class MoraleService {
     constructor(game) {
         this._lvl = 0;

@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RemainsOfASettlement = void 0;
 const ExploreAdventureCard_1 = require("./ExploreAdventureCard/ExploreAdventureCard");
-const ADVENTURE_CARD_1 = require("@shared/types/Game/AdventureService/ADVENTURE_CARD");
+const ADVENTURE_CARD_1 = require("../../../../../../shared/types/Game/AdventureService/ADVENTURE_CARD");
 class RemainsOfASettlement extends ExploreAdventureCard_1.ExploreAdventureCard {
     constructor(game) {
         super(ADVENTURE_CARD_1.ADVENTURE_CARD_EXPLORE.REMAINS_OF_A_SETTLEMENT, "epidemic", true, game, "discard", "shuffle");

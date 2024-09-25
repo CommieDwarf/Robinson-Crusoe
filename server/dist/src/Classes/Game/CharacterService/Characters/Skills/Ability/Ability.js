@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Ability = void 0;
-const phaseOrder_1 = require("@shared/constants/phaseOrder");
-const LOG_CODE_1 = require("@shared/types/Game/ChatLog/LOG_CODE");
+const phaseOrder_1 = require("../../../../../../shared/constants/phaseOrder");
+const LOG_CODE_1 = require("../../../../../../shared/types/Game/ChatLog/LOG_CODE");
 class Ability {
     constructor(name, phasesAllowed, actionAllowed, cost, game, character) {
         this._lastRoundUsed = 0;

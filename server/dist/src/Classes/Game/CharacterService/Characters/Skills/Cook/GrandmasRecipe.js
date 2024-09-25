@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GrandmasRecipe = void 0;
 const Ability_1 = require("../Ability/Ability");
-const ABILITY_1 = require("@shared/types/Game/Skill/ABILITY");
-const Character_1 = require("@shared/types/Game/Characters/Character");
+const ABILITY_1 = require("../../../../../../shared/types/Game/Skill/ABILITY");
+const Character_1 = require("../../../../../../shared/types/Game/Characters/Character");
 class GrandmasRecipe extends Ability_1.Ability {
     constructor(game, character) {
         super(ABILITY_1.ABILITY.GRANDMAS_RECIPE, "all", null, 2, game, character);

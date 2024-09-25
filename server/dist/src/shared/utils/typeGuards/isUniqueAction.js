@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.actionToUniqueAction = void 0;
-const ACTION_1 = require("@shared/types/Game/ACTION");
+const ACTION_1 = require("../../types/Game/ACTION");
 function actionToUniqueAction(action, actionItem) {
     switch (true) {
         case action === ACTION_1.ACTION.GATHER:

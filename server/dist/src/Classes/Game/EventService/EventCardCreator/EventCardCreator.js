@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EventCardCreator = void 0;
-const EVENT_CARD_1 = require("@shared/types/Game/EventService/EVENT_CARD");
+const EVENT_CARD_1 = require("../../../../shared/types/Game/EventService/EVENT_CARD");
 const SupplyCrates_1 = require("./WreckageCards/SupplyCrates");
 const CaptainsChest_1 = require("./WreckageCards/CaptainsChest");
 const WreckedLifeboat_1 = require("./WreckageCards/WreckedLifeboat");

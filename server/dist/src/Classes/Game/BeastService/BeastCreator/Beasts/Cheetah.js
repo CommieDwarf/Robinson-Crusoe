@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Cheetah = void 0;
 const Beast_1 = require("../Beast");
-const Beast_2 = require("@shared/types/Game/Beasts/Beast");
+const Beast_2 = require("../../../../../shared/types/Game/Beasts/Beast");
 const BasicResources_1 = require("../../../ResourceService/BasicResources");
 class Cheetah extends Beast_1.Beast {
     constructor(game) {

@@ -4,11 +4,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ClientPayloadSchemas = void 0;
-const VALIDATION_CONFIG_1 = require("@shared/config/VALIDATION_CONFIG");
-const CONTROLLER_ACTION_1 = require("@shared/types/CONTROLLER_ACTION");
-const PLAYER_COLOR_1 = require("@shared/types/Game/PLAYER_COLOR");
-const SCENARIO_1 = require("@shared/types/Game/ScenarioService/SCENARIO");
-const Socket_1 = require("@shared/types/Requests/Socket");
+const VALIDATION_CONFIG_1 = require("../shared/config/VALIDATION_CONFIG");
+const CONTROLLER_ACTION_1 = require("../shared/types/CONTROLLER_ACTION");
+const PLAYER_COLOR_1 = require("../shared/types/Game/PLAYER_COLOR");
+const SCENARIO_1 = require("../shared/types/Game/ScenarioService/SCENARIO");
+const Socket_1 = require("../shared/types/Requests/Socket");
 const joi_1 = __importDefault(require("joi"));
 const password = joi_1.default.string().allow("").max(VALIDATION_CONFIG_1.VALIDATION_CONFIG.MAX_PASSWORD_LENGTH);
 const settings = {};

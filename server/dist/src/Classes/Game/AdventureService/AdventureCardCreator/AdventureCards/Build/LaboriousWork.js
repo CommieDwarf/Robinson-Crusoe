@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LaboriousWork = void 0;
 const BuildAdventureCard_1 = require("./BuildAdventureCard/BuildAdventureCard");
-const ADVENTURE_CARD_1 = require("@shared/types/Game/AdventureService/ADVENTURE_CARD");
-const ACTION_1 = require("@shared/types/Game/ACTION");
+const ADVENTURE_CARD_1 = require("../../../../../../shared/types/Game/AdventureService/ADVENTURE_CARD");
+const ACTION_1 = require("../../../../../../shared/types/Game/ACTION");
 class LaboriousWork extends BuildAdventureCard_1.BuildAdventureCard {
     constructor(game) {
         super(ADVENTURE_CARD_1.ADVENTURE_CARD_BUILD.LABORIOUS_WORK, "", false, game, "discard", "");

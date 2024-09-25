@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.isItemRenderData = exports.isItem = void 0;
-const Item_1 = require("@shared/types/Game/Equipment/Item");
+const Item_1 = require("../../types/Game/Equipment/Item");
 function isItem(candidate) {
     return "name" in candidate && Object.values(Item_1.ITEM).includes(candidate.name);
 }

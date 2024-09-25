@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Beast = void 0;
 const AssignablePawnsItem_1 = require("../../AssignablePawnsItem/AssignablePawnsItem");
-const ACTION_1 = require("@shared/types/Game/ACTION");
-const getActionSlotDroppableId_1 = require("@shared/utils/getActionSlotDroppableId");
+const ACTION_1 = require("../../../../shared/types/Game/ACTION");
+const getActionSlotDroppableId_1 = require("../../../../shared/utils/getActionSlotDroppableId");
 class Beast extends AssignablePawnsItem_1.AssignablePawnsItem {
     constructor(name, strength, weaponLoss, reward, game) {
         super(ACTION_1.ACTION.HUNT, ACTION_1.ACTION_ITEM.HUNT, game);

@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TracksOfAPredator = void 0;
 const GatherAdventureCard_1 = require("./GatherAdventureCard/GatherAdventureCard");
-const ADVENTURE_CARD_1 = require("@shared/types/Game/AdventureService/ADVENTURE_CARD");
-const Construction_1 = require("@shared/types/Game/ConstructionService/Construction");
+const ADVENTURE_CARD_1 = require("../../../../../../shared/types/Game/AdventureService/ADVENTURE_CARD");
+const Construction_1 = require("../../../../../../shared/types/Game/ConstructionService/Construction");
 class TracksOfAPredator extends GatherAdventureCard_1.GatherAdventureCard {
     constructor(game) {
         super(ADVENTURE_CARD_1.ADVENTURE_CARD_GATHER.TRACKS_OF_A_PREDATOR, "attack of a hungry predator", false, game, "shuffle", "");

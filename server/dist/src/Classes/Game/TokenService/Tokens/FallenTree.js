@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FallenTree = void 0;
 const Token_1 = require("./Token/Token");
-const Token_2 = require("@shared/types/Game/TokenService/Token");
+const Token_2 = require("../../../../shared/types/Game/TokenService/Token");
 class FallenTree extends Token_1.Token {
     constructor(game, id) {
         super(game, Token_2.DISCOVERY_TOKEN.FALLEN_TREE, "powalone drzewo", "Otrzymujesz 1 drewno. Żeton zostanie zrealizowany automatycznie po fazie akcji.", id);

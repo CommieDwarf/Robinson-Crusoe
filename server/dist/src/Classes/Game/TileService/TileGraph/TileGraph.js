@@ -3,8 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TileGraph = void 0;
 const Graph_1 = require("../../Utility/Graph/Graph");
 const Tile_1 = require("../Tile/Tile");
-const tilePositions_1 = require("@shared/constants/tilePositions");
-const tileResourceServices_1 = require("@shared/constants/tileResourceServices");
+const tilePositions_1 = require("../../../../shared/constants/tilePositions");
+const tileResourceServices_1 = require("../../../../shared/constants/tileResourceServices");
 const TileResourceService_1 = require("../Tile/TileResourceService/TileResourceService");
 class TileGraph extends Graph_1.Graph {
     constructor(campTileID, game) {

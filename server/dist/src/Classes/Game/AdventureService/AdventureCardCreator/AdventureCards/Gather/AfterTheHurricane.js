@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AfterTheHurricane = void 0;
-const ADVENTURE_CARD_1 = require("@shared/types/Game/AdventureService/ADVENTURE_CARD");
+const ADVENTURE_CARD_1 = require("../../../../../../shared/types/Game/AdventureService/ADVENTURE_CARD");
 const GatherAdventureCard_1 = require("./GatherAdventureCard/GatherAdventureCard");
 class AfterTheHurricane extends GatherAdventureCard_1.GatherAdventureCard {
     constructor(game) {

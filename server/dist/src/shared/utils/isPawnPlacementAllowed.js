@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.isPawnPlacementAllowed = void 0;
-const getActionSlotDroppableId_1 = require("@shared/utils/getActionSlotDroppableId");
-const ACTION_1 = require("@shared/types/Game/ACTION");
-const isPlayerCharacter_1 = require("@shared/utils/typeGuards/isPlayerCharacter");
-const Invention_1 = require("@shared/types/Game/InventionService/Invention");
+const getActionSlotDroppableId_1 = require("../utils/getActionSlotDroppableId");
+const ACTION_1 = require("../types/Game/ACTION");
+const isPlayerCharacter_1 = require("../utils/typeGuards/isPlayerCharacter");
+const Invention_1 = require("../types/Game/InventionService/Invention");
 function isPawnPlacementAllowed(pawn, droppableId) {
     if (!pawn) {
         return true;

@@ -4,8 +4,8 @@ exports.PlayerCharacter = void 0;
 const Character_1 = require("../Character");
 const PawnService_1 = require("../../../../PawnService/PawnService");
 const CharEffects_1 = require("../../../CharEffects/CharEffects");
-const removeFromArray_1 = require("@shared/utils/removeFromArray");
-const LOG_CODE_1 = require("@shared/types/Game/ChatLog/LOG_CODE");
+const removeFromArray_1 = require("../../../../../../shared/utils/removeFromArray");
+const LOG_CODE_1 = require("../../../../../../shared/types/Game/ChatLog/LOG_CODE");
 class PlayerCharacter extends Character_1.Character {
     constructor(name, id, maxHealth, game, gender, moraleThresholds, invention, player) {
         super(name, id, maxHealth, game);

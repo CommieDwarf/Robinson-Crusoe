@@ -2,9 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Tracking = void 0;
 const Ability_1 = require("../Ability/Ability");
-const ABILITY_1 = require("@shared/types/Game/Skill/ABILITY");
+const ABILITY_1 = require("../../../../../../shared/types/Game/Skill/ABILITY");
 const ForbiddenPlayerAction_1 = require("../../../../../../Errors/ForbiddenPlayerAction");
-const ALERT_CODE_1 = require("@shared/types/ALERT_CODE");
+const ALERT_CODE_1 = require("../../../../../../shared/types/ALERT_CODE");
 class Tracking extends Ability_1.Ability {
     constructor(game, character) {
         super(ABILITY_1.ABILITY.TRACKING, "all", null, 2, game, character);

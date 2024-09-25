@@ -25,7 +25,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SaveGame = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
-const SCENARIO_1 = require("@shared/types/Game/ScenarioService/SCENARIO");
+const SCENARIO_1 = require("../shared/types/Game/ScenarioService/SCENARIO");
 const saveSchema = new mongoose_1.Schema({
     playerActions: [{
             type: mongoose_1.Schema.Types.Mixed,

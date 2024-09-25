@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Viper = void 0;
 const GatherAdventureCard_1 = require("./GatherAdventureCard/GatherAdventureCard");
-const ADVENTURE_CARD_1 = require("@shared/types/Game/AdventureService/ADVENTURE_CARD");
-const Invention_1 = require("@shared/types/Game/InventionService/Invention");
+const ADVENTURE_CARD_1 = require("../../../../../../shared/types/Game/AdventureService/ADVENTURE_CARD");
+const Invention_1 = require("../../../../../../shared/types/Game/InventionService/Invention");
 class Viper extends GatherAdventureCard_1.GatherAdventureCard {
     constructor(game) {
         super(ADVENTURE_CARD_1.ADVENTURE_CARD_GATHER.VIPER, "bite", false, game, "shuffle", "");

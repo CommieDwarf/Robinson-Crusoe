@@ -2,11 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FoulWeather = void 0;
 const EventCard_1 = require("../EventCard");
-const EventCard_2 = require("@shared/types/Game/EventService/EventCard");
-const EVENT_CARD_1 = require("@shared/types/Game/EventService/EVENT_CARD");
-const Invention_1 = require("@shared/types/Game/InventionService/Invention");
-const ACTION_1 = require("@shared/types/Game/ACTION");
-const TileResourceService_1 = require("@shared/types/Game/TileService/TileResourceService");
+const EventCard_2 = require("../../../../../shared/types/Game/EventService/EventCard");
+const EVENT_CARD_1 = require("../../../../../shared/types/Game/EventService/EVENT_CARD");
+const Invention_1 = require("../../../../../shared/types/Game/InventionService/Invention");
+const ACTION_1 = require("../../../../../shared/types/Game/ACTION");
+const TileResourceService_1 = require("../../../../../shared/types/Game/TileService/TileResourceService");
 class FoulWeather extends EventCard_1.EventCard {
     constructor(game) {
         super(EVENT_CARD_1.EVENT_CARD.FOUL_WEATHER, EventCard_2.EVENT_TYPE.BOOK, {

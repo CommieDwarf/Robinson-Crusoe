@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AssignablePawnsItem = void 0;
-const isUniqueAction_1 = require("@shared/utils/typeGuards/isUniqueAction");
+const isUniqueAction_1 = require("../../../shared/utils/typeGuards/isUniqueAction");
 class AssignablePawnsItem {
     constructor(type, actionItem, game) {
         this._assignedPawnAmount = 0;

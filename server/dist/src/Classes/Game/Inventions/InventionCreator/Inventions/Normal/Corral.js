@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Corral = void 0;
 const Invention_1 = require("../../Invention");
-const Invention_2 = require("@shared/types/Game/InventionService/Invention");
+const Invention_2 = require("../../../../../../shared/types/Game/InventionService/Invention");
 class Corral extends Invention_1.Invention {
     constructor(game) {
         super(Invention_2.INVENTION_NORMAL.CORRAL, { terrainType: null, inventions: [Invention_2.INVENTION_STARTER.ROPE] }, Invention_2.INVENTION_TYPE.NORMAL, game, { type: "wood", amount: 1 });

@@ -5,10 +5,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MysteryService = void 0;
 const MysteryCardCreator_1 = require("./MysteryCardCreator/MysteryCardCreator");
-const shuffleArray_1 = __importDefault(require("@shared/utils/shuffleArray"));
+const shuffleArray_1 = __importDefault(require("../../../shared/utils/shuffleArray"));
 const MysteryCardDrawer_1 = require("./MysteryCardDrawer");
 const Barrel_1 = require("./MysteryCardCreator/Cards/Treasure/Barrel");
-const isTreasureCard_1 = require("@shared/utils/typeGuards/isTreasureCard");
+const isTreasureCard_1 = require("../../../shared/utils/typeGuards/isTreasureCard");
 class MysteryService {
     constructor(game) {
         this._cardsAsReminders = [];

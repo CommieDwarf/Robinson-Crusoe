@@ -4,10 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TokenService = void 0;
-const Token_1 = require("@shared/types/Game/TokenService/Token");
+const Token_1 = require("../../../shared/types/Game/TokenService/Token");
 const TokenCreator_1 = require("./TokenCreator/TokenCreator");
-const doubledDiscoveryTokens_1 = require("@shared/constants/doubledDiscoveryTokens");
-const shuffleArray_1 = __importDefault(require("@shared/utils/shuffleArray"));
+const doubledDiscoveryTokens_1 = require("../../../shared/constants/doubledDiscoveryTokens");
+const shuffleArray_1 = __importDefault(require("../../../shared/utils/shuffleArray"));
 class TokenService {
     constructor(game) {
         this._owned = [];

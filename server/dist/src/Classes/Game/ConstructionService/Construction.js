@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Construction = void 0;
-const ACTION_1 = require("@shared/types/Game/ACTION");
+const ACTION_1 = require("../../../shared/types/Game/ACTION");
 const ResourceCommittableItem_1 = require("../ResourceCommittableItem/ResourceCommittableItem");
 class Construction extends ResourceCommittableItem_1.ResourceCommittableItem {
     constructor(name, namePL, locked, game, resourceCost, optionalCost) {

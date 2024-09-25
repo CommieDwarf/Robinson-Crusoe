@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TokenCreator = void 0;
-const Token_1 = require("@shared/types/Game/TokenService/Token");
+const Token_1 = require("../../../../shared/types/Game/TokenService/Token");
 const Candles_1 = require("../Tokens/Candles");
 const FallenTree_1 = require("../Tokens/FallenTree");
 const LargeLeaves_1 = require("../Tokens/LargeLeaves");

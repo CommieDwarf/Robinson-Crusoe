@@ -2,9 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Precipice = void 0;
 const EventCard_1 = require("../EventCard");
-const EVENT_CARD_1 = require("@shared/types/Game/EventService/EVENT_CARD");
-const ACTION_1 = require("@shared/types/Game/ACTION");
-const ITile_1 = require("@shared/types/Game/TileService/ITile");
+const EVENT_CARD_1 = require("../../../../../shared/types/Game/EventService/EVENT_CARD");
+const ACTION_1 = require("../../../../../shared/types/Game/ACTION");
+const ITile_1 = require("../../../../../shared/types/Game/TileService/ITile");
 class Precipice extends EventCard_1.EventCard {
     constructor(game) {
         super(EVENT_CARD_1.EVENT_CARD.PRECIPICE, ACTION_1.ACTION.EXPLORE, {

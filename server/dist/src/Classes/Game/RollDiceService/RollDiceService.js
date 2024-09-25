@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RollDiceService = void 0;
-const gather_1 = require("@shared/constants/diceStructures/gather");
-const build_1 = require("@shared/constants/diceStructures/build");
-const explore_1 = require("@shared/constants/diceStructures/explore");
-const weather_1 = require("@shared/constants/diceStructures/weather");
+const gather_1 = require("../../../shared/constants/diceStructures/gather");
+const build_1 = require("../../../shared/constants/diceStructures/build");
+const explore_1 = require("../../../shared/constants/diceStructures/explore");
+const weather_1 = require("../../../shared/constants/diceStructures/weather");
 const diceStructures = {
     gather: gather_1.gather,
     build: build_1.build,

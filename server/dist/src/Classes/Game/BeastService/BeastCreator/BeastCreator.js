@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BeastCreator = void 0;
 const Beast_1 = require("./Beast");
-const Beast_2 = require("@shared/types/Game/Beasts/Beast");
+const Beast_2 = require("../../../../shared/types/Game/Beasts/Beast");
 const Alligator_1 = require("./Beasts/Alligator");
 const Bear_1 = require("./Beasts/Bear");
 const Birds_1 = require("./Beasts/Birds");

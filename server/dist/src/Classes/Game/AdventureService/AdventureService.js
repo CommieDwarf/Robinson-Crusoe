@@ -7,9 +7,9 @@ exports.AdventureService = void 0;
 const AdventureCardCreator_1 = require("./AdventureCardCreator/Creators/AdventureCardCreator");
 const Tile_1 = require("../TileService/Tile/Tile");
 const TileService_1 = require("../TileService/TileService");
-const isPlayerCharacter_1 = require("@shared/utils/typeGuards/isPlayerCharacter");
-const isAdventureAction_1 = require("@shared/utils/typeGuards/isAdventureAction");
-const shuffleArray_1 = __importDefault(require("@shared/utils/shuffleArray"));
+const isPlayerCharacter_1 = require("../../../shared/utils/typeGuards/isPlayerCharacter");
+const isAdventureAction_1 = require("../../../shared/utils/typeGuards/isAdventureAction");
+const shuffleArray_1 = __importDefault(require("../../../shared/utils/shuffleArray"));
 class AdventureService {
     constructor(game) {
         this._stacks = {

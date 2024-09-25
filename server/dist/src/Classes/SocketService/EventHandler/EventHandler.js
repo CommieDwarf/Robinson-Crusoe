@@ -10,10 +10,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EventHandler = void 0;
-const Socket_1 = require("@shared/types/Requests/Socket");
-const SESSION_CONNECTION_ERROR_CODE_1 = require("@shared/types/Errors/SESSION_CONNECTION_ERROR_CODE");
+const Socket_1 = require("../../../shared/types/Requests/Socket");
+const SESSION_CONNECTION_ERROR_CODE_1 = require("../../../shared/types/Errors/SESSION_CONNECTION_ERROR_CODE");
 const SessionConnectError_1 = require("../../../Errors/Session/SessionConnectError");
-const ERROR_1 = require("@shared/types/Errors/ERROR");
+const ERROR_1 = require("../../../shared/types/Errors/ERROR");
 const isUser_1 = require("../../../utils/TypeGuards/isUser");
 const SaveService_1 = require("../../SaveService/SaveService");
 const SaveGame_1 = require("../../../Models/SaveGame");

@@ -4,11 +4,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.InventionsService = void 0;
-const shuffleArray_1 = __importDefault(require("@shared/utils/shuffleArray"));
-const Invention_1 = require("@shared/types/Game/InventionService/Invention");
+const shuffleArray_1 = __importDefault(require("../../../shared/utils/shuffleArray"));
+const Invention_1 = require("../../../shared/types/Game/InventionService/Invention");
 const InventionCreator_1 = require("./InventionCreator/InventionCreator");
-const LOG_CODE_1 = require("@shared/types/Game/ChatLog/LOG_CODE");
-const isPlayerCharacter_1 = require("@shared/utils/typeGuards/isPlayerCharacter");
+const LOG_CODE_1 = require("../../../shared/types/Game/ChatLog/LOG_CODE");
+const isPlayerCharacter_1 = require("../../../shared/utils/typeGuards/isPlayerCharacter");
 class InventionsService {
     constructor(scenario, tiles, game) {
         this._builtInventions = [];

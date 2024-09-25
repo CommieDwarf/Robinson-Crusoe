@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.WindStorm = void 0;
 const BuildAdventureCard_1 = require("./BuildAdventureCard/BuildAdventureCard");
-const ADVENTURE_CARD_1 = require("@shared/types/Game/AdventureService/ADVENTURE_CARD");
-const Construction_1 = require("@shared/types/Game/ConstructionService/Construction");
+const ADVENTURE_CARD_1 = require("../../../../../../shared/types/Game/AdventureService/ADVENTURE_CARD");
+const Construction_1 = require("../../../../../../shared/types/Game/ConstructionService/Construction");
 class WindStorm extends BuildAdventureCard_1.BuildAdventureCard {
     constructor(game) {
         super(ADVENTURE_CARD_1.ADVENTURE_CARD_BUILD.WIND_STORM, "natural palisade", false, game, "shuffle", "");

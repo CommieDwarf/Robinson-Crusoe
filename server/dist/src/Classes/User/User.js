@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const SessionConnectError_1 = require("../../Errors/Session/SessionConnectError");
-const SESSION_CONNECTION_ERROR_CODE_1 = require("@shared/types/Errors/SESSION_CONNECTION_ERROR_CODE");
+const SESSION_CONNECTION_ERROR_CODE_1 = require("../../shared/types/Errors/SESSION_CONNECTION_ERROR_CODE");
 class User {
     constructor(userDocument, socket, sessionService) {
         this._sessions = [];

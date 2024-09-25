@@ -1,12 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Castaways = void 0;
-const ScenarioService_1 = require("@shared/types/Game/ScenarioService/ScenarioService");
-const castaways_1 = require("@shared/constants/scenarios/castaways");
-const Game_1 = require("@shared/types/Game/Game");
-const Invention_1 = require("@shared/types/Game/InventionService/Invention");
-const LOG_CODE_1 = require("@shared/types/Game/ChatLog/LOG_CODE");
-const SCENARIO_1 = require("@shared/types/Game/ScenarioService/SCENARIO");
+const ScenarioService_1 = require("../../../shared/types/Game/ScenarioService/ScenarioService");
+const castaways_1 = require("../../../shared/constants/scenarios/castaways");
+const Game_1 = require("../../../shared/types/Game/Game");
+const Invention_1 = require("../../../shared/types/Game/InventionService/Invention");
+const LOG_CODE_1 = require("../../../shared/types/Game/ChatLog/LOG_CODE");
+const SCENARIO_1 = require("../../../shared/types/Game/ScenarioService/SCENARIO");
 class Castaways {
     constructor(game) {
         this._shipRounds = [10, 11, 12];

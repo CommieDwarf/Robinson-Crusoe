@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Lantern = void 0;
-const Invention_1 = require("@shared/types/Game/InventionService/Invention");
-const ITile_1 = require("@shared/types/Game/TileService/ITile");
+const Invention_1 = require("../../../../../../shared/types/Game/InventionService/Invention");
+const ITile_1 = require("../../../../../../shared/types/Game/TileService/ITile");
 const Invention_2 = require("../../Invention");
 class Lantern extends Invention_2.Invention {
     constructor(game) {

@@ -4,10 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Equipment = void 0;
-const shuffleArray_1 = __importDefault(require("@shared/utils/shuffleArray"));
-const Item_1 = require("@shared/types/Game/Equipment/Item");
+const shuffleArray_1 = __importDefault(require("../../../shared/utils/shuffleArray"));
+const Item_1 = require("../../../shared/types/Game/Equipment/Item");
 const ItemCreator_1 = require("./ItemCreator/ItemCreator");
-const LOG_CODE_1 = require("@shared/types/Game/ChatLog/LOG_CODE");
+const LOG_CODE_1 = require("../../../shared/types/Game/ChatLog/LOG_CODE");
 class Equipment {
     get renderData() {
         return {

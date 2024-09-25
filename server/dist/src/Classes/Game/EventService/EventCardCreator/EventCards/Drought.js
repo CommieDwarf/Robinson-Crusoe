@@ -2,10 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Drought = void 0;
 const EventCard_1 = require("../EventCard");
-const EventCard_2 = require("@shared/types/Game/EventService/EventCard");
-const EVENT_CARD_1 = require("@shared/types/Game/EventService/EVENT_CARD");
-const Invention_1 = require("@shared/types/Game/InventionService/Invention");
-const ITile_1 = require("@shared/types/Game/TileService/ITile");
+const EventCard_2 = require("../../../../../shared/types/Game/EventService/EventCard");
+const EVENT_CARD_1 = require("../../../../../shared/types/Game/EventService/EVENT_CARD");
+const Invention_1 = require("../../../../../shared/types/Game/InventionService/Invention");
+const ITile_1 = require("../../../../../shared/types/Game/TileService/ITile");
 class Drought extends EventCard_1.EventCard {
     constructor(game) {
         super(EVENT_CARD_1.EVENT_CARD.DROUGHT, EventCard_2.EVENT_TYPE.BOOK, {

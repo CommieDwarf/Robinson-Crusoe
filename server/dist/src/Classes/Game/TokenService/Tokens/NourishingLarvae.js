@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NourishingLarvae = void 0;
 const Token_1 = require("./Token/Token");
-const Token_2 = require("@shared/types/Game/TokenService/Token");
+const Token_2 = require("../../../../shared/types/Game/TokenService/Token");
 class NourishingLarvae extends Token_1.Token {
     constructor(game, id) {
         super(game, Token_2.DISCOVERY_TOKEN.NOURISHING_LARVAE, "pożywne larwy", "Otrzymujesz 2 do jedzenia do posiadanych surowców." +

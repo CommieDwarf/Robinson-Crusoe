@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ChatService = void 0;
-const isSystemMsg_1 = require("@shared/utils/typeGuards/isSystemMsg");
+const isSystemMsg_1 = require("../../shared/utils/typeGuards/isSystemMsg");
 class ChatService {
     constructor(session) {
         this._messages = [];

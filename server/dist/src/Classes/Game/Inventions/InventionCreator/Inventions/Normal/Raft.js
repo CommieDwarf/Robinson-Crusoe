@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Raft = void 0;
-const Invention_1 = require("@shared/types/Game/InventionService/Invention");
+const Invention_1 = require("../../../../../../shared/types/Game/InventionService/Invention");
 const Invention_2 = require("../../Invention");
-const Pawn_1 = require("@shared/types/Game/Pawns/Pawn");
+const Pawn_1 = require("../../../../../../shared/types/Game/Pawns/Pawn");
 class Raft extends Invention_2.Invention {
     constructor(game) {
         super(Invention_1.INVENTION_NORMAL.RAFT, { terrainType: null, inventions: [Invention_1.INVENTION_STARTER.ROPE] }, Invention_1.INVENTION_TYPE.NORMAL, game, { type: "wood", amount: 2 });

@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Hooch = void 0;
 const Ability_1 = require("../Ability/Ability");
-const Phase_1 = require("@shared/types/Game/PhaseService/Phase");
-const ABILITY_1 = require("@shared/types/Game/Skill/ABILITY");
+const Phase_1 = require("../../../../../../shared/types/Game/PhaseService/Phase");
+const ABILITY_1 = require("../../../../../../shared/types/Game/Skill/ABILITY");
 class Hooch extends Ability_1.Ability {
     constructor(game, character) {
         super(ABILITY_1.ABILITY.HOOCH, [Phase_1.PHASE.WEATHER], null, 3, game, character);

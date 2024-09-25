@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GatherAdventureCard = void 0;
 const AdventureCard_1 = require("../../../AdventureCard");
-const ACTION_1 = require("@shared/types/Game/ACTION");
+const ACTION_1 = require("../../../../../../../shared/types/Game/ACTION");
 class GatherAdventureCard extends AdventureCard_1.AdventureCard {
     constructor(name, namePL, decide, game, option1Label, option2Label) {
         super(name, namePL, decide, game, option1Label, option2Label);

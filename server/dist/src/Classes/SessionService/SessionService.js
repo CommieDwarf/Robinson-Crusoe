@@ -2,10 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SessionService = void 0;
 const Session_1 = require("../Session/Session");
-const SCENARIO_1 = require("@shared/types/Game/ScenarioService/SCENARIO");
+const SCENARIO_1 = require("../../shared/types/Game/ScenarioService/SCENARIO");
 const User_1 = require("../User/User");
 const SessionConnectError_1 = require("../../Errors/Session/SessionConnectError");
-const SESSION_CONNECTION_ERROR_CODE_1 = require("@shared/types/Errors/SESSION_CONNECTION_ERROR_CODE");
+const SESSION_CONNECTION_ERROR_CODE_1 = require("../../shared/types/Errors/SESSION_CONNECTION_ERROR_CODE");
 const session_1 = require("../../shared/config/session");
 class SessionService {
     constructor() {

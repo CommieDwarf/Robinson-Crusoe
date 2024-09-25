@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Belts = void 0;
-const Invention_1 = require("@shared/types/Game/InventionService/Invention");
-const Pawn_1 = require("@shared/types/Game/Pawns/Pawn");
+const Invention_1 = require("../../../../../../shared/types/Game/InventionService/Invention");
+const Pawn_1 = require("../../../../../../shared/types/Game/Pawns/Pawn");
 const Invention_2 = require("../../Invention");
 class Belts extends Invention_2.Invention {
     constructor(game) {

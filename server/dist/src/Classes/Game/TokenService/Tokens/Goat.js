@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Goat = void 0;
 const Token_1 = require("./Token/Token");
-const Construction_1 = require("@shared/types/Game/ConstructionService/Construction");
-const Token_2 = require("@shared/types/Game/TokenService/Token");
+const Construction_1 = require("../../../../shared/types/Game/ConstructionService/Construction");
+const Token_2 = require("../../../../shared/types/Game/TokenService/Token");
 const BasicResources_1 = require("../../ResourceService/BasicResources");
 class Goat extends Token_1.Token {
     constructor(game, id) {

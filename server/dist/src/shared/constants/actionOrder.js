@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.actionOrder = void 0;
-const ACTION_1 = require("@shared/types/Game/ACTION");
+const ACTION_1 = require("../types/Game/ACTION");
 exports.actionOrder = [
     ACTION_1.ACTION.THREAT,
     ACTION_1.ACTION.HUNT,

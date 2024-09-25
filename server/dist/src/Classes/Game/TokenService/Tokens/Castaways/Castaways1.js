@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Castaways1 = void 0;
 const Token_1 = require("../Token/Token");
-const Token_2 = require("@shared/types/Game/TokenService/Token");
+const Token_2 = require("../../../../../shared/types/Game/TokenService/Token");
 class Castaways1 extends Token_1.Token {
     constructor(game, id) {
         super(game, Token_2.DISCOVERY_TOKEN.SCENARIO_1, "zioła", "Leczy 1 ranę w nocy.", id);

@@ -4,14 +4,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TileService = void 0;
-const shuffleArray_1 = __importDefault(require("@shared/utils/shuffleArray"));
-const ITile_1 = require("@shared/types/Game/TileService/ITile");
+const shuffleArray_1 = __importDefault(require("../../../shared/utils/shuffleArray"));
+const ITile_1 = require("../../../shared/types/Game/TileService/ITile");
 const TileGraph_1 = require("./TileGraph/TileGraph");
-const tileResourceServices_1 = require("@shared/constants/tileResourceServices");
-const Invention_1 = require("@shared/types/Game/InventionService/Invention");
-const Construction_1 = require("@shared/types/Game/ConstructionService/Construction");
-const LOG_CODE_1 = require("@shared/types/Game/ChatLog/LOG_CODE");
-const TERMS_1 = require("@shared/types/Terms/TERMS");
+const tileResourceServices_1 = require("../../../shared/constants/tileResourceServices");
+const Invention_1 = require("../../../shared/types/Game/InventionService/Invention");
+const Construction_1 = require("../../../shared/types/Game/ConstructionService/Construction");
+const LOG_CODE_1 = require("../../../shared/types/Game/ChatLog/LOG_CODE");
+const TERMS_1 = require("../../../shared/types/Terms/TERMS");
 const TileMarkerService_1 = require("./TileMarkerService/TileMarkerService");
 class TileService {
     constructor(game, campTileID) {

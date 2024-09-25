@@ -2,10 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.WeatherService = void 0;
 const RollDiceService_1 = require("../RollDiceService/RollDiceService");
-const Construction_1 = require("@shared/types/Game/ConstructionService/Construction");
-const Invention_1 = require("@shared/types/Game/InventionService/Invention");
-const MYSTERY_CARD_1 = require("@shared/types/Game/MysteryService/MYSTERY_CARD");
-const LOG_CODE_1 = require("@shared/types/Game/ChatLog/LOG_CODE");
+const Construction_1 = require("../../../shared/types/Game/ConstructionService/Construction");
+const Invention_1 = require("../../../shared/types/Game/InventionService/Invention");
+const MYSTERY_CARD_1 = require("../../../shared/types/Game/MysteryService/MYSTERY_CARD");
+const LOG_CODE_1 = require("../../../shared/types/Game/ChatLog/LOG_CODE");
 class WeatherService {
     constructor(game) {
         this._tokens = {

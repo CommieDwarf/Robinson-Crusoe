@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Pawn = void 0;
-const isInventionRenderData_1 = require("@shared/utils/typeGuards/isInventionRenderData");
-const isMysteryCard_1 = require("@shared/utils/typeGuards/isMysteryCard");
+const isInventionRenderData_1 = require("../../../../shared/utils/typeGuards/isInventionRenderData");
+const isMysteryCard_1 = require("../../../../shared/utils/typeGuards/isMysteryCard");
 class Pawn {
     get draggableId() {
         return this._draggableId;

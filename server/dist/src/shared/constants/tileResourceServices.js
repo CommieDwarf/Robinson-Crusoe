@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.starterTile = exports.fixedTileResources = void 0;
-const ITile_1 = require("@shared/types/Game/TileService/ITile");
+const ITile_1 = require("../types/Game/TileService/ITile");
 function createFixedTileResources(id, terrainType, resources, extras) {
     return {
         id,

@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Pit = void 0;
 const Invention_1 = require("../../Invention");
-const Invention_2 = require("@shared/types/Game/InventionService/Invention");
+const Invention_2 = require("../../../../../../shared/types/Game/InventionService/Invention");
 class Pit extends Invention_1.Invention {
     constructor(game) {
         super(Invention_2.INVENTION_NORMAL.PIT, {

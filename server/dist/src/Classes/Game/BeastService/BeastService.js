@@ -1,13 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BeastService = void 0;
-const Beast_1 = require("@shared/types/Game/Beasts/Beast");
+const Beast_1 = require("../../../shared/types/Game/Beasts/Beast");
 const BeastCreator_1 = require("./BeastCreator/BeastCreator");
-const Construction_1 = require("@shared/types/Game/ConstructionService/Construction");
-const MYSTERY_CARD_1 = require("@shared/types/Game/MysteryService/MYSTERY_CARD");
-const LOG_CODE_1 = require("@shared/types/Game/ChatLog/LOG_CODE");
-const ACTION_1 = require("@shared/types/Game/ACTION");
-const isPlayerCharacter_1 = require("@shared/utils/typeGuards/isPlayerCharacter");
+const Construction_1 = require("../../../shared/types/Game/ConstructionService/Construction");
+const MYSTERY_CARD_1 = require("../../../shared/types/Game/MysteryService/MYSTERY_CARD");
+const LOG_CODE_1 = require("../../../shared/types/Game/ChatLog/LOG_CODE");
+const ACTION_1 = require("../../../shared/types/Game/ACTION");
+const isPlayerCharacter_1 = require("../../../shared/utils/typeGuards/isPlayerCharacter");
 class BeastService {
     constructor(game) {
         this._deck = [];

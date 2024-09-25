@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TileResourceService = void 0;
-const TileResourceService_1 = require("@shared/types/Game/TileService/TileResourceService");
-const LOG_CODE_1 = require("@shared/types/Game/ChatLog/LOG_CODE");
+const TileResourceService_1 = require("../../../../../shared/types/Game/TileService/TileResourceService");
+const LOG_CODE_1 = require("../../../../../shared/types/Game/ChatLog/LOG_CODE");
 class TileResourceService {
     constructor(game, id, terrainType, resources, extras) {
         this._game = game;

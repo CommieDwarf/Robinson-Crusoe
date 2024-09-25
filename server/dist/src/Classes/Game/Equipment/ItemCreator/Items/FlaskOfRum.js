@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FlaskOfRum = void 0;
 const Item_1 = require("../Item");
-const Item_2 = require("@shared/types/Game/Equipment/Item");
+const Item_2 = require("../../../../../shared/types/Game/Equipment/Item");
 class FlaskOfRum extends Item_1.Item {
     constructor(game) {
         super(Item_2.ITEM.FLASK_OF_RUM, game);
