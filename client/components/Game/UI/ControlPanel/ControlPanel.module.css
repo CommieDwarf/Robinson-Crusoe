@@ -3,21 +3,23 @@
     grid-row: 5 / span 2;
     display: flex;
     justify-content: space-between;
-    column-gap: 5px;
     align-items: center;
     position: relative;
     padding: 0 5px 0 5px;
 }
 
-.buttonWrapper {
-    height: 80%;
-}
 
 .buttonWrapper {
     height: 83%;
+    aspect-ratio: 1;
 }
 
 .buttonWrapperOptions {
     height: 100%;
     filter: brightness(40%);
+}
+
+.guideWrapper {
+    scale: 1.4;
+    transform-origin: 80%;
 }

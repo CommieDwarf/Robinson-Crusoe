@@ -46,6 +46,14 @@ export function RestPage() {
 						rezultacie otrzyma uleczy 2 Rany.
 					</li>
 				</ul>
+				<div className={styles.flexBlock}>
+					<div className={styles.exampleGif}>
+						<ResizableImage
+							src={"/UI/guide/pawn-assignment-rest.gif"}
+							alt={"przydzielanie pionka"}
+						/>
+					</div>
+				</div>
 			</section>
 		</>
 	);

@@ -1,5 +1,7 @@
+import { insertIconsIntoText } from "../../../../../../utils/insertIconsIntoText";
 import ResizableImage from "../../../../../ResizableImage/ResizableImage";
 import styles from "../../Guide.module.css";
+import { ImgListItem } from "../../ImgList.tsx/ImgListItem";
 
 export function HuntPage() {
 	return (
@@ -20,7 +22,7 @@ export function HuntPage() {
 						/>
 					</div>
 				</div>
-                <div className={styles.flexBlock}>
+				<div className={styles.flexBlock}>
 					<div className={styles.titleImg}>
 						<ResizableImage
 							src={"/UI/actions/hunt.png"}
@@ -44,6 +46,81 @@ export function HuntPage() {
 						polowanie.
 					</li>
 					<li>Można polować nawet, jeśli poziom Broni wynosi 0</li>
+					<li>Polowanie zawsze kończy się sukcesem (z wyjątkiem kiedy postać polująca zginie od ran).</li>
+				</ul>
+				<div className={styles.flexBlock}>
+					<div className={styles.card}>
+						<ResizableImage
+							src={"/UI/cards/beasts/tiger.png"}
+							alt="karta bestii"
+						/>
+					</div>
+					<div className={styles.exampleGif}>
+						<ResizableImage
+							src={"/UI/guide/pawn-assignment-hunt.gif"}
+							alt={"przydzielanie pionka"}
+						/>
+					</div>
+				</div>
+				<ul className={styles.list}>
+					<ImgListItem
+						imgElement={() => (
+							<ResizableImage
+								src={"/UI/misc/black-skull.png"}
+								alt={"siła"}
+							/>
+						)}
+						textElement={() => (
+							<>
+								<strong>Siła bestii</strong>- jeśli jest większa
+								od poziomu broni{" "}
+								{insertIconsIntoText("$weapon$", styles.icon)}{" "}
+								gracz dostaje obrażenia za każdy brakujący
+								poziom.
+							</>
+						)}
+					/>
+					<ImgListItem
+						imgElement={() => (
+							<ResizableImage
+								src={"/UI/icons/weapon.png"}
+								alt={"spadek poziomu broni"}
+							/>
+						)}
+						textElement={() => (
+							<>
+								<strong>Spadek poziomu broni</strong>- liczba o jaką 
+								spada poziom broni po polowaniu. Za każdy brakujący poziom 
+								gracz dostaje obrażenia.
+							</>
+						)}
+					/>
+					<ImgListItem
+						imgElement={() => (
+							<ResizableImage
+								src={"/UI/icons/food.png"}
+								alt={"jedzenie"}
+							/>
+						)}
+						textElement={() => (
+							<>
+								<strong>Zdobyte pożywienie</strong>- dodawane jest do przyszłych surowców.
+							</>
+						)}
+					/>
+					<ImgListItem
+						imgElement={() => (
+							<ResizableImage
+								src={"/UI/resources/leather.png"}
+								alt={"jedzenie"}
+							/>
+						)}
+						textElement={() => (
+							<>
+								<strong>Zdobyta skóra</strong>- dodawana jest do przyszłych surowców.
+							</>
+						)}
+					/>
 				</ul>
 			</section>
 		</>

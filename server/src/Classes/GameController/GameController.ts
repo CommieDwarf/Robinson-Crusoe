@@ -56,26 +56,6 @@ export class GameController implements GameControllerInterface, BaseController {
         const char = this._game.characterService.playerCharacters[0];
 
 
-        // this._game.mysteryService.startDrawingCards(2, 2, 2, char, 5);
-        // this._game.inventionService.build(INVENTION_PERSONAL.SHORTCUT, char);
-        // this._game.inventionService.build(INVENTION_STARTER.KNIFE, char);
-        // this._game.inventionService.build(INVENTION_STARTER.FIRE, char);
-        // this._game.resourceService.addBasicResourceToOwned("wood", 2, "test");
-        // this._game.resourceService.addBasicResourceToOwned("food", 2, "test");
-        // this._game.inventionService.build(INVENTION_PERSONAL.SHORTCUT, char)
-        // this._game.characterService.hurt(char, 5, "TEST");
-        // this._game.tileService.explore(6);
-        // this._game.tileService.explore(11);
-        // this._game.tileService.explore(2);
-
-        // this._game.inventionService.addInvention(new InventionCreator(this._game).create(INVENTION_NORMAL.CORRAL));
-        // this._game.inventionService.build(INVENTION_NORMAL.CORRAL, char);
-        // this._game.tileService.getTile(2).setTileModifier("timeConsumingAction", "TEST");
-        // this._game.tileService.getTile(5).setTileModifier("timeConsumingAction", "TEST");
-        // this._game.tileService.getTile(2).addModifierBySide("left", "test");
-        // this._game.tileService.getTile(2).addModifierBySide("right", "test");
-        // this._game.actionService.addGlobalCostModifier(ACTION.EXPLORE, "helper", false, "test")
-        // this._game.tileService.markTilesForAction([this._game.tileService.getTile(6)], TILE_ACTION.DEPLETE_TERRAIN_TYPE, 1, "?????", true)
 
     }
 

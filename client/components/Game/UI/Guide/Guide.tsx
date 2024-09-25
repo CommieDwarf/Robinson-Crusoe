@@ -13,7 +13,9 @@ import { ActionPage } from "./pages/ActionPage";
 import { EventPage } from "./pages/EventPage";
 import { IntroductionPage } from "./pages/IntroductionPage";
 import { MoralePage } from "./pages/MoralePage";
-import { ActionPlanningPage } from "./pages/ActionPlanningPage";
+import { ActionResolvePage } from "./pages/ActionResolve/ActionResolvePage";
+import { WeatherPage } from "./pages/Weather/WeatherPage";
+import { NightPage } from "./pages/NightPage";
 
 
 
@@ -54,7 +56,7 @@ const contentComponentMap = {
 	[GUIDE_CONTENT.INTRODUCTION]: IntroductionPage,
 	[GUIDE_CONTENT.EVENT_PHASE]: EventPage,
 	[GUIDE_CONTENT.MORALE_PHASE]: MoralePage,
-	[GUIDE_CONTENT.ACTION_PHASE]: ActionPage,
+	[GUIDE_CONTENT.ACTION_PHASE_PLANNING]: ActionPage,
 	[GUIDE_CONTENT.THREAT_ACTION]: ThreatPage,
 	[GUIDE_CONTENT.HUNT_ACTION]: HuntPage,
 	[GUIDE_CONTENT.BUILD_ACTION]: BuildPage,
@@ -62,5 +64,7 @@ const contentComponentMap = {
 	[GUIDE_CONTENT.EXPLORATION_ACTION]: ExplorePage,
 	[GUIDE_CONTENT.ARRANGE_CAMP_ACTION]: ArrangeCampPage,
 	[GUIDE_CONTENT.REST_ACTION]: RestPage,
-	[GUIDE_CONTENT.ACTION_PLANNING]: ActionPlanningPage,
+	[GUIDE_CONTENT.ACTION_PHASE_RESOLVE]: ActionResolvePage,
+	[GUIDE_CONTENT.WEATHER]: WeatherPage,
+	[GUIDE_CONTENT.NIGHT]: NightPage,
 }

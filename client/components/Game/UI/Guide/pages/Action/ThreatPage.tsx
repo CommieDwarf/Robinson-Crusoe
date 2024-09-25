@@ -35,6 +35,20 @@ export function ThreatPage() {
 						/>
 					</div>
 				</div>
+				<div className={styles.flexBlock}>
+					<div className={styles.cardExampleImg}>
+						<ResizableImage
+							src="/UI/guide/event/event-card-example.png"
+							alt="event card example"
+						/>
+					</div>
+					<div className={styles.cardExampleImg2} style={{aspectRatio: 339 / 265}}>
+						<ResizableImage
+							src="/UI/guide/pawn-assignment-threat.gif"
+							alt="przydzielanie pionka"
+						/>
+					</div>
+				</div>
 				<ul className={styles.list}>
 					<li>
 						Na początku każdej rundy dobierana jest nowa karta

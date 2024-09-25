@@ -92,7 +92,7 @@ export class HttpService {
                 })
                 await user.save();
                 const token = jwt.sign({ userId: user._id }, config.server.jwtSecret);
-                this._emailService.sendActivationMail({id: user.id, username: user.username});
+                this._emailService.sendActivationMail({id: user.id, username: user.username, email: user.email});
                 
                 res.setHeader('Authorization', `Bearer ${token}`);
                 return res.status(201).json({ message: "Account created successfully" });
@@ -182,7 +182,7 @@ export class HttpService {
             throw new Error("User not found");
         }
         try {
-            this._emailService.reSendActivationEmail({username: user.username, id: user._id})
+            this._emailService.reSendActivationEmail({username: user.username, id: user._id, email: user.email})
             res.status(200).json({message: "E-mail sent"});
         } catch (e) {
             console.error(e);

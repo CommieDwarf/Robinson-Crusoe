@@ -31,7 +31,6 @@ export const WeatherResolveWindow = (props: Props) => {
 
 
     return (
-        <Draggable bounds="parent" defaultClassNameDragging={sharedStyles.grabbing}>
             <div className={styles.container}>
                 <RollDiceWindow
                     weatherService={weatherService}
@@ -64,6 +63,5 @@ export const WeatherResolveWindow = (props: Props) => {
                     />
                 </div>
             </div>
-        </Draggable>
     );
 };

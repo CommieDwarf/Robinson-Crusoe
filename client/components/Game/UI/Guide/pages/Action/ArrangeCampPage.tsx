@@ -52,6 +52,14 @@ export function ArrangeCampPage() {
 						oraz zwiększy Morale o 2 poziomy.
 					</li>
 				</ul>
+				<div className={styles.flexBlock}>
+					<div className={styles.exampleGif}>
+						<ResizableImage
+							src={"/UI/guide/pawn-assignment-arrange-camp.gif"}
+							alt={"przydzielanie pionka"}
+						/>
+					</div>
+				</div>
 			</section>
 		</>
 	);

@@ -9,7 +9,7 @@ import {ActionIcon} from "./ActionIcon/ActionIcon";
 
 
 type Props = {
-    actionOrderContainerRef: React.RefObject<HTMLDivElement>
+    actionOrderContainerRef?: React.RefObject<HTMLDivElement>
 }
 
 export default function ActionOrder(props: Props) {

@@ -8,12 +8,14 @@ import {useAppSelector} from "../../../../store/hooks";
 import {selectGame} from "../../../../reduxSlices/gameSession";
 import playersIconImg from "/public/UI/icons/players.png";
 import gearIconImg from "/public/UI/misc/gear.png";
+import bookIconImg from "/public/UI/misc/book.png";
 
 interface Props {
     phaseChangeLocked: boolean,
     confirmWindowIsOpen: boolean;
     togglePlayerListOpen: () => void;
     toggleShowOptions: () => void;
+    toggleShowGuide: () => void;
 }
 
 
@@ -24,6 +26,10 @@ export function ControlPanel(props: Props) {
         props.toggleShowOptions();
     }
 
+    function handleGuideClick() {
+        props.toggleShowGuide();
+    }
+
     return <div className={styles.container}>
         <div className={styles.buttonWrapper}>
             <BackButton url={"/"}/>
@@ -32,6 +38,13 @@ export function ControlPanel(props: Props) {
             <Button onClick={handleOptionsClick}
                     imgSrc={gearIconImg}
                     borderless={true}
+                    filterColor={true}
+            />
+        </div>
+        <div className={`${styles.buttonWrapper} ${styles.guideWrapper}`}>
+            <Button onClick={handleGuideClick}
+                    imgSrc={bookIconImg}
+                    borderless={true}
             />
         </div>
         <div className={styles.buttonWrapper}>
@@ -39,6 +52,7 @@ export function ControlPanel(props: Props) {
                 props.togglePlayerListOpen();
             }}
                     imgSrc={playersIconImg}
+                    filterColor={true}
             />
         </div>
 

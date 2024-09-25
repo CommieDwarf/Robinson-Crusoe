@@ -17,6 +17,7 @@ const icons = [
     "star",
     "morale-arrow",
     "compass",
+    "roof",
 ];
 
 

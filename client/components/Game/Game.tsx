@@ -25,7 +25,6 @@ import {
 import { Weather } from "./UI/Weather/Weather";
 import { ActionResolveWindow } from "./UI/ActionResolveWindow/ActionResolveWindow";
 import { WeatherResolveWindow } from "./UI/WeatherResolveWindow/WeatherResolveWindow";
-import { NightTip } from "./UI/NightTip/NightTip";
 import { ConfirmCampMove } from "./UI/ConfirmCampMove/ConfirmCampMove";
 
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
@@ -80,6 +79,7 @@ export default function Game(props: Props) {
 	);
 	const [playerListOpen, setPlayerListOpen] = useState(false);
 	const [showOptions, setShowOptions] = useState(false);
+	const [showGuide, setShowGuide] = useState(false);
 
 	const mapRef = useRef<HTMLDivElement>(null);
 	const [mapHeight, setMapHeight] = useState<number>(0);
@@ -135,6 +135,10 @@ export default function Game(props: Props) {
 
 	function togglePlayerListOpen() {
 		setPlayerListOpen((prev) => !prev);
+	}
+
+	function toggleShowGuide() {
+		setShowGuide((prev) => !prev);
 	}
 
 	function unselectActionSlots() {
@@ -339,10 +343,12 @@ export default function Game(props: Props) {
 			{gameData.currentPhase === "action" &&
 				!gameData.actionResolveFinished && <ActionResolveWindow />}
 
-			{gameData.currentPhase === "weather" && <WeatherResolveWindow />}
-			{gameData.currentPhase === "night" && showNightTip && (
-				<NightTip hideNightTip={hideNightTip} />
+			{gameData.currentPhase === "weather" && (
+				<DraggableWindow>
+					<WeatherResolveWindow />
+				</DraggableWindow>
 			)}
+
 
 			{confirmWindow ? (
 				<ConfirmWindow
@@ -407,7 +413,9 @@ export default function Game(props: Props) {
 						topLayerElement.includes("arrange camp")
 					}
 				/>
-				<ActionsOrder actionOrderContainerRef={actionOrderRef} />
+				<div className={styles.actionsOrder}>
+					<ActionsOrder actionOrderContainerRef={actionOrderRef} />
+				</div>
 				<div className={styles.chatLog}>
 					<ChatLog enableLog={true} />
 					<Alerts />
@@ -445,10 +453,13 @@ export default function Game(props: Props) {
 				phaseChangeLocked={gameData.phaseChangeLocked}
 				togglePlayerListOpen={togglePlayerListOpen}
 				toggleShowOptions={toggleShowOptions}
+				toggleShowGuide={toggleShowGuide}
 			/>
-			<DraggableWindow padding={"10px"}>
-				<Guide />
-			</DraggableWindow>
+			{showGuide && (
+				<DraggableWindow padding={"10px"} onClose={toggleShowGuide}>
+					<Guide />
+				</DraggableWindow>
+			)}
 		</div>
 	);
 }

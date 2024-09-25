@@ -30,7 +30,7 @@
     "Client/next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "components/Game/UI/Guide/ImgList"  ],
   "exclude": [
     "node_modules"
   ]

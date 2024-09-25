@@ -1,5 +1,7 @@
 import ResizableImage from "../../../../../ResizableImage/ResizableImage";
+import { insertIcon } from "../../Guide";
 import styles from "../../Guide.module.css";
+import { ImgListItem } from "../../ImgList.tsx/ImgListItem";
 
 export function GatherPage() {
 	return (
@@ -54,9 +56,77 @@ export function GatherPage() {
 						przez efekty działania niektórych Przedmio- tów, Przygód
 						lub Wydarzeń itp.).
 					</li>
-                    <li>
-						Im dalej kafelek znajduje się od obozu, tym więcej akcja na nim będzie wymagała pionków.
+					<li>
+						Im dalej kafelek znajduje się od obozu, tym więcej akcja
+						na nim będzie wymagała pionków.
 					</li>
+				</ul>
+			</section>
+			<section>
+				<div className={styles.flexBlock}>
+					<div className={styles.exampleImg}>
+						<ResizableImage
+							src={"/UI/map/tiles/0.png"}
+							alt={"kafelek"}
+						/>
+					</div>
+					<div className={styles.exampleGif}>
+						<ResizableImage
+							src={"/UI/guide/pawn-assignment-gather.gif"}
+							alt={"przydzielanie pionka"}
+						/>
+					</div>
+				</div>
+				<p className={styles.p}>Możliwe surowce do zebrania: </p>
+				<ul className={styles.list}>
+					<ImgListItem
+						imgElement={() => (
+							<>
+								<ResizableImage
+									src={"/UI/misc/parrot.png"}
+									alt={"źródło pożywienia"}
+									style={{scale: "0.9"}}
+								/>
+							</>
+						)}
+						textElement={() => (
+							<strong>
+								Żródło pożywienia {insertIcon("$food$")}
+							</strong>
+						)}
+					/>
+					<ImgListItem
+						imgElement={() => (
+							<>
+								<ResizableImage
+									src={"/UI/misc/fish.png"}
+									alt={"źródło pożywienia"}
+									style={{scale: "0.9"}}
+								/>
+							</>
+						)}
+						textElement={() => (
+							<strong>
+								Żródło pożywienia {insertIcon("$food$")}
+							</strong>
+						)}
+					/>
+					<ImgListItem
+						imgElement={() => (
+							<>
+								<ResizableImage
+									src={"/UI/misc/wood.png"}
+									alt={"źródło drewna"}
+									style={{scale: "0.9"}}
+								/>
+							</>
+						)}
+						textElement={() => (
+							<strong>
+								Żródło drewna {insertIcon("$wood$")}
+							</strong>
+						)}
+					/>
 				</ul>
 			</section>
 		</>

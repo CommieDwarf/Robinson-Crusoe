@@ -10,11 +10,11 @@ export class EmailService {
 	public async sendActivationMail(userData: {
 		username: string,
 		id: string,
+		email: string,
 	}) {
-		//TODO:  zamień placeholder na prawdziwy adres e-mail!
 		const mailOptions = {
 			from: config.email.from,
-			to: "tosiek22@gmail.com",
+			to: userData.email,
 			subject: "Weryfikacja konta",
 			template: "verification",
 			context: {
@@ -43,6 +43,7 @@ export class EmailService {
 	public async reSendActivationEmail(userData: {
 		username: string,
 		id: string,
+		email: string,
 	}) {
         const limitReached = await this.isEmailLimitReached(userData.id, EMAIL_TYPE.ACTIVATION);
         if (limitReached) {

@@ -36,7 +36,7 @@ export enum GUIDE_CONTENT {
     INTRODUCTION = "introduction",
     EVENT_PHASE = "event phase",
     MORALE_PHASE = "morale phase",
-    ACTION_PHASE = "action phase",
+    ACTION_PHASE_PLANNING = "action phase planning",
     THREAT_ACTION = "threat action",
     HUNT_ACTION = "hunt action",
     BUILD_ACTION = "build action",
@@ -44,7 +44,9 @@ export enum GUIDE_CONTENT {
     EXPLORATION_ACTION = "exploration action",
     ARRANGE_CAMP_ACTION = "arrange camp action",
     REST_ACTION = "rest action",
-    ACTION_PLANNING = "action planning"
+    ACTION_PHASE_RESOLVE = "action phase resolve",
+    WEATHER = "weather",
+    NIGHT =  "night",
 }
 
 
@@ -52,7 +54,7 @@ const contents: (GUIDE_CONTENT[] | GUIDE_CONTENT)[] = [
 GUIDE_CONTENT.INTRODUCTION,
 GUIDE_CONTENT.EVENT_PHASE,
     GUIDE_CONTENT.MORALE_PHASE,
-    GUIDE_CONTENT.ACTION_PHASE,
+    GUIDE_CONTENT.ACTION_PHASE_PLANNING,
     [GUIDE_CONTENT.THREAT_ACTION,
         GUIDE_CONTENT.HUNT_ACTION,
         GUIDE_CONTENT.BUILD_ACTION,
@@ -61,5 +63,7 @@ GUIDE_CONTENT.EVENT_PHASE,
         GUIDE_CONTENT.ARRANGE_CAMP_ACTION,
         GUIDE_CONTENT.REST_ACTION
     ],
-    GUIDE_CONTENT.ACTION_PLANNING,
+    GUIDE_CONTENT.ACTION_PHASE_RESOLVE,
+    GUIDE_CONTENT.WEATHER,
+    GUIDE_CONTENT.NIGHT,
 ];
