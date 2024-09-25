@@ -61,7 +61,7 @@ export class User implements IUser {
         this._sessions = this._sessions.filter((session) => session.id !== sessionId);
     }
 
-    public leaveLobbies() {
+    public leaveLobbies(): string[] {
         return this._sessions
             .filter((session) => !session.isGameInProgress)
             .map((session) => {

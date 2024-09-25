@@ -1,0 +1,55 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.INVENTION_TYPE = exports.INVENTION_CASTAWAYS = exports.INVENTION_STARTER = exports.INVENTION_PERSONAL = exports.INVENTION_NORMAL = void 0;
+var INVENTION_NORMAL;
+(function (INVENTION_NORMAL) {
+    INVENTION_NORMAL["BASKET"] = "basket";
+    INVENTION_NORMAL["BED"] = "bed";
+    INVENTION_NORMAL["BELTS"] = "belts";
+    INVENTION_NORMAL["BOW"] = "bow";
+    INVENTION_NORMAL["CELLAR"] = "cellar";
+    INVENTION_NORMAL["CORRAL"] = "corral";
+    INVENTION_NORMAL["DIARY"] = "diary";
+    INVENTION_NORMAL["DRUMS"] = "drums";
+    INVENTION_NORMAL["FURNACE"] = "furnace";
+    INVENTION_NORMAL["LANTERN"] = "lantern";
+    INVENTION_NORMAL["MOAT"] = "moat";
+    INVENTION_NORMAL["PIT"] = "pit";
+    INVENTION_NORMAL["RAFT"] = "raft";
+    INVENTION_NORMAL["SACK"] = "sack";
+    INVENTION_NORMAL["SHIELD"] = "shield";
+    INVENTION_NORMAL["SLING"] = "sling";
+    INVENTION_NORMAL["WALL"] = "wall";
+})(INVENTION_NORMAL || (exports.INVENTION_NORMAL = INVENTION_NORMAL = {}));
+var INVENTION_PERSONAL;
+(function (INVENTION_PERSONAL) {
+    INVENTION_PERSONAL["FIREPLACE"] = "fireplace";
+    INVENTION_PERSONAL["SNARE"] = "snare";
+    INVENTION_PERSONAL["SHORTCUT"] = "shortcut";
+    INVENTION_PERSONAL["SPEAR"] = "spear";
+})(INVENTION_PERSONAL || (exports.INVENTION_PERSONAL = INVENTION_PERSONAL = {}));
+var INVENTION_STARTER;
+(function (INVENTION_STARTER) {
+    INVENTION_STARTER["BRICKS"] = "bricks";
+    INVENTION_STARTER["MEDICINE"] = "medicine";
+    INVENTION_STARTER["DAM"] = "dam";
+    INVENTION_STARTER["FIRE"] = "fire";
+    INVENTION_STARTER["KNIFE"] = "knife";
+    INVENTION_STARTER["MAP"] = "map";
+    INVENTION_STARTER["POT"] = "pot";
+    INVENTION_STARTER["ROPE"] = "rope";
+    INVENTION_STARTER["SHOVEL"] = "shovel";
+})(INVENTION_STARTER || (exports.INVENTION_STARTER = INVENTION_STARTER = {}));
+var INVENTION_CASTAWAYS;
+(function (INVENTION_CASTAWAYS) {
+    INVENTION_CASTAWAYS["AXE"] = "axe";
+    INVENTION_CASTAWAYS["MAST"] = "mast";
+})(INVENTION_CASTAWAYS || (exports.INVENTION_CASTAWAYS = INVENTION_CASTAWAYS = {}));
+var INVENTION_TYPE;
+(function (INVENTION_TYPE) {
+    INVENTION_TYPE["NORMAL"] = "normal";
+    INVENTION_TYPE["STARTER"] = "starter";
+    INVENTION_TYPE["PERSONAL"] = "personal";
+    INVENTION_TYPE["SCENARIO"] = "scenario";
+})(INVENTION_TYPE || (exports.INVENTION_TYPE = INVENTION_TYPE = {}));
+//# sourceMappingURL=Invention.js.map

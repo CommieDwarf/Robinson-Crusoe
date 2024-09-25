@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./dist/server.js",
     "nodemon": "nodemon ./server.ts",
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "build": "tsc"
   },
   "nodemonConfig": {
     "ignore": [

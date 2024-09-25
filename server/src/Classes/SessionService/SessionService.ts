@@ -27,10 +27,10 @@ export class SessionService implements ISessionService {
 		userId: string,
 		settings: SessionSettings,
 		loadData?: SaveGameDocument
-	) {
+	): SessionData {
 		const user = this.getUser(userId);
 		user.leaveLobbies();
-		const session = new Session(this, user, settings, loadData);
+		const session: SessionData = new Session(this, user, settings, loadData);
 		this._activeSessions.set(session.id, session);
 		return session;
 	}
