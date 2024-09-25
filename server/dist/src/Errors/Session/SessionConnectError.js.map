@@ -1,1 +1,0 @@
-{"version":3,"file":"SessionConnectError.js","sourceRoot":"","sources":["../../../../src/Errors/Session/SessionConnectError.ts"],"names":[],"mappings":";;;AAEA,MAAa,mBAAoB,SAAQ,KAAK;IAG1C,YAAY,OAAe,EAAE,IAAmC;QAC5D,KAAK,CAAC,OAAO,CAAC,CAAC;QACf,IAAI,CAAC,KAAK,GAAG,IAAI,CAAC;IACtB,CAAC;IAED,IAAI,IAAI;QACJ,OAAO,IAAI,CAAC,KAAK,CAAC;IACtB,CAAC;CACJ;AAXD,kDAWC"}

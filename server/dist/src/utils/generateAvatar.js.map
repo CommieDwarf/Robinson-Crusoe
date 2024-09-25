@@ -1,1 +1,0 @@
-{"version":3,"file":"generateAvatar.js","sourceRoot":"","sources":["../../../src/utils/generateAvatar.ts"],"names":[],"mappings":";;;;;;AAAA,0DAAkC;AAKlC,MAAM,IAAI,GAAG,GAAG,CAAC;AAEjB,SAAgB,cAAc,CAAC,QAAgB;IAC3C,OAAO,mBAAS,CAAC,KAAK,CAAC,QAAQ,EAAE,IAAI,CAAC,CAAC;AAC3C,CAAC;AAFD,wCAEC"}
