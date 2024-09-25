@@ -10,7 +10,6 @@ import { config } from "./src/config/config";
 //Don't delete. It configures passport and mopngoose globally.
 require('./src/config/passport');
 require("./src/config/mongoose");
-require('module-alias/register');
 
 
 const app = express();
