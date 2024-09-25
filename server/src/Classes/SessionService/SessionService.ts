@@ -103,7 +103,7 @@ export class SessionService implements ISessionService {
 		}
 	}
 
-	public getOrCreateUser(userDocument: UserDocument, socket: Socket) {
+	public getOrCreateUser(userDocument: UserDocument, socket: Socket): IUser {
 		let user = this._activeUsers.get(userDocument._id.toString());
 		if (!user) {
 			user = new User(userDocument, socket, this);

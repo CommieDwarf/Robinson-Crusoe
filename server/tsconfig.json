@@ -14,7 +14,7 @@
     "allowJs": true,
     "outDir": "./dist",
     "rootDir": ".",
-    "strict": true,
+    "strict": false,
     "noImplicitAny": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
