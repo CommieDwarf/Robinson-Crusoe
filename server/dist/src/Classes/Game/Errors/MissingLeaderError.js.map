@@ -1,1 +1,0 @@
-{"version":3,"file":"MissingLeaderError.js","sourceRoot":"","sources":["../../../../../src/Classes/Game/Errors/MissingLeaderError.ts"],"names":[],"mappings":";;;AAEA,MAAa,kBAAmB,SAAQ,KAAK;IAGzC,YAAY,WAAmB;QAC3B,KAAK,EAAE,CAAC;QACR,IAAI,CAAC,YAAY,GAAG,WAAW,CAAC;IACpC,CAAC;IAED,IAAI,WAAW;QACX,OAAO,IAAI,CAAC,YAAY,CAAC;IAC7B,CAAC;CACJ;AAXD,gDAWC"}
