@@ -1,5 +1,5 @@
 server/server.ts
-server/classes
+server/Classes
 server/config
 server/constants
 server/Errors
