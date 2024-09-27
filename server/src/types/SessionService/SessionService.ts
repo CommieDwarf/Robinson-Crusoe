@@ -1,4 +1,4 @@
-import {IUser} from "../UserData/IUser";
+import {IUser} from "../../shared/types/User/IUser";
 import {SessionBasicInfo, SessionData} from "../../shared/types/Session/Session";
 import {SessionSettings} from "@shared/types/SessionSettings";
 import {UserDocument} from "../../Models/User";

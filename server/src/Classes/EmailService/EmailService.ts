@@ -2,7 +2,7 @@ import nodemailer from "nodemailer";
 import jwt from "jsonwebtoken";
 import { EMAIL_TYPE, EmailLog } from "../../Models/EmailLog";
 import { config, transporter } from "../../config/config";
-import { IUser } from "../../types/UserData/IUser";
+import { IUser } from "../../shared/types/User/IUser";
 
 export class EmailService {
 	constructor() {}

@@ -1,7 +1,7 @@
-import {Session} from "../../Classes/Session/Session";
+import {Session} from "../../../Classes/Session/Session";
 import {SessionData} from "@shared/types/Session/Session";
 import {Socket} from "socket.io";
-import {UserPlaceHolder} from "../../Classes/Player/Player";
+import {UserPlaceHolder} from "../../../Classes/Player/Player";
 
 export interface IUser {
     id: string,

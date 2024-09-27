@@ -1,7 +1,7 @@
 import { ClientPayloadMap } from "./../../../shared/types/Requests/Socket";
 import { Server, Socket } from "socket.io";
 import { ISessionService } from "../../../types/SessionService/SessionService";
-import { IUser } from "../../../types/UserData/IUser";
+import { IUser } from "../../../shared/types/User/IUser";
 import {
 	ServerPayloadMap,
 	SOCKET_EVENT_CLIENT,

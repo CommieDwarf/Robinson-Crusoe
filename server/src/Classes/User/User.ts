@@ -1,4 +1,4 @@
-import {IUser} from "../../types/UserData/IUser";
+import {IUser} from "../../shared/types/User/IUser";
 import {UserDocument} from "../../Models/User";
 import {SessionData} from "@shared/types/Session/Session";
 import {Socket} from "socket.io";

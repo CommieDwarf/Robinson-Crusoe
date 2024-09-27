@@ -1,4 +1,4 @@
-import {IUser} from "../../../types/UserData/IUser";
+import {IUser} from "../User/IUser";
 import {AssignedCharacter, IPlayer, IPlayerRenderData} from "@shared/types/Game/PlayerService/Player";
 import {PLAYER_COLOR} from "@shared/types/Game/PLAYER_COLOR";
 import {BaseController} from "../../../types/GameController/Controllers";

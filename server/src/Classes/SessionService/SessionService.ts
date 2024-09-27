@@ -1,4 +1,4 @@
-import { IUser } from "../../types/UserData/IUser";
+import { IUser } from "../../shared/types/User/IUser";
 import { ISessionService } from "../../types/SessionService/SessionService";
 import { SessionBasicInfo, SessionData } from "@shared/types/Session/Session";
 import { Session } from "../Session/Session";

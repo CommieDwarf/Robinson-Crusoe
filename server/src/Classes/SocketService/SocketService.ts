@@ -5,7 +5,7 @@ import {Server, Socket } from "socket.io";
 import jwt from 'jsonwebtoken';
 import { User } from '../../Models/User';
 import { EventHandler } from './EventHandler/EventHandler';
-import { IUser } from '../../types/UserData/IUser';
+import { IUser } from '../../shared/types/User/IUser';
 import { config } from '../../config/config';
 
 

@@ -3,7 +3,7 @@ import {AssignedCharacter, IPlayer, IPlayerRenderData} from "@shared/types/Game/
 import {PLAYER_COLOR} from "@shared/types/Game/PLAYER_COLOR";
 import {CHARACTER, Gender} from "@shared/types/Game/Characters/Character";
 import {IGame} from "@shared/types/Game/Game";
-import {IUser} from "../../types/UserData/IUser";
+import {IUser} from "../../shared/types/User/IUser";
 import {Soldier} from "../Game/CharacterService/Characters/Soldier";
 import {Cook} from "../Game/CharacterService/Characters/Cook";
 import {Explorer} from "../Game/CharacterService/Characters/Explorer";
