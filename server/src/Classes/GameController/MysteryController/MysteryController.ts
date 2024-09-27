@@ -24,7 +24,7 @@ export class MysteryController implements GameControllerInterface {
     }
 
     private resolveEventMystery(player: IPlayer): void {
-        this._game.eventService.resolveEventMystery()
+        this._game.eventService.resolveEventMystery(player.getCharacter())
     }
 
     private triggerMysteryDrawEffect(player: IPlayer): void {

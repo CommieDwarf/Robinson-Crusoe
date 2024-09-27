@@ -25,7 +25,7 @@ const RouteGuard: React.FC<Props> = ({children}) => {
         }
         
 
-    }, [user]);
+    }, [user, router]);
 
     return <>{children}</>
 };

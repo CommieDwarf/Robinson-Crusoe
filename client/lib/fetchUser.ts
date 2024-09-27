@@ -8,7 +8,8 @@ export async function fetchUser(authToken: string) {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `${authToken}`
-        }
+        },
+        mode: "cors"
     });
     if (!response.ok) {
         console.log(response);

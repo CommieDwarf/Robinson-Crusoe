@@ -36,7 +36,7 @@ export function UserAvatar(props: Props) {
 			setAvatarUrl(svgToUrl(result));
 			localStorage.setItem(getStorageKeyName(props.username), result);
 		});
-	}, [props.username]);
+	}, [props.username, localAvatarSvg, localUserName]);
 
 	function svgToUrl(svg: string) {
 		const blob = new Blob([svg], { type: "image/svg+xml" });

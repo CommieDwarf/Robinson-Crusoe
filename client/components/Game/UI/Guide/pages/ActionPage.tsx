@@ -48,9 +48,9 @@ export function ActionPage() {
 				</p>
 				<p className={styles.p}>Dostępne są następujące Akcje:</p>
 				<ul className={styles.list}>
-					{Object.values(ACTION).map((action) => {
+					{Object.values(ACTION).map((action, i) => {
 						return (
-							<li className={styles.li}>
+							<li className={styles.li} key={i}>
 								<div className={styles.listItemImg}>
 									<ResizableImage
 										src={`/UI/actions/${kebabCase(action)}.png`} alt={""}									/>

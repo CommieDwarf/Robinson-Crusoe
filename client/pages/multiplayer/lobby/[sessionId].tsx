@@ -45,7 +45,7 @@ export function Lobby() {
         return () => {
             router.events.off('routeChangeStart', handleRouteChange);
         }
-    }, [router, sessionId, dispatch])
+    }, [router, sessionId, dispatch, sessionIdQuery])
 
     useEffect(() => {
         if (!sessionId || !connected) {

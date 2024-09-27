@@ -15,8 +15,9 @@ import {TileService} from "../TileService/TileService";
 import {isPlayerCharacter} from "@shared/utils/typeGuards/isPlayerCharacter";
 import {isAdventureAction} from "@shared/utils/typeGuards/isAdventureAction";
 import shuffle from "@shared/utils/shuffleArray";
-import {ICharacter} from "@shared/types/Game/Characters/Character";
 import {IPlayer} from "@shared/types/Game/PlayerService/Player";
+import { CurrentResolveRenderData } from "@shared/types/Game/EventService/EventService";
+import { CHARACTER } from "@shared/types/Game/Characters/Character";
 
 export class AdventureService implements IAdventureService {
     private readonly _game: IGame;
@@ -37,12 +38,7 @@ export class AdventureService implements IAdventureService {
 
     get renderData(): IAdventureServiceRenderData {
         return {
-            currentAdventure: this._currentAdventure
-                ? {
-                    card: this._currentAdventure.card.renderData,
-                    player: this._currentAdventure.player.renderData,
-                }
-                : null,
+            currentAdventure: this.currentAdventureRenderData,
         };
     }
 
@@ -50,12 +46,20 @@ export class AdventureService implements IAdventureService {
         return this._currentAdventure;
     }
 
+    
+    get currentAdventureRenderData(): CurrentResolveRenderData<IAdventureCard> | null {
+        return this._currentAdventure && {
+            card: this._currentAdventure.card.renderData,
+            resolver: this._currentAdventure.player.getCharacter().renderData,
+        } || null;
+    }
 
-    resolveAdventureCard(option: 1 | 2, playerCharacterName: string): void {
+
+    resolveAdventureCard(option: 1 | 2, character: CHARACTER): void {
         if (!this._currentAdventure) {
             throw new Error("There is no current card to resolve!");
         }
-        const resolver = this._game.characterService.getCharacter(playerCharacterName);
+        const resolver = this._game.characterService.getCharacter(character);
         if (!isPlayerCharacter(resolver)) {
             throw new Error("Side character shouldn't have opportunity to resolve adventure card!")
         }

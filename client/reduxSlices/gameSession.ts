@@ -5,8 +5,9 @@ import {SessionRenderData} from "@shared/types/Session/Session";
 import {IGameRenderData} from "@shared/types/Game/Game";
 import {IActionSlotServiceRenderData} from "@shared/types/Game/ActionSlots";
 import {createSelector} from "reselect";
-import {IPlayerCharacterRenderData} from "@shared/types/Game/Characters/PlayerCharacter";
+import {IPlayerCharacterRenderData, PlayerCharacterName} from "@shared/types/Game/Characters/PlayerCharacter";
 import {IPlayerRenderData} from "@shared/types/Game/PlayerService/Player";
+import { CHARACTER } from "@shared/types/Game/Characters/Character";
 
 
 enum CONNECTION_STATUS {
@@ -108,21 +109,22 @@ export const selectResourceService = (state: RootState) => selectGame(state)?.re
 export const selectEquipmentService = (state: RootState) => selectGame(state)?.equipmentService;
 export const selectPlayers = (state: RootState) => state.gameSession.data?.players;
 
+export const selectPlayerByCharacter = (state: RootState, character: CHARACTER) => selectPlayers(state)?.find((player) => player.assignedCharacter.char === character);
 
 export const selectGameData = createSelector([
-    (state) => selectActionSlotService(state)?.slots,
-    (state) => selectGlobalPawnService(state)?.allPawns,
-    (state) => selectInventionService(state)?.inventions,
-    (state) => selectObjectPickers(state),
-    (state) => selectAdventureService(state)?.currentAdventure,
-    (state) => selectMysteryService(state)?.isDrawingOn,
-    (state) => selectEventService(state)?.currentAdventureCard,
-    (state) => selectEventService(state)?.currentMysteryCard,
-    (state) => selectPhaseService(state)?.phase,
-    (state) => selectActionService(state)?.finished,
-    (state) => selectPhaseService(state)?.locked,
-    (state: RootState) => state.gameSession.data?.localPlayer!,
-    (state) => selectPlayers(state)
+    (state) => selectActionSlotService(state)!.slots,
+    (state) => selectGlobalPawnService(state)!.allPawns,
+    (state) => selectInventionService(state)!.inventions,
+    (state) => selectObjectPickers(state)!,
+    (state) => selectAdventureService(state)!.currentAdventure,
+    (state) => selectMysteryService(state)!.isDrawingOn,
+    (state) => selectEventService(state)!.currentAdventureResolve,
+    (state) => selectEventService(state)!.currentMysteryResolve,
+    (state) => selectPhaseService(state)!.phase,
+    (state) => selectActionService(state)!.finished,
+    (state) => selectPhaseService(state)!.locked,
+    (state: RootState) => state.gameSession.data!.localPlayer,
+    (state) => selectPlayers(state)!
 ], (actionSlots,
     allPawns,
     inventions,

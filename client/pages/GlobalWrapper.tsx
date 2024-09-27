@@ -34,7 +34,7 @@ export function GlobalWrapper(props: Props) {
         return () => {
             window.removeEventListener("storage", handleStorage);
         }
-    }, [])
+    }, [dispatch])
 
     useEffect(() => {
         const authenticated = isAuthenticated();
@@ -47,7 +47,7 @@ export function GlobalWrapper(props: Props) {
                 dispatch(userUpdated(response))
             })
         }
-    }, [user]);
+    }, [user, dispatch]);
 
     useEffect(() => {
         if (user) {

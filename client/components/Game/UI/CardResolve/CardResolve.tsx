@@ -6,20 +6,22 @@ import Draggable from "react-draggable";
 import {AdventureCardResolve} from "./Adventure/AdventureCardResolve";
 import {MysteryCardResolve} from "./Mystery/MysteryCardResolve";
 import {objectsEqual} from "@shared/utils/objectsEqual";
-import {IAdventureCardRenderData} from "@shared/types/Game/AdventureService/AdventureCard";
+import {IAdventureCard, IAdventureCardRenderData} from "@shared/types/Game/AdventureService/AdventureCard";
 import {isAdventureCardRenderData} from "@shared/utils/typeGuards/isAdventureCard";
 import {
     ACTION_CONTROLLER_ACTION,
     MYSTERY_CONTROLLER_ACTION,
     OTHER_CONTROLLER_ACTION
 } from "@shared/types/CONTROLLER_ACTION";
-import {IMysteryCardRenderData} from "@shared/types/Game/MysteryService/MysteryCard";
+import {IMysteryCard, IMysteryCardRenderData} from "@shared/types/Game/MysteryService/MysteryCard";
 import {ResolveButtons} from "./ResolveButtons/ResolveButtons";
 import {useAppDispatch, useAppSelector} from "../../../../store/hooks";
 import {socketEmitAction} from "../../../../middleware/socketMiddleware";
 import {ICharacterRenderData} from "@shared/types/Game/Characters/Character";
 import {IPlayerRenderData} from "@shared/types/Game/PlayerService/Player";
 import {PLAYER_COLOR} from "@shared/types/Game/PLAYER_COLOR";
+import { CurrentResolveRenderData } from "@shared/types/Game/EventService/EventService";
+import { selectGame, selectPlayerByCharacter } from "../../../../reduxSlices/gameSession";
 
 
 export interface CardResolveButtonProp {
@@ -31,8 +33,7 @@ export interface CardResolveButtonProp {
 
 
 type Props = {
-    card: IAdventureCardRenderData | IMysteryCardRenderData,
-    player: IPlayerRenderData,
+    resolve: CurrentResolveRenderData<IMysteryCard | IAdventureCard>,
     eventStage: boolean;
 };
 
@@ -48,13 +49,16 @@ const CardResolve = (props: Props) => {
         setEnlarged((state) => !state);
     }
 
-    const actionAllowed = props.player.id === localPlayer.id;
+    const playerResolver = useAppSelector((state) => selectPlayerByCharacter(state, props.resolve.resolver.name));
+
+    //no player resolver means it's a side character(Friday) that belongs to all players.
+    const actionAllowed = playerResolver && (playerResolver.id === localPlayer.id) || !playerResolver;
 
     let button1: CardResolveButtonProp;
     let button2: CardResolveButtonProp | undefined;
 
-    if (isAdventureCardRenderData(props.card)) {
-        const {eventOption1, eventOption2, option1Label, option2Label, shouldDecide} = props.card;
+    if (isAdventureCardRenderData(props.resolve.card)) {
+        const {eventOption1, eventOption2, option1Label, option2Label, shouldDecide} = props.resolve.card;
         if (props.eventStage) {
             button1 = {
                 label: eventOption1?.label || "next",
@@ -84,7 +88,7 @@ const CardResolve = (props: Props) => {
         }
     } else {
         button1 = {
-            label: props.card.eventLabel,
+            label: props.resolve.card.eventLabel,
             triggerEffect: () => dispatch(socketEmitAction(MYSTERY_CONTROLLER_ACTION.RESOLVE_EVENT_MYSTERY)),
             locked: !actionAllowed,
 
@@ -96,17 +100,17 @@ const CardResolve = (props: Props) => {
         <Draggable bounds={"parent"}>
             <div className={styles.container}>
                 <div className={`${styles.card} ${enlarged ? styles.enlarged : ""}`}>
-                    {isAdventureCardRenderData(props.card) ? (
+                    {isAdventureCardRenderData(props.resolve.card) ? (
                         <AdventureCardResolve
-                            card={props.card}
+                            card={props.resolve.card}
                         />
                     ) : (
                         <MysteryCardResolve
-                            card={props.card}
+                            card={props.resolve.card}
                         />
                     )}
                 </div>
-                <ResolveButtons button1={button1} button2={button2} color={props.player.color}/>
+                <ResolveButtons button1={button1} button2={button2} color={playerResolver?.color || PLAYER_COLOR.BLUE}/>
             </div>
         </Draggable>
     );

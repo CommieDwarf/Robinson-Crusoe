@@ -90,7 +90,7 @@ export function Multiplayer() {
 
 	useEffect(() => {
 		dispatch(socketEmit(SOCKET_EVENT_CLIENT.SEND_SAVE_LIST, {}));
-	}, []);
+	}, [dispatch]);
 
 	return (
 		<div className={styles.container}>

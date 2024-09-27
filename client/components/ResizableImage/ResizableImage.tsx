@@ -19,7 +19,7 @@ export default function ResizableImage(props: Props) {
         const parentWidth = containerRef.current?.getBoundingClientRect().width ?? 0;
         setContainerWidth(parentWidth * scale);
         // setContainerHeight(containerHeight);
-    }, []);
+    }, [scale]);
 
     const sizes = `(max-width: ${containerWidth}px) 100vw, ${containerWidth}px`;
 

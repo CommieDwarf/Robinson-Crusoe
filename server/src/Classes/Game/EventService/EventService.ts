@@ -1,5 +1,7 @@
 import {IEventCard} from "@shared/types/Game/EventService/EventCard";
 import {
+    CurrentResolve,
+    CurrentResolveRenderData,
     IEventService,
     IEventServiceRenderData,
     ThreatSpecialEffects,
@@ -14,17 +16,21 @@ import {isMysteryCard} from "@shared/utils/typeGuards/isMysteryCard";
 import {isAdventureCard} from "@shared/utils/typeGuards/isAdventureCard";
 import {EVENT_CARD, WRECKAGE_CARD} from "@shared/types/Game/EventService/EVENT_CARD";
 import shuffle from "@shared/utils/shuffleArray";
+import { IPlayer } from "@shared/types/Game/PlayerService/Player";
+import { ICharacter } from "@shared/types/Game/Characters/Character";
 
 interface EventSlots {
     left: null | IEventCard;
     right: null | IEventCard;
 }
 
+
+
 export class EventService implements IEventService {
     private _eventCardDeck: (IEventCard | IAdventureCard | IMysteryCard)[];
-    private _currentAdventureCard: IAdventureCard | null = null;
+    private _currentAventureResolve: CurrentResolve<IAdventureCard> | null = null;
     private _adventureNeedsToBeResolved: boolean = false;
-    private _currentMysteryCard: IMysteryCard | null = null;
+    private _currentMysteryResolve: CurrentResolve<IMysteryCard> | null = null;
     private _lastRoundEventCardPulled: number = 0;
 
     private readonly _game: IGame;
@@ -50,8 +56,8 @@ export class EventService implements IEventService {
         return {
             leftSlot: this.left?.renderData || null,
             rightSlot: this.right?.renderData || null,
-            currentAdventureCard: this._currentAdventureCard?.renderData || null,
-            currentMysteryCard: this._currentMysteryCard?.renderData || null,
+            currentAdventureResolve: this.currentAdventureResolve && this.getCurrentResolveRenderData(this.currentAdventureResolve) || null,
+            currentMysteryResolve: this.currentMysteryResolve && this.getCurrentResolveRenderData(this.currentMysteryResolve) || null,
         };
     }
 
@@ -75,17 +81,19 @@ export class EventService implements IEventService {
         return this._eventSlots.right;
     }
 
-    get currentAdventureCard() {
-        return this._currentAdventureCard;
+    get currentAdventureResolve() {
+        return this._currentAventureResolve;
     }
 
     get adventureNeedsToBeResolved() {
         return this._adventureNeedsToBeResolved;
     }
 
-    get currentMysteryCard() {
-        return this._currentMysteryCard;
+    get currentMysteryResolve() {
+        return this._currentMysteryResolve;
     }
+
+    
 
     public getCardSlotByDroppableId(droppableId: string) {
         let card;
@@ -107,6 +115,29 @@ export class EventService implements IEventService {
         this.discardCard(name);
     }
 
+
+    private setCurrentResolve(card: IMysteryCard | IAdventureCard, resolver: ICharacter): void {
+        if (isAdventureCard(card)) {
+            this._currentAventureResolve = {
+                card,
+                resolver
+            }
+        } else {
+            this._currentMysteryResolve = {
+                card,
+                resolver
+            }
+        }
+    }
+
+    private getCurrentResolveRenderData<C extends IAdventureCard | IMysteryCard>(resolve: CurrentResolve<C>): CurrentResolveRenderData<C> {
+        return {
+            card: resolve.card.renderData,
+            resolver: resolve.resolver.renderData,
+        }
+    }
+    
+
     private discardCard(name: string) {
         this._eventSlots[this.getSlotByCardName(name)] = null;
     }
@@ -119,7 +150,7 @@ export class EventService implements IEventService {
         this._eventSlots.right = wreckage;
     }
 
-    public pullCard() {
+    public pullCard(resolver: ICharacter) {
         let card = this._eventCardDeck.pop();
         if (!card) {
             throw new Error("There is no card to pull");
@@ -127,14 +158,12 @@ export class EventService implements IEventService {
         if (isEventCard(card)) {
             this.moveCardsLeft();
             this._eventSlots.right = card;
-            this._currentAdventureCard = null;
+            this._currentAventureResolve = null;
             card.setAdventureToken();
             card.triggerEventEffect();
             this._lastRoundEventCardPulled = this._game.round;
-        } else if (isAdventureCard(card)) {
-            this._currentAdventureCard = card;
-        } else if (isMysteryCard(card)) {
-            this._currentMysteryCard = card;
+        } else if (isAdventureCard(card) || isMysteryCard(card)) {
+            this.setCurrentResolve(card, resolver);
         }
     }
 
@@ -177,24 +206,24 @@ export class EventService implements IEventService {
         this._specialEffects[effect] = value;
     }
 
-    public resolveEventAdventure(option: 1 | 2) {
+    public resolveEventAdventure(option: 1 | 2, resolver: ICharacter) {
 
-        this._currentAdventureCard?.triggerEventEffect();
-        this._currentAdventureCard = null;
+        this._currentAventureResolve?.card.triggerEventEffect();
+        this._currentAventureResolve = null;
         this._adventureNeedsToBeResolved = false;
-        this.pullCard();
+        this.pullCard(resolver);
     }
 
-    public resolveEventMystery() {
-        if (this._currentMysteryCard) {
-            this._currentMysteryCard.triggerEventEffect();
-            this._currentMysteryCard = null;
-            this.pullCard();
+    public resolveEventMystery(resolver: ICharacter) {
+        if (this._currentMysteryResolve) {
+            this._currentMysteryResolve.card.triggerEventEffect();
+            this._currentMysteryResolve = null;
+            this.pullCard(resolver);
         }
     }
 
     public canGoNextPhase() {
-        return !this._currentAdventureCard && !this._currentMysteryCard;
+        return !this._currentAventureResolve && !this._currentMysteryResolve;
     }
 
     public isEventCardPulledThisRound(): boolean {

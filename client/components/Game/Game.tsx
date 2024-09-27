@@ -314,22 +314,22 @@ export default function Game(props: Props) {
 			})}
 			{gameData.adventureToResolve && (
 				<CardResolve
-					card={gameData.adventureToResolve.card}
-					player={gameData.adventureToResolve?.player}
+					resolve={gameData.adventureToResolve}
 					eventStage={false}
 				/>
 			)}
 			{gameData.isMysteryCardDrawingOn && <MysteryCardDraw />}
-			{gameData.adventureCardToResolveAsEvent && (
+			{gameData.adventureToResolveAsEvent && (
 				<CardResolve
-					card={gameData.adventureCardToResolveAsEvent}
+					resolve={gameData.adventureToResolveAsEvent}
 					eventStage={true}
 				/>
 			)}
 			{gameData.mysteryCardToResolveAsEvent && (
 				<CardResolve
-					card={gameData.mysteryCardToResolveAsEvent}
+					resolve={gameData.mysteryCardToResolveAsEvent}
 					eventStage={true}
+					
 				/>
 			)}
 

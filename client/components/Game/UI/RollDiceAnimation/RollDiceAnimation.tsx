@@ -122,7 +122,7 @@ export const RollDiceAnimation = (props: Props) => {
         }
 
 
-    }, [containerRef.current])
+    }, [props])
 
     useLayoutEffect(() => {
         if (!containerRef.current) return;
@@ -235,7 +235,7 @@ export const RollDiceAnimation = (props: Props) => {
 
             currentDiceMap.clear();
         };
-    }, []);
+    }, [animationDone, props]);
 
     return <div ref={containerRef} className={styles.container}></div>;
 }

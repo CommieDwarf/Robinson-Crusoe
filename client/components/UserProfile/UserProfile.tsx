@@ -56,7 +56,7 @@ export function UserProfile(props: Props) {
 		return () => {
 		    listeners.forEach(listener => listener.off())
 		}
-	}, []);
+	}, [router]);
 
 	function requestGameList() {
 		dispatch(socketEmit(SOCKET_EVENT_CLIENT.SEND_GAME_IN_PROGRESS_LIST, null))
@@ -83,9 +83,9 @@ export function UserProfile(props: Props) {
 						<h5 className={styles.gameInProgressTitle}>
 							Zaczęte gry
 						</h5>
-						{sessionsInProgress.map((session) => {
+						{sessionsInProgress.map((session, i) => {
 							return (
-								<div>
+								<div key={i}>
 									<Session
 										name={session.name}
 										host={session.host}

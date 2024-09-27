@@ -47,7 +47,7 @@ export default function AuthForm(props: Props) {
 		if (isAuthenticated()) {
 			router.push("/").catch((e) => console.error(e));
 		}
-	}, []);
+	}, [router]);
 
 	function isDataValid() {
 		if (!username) {

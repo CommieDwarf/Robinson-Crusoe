@@ -46,7 +46,7 @@ function Play(props: Props) {
         return () => {
             router.events.off('routeChangeStart', handleRouteChange);
         }
-    }, [router, sessionId, dispatch])
+    }, [router, sessionId, dispatch, sessionIdQuery])
 
     useEffect(() => {
         if (sessionId !== sessionIdQuery) {
@@ -115,7 +115,7 @@ function Play(props: Props) {
         return () => {
             listeners.forEach((listener) => listener.off());
         }
-    }, [dispatch, router.isReady, sessionId, sessionIdQuery]);
+    }, [dispatch, router.isReady, sessionId, sessionIdQuery, t]);
 
     return (
         <div className={styles.container}>

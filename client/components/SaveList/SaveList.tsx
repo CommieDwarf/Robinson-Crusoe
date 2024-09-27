@@ -41,7 +41,7 @@ export function SaveList(props: Props) {
         return () => {
             listeners.forEach((listener) => listener.off());
         }
-    }, [])
+    }, [dispatch, router])
 
 
     function selectSave(id: string) {

@@ -25,7 +25,7 @@ export function DraggableWindow(props: Props) {
 
     const containerRef = useRef<HTMLDivElement>(null);
 
-    const style: ViewStyleProps = {
+    const style: React.CSSProperties = {
         padding: props.padding,
         width: props.width && props.width + "px",
         height: props.height && props.height + "px",
@@ -58,7 +58,7 @@ export function DraggableWindow(props: Props) {
                 }
             })
         }
-    }, [containerRef])
+    }, [containerRef, containerSize.x, containerSize.y])
 
     function handleClick() {
         props.onClose && props.onClose();

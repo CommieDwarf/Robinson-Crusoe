@@ -8,7 +8,7 @@ import {PLAYER_COLOR} from "@shared/types/Game/PLAYER_COLOR";
 type Props = {
     button1: CardResolveButtonProp,
     button2?: CardResolveButtonProp,
-    color: PLAYER_COLOR,
+    color: PLAYER_COLOR | undefined,
 };
 export const ResolveButtons = (props: Props) => {
 

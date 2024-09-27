@@ -14,14 +14,14 @@ export function Contents(props: Props) {
 
 	return (
 		<ol className={styles.container} type={"I"}>
-			{contents.map((content) => {
+			{contents.map((content, i) => {
 				if (typeof content === "string") {
-					return <ListItem content={content} onClick={props.onContentClick} selected={content === props.selected}/>;
+					return <ListItem key={i} content={content} onClick={props.onContentClick} selected={content === props.selected}/>;
 				} else {
 					return (
-						<ol className={styles.innerList}>
-							{content.map((con) => {
-								return <ListItem content={con} onClick={props.onContentClick} selected={con === props.selected}/>;
+						<ol className={styles.innerList} key={i}>
+							{content.map((con, i) => {
+								return <ListItem key={i} content={con} onClick={props.onContentClick} selected={con === props.selected}/>;
 							})}
 						</ol>
 					);

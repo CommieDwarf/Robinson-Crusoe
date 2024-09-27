@@ -39,7 +39,7 @@ server.listen(config.server.port, () => {
 // async function migrateUserProfiles() {
 //   await User.updateMany(
 //       { emailVerified: { $exists: false } },
-//       { $set: { emailVerified: false } } // Ustaw domyślną wartość
+//       { $set: { emailVerified: false } } 
 //   );
 //   console.log('Migration completed');
 // }

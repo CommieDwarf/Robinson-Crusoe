@@ -56,7 +56,7 @@ export default function EmailActivation() {
 		}
 
 	
-	}, [router.query]);
+	}, [router.query, dispatch]);
 
 
 
@@ -75,7 +75,7 @@ export default function EmailActivation() {
 				});
 			}, 1000);
 		return () => clearInterval(interval);
-	}, [verificationStatus]);
+	}, [verificationStatus, router]);
 
 	return (
 		<div className={styles.container}>

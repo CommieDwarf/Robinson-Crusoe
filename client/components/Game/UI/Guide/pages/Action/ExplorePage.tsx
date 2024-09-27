@@ -151,11 +151,11 @@ export function ExplorePage() {
 						)}
 						textElement={() => (
 							<>
-								<strong>Rodzaj terenu</strong> - niektóre akcje
+								<strong>Rodzaj terenu</strong>{` - niektóre akcje
 								wymagają posiadanie odkrytego kafelka z
 								konkretnym rodzajem terenu (np. budowa karty
 								pomysłu "Nóż" wymaga posiadania odkrytego
-								kafelka z terenem gór).
+								kafelka z terenem gór).`}
 							</>
 						)}
 					/>

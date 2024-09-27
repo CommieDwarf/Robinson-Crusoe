@@ -6,7 +6,7 @@ import config from "../../config";
 import { getAuthToken } from "../../utils/auth/getAuthToken";
 import { useTranslation } from "react-i18next";
 
-export default function verifyYourEmail() {
+export default function VerifyYourEmail() {
 	const [emailResent, setEmailResent] = useState(false);
 	const {t} = useTranslation();
 

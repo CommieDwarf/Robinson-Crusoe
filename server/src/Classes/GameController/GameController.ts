@@ -95,7 +95,7 @@ export class GameController implements GameControllerInterface, BaseController {
 
 
     private resolveEventAdventure(player: IPlayer, option: 1 | 2): void {
-        this._game.eventService.resolveEventAdventure(option);
+        this._game.eventService.resolveEventAdventure(option, player.getCharacter());
     }
 
 
