@@ -1,9 +1,9 @@
 server/server.ts
-server/Classes
-server/config
-server/constants
-server/Errors
-server/Models
-server/types
-server/utils
-server/views
+server/src/Classes
+server/src/config
+server/src/constants
+server/src/Errors
+server/src/Models
+server/src/types
+server/src/utils
+server/src/views
