@@ -20,12 +20,7 @@ import {WildDog} from "./Beasts/WildDog";
 import {WildPig} from "./Beasts/WildPig";
 import {IBasicResources} from "@shared/types/Game/Resources/Resources";
 
-export interface BeastStats {
-    name: string,
-    strength: number,
-    weaponLoss: number,
-    reward: IBasicResources,
-}
+
 
 export class BeastCreator implements ICreator<Beast, BEAST> {
     private readonly _game: IGame;

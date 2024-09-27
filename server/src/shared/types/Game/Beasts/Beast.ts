@@ -5,6 +5,13 @@ export interface IBeastRenderData extends IAssignablePawnsItemRenderData {
     name: string;
 }
 
+export interface BeastStats {
+    name: string,
+    strength: number,
+    weaponLoss: number,
+    reward: IBasicResources,
+}
+
 export interface IBeast extends IAssignablePawnsItem {
     name: string;
     strength: number;
