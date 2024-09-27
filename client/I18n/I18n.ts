@@ -1,9 +1,6 @@
 import i18next from "i18next";
 import {initReactI18next} from "react-i18next";
 import {resources} from "./resources";
-import {LOG_CODE} from "@shared/types/Game/ChatLog/LOG_CODE";
-import {ACTION} from "@shared/types/Game/ACTION";
-
 i18next
     .use(initReactI18next) // passes i18n down to react-i18next
     .init({
