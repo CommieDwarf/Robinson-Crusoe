@@ -1,7 +1,7 @@
 import {IBeastService, IBeastServiceRenderData,} from "@shared/types/Game/Beasts/BeastService";
-import {BEAST, IBeast} from "@shared/types/Game/Beasts/Beast";
+import {BEAST, BeastStats, IBeast} from "@shared/types/Game/Beasts/Beast";
 import {IGame} from "@shared/types/Game/Game";
-import {BeastCreator, BeastStats} from "./BeastCreator/BeastCreator";
+import {BeastCreator} from "./BeastCreator/BeastCreator";
 import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction";
 import {TREASURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_CARD";
 import {ICharacter} from "@shared/types/Game/Characters/Character";
