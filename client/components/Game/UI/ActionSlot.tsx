@@ -43,6 +43,7 @@ function ActionSlot(props: Props & StateProps) {
 				context={props.action}
 				index={1}
 				key={props.pawn?.draggableId}
+				disabled={false}
 			/>
 		);
 	}

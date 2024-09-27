@@ -2,8 +2,17 @@ import {IPlayerCharacter, IPlayerCharacterRenderData} from "@shared/types/Game/C
 
 export const isPlayerCharacter = (
     candidate: Object
-): candidate is IPlayerCharacter | IPlayerCharacterRenderData => {
+): candidate is IPlayerCharacter => {
     return (
         "wounds" in candidate
     );
 };
+
+export const isPlayerCharacterRenderData = (
+    candidate: Object
+): candidate is IPlayerCharacterRenderData => {
+    return (
+        "wounds" in candidate
+    );
+};
+

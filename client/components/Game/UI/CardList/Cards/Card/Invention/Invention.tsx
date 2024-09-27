@@ -143,8 +143,6 @@ function Invention(props: Props) {
                                 action={ACTION.EXPLORE}
                                 uniqueAction={ACTION.EXPLORE}
                                 id={getOwnedDroppableId(pawn.owner.name, "invention")}
-                                pawn={props.invention.pawnService?.freePawns.find((p) => p.draggableId === pawn.draggableId)}
-                                marked={false}
                                 ownedByCard={true}
                                 onMouseEnter={handleMouseEnter}
                                 onMouseLeave={handleMouseLeave}

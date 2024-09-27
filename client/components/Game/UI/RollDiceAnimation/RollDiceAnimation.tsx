@@ -254,6 +254,7 @@ export default React.memo(RollDiceAnimation, areEqual);
 function resultsEqual(prevProps: Props, nextProps: Props) {
     let resultsEqual = true;
     prevProps.results.forEach((value, key) => {
+        //@ts-ignore
         if (value?.result !== nextProps.results.get(key)?.result) {
             resultsEqual = false;
         }

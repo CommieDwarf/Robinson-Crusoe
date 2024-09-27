@@ -4,7 +4,7 @@ import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
 import { store } from "../store/store";
 
-import { GlobalWrapper } from "./GlobalWrapper";
+import { GlobalWrapper } from "../components/GlobalWrapper";
 
 import "../public/fontello/css/fontello.css";
 import "../I18n/I18n";

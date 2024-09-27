@@ -48,7 +48,7 @@ export function Player(props: Props) {
             </div>
             <hr className={styles.hr}/>
             <div className={styles.expendables}>
-                <Expendables determination={character.determination} weapon={character.weaponBoost}/>
+                <Expendables determination={character.determination} weapon={character.weaponBoost} wood={props.player.character?.hasPersonalResource.wood || false}/>
             </div>
             <div className={styles.pawns}>
             <Pawns character={character} pawns={character.pawnService.pawns} dragDisabled={true}

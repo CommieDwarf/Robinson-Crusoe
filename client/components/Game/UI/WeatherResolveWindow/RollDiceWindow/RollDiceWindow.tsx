@@ -29,7 +29,6 @@ export const RollDiceWindow = (props: Props) => {
                     reRoll={() => {
                     }}
                     reRolledDice={null}
-                    fixed={props.resolved}
                 />
             )}
         </div>

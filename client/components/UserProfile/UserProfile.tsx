@@ -65,6 +65,7 @@ export function UserProfile(props: Props) {
 	function handleJoinGameClick(sessionId: string) {
 		dispatch(socketEmit(SOCKET_EVENT_CLIENT.JOIN_SESSION, {
 			sessionId,
+			password: "",
 		}))
 	}
 

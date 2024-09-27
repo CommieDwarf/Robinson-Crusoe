@@ -2,7 +2,7 @@
 import * as React from "react";
 import styles from "./WeatherTokens.module.css";
 import {WeatherToken} from "../../../Weather/WeatherToken/WeatherToken";
-import {IWeatherTokens} from "@shared/types/Weather/Weather";
+import { IWeatherTokens } from "@shared/types/Game/Weather/Weather";
 
 type Props = {
     tokens: IWeatherTokens;

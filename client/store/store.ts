@@ -18,6 +18,7 @@ const rootReducer = combineReducers({
 
 // Typy
 export type RootState = ReturnType<typeof rootReducer>;
+export type AppDispatch = typeof store.dispatch
 
 // Konfiguracja store
 const makeStore = (context: Context): Store<RootState> => {

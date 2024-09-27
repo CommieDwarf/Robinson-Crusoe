@@ -9,7 +9,7 @@ import styles from "./MysteryCardDraw.module.css";
 import {ResolveButtons} from "../CardResolve/ResolveButtons/ResolveButtons";
 import Draggable from "react-draggable";
 import {useAppDispatch, useAppSelector} from "../../../../store/hooks";
-import {selectGame} from "../../../../reduxSlices/gameSession";
+import {selectGame, selectPlayerByCharacter} from "../../../../reduxSlices/gameSession";
 import {socketEmitAction} from "../../../../middleware/socketMiddleware";
 
 
@@ -51,12 +51,16 @@ export function MysteryCardDraw() {
     const [enlarged, setEnlarged] = useState(false);
 
 
+    const character = mysteryService.drawer?.name;
+
+    const player = useAppSelector((state) => character && selectPlayerByCharacter(state, character));
+
     return <Draggable bounds={"parent"}>
         <div className={`${styles.container} ${enlarged && styles.enlarged}`}>
             <div className={styles.card}>
                 <MysteryCardResolve card={mysteryService.currentResolve}/>
             </div>
-            <ResolveButtons button1={button1} button2={button2}/>
+            <ResolveButtons button1={button1} button2={button2} color={player && player.color}/>
             <MysteryCardCounter cardsLeft={mysteryService.cardsLeft}/>
         </div>
     </Draggable>

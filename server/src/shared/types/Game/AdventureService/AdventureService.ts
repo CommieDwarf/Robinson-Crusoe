@@ -3,6 +3,7 @@ import {IAdventureCard} from "./AdventureCard";
 import {IResolvableItem} from "../ActionService/IResolvableItem";
 import {IPlayer} from "@shared/types/Game/PlayerService/Player";
 import {CurrentResolveRenderData } from "../EventService/EventService";
+import { CHARACTER } from "../Characters/Character";
 
 export type AdventureCardStacks = {
     [key in AdventureAction]: IAdventureCard[];
@@ -21,7 +22,7 @@ export interface CurrentAdventure {
 
 export interface IAdventureService {
     currentAdventure: CurrentAdventure | null;
-    resolveAdventureCard: (option: 1 | 2, resolverName: string) => void;
+    resolveAdventureCard: (option: 1 | 2, resolver: CHARACTER) => void;
     setCurrentAdventure: (resolvableItem: IResolvableItem) => void;
     renderData: IAdventureServiceRenderData;
 }

@@ -1,4 +1,5 @@
 import { ClientPayloadMap } from "./../../server/src/shared/types/Requests/Socket";
+
 import { Dispatch, Middleware, MiddlewareAPI } from "redux";
 import { RootState, store } from "../store/store";
 import { Socket } from "socket.io-client";
@@ -170,7 +171,10 @@ const socketMiddleware =
 				T extends keyof ClientPayloadMap,
 				P extends ModifiedPayload<T>
 			>(payload: P): ClientPayloadMap[T] {
-				if (payload && "hydrateSessionId" in payload) {
+				if (!payload || typeof payload !== "object") {
+					return payload
+				}
+				if (payload.hasOwnProperty("hydrateSessionId")) {
 					// const sessionId = api.getState().getState().gameSession.data?.id;
 					const state = api.getState() as unknown as RootState;
 					const hydrated = {

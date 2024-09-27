@@ -44,6 +44,7 @@ function SideCharacters(props: Props) {
                                         context="character"
                                         index={i}
                                         key={pawn.draggableId}
+                                        disabled={false}
                                     />
                                 );
                             })}
@@ -85,6 +86,7 @@ function SideCharacters(props: Props) {
                                         context="character"
                                         index={i}
                                         key={pawn.draggableId}
+                                        disabled={false}
                                     />
                                 );
                             })}

@@ -18,6 +18,7 @@ import shuffle from "@shared/utils/shuffleArray";
 import {IPlayer} from "@shared/types/Game/PlayerService/Player";
 import { CurrentResolveRenderData } from "@shared/types/Game/EventService/EventService";
 import { CHARACTER } from "@shared/types/Game/Characters/Character";
+import { IPlayerCharacter } from "@shared/types/Game/Characters/PlayerCharacter";
 
 export class AdventureService implements IAdventureService {
     private readonly _game: IGame;
@@ -59,7 +60,7 @@ export class AdventureService implements IAdventureService {
         if (!this._currentAdventure) {
             throw new Error("There is no current card to resolve!");
         }
-        const resolver = this._game.characterService.getCharacter(character);
+        const resolver = this._game.characterService.getCharacter(character) as IPlayerCharacter;
         if (!isPlayerCharacter(resolver)) {
             throw new Error("Side character shouldn't have opportunity to resolve adventure card!")
         }

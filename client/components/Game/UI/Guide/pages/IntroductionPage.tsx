@@ -39,6 +39,7 @@ export function IntroductionPage() {
 									{i + 1}.{" "}
 									<strong>
 										{capitalize(
+											// @ts-ignore
 											i18next.t("phase." + phase, {
 												context: "genitive",
 											})

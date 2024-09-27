@@ -1,8 +1,8 @@
 // @flow
 import * as React from "react";
 import styles from "./WeatherToken.module.css";
-import {IWeatherTokens} from "@shared/types/Weather/Weather";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
+import { IWeatherTokens } from "@shared/types/Game/Weather/Weather";
 
 type Props = {
     token: keyof IWeatherTokens;

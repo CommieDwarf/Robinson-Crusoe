@@ -79,7 +79,7 @@ export const selectActionSlotById = (state: ReturnType<typeof store.getState>, a
 }
 
 export const selectGame = (state: ReturnType<typeof store.getState>) => {
-    return state.gameSession.data?.game;
+    return state.gameSession.data!.game!;
 }
 
 export const selectPlayerLatency = (state: ReturnType<typeof store.getState>, playerId: string) => {
@@ -91,23 +91,23 @@ export const selectPlayerLatency = (state: ReturnType<typeof store.getState>, pl
     }
 }
 
-export const selectActionSlotService = (state: RootState) => selectGame(state)?.actionSlotService;
-export const selectGlobalPawnService = (state: RootState) => selectGame(state)?.globalPawnService;
-export const selectInventionService = (state: RootState) => selectGame(state)?.inventionService;
-export const selectObjectPickers = (state: RootState) => selectGame(state)?.objectPickers;
-export const selectAdventureService = (state: RootState) => selectGame(state)?.adventureService;
-export const selectMysteryService = (state: RootState) => selectGame(state)?.mysteryService;
-export const selectPhaseService = (state: RootState) => selectGame(state)?.phaseService;
-export const selectActionService = (state: RootState) => selectGame(state)?.actionService;
-export const selectEventService = (state: RootState) => selectGame(state)?.eventService;
-export const selectCharacterService = (state: RootState) => selectGame(state)?.characterService;
-export const selectTokenService = (state: RootState) => selectGame(state)?.tokenService;
-export const selectWeatherService = (state: RootState) => selectGame(state)?.weatherService;
-export const selectLogs = (state: RootState) => selectGame(state)?.logs;
-export const selectScenarioService = (state: RootState) => selectGame(state)?.scenarioService;
-export const selectResourceService = (state: RootState) => selectGame(state)?.resourceService;
-export const selectEquipmentService = (state: RootState) => selectGame(state)?.equipmentService;
-export const selectPlayers = (state: RootState) => state.gameSession.data?.players;
+export const selectActionSlotService = (state: RootState) => selectGame(state).actionSlotService!;
+export const selectGlobalPawnService = (state: RootState) => selectGame(state).globalPawnService!;
+export const selectInventionService = (state: RootState) => selectGame(state).inventionService!;
+export const selectObjectPickers = (state: RootState) => selectGame(state).objectPickers!;
+export const selectAdventureService = (state: RootState) => selectGame(state).adventureService!;
+export const selectMysteryService = (state: RootState) => selectGame(state).mysteryService!;
+export const selectPhaseService = (state: RootState) => selectGame(state).phaseService!;
+export const selectActionService = (state: RootState) => selectGame(state).actionService!;
+export const selectEventService = (state: RootState) => selectGame(state).eventService!;
+export const selectCharacterService = (state: RootState) => selectGame(state).characterService!;
+export const selectTokenService = (state: RootState) => selectGame(state).tokenService!;
+export const selectWeatherService = (state: RootState) => selectGame(state).weatherService!;
+export const selectLogs = (state: RootState) => selectGame(state).logs!;
+export const selectScenarioService = (state: RootState) => selectGame(state).scenarioService!;
+export const selectResourceService = (state: RootState) => selectGame(state).resourceService!;
+export const selectEquipmentService = (state: RootState) => selectGame(state).equipmentService!;
+export const selectPlayers = (state: RootState) => selectGame(state).players!;
 
 export const selectPlayerByCharacter = (state: RootState, character: CHARACTER) => selectPlayers(state)?.find((player) => player.assignedCharacter.char === character);
 

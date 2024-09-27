@@ -1,7 +1,6 @@
 import * as React from "react";
 import {useState} from "react";
 import styles from "./WeatherResolveWindow.module.css";
-import sharedStyles from "../../../../styles/shared.module.css"
 import {Header} from "./Header/Header";
 import {WeatherTokens} from "./BottomBar/Tokens/WeatherTokens";
 import {Resources} from "./BottomBar/Resources/Resources";
@@ -9,7 +8,6 @@ import {CloudsTotal} from "./BottomBar/CloudsTotal/CloudsTotal";
 import {Dices} from "./Dices/Dices";
 import {RollDiceButton} from "./RollDiceButton/RollDiceButton";
 import {RollDiceWindow} from "./RollDiceWindow/RollDiceWindow";
-import Draggable from "react-draggable";
 import {useAppSelector} from "../../../../store/hooks";
 import {selectGame} from "../../../../reduxSlices/gameSession";
 
