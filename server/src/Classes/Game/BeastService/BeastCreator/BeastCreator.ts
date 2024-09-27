@@ -1,6 +1,6 @@
 import {Beast} from "./Beast";
 import {IGame} from "@shared/types/Game/Game";
-import {BEAST} from "@shared/types/Game/Beasts/Beast";
+import {BEAST, BeastStats} from "@shared/types/Game/Beasts/Beast";
 import {ICreator} from "@shared/types/Game/Creator/Creator";
 import {Alligator} from "./Beasts/Alligator";
 import {Bear} from "./Beasts/Bear";

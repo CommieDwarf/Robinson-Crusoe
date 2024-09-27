@@ -1,5 +1,5 @@
 import config from "../config";
-import {UserData} from "@shared/types/User/User";
+import {UserData} from "@shared/types/UserData/UserData";
 
 export async function fetchUser(authToken: string) {
     const url = `${config.SERVER_URL}/getUser`;
