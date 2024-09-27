@@ -1,2 +1,2 @@
-/server/*
-!/server/src/shared/
+server
+!server/src/shared
