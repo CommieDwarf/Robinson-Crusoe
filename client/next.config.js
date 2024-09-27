@@ -9,9 +9,7 @@ const nextConfig = {
         externalDir: true
     },
     webpack: (config) => {
-        config.resolve.alias['@sharedTypes'] = path.join(__dirname, 'types');
-        config.resolve.alias['@sharedUtils'] = path.join(__dirname, 'utils');
-        config.resolve.alias['@sharedConstants'] = path.join(__dirname, 'constants');
+        config.resolve.alias['@shared'] = path.resolve(__dirname, '../server/src/shared');
         return config;
     },
 };
