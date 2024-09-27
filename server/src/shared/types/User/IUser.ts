@@ -1,7 +1,6 @@
 import {Session} from "../../../Classes/Session/Session";
 import {SessionData} from "@shared/types/Session/Session";
 import {Socket} from "socket.io";
-import {UserPlaceHolder} from "../../../Classes/Player/Player";
 
 export interface IUser {
     id: string,
@@ -18,3 +17,7 @@ export interface IUser {
     onSocketDisconnect: (socket: Socket, onLobbyLeave?: (sessionIds: string[]) => void) => void;
 }
 
+export interface UserPlaceHolder {
+    username: string,
+    id: string,
+}

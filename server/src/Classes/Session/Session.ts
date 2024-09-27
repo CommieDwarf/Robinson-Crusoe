@@ -16,7 +16,7 @@ import { CONTROLLER_ACTION } from "@shared/types/CONTROLLER_ACTION";
 import { CHARACTER, Gender } from "@shared/types/Game/Characters/Character";
 import { SessionSettings } from "@shared/types/SessionSettings";
 import { IUser } from "../../shared/types/User/IUser";
-import { Player, UserPlaceHolder } from "../Player/Player";
+import { Player } from "../Player/Player";
 import { io } from "../../../server";
 import {
 	SOCKET_EVENT_SERVER,

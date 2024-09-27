@@ -1,9 +1,8 @@
 import {IPlayerCharacter, IPlayerCharacterRenderData,} from "../Characters/PlayerCharacter";
 import {PLAYER_COLOR} from "@shared/types/Game/PLAYER_COLOR";
-import {IUser} from "../../User/IUser";
+import {IUser, UserPlaceHolder} from "../../User/IUser";
 import {CHARACTER, Gender} from "@shared/types/Game/Characters/Character";
 import {IGame} from "@shared/types/Game/Game";
-import {UserPlaceHolder} from "../../../../Classes/Player/Player";
 
 
 export interface AssignedCharacter {
