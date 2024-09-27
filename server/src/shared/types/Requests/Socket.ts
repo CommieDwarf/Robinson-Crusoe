@@ -6,8 +6,6 @@ import {SESSION_CONNECTION_ERROR_CODE} from "@shared/types/Errors/SESSION_CONNEC
 import {AssignedCharacter} from "@shared/types/Game/PlayerService/Player";
 import {ALERT_CODE} from "@shared/types/ALERT_CODE";
 import {PLAYER_COLOR} from "@shared/types/Game/PLAYER_COLOR";
-import Joi from "joi";
-import { SCENARIO } from '../Game/ScenarioService/SCENARIO';
 import { ERROR_CODE } from '../Errors/ERROR';
 import { SaveOverview } from '../SaveGame';
 
