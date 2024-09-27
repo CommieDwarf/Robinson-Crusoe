@@ -287,7 +287,7 @@ export class Session implements SessionData {
 	public async save() {
 		const game = this.getGame();
 		if (game) {
-			return this._saveService.saveGame(game);
+			this._saveService.saveGame(game);
 		} else {
 			throw new Error("No game to save!");
 		}

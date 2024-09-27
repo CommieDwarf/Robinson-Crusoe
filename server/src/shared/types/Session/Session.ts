@@ -6,8 +6,6 @@ import {CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {GAME_STATUS, IGame, IGameRenderData} from "@shared/types/Game/Game";
 import {SessionSettings} from "@shared/types/SessionSettings";
 import {IChatServiceRenderData} from "@shared/types/ChatService/ChatService";
-import { Document } from "mongoose";
-import { SaveGameDocument } from "../../../Models/SaveGame";
 
 
 // public changeCharacter(userId: string, character: CHARACTER) {
@@ -64,9 +62,7 @@ export interface SessionData {
     getBasicInfo: () => SessionBasicInfo;
     usersPlayerExist: (userId: string) => boolean;
 
-    save: () => Promise<(Document<unknown, {}, SaveGameDocument> & SaveGameDocument & Required<{
-        _id: string;
-    }>) | undefined>;
+    save: () => void;
 
     getRenderData: (userId: string) => SessionRenderData
 }
