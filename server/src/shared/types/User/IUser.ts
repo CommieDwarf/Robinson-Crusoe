@@ -1,4 +1,3 @@
-import {Session} from "../../../Classes/Session/Session";
 import {SessionData} from "@shared/types/Session/Session";
 import {Socket} from "socket.io";
 
@@ -7,7 +6,7 @@ export interface IUser {
     sockets: Socket[],
     username: string,
     activeSessions: SessionData[],
-    addActiveSession: (session: Session) => void;
+    addActiveSession: (session: SessionData) => void;
     removeSession: (sessionId: string) => void;
     leaveLobbies: () => string[] | Promise<string[]>;
     latency: number;
