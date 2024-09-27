@@ -110,7 +110,7 @@ export class PhaseService implements IPhaseService {
     }
 
     private eventEffect = () => {
-        this._game.eventService.pullCard();
+        this._game.eventService.pullCard(this._game.playerService.primePlayer.getCharacter());
     };
 
     private moraleEffect = () => {
