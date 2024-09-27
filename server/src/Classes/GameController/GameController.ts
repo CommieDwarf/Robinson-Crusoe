@@ -6,7 +6,7 @@ import {IPlayer} from "@shared/types/Game/PlayerService/Player";
 import {ITEM} from "@shared/types/Game/Equipment/Item";
 import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction";
 import {IGame} from "@shared/types/Game/Game";
-import {ActionHandler, BaseController, GameControllerInterface} from "../../types/GameController/Controllers";
+import {ActionHandler, BaseController, GameControllerInterface} from "../../shared/types/GameController/Controllers";
 import {CONTROLLER_ACTION, OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {INVENTION, INVENTION_PERSONAL} from "@shared/types/Game/InventionService/Invention";
 import {SaveAction} from "@shared/types/SaveGame";

@@ -2,9 +2,9 @@ import {IUser} from "../../shared/types/User/IUser";
 import {UserDocument} from "../../Models/User";
 import {SessionData} from "@shared/types/Session/Session";
 import {Socket} from "socket.io";
-import {ISessionService} from "../../types/SessionService/SessionService";
 import {SessionConnectError} from "../../Errors/Session/SessionConnectError";
 import {SESSION_CONNECTION_ERROR_CODE} from "@shared/types/Errors/SESSION_CONNECTION_ERROR_CODE";
+import { ISessionService } from "@shared/types/SessionService";
 
 export class User implements IUser {
 

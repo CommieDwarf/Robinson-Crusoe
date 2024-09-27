@@ -1,7 +1,7 @@
 import {CHARACTER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {IPlayer} from "@shared/types/Game/PlayerService/Player";
 import {IGame} from "@shared/types/Game/Game";
-import {ActionHandler, GameControllerInterface} from "../../../types/GameController/Controllers";
+import {ActionHandler, GameControllerInterface} from "../../../shared/types/GameController/Controllers";
 import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
 import {PawnMovementData} from "@shared/types/Game/GlobalPawnService/GlobalPawnService";
 import {CHARACTER, ICharacter} from "@shared/types/Game/Characters/Character";

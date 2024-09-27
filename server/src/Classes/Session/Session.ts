@@ -2,7 +2,7 @@ import {
 	AssignedCharacter,
 	IPlayer,
 } from "@shared/types/Game/PlayerService/Player";
-import { BaseController } from "../../types/GameController/Controllers";
+import { BaseController } from "../../shared/types/GameController/Controllers";
 import { GameClass } from "../Game/Game";
 import { GameController } from "../GameController/GameController";
 import {
@@ -34,8 +34,8 @@ import { SaveGameDocument } from "../../Models/SaveGame";
 import { isUser } from "../../utils/TypeGuards/isUser";
 import { SessionConnectError } from "../../Errors/Session/SessionConnectError";
 import { SESSION_CONNECTION_ERROR_CODE } from "@shared/types/Errors/SESSION_CONNECTION_ERROR_CODE";
-import { ISessionService } from "../../types/SessionService/SessionService";
 import { config } from "../../config/config";
+import { ISessionService } from "@shared/types/SessionService";
 
 export class Session implements SessionData {
 	private _players: IPlayer[] = [];

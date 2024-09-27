@@ -1,5 +1,3 @@
-import { IUser } from "../../shared/types/User/IUser";
-import { ISessionService } from "../../types/SessionService/SessionService";
 import { SessionBasicInfo, SessionData } from "@shared/types/Session/Session";
 import { Session } from "../Session/Session";
 import { SCENARIO } from "@shared/types/Game/ScenarioService/SCENARIO";
@@ -11,6 +9,8 @@ import { SESSION_CONNECTION_ERROR_CODE } from "@shared/types/Errors/SESSION_CONN
 import { Socket } from "socket.io";
 import { SaveGameDocument } from "../../Models/SaveGame";
 import { CONNECT_CODE_LENGTH } from "../../shared/config/session";
+import { ISessionService } from "@shared/types/SessionService";
+import { IUser } from "@shared/types/User/IUser";
 
 export class SessionService implements ISessionService {
 	private _activeSessions = new Map<SessionData["id"], SessionData>();

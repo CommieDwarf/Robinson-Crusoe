@@ -1,5 +1,4 @@
 import { ServerPayloadMap, SOCKET_EVENT_SERVER } from '../../shared/types/Requests/Socket';
-import { ISessionService } from '../../types/SessionService/SessionService';
 import { SessionService } from '../SessionService/SessionService';
 import {Server, Socket } from "socket.io";
 import jwt from 'jsonwebtoken';
@@ -7,6 +6,7 @@ import { User } from '../../Models/User';
 import { EventHandler } from './EventHandler/EventHandler';
 import { IUser } from '../../shared/types/User/IUser';
 import { config } from '../../config/config';
+import { ISessionService } from '@shared/types/SessionService';
 
 
 export class SocketService {

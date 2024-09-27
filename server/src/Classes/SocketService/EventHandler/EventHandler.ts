@@ -1,6 +1,5 @@
 import { ClientPayloadMap } from "./../../../shared/types/Requests/Socket";
 import { Server, Socket } from "socket.io";
-import { ISessionService } from "../../../types/SessionService/SessionService";
 import { IUser } from "../../../shared/types/User/IUser";
 import {
 	ServerPayloadMap,
@@ -16,6 +15,7 @@ import { SaveService } from "../../SaveService/SaveService";
 import { SaveGame } from "../../../Models/SaveGame";
 import { ClientPayloadSchemas } from "../../../constants/PayloadSchemas";
 import { config } from "../../../config/config";
+import { ISessionService } from "@shared/types/SessionService";
 
 export class EventHandler {
 	private readonly _socket: Socket;

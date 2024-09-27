@@ -2,7 +2,7 @@ import {IPlayer} from "@shared/types/Game/PlayerService/Player";
 import {STORAGE_ACTION} from "../GameController";
 import {MYSTERY_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {IGame} from "@shared/types/Game/Game";
-import {ActionHandler, GameControllerInterface} from "../../../types/GameController/Controllers";
+import {ActionHandler, GameControllerInterface} from "../../../shared/types/GameController/Controllers";
 
 
 export class MysteryController implements GameControllerInterface {
