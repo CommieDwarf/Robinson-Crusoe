@@ -1,2 +1,9 @@
-server
-!server/src/shared
+server/server.ts
+server/classes
+server/config
+server/constants
+server/Errors
+server/Models
+server/types
+server/utils
+server/views
