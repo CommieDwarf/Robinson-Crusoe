@@ -1,4 +1,4 @@
-// import {LOG_CODE} from "@shared/types/Game/ChatLog/LOG_CODE";
+import {LOG_CODE} from "@shared/types/Game/ChatLog/LOG_CODE";
 import {
     ADVENTURE_CARD_BUILD,
     ADVENTURE_CARD_EXPLORE,
