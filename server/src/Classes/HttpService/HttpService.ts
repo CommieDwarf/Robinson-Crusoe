@@ -33,7 +33,13 @@ export class HttpService {
         const whitelist = config.server.clientUrls;
 
         app.use(cors({
-            origin: whitelist,
+            origin: (origin, callback) => {
+                if (whitelist.indexOf(origin as string) !== -1 || !origin) {
+                    callback(null, true); // Dozwolone
+                } else {
+                    callback(new Error('Not allowed by CORS')); // Odrzucone
+                }
+            },
             exposedHeaders: "authorization"
         }));
         app.use(express.json())
