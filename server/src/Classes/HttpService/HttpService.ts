@@ -30,8 +30,10 @@ export class HttpService {
     }
 
     private initialize(app: ReturnType<typeof App>) {
+        const whitelist = config.server.clientUrls;
+
         app.use(cors({
-            origin: '*',
+            origin: whitelist,
             exposedHeaders: "authorization"
         }));
         app.use(express.json())

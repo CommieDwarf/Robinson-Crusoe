@@ -83,6 +83,7 @@ export default function AuthForm(props: Props) {
 			headers: {
 				"Content-Type": "application/json",
 			},
+			mode: "cors"
 		});
 		if (response.status === 200) {
 			await handleAuthentication(response);

@@ -19,7 +19,7 @@ const httpService = new HttpService(app, emailService);
 const server = httpService.createServer();
 export const io = new Server(server, {
     cors: {
-        origin: "*",
+        origin: config.server.clientUrls,
         methods: ["POST", "GET"]
     }
 });

@@ -78,6 +78,6 @@ export class EmailService {
 		const token = jwt.sign({ userId }, config.server.jwtSecret, {
 			expiresIn: "1h",
 		});
-		return `${config.server.clientUrl}/email-activation/${token}`;
+		return `${config.server.clientUrls[0]}/email-activation/${token}`;
 	}
 }

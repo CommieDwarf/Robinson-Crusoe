@@ -1,17 +1,23 @@
-
-pomysł - zrób samo znikające alerty.
+przenieś kiedyś silnik na front-end
 
 
 
 popraw obszar postaci pobocznych
 Jesli friday + gracz robi akcje, gracz ma być liderem.
-Okno pogody do przerobienia (layout).
+Okno pogody do przerobienia.44
+u dejnia ikonki determinacji i tymczasowej broni były malutkie
+zoomowanie rozwala layout faz (rozwinane menu) oraz kart pomyslow/mystery/przedmiotow
+ikony faz w logchat sie nie wyswietlaja
+tlumaczenie przyciskow w mystery card draw i aventure.
+animacja kości jest renderowana 2 razy
+wyświetlaj alert kiedy gracz chce wykonac faze akcji bez pionka na slocie lidera.
+zrób zakonczenie gry 
+kontynuuj pisanie guide'a
 
-napraw animacje dodawania i odejmowania wartości liczbowych surowców i innych statystyk.
-dodaj przycisk do zamykania listy graczy.
-
-dodac log wiadomosci o połączącym/rozłączonym graczu.
-
+napraw animacje dodawania i odejmowania wartości liczbowych surowców i innych statystyk. x
+dodaj przycisk do zamykania listy graczy.x
+dodac log wiadomosci o połączącym/rozłączonym graczu. x
+pomysł - zrób samo znikające alerty. x
 mystery card drawer przetłumaczyć przyciski i dodać tło. x
 shortcut totalnie zbugowany x
 karty pomysłów postaci. x
