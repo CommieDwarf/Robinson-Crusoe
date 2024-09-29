@@ -31,7 +31,7 @@ export class HttpService {
 
     private initialize(app: ReturnType<typeof App>) {
         const whitelist = config.server.clientUrls;
-
+        console.log("WHITELIST", whitelist);
         app.use(cors({
             origin: (origin, callback) => {
                 if (whitelist.indexOf(origin as string) !== -1 || !origin) {
