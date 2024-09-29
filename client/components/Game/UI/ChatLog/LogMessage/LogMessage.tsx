@@ -41,7 +41,7 @@ export const LogMessage = (props: Props) => {
             ></RoundSquare>
             <div className={styles.phaseIcon}>
                 <ResizableImage
-                    src={"/UI/Phase/" + msg.phase + ".png"}
+                    src={"/UI/phase/" + msg.phase + ".png"}
                     fill
                     alt={"faza"}
                     sizes={styles.phaseIcon}

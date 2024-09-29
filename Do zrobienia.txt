@@ -1,18 +1,25 @@
 przenieś kiedyś silnik na front-end
 
+kontynuuj pisanie guide'a 
 
 
+zrób zakonczenie gry 
 popraw obszar postaci pobocznych
 Jesli friday + gracz robi akcje, gracz ma być liderem.
-Okno pogody do przerobienia.44
+Okno pogody do przerobienia.
 u dejnia ikonki determinacji i tymczasowej broni były malutkie
 zoomowanie rozwala layout faz (rozwinane menu) oraz kart pomyslow/mystery/przedmiotow
+
+
+
+server list ciągle przedstawia ikone oznaczająca ze wczytuje liste
+nie widać serwerów w server list
+error handling na cliencie.
 ikony faz w logchat sie nie wyswietlaja
 tlumaczenie przyciskow w mystery card draw i aventure.
 animacja kości jest renderowana 2 razy
 wyświetlaj alert kiedy gracz chce wykonac faze akcji bez pionka na slocie lidera.
-zrób zakonczenie gry 
-kontynuuj pisanie guide'a
+
 
 napraw animacje dodawania i odejmowania wartości liczbowych surowców i innych statystyk. x
 dodaj przycisk do zamykania listy graczy.x
