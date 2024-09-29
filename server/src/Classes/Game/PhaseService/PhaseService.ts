@@ -89,7 +89,6 @@ export class PhaseService implements IPhaseService {
         if (!this.canGoNextPhase()) {
             return;
         }
-        try {
             this.phaseEffects[this._phase]();
             this._gainedPhaseEffects.forEach((func) => func());
             this._phaseIndex =
@@ -97,16 +96,7 @@ export class PhaseService implements IPhaseService {
             this._phase = phaseOrder[this._phaseIndex];
             this._game.alertService.clearAlert();
             this._game.actionSlotService.markedActionSlotId = null;
-        } catch (error) {
-            if (
-                error instanceof MissingLeaderError ||
-                error instanceof MissingHelperError
-            ) {
-                this.handleMissingPawnError(error);
-            } else {
-                throw error;
-            }
-        }
+        
     }
 
     private eventEffect = () => {

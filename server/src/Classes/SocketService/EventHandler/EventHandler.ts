@@ -1,3 +1,4 @@
+import { MissingHelperError } from './../../Game/Errors/MissingHelperError';
 import { ClientPayloadMap } from "./../../../shared/types/Requests/Socket";
 import { Server, Socket } from "socket.io";
 import { IUser } from "../../../shared/types/User/IUser";
@@ -16,6 +17,8 @@ import { SaveGame } from "../../../Models/SaveGame";
 import { ClientPayloadSchemas } from "../../../constants/PayloadSchemas";
 import { config } from "../../../config/config";
 import { ISessionService } from "@shared/types/SessionService";
+import { MissingLeaderError } from "../../Game/Errors/MissingLeaderError";
+import { ALERT_CODE } from "@shared/types/ALERT_CODE";
 
 export class EventHandler {
 	private readonly _socket: Socket;
@@ -423,12 +426,21 @@ export class EventHandler {
 	) => {
 		const session = this.findSession(actionData.sessionId);
 		if (this.validateSession(session)) {
-			session.handleAction(
-				this._user.id,
-				actionData.actionType,
-				...actionData.arguments
-			);
+			try {
+				session.handleAction(
+					this._user.id,
+					actionData.actionType,
+					...actionData.arguments
+				);
 			this.emitSessionChanged(session.id);
+			} catch (e) {
+				if (e instanceof MissingLeaderError) {
+					this.emitAlertSent(ALERT_CODE.MISSING_PAWN_LEADER);
+				} else if (e instanceof MissingHelperError) {
+					this.emitAlertSent(ALERT_CODE.MISSING_PAWN_HELPER);
+				}
+			}
+			
 		}
 	};
 
@@ -509,7 +521,6 @@ export class EventHandler {
 	}
 
 	private emitError(code: ERROR_CODE, message: string = "") {
-		console.warn(code);
 		this.socketEmit(SOCKET_EVENT_SERVER.ERROR_SENT, {
 			code,
 			message,
@@ -577,6 +588,13 @@ export class EventHandler {
 			null,
 			this._io
 		);
+	}
+
+	private emitAlertSent(alertCode: ALERT_CODE) {
+		this.socketEmit(
+			SOCKET_EVENT_SERVER.ALERT_SENT,
+			{code: alertCode}
+		)
 	}
 
 	private initEventMap() {

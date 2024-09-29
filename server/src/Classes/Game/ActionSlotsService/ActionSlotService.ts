@@ -221,8 +221,6 @@ export class ActionSlotService implements IActionSlotService {
                         helperCount++;
                     }
                 });
-
-
                 if (item && item.requiredPawnAmount && helperCount < item.requiredPawnAmount - 1
                     &&
                     !(isEventCard(item) && item.name === WRECKAGE_CARD.SUPPLY_CRATES)

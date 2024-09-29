@@ -5,6 +5,10 @@ import { getAuthToken } from "../utils/auth/getAuthToken";
 import { fetchUser } from "../lib/fetchUser";
 import { userUpdated } from "../reduxSlices/connection";
 import { socketConnect } from "../middleware/socketMiddleware";
+import { setSocketListener } from "../pages/api/socket";
+import { SOCKET_EVENT_SERVER } from "@shared/types/Requests/Socket";
+import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 interface Props {
 	children: ReactNode;
@@ -13,6 +17,7 @@ interface Props {
 export function GlobalWrapper(props: Props) {
 	const user = useAppSelector((state) => state.connection.user);
 	const dispatch = useAppDispatch();
+	const {t} = useTranslation();
 
 	useEffect(() => {
 		function handleStorage(event: StorageEvent) {
@@ -65,6 +70,20 @@ export function GlobalWrapper(props: Props) {
 			}
 		}
 	}, [dispatch, user]);
+
+	useEffect(() => {
+		console.log("setting a listener");
+		 const listener = setSocketListener(SOCKET_EVENT_SERVER.ALERT_SENT, (payload) => {
+			//@ts-ignore
+			toast(t("alerts." + payload.code), {
+				type: "warning"
+			})
+		 })
+
+		 return () => {
+			listener.off();
+		 }
+	}, [])
 
 
 

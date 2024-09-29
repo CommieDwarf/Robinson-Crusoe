@@ -593,7 +593,9 @@ export const resources = {
                 [ALERT_CODE.NOT_ENOUGH_DETERMINATION_FOR_ABILITY]: "Brakuje punktów determinacji do użycia tej umiejętności.",
                 [ALERT_CODE.BEAST_DECK_IS_EMPTY]: "Stos z bestiami jest pusty.",
                 [ALERT_CODE.PLAYERS_NOT_READY_FOR_ACTION]: "Gracze muszą zgłosić gotowość",
-                [ALERT_CODE.CHANGE_PHASE_IS_PRIME_PLAYER_ACTION]: "Zmianę fazy podejmuje pierwszy gracz"
+                [ALERT_CODE.CHANGE_PHASE_IS_PRIME_PLAYER_ACTION]: "Zmianę fazy podejmuje pierwszy gracz",
+                [ALERT_CODE.MISSING_PAWN_LEADER]: "Brakuje pionka na głównym slocie akcji",
+                [ALERT_CODE.MISSING_PAWN_HELPER]: "Brakuje pionków pomocniczych",
             },
             pickObject: {
                 [ABILITY.RECONNAISSANCE]: {

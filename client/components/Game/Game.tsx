@@ -53,7 +53,6 @@ import { ControlPanel } from "./UI/ControlPanel/ControlPanel";
 import { socketEmitAction } from "../../middleware/socketMiddleware";
 import { PlayerList } from "./UI/PlayerList/PlayerList";
 import { DraggableWindow } from "./UI/DraggableWindow/DraggableWindow";
-import { Alerts } from "./UI/Alerts/Alerts";
 import { GameOptions } from "./UI/GameOptions/GameOptions";
 import { Guide } from "./UI/Guide/Guide";
 
@@ -418,7 +417,6 @@ export default function Game(props: Props) {
 				</div>
 				<div className={styles.chatLog}>
 					<ChatLog enableLog={true} />
-					<Alerts />
 				</div>
 
 				<Weather />
