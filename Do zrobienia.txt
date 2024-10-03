@@ -15,12 +15,15 @@ zoomowanie rozwala layout faz (rozwinane menu) oraz kart pomyslow/mystery/przedm
 server list ciągle przedstawia ikone oznaczająca ze wczytuje liste
 nie widać serwerów w server list
 error handling na cliencie.
-ikony faz w logchat sie nie wyswietlaja
+
 tlumaczenie przyciskow w mystery card draw i aventure.
 animacja kości jest renderowana 2 razy
-wyświetlaj alert kiedy gracz chce wykonac faze akcji bez pionka na slocie lidera.
+route guard nie pozwala zalogowanemu isc do /multiplayer
 
 
+
+ikony faz w logchat sie nie wyswietlaja x
+wyświetlaj alert kiedy gracz chce wykonac faze akcji bez pionka na slocie lidera.x
 napraw animacje dodawania i odejmowania wartości liczbowych surowców i innych statystyk. x
 dodaj przycisk do zamykania listy graczy.x
 dodac log wiadomosci o połączącym/rozłączonym graczu. x
