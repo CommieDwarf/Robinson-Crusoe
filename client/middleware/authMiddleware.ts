@@ -11,6 +11,7 @@ export function authMiddleware(request: NextRequest) {
         console.log("cookie - ", cookie);
         console.log("valid -", cookie && isTokenValid(cookie.value));
         if (!cookie || !isTokenValid(cookie.value)) {
+            console.log("token isn't valid. redirecting");
             return NextResponse.redirect(new URL('/signIn', request.url));
         }
     }

@@ -21,12 +21,6 @@ export function GlobalWrapper(props: Props) {
 
 	useEffect(() => {
 		function handleStorage(event: StorageEvent) {
-			console.log(
-				"storage event fired!",
-				event.key,
-				event.newValue,
-				event
-			);
 			if (event.key === "emailVerified" && event.newValue !== null) {
 				const token = getAuthToken();
 				if (token) {

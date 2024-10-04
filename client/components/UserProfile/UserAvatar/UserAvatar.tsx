@@ -23,7 +23,6 @@ export function UserAvatar(props: Props) {
 		);
 
 		if (storageSvg) {
-            console.log("getting from storage!")
 			setAvatarUrl(svgToUrl(storageSvg));
 			return;
 		}

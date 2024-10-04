@@ -1,7 +1,8 @@
 const dev = process.env.NODE_ENV !== "production";
 
 const config = {
-    SERVER_URL: dev ? "http://localhost:3030" : "https://board-game-gnyu.onrender.com"
+    // SERVER_URL: dev ? process.env.DEV_SERVER_URL  || "dev server url" : process.env.PROD_SERVER_URL || "prod server url"
+    SERVER_URL: "http://localhost:3030"
 }
 
 console.log("config", config);

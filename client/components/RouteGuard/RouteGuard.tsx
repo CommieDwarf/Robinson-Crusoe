@@ -17,10 +17,13 @@ const RouteGuard: React.FC<Props> = ({children}) => {
 
     useEffect(() => {
          if (user && !user.emailVerified && !router.pathname.includes("email-activation")) {
+            console.log("A")
             router.push("/verify-your-email")
         } else if (user && user.emailVerified && router.pathname.includes("verify-your-email")) {
+            console.log("B")
             router.push("/");
         } else if (user && user.emailVerified && router.pathname.includes("email-activation")) {
+            console.log("C")
             router.push("/");
         }
         

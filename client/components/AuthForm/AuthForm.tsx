@@ -122,10 +122,10 @@ export default function AuthForm(props: Props) {
 		if (authToken) {
 			const user = await fetchUser(authToken);
 			dispatch(userUpdated(user));
-			Cookies.set("Authorization", authToken);
+			Cookies.set("Authorization", authToken, { path: '/', sameSite: 'Lax' });
 			if (user.emailVerified) {
 				dispatch(socketConnect({ authToken }));
-				router.push("/").catch((e) => console.error(e));
+				router.push('/').then(() => window.location.reload()).catch((e) => console.error(e));
 			} else {
 				router.push("/verify-your-email");
 			}
