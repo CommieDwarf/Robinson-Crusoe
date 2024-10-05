@@ -10,6 +10,7 @@ import {ActionHandler, BaseController, GameControllerInterface} from "../../shar
 import {CONTROLLER_ACTION, OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {INVENTION, INVENTION_PERSONAL} from "@shared/types/Game/InventionService/Invention";
 import {SaveAction} from "@shared/types/SaveGame";
+import { ACTION } from "@shared/types/Game/ACTION";
 
 
 export enum STORAGE_ACTION {
@@ -53,10 +54,10 @@ export class GameController implements GameControllerInterface, BaseController {
     }
 
     private testStuff() {
-        const char = this._game.characterService.playerCharacters[0];
+        const char = this._game.characterService.playerCharacters[0];   
 
-
-
+        this._game.actionService.setAdventureToken(ACTION.BUILD, true, "test");
+        
     }
 
     private initActionHandlers() {

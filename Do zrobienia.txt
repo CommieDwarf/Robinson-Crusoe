@@ -16,10 +16,7 @@ server list ciągle przedstawia ikone oznaczająca ze wczytuje liste
 nie widać serwerów w server list
 error handling na cliencie.
 
-tlumaczenie przyciskow w mystery card draw i aventure.
-
-
-
+tlumaczenie przyciskow w mystery card draw i aventure. x
 animacja kości jest renderowana 2 razy x
 route guard nie pozwala zalogowanemu isc do /multiplayer x
 ikony faz w logchat sie nie wyswietlaja x

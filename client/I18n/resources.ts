@@ -642,7 +642,8 @@ export const resources = {
                 "cancel": "anuluj",
                 "ability": "umiejętność",
                 "draw": "dobierz",
-                "finish": "zakońćz"
+                "finish": "zakończ",
+                "shuffle": "wtasuj",
             },
             menu: {
                 "refresh": "odśwież",
