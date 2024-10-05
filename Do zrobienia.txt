@@ -18,10 +18,9 @@ error handling na cliencie.
 
 tlumaczenie przyciskow w mystery card draw i aventure.
 animacja kości jest renderowana 2 razy
-route guard nie pozwala zalogowanemu isc do /multiplayer
 
 
-
+route guard nie pozwala zalogowanemu isc do /multiplayer x
 ikony faz w logchat sie nie wyswietlaja x
 wyświetlaj alert kiedy gracz chce wykonac faze akcji bez pionka na slocie lidera.x
 napraw animacje dodawania i odejmowania wartości liczbowych surowców i innych statystyk. x

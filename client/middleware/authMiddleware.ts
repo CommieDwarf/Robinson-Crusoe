@@ -1,3 +1,4 @@
+import config from "../config";
 import {isTokenValid} from "../utils/auth/isTokenValid";
 import {NextRequest, NextResponse} from "next/server";
 

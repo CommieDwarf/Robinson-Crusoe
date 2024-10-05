@@ -92,6 +92,7 @@ export class EventHandler {
 
 		if (!error) {
 			const handler = this._eventMap.get(event);
+			
 			if (handler) {
 				if (event !== SOCKET_EVENT_CLIENT.PONG) {
 					console.log("handling event: ", event);
@@ -145,6 +146,7 @@ export class EventHandler {
 				this.emitSessionChanged(sessionId);
 			});
 		});
+		this._sessionService.removeFromActiveUsers(this._user.id);
 	}
 
 	private handleSaveGame = async (
