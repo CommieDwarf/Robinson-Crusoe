@@ -47,7 +47,7 @@ export function SessionList(props: Props) {
 		return () => {
 			listeners.forEach((listener) => listener.off());
 		};
-	}, [props]);
+	}, []);
 
 	return (
 		<div className={styles.container}>
