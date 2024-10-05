@@ -6,19 +6,16 @@ kontynuuj pisanie guide'a
 zrób zakonczenie gry 
 popraw obszar postaci pobocznych
 Jesli friday + gracz robi akcje, gracz ma być liderem.
-Okno pogody do przerobienia.
-u dejnia ikonki determinacji i tymczasowej broni były malutkie
 zoomowanie rozwala layout faz (rozwinane menu) oraz kart pomyslow/mystery/przedmiotow
+Okno pogody do przerobienia.
 
 
 error handling na cliencie.
 
-server list ciągle przedstawia ikone oznaczająca ze wczytuje liste
 
-
-nie widać serwerów w server list
-
-
+u dejnia ikonki determinacji i tymczasowej broni były malutkie x
+server list ciągle przedstawia ikone oznaczająca ze wczytuje liste x
+nie widać serwerów w server list x
 tlumaczenie przyciskow w mystery card draw i aventure. x
 animacja kości jest renderowana 2 razy x
 route guard nie pozwala zalogowanemu isc do /multiplayer x
