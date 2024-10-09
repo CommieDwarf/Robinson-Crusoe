@@ -1,5 +1,5 @@
 import {io} from "socket.io-client"
-import {ServerPayloadMap, SOCKET_EVENT_SERVER} from "@shared/types/Requests/Socket";
+import {ServerPayloadMap} from "@shared/types/Requests/Socket";
 import config from "../../config";
 import {socket} from "../../store/store";
 
