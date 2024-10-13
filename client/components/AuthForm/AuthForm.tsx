@@ -83,7 +83,6 @@ export default function AuthForm(props: Props) {
 	async function signIn() {
 		const body: LoginReqBody = { email, password };
 		const url = `${config.SERVER_URL}/login`;
-		alert("fetching " + url);
 		const response = await fetch(url, {
 			method: "post",
 			body: JSON.stringify(body),
