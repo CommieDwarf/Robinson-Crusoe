@@ -1,4 +1,4 @@
-import { MissingHelperError } from './../../Game/Errors/MissingHelperError';
+import { MissingHelperError } from "./../../Game/Errors/MissingHelperError";
 import { ClientPayloadMap } from "./../../../shared/types/Requests/Socket";
 import { Server, Socket } from "socket.io";
 import { IUser } from "../../../shared/types/User/IUser";
@@ -92,7 +92,7 @@ export class EventHandler {
 
 		if (!error) {
 			const handler = this._eventMap.get(event);
-			
+
 			if (handler) {
 				if (event !== SOCKET_EVENT_CLIENT.PONG) {
 					console.log("handling event: ", event);
@@ -108,6 +108,39 @@ export class EventHandler {
 				code: ERROR_CODE.INVALID_PAYLOAD,
 				message: error.details.toString(),
 			});
+		}
+	}
+
+	private handleRestartGame(
+		payload: ClientPayloadMap[SOCKET_EVENT_CLIENT.RESTART_GAME]
+	) {
+		try {
+			const session = this.findSession(payload.sessionId);
+			if (this.validateSession(session) && this.validateHost(session)) {
+				session.restartGame();
+				this.emitSessionChanged(session.id);
+				this.socketRoomEmit(
+					SOCKET_EVENT_SERVER.GAME_RESTARTED,
+					null,
+					session.id
+				);
+			}
+		} catch (e) {
+			throw e;
+		}
+	}
+
+	private handleTerminateGame(
+		payload: ClientPayloadMap[SOCKET_EVENT_CLIENT.TERMINATE_GAME]
+	) {
+		try {
+			const session = this.findSession(payload.sessionId);
+			if (this.validateSession(session) && this.validateHost(session)) {
+				session.terminateGame();
+				this.emitSessionChanged(session.id);
+			}
+		} catch (e) {
+			throw e;
 		}
 	}
 
@@ -144,16 +177,20 @@ export class EventHandler {
 		this._user.onSocketDisconnect(this._socket, (sessionIds) => {
 			sessionIds.forEach((sessionId) => {
 				this.emitSessionChanged(sessionId);
+				this._sessionService.removeFromActiveUsers(this._user.id);
 			});
 		});
-		this._sessionService.removeFromActiveUsers(this._user.id);
 	}
 
 	private handleSaveGame = async (
 		payload: ClientPayloadMap[SOCKET_EVENT_CLIENT.SAVE_GAME]
 	) => {
 		const session = this.findSession(payload.sessionId);
-		if (this.validateSession(session) && session.isHost(this._user.id)) {
+		if (
+			this.validateSession(session) &&
+			session.isHost(this._user.id) &&
+			session.getGame()?.isFinished === false
+		) {
 			try {
 				await session.save();
 				this.socketRoomEmit(
@@ -363,7 +400,9 @@ export class EventHandler {
 	) => {
 		const session = this.findSession(payload.sessionId);
 		if (this.validateSession(session)) {
-			const users = this._sessionService.getAllUsersFromSession(session.id);
+			const users = this._sessionService.getAllUsersFromSession(
+				session.id
+			);
 			this._sessionService.leaveSession(this._user, payload.sessionId);
 			this._socket.leave(payload.sessionId);
 			this.emitGameInProgressListChanged(users);
@@ -376,19 +415,18 @@ export class EventHandler {
 		payload: ClientPayloadMap[SOCKET_EVENT_CLIENT.JOIN_SESSION]
 	) => {
 		try {
-
 			const session = this.findSession(payload.sessionId);
-		if (!session) {
-			this.emitConnectionError(
-				SESSION_CONNECTION_ERROR_CODE.SESSION_NOT_FOUND
-			);
-			return;
-		}
+			if (!session) {
+				this.emitConnectionError(
+					SESSION_CONNECTION_ERROR_CODE.SESSION_NOT_FOUND
+				);
+				return;
+			}
 
 			let password = payload.password;
 			if (session.usersPlayerExist(this._user.id)) {
 				password = session.settings.password;
-;			}
+			}
 			this._sessionService.joinSession(
 				this._user,
 				payload.sessionId,
@@ -400,7 +438,9 @@ export class EventHandler {
 				sessionId: payload.sessionId,
 			});
 			this.emitSessionChanged(session.id);
-			this.emitGameInProgressListChanged(this._sessionService.getAllUsersFromSession(session.id));
+			this.emitGameInProgressListChanged(
+				this._sessionService.getAllUsersFromSession(session.id)
+			);
 			this.emitSessionListChanged();
 		} catch (error) {
 			if (error instanceof SessionConnectError) {
@@ -434,7 +474,8 @@ export class EventHandler {
 					actionData.actionType,
 					...actionData.arguments
 				);
-			this.emitSessionChanged(session.id);
+
+				this.emitSessionChanged(session.id);
 			} catch (e) {
 				if (e instanceof MissingLeaderError) {
 					this.emitAlertSent(ALERT_CODE.MISSING_PAWN_LEADER);
@@ -442,7 +483,6 @@ export class EventHandler {
 					this.emitAlertSent(ALERT_CODE.MISSING_PAWN_HELPER);
 				}
 			}
-			
 		}
 	};
 
@@ -556,6 +596,14 @@ export class EventHandler {
 		return true;
 	}
 
+	private validateHost(session: SessionData) {
+		if (!session.isHost(this._user.id)) {
+			this.emitError(ERROR_CODE.HOST_ONLY_ACTION);
+			return false;
+		}
+		return true;
+	}
+
 	private validateData<T extends SOCKET_EVENT_CLIENT>(
 		event: T,
 		payload: ClientPayloadMap[T]
@@ -574,14 +622,14 @@ export class EventHandler {
 
 	private emitGameInProgressListChanged(users: IUser[]) {
 		users.forEach((user) => {
-				user.sockets.forEach((socket) => {
-					this.socketEmit(
-						SOCKET_EVENT_SERVER.GAME_IN_PROGRESS_LIST_CHANGED,
-						null,
-						socket
-					);
-				});
+			user.sockets.forEach((socket) => {
+				this.socketEmit(
+					SOCKET_EVENT_SERVER.GAME_IN_PROGRESS_LIST_CHANGED,
+					null,
+					socket
+				);
 			});
+		});
 	}
 
 	private emitSessionListChanged() {
@@ -593,10 +641,7 @@ export class EventHandler {
 	}
 
 	private emitAlertSent(alertCode: ALERT_CODE) {
-		this.socketEmit(
-			SOCKET_EVENT_SERVER.ALERT_SENT,
-			{code: alertCode}
-		)
+		this.socketEmit(SOCKET_EVENT_SERVER.ALERT_SENT, { code: alertCode });
 	}
 
 	private initEventMap() {
@@ -636,6 +681,8 @@ export class EventHandler {
 				disconnect: this.handleDisconnect,
 				[SOCKET_EVENT_CLIENT.SEND_GAME_IN_PROGRESS_LIST]:
 					this.handleSendGameInProgressList,
+				[SOCKET_EVENT_CLIENT.RESTART_GAME]: this.handleRestartGame,
+				[SOCKET_EVENT_CLIENT.TERMINATE_GAME]: this.handleTerminateGame,
 			})
 		);
 	}

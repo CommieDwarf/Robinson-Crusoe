@@ -37,7 +37,7 @@ import {IConstructionService} from "@shared/types/Game/ConstructionService/ICons
 import {IEventService} from "@shared/types/Game/EventService/EventService";
 import {IInventionService} from "@shared/types/Game/InventionService/InventionService";
 import {IMorale} from "@shared/types/Game/Morale/Morale";
-import {IScenarioService} from "@shared/types/Game/ScenarioService/ScenarioService";
+import {IScenarioService, SCENARIO_STATUS} from "@shared/types/Game/ScenarioService/ScenarioService";
 import {IActionService} from "@shared/types/Game/ActionService/ActionService";
 import {IActionSlotService, IActionSlotServiceRenderData} from "@shared/types/Game/ActionSlots";
 import {ILogService} from "@shared/types/Game/ChatLog/ChatLog";
@@ -52,14 +52,14 @@ import seedrandom from "seedrandom";
 import {ITokenService} from "@shared/types/Game/TokenService/TokenService";
 import {IGlobalPawnService} from "@shared/types/Game/GlobalPawnService/GlobalPawnService";
 import {uuid} from "uuidv4";
+import { EndGameSummary } from "@shared/types/Game/GameSummary/GameSummary";
 
 
 export class GameClass implements IGame {
+
     get id(): string {
         return this._id;
     }
-
-
     private readonly _rng: seedrandom.PRNG
     private readonly _logService: ILogService
     private readonly _actionService: ActionService
@@ -86,11 +86,12 @@ export class GameClass implements IGame {
     private readonly _globalPawnService: IGlobalPawnService
 
     private readonly _tileService: ITileService
-    private _gameStatus: GAME_STATUS = GAME_STATUS.IN_PROGRESS;
 
     private _objectPickers: ObjectPicker<any>[] = [];
     private readonly _seed: string;
     private readonly _id: string;
+    private _endGameSummary: EndGameSummary | null = null;
+
 
     public randomCounter = 0;
 
@@ -166,7 +167,13 @@ export class GameClass implements IGame {
             actionSlotService: this._actionSlotService.renderData,
             objectPickers: this._objectPickers.map((objPicker) => objPicker.renderData),
             primePlayer: this._playerService.primePlayer.renderData,
+            endGameSummary: this._endGameSummary,
+            isFinished: this.isFinished,
         };
+    }
+
+    get isFinished(): boolean {
+        return this.scenarioStatus !== SCENARIO_STATUS.PENDING;
     }
 
     get mysteryService(): IMysteryService {
@@ -267,16 +274,16 @@ export class GameClass implements IGame {
     }
 
 
-    get gameStatus(): GAME_STATUS {
-        return this._gameStatus;
-    }
-
     get areObjectsBeingPicked(): boolean {
         return this._objectPickers.length !== 0;
     }
 
     get seed(): string {
         return this._seed;
+    }
+
+    get scenarioStatus(): SCENARIO_STATUS {
+        return this._scenarioService.status;
     }
 
     public getRandomNumber = () => {
@@ -329,25 +336,29 @@ export class GameClass implements IGame {
     setNextRound() {
         this._round++;
     }
+    
+    public saveEndGameSummary() {
+        if (this._scenarioService.status === SCENARIO_STATUS.PENDING) {
+            throw new Error("Tried to get game summary from ongoing game");
+        }
 
-    setGameStatus(status: GAME_STATUS.WON | GAME_STATUS.LOST, logSource: string = "") {
-        this._gameStatus = status;
-        if (status === GAME_STATUS.LOST) {
-            this._logService.addMessage({
-                code: LOG_CODE.GAME_LOST,
-                subject1: "",
-                subject2: "",
-                amount: 0,
-            }, "negative", logSource);
+        let defeatReason: EndGameSummary["defeatReason"];
+
+        if (this.scenarioStatus == SCENARIO_STATUS.WIN) {
+            defeatReason = null;
+        } else if (this._characterService.isAnyPlayerDead) {
+            defeatReason = "death";
         } else {
-            this._logService.addMessage({
-                code: LOG_CODE.GAME_WON,
-                subject1: "",
-                subject2: "",
-                amount: 0,
-            }, "positive", logSource);
+            defeatReason = "failedObjective";
+        }
+
+        const lastRound = this._scenarioService.lastRound;
+        
+        this._endGameSummary = {
+            roundsSurvived: this.round > lastRound ? lastRound : this.round,
+            status: this._scenarioService.status,
+            defeatReason,
+            players: this._playerService.players.map((player) => player.renderData)
         }
     }
-
-
 }

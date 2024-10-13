@@ -12,7 +12,6 @@ export async function fetchUser(authToken: string) {
         mode: "cors"
     });
     if (!response.ok) {
-        console.log(response);
         throw new Error("Couldn't fetch user data.");
     }
     const json = await response.json();

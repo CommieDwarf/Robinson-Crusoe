@@ -37,9 +37,6 @@ export const socketEmit = <T extends SOCKET_EVENT_CLIENT>(
 	event: T,
 	payload: ModifiedPayload<T>
 ): SocketEmitAction<T> => {
-	if (!event) {
-		console.error("event is " + event);
-	}
 
 	return {
 		type: SOCKET_EMIT,

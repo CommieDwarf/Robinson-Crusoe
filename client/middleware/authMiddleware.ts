@@ -9,10 +9,7 @@ export function authMiddleware(request: NextRequest) {
 
     if (requiresAuth) {
         const cookie = request.cookies.get("Authorization");
-        console.log("cookie - ", cookie);
-        console.log("valid -", cookie && isTokenValid(cookie.value));
         if (!cookie || !isTokenValid(cookie.value)) {
-            console.log("token isn't valid. redirecting");
             return NextResponse.redirect(new URL('/signIn', request.url));
         }
     }

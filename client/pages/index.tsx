@@ -16,10 +16,7 @@ const Home: NextPage = () => {
 
     useEffect(() => {
         if (!connected) {
-            console.log("should be pushin")
             router.push("/signIn");
-        } else {
-            console.log("not pushing")
         }
     
     }, [router, connected])

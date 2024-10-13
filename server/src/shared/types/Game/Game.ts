@@ -22,7 +22,7 @@ import {
     IArrangeCampRestService,
     IArrangeCampRestServiceRenderData,
 } from "./RestArrangeCampService/ArrangeCampRestService";
-import {IScenarioService, IScenarioServiceRenderData,} from "./ScenarioService/ScenarioService";
+import {IScenarioService, IScenarioServiceRenderData, SCENARIO_STATUS,} from "./ScenarioService/ScenarioService";
 import {ITokenService, ITokenServiceRenderData,} from "./TokenService/TokenService";
 import {IAdventureService, IAdventureServiceRenderData,} from "./AdventureService/AdventureService";
 import {IMysteryService, IMysteryServiceRenderData,} from "./MysteryService/MysteryService";
@@ -35,12 +35,11 @@ import {
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 import {IGlobalPawnService, IGlobalPawnServiceRenderData} from "@shared/types/Game/GlobalPawnService/GlobalPawnService";
 import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction";
+import { EndGameSummary } from "./GameSummary/GameSummary";
 
 export enum GAME_STATUS {
     IN_LOBBY = "in lobby",
     IN_PROGRESS = "in progress",
-    LOST = "lost",
-    WON = "won",
 }
 
 export interface IGameRenderData {
@@ -60,6 +59,8 @@ export interface IGameRenderData {
     logs: ILogMessageRenderData[];
     actionService: IActionServiceRenderData;
 
+    isFinished: boolean;
+
     actionSlotService: IActionSlotServiceRenderData;
 
     alertService: IAlertServiceRenderData;
@@ -71,6 +72,8 @@ export interface IGameRenderData {
     mysteryService: IMysteryServiceRenderData;
     objectPickers: IObjectPickerRenderData<any>[];
     primePlayer: IPlayerRenderData;
+
+    endGameSummary: EndGameSummary | null;
 }
 
 export interface IGame {
@@ -78,6 +81,12 @@ export interface IGame {
     id: string;
     round: number;
     seed: string;
+
+    scenarioStatus: SCENARIO_STATUS;
+
+    isFinished: boolean;
+
+
     playerService: IPlayerService;
     characterService: ICharacterService;
     tileService: ITileService;
@@ -104,15 +113,13 @@ export interface IGame {
 
     areObjectsBeingPicked: boolean;
 
-    gameStatus: GAME_STATUS;
 
     adventureService: IAdventureService;
     mysteryService: IMysteryService;
 
     randomCounter: number;
 
-
-    setGameStatus: (status: GAME_STATUS.WON | GAME_STATUS.LOST, reason?: string) => void;
+    saveEndGameSummary: () => void;
 
     getRandomNumber: () => number;
 

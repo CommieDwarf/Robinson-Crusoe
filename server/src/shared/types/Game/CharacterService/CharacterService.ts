@@ -16,9 +16,16 @@ export interface ICharacterService {
 
     healableCharacters: ICharacter[];
 
+
     dog: ISideCharacter;
     friday: ISideCharacter;
     thresholdAmountForRemoval: number;
+
+    isAnyPlayerDead: boolean; 
+
+    renderData: ICharacterServiceRenderData;
+
+
     removeFreePawn: (charName: string, draggableId: string) => void;
     removePawn: (charName: string, draggableId: string) => void;
     addPawn: (charName: string, draggableId: string) => void;
@@ -31,7 +38,6 @@ export interface ICharacterService {
         logSource: string
     ) => void;
     incrDeterminationAllCharacters: (amount: number, logSource: string) => void;
-    renderData: ICharacterServiceRenderData;
     hurt: (
         charOrName: string | ICharacter,
         by: number,

@@ -26,12 +26,14 @@ function Construction(props: Props) {
     const dispatch = useAppDispatch();
 
     const naturalShelter = useAppSelector((state) => {
-        return selectGame(state)!.tileService.campTile.tileResourceService?.extras.naturalShelter || false
+        return selectGame(state)?.tileService.campTile.tileResourceService?.extras.naturalShelter || false
     })
 
     const ownedResourcesAmount = useAppSelector((state) => {
-        return selectGame(state)!.resourceService.owned.basic!
+        return selectGame(state)?.resourceService.owned.basic;
     })
+
+    if (!ownedResourcesAmount) return null;
 
     const hideActionSlots = props.construction.lvl > 0 && props.construction.name === CONSTRUCTION.SHELTER;
 

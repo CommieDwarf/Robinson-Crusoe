@@ -9,6 +9,7 @@ import { setSocketListener } from "../pages/api/socket";
 import { SOCKET_EVENT_SERVER } from "@shared/types/Requests/Socket";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import { useRouter } from "next/router";
 
 interface Props {
 	children: ReactNode;
@@ -17,14 +18,15 @@ interface Props {
 export function GlobalWrapper(props: Props) {
 	const user = useAppSelector((state) => state.connection.user);
 	const dispatch = useAppDispatch();
-	const {t} = useTranslation();
+	const { t } = useTranslation();
+
+	const router = useRouter();
 
 	useEffect(() => {
 		function handleStorage(event: StorageEvent) {
 			if (event.key === "emailVerified" && event.newValue !== null) {
 				const token = getAuthToken();
 				if (token) {
-					console.log("fetching user");
 					fetchUser(token).then((user) => {
 						dispatch(userUpdated(user));
 					});
@@ -41,9 +43,6 @@ export function GlobalWrapper(props: Props) {
 
 	useEffect(() => {
 		const authenticated = isAuthenticated();
-		console.log("use Effect");
-		console.log("authenticated", authenticated);
-		console.log("user", user);
 		if (authenticated && !user) {
 			const token = getAuthToken() as string;
 			fetchUser(token).then((response) => {
@@ -54,32 +53,42 @@ export function GlobalWrapper(props: Props) {
 
 	useEffect(() => {
 		if (user) {
-			console.log("use Effect");
 			const token = getAuthToken();
-			console.log("auth token", token);
-			console.log("user", user);
 			if (token && user.emailVerified) {
-				console.log("dispatching socketConnect");
 				dispatch(socketConnect({ authToken: token }));
 			}
 		}
 	}, [dispatch, user]);
 
 	useEffect(() => {
-		console.log("setting a listener");
-		 const listener = setSocketListener(SOCKET_EVENT_SERVER.ALERT_SENT, (payload) => {
-			//@ts-ignore
-			toast(t("alerts." + payload.code), {
-				type: "warning"
-			})
-		 })
+		const listener = setSocketListener(
+			SOCKET_EVENT_SERVER.ALERT_SENT,
+			(payload) => {
+				//@ts-ignore
+				toast(t("alerts." + payload.code), {
+					type: "warning",
+				});
+			}
+		);
 
-		 return () => {
+		return () => {
 			listener.off();
-		 }
-	}, [])
+		};
+	}, []);
 
+	// useEffect(() => {
+	// 	const handleRouteChange = (url: string) => {
+	// 		if (url.includes("play") && !url.includes("multiplayer")) {
+	// 		}
+	// 		alert(url);
+	// 		console.error(new Error());
+	// 	};
+	// 	router.events.on("routeChangeStart", handleRouteChange);
 
+	// 	return () => {
+	// 		router.events.off("routeChangeStart", handleRouteChange);
+	// 	};
+	// }, [router]);
 
 	return <>{props.children}</>;
 }

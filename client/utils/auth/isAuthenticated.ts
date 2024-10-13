@@ -9,7 +9,6 @@ export function isAuthenticated() {
             return false;
         }
         const currentTimestampInSeconds = Date.now() / 1000;
-        console.log(decoded);
         return !decoded.exp || (decoded.exp && decoded.exp > currentTimestampInSeconds)
     }
     return false;

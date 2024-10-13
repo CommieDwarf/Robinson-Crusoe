@@ -6,6 +6,15 @@
     border-radius: 5px;
     box-shadow: inset 0px 0px 10px -5px var(--brown);
     cursor: grab;
+    overflow: hidden;
+}
+
+.topLayer {
+    z-index: 9999999999999999;
+}
+
+.showOverflow {
+    overflow: visible;
 }
 
 .close {

@@ -1,0 +1,40 @@
+.container {
+    width: 400px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 10px;
+    text-align: center;
+    font-size: 15px;
+}
+
+.status {
+    font-family: "Kaz";
+    font-size: 2rem;
+}
+
+.statusWin {
+    color: green;
+}
+
+.statusDefeat {
+    color: var(--hunt);
+}
+
+
+.status {
+    font-size: 30px;
+}
+
+.narrative {
+    font-style: italic;
+}
+
+.summary {
+
+}
+
+.buttonWrapper {
+}
+

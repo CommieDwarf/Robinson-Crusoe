@@ -2,10 +2,7 @@
     height: 50em;
     aspect-ratio: 2;
     aspect-ratio: 2;
-    position: absolute;
-    background-image: url("../../../../public/UI/paper-background.png");
     background-size: cover;
-    border: 1px solid black;
     z-index: 9999;
     color: var(--brown);
 }

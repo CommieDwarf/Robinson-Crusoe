@@ -73,10 +73,10 @@ function Threat(props: StateProps & Props) {
 }
 
 const mapStateToProps = (state: RootState, props: Props) => {
-    const game = selectGame(state)!;
+    const game = selectGame(state);
     return {
-        leftSlot: game.eventService.leftSlot,
-        rightSlot: game.eventService.rightSlot,
+        leftSlot: game?.eventService.leftSlot || null,
+        rightSlot: game?.eventService.rightSlot || null,
         ...props,
     }
 };

@@ -18,7 +18,7 @@ import actionIconImg from "/public/UI/phase/action.png";
 import {capitalize, kebabCase} from "lodash";
 import {useTranslation} from "react-i18next";
 import {useAppDispatch, useAppSelector} from "../../../../store/hooks";
-import {selectGame} from "../../../../reduxSlices/gameSession";
+import {selectActionService, selectGame} from "../../../../reduxSlices/gameSession";
 import {socketEmitAction} from "../../../../middleware/socketMiddleware";
 import Entries from "@shared/types/Entries";
 import {getCharacterRerollAbility} from "./getReRollAbility";
@@ -27,7 +27,8 @@ import {ReRollButton} from "./ReRollButton/ReRollButton";
 
 export const ActionResolveWindow = () => {
     let containerRef = React.createRef<HTMLDivElement>();
-    const actionService = useAppSelector(state => selectGame(state)!.actionService!);
+    const actionService = useAppSelector(state => selectActionService(state));
+    if (!actionService) return null;
     const localPlayerCharName = useAppSelector(state => state.gameSession.data?.localPlayer.character?.name);
 
     const [resolvedItems, setResolvedItems] = useState<Map<string, boolean>>(
@@ -60,7 +61,7 @@ export const ActionResolveWindow = () => {
 
 
     function onReRollButtonClick() {
-        if (reRollButtonClicked) {
+        if (reRollButtonClicked || !actionService) {
             return;
         }
         const leader = actionService.lastRolledItem?.leaderPawn.owner as ICharacterRenderData;
@@ -116,6 +117,9 @@ export const ActionResolveWindow = () => {
 
     function rollDices(actionItem: string) {
         const item = getResolvableItem(actionItem);
+        if (!item) {
+            return;
+        }
         setReRolledDice(null);
         if (
             item.shouldRollDices &&
@@ -126,6 +130,9 @@ export const ActionResolveWindow = () => {
     }
 
     function setItemResolved(actionId: string) {
+        if (!actionService) {
+            return;
+        }
         if (actionId !== actionService.lastRolledItem?.id) {
             setReRolledDice(null);
         }
@@ -140,6 +147,9 @@ export const ActionResolveWindow = () => {
 
 
     function getResolvableItem(id: string) {
+        if (!actionService) {
+            return;
+        }
         const item = actionService.resolvableItems.find(
             (resItem) => resItem.id === id
         );

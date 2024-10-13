@@ -54,7 +54,6 @@ export const RollDiceAnimation = (props: Props) => {
             throw new Error("result is " + result);
         }
 
-        console.log("SETTING NEW RESULT +++++++++++", result);
         dice.setNewResult(result);
         setAnimationDone(false);
 
@@ -209,7 +208,6 @@ export const RollDiceAnimation = (props: Props) => {
             let finished = true;
             diceMapRef.current.forEach((dice) => {
                 if (!dice.finished) {
-                    console.log(dice);
                     finished = false;
                     dice.rotate();
                 }

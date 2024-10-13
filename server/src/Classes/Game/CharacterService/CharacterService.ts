@@ -58,6 +58,10 @@ export class CharacterService implements ICharacterService {
         return this._thresholdAmountForRemoval;
     }
 
+    get isAnyPlayerDead() {
+        return this.playerCharacters.some((character) => character.health <= 0);
+    }
+
     // -------------------------------------------
 
     removeMoraleThreshold(
@@ -150,6 +154,10 @@ export class CharacterService implements ICharacterService {
             if (char.shouldMoraleDrop) {
                 this._game.moraleService.lvlDown(1, char.name);
             }
+        }
+
+        if (char.health <= 0) {
+            this._game.scenarioService.checkScenarioStatus();
         }
     }
 

@@ -8,6 +8,7 @@ import {ALERT_CODE} from "@shared/types/ALERT_CODE";
 import {PLAYER_COLOR} from "@shared/types/Game/PLAYER_COLOR";
 import { ERROR_CODE } from '../Errors/ERROR';
 import { SaveOverview } from '../SaveGame';
+import { EndGameSummary } from '../Game/GameSummary/GameSummary';
 
 export enum SOCKET_EVENT_CLIENT {
     EXECUTE_PLAYER_ACTION = "execute player action",
@@ -34,6 +35,8 @@ export enum SOCKET_EVENT_CLIENT {
     SAVE_GAME = "save game",
     LOAD_SAVE = "load save",
     DELETE_SAVE = "delete save",
+    RESTART_GAME = "restart game",
+    TERMINATE_GAME = "terminate game",
 }
 
 export enum SOCKET_EVENT_SERVER {
@@ -47,7 +50,7 @@ export enum SOCKET_EVENT_SERVER {
     SESSION_CHANGED = "session changed",
     PLAYER_KICKED = "player kicked",
     PING = "ping",
-    USER_LATENCY_SENT = "players ping sent",
+    USER_LATENCY_SENT = "user latency sent",
     GAME_STARTED = "game started",
     USER_LEFT_LOBBY = "user left lobby",
     GAME_STATUS_SENT = "game status sent",
@@ -59,6 +62,7 @@ export enum SOCKET_EVENT_SERVER {
     ERROR_SENT = "error",
     SAVE_LIST_SENT = "save list sent",
     GAME_SAVED_STATUS = "game saved status",
+    GAME_RESTARTED = "game restarted",
 }
 
 
@@ -133,7 +137,12 @@ export type ClientPayloadMap = {
         code: string,
         password: string,
     },
-
+    [SOCKET_EVENT_CLIENT.RESTART_GAME]: {
+        sessionId: string,
+    },
+    [SOCKET_EVENT_CLIENT.TERMINATE_GAME]: {
+        sessionId: string,
+    }
 }
 
 export type ServerPayloadMap = {
@@ -201,6 +210,7 @@ export type ServerPayloadMap = {
         success: boolean
     },
     [SOCKET_EVENT_SERVER.GAME_IN_PROGRESS_LIST_CHANGED]: any,
+    [SOCKET_EVENT_SERVER.GAME_RESTARTED]: any,
 }
 
 

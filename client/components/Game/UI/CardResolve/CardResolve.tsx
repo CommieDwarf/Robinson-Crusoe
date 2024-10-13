@@ -43,7 +43,8 @@ const CardResolve = (props: Props) => {
 
     const dispatch = useAppDispatch();
 
-    const localPlayer = useAppSelector((state) => state.gameSession.data?.localPlayer)!;
+    const localPlayer = useAppSelector((state) => state.gameSession.data?.localPlayer);
+    if (!localPlayer) return null;
 
     function toggleZoom() {
         setEnlarged((state) => !state);

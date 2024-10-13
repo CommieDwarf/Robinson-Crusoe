@@ -22,17 +22,18 @@ type Props = {};
 
 function Play(props: Props) {
 
-    const gameData = useAppSelector((state) => {
-        return state.gameSession.data?.game;
-    });
     const router = useRouter();
     const {t} = useTranslation();
     const dispatch = useAppDispatch();
     const sessionIdQuery = router.query.sessionId as string;
 
 
+    const session = useAppSelector(state => state.gameSession.data);
     const sessionId = useAppSelector(state => state.gameSession.sessionId);
     const [connectError, setConnectError] = useState<SESSION_CONNECTION_ERROR_CODE | null>(null);
+
+    const [loaded, setLoaded] = useState(false);
+
 
     useEffect(() => {
         const handleRouteChange = (url: string) => {
@@ -51,8 +52,7 @@ function Play(props: Props) {
     useEffect(() => {
         if (sessionId !== sessionIdQuery) {
             dispatch(sessionIdUpdated(sessionIdQuery));
-        } else {
-        }
+        } 
     }, [sessionId, sessionIdQuery, dispatch])
 
     useEffect(() => {
@@ -78,8 +78,8 @@ function Play(props: Props) {
             if (gameSession) {
                 dispatch(gameSessionUpdated(gameSession));
                 dispatch(actionSlotUpdated(gameSession.game?.actionSlotService.slots));
-
                 setConnectError(null);
+                setLoaded(true);
             }
         }))
 
@@ -100,16 +100,19 @@ function Play(props: Props) {
             if (payload.success) {
                 toast(t("toast.game saved"), {
                     type: "success",
-                    theme: "colored"
-                    
                 });
             } else {
                 toast(t("toast.unable to save game"), {
                     type: "error",
-                    theme: "colored"
                 });
             }
         }))
+        listeners.push(setSocketListener(SOCKET_EVENT_SERVER.GAME_RESTARTED, () => {
+            toast(t("toast.game restarted"), {
+                type: "info"
+            })
+        }))
+
         dispatch(socketEmit(SOCKET_EVENT_CLIENT.SEND_SESSION_DATA, {hydrateSessionId: true}))
 
         return () => {
@@ -117,10 +120,21 @@ function Play(props: Props) {
         }
     }, [dispatch, router.isReady, sessionId, sessionIdQuery, t]);
 
+
+    
+    useEffect(() => {
+        if (session && !session.game && loaded) { // Session is in lobby, player is on the wrong page
+            router.push("/multiplayer/lobby/" + session.id);
+        }
+
+    }, [session, loaded])
+
+
+
     return (
         <div className={styles.container}>
-            {gameData && !connectError && <Game/>}
-            {!gameData && !connectError && <Loading/>}
+            {session?.game && !connectError && <Game/>}
+            {!session?.game && !connectError && <Loading/>}
             {connectError && <div>
                 {connectError}
             </div>}

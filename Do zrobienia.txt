@@ -2,8 +2,6 @@ przenieś kiedyś silnik na front-end
 
 kontynuuj pisanie guide'a 
 
-
-zrób zakonczenie gry 
 popraw obszar postaci pobocznych
 Jesli friday + gracz robi akcje, gracz ma być liderem.
 zoomowanie rozwala layout faz (rozwinane menu) oraz kart pomyslow/mystery/przedmiotow
@@ -13,6 +11,15 @@ Okno pogody do przerobienia.
 error handling na cliencie.
 
 
+
+
+powiadomienie o zerwanym połączeniu z serwerem oraz próby reconnectu.
+
+
+zrób case dla DraggableWindow z overflowHidden = false;  x
+popracuj nad designem toastów x
+zrób opcje restartu gry x
+zrób zakonczenie gry x
 u dejnia ikonki determinacji i tymczasowej broni były malutkie x
 server list ciągle przedstawia ikone oznaczająca ze wczytuje liste x
 nie widać serwerów w server list x

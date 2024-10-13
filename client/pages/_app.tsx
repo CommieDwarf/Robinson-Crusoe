@@ -30,6 +30,7 @@ export default function MyApp<Props>({ Component, pageProps }: AppProps) {
 							draggable
 							pauseOnHover={false}
 							transition={Bounce}
+							theme={"colored"}
 						/>
 						<InfoBadge />
 						<Component {...pageProps} />

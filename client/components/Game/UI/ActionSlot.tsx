@@ -99,7 +99,7 @@ function mapStateToProps(state: RootState, props: Props): Props & StateProps {
 	);
 
 	const isSlotMarked =
-		selectGame(state).actionSlotService.markedActionSlotId === props.id;
+		selectGame(state)?.actionSlotService.markedActionSlotId === props.id;
 	return {
 		...props,
 		pawn,

@@ -18,7 +18,6 @@ export function Players(props: Props) {
     const pickedCharacters = props.players.map((player) => player.assignedCharacter.char);
     const duplicatedCharacters = getDuplicatedElements(pickedCharacters);
 
-    console.log(props.players);
     return <div className={styles.container}>
         <div className={styles.playerList}>
             {props.players.map((player) => {

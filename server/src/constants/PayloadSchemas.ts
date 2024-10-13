@@ -117,4 +117,10 @@ export const ClientPayloadSchemas = {
 	[SOCKET_EVENT_CLIENT.DELETE_SAVE]: Joi.object({
 		saveId: Joi.string().required(),
 	}),
+	[SOCKET_EVENT_CLIENT.RESTART_GAME]: Joi.object({
+		sessionId: Joi.string().required(),
+	}),
+	[SOCKET_EVENT_CLIENT.TERMINATE_GAME]: Joi.object({
+		sessionId: Joi.string().required(),
+	})
 };

@@ -14,9 +14,12 @@ import {selectGame} from "../../../../reduxSlices/gameSession";
 
 type Props = {};
 export const WeatherResolveWindow = (props: Props) => {
-    const weatherDices = useAppSelector((state) => selectGame(state).scenarioService.weather!)
-    const currentRound = useAppSelector((state) => selectGame(state).round!);
-    const weatherService = useAppSelector((state) => selectGame(state).weatherService!);
+    const weatherDices = useAppSelector((state) => selectGame(state)?.scenarioService.weather)
+    const currentRound = useAppSelector((state) => selectGame(state)?.round);
+    const weatherService = useAppSelector((state) => selectGame(state)?.weatherService);
+
+    if (!weatherDices || !currentRound || !weatherService) return null;
+
     const [resolved, setResolved] = useState(
         !weatherDices.animals.includes(currentRound) &&
         !weatherDices.rain.includes(currentRound) &&
@@ -26,6 +29,7 @@ export const WeatherResolveWindow = (props: Props) => {
     function setWeatherResolved() {
         setResolved(true);
     }
+
 
 
     return (

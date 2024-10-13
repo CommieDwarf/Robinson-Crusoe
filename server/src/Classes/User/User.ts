@@ -82,11 +82,12 @@ export class User implements IUser {
         this.removeSocket(socket);
         if (this._sockets.length === 0) {
                 this._disconnectTimout = setTimeout(() => {
-                    const sessionIds = this.leaveLobbies()
+                    const sessionIds = this.leaveLobbies();
                     onLobbiesLeave && onLobbiesLeave(sessionIds);
                 }, 5000);
         }
     }
+
 
     public getSession(sessionId: string) {
         const session = this._sessions.find((sessionData) => sessionData.id === sessionId);

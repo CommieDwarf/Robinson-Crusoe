@@ -110,9 +110,6 @@ export abstract class Character implements ICharacter {
 
     hurt(by: number) {
         this._health -= by;
-        if (this instanceof PlayerCharacter && this._health <= 0) {
-            this._game.setGameStatus(GAME_STATUS.LOST);
-        }
     }
 
     heal(by: number) {

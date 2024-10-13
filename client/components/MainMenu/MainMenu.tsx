@@ -11,6 +11,7 @@ import {socketEmit} from "../../middleware/socketMiddleware";
 import { capitalizeAll } from "@shared/utils/capitalizeAll";
 import { useTranslation } from "react-i18next";
 import capitalize from "@shared/utils/capitalize";
+import { gameSessionCleared, gameSessionUpdated } from "../../reduxSlices/gameSession";
 
 interface Props {
     UserComponent: ReactElement,
@@ -30,11 +31,13 @@ export function MainMenu({UserComponent}: Props) {
 
 
     useEffect(() => {
-        const listener = setSocketListener(SOCKET_EVENT_SERVER.GAME_SESSION_CREATED, (payload) => {
-            router.push("/play/" + payload.sessionId);
-        });
+        const listeners = [
+            setSocketListener(SOCKET_EVENT_SERVER.GAME_SESSION_CREATED, (payload) => {
+                router.push("/play/" + payload.sessionId);
+            }),
+        ]
         return () => {
-            listener.off();
+            listeners.forEach((listener) => listener.off());
         }
     })
 
@@ -51,6 +54,7 @@ export function MainMenu({UserComponent}: Props) {
         if (!socketConnected) {
             animateAuth(event)
         }
+        dispatch(gameSessionCleared(null));
         dispatch(socketEmit(SOCKET_EVENT_CLIENT.CREATE_QUICK_GAME, null))
     }
 

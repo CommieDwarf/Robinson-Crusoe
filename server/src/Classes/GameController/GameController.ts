@@ -45,6 +45,10 @@ export class GameController implements GameControllerInterface, BaseController {
     }
 
     public handleAction(action: CONTROLLER_ACTION, player: IPlayer, ...args: any[]): void {
+        if (this._game.isFinished) {
+            return;
+        }
+
         const handler = this._actionHandlers.get(action);
 
         if (!handler) {
@@ -58,6 +62,12 @@ export class GameController implements GameControllerInterface, BaseController {
 
         this._game.actionService.setAdventureToken(ACTION.BUILD, true, "test");
         
+        for (let i = 0; i < 11; i++) {
+            this._game.setNextRound();
+        }
+        
+
+        console.log("SCENARIO STATUS", this._game.scenarioService.status);
     }
 
     private initActionHandlers() {
@@ -88,7 +98,7 @@ export class GameController implements GameControllerInterface, BaseController {
         handlers.set(OTHER_CONTROLLER_ACTION.PICK_OBJECT, this.pickObject.bind(this));
         return handlers;
     }
-
+    
 
     private addWoodToPile(player: IPlayer): void {
         this._game.scenarioService.addWood(player.getCharacter());

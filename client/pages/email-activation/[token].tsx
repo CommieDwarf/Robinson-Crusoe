@@ -52,7 +52,7 @@ export default function EmailActivation() {
 				}
 			})
 		} catch (e) {
-			console.warn(e);
+			throw (e);
 		}
 
 	

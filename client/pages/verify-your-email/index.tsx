@@ -22,9 +22,7 @@ export default function VerifyYourEmail() {
 		}).then(result => {
 			if (result.ok) {
 				setEmailResent(true);
-			} else {
-				console.log(result);
-			}
+			} 
 		})
 	}
 

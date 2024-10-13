@@ -36,8 +36,12 @@ export class SaveService {
             return await new SaveGame(data).save();
         }
 
+
     }
 
+    public clearPlayerActions() {
+        this._playerActions = [];
+    }
 
     static async getSaveGamesOverview(userId: string) {
         try {

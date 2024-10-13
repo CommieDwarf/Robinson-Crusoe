@@ -13,6 +13,8 @@ import { socketConnect } from "../../middleware/socketMiddleware";
 import { useTranslation } from "react-i18next";
 import capitalize from "@shared/utils/capitalize";
 import { capitalizeAll } from "@shared/utils/capitalizeAll";
+import { DarkOverlay } from "../Game/UI/DarkOverlay/DarkOverlay";
+import { LoaderSpinner } from "../LoaderSpinner/LoaderSpinner";
 interface Props {
 	isLogin: boolean;
 }
@@ -35,6 +37,8 @@ export default function AuthForm(props: Props) {
 	const dispatch = useAppDispatch();
 	const { t } = useTranslation();
 
+	const [loading, setLoading] = useState(false);
+
 	const [errors, setErrors] = useState<Errors>({
 		username: "",
 		email: "",
@@ -45,7 +49,7 @@ export default function AuthForm(props: Props) {
 
 	useEffect(() => {
 		if (isAuthenticated()) {
-			router.push("/").catch((e) => console.error(e));
+			router.push("/");
 		}
 	}, [router]);
 
@@ -67,11 +71,13 @@ export default function AuthForm(props: Props) {
 
 	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
+		setLoading(true);
 		if (props.isLogin) {
 			await signIn();
 		} else {
 			await signUp();
 		}
+		setLoading(false);
 	};
 
 	async function signIn() {
@@ -125,9 +131,13 @@ export default function AuthForm(props: Props) {
 			Cookies.set("Authorization", authToken, { path: '/', sameSite: 'Lax' });
 			if (user.emailVerified) {
 				dispatch(socketConnect({ authToken }));
-				router.push('/').then(() => window.location.reload()).catch((e) => console.error(e));
+				router.push('/');
 			} else {
-				router.push("/verify-your-email");
+				try {
+					router.push("/verify-your-email");
+				} catch(e) {
+					console.warn(e);
+				}
 			}
 		}
 	}
@@ -246,7 +256,7 @@ export default function AuthForm(props: Props) {
 			});
 			return result.status === 409;
 		} catch (error) {
-			console.log(error);
+			throw error;
 		}
 	}
 
@@ -350,6 +360,7 @@ export default function AuthForm(props: Props) {
 						</div>
 					</div>
 				)}
+				<div className={styles.row}>
 				<div className={styles.error}>
 					{errors.form && <i className="icon-warning"></i>}
 					{errors.form}
@@ -358,12 +369,25 @@ export default function AuthForm(props: Props) {
 					type="submit"
 					className={`${styles.input} 
                         ${styles.button}
-                        ${buttonActive && styles.buttonActive}`}
-				>
-					{props.isLogin
+                        ${buttonActive && styles.buttonActive}
+						${loading && styles.buttonLoading}`
+					}
+				>	
+					{loading && (props.isLogin ? 
+						"Logowanie..." :
+						"Rejestrowanie..."	)
+				}
+
+
+					{!loading && (props.isLogin
 						? capitalize(t("menu.sign in"))
-						: capitalize(t("menu.sign up"))}
+						: capitalize(t("menu.sign up")))}
 				</button>
+				</div>
+				
+				{loading && <div className={styles.loaderSpinnerWrapper}>
+						<LoaderSpinner/>
+				</div>}
 			</form>
 
 			{props.isLogin ? (

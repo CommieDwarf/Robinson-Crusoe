@@ -77,6 +77,10 @@ export class Castaways implements IScenarioService {
         return this._game.inventionService.isBuilt(INVENTION_STARTER.FIRE);
     }
 
+    get lastRound() {
+        return this._lastRound;
+    }
+
     public addWood(character: ICharacter) {
         if (this.canAddWood()) {
             this._committedWood++;
@@ -113,18 +117,26 @@ export class Castaways implements IScenarioService {
         this._woodStashLvl++;
         this._lastRoundStashUpgraded = this._game.round;
         this._committedWood = 0;
-        this.checkWinLoseStatus();
+        this.checkScenarioStatus();
     }
 
-    checkWinLoseStatus(): void {
+    public checkScenarioStatus(): void {
         if (
             this._woodStashLvl === this._maxWoodStashLvl &&
-            this._shipRounds.includes(this._game.round)
+            this._shipRounds.includes(this._game.round) &&
+            this._game.inventionService.isBuilt(INVENTION_STARTER.FIRE)
         ) {
-            this._game.setGameStatus(GAME_STATUS.WON);
-        } else if (this._game.round > this._lastRound) {
-            this._game.setGameStatus(GAME_STATUS.LOST);
+            this.setStatus(SCENARIO_STATUS.WIN);
+        } else if (
+            this._game.round > this._lastRound || this._game.characterService.isAnyPlayerDead)
+         {
+            this.setStatus(SCENARIO_STATUS.DEFEAT)
         }
+    }
+
+    private setStatus(status: SCENARIO_STATUS.WIN | SCENARIO_STATUS.DEFEAT) {
+        this._status = status;
+        this._game.saveEndGameSummary();
     }
 
 

@@ -28,7 +28,6 @@ import {
 	SYSTEM_MSG,
 } from "@shared/types/ChatService/ChatService";
 import { getDuplicatedElements } from "@shared/utils/getDuplicatedElements";
-import { GAME_STATUS } from "@shared/types/Game/Game";
 import { SaveService } from "../SaveService/SaveService";
 import { SaveGameDocument } from "../../Models/SaveGame";
 import { isUser } from "../../utils/TypeGuards/isUser";
@@ -36,6 +35,9 @@ import { SessionConnectError } from "../../Errors/Session/SessionConnectError";
 import { SESSION_CONNECTION_ERROR_CODE } from "@shared/types/Errors/SESSION_CONNECTION_ERROR_CODE";
 import { config } from "../../config/config";
 import { ISessionService } from "@shared/types/SessionService";
+import { SCENARIO_STATUS } from "@shared/types/Game/ScenarioService/ScenarioService";
+import { GAME_STATUS } from "@shared/types/Game/Game";
+import { EndGameSummary } from "@shared/types/Game/GameSummary/GameSummary";
 
 export class Session implements SessionData {
 	private _players: IPlayer[] = [];
@@ -46,7 +48,6 @@ export class Session implements SessionData {
 	private _settings: SessionSettings;
 	private _host: IUser;
 	private _chatService: IChatService = new ChatService(this);
-
 	private readonly _sendLatencyInterval: NodeJS.Timeout;
 	private readonly _saveService = new SaveService(this);
 
@@ -91,8 +92,8 @@ export class Session implements SessionData {
 	}
 
 	get gameStatus() {
-		if (this._gameController?.game) {
-			return this._gameController.game.gameStatus;
+		if (this._gameController?.game && this._gameController.game.scenarioService.status === SCENARIO_STATUS.PENDING) {
+			return GAME_STATUS.IN_PROGRESS
 		} else {
 			return GAME_STATUS.IN_LOBBY;
 		}
@@ -119,7 +120,8 @@ export class Session implements SessionData {
 	}
 
 	get isGameInProgress() {
-		return Boolean(this._gameController?.game);
+		const game = this.getGame();
+		return !!game && game.scenarioStatus === SCENARIO_STATUS.PENDING;
 	}
 
 	get chatService(): IChatService {
@@ -141,7 +143,6 @@ export class Session implements SessionData {
     }
 
 	public getBasicInfo(): SessionBasicInfo {
-
 		return {
 			name: this._settings.name,
 			host: this._host.username,
@@ -162,6 +163,9 @@ export class Session implements SessionData {
 		const player = this.getPlayerByUserId(userId);
 		this._gameController?.handleAction(action, player, ...args);
 		this._saveService.saveAction(userId, action, args);
+		if (this._gameController?.game.isFinished) {
+			this.clearSaveData();
+		}
 	}
 
 	public joinSession(user: IUser, load: boolean) {
@@ -205,7 +209,6 @@ export class Session implements SessionData {
 		const game = new GameClass(this._players);
 		const gameController = new GameController(game, this._players);
 		this._gameController = gameController;
-		this._chatService.clearSystemMessages();
 		if (this._loadData) {
 			this._gameController.loadBySteps(this._loadData.playerActions);
 		}
@@ -439,7 +442,34 @@ export class Session implements SessionData {
         return this._players.some((player) => player.user.id === userId);
     }
 
+	public restartGame() {
+		this.clearSaveData();
+		this.startGame();
+		this.chatService.addSystemMsg(SYSTEM_MSG.GAME_RESTARTED, "");
+	}
+
+	public terminateGame() {
+		this.clearSaveData();
+		this.destroyGame();
+		this.chatService.addSystemMsg(SYSTEM_MSG.GAME_TERMINATED, "");
+	}
+
 	private removePlayer(playerId: string) {
 		this._players = this._players.filter((player) => player.id !== playerId);
+	}
+
+
+	private clearSaveData() {
+		this._loadData = null;
+		this._saveService.clearPlayerActions();
+		this.removePlayerPlaceholders();
+	}
+
+	private destroyGame() {
+		this._gameController = null;
+	}
+
+	private removePlayerPlaceholders() {
+		this._players = this._players.filter((player) => isUser(player.user));
 	}
 }

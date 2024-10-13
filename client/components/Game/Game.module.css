@@ -3,7 +3,6 @@
     height: 100vh;
     max-height: 100vh;
     position: relative;
-
     display: inline-grid;
     background-image: url("../../public/UI/paper-background.png");
     background-size: cover;

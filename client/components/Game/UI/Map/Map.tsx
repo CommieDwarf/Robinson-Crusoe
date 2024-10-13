@@ -21,7 +21,8 @@ interface Props {
 
 function Map(props: Props) {
     const [contentScale, setContentScale] = useState(100);
-    const tileService = useAppSelector((state) => selectGame(state)!.tileService);
+    const tileService = useAppSelector((state) => selectGame(state)?.tileService);
+    if (!tileService) return null;
 
     const tiles: JSX.Element[] = [];
     const campSettableTiles = tileService.tiles.filter(

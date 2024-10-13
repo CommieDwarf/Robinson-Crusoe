@@ -96,7 +96,7 @@ export class PhaseService implements IPhaseService {
             this._phase = phaseOrder[this._phaseIndex];
             this._game.alertService.clearAlert();
             this._game.actionSlotService.markedActionSlotId = null;
-        
+            this._game.scenarioService.checkScenarioStatus();
     }
 
     private eventEffect = () => {

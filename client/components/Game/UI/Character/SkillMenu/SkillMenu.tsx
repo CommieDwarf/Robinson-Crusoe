@@ -29,7 +29,10 @@ export default function SkillMenu(props: Props) {
     const {t} = useTranslation();
     const localCharacter = useAppSelector(state => state.gameSession.data?.localPlayer.character!);
 
-    const overallWeather = useAppSelector((state) => selectGame(state)!.weatherService.overallWeather!)
+    const overallWeather = useAppSelector((state) => selectGame(state)?.weatherService.overallWeather)
+
+    if (overallWeather === undefined) return null;
+
     let description;
     let comment;
     if (props.abilityInfo.ability) {
@@ -49,12 +52,18 @@ export default function SkillMenu(props: Props) {
     }
 
     function handleRainCloudClick() {
+        if (!overallWeather) {
+            return;
+        }
         if (overallWeather.rain > 0 && cloud !== "rain") {
             setCloud("rain")
         }
     }
 
     function handleSnowCloudClick() {
+        if (!overallWeather) {
+            return;
+        }
         if (overallWeather.snow > 0 && cloud !== "snow") {
             setCloud("snow");
         }
@@ -65,7 +74,7 @@ export default function SkillMenu(props: Props) {
 
     function handleButtonClick() {
         if (props.abilityInfo.ability.cost > props.ownedDetermination) {
-            toast(capitalize(t("alerts.not enough determination for ability")!), {
+            toast(capitalize(t("alerts.not enough determination for ability")), {
                 type: "error",
             })
             // dispatch(alertUpdated(ALERT_CODE.NOT_ENOUGH_DETERMINATION_FOR_ABILITY));

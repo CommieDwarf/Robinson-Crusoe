@@ -69,13 +69,20 @@ function Invention(props: Props) {
         </div>
     );
 
-    const state = useAppSelector((state) => selectGame(state)!.actionService.globalCostModifiers!);
+    const state = useAppSelector((state) => selectGame(state)?.actionService.globalCostModifiers);
+
+    if (!state) return null;
+
+
     const modifiers = state[ACTION.BUILD];
     const extraPawnNeeded = modifiers.some((mod) => mod.resource === "helper")
         ? 1
         : 0;
 
-    const players = useAppSelector((state) => selectGame(state)!.players);
+    const players = useAppSelector((state) => selectGame(state)?.players);
+
+    if (!players) return null;
+
     let color: string | undefined;
     if (props.invention.inventionType === INVENTION_TYPE.PERSONAL) {
         color = players.find((player) => player.character?.invention === props.invention.name)?.color;

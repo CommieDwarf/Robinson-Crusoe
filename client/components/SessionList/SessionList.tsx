@@ -10,6 +10,7 @@ import { SessionBasicInfo } from "@shared/types/Session/Session";
 import { useAppDispatch } from "../../store/hooks";
 import { socketEmit } from "../../middleware/socketMiddleware";
 import { setSocketListener } from "../../pages/api/socket";
+import { LoaderSpinner } from "../LoaderSpinner/LoaderSpinner";
 
 interface Props {
 	setSessionIdToEnter: (sessionId: string) => void;
@@ -31,6 +32,9 @@ export function SessionList(props: Props) {
 	}
 
 	useEffect(() => {
+
+
+ 
 		const listeners = [
 			setSocketListener(SOCKET_EVENT_SERVER.SESSION_LIST_CHANGED, () => {
 				requestList();
@@ -53,8 +57,8 @@ export function SessionList(props: Props) {
 		<div className={styles.container}>
 			<Header />
 			{props.showSpinner ? (
-				<div className={styles.refreshIconWrapper}>
-					<i className={`icon-arrows-ccw ${styles.refreshIcon}`}></i>
+				<div className={styles.loaderSpinnerWrapper}>
+					<LoaderSpinner/>
 				</div>
 			) : 
             <div className={styles.sessionList}>

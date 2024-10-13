@@ -21,7 +21,11 @@ export function InvitationCode(props: Props) {
 
 	function handleCopyClick() {
 		navigator.clipboard.writeText(code).then(() => {
-			toast(<span>&#128203; {t("toast.copied to clipboard")}</span>)
+			toast(<span> {t("toast.copied to clipboard")}</span>
+		, {
+			icon: <span>&#128203;</span>
+		}
+		)
 		});
 	}
 

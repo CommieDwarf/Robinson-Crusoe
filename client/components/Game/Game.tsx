@@ -47,6 +47,7 @@ import { PickOne } from "./UI/PickOne/PickOne";
 import { IPawnRenderData } from "@shared/types/Game/Pawns/Pawn";
 import {
 	actionSlotUpdated,
+	selectGame,
 	selectGameData,
 } from "../../reduxSlices/gameSession";
 import { ControlPanel } from "./UI/ControlPanel/ControlPanel";
@@ -55,10 +56,16 @@ import { PlayerList } from "./UI/PlayerList/PlayerList";
 import { DraggableWindow } from "./UI/DraggableWindow/DraggableWindow";
 import { GameOptions } from "./UI/GameOptions/GameOptions";
 import { Guide } from "./UI/Guide/Guide";
+import { GameOverWindow } from "./GameOverWindow/GameOverWindow";
+import { DarkOverlay } from "./UI/DarkOverlay/DarkOverlay";
 
 interface Props {}
 
 export default function Game(props: Props) {
+
+
+
+
 	const [isPawnBeingDragged, setIsPawnBeingDragged] = useState(false);
 
 	const [showScenario, setShowScenario] = useState(false);
@@ -89,7 +96,11 @@ export default function Game(props: Props) {
 
 	const gameData = useAppSelector((state) => {
 		return selectGameData(state);
-	})!;
+	});
+
+	if (!gameData) {
+		return <div></div>
+	}
 
 	useEffect(() => {
 		if (mapRef.current) setMapHeight(mapRef.current.offsetHeight);
@@ -141,6 +152,9 @@ export default function Game(props: Props) {
 	}
 
 	function unselectActionSlots() {
+		if (!gameData) {
+			return;
+		}
 		gameData.actionSlots.forEach((pawn, droppableID) => {
 			const actionSlot = document.getElementById(droppableID);
 			if (actionSlot) {
@@ -170,6 +184,9 @@ export default function Game(props: Props) {
 	}
 
 	function onDragUpdate(update: DragUpdate) {
+		if (!gameData) {
+			return;
+		}
 		unselectActionSlots();
 		const pawn = gameData.allPawns.find(
 			(p) => p.draggableId === update.draggableId
@@ -222,6 +239,9 @@ export default function Game(props: Props) {
 	}
 
 	async function onDragEnd(result: DropResult) {
+		if (!gameData) {
+			return;
+		}
 		setTopLayerElement("");
 		setIsPawnBeingDragged(false);
 		unselectAllActionSlots();
@@ -294,6 +314,7 @@ export default function Game(props: Props) {
 	// @ts-ignore
 	const isFirefox = typeof InstallTrigger !== "undefined";
 
+
 	return (
 		<div
 			className={`${styles.game} ${isFirefox ? styles.gameMoz : ""}`}
@@ -343,7 +364,7 @@ export default function Game(props: Props) {
 				!gameData.actionResolveFinished && <ActionResolveWindow />}
 
 			{gameData.currentPhase === "weather" && (
-				<DraggableWindow>
+				<DraggableWindow showOverflow={true}>
 					<WeatherResolveWindow />
 				</DraggableWindow>
 			)}
@@ -456,6 +477,12 @@ export default function Game(props: Props) {
 			{showGuide && (
 				<DraggableWindow padding={"10px"} onClose={toggleShowGuide}>
 					<Guide />
+				</DraggableWindow>
+			)}
+			{gameData.endGameSummary && <DarkOverlay/>}
+			{gameData.endGameSummary && (
+				<DraggableWindow topLayer={true} padding={"10px"}>
+					<GameOverWindow endGameSummary={gameData.endGameSummary}/>
 				</DraggableWindow>
 			)}
 		</div>

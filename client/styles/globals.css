@@ -114,6 +114,14 @@ a {
 	scale: 1.1;
 }
 
+.menuButtonDisabled {
+	opacity: 0.7;
+}
+
+.menuButtonDisabled:hover {
+	scale: none !important
+}
+
 .borderless {
 	border: none !important;
 }
@@ -124,18 +132,44 @@ a {
 
 
 .Toastify__toast {
-	background: url("../public/UI/paper-background.png") !important;
-	box-shadow: inset 0px 0px 10px 0px var(--brown) !important;
-	border: 1px solid var(--brown) !important;
+	background: url("../public/UI/characters/background.png") !important;
+	background-size: 400px !important;
 	font-weight: 500 !important;
+	box-shadow: inset 0px 0px 4px 0px var(--brown) !important;
 	color: var(--brown) !important;
+}
+
+.Toastify__toast > .Toastify__close-button {
+    color: var(--brown) !important;
+}
+
+
+.Toastify__toast--info {
+	box-shadow: inset 0px 0px 4px 0px var(--arrangeCamp) !important;
+	color: var(--arrangeCamp) !important;
+}
+
+.Toastify__toast--info > .Toastify__close-button {
+	color: var(--arrangeCamp) !important;
 }
 
 .Toastify__toast--success {
     color: darkGreen !important;
-} 
-
-.Toastify__toast--error {
-    color: var(--hunt) !important;
+	box-shadow: inset 0px 0px 4px 0px darkGreen !important;
 }
 
+.Toastify__toast--success > .Toastify__close-button {
+    color: darkGreen !important;
+}
+
+
+.Toastify__toast--error  {
+    color: var(--hunt) !important;
+	/* border: 1px solid var(--hunt) !important; */
+	box-shadow: inset 0px 0px 5px 0px var(--hunt) !important;
+
+}
+
+.Toastify__toast--error > .Toastify__close-button {
+    color: var(--hunt);
+}

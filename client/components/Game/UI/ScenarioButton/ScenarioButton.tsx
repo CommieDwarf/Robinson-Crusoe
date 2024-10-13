@@ -3,8 +3,7 @@ import styles from "./ScenarioButton.module.css";
 
 import redArrowImg from "/public/UI/misc/red-arrow.png";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
-import {IScenarioServiceRenderData} from "@shared/types/Game/ScenarioService/ScenarioService";
-import {IInventionRenderData, INVENTION_TYPE} from "@shared/types/Game/InventionService/Invention";
+import {INVENTION_TYPE} from "@shared/types/Game/InventionService/Invention";
 import {getObjectsComparator} from "../../../../utils/getObjectsComparator";
 import {useTranslation} from "react-i18next";
 import {capitalize} from "lodash";
@@ -20,15 +19,15 @@ interface Props {
 function ScenarioButton(props: Props) {
 
     const topLayer = useAppSelector((state) => {
-        return selectGame(state).inventionService.inventions
-            .filter((inv) => inv.inventionType === INVENTION_TYPE.SCENARIO)!
+        return selectGame(state)?.inventionService.inventions
+            .filter((inv) => inv.inventionType === INVENTION_TYPE.SCENARIO)
             .some((inv) => {
                 props.topLayerElement.includes(inv.name);
             });
     })
 
     const currentRound = useAppSelector((state) => {
-        return selectGame(state).round!;
+        return selectGame(state)?.round;
     })
 
     function handleClick() {

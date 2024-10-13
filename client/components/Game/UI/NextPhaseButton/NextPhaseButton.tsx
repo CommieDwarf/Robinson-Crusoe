@@ -21,18 +21,20 @@ export const NextPhaseButton = (props: Props) => {
 
     const dispatch = useAppDispatch();
 
-    const players = useAppSelector(state => selectPlayers(state))?.filter((player) => !player.prime)!;
+    const players = useAppSelector(state => selectPlayers(state))?.filter((player) => !player.prime);
+
+    if (!players) return null;
 
 
-    const phase = useAppSelector((state) => selectGame(state)?.phaseService.phase)!;
-    const primePlayerId = useAppSelector(state => selectGame(state)?.primePlayer.id)!;
+    const phase = useAppSelector((state) => selectGame(state)?.phaseService.phase);
+    const primePlayerId = useAppSelector(state => selectGame(state)?.primePlayer.id);
     const primePlayerColor = useAppSelector(state => selectGame(state)?.primePlayer.color);
     const localPlayerId = useAppSelector((state) => state.gameSession.data?.localPlayer.id);
 
     const {t} = useTranslation();
 
     function handleClick() {
-        if (props.locked) {
+        if (props.locked || !players) {
             return;
         }
 

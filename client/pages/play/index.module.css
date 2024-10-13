@@ -1,7 +1,7 @@
 .container {
     width: 100%;
     color: var(--brown);
-    position: relative;
+    position: absolute;
     /*overflow-y: hidden;*/
     overflow: hidden;
 }

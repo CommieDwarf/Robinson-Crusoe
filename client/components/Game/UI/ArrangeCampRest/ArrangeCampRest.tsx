@@ -11,7 +11,9 @@ interface Props {
 }
 
 function ArrangeCampRest(props: Props) {
-    const arrangeCampRestService = useAppSelector((state) => selectGame(state)!.arrangeCampRestService!);
+    const arrangeCampRestService = useAppSelector((state) => selectGame(state)?.arrangeCampRestService!);
+
+    if (!arrangeCampRestService) return null;
 
     return (
         <div className={`${styles.container} ${props.topLayer && styles.zIndexIncreased}`}>

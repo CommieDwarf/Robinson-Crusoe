@@ -37,12 +37,15 @@ export interface SessionData {
     joinSession: (user: IUser, load: boolean) => void;
     leaveSession: (user: IUser) => void;
     startGame: () => BaseController;
+    restartGame: () => void;
     assignColor: (userId: string, color: PLAYER_COLOR) => void;
     handleAction: (userId: string, action: CONTROLLER_ACTION, ...args: any[]) => void;
     getGame: () => IGame | undefined;
     getPlayerByUserId: (userId: string) => IPlayer
     onSessionRemove: () => void;
 
+    terminateGame: () => void;
+    
 
     canStart: () => boolean;
 

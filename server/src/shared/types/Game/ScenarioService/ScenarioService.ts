@@ -14,11 +14,11 @@ export interface IScenarioService {
     text: ScenarioText;
     renderData: IScenarioServiceRenderData;
     status: SCENARIO_STATUS;
-    checkWinLoseStatus: () => void;
     woodStashLvl: number;
-
+    lastRound: number;
     committedWood: number;
 
+    checkScenarioStatus: () => void;
     addWood: (player: ICharacter) => void;
     onItemUse: (amount: number, sourceLog: string) => void;
 }

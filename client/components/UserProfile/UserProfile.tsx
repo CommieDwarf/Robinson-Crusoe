@@ -32,7 +32,7 @@ export function UserProfile(props: Props) {
 		dispatch(userUpdated(null));
 		dispatch(connectedUpdated(false));
 		socket.disconnect();
-		router.push("/signIn").catch((e) => console.error(e));
+		router.push("/signIn");
 	}
 
 	if (!sessionsInProgress) {
@@ -45,6 +45,7 @@ export function UserProfile(props: Props) {
                 setSessionsInProgress(payload.sessionList);
             }),
 			setSocketListener(SOCKET_EVENT_SERVER.JOIN_SESSION_RESPONSE, (payload) => {
+				
 				router.push("/play/" + payload.sessionId);
 			}),
 			setSocketListener(SOCKET_EVENT_SERVER.GAME_IN_PROGRESS_LIST_CHANGED, (payload) => {

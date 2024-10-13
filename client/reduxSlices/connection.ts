@@ -21,7 +21,6 @@ export const connectionSlice = createSlice({
     initialState,
     reducers: {
         userUpdated(state, action) {
-            console.log("userUpdated")
             return {
                 ...state,
                 user: action.payload
