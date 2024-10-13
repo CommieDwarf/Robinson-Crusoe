@@ -17,9 +17,11 @@ interface Props {
 
 function AllResources(props: Props) {
 
-    const {future, owned} = useAppSelector(selectResourceService);
+    
+    const { future = undefined, owned = undefined } = useAppSelector(selectResourceService) || {};
 
 
+    if (!future || !owned) return null;
     return (
         <div className={styles.container}>
             <Frame/>

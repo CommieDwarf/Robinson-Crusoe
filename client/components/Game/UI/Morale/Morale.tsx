@@ -12,7 +12,7 @@ interface Props {
 
 function Morale(props: Props) {
     const moraleBars = [];
-    const currentMorale = useAppSelector((state) => selectGame(state).moraleService.lvl!);
+    const currentMorale = useAppSelector((state) => selectGame(state)?.moraleService.lvl!);
 
     for (let i = -3; i <= 3; i++) {
         moraleBars.push(

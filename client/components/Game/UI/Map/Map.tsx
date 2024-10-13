@@ -22,28 +22,29 @@ interface Props {
 function Map(props: Props) {
     const [contentScale, setContentScale] = useState(100);
     const tileService = useAppSelector((state) => selectGame(state)?.tileService);
-    if (!tileService) return null;
 
     const tiles: JSX.Element[] = [];
-    const campSettableTiles = tileService.tiles.filter(
+    const campSettableTiles = tileService?.tiles.filter(
         (tile) => tile.canCampBeSettled
     );
 
-    tileService.tiles.forEach((tile, i) => {
-        tiles.push(
-            <Tile
-                tile={tile}
-                key={i}
-                contentScale={contentScale}
-                isDragDisabled={props.showScenario}
-                zIndex={props.topLayerElement}
-                showCampMoveConfirm={props.showCampMoveConfirm}
-                campSettableTiles={
-                    tile.camp && !tileService.campJustMoved ? campSettableTiles : []
-                }
-            />
-        );
-    });
+    if (tileService) {
+        tileService?.tiles.forEach((tile, i) => {
+            tiles.push(
+                <Tile
+                    tile={tile}
+                    key={i}
+                    contentScale={contentScale}
+                    isDragDisabled={props.showScenario}
+                    zIndex={props.topLayerElement}
+                    showCampMoveConfirm={props.showCampMoveConfirm}
+                    campSettableTiles={
+                        tile.camp && !tileService.campJustMoved ? campSettableTiles || [] : []
+                    }
+                />
+            );
+        });    
+    }
 
     const scrollbar = useRef<HTMLDivElement>(null);
     const container = props.mapContainerRef
@@ -121,13 +122,13 @@ function Map(props: Props) {
 
     const zIndexClass =
         props.topLayerElement.includes("tile") ||
-        tileService.isMarkedActionRemaining
+        tileService?.isMarkedActionRemaining
             ? styles.zIndexIncreased
             : "";
 
     const scrollDisabledClass = props.scrollDisabled ? styles.scrollDisabled : "";
 
-
+    if (!tileService) return null;
     return (
         <div
             className={`${styles.container} ${zIndexClass}`}

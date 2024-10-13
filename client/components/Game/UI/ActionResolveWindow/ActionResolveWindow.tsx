@@ -28,7 +28,6 @@ import {ReRollButton} from "./ReRollButton/ReRollButton";
 export const ActionResolveWindow = () => {
     let containerRef = React.createRef<HTMLDivElement>();
     const actionService = useAppSelector(state => selectActionService(state));
-    if (!actionService) return null;
     const localPlayerCharName = useAppSelector(state => state.gameSession.data?.localPlayer.character?.name);
 
     const [resolvedItems, setResolvedItems] = useState<Map<string, boolean>>(
@@ -53,11 +52,11 @@ export const ActionResolveWindow = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        const entries = actionService.resolvableItems.map((item) => {
+        const entries = actionService?.resolvableItems.map((item) => {
             return [item.id, item.resolveStatus !== RESOLVE_ITEM_STATUS.PENDING];
         }) as Entries<{ [id: string]: boolean }>
         setResolvedItems(new Map(entries));
-    }, [actionService.resolvableItems]);
+    }, [actionService?.resolvableItems]);
 
 
     function onReRollButtonClick() {
@@ -78,7 +77,7 @@ export const ActionResolveWindow = () => {
         }
 
 
-        const leader = actionService.lastRolledItem?.leaderPawn.owner as ICharacterRenderData;
+        const leader = actionService?.lastRolledItem?.leaderPawn.owner as ICharacterRenderData;
         const ability = getCharacterRerollAbility(leader);
         if (!leader || !ability || reRollSkillUsed) {
             return;
@@ -161,7 +160,7 @@ export const ActionResolveWindow = () => {
 
     const {t} = useTranslation();
 
-
+    if (!actionService) return null;
     return (
         <Draggable bounds="parent" defaultClassNameDragging={sharedStyles.grabbing}>
             <div className={styles.container} ref={containerRef}>

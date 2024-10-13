@@ -20,10 +20,10 @@ interface Props {
 
 export default function Castaways(props: Props) {
     const inventions = useAppSelector((state) => {
-        return selectGame(state).inventionService.inventions!
+        return selectGame(state)?.inventionService.inventions!
     })
 
-    const currentRound = useAppSelector((state) => selectGame(state).round!);
+    const currentRound = useAppSelector((state) => selectGame(state)?.round);
 
 
     const scenarioInventions = inventions
@@ -67,7 +67,7 @@ export default function Castaways(props: Props) {
             <div className={styles.titleDiv}>
                 <span className={styles.title}>{capitalize(t("scenario.castaways.name"))}</span>
             </div>
-            <Rounds current={currentRound}/>
+            <Rounds current={currentRound || 1}/>
             <Description/>
             <div className={styles.eventEffects}>
                 <div className={styles.eventEffect + " " + styles.bookEffect}>

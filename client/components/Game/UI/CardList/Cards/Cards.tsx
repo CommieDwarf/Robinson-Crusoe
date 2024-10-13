@@ -17,10 +17,10 @@ import {INVENTION_TYPE} from "@shared/types/Game/InventionService/Invention";
 
 
 const selectCards = createSelector([
-    (state: RootState) => selectInventionService(state).inventions.filter((card) => card.inventionType !== INVENTION_TYPE.SCENARIO),
-    (state: RootState) => selectMysteryService(state).cardsAsReminders,
-    (state: RootState) => selectResourceService(state).owned.treasures,
-    (state: RootState) => selectEquipmentService(state).items
+    (state: RootState) => selectInventionService(state)?.inventions.filter((card) => card.inventionType !== INVENTION_TYPE.SCENARIO),
+    (state: RootState) => selectMysteryService(state)?.cardsAsReminders,
+    (state: RootState) => selectResourceService(state)?.owned.treasures,
+    (state: RootState) => selectEquipmentService(state)?.items
 ], (inventions,
     mysteryReminderCards,
     mysteryTreasures,
@@ -28,7 +28,7 @@ const selectCards = createSelector([
 
     return {
         inventions,
-        mysteryCards: [...mysteryReminderCards, ...mysteryTreasures],
+        mysteryCards: mysteryReminderCards && mysteryTreasures && [...mysteryReminderCards, ...mysteryTreasures],
         items,
     }
 })
@@ -60,7 +60,7 @@ function Cards(props: Props) {
 
     const maxColumns = 4;
 
-    const cardElements = cardsSelected.map((card) => {
+    const cardElements = cardsSelected?.map((card) => {
         column = column == maxColumns - 1 ? 0 : column + 1;
         row = column == 0 ? row + 1 : row;
         return (

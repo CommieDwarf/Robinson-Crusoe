@@ -24,7 +24,7 @@ type Props = {};
 function Phase(props: Props) {
     const [showMenu, setShowMenu] = useState(false);
 
-    const currentPhase = useAppSelector((state) => selectGame(state).phaseService.phase!);
+    const currentPhase = useAppSelector((state) => selectGame(state)?.phaseService.phase!);
 
     const [containerHeight, setContainerHeight] = useState(0);
     const containerRef = useRef<HTMLDivElement>(null);

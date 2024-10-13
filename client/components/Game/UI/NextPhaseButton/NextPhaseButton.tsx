@@ -23,7 +23,6 @@ export const NextPhaseButton = (props: Props) => {
 
     const players = useAppSelector(state => selectPlayers(state))?.filter((player) => !player.prime);
 
-    if (!players) return null;
 
 
     const phase = useAppSelector((state) => selectGame(state)?.phaseService.phase);
@@ -58,6 +57,8 @@ export const NextPhaseButton = (props: Props) => {
     }
 
     const locked = props.locked || localPlayerId !== primePlayerId;
+
+    if (!players) return null;
 
     return (
         <div className={`${styles.container} ${locked && styles.locked}`}

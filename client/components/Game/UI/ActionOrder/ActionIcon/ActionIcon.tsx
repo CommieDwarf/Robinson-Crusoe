@@ -1,7 +1,7 @@
 import styles from "../ActionOrder.module.css";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
 import React from "react";
-import {ACTION, AdventureAction} from "@shared/types/Game/ACTION";
+import {ACTION} from "@shared/types/Game/ACTION";
 import {kebabCase} from "lodash";
 import {isAdventureAction} from "@shared/utils/typeGuards/isAdventureAction";
 import reRollTokenImg from "/public/UI/tokens/reroll.png";
@@ -18,16 +18,16 @@ interface Props {
 
 
 const selectTokensByAction = createSelector([
-    (state: RootState) => selectActionService(state).adventureTokens,
-    (state: RootState) => selectActionService(state).globalCostModifiers,
-    (state: RootState) => selectActionService(state).reRollTokens,
+    (state: RootState) => selectActionService(state)?.adventureTokens,
+    (state: RootState) => selectActionService(state)?.globalCostModifiers,
+    (state: RootState) => selectActionService(state)?.reRollTokens,
     (state: RootState, action: ACTION) => action,
 ], (adventure, costModifier, reRoll, action) => {
     if (isAdventureAction(action)) {
         return {
-            adventure: adventure[action],
-            costModifier: costModifier[action],
-            reRoll: reRoll[action],
+            adventure: adventure && adventure[action],
+            costModifier: costModifier && costModifier[action],
+            reRoll: reRoll && reRoll[action],
         }
     } else {
         return null;
@@ -62,7 +62,7 @@ export function ActionIcon(props: Props) {
             );
         }
 
-        if (tokenModifiers.costModifier.some((modifier) => modifier.resource === "helper")) {
+        if (tokenModifiers.costModifier && tokenModifiers.costModifier.some((modifier) => modifier.resource === "helper")) {
             timeConsumingActionIcon = <div className={styles.token}>
                 <ResizableImage
                     src={timeConsumingActionToken}

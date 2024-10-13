@@ -20,8 +20,8 @@ export type Subtrahend = "snow" | "roof" | "cloud" | "storm";
 
 export const Resources = (props: Props) => {
 
-    const constructionService = useAppSelector((state) => selectGame(state).constructionService!)
-    const ownedResourcesAmount = useAppSelector((state) => selectGame(state).resourceService.owned.basic!)
+    const constructionService = useAppSelector((state) => selectGame(state)?.constructionService!)
+    const ownedResourcesAmount = useAppSelector((state) => selectGame(state)?.resourceService.owned.basic!)
 
     function getConstruct(construct: CONSTRUCTION) {
         const construction = constructionService.constructions.find(

@@ -11,7 +11,7 @@ interface Props {
 
 export default function Constructions(props: Props) {
 
-    const constructions = useAppSelector((state) => selectGame(state).constructionService.constructions!)
+    const constructions = useAppSelector((state) => selectGame(state)?.constructionService.constructions!)
     return (
         <div className={styles.container + " " + (props.topLayer && styles.zIndexIncreased)}>
             {constructions.map((construction, i) => {

@@ -8,7 +8,7 @@ import {selectGame} from "../../../../reduxSlices/gameSession";
 type Props = {};
 
 export const Weather = (props: Props) => {
-    const weatherTokens = useAppSelector((state) => selectGame(state).weatherService.tokens!);
+    const weatherTokens = useAppSelector((state) => selectGame(state)?.weatherService.tokens!);
 
     return (
         <div className={styles.container}>

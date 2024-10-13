@@ -18,12 +18,12 @@ export const WeatherResolveWindow = (props: Props) => {
     const currentRound = useAppSelector((state) => selectGame(state)?.round);
     const weatherService = useAppSelector((state) => selectGame(state)?.weatherService);
 
-    if (!weatherDices || !currentRound || !weatherService) return null;
+    
 
-    const [resolved, setResolved] = useState(
+    const [resolved, setResolved] = useState(!!(weatherDices && currentRound &&
         !weatherDices.animals.includes(currentRound) &&
         !weatherDices.rain.includes(currentRound) &&
-        !weatherDices.winter.includes(currentRound)
+        !weatherDices.winter.includes(currentRound))
     );
 
     function setWeatherResolved() {
@@ -31,7 +31,7 @@ export const WeatherResolveWindow = (props: Props) => {
     }
 
 
-
+    if (!weatherDices || !currentRound || !weatherService) return null;
     return (
             <div className={styles.container}>
                 <RollDiceWindow

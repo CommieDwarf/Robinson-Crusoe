@@ -71,11 +71,9 @@ function Invention(props: Props) {
 
     const state = useAppSelector((state) => selectGame(state)?.actionService.globalCostModifiers);
 
-    if (!state) return null;
 
-
-    const modifiers = state[ACTION.BUILD];
-    const extraPawnNeeded = modifiers.some((mod) => mod.resource === "helper")
+    const modifiers = state && state[ACTION.BUILD];
+    const extraPawnNeeded = modifiers?.some((mod) => mod.resource === "helper")
         ? 1
         : 0;
 
@@ -91,6 +89,7 @@ function Invention(props: Props) {
         boxShadow: `inset 0px 0px 5px 2px ${color}`
     }
 
+    if (!state) return null;
     return (
         <div
             className={`${styles.container} `}

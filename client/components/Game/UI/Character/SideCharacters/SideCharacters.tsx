@@ -21,11 +21,12 @@ interface Props {
 
 
 function SideCharacters(props: Props) {
-    const friday = useAppSelector((state) => selectGame(state).characterService.friday!);
-    const dog = useAppSelector((state) => selectGame(state).characterService.dog!);
+    const friday = useAppSelector((state) => selectGame(state)?.characterService.friday);
+    const dog = useAppSelector((state) => selectGame(state)?.characterService.dog);
 
     const {t} = useTranslation();
 
+    if (!friday || !dog) return null;
     return (
         <div className={styles.container}>
             <div className={styles.friday}>
@@ -37,7 +38,7 @@ function SideCharacters(props: Props) {
                             ref={provided.innerRef}
                             {...provided.droppableProps}
                         >
-                            {friday.pawnService.freePawns.map((pawn, i) => {
+                            {friday?.pawnService.freePawns.map((pawn, i) => {
                                 return (
                                     <Pawn
                                         pawn={pawn}

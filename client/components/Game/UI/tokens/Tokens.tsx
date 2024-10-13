@@ -26,7 +26,7 @@ function Tokens(props: Props) {
 
     const dispatch = useAppDispatch();
 
-    const {owned, future} = useAppSelector((state) => selectTokenService(state));
+    const {owned = undefined, future = undefined} = useAppSelector((state) => selectTokenService(state)) || {} ;
 
     function handleScroll(event: React.UIEvent<HTMLDivElement>) {
         setScrollLeft(event.currentTarget.scrollLeft);
@@ -92,7 +92,7 @@ function Tokens(props: Props) {
                 )}
             <div className={styles.scroll} onScroll={handleScroll} onWheel={handleWheel} ref={scrollRef}>
                 <div className={styles.content}>
-                    {owned.map((token, i) => {
+                    {owned && owned.map((token, i) => {
                         return (
                             <Token
                                 key={i}
@@ -103,7 +103,7 @@ function Tokens(props: Props) {
                             />
                         );
                     })}
-                    {future.map((token, i) => {
+                    {future && future.map((token, i) => {
                         return (
                             <Token
                                 key={i}

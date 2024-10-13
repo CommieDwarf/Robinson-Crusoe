@@ -14,7 +14,7 @@ interface Props {
 }
 
 export default function BeastDeck(props: Props) {
-    const beastAmount = useAppSelector((state) => selectGame(state).beastService.deckCount!);
+    const beastAmount = useAppSelector((state) => selectGame(state)?.beastService.deckCount!);
 
     return (
         <div className={styles.container + " " + (props.topLayer && styles.zIndexIncreased)}>

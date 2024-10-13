@@ -35,7 +35,7 @@ export default function Pawn(props: Props) {
 
     const player = useAppSelector((state) => selectGame(state)?.players.find((player) => props.pawn.owner.name === player.character?.name));
     const disabled = useAppSelector((state) => {
-        return selectGame(state).phaseService.phase !== "preAction" || (player && player.id !== state.gameSession.data?.localPlayer.id)
+        return selectGame(state)?.phaseService.phase !== "preAction" || (player && player.id !== state.gameSession.data?.localPlayer.id)
     }) || props.disabled
 
     const style = {

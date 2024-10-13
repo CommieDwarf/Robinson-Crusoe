@@ -2,11 +2,12 @@ przenieś kiedyś silnik na front-end
 
 kontynuuj pisanie guide'a 
 
+zcentralizuj przekierowywanie sciężek
 popraw obszar postaci pobocznych
 Jesli friday + gracz robi akcje, gracz ma być liderem.
 zoomowanie rozwala layout faz (rozwinane menu) oraz kart pomyslow/mystery/przedmiotow
 Okno pogody do przerobienia.
-
+zró actionSlotsy domyslnie szare. Zamien kolor na biały kiedy gracz może uzywac pionkow.
 
 error handling na cliencie.
 

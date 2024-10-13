@@ -16,7 +16,7 @@ type Props = {
 };
 export const ConfirmCampMove = (props: Props) => {
 
-    const currentCamp = useAppSelector((state) => selectGame(state).tileService.campTile!);
+    const currentCamp = useAppSelector((state) => selectGame(state)?.tileService.campTile);
     const dispatch = useAppDispatch();
 
     function handleConfirmClick() {
@@ -33,7 +33,7 @@ export const ConfirmCampMove = (props: Props) => {
             <h3>Czy na pewno chcesz przenieść obóz?</h3>
             <div className={styles.tile}>
                 <ResizableImage
-                    src={"/UI/Map/tiles/" + currentCamp.tileResourceService?.id + ".png"}
+                    src={"/UI/Map/tiles/" + currentCamp?.tileResourceService?.id + ".png"}
                     alt={"Obecny obóz"}
                     fill
                     sizes={styles.tile}

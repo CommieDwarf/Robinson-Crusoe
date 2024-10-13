@@ -13,15 +13,13 @@ import {
     MYSTERY_CONTROLLER_ACTION,
     OTHER_CONTROLLER_ACTION
 } from "@shared/types/CONTROLLER_ACTION";
-import {IMysteryCard, IMysteryCardRenderData} from "@shared/types/Game/MysteryService/MysteryCard";
+import {IMysteryCard} from "@shared/types/Game/MysteryService/MysteryCard";
 import {ResolveButtons} from "./ResolveButtons/ResolveButtons";
 import {useAppDispatch, useAppSelector} from "../../../../store/hooks";
-import {socketEmitAction} from "../../../../middleware/socketMiddleware";
-import {ICharacterRenderData} from "@shared/types/Game/Characters/Character";
-import {IPlayerRenderData} from "@shared/types/Game/PlayerService/Player";
+import {socketEmitAction} from "../../../../middleware/socketMiddleware";;
 import {PLAYER_COLOR} from "@shared/types/Game/PLAYER_COLOR";
 import { CurrentResolveRenderData } from "@shared/types/Game/EventService/EventService";
-import { selectGame, selectPlayerByCharacter } from "../../../../reduxSlices/gameSession";
+import { selectPlayerByCharacter } from "../../../../reduxSlices/gameSession";
 
 
 export interface CardResolveButtonProp {
@@ -44,7 +42,6 @@ const CardResolve = (props: Props) => {
     const dispatch = useAppDispatch();
 
     const localPlayer = useAppSelector((state) => state.gameSession.data?.localPlayer);
-    if (!localPlayer) return null;
 
     function toggleZoom() {
         setEnlarged((state) => !state);
@@ -53,7 +50,7 @@ const CardResolve = (props: Props) => {
     const playerResolver = useAppSelector((state) => selectPlayerByCharacter(state, props.resolve.resolver.name));
 
     //no player resolver means it's a side character(Friday) that belongs to all players.
-    const actionAllowed = playerResolver && (playerResolver.id === localPlayer.id) || !playerResolver;
+    const actionAllowed = playerResolver && (playerResolver.id === localPlayer?.id) || !playerResolver;
 
     let button1: CardResolveButtonProp;
     let button2: CardResolveButtonProp | undefined;
@@ -96,7 +93,7 @@ const CardResolve = (props: Props) => {
         }
     }
 
-
+    if (!localPlayer) return null;
     return (
         <Draggable bounds={"parent"}>
             <div className={styles.container}>

@@ -19,7 +19,7 @@ interface Props {
 
 function Health(props: Props) {
     let marks: JSX.Element[] = [];
-    const characterService = useAppSelector((state) => selectGame(state).characterService!)
+    const characterService = useAppSelector((state) => selectGame(state)?.characterService!)
 
 
     for (let i = props.character.maxHealth; i > 0; i--) {

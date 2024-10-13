@@ -2,6 +2,8 @@ import React, { ReactNode, useEffect } from "react";
 import { useRouter } from "next/router";
 import { isAuthenticated } from "../../utils/auth/isAuthenticated";
 import { useAppSelector } from "../../store/hooks";
+import { getAuthToken } from "../../utils/auth/getAuthToken";
+import { isTokenValid } from "../../utils/auth/isTokenValid";
 
 type Props = {
 	children: ReactNode;
@@ -11,8 +13,21 @@ const RouteGuard: React.FC<Props> = ({ children }) => {
 	const router = useRouter();
 
 	const user = useAppSelector((state) => state.connection.user);
+	const connected = useAppSelector((state) => state.connection.connected);
 
 	useEffect(() => {
+		const notProtectedPaths = ["/signIn", "/signOut", "/signUp"];
+		const requiresAuth = !notProtectedPaths.some((path) =>
+			router.pathname.startsWith(path)
+		);
+
+		if (requiresAuth) {
+			const authToken = getAuthToken();
+			if (!authToken || !isTokenValid(authToken)) {
+				router.push("/signIn");
+			}
+		}
+
 		if (
 			user &&
 			!user.emailVerified &&
@@ -33,7 +48,7 @@ const RouteGuard: React.FC<Props> = ({ children }) => {
 		) {
 			router.push("/");
 		}
-	}, [user, router]);
+	}, [user, router, connected]);
 
 	return <>{children}</>;
 };

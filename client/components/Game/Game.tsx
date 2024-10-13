@@ -62,10 +62,6 @@ import { DarkOverlay } from "./UI/DarkOverlay/DarkOverlay";
 interface Props {}
 
 export default function Game(props: Props) {
-
-
-
-
 	const [isPawnBeingDragged, setIsPawnBeingDragged] = useState(false);
 
 	const [showScenario, setShowScenario] = useState(false);
@@ -97,10 +93,6 @@ export default function Game(props: Props) {
 	const gameData = useAppSelector((state) => {
 		return selectGameData(state);
 	});
-
-	if (!gameData) {
-		return <div></div>
-	}
 
 	useEffect(() => {
 		if (mapRef.current) setMapHeight(mapRef.current.offsetHeight);
@@ -314,6 +306,9 @@ export default function Game(props: Props) {
 	// @ts-ignore
 	const isFirefox = typeof InstallTrigger !== "undefined";
 
+	if (!gameData) {
+		return null;
+	}
 
 	return (
 		<div
@@ -349,7 +344,6 @@ export default function Game(props: Props) {
 				<CardResolve
 					resolve={gameData.mysteryCardToResolveAsEvent}
 					eventStage={true}
-					
 				/>
 			)}
 
@@ -368,7 +362,6 @@ export default function Game(props: Props) {
 					<WeatherResolveWindow />
 				</DraggableWindow>
 			)}
-
 
 			{confirmWindow ? (
 				<ConfirmWindow
@@ -479,10 +472,10 @@ export default function Game(props: Props) {
 					<Guide />
 				</DraggableWindow>
 			)}
-			{gameData.endGameSummary && <DarkOverlay/>}
+			{gameData.endGameSummary && <DarkOverlay />}
 			{gameData.endGameSummary && (
 				<DraggableWindow topLayer={true} padding={"10px"}>
-					<GameOverWindow endGameSummary={gameData.endGameSummary}/>
+					<GameOverWindow endGameSummary={gameData.endGameSummary} />
 				</DraggableWindow>
 			)}
 		</div>

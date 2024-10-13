@@ -15,7 +15,7 @@ import {socketEmitAction} from "../../../../../../../middleware/socketMiddleware
 type Props = {};
 export const WoodPile = (props: Props) => {
 
-    const scenarioService = useAppSelector((state) => selectGame(state).scenarioService!);
+    const scenarioService = useAppSelector((state) => selectGame(state)?.scenarioService!);
 
     const dispatch = useAppDispatch();
 

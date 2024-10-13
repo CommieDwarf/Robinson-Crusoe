@@ -15,7 +15,7 @@ import {socketEmitAction} from "../../../../middleware/socketMiddleware";
 
 export function MysteryCardDraw() {
 
-    const mysteryService = useAppSelector((state) => selectGame(state).mysteryService!)
+    const mysteryService = useAppSelector((state) => selectGame(state)?.mysteryService)
     const mysteryCard = mysteryService?.currentResolve;
 
     const dispatch = useAppDispatch();
@@ -24,26 +24,26 @@ export function MysteryCardDraw() {
     const button1: CardResolveButtonProp = {
         label: mysteryCard?.drawResolved && mysteryCard?.drawLabel || "draw",
         triggerEffect: drawOrTriggerEffect,
-        locked: !mysteryService.canDraw
+        locked: !mysteryService?.canDraw
     };
 
     const button2: CardResolveButtonProp = {
         label: "finish",
         triggerEffect: finish,
-        locked: !mysteryService.canFinish
+        locked: !mysteryService?.canFinish
     }
 
 
     function drawOrTriggerEffect() {
-        if (mysteryService.currentResolve?.drawResolved === false) {
+        if (mysteryService?.currentResolve?.drawResolved === false) {
             dispatch(socketEmitAction(MYSTERY_CONTROLLER_ACTION.TRIGGER_MYSTERY_DRAW_EFFECT));
-        } else if (mysteryService.canDraw) {
+        } else if (mysteryService?.canDraw) {
             dispatch(socketEmitAction(MYSTERY_CONTROLLER_ACTION.DRAW_MYSTERY_CARD));
         }
     }
 
     function finish() {
-        if (mysteryService.canFinish) {
+        if (mysteryService?.canFinish) {
             dispatch(socketEmitAction(MYSTERY_CONTROLLER_ACTION.FINISH_DRAWING_MYSTERY_CARDS));
         }
     }
@@ -51,10 +51,11 @@ export function MysteryCardDraw() {
     const [enlarged, setEnlarged] = useState(false);
 
 
-    const character = mysteryService.drawer?.name;
+    const character = mysteryService?.drawer?.name;
 
     const player = useAppSelector((state) => character && selectPlayerByCharacter(state, character));
 
+    if (!mysteryService) return null;
     return <Draggable bounds={"parent"}>
         <div className={`${styles.container} ${enlarged && styles.enlarged}`}>
             <div className={styles.card}>
