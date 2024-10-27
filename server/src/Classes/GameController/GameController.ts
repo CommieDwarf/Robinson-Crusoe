@@ -31,7 +31,7 @@ export class GameController implements GameControllerInterface, BaseController {
         this._game = game;
         this._players = players;
         this.initActionHandlers();
-        this.test();
+        // this.test();
     }
 
     get game(): IGame {

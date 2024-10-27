@@ -232,11 +232,9 @@ export class EventService implements IEventService {
 
     private initEventCards(): IEventCard[] {
         const creator = new EventCardCreator(this._game);
-        // this._eventSlots.right = creator.create(WRECKAGE_CARD.SUPPLY_CRATES);
         let cards = implementedEventCards.map((card) => creator.create(card));
         cards = shuffle(cards, this._game.getRandomNumber).slice(0, 11)
-        cards.push(creator.create(WRECKAGE_CARD.CAPTAINS_CHEST));
-        cards.push(creator.create(EVENT_CARD.AWFUL_WEATHER));
+        cards.push(creator.create(WRECKAGE_CARD.SUPPLY_CRATES));
         // 29 kart ogólnie
 
 
