@@ -162,7 +162,7 @@ export class Session implements SessionData {
 	): void {
 		const player = this.getPlayerByUserId(userId);
 		this._gameController?.handleAction(action, player, ...args);
-		this._saveService.saveAction(userId, action, args);
+		this._saveService.saveStep(userId, action, args);
 		if (this._gameController?.game.isFinished) {
 			this.clearSaveData();
 		}
@@ -178,7 +178,7 @@ export class Session implements SessionData {
 		} else {
 			this.addNewPlayer(user);
 		}
-		user.addActiveSession(this);
+		user.addSession(this);
 		this.addJoinMessage(user.username);
 		console.log(this.getPlayerByUserId(user.id));
 	}
@@ -461,7 +461,7 @@ export class Session implements SessionData {
 
 	private clearSaveData() {
 		this._loadData = null;
-		this._saveService.clearPlayerActions();
+		this._saveService.clearSaveSteps();
 		this.removePlayerPlaceholders();
 	}
 

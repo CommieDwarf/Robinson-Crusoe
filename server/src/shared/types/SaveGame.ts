@@ -2,7 +2,7 @@ import {CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {SCENARIO} from "@shared/types/Game/ScenarioService/SCENARIO";
 import {IPlayerSaveData} from "@shared/types/Game/PlayerService/Player";
 
-export interface SaveAction {
+export interface SaveStep {
     userId: string,
     action: CONTROLLER_ACTION,
     args: any[],

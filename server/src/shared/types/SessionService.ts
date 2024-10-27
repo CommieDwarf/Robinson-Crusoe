@@ -12,7 +12,7 @@ export interface ISessionService {
     joinSession: (user: IUser, sessionId: string, password: string) => void;
     leaveSession: (user: IUser, sessionId: string) => string;
     getOrCreateUser: (userDocument: UserDocument, socket: Socket) => IUser;
-    removeFromActiveUsers: (userId: string) => void;
+    removeUser: (userId: string) => void;
     findSession: (sessionId: string) => SessionData | null;
     findSessionByInvitationCode: (invitationCode: string) => SessionData | undefined;
     generateUniqueInvitationCode: () => string;

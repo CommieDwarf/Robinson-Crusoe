@@ -136,7 +136,7 @@ export class Castaways implements IScenarioService {
 
     private setStatus(status: SCENARIO_STATUS.WIN | SCENARIO_STATUS.DEFEAT) {
         this._status = status;
-        this._game.saveEndGameSummary();
+        this._game.setEndGameSummary();
     }
 
 

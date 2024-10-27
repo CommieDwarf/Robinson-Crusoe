@@ -43,7 +43,6 @@ import {
 	OTHER_CONTROLLER_ACTION,
 } from "@shared/types/CONTROLLER_ACTION";
 import { MysteryCardDraw } from "./UI/MysteryCardDraw/MysteryCardDraw";
-import { PickOne } from "./UI/PickOne/PickOne";
 import { IPawnRenderData } from "@shared/types/Game/Pawns/Pawn";
 import {
 	actionSlotUpdated,
@@ -52,12 +51,13 @@ import {
 } from "../../reduxSlices/gameSession";
 import { ControlPanel } from "./UI/ControlPanel/ControlPanel";
 import { socketEmitAction } from "../../middleware/socketMiddleware";
-import { PlayerList } from "./UI/PlayerList/PlayerList";
 import { DraggableWindow } from "./UI/DraggableWindow/DraggableWindow";
 import { GameOptions } from "./UI/GameOptions/GameOptions";
 import { Guide } from "./UI/Guide/Guide";
 import { GameOverWindow } from "./GameOverWindow/GameOverWindow";
-import { DarkOverlay } from "./UI/DarkOverlay/DarkOverlay";
+import { DarkOverlay } from "../DarkOverlay/DarkOverlay";
+import { ChoiceSelector } from "./UI/ChoiceSelector/ChoiceSelector";
+import { PlayerOverview } from "./UI/PlayerOverview/PlayerOverview";
 
 interface Props {}
 
@@ -79,7 +79,7 @@ export default function Game(props: Props) {
 	const [confirmWindow, setConfirmWindow] = useState<null | CONFIRM_WINDOW>(
 		null
 	);
-	const [playerListOpen, setPlayerListOpen] = useState(false);
+	const [PlayerOverviewVisible, setPlayerOverviewOpen] = useState(false);
 	const [showOptions, setShowOptions] = useState(false);
 	const [showGuide, setShowGuide] = useState(false);
 
@@ -135,8 +135,8 @@ export default function Game(props: Props) {
 		setShowNightTip(false);
 	}
 
-	function togglePlayerListOpen() {
-		setPlayerListOpen((prev) => !prev);
+	function togglePlayerOverviewOpen() {
+		setPlayerOverviewOpen((prev) => !prev);
 	}
 
 	function toggleShowGuide() {
@@ -325,7 +325,7 @@ export default function Game(props: Props) {
 			{/*<Background columnStart={3} columnEnd={6} rowStart={6} rowEnd={7}/>*/}
 
 			{gameData.objectPickers.map((objPicker) => {
-				return <PickOne objectPicker={objPicker} key={objPicker.id} />;
+				return <ChoiceSelector choiceSelector={objPicker} key={objPicker.id} />;
 			})}
 			{gameData.adventureToResolve && (
 				<CardResolve
@@ -438,9 +438,9 @@ export default function Game(props: Props) {
 					menuDisabled={isPawnBeingDragged || topLayerElement !== ""}
 				/>
 
-				{playerListOpen && (
-					<DraggableWindow onClose={togglePlayerListOpen}>
-						<PlayerList />
+				{PlayerOverviewVisible && (
+					<DraggableWindow onClose={togglePlayerOverviewOpen}>
+						<PlayerOverview  />
 					</DraggableWindow>
 				)}
 
@@ -463,7 +463,7 @@ export default function Game(props: Props) {
 			<ControlPanel
 				confirmWindowIsOpen={!!confirmWindow}
 				phaseChangeLocked={gameData.phaseChangeLocked}
-				togglePlayerListOpen={togglePlayerListOpen}
+				togglePlayerOverviewOpen={togglePlayerOverviewOpen}
 				toggleShowOptions={toggleShowOptions}
 				toggleShowGuide={toggleShowGuide}
 			/>
@@ -472,11 +472,15 @@ export default function Game(props: Props) {
 					<Guide />
 				</DraggableWindow>
 			)}
-			{gameData.endGameSummary && <DarkOverlay />}
 			{gameData.endGameSummary && (
-				<DraggableWindow topLayer={true} padding={"10px"}>
-					<GameOverWindow endGameSummary={gameData.endGameSummary} />
-				</DraggableWindow>
+				<>
+					<DarkOverlay />
+					<DraggableWindow topLayer={true} padding={"10px"}>
+						<GameOverWindow
+							endGameSummary={gameData.endGameSummary}
+						/>
+					</DraggableWindow>
+				</>
 			)}
 		</div>
 	);

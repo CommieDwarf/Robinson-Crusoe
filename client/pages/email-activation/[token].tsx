@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
-import config from "../../config";
+import config from "../../config/config";
 import { useEffect, useState } from "react";
 import styles from "./index.module.css";
 import Link from "next/link";
-import { fetchUser } from "../../lib/fetchUser";
+import { fetchAndUpdateUser } from "../../lib/fetchAndUpdateUser";
 import { getAuthToken } from "../../utils/auth/getAuthToken";
 import { useDispatch } from "react-redux";
 import { userUpdated } from "../../reduxSlices/connection";
@@ -24,7 +24,7 @@ export default function EmailActivation() {
 	);
 
 	const [redirectCounter, setRedirectCounter] = useState(10);
-	const user = useAppSelector(state => state.connection.user);
+	const user = useAppSelector((state) => state.connection.user);
 
 	useEffect(() => {
 		const token = router.query.token as string;
@@ -32,48 +32,39 @@ export default function EmailActivation() {
 			return;
 		}
 
-		try {
-			const url = `${config.SERVER_URL}/verify-email/${token}`;
-			fetch(url, {
-				method: "get",
-				headers: {
-					"Content-Type": "application/json",
-				},
-			}).then((result) => {
-				if (result.ok) {
-					setVerificationStatus(VERIFICATION_STATUS.SUCCESS);
-					localStorage.setItem("emailVerified", "true");
-					const authToken = getAuthToken();
-					if (authToken) {
-						fetchUser(authToken).then(user => dispatch(userUpdated(user)));
-					}
-				} else {
-					setVerificationStatus(VERIFICATION_STATUS.FAILURE);
+		const url = `${config.SERVER_URL}/verify-email/${token}`;
+		fetch(url, {
+			method: "get",
+			headers: {
+				"Content-Type": "application/json",
+			},
+		}).then((result) => {
+			if (result.ok) {
+				setVerificationStatus(VERIFICATION_STATUS.SUCCESS);
+				localStorage.setItem("emailVerified", "true");
+				const authToken = getAuthToken();
+				if (authToken) {
+					fetchAndUpdateUser(authToken, dispatch);
 				}
-			})
-		} catch (e) {
-			throw (e);
-		}
-
-	
+			} else {
+				setVerificationStatus(VERIFICATION_STATUS.FAILURE);
+			}
+		});
 	}, [router.query, dispatch]);
-
-
-
 
 	useEffect(() => {
 		if (verificationStatus !== VERIFICATION_STATUS.SUCCESS) {
 			return;
-		} 
-			const interval = setInterval(() => {
-				setRedirectCounter((prevCounter) => {
-					if (prevCounter <= 1) {
-						clearInterval(interval);
-						router.push("/");
-					}
-					return prevCounter - 1;
-				});
-			}, 1000);
+		}
+		const interval = setInterval(() => {
+			setRedirectCounter((prevCounter) => {
+				if (prevCounter <= 1) {
+					clearInterval(interval);
+					router.push("/");
+				}
+				return prevCounter - 1;
+			});
+		}, 1000);
 		return () => clearInterval(interval);
 	}, [verificationStatus, router]);
 
@@ -88,7 +79,7 @@ export default function EmailActivation() {
 						Twoje konto zostało{" "}
 						<span className={styles.positive}>pomyślnie</span>{" "}
 						zweryfikowane. Możesz teraz{" "}
-						<Link href={"/signIn"} className={styles.link}>
+						<Link href={"/sign-in"} className={styles.link}>
 							zalogować
 						</Link>{" "}
 						się do naszego serwisu. Dziękujemy za potwierdzenie

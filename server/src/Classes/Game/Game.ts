@@ -43,9 +43,9 @@ import {IActionSlotService, IActionSlotServiceRenderData} from "@shared/types/Ga
 import {ILogService} from "@shared/types/Game/ChatLog/ChatLog";
 import {LOG_CODE} from "@shared/types/Game/ChatLog/LOG_CODE";
 import {IPlayer} from "@shared/types/Game/PlayerService/Player";
-import {ObjectPicker} from "./ObjectPicker/ObjectPicker";
+import {ChoiceSelector} from "./ChoiceSelector/ChoiceSelector";
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
-import {PickableConstruction, PickableObject, PickSubject} from "@shared/types/Game/ObjectPicker/ObjectPicker";
+import {ChoosableConstruction, ChoosableObject, ChoiceSubject} from "@shared/types/Game/ChoiceSelector/ChoiceSelector";
 import {GlobalPawnService} from "./GlobalPawnService/GlobalPawnService";
 import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction";
 import seedrandom from "seedrandom";
@@ -87,7 +87,7 @@ export class GameClass implements IGame {
 
     private readonly _tileService: ITileService
 
-    private _objectPickers: ObjectPicker<any>[] = [];
+    private _objectPickers: ChoiceSelector<any>[] = [];
     private readonly _seed: string;
     private readonly _id: string;
     private _endGameSummary: EndGameSummary | null = null;
@@ -292,11 +292,11 @@ export class GameClass implements IGame {
     }
 
 
-    public startPickingObject<T extends PickableObject>(objects: (Exclude<T, PickableConstruction> | CONSTRUCTION)[],
+    public startPickingObject<T extends ChoosableObject>(objects: (Exclude<T, ChoosableConstruction> | CONSTRUCTION)[],
                                                         picker: IPlayerCharacter,
                                                         amount: number,
                                                         source: string,
-                                                        pickSubject: PickSubject,
+                                                        pickSubject: ChoiceSubject,
                                                         pickEffect: (object: T) => void,
                                                         secondaryEffect?: (object: T) => void,
     ) {
@@ -311,7 +311,7 @@ export class GameClass implements IGame {
         })
 
 
-        this._objectPickers.push(new ObjectPicker<T>(
+        this._objectPickers.push(new ChoiceSelector<T>(
             this,
             mappedObjects,
             picker,
@@ -337,7 +337,7 @@ export class GameClass implements IGame {
         this._round++;
     }
     
-    public saveEndGameSummary() {
+    public setEndGameSummary() {
         if (this._scenarioService.status === SCENARIO_STATUS.PENDING) {
             throw new Error("Tried to get game summary from ongoing game");
         }

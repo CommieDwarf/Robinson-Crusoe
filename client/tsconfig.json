@@ -11,6 +11,7 @@
         "../server/src/shared/*"
       ]
     },
+    "baseUrl": "./",
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -30,7 +31,7 @@
     "Client/next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "components/Game/UI/Guide/ImgList"  ],
+, "components/Game/UI/Guide/ImgList", "components/Form/RedirectLink"  ],
   "exclude": [
     "node_modules"
   ]

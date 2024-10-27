@@ -13,13 +13,13 @@ import { ISessionService } from "@shared/types/SessionService";
 import { IUser } from "@shared/types/User/IUser";
 
 export class SessionService implements ISessionService {
-	private _activeSessions = new Map<SessionData["id"], SessionData>();
-	private _activeUsers = new Map<IUser["id"], IUser>();
+	private _sessions = new Map<SessionData["id"], SessionData>();
+	private _users = new Map<IUser["id"], IUser>();
 
 	constructor() {
 		setInterval(() => {
-			console.log("ACTIVE SESSIONS", this._activeSessions.size);
-			console.log("ACTIVE USERS", this._activeUsers.size);
+			console.log("ACTIVE SESSIONS", this._sessions.size);
+			console.log("ACTIVE USERS", this._users.size);
 		}, 10000);
 	}
 
@@ -31,7 +31,7 @@ export class SessionService implements ISessionService {
 		const user = this.getUser(userId);
 		user.leaveLobbies();
 		const session: SessionData = new Session(this, user, settings, loadData);
-		this._activeSessions.set(session.id, session);
+		this._sessions.set(session.id, session);
 		return session;
 	}
 
@@ -86,17 +86,17 @@ export class SessionService implements ISessionService {
 	public removeSession(sessionId: string): void {
 		const session = this.getSession(sessionId);
 		session.onSessionRemove();
-        session.players.map((player) => this._activeUsers.get(player.user.id)).forEach((user) => user?.removeSession(sessionId));
-		this._activeSessions.delete(sessionId);
+        session.players.map((player) => this._users.get(player.user.id)).forEach((user) => user?.removeSession(sessionId));
+		this._sessions.delete(sessionId);
 	}
 
 	public findSession(sessionId: string): SessionData | null {
-		const session = this._activeSessions.get(sessionId);
+		const session = this._sessions.get(sessionId);
 		return session || null;
 	}
 
 	public findSessionByInvitationCode(invitationCode: string) {
-		for (const session of this._activeSessions.values()) {
+		for (const session of this._sessions.values()) {
 			if (session.invitationCode === invitationCode) {
 				return session;
 			}
@@ -104,10 +104,10 @@ export class SessionService implements ISessionService {
 	}
 
 	public getOrCreateUser(userDocument: UserDocument, socket: Socket): IUser {
-		let user = this._activeUsers.get(userDocument._id.toString());
+		let user = this._users.get(userDocument._id.toString());
 		if (!user) {
 			user = new User(userDocument, socket, this);
-			this._activeUsers.set(user.id, user);
+			this._users.set(user.id, user);
 			return user;
 		} else {
 			user.addSocket(socket);
@@ -115,12 +115,12 @@ export class SessionService implements ISessionService {
 		return user;
 	}
 
-	public removeFromActiveUsers(userId: string) {
-		this._activeUsers.delete(userId);
+	public removeUser(userId: string) {
+		this._users.delete(userId);
 	}
 
 	public getPublicSessionList(userId: string): SessionBasicInfo[] {
-		return Array.from(this._activeSessions.values())
+		return Array.from(this._sessions.values())
 			.filter(
 				(session) =>
 					!session.settings.private && !session.isGameInProgress
@@ -173,11 +173,11 @@ export class SessionService implements ISessionService {
 	}
 
     public getAllUsersFromSession(sessionId: string) {
-        return this.getSession(sessionId).players.map((player) => this._activeUsers.get(player.user.id)).filter((user) => user !== undefined) as IUser[];
+        return this.getSession(sessionId).players.map((player) => this._users.get(player.user.id)).filter((user) => user !== undefined) as IUser[];
     }
 
 	private getUser(userId: string): IUser {
-		const user = this._activeUsers.get(userId);
+		const user = this._users.get(userId);
 		if (!user) {
 			throw new Error("Can't find user with id: " + userId);
 		}
@@ -185,7 +185,7 @@ export class SessionService implements ISessionService {
 	}
 
 	private getSession(sessionId: string) {
-		const session = this._activeSessions.get(sessionId);
+		const session = this._sessions.get(sessionId);
 		if (!session) {
 			throw new Error("Can't find session with id: " + sessionId);
 		}
@@ -213,7 +213,7 @@ export class SessionService implements ISessionService {
 	}
 
 	private isInvitationCodeUnique(code: string) {
-		return !Array.from(this._activeSessions.values()).find(
+		return !Array.from(this._sessions.values()).find(
 			(session) => session.invitationCode === code
 		);
 	}

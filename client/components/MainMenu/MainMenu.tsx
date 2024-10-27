@@ -26,7 +26,7 @@ export function MainMenu({UserComponent}: Props) {
 
     const router = useRouter();
     const {t} = useTranslation();
-    const socketConnected = useAppSelector((state) => state.connection.connected);
+    const socketConnected = useAppSelector((state) => state.connection.socketConnected);
     const dispatch = useAppDispatch();
 
 

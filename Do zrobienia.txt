@@ -1,22 +1,22 @@
 przenieś kiedyś silnik na front-end
 
 kontynuuj pisanie guide'a 
+zoomowanie rozwala layout faz (rozwinane menu) oraz kart pomyslow/mystery/przedmiotow
 
 zcentralizuj przekierowywanie sciężek
 popraw obszar postaci pobocznych
 Jesli friday + gracz robi akcje, gracz ma być liderem.
-zoomowanie rozwala layout faz (rozwinane menu) oraz kart pomyslow/mystery/przedmiotow
 Okno pogody do przerobienia.
-zró actionSlotsy domyslnie szare. Zamien kolor na biały kiedy gracz może uzywac pionkow.
+obsłuż przycisk back w przeglądarce?
 
-error handling na cliencie.
-
-
+ogarnij przycisk kontynuuj w menu. Nie pozwól mieć graczowi wiele gier?.
 
 
-powiadomienie o zerwanym połączeniu z serwerem oraz próby reconnectu.
+zrób actionSlotsy domyslnie szare. Zamien kolor na biały kiedy gracz może uzywac pionkow.
 
 
+dokończ request limiter. x
+powiadomienie o zerwanym połączeniu z serwerem oraz próby reconnectu. x
 zrób case dla DraggableWindow z overflowHidden = false;  x
 popracuj nad designem toastów x
 zrób opcje restartu gry x

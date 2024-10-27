@@ -2,7 +2,7 @@ import { useState } from "react";
 import { MainMenu } from "../../components/MainMenu/MainMenu";
 import styles from "./index.module.css";
 import { UserProfile } from "../../components/UserProfile/UserProfile";
-import config from "../../config";
+import config from "../../config/config";
 import { getAuthToken } from "../../utils/auth/getAuthToken";
 import { useTranslation } from "react-i18next";
 

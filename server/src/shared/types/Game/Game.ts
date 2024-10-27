@@ -27,11 +27,11 @@ import {ITokenService, ITokenServiceRenderData,} from "./TokenService/TokenServi
 import {IAdventureService, IAdventureServiceRenderData,} from "./AdventureService/AdventureService";
 import {IMysteryService, IMysteryServiceRenderData,} from "./MysteryService/MysteryService";
 import {
-    IObjectPickerRenderData,
-    PickableConstruction,
-    PickableObject,
-    PickSubject
-} from "@shared/types/Game/ObjectPicker/ObjectPicker";
+    IChoiceSelectorRenderData,
+    ChoosableConstruction,
+    ChoosableObject,
+    ChoiceSubject
+} from "@shared/types/Game/ChoiceSelector/ChoiceSelector";
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 import {IGlobalPawnService, IGlobalPawnServiceRenderData} from "@shared/types/Game/GlobalPawnService/GlobalPawnService";
 import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction";
@@ -70,7 +70,7 @@ export interface IGameRenderData {
     tokenService: ITokenServiceRenderData;
     adventureService: IAdventureServiceRenderData;
     mysteryService: IMysteryServiceRenderData;
-    objectPickers: IObjectPickerRenderData<any>[];
+    objectPickers: IChoiceSelectorRenderData<any>[];
     primePlayer: IPlayerRenderData;
 
     endGameSummary: EndGameSummary | null;
@@ -119,16 +119,16 @@ export interface IGame {
 
     randomCounter: number;
 
-    saveEndGameSummary: () => void;
+    setEndGameSummary: () => void;
 
     getRandomNumber: () => number;
 
 
-    startPickingObject: <T extends PickableObject> (objects: (Exclude<T, PickableConstruction> | CONSTRUCTION)[],
+    startPickingObject: <T extends ChoosableObject> (objects: (Exclude<T, ChoosableConstruction> | CONSTRUCTION)[],
                                                     picker: IPlayerCharacter,
                                                     amount: number,
                                                     source: string,
-                                                    pickSubject: PickSubject,
+                                                    pickSubject: ChoiceSubject,
                                                     pickEffect: (object: T) => void,
                                                     secondaryEffect?: (object: T) => void
     ) => void,

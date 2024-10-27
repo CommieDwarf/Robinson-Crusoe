@@ -32,9 +32,6 @@ export function SessionList(props: Props) {
 	}
 
 	useEffect(() => {
-
-
- 
 		const listeners = [
 			setSocketListener(SOCKET_EVENT_SERVER.SESSION_LIST_CHANGED, () => {
 				requestList();

@@ -1,22 +1,26 @@
 import styles from "./AuthForm.module.css";
 import React, { FormEvent, useEffect, useState } from "react";
-import Link from "next/link";
-import config from "../../config";
+import config from "../../config/config";
 import { useRouter } from "next/router";
 import { isAuthenticated } from "../../utils/auth/isAuthenticated";
-import { useAppDispatch } from "../../store/hooks";
-import { fetchUser } from "../../lib/fetchUser";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { fetchAndUpdateUser } from "../../lib/fetchAndUpdateUser";
 import { LoginReqBody } from "@shared/types/Requests/Post";
 import Cookies from "js-cookie";
-import { userUpdated } from "../../reduxSlices/connection";
+import { fetchErrorUpdated, userUpdated } from "../../reduxSlices/connection";
 import { socketConnect } from "../../middleware/socketMiddleware";
 import { useTranslation } from "react-i18next";
 import capitalize from "@shared/utils/capitalize";
-import { capitalizeAll } from "@shared/utils/capitalizeAll";
-import { DarkOverlay } from "../Game/UI/DarkOverlay/DarkOverlay";
 import { LoaderSpinner } from "../LoaderSpinner/LoaderSpinner";
+import { toast } from "react-toastify";
+import { FormButton } from "../Form/FormButton.tsx/FormButton";
+import { RedirectLink } from "../Form/RedirectLink/RedirectLink";
+import { FormInput } from "../Form/FormInput/FormInput";
+import { FormError } from "../Form/FormError/FormError";
+import formStyles from "../Form/Form.module.css";
+import { VALIDATION_CONFIG } from "@shared/config/VALIDATION_CONFIG";
 interface Props {
-	isLogin: boolean;
+	loginMode: boolean;
 }
 
 interface Errors {
@@ -33,6 +37,8 @@ export default function AuthForm(props: Props) {
 	const [password, setPassword] = useState("");
 	const [passwordRepeat, setPasswordRepeat] = useState("");
 
+	const [passwordChanged, setPasswordChanged] = useState(true);
+
 	const router = useRouter();
 	const dispatch = useAppDispatch();
 	const { t } = useTranslation();
@@ -48,19 +54,31 @@ export default function AuthForm(props: Props) {
 	});
 
 	useEffect(() => {
+		setPasswordChanged(true);
+	}, [props.loginMode]);
+
+	useEffect(() => {
 		if (isAuthenticated()) {
 			router.push("/");
 		}
 	}, [router]);
 
 	function isDataValid() {
-		if (!username) {
+		if (
+			!username ||
+			username.length < VALIDATION_CONFIG.MIN_PASSWORD_LENGTH ||
+			username.length > VALIDATION_CONFIG.MAX_PASSWORD_LENGTH
+		) {
 			return false;
 		}
 		if (!email || !validateEmail(email)) {
 			return false;
 		}
-		if (!password || password.length < 8) {
+		if (
+			!password ||
+			password.length < VALIDATION_CONFIG.MIN_PASSWORD_LENGTH ||
+			password.length > VALIDATION_CONFIG.MAX_PASSWORD_LENGTH
+		) {
 			return false;
 		}
 		if (!passwordRepeat || passwordRepeat !== password) {
@@ -72,72 +90,86 @@ export default function AuthForm(props: Props) {
 	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		setLoading(true);
-		if (props.isLogin) {
+		setError("form", "");
+		if (props.loginMode) {
 			await signIn();
 		} else {
 			await signUp();
 		}
+
 		setLoading(false);
 	};
 
 	async function signIn() {
-		const body: LoginReqBody = { email, password };
-		const url = `${config.SERVER_URL}/login`;
-		const response = await fetch(url, {
-			method: "post",
-			body: JSON.stringify(body),
-			headers: {
-				"Content-Type": "application/json",
-			},
-			mode: "cors"
-		});
-		if (response.status === 200) {
-			await handleAuthentication(response);
-		} else if (response.status === 401) {
-			setError("form", "Provided email or password is incorrect.");
-		} else {
-			setError("form", "Attempt to sign in failed.");
+		try {
+			const body: LoginReqBody = { email, password };
+			const url = `${config.SERVER_URL}/login`;
+			const response = await fetch(url, {
+				method: "post",
+				body: JSON.stringify(body),
+				headers: {
+					"Content-Type": "application/json",
+				},
+				mode: "cors",
+			});
+			const json = await response.json();
+			if (response.status === 200) {
+				await handleAuthentication(response);
+			} else if (response.status === 401) {
+				setError("form", "Provided email or password is incorrect.");
+			} else if (response.status === 429) {
+				await handleFailedLoginLimitReached(json);
+			} else {
+				setError("form", "Attempt to sign in failed.");
+			}
+		} catch (e) {
+			handleFetchError(e);
 		}
 	}
 
 	async function signUp() {
-		if (!isDataValid()) {
-			setError("form", "Provided data is incorrect.");
-			return;
-		}
-		const body = JSON.stringify({ email, username, password });
-		const url = `${config.SERVER_URL}/register`;
-		const response = await fetch(url, {
-			method: "post",
-			body,
-			headers: {
-				"Content-Type": "application/json",
-			},
-		});
-		if (response.status === 201) {
-			await handleAuthentication(response);
-		} else if (response.status === 422) {
-			setError("form", "Provided data is incorrect.");
-		} else {
-			setError("form", "Attempt to sign up failed.");
+		try {
+			if (!isDataValid()) {
+				setError("form", "Provided data is incorrect.");
+				return;
+			}
+			const body = JSON.stringify({ email, username, password });
+			const url = `${config.SERVER_URL}/register`;
+			const response = await fetch(url, {
+				method: "post",
+				body,
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
+			if (response.status === 201) {
+				await handleAuthentication(response);
+			} else if (response.status === 422) {
+				setError("form", "Provided data is incorrect.");
+			} else {
+				setError("form", "Attempt to sign up failed.");
+			}
+		} catch (e) {
+			handleFetchError(e);
 		}
 	}
 
 	async function handleAuthentication(response: Response) {
 		const authToken = response.headers.get("Authorization");
 		if (authToken) {
-			const user = await fetchUser(authToken);
-			dispatch(userUpdated(user));
-			Cookies.set("Authorization", authToken, { path: '/', sameSite: 'Lax' });
+			const user = await fetchAndUpdateUser(authToken, dispatch);
+			if (!user) {
+				return;
+			}
+			Cookies.set("Authorization", authToken, {
+				path: "/",
+				sameSite: "Lax",
+			});
 			if (user.emailVerified) {
 				dispatch(socketConnect({ authToken }));
-				router.push('/');
+				router.push("/");
 			} else {
-				try {
-					router.push("/verify-your-email");
-				} catch(e) {
-					console.warn(e);
-				}
+				router.push("/verify-your-email");
 			}
 		}
 	}
@@ -147,7 +179,7 @@ export default function AuthForm(props: Props) {
 			return;
 		}
 		const response = await usernameExists(username);
-		if (response.status === 409) {
+		if (response && response.status === 409) {
 			setError("username", "This user name is taken");
 		} else {
 			setError("username", "");
@@ -157,7 +189,7 @@ export default function AuthForm(props: Props) {
 	async function handleUsernameChange(
 		event: React.ChangeEvent<HTMLInputElement>
 	) {
-		if (props.isLogin) {
+		if (props.loginMode) {
 			return;
 		}
 		const username = event.target.value;
@@ -165,7 +197,7 @@ export default function AuthForm(props: Props) {
 	}
 
 	function handlePasswordBlur() {
-		if (props.isLogin) {
+		if (props.loginMode) {
 			return;
 		}
 		if (password && password.length < 8) {
@@ -179,7 +211,7 @@ export default function AuthForm(props: Props) {
 	}
 
 	async function handleEmailBlur() {
-		if (props.isLogin) {
+		if (props.loginMode) {
 			return;
 		}
 		const isEmail = validateEmail(email);
@@ -215,8 +247,15 @@ export default function AuthForm(props: Props) {
 	function handlePasswordChange(event: React.ChangeEvent<HTMLInputElement>) {
 		const password = event.target.value;
 		setPassword(password);
-		checkPasswordsSame(password, passwordRepeat);
 	}
+
+	useEffect(() => {
+		checkPasswordsSame(password, passwordRepeat);
+	}, [password, passwordRepeat]);
+
+	useEffect(() => {
+		setPasswordChanged(true);
+	}, [password]);
 
 	function checkPasswordsSame(password: string, repeatPassword: string) {
 		if (password && repeatPassword && password !== repeatPassword) {
@@ -226,15 +265,26 @@ export default function AuthForm(props: Props) {
 		}
 	}
 
+	function handleFetchError(error: any) {
+		if (error instanceof TypeError) {
+			dispatch(fetchErrorUpdated(true));
+		} else {
+			throw error;
+		}
+	}
+
 	async function usernameExists(username: string) {
 		const url = `${config.SERVER_URL}/usernameExists/${username}`;
-
-		return fetch(url, {
-			method: "get",
-			headers: {
-				"Content-Type": "application/json",
-			},
-		});
+		try {
+			return await fetch(url, {
+				method: "get",
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
+		} catch (e) {
+			return false;
+		}
 	}
 
 	const validateEmail = (email: string) => {
@@ -256,7 +306,7 @@ export default function AuthForm(props: Props) {
 			});
 			return result.status === 409;
 		} catch (error) {
-			throw error;
+			return false;
 		}
 	}
 
@@ -279,137 +329,158 @@ export default function AuthForm(props: Props) {
 		}
 	}
 
+	const connectionError = useAppSelector(
+		(state) => state.connection.fetchError
+	);
+
+	async function handleLimitReached(json: any) {
+		toast(
+			t("toast.request limit reached", {
+				tryAfter: json.tryAfter,
+			}),
+			{
+				type: "error",
+			}
+		);
+	}
+
+	async function handleFailedLoginLimitReached(json: any) {
+		setError(
+			"form",
+			t("menu.login request limit reached", { tryAfter: json.tryAfter })
+		);
+	}
+
 	return (
-		<div className={styles.container}>
-			<h3>
-				{props.isLogin
-					? capitalize(t("menu.sign in"))
-					: capitalizeAll(t("menu.new account"))}
-			</h3>
-			<form onSubmit={handleSubmit} className={styles.form}>
-				{!props.isLogin && (
-					<div className={styles.row}>
-						<input
-							placeholder={t("menu.username")}
-							className={styles.input}
-							type="text"
-							id="username"
-							value={username}
-							onChange={handleUsernameChange}
-							onBlur={handleUsernameBlur}
-							required
-						/>
-						<div className={styles.error}>
-							{errors.username && (
-								<i className="icon-warning"></i>
-							)}
-							{errors.username}
-						</div>
-					</div>
-				)}
-				<div className={styles.row}>
-					<input
-						placeholder={"e-mail"}
-						className={styles.input}
-						type="email"
-						id="email"
-						value={email}
-						onChange={(e) => setEmail(e.target.value)}
-						onBlur={handleEmailBlur}
-						required
-					/>
-					<div className={styles.error}>
-						{errors.email && <i className="icon-warning"></i>}
-						{errors.email}
-					</div>
-				</div>
-				<div className={styles.row}>
-					<input
-						className={styles.input}
-						placeholder={t("menu.password")}
-						type="password"
-						id="password"
-						value={password}
-						onChange={handlePasswordChange}
-						onBlur={handlePasswordBlur}
-						required
-					/>
-					<div className={styles.error}>
-						{errors.password && <i className="icon-warning"></i>}
-						{errors.password}
-					</div>
-				</div>
-				{!props.isLogin && (
-					<div className={styles.row}>
-						<input
-							className={styles.input}
-							placeholder={
-								t("menu.repeat password") || "repeat password"
-							}
-							type="password"
-							id="rePassword"
-							value={passwordRepeat}
-							onChange={handlePasswordRepeatChange}
-							required
-						/>
-						<div className={styles.error}>
-							{errors.passwordRepeat && (
-								<i className="icon-warning"></i>
-							)}
-							{errors.passwordRepeat}
-						</div>
-					</div>
-				)}
-				<div className={styles.row}>
-				<div className={styles.error}>
-					{errors.form && <i className="icon-warning"></i>}
-					{errors.form}
-				</div>
-				<button
-					type="submit"
-					className={`${styles.input} 
-                        ${styles.button}
-                        ${buttonActive && styles.buttonActive}
-						${loading && styles.buttonLoading}`
-					}
-				>	
-					{loading && (props.isLogin ? 
-						"Logowanie..." :
-						"Rejestrowanie..."	)
-				}
-
-
-					{!loading && (props.isLogin
-						? capitalize(t("menu.sign in"))
-						: capitalize(t("menu.sign up")))}
-				</button>
-				</div>
-				
-				{loading && <div className={styles.loaderSpinnerWrapper}>
-						<LoaderSpinner/>
-				</div>}
-			</form>
-
-			{props.isLogin ? (
-				<span className={styles.redirectText}>
-					<p className={styles.question}>{capitalize(t("menu.don't have an account yet?"))}</p>
-					<Link href={"./signUp"} className={styles.link}>
-						{capitalize(t("menu.create one"))}!
-					</Link>
-				</span>
-			) : (
-				<span className={styles.redirectText}>
-					<p className={styles.question}>{capitalize(t("menu.already have an account?"))}</p>
-					<Link href={"./signIn"} className={styles.link}>
+		<>
+			{
+				<div className={formStyles.container}>
+					<h3>
 						{capitalize(
-							t("menu.sign in", {
-								context: "reflexive pronoun",
-							})
+							t(
+								props.loginMode
+									? "menu.sign in"
+									: "menu.new account"
+							)
 						)}
-						!
-					</Link>
-				</span>
-			)}
-		</div>
+					</h3>
+					<form onSubmit={handleSubmit} className={formStyles.form}>
+						{!props.loginMode && (
+							<FormInput
+								placeholder={t("menu.username")}
+								className={styles.input}
+								type="text"
+								id="username"
+								value={username}
+								onChange={handleUsernameChange}
+								onBlur={handleUsernameBlur}
+								required
+								error={errors.username}
+								minLength={
+									VALIDATION_CONFIG.MIN_USERNAME_LENGTH
+								}
+								maxLength={
+									VALIDATION_CONFIG.MAX_USERNAME_LENGTH
+								}
+							/>
+						)}
+						<FormInput
+							placeholder={"e-mail"}
+							className={styles.input}
+							type="email"
+							id="email"
+							value={email}
+							onChange={(e) => setEmail(e.target.value)}
+							onBlur={handleEmailBlur}
+							required
+							error={errors.email}
+						/>
+						<FormInput
+							className={styles.input}
+							placeholder={t("menu.password")}
+							type="password"
+							id="password"
+							value={password}
+							onChange={handlePasswordChange}
+							onBlur={handlePasswordBlur}
+							required
+							error={errors.password}
+							minLength={VALIDATION_CONFIG.MIN_PASSWORD_LENGTH}
+							maxLength={VALIDATION_CONFIG.MAX_PASSWORD_LENGTH}
+						/>
+						{!props.loginMode && (
+							<FormInput
+								placeholder={
+									t("menu.repeat password") ||
+									"repeat password"
+								}
+								type="password"
+								value={passwordRepeat}
+								onChange={handlePasswordRepeatChange}
+								required
+								error={errors.passwordRepeat}
+								minLength={
+									VALIDATION_CONFIG.MIN_PASSWORD_LENGTH
+								}
+								maxLength={
+									VALIDATION_CONFIG.MAX_PASSWORD_LENGTH
+								}
+							/>
+						)}
+						{errors.form && <FormError error={errors.form} />}
+						<FormButton
+							active={buttonActive}
+							loading={loading}
+							label={capitalize(
+								t(
+									props.loginMode
+										? "menu.sign in"
+										: "menu.sign up"
+								)
+							)}
+							loadingLabel={capitalize(
+								t(
+									props.loginMode
+										? "menu.signing in"
+										: "menu.signing up"
+								)
+							)}
+						/>
+						{!loading && connectionError && (
+							<FormError
+								error="Wystąpił problem z połączeniem z serwerem. Sprawdź swoje
+										połączenie internetowe i spróbuj ponownie."
+							/>
+						)}
+						{loading && (
+							<div className={styles.loaderSpinnerWrapper}>
+								<LoaderSpinner />
+							</div>
+						)}
+					</form>
+					{props.loginMode ? (
+						<RedirectLink
+							label={capitalize(
+								t("menu.don't have an account yet?")
+							)}
+							linkText={capitalize(t("menu.create one"))}
+							href={"./sign-up"}
+						/>
+					) : (
+						<RedirectLink
+							label={capitalize(
+								t("menu.already have an account?")
+							)}
+							linkText={capitalize(
+								t("menu.sign in", {
+									context: "reflexive pronoun",
+								})
+							)}
+							href={"./sign-in"}
+						/>
+					)}
+				</div>
+			}
+		</>
 	);
 }

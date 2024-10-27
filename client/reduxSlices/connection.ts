@@ -3,16 +3,20 @@ import {UserData} from "@shared/types/UserData/UserData";
 
 type State = {
     user: UserData | null;
-    connected: boolean;
+    socketConnected: boolean;
+    socketConnectionLost: boolean;
     latency: number;
     avatar: string;
+    fetchError: boolean,
 }
 
 const initialState: State = {
     user: null,
-    connected: false,
+    socketConnected: false,
+    socketConnectionLost: false,
     latency: Infinity,
     avatar: "",
+    fetchError: false,
 }
 
 
@@ -27,12 +31,23 @@ export const connectionSlice = createSlice({
             }
         },
         connectedUpdated(state, action) {
-            state.connected = action.payload
+            state.socketConnected = action.payload;
+            if (action.payload === true) {
+                state.socketConnectionLost = false;
+            }
         },
         latencyUpdated(state, action) {
-            state.latency = action.payload
-        }
+            state.latency = action.payload;
+        },
+        fetchErrorUpdated(state, action) {
+            state.fetchError = action.payload;
+        },
+        connectionLostUpdated(state, action) {
+            state.socketConnectionLost = action.payload;
+            state.socketConnected = !action.payload;
+        },
+        
     }
 });
 
-export const {userUpdated, connectedUpdated, latencyUpdated} = connectionSlice.actions
+export const {userUpdated, connectedUpdated, latencyUpdated, fetchErrorUpdated, connectionLostUpdated} = connectionSlice.actions

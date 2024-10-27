@@ -2,12 +2,12 @@ import mongoose, {Schema} from "mongoose";
 import {IPlayerSaveData} from "@shared/types/Game/PlayerService/Player";
 import {SCENARIO} from "@shared/types/Game/ScenarioService/SCENARIO";
 import {SessionSettings} from "@shared/types/SessionSettings";
-import {SaveAction} from "@shared/types/SaveGame";
+import {SaveStep} from "@shared/types/SaveGame";
 
 
 export interface SaveGameDocument {
     _id: string;
-    playerActions: SaveAction[];
+    playerActions: SaveStep[];
     players: IPlayerSaveData[];
     scenario: SCENARIO;
     timestamp: number;

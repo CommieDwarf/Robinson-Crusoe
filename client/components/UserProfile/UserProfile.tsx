@@ -11,7 +11,10 @@ import { UserAvatar } from "./UserAvatar/UserAvatar";
 import { useTranslation } from "react-i18next";
 import capitalize from "@shared/utils/capitalize";
 import { Session } from "../SessionList/Session/Session";
-import { SOCKET_EVENT_CLIENT, SOCKET_EVENT_SERVER } from "@shared/types/Requests/Socket";
+import {
+	SOCKET_EVENT_CLIENT,
+	SOCKET_EVENT_SERVER,
+} from "@shared/types/Requests/Socket";
 import { socketEmit } from "../../middleware/socketMiddleware";
 import { setSocketListener } from "../../pages/api/socket";
 
@@ -24,59 +27,66 @@ export function UserProfile(props: Props) {
 	const [sessionsInProgress, setSessionsInProgress] = useState<
 		SessionBasicInfo[] | null
 	>(null);
-	const [avatarUrl, setAvatarUrl] = useState<string>("");
 	const { t } = useTranslation();
+
 
 	function handleSignOut() {
 		deleteAuthCookie();
 		dispatch(userUpdated(null));
 		dispatch(connectedUpdated(false));
 		socket.disconnect();
-		router.push("/signIn");
+		router.push("/sign-in");
 	}
 
-	if (!sessionsInProgress) {
-		requestGameList();
-	}
 
 	useEffect(() => {
-        const listeners = [
-            setSocketListener(SOCKET_EVENT_SERVER.GAME_IN_PROGRESS_LIST_SENT, (payload) => {
-                setSessionsInProgress(payload.sessionList);
-            }),
-			setSocketListener(SOCKET_EVENT_SERVER.JOIN_SESSION_RESPONSE, (payload) => {
-				
-				router.push("/play/" + payload.sessionId);
-			}),
-			setSocketListener(SOCKET_EVENT_SERVER.GAME_IN_PROGRESS_LIST_CHANGED, (payload) => {
-				requestGameList();
-			})
-        ]
-		
+		const listeners = [
+			setSocketListener(
+				SOCKET_EVENT_SERVER.GAME_IN_PROGRESS_LIST_SENT,
+				(payload) => {
+					setSessionsInProgress(payload.sessionList);
+				}
+			),
+			setSocketListener(
+				SOCKET_EVENT_SERVER.JOIN_SESSION_RESPONSE,
+				(payload) => {
+					router.push("/play/" + payload.sessionId);
+				}
+			),
+			setSocketListener(
+				SOCKET_EVENT_SERVER.GAME_IN_PROGRESS_LIST_CHANGED,
+				(payload) => {
+					requestGameList();
+				}
+			),
+		];
+
 		requestGameList();
 		return () => {
-		    listeners.forEach(listener => listener.off())
-		}
+			listeners.forEach((listener) => listener.off());
+		};
 	}, [router]);
 
 	function requestGameList() {
-		dispatch(socketEmit(SOCKET_EVENT_CLIENT.SEND_GAME_IN_PROGRESS_LIST, null))
+		dispatch(
+			socketEmit(SOCKET_EVENT_CLIENT.SEND_GAME_IN_PROGRESS_LIST, null)
+		);
 	}
 
 	function handleJoinGameClick(sessionId: string) {
-		dispatch(socketEmit(SOCKET_EVENT_CLIENT.JOIN_SESSION, {
-			sessionId,
-			password: "",
-		}))
+		dispatch(
+			socketEmit(SOCKET_EVENT_CLIENT.JOIN_SESSION, {
+				sessionId,
+				password: "",
+			})
+		);
 	}
 
 	return (
 		<div className={styles.container}>
-			{user && (
-				<div className={styles.avatar}>
-					<UserAvatar username={user.username} />
-				</div>
-			)}
+			<div className={styles.avatar}>
+				{<UserAvatar username={user?.username || "empty"}/>}
+			</div>
 			<h2>{user?.username}</h2>
 			<hr />
 			{sessionsInProgress && sessionsInProgress.length > 0 && (
@@ -96,10 +106,12 @@ export function UserProfile(props: Props) {
 										scenario={session.scenario}
 										password={session.password}
 										id={session.id}
-										onPasswordJoinAttempt={handleJoinGameClick}
+										onPasswordJoinAttempt={
+											handleJoinGameClick
+										}
 										onJoinClick={handleJoinGameClick}
 										hidePassword={true}
-                                        shortMode={true}
+										shortMode={true}
 									/>
 								</div>
 							);

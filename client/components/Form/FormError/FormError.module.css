@@ -1,0 +1,7 @@
+.container {
+    margin: 0;
+    color: var(--hunt);
+    font-weight: 700;
+    font-size: 12px;
+    text-align: left;
+}

@@ -33,7 +33,7 @@ export function Lobby() {
 
 	const sessionId = useAppSelector((state) => state.gameSession.sessionId);
 	const sessionData = useAppSelector((state) => state.gameSession.data);
-	const connected = useAppSelector((state) => state.connection.connected);
+	const connected = useAppSelector((state) => state.connection.socketConnected);
 
 	// useEffect(() => {
 	//     if (sessionData?.game &&

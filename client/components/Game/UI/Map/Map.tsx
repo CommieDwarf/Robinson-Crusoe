@@ -1,7 +1,7 @@
 import React, {RefObject, useEffect, useRef, useState} from "react";
 import styles from "./Map.module.css";
 import Tile from "./Tile/Tile";
-import BeastDeck from "../Hunt/BeastDeck";
+import BeastDeck from "../BeastDeck.tsx/BeastDeck";
 import map from "/public/UI/map/map.png";
 import redArrowImg from "/public/UI/misc/red-arrow.png";
 import ResizableImage from "../../../ResizableImage/ResizableImage";

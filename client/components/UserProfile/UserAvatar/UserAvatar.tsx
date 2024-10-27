@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import styles from "./UserAvatar.module.css";
 import ResizableImage from "../../ResizableImage/ResizableImage";
 import { useAppSelector } from "../../../store/hooks";
-import config from "../../../config";
+import config from "../../../config/config";
+import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 interface Props {
-	username: string;
+	username: string | "empty";
 }
 
 export function UserAvatar(props: Props) {
@@ -15,9 +17,14 @@ export function UserAvatar(props: Props) {
 	);
 	const localAvatarSvg = useAppSelector(
 		(state) => state.connection.user?.avatar
-	);
+	);	
+
+	const {t} = useTranslation();
 
 	useEffect(() => {
+		if (props.username === "empty") {
+			return;
+		}
 		const storageSvg = localStorage.getItem(
 			getStorageKeyName(props.username)
 		);
@@ -34,6 +41,8 @@ export function UserAvatar(props: Props) {
 		fetchAvatar().then((result) => {
 			setAvatarUrl(svgToUrl(result));
 			localStorage.setItem(getStorageKeyName(props.username), result);
+		}).catch(e => {
+			// do nothing
 		});
 	}, [props.username, localAvatarSvg, localUserName]);
 
@@ -47,18 +56,27 @@ export function UserAvatar(props: Props) {
 	}
 
 	async function fetchAvatar() {
-		const result = await fetch(
-			config.SERVER_URL + "/getUserAvatar/" + props.username,
-			{
-				method: "get",
-				headers: {
-					"Content-Type": "application/json",
-				},
+			const result = await fetch(
+				config.SERVER_URL + "/getUserAvatar/" + props.username,
+				{
+					method: "get",
+					headers: {
+						"Content-Type": "application/json",
+					},
+				}
+			)
+			
+			const json = await result.json();
+
+			if (!result.ok) {
+				return;
 			}
-		);
-		if (result.ok) {
-			return await result.json().then((val) => val.svg);
-		}
+
+			if (result.status === 429) {
+				toast(t("toast.request limit reached", {tryAfter: json.tryAfter}))
+			} else {
+				return json.svg;
+			}
 	}
 
 	return (

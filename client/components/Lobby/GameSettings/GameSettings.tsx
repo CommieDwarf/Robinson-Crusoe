@@ -98,7 +98,7 @@ export function GameSettings(props: Props) {
 	function handleNameChange(event: React.FormEvent<HTMLInputElement>) {
 		const trimmed = event.currentTarget.value
 			.trim()
-			.slice(0, VALIDATION_CONFIG.MAX_NAME_LENGTH);
+			.slice(0, VALIDATION_CONFIG.MAX_USERNAME_LENGTH);
 		saveSettings({ name: trimmed });
 	}
 

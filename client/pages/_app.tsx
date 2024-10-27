@@ -13,13 +13,17 @@ import { InfoBadge } from "../components/InfoBadge/InfoBadge";
 import { Bounce, ToastContainer } from "react-toastify";
 import RouteGuard from "../components/RouteGuard/RouteGuard";
 
-export default function MyApp<Props>({ Component, pageProps }: AppProps) {
+export default function App<Props>({ Component, pageProps }: AppProps) {
+	
 	return (
 		<>
 			<Provider store={store}>
 				<GlobalWrapper>
 					<RouteGuard>
-						<ToastContainer
+
+						<Component {...pageProps} />
+					</RouteGuard>
+					<ToastContainer
 							position="bottom-left"
 							autoClose={1500}
 							hideProgressBar
@@ -33,8 +37,6 @@ export default function MyApp<Props>({ Component, pageProps }: AppProps) {
 							theme={"colored"}
 						/>
 						<InfoBadge />
-						<Component {...pageProps} />
-					</RouteGuard>
 				</GlobalWrapper>
 			</Provider>
 		</>

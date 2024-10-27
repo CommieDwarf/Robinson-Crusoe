@@ -3,7 +3,7 @@ import {
 	ServerPayloadMap,
 	SOCKET_EVENT_SERVER,
 } from "@shared/types/Requests/Socket";
-import config from "../../config";
+import config from "../../config/config";
 import { socket } from "../../store/store";
 
 export default function createSocketClient() {
@@ -33,9 +33,6 @@ export function setSocketListener<E extends keyof ServerPayloadMap>(
 	socket.on(event as string, listenerDecorator);
 
 	const off = () => {
-        // if (event === SOCKET_EVENT_SERVER.GAME_SESSION_CREATED) {
-        //     alert("cleaning")
-        // }
 		if (socket.hasListeners(event as string)) {
 			socket.off(event as string, listenerDecorator);
 		} else {

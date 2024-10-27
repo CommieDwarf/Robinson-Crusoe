@@ -7,9 +7,10 @@ import { EmailService } from "./src/Classes/EmailService/EmailService";
 import { config } from "./src/config/config";
 
 
-//Don't delete. It configures passport and mopngoose globally.
+//global configs
 require('./src/config/passport');
 require("./src/config/mongoose");
+require('./src/i18next/i18next');
 
 
 const app = express();

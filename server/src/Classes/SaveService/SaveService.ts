@@ -2,13 +2,13 @@ import {Session} from "../Session/Session";
 import {CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {IGame} from "@shared/types/Game/Game";
 import {SaveGame, SaveGameDocument} from "../../Models/SaveGame";
-import {SaveAction} from "@shared/types/SaveGame";
+import {SaveStep} from "@shared/types/SaveGame";
 
 
 export class SaveService {
 
 
-    _playerActions: SaveAction[] = [];
+    _saveSteps: SaveStep[] = [];
 
     private readonly _session: Session
 
@@ -17,8 +17,8 @@ export class SaveService {
         this._session = session
     }
 
-    public saveAction(userId: string, action: CONTROLLER_ACTION, args: any[]) {
-        this._playerActions.push({
+    public saveStep(userId: string, action: CONTROLLER_ACTION, args: any[]) {
+        this._saveSteps.push({
             userId,
             action,
             args
@@ -39,8 +39,8 @@ export class SaveService {
 
     }
 
-    public clearPlayerActions() {
-        this._playerActions = [];
+    public clearSaveSteps() {
+        this._saveSteps = [];
     }
 
     static async getSaveGamesOverview(userId: string) {
@@ -73,7 +73,7 @@ export class SaveService {
 
     private getSaveData(game: IGame) {
         const data: Omit<SaveGameDocument, "_id"> = {
-            playerActions: this._playerActions,
+            playerActions: this._saveSteps,
             players: this.getPlayersSaveData(game),
             seed: game.seed,
             scenario: game.scenarioService.scenario,

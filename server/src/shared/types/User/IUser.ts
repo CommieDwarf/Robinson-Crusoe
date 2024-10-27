@@ -5,12 +5,11 @@ export interface IUser {
     sockets: any[],
     username: string,
     activeSessions: SessionData[],
-    addActiveSession: (session: SessionData) => void;
+    addSession: (session: SessionData) => void;
     removeSession: (sessionId: string) => void;
     leaveLobbies: () => string[] | Promise<string[]>;
     latency: number;
     addSocket: (socket: any) => void;
-    getSession: (sessionId: string) => SessionData;
     getPlaceHolder: () => UserPlaceHolder
     onSocketDisconnect: (socket: any, onLobbyLeave?: (sessionIds: string[]) => void) => void;
 }

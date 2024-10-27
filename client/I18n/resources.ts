@@ -735,6 +735,8 @@ export const resources = {
 				"sign in_reflexive pronoun": "zaloguj się",
 				"sign up": "zarejestruj",
 				"sign out": "wyloguj",
+				"signing in": "logowanie",
+				"signing up": "rejestrowanie",
 				"new account": "nowe konto",
 				username: "nazwa użytkownika",
 				"repeat password": "powtórz hasło",
@@ -750,12 +752,16 @@ export const resources = {
 				"rounds survived": "przetrwane rundy",
 				"to menu": "do menu",
 				"to lobby": "do lobby",
+				"server connection lost": "Brak połączenia z serverem",
+				"another connection attempt in": 'Kolejna próba nastąpi za {{seconds}} sekund.',
+				"login request limit reached": "Wprowadziłeś/aś błędne hasło za dużo razy. Twoje konto zostało tymczasowo zablokowane na {{tryAfter}} minut.",				
 			},
 			toast: {
 				"copied to clipboard": "Skopiowano do schowka!",
 				"game saved": "Zapisano grę!",
 				"unable to save game": "Nie udało się zapisać gry!",
 				"game restarted": "Gra została zrestartowana przez gospodarza",
+				"request limit reached": "Limit zapytań wyczerpany. Spróbuj za {{tryAfter}} sekund.",
 			},
 			error: {
 				[SESSION_CONNECTION_ERROR_CODE.SESSION_NOT_FOUND]:

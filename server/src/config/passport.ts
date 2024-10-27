@@ -18,20 +18,17 @@ const jwtDecodeOptions = {
 passport.use(
     new JwtStrategy(jwtDecodeOptions, async (payload, done) => {
         try {
-            console.log("auth")
             const currentTimestamp = Math.floor(Date.now() / 1000);
             if (payload.exp && payload.exp < currentTimestamp) {
-                console.warn("token expired")
                 return done(null, false, {message: 'Token expired'});
             }
             const user = await User.findOne({_id: payload.userId})
             if (!user) {
-                console.warn("can't find user. ID: " + payload.userId)
                 throw new Error("can't find user");
             }
             return done(null, user, payload.data);
         } catch (e) {
-            console.error(e);
+            console.warn(e);
         }
         
     }),
@@ -50,15 +47,11 @@ passport.use(new LocalStrategy({usernameField: "email"},
                 console.warn("Incorrect password")
                 return done(null, false, {message: 'Incorrect password.'});
             }
-
-
-
             return done(null, user);
 
         } catch (error) {
             return done(error);
         }
-
     }
 ));
 

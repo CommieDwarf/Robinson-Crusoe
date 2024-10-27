@@ -12,7 +12,7 @@ import {
 import { IPlayerRenderData } from "@shared/types/Game/PlayerService/Player";
 import { CHARACTER } from "@shared/types/Game/Characters/Character";
 import { IInventionRenderData } from "@shared/types/Game/InventionService/Invention";
-import { IObjectPickerRenderData } from "@shared/types/Game/ObjectPicker/ObjectPicker";
+import { IChoiceSelectorRenderData } from "@shared/types/Game/ChoiceSelector/ChoiceSelector";
 import { CurrentResolveRenderData } from "@shared/types/Game/EventService/EventService";
 import { IAdventureCard } from "@shared/types/Game/AdventureService/AdventureCard";
 import { IMysteryCard } from "@shared/types/Game/MysteryService/MysteryCard";
@@ -241,7 +241,7 @@ interface GameData {
 	actionSlots: Map<string, IPawnRenderData<any> | null>;
 	allPawns: IPawnRenderData<any>[];
 	inventions: IInventionRenderData[];
-	objectPickers: IObjectPickerRenderData<any>[];
+	objectPickers: IChoiceSelectorRenderData<any>[];
 	adventureToResolve: CurrentResolveRenderData<IAdventureCard> | null;
 	isMysteryCardDrawingOn: boolean;
 	adventureToResolveAsEvent: CurrentResolveRenderData<IAdventureCard>;

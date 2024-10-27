@@ -13,10 +13,10 @@ const RouteGuard: React.FC<Props> = ({ children }) => {
 	const router = useRouter();
 
 	const user = useAppSelector((state) => state.connection.user);
-	const connected = useAppSelector((state) => state.connection.connected);
+	const connected = useAppSelector((state) => state.connection.socketConnected);
 
 	useEffect(() => {
-		const notProtectedPaths = ["/signIn", "/signOut", "/signUp"];
+		const notProtectedPaths = ["/sign-in", "/sign-out", "/sign-up"];
 		const requiresAuth = !notProtectedPaths.some((path) =>
 			router.pathname.startsWith(path)
 		);
@@ -24,7 +24,7 @@ const RouteGuard: React.FC<Props> = ({ children }) => {
 		if (requiresAuth) {
 			const authToken = getAuthToken();
 			if (!authToken || !isTokenValid(authToken)) {
-				router.push("/signIn");
+				router.push("/sign-in");
 			}
 		}
 

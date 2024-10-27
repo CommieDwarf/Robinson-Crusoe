@@ -3,14 +3,14 @@ import { ClientPayloadMap } from "./../../server/src/shared/types/Requests/Socke
 import { Dispatch, Middleware, MiddlewareAPI } from "redux";
 import { RootState, store } from "../store/store";
 import { Socket } from "socket.io-client";
-import { connectedUpdated, latencyUpdated } from "../reduxSlices/connection";
+import { connectedUpdated, connectionLostUpdated, latencyUpdated } from "../reduxSlices/connection";
 import {
 	ModifiedPayload,
 	SocketActions,
 	SocketConnectAction,
 	SocketDisconnectAction,
 	SocketEmitAction,
-} from "../types/middleware/SocketMiddleware";
+} from "../@types/middleware/SocketMiddleware";
 import { ActionArgMap } from "@shared/types/ActionArgMap";
 import { setSocketListener, SocketListener } from "../pages/api/socket";
 import { playerListLatencyUpdated } from "../reduxSlices/gameSession";
@@ -37,7 +37,6 @@ export const socketEmit = <T extends SOCKET_EVENT_CLIENT>(
 	event: T,
 	payload: ModifiedPayload<T>
 ): SocketEmitAction<T> => {
-
 	return {
 		type: SOCKET_EMIT,
 		event,
@@ -63,10 +62,11 @@ const socketMiddleware =
 		const emitQueue: SocketEmitAction<SOCKET_EVENT_CLIENT>[] = [];
 		let listeners: SocketListener[];
 
+		let connectedUpdatedTimeout : NodeJS.Timeout | null = null;
+		const connectedUpdatedDelayMs = 2000;
+
 		return (action: any) => {
 			if (api) {
-				const store = api.getState();
-
 				switch (action.type) {
 					case SOCKET_CONNECT:
 						socket.io.opts.extraHeaders = {
@@ -85,15 +85,9 @@ const socketMiddleware =
 											);
 										});
 									}
+									connectedUpdatedTimeout && clearTimeout(connectedUpdatedTimeout);
+									connectedUpdatedTimeout = null;
 									api.dispatch(connectedUpdated(true));
-								}
-							),
-							setSocketListener(
-								SOCKET_EVENT_SERVER.DISCONNECTED,
-								() => {
-									console.log("Socket disconnected");
-									alert("Disconnected");
-									api.dispatch(connectedUpdated(false));
 								}
 							),
 							setSocketListener(
@@ -123,6 +117,13 @@ const socketMiddleware =
 									);
 								}
 							),
+							socket.on("disconnect", (reason) => {
+								if (reason === "transport error") {
+									api.dispatch(connectionLostUpdated(true));
+								} else {
+									api.dispatch(connectedUpdated(false));
+								}
+							}),
 						];
 						try {
 							socket.connect();
@@ -169,7 +170,7 @@ const socketMiddleware =
 				P extends ModifiedPayload<T>
 			>(payload: P): ClientPayloadMap[T] {
 				if (!payload || typeof payload !== "object") {
-					return payload
+					return payload;
 				}
 				if (payload.hasOwnProperty("hydrateSessionId")) {
 					// const sessionId = api.getState().getState().gameSession.data?.id;

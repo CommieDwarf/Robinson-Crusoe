@@ -33,7 +33,7 @@ export const ClientPayloadSchemas = {
 				.required(),
 			name: Joi.string()
 				.required()
-				.max(VALIDATION_CONFIG.MAX_NAME_LENGTH),
+				.max(VALIDATION_CONFIG.MAX_USERNAME_LENGTH),
 			quickGame: Joi.boolean().required(),
 			private: Joi.boolean().required(),
 			password,
@@ -85,7 +85,7 @@ export const ClientPayloadSchemas = {
 			scenario: Joi.string()
 				.valid(...Object.values(SCENARIO)),
 			name: Joi.string()
-				.max(VALIDATION_CONFIG.MAX_NAME_LENGTH),
+				.max(VALIDATION_CONFIG.MAX_USERNAME_LENGTH),
 			quickGame: Joi.boolean(),
 			private: Joi.boolean(),
 			password,

@@ -13,7 +13,7 @@ import bookIconImg from "/public/UI/misc/book.png";
 interface Props {
     phaseChangeLocked: boolean,
     confirmWindowIsOpen: boolean;
-    togglePlayerListOpen: () => void;
+    togglePlayerOverviewOpen: () => void;
     toggleShowOptions: () => void;
     toggleShowGuide: () => void;
 }
@@ -49,7 +49,7 @@ export function ControlPanel(props: Props) {
         </div>
         <div className={styles.buttonWrapper}>
             <Button onClick={() => {
-                props.togglePlayerListOpen();
+                props.togglePlayerOverviewOpen();
             }}
                     imgSrc={playersIconImg}
                     filterColor={true}

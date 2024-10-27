@@ -1,15 +1,15 @@
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { isAuthenticated } from "../utils/auth/isAuthenticated";
 import { getAuthToken } from "../utils/auth/getAuthToken";
-import { fetchUser } from "../lib/fetchUser";
+import { fetchAndUpdateUser } from "../lib/fetchAndUpdateUser";
 import { userUpdated } from "../reduxSlices/connection";
 import { socketConnect } from "../middleware/socketMiddleware";
 import { setSocketListener } from "../pages/api/socket";
 import { SOCKET_EVENT_SERVER } from "@shared/types/Requests/Socket";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
-import { useRouter } from "next/router";
+import { NetworkReconnectHandler } from "./NetworkReconnectHandler/NetworkReconnectHandler";
 
 interface Props {
 	children: ReactNode;
@@ -20,16 +20,23 @@ export function GlobalWrapper(props: Props) {
 	const dispatch = useAppDispatch();
 	const { t } = useTranslation();
 
-	const router = useRouter();
+	const [reconnecting, setReconnecting] = useState(false);
+
+	const connectionLost = useAppSelector((state) => state.connection.socketConnectionLost);
+	useEffect(() => {
+		if (connectionLost && isAuthenticated()) {
+			setReconnecting(true);
+		} else {
+			setReconnecting(false);
+		}
+	}, [connectionLost]);
 
 	useEffect(() => {
-		function handleStorage(event: StorageEvent) {
+		async function handleStorage(event: StorageEvent) {
 			if (event.key === "emailVerified" && event.newValue !== null) {
 				const token = getAuthToken();
 				if (token) {
-					fetchUser(token).then((user) => {
-						dispatch(userUpdated(user));
-					});
+					await fetchAndUpdateUser(token, dispatch);
 				}
 				localStorage.removeItem("emailVerified");
 			}
@@ -45,9 +52,7 @@ export function GlobalWrapper(props: Props) {
 		const authenticated = isAuthenticated();
 		if (authenticated && !user) {
 			const token = getAuthToken() as string;
-			fetchUser(token).then((response) => {
-				dispatch(userUpdated(response));
-			});
+			fetchAndUpdateUser(token, dispatch)
 		}
 	}, [user, dispatch]);
 
@@ -90,5 +95,14 @@ export function GlobalWrapper(props: Props) {
 	// 	};
 	// }, [router]);
 
-	return <>{props.children}</>;
+	return (
+		<>
+			{props.children}
+			{reconnecting && (
+				<>
+					<NetworkReconnectHandler />
+				</>
+			)}
+		</>
+	);
 }

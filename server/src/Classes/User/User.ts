@@ -2,8 +2,6 @@ import {IUser} from "../../shared/types/User/IUser";
 import {UserDocument} from "../../Models/User";
 import {SessionData} from "@shared/types/Session/Session";
 import {Socket} from "socket.io";
-import {SessionConnectError} from "../../Errors/Session/SessionConnectError";
-import {SESSION_CONNECTION_ERROR_CODE} from "@shared/types/Errors/SESSION_CONNECTION_ERROR_CODE";
 import { ISessionService } from "@shared/types/SessionService";
 
 export class User implements IUser {
@@ -51,7 +49,7 @@ export class User implements IUser {
         this._latency = value;
     }
 
-    public addActiveSession(session: SessionData): void {
+    public addSession(session: SessionData): void {
         if (!this._sessions.includes(session)) {
             this._sessions.push(session);
         }
@@ -87,16 +85,6 @@ export class User implements IUser {
                 }, 5000);
         }
     }
-
-
-    public getSession(sessionId: string) {
-        const session = this._sessions.find((sessionData) => sessionData.id === sessionId);
-        if (!session) {
-            throw new SessionConnectError(`Session id: ${sessionId} not found in user's activeSessions`, SESSION_CONNECTION_ERROR_CODE.SESSION_NOT_FOUND);
-        }
-        return session;
-    }
-
 
     public getPlaceHolder() {
         return {

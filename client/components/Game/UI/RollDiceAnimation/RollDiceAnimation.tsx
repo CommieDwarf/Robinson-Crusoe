@@ -13,7 +13,7 @@ import {
 } from "@shared/types/Game/RollDice/RollDice";
 import {getObjectsComparator} from "../../../../utils/getObjectsComparator";
 import {Dice} from "./Dice/Dice";
-import {IDice} from "../../../../types/Dice/Dice";
+import {IDice} from "../../../../@types/Dice/Dice";
 
 
 type Props = {

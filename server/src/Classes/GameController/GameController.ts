@@ -9,7 +9,7 @@ import {IGame} from "@shared/types/Game/Game";
 import {ActionHandler, BaseController, GameControllerInterface} from "../../shared/types/GameController/Controllers";
 import {CONTROLLER_ACTION, OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {INVENTION, INVENTION_PERSONAL} from "@shared/types/Game/InventionService/Invention";
-import {SaveAction} from "@shared/types/SaveGame";
+import {SaveStep as SaveStep} from "@shared/types/SaveGame";
 import { ACTION } from "@shared/types/Game/ACTION";
 
 
@@ -31,14 +31,14 @@ export class GameController implements GameControllerInterface, BaseController {
         this._game = game;
         this._players = players;
         this.initActionHandlers();
-        // this.testStuff();
+        this.test();
     }
 
     get game(): IGame {
         return this._game;
     }
 
-    public loadBySteps(steps: SaveAction[]) {
+    public loadBySteps(steps: SaveStep[]) {
         steps.forEach((step) => {
             this.handleAction(step.action, this.getPlayerByUserId(step.userId), ...step.args);
         })
@@ -57,14 +57,16 @@ export class GameController implements GameControllerInterface, BaseController {
         handler(player, ...args);
     }
 
-    private testStuff() {
+    private test() {
         const char = this._game.characterService.playerCharacters[0];   
 
         this._game.actionService.setAdventureToken(ACTION.BUILD, true, "test");
         
-        for (let i = 0; i < 11; i++) {
-            this._game.setNextRound();
-        }
+        // for (let i = 0; i < 11; i++) {
+        //     this._game.setNextRound();
+        // }
+
+        this._game.mysteryService.startDrawingCards(2, 2, 2, char);
         
         console.log("SCENARIO STATUS", this._game.scenarioService.status);
     }

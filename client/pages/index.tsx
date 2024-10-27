@@ -16,7 +16,7 @@ const Home: NextPage = () => {
 
     useEffect(() => {
         if (!connected) {
-            router.push("/signIn");
+            router.push("/sign-in");
         }
     
     }, [router, connected])

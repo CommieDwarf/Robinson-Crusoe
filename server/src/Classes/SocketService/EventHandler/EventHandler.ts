@@ -177,7 +177,7 @@ export class EventHandler {
 		this._user.onSocketDisconnect(this._socket, (sessionIds) => {
 			sessionIds.forEach((sessionId) => {
 				this.emitSessionChanged(sessionId);
-				this._sessionService.removeFromActiveUsers(this._user.id);
+				this._sessionService.removeUser(this._user.id);
 			});
 		});
 	}

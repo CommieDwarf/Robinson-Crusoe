@@ -1,5 +1,5 @@
 import styles from "./index.module.css";
-import Loading from "../Loading";
+import Loading from "../../components/Loading";
 import {useEffect, useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../store/hooks";
 import Game from "../../components/Game/Game";

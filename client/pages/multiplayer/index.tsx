@@ -103,7 +103,7 @@ export function Multiplayer() {
 						{capitalize(t("menu.refresh"))}
 					</div>
 					<Link
-						href={"./multiplayer/creategame"}
+						href={"./multiplayer/create-game"}
 						className={"menuButton"}
 					>
 						<div>{capitalize(t("menu.create game"))}</div>

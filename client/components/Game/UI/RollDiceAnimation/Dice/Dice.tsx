@@ -11,7 +11,7 @@ import {gather} from "@shared/constants/diceStructures/gather";
 import {explore} from "@shared/constants/diceStructures/explore";
 import {build} from "@shared/constants/diceStructures/build";
 import {weather} from "@shared/constants/diceStructures/weather";
-import {IDice} from "../../../../../types/Dice/Dice";
+import {IDice} from "../../../../../@types/Dice/Dice";
 
 
 const structures = {

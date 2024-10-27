@@ -41,7 +41,6 @@ export class SocketService {
             eventHandler.startListening();
             eventHandler.pingClient();            
             this.socketEmit(socket, SOCKET_EVENT_SERVER.CONNECTED, null);
-            
         } catch (error) {
             console.error(error);
         }
