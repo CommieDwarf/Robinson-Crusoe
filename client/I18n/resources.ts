@@ -710,6 +710,15 @@ export const resources = {
 				draw: "dobierz",
 				finish: "zakończ",
 				shuffle: "wtasuj",
+				hour: "godzina",
+				hour_accusative_one: "godzinę",
+				hour_accusative_few: "godziny",
+				hour_accusative_many: "godzin",
+			},
+			userProfile: {
+				accountSettings: "Ustawienia konta",
+				passwordChange: "Zmiana hasła",
+				backToProfile: "Wróć do profilu"
 			},
 			menu: {
 				refresh: "odśwież",
@@ -753,15 +762,42 @@ export const resources = {
 				"to menu": "do menu",
 				"to lobby": "do lobby",
 				"server connection lost": "Brak połączenia z serverem",
-				"another connection attempt in": 'Kolejna próba nastąpi za {{seconds}} sekund.',
-				"login request limit reached": "Wprowadziłeś/aś błędne hasło za dużo razy. Twoje konto zostało tymczasowo zablokowane na {{tryAfter}} minut.",				
+				"another connection attempt in":
+					"Kolejna próba nastąpi za {{seconds}} sekund.",
+				"login request limit reached":
+					"Wprowadziłeś/aś błędne hasło za dużo razy. Twoje konto zostało tymczasowo zablokowane na {{tryAfter}} minut.",
+			},
+			form: {
+				emailDoNotExist: `Nie znaleziono konta powiązanego z podanym adresem e-mail. Proszę sprawdzić,
+				 czy adres jest poprawny, lub założyć nowe konto, jeśli jeszcze go nie posiadasz.`,
+				codeSentOnAdress: "Wyslano wiadomość z kodem resetującym na adres:",
+				checkSpam: "Jeśli nie widzisz wiadomości w swojej skrzynce, sprawdź w folderze spam.",
+				enterCodeHere: "Wprowadź kod tutaj:",
+				confirmCode: 'Zatwierdź Kod',
+				mailNotArrived: "Wiadomość nie dotarła?",
+				sendAgain: "Wyślij ponownie",
+				signInNewPassword: "Możesz teraz zalogować się nowym hasłem.",
+				backToSignIn: `Powrót do logowania`,
+				sending: "Wysyłanie",
+				sendLink: "Wyślij link",
+				send: "Wyślij",
+				sendEmailInstructions: "Wprowadź swój adres e-mail powiązany z kontem, a wyślemy Ci link do zresetowania hasła.",
+				enterCodeInstructions: "",
+				"forgotPassword?": "Zapomniałeś hasła?",
+				changePassword: "Zmień hasło",
+				newPassword: "Nowe hasło",
+				passwordChanged: "Hasło zmienione",
+				invalidCode: "Wprowadzony kod jest błędny lub mineła jego ważność.",
+				resetPasswordTokenExpired: "Token do resetowania hasła wygasł.",
+				oldPassword: "stare hasło"
 			},
 			toast: {
 				"copied to clipboard": "Skopiowano do schowka!",
 				"game saved": "Zapisano grę!",
 				"unable to save game": "Nie udało się zapisać gry!",
 				"game restarted": "Gra została zrestartowana przez gospodarza",
-				"request limit reached": "Limit zapytań wyczerpany. Spróbuj za {{tryAfter}} sekund.",
+				"request limit reached":
+					"Limit zapytań wyczerpany. Spróbuj za {{tryAfter}} sekund.",
 			},
 			error: {
 				[SESSION_CONNECTION_ERROR_CODE.SESSION_NOT_FOUND]:
@@ -773,6 +809,10 @@ export const resources = {
 				[SESSION_CONNECTION_ERROR_CODE.INCORRECT_PASSWORD]:
 					"nieprawidłowe hasło",
 				kicked: "Zostałeś wyrzucony",
+				connectError: `Wystąpił problem z połączeniem z serwerem. Sprawdź swoje
+									połączenie internetowe i spróbuj ponownie.`,
+				serverError: "Błąd serwera. Spróbuj ponownie później.",
+				somethingWentWrong: "Coś poszło nie tak"
 			},
 			emailActivation: {
 				title: "Zweryfikuj swój e-mail",
@@ -792,7 +832,8 @@ export const resources = {
 				"{{subject1}} wyszedł z sesji.",
 			[SYSTEM_MSG.ONLY_PRESENT_PLAYERS_CAN_JOIN]:
 				"Tylko gracze obecni przy zapisie gry mogą dołączyć do sesji.",
-			[SYSTEM_MSG.GAME_TERMINATED]: "Gra została zakończona przez gospodarza",
+			[SYSTEM_MSG.GAME_TERMINATED]:
+				"Gra została zakończona przez gospodarza",
 			[SYSTEM_MSG.GAME_RESTARTED]: "Restart gry",
 		},
 		logMessages: {

@@ -57,7 +57,7 @@ export function UserAvatar(props: Props) {
 
 	async function fetchAvatar() {
 			const result = await fetch(
-				config.SERVER_URL + "/getUserAvatar/" + props.username,
+				config.SERVER_URL + "/user/avatar/" + props.username,
 				{
 					method: "get",
 					headers: {

@@ -4,7 +4,7 @@ import {useTranslation} from "react-i18next";
 import {socketEmit} from "../../../../middleware/socketMiddleware";
 import {useAppDispatch} from "../../../../store/hooks";
 import {SOCKET_EVENT_CLIENT} from "@shared/types/Requests/Socket";
-import { VALIDATION_CONFIG } from "@shared/config/VALIDATION_CONFIG";
+import { sharedConfig } from "@shared/config/sharedConfig";
 
 
 interface Props {
@@ -20,7 +20,7 @@ export function EnterPassword(props: Props) {
 
 
     function handleChange(event: React.FormEvent<HTMLInputElement>) {
-        setPassword(event.currentTarget.value.slice(0, VALIDATION_CONFIG.MAX_PASSWORD_LENGTH));
+        setPassword(event.currentTarget.value.slice(0, sharedConfig.limits.passwordMaxLength));
     }
 
     function handleClickJoin() {

@@ -6,11 +6,11 @@
     padding: 10px;
     font-style: normal;
     position: relative;
-    
 }
 
 .container > h2 {
     font-weight: 400;
+    font-size: 25px;
 }
 
 .avatar {
@@ -29,10 +29,21 @@
 }
 
 
-.signOutLink {
+.link {
     font-size: 20px;
     text-decoration: underline;
     color: green;
     cursor: pointer;
     font-weight: 600;
+    margin: 0;
 }
+
+.linkLocked {
+    filter: opacity(50%);
+    cursor:default
+}
+
+.accountSettings {
+    font-size: 13px;
+}
+

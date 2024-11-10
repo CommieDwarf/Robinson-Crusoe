@@ -12,7 +12,7 @@ export default function VerifyYourEmail() {
 
 	async function sendEmail() {
 		const authToken = getAuthToken();
-		const url = `${config.SERVER_URL}/resend-verification-email`;
+		const url = `${config.SERVER_URL}/email-verification/resend`;
 		const response = await fetch(url, {
 			method: "post",
 			headers: {

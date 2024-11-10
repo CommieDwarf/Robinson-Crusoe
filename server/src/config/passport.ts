@@ -34,6 +34,8 @@ passport.use(
     }),
 );
 
+
+
 passport.use(new LocalStrategy({usernameField: "email"},
     async function (email, password, done) {
         try {
@@ -55,7 +57,6 @@ passport.use(new LocalStrategy({usernameField: "email"},
     }
 ));
 
-// @ts-ignore
 passport.serializeUser((user: UserDocument, done) => {
     done(null, user._id);
 });

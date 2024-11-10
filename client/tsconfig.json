@@ -31,7 +31,7 @@
     "Client/next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "components/Game/UI/Guide/ImgList", "components/Form/RedirectLink"  ],
+, "components/Game/UI/Guide/ImgList", "components/Forms/Form/RedirectLink", "pages/forgot-password/enter-code", "components/UserProfile/ProfileSettings/ChangePassword"  ],
   "exclude": [
     "node_modules"
   ]

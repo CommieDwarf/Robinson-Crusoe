@@ -16,7 +16,7 @@ const RouteGuard: React.FC<Props> = ({ children }) => {
 	const connected = useAppSelector((state) => state.connection.socketConnected);
 
 	useEffect(() => {
-		const notProtectedPaths = ["/sign-in", "/sign-out", "/sign-up"];
+		const notProtectedPaths = ["/sign-in", "/sign-out", "/sign-up", "/forgot-password", "/reset-password"];
 		const requiresAuth = !notProtectedPaths.some((path) =>
 			router.pathname.startsWith(path)
 		);

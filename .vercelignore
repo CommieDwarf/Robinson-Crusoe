@@ -7,3 +7,4 @@ server/src/Models
 server/src/types
 server/src/utils
 server/src/views
+server/src/routes

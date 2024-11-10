@@ -13,10 +13,10 @@
         "linkText": "Aktywuj Konto"
       },
       "passwordReset": {
+        "subject": "Reset hasła",
         "description": "Otrzymaliśmy prośbę o zresetowanie hasła do Twojego konta.",
-        "instructions": "Aby ustawić nowe hasło, kliknij poniższy link:",
-        "linkText": "Resetetuj Hasło",
-        "expirationPeriod": "Link do resetowania hasła jest ważny przez {{hours}} godzinę. Jeśli nie zresetujesz hasła w tym czasie, będziesz musiał/musiała wygenerować nowy link na stronie logowania.",
+        "instructions": "Aby ustawić nowe hasło, użyj poniższego kodu weryfikacyjnego:",
+        "codeExpiration": "Kod do resetowania hasła jest ważny przez {{minutes}} minut. Jeśli nie zresetujesz hasła w tym czasie, będziesz musiał(a) wygenerować nowy kod na stronie logowania.",
         "ignore": "Jeśli nie prosiłeś/aś o reset hasła, zignoruj tę wiadomość. Twoje obecne hasło pozostanie niezmienione."
       }
     }

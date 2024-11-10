@@ -8,9 +8,9 @@ import { SessionConnectError } from "../../Errors/Session/SessionConnectError";
 import { SESSION_CONNECTION_ERROR_CODE } from "@shared/types/Errors/SESSION_CONNECTION_ERROR_CODE";
 import { Socket } from "socket.io";
 import { SaveGameDocument } from "../../Models/SaveGame";
-import { CONNECT_CODE_LENGTH } from "../../shared/config/session";
 import { ISessionService } from "@shared/types/SessionService";
 import { IUser } from "@shared/types/User/IUser";
+import { sharedConfig } from "@shared/config/sharedConfig";
 
 export class SessionService implements ISessionService {
 	private _sessions = new Map<SessionData["id"], SessionData>();
@@ -196,7 +196,7 @@ export class SessionService implements ISessionService {
 	public generateUniqueInvitationCode() {
 		let code: string;
 		do {
-			code = this.generateInvitationCode(CONNECT_CODE_LENGTH);
+			code = this.generateInvitationCode(sharedConfig.session.invitationCodeLength);
 		} while (!this.isInvitationCodeUnique(code));
 
 		return code;

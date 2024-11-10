@@ -7,7 +7,8 @@ export interface UserDocument {
 	email: string;
 	username: string;
 	password: string;
-  	emailVerified: boolean;
+	emailVerified: boolean;
+	comparePassword: (candidatePassword: string) => Promise<boolean>;
 }
 
 const userSchema = new Schema({
@@ -15,11 +16,13 @@ const userSchema = new Schema({
 		type: String,
 		required: true,
 		unique: true,
+		index: true,
 	},
 	email: {
 		type: String,
 		required: true,
 		unique: true,
+		index: true,
 	},
 	password: {
 		type: String,
@@ -27,8 +30,8 @@ const userSchema = new Schema({
 	},
 	emailVerified: {
 		type: Boolean,
-    default: false,
-	},
+		default: false,
+	}
 });
 
 userSchema.pre("save", async function (next) {

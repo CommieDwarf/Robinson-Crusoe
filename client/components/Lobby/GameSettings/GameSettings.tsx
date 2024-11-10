@@ -14,7 +14,7 @@ import { setSocketListener } from "../../../pages/api/socket";
 import { socketEmit } from "../../../middleware/socketMiddleware";
 import { sessionIdUpdated } from "../../../reduxSlices/gameSession";
 import { InvitationCode } from "./InvittationCode/InvitationCode";
-import { VALIDATION_CONFIG } from "@shared/config/VALIDATION_CONFIG";
+import { sharedConfig } from "@shared/config/sharedConfig";
 
 export enum GAME_SETTINGS_MODE {
 	LOCKED = "locked",
@@ -71,6 +71,7 @@ export function GameSettings(props: Props) {
 			setSocketListener(
 				SOCKET_EVENT_SERVER.GAME_SESSION_CREATED,
 				(payload) => {
+					alert("got event");
 					dispatch(sessionIdUpdated(payload.sessionId));
 					router.push(`/multiplayer/lobby/${payload.sessionId}`);
 				}
@@ -96,10 +97,7 @@ export function GameSettings(props: Props) {
 	}
 
 	function handleNameChange(event: React.FormEvent<HTMLInputElement>) {
-		const trimmed = event.currentTarget.value
-			.trim()
-			.slice(0, VALIDATION_CONFIG.MAX_USERNAME_LENGTH);
-		saveSettings({ name: trimmed });
+		saveSettings({ name: event.currentTarget.value });
 	}
 
 	function handlePrivateChange(event: React.FormEvent<HTMLInputElement>) {
@@ -112,11 +110,11 @@ export function GameSettings(props: Props) {
 
 	function handleMaxPlayersChange(event: React.FormEvent<HTMLSelectElement>) {
 		let value = parseInt(event.currentTarget.value);
-		const { MAX_PLAYERS, MIN_PLAYERS } = VALIDATION_CONFIG;
-		if (value > MAX_PLAYERS) {
-			value = MAX_PLAYERS;
-		} else if (value < MIN_PLAYERS) {
-			value = MIN_PLAYERS;
+		const { minPlayers, maxPlayers } = sharedConfig.session;
+		if (value > maxPlayers) {
+			value = maxPlayers;
+		} else if (value < minPlayers) {
+			value = maxPlayers;
 		}
 		saveSettings({ maxPlayers: value });
 	}
@@ -163,7 +161,7 @@ export function GameSettings(props: Props) {
 	);
 
 	const form = (
-		<form className={styles.form}>
+		<form className={`${styles.form} ${props.mode === GAME_SETTINGS_MODE.EDIT && styles.formLobby}`}>
 			{props.mode === GAME_SETTINGS_MODE.GAME_CREATE && (
 				<h2>{capitalize(t("menu.create game"))}</h2>
 			)}
@@ -174,9 +172,11 @@ export function GameSettings(props: Props) {
 						type={"text"}
 						value={localSettings.name}
 						onChange={handleNameChange}
+						maxLength={sharedConfig.session.nameMaxLength}
+						minLength={sharedConfig.session.nameMinLength}
 					/>
 				) : (
-					<span>{localSettings.name}</span>
+					<span className={`${localSettings.name.length > 25 && styles.longSessionName}`}>{localSettings.name}</span>
 				)}
 			</div>
 			{props.mode === GAME_SETTINGS_MODE.GAME_CREATE && (
@@ -186,6 +186,8 @@ export function GameSettings(props: Props) {
 						type={"password"}
 						value={localSettings.password}
 						onChange={handlePasswordChange}
+						maxLength={sharedConfig.session.passwordMaxLength}
+						minLength={sharedConfig.session.passwordMinLength}
 					/>
 				</div>
 			)}

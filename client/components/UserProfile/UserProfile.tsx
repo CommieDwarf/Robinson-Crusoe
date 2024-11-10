@@ -17,8 +17,22 @@ import {
 } from "@shared/types/Requests/Socket";
 import { socketEmit } from "../../middleware/socketMiddleware";
 import { setSocketListener } from "../../pages/api/socket";
+import { ProfileHome } from "./ProfileHome/ProfileHome";
+import { ProfileSettings } from "./ProfileSettings/ProfileSettings";
+import { UserData } from "@shared/types/UserData/UserData";
 
 interface Props {}
+
+
+export enum PROFILE_NAV {
+	HOME,
+	SETTINGS
+}
+
+export interface ProfileComponentProps {
+	user: UserData | null;
+    changeNav: (nav: PROFILE_NAV) => void;
+}
 
 export function UserProfile(props: Props) {
 	const router = useRouter();
@@ -27,15 +41,12 @@ export function UserProfile(props: Props) {
 	const [sessionsInProgress, setSessionsInProgress] = useState<
 		SessionBasicInfo[] | null
 	>(null);
-	const { t } = useTranslation();
+
+	const [currentNav, setCurrentNav] = useState<PROFILE_NAV>(PROFILE_NAV.HOME);
 
 
-	function handleSignOut() {
-		deleteAuthCookie();
-		dispatch(userUpdated(null));
-		dispatch(connectedUpdated(false));
-		socket.disconnect();
-		router.push("/sign-in");
+	function changeNav(nav: PROFILE_NAV) {
+		setCurrentNav(nav);
 	}
 
 
@@ -73,57 +84,12 @@ export function UserProfile(props: Props) {
 		);
 	}
 
-	function handleJoinGameClick(sessionId: string) {
-		dispatch(
-			socketEmit(SOCKET_EVENT_CLIENT.JOIN_SESSION, {
-				sessionId,
-				password: "",
-			})
-		);
-	}
+	
 
 	return (
 		<div className={styles.container}>
-			<div className={styles.avatar}>
-				{<UserAvatar username={user?.username || "empty"}/>}
-			</div>
-			<h2>{user?.username}</h2>
-			<hr />
-			{sessionsInProgress && sessionsInProgress.length > 0 && (
-				<>
-					<div className={styles.gamesInProgress}>
-						<h5 className={styles.gameInProgressTitle}>
-							Zaczęte gry
-						</h5>
-						{sessionsInProgress.map((session, i) => {
-							return (
-								<div key={i}>
-									<Session
-										name={session.name}
-										host={session.host}
-										playerAmount={session.usersInSession}
-										maxPlayerAmount={session.players}
-										scenario={session.scenario}
-										password={session.password}
-										id={session.id}
-										onPasswordJoinAttempt={
-											handleJoinGameClick
-										}
-										onJoinClick={handleJoinGameClick}
-										hidePassword={true}
-										shortMode={true}
-									/>
-								</div>
-							);
-						})}
-					</div>
-					<hr />
-				</>
-			)}
-
-			<span className={styles.signOutLink} onClick={handleSignOut}>
-				{capitalize(t("menu.sign out"))}
-			</span>
+			{currentNav === PROFILE_NAV.HOME &&  <ProfileHome user={user} changeNav={changeNav}/>}
+			{currentNav === PROFILE_NAV.SETTINGS && <ProfileSettings user={user} changeNav={changeNav}/>}
 		</div>
 	);
 }

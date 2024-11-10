@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import i18next, { i18n } from "i18next"; 
 
 export const fetchAndUpdateUser = async (authToken: string, dispatch: ReturnType<typeof useAppDispatch>) => {
-    const url = `${config.SERVER_URL}/getUser`;
+    const url = `${config.SERVER_URL}/user/get`;
     
     try {
         const response = await fetch(url, {

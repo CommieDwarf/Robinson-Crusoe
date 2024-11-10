@@ -18,7 +18,7 @@ import { socketEmit } from "../../middleware/socketMiddleware";
 import { setSocketListener } from "../api/socket";
 import { SaveList } from "../../components/SaveList/SaveList";
 import { DraggableWindow } from "../../components/Game/UI/DraggableWindow/DraggableWindow";
-import { CONNECT_CODE_LENGTH } from "@shared/config/session";
+import { sharedConfig } from "@shared/config/sharedConfig";
 
 export function Multiplayer() {
 	const { t } = useTranslation();
@@ -121,7 +121,7 @@ export function Multiplayer() {
 					<div className={styles.joinByCodeInputDiv}>
 						<input
 							type={"text"}
-							maxLength={CONNECT_CODE_LENGTH}
+							maxLength={sharedConfig.session.invitationCodeLength}
 							value={joinCode}
                             onChange={handleJoinCodeChange}
 						></input>

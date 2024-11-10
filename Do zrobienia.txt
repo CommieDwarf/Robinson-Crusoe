@@ -14,6 +14,8 @@ ogarnij przycisk kontynuuj w menu. Nie pozwól mieć graczowi wiele gier?.
 
 zrób actionSlotsy domyslnie szare. Zamien kolor na biały kiedy gracz może uzywac pionkow.
 
+walidacja login na cliencie - nie ma informacji ze za krótki username
+
 
 dokończ request limiter. x
 powiadomienie o zerwanym połączeniu z serwerem oraz próby reconnectu. x

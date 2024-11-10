@@ -1,0 +1,32 @@
+
+
+.inputWrapper {
+    height: 35px;
+    width: 100%;
+    container-type: size;
+    vertical-align: top;
+}
+
+.input {
+    vertical-align: top;
+    height: 100%;
+    width: 100%;
+    color: var(--brown);
+    background-color: rgba(255, 255, 255, 1);
+    font-size: 70cqh;
+     border-top: 2px solid rgb(148,148,148);
+    border-left: 2px solid rgb(148,148,148);
+    border-right: 2px solid rgb(227,227,227);
+    border-bottom: 2px solid rgb(227,227,227);
+    border-radius: 3px;
+}
+
+.input::-webkit-input-placeholder{
+    color:var(--brown);
+    opacity: 0.5;
+}
+
+.input:focus {
+    outline: 2px solid var(--explore);
+    border: transparent
+}

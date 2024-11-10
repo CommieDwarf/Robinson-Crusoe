@@ -13,15 +13,27 @@
     font-size: 1.3em;
 }
 
+.formLobby {
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
 .form > h2 {
     margin-bottom: 5px;
 }
 
+
 .row {
     display: flex;
     justify-content: space-between;
-    width: 250px;
+    width: 100%;
     font-weight: 500;
+}
+
+.longSessionName {
+    font-size: 0.8em;
+    position: relative;
+    top: 0.2em;
 }
 
 
@@ -43,6 +55,10 @@
     border-top: 1px solid var(--brown);
     border-bottom: 1px solid var(--tan);
     margin-top: 10px;
+}
+
+.textWrap {
+    text-wrap: wrap;
 }
 
 

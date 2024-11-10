@@ -61,7 +61,6 @@ const saveSchema = new Schema<SaveGameDocument>({
         type: Schema.Types.Mixed,
         required: true,
     },
-
 });
 
 const SaveGame = mongoose.model<SaveGameDocument>('SaveGame', saveSchema, "saveGames");

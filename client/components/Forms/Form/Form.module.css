@@ -1,0 +1,99 @@
+.container {
+	width: 100%;
+	font-size: 30px;
+	color: var(--brown);
+	border-radius: 5px;
+	text-align: center;
+	border: 1px solid var(--brown);
+	position: relative;
+	padding: 10px;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+.container > h3 {
+	position: relative;
+    font-size: 26px;
+    margin-bottom: 10px;
+}
+
+.form {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    row-gap: 2px;
+    margin: auto;
+    width: 100%;
+
+}
+
+.connectionError {
+    text-align: center;
+}
+
+
+.rowWrapper {
+    flex-direction: column;
+    text-align: center;
+    width: 100%;
+    height: 50px;
+    container-type: size;
+}
+
+.rowWrapperShort {
+    height: 35px;
+}
+
+.loaderSpinnerWrapper {
+    margin-top: 10px;
+    height: 50px;
+    aspect-ratio: 1;
+}
+
+.p {
+    font-size: 13px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.coloredText {
+    color: green
+}
+
+.link {
+    text-decoration: underline;
+    color: green;
+    cursor: pointer;
+}
+
+
+.multiInputs {
+    width: 100%;
+    height: 100%;
+    display: flex !important;
+    flex-direction: row;
+    justify-content: space-between !important;
+    container-type: size;
+}
+
+.multiInputs > input {
+    height: 90%;
+    aspect-ratio: 0.8 !important;
+    font-size: 70cqh !important;
+    border: 1px solid var(--borderColor) !important;
+    border-radius: 4px;
+    color: var(--brown) !important;
+    text-align: center;
+    max-width: fit-content !important;
+}
+
+.multiInputs > input:focus {
+    outline: solid 2px limegreen;
+}
+
+.multiInputs> input::selection {
+    background-color: limegreen;
+    color: white;
+}

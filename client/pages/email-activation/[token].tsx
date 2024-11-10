@@ -32,7 +32,7 @@ export default function EmailActivation() {
 			return;
 		}
 
-		const url = `${config.SERVER_URL}/verify-email/${token}`;
+		const url = `${config.SERVER_URL}/email-verification/verify/${token}`;
 		fetch(url, {
 			method: "get",
 			headers: {

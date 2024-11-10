@@ -69,6 +69,9 @@
     scale: 1.1;
 }
 
+.userPanelContainer > div {
+    border-radius: 10px;
+}
 
 .userPanelContainer {
     grid-column: 2 / span 1;
@@ -84,7 +87,7 @@
 }
 
 .userPanel::before {
-    border-radius: 2%;
+    border-radius: 10px;
     content: "";
     background-image: url("../../public/UI/paper-background.png");
     background-size: cover;

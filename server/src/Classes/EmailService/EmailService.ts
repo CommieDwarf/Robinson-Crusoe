@@ -10,24 +10,53 @@ import { UserDocument } from "../../Models/User";
 import i18next from "i18next";
 import { MailOptions } from "./MailOptions/MailOptions";
 
-export class EmailService {
-	constructor() {}
 
-	public async sendEmail(userData: {username: string, userId: string, userEmail: string}, type: EMAIL_TYPE) {
+interface UserData {
+	username: string; userId: string; userEmail: string 
+}
+
+interface Args {
+	userData: UserData,
+}
+
+interface StandardArgs extends Args {
+	emailType: Exclude<EMAIL_TYPE, EMAIL_TYPE.PASSWORD_RESET> 
+}
+
+interface ResetPasswordArgs extends Args {
+	emailType: EMAIL_TYPE.PASSWORD_RESET,
+	code: string
+}
+
+
+export class EmailService {
+	constructor() {
+	}
+
+
+
+public static async sendEmail(data: StandardArgs | ResetPasswordArgs): Promise<void> {
 		try {
-			const {username, userId, userEmail} = userData;
-			const mailOptions = new MailOptions(username, userEmail, userId).get(type);
+
+			const {username, userId, userEmail} = data.userData;
+			const OptionsCreator = new MailOptions(username, userEmail, userId);
+			let mailOptions;
+			if (data.emailType == EMAIL_TYPE.PASSWORD_RESET) {
+				 mailOptions = OptionsCreator.get(data);
+			} else {
+				mailOptions = OptionsCreator.get(data);
+			}
 	
 			transporter.sendMail(mailOptions, (error) => {
 				if (error) {
-					return console.error("Error: " + error);
+					console.error("Error: " + error);
 				}
 			});
 	
 			// TODO: zastanów się czy sprawdzać to tutaj czy w limiterze
 				await EmailLog.create({
 					userId,
-					emailType: type,
+					emailType: data.emailType,
 					sentAt: new Date(),
 				}).then((log) => {
 					log.save();
@@ -35,7 +64,7 @@ export class EmailService {
 		} catch (e) {
 			console.error(e);
 		}
-	
+		
 	}
 	// async isEmailLimitReached(userId: string, emailType: EMAIL_TYPE) {
 	// 	const startTime = new Date(

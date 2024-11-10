@@ -35,20 +35,19 @@ export function Session(props: Props) {
 	}
 
 	const shortStrLength = 6;
+	const longStrLength = 25;
 
-	let name = props.name;
-	let host = props.host;
-	let scenario = props.scenario;
 
-	if (props.shortMode) {
-		name = shortenIfTooLong(name);
-		host = shortenIfTooLong(host);
-		scenario = shortenIfTooLong(scenario);
-	}
 
-	function shortenIfTooLong(str: string) {
-		if (str.length > shortStrLength) {
-			return shortenWithTripleDots(str, shortStrLength);
+	let targetLength = props.shortMode === false ? shortStrLength :  longStrLength;
+	const name = shortenIfTooLong(props.name, targetLength);	
+	const host = shortenIfTooLong(props.host, targetLength);
+	const scenario = shortenIfTooLong(props.scenario, targetLength);
+
+
+	function shortenIfTooLong(str: string, length: number) {
+		if (str.length > length) {
+			return shortenWithTripleDots(str, length);
 		} else {
 			return str;
 		}
