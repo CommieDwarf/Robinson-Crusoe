@@ -30,10 +30,10 @@
     font-weight: 500;
 }
 
-.longSessionName {
-    font-size: 0.8em;
-    position: relative;
-    top: 0.2em;
+
+
+.sessionName {
+    margin-top: 1px;
 }
 
 

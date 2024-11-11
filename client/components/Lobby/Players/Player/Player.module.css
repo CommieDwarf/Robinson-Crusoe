@@ -9,12 +9,14 @@
     font-size: 20px;
     border: 1px solid var(--brown);
     border-radius: 5px;
+    position: relative;
 }
 
 .container > div {
     height: 100%;
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 
@@ -24,8 +26,16 @@
     filter: grayscale(0.5);
 }
 
+.avatar {
+    aspect-ratio: 1;
+    height: 80% !important;
+    position: relative;
+}
+
 .name {
-    width: 100px;
+    width: 160px;
+    position: relative;
+    justify-content: start !important
 }
 
 

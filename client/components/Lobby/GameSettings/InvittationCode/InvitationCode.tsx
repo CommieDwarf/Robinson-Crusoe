@@ -36,7 +36,7 @@ export function InvitationCode(props: Props) {
 				
 				{visible && (
 					<input
-						className={styles.input}
+						className={`${styles.input} font-mono`}
 						type="text"
 						value={code}
 						readOnly

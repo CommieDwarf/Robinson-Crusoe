@@ -8,8 +8,9 @@
     position: relative;
 }
 
+
+
 .container > h2 {
-    font-weight: 400;
     font-size: 25px;
 }
 
@@ -47,3 +48,7 @@
     font-size: 13px;
 }
 
+.username {
+    font-family: var(--font-mono);
+    font-weight: bolder;
+}

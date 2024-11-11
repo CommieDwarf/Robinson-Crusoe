@@ -174,9 +174,10 @@ export function GameSettings(props: Props) {
 						onChange={handleNameChange}
 						maxLength={sharedConfig.session.nameMaxLength}
 						minLength={sharedConfig.session.nameMinLength}
+						className="font-mono"
 					/>
 				) : (
-					<span className={`${localSettings.name.length > 25 && styles.longSessionName}`}>{localSettings.name}</span>
+					<span className={`${styles.sessionName} font-mono`}>{localSettings.name}</span>
 				)}
 			</div>
 			{props.mode === GAME_SETTINGS_MODE.GAME_CREATE && (
@@ -188,6 +189,7 @@ export function GameSettings(props: Props) {
 						onChange={handlePasswordChange}
 						maxLength={sharedConfig.session.passwordMaxLength}
 						minLength={sharedConfig.session.passwordMinLength}
+						className="font-mono"
 					/>
 				</div>
 			)}
@@ -197,6 +199,7 @@ export function GameSettings(props: Props) {
 					<select
 						onChange={handleScenarioChange}
 						value={localSettings.scenario}
+						className="font-mono"
 					>
 						<option value={SCENARIO.CASTAWAYS}>
 							{capitalize(
@@ -205,7 +208,7 @@ export function GameSettings(props: Props) {
 						</option>
 					</select>
 				) : (
-					<span>
+					<span className="font-mono">
 						{capitalize(
 							t(`scenario.${localSettings.scenario}.name`)
 						)}
@@ -228,6 +231,7 @@ export function GameSettings(props: Props) {
 					<select
 						onChange={handleMaxPlayersChange}
 						value={localSettings.maxPlayers}
+						className="font-mono"
 					>
 						{[1, 2, 3, 4].map((num) => {
 							const disabled = Boolean(
@@ -246,7 +250,7 @@ export function GameSettings(props: Props) {
 						})}
 					</select>
 				) : (
-					<span>{localSettings.maxPlayers}</span>
+					<span className="font-mono">{localSettings.maxPlayers}</span>
 				)}
 			</div>
 			{props.mode === GAME_SETTINGS_MODE.GAME_CREATE && (

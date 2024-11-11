@@ -1,8 +1,7 @@
 .container {
-    width: 150px;
+    width: 180px;
     height: 300px;
     color: var(--brown);
-
     font-size: 15px;
     font-weight: bold;
     font-style: italic;
@@ -14,12 +13,26 @@
     padding-left: 5;
 }
 
+.topBar {
+    height: 25px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: top;
+    flex-grow: none;
+    padding-bottom: 5px;
+}
+
+.character {
+    height: 270px;
+}
+
+.userNameWrapper {
+}
+
 .latency {
-    position: absolute;
-    top: 5px;
-    left: 25px;
     width: 20px;
     aspect-ratio: 1;
+    float: left;
 }
 
 .health {
@@ -30,19 +43,20 @@
 }
 
 .mainWrapper {
-    width: 130px;
+    width: 160px;
+    height: 100%;
     display: inline-flex;
     flex-direction: column;
+    align-items: center;
 }
+
 
 
 .charName, .userNameWrapper {
     text-align: center;
-    float: left;
-    width: 130px;
 }
 
-.userName {
+.username {
     padding: 0 5px 0 5px;
     border-radius: 5px;
     border: 1px solid var(--borderColor);
@@ -58,7 +72,7 @@
 
 .expendables {
     width: 130px;
-    height: 30px;
+    height: 20px;
 }
 
 .hr {

@@ -1,201 +1,247 @@
 import styles from "./Player.module.css";
 import bootKickImg from "/public/UI/boot-kick.png";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
-import {useTranslation} from "react-i18next";
-import {IPlayerRenderData} from "@shared/types/Game/PlayerService/Player";
-import React, {ChangeEvent, useEffect, useState} from "react";
-import {CHARACTER} from "@shared/types/Game/Characters/Character";
+import { useTranslation } from "react-i18next";
+import { IPlayerRenderData } from "@shared/types/Game/PlayerService/Player";
+import React, { ChangeEvent, useEffect, useState } from "react";
+import { CHARACTER } from "@shared/types/Game/Characters/Character";
 import checkMark from "/public/UI/misc/check-mark.png";
 import xMarkImg from "/public/UI/misc/x-mark.png";
-import {SOCKET_EVENT_CLIENT} from "@shared/types/Requests/Socket";
-import {PlayerLatency} from "../../../PlayerLatency/PlayerLatency";
+import { SOCKET_EVENT_CLIENT } from "@shared/types/Requests/Socket";
+import { PlayerLatency } from "../../../PlayerLatency/PlayerLatency";
 import capitalize from "@shared/utils/capitalize";
-import {setSocketListener} from "../../../../pages/api/socket";
-import {useAppDispatch, useAppSelector} from "../../../../store/hooks";
-import {socketEmit} from "../../../../middleware/socketMiddleware";
-import Select from 'react-select'
-import {PLAYER_COLOR} from "@shared/types/Game/PLAYER_COLOR";
-import {selectPlayerLatency} from "../../../../reduxSlices/gameSession";
+import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
+import { socketEmit } from "../../../../middleware/socketMiddleware";
+import Select from "react-select";
+import { PLAYER_COLOR } from "@shared/types/Game/PLAYER_COLOR";
+import { selectPlayerLatency } from "../../../../reduxSlices/gameSession";
 import { UserAvatar } from "../../../UserProfile/UserAvatar/UserAvatar";
 
 interface Props {
-    player: IPlayerRenderData,
-    local: boolean,
-    host: boolean,
-    hostControls: boolean,
-    duplicatedCharacter: boolean,
+	player: IPlayerRenderData;
+	local: boolean;
+	host: boolean;
+	hostControls: boolean;
+	duplicatedCharacter: boolean;
 }
 
-
 export function Player(props: Props) {
+	const [character, setCharacter] = useState<CHARACTER>(
+		props.player.assignedCharacter.char
+	);
+	const [playerColor, setPlayerColor] = useState<PLAYER_COLOR>(
+		props.player.color
+	);
+	const { t } = useTranslation();
+	const dispatch = useAppDispatch();
 
+	const latency = useAppSelector((state) =>
+		selectPlayerLatency(state, props.player.id)
+	);
 
-    const [character, setCharacter] = useState<CHARACTER>(props.player.assignedCharacter.char);
-    const [playerColor, setPlayerColor] = useState<PLAYER_COLOR>(props.player.color);
-    const {t} = useTranslation();
-    const dispatch = useAppDispatch();
+	useEffect(() => {
+		setCharacter(props.player.assignedCharacter.char);
+	}, [props.player.assignedCharacter.char]);
 
-    const latency = useAppSelector(state => selectPlayerLatency(state, props.player.id))
+	useEffect(() => {
+		setPlayerColor(props.player.color);
+	}, [props.player.color]);
 
-    useEffect(() => {
-        setCharacter(props.player.assignedCharacter.char);
-    }, [props.player.assignedCharacter.char])
+	function handleCharacterChange(event: ChangeEvent<HTMLSelectElement>) {
+		setCharacter(event.currentTarget.value as CHARACTER);
+		dispatch(
+			socketEmit(SOCKET_EVENT_CLIENT.CHANGE_CHARACTER, {
+				character: {
+					char: event.currentTarget.value as CHARACTER,
+				},
+				hydrateSessionId: true,
+			})
+		);
+	}
 
-    useEffect(() => {
-        setPlayerColor(props.player.color);
-    }, [props.player.color])
+	function handleColorChange(color: PLAYER_COLOR) {
+		dispatch(
+			socketEmit(SOCKET_EVENT_CLIENT.CHANGE_PLAYER_COLOR, {
+				hydrateSessionId: true,
+				color,
+			})
+		);
+		setPlayerColor(color);
+	}
 
+	function handleKickClick() {
+		if (props.hostControls && !props.host) {
+			dispatch(
+				socketEmit(SOCKET_EVENT_CLIENT.KICK_PLAYER, {
+					playerId: props.player.id,
+					hydrateSessionId: true,
+				})
+			);
+		}
+	}
 
+	function handleReadyClick() {
+		if (props.local) {
+			dispatch(
+				socketEmit(SOCKET_EVENT_CLIENT.SET_PLAYER_READY, {
+					value: props.player.ready,
+					hydrateSessionId: true,
+				})
+			);
+		}
+	}
 
-    function handleCharacterChange(event: ChangeEvent<HTMLSelectElement>) {
-        setCharacter(event.currentTarget.value as CHARACTER);
-        dispatch(socketEmit(SOCKET_EVENT_CLIENT.CHANGE_CHARACTER, {
-            character: {
-                char: event.currentTarget.value as CHARACTER
-            },
-            hydrateSessionId: true,
-        }))
-    }
+	return (
+		<div
+			className={`${styles.container} ${
+				props.local && styles.localPlayer
+			} ${props.player.isPlaceHolder && styles.containerPlaceholder}`}
+		>
+			<div className={styles.avatar}>
+				{<UserAvatar username={props.player.username} />}
+			</div>
+			<div className={`${styles.name} font-mono`}>
+				{props.player.username}
+				{props.host && (
+					<div className={styles.host}>
+						<ResizableImage
+							src={"/UI/misc/crown.png"}
+							alt={"host"}
+							fill
+						/>
+					</div>
+				)}
+			</div>
 
-    function handleColorChange(color: PLAYER_COLOR) {
-        dispatch(socketEmit(SOCKET_EVENT_CLIENT.CHANGE_PLAYER_COLOR, {
-            hydrateSessionId: true,
-            color
-        }))
-        setPlayerColor(color)
-    }
-
-
-    function handleKickClick() {
-        if (props.hostControls && !props.host) {
-            dispatch(socketEmit(SOCKET_EVENT_CLIENT.KICK_PLAYER, {
-                playerId: props.player.id,
-                hydrateSessionId: true,
-            }))
-        }
-    }
-
-    function handleReadyClick() {
-        if (props.local) {
-            dispatch(socketEmit(SOCKET_EVENT_CLIENT.SET_PLAYER_READY, {
-                value: props.player.ready,
-                hydrateSessionId: true,
-            }))
-        }
-    }
-
-
-    return <div className={`${styles.container} ${props.local && styles.localPlayer} ${props.player.isPlaceHolder && styles.containerPlaceholder}`}>
-        <div className={styles.avatar}>
-            {<UserAvatar username={props.player.username}/>}
-        </div>
-        <div className={styles.name}>
-            {props.player.username}
-            {props.host && <div className={styles.host}>
-                <ResizableImage src={"/UI/misc/crown.png"} alt={"host"} fill/>
-            </div>}
-        </div>
-
-        <div className={`${styles.character}`}>
-            <select
-                onChange={handleCharacterChange}
-                disabled={!props.local}
-                value={character}
-                className={`${props.duplicatedCharacter && styles.duplicatedCharacter}`}
-            >
-                <option value={CHARACTER.COOK}>{capitalize(t("character.cook"))}
-                </option>
-                <option value={CHARACTER.EXPLORER}>{capitalize(t("character.explorer"))}</option>
-                <option value={CHARACTER.CARPENTER}>{capitalize(t("character.carpenter"))}</option>
-                <option value={CHARACTER.SOLDIER}>{capitalize(t("character.soldier"))}</option>
-            </select>
-        </div>
-        <div className={`${styles.colorSelect}`}>
-            <Select
-                isDisabled={!props.local}
-                options={Object.values(PLAYER_COLOR).map((color) => ({
-                    value: color,
-                    label: "",
-                }))}
-                value={{value: playerColor, label: ""}}
-                styles={{
-                    control: (baseStyles, state) => ({
-                        ...baseStyles,
-                        height: 20,
-                        maxHeight: 20,
-                        minHeight: 20,
-                        padding: 0,
-                        fontSize: 12,
-                        boxShadow: state.isFocused ? "0px 0px 1px 1px var(--borderColor)" : "none",
-                        border: "none",
-                        ":hover": {
-                            border: "none",
-                        },
-                        backgroundColor: playerColor,
-                    }),
-                    dropdownIndicator: (styles) => ({
-                        ...styles,
-                        padding: 0,
-                        color: props.local ? "white" : playerColor,
-                        ":hover": {
-                            color: "white"
-                        },
-                    }),
-                    clearIndicator: (styles) => ({
-                        ...styles,
-                        padding: 0,
-                        color: "red",
-                    }),
-                    indicatorSeparator: (styles) => ({
-                        hidden: true
-                    }),
-                    valueContainer: (styles) => ({
-                        ...styles,
-                        paddingTop: 0,
-                        paddingBottom: 0,
-                        paddingLeft: 5,
-                        paddingRight: 5,
-                        marginTop: 0,
-                    }),
-                    input: (styles) => ({
-                        ...styles,
-                        margin: 0,
-                    }),
-                    option: (styles, {data, isDisabled, isFocused, isSelected}) => {
-                        return {
-                            ...styles,
-                            backgroundColor: data.value,
-                            height: 20,
-                            maxHeight: 20,
-                            minHeight: 20,
-                            padding: 0,
-                            fontSize: 12,
-                        }
-                    },
-                    menuList: (styles) => ({
-                        ...styles,
-                        padding: 0,
-                        margin: 0,
-                        borderRadius: 5,
-                        border: "1px solid var(--borderColor)"
-                    })
-                }}
-                onChange={(newValue, actionMeta) => newValue && handleColorChange(newValue.value as PLAYER_COLOR)}
-            />
-        </div>
-        <div className={`${styles.readiness} ${props.player.ready && styles.readinessReady}`}
-             onClick={handleReadyClick}>
-            {props.player.ready ? <ResizableImage src={checkMark} alt={"readiness"}/>
-                : <ResizableImage src={xMarkImg} alt={"readiness"}/>
-            }
-        </div>
-        <div className={styles.latency}>
-            <PlayerLatency latency={latency}/>
-        </div>
-        <div className={`${styles.kickButton} ${!props.hostControls && styles.disabled}`} onClick={handleKickClick}>
-            {!props.host &&
-                <ResizableImage src={bootKickImg} alt={"bootKick"}/>
-            }
-        </div>
-    </div>
+			<div className={`${styles.character}`}>
+				<select
+					onChange={handleCharacterChange}
+					disabled={!props.local}
+					value={character}
+					className={`${
+						props.duplicatedCharacter && styles.duplicatedCharacter
+					}`}
+				>
+					<option value={CHARACTER.COOK}>
+						{capitalize(t("character.cook"))}
+					</option>
+					<option value={CHARACTER.EXPLORER}>
+						{capitalize(t("character.explorer"))}
+					</option>
+					<option value={CHARACTER.CARPENTER}>
+						{capitalize(t("character.carpenter"))}
+					</option>
+					<option value={CHARACTER.SOLDIER}>
+						{capitalize(t("character.soldier"))}
+					</option>
+				</select>
+			</div>
+			<div className={`${styles.colorSelect}`}>
+				<Select
+					isDisabled={!props.local}
+					options={Object.values(PLAYER_COLOR).map((color) => ({
+						value: color,
+						label: "",
+					}))}
+					value={{ value: playerColor, label: "" }}
+					styles={{
+						control: (baseStyles, state) => ({
+							...baseStyles,
+							height: 20,
+							maxHeight: 20,
+							minHeight: 20,
+							padding: 0,
+							fontSize: 12,
+							boxShadow: state.isFocused
+								? "0px 0px 1px 1px var(--borderColor)"
+								: "none",
+							border: "none",
+							":hover": {
+								border: "none",
+							},
+							backgroundColor: playerColor,
+						}),
+						dropdownIndicator: (styles) => ({
+							...styles,
+							padding: 0,
+							color: props.local ? "white" : playerColor,
+							":hover": {
+								color: "white",
+							},
+						}),
+						clearIndicator: (styles) => ({
+							...styles,
+							padding: 0,
+							color: "red",
+						}),
+						indicatorSeparator: (styles) => ({
+							hidden: true,
+						}),
+						valueContainer: (styles) => ({
+							...styles,
+							paddingTop: 0,
+							paddingBottom: 0,
+							paddingLeft: 5,
+							paddingRight: 5,
+							marginTop: 0,
+						}),
+						input: (styles) => ({
+							...styles,
+							margin: 0,
+						}),
+						option: (
+							styles,
+							{ data, isDisabled, isFocused, isSelected }
+						) => {
+							return {
+								...styles,
+								backgroundColor: data.value,
+								height: 20,
+								maxHeight: 20,
+								minHeight: 20,
+								padding: 0,
+								fontSize: 12,
+							};
+						},
+						menuList: (styles) => ({
+							...styles,
+							padding: 0,
+							margin: 0,
+							borderRadius: 5,
+							border: "1px solid var(--borderColor)",
+						}),
+					}}
+					onChange={(newValue, actionMeta) =>
+						newValue &&
+						handleColorChange(newValue.value as PLAYER_COLOR)
+					}
+				/>
+			</div>
+			<div
+				className={`${styles.readiness} ${
+					props.player.ready && styles.readinessReady
+				}`}
+				onClick={handleReadyClick}
+			>
+				{props.player.ready ? (
+					<ResizableImage src={checkMark} alt={"readiness"} />
+				) : (
+					<ResizableImage src={xMarkImg} alt={"readiness"} />
+				)}
+			</div>
+			<div className={styles.latency}>
+				<PlayerLatency latency={latency} />
+			</div>
+			<div
+				className={`${styles.kickButton} ${
+					!props.hostControls && styles.disabled
+				}`}
+				onClick={handleKickClick}
+			>
+				{!props.host && (
+					<ResizableImage src={bootKickImg} alt={"bootKick"} />
+				)}
+			</div>
+		</div>
+	);
 }

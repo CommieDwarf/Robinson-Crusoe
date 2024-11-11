@@ -55,11 +55,11 @@ export function ProfileHome(props: ProfileComponentProps) {
 			<div className={styles.avatar}>
 				{<UserAvatar username={props.user?.username || "empty"} />}
 			</div>
-			<h2>{props.user?.username}</h2>
+			<h2 className={styles.username}>{props.user?.username}</h2>
 			<p className={`${styles.link} ${styles.accountSettings} ${!props.user?.emailVerified && styles.linkLocked}`} onClick={handdleSettingsClick}>
 				{t("userProfile.accountSettings")}
 			</p>
-			
+
 			<hr />
 
 			{/* {sessionsInProgress && sessionsInProgress.length > 0 && (

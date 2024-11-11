@@ -40,18 +40,6 @@ export function Session(props: Props) {
 
 
 	let targetLength = props.shortMode === false ? shortStrLength :  longStrLength;
-	const name = shortenIfTooLong(props.name, targetLength);	
-	const host = shortenIfTooLong(props.host, targetLength);
-	const scenario = shortenIfTooLong(props.scenario, targetLength);
-
-
-	function shortenIfTooLong(str: string, length: number) {
-		if (str.length > length) {
-			return shortenWithTripleDots(str, length);
-		} else {
-			return str;
-		}
-	}
 
 	return (
 		<div className={`${styles.container}`}>
@@ -60,12 +48,14 @@ export function Session(props: Props) {
 					props.shortMode && styles.sessionInfoShortened
 				}`}
 			>
-				<div className={`${styles.name}`}>{name}</div>
-				<div className={styles.host}>{host}</div>
+				<div className={`${styles.name}`}>
+						{props.name}
+					</div>
+				<div className={styles.host}>{props.host}</div>
 				<div className={styles.playerAmount}>
 					{props.playerAmount}/{props.maxPlayerAmount}
 				</div>
-				<div className={styles.scenario}>{scenario}</div>
+				<div className={styles.scenario}>{props.scenario}</div>
 				{!props.hidePassword && (
 					<div className={styles.password}>
 						{props.password ? (
