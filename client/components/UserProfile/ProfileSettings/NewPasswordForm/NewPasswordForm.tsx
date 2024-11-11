@@ -89,7 +89,8 @@ export function NewPasswordForm(props: Props) {
 			});
 
 			if (result.ok) {
-				alert("udało się");
+				//TODO: zrób to
+				// alert("udało się");
 			} else {
 				setError("general", t("error.serverError"));
 			}

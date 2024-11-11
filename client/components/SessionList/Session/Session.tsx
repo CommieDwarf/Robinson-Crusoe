@@ -1,10 +1,7 @@
 import styles from "./Session.module.css";
 import { capitalize } from "lodash";
 import { useTranslation } from "react-i18next";
-import { shortenWithTripleDots } from "../../../utils/shortenWithTripleDots";
 import { useAppDispatch } from "../../../store/hooks";
-import { socketEmit } from "../../../middleware/socketMiddleware";
-import { SOCKET_EVENT_CLIENT } from "@shared/types/Requests/Socket";
 
 interface Props {
 	name: string;
@@ -34,12 +31,6 @@ export function Session(props: Props) {
 		}
 	}
 
-	const shortStrLength = 6;
-	const longStrLength = 25;
-
-
-
-	let targetLength = props.shortMode === false ? shortStrLength :  longStrLength;
 
 	return (
 		<div className={`${styles.container}`}>

@@ -51,7 +51,6 @@ export function NewPasswordForm(props: ForgetPasswordFormProps) {
 			const token = Cookies.get("ResetPasswordToken");
 
 
-			alert(token);
 			if (!token) {
 				props.setError(t("form.resetPasswordTokenExpired"));
 				return;

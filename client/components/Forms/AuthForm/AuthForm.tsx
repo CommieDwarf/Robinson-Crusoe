@@ -148,7 +148,6 @@ export default function AuthForm(props: Props) {
 			if (response.status === 201) {
 				await handleAuthentication(response);
 			} else if (response.status === 422) {
-				alert(response.status);
 				setError("form", "Provided data is incorrect.");
 			} else {
 				setError("form", "Attempt to sign up failed.");

@@ -71,7 +71,6 @@ export function GameSettings(props: Props) {
 			setSocketListener(
 				SOCKET_EVENT_SERVER.GAME_SESSION_CREATED,
 				(payload) => {
-					alert("got event");
 					dispatch(sessionIdUpdated(payload.sessionId));
 					router.push(`/multiplayer/lobby/${payload.sessionId}`);
 				}
