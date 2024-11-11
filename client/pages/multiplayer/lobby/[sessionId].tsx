@@ -21,7 +21,6 @@ import { Gender } from "@shared/types/Game/Characters/Character";
 import ChatLog from "../../../components/Game/UI/ChatLog/ChatLog";
 import { socketEmit } from "../../../middleware/socketMiddleware";
 import { setSocketListener } from "../../api/socket";
-import { SCENARIO_STATUS } from "@shared/types/Game/ScenarioService/ScenarioService";
 
 export function Lobby() {
 	const [gender, setGender] = useState<Gender>("male");

@@ -18,6 +18,7 @@ import { DISCOVERY_TOKEN } from "@shared/types/Game/TokenService/Token";
 import { SCENARIO } from "@shared/types/Game/ScenarioService/SCENARIO";
 import { PAWN_HELPER_ACTION } from "@shared/types/Game/Pawns/Pawn";
 import { SYSTEM_MSG } from "@shared/types/ChatService/ChatService";
+import { GUIDE_CONTENT } from "components/Game/UI/Guide/Contents/Contents";
 
 export const resources = {
 	pl: {
@@ -230,6 +231,7 @@ export const resources = {
 				leather_genitive: "skórę",
 			},
 			action: {
+				action: `akcja $t(translation:action.{{action}}, {"context": "genitive"})`,
 				threat: "zagrożenie",
 				threat_genitive: "zagrożenia",
 				hunt: "polowanie",
@@ -766,6 +768,24 @@ export const resources = {
 					"Kolejna próba nastąpi za {{seconds}} sekund.",
 				"login request limit reached":
 					"Wprowadziłeś/aś błędne hasło za dużo razy. Twoje konto zostało tymczasowo zablokowane na {{tryAfter}} minut.",
+			},
+			guide: {
+				contents: {
+					[GUIDE_CONTENT.INTRODUCTION]: "Wprowadzenie",
+					[GUIDE_CONTENT.EVENT_PHASE]: `$t(translation:phase.phase, {"phase": "event"})`,
+					[GUIDE_CONTENT.MORALE_PHASE]: `$t(translation:phase.phase, {"phase": "morale"})`,
+					[GUIDE_CONTENT.ACTION_PHASE_PLANNING]: "Planowanie Akcji",
+					[GUIDE_CONTENT.THREAT_ACTION]: `$t(translation:action.action, {"action": "threat"})`,
+					[GUIDE_CONTENT.HUNT_ACTION]: `$t(translation:action.action, {"action": "hunt"})`,
+					[GUIDE_CONTENT.BUILD_ACTION]: `$t(translation:action.action, {"action": "build"})`,
+					[GUIDE_CONTENT.GATHER_ACTION]: `$t(translation:action.action, {"action": "gather"})`,
+					[GUIDE_CONTENT.EXPLORATION_ACTION]: `$t(translation:action.action, {"action": "explore"})`,
+					[GUIDE_CONTENT.ARRANGE_CAMP_ACTION]: `$t(translation:action.arrange camp)`,
+					[GUIDE_CONTENT.REST_ACTION]: `$t(translation:action.action, {"action": "rest"})`,
+					[GUIDE_CONTENT.ACTION_PHASE_RESOLVE]: `Rozstrzyganie Akcji`,
+					[GUIDE_CONTENT.WEATHER]: `$t(translation:phase.phase, {"phase": "weather"})`,
+					[GUIDE_CONTENT.NIGHT]: `$t(translation:phase.phase, {"phase": "night"})`,
+				},
 			},
 			form: {
 				emailDoNotExist: `Nie znaleziono konta powiązanego z podanym adresem e-mail. Proszę sprawdzić,
