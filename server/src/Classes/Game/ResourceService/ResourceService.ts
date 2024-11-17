@@ -47,8 +47,8 @@ export class ResourceService implements IResourceService {
 
     get renderData(): IResourceServiceRenderData {
         return {
-            future: this.unpackRenderData(this._future),
-            owned: this.unpackRenderData(this._owned),
+            future: this.unpackRenderData(this.future),
+            owned: this.unpackRenderData(this.owned),
         };
     }
 

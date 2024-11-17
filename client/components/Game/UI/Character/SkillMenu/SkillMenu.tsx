@@ -3,7 +3,7 @@ import styles from "./SkillMenu.module.css";
 import snowImg from "/public/UI/scenarios/snow.png";
 import rainImg from "/public/UI/scenarios/rain.png";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
-import { insertIconsIntoText } from "../../../../../utils/insertIconsIntoText";
+import { insertIconsIntoText } from "../../../../../utils/insertIconsIntoText/insertIconsIntoText";
 import { ABILITY } from "@shared/types/Game/Skill/ABILITY";
 import { CHARACTER_CONTROLLER_ACTION } from "@shared/types/CONTROLLER_ACTION";
 import { useAppDispatch, useAppSelector } from "../../../../../store/hooks";

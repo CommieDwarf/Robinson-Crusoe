@@ -2,7 +2,7 @@ import styles from "./Abilities.module.css";
 import {useTranslation} from "react-i18next";
 import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
 import {capitalize} from "lodash";
-import {insertIconsIntoText} from "../../../../utils/insertIconsIntoText";
+import {insertIconsIntoText} from "../../../../utils/insertIconsIntoText/insertIconsIntoText";
 import {CHARACTER} from "@shared/types/Game/Characters/Character";
 import {getAbilities} from "../../../../utils/getAbilities";
 import {useEffect, useState} from "react";

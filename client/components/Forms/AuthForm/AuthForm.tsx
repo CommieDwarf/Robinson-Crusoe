@@ -123,11 +123,11 @@ export default function AuthForm(props: Props) {
 			if (response.status === 200) {
 				await handleAuthentication(response);
 			} else if (response.status === 401) {
-				setError("form", "Provided email or password is incorrect.");
+				setError("form", t("form.incorrectCredentials"));
 			} else if (response.status === 429) {
 				await handleFailedLoginLimitReached(json);
 			} else {
-				setError("form", "Attempt to sign in failed.");
+				setError("form", t("error.serverError"));
 			}
 		} catch (e) {
 			handleFetchError(e);
@@ -183,7 +183,7 @@ export default function AuthForm(props: Props) {
 		}
 		const response = await usernameExists(username);
 		if (response && response.status === 409) {
-			setError("username", "This user name is taken");
+			setError("username", t("form.usernameTaken"));
 		} else {
 			setError("username", "");
 		}
@@ -203,10 +203,10 @@ export default function AuthForm(props: Props) {
 		if (props.loginMode) {
 			return;
 		}
-		if (password && password.length < 8) {
+		if (password && password.length < sharedConfig.limits.passwordMinLength) {
 			setError(
 				"password",
-				"Password has to be at least 8 characters long."
+				t("form.passwordTooShort", {amount: sharedConfig.limits.passwordMinLength})
 			);
 		} else {
 			setError("password", "");
@@ -217,14 +217,16 @@ export default function AuthForm(props: Props) {
 		if (props.loginMode) {
 			return;
 		}
+		
+
 		const isEmail = validateEmail(email);
 		if (!isEmail) {
-			setError("email", "Provided e-mail isn't valid.");
+			setError("email", t("form.invalidEmail"));
 			return;
 		}
 		const emailTaken = await emailExists(email);
 		if (emailTaken) {
-			setError("email", "This e-mail is taken.");
+			setError("email", t("form.emailTaken"));
 		} else {
 			setError("email", "");
 		}
@@ -262,7 +264,7 @@ export default function AuthForm(props: Props) {
 
 	function checkPasswordsSame(password: string, repeatPassword: string) {
 		if (password && repeatPassword && password !== repeatPassword) {
-			setError("passwordRepeat", "Passwords must be the same.");
+			setError("passwordRepeat", t("form.passwordsMustBeSame"));
 		} else {
 			setError("passwordRepeat", "");
 		}
@@ -368,6 +370,16 @@ export default function AuthForm(props: Props) {
 						)}
 					</h3>
 					<form onSubmit={handleSubmit} className={formStyles.form}>
+					<FormInput
+							placeholder={"e-mail"}
+							type="email"
+							id="email"
+							value={email}
+							onChange={(e) => setEmail(e.target.value)}
+							onBlur={handleEmailBlur}
+							required
+							error={errors.email}
+						/>
 						{!props.loginMode && (
 							<FormInput
 								placeholder={t("menu.username")}
@@ -386,16 +398,7 @@ export default function AuthForm(props: Props) {
 								}
 							/>
 						)}
-						<FormInput
-							placeholder={"e-mail"}
-							type="email"
-							id="email"
-							value={email}
-							onChange={(e) => setEmail(e.target.value)}
-							onBlur={handleEmailBlur}
-							required
-							error={errors.email}
-						/>
+						
 						<FormInput
 							placeholder={t("menu.password")}
 							type="password"
@@ -455,7 +458,7 @@ export default function AuthForm(props: Props) {
 						)}
 						{props.loginMode && (
 							<RedirectLink
-								linkText={"Zapomniałeś hasła?"}
+								linkText={t("form.forgotPassword?")}
 								href={"/forgot-password"}
 								fontSize="13px"
 							/>

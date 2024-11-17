@@ -50,7 +50,7 @@ function Health(props: Props) {
         </div>
     );
     return (
-        <div className={`${styles.container} ${props.background && styles.containerBackground}`}>
+        <div className={`${styles.container} ${props.background && styles.containerBackground} health`}>
             <div className={`${styles.health} ${props.vertical && styles.healthVertical}`}>{marks}</div>
         </div>
     );

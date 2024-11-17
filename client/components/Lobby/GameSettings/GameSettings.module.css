@@ -30,6 +30,11 @@
     font-weight: 500;
 }
 
+.row > input[type=text], .row > input[type="password"] {
+    width: 170px;
+}
+
+
 
 
 .sessionName {

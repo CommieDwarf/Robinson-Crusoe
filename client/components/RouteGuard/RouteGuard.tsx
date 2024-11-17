@@ -41,13 +41,7 @@ const RouteGuard: React.FC<Props> = ({ children }) => {
 			router.pathname.includes("verify-your-email")
 		) {
 			router.push("/");
-		} else if (
-			user &&
-			user.emailVerified &&
-			router.pathname.includes("email-activation")
-		) {
-			router.push("/");
-		}
+		} 
 	}, [user, router, connected]);
 
 	return <>{children}</>;

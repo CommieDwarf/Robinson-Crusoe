@@ -42,7 +42,7 @@ export const CardList = (props: Props) => {
             <Tabs switchTab={switchTab} currentTab={selectedTab}/>
             <div className={`${styles.container}
                  ${topLayer && styles.zIndexIncreased}
-                 ${props.isBeingDragged && styles.disabledScroll}`
+                 ${props.isBeingDragged && styles.disabledScroll} tour-cards`
             }
                  ref={containerRef}
                  onScroll={handleScroll}>

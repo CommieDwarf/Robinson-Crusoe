@@ -131,7 +131,7 @@ function Map(props: Props) {
     if (!tileService) return null;
     return (
         <div
-            className={`${styles.container} ${zIndexClass}`}
+            className={`${styles.container} ${zIndexClass} tour-map`}
             ref={container}
             onMouseDown={mouseDownHandle}
         >

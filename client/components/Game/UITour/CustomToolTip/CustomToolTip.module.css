@@ -1,0 +1,68 @@
+.body {
+    background-image: url("../../../../public/UI/paper-background.png");
+    border: 1px solid var(--brown);
+    border-radius: 5px;
+    padding: 10px;
+    color: bar(--brown);
+    z-index: 10000;
+    max-width: 650px;
+    font-size: 15px;
+}
+
+.title {
+    font-family: "Kaz", serif;
+    color: var(--hunt);
+    font-size: 25px;
+    text-align: center;
+}
+
+.title > h4 {
+    margin: 0;
+}
+
+.content {
+    color: var(--brown);
+    font-weight: 500;
+}
+
+
+
+.topBar {
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.close {
+    height: 25px;
+    aspect-ratio: 1;
+    position: relative;
+    vertical-align: top;
+    float: right;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.close:hover {
+    scale: 1.1;
+    cursor: pointer;
+}
+
+.footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.toolTipButton {
+    font-family: "Kaz", serif;
+    background-color: transparent;
+    color: var(--hunt);
+    font-weight: 600;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.toolTipButton:hover {
+    scale: 1.1;
+}

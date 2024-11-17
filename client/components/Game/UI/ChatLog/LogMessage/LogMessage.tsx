@@ -5,7 +5,7 @@ import {RoundSquare} from "../../Scenario/Scenarios/Castaways/Rounds/RoundSquare
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
 import {ILogMessageRenderData} from "@shared/types/Game/ChatLog/LogMessage";
 import {useTranslation} from 'react-i18next';
-import {insertIconsIntoText} from "../../../../../utils/insertIconsIntoText";
+import {insertIconsIntoText} from "../../../../../utils/insertIconsIntoText/insertIconsIntoText";
 import capitalize from "@shared/utils/capitalize";
 import {useDynamicTranslation} from "../../../../../utils/hooks/useDynamicTranslation";
 

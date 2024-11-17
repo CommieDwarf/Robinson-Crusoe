@@ -11,8 +11,8 @@
 .genderOption {
     border: 1px solid var(--borderColor);
     border-radius: 5px;
-    padding-left: 2px;
-    padding-right: 2px;
+    padding-left: 4px;
+    padding-right: 4px;
     cursor: pointer;
     line-height: 100%;
     padding-top: 3px;

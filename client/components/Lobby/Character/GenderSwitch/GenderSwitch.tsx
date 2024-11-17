@@ -4,6 +4,7 @@ import {useState} from "react";
 import {useAppDispatch} from "../../../../store/hooks";
 import {socketEmit} from "../../../../middleware/socketMiddleware";
 import {SOCKET_EVENT_CLIENT} from "@shared/types/Requests/Socket";
+import { useTranslation } from "react-i18next";
 
 interface Props {
     gender: Gender;
@@ -13,6 +14,8 @@ export function GenderSwitch(props: Props) {
 
     const [gender, setGender] = useState<Gender>(props.gender);
     const dispatch = useAppDispatch();
+
+    const { t } = useTranslation();
 
     function handleMaleClick() {
         gender !== "male" && switchGender("male");
@@ -34,10 +37,10 @@ export function GenderSwitch(props: Props) {
 
     return <div className={styles.container}>
         <div className={`${styles.genderOption} ${gender === "male" && styles.genderOptionSelected}`}
-             onClick={handleMaleClick}>Male
+             onClick={handleMaleClick}>{t("other.male")}
         </div>
         <div className={`${styles.genderOption} ${gender === "female" && styles.genderOptionSelected}`}
-             onClick={handleFemaleClick}>Female
+             onClick={handleFemaleClick}>{t("other.female")}
         </div>
     </div>
 }

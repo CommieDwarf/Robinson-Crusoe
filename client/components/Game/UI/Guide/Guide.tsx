@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { insertIconsIntoText } from "../../../../utils/insertIconsIntoText";
+import { insertIconsIntoText } from "../../../../utils/insertIconsIntoText/insertIconsIntoText";
 import { Contents, GUIDE_CONTENT } from "./Contents/Contents";
 import styles from "./Guide.module.css";
 import { ArrangeCampPage } from "./pages/Action/ArrangeCampPage";

@@ -31,7 +31,7 @@ export const Header = (props: Props) => {
             <span className={styles.title}>Faza Pogody</span>
             <div className={styles.symbol + " " + styles.round}>
                 <RoundSquare
-                    round={12}
+                    round={props.round}
                     currentRound={true}
                     ship={false}
                     weather={{rain: false, snow: false, hungryAnimal: false}}

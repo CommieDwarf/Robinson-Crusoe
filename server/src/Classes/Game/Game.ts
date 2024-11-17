@@ -105,7 +105,7 @@ export class GameClass implements IGame {
         })
         this._seed = loadData?.seed || uuid();
         this._id = loadData?.id || uuid();
-        this._rng = seedrandom("DUPA");
+        this._rng = seedrandom();
 
         this._actionService = new ActionService(this);
 

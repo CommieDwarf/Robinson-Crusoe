@@ -1,4 +1,4 @@
-import { insertIconsIntoText } from "../../../../../../utils/insertIconsIntoText";
+import { insertIconsIntoText } from "../../../../../../utils/insertIconsIntoText/insertIconsIntoText";
 import ResizableImage from "../../../../../ResizableImage/ResizableImage";
 import styles from "../../Guide.module.css";
 import { ImgListItem } from "../../ImgList.tsx/ImgListItem";

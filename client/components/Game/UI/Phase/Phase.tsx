@@ -42,7 +42,7 @@ function Phase(props: Props) {
     const [t] = useTranslation();
 
     return (
-        <div className={styles.container} ref={containerRef}>
+        <div className={`${styles.container} tour-phase`} ref={containerRef}>
             <strong>
 
                 <span className={`${styles[currentPhase]} ${styles.phaseName}`}>{capitalize(t(`phase.phase`, {

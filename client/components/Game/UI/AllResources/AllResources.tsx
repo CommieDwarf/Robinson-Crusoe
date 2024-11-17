@@ -9,7 +9,7 @@ import boardImg from "/public/UI/misc/board.jpg";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
 import {objectsEqual} from "@shared/utils/objectsEqual";
 import {useAppSelector} from "../../../../store/hooks";
-import {selectResourceService} from "../../../../reduxSlices/gameSession";
+import {selectResourceService, selectTokenService} from "../../../../reduxSlices/gameSession";
 
 interface Props {
 
@@ -18,16 +18,23 @@ interface Props {
 function AllResources(props: Props) {
 
     
-    const { future = undefined, owned = undefined } = useAppSelector(selectResourceService) || {};
+    const { future, owned } = useAppSelector(selectResourceService) || {};
+    
+    const tokenService = useAppSelector(selectTokenService);
 
+    const tokens = {
+        future: tokenService?.future.length,
+        owned: tokenService?.owned.length,
+    }
 
     if (!future || !owned) return null;
     return (
-        <div className={styles.container}>
+        <div className={`${styles.container} tour-resources`}>
             <Frame/>
             <div className={`${styles.resources} ${styles.future}`}>
                 <Resources type={"future"}
                            resources={future}
+                           tokenAmount={tokens.future}
 
                 />
             </div>
@@ -43,7 +50,7 @@ function AllResources(props: Props) {
                 </div>
             </div>
             <div className={`${styles.resources} ${styles.owned}`}>
-                <Resources type={"owned"} resources={owned}/>
+                <Resources type={"owned"} resources={owned} tokenAmount={tokens.owned}/>
             </div>
         </div>
     );

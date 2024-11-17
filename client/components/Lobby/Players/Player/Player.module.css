@@ -10,13 +10,14 @@
     border: 1px solid var(--brown);
     border-radius: 5px;
     position: relative;
+
 }
 
 .container > div {
-    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 50%;
 }
 
 
@@ -42,20 +43,19 @@
 
 .host {
     width: 20px;
-    height: 20px !important;
     position: relative;
     filter: brightness(0) saturate(100%) invert(84%) sepia(19%) saturate(6919%) hue-rotate(344deg) brightness(105%) contrast(94%);
 }
 
 .latency {
     width: 30px;
-    height: 20px !important;
 }
 
 .kickButton {
     position: relative;
     aspect-ratio: 1;
     filter: var(--blackToBrown);
+    scale: 1.5;
 }
 
 .charName {
@@ -72,8 +72,8 @@
 }
 
 .readiness {
-    height: 30px !important;
-    width: 35px;
+    height: 60% !important; 
+    aspect-ratio: 1 !important;
 }
 
 .readinessReady {

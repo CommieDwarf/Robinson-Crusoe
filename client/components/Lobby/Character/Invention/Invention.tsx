@@ -2,7 +2,7 @@ import {CHARACTER} from "@shared/types/Game/Characters/Character";
 import styles from "./Invention.module.css";
 import {capitalize} from "lodash";
 import {characterToInventionMap} from "@shared/constants/CharacterToInventionMap";
-import {insertIconsIntoText} from "../../../../utils/insertIconsIntoText";
+import {insertIconsIntoText} from "../../../../utils/insertIconsIntoText/insertIconsIntoText";
 import {useTranslation} from "react-i18next";
 
 interface Props {

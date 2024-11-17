@@ -9,7 +9,8 @@ import Entries from "@shared/types/Entries";
 
 type Props = {
     type: "future" | "owned";
-    resources: IResourcesRenderData
+    resources: IResourcesRenderData,
+    tokenAmount: number | undefined,
 };
 
 interface AllResources extends IBasicResourcesAmount {
@@ -22,17 +23,18 @@ export const Resources = (props: Props) => {
     const resources: JSX.Element[] = [];
 
 
-    const resourceAmounts = new Map<keyof AllResources, number>(
+
+    const resourcesAmount = new Map<keyof AllResources, number>(
         [...Object.entries(props.resources.basic) as Entries<typeof props.resources.basic>,
-            ["token", props.resources.tokens.length],
+            ["token", props.tokenAmount || 0],
             ["treasure", props.resources.treasures.length]]
     );
 
 
-    const oldValues = usePreviousValue(resourceAmounts);
+    const oldValues = usePreviousValue(resourcesAmount);
     let color = "black";
 
-    resourceAmounts.forEach((value, key) => {
+    resourcesAmount.forEach((value, key) => {
         let valueChanged = false;
         if (oldValues) {
             const oldValue = oldValues.get(key) as number;

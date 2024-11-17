@@ -58,7 +58,7 @@ import { GameOverWindow } from "./GameOverWindow/GameOverWindow";
 import { DarkOverlay } from "../DarkOverlay/DarkOverlay";
 import { ChoiceSelector } from "./UI/ChoiceSelector/ChoiceSelector";
 import { PlayerOverview } from "./UI/PlayerOverview/PlayerOverview";
-
+import Joyride from 'react-joyride';
 interface Props {}
 
 export default function Game(props: Props) {
@@ -310,6 +310,9 @@ export default function Game(props: Props) {
 		return null;
 	}
 
+
+
+
 	return (
 		<div
 			className={`${styles.game} ${isFirefox ? styles.gameMoz : ""}`}
@@ -393,7 +396,7 @@ export default function Game(props: Props) {
 					contentHeight={mapHeight + actionOrderHeight}
 				/>
 				<Phase />
-				<div className={styles.morale}>
+				<div className={`${styles.morale} tour-morale`}>
 					<Morale />
 				</div>
 
@@ -413,7 +416,7 @@ export default function Game(props: Props) {
 					topLayerElement={topLayerElement}
 				/>
 				<Character zIndex={topLayerElement} />
-				<div className={styles.health}>
+				<div className={`${styles.health} tour-health`}>
 					<Health
 						character={gameData.localPlayer.character!}
 						background={true}

@@ -1,6 +1,6 @@
 import styles from "./Expendable.module.css"
 import React from "react";
-import {insertIconsIntoText} from "../../../../../../../utils/insertIconsIntoText";
+import {insertIconsIntoText} from "../../../../../../../utils/insertIconsIntoText/insertIconsIntoText";
 import {PersonalResourceIcon} from "./PersonalResourceIcon/PersonalResourceIcon";
 
 interface Props {

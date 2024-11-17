@@ -3,7 +3,7 @@ import * as React from "react";
 import styles from "./ReRollButton.module.css";
 import {IActionServiceRenderData} from "@shared/types/Game/ActionService/ActionService";
 import {ACTION} from "@shared/types/Game/ACTION";
-import {insertIconsIntoText} from "../../../../../utils/insertIconsIntoText";
+import {insertIconsIntoText} from "../../../../../utils/insertIconsIntoText/insertIconsIntoText";
 import {getCharacterRerollAbility} from "../getReRollAbility";
 import {useTranslation} from "react-i18next";
 import {capitalize} from "lodash";

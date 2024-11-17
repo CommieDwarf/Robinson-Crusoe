@@ -76,15 +76,16 @@ export default function EmailActivation() {
 						Gratulacje!
 					</h4>
 					<p>
-						Twoje konto zostało{" "}
-						<span className={styles.positive}>pomyślnie</span>{" "}
-						zweryfikowane. Możesz teraz{" "}
-						<Link href={"/sign-in"} className={styles.link}>
-							zalogować
+						Twoje konto zostało pozytywnie zweryfikowane. Możesz
+						teraz zamknąć tą zakładkę lub kliknąć w link aby{" "}
+						<Link href={"/"} className={styles.link}>
+							przejść
 						</Link>{" "}
-						się do naszego serwisu. Dziękujemy za potwierdzenie
-						swojego adresu e-mail. Zostaniesz przekierowywany za{" "}
-						{redirectCounter}s;
+						do strony głównej.
+						<br />
+						Dziękujemy za potwierdzenie swojego adresu e-mail.
+						<br />
+						Zostaniesz przekierowywany za <strong>{redirectCounter}s</strong>.
 					</p>
 				</>
 			)}

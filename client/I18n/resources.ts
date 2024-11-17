@@ -1,3 +1,4 @@
+import { SupplyCrates } from './../../server/src/Classes/Game/EventService/EventCardCreator/WreckageCards/SupplyCrates';
 import { LOG_CODE } from "@shared/types/Game/ChatLog/LOG_CODE";
 import {
 	ADVENTURE_CARD_BUILD,
@@ -19,6 +20,7 @@ import { SCENARIO } from "@shared/types/Game/ScenarioService/SCENARIO";
 import { PAWN_HELPER_ACTION } from "@shared/types/Game/Pawns/Pawn";
 import { SYSTEM_MSG } from "@shared/types/ChatService/ChatService";
 import { GUIDE_CONTENT } from "components/Game/UI/Guide/Contents/Contents";
+import { EVENT_CARD, WRECKAGE_CARD } from "@shared/types/Game/EventService/EVENT_CARD";
 
 export const resources = {
 	pl: {
@@ -286,6 +288,9 @@ export const resources = {
 				reroll: "przerzut",
 				reroll_genitive: "przerzutu",
 				"discovery token": "token odkryć",
+			},
+			eventCard: {
+				[WRECKAGE_CARD.SUPPLY_CRATES]: "Skrzynie z jedzeniem"
 			},
 			adventureCard: {
 				[ADVENTURE_CARD_BUILD.ACCIDENT]: "wypadek",
@@ -716,6 +721,8 @@ export const resources = {
 				hour_accusative_one: "godzinę",
 				hour_accusative_few: "godziny",
 				hour_accusative_many: "godzin",
+				male: "mężczyzna",
+				female: "kobieta"
 			},
 			userProfile: {
 				accountSettings: "Ustawienia konta",
@@ -809,7 +816,13 @@ export const resources = {
 				passwordChanged: "Hasło zmienione",
 				invalidCode: "Wprowadzony kod jest błędny lub mineła jego ważność.",
 				resetPasswordTokenExpired: "Token do resetowania hasła wygasł.",
-				oldPassword: "stare hasło"
+				oldPassword: "stare hasło",
+				incorrectCredentials: "Wprowadzony e-mail lub hasło jest nieprawidłowe.",
+				passwordsMustBeSame: "Hasła muszą być takie same.",
+				usernameTaken: "Nazwa użytkownika jest już zajęta.",
+				emailTaken: "Ten e-mail jest już używany.",
+				invalidEmail: "Podany adres e-mail jest nieprawidłowy.",
+				passwordTooShort: "Hasło musi mieć co najmniej {{amount}} znaków."
 			},
 			toast: {
 				"copied to clipboard": "Skopiowano do schowka!",

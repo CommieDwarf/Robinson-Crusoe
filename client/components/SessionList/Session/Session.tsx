@@ -32,6 +32,7 @@ export function Session(props: Props) {
 	}
 
 
+
 	return (
 		<div className={`${styles.container}`}>
 			<div
@@ -46,7 +47,8 @@ export function Session(props: Props) {
 				<div className={styles.playerAmount}>
 					{props.playerAmount}/{props.maxPlayerAmount}
 				</div>
-				<div className={styles.scenario}>{props.scenario}</div>
+				{/* @ts-ignore */}
+				<div className={styles.scenario}>{capitalize(t(`scenario.${props.scenario}.name`))}</div>
 				{!props.hidePassword && (
 					<div className={styles.password}>
 						{props.password ? (
