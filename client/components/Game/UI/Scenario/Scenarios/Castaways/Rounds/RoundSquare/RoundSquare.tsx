@@ -1,8 +1,8 @@
 // @flow
 import * as React from "react";
 import styles from "./RoundSquare.module.css";
-import logStyles from "../../../../ChatLog/LogMessage/LogMessage.module.css";
-import ResizableImage from "../../../../../../ResizableImage/ResizableImage";
+import logStyles from "../../../../../ChatLog/LogMessage/LogMessage.module.css";
+import ResizableImage from "../../../../../../../ResizableImage/ResizableImage";
 
 interface Props {
     round: number;
@@ -14,22 +14,25 @@ interface Props {
         hungryAnimal: boolean;
     };
     chatLog?: boolean;
+    dark?: boolean;
 }
 
 export function RoundSquare(props: Props) {
     const weatherPositions = ["weatherTop", "weatherRight", "weatherLeft"];
 
-    const weatherEffects = Object.entries(props.weather).map(([key, value]) => {
+
+    const allWeatherDices = props.weather.rain && props.weather.snow && props.weather.hungryAnimal;
+
+    const weatherEffects = Object.entries(props.weather).map(([key, value], i) => {
         if (value) {
             const position = weatherPositions.pop();
             if (!position) {
                 return;
             }
-
             return (
                 <div
                     className={
-                        styles.weatherDice + " " + styles[key] + " " + styles[position]
+                        `${styles.weatherDice} ${styles[key]} ${styles[position]} ${allWeatherDices && i === 0 && styles.firstOfFree}`
                     }
                     key={key}
                 >
@@ -41,6 +44,8 @@ export function RoundSquare(props: Props) {
             );
         }
     });
+
+    
 
     const currentRoundClass = props.currentRound ? styles.currentRound : "";
 
@@ -62,7 +67,7 @@ export function RoundSquare(props: Props) {
                     alt={"runda"}
                 />
             </div>
-            <div className={styles.round + " " + currentRoundClass}>
+            <div className={`${styles.round} ${currentRoundClass} ${props.dark && styles.dark}`}>
                 {props.round}
             </div>
             {props.ship && (

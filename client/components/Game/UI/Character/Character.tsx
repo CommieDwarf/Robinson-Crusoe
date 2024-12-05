@@ -91,13 +91,13 @@ export default function Character(props: Props) {
     })
 
     const {t} = useTranslation();
-    const charWrapperClass = styles[character.name + capitalize(character.gender) + "WrapperPic"];
+    const charWrapperClass = styles[character.name + capitalize(character.gender) + "Img"];
     const charImgName = kebabCase(`${character.name} ${character.gender}`);
     const droppableId = getOwnedDroppableId(character.name, "character");
     return (
-        <div className={styles.container + " " + zIndexClass} ref={containerRef}>
+        <div className={`${styles.container} ${zIndexClass} tour-character`} ref={containerRef}>
 
-            <div className={`${styles.characterPictureWrapper} ${charWrapperClass}`}>
+            <div className={`${styles.characterImg} ${charWrapperClass} tour-character-img`}>
                 <CharacterImg character={character}/>
             </div>
             <div className={styles.characterName}>{capitalize(t(`character.${character.name}`))}
@@ -112,7 +112,7 @@ export default function Character(props: Props) {
                 width={containerWidth}
                 ownedDetermination={character.determination}
             />
-            <div className={styles.skills}>
+            <div className={`${styles.skills} tour-character-abilities`}>
                 {skills}
             </div>
             <div className={styles.rightTop}>

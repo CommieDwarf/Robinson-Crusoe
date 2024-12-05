@@ -3,6 +3,7 @@ import * as React from "react";
 import styles from "./Button.module.css";
 import {capitalize} from "lodash";
 import {useTranslation} from "react-i18next";
+import ResizableImage from "components/ResizableImage/ResizableImage";
 
 
 type Props = {
@@ -17,22 +18,16 @@ export const Button = (props: Props) => {
         props.buttonClick(props.buttonText);
     }
 
-    const selectedClass = props.selected ? styles.selected : "";
     const {t} = useTranslation();
     return (
         <div
             className={`${styles.button} ${
                 styles[props.buttonText]
-            } ${selectedClass}`}
+            } ${props.selected && styles.selected}`}
             onClick={handleClick}
         >
-            <div className={styles.background}>
-                {/*<ResizableImage*/}
-                {/*    src={scenarioBackgroundImg}*/}
-                {/*    fill*/}
-                {/*    alt={"tło"}*/}
-                {/*    sizes={styles.background}*/}
-                {/*/>*/}
+            <div className={styles.frame}>
+                <ResizableImage src={"/UI/scenarios/squares/1.png"} alt={" "} />
             </div>
             <div className={`${styles.text}`}>
                 {/*@ts-ignore*/}

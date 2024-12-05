@@ -17,7 +17,7 @@ import {INVENTION_TYPE} from "@shared/types/Game/InventionService/Invention";
 
 
 const selectCards = createSelector([
-    (state: RootState) => selectInventionService(state)?.inventions.filter((card) => card.inventionType !== INVENTION_TYPE.SCENARIO),
+    (state: RootState) => selectInventionService(state)?.inventions,
     (state: RootState) => selectMysteryService(state)?.cardsAsReminders,
     (state: RootState) => selectResourceService(state)?.owned.treasures,
     (state: RootState) => selectEquipmentService(state)?.items

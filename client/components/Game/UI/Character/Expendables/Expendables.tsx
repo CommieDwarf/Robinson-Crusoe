@@ -12,7 +12,7 @@ interface Props {
 export function Expendables(props: Props) {
 
 
-    return <div className={styles.container}>
+    return <div className={`${styles.container} tour-character-expendables`}>
         <Expendable type={"weapon"} value={props.weapon}/>
         <Expendable type={"determination"} value={props.determination}/>
         {props.wood &&

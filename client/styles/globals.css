@@ -20,6 +20,13 @@
 			format("truetype");
 }
 
+@font-face {
+	font-family: "Caveat";
+	src: local("Caveat"),
+		url("../public/fonts/Caveat/Caveat-VariableFont_wght.ttf")
+			format("truetype");
+}
+
 
 html,
 body {

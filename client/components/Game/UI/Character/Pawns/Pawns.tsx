@@ -29,7 +29,7 @@ export default function Pawns(props: Props) {
         );
     })
 
-    return <div className={styles.container}>
+    return <div className={`${styles.container} tour-character-pawns`}>
         {props.dragDisabled ? <div className={styles.content} id={props.droppableId}>{pawns}</div> :
             <Droppable droppableId={props.droppableId} isDropDisabled={props.dragDisabled}>
                 {(provided) => (

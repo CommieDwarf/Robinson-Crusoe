@@ -38,7 +38,7 @@ const icons: Icon[] = [
 	"roof",
 ];
 
-export function insertIconsIntoText(string: Icon, iconClassName?: string) {
+export function insertIconsIntoText(string: string, iconClassName?: string) {
 	const array = string.split("$");
 
 

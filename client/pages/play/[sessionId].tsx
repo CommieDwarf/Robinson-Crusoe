@@ -167,7 +167,6 @@ function Play(props: Props) {
 
 	return (
 		<div className={styles.container}>
-            {/* {<UITour/>} */}
 			{session?.game && !connectError && <Game />}
 			{!session?.game && !connectError && <Loading />}
 			{connectError && <div>{connectError}</div>}

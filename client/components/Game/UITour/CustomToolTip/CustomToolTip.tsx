@@ -3,7 +3,11 @@ import styles from "./CustomToolTip.module.css";
 import ResizableImage from "components/ResizableImage/ResizableImage";
 import xMark from "../../../../public/UI/misc/x-mark.png";
 
-export function CustomTooltip(props: TooltipRenderProps, style: StyleSheet) {
+interface Props {
+	onNextClick: () => void;
+}
+
+export function CustomTooltip(props: TooltipRenderProps & Props, style: StyleSheet) {
 	const {
 		backProps,
 		closeProps,
@@ -13,7 +17,13 @@ export function CustomTooltip(props: TooltipRenderProps, style: StyleSheet) {
 		skipProps,
 		step,
 		tooltipProps,
+		onNextClick
 	} = props;
+
+	const hideNextButtonTargets: any[] = [".tour-scenario-button"];
+
+
+
 	return (
 		<div className={`${styles.body}`} {...tooltipProps}>
 			<div className={styles.topBar}>
@@ -37,10 +47,11 @@ export function CustomTooltip(props: TooltipRenderProps, style: StyleSheet) {
 							{backProps.title}
 						</button>
 					)} */}
-					{continuous && (
+					{!hideNextButtonTargets.includes(step.target)  && continuous && (
 						<div
 							className={`${styles.toolTipButton}`}
 							{...primaryProps}
+							onClick={props.onNextClick}
 						>
 							Dalej
 							{/* {primaryProps.title} */}

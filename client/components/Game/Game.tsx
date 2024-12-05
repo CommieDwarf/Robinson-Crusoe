@@ -13,7 +13,7 @@ import Tokens from "./UI/tokens/Tokens";
 import ScenarioButton from "./UI/ScenarioButton/ScenarioButton";
 import actionSlotStyles from "./UI/ActionSlot.module.css";
 
-import Threat from "./UI/threat/Threat";
+import Threat from "./UI/Threat/Threat";
 import ArrangeCampRest from "./UI/ArrangeCampRest/ArrangeCampRest";
 
 import {
@@ -59,6 +59,7 @@ import { DarkOverlay } from "../DarkOverlay/DarkOverlay";
 import { ChoiceSelector } from "./UI/ChoiceSelector/ChoiceSelector";
 import { PlayerOverview } from "./UI/PlayerOverview/PlayerOverview";
 import Joyride from 'react-joyride';
+import { UITour } from "./UITour/UITour";
 interface Props {}
 
 export default function Game(props: Props) {
@@ -312,12 +313,19 @@ export default function Game(props: Props) {
 
 
 
+	const [UITourStep, setUITourStep] = useState(0);
+
+	function goNextUITourStep() {
+		setUITourStep((state) => state + 1);
+	}
 
 	return (
 		<div
 			className={`${styles.game} ${isFirefox ? styles.gameMoz : ""}`}
 			style={gameStyle}
 		>
+            {<UITour step={UITourStep} setNextStep={goNextUITourStep}/>}
+
 			{/*<Background columnStart={3} columnEnd={5} rowStart={3} rowEnd={5}/>*/}
 			{/*<Background columnStart={1} columnEnd={3} rowStart={1} rowEnd={2}/>*/}
 			{/*<Background columnStart={1} columnEnd={3} rowStart={2} rowEnd={5}/>*/}
@@ -461,6 +469,8 @@ export default function Game(props: Props) {
 				topLayerElement={topLayerElement}
 				show={showScenario}
 				toggleShowScenario={toggleShowScenario}
+				goNextUITourStep={goNextUITourStep}
+				UITourStep={UITourStep}
 			/>
 
 			<ControlPanel

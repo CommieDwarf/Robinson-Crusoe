@@ -1,24 +1,36 @@
 .container {
-    height: 100%;
+    height: calc(100%);
     width: 100%;
     z-index: 100;
     position: absolute;
     bottom: 0;
-    transition: all 1s;
+    transition: all 0.5s;
     grid-column: 1 / span 2;
     grid-row: 2 / span 4;
+    border: 1px solid var(--brown);
+    overflow: hidden;
+
 }
 
 .hidden {
     height: 0;
-    border: none;
+    bottom: -2px;
 }
 
 .content {
     overflow: hidden;
     width: 100%;
     height: 100%;
-    background-image: url("../../../../public/UI/paper-background.png");
-    background-size: 1680px 1050px;
-    background-position-y: 10%;
+
+}
+
+.background {
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background-image: url("../../../../public/UI/wood-background.png");
+    background-size: cover;
+    position: absolute;
+    width: 100%;
+    height: 100%;
 }

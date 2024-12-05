@@ -1,7 +1,7 @@
 // @flow
 import * as React from "react";
 import styles from "./LogMessage.module.css";
-import {RoundSquare} from "../../Scenario/Scenarios/Castaways/Rounds/RoundSquare";
+import {RoundSquare} from "../../Scenario/Scenarios/Castaways/Rounds/RoundSquare/RoundSquare";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
 import {ILogMessageRenderData} from "@shared/types/Game/ChatLog/LogMessage";
 import {useTranslation} from 'react-i18next';

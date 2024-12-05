@@ -28,7 +28,7 @@ function SideCharacters(props: Props) {
 
     if (!friday || !dog) return null;
     return (
-        <div className={styles.container}>
+        <div className={`${styles.container} tour-character-side-characters`}>
             <div className={styles.friday}>
                 <Droppable droppableId={getOwnedDroppableId("friday", "character")}>
                     {(provided) => (

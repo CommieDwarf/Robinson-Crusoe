@@ -1,0 +1,60 @@
+.container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    user-select: none;
+}
+
+.description {
+    display: inline-block;
+    width: 75%;
+    height: 100%;
+    position: relative;
+    vertical-align: top;
+}
+
+.paperImg {
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.text {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    z-index: 1;
+    position: relative;
+    font-size: 16px;
+    padding-top: 20px;
+    padding-left: 45px;
+    padding-right: 50px;
+    font-weight: 500;
+    font-family: Caveat;
+}
+
+.text > h4 {
+    font-size: 20px;
+    font-weight: 700;
+    margin: none;
+    padding: 0;
+}
+
+.text > p {
+    margin: 0;
+}
+
+.buttons {
+    width: 25%;
+    height: 100%;
+    display: inline-flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 3px;
+    position: relative;
+    top: 10px;
+}
+

@@ -1,6 +1,6 @@
 .container {
-    width: calc(98% / 12);
     aspect-ratio: 1;
+    height: 40px;
     position: relative;
     z-index: 1;
     font-size: 4em;
@@ -15,8 +15,7 @@
     text-align: center;
     position: relative;
     top: 2px;
-    color: var(--brown);
-    filter: opacity(40%);
+    color: #d2b48c;
 }
 
 .currentRound {
@@ -28,14 +27,18 @@
     aspect-ratio: 1;
     position: absolute;
     top: 100%;
-    left: 20%;
-    filter: invert(12%) sepia(25%) saturate(2174%) hue-rotate(352deg) brightness(97%) contrast(102%);
+    left: 10%;
+    filter: brightness(0) saturate(100%) invert(78%) sepia(12%) saturate(895%) hue-rotate(355deg) brightness(140%) contrast(100%);
     z-index: 1;
 }
 
 .square {
-    filter: invert(12%) sepia(25%) saturate(2174%) hue-rotate(352deg) brightness(97%) contrast(102%);
     position: absolute;
+    filter: brightness(0) saturate(100%) invert(70%) sepia(27%) saturate(358%) hue-rotate(354deg) brightness(110%) contrast(85%);
+}
+
+.dark {
+    filter: invert(12%) sepia(25%) saturate(2174%) hue-rotate(352deg) brightness(97%) contrast(102%);
 }
 
 .squareImg {
@@ -60,13 +63,18 @@
 }
 
 .weatherDice {
-    height: 50%;
+    height: 15px;
     aspect-ratio: 1;
     border-radius: 3px;
-    border: 1px dotted black;
+    border: 1px solid var(--brown);
+    padding: 1px;
     position: relative;
 }
 
+
+.firstOfFree {
+    margin-bottom: -14px;
+}
 
 .rain {
     background-color: orange;

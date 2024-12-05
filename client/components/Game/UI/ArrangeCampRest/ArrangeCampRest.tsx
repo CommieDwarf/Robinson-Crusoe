@@ -16,7 +16,7 @@ function ArrangeCampRest(props: Props) {
     if (!arrangeCampRestService) return null;
 
     return (
-        <div className={`${styles.container} ${props.topLayer && styles.zIndexIncreased}`}>
+        <div className={`${styles.container} ${props.topLayer && styles.zIndexIncreased} tour-arrange-rest`}>
             <RestArrange
                 pawnAmount={arrangeCampRestService.pawnAmount.rest}
                 type={ACTION.REST}

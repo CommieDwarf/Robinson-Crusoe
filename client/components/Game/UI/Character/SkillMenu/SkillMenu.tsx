@@ -117,9 +117,7 @@ export default function SkillMenu(props: Props) {
 	return (
 		<div
 			className={
-				styles.wrapper +
-				" " +
-				(props.abilityInfo.show && styles.abilityDescriptionVisible)
+				`${styles.wrapper} ${props.abilityInfo.show && styles.abilityDescriptionVisible}`
 			}
 		>
 			<div className={styles.container} style={containerStyle}>

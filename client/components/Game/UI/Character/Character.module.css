@@ -15,7 +15,7 @@
     position: relative;
 }
 
-.characterPictureWrapper {
+.characterImg {
     width: 100%;
     height: 100%;
     grid-column: 1 / span 1;
@@ -25,7 +25,7 @@
     justify-content: center;
 }
 
-.explorerFemaleWrapperPic, .soldierMaleWrapperPic {
+.explorerFemaleImg, .soldierMaleImg {
     top: 8%;
 }
 

@@ -8,7 +8,7 @@ import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction"
 import {IGame} from "@shared/types/Game/Game";
 import {ActionHandler, BaseController, GameControllerInterface} from "../../shared/types/GameController/Controllers";
 import {CONTROLLER_ACTION, OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
-import {INVENTION, INVENTION_PERSONAL} from "@shared/types/Game/InventionService/Invention";
+import {INVENTION, INVENTION_CASTAWAYS, INVENTION_STARTER} from "@shared/types/Game/InventionService/Invention";
 import {SaveStep as SaveStep} from "@shared/types/SaveGame";
 import { ACTION } from "@shared/types/Game/ACTION";
 
@@ -31,7 +31,7 @@ export class GameController implements GameControllerInterface, BaseController {
         this._game = game;
         this._players = players;
         this.initActionHandlers();
-        // this.test();
+        this.test();
     }
 
     get game(): IGame {
@@ -59,16 +59,13 @@ export class GameController implements GameControllerInterface, BaseController {
 
     private test() {
         const char = this._game.characterService.playerCharacters[0];   
-
-        this._game.actionService.setAdventureToken(ACTION.BUILD, true, "test");
-        
-        // for (let i = 0; i < 11; i++) {
-        //     this._game.setNextRound();
-        // }
-
-        this._game.mysteryService.startDrawingCards(2, 2, 2, char);
-        
-        console.log("SCENARIO STATUS", this._game.scenarioService.status);
+        // this._game.inventionService.build(INVENTION_CASTAWAYS.AXE, char);
+        // this._game.inventionService.build(INVENTION_CASTAWAYS.MAST, char);
+        // this._game.inventionService.build(INVENTION_STARTER.BRICKS, char);
+        // this._game.inventionService.build(INVENTION_STARTER.SHOVEL, char);
+        // this._game.inventionService.build(INVENTION_STARTER.FIRE, char);
+        // this._game.inventionService.build(INVENTION_STARTER.KNIFE, char);
+        // console.log("mast built? " + this._game.inventionService.isBuilt(INVENTION_CASTAWAYS.MAST))
     }
 
     private initActionHandlers() {

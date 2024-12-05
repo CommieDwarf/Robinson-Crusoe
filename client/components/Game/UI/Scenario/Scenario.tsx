@@ -3,8 +3,6 @@ import styles from "./Scenario.module.css";
 import React from "react";
 
 import Castaways from "./Scenarios/Castaways/Castaways";
-import {IInventionRenderData} from "@shared/types/Game/InventionService/Invention";
-import {IScenarioServiceRenderData} from "@shared/types/Game/ScenarioService/ScenarioService";
 
 
 interface Props {
@@ -24,11 +22,14 @@ export default function Scenario(props: Props) {
 
 
     return (
-        <div className={styles.container + " " + hiddenClass}>
+        <div className={`${styles.container} ${hiddenClass} tour-scenario`}>
             <div className={styles.content} style={contentStyle}>
                 <Castaways
                     zIndex={props.zIndex}
                 />
+            </div>
+            <div className={styles.background}>
+                
             </div>
         </div>
     );
