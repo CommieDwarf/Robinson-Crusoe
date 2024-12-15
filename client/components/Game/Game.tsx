@@ -13,6 +13,7 @@ import Tokens from "./UI/tokens/Tokens";
 import ScenarioButton from "./UI/ScenarioButton/ScenarioButton";
 import actionSlotStyles from "./UI/ActionSlot.module.css";
 
+// stupid asshole vercel, acknowledge this casing!!!
 import Threat from "./UI/Threat/Threat";
 import ArrangeCampRest from "./UI/ArrangeCampRest/ArrangeCampRest";
 

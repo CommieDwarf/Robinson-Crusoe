@@ -68,7 +68,6 @@ export class HttpService {
 					console.log("White list - ", whitelist);
 						console.log("Origin - ", origin);
 					if (whitelist.indexOf(origin as string) !== -1 || !origin) {
-						
 						callback(null, true);
 					} else {
 						callback(new Error("Not allowed by CORS")); // Odrzucone

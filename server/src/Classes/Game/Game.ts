@@ -28,7 +28,7 @@ import {IPlayerService} from "@shared/types/Game/PlayerService/PlayerSevice";
 import {IAlertService} from "@shared/types/Game/AlertService/AlertService";
 import {IPhaseService} from "@shared/types/Game/PhaseService/PhaseService";
 import {IEquipment} from "@shared/types/Game/Equipment/Equipment";
-import {GAME_STATUS, IGame, IGameRenderData} from "@shared/types/Game/Game";
+import {IGame, IGameRenderData} from "@shared/types/Game/Game";
 import {ICharacterService} from "@shared/types/Game/CharacterService/CharacterService";
 import {ITileService} from "@shared/types/Game/TileService/ITileService";
 import {IMysteryService} from "@shared/types/Game/MysteryService/MysteryService";
@@ -41,7 +41,6 @@ import {IScenarioService, SCENARIO_STATUS} from "@shared/types/Game/ScenarioServ
 import {IActionService} from "@shared/types/Game/ActionService/ActionService";
 import {IActionSlotService, IActionSlotServiceRenderData} from "@shared/types/Game/ActionSlots";
 import {ILogService} from "@shared/types/Game/ChatLog/ChatLog";
-import {LOG_CODE} from "@shared/types/Game/ChatLog/LOG_CODE";
 import {IPlayer} from "@shared/types/Game/PlayerService/Player";
 import {ChoiceSelector} from "./ChoiceSelector/ChoiceSelector";
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
