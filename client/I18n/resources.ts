@@ -1,4 +1,3 @@
-import { SupplyCrates } from './../../server/src/Classes/Game/EventService/EventCardCreator/WreckageCards/SupplyCrates';
 import { LOG_CODE } from "@shared/types/Game/ChatLog/LOG_CODE";
 import {
 	ADVENTURE_CARD_BUILD,
@@ -20,7 +19,7 @@ import { SCENARIO } from "@shared/types/Game/ScenarioService/SCENARIO";
 import { PAWN_HELPER_ACTION } from "@shared/types/Game/Pawns/Pawn";
 import { SYSTEM_MSG } from "@shared/types/ChatService/ChatService";
 import { GUIDE_CONTENT } from "components/Game/UI/Guide/Contents/Contents";
-import { EVENT_CARD, WRECKAGE_CARD } from "@shared/types/Game/EventService/EVENT_CARD";
+import { WRECKAGE_CARD } from "@shared/types/Game/EventService/EVENT_CARD";
 
 export const resources = {
 	pl: {
