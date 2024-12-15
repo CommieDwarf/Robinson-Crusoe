@@ -25,12 +25,10 @@ import {
 import { Weather } from "./UI/Weather/Weather";
 import { ActionResolveWindow } from "./UI/ActionResolveWindow/ActionResolveWindow";
 import { WeatherResolveWindow } from "./UI/WeatherResolveWindow/WeatherResolveWindow";
-import { ConfirmCampMove } from "./UI/ConfirmCampMove/ConfirmCampMove";
+import {ConfirmCampMove } from "./UI/ConfirmCampMove/ConfirmCampMove";
 
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-
 import CardResolve from "./UI/CardResolve/CardResolve";
-
 import { CardList } from "./UI/CardList/CardList";
 
 import { ConfirmWindow } from "./UI/ConfirmWindow/ConfirmWindow";
@@ -58,7 +56,6 @@ import { DarkOverlay } from "../DarkOverlay/DarkOverlay";
 import { ChoiceSelector } from "./UI/ChoiceSelector/ChoiceSelector";
 import { PlayerOverview } from "./UI/PlayerOverview/PlayerOverview";
 import { UITour } from "./UITour/UITour";
-import { UIStates } from "types/UITour/UIStates";
 import { UITourPrompt } from "./UITour/UITourPrompt/UITourPrompt";
 import { UITourInitialStateSet } from "reduxSlices/UITour";
 interface Props {}
