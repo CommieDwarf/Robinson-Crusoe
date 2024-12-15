@@ -18,7 +18,6 @@ export const fetchAndUpdateUser = async (authToken: string, dispatch: ReturnType
             mode: "cors",
         });
         
-        // Sprawdź odpowiedź
         if (!response.ok) {
             throw new Error("Network response was not ok");
         }
@@ -32,6 +31,7 @@ export const fetchAndUpdateUser = async (authToken: string, dispatch: ReturnType
         }
         dispatch(fetchErrorUpdated(false));
         dispatch(userUpdated(json));
+        console.log(json);
         return json as UserData;
         
     } catch (e) {
@@ -40,7 +40,7 @@ export const fetchAndUpdateUser = async (authToken: string, dispatch: ReturnType
             return null;
         } else {
             console.error("Error fetching user data:", e);
-            throw e; // Możesz również zaktualizować stan błędu w Reduxie
+            throw e; 
         }
     }
 };

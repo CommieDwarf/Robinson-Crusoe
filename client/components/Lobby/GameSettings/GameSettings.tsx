@@ -274,7 +274,7 @@ export function GameSettings(props: Props) {
 	};
 
 	return (
-		<div className={styles.container}>
+		<div className={`${styles.container}`}>
 			{displayOrder[props.mode].map((element, i) => (
 				<Fragment key={i}>{element}</Fragment>
 			))}

@@ -1,5 +1,5 @@
-import { MainMenu } from "components/MainMenu/MainMenu";
 import { ForgotPasswordForm, PASSWORD_RESET_STEP } from "components/Forms/ForgotPassword/ForgotPasswordForm";
+import { MainMenu } from "components/MainMenu/MainMenu";
 
 
 

@@ -34,14 +34,14 @@ export function ControlPanel(props: Props) {
         <div className={styles.buttonWrapper}>
             <BackButton url={"/"}/>
         </div>
-        <div className={`${styles.buttonWrapper} ${styles.buttonWrapperOptions}`}>
+        <div className={`${styles.buttonWrapper} ${styles.buttonWrapperOptions} tour-settings`}>
             <Button onClick={handleOptionsClick}
                     imgSrc={gearIconImg}
                     borderless={true}
                     filterColor={true}
             />
         </div>
-        <div className={`${styles.buttonWrapper} ${styles.guideWrapper}`}>
+        <div className={`${styles.buttonWrapper} ${styles.guideWrapper} tour-guide`}>
             <Button onClick={handleGuideClick}
                     imgSrc={bookIconImg}
                     borderless={true}

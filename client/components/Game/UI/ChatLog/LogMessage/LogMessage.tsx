@@ -38,6 +38,7 @@ export const LogMessage = (props: Props) => {
                 ship={false}
                 weather={{rain: false, snow: false, hungryAnimal: false}}
                 chatLog={true}
+                dark={true}
             ></RoundSquare>
             <div className={styles.phaseIcon}>
                 <ResizableImage

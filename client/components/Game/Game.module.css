@@ -87,3 +87,11 @@
     border-bottom: 1px solid var(--borderColor);
 
 }
+
+.tourStart {
+    width: 1px;
+    height: 1px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}

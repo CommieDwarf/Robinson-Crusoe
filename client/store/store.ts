@@ -6,6 +6,7 @@ import {gameSessionSlice} from '../reduxSlices/gameSession';
 import socketMiddleware from '../middleware/socketMiddleware';
 import createSocketClient from '../pages/api/socket';
 import {connectionSlice} from "../reduxSlices/connection";
+import { UITourSlice } from 'reduxSlices/UITour';
 
 export const socket = createSocketClient();
 
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
     alert: alertSlice.reducer,
     connection: connectionSlice.reducer,
     gameSession: gameSessionSlice.reducer,
+    UITour: UITourSlice.reducer,
 });
 
 // Typy

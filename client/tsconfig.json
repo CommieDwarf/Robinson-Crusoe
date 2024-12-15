@@ -9,7 +9,7 @@
     "paths": {
       "@shared/*": [
         "../server/src/shared/*"
-      ]
+      ],
     },
     "baseUrl": "./",
     "allowJs": true,

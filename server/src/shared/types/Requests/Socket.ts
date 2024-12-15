@@ -9,6 +9,7 @@ import {PLAYER_COLOR} from "@shared/types/Game/PLAYER_COLOR";
 import { ERROR_CODE } from '../Errors/ERROR';
 import { SaveOverview } from '../SaveGame';
 import { EndGameSummary } from '../Game/GameSummary/GameSummary';
+import { UserPreferencesData } from '../UserData/UserData';
 
 export enum SOCKET_EVENT_CLIENT {
     EXECUTE_PLAYER_ACTION = "execute player action",
@@ -37,6 +38,7 @@ export enum SOCKET_EVENT_CLIENT {
     DELETE_SAVE = "delete save",
     RESTART_GAME = "restart game",
     TERMINATE_GAME = "terminate game",
+    CHANGE_USER_PREFERENCES = "change user preferences",
 }
 
 export enum SOCKET_EVENT_SERVER {
@@ -63,7 +65,8 @@ export enum SOCKET_EVENT_SERVER {
     SAVE_LIST_SENT = "save list sent",
     GAME_SAVED_STATUS = "game saved status",
     GAME_RESTARTED = "game restarted",
-}
+    USER_PREFERENCES_UPDATED = "user preferences updated",
+}   
 
 
 export type ClientPayloadMap = {
@@ -142,6 +145,9 @@ export type ClientPayloadMap = {
     },
     [SOCKET_EVENT_CLIENT.TERMINATE_GAME]: {
         sessionId: string,
+    },
+    [SOCKET_EVENT_CLIENT.CHANGE_USER_PREFERENCES]: {
+        preferences: Partial<UserPreferencesData>;
     }
 }
 
@@ -211,6 +217,7 @@ export type ServerPayloadMap = {
     },
     [SOCKET_EVENT_SERVER.GAME_IN_PROGRESS_LIST_CHANGED]: any,
     [SOCKET_EVENT_SERVER.GAME_RESTARTED]: any,
+    [SOCKET_EVENT_SERVER.USER_PREFERENCES_UPDATED]: any,
 }
 
 

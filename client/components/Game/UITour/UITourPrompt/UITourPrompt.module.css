@@ -1,0 +1,38 @@
+.content {
+    font-size: 20px;
+    text-align: center;
+}
+
+
+
+
+.buttons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: var(--hunt);
+    width: 80%;
+    margin: auto;
+    font-size: 25px;
+}
+
+.button {
+    font-family: Kaz;
+    cursor: pointer;
+}
+
+.button:hover {
+    scale: 1.2;
+}
+
+.dontAskAgain {
+    font-size: 12px;
+    display: flex;
+    margin-top: 10px;
+}
+
+.checkBox {
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+}

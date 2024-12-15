@@ -47,7 +47,6 @@ export function RoundSquare(props: Props) {
 
     
 
-    const currentRoundClass = props.currentRound ? styles.currentRound : "";
 
     const containerClass = props.chatLog
         ? logStyles.roundContainer
@@ -59,15 +58,15 @@ export function RoundSquare(props: Props) {
             <div className={styles.weather}>
                 {weatherEffects}
             </div>
-            <div className={styles.squareImg}>
+            <div className={`${styles.squareImg} ${props.currentRound && styles.squareImgCurrent}`}>
                 <ResizableImage
                     src={"/UI/scenarios/squares/" + imgNumber + ".png"}
-                    className={styles.square}
+                    className={`${styles.square} ${props.dark && styles.dark}`}
                     fill
                     alt={"runda"}
                 />
             </div>
-            <div className={`${styles.round} ${currentRoundClass} ${props.dark && styles.dark}`}>
+            <div className={`${styles.round} ${!props.dark && props.currentRound && styles.currentRound} ${props.dark && styles.darkRound}`}>
                 {props.round}
             </div>
             {props.ship && (

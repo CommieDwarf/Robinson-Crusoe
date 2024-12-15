@@ -78,7 +78,7 @@ function Tokens(props: Props) {
     }
 
     return (
-        <div className={styles.container}>
+        <div className={`${styles.container} tour-discovery-tokens`}>
             {(mouseOverToken || mouseOverMenu) &&
                 selectedToken &&
                 !props.menuDisabled && (

@@ -31,7 +31,7 @@ const userSchema = new Schema({
 	emailVerified: {
 		type: Boolean,
 		default: false,
-	}
+	},
 });
 
 userSchema.pre("save", async function (next) {

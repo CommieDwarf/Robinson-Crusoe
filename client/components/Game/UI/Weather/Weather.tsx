@@ -11,7 +11,7 @@ export const Weather = (props: Props) => {
     const weatherTokens = useAppSelector((state) => selectGame(state)?.weatherService.tokens!);
 
     return (
-        <div className={styles.container}>
+        <div className={`${styles.container} tour-weather`}>
             {weatherTokens.storm && <WeatherToken token={"storm"}/>}
             {weatherTokens.snow && <WeatherToken token={"snow"}/>}
             {weatherTokens.rain && <WeatherToken token={"rain"}/>}

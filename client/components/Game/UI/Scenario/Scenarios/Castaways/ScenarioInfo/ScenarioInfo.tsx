@@ -54,7 +54,7 @@ export const ScenarioInfo = () => {
 		);
 	});
 	return (
-		<div className={styles.container} ref={containerRef}>
+		<div className={`${styles.container} tour-scenario-info`} ref={containerRef}>
 			<div className={styles.description}>
 				<div className={styles.paperImg}>
 					<ResizableImage
@@ -69,7 +69,7 @@ export const ScenarioInfo = () => {
 
 				<h4>{capitalize(t(`other.${buttonClicked}`))}</h4>
 
-					<p classname={styles.p}>
+					<p className={styles.p}>
 
 
 						{/*@ts-ignore*/}

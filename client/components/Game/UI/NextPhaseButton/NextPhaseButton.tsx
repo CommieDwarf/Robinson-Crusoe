@@ -58,7 +58,7 @@ export const NextPhaseButton = (props: Props) => {
     if (!players) return null;
 
     return (
-        <div className={`${styles.container} ${locked && styles.locked}`}
+        <div className={`${styles.container} ${locked && styles.locked} tour-next-phase`}
              style={style}
              onClick={handleClick}>
             <div className={styles.token}>

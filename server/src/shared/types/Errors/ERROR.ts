@@ -3,4 +3,5 @@ export enum ERROR_CODE {
     HOST_ONLY_ACTION = "host only action",
     LOBBY_ONLY_ACTION = "lobby only action",
     SAVE_NOT_FOUND = "save not found",
+    INTERNAL_SERVER_ERROR = "internal server error",
 }

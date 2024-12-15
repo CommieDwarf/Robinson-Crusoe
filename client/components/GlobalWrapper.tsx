@@ -3,7 +3,6 @@ import { ReactNode, useEffect, useState } from "react";
 import { isAuthenticated } from "../utils/auth/isAuthenticated";
 import { getAuthToken } from "../utils/auth/getAuthToken";
 import { fetchAndUpdateUser } from "../lib/fetchAndUpdateUser";
-import { userUpdated } from "../reduxSlices/connection";
 import { socketConnect } from "../middleware/socketMiddleware";
 import { setSocketListener } from "../pages/api/socket";
 import { SOCKET_EVENT_SERVER } from "@shared/types/Requests/Socket";

@@ -1,0 +1,29 @@
+.container {
+    width: 100%;
+}
+
+.block {
+    display: inline-flex;
+    width: 50%;
+    flex-direction: column;
+}
+
+.prefference {
+    display: flex;
+    justify-content: left;
+    column-gap: 5px;
+}
+
+.skipUITour {
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 1;
+}
+
+.other {
+    grid-column: 2 / span 1;
+    grid-row: 1 / span 1;
+}
+
+.checkBox {
+    height: 20px;
+}

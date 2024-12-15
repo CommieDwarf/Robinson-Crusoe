@@ -120,5 +120,8 @@ export const ClientPayloadSchemas = {
 	}),
 	[SOCKET_EVENT_CLIENT.TERMINATE_GAME]: Joi.object({
 		sessionId: Joi.string().required(),
+	}),
+	[SOCKET_EVENT_CLIENT.CHANGE_USER_PREFERENCES]: Joi.object({
+		preferences: Joi.object().required(),
 	})
 };

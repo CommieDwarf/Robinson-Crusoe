@@ -4,4 +4,9 @@ export interface UserData {
     email: string;
     avatar: string;
     emailVerified: boolean;
+    preferences: UserPreferencesData
 }   
+
+export interface UserPreferencesData {
+    skipUITour: boolean;
+}

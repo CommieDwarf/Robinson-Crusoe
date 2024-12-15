@@ -1,7 +1,7 @@
 import { ForgotPasswordForm, PASSWORD_RESET_STEP } from "components/Forms/ForgotPassword/ForgotPasswordForm";
-import { MainMenu } from "components/MainMenu/MainMenu";
 import { GetServerSidePropsContext } from "next";
 import { parse } from 'cookie';
+import { MainMenu } from "components/MainMenu/MainMenu";
 
 
 export default function ForgotPassword(props: {email: string}) {

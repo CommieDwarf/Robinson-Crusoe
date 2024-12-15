@@ -22,7 +22,6 @@ import { NightPage } from "./pages/NightPage";
 
 
 export function Guide() {
-
 	const [selected, setSelected] = useState(GUIDE_CONTENT.INTRODUCTION);
 
 	const SelectedComponent = contentComponentMap[selected];
@@ -34,7 +33,7 @@ export function Guide() {
 
 
 	return (
-		<div className={styles.container}>
+		<div className={`${styles.container}`}>
 			<div className={styles.contents}>
 				<Contents onContentClick={select} selected={selected}/>
 			</div>

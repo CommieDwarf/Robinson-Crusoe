@@ -1,5 +1,6 @@
-import {createSlice} from "@reduxjs/toolkit";
-import {UserData} from "@shared/types/UserData/UserData";
+import { RootState } from './../store/store';
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {UserData, UserPreferencesData} from "@shared/types/UserData/UserData";
 
 type State = {
     user: UserData | null;
@@ -30,6 +31,17 @@ export const connectionSlice = createSlice({
                 user: action.payload
             }
         },
+        userPreferencesUpdated(state: State, action: PayloadAction<Partial<UserPreferencesData>>) {
+            if (!state.user) {
+                console.error("User is null");
+                return;
+            }
+            state.user.preferences = {
+                ...state.user.preferences,
+                ...action.payload
+            }
+            
+        },
         connectedUpdated(state, action) {
             state.socketConnected = action.payload;
             if (action.payload === true) {
@@ -50,4 +62,8 @@ export const connectionSlice = createSlice({
     }
 });
 
-export const {userUpdated, connectedUpdated, latencyUpdated, fetchErrorUpdated, connectionLostUpdated} = connectionSlice.actions
+export const {userUpdated, connectedUpdated, latencyUpdated, fetchErrorUpdated, connectionLostUpdated, userPreferencesUpdated} = connectionSlice.actions
+
+export function selectUserPreferences(state: RootState) {
+    return state.connection.user?.preferences;
+}

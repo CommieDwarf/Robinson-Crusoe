@@ -89,7 +89,6 @@ const CardResolve = (props: Props) => {
             label: props.resolve.card.eventLabel,
             triggerEffect: () => dispatch(socketEmitAction(MYSTERY_CONTROLLER_ACTION.RESOLVE_EVENT_MYSTERY)),
             locked: !actionAllowed,
-
         }
     }
 

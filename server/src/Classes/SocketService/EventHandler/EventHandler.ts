@@ -19,6 +19,7 @@ import { config } from "../../../config/config";
 import { ISessionService } from "@shared/types/SessionService";
 import { MissingLeaderError } from "../../Game/Errors/MissingLeaderError";
 import { ALERT_CODE } from "@shared/types/ALERT_CODE";
+import { UserPreferences } from "../../../Models/UserPreferences";
 
 export class EventHandler {
 	private readonly _socket: Socket;
@@ -108,6 +109,21 @@ export class EventHandler {
 				code: ERROR_CODE.INVALID_PAYLOAD,
 				message: error.details.toString(),
 			});
+		}
+	}
+
+	private async handleUpdateUserPreferences(payload: ClientPayloadMap[SOCKET_EVENT_CLIENT.CHANGE_USER_PREFERENCES]) {
+		try {
+			await UserPreferences.findOneAndUpdate(
+				{ userId: this._user.id },
+				{ $set: { ...payload.preferences } },
+				{ upsert: true, new: true }
+			  );
+
+			  console.log("updated");
+			this.socketEmit(SOCKET_EVENT_SERVER.USER_PREFERENCES_UPDATED, true);
+		} catch (e) {
+			this.emitError(ERROR_CODE.INTERNAL_SERVER_ERROR, "Preference update failed.");
 		}
 	}
 
@@ -683,6 +699,7 @@ export class EventHandler {
 					this.handleSendGameInProgressList,
 				[SOCKET_EVENT_CLIENT.RESTART_GAME]: this.handleRestartGame,
 				[SOCKET_EVENT_CLIENT.TERMINATE_GAME]: this.handleTerminateGame,
+				[SOCKET_EVENT_CLIENT.CHANGE_USER_PREFERENCES]: this.handleUpdateUserPreferences
 			})
 		);
 	}

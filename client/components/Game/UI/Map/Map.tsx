@@ -13,7 +13,6 @@ import {selectGame} from "../../../../reduxSlices/gameSession";
 
 interface Props {
     scrollDisabled: boolean;
-    showScenario: boolean;
     topLayerElement: string;
     showCampMoveConfirm: (tile: ITileRenderData) => void;
     mapContainerRef: RefObject<HTMLDivElement>
@@ -35,7 +34,6 @@ function Map(props: Props) {
                     tile={tile}
                     key={i}
                     contentScale={contentScale}
-                    isDragDisabled={props.showScenario}
                     zIndex={props.topLayerElement}
                     showCampMoveConfirm={props.showCampMoveConfirm}
                     campSettableTiles={
@@ -156,7 +154,6 @@ function Map(props: Props) {
                 </div>
             </div>
             <BeastDeck
-                isDragDisabled={props.showScenario}
                 topLayer={props.topLayerElement.includes("hunt")}
             />
             <div className={`${styles.scroll} ${scrollDisabledClass}`} ref={scrollbar}>

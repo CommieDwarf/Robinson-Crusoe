@@ -1,13 +1,17 @@
-import Joyride, { TooltipRenderProps } from "react-joyride";
+import Joyride, { StepMerged, TooltipRenderProps } from "react-joyride";
 import styles from "./CustomToolTip.module.css";
 import ResizableImage from "components/ResizableImage/ResizableImage";
 import xMark from "../../../../public/UI/misc/x-mark.png";
+import { CustomStep } from "../steps";
 
-interface Props {
+interface Props extends TooltipRenderProps {
 	onNextClick: () => void;
+	step: StepMerged & CustomStep;
 }
 
-export function CustomTooltip(props: TooltipRenderProps & Props, style: StyleSheet) {
+
+
+export function CustomTooltip(props: Props, style: StyleSheet) {
 	const {
 		backProps,
 		closeProps,
@@ -17,12 +21,10 @@ export function CustomTooltip(props: TooltipRenderProps & Props, style: StyleShe
 		skipProps,
 		step,
 		tooltipProps,
-		onNextClick
+		onNextClick,
 	} = props;
 
-	const hideNextButtonTargets: any[] = [".tour-scenario-button"];
-
-
+	
 
 	return (
 		<div className={`${styles.body}`} {...tooltipProps}>
@@ -30,9 +32,9 @@ export function CustomTooltip(props: TooltipRenderProps & Props, style: StyleShe
 				{step.title && (
 					<h4 className={`${styles.title}`}>{step.title}</h4>
 				)}
-				<div className={`${styles.close}`} {...closeProps}>
+				{/* <div className={`${styles.close}`} {...closeProps}>
 					<ResizableImage src={xMark} alt="close" />
-				</div>
+				</div> */}
 			</div>
 
 			<div className={`${styles.content}`}>{step.content}</div>
@@ -41,13 +43,21 @@ export function CustomTooltip(props: TooltipRenderProps & Props, style: StyleShe
 					{skipProps.title}
 					Dalej
 				</div> */}
-				<div className="tooltip__spacer">
 					{/* {index > 0 && (
 						<button className="tooltip__button" {...backProps}>
 							{backProps.title}
 						</button>
 					)} */}
-					{!hideNextButtonTargets.includes(step.target)  && continuous && (
+					{(
+						<div
+							className={`${styles.toolTipButton}`}
+							{...closeProps}
+						>
+							Zamknij
+							{/* {primaryProps.title} */}
+						</div>
+					)}
+					{!(step.data?.hideNextButton)  && continuous && (
 						<div
 							className={`${styles.toolTipButton}`}
 							{...primaryProps}
@@ -57,7 +67,6 @@ export function CustomTooltip(props: TooltipRenderProps & Props, style: StyleShe
 							{/* {primaryProps.title} */}
 						</div>
 					)}
-				</div>
 			</div>
 		</div>
 	);

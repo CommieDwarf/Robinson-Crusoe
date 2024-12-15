@@ -56,7 +56,7 @@ export default function PhaseDropDownMenu(props: Props) {
         height: (props.rowHeight * 6) + "px",
     }
     return (
-        <div className={styles.container} style={props.show ? contentStyle : {height: 0}}>
+        <div className={`${styles.container} tour-phase-list`} style={props.show ? contentStyle : {height: 0}}>
             <div className={styles.content} style={contentStyle}>
                 {phaseElements}
             </div>

@@ -1,5 +1,5 @@
+import { MainMenu } from "components/MainMenu/MainMenu";
 import AuthForm from "../../components/Forms/AuthForm/AuthForm";
-import {MainMenu} from "../../components/MainMenu/MainMenu";
 import {cookies} from "next/headers";
 
 export default function SignIn() {

@@ -7,16 +7,15 @@ import { INVENTION_TYPE } from "@shared/types/Game/InventionService/Invention";
 import { getObjectsComparator } from "../../../../utils/getObjectsComparator";
 import { useTranslation } from "react-i18next";
 import { capitalize } from "lodash";
-import { useAppSelector } from "../../../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
 import { selectGame } from "../../../../reduxSlices/gameSession";
 import { steps } from "components/Game/UITour/steps";
+import { useUITourControl } from "utils/hooks/useUITourControl";
+import { UI_TOUR_STEP_ID } from "types/UITour/UI_TOUR_STEP_ID";
+import { UIStateToggled, UIStateUpdated } from "reduxSlices/UITour";
 
 interface Props {
 	topLayerElement: string;
-	show: boolean;
-	toggleShowScenario: () => void;
-	goNextUITourStep: () => void;
-	UITourStep: number;
 }
 
 function ScenarioButton(props: Props) {
@@ -34,34 +33,46 @@ function ScenarioButton(props: Props) {
 		return selectGame(state)?.round;
 	});
 
-	const [UIStepTimeout, setUIStepTimeout] = useState<ReturnType<
-		typeof setTimeout
-	> | null>(null);
+	const dispatch = useAppDispatch();
+
+
+
+	const { handleNextStep, animationInProgress, currentStep, cleanupTimeout } =
+		useUITourControl();
+
+
+	const UIStepsBlockClickList = [
+		UI_TOUR_STEP_ID.SCENARIO_INFO,
+		UI_TOUR_STEP_ID.SCENARIO,
+		UI_TOUR_STEP_ID.SCENARIO_ROUNDS,
+	];
+	const UIStepsDelayClickList = [
+		UI_TOUR_STEP_ID.SCENARIO_BUTTON,
+		UI_TOUR_STEP_ID.PRE_MAP_HIDE_SCENARIO,
+	];
 
 	function handleClick() {
-		if (UIStepTimeout) {
+
+		if (animationInProgress || (currentStep && UIStepsBlockClickList.includes(currentStep.data.id))) {
 			return;
-		} 
-		props.toggleShowScenario();
-		if (steps[props.UITourStep]?.target === ".tour-scenario-button") {
-			setUIStepTimeout(
-				setTimeout(() => {
-					props.goNextUITourStep();
-                    setUIStepTimeout(null);
-				}, 550) // Allow scenario to fully unfold)
-			);
+		}
+		dispatch(UIStateToggled("scenarioOpen"));
+
+		if (currentStep && UIStepsDelayClickList.includes(currentStep.data.id)) {
+			handleNextStep();
 		}
 	}
 
 	useEffect(() => {
 		return () => {
-			UIStepTimeout && clearTimeout(UIStepTimeout);
+			cleanupTimeout();
 		};
 	}, []);
 
-	const rotatedArrowClass = props.show ? styles.arrowRotated : "";
-
 	const { t } = useTranslation();
+
+	const scenarioOpen = useAppSelector((state) => state.UITour.UiStates.scenarioOpen);
+
 	return (
 		<div
 			className={`${styles.container} ${
@@ -70,7 +81,11 @@ function ScenarioButton(props: Props) {
 		>
 			<div className={styles.button} onClick={handleClick}>
 				<div className={styles.arrowWrapper}>
-					<div className={`${styles.arrow} ${rotatedArrowClass}`}>
+					<div
+						className={`${styles.arrow} ${
+							scenarioOpen && styles.arrowRotated
+						}`}
+					>
 						<ResizableImage src={redArrowImg} alt="strzałka" />
 					</div>
 				</div>
@@ -88,7 +103,11 @@ function ScenarioButton(props: Props) {
 						)}: ${currentRound}`}
 				</div>
 				<div className={styles.arrowWrapper}>
-					<div className={`${styles.arrow} ${rotatedArrowClass}`}>
+					<div
+						className={`${styles.arrow} ${
+							scenarioOpen && styles.arrowRotated
+						}`}
+					>
 						<ResizableImage src={redArrowImg} alt="strzałka" />
 					</div>
 				</div>

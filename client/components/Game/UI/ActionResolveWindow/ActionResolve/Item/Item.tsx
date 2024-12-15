@@ -175,7 +175,7 @@ export const Item = (props: Props) => {
     }
 
     const lockedButtonClass =
-        used || props.locked || !isActionAllowed ? styles.locked : styles.clickableButton;
+        used || props.locked || !isActionAllowed || props.resolvableItem.resolveStatus !== RESOLVE_ITEM_STATUS.PENDING ? styles.locked : styles.clickableButton;
     const statusClass =
         props.resolvableItem.resolveStatus === RESOLVE_ITEM_STATUS.SUCCESS
             ? styles.success

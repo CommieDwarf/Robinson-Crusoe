@@ -19,7 +19,7 @@
 }
 
 .currentRound {
-    filter: none;
+    filter: brightness(130%);
 }
 
 .ship {
@@ -32,19 +32,27 @@
     z-index: 1;
 }
 
-.square {
-    position: absolute;
-    filter: brightness(0) saturate(100%) invert(70%) sepia(27%) saturate(358%) hue-rotate(354deg) brightness(110%) contrast(85%);
+.dark {
+    filter: invert(12%) sepia(25%) saturate(2174%) hue-rotate(352deg) brightness(97%) contrast(102%) !important;
+    
 }
 
-.dark {
-    filter: invert(12%) sepia(25%) saturate(2174%) hue-rotate(352deg) brightness(97%) contrast(102%);
+.darkRound {
+    color: var(--brown);
+}
+
+.square {
+    filter: brightness(0) saturate(100%) invert(70%) sepia(27%) saturate(358%) hue-rotate(354deg) brightness(110%) contrast(85%);
 }
 
 .squareImg {
     position: absolute;
     width: 100%;
     height: 100%;
+}
+
+.squareImgCurrent {
+    filter: brightness(130%);
 }
 
 .weather {

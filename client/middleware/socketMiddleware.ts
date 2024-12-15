@@ -10,7 +10,7 @@ import {
 	SocketConnectAction,
 	SocketDisconnectAction,
 	SocketEmitAction,
-} from "../@types/middleware/SocketMiddleware";
+} from "../types/middleware/SocketMiddleware";
 import { ActionArgMap } from "@shared/types/ActionArgMap";
 import { setSocketListener, SocketListener } from "../pages/api/socket";
 import { playerListLatencyUpdated } from "../reduxSlices/gameSession";

@@ -10,11 +10,11 @@ import {selectGame} from "../../../../reduxSlices/gameSession";
 
 interface Props {
     topLayer: boolean;
-    isDragDisabled: boolean;
 }
 
 export default function BeastDeck(props: Props) {
     const beastAmount = useAppSelector((state) => selectGame(state)?.beastService.deckCount!);
+    const dragDisabled = useAppSelector((state) => state.UITour.UiStates.scenarioOpen);
 
     return (
         <div className={styles.container + " " + (props.topLayer && styles.zIndexIncreased)}>
@@ -33,7 +33,7 @@ export default function BeastDeck(props: Props) {
                             action={ACTION.HUNT}
                             uniqueAction={ACTION.HUNT}
                             id={getActionSlotDroppableId(ACTION.HUNT, "", null, 0)}
-                            isDragDisabled={props.isDragDisabled}
+                            isDragDisabled={dragDisabled}
                         />
                     </div>
                     <div className={styles.actionSlot}>
@@ -42,7 +42,7 @@ export default function BeastDeck(props: Props) {
                             action={ACTION.HUNT}
                             uniqueAction={ACTION.HUNT}
                             id={getActionSlotDroppableId(ACTION.HUNT, "", null, 1)}
-                            isDragDisabled={props.isDragDisabled}
+                            isDragDisabled={dragDisabled}
                         />
                     </div>
                 </div>

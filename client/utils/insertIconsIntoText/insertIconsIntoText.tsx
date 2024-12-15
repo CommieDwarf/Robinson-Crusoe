@@ -19,7 +19,8 @@ export type Icon =
 	| "star"
 	| "morale-arrow"
 	| "compass"
-	| "roof";
+	| "roof"
+	| "shelter";
 
 const icons: Icon[] = [
 	"determination",
@@ -36,6 +37,7 @@ const icons: Icon[] = [
 	"morale-arrow",
 	"compass",
 	"roof",
+	"shelter"
 ];
 
 export function insertIconsIntoText(string: string, iconClassName?: string) {
@@ -68,3 +70,5 @@ export function insertIconsIntoText(string: string, iconClassName?: string) {
 		}
 	});
 }
+
+

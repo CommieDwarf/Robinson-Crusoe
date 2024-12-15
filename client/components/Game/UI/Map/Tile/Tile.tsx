@@ -12,16 +12,12 @@ import {socketEmitAction} from "../../../../../middleware/socketMiddleware";
 import {selectGame} from "../../../../../reduxSlices/gameSession";
 import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction";
 import {ActionSlots} from "./ActionSlots/ActionSlots";
-import {ResourceDepleted} from "./ResourceModifiers/ResourceDepleted/ResourceDepleted";
 import {TileModifier} from "./TileModifier/TileModifier";
-import {ResourceModifier} from "./ResourceModifiers/ResourceModifier/ResourceModifier";
-import {Shortcut} from "./ResourceModifiers/Shortcut/Shortcut";
 import {ResourceModifiers} from "./ResourceModifiers/ResourceModifiers";
 
 interface Props {
     tile: ITileRenderData;
     contentScale: number;
-    isDragDisabled: boolean;
     zIndex: string;
     campSettableTiles: ITileRenderData[];
     showCampMoveConfirm: (tile: ITileRenderData) => void;
@@ -68,8 +64,6 @@ export default function Tile(props: Props) {
     }
 
     const flippedClass = props.tile.modifiers.flipped ? styles.flipped : "";
-    const resourceModifierLeft = props.tile.tileResourceService?.resources.left.modifiers[0];
-    const resourceModifierRight = props.tile.tileResourceService?.resources.right.modifiers[0];
 
 
     const resources = props.tile.tileResourceService?.resources;

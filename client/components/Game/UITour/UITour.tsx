@@ -1,33 +1,35 @@
-import ReactJoyride from "react-joyride";
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import styles from "./UITour.module.css";
 import { CustomTooltip } from "./CustomToolTip/CustomToolTip";
-import { insertIconsIntoText } from "utils/insertIconsIntoText/insertIconsIntoText";
-import toolTipStyles from "./CustomToolTip/CustomToolTip.module.css";
-import { Step } from "react-joyride";
 import { steps } from "./steps";
+import { useAppSelector } from "store/hooks";
+import { useUITourControl } from "utils/hooks/useUITourControl";
 
-interface Props {
-	setNextStep: () => void;
-	step: number;
-}
+interface Props {}
 
 const JoyRideNoSSR = dynamic(() => import("react-joyride"), { ssr: false });
 export function UITour(props: Props) {
-	const [run, setRun] = useState(true);
+	const run = useAppSelector((state) => state.UITour.tourInProgress);
+	const stepIndex = useAppSelector((state) => state.UITour.stepIndex);
+	const { cleanupTimeout, handleNextStep } = useUITourControl();
 	
 	function handleNextClick() {
-		props.setNextStep();
+		handleNextStep();
 	}
-0
+
+	useEffect(() => {
+		return () => {
+			cleanupTimeout();
+		};
+	}, []);
+
 	return (
 		<div className={styles.container}>
 			<JoyRideNoSSR
 				steps={steps}
-				stepIndex={props.step}
-				
+				stepIndex={stepIndex}
 				run={run}
 				debug={true}
 				floaterProps={{
@@ -42,17 +44,13 @@ export function UITour(props: Props) {
 						zIndex: 1000,
 					},
 				}}
-				callback={(data) => {
-					const { status } = data;
-
-					const finishedStatuses = ["finished, skipped"];
-					if (finishedStatuses.includes(status)) {
-						setRun(false);
-						setTimeout(() => setRun(true), 1);
-					}
-				}}
 				continuous
-				tooltipComponent={(props) => <CustomTooltip { ...props} onNextClick={handleNextClick}/>}
+				tooltipComponent={(props) => (
+					//@ts-ignore
+					<CustomTooltip {...props} onNextClick={handleNextClick} />
+				)}
+				disableOverlayClose={true}
+				spotlightClicks={true}
 			/>
 		</div>
 	);

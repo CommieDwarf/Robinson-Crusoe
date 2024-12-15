@@ -1,0 +1,28 @@
+ .container {
+    cursor: pointer;
+    position: relative;
+    aspect-ratio: 1;
+    user-select: none;
+ }
+
+ .container:hover {
+   scale: 1.1;
+ }
+
+ .defaultSize {
+   height: 16px;
+ }
+
+
+.frame, .checkMark {
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+ .frame {
+    filter: var(--blackToBrown) brightness(10%);
+ }
+
