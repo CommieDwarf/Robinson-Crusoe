@@ -1,0 +1,8 @@
+.container {
+    text-align: center;
+    color: var(--brown);
+}
+
+.title {
+    font-size: 1.3em;
+}

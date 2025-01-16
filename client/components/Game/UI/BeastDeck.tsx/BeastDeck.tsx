@@ -21,7 +21,7 @@ export default function BeastDeck(props: Props) {
             <div className={styles.card + " " + (beastAmount === 0 && styles.locked)}>
                 <ResizableImage src={beastReverseImg} alt="Bestia"/>
             </div>
-            <div className={styles.beastCount + " " + styles.locked}>
+            <div className={styles.beastCount}>
                 {beastAmount}
             </div>
 

@@ -39,7 +39,6 @@ export function PrimPlayerPage() {
 						kolejnej rundy.
 					</p>
 				</section>
-				{<ClickNextPhaseSection />}
 			</div>
 		</>
 	);

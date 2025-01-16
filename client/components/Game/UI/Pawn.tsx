@@ -7,6 +7,7 @@ import {kebabCase} from "lodash";
 import {ACTION} from "@shared/types/Game/ACTION";
 import {IPawnRenderData} from "@shared/types/Game/Pawns/Pawn";
 import {selectGame} from "../../../reduxSlices/gameSession";
+import { darkenColor } from "utils/darkenColor";
 
 interface Props {
     pawn: IPawnRenderData<any>;
@@ -38,10 +39,26 @@ export default function Pawn(props: Props) {
         return selectGame(state)?.phaseService.phase !== "preAction" || (player && player.id !== state.gameSession.data?.localPlayer.id)
     }) || props.disabled
 
+
+    let color;
+
+    switch (true) {
+        case !!player:  // pionek gracza
+            color = darkenColor(player?.color ?? "var(--borderColor)", 0.6);
+            break;
+        case props.pawn.owner.name === "dog":
+            color = darkenColor("#FFC0CB", 0.6);
+            break;
+        case props.pawn.owner.name === "friday":
+            color = "black";
+            break;
+        default:
+            color = "var(--brown)"  // pionek wspolny na karcie
+    }
+
     const style = {
         backgroundColor: player && !props.pawn.action ? player.color : undefined,
-        borderColor: player && props.pawn.action ? player.color : undefined,
-        borderWidth: player && props.pawn.action ? 2 : 1,
+        color
     }
 
 

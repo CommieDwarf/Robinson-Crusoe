@@ -5,6 +5,7 @@ import {useAppDispatch} from "../../../../store/hooks";
 import {socketEmit} from "../../../../middleware/socketMiddleware";
 import {SOCKET_EVENT_CLIENT} from "@shared/types/Requests/Socket";
 import { useTranslation } from "react-i18next";
+import { capitalize } from "lodash";
 
 interface Props {
     gender: Gender;
@@ -37,10 +38,10 @@ export function GenderSwitch(props: Props) {
 
     return <div className={styles.container}>
         <div className={`${styles.genderOption} ${gender === "male" && styles.genderOptionSelected}`}
-             onClick={handleMaleClick}>{t("other.male")}
+             onClick={handleMaleClick}>{capitalize(t("other.male"))}
         </div>
         <div className={`${styles.genderOption} ${gender === "female" && styles.genderOptionSelected}`}
-             onClick={handleFemaleClick}>{t("other.female")}
+             onClick={handleFemaleClick}>{capitalize(t("other.female"))}
         </div>
     </div>
 }

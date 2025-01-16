@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { LoaderSpinner } from "../LoaderSpinner/LoaderSpinner";
+import { LoadingSpinner } from "../LoaderSpinner/LoaderSpinner";
 import styles from "./NetworkReconnectHandler.module.css";
 import { useAppDispatch } from "../../store/hooks";
 import { getAuthToken } from "../../utils/auth/getAuthToken";
@@ -68,7 +68,7 @@ export function NetworkReconnectHandler() {
 					})}
 				</span>
 				<div className={styles.loaderSpinner}>
-					<LoaderSpinner />
+					<LoadingSpinner />
 				</div>
 			</div>
 		</div>

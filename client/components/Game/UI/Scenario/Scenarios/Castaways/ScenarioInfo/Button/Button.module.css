@@ -1,6 +1,6 @@
 .button {
     width: 95%;
-    height: 45px;
+    height: 20%;
     line-height: 180%;
     padding: 5%;
     text-align: center;
@@ -22,7 +22,7 @@
     top: 2.5%;
     left: 2.5%;
     filter: brightness(0) saturate(100%) invert(70%) sepia(27%) saturate(358%) hue-rotate(354deg) brightness(110%) contrast(85%);
-
+    
 }
 
 .background {
@@ -59,6 +59,11 @@
 }
 
 .mechanics {
-    font-size: 2.2em;
-    line-height: 100%;
+    font-size: 2em;
+    line-height: 1em;
+}
+
+.mechanics > .text {
+    position: relative;
+    top: -6%;
 }

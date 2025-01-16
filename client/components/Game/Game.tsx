@@ -59,6 +59,7 @@ import { PlayerOverview } from "./UI/PlayerOverview/PlayerOverview";
 import { UITour } from "./UITour/UITour";
 import { UITourPrompt } from "./UITour/UITourPrompt/UITourPrompt";
 import { UITourInitialStateSet } from "reduxSlices/UITour";
+import { playerContainerAspectRatio } from "./UI/PlayerOverview/Player/aspectRatio";
 interface Props {}
 
 export default function Game(props: Props) {
@@ -329,7 +330,7 @@ export default function Game(props: Props) {
 				{<UITour />}
 				{!skipUITour && showUITourPrompt && (
 					<UITourPrompt />
-					
+						
 					)}
 
 				<div className={`${styles.tourStart} tour-start`}></div>
@@ -447,15 +448,15 @@ export default function Game(props: Props) {
 					/>
 
 					{PlayerOverviewVisible && (
-						<DraggableWindow onClose={togglePlayerOverviewOpen}>
+						// 0.7 is a single player's container aspect ratio. 
+						<DraggableWindow onClose={togglePlayerOverviewOpen} height={"60%"} styles={{aspectRatio: 1 * gameData.players.length * playerContainerAspectRatio}}>
 							<PlayerOverview />
 						</DraggableWindow>
 					)}
 
 					{showOptions && (
 						<DraggableWindow
-							width={400}
-							padding={5}
+							width={"30%"}
 							onClose={toggleShowOptions}
 						>
 							<GameOptions />
@@ -472,7 +473,7 @@ export default function Game(props: Props) {
 					toggleShowGuide={toggleShowGuide}
 				/>
 				{showGuide && (
-					<DraggableWindow padding={"10px"} onClose={toggleShowGuide}>
+					<DraggableWindow padding={"10px"} onClose={toggleShowGuide} height={"80%"}>
 						<Guide />
 					</DraggableWindow>
 				)}

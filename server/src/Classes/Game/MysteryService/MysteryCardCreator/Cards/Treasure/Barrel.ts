@@ -11,7 +11,7 @@ export class Barrel extends TreasureMysteryCard implements StorageCard {
 
     private _used: boolean = false;
     private _stored = {
-        food: 2,
+        food: 0,
         wood: 0,
         leather: 0,
         dryFood: 0,

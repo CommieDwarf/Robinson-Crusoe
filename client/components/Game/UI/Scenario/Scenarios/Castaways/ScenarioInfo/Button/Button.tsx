@@ -27,7 +27,7 @@ export const Button = (props: Props) => {
             onClick={handleClick}
         >
             <div className={styles.frame}>
-                <ResizableImage src={"/UI/scenarios/squares/1.png"} alt={" "} />
+                <ResizableImage src={"/UI/scenarios/rectangle-frame.png"} alt={"frame"} />
             </div>
             <div className={`${styles.text}`}>
                 {/*@ts-ignore*/}

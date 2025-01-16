@@ -1,19 +1,15 @@
 .container {
 	width: 100%;
-	font-size: 30px;
+	font-size: 1em;
 	color: var(--brown);
-	border-radius: 5px;
 	text-align: center;
-	border: 1px solid var(--brown);
 	position: relative;
-	padding: 10px;
-    padding-right: 20px;
-    padding-left: 20px;
+	padding: 2vh
 }
 
 .container > h3 {
 	position: relative;
-    font-size: 26px;
+    font-size: 0.8em;
     margin-bottom: 10px;
 }
 
@@ -38,28 +34,29 @@
     flex-direction: column;
     text-align: center;
     width: 100%;
-    height: 50px;
+    min-height: 50px;
+    height: 8vh;
     container-type: size;
+    position: relative;
 }
 
 .rowWrapperShort {
-    height: 35px;
+    height: 3vh;
 }
 
 .loaderSpinnerWrapper {
     margin-top: 10px;
-    height: 50px;
+    height: 1em;
     aspect-ratio: 1;
 }
 
 .p {
-    font-size: 13px;
+    font-size: 0.5em;
     font-weight: 500;
-    margin: 0;
 }
 
 .coloredText {
-    color: green
+    color: green;
 }
 
 .link {

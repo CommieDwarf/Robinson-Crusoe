@@ -17,7 +17,7 @@ export const fetchAndUpdateUser = async (authToken: string, dispatch: ReturnType
             },
             mode: "cors",
         });
-        
+
         if (!response.ok) {
             throw new Error("Network response was not ok");
         }
@@ -29,9 +29,9 @@ export const fetchAndUpdateUser = async (authToken: string, dispatch: ReturnType
             }))
             return null;
         }
+
         dispatch(fetchErrorUpdated(false));
         dispatch(userUpdated(json));
-        console.log(json);
         return json as UserData;
         
     } catch (e) {

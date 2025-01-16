@@ -144,13 +144,11 @@ function Map(props: Props) {
                 </div>
             )}
             <div className={styles.zoom}>
-                <div className={styles.zoomButton} onClick={zoomIn}>
-                    <span className={styles.zoomText}>+</span>
+                <div className={`${styles.zoomButton} ${styles.zoomInButton}`} onClick={zoomIn}>
+                    +
                 </div>
-                <div className={styles.zoomButton}>
-          <span className={styles.zoomText} onClick={zoomOut}>
-            -
-          </span>
+                <div className={`${styles.zoomButton} ${styles.zoomOutButton}`} onClick={zoomOut}>
+                    -
                 </div>
             </div>
             <BeastDeck

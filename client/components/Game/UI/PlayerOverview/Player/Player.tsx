@@ -37,8 +37,8 @@ export function Player(props: Props) {
 							className={`${styles.username} font-mono`}
 							style={{ backgroundColor: props.player.color }}
 						>
-							{/* {props.player.username} */}
-                            MMMMMMMMMMMMMMMM
+							{props.player.username}
+                            
 							{props.player.prime && (
 								<div className={styles.primePlayerIcon}>
 									<ResizableImage
@@ -50,21 +50,24 @@ export function Player(props: Props) {
 						</span>
 					</div>
 			</div>
-			<div className={styles.character}>
-				<div className={styles.health}>
+			<div className={styles.characterWrapper}>
+				 <div className={styles.health}>
 					<Health
 						vertical={true}
 						character={character}
 						background={false}
 					/>
 				</div>
-				<div className={styles.mainWrapper}>
+				 
+				 <div className={styles.character}>
+
 					<div className={styles.charName}>
 						{capitalize(t(`character.${character.name}`))}
-					</div>
+					</div> 
+					
 					<div className={styles.imgWrapper}>
 						<CharacterImg character={props.player.character!} />
-					</div>
+					</div> 
 					<hr className={styles.hr} />
 					<div className={styles.expendables}>
 						<Expendables
@@ -85,7 +88,7 @@ export function Player(props: Props) {
 							droppableId={character.name}
 						/>
 					</div>
-				</div>
+				</div> 
 			</div>
 		</div>
 	);

@@ -160,7 +160,10 @@ export default function ChatLog(props: Props) {
                 {!logMode && <><textarea className={styles.textArea} onChange={onTextAreaChange} value={message}
                                          onKeyDown={onTestAreaKeyDown}/>
                     <div className={styles.sendButton} onClick={onSendMsgClick}>
+                        <div className={styles.sendIconWrapper}>
                         <i className="icon-paper-plane"></i>
+
+                        </div>
                     </div>
                 </>}
             </div>

@@ -5,19 +5,22 @@ import { UIStates } from "types/UITour/UIStates";
 import { UI_TOUR_STEP_ID } from "types/UITour/UI_TOUR_STEP_ID";
 import { useAppDispatch } from "store/hooks";
 import { UIStateUpdated } from "reduxSlices/UITour";
+import { CSSProperties } from "react";
 
 const defaultDelay = 520;
 
-export interface CustomStep extends Step {
-	data: StepData
-}
 
-interface StepData {
+
+interface StepData  {
 	id: UI_TOUR_STEP_ID;
 	hideNextButton?: boolean;
 	shouldSkip?: (uiStates: UIStates) => boolean;
 	getUpdateUIStateHandle?: GetUpdateUIStateHandle;
+	toolTipStyle?: CSSProperties;
+}
 
+export interface CustomStep extends Step {
+	data: StepData
 }
 
 export type Delay = number;
@@ -84,6 +87,9 @@ export const steps: CustomStep[] = [
 		),
 		data: {
 			id: UI_TOUR_STEP_ID.PHASE_LIST,
+			toolTipStyle: {
+				maxWidth: "40vw",
+			},
 			getUpdateUIStateHandle: createUIHandler(
 				(states) => states.scenarioOpen || !states.phaseListOpen,
 				(dispatch) => dispatch(UIStateUpdated(["scenarioOpen", false]))
@@ -106,6 +112,9 @@ export const steps: CustomStep[] = [
 		spotlightClicks: false,
 		data: {
 			id: UI_TOUR_STEP_ID.MORALE,
+			toolTipStyle: {
+				maxWidth: "40%"
+			},
 			getUpdateUIStateHandle: (
 				dispatch,
 				uiStates,
@@ -144,15 +153,19 @@ export const steps: CustomStep[] = [
 				</ul>
 			</span>
 		),
+		placement: "right",
 		data: {
 			id: UI_TOUR_STEP_ID.MAP,
+			toolTipStyle: {
+				maxWidth: "50vw",
+				backgroundColor: "blue",
+			},
 			getUpdateUIStateHandle: createUIHandler(
 				(uiStates) => uiStates.scenarioOpen,
 				(dispatch) => dispatch(UIStateUpdated(["scenarioOpen", false]))
 			),
 		},
 
-		placement: "right",
 		spotlightClicks: true,
 	},
 	{
@@ -178,9 +191,12 @@ export const steps: CustomStep[] = [
 			</span>
 		),
 		data: {
+			toolTipStyle: {
+				maxWidth: "50vw",
+			},
 			id: UI_TOUR_STEP_ID.RESOURCES,
 		},
-		placement: "left",
+		placement: "bottom",
 	},
 	{
 		target: ".tour-constructions",
@@ -219,15 +235,10 @@ export const steps: CustomStep[] = [
 			</span>
 		),
 		placement: "left",
-		styles: {
-			tooltipContainer: {
-				maxHeight: "100px",
-			},
-			tooltip: {
-				maxHeight: "100px",
-			},
-		},
 		data: {
+			toolTipStyle: {
+				maxWidth: "45vw",
+			},
 			id: UI_TOUR_STEP_ID.CONSTRUCTIONS,
 		},
 	},
@@ -246,14 +257,6 @@ export const steps: CustomStep[] = [
 			</span>
 		),
 		placement: "left",
-		styles: {
-			tooltipContainer: {
-				maxHeight: "100px",
-			},
-			tooltip: {
-				maxHeight: "100px",
-			},
-		},
 		data: {
 			id: UI_TOUR_STEP_ID.CARDS,
 		},
@@ -270,17 +273,13 @@ export const steps: CustomStep[] = [
 				negatywnych konsekwencji.
 			</span>
 		),
+
 		placement: "left",
-		styles: {
-			tooltipContainer: {
-				maxHeight: "100px",
-			},
-			tooltip: {
-				maxHeight: "100px",
-			},
-		},
 		data: {
 			id: UI_TOUR_STEP_ID.THREAT,
+			toolTipStyle: {
+				maxWidth: "30vw"
+			}
 		},
 	},
 	{
@@ -300,14 +299,6 @@ export const steps: CustomStep[] = [
 			</span>
 		),
 		placement: "left",
-		styles: {
-			tooltipContainer: {
-				maxHeight: "100px",
-			},
-			tooltip: {
-				maxHeight: "100px",
-			},
-		},
 		data: {
 			id: UI_TOUR_STEP_ID.ARRANGE_REST,
 		},
@@ -322,15 +313,8 @@ export const steps: CustomStep[] = [
 			</span>
 		),
 		placement: "left",
-		styles: {
-			tooltipContainer: {
-				maxHeight: "100px",
-			},
-			tooltip: {
-				maxHeight: "100px",
-			},
-		},
 		data: {
+
 			id: UI_TOUR_STEP_ID.CHARACTER,
 		},
 	},
@@ -345,15 +329,10 @@ export const steps: CustomStep[] = [
 			</span>
 		),
 		placement: "left",
-		styles: {
-			tooltipContainer: {
-				maxHeight: "100px",
-			},
-			tooltip: {
-				maxHeight: "100px",
-			},
-		},
 		data: {
+			toolTipStyle: {
+				maxWidth: "30vw",
+			},
 			id: UI_TOUR_STEP_ID.CHARACTER_IMG,
 		},
 	},
@@ -376,14 +355,6 @@ export const steps: CustomStep[] = [
 			</span>
 		),
 		placement: "left",
-		styles: {
-			tooltipContainer: {
-				maxHeight: "100px",
-			},
-			tooltip: {
-				maxHeight: "100px",
-			},
-		},
 		data: {
 			id: UI_TOUR_STEP_ID.CHARACTER_EXPENDABLES,
 		},
@@ -400,15 +371,10 @@ export const steps: CustomStep[] = [
 			</span>
 		),
 		placement: "left",
-		styles: {
-			tooltipContainer: {
-				maxHeight: "100px",
-			},
-			tooltip: {
-				maxHeight: "100px",
-			},
-		},
 		data: {
+			toolTipStyle: {
+				maxWidth: "40vw",
+			},
 			id: UI_TOUR_STEP_ID.CHARACTER_PAWNS,
 		},
 	},
@@ -430,15 +396,6 @@ export const steps: CustomStep[] = [
 				</ul>
 			</span>
 		),
-		placement: "left",
-		styles: {
-			tooltipContainer: {
-				maxHeight: "100px",
-			},
-			tooltip: {
-				maxHeight: "100px",
-			},
-		},
 		data: {
 			id: UI_TOUR_STEP_ID.CHARACTER_ABILITIES,
 		},
@@ -460,14 +417,6 @@ export const steps: CustomStep[] = [
 			</span>
 		),
 		placement: "left",
-		styles: {
-			tooltipContainer: {
-				maxHeight: "100px",
-			},
-			tooltip: {
-				maxHeight: "100px",
-			},
-		},
 		data: {
 			id: UI_TOUR_STEP_ID.CHARACTER_SIDE_CHARACTERS,
 		},
@@ -496,14 +445,6 @@ export const steps: CustomStep[] = [
 			</span>
 		),
 		placement: "left",
-		styles: {
-			tooltipContainer: {
-				maxHeight: "100px",
-			},
-			tooltip: {
-				maxHeight: "100px",
-			},
-		},
 		data: {
 			id: UI_TOUR_STEP_ID.HEALTH,
 		},
@@ -518,19 +459,7 @@ export const steps: CustomStep[] = [
 				Kliknij go aby kontynuować.
 			</span>
 		),
-		placement: "left",
-		styles: {
-			tooltipContainer: {
-				maxHeight: "100px",
-			},
-			tooltip: {
-				maxHeight: "100px",
-			},
-			tooltipFooter: {
-				display: "none",
-				overflow: "none",
-			},
-		},
+		placement: "top",
 		spotlightClicks: true, // Pozwala na interakcję z komponentem pod spotlightem,
 		data: {
 			id: UI_TOUR_STEP_ID.SCENARIO_BUTTON,
@@ -549,16 +478,15 @@ export const steps: CustomStep[] = [
 			</span>
 		),
 		placement: "right",
-		styles: {
-			tooltipContainer: {
-				maxHeight: "100px",
-			},
-			tooltip: {
-				maxHeight: "100px",
-			},
-		},
 		data: {
 			id: UI_TOUR_STEP_ID.SCENARIO,
+			toolTipStyle: {
+				maxWidth: "40vw",
+			},
+			getUpdateUIStateHandle: createUIHandler(
+				(states) => !states.scenarioOpen,
+				(dispatch) => dispatch(UIStateUpdated(["scenarioOpen", true]))
+			),
 		},
 	},
 	{
@@ -573,15 +501,10 @@ export const steps: CustomStep[] = [
 			</span>
 		),
 		placement: "right",
-		styles: {
-			tooltipContainer: {
-				maxHeight: "100px",
-			},
-			tooltip: {
-				maxHeight: "100px",
-			},
-		},
 		data: {
+			toolTipStyle: {
+				maxWidth: "40vw",
+			},
 			id: UI_TOUR_STEP_ID.SCENARIO_ROUNDS,
 		},
 	},
@@ -595,15 +518,10 @@ export const steps: CustomStep[] = [
 			</span>
 		),
 		placement: "right",
-		styles: {
-			tooltipContainer: {
-				maxHeight: "100px",
-			},
-			tooltip: {
-				maxHeight: "100px",
-			},
-		},
 		data: {
+			toolTipStyle: {
+				maxWidth: "40vw",
+			},
 			id: UI_TOUR_STEP_ID.SCENARIO_INFO,
 		},
 	},
@@ -616,14 +534,6 @@ export const steps: CustomStep[] = [
 			</span>
 		),
 		placement: "top",
-		styles: {
-			tooltipContainer: {
-				maxHeight: "100px",
-			},
-			tooltip: {
-				maxHeight: "100px",
-			},
-		},
 		data: {
 			id: UI_TOUR_STEP_ID.WEATHER,
 			getUpdateUIStateHandle: createUIHandler(
@@ -641,14 +551,6 @@ export const steps: CustomStep[] = [
 			</span>
 		),
 		placement: "top",
-		styles: {
-			tooltipContainer: {
-				maxHeight: "100px",
-			},
-			tooltip: {
-				maxHeight: "100px",
-			},
-		},
 		data: {
 			id: UI_TOUR_STEP_ID.DISCOVERY_TOKENS,
 		},
@@ -662,14 +564,6 @@ export const steps: CustomStep[] = [
 			</span>
 		),
 		placement: "top",
-		styles: {
-			tooltipContainer: {
-				maxHeight: "100px",
-			},
-			tooltip: {
-				maxHeight: "100px",
-			},
-		},
 		data: {
 			id: UI_TOUR_STEP_ID.NEXT_PHASE,
 		},
@@ -683,14 +577,6 @@ export const steps: CustomStep[] = [
 			</span>
 		),
 		placement: "top",
-		styles: {
-			tooltipContainer: {
-				maxHeight: "100px",
-			},
-			tooltip: {
-				maxHeight: "100px",
-			},
-		},
 		data: {
 			id: UI_TOUR_STEP_ID.GUIDE,
 		},
@@ -704,14 +590,6 @@ export const steps: CustomStep[] = [
 			</span>
 		),
 		placement: "top",
-		styles: {
-			tooltipContainer: {
-				maxHeight: "100px",
-			},
-			tooltip: {
-				maxHeight: "100px",
-			},
-		},
 		data: {
 			id: UI_TOUR_STEP_ID.SETTINGS,
 		},

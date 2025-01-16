@@ -31,6 +31,7 @@ export const ConfirmCampMove = (props: Props) => {
     return (
         <div className={styles.container}>
             <h3>Czy na pewno chcesz przenieść obóz?</h3>
+            <div className={styles.tiles}>
             <div className={styles.tile}>
                 <ResizableImage
                     src={"/UI/Map/tiles/" + currentCamp?.tileResourceService?.id + ".png"}
@@ -50,6 +51,8 @@ export const ConfirmCampMove = (props: Props) => {
                     sizes={styles.tile}
                 />
             </div>
+            </div>
+            
             <div className={styles.buttons}>
                 <div
                     className={styles.button + " " + styles.accept}

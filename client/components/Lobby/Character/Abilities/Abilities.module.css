@@ -5,48 +5,48 @@
     flex-direction: column;
     justify-content: space-between;
     margin-left: 5px;
+    font-size: 1em;
+    position: relative;
 }
 
 .title {
     text-align: center;
     font-weight: 700;
-    font-size: 15px;
+    font-size: 1.3em;
 }
 
 .abilityName {
     text-align: center;
     font-weight: 600;
-    font-size: 13px;
     font-style: italic;
     margin-top: 3px;
+    font-size: 1.2em;
 }
 
 .abilityDescription {
-    line-height: 17px;
-    font-size: 13px;
-    height: 50px;
+    line-height: 1.5em;
+    font-size: 1em;
     margin-top: 3px;
+    height: 3em;
 }
 
 .selectAbility {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    column-gap: 5px;
+    column-gap: 10px;
     row-gap: 5px;
     position: relative;
     margin-top: 25px;
 }
 
 .abilityOption {
-    height: 20px;
     border: 1px solid var(--brown);
     border-radius: 5px;
     text-align: center;
-    padding-left: 5px;
-    padding-right: 5px;
-    font-size: 9px;
-    line-height: 18px;
+    padding: 0.2em 0.5em 0.2em 0.5em;
+    font-size: 0.9em;
+    line-height: 1.5em;
     cursor: pointer;
     user-select: none;
 }
@@ -62,11 +62,13 @@
 }
 
 .icon {
-    height: 17px;
-    top: 3px;
+    height: 1em;
     aspect-ratio: 1;
+    top: 0.2em;
     position: relative;
     display: inline-block;
+    scale: 1.5;
+    margin: 0.1em;
 }
 
 .hr {

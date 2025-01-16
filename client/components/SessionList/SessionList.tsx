@@ -10,7 +10,7 @@ import { SessionBasicInfo } from "@shared/types/Session/Session";
 import { useAppDispatch } from "../../store/hooks";
 import { socketEmit } from "../../middleware/socketMiddleware";
 import { setSocketListener } from "../../pages/api/socket";
-import { LoaderSpinner } from "../LoaderSpinner/LoaderSpinner";
+import { LoadingSpinner } from "../LoaderSpinner/LoaderSpinner";
 
 interface Props {
 	setSessionIdToEnter: (sessionId: string) => void;
@@ -55,7 +55,7 @@ export function SessionList(props: Props) {
 			<Header />
 			{props.showSpinner ? (
 				<div className={styles.loaderSpinnerWrapper}>
-					<LoaderSpinner/>
+					<LoadingSpinner/>
 				</div>
 			) : 
             <div className={styles.sessionList}>

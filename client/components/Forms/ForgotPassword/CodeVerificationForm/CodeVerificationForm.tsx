@@ -115,11 +115,10 @@ export default function CodeVerificationForm(
 	return (
 		<form className={formStyles.form} onSubmit={handleSubmit}>
 			<p className={formStyles.p}>
-				{t("form.codeSentOnAdress")} <strong>{props.email}</strong>
-				<br />
+				{t("form.codeSentOnAdress")} <strong>{props.email}</strong>.
+				{" "}
 				{t("form.checkSpam")}
-				<br />
-				<br />
+				<br/>
 				<strong>{t("form.enterCodeHere")}</strong>
 			</p>
 			<div

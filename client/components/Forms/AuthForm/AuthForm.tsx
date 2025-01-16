@@ -6,11 +6,14 @@ import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { fetchAndUpdateUser } from "../../../lib/fetchAndUpdateUser";
 import { LoginReqBody } from "@shared/types/Requests/Post";
 import Cookies from "js-cookie";
-import { fetchErrorUpdated, userUpdated } from "../../../reduxSlices/connection";
+import {
+	fetchErrorUpdated,
+	userUpdated,
+} from "../../../reduxSlices/connection";
 import { socketConnect } from "../../../middleware/socketMiddleware";
 import { useTranslation } from "react-i18next";
 import capitalize from "@shared/utils/capitalize";
-import { LoaderSpinner } from "../../LoaderSpinner/LoaderSpinner";
+import { LoadingSpinner } from "../../LoaderSpinner/LoaderSpinner";
 import { toast } from "react-toastify";
 import { FormButton } from "../Form/FormButton.tsx/FormButton";
 import { RedirectLink } from "../Form/RedirectLink/RedirectLink";
@@ -19,6 +22,7 @@ import { FormError } from "../Form/FormError/FormError";
 import { sharedConfig } from "@shared/config/sharedConfig";
 
 import formStyles from "../Form/Form.module.css";
+import { getAuthToken } from "utils/auth/getAuthToken";
 
 interface Props {
 	loginMode: boolean;
@@ -38,6 +42,7 @@ export default function AuthForm(props: Props) {
 	const [password, setPassword] = useState("");
 	const [passwordRepeat, setPasswordRepeat] = useState("");
 
+
 	const [passwordChanged, setPasswordChanged] = useState(true);
 
 	const router = useRouter();
@@ -54,45 +59,22 @@ export default function AuthForm(props: Props) {
 		form: "",
 	});
 
+	const user = useAppSelector(state => state.connection.user);
+
+	useEffect(() => {
+		if (isAuthenticated() && !user) {
+			const token = getAuthToken();
+			if (!token) {
+				return;
+			}
+			fetchAndUpdateUser(token, dispatch);
+		}
+	})
+
+
 	useEffect(() => {
 		setPasswordChanged(true);
 	}, [props.loginMode]);
-
-	useEffect(() => {
-		if (isAuthenticated()) {
-			router.push("/");
-		}
-	}, [router]);
-
-	function isDataValid() {
-		if (
-			!username ||
-			!isInRange(
-				username.length,
-				sharedConfig.limits.usernameMinLength,
-				sharedConfig.limits.usernameMaxLength
-			)
-		) {
-			return false;
-		}
-		if (!email || !validateEmail(email)) {
-			return false;
-		}
-		if (
-			!password ||
-			!isInRange(
-				password.length,
-				sharedConfig.limits.passwordMinLength,
-				sharedConfig.limits.passwordMaxLength
-			)
-		) {
-			return false;
-		}
-		if (!passwordRepeat || passwordRepeat !== password) {
-			return false;
-		}
-		return true;
-	}
 
 	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
@@ -170,7 +152,6 @@ export default function AuthForm(props: Props) {
 			});
 			if (user.emailVerified) {
 				dispatch(socketConnect({ authToken }));
-				router.push("/");
 			} else {
 				router.push("/verify-your-email");
 			}
@@ -203,10 +184,15 @@ export default function AuthForm(props: Props) {
 		if (props.loginMode) {
 			return;
 		}
-		if (password && password.length < sharedConfig.limits.passwordMinLength) {
+		if (
+			password &&
+			password.length < sharedConfig.limits.passwordMinLength
+		) {
 			setError(
 				"password",
-				t("form.passwordTooShort", {amount: sharedConfig.limits.passwordMinLength})
+				t("form.passwordTooShort", {
+					amount: sharedConfig.limits.passwordMinLength,
+				})
 			);
 		} else {
 			setError("password", "");
@@ -217,7 +203,6 @@ export default function AuthForm(props: Props) {
 		if (props.loginMode) {
 			return;
 		}
-		
 
 		const isEmail = validateEmail(email);
 		if (!isEmail) {
@@ -370,7 +355,7 @@ export default function AuthForm(props: Props) {
 						)}
 					</h3>
 					<form onSubmit={handleSubmit} className={formStyles.form}>
-					<FormInput
+						<FormInput
 							placeholder={"e-mail"}
 							type="email"
 							id="email"
@@ -398,7 +383,7 @@ export default function AuthForm(props: Props) {
 								}
 							/>
 						)}
-						
+
 						<FormInput
 							placeholder={t("menu.password")}
 							type="password"
@@ -408,12 +393,8 @@ export default function AuthForm(props: Props) {
 							onBlur={handlePasswordBlur}
 							required
 							error={errors.password}
-							minLength={
-								sharedConfig.limits.passwordMinLength
-							}
-							maxLength={
-								sharedConfig.limits.passwordMaxLength
-							}
+							minLength={sharedConfig.limits.passwordMinLength}
+							maxLength={sharedConfig.limits.passwordMaxLength}
 						/>
 						{!props.loginMode && (
 							<FormInput
@@ -460,13 +441,12 @@ export default function AuthForm(props: Props) {
 							<RedirectLink
 								linkText={t("form.forgotPassword?")}
 								href={"/forgot-password"}
-								fontSize="13px"
 							/>
 						)}
 
 						{loading && (
 							<div className={formStyles.loaderSpinnerWrapper}>
-								<LoaderSpinner />
+								<LoadingSpinner />
 							</div>
 						)}
 					</form>
@@ -496,7 +476,10 @@ export default function AuthForm(props: Props) {
 		</>
 	);
 }
-function isInRange(length: number, usernameMinLength: number, usernameMaxLength: number): boolean {
+function isInRange(
+	length: number,
+	usernameMinLength: number,
+	usernameMaxLength: number
+): boolean {
 	throw new Error("Function not implemented.");
 }
-

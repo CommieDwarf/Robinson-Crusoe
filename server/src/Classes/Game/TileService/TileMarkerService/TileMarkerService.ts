@@ -161,8 +161,6 @@ export class TileMarkerService {
             args.forEach((arg) => {
                 if (tile.canResourceActionBePerformed(action, arg, source)) {
                     count++;
-                console.log("COUNT:", count);
-                console.log("arg", arg);
                 }
             })
         })

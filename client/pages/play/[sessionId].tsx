@@ -1,8 +1,7 @@
 import styles from "./index.module.css";
-import Loading from "../../components/Loading";
+import Loading from "../../components/Loading/Loading";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import Game from "../../components/Game/Game";
 import {
 	SOCKET_EVENT_CLIENT,
 	SOCKET_EVENT_SERVER,
@@ -19,7 +18,7 @@ import { socketEmit } from "../../middleware/socketMiddleware";
 import { setSocketListener, SocketListener } from "../api/socket";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
-import { UITour } from "components/Game/UITour/UITour";
+import Game from "components/Game/Game";
 
 type Props = {};
 

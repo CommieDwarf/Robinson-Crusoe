@@ -1,7 +1,8 @@
 .container {
-    width: 900px;
-    height: 300px;
+    width: 80%;
+    aspect-ratio: 3;
     background-image: url("../../public/UI/paper-background.png");
+    background-size: 100% 100%;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -12,7 +13,7 @@
     display: grid;
     padding-left: 15px;
     grid-template-columns: 50% 50%;
-    grid-template-rows: 50px 1fr;
+    grid-template-rows: 11% 1fr;
 }
 
 .panel {
@@ -30,20 +31,19 @@
 }
 
 .buttons {
-    height: 25px;
     display: flex;
-    column-gap: 10px;
+    column-gap: 4%;
     align-items: center;
-    width: 400px;
 }
 
 
 .backButton {
-    height: 110%;
+    height: 100%;
+    scale: 1.2;
 }
 
 .button {
-
+    text-wrap: nowrap;
 }
 
 
@@ -63,9 +63,14 @@
 }
 
 .joinByCodeWrapper {
-    height: 25px;
     padding-right: 5px;
     border-radius: 5px;
     display: flex;
     column-gap: 5px;
+}
+
+.joinByCodeInputDiv > input {
+    height: 90%;
+    font-size: 1em;
+    max-width: 5em;
 }

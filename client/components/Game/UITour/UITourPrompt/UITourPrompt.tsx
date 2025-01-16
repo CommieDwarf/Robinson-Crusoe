@@ -36,7 +36,7 @@ export function UITourPrompt() {
 
 
 	return (
-		<DraggableWindow width={350} height={160} padding={"0 20px 0 20px"}>
+		<DraggableWindow styles={{aspectRatio: 2.2, height: "30%"}} padding={"0 20px 0 20px"}>
 			<div className={styles.content}>
 				<p>Czy chcesz być oprowadzony po interfejsie gry?</p>
 				<div className={styles.buttons}>

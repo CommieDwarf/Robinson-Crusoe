@@ -35,6 +35,7 @@ body {
 	font-family: "Lora", serif;
 	font-optical-sizing: auto;
 	font-style: normal;
+	font-size: 3vh;
 }
 
 body {
@@ -45,6 +46,10 @@ body {
 	position: relative;
 	height: 100vh;
 	scrollbar-color: var(--borderColor) transparent;
+}
+
+input, select, option {
+	color: var(--brown);
 }
 
 h1,
@@ -118,7 +123,6 @@ a {
 	color: var(--brown);
 	font-weight: 500;
 	line-height: 140%;
-	font-size: 100%;
 	user-select: none;
 	text-wrap: none;
 }

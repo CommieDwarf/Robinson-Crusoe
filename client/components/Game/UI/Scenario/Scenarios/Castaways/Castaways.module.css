@@ -3,28 +3,20 @@
     height: 100%;
     position: relative;
     overflow: hidden;
-    display: grid;
-    grid-template-rows: 90px 100px 150px 1fr;
     grid-template-columns: 1;
 }
 
-.title {
-    grid-row: 1 span 1;
-}
 
 .rounds {
-    grid-row: 2 span 1;
-    margin-top: -20px;
 }
 
 
 .middleSection {
-    grid-row: 3 span 1;
-    margin-top: -70px;
+    height: 40%;
 }
 
 .bottomSection {
-    grid-row: 4 span 1;
+    height: 35%;
 }
 
 
@@ -32,13 +24,14 @@
 .title {
     color: #d2b48c;
     font-family: Kaz;
-    font-size: 25px;
+    font-size: 3em;
     text-align: center;
-    height: 50%;
+    height: 10%;
 }
 
 .rounds {
-    height: 30%;
+    margin-top: 1%;
+    height: 10%;
 }
 
 
@@ -59,8 +52,7 @@
 }
 
 .tokens {
-    height: 110%;
-    margin-top: -4%;
+    height: 100%;
     margin-left: -2%;
     aspect-ratio: 800 / 567;
     display: inline-block;
@@ -68,8 +60,8 @@
 
 .woodPileWrapper {
     width: 30%;
-    height: 100%;
     aspect-ratio: 1;
+    margin-top: 5%;
     display: inline-flex;
     z-index: 1;
 }
@@ -103,9 +95,10 @@
 }
 
 .effects {
-    width: 100px;
+    width: 25%;
     left: 0;
     top: 0;
+    margin-top: 5%;
 }
 
 .effect {

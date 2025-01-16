@@ -180,7 +180,6 @@ export class Session implements SessionData {
 		}
 		user.addSession(this);
 		this.addJoinMessage(user.username);
-		console.log(this.getPlayerByUserId(user.id));
 	}
 
 	public leaveSession(user: IUser) {

@@ -21,6 +21,7 @@ export function GlobalWrapper(props: Props) {
 
 	const [reconnecting, setReconnecting] = useState(false);
 
+
 	const connectionLost = useAppSelector((state) => state.connection.socketConnectionLost);
 	useEffect(() => {
 		if (connectionLost && isAuthenticated()) {
@@ -51,7 +52,8 @@ export function GlobalWrapper(props: Props) {
 		const authenticated = isAuthenticated();
 		if (authenticated && !user) {
 			const token = getAuthToken() as string;
-			fetchAndUpdateUser(token, dispatch)
+			fetchAndUpdateUser(token, dispatch);
+			
 		}
 	}, [user, dispatch]);
 
@@ -80,19 +82,17 @@ export function GlobalWrapper(props: Props) {
 		};
 	}, []);
 
-	// useEffect(() => {
-	// 	const handleRouteChange = (url: string) => {
-	// 		if (url.includes("play") && !url.includes("multiplayer")) {
-	// 		}
-	// 		alert(url);
-	// 		console.error(new Error());
-	// 	};
-	// 	router.events.on("routeChangeStart", handleRouteChange);
+	useEffect(() => {
+		if (!user && isAuthenticated()) {
+			const token = getAuthToken();
+			if (!token) {
+				return;
+			}
 
-	// 	return () => {
-	// 		router.events.off("routeChangeStart", handleRouteChange);
-	// 	};
-	// }, [router]);
+			fetchAndUpdateUser(token, dispatch);
+		}
+	}, [])
+
 
 	return (
 		<>

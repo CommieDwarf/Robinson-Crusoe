@@ -12,31 +12,35 @@ import "react-toastify/dist/ReactToastify.css";
 import { InfoBadge } from "../components/InfoBadge/InfoBadge";
 import { Bounce, ToastContainer } from "react-toastify";
 import RouteGuard from "../components/RouteGuard/RouteGuard";
+import { HistoryManagerProvider, useHistoryManager } from "components/UserHistoryManager/UserHistoryManager";
 
 export default function App<Props>({ Component, pageProps }: AppProps) {
-	
+	const historyManager = useHistoryManager();
+
 	return (
 		<>
 			<Provider store={store}>
 				<GlobalWrapper>
-					<RouteGuard>
+					<HistoryManagerProvider value={historyManager}>
+						<RouteGuard>
+							<Component {...pageProps} />
+						</RouteGuard>
+					</HistoryManagerProvider>
 
-						<Component {...pageProps} />
-					</RouteGuard>
 					<ToastContainer
-							position="bottom-left"
-							autoClose={1500}
-							hideProgressBar
-							newestOnTop={false}
-							closeOnClick
-							rtl={false}
-							pauseOnFocusLoss
-							draggable
-							pauseOnHover={false}
-							transition={Bounce}
-							theme={"colored"}
-						/>
-						<InfoBadge />
+						position="bottom-left"
+						autoClose={1500}
+						hideProgressBar
+						newestOnTop={false}
+						closeOnClick
+						rtl={false}
+						pauseOnFocusLoss
+						draggable
+						pauseOnHover={false}
+						transition={Bounce}
+						theme={"colored"}
+					/>
+					<InfoBadge />
 				</GlobalWrapper>
 			</Provider>
 		</>

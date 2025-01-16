@@ -6,7 +6,7 @@ import CodeVerificationForm from "./CodeVerificationForm/CodeVerificationForm";
 import { NewPasswordForm } from "./NewPasswordForm/NewPasswordForm";
 import formStyles from "../Form/Form.module.css";
 import { FormError } from "../Form/FormError/FormError";
-import { LoaderSpinner } from "components/LoaderSpinner/LoaderSpinner";
+import { LoadingSpinner } from "components/LoaderSpinner/LoaderSpinner";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 
@@ -113,14 +113,14 @@ export function ForgotPasswordForm(props: Props | EnterCodeProps) {
 			<h3>{getProperHeader()}</h3>
 			{getProperForm()}
 			{!loading && error && (
-				<FormError error={error} style={{ marginTop: "10px" }} />
+				<FormError error={error} style={{ margin: "10px auto auto" }} />
 			)}
 			{loading && (
 				<div
 					className={formStyles.rowWrapper}
 					style={{ marginTop: "10px" }}
 				>
-					<LoaderSpinner />
+					<LoadingSpinner />
 				</div>
 			)}
 			<RedirectLink linkText={t("form.backToSignIn")} href={"/sign-in"} />

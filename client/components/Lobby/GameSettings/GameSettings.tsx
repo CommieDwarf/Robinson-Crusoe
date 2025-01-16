@@ -15,6 +15,7 @@ import { socketEmit } from "../../../middleware/socketMiddleware";
 import { sessionIdUpdated } from "../../../reduxSlices/gameSession";
 import { InvitationCode } from "./InvittationCode/InvitationCode";
 import { sharedConfig } from "@shared/config/sharedConfig";
+import { CheckBox } from "components/Checkbox/CheckBox";
 
 export enum GAME_SETTINGS_MODE {
 	LOCKED = "locked",

@@ -1,10 +1,10 @@
 .container {
     aspect-ratio: 1;
-    height: 40px;
+    height: 100%;
+    font-size: 2em;
+    line-height: 2em;
     position: relative;
     z-index: 1;
-    font-size: 4em;
-    line-height: 120%;
 }
 
 
@@ -13,9 +13,14 @@
     font-size: inherit;
     font-family: Snell Roundhand, cursive;
     text-align: center;
-    position: relative;
-    top: 2px;
+    position: absolute;
+    height: auto;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     color: #d2b48c;
+    padding-top: 20%;
+    padding-bottom: 27%;
 }
 
 .currentRound {
@@ -56,22 +61,20 @@
 }
 
 .weather {
-    height: 100%;
+    height: 60%;
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     position: absolute;
-    top: -100%;
+    top: -55%;
     align-items: flex-end;
 }
 
-.weather:nth-child(1n) {
-    flex-basis: 100%;
-}
+
 
 .weatherDice {
-    height: 15px;
+    height: 50%;
     aspect-ratio: 1;
     border-radius: 3px;
     border: 1px solid var(--brown);
@@ -80,14 +83,12 @@
 }
 
 
-.firstOfFree {
-    margin-bottom: -14px;
-}
+
 
 .rain {
     background-color: orange;
-    margin-left: 20%;
-    margin-right: 20%;
+    margin-left: 25%;
+    margin-right: 25%;
 }
 
 .snow {

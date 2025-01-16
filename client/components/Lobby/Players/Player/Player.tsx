@@ -16,6 +16,7 @@ import Select from "react-select";
 import { PLAYER_COLOR } from "@shared/types/Game/PLAYER_COLOR";
 import { selectPlayerLatency } from "../../../../reduxSlices/gameSession";
 import { UserAvatar } from "../../../UserProfile/UserAvatar/UserAvatar";
+import { darkenColor } from "utils/darkenColor";
 
 interface Props {
 	player: IPlayerRenderData;
@@ -97,9 +98,23 @@ export function Player(props: Props) {
 				props.local && styles.localPlayer
 			} ${props.player.isPlaceHolder && styles.containerPlaceholder}`}
 		>
+			<div
+				className={`${styles.readiness} ${
+					props.player.ready && styles.readinessReady
+				}`}
+				onClick={handleReadyClick}
+			>
+				{props.player.ready ? (
+					<ResizableImage src={checkMark} alt={"readiness"} />
+				) : (
+					<ResizableImage src={xMarkImg} alt={"readiness"} />
+				)}
+			</div>
+
 			<div className={styles.avatar}>
 				{<UserAvatar username={props.player.username} />}
 			</div>
+
 			<div className={`${styles.name} font-mono`}>
 				{props.player.username}
 				{props.host && (
@@ -136,9 +151,11 @@ export function Player(props: Props) {
 					</option>
 				</select>
 			</div>
-			<div className={`${styles.colorSelect}`}>
+			<div>
 				<Select
+					className={styles.colorSelect}
 					isDisabled={!props.local}
+					isSearchable={false}
 					options={Object.values(PLAYER_COLOR).map((color) => ({
 						value: color,
 						label: "",
@@ -152,22 +169,17 @@ export function Player(props: Props) {
 							minHeight: 20,
 							padding: 0,
 							fontSize: 12,
-							boxShadow: state.isFocused
-								? "0px 0px 1px 1px var(--borderColor)"
-								: "none",
 							border: "none",
-							":hover": {
-								border: "none",
-							},
+							outline: state.isFocused
+								? `2px solid ${darkenColor(playerColor)}`
+								: "none",
+							":hover": {},
 							backgroundColor: playerColor,
 						}),
 						dropdownIndicator: (styles) => ({
 							...styles,
-							padding: 0,
-							color: props.local ? "white" : playerColor,
-							":hover": {
-								color: "white",
-							},
+							marginTop: "-15%",
+							color: darkenColor(playerColor)
 						}),
 						clearIndicator: (styles) => ({
 							...styles,
@@ -217,18 +229,7 @@ export function Player(props: Props) {
 					}
 				/>
 			</div>
-			<div
-				className={`${styles.readiness} ${
-					props.player.ready && styles.readinessReady
-				}`}
-				onClick={handleReadyClick}
-			>
-				{props.player.ready ? (
-					<ResizableImage src={checkMark} alt={"readiness"} />
-				) : (
-					<ResizableImage src={xMarkImg} alt={"readiness"} />
-				)}
-			</div>
+
 			<div className={styles.latency}>
 				<PlayerLatency latency={latency} />
 			</div>
@@ -245,3 +246,5 @@ export function Player(props: Props) {
 		</div>
 	);
 }
+
+

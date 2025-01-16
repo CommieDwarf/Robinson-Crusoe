@@ -101,7 +101,6 @@ export function GatherPage() {
 								<ResizableImage
 									src={"/UI/misc/fish.png"}
 									alt={"źródło pożywienia"}
-									style={{scale: "0.9"}}
 								/>
 							</>
 						)}
@@ -117,7 +116,6 @@ export function GatherPage() {
 								<ResizableImage
 									src={"/UI/misc/wood.png"}
 									alt={"źródło drewna"}
-									style={{scale: "0.9"}}
 								/>
 							</>
 						)}

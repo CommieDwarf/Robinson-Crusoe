@@ -11,6 +11,8 @@ import {CONTROLLER_ACTION, OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLL
 import {INVENTION, INVENTION_CASTAWAYS, INVENTION_STARTER} from "@shared/types/Game/InventionService/Invention";
 import {SaveStep as SaveStep} from "@shared/types/SaveGame";
 import { ACTION } from "@shared/types/Game/ACTION";
+import { MysteryCardCreator } from "../Game/MysteryService/MysteryCardCreator/MysteryCardCreator";
+import { TREASURE_MYSTERY_CARD } from "@shared/types/Game/MysteryService/MYSTERY_CARD";
 
 
 export enum STORAGE_ACTION {
@@ -58,14 +60,19 @@ export class GameController implements GameControllerInterface, BaseController {
     }
 
     private test() {
-        const char = this._game.characterService.playerCharacters[0];   
-        // this._game.inventionService.build(INVENTION_CASTAWAYS.AXE, char);
-        // this._game.inventionService.build(INVENTION_CASTAWAYS.MAST, char);
-        // this._game.inventionService.build(INVENTION_STARTER.BRICKS, char);
-        // this._game.inventionService.build(INVENTION_STARTER.SHOVEL, char);
-        // this._game.inventionService.build(INVENTION_STARTER.FIRE, char);
-        // this._game.inventionService.build(INVENTION_STARTER.KNIFE, char);
-        // console.log("mast built? " + this._game.inventionService.isBuilt(INVENTION_CASTAWAYS.MAST))
+        const char = this._game.characterService.playerCharacters[0];
+
+        const creator = new MysteryCardCreator(this._game);
+
+        const barrel = creator.createTreasureCard(TREASURE_MYSTERY_CARD.BARREL);
+
+        this._game.resourceService.addBasicResourceToOwned("food", 5, "test");
+
+        this._game.actionService.setAdventureToken(ACTION.EXPLORE, true, "test");
+        this._game.actionService.setAdventureToken(ACTION.GATHER, true, "test");
+        this._game.actionService.setAdventureToken(ACTION.BUILD, true, "test");
+
+        this.game.mysteryService.addTreasureToResources(barrel)
     }
 
     private initActionHandlers() {

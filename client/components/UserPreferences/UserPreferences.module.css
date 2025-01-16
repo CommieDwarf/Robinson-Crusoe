@@ -1,5 +1,8 @@
 .container {
     width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 10px;
 }
 
 .block {
@@ -11,7 +14,7 @@
 .prefference {
     display: flex;
     justify-content: left;
-    column-gap: 5px;
+    column-gap: 1%;
 }
 
 .skipUITour {
@@ -25,5 +28,4 @@
 }
 
 .checkBox {
-    height: 20px;
 }

@@ -1,19 +1,19 @@
 import styles from "./DraggableWindow.module.css";
 import Draggable from "react-draggable";
 import sharedStyles from "../../../../styles/shared.module.css";
-import { useLayoutEffect, useRef, useState } from "react";
-import { ViewStyleProps } from "@react-types/shared";
+import { CSSProperties, useLayoutEffect, useRef, useState } from "react";
 import ResizableImage from "../../../ResizableImage/ResizableImage";
 import xMark from "/public/UI/misc/x-mark.png";
 
 interface Props {
-	width?: number;
-	height?: number;
+	width?: number | string;
+	height?: number | string;
 	children?: string | JSX.Element | JSX.Element[];
 	padding?: string | number;
 	onClose?: () => void;
 	topLayer?: boolean;
 	showOverflow?: boolean;
+	styles?: CSSProperties;
 }
 
 export function DraggableWindow(props: Props) {
@@ -24,15 +24,27 @@ export function DraggableWindow(props: Props) {
 
 	const containerRef = useRef<HTMLDivElement>(null);
 
-	const style: React.CSSProperties = {
-		padding: props.padding,
-		width: props.width && props.width + "px",
-		height: props.height && props.height + "px",
+	const defaultUnit = "px";
+
+	function addUnit(size: string | number): string {
+		return typeof size === "string" ? size : size + defaultUnit;
+	}
+
+	const propSizeWithUnit = {
+		width: props.width && addUnit(props.width),
+		height: props.height && addUnit(props.height),
 	};
 
-	if (containerSize.x > 0 && containerSize.y > 0) {
-		style.top = `calc(50% - ${containerSize.y}px / 2)`;
-		style.left = `calc(50% - ${containerSize.x}px / 2)`;
+	const style: React.CSSProperties = {
+		padding: props.padding,
+		width: propSizeWithUnit.width && propSizeWithUnit.width,
+		height: propSizeWithUnit.height && propSizeWithUnit.height,
+		...props.styles,
+	};
+
+	if (containerSize.x && containerSize.y) {
+		style.top = `calc(50% - ${addUnit(containerSize.y)} / 2)`;
+		style.left = `calc(50% - ${addUnit(containerSize.x)} / 2)`;
 	}
 
 	useLayoutEffect(() => {
@@ -40,23 +52,20 @@ export function DraggableWindow(props: Props) {
 		if (!current) {
 			return;
 		}
-		if (containerSize.x === 0) {
-			setContainerSize((prev) => {
-				return {
-					...prev,
-					x: current.clientWidth,
-				};
-			});
-		}
-		if (containerSize.y === 0) {
-			setContainerSize((prev) => {
-				return {
-					...prev,
-					y: current.clientHeight,
-				};
-			});
-		}
-	}, [containerRef, containerSize.x, containerSize.y]);
+		setContainerSize((prev) => {
+			return {
+				...prev,
+				x: current.clientWidth,
+			};
+		});
+
+		setContainerSize((prev) => {
+			return {
+				...prev,
+				y: current.clientHeight,
+			};
+		});
+	}, [containerRef]);
 
 	function handleClick() {
 		props.onClose && props.onClose();

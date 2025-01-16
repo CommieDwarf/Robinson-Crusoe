@@ -100,6 +100,5 @@ export function EventPage() {
 					jest jej efekt zagrożenia.
 				</p>
 			</section>
-			<div className={`${styles.buttonNext} ${styles.title}`}>Dalej</div>
 		</>
 }

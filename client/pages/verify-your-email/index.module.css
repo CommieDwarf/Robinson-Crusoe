@@ -1,11 +1,11 @@
 .container {
     width: 100%;
-    font-size: 13px;
     padding: 10px 20px;
     color: var(--brown);
     border-radius: 2%;
     text-align: center;
     position: relative;
+    font-size: 2vh;
 }
 
 

@@ -1,23 +1,22 @@
 .container {
     width: 100%;
-    height: 40px;
+    height: 25%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-left: 10px;
     padding-right: 10px;
-    font-size: 20px;
     border: 1px solid var(--brown);
     border-radius: 5px;
     position: relative;
-
+    column-gap: 1%;
 }
 
 .container > div {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 50%;
+    height: 70%;
 }
 
 
@@ -28,9 +27,8 @@
 }
 
 .avatar {
-    aspect-ratio: 1;
+    aspect-ratio: 1 !important;
     height: 80% !important;
-    position: relative;
 }
 
 .name {
@@ -48,19 +46,22 @@
 }
 
 .latency {
-    width: 30px;
+    aspect-ratio: 1;
+    scale: 0.7;
 }
 
 .kickButton {
     position: relative;
     aspect-ratio: 1;
     filter: var(--blackToBrown);
-    scale: 1.5;
+    scale: 1;
+    cursor: pointer;
 }
 
-.charName {
-    font-size: 15px;
+.kickButton:hover {
+    scale: 1.2;
 }
+
 
 .localPlayer {
     color: var(--explore);
@@ -72,8 +73,7 @@
 }
 
 .readiness {
-    height: 60% !important; 
-    aspect-ratio: 1 !important;
+    aspect-ratio: 1;
 }
 
 .readinessReady {
@@ -90,4 +90,9 @@
 
 
 .colorSelect {
+}
+
+.character > select {
+    font-size: 0.8em;
+    font-weight: 600;
 }

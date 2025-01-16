@@ -1,4 +1,6 @@
 .container {
+    height: 100%;
+    position: relative;
     z-index: 999;
     display: flex;
     cursor: grab;
@@ -7,4 +9,10 @@
     -webkit-box-shadow: inset 0px 0px 63px -14px rgba(180, 156, 125, 1);
     -moz-box-shadow: inset 0px 0px 63px -14px rgba(180, 156, 125, 1);
     box-shadow: inset 0px 0px 63px -14px rgba(180, 156, 125, 1);
+}
+
+.playerWrapper {
+    height: 100%;
+    overflow: visible;
+    position: relative;
 }

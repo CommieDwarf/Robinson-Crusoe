@@ -5,15 +5,17 @@
     padding: 10px;
     color: bar(--brown);
     z-index: 10000;
-    max-width: 650px;
-    font-size: 15px;
+    font-size: 0.8em;
+    max-width: 80vw;
+    background-color: blue;
 }
 
 .title {
     font-family: "Kaz", serif;
     color: var(--hunt);
-    font-size: 25px;
+    font-size: 1.5em;
     text-align: center;
+    margin-bottom: 2%;
 }
 
 .title > h4 {
@@ -34,7 +36,6 @@
 }
 
 .close {
-    height: 25px;
     aspect-ratio: 1;
     position: relative;
     vertical-align: top;
@@ -52,7 +53,9 @@
 .footer {
     display: flex;
     justify-content: space-between;
-    margin-top: 5px;
+    margin-top: 5%;
+    font-size: 1.3em;
+
 }
 
 .toolTipButton {
@@ -60,7 +63,6 @@
     background-color: transparent;
     color: var(--hunt);
     font-weight: 600;
-    font-size: 20px;
     cursor: pointer;
 }
 

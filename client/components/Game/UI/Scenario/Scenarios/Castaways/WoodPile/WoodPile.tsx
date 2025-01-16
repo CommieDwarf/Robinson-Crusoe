@@ -32,7 +32,7 @@ export const WoodPile = (props: Props) => {
 	return (
 		<div className={styles.container}>
 			<div className={styles.frame}>
-				<ResizableImage src={"/UI/scenarios/squares/6.png"} alt="" />
+				<ResizableImage src={"/UI/scenarios/square-frame.png"} alt="" />
 			</div>
 			<div className={styles.woodPileLvl}>
 				{scenarioService.woodStashLvl}/5

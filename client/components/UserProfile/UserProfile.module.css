@@ -1,22 +1,21 @@
 .container {
     width: 100%;
     text-align: center;
-    border-radius: 5%;
-    border: 1px solid var(--brown);
-    padding: 10px;
+    padding: 5%;
     font-style: normal;
     position: relative;
+    overflow: hidden;
 }
 
 
 
 .container > h2 {
-    font-size: 25px;
+    font-size: 1em;
 }
 
 .avatar {
-    height: 100px;
-    width: 100px;
+    width: 20%;
+    aspect-ratio: 1;
     position: relative;
     margin: auto;
     border-radius: 5%;
@@ -31,12 +30,12 @@
 
 
 .link {
-    font-size: 20px;
     text-decoration: underline;
     color: green;
     cursor: pointer;
     font-weight: 600;
     margin: 0;
+    font-size: 0.5em;
 }
 
 .linkLocked {
@@ -45,7 +44,7 @@
 }
 
 .accountSettings {
-    font-size: 13px;
+    font-size: 0.5em;
 }
 
 .username {

@@ -1,17 +1,18 @@
-import Joyride, { StepMerged, TooltipRenderProps } from "react-joyride";
+import { StepMerged, TooltipRenderProps } from "react-joyride";
 import styles from "./CustomToolTip.module.css";
-import ResizableImage from "components/ResizableImage/ResizableImage";
-import xMark from "../../../../public/UI/misc/x-mark.png";
 import { CustomStep } from "../steps";
 
-interface Props extends TooltipRenderProps {
-	onNextClick: () => void;
+
+interface CustomProps {
+	onNextClick?: () => void;
 	step: StepMerged & CustomStep;
+	
 }
 
+type Props = TooltipRenderProps & CustomProps;
 
 
-export function CustomTooltip(props: Props, style: StyleSheet) {
+export function CustomTooltip(props: Props) {
 	const {
 		backProps,
 		closeProps,
@@ -21,13 +22,15 @@ export function CustomTooltip(props: Props, style: StyleSheet) {
 		skipProps,
 		step,
 		tooltipProps,
-		onNextClick,
 	} = props;
 
-	
 
 	return (
-		<div className={`${styles.body}`} {...tooltipProps}>
+		<div
+			className={`${styles.body}`}
+			{...tooltipProps}
+			style={props.step.data.toolTipStyle}
+		>
 			<div className={styles.topBar}>
 				{step.title && (
 					<h4 className={`${styles.title}`}>{step.title}</h4>
@@ -43,30 +46,27 @@ export function CustomTooltip(props: Props, style: StyleSheet) {
 					{skipProps.title}
 					Dalej
 				</div> */}
-					{/* {index > 0 && (
+				{/* {index > 0 && (
 						<button className="tooltip__button" {...backProps}>
 							{backProps.title}
 						</button>
 					)} */}
-					{(
-						<div
-							className={`${styles.toolTipButton}`}
-							{...closeProps}
-						>
-							Zamknij
-							{/* {primaryProps.title} */}
-						</div>
-					)}
-					{!(step.data?.hideNextButton)  && continuous && (
-						<div
-							className={`${styles.toolTipButton}`}
-							{...primaryProps}
-							onClick={props.onNextClick}
-						>
-							Dalej
-							{/* {primaryProps.title} */}
-						</div>
-					)}
+				{
+					<div className={`${styles.toolTipButton}`} {...closeProps}>
+						Zamknij
+						{/* {primaryProps.title} */}
+					</div>
+				}
+				{!step.data?.hideNextButton && continuous && (
+					<div
+						className={`${styles.toolTipButton}`}
+						{...primaryProps}
+						onClick={props.onNextClick}
+					>
+						Dalej
+						{/* {primaryProps.title} */}
+					</div>
+				)}
 			</div>
 		</div>
 	);

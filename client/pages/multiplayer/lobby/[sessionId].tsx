@@ -79,7 +79,7 @@ export function Lobby() {
 				}
 			),
 			setSocketListener(SOCKET_EVENT_SERVER.PLAYER_KICKED, () => {
-				router.push("./?msg=kicked").then();
+				router.push("../?msg=kicked").then();
 			}),
 			setSocketListener(SOCKET_EVENT_SERVER.SESSION_CHANGED, () => {
 				dispatch(

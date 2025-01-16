@@ -57,7 +57,6 @@ export function IntroductionPage() {
 					})}
 				</ul>
 			</section>
-			<div className={`${styles.buttonNext} ${styles.title}`}>Dalej</div>
 		</>
 	);
 }

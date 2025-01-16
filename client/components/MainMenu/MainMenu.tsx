@@ -90,7 +90,7 @@ export function MainMenu({ UserComponent }: Props) {
 			<div className={styles.title}>
 				<ResizableImage src={"/title.png"} alt={"title"} />
 			</div>
-			<div className={styles.wrapper}>
+			<div className={styles.menuWrapper}>
 				<ul className={styles.menu}>
 					{/* {gameInProgress && <Link
                         aria-disabled={!socketConnected}
@@ -101,7 +101,6 @@ export function MainMenu({ UserComponent }: Props) {
                         </li>
                     </Link>} */}
 					<span
-						aria-disabled={!socketConnected}
 						onClick={handleQuickGameClick}
 					>
 						<li
@@ -114,7 +113,6 @@ export function MainMenu({ UserComponent }: Props) {
 					</span>
 					<Link
 						href={"./multiplayer"}
-						aria-disabled={!socketConnected}
 						onClick={handleMultiPlayerClick}
 					>
 						<li
@@ -126,7 +124,9 @@ export function MainMenu({ UserComponent }: Props) {
 						</li>
 					</Link>
 					<Link href={"./settings"}>
-						<li className={`${styles.menuItem} ${styles.button3}`}>
+						<li className={`${styles.menuItem} ${styles.button3} ${
+								!socketConnected && styles.menuItemDisabled
+							}`}>
 							{capitalize(t("menu.settings"))}
 						</li>
 					</Link>

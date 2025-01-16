@@ -3,6 +3,7 @@ import * as React from "react";
 import styles from "./ContextMenu.module.css";
 import {ITokenRenderData} from "@shared/types/Game/TokenService/Token";
 import {capitalize} from "lodash";
+import { StyledHr } from "components/StyledHr/StyledHr";
 
 type Props = {
     left: number;
@@ -11,10 +12,14 @@ type Props = {
     token: ITokenRenderData;
     utilizeToken: (id: string) => void;
 };
+
+const aspectRatio = 1.5;
+const height = "25vh";
+
+
 export const ContextMenu = (props: Props) => {
-    const windowWidth = 200;
     const style = {
-        left: `${props.left - windowWidth / 2}px`,
+        left: `calc(${props.left}px - ${height} * ${aspectRatio} / 2)`
     };
 
     function handleClick() {
@@ -31,6 +36,7 @@ export const ContextMenu = (props: Props) => {
             <header className={styles.header}>
                 {capitalize(props.token.namePL)}
             </header>
+            <StyledHr color="border" style={{width: "90%"}}/>
             <div className={styles.description}>
                 {capitalize(props.token.description)}
             </div>

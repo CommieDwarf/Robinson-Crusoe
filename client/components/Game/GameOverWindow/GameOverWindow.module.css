@@ -1,12 +1,12 @@
 .container {
-    width: 400px;
+    height: 32vh;
+    aspect-ratio: 3;
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    row-gap: 10px;
     text-align: center;
-    font-size: 15px;
+    font-size: 2.3em;
 }
 
 .status {
@@ -23,10 +23,6 @@
 }
 
 
-.status {
-    font-size: 30px;
-}
-
 .narrative {
     font-style: italic;
 }
@@ -36,5 +32,6 @@
 }
 
 .buttonWrapper {
+    margin-top: 2%;
 }
 

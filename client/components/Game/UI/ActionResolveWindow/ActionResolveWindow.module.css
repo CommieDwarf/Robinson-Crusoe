@@ -1,10 +1,11 @@
 .container {
-    height: 60%;
+    height: 60vh;
     aspect-ratio: 670 / 400;
     border: 1px solid var(--borderColor);
     position: absolute;
-    left: calc(50% - 335px);
-    top: calc(50% - 200px);
+    left: calc(50% - ( 670 / 400 * 60vh / 2));
+    top: calc(50% - 60vh / 2);
+    transform: translate(-50%, -50%);
     margin: auto;
     z-index: 9000;
     background-image: url("../../../../public/UI/paper-background.png");

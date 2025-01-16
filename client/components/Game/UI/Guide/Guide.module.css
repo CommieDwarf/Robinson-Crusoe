@@ -1,27 +1,35 @@
 .container {
-    width: 700px;
-    font-size: 14px;
+    font-size: 1.5em;
     text-align: center;
     font-weight: 500;
     font-style: italic;
     display: flex;
     column-gap: 10px;
-    height: 500px;
+    height: 100%;
+    aspect-ratio: var(--goldenRatio);
+    position: relative;
 }
 
+/* 1280x960 */
+
+/* 1280x1024 */
+
 .page {
-    width: 500px;
+    width: 75%;
     display: inline-block;
     overflow-y: scroll;
+    padding: 1%;
+    font-size: 1.2em;
 }
 
 .contents {
-    height: 100% - var(555px);
+    height: 100%;
     vertical-align: top;
-    width: 200px;
+    width: 25%;
     vertical-align: top;
     display: inline-block;
     flex-grow: 100%;
+    font-size: 1.3em;
 }
 
 
@@ -56,13 +64,12 @@
     align-items: center;
     column-gap: 10px;
     flex-wrap: nowrap;
-    font-size: 0.9em;
     margin-bottom: 6px;
     font-style: italic;
 }
 
 .listItemImg {
-    height: 8px;
+    height: 0.7em;
     aspect-ratio: 1;
     position: relative;
     scale: 2;
@@ -133,7 +140,7 @@
 
 .moraleBlock {
     width: 50%;
-    height: 50px;
+    aspect-ratio: 5;
     font-size: 0.3em;
     border: 1px solid var(--brown);
     border-radius: 5px;

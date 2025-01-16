@@ -24,12 +24,11 @@ function Health(props: Props) {
 
     for (let i = props.character.maxHealth; i > 0; i--) {
         marks.push(
-            <div className={styles.heart} key={i}>
+            <div className={`${props.vertical ? styles.iconVertical : styles.icon}`} key={i}>
                 <ResizableImage
                     src={i === props.character.health ? redHeartImg : heartImg}
                     fill
                     alt="serce"
-                    sizes={styles.heart}
                 />
             </div>
         );
@@ -45,13 +44,15 @@ function Health(props: Props) {
         }
     }
     marks.push(
-        <div className={styles.skull} key={2137}>
+        <div className={`${props.vertical ? styles.iconVertical : styles.icon} ${props.vertical && styles.verticalWrapper}`} key={2137}>
             <ResizableImage src={skullImg} fill alt="czaszka" sizes={styles.skull}/>
         </div>
     );
     return (
         <div className={`${styles.container} ${props.background && styles.containerBackground} health`}>
-            <div className={`${styles.health} ${props.vertical && styles.healthVertical}`}>{marks}</div>
+            <div className={`${styles.health} ${props.vertical && styles.healthVertical}`}>
+                {marks}
+                </div>
         </div>
     );
 }

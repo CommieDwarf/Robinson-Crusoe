@@ -9,9 +9,7 @@ import {
 	SOCKET_EVENT_SERVER,
 } from "@shared/types/Requests/Socket";
 import { useRouter } from "next/router";
-import { SmallWindow } from "../../components/SessionList/SmallWindow/SmallWindow";
-import { EnterPassword } from "../../components/SessionList/SmallWindow/EnterPassword/EnterPassword";
-import { Message } from "../../components/SessionList/SmallWindow/Error/Message";
+import { Message } from "../../components/Modals/Message/Message";
 import { BackButton } from "../../components/BackButton/BackButton";
 import { useAppDispatch } from "../../store/hooks";
 import { socketEmit } from "../../middleware/socketMiddleware";
@@ -39,6 +37,7 @@ export function Multiplayer() {
 	function closeWindow() {
 		setSessionIdToJoin("");
 		setMessage("");
+		// clearQuery();
 	}
 
 	function handleRefreshClick() {
@@ -51,18 +50,31 @@ export function Multiplayer() {
 	}
 
 	function handleJoinByCodeClick() {
-        dispatch(socketEmit(SOCKET_EVENT_CLIENT.JOIN_SESSION_BY_CODE, {
-            code: joinCode,
-            password: ""
-        }))
-    }
+		dispatch(
+			socketEmit(SOCKET_EVENT_CLIENT.JOIN_SESSION_BY_CODE, {
+				code: joinCode,
+				password: "",
+			})
+		);
+	}
 
 	function handleJoinCodeChange(event: React.ChangeEvent<HTMLInputElement>) {
-        setJoinCode(event.currentTarget.value);
-    }
+		setJoinCode(event.currentTarget.value);
+	}
 
 	function updateShowSpinner(value: boolean) {
 		setShowSpinner(value);
+	}
+
+	function clearQuery() {
+		router.replace(
+			{
+				pathname: router.pathname, // Aktualna ścieżka bez zmian
+				query: {}, // Pusta kwerenda
+			},
+			undefined,
+			{ shallow: true } // Zapobiega przeładowaniu strony
+		);
 	}
 
 	useEffect(() => {
@@ -78,6 +90,15 @@ export function Multiplayer() {
 						router
 							.push(`/multiplayer/lobby/${payload.sessionId}`)
 							.then();
+					}
+				}
+			),
+			setSocketListener(
+				SOCKET_EVENT_SERVER.SESSION_CONNECTION_STATUS_SENT,
+				(payload) => {
+					if (payload.error) {
+						setMessage(payload.error);
+						setSessionIdToJoin("");
 					}
 				}
 			),
@@ -99,51 +120,70 @@ export function Multiplayer() {
 					<div className={styles.backButton}>
 						<BackButton />
 					</div>
-					<div className={`menuButton`} onClick={handleRefreshClick}>
+					<div
+						className={`menuButton ${styles.button}`}
+						onClick={handleRefreshClick}
+					>
 						{capitalize(t("menu.refresh"))}
 					</div>
 					<Link
 						href={"./multiplayer/create-game"}
-						className={"menuButton"}
+						className={`menuButton ${styles.button}`}
 					>
 						<div>{capitalize(t("menu.create game"))}</div>
 					</Link>
-					<div className={`menuButton`} onClick={handleLoadClick}>
+					<div
+						className={`menuButton ${styles.button}`}
+						onClick={handleLoadClick}
+					>
 						{capitalize(t("menu.load game"))}
 					</div>
 				</div>
 				<div className={styles.joinByCodeWrapper}>
-					<div
-						className={`${styles.joinByCodeText} nonSelectable`}
-					>
+					<div className={`${styles.joinByCodeText} nonSelectable`}>
 						{capitalize(t("menu.join with game code"))}
 					</div>
 					<div className={styles.joinByCodeInputDiv}>
 						<input
 							type={"text"}
-							maxLength={sharedConfig.session.invitationCodeLength}
+							maxLength={
+								sharedConfig.session.invitationCodeLength
+							}
 							value={joinCode}
-                            onChange={handleJoinCodeChange}
+							onChange={handleJoinCodeChange}
 						></input>
 					</div>
-					<div className={"menuButton"} onClick={handleJoinByCodeClick}>
+					<div
+						className={"menuButton"}
+						onClick={handleJoinByCodeClick}
+					>
 						{capitalize(t("menu.join"))}
 					</div>
 				</div>
 			</div>
-			<SessionList setSessionIdToEnter={setSessionIdToEnter} showSpinner={showSpinner} updateShowSpinner={updateShowSpinner}/>
+			<SessionList
+				setSessionIdToEnter={setSessionIdToEnter}
+				showSpinner={showSpinner}
+				updateShowSpinner={updateShowSpinner}
+			/>
 			{sessionIdToJoin && (
-				<SmallWindow closeWindow={closeWindow}>
-					<EnterPassword
+				<DraggableWindow
+					onClose={closeWindow}
+					styles={{ aspectRatio: "2", height: "18vh" }}
+				>
+					{/* <EnterPassword
 						sessionId={sessionIdToJoin}
 						setSessionIdToEnter={setSessionIdToEnter}
-					/>
-				</SmallWindow>
+					/> */}
+				</DraggableWindow>
 			)}
 			{message && (
-				<SmallWindow closeWindow={closeWindow}>
-					<Message message={message} />
-				</SmallWindow>
+				<DraggableWindow
+					onClose={closeWindow}
+					styles={{ aspectRatio: "2", height: "20vh", padding: "1%", backgroundSize: "200%" }}
+				>
+					{/* <Message message={message} />s */}
+				</DraggableWindow>
 			)}
 
 			{showSaveList && (

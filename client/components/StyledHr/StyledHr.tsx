@@ -1,10 +1,12 @@
 
 
+import { CSSProperties } from "react";
 import styles from "./StyledHr.module.css";
 
 interface Props {
     color?: "border" | "darkRed" | string;
     className?: string;
+    style?: CSSProperties
 }
 
 export function StyledHr(props: Props) {
@@ -27,5 +29,5 @@ export function StyledHr(props: Props) {
         borderBottom +=color;
     }
 
-    return <hr style={{borderTop, borderBottom}} className={props.className}/>
+    return <hr style={{borderTop, borderBottom, ...props.style}} className={props.className}/>
 }

@@ -26,22 +26,25 @@
     height: 65%;
 }
 
-.locked {
-    filter: contrast(30%);
-}
+
 
 .beastCount {
-    height: 10%;
+    height: 20%;
     aspect-ratio: 1;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 4em;
     position: relative;
     bottom: 63%;
     color: var(--beastRed);
     filter: contrast(110%);
     text-align: center;
-    line-height: 12px;
+    line-height: 0.95em;
+    background-color: white;
+    border-radius: 100%;
+}
 
+.locked {
+    filter: contrast(30%);
 }
 
 .actionSlots {

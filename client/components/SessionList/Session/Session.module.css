@@ -1,11 +1,11 @@
 .container {
     width: 100%;
-    height: 25px;
     color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-right: 10px;
+
 }
 
 
@@ -20,6 +20,7 @@
     border: 2px solid var(--borderColor);
     background-color: var(--brown);
     font-family: var(--font-mono);
+    padding: 0.5% 0 0.5% 0;
     
 }
 
@@ -28,11 +29,11 @@
 }
 
 .sessionInfo > div {
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 1%;
+    padding-right: 1%;
     text-align: center;
     color: white;
-    font-size: 0.7rem;
+    font-size: 0.7em;
 }
 
 .name {
@@ -56,7 +57,7 @@
     grid-column: 5 / span 1;
 }
 
-.imgWrapper {
+/* .imgWrapper {
     height: 86%;
     width: 50px;
     border-radius: 5px;
@@ -68,14 +69,13 @@
     font-size: 13px;
     position: relative;
     top: 7%;
-}
+} */
 
 .imgWrapper:hover {
     scale: 1.1;
 }
 
 .buttonWrapper {
-    height: 80%;
-    font-size: 13px;
     margin-left: 5px;
+    font-size: 0.7em;
 }

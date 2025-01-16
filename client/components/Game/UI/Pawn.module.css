@@ -17,7 +17,7 @@
     /*background-color: lightblue;*/
     overflow: hidden;
     border: 2px solid;
-}
+} 
 
 .imgWrapper {
     position: relative;
@@ -39,7 +39,7 @@
 }
 
 .dog {
-    background-color: pink !important;
+    background-color: #FFC0CB !important;
 }
 
 .explore {

@@ -45,7 +45,6 @@ export function UserPreferences() {
 					Przewodnik po interfejsie
 				</div>
 			</div>
-			<div className={styles.block}></div>
 		</div>
 	);
 }

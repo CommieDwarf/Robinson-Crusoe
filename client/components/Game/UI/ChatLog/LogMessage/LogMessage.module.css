@@ -1,60 +1,65 @@
 .container {
-    width: 100%;
-    border-top: 1px dashed var(--brown);
-    padding-top: 0.5%;
-    padding-bottom: 0.5%;
+	width: 100%;
+	border-top: 1px dashed var(--brown);
+	padding-top: 0.5%;
+	padding-bottom: 0.5%;
+	display: flex;
+	align-items: center;
+	font-size: 0.85em;
 }
 
 .containerBorderless {
-    border: none;
+	border: none;
+}
+
+.phaseIcon,
+.roundSquareWrapper {
+	font-size: 0.72em;
+	height: 3.5em;
+	aspect-ratio: 1;
+	position: relative;
 }
 
 .icon {
-    height: 10px;
-    aspect-ratio: 1;
-    display: inline-block;
-    scale: 2;
-    margin-right: 2px;
+	height: 1em;
+	display: inline-block;
+	scale: 1.5;
+	margin-right: 2px;
+	position: relative;
+	top: 5%;
 }
 
 .roundContainer {
-    width: 25px;
-    height: 25px;
-    aspect-ratio: 1;
-    position: relative;
-    z-index: 1;
-    font-size: 20px;
-    line-height: 20px;
-    display: inline-block;
-    vertical-align: middle;
+	position: relative;
+	z-index: 1;
+	line-height: 2em;
+	display: inline-block;
+	vertical-align: middle;
 }
 
 .phaseIcon {
-    width: 25px;
-    height: 25px;
-    position: relative;
-    vertical-align: middle;
-    display: inline-block;
+	position: relative;
+	vertical-align: middle;
+	display: inline-block;
 }
 
 .messageContent {
-    width: calc(100% - 60px);
-    display: inline-block;
-    vertical-align: middle;
-    font-size: 1.8em;
-    line-height: 1.1em;
-    font-weight: bold;
-    margin-left: 2px;
+	width: calc(100%);
+	display: inline-block;
+	vertical-align: middle;
+	line-height: 1.2em;
+	font-weight: bold;
+	margin-left: 2px;
 }
 
 .messageSource {
-    color: var(--brown);
+	color: var(--brown);
 }
 
 .negative {
-    color: darkred;
+	color: darkred;
 }
 
 .positive {
-    color: green;
+	color: green;
 }

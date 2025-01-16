@@ -28,10 +28,10 @@
 
 .characterName {
     height: 15%;
-    font-size: 1.6rem;
     font-style: italic;
     position: relative;
     top: 5px;
+    font-size: 1.5em;
 }
 
 
@@ -44,14 +44,12 @@
     padding-top: 12px;
     padding-bottom: 12px;
     row-gap: 8px;
-    font-size: 13px;
+    font-size: 0.65em;
     padding-right: 10px;
+    position: relative;
 }
 
 
-.abilities {
-    width: 100%;
-}
 
 
 .hr {
@@ -60,4 +58,12 @@
     display: block;
     width: 100%;
     margin-left: 5px;
+}
+
+.invention {
+    margin-top: -5%;
+    height: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

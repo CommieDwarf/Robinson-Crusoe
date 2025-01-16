@@ -22,7 +22,6 @@ export default function Castaways(props: Props) {
 	const currentRound = useAppSelector((state) => selectGame(state)?.round);
 	const inventionContRef = useRef<HTMLDivElement>(null);
 
-
 	const { t } = useTranslation();
 
 	return (
@@ -62,12 +61,12 @@ export default function Castaways(props: Props) {
 			</div>
 
 			<div className={styles.bottomSection}>
-				{/* <div className={styles.bottomSectionBackground}>
+				<div className={styles.bottomSectionBackground}>
 					<ResizableImage
 						src={"/UI/scenarios/test2.png"}
 						alt={"background"}
 					/>
-				</div> */}
+				</div>
 
 				<div className={styles.tokens}>
 					<ResizableImage
@@ -78,17 +77,16 @@ export default function Castaways(props: Props) {
 					/>
 				</div>
 				<div className={styles.woodPileWrapper}>
-				
 					<div className={styles.woodPile}>
 						<WoodPile />
 					</div>
 				</div>
 				<div className={styles.effects}>
 					<div className={styles.effect}>
-						<ResizableImage src={bookEffectImg} alt=""/>
+						<ResizableImage src={bookEffectImg} alt="" />
 					</div>
 					<div className={styles.effect}>
-						<ResizableImage src={totemEffectImg} alt=""/>
+						<ResizableImage src={totemEffectImg} alt="" />
 					</div>
 				</div>
 			</div>

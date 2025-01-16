@@ -1,5 +1,5 @@
 export enum PLAYER_COLOR {
-    YELLOW = "yellow",
+    YELLOW = "#FFFF00",
     BLUE = "#C6F8FF",
     RED = "#ff9c9f",
     GREEN = "#a3ff9e",

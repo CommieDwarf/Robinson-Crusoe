@@ -1,9 +1,7 @@
 .content {
-    font-size: 20px;
+    font-size: 3em;
     text-align: center;
 }
-
-
 
 
 .buttons {
@@ -13,7 +11,7 @@
     color: var(--hunt);
     width: 80%;
     margin: auto;
-    font-size: 25px;
+    font-size: 1em;
 }
 
 .button {
@@ -26,13 +24,16 @@
 }
 
 .dontAskAgain {
-    font-size: 12px;
+    position: absolute;
+    bottom: 5%;
+    left: 3%;
+    font-size: 0.6em;
     display: flex;
-    margin-top: 10px;
 }
 
 .checkBox {
-    width: 20px;
-    height: 20px;
+    height: 1.4em;
+    vertical-align: bottom;
+    aspect-ratio: 1;
     margin-left: 5px;
 }

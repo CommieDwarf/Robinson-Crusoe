@@ -1,62 +1,69 @@
 // @flow
 import * as React from "react";
 import styles from "./LogMessage.module.css";
-import {RoundSquare} from "../../Scenario/Scenarios/Castaways/Rounds/RoundSquare/RoundSquare";
+import { RoundSquare } from "../../Scenario/Scenarios/Castaways/Rounds/RoundSquare/RoundSquare";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
-import {ILogMessageRenderData} from "@shared/types/Game/ChatLog/LogMessage";
-import {useTranslation} from 'react-i18next';
-import {insertIconsIntoText} from "../../../../../utils/insertIconsIntoText/insertIconsIntoText";
+import { ILogMessageRenderData } from "@shared/types/Game/ChatLog/LogMessage";
+import { useTranslation } from "react-i18next";
+import { insertIconsIntoText } from "../../../../../utils/insertIconsIntoText/insertIconsIntoText";
 import capitalize from "@shared/utils/capitalize";
-import {useDynamicTranslation} from "../../../../../utils/hooks/useDynamicTranslation";
+import { useDynamicTranslation } from "../../../../../utils/hooks/useDynamicTranslation";
 
 type Props = {
-    message: ILogMessageRenderData;
-    first: boolean;
+	message: ILogMessageRenderData;
+	first: boolean;
 };
 
-
 export const LogMessage = (props: Props) => {
+	const { t } = useTranslation();
+	const msg = props.message;
+	const { content, source } = msg;
+	const { code, subject1, subject2, amount } = content;
 
-    const {t} = useTranslation();
-    const msg = props.message;
-    const {content, source} = msg;
-    const {code, subject1, subject2, amount} = content;
+	const translatedContent = t(code, {
+		subject1,
+		subject2,
+		amount,
+		ns: "logMessages",
+		defaultValue: code,
+	});
 
-    const translatedContent = t(code, {
-        subject1,
-        subject2,
-        amount,
-        ns: "logMessages",
-        defaultValue: code
-    })
+	return (
+		<div
+			className={`${styles.container} ${
+				props.first && styles.containerBorderless
+			}`}
+		>
+			<div className={styles.roundSquareWrapper}>
+				<RoundSquare
+					round={msg.round}
+					currentRound={true}
+					ship={false}
+					weather={{ rain: false, snow: false, hungryAnimal: false }}
+					chatLog={true}
+					dark={true}
+				></RoundSquare>
+			</div>
 
-    return (
-        <div className={`${styles.container} ${props.first && styles.containerBorderless}`}>
-            <RoundSquare
-                round={msg.round}
-                currentRound={true}
-                ship={false}
-                weather={{rain: false, snow: false, hungryAnimal: false}}
-                chatLog={true}
-                dark={true}
-            ></RoundSquare>
-            <div className={styles.phaseIcon}>
-                <ResizableImage
-                    src={"/UI/phase/" + msg.phase + ".png"}
-                    fill
-                    alt={"faza"}
-                    sizes={styles.phaseIcon}
-                />
-            </div>
-            {}
-            <div className={styles.messageContent}>
-                <span className={styles.messageSource}>
-                  {insertIconsIntoText(capitalize(useDynamicTranslation(source)), styles.icon)} -{" "}
-                </span>
-                <span className={styles.message + " " + styles[msg.color]}>
-                    {capitalize(translatedContent)}
-                </span>
-            </div>
-        </div>
-    );
+			<div className={styles.phaseIcon}>
+				<ResizableImage
+					src={"/UI/phase/" + msg.phase + ".png"}
+					alt={"faza"}
+				/>
+			</div>
+			{}
+			<div className={styles.messageContent}>
+				<span className={styles.messageSource}>
+					{insertIconsIntoText(
+						capitalize(useDynamicTranslation(source)),
+                        styles.icon
+					)}{" "}
+					-{" "}
+				</span>
+				<span className={styles.message + " " + styles[msg.color]}>
+					{capitalize(translatedContent)}
+				</span>
+			</div>
+		</div>
+	);
 };

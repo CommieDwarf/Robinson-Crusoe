@@ -18,7 +18,7 @@ interface Props {
 }
 
 export function RoundSquare(props: Props) {
-    const weatherPositions = ["weatherTop", "weatherRight", "weatherLeft"];
+    const weatherPositions = ["weatherRight", "weatherLeft", "weatherTop"];
 
 
     const allWeatherDices = props.weather.rain && props.weather.snow && props.weather.hungryAnimal;
@@ -48,13 +48,10 @@ export function RoundSquare(props: Props) {
     
 
 
-    const containerClass = props.chatLog
-        ? logStyles.roundContainer
-        : styles.container;
 
     const imgNumber = props.currentRound ? "current" : props.round;
     return (
-        <div className={containerClass}>
+        <div className={styles.container}>
             <div className={styles.weather}>
                 {weatherEffects}
             </div>

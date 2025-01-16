@@ -8,18 +8,6 @@ import { MainMenu } from "components/MainMenu/MainMenu";
 const Home: NextPage = () => {
 
 
-    const router = useRouter();
-    const connected = isAuthenticated();
-
-
-    useEffect(() => {
-        if (!connected) {
-            router.push("/sign-in");
-        }
-    
-    }, [router, connected])
-
-
     return (
             <MainMenu UserComponent={<UserProfile/>}/>
     );

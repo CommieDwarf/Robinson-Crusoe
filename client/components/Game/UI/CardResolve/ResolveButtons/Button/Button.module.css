@@ -10,8 +10,10 @@
     background-position-y: -40px;
     cursor: pointer;
     background-image: url("../../../../../../public/UI/paper-background.png");
-    background-size: 100px 100px;
-    line-height: 160%;
+    background-size: 150%;
+    line-height: 1.5em;
+    font-size: 2.5em;
+
 }
 .container:hover {
     transform: scale(110%);

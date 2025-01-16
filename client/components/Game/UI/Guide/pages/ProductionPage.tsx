@@ -29,7 +29,6 @@ export function ProductionPage() {
                     surowcach i są gotowe do użycia natychmiast.
                 </p>
 			</section>
-            <ClickNextPhaseSection/>
 		</>
 	);
 }

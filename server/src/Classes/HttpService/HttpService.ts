@@ -65,8 +65,7 @@ export class HttpService {
 		this._app.use(
 			cors({
 				origin: (origin, callback) => {
-					console.log("White list - ", whitelist);
-						console.log("Origin - ", origin);
+
 					if (whitelist.indexOf(origin as string) !== -1 || !origin) {
 						callback(null, true);
 					} else {

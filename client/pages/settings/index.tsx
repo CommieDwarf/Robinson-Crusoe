@@ -43,6 +43,8 @@ export default function Settings() {
 			</div>
 			<div className={styles.spacer}></div>
 			<StyledHr color="border" />
+			<div className={styles.spacer}></div>
+
 			<UserPreferences />
 			
 		</div>
