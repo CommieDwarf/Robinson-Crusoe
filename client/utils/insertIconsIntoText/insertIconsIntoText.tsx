@@ -18,10 +18,11 @@ export type Icon =
 	| "palisade"
 	| "star"
 	| "morale-arrow"
+	| "morale"
 	| "compass"
 	| "roof"
 	| "shelter";
-
+	
 const icons: Icon[] = [
 	"determination",
 	"heart",
@@ -35,6 +36,7 @@ const icons: Icon[] = [
 	"palisade",
 	"star",
 	"morale-arrow",
+	"morale",
 	"compass",
 	"roof",
 	"shelter"
@@ -45,8 +47,11 @@ export function insertIconsIntoText(string: string, iconClassName?: string) {
 
 
 	return array.map((str, i) => {
-	const aspectRatio = str === "morale-arrow" ? 2.5 : 1;
+	const aspectRatio = str.includes("morale") ? 2.5 : 1;
 		if (icons.includes(str.toLowerCase() as Icon)) {
+			if (str === "morale") {
+				str = "morale-arrow"
+			}
 			return (
 				<div key={i} className={iconClassName ? iconClassName : styles.icon} style={{aspectRatio}}>
 					<ResizableImage

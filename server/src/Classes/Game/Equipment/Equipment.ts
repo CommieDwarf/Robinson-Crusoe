@@ -22,8 +22,9 @@ export class Equipment implements IEquipment {
     constructor(game: IGame) {
         this.game = game;
         this._itemCreator = new ItemCreator(game);
-        this._stack = shuffle(Object.values(ITEM).filter(item => item !== ITEM.STORM_GLASS), game.getRandomNumber)
-        this.items = this.getInitialItems(2);
+        this._stack = shuffle(Object.values(ITEM).filter(item => item !== ITEM.STORM_GLASS), game.getRandomNumber);
+
+        this.items = this.getInitialItems(game.difficultySettings.startingEquipment);
     }
 
     getInitialItems(amount: number): IItem[] {

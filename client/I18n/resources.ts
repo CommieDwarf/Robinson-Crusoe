@@ -723,6 +723,11 @@ export const resources = {
 				male: "mężczyzna",
 				female: "kobieta"
 			},
+			gameSettings: {
+				difficulty: "Poziom trudności",
+				"based on player amount": "Dostosowany do liczby graczy",
+				"custom": "Własny",
+			},
 			userProfile: {
 				accountSettings: "Ustawienia konta",
 				passwordChange: "Zmiana hasła",
@@ -844,7 +849,8 @@ export const resources = {
 				connectError: `Wystąpił problem z połączeniem z serwerem. Sprawdź swoje
 									połączenie internetowe i spróbuj ponownie.`,
 				serverError: "Błąd serwera. Spróbuj ponownie później.",
-				somethingWentWrong: "Coś poszło nie tak"
+				somethingWentWrong: "Coś poszło nie tak",
+				disconnected: "Rozłączono",
 			},
 			emailActivation: {
 				title: "Zweryfikuj swój e-mail",

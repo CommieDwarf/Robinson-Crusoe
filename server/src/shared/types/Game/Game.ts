@@ -10,7 +10,7 @@ import {ICharacterService, ICharacterServiceRenderData,} from "./CharacterServic
 import {IEquipment, IEquipmentRenderData} from "./Equipment/Equipment";
 import {IInventionService, IInventionServiceRenderData,} from "./InventionService/InventionService";
 
-import {IMorale, IMoraleRenderData} from "./Morale/Morale";
+import {IMoraleService, IMoraleRenderData} from "./Morale/Morale";
 import {IWeatherService, IWeatherServiceRenderData} from "./Weather/Weather";
 import {IPlayerService} from "./PlayerService/PlayerSevice";
 import {IPhaseService, IPhaseServiceRenderData,} from "./PhaseService/PhaseService";
@@ -36,6 +36,7 @@ import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 import {IGlobalPawnService, IGlobalPawnServiceRenderData} from "@shared/types/Game/GlobalPawnService/GlobalPawnService";
 import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction";
 import { EndGameSummary } from "./GameSummary/GameSummary";
+import { DifficultySettings } from "../SessionSettings";
 
 export enum GAME_STATUS {
     IN_LOBBY = "in lobby",
@@ -81,6 +82,7 @@ export interface IGame {
     id: string;
     round: number;
     seed: string;
+    difficultySettings: DifficultySettings;
 
     scenarioStatus: SCENARIO_STATUS;
 
@@ -98,7 +100,7 @@ export interface IGame {
     actionSlotService: IActionSlotService;
     arrangeCampRestService: IArrangeCampRestService;
     beastService: IBeastService;
-    moraleService: IMorale;
+    moraleService: IMoraleService;
     tokenService: ITokenService;
     weatherService: IWeatherService;
     phaseService: IPhaseService;
@@ -129,8 +131,8 @@ export interface IGame {
                                                     amount: number,
                                                     source: string,
                                                     pickSubject: ChoiceSubject,
-                                                    pickEffect: (object: T) => void,
-                                                    secondaryEffect?: (object: T) => void
+                                                    pickEffect: (picked: T) => void,
+                                                    secondaryEffect?: (picked: T) => void
     ) => void,
 
     pickObjects: (objectPickerId: string, objectIds: string[], secondary: boolean) => void;

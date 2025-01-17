@@ -1,6 +1,6 @@
 import { CONTROLLER_ACTION } from './../CONTROLLER_ACTION';
 import {GAME_STATUS} from "@shared/types/Game/Game";
-import {SessionSettings} from "@shared/types/SessionSettings";
+import {PartialSessionSettings, SessionSettings} from "@shared/types/SessionSettings";
 import {SessionBasicInfo, SessionRenderData} from "../Session/Session";
 import {SESSION_CONNECTION_ERROR_CODE} from "@shared/types/Errors/SESSION_CONNECTION_ERROR_CODE";
 import {AssignedCharacter} from "@shared/types/Game/PlayerService/Player";
@@ -113,7 +113,7 @@ export type ClientPayloadMap = {
     },
     [SOCKET_EVENT_CLIENT.UPDATE_SESSION_SETTINGS]: {
         sessionId: string,
-        settings: Partial<SessionSettings>,
+        settings: PartialSessionSettings,
     },
     [SOCKET_EVENT_CLIENT.START_GAME]: {
         sessionId: string,

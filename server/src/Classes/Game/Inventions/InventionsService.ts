@@ -4,6 +4,7 @@ import {
 	INVENTION,
 	INVENTION_CASTAWAYS,
 	INVENTION_NORMAL,
+	INVENTION_PERSONAL,
 	INVENTION_STARTER,
 	INVENTION_TYPE,
 } from "@shared/types/Game/InventionService/Invention";
@@ -14,7 +15,7 @@ import {
 import { ITileService } from "@shared/types/Game/TileService/ITileService";
 import { IGame } from "@shared/types/Game/Game";
 import { InventionCreator } from "./InventionCreator/InventionCreator";
-import { ICharacter } from "@shared/types/Game/Characters/Character";
+import { CHARACTER, ICharacter } from "@shared/types/Game/Characters/Character";
 import { LOG_CODE } from "@shared/types/Game/ChatLog/LOG_CODE";
 import { IPlayerCharacter } from "@shared/types/Game/Characters/PlayerCharacter";
 import { isPlayerCharacter } from "@shared/utils/typeGuards/isPlayerCharacter";
@@ -117,33 +118,11 @@ export class InventionsService implements IInventionService {
 				"Invention is already has been built " + invention.name
 			);
 		}
-		this._builtInventions.push(invention);
-		invention.isBuilt = true;
-
-		if (invention.inventionType === INVENTION_TYPE.PERSONAL) {
-			if (!isPlayerCharacter(builder)) {
-				throw new Error(
-					"Non player character can't build personal invention"
-				);
-			}
-			if (builder.invention !== inventionName) {
-				throw new Error(
-					`${inventionName} isn't ${builder.name}'s personal invention!`
-				);
-			}
+		if ((invention.inventionType === INVENTION_TYPE.PERSONAL)) {
+			this.verifyBuilderPersonalInvention(invention.name as INVENTION_PERSONAL, builder);	
 		}
-
-		this._game.logService.addMessage(
-			{
-				code: LOG_CODE.INVENTION_BUILT,
-				subject1: invention.name,
-				subject2: "",
-				amount: 1,
-			},
-			"positive",
-			builder.name
-		);
-
+		this._builtInventions.push(invention);
+		this.addBuildMsg(invention.name, builder.name);
 		invention.onBuild();
 		this.updateLocks();
 		this.sortInventions();
@@ -241,5 +220,31 @@ export class InventionsService implements IInventionService {
 		if (invention.inventionType === INVENTION_TYPE.STARTER) sum += 2;
 		if (invention.inventionType === INVENTION_TYPE.NORMAL) sum += 1;
 		return sum;
+	}
+
+	private addBuildMsg(invention: INVENTION, builder: CHARACTER) {
+		this._game.logService.addMessage(
+			{
+				code: LOG_CODE.INVENTION_BUILT,
+				subject1: invention,
+				subject2: "",
+				amount: 1,
+			},
+			"positive",
+			builder
+		);
+	}
+
+	private verifyBuilderPersonalInvention(invention: INVENTION_PERSONAL, builder: ICharacter) {
+		if (!isPlayerCharacter(builder)) {
+			throw new Error(
+				"Non player character can't build personal invention"
+			);
+		}
+		if (builder.invention !== invention) {
+			throw new Error(
+				`${invention} isn't ${builder.name}'s personal invention!`
+			);
+		}
 	}
 }

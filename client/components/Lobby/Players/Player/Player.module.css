@@ -32,9 +32,10 @@
 }
 
 .name {
-    width: 160px;
+    width: 40%;
     position: relative;
-    justify-content: start !important
+    justify-content: start !important;
+    font-size: 0.9em;
 }
 
 

@@ -182,7 +182,8 @@ export function Multiplayer() {
 					onClose={closeWindow}
 					styles={{ aspectRatio: "2", height: "20vh", padding: "1%", backgroundSize: "200%" }}
 				>
-					{/* <Message message={message} />s */}
+					{/* @ts-ignore */}
+					<Message message={t(`error.${message}`)} title={t(`error.disconnected`)} />
 				</DraggableWindow>
 			)}
 

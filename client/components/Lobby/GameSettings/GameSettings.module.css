@@ -12,10 +12,7 @@
     font-size: 0.9em;
 }
 
-.formLobby {
-    padding-left: 10%;
-    padding-right: 10%;
-}
+
 
 .form > h2 {
     margin-bottom: 5px;
@@ -24,16 +21,34 @@
 
 .row {
     display: flex;
-    justify-content: space-between;
     width: 100%;
     font-weight: 500;
+    align-items: center;
+}
+.label {
+    width: 50%;
+}
+
+.input {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    max-width: 50%;
+}
+
+.row > span {
 }
 
 .row > input[type=text], .row > input[type="password"] {
     width: 50%;
+}
+
+.row > input {
     font-size: 0.8em;
 }
 
+.row > select {
+    max-height: 2em;
+}
 
 .sessionName {
     margin-top: 1px;
@@ -75,9 +90,6 @@
     font-size: 0.7em;
 }
 
-.scenarioInfoName {
-}
-
 .scenarioInfoDescription {
     margin-top: 5px;
 }
@@ -86,4 +98,16 @@
     background-color: lightgray;
 }
 
+.difficultySettings {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    padding-bottom: 2px;
+    padding-top: 2px;
+    background-color: vaR(--borderColor);
+    border-radius: 5px;
+}
 
+.disabled {
+    opacity: 0.7;
+}

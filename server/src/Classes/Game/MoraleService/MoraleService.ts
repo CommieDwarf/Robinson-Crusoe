@@ -1,10 +1,10 @@
 import {IGame} from "@shared/types/Game/Game";
-import {IMorale} from "@shared/types/Game/Morale/Morale";
+import {IMoraleService} from "@shared/types/Game/Morale/Morale";
 import {INVENTION_NORMAL} from "@shared/types/Game/InventionService/Invention";
 import {LOG_CODE} from "@shared/types/Game/ChatLog/LOG_CODE";
 import {TERMS} from "@shared/types/Terms/TERMS";
 
-export class MoraleService implements IMorale {
+export class MoraleService implements IMoraleService {
     private _lvl = 0;
     private _maxLvl = 3;
     private readonly _minLvl = -3;
@@ -76,8 +76,14 @@ export class MoraleService implements IMorale {
             const deficit = Math.abs(newLvl) + this._minLvl;
             this._game.characterService.hurtAllPlayerCharacters(deficit, TERMS.UNFULFILLED_DEMAND)
         }
+    }
 
 
+    public prePhaseEffect() {
+        const playerService = this._game.playerService;
+        if (playerService.players.length === 1) {
+            this.lvlUp(1, "Cieszysz się, że żyjesz");
+        }
     }
 
     public triggerPhaseEffect() {

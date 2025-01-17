@@ -1,6 +1,6 @@
 import {IUser} from "../../shared/types/User/IUser";
 import {SessionBasicInfo, SessionData} from "../../shared/types/Session/Session";
-import {SessionSettings} from "@shared/types/SessionSettings";
+import {PartialSessionSettings, SessionSettings} from "@shared/types/SessionSettings";
 import {UserDocument} from "../../Models/User";
 import {Socket} from "socket.io";
 import {SaveGameDocument} from "../../Models/SaveGame";
@@ -30,5 +30,5 @@ export interface ISessionService {
 
     userInSession: (userId: string, sessionId: string) => boolean
 
-    updateSessionSettings: (userId: string, sessionId: string, settings: Partial<SessionSettings>) => void;
+    updateSessionSettings: (userId: string, sessionId: string, settings: PartialSessionSettings) => void;
 }

@@ -14,7 +14,7 @@ import { PLAYER_COLOR } from "@shared/types/Game/PLAYER_COLOR";
 import { uuid } from "uuidv4";
 import { CONTROLLER_ACTION } from "@shared/types/CONTROLLER_ACTION";
 import { CHARACTER, Gender } from "@shared/types/Game/Characters/Character";
-import { SessionSettings } from "@shared/types/SessionSettings";
+import { PartialSessionSettings, SessionSettings } from "@shared/types/SessionSettings";
 import { IUser } from "../../shared/types/User/IUser";
 import { Player } from "../Player/Player";
 import { io } from "../../../server";
@@ -38,6 +38,7 @@ import { ISessionService } from "@shared/types/SessionService";
 import { SCENARIO_STATUS } from "@shared/types/Game/ScenarioService/ScenarioService";
 import { GAME_STATUS } from "@shared/types/Game/Game";
 import { EndGameSummary } from "@shared/types/Game/GameSummary/GameSummary";
+import { getScaledDifficultySettings } from "@shared/utils/getPlayerBasedDifficultySettings";
 
 export class Session implements SessionData {
 	private _players: IPlayer[] = [];
@@ -180,6 +181,9 @@ export class Session implements SessionData {
 		}
 		user.addSession(this);
 		this.addJoinMessage(user.username);
+		if (this._settings.difficultySettings.scaled) {
+			this.setScaledDifficultySettings();
+		}
 	}
 
 	public leaveSession(user: IUser) {
@@ -194,8 +198,11 @@ export class Session implements SessionData {
 			user.removeSession(this._id);
 			this.removePlayer(player.id);
 		}
-
 		this.addLeaveMessage(player.username);
+		
+		if (this._settings.difficultySettings.scaled) {
+			this.setScaledDifficultySettings();
+		}
 	}
 
 	public startGame(): BaseController {
@@ -205,7 +212,7 @@ export class Session implements SessionData {
 					id: this._loadData.gameId,
 			  }
 			: undefined;
-		const game = new GameClass(this._players);
+		const game = new GameClass(this._players, this._settings.difficultySettings);
 		const gameController = new GameController(game, this._players);
 		this._gameController = gameController;
 		if (this._loadData) {
@@ -272,12 +279,17 @@ export class Session implements SessionData {
 		this._chatService.addMsg(player.username, message);
 	}
 
-	public updateSettings(settings: Partial<SessionSettings>) {
+	public updateSettings(settings: PartialSessionSettings) {
 		if (!this.isLoadMode) {
 			this._settings = {
 				...this._settings,
 				...settings,
+				difficultySettings: !settings.difficultySettings?.scaled ? {
+					...this._settings.difficultySettings,
+					...(settings.difficultySettings ?? {})
+				}: getScaledDifficultySettings(this._players.length)
 			};
+			console.log(this._settings);
 		}
 	}
 
@@ -470,5 +482,9 @@ export class Session implements SessionData {
 
 	private removePlayerPlaceholders() {
 		this._players = this._players.filter((player) => isUser(player.user));
+	}
+
+	private setScaledDifficultySettings() {
+		this._settings.difficultySettings = getScaledDifficultySettings(this._players.length);
 	}
 }

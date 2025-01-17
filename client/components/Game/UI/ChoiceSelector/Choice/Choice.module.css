@@ -1,6 +1,5 @@
 .container {
     position: relative;
-    width: 100px;
     border-radius: 5px;
     cursor: pointer;
 }
@@ -18,7 +17,7 @@
     aspect-ratio: 1;
 }
 
-.card {
+/* .card {
     aspect-ratio: var(--cardAspectRatio);
 }
 
@@ -28,9 +27,23 @@
     top: 2.5%;
     margin: auto;
     aspect-ratio: var(--cardAspectRatio);
-}
+} */
 
 .square {
     aspect-ratio: 1;
     height: 100%;
+}
+
+.resource {
+    display: flex;
+    width: 100%;
+    height: 10%;
+    position: relative;
+    font-size: 2em;
+    justify-content: center;
+}
+
+.resourceIcon {
+    height: 100%;
+    position: relative;
 }

@@ -131,6 +131,15 @@ export class GlobalPawnService implements IGlobalPawnService {
             return;
         }
 
+        const difficultySettings = this._game.difficultySettings;
+
+        if (droppableId.includes("dog") && !difficultySettings.dog) {
+            return;
+        }
+        if (droppableId.includes("friday") && !difficultySettings.friday) {
+            return;
+        }
+
         if (droppableId.includes("owner")) {
             pawn.owner.pawnService.copyPawnToFreePawns(pawn.draggableId);
         } else {

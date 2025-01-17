@@ -1,6 +1,6 @@
 import { UserData } from "@shared/types/UserData/UserData";
 import { UserAvatar } from "../UserAvatar/UserAvatar";
-import styles from "../UserProfile.module.css"
+import styles from "../UserProfile.module.css";
 import { deleteAuthCookie } from "utils/auth/deleteAuthCookie";
 import { connectedUpdated, userUpdated } from "reduxSlices/connection";
 import { socket } from "store/store";
@@ -12,21 +12,16 @@ import { SOCKET_EVENT_CLIENT } from "@shared/types/Requests/Socket";
 import { PROFILE_NAV, ProfileComponentProps } from "../UserProfile";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "store/hooks";
-
-
-
+import { LoadingSpinner } from "components/LoaderSpinner/LoaderSpinner";
 
 export function ProfileHome(props: ProfileComponentProps) {
-
-    const router = useRouter();
+	const router = useRouter();
 
 	const { t } = useTranslation();
 
-    const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
-
-
-    function handleSignOut() {
+	function handleSignOut() {
 		deleteAuthCookie();
 		dispatch(userUpdated(null));
 		dispatch(connectedUpdated(false));
@@ -34,7 +29,7 @@ export function ProfileHome(props: ProfileComponentProps) {
 		router.push("/sign-in");
 	}
 
-    function handleJoinGameClick(sessionId: string) {
+	function handleJoinGameClick(sessionId: string) {
 		dispatch(
 			socketEmit(SOCKET_EVENT_CLIENT.JOIN_SESSION, {
 				sessionId,
@@ -43,22 +38,38 @@ export function ProfileHome(props: ProfileComponentProps) {
 		);
 	}
 
-    function handdleSettingsClick() {
+	function handdleSettingsClick() {
 		if (props.user?.emailVerified) {
 			props.changeNav(PROFILE_NAV.SETTINGS);
-
 		}
-    }
+	}
 
 	return (
 		<>
-			<div className={styles.avatar}>
-				{<UserAvatar username={props.user?.username || "empty"} />}
-			</div>
-			<h2 className={styles.username}>{props.user?.username}</h2>
-			<p className={`${styles.link} ${styles.accountSettings} ${!props.user?.emailVerified && styles.linkLocked}`} onClick={handdleSettingsClick}>
-				{t("userProfile.accountSettings")}
-			</p>
+			{props.user ? (
+				<>
+					<div className={styles.avatar}>
+						{
+							<UserAvatar
+								username={props.user?.username || "empty"}
+							/>
+						}
+					</div>
+					<h2 className={styles.username}>{props.user?.username}</h2>
+					<p
+						className={`${styles.link} ${styles.accountSettings} ${
+							!props.user?.emailVerified && styles.linkLocked
+						}`}
+						onClick={handdleSettingsClick}
+					>
+						{t("userProfile.accountSettings")}
+					</p>{" "}
+				</>
+			) : (
+				<div className={styles.spinner}>
+					<LoadingSpinner />
+				</div>
+			)}
 
 			<hr />
 

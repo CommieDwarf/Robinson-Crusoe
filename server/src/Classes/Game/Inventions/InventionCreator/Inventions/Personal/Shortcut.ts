@@ -7,8 +7,11 @@ import {
 } from "@shared/types/Game/InventionService/Invention";
 import {IGame} from "@shared/types/Game/Game";
 import {TILE_RESOURCE_ACTION} from "@shared/types/Game/TileService/TileResourceService";
+import { CHARACTER } from "@shared/types/Game/Characters/Character";
 
 export class Shortcut extends Invention implements IInvention {
+
+    protected _belongsTo: CHARACTER | null = CHARACTER.EXPLORER;
 
     constructor(game: IGame) {
         super(

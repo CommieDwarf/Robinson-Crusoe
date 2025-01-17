@@ -4,7 +4,7 @@ import {PLAYER_COLOR} from "@shared/types/Game/PLAYER_COLOR";
 import {BaseController} from "../GameController/Controllers";
 import {CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {GAME_STATUS, IGame, IGameRenderData} from "@shared/types/Game/Game";
-import {SessionSettings} from "@shared/types/SessionSettings";
+import {PartialSessionSettings, SessionSettings} from "@shared/types/SessionSettings";
 import {IChatServiceRenderData} from "@shared/types/ChatService/ChatService";
 
 
@@ -57,7 +57,7 @@ export interface SessionData {
 
     changeCharacter: (userId: string, character: Partial<AssignedCharacter>) => void;
 
-    updateSettings: (settings: Partial<SessionSettings>) => void;
+    updateSettings: (settings: PartialSessionSettings) => void;
 
     addMessage: (userId: string, message: string) => void;
     setPlayerReady: (userId: string, ready: boolean) => void;

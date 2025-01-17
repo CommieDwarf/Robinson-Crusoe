@@ -12,6 +12,7 @@ import {CHARACTER} from "@shared/types/Game/Characters/Character";
 export class Fireplace extends Invention implements IInvention {
     protected _usable = true;
     private usedInRound: number = 0;
+    protected _belongsTo: CHARACTER | null = CHARACTER.COOK;
 
     constructor(game: IGame) {
         super(

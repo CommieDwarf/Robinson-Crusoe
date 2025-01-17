@@ -14,5 +14,7 @@ export const sharedConfig = {
         passwordMaxLength: 16,
         nameMinLength: 3,
         nameMaxLength: 33,
+        maxStartingEquipment: 4,
+        minStartingEqipment: 0,
     },   
 }

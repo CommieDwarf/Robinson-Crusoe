@@ -5,14 +5,9 @@ import { SOCKET_EVENT_CLIENT } from "@shared/types/Requests/Socket";
 import Joi from "joi";
 import { sharedConfig } from "@shared/config/sharedConfig";
 
-const {session} = sharedConfig;
+const { session } = sharedConfig;
 
-
-
-const password = Joi.string().allow("").max(
-	session.passwordMaxLength
-);
-
+const password = Joi.string().allow("").max(session.passwordMaxLength);
 
 export const ClientPayloadSchemas = {
 	[SOCKET_EVENT_CLIENT.EXECUTE_PLAYER_ACTION]: Joi.object({
@@ -30,14 +25,24 @@ export const ClientPayloadSchemas = {
 				.required(),
 			name: Joi.string()
 				.required()
-				.max(session.nameMaxLength).min(session.nameMinLength),
-			quickGame: Joi.boolean().required(),
+				.max(session.nameMaxLength)
+				.min(session.nameMinLength),
+			quickGame: Joi.boolean(),
 			private: Joi.boolean().required(),
 			password,
 			maxPlayers: Joi.number()
 				.required()
 				.max(session.maxPlayers)
 				.min(session.minPlayers),
+			difficultySettings: Joi.object({
+				dog: Joi.boolean().required(),
+				friday: Joi.boolean().required(),
+				startingEquipment: Joi.number()
+					.required()
+					.min(sharedConfig.session.minStartingEqipment)
+					.max(sharedConfig.session.maxStartingEquipment),
+				scaled: Joi.boolean().required()
+			}).required(),
 		}).required(),
 	}),
 	[SOCKET_EVENT_CLIENT.CREATE_QUICK_GAME]: Joi.any(),
@@ -79,8 +84,7 @@ export const ClientPayloadSchemas = {
 	[SOCKET_EVENT_CLIENT.UPDATE_SESSION_SETTINGS]: Joi.object({
 		sessionId: Joi.string().required(),
 		settings: Joi.object({
-			scenario: Joi.string()
-				.valid(...Object.values(SCENARIO)),
+			scenario: Joi.string().valid(...Object.values(SCENARIO)),
 			name: Joi.string()
 				.max(session.nameMaxLength)
 				.min(session.nameMinLength),
@@ -90,6 +94,13 @@ export const ClientPayloadSchemas = {
 			maxPlayers: Joi.number()
 				.max(session.maxPlayers)
 				.min(session.minPlayers),
+			difficultySettings: Joi.object({
+				dog: Joi.boolean(),
+				friday: Joi.boolean(),
+				startingEquipment: Joi.number().min(0).max(4),
+				scaled: Joi.boolean()
+			}),
+			
 		}).required(),
 	}),
 	[SOCKET_EVENT_CLIENT.START_GAME]: Joi.object({
@@ -123,5 +134,5 @@ export const ClientPayloadSchemas = {
 	}),
 	[SOCKET_EVENT_CLIENT.CHANGE_USER_PREFERENCES]: Joi.object({
 		preferences: Joi.object().required(),
-	})
+	}),
 };

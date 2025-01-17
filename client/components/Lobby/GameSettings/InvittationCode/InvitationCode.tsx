@@ -31,7 +31,6 @@ export function InvitationCode(props: Props) {
 
 	return (
 		<>
-			<span>{capitalize(t("menu.invitation code"))}</span>
 			<span>
 				
 				{visible && (

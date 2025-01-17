@@ -8,9 +8,12 @@ import {
 import {IGame} from "@shared/types/Game/Game";
 import {TILE_RESOURCE_ACTION} from "@shared/types/Game/TileService/TileResourceService";
 import {ITile} from "@shared/types/Game/TileService/ITile";
+import { CHARACTER } from "@shared/types/Game/Characters/Character";
 
 export class Snare extends Invention implements IInvention {
     private _tile: ITile | null = null;
+
+    protected _belongsTo: CHARACTER | null = CHARACTER.CARPENTER;
 
     constructor(game: IGame) {
         super(

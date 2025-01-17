@@ -16,6 +16,10 @@ zrób actionSlotsy domyslnie szare. Zamien kolor na biały kiedy gracz może uzy
 
 walidacja login na cliencie - nie ma informacji ze za krótki username
 
+!!!!!!!!!!!
+Ta sama konstrukcja może być budowana wiecej niz 1 razy równolegle.
+To samo z bestiami.
+
 
 dokończ request limiter. x
 powiadomienie o zerwanym połączeniu z serwerem oraz próby reconnectu. x

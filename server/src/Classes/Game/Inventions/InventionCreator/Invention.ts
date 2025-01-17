@@ -2,6 +2,7 @@ import {
     IInvention,
     IInventionRenderData,
     INVENTION,
+    INVENTION_PERSONAL,
     INVENTION_TYPE,
     InventionRequirements,
     InventionResource,
@@ -129,6 +130,8 @@ export class Invention extends ResourceCommittableItem<InventionResource> implem
     }
 
     public onBuild() {
+        this._built = true;
+        this.grandDeterminationIfPersonal();
         return;
     }
 
@@ -143,6 +146,12 @@ export class Invention extends ResourceCommittableItem<InventionResource> implem
 
     public use(character: IPlayerCharacter) {
         return;
+    }
+
+    private grandDeterminationIfPersonal() {
+        if (this._inventionType === INVENTION_TYPE.PERSONAL) {
+            this._game.characterService.incrDetermination(this._belongsTo as CHARACTER, 2, this._name);
+        }
     }
 
 }

@@ -9,13 +9,16 @@ import {
 } from "@shared/types/Requests/Socket";
 import { useRouter } from "next/router";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import { SessionSettings } from "@shared/types/SessionSettings";
+import {
+	PartialSessionSettings,
+	SessionSettings,
+} from "@shared/types/SessionSettings";
 import { setSocketListener } from "../../../pages/api/socket";
 import { socketEmit } from "../../../middleware/socketMiddleware";
 import { sessionIdUpdated } from "../../../reduxSlices/gameSession";
 import { InvitationCode } from "./InvittationCode/InvitationCode";
 import { sharedConfig } from "@shared/config/sharedConfig";
-import { CheckBox } from "components/Checkbox/CheckBox";
+import { getScaledDifficultySettings } from "@shared/utils/getPlayerBasedDifficultySettings";
 
 export enum GAME_SETTINGS_MODE {
 	LOCKED = "locked",
@@ -31,7 +34,6 @@ interface Props {
 export function GameSettings(props: Props) {
 	const { t } = useTranslation();
 	const username = useAppSelector((state) => state.connection.user?.username);
-
 	const [localSettings, setLocalSettings] = useState<
 		Omit<SessionSettings, "quickGame">
 	>({
@@ -40,7 +42,38 @@ export function GameSettings(props: Props) {
 		password: "",
 		private: false,
 		scenario: SCENARIO.CASTAWAYS,
+		difficultySettings: getScaledDifficultySettings(1),
 	});
+
+	function saveSettings(settings: PartialSessionSettings) {
+		updateLocalSettings(settings);
+		if (props.mode === GAME_SETTINGS_MODE.EDIT && props.host) {
+			updateServerSettings(settings);
+		}
+	}
+
+	function updateLocalSettings(updates: PartialSessionSettings) {
+		setLocalSettings((prev) => {
+			return {
+				...prev,
+				...updates,
+				difficultySettings: {
+					...prev.difficultySettings,
+					...(updates.difficultySettings || {}),
+				},
+			};
+		});
+	}
+
+	function updateServerSettings(settings: PartialSessionSettings) {
+		dispatch(
+			socketEmit(SOCKET_EVENT_CLIENT.UPDATE_SESSION_SETTINGS, {
+				settings,
+				hydrateSessionId: true,
+			})
+		);
+	}
+
 	const playerAmount = useAppSelector(
 		(state) => state.gameSession.data?.players.length
 	);
@@ -52,6 +85,8 @@ export function GameSettings(props: Props) {
 
 	useEffect(() => {
 		if (props.mode === GAME_SETTINGS_MODE.EDIT && serverSettings) {
+			console.log("updating settings!");
+			console.log(serverSettings);
 			setLocalSettings(serverSettings);
 		}
 	}, [serverSettings, props.mode]);
@@ -81,19 +116,14 @@ export function GameSettings(props: Props) {
 		return () => {
 			listeners.forEach((listener) => listener.off());
 		};
-	});
+	}, []);
 
 	function createSession() {
-		const settings = {
-			scenario: localSettings.scenario,
-			maxPlayers: localSettings.maxPlayers,
-			private: localSettings.private,
-			password: localSettings.password,
-			name: localSettings.name,
-			quickGame: false,
-		};
-
-		dispatch(socketEmit(SOCKET_EVENT_CLIENT.CREATE_SESSION, { settings }));
+		dispatch(
+			socketEmit(SOCKET_EVENT_CLIENT.CREATE_SESSION, {
+				settings: localSettings,
+			})
+		);
 	}
 
 	function handleNameChange(event: React.FormEvent<HTMLInputElement>) {
@@ -123,26 +153,38 @@ export function GameSettings(props: Props) {
 		saveSettings({ password: event.currentTarget.value });
 	}
 
-	function saveSettings(settings: Partial<SessionSettings>) {
-		updateLocalSettings(settings);
-		if (props.mode === GAME_SETTINGS_MODE.EDIT && props.host) {
-			updateServerSettings(settings);
-		}
+	function handleDogChange(event: React.FormEvent<HTMLInputElement>) {
+		saveSettings({
+			difficultySettings: { dog: event.currentTarget.checked },
+		});
 	}
-
-	function updateLocalSettings(settings: Partial<SessionSettings>) {
-		setLocalSettings((prev) => {
-			return { ...prev, ...settings };
+	function handleFridayChange(event: React.FormEvent<HTMLInputElement>) {
+		saveSettings({
+			difficultySettings: { friday: event.currentTarget.checked },
+		});
+	}
+	function handleStartingEquipmentChange(
+		event: React.FormEvent<HTMLSelectElement>
+	) {
+		saveSettings({
+			difficultySettings: {
+				startingEquipment: parseInt(event.currentTarget.value),
+			},
 		});
 	}
 
-	function updateServerSettings(settings: Partial<SessionSettings>) {
-		dispatch(
-			socketEmit(SOCKET_EVENT_CLIENT.UPDATE_SESSION_SETTINGS, {
-				settings,
-				hydrateSessionId: true,
-			})
-		);
+	const [difficultyChangeDisabled, setDifficultyChangeDisabled] =
+		useState<boolean>(true);
+
+	function handleDifficultyTypeChange(
+		event: React.FormEvent<HTMLSelectElement>
+	) {
+		const { value } = event.currentTarget;
+		const scaled = value === "scaled";
+		setDifficultyChangeDisabled(scaled);
+		saveSettings({difficultySettings: {
+			scaled
+		}})
 	}
 
 	const allowEdit = props.host && props.mode !== GAME_SETTINGS_MODE.LOCKED;
@@ -161,12 +203,18 @@ export function GameSettings(props: Props) {
 	);
 
 	const form = (
-		<form className={`${styles.form} ${props.mode === GAME_SETTINGS_MODE.EDIT && styles.formLobby}`}>
+		<form
+			className={`${styles.form} ${
+				props.mode === GAME_SETTINGS_MODE.EDIT && styles.formLobby
+			}`}
+		>
 			{props.mode === GAME_SETTINGS_MODE.GAME_CREATE && (
 				<h2>{capitalize(t("menu.create game"))}</h2>
 			)}
 			<div className={styles.row}>
-				<span>{capitalize(t("menu.name"))}</span>
+				<span className={styles.label}>
+					{capitalize(t("menu.name"))}
+				</span>
 				{allowEdit ? (
 					<input
 						type={"text"}
@@ -174,32 +222,38 @@ export function GameSettings(props: Props) {
 						onChange={handleNameChange}
 						maxLength={sharedConfig.session.nameMaxLength}
 						minLength={sharedConfig.session.nameMinLength}
-						className="font-mono"
+						className={`${styles.input}`}
 					/>
 				) : (
-					<span className={`${styles.sessionName} font-mono`}>{localSettings.name}</span>
+					<span className={`${styles.sessionName} font-mono`}>
+						{localSettings.name}
+					</span>
 				)}
 			</div>
 			{props.mode === GAME_SETTINGS_MODE.GAME_CREATE && (
 				<div className={styles.row}>
-					<span>{capitalize(t("menu.password"))}</span>
+					<span className={styles.label}>
+						{capitalize(t("menu.password"))}
+					</span>
 					<input
 						type={"password"}
 						value={localSettings.password}
 						onChange={handlePasswordChange}
 						maxLength={sharedConfig.session.passwordMaxLength}
 						minLength={sharedConfig.session.passwordMinLength}
-						className="font-mono"
+						className={`${styles.input}`}
 					/>
 				</div>
 			)}
 			<div className={styles.row}>
-				<span>{capitalize(t("menu.scenario"))}</span>
+				<span className={styles.label}>
+					{capitalize(t("menu.scenario"))}
+				</span>
 				{allowEdit ? (
 					<select
 						onChange={handleScenarioChange}
 						value={localSettings.scenario}
-						className="font-mono"
+						className={`${styles.input}`}
 					>
 						<option value={SCENARIO.CASTAWAYS}>
 							{capitalize(
@@ -208,30 +262,83 @@ export function GameSettings(props: Props) {
 						</option>
 					</select>
 				) : (
-					<span className="font-mono">
+					<span className={`font-mono`}>
 						{capitalize(
 							t(`scenario.${localSettings.scenario}.name`)
 						)}
 					</span>
 				)}
 			</div>
+
+			<div className={`${styles.row}`}>
+				<span className={styles.label}>
+					{t("gameSettings.difficulty")}
+				</span>
+				<select className={`${styles.input}`} onChange={handleDifficultyTypeChange}>
+					<option value="scaled">
+						{t("gameSettings.based on player amount")}
+					</option>
+					<option value="custom">{t("gameSettings.custom")}</option>
+				</select>
+			</div>
 			<div className={styles.row}>
-				<span>{capitalize(t("menu.private game"))}</span>
+				<div
+					className={`${styles.difficultySettings} ${
+						difficultyChangeDisabled && styles.disabled
+					}`}
+				>
+					<div>
+						<span>Piętaszek</span>
+						<input
+							type="checkbox"
+							disabled={difficultyChangeDisabled}
+							checked={localSettings.difficultySettings.friday}
+							onChange={handleFridayChange}
+						></input>
+					</div>
+					<div>
+						<span>Pies</span>
+						<input
+							type="checkbox"
+							onChange={handleDogChange}
+							checked={localSettings.difficultySettings.dog}
+							disabled={difficultyChangeDisabled}
+						></input>
+					</div>
+					<div>
+						<span>Przedmioty startowe </span>
+						<select 
+							disabled={difficultyChangeDisabled}
+							value={localSettings.difficultySettings.startingEquipment}
+							onChange={handleStartingEquipmentChange}
+						>
+							{[0, 1, 2, 3, 4].map((amount) => {
+								return <option value={amount}>{amount}</option>;
+							})}
+						</select>
+					</div>
+				</div>
+			</div>
+			<div className={styles.row}>
+				<span className={styles.label}>
+					{capitalize(t("menu.private game"))}
+				</span>
 				<input
 					type={"checkbox"}
 					onChange={handlePrivateChange}
 					disabled={!allowEdit}
 					checked={localSettings.private}
 					value={"private"}
+					className={`${styles.input}`}
 				/>
 			</div>
 			<div className={styles.row}>
-				<span>Liczba graczy</span>
+				<span className={styles.label}>Liczba graczy</span>
 				{allowEdit ? (
 					<select
 						onChange={handleMaxPlayersChange}
 						value={localSettings.maxPlayers}
-						className="font-mono"
+						className={`${styles.input}`}
 					>
 						{[1, 2, 3, 4].map((num) => {
 							const disabled = Boolean(
@@ -250,9 +357,12 @@ export function GameSettings(props: Props) {
 						})}
 					</select>
 				) : (
-					<span className="font-mono">{localSettings.maxPlayers}</span>
+					<span className="font-mono">
+						{localSettings.maxPlayers}
+					</span>
 				)}
 			</div>
+
 			{props.mode === GAME_SETTINGS_MODE.GAME_CREATE && (
 				<div className={"menuButton"} onClick={handleClick}>
 					{capitalize(t("menu.create game"))}
@@ -260,6 +370,10 @@ export function GameSettings(props: Props) {
 			)}
 			{props.mode !== GAME_SETTINGS_MODE.GAME_CREATE && (
 				<div className={styles.row}>
+					<span className={styles.label}>
+						{capitalize(t("menu.invitation code"))}
+					</span>
+
 					<InvitationCode />
 				</div>
 			)}

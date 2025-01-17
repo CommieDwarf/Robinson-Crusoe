@@ -14,7 +14,6 @@ export function Message(props: Props) {
 	return (
 		<div className={styles.container}>
 			<h1 className={styles.title}>
-
 				{props.title}
 			</h1>
 			<StyledHr color="hunt" style={{ width: "90%" }} />

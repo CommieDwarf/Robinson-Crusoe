@@ -1,7 +1,7 @@
 import { SessionBasicInfo, SessionData } from "@shared/types/Session/Session";
 import { Session } from "../Session/Session";
 import { SCENARIO } from "@shared/types/Game/ScenarioService/SCENARIO";
-import { SessionSettings } from "@shared/types/SessionSettings";
+import { PartialSessionSettings, SessionSettings } from "@shared/types/SessionSettings";
 import { UserDocument } from "../../Models/User";
 import { User } from "../User/User";
 import { SessionConnectError } from "../../Errors/Session/SessionConnectError";
@@ -11,6 +11,7 @@ import { SaveGameDocument } from "../../Models/SaveGame";
 import { ISessionService } from "@shared/types/SessionService";
 import { IUser } from "@shared/types/User/IUser";
 import { sharedConfig } from "@shared/config/sharedConfig";
+import { getScaledDifficultySettings } from "@shared/utils/getPlayerBasedDifficultySettings";
 
 export class SessionService implements ISessionService {
 	private _sessions = new Map<SessionData["id"], SessionData>();
@@ -43,6 +44,7 @@ export class SessionService implements ISessionService {
 			scenario: SCENARIO.CASTAWAYS,
 			maxPlayers: 1,
 			name: "quick game",
+			difficultySettings: getScaledDifficultySettings(1),
 		});
 		session.startGame();
 		return session;
@@ -151,7 +153,7 @@ export class SessionService implements ISessionService {
 	public updateSessionSettings(
 		userId: string,
 		sessionId: string,
-		settings: Partial<SessionSettings>
+		settings: PartialSessionSettings
 	) {
 		const session = this.findSession(sessionId);
 		if (!session || session.host.id !== userId) {

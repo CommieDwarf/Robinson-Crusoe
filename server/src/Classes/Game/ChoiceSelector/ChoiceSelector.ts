@@ -42,7 +42,7 @@ export class ChoiceSelector<T extends ChoosableObject> implements IChoiceSelecto
         this._amount = amount;
         this._source = source;
         this._pickSubject = pickSubject
-        this._id = picker.name + source + amount + objects.length
+        this._id = picker.name + source + amount + objects.length;
     }
 
     get id(): string {

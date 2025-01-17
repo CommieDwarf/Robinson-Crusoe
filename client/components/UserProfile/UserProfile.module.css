@@ -51,3 +51,9 @@
     font-family: var(--font-mono);
     font-weight: bolder;
 }
+
+.spinner {
+    height: 15vh;
+    aspect-ratio: 1;
+    margin: auto;
+}

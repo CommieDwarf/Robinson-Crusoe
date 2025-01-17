@@ -1,4 +1,4 @@
-export interface IMorale {
+export interface IMoraleService {
     lvl: number;
     lvlUp: (by: number, sourceLog: string) => void;
     lvlDown: (by: number, sourceLog: string) => void;
@@ -6,6 +6,7 @@ export interface IMorale {
     renderData: IMoraleRenderData;
     diary: boolean;
     drums: boolean;
+    prePhaseEffect: () => void;
 }
 
 export interface IMoraleRenderData {

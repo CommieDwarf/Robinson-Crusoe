@@ -8,11 +8,12 @@ import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction"
 import {IGame} from "@shared/types/Game/Game";
 import {ActionHandler, BaseController, GameControllerInterface} from "../../shared/types/GameController/Controllers";
 import {CONTROLLER_ACTION, OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
-import {INVENTION, INVENTION_CASTAWAYS, INVENTION_STARTER} from "@shared/types/Game/InventionService/Invention";
+import {INVENTION, INVENTION_CASTAWAYS, INVENTION_PERSONAL, INVENTION_STARTER} from "@shared/types/Game/InventionService/Invention";
 import {SaveStep as SaveStep} from "@shared/types/SaveGame";
 import { ACTION } from "@shared/types/Game/ACTION";
 import { MysteryCardCreator } from "../Game/MysteryService/MysteryCardCreator/MysteryCardCreator";
 import { TREASURE_MYSTERY_CARD } from "@shared/types/Game/MysteryService/MYSTERY_CARD";
+import { BasicResources } from "../Game/ResourceService/BasicResources";
 
 
 export enum STORAGE_ACTION {
@@ -61,18 +62,8 @@ export class GameController implements GameControllerInterface, BaseController {
 
     private test() {
         const char = this._game.characterService.playerCharacters[0];
-
-        const creator = new MysteryCardCreator(this._game);
-
-        const barrel = creator.createTreasureCard(TREASURE_MYSTERY_CARD.BARREL);
-
-        this._game.resourceService.addBasicResourceToOwned("food", 5, "test");
-
-        this._game.actionService.setAdventureToken(ACTION.EXPLORE, true, "test");
-        this._game.actionService.setAdventureToken(ACTION.GATHER, true, "test");
-        this._game.actionService.setAdventureToken(ACTION.BUILD, true, "test");
-
-        this.game.mysteryService.addTreasureToResources(barrel)
+        
+        this._game.resourceService.addBasicResourcesToOwned(new BasicResources(5, 5, 5, 5));
     }
 
     private initActionHandlers() {

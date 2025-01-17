@@ -27,7 +27,6 @@
 			format("truetype");
 }
 
-
 html,
 body {
 	padding: 0;
@@ -48,7 +47,9 @@ body {
 	scrollbar-color: var(--borderColor) transparent;
 }
 
-input, select, option {
+input,
+select,
+option {
 	color: var(--brown);
 }
 
@@ -106,9 +107,11 @@ a {
 		brightness(95%) contrast(91%);
 	--blackToBorderColor: invert(86%) sepia(5%) saturate(2312%)
 		hue-rotate(348deg) brightness(76%) contrast(78%);
-	
+	--blackToHuntColor: brightness(0) saturate(100%) invert(9%) sepia(65%)
+		saturate(5858%) hue-rotate(346deg) brightness(107%) contrast(100%);
+
 	--font-mono: "Inconsolata", serif;
-	}
+}
 
 .grabbing {
 	cursor: grabbing;
