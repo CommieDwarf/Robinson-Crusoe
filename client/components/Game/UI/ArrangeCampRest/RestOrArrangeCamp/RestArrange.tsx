@@ -12,6 +12,7 @@ import { getActionSlotDroppableId } from "@shared/utils/getActionSlotDroppableId
 import { capitalize } from "lodash";
 import diagnal from "/public/UI/misc/cross-line.png";
 import { insertIconsIntoText } from "utils/insertIconsIntoText/insertIconsIntoText";
+import { useAppSelector } from "store/hooks";
 
 interface Props {
 	pawnAmount: number;
@@ -21,16 +22,18 @@ interface Props {
 export default function RestArrange(props: Props) {
 	let rewardLabel;
 
-	const condition = false;
+	const playerAmount = useAppSelector((state) => state.gameSession.data?.players.length);
+
+	const shouldChooseReward = props.type === ACTION.ARRANGE_CAMP && playerAmount === 4;
 
 	if (props.type === ACTION.ARRANGE_CAMP) {
 		rewardLabel = (
 			<div
 				className={`${styles.actionReward} ${
 					styles.arrangeCampReward
-				} ${condition && styles.rewardChoice}`}
+				} ${shouldChooseReward && styles.rewardChoice}`}
 			>
-				{condition && (
+				{shouldChooseReward && (
 					<div className={styles.diagnal}>
 						<ResizableImage src={diagnal} alt="" />
 					</div>
@@ -38,14 +41,14 @@ export default function RestArrange(props: Props) {
 				<div
 					className={`${styles.actionReward} ${
 						styles.arrangeCampReward
-					} ${condition && styles.arrangeCampRewardChoice}`}
+					} ${shouldChooseReward && styles.arrangeCampRewardChoice}`}
 				>
 					<div className={styles.determinationReward}>
 						{insertIconsIntoText("2$determination$")}
 					</div>
 					<div
 						className={`${styles.moraleIcon} ${
-							condition && styles.moraleIconChoice
+							shouldChooseReward && styles.moraleIconChoice
 						}`}
 					>
 						{insertIconsIntoText("$morale$")}

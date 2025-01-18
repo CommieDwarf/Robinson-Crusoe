@@ -2,32 +2,33 @@ import ResizableImage from "components/ResizableImage/ResizableImage";
 import styles from "./Checkbox.module.css";
 
 interface Props {
-	type?: number;
-	checked?: boolean;
-	onClick?: (event?: React.MouseEvent) => void;
-	className?: string;
+	frameNumber?: number;
 }
 
-export function CheckBox(props: Props) {
-	let type = props.type;
-	if (!type || type < 1 || type > 12) {
-		type = 1;
+export function CheckBox(
+	props: Props & React.InputHTMLAttributes<HTMLInputElement>
+) {
+	let frameNumber = props.frameNumber;
+	if (!frameNumber || frameNumber < 1 || frameNumber > 12) {
+		frameNumber = 1;
 	}
 	return (
 		<div
-			className={`${styles.container} ${
-				props.className ? props.className : styles.defaultSize
+			className={`${styles.container} ${!props.disabled && styles.containerAbled} ${
+				props.className && props.className
 			}`}
-            onClick={props.onClick}
 		>
-			<div className={styles.frame}>
+			<div className={styles.inputWrapper}>
+				<input type="checkbox" {...props} className={styles.input} />
+			</div>
+			<div className={styles.frame} aria-hidden="true">
 				<ResizableImage
-					src={`/UI/scenarios/squares/${type}.png`}
+					src={`/UI/scenarios/squares/${frameNumber}.png`}
 					alt="checkbox"
 				/>
 			</div>
 			{props.checked && (
-				<div className={styles.checkMark}>
+				<div className={styles.checkMark} aria-hidden="true">
 					<ResizableImage
 						src={"/UI/misc/x-mark.png"}
 						alt="checkmark"

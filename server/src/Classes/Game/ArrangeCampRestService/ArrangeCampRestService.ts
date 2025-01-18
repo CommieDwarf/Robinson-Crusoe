@@ -73,7 +73,7 @@ export class ArrangeCampRestService implements IArrangeCampRestService {
 			characterService.heal(character, 1, logSource);
 			this._game.equipmentService.useItem(ITEM.BIBLE, character);
 		}
-		if (true || this._game.playerService.players.length === 4) {
+		if (this._game.playerService.players.length === 4) {
 			this._game.startPickingObject(
 				[{name: "determination", amount: determination}, {name: "morale", amount: 1}],
 				character as IPlayerCharacter,

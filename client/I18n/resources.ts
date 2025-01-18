@@ -725,8 +725,8 @@ export const resources = {
 			},
 			gameSettings: {
 				difficulty: "Poziom trudności",
-				"based on player amount": "Dostosowany do liczby graczy",
-				"custom": "Własny",
+				scaled: "Skalowany liczbą graczy",
+				custom: "Własny",
 			},
 			userProfile: {
 				accountSettings: "Ustawienia konta",

@@ -48,6 +48,7 @@
 
 .row > select {
     max-height: 2em;
+    vertical-align: bottom;
 }
 
 .sessionName {
@@ -110,4 +111,10 @@
 
 .disabled {
     opacity: 0.7;
+}
+
+.difficultySetting {
+    display: flex;
+    align-items: center;
+    column-gap: 3px;
 }

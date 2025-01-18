@@ -47,7 +47,7 @@ export function UITourPrompt() {
 					Nie pytaj więcej
 					<CheckBox
 						checked={checked}
-						type={5}
+						frameNumber={5}
 						className={styles.checkBox}
 						onClick={handleCheckBoxClick}
 					/>

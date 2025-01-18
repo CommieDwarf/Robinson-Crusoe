@@ -1,6 +1,6 @@
 .container {
     height: 80vh;
-    aspect-ratio: 300 / 400;
+    aspect-ratio: 1;
     background-image: url("../../../public/UI/paper-background.png");
     background-size: cover;
     position: absolute;

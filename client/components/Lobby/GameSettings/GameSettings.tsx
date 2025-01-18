@@ -19,6 +19,7 @@ import { sessionIdUpdated } from "../../../reduxSlices/gameSession";
 import { InvitationCode } from "./InvittationCode/InvitationCode";
 import { sharedConfig } from "@shared/config/sharedConfig";
 import { getScaledDifficultySettings } from "@shared/utils/getPlayerBasedDifficultySettings";
+import { CheckBox } from "components/Checkbox/CheckBox";
 
 export enum GAME_SETTINGS_MODE {
 	LOCKED = "locked",
@@ -85,7 +86,7 @@ export function GameSettings(props: Props) {
 
 	useEffect(() => {
 		if (props.mode === GAME_SETTINGS_MODE.EDIT && serverSettings) {
-			console.log("updating settings!");
+			console.log("Update");
 			console.log(serverSettings);
 			setLocalSettings(serverSettings);
 		}
@@ -173,21 +174,27 @@ export function GameSettings(props: Props) {
 		});
 	}
 
-	const [difficultyChangeDisabled, setDifficultyChangeDisabled] =
-		useState<boolean>(true);
 
 	function handleDifficultyTypeChange(
 		event: React.FormEvent<HTMLSelectElement>
 	) {
 		const { value } = event.currentTarget;
 		const scaled = value === "scaled";
-		setDifficultyChangeDisabled(scaled);
-		saveSettings({difficultySettings: {
-			scaled
-		}})
+
+		if (props.mode === GAME_SETTINGS_MODE.GAME_CREATE && scaled) {
+			saveSettings({
+				difficultySettings: getScaledDifficultySettings(1),
+			});
+		} else {
+			saveSettings({
+				difficultySettings: {
+					scaled,
+				},
+			});
+		}
 	}
 
-	const allowEdit = props.host && props.mode !== GAME_SETTINGS_MODE.LOCKED;
+	const editAllowed = props.host && props.mode !== GAME_SETTINGS_MODE.LOCKED;
 
 	const scenarioInfo = (
 		<div className={styles.scenarioInfo}>
@@ -215,7 +222,7 @@ export function GameSettings(props: Props) {
 				<span className={styles.label}>
 					{capitalize(t("menu.name"))}
 				</span>
-				{allowEdit ? (
+				{editAllowed ? (
 					<input
 						type={"text"}
 						value={localSettings.name}
@@ -249,7 +256,7 @@ export function GameSettings(props: Props) {
 				<span className={styles.label}>
 					{capitalize(t("menu.scenario"))}
 				</span>
-				{allowEdit ? (
+				{editAllowed ? (
 					<select
 						onChange={handleScenarioChange}
 						value={localSettings.scenario}
@@ -274,42 +281,51 @@ export function GameSettings(props: Props) {
 				<span className={styles.label}>
 					{t("gameSettings.difficulty")}
 				</span>
-				<select className={`${styles.input}`} onChange={handleDifficultyTypeChange}>
-					<option value="scaled">
-						{t("gameSettings.based on player amount")}
-					</option>
+				<select
+					className={`${styles.input}`}
+					onChange={handleDifficultyTypeChange}
+					value={localSettings.difficultySettings.scaled ? "scaled" : "custom"}
+					disabled={!editAllowed}
+				>
+					<option value="scaled">{t("gameSettings.scaled")}</option>
 					<option value="custom">{t("gameSettings.custom")}</option>
 				</select>
 			</div>
 			<div className={styles.row}>
 				<div
 					className={`${styles.difficultySettings} ${
-						difficultyChangeDisabled && styles.disabled
+						localSettings.difficultySettings.scaled && styles.disabled
 					}`}
 				>
-					<div>
-						<span>Piętaszek</span>
-						<input
-							type="checkbox"
-							disabled={difficultyChangeDisabled}
+					<div className={styles.difficultySetting}>
+						<div className={styles.difficultyLabel}>Piętaszek</div>
+						<CheckBox
+							disabled={localSettings.difficultySettings.scaled || !editAllowed}
 							checked={localSettings.difficultySettings.friday}
 							onChange={handleFridayChange}
-						></input>
+							className={styles.difficultySetting}
+						/>
 					</div>
-					<div>
-						<span>Pies</span>
-						<input
-							type="checkbox"
+					<div className={styles.difficultySetting}>
+						<div className={styles.difficultyLabel}>Pies</div>
+						<CheckBox
 							onChange={handleDogChange}
 							checked={localSettings.difficultySettings.dog}
-							disabled={difficultyChangeDisabled}
-						></input>
+							disabled={localSettings.difficultySettings.scaled || !editAllowed}
+							className={styles.difficultySetting}
+						></CheckBox>
 					</div>
-					<div>
-						<span>Przedmioty startowe </span>
-						<select 
-							disabled={difficultyChangeDisabled}
-							value={localSettings.difficultySettings.startingEquipment}
+					<div className={styles.difficultySetting}>
+						<div className={styles.difficultyLabel}>
+							Przedmioty startowe{" "}
+						</div>
+						<select
+							disabled={localSettings.difficultySettings.scaled || !editAllowed}
+							value={
+								localSettings.difficultySettings
+									.startingEquipment
+							}
+							className={styles.difficultySetting}
 							onChange={handleStartingEquipmentChange}
 						>
 							{[0, 1, 2, 3, 4].map((amount) => {
@@ -323,10 +339,9 @@ export function GameSettings(props: Props) {
 				<span className={styles.label}>
 					{capitalize(t("menu.private game"))}
 				</span>
-				<input
-					type={"checkbox"}
+				<CheckBox
 					onChange={handlePrivateChange}
-					disabled={!allowEdit}
+					disabled={!editAllowed}
 					checked={localSettings.private}
 					value={"private"}
 					className={`${styles.input}`}
@@ -334,7 +349,7 @@ export function GameSettings(props: Props) {
 			</div>
 			<div className={styles.row}>
 				<span className={styles.label}>Liczba graczy</span>
-				{allowEdit ? (
+				{editAllowed ? (
 					<select
 						onChange={handleMaxPlayersChange}
 						value={localSettings.maxPlayers}
