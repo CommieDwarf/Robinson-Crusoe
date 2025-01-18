@@ -63,7 +63,7 @@ export class GameController implements GameControllerInterface, BaseController {
     private test() {
         const char = this._game.characterService.playerCharacters[0];
         
-        this._game.resourceService.addBasicResourcesToOwned(new BasicResources(5, 5, 5, 5));
+        this._game.moraleService.lvlUp(3, "test");
     }
 
     private initActionHandlers() {
