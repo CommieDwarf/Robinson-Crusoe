@@ -35,6 +35,7 @@ export const Header = (props: Props) => {
                     currentRound={true}
                     ship={false}
                     weather={{rain: false, snow: false, hungryAnimal: false}}
+                    dark={true}
                 />
             </div>
             {props.resolved && (

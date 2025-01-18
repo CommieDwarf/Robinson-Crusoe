@@ -62,6 +62,12 @@ export function ChoiceSelector(props: Props) {
 						{/*@ts-ignore*/}
 						{capitalize(useDynamicTranslation(props.choiceSelector.source))}
 					</h1>
+					<h4>
+						Wybierz { amount }
+					</h4>
+				</span>
+				<span>
+					
 				</span>
 				{Object.values(ABILITY).includes(
 					props.choiceSelector.source as ABILITY
