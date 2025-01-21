@@ -1,6 +1,6 @@
 import styles from "./Choice.module.css";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
-import { kebabCase } from "lodash";
+import { capitalize, kebabCase } from "lodash";
 import { IInventionRenderData } from "@shared/types/Game/InventionService/Invention";
 import { isPlayerCharacter } from "@shared/utils/typeGuards/isPlayerCharacter";
 import { ICharacterRenderData } from "@shared/types/Game/Characters/Character";
@@ -10,6 +10,7 @@ import {
 	ChoosableRenderData,
 } from "@shared/types/Game/ChoiceSelector/ChoiceSelector";
 import { insertIconsIntoText } from "utils/insertIconsIntoText/insertIconsIntoText";
+import { dynamicTranslate } from "utils/dynamicTranslate";
 
 interface Props {
 	pickSubject: ChoiceSubject;
@@ -81,13 +82,28 @@ export function ChoiceObject(props: Props) {
 		>
 			{props.pickSubject === "resource" ? (
 				<div className={`${styles.resource}`}>
-						{insertIconsIntoText(
-                            // @ts-ignore
-							`${props.pickObject.object.amount!} \$${props.pickObject.object.name!}\$` ?? " "
-						)}
+					{insertIconsIntoText(
+						// @ts-ignore
+						`${props.pickObject.object.amount!} \$${props.pickObject
+							// @ts-ignore
+							.object.name!}\$` ?? " "
+					)}
 				</div>
 			) : (
-				<ResizableImage src={imgUrlPath} alt={String(name)} fill />
+				<>
+					<div className={`${styles.imgWrapper}`}>
+						<ResizableImage
+							src={imgUrlPath}
+							alt={String(name)}
+							fill
+						/>
+					</div>
+					<div className={`${styles.name}`}>
+						{/* @ts-ignore */}
+						{capitalize(dynamicTranslate(props.pickObject.object.name ?? props.pickObject.object.id))}
+
+					</div>
+				</>
 			)}
 		</div>
 	);

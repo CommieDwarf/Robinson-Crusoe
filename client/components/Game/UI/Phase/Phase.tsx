@@ -38,12 +38,9 @@ function Phase(props: Props) {
 			setContainerHeight(containerRef.current.offsetHeight);
 	}, []);
 
-	const { handleNextStep, cleanupTimeout, animationInProgress, currentStep } =
+	const { handleNextStep, cleanupTimeout, delayInProgress: animationInProgress, currentStep } =
 		useUITourControl();
 
-	useEffect(() => {
-		return () => cleanupTimeout();
-	}, []);
 
 	const stepIdDelayList = [UI_TOUR_STEP_ID.PHASE, UI_TOUR_STEP_ID.PHASE_LIST];
 

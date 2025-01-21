@@ -7,7 +7,7 @@ import { ILogMessageRenderData } from "@shared/types/Game/ChatLog/LogMessage";
 import { useTranslation } from "react-i18next";
 import { insertIconsIntoText } from "../../../../../utils/insertIconsIntoText/insertIconsIntoText";
 import capitalize from "@shared/utils/capitalize";
-import { useDynamicTranslation } from "../../../../../utils/hooks/useDynamicTranslation";
+import { dynamicTranslate } from "../../../../../utils/dynamicTranslate";
 
 type Props = {
 	message: ILogMessageRenderData;
@@ -27,6 +27,7 @@ export const LogMessage = (props: Props) => {
 		ns: "logMessages",
 		defaultValue: code,
 	});
+
 
 	return (
 		<div
@@ -55,7 +56,7 @@ export const LogMessage = (props: Props) => {
 			<div className={styles.messageContent}>
 				<span className={styles.messageSource}>
 					{insertIconsIntoText(
-						capitalize(useDynamicTranslation(source)),
+						capitalize(dynamicTranslate(source)),
                         styles.icon
 					)}{" "}
 					-{" "}

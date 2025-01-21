@@ -13,8 +13,15 @@ export function PlayerReadiness() {
     }
 
     return <div className={styles.container}>
+        <div className={styles.text}>
+        <h2>Gotowość</h2>
+
+        </div>
+        <div className={styles.checkBoxes}>
         {players.map(player => {
             return <ReadyCheckbox player={player} key={player.id} local={localPlayer.id === player.id}/>
         })}
+        </div>
+     
     </div>
 }

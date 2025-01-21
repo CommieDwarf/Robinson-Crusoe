@@ -9,14 +9,17 @@
     overflow-y: scroll;
     vertical-align: top;
     margin: 0;
-
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    padding-left: 18%;
 }
 
 .container > li {
-    margin-left: 7%;
+    margin: 0;
+    padding: 0;
 }
 
 .innerList {
-    padding-left: 7%;
+    padding-left: 3%;
 }
 

@@ -59,7 +59,7 @@ export const ScenarioInfo = () => {
 				<div className={styles.paperImg}>
 					<ResizableImage
 						src={"/UI/scenarios/scroll.png"}
-						alt="dupa"
+						alt=""
 					/>
 				</div>
 				<div className={styles.text}>

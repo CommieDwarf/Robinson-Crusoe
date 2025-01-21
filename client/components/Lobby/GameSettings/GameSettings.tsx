@@ -86,8 +86,6 @@ export function GameSettings(props: Props) {
 
 	useEffect(() => {
 		if (props.mode === GAME_SETTINGS_MODE.EDIT && serverSettings) {
-			console.log("Update");
-			console.log(serverSettings);
 			setLocalSettings(serverSettings);
 		}
 	}, [serverSettings, props.mode]);
@@ -328,8 +326,8 @@ export function GameSettings(props: Props) {
 							className={styles.difficultySetting}
 							onChange={handleStartingEquipmentChange}
 						>
-							{[0, 1, 2, 3, 4].map((amount) => {
-								return <option value={amount}>{amount}</option>;
+							{[0, 1, 2, 3, 4].map((amount, i ) => {
+								return <option value={amount} key={i}>{amount}</option>;
 							})}
 						</select>
 					</div>

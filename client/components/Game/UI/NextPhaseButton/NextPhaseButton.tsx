@@ -13,6 +13,7 @@ import capitalize from "@shared/utils/capitalize";
 
 type Props = {
     locked: boolean;
+    className?: string;
 };
 export const NextPhaseButton = (props: Props) => {
 
@@ -58,7 +59,7 @@ export const NextPhaseButton = (props: Props) => {
     if (!players) return null;
 
     return (
-        <div className={`${styles.container} ${locked && styles.locked} tour-next-phase`}
+        <div className={`${styles.container} ${locked && styles.locked} ${props.className}`}
              style={style}
              onClick={handleClick}>
             <div className={styles.token}>

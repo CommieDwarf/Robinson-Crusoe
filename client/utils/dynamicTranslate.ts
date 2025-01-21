@@ -1,9 +1,9 @@
-import {resources} from "../../I18n/resources";
+import {resources} from "../I18n/resources";
 import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
-import i18n from "../../I18n/I18n";
+import i18n from "../I18n/I18n";
 import {useTranslation} from "react-i18next";
 
-export function useDynamicTranslation(text: string) {
+export function dynamicTranslate(text: string) {
 
     const {t} = useTranslation();
     const categories = Object.keys(resources.pl.translation);

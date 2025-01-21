@@ -82,6 +82,7 @@ a {
 	--toastify-color-warning: #a77716 !important;
 	--brown: #451e14;
 	--tan: #d2b48c;
+	--warmIvory: #fff6ed;
 	--beastRed: rgb(186, 51, 28);
 	--threat: #241f21;
 	--hunt: #a90c1c;
@@ -109,6 +110,9 @@ a {
 		hue-rotate(348deg) brightness(76%) contrast(78%);
 	--blackToHuntColor: brightness(0) saturate(100%) invert(9%) sepia(65%)
 		saturate(5858%) hue-rotate(346deg) brightness(107%) contrast(100%);
+
+	--blackToWarmIvory: brightness(0) saturate(100%) invert(92%) sepia(4%)
+		saturate(1713%) hue-rotate(318deg) brightness(101%) contrast(118%);
 
 	--font-mono: "Inconsolata", serif;
 }

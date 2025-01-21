@@ -21,7 +21,6 @@ export default function getActionSlots(
 
     if (item.requiredPawnAmount === null) return [];
 
-    let identifier;
 
 
     const actionSlots = [];

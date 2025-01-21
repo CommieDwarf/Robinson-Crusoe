@@ -26,7 +26,7 @@ import {
 import { Weather } from "./UI/Weather/Weather";
 import { ActionResolveWindow } from "./UI/ActionResolveWindow/ActionResolveWindow";
 import { WeatherResolveWindow } from "./UI/WeatherResolveWindow/WeatherResolveWindow";
-import {ConfirmCampMove } from "./UI/ConfirmCampMove/ConfirmCampMove";
+import { ConfirmCampMove } from "./UI/ConfirmCampMove/ConfirmCampMove";
 
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import CardResolve from "./UI/CardResolve/CardResolve";
@@ -86,7 +86,7 @@ export default function Game(props: Props) {
 
 	const gameData = useAppSelector((state) => {
 		return selectGameData(state);
-	})!
+	})!;
 
 	useEffect(() => {
 		if (mapRef.current) setMapHeight(mapRef.current.offsetHeight);
@@ -94,28 +94,39 @@ export default function Game(props: Props) {
 			setActionOrderHeight(actionOrderRef.current.offsetHeight);
 	}, []);
 
-	const [gameHeight, setGameHeight] = useState(window.outerHeight);
+	const [windowHeight, setWindowHeight] = useState(window.outerHeight);
+	const [windowWidth, setWindowWidth] = useState(window.outerWidth);
+
+	const [windowAspectRatio, setWindowAspectRatio] = useState(
+		windowWidth / windowHeight
+	);
 
 	useGameHeight();
 
 	function useGameHeight() {
 		useLayoutEffect(() => {
-			updateGameHeight();
+			updateWindowSize();
 
-			function updateGameHeight() {
+			function updateWindowSize() {
 				if (mapRef.current) setMapHeight(mapRef.current.offsetHeight);
-				if (actionOrderRef.current)
+				if (actionOrderRef.current) {
 					setActionOrderHeight(actionOrderRef.current.offsetHeight);
-				setGameHeight(window.outerHeight);
+				}
+				setWindowHeight(window.outerHeight);
+				setWindowWidth(window.innerWidth);
 			}
 
-			window.addEventListener("resize", updateGameHeight);
+			window.addEventListener("resize", updateWindowSize);
 			return () => {
-				window.removeEventListener("resize", updateGameHeight);
+				window.removeEventListener("resize", updateWindowSize);
 			};
 		}, []);
-		return gameHeight;
+		return windowHeight;
 	}
+
+	useEffect(() => {
+		setWindowAspectRatio(windowWidth / windowHeight);
+	}, [windowWidth, windowHeight]);
 
 	function showCampMoveConfirm(tile: ITileRenderData) {
 		setNextCamp(tile);
@@ -289,26 +300,24 @@ export default function Game(props: Props) {
 		setShowOptions((prev) => !prev);
 	}
 
-	const gameStyle = {
-		fontSize: gameHeight / 100,
-	};
-
 	// @ts-ignore
 	const isFirefox = typeof InstallTrigger !== "undefined";
-
-	
 
 	const skipUITour = useAppSelector(
 		(state) => state.connection.user?.preferences.skipUITour
 	);
 
-	const showUITourPrompt = useAppSelector(state => !state.UITour.tourInProgress && !state.UITour.tourRefused);
+	const showUITourPrompt = useAppSelector(
+		(state) => !state.UITour.tourInProgress && !state.UITour.tourRefused
+	);
 
 	useEffect(() => {
 		return () => {
 			dispatch(UITourInitialStateSet());
-		}
-	}, [])
+		};
+	}, []);
+
+
 
 
 	return (
@@ -317,176 +326,202 @@ export default function Game(props: Props) {
 				className={`${styles.game} ${
 					isFirefox && styles.gameMoz
 				} tour-game`}
-				style={gameStyle}
 			>
-				{gameData.objectPickers.map((choiceSelect) => {
-					return (
-						<ChoiceSelector
-							choiceSelector={choiceSelect}
-							key={choiceSelect.id}
-						/>
-					);
-				})}
-				{<UITour />}
-				{!skipUITour && showUITourPrompt && (
-					<UITourPrompt />
-						
-					)}
-
-				<div className={`${styles.tourStart} tour-start`}></div>
-				{gameData.adventureToResolve && (
-					<CardResolve
-						resolve={gameData.adventureToResolve}
-						eventStage={false}
-					/>
-				)}
-				{gameData.isMysteryCardDrawingOn && <MysteryCardDraw />}
-				{gameData.adventureToResolveAsEvent && (
-					<CardResolve
-						resolve={gameData.adventureToResolveAsEvent}
-						eventStage={true}
-					/>
-				)}
-				{gameData.mysteryCardToResolveAsEvent && (
-					<CardResolve
-						resolve={gameData.mysteryCardToResolveAsEvent}
-						eventStage={true}
-					/>
-				)}
-
-				{gameData.currentPhase === "night" && nextCamp && (
-					<ConfirmCampMove
-						nextCamp={nextCamp}
-						hide={hideCampMoveConfirm}
-					/>
-				)}
-
-				{gameData.currentPhase === "action" &&
-					!gameData.actionResolveFinished && <ActionResolveWindow />}
-
-				{gameData.currentPhase === "weather" && (
-					<DraggableWindow showOverflow={true}>
-						<WeatherResolveWindow />
-					</DraggableWindow>
-				)}
-
-				{confirmWindow ? (
-					<ConfirmWindow
-						name={confirmWindow}
-						onAccept={() => {
-							dispatch(
-								socketEmitAction(
-									OTHER_CONTROLLER_ACTION.SET_NEXT_PHASE
-								)
-							);
-							setConfirmWindow(null);
-						}}
-						onRefuse={() => {
-							setConfirmWindow(null);
-						}}
-					/>
-				) : (
-					""
-				)}
-
-				<DragDropContext
-					onDragEnd={onDragEnd}
-					onDragUpdate={onDragUpdate}
-					onDragStart={onDragStart}
-				>
-					<Scenario
-						zIndex={topLayerElement}
-						contentHeight={mapHeight + actionOrderHeight}
-					/>
-					<Phase />
-					<div className={`${styles.morale} tour-morale`}>
-						<Morale />
-					</div>
-
-					<AllResources />
-					<Constructions
-						topLayer={topLayerElement.includes("construction")}
-					/>
-					<MapComponent
-						topLayerElement={topLayerElement}
-						scrollDisabled={isPawnBeingDragged}
-						showCampMoveConfirm={showCampMoveConfirm}
-						mapContainerRef={mapRef}
-					/>
-					<CardList
-						isBeingDragged={isPawnBeingDragged}
-						topLayerElement={topLayerElement}
-					/>
-					<Character zIndex={topLayerElement} />
-					<div className={`${styles.health} tour-health`}>
-						<Health
-							character={gameData.localPlayer.character!}
-							background={true}
-						/>
-					</div>
-					<Threat topLayer={topLayerElement.includes("threat")} />
-					<ArrangeCampRest
-						topLayer={
-							topLayerElement.includes("rest") ||
-							topLayerElement.includes("arrange camp")
-						}
-					/>
-					<div className={styles.actionsOrder}>
-						<ActionsOrder
-							actionOrderContainerRef={actionOrderRef}
-						/>
-					</div>
-					<div className={styles.chatLog}>
-						<ChatLog enableLog={true} />
-					</div>
-
-					<Weather />
-					<Tokens
-						menuDisabled={
-							isPawnBeingDragged || topLayerElement !== ""
-						}
-					/>
-
-					{PlayerOverviewVisible && (
-						// 0.7 is a single player's container aspect ratio. 
-						<DraggableWindow onClose={togglePlayerOverviewOpen} height={"60%"} styles={{aspectRatio: 1 * gameData.players.length * playerContainerAspectRatio}}>
-							<PlayerOverview />
-						</DraggableWindow>
-					)}
-
-					{showOptions && (
-						<DraggableWindow
-							width={"30%"}
-							onClose={toggleShowOptions}
-						>
-							<GameOptions />
-						</DraggableWindow>
-					)}
-				</DragDropContext>
-				<ScenarioButton topLayerElement={topLayerElement} />
-
-				<ControlPanel
-					confirmWindowIsOpen={!!confirmWindow}
-					phaseChangeLocked={gameData.phaseChangeLocked}
-					togglePlayerOverviewOpen={togglePlayerOverviewOpen}
-					toggleShowOptions={toggleShowOptions}
-					toggleShowGuide={toggleShowGuide}
-				/>
-				{showGuide && (
-					<DraggableWindow padding={"10px"} onClose={toggleShowGuide} height={"80%"}>
-						<Guide />
-					</DraggableWindow>
-				)}
-				{gameData.endGameSummary && (
-					<>
-						<DarkOverlay />
-						<DraggableWindow topLayer={true} padding={"10px"}>
-							<GameOverWindow
-								endGameSummary={gameData.endGameSummary}
+				<div className={styles.contentWrapper}>
+					{gameData.objectPickers.map((choiceSelect) => {
+						return (
+							<ChoiceSelector
+								choiceSelector={choiceSelect}
+								key={choiceSelect.id}
 							/>
+						);
+					})}
+					{<UITour />}
+					{!skipUITour && showUITourPrompt && <UITourPrompt />}
+
+					<div className={`${styles.tourStart} tour-start`}></div>
+					{gameData.adventureToResolve && (
+						<CardResolve
+							resolve={gameData.adventureToResolve}
+							eventStage={false}
+						/>
+					)}
+					{gameData.isMysteryCardDrawingOn && <MysteryCardDraw />}
+					{gameData.adventureToResolveAsEvent && (
+						<CardResolve
+							resolve={gameData.adventureToResolveAsEvent}
+							eventStage={true}
+						/>
+					)}
+					{gameData.mysteryCardToResolveAsEvent && (
+						<CardResolve
+							resolve={gameData.mysteryCardToResolveAsEvent}
+							eventStage={true}
+						/>
+					)}
+
+					{gameData.currentPhase === "night" && nextCamp && (
+						<ConfirmCampMove
+							nextCamp={nextCamp}
+							hide={hideCampMoveConfirm}
+						/>
+					)}
+
+					{gameData.currentPhase === "action" &&
+						!gameData.actionResolveFinished && (
+							<ActionResolveWindow />
+						)}
+
+					{gameData.currentPhase === "weather" && (
+						<DraggableWindow showOverflow={true}>
+							<WeatherResolveWindow />
 						</DraggableWindow>
-					</>
-				)}
+					)}
+
+					{confirmWindow ? (
+						<ConfirmWindow
+							name={confirmWindow}
+							onAccept={() => {
+								dispatch(
+									socketEmitAction(
+										OTHER_CONTROLLER_ACTION.SET_NEXT_PHASE
+									)
+								);
+								setConfirmWindow(null);
+							}}
+							onRefuse={() => {
+								setConfirmWindow(null);
+							}}
+						/>
+					) : (
+						""
+					)}
+
+					<DragDropContext
+						onDragEnd={onDragEnd}
+						onDragUpdate={onDragUpdate}
+						onDragStart={onDragStart}
+					>
+						<Scenario
+							zIndex={topLayerElement}
+							contentHeight={mapHeight + actionOrderHeight}
+						/>
+						<Phase />
+						<div className={`${styles.morale} tour-morale`}>
+							<Morale />
+						</div>
+
+						<AllResources />
+						<Constructions
+							topLayer={topLayerElement.includes("construction")}
+						/>
+						<MapComponent
+							topLayerElement={topLayerElement}
+							scrollDisabled={isPawnBeingDragged}
+							showCampMoveConfirm={showCampMoveConfirm}
+							mapContainerRef={mapRef}
+						/>
+						<CardList
+							isBeingDragged={isPawnBeingDragged}
+							topLayerElement={topLayerElement}
+						/>
+						<Character zIndex={topLayerElement} />
+
+						<div className={`${styles.health} tour-health`}>
+							<Health
+								background={true}
+								moraleThresholds={
+									gameData.localPlayer.character!
+										.moraleThresholds
+								}
+								moraleThresholdsRemoved={
+									gameData.localPlayer.character!
+										.moraleThresholdsRemoved
+								}
+								maxHealth={
+									gameData.localPlayer.character!.maxHealth
+								}
+								health={gameData.localPlayer.character!.health}
+							/>
+						</div>
+						<Threat topLayer={topLayerElement.includes("threat")} />
+						<ArrangeCampRest
+							topLayer={
+								topLayerElement.includes("rest") ||
+								topLayerElement.includes("arrange camp")
+							}
+						/>
+						<div className={styles.actionsOrder}>
+							<ActionsOrder
+								actionOrderContainerRef={actionOrderRef}
+							/>
+						</div>
+						<div className={styles.chatLog}>
+							<ChatLog enableLog={true}/>
+						</div>
+
+						<Weather />
+						<Tokens
+							menuDisabled={
+								isPawnBeingDragged || topLayerElement !== ""
+							}
+						/>
+
+						{PlayerOverviewVisible && (
+							// 0.7 is a single player's container aspect ratio.
+							<DraggableWindow
+								onClose={togglePlayerOverviewOpen}
+								height={"60%"}
+								styles={{
+									aspectRatio:
+										1 *
+										gameData.players.length *
+										playerContainerAspectRatio,
+								}}
+							>
+								<PlayerOverview />
+							</DraggableWindow>
+						)}
+
+						{showOptions && (
+							<DraggableWindow
+								width={"40%"}
+								styles={{fontSize: "1.1em"}}
+								onClose={toggleShowOptions}
+							>
+								<GameOptions />
+							</DraggableWindow>
+						)}
+					</DragDropContext>
+					<ScenarioButton topLayerElement={topLayerElement} />
+
+					<ControlPanel
+						confirmWindowIsOpen={!!confirmWindow}
+						phaseChangeLocked={gameData.phaseChangeLocked}
+						togglePlayerOverviewOpen={togglePlayerOverviewOpen}
+						toggleShowOptions={toggleShowOptions}
+						toggleShowGuide={toggleShowGuide}
+					/>
+					{showGuide && (
+						<DraggableWindow
+							padding={"10px"}
+							onClose={toggleShowGuide}
+							height={"80%"}
+						>
+							<Guide />
+						</DraggableWindow>
+					)}
+					{gameData.endGameSummary && (
+						<>
+							<DarkOverlay />
+							<DraggableWindow topLayer={true} padding={"10px"}>
+								<GameOverWindow
+									endGameSummary={gameData.endGameSummary}
+								/>
+							</DraggableWindow>
+						</>
+					)}
+				</div>
 			</div>
 		</>
 	);

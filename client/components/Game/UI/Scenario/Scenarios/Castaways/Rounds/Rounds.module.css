@@ -3,11 +3,13 @@
     height: 100%;
     display: flex;
     flex-wrap: nowrap;
-    justify-content: center;
+    justify-content: space-around;
 }
 
 .square {
     height: 75%;
     aspect-ratio: 1;  
     font-size: 1.7em;
+    flex-grow: 1;
+    flex-shrink: 1;
 }

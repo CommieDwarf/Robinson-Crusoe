@@ -18,6 +18,9 @@ interface Props {
 export default function ChatLog(props: Props) {
 
 
+
+
+
     const [logMode, setLogMode] = useState<boolean>(props.enableLog); // false means chat
 
     const [message, setMessage] = useState("");
@@ -42,6 +45,8 @@ export default function ChatLog(props: Props) {
 
     const prevChatMessages = usePrevious(chatMessages);
     const prevLogMessages = usePrevious(logMessages);
+
+
 
     useEffect(() => {
         scrollToBottom();
@@ -136,8 +141,9 @@ export default function ChatLog(props: Props) {
     const messages = logMode ? logMessages : chatMessages;
 
 
+
     return (
-        <div className={styles.container}>
+        <div className={styles.container} id="chatLog">
             <div className={styles.scrollWrapper}>
                 <div className={styles.scroll} ref={scrollRef} onScroll={handleScroll}>
                     <div className={styles.messages} ref={messagesRef}>

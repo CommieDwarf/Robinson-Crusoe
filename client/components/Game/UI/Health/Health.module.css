@@ -6,7 +6,7 @@
 
 .containerBackground {
     background-image: url("../../../../public/UI/characters/background.png");
-    background-size: cover;
+    background-size: 50vh;
 }
 
 .health {
@@ -24,8 +24,9 @@
 }
 
 .arrowWrapper {
-    height: 88%;
     aspect-ratio: 1.4;
+    flex-grow: 1;
+    flex-shrink: 1;
 }
 
 .arrowWrapperVertical {
@@ -43,6 +44,7 @@
     height: 60%;
     aspect-ratio: 2.2;
     top: 20%;
+    
 }
 
 
@@ -51,13 +53,16 @@
     width: 100%;
     scale: 1.4;
     height: auto;
+
 }
 
 
 .icon {
     position: relative;
-    height: 88%;
     aspect-ratio: 1;
+    flex-grow: 1;
+    flex-shrink: 1;
+    max-height: 88%;
 }
 
 .iconVertical {

@@ -1,7 +1,7 @@
 .container {
     height: 105%;
     border-radius: 5px;
-    font-size: 0.65rem;
+    font-size: 0.7em;
     font-weight: 500;
     overflow: hidden;
     border: 1px solid var(--brown);

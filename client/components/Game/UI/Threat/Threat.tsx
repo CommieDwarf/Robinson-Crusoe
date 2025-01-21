@@ -1,84 +1,62 @@
 import React from "react";
 import styles from "./Threat.module.css";
-import redArrowImg from "/public/UI/misc/red-arrow.png";
-import redArrowCurvedImg from "/public/UI/misc/red-arrow-curved.png";
-import getActionSlots from "../getActionSlots";
-import ResizableImage from "../../../ResizableImage/ResizableImage";
-import {selectGame} from "../../../../reduxSlices/gameSession";
-import {getObjectsComparator} from "../../../../utils/getObjectsComparator";
-import {RootState} from "../../../../store/store";
-import {connect} from "react-redux";
-import {IEventCardRenderData} from "@shared/types/Game/EventService/EventCard";
-import CommittedResources from "../CommittedResources/CommittedResources";
-import Card from "./Card";
-
+import { selectGame } from "../../../../reduxSlices/gameSession";
+import { getObjectsComparator } from "../../../../utils/getObjectsComparator";
+import { RootState } from "../../../../store/store";
+import { connect } from "react-redux";
+import { IEventCardRenderData } from "@shared/types/Game/EventService/EventCard";
+import { ThreatSlot } from "./ThreatSlot/ThreatSlot";
+import redArrowImg from "/public/UI/misc/red-arrow.png"
+import ResizableImage from "components/ResizableImage/ResizableImage";
 
 interface StateProps {
-    leftSlot: IEventCardRenderData | null,
-    rightSlot: IEventCardRenderData | null,
+	leftSlot: IEventCardRenderData | null;
+	rightSlot: IEventCardRenderData | null;
 }
 
 interface Props {
-    topLayer: boolean;
+	topLayer: boolean;
 }
 
-
 function Threat(props: StateProps & Props) {
-    return (
-        <div className={`${styles.container} ${props.topLayer && styles.zIndexIncreased} tour-threat`}>
-            <Card card={props.leftSlot} slot={"left"}
-            />
-            <Card card={props.rightSlot} slot={"right"}
-            />
-            <div className={styles.arrow}>
-                <ResizableImage src={redArrowImg} fill alt="strzałka" sizes={styles.arrow}/>
-            </div>
-            <div className={styles.xMark}>
-                <ResizableImage
-                    src={"/UI/misc/x-mark.png"}
-                    fill
-                    alt="strzałka"
-                    sizes={styles.curvedArrow}
-                />
-            </div>
-            <div className={styles.committedResources}>
-                {props.leftSlot?.committedResources &&
-                    <CommittedResources committedResources={props.leftSlot.committedResources}
-                                        personalResourceUsed={props.leftSlot.personalResourceUsed}
-                                        background={true}
-                                        justifyContent={"center"}
-                    />
-                }
-            </div>
-            <div className={styles.committedResources}>
-                {props.rightSlot?.committedResources &&
-                    <CommittedResources committedResources={props.rightSlot.committedResources}
-                                        personalResourceUsed={props.rightSlot.personalResourceUsed}
-                                        background={true}
-                                        justifyContent={"center"}
-                    />
-                }
-            </div>
-            <div className={styles.actionSlots}>
-                {props.leftSlot
-                    && getActionSlots(props.leftSlot, 0, "left")}
-            </div>
-            <div className={styles.actionSlots}>
-                {props.rightSlot &&
-                    getActionSlots(props.rightSlot, 0, "right")}
-            </div>
+	return (
+		<div
+			className={`${styles.container} ${
+				props.topLayer && styles.zIndexIncreased
+			} tour-threat`}
+		>
+			<div className={styles.threatSlot}>
+				<ThreatSlot card={props.leftSlot} />
+			</div>
+			<div className={styles.arrow}>
+				<ResizableImage src={redArrowImg} alt="" sizes={styles.arrow} />
+			</div>
+			<div className={styles.threatSlot}>
+				<ThreatSlot card={props.rightSlot} />
+			</div>
+{/* 
+			<div className={styles.xMark}>
+				<ResizableImage
+					src={"/UI/misc/x-mark.png"}
+					fill
+					alt="strzałka"
+					sizes={styles.curvedArrow}
+				/>
+			</div> */}
 
-        </div>
-    );
+		</div>
+	);
 }
 
 const mapStateToProps = (state: RootState, props: Props) => {
-    const game = selectGame(state);
-    return {
-        leftSlot: game?.eventService.leftSlot || null,
-        rightSlot: game?.eventService.rightSlot || null,
-        ...props,
-    }
+	const game = selectGame(state);
+	return {
+		leftSlot: game?.eventService.leftSlot || null,
+		rightSlot: game?.eventService.rightSlot || null,
+		...props,
+	};
 };
 
-export default connect(mapStateToProps)(React.memo(Threat, getObjectsComparator()));
+export default connect(mapStateToProps)(
+	React.memo(Threat, getObjectsComparator())
+);

@@ -120,7 +120,6 @@ export class EventHandler {
 				{ upsert: true, new: true }
 			  );
 
-			  console.log("updated");
 			this.socketEmit(SOCKET_EVENT_SERVER.USER_PREFERENCES_UPDATED, true);
 		} catch (e) {
 			this.emitError(ERROR_CODE.INTERNAL_SERVER_ERROR, "Preference update failed.");
@@ -234,7 +233,6 @@ export class EventHandler {
 				_id: payload.saveId,
 			});
 
-			console.log("RESULT", result);
 
 			const saveOverviews = await SaveService.getSaveGamesOverview(
 				this._user.id

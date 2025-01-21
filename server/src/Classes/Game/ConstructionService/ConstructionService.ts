@@ -233,11 +233,9 @@ export class ConstructionService implements IConstructionService {
         let woodCost;
         let leatherCost;
 
-        console.log(construction);
 		if (construction === CONSTRUCTION.WEAPON) {
             woodCost = 1;
             leatherCost = Infinity;
-            console.log("WEAPON")
 		} else {
             const playerAmount = this._game.playerService.players.length;
             woodCost = Math.max(playerAmount, 2);

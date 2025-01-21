@@ -1,0 +1,28 @@
+.container {
+	width: 100%;
+	height: 10vh;
+	font-size: 1em;
+	font-weight: 600;
+	border-bottom: 1px solid var(--hunt);
+}
+
+.contentWrapper {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	column-gap: 1.5vh;
+    transform-origin: 0 50%;
+    cursor: pointer;
+}
+
+.contentWrapper:hover {
+    scale: 1.1;
+}
+
+.button {
+	height: 70%;
+	aspect-ratio: 1;
+	position: relative;
+	scale: 1.2;
+}

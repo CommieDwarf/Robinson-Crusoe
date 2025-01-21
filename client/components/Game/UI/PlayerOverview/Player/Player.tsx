@@ -54,9 +54,11 @@ export function Player(props: Props) {
 				 <div className={styles.health}>
 					<Health
 						vertical={true}
-						character={character}
 						background={false}
-					/>
+						 moraleThresholds={character.moraleThresholds} 
+						 maxHealth={character.maxHealth} 
+						 health={character.health}
+						 moraleThresholdsRemoved={character.moraleThresholdsRemoved}					/>
 				</div>
 				 
 				 <div className={styles.character}>

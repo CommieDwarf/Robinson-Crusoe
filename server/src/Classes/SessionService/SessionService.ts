@@ -77,7 +77,6 @@ export class SessionService implements ISessionService {
 
 	public leaveSession(user: IUser, sessionId: string) {
 		const session = this.getSession(sessionId);
-        console.log("leaveSession from Service")
         session.leaveSession(user);
         if (session.usersInSession === 0) {
             this.removeSession(session.id);

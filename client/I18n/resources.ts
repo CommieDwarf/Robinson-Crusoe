@@ -919,7 +919,7 @@ export const resources = {
 			[LOG_CODE.CHARACTER_USED_TOKEN]:
 				'$t(translation:character.{{subject1}}) użył tokenu: $t(translation:discoveryToken.{{subject2}}, {"context": "genitive"}).',
 			[LOG_CODE.CHARACTER_USED_ABILITY]:
-				'$t(translation:character.{{subject1}}) użył $t(translation:ability.{{subject2}}.scenario, {"context": "genitive"}).',
+				'$t(translation:character.{{subject1}}) użył $t(translation:ability.{{subject2}}.name, {"context": "genitive"}).',
 			[LOG_CODE.CHARACTER_GOT_HURT]:
 				"$t(translation:character.{{subject1}}) otrzymał {{amount}} obrażeń.",
 			[LOG_CODE.CHARACTER_GOT_HEALED]:

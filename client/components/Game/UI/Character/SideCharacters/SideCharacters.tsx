@@ -1,6 +1,5 @@
 import React from "react";
 import Pawn from "../../Pawn";
-import FridayHealth from "./FridayHealth/FridayHealth";
 import styles from "./SideCharacters.module.css";
 import { Droppable } from "react-beautiful-dnd";
 import fridayPicImg from "/public/UI/characters/side-characters/friday-pic.png";
@@ -15,6 +14,7 @@ import { ISideCharacterRenderData } from "@shared/types/Game/Characters/SideChar
 import { useTranslation } from "react-i18next";
 import { capitalize } from "lodash";
 import { selectGame } from "../../../../../reduxSlices/gameSession";
+import Health from "../../Health/Health";
 
 interface Props {}
 
@@ -28,20 +28,24 @@ function SideCharacters(props: Props) {
 
 	const { t } = useTranslation();
 
-    const difficultySettings = useAppSelector(state => state.gameSession.data?.settings.difficultySettings);
+	const difficultySettings = useAppSelector(
+		(state) => state.gameSession.data?.settings.difficultySettings
+	);
 
 	if (!friday || !dog) return null;
 	return (
 		<div className={`${styles.container} tour-character-side-characters`}>
 			<div className={styles.friday}>
-				{!difficultySettings?.friday && <div className={styles.disableOverlay}>
-					<div className={styles.diagnal}>
-						<ResizableImage
-							src={"/UI/misc/cross-line.png"}
-							alt=""
-						/>
+				{!difficultySettings?.friday && (
+					<div className={styles.disableOverlay}>
+						<div className={styles.diagnal}>
+							<ResizableImage
+								src={"/UI/misc/cross-line.png"}
+								alt=""
+							/>
+						</div>
 					</div>
-				</div>}
+				)}
 				<Droppable
 					droppableId={getOwnedDroppableId("friday", "character")}
 				>
@@ -70,7 +74,14 @@ function SideCharacters(props: Props) {
 				<div className={`${styles.name}`}>
 					{capitalize(t("character.friday"))}
 				</div>
-				<FridayHealth health={friday.health} />
+				<div className={styles.fridayHealth}>
+					<Health
+						background={false}
+						moraleThresholds={[]}
+						maxHealth={friday.maxHealth}
+						health={friday.health}
+					/>
+				</div>
 				<div className={styles.determination}>
 					<div className={styles.determinationValue}>
 						{friday.determination}
@@ -92,14 +103,16 @@ function SideCharacters(props: Props) {
 				</div>
 			</div>
 			<div className={styles.dog}>
-				{!difficultySettings?.dog && <div className={styles.disableOverlay}>
-					<div className={styles.diagnal}>
-						<ResizableImage
-							src={"/UI/misc/cross-line.png"}
-							alt=""
-						/>
+				{!difficultySettings?.dog && (
+					<div className={styles.disableOverlay}>
+						<div className={styles.diagnal}>
+							<ResizableImage
+								src={"/UI/misc/cross-line.png"}
+								alt=""
+							/>
+						</div>
 					</div>
-				</div>}
+				)}
 				<div className={styles.dogPawn}></div>
 				<Droppable
 					droppableId={getOwnedDroppableId("dog", "character")}

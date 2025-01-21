@@ -8,7 +8,7 @@ import { OTHER_CONTROLLER_ACTION } from "@shared/types/CONTROLLER_ACTION";
 import { insertIconsIntoText } from "../../../../utils/insertIconsIntoText/insertIconsIntoText";
 import { useAppDispatch } from "../../../../store/hooks";
 import { socketEmitAction } from "../../../../middleware/socketMiddleware";
-import { useDynamicTranslation } from "../../../../utils/hooks/useDynamicTranslation";
+import { dynamicTranslate } from "../../../../utils/dynamicTranslate";
 import { ABILITY } from "@shared/types/Game/Skill/ABILITY";
 import { IChoiceSelectorRenderData } from "@shared/types/Game/ChoiceSelector/ChoiceSelector";
 
@@ -60,48 +60,42 @@ export function ChoiceSelector(props: Props) {
 				<span className={styles.source}>
 					<h1>
 						{/*@ts-ignore*/}
-						{capitalize(useDynamicTranslation(props.choiceSelector.source))}
+						{capitalize(
+							dynamicTranslate(props.choiceSelector.source)
+						)}
 					</h1>
-					<h4>
-						Wybierz { amount }
-					</h4>
 				</span>
-				<span>
-					
-				</span>
+				<h4>Wybierz {amount}</h4>
 				{Object.values(ABILITY).includes(
 					props.choiceSelector.source as ABILITY
 				) && (
 					<div className={styles.descriptionWrapper}>
 						<span className={styles.description}>
 							{/* @ts-ignore */}
-							{insertIconsIntoText(t(`ability.${props.choiceSelector.source}.description`),
-								styles.icon
+							{insertIconsIntoText(t(`ability.${props.choiceSelector.source}.description`)
 							)}
 						</span>
 					</div>
 				)}
 
-				{ 
-					props.choiceSelector.pickSubject !== "construction" && (
-						<div className={styles.pickObjects}>
-							{objects.map((obj, index) => {
-								return (
-									<ChoiceObject
-										pickSubject={pickSubject}
-										pickObject={obj}
-										key={index}
-										selectObject={selectObject}
-										selected={selectedObjectIds.includes(
-											obj.id
-										)}
-										selectable={amount !== 0}
-									/>
-								);
-							})}
-						</div>
-					)}
-
+				{props.choiceSelector.pickSubject !== "construction" && (
+					<div className={styles.pickObjects}>
+						{objects.map((obj, index) => {
+							return (
+								<ChoiceObject
+									pickSubject={pickSubject}
+									pickObject={obj}
+									key={index}
+									selectObject={selectObject}
+									selected={selectedObjectIds.includes(
+										obj.id
+									)}
+									selectable={amount !== 0}
+								/>
+							);
+						})}
+					</div>
+				)}
 
 				<div className={styles.buttons}>
 					<div
@@ -123,10 +117,9 @@ export function ChoiceSelector(props: Props) {
 							className={`${styles.button} ${styles.buttonConfirm}`}
 							onClick={handleSecondaryClick}
 						>
-							{ insertIconsIntoText(
-                                //@ts-ignore
-								capitalize(t(`pickObject.${source}.secondaryEffectLabel`)
-								),
+							{insertIconsIntoText(
+								//@ts-ignore
+								capitalize(t(`pickObject.${source}.secondaryEffectLabel`))
 							)}
 						</div>
 					)}

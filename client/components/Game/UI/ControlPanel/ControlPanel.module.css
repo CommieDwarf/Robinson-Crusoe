@@ -9,7 +9,7 @@
 }
 
 
-.buttonWrapper {
+.dropDownButton {
     height: 83%;
     aspect-ratio: 1;
 }
@@ -23,3 +23,17 @@
     scale: 1.4;
     transform-origin: 80%;
 }
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    background-image: url("../../../../public/UI/paper-background.png");
+    background-size: 100vh;
+    border: 1px solid var(--borderColor);
+    padding: 0 3% 0 5%;
+    height: 30vh;
+    aspect-ratio: 1;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+

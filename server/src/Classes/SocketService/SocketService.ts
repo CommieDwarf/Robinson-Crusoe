@@ -35,7 +35,6 @@ export class SocketService {
                 console.warn("no userDoc or mail not verified")
                 return;
             }
-            console.log("user validated");
             const user = this._sessionService.getOrCreateUser(userDoc, socket);
             const eventHandler = new EventHandler(user, socket, this._io, this._sessionService);
             eventHandler.startListening();

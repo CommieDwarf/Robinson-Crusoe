@@ -1,5 +1,24 @@
 .container {
     border-radius: 5px;
-    display: flex;
     column-gap: 3px;
+    height: 80%;
+    padding-left: 2vh;
+    padding-right: 2vh;
+    border: 2px solid var(--tan);
+}
+
+.text {
+    font-family: Kaz;
+    color: var(--hunt);
+    text-align: center;
+    font-size: 1.2em;
+    height: 40%;
+}
+
+.checkBoxes {
+    display: flex;
+    justify-content: space-around;
+    column-gap: 8px;
+    margin-bottom: 5%;
+    height: 55%;
 }

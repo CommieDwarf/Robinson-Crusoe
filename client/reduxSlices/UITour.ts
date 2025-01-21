@@ -1,4 +1,4 @@
-import { UIStates } from "../types/UITour/UIStates";
+import { UIState } from "../types/UITour/UIStates";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import Entries from "@shared/types/Entries";
 import { steps } from "components/Game/UITour/steps";
@@ -6,17 +6,18 @@ import { steps } from "components/Game/UITour/steps";
 export interface UITourState {
 	stepIndex: number;
 	tourInProgress: boolean;
-	UiStates: UIStates;
+	UiStates: UIState;
 	tourRefused: false,
 }
 
 const initialState: UITourState = {
-	stepIndex: 0,
+	stepIndex: 22,
 	tourInProgress: false,
 	tourRefused: false,
 	UiStates: {
 		phaseListOpen: false,
 		scenarioOpen: false,
+		menuOpen: false,
 	},
 };
 
@@ -35,14 +36,14 @@ export const UITourSlice = createSlice({
 		tourInProgressUpdated(state, action) {
 			state.tourInProgress = action.payload;
 		},
-		UIStateUpdated<K extends keyof UIStates>(
+		UIStateUpdated<K extends keyof UIState>(
 			state: UITourState,
-			action: PayloadAction<[key: K, value: UIStates[K] ]>
+			action: PayloadAction<[key: K, value: UIState[K] ]>
 		) {
 			const [key, value ] = action.payload;
 			state.UiStates[key] = value;
 		},
-        UIStateToggled<K extends keyof UIStates>(
+        UIStateToggled<K extends keyof UIState>(
 			state: UITourState,
 			action: PayloadAction<K>
 		) {

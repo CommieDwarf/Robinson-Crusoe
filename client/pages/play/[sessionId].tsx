@@ -1,6 +1,6 @@
 import styles from "./index.module.css";
 import Loading from "../../components/Loading/Loading";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import {
 	SOCKET_EVENT_CLIENT,

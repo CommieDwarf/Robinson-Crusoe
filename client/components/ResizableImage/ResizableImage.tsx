@@ -24,16 +24,6 @@ export default function ResizableImage(props: Props) {
     const sizes = `(max-width: ${containerWidth}px) 100vw, ${containerWidth}px`;
 
 
-    // const startTime = performance.now();
-    //
-    // function onLoad() {
-    //     const endTime = performance.now();
-    //     const loadingTime = endTime - startTime;
-    //
-    //     console.log("loading time", alt, loadingTime)
-    // }
-
-
     return (
         <div ref={containerRef} className={`${styles.container} ${props.className}`}>
             <Image {...props}

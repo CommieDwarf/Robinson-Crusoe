@@ -37,7 +37,7 @@ function ScenarioButton(props: Props) {
 
 
 
-	const { handleNextStep, animationInProgress, currentStep, cleanupTimeout } =
+	const { handleNextStep, delayInProgress: animationInProgress, currentStep, cleanupTimeout } =
 		useUITourControl();
 
 

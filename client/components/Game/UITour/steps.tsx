@@ -1,47 +1,87 @@
 import { Step } from "react-joyride";
 import { insertIconsIntoText } from "utils/insertIconsIntoText/insertIconsIntoText";
 import { insertIcon } from "../UI/Guide/Guide";
-import { UIStates } from "types/UITour/UIStates";
+import { UIState } from "types/UITour/UIStates";
 import { UI_TOUR_STEP_ID } from "types/UITour/UI_TOUR_STEP_ID";
 import { useAppDispatch } from "store/hooks";
 import { UIStateUpdated } from "reduxSlices/UITour";
 import { CSSProperties } from "react";
+import { StyledHr } from "components/StyledHr/StyledHr";
 
 const defaultDelay = 520;
 
+/**
+ * @interface StepData
+ * @description Represents the state and utility functions for managing a step-based process.
+ * @property {UI_TOUR_STEP_ID} id - A unique identifier for a step.
+ * @property {boolean} [hideNextButton] - Optional. Hides the "Next" button and prevents advancing to the next step
+ *                                        from a tooltip level.
+ * @property {(uiState: UIState) => boolean} [shouldSkip] - Optional. Determines if the given step should be skipped.
+ *                                                          Runs before transitioning to the step.
+ * @property {GetUpdateUIStateHandle} [getUpdateUIStateHandle] - Optional. A function that returns a UI state handler.
+ * @property {CSSProperties} [toolTipStyle] - Optional. Custom styles for the tooltip.
+ */
 
-
-interface StepData  {
+interface StepData {
 	id: UI_TOUR_STEP_ID;
 	hideNextButton?: boolean;
-	shouldSkip?: (uiStates: UIStates) => boolean;
+	shouldSkip?: (uiState: UIState) => boolean;
 	getUpdateUIStateHandle?: GetUpdateUIStateHandle;
 	toolTipStyle?: CSSProperties;
 }
 
+/**
+ * @typedef {Object} CustomStep
+ * @property {StepData} data - Data associated with the step.
+ */
 export interface CustomStep extends Step {
-	data: StepData
+	data: StepData;
 }
 
 export type Delay = number;
+
+/**
+ * @function UpdateUIStateHandle
+ * @description A function that dispatches a UI state change.
+ * @returns {void}
+ */
+
 export type UpdateUIStateHandle = () => void;
+/**
+ * @function GetUpdateUIStateHandle
+ * @description A function that provides a delay (in milliseconds) and a UI state update handler.
+ * @argument {ReturnType<typeof useAppDispatch>} dispatch - Redux dispatch function.
+ * @argument {UIState} uiState - The current UI state from Redux.
+ * @argument {number} [delay] - Optional. A delay in milliseconds.
+ * @returns {[Delay, UpdateUIStateHandle]} - A tuple containing:
+ *                                           - Delay (in milliseconds).
+ *                                           - A function to update the UI state.
+ */
 
 export type GetUpdateUIStateHandle = (
 	dispatch: ReturnType<typeof useAppDispatch>,
-	uiStates: UIStates,
+	uiState: UIState,
 	delay?: number
 ) => [Delay, UpdateUIStateHandle];
 
+/**
+ * @function createUIHandlerGetter
+ * @description Creates a handler getter for controlling step UI state.
+ * @argument {(uiState: UIState) => boolean} shouldDelay - A function that determines whether a delay is necessary
+ *                                                         based on the current UI state.
+ * @argument {(dispatch: ReturnType<typeof useAppDispatch>) => void} changeUI - A function to immediately update the UI state before delayed step change.
+ * @argument {number} [customDelay=defaultDelay] - Optional. A custom delay in milliseconds. Defaults to `defaultDelay`.
+ * @returns {GetUpdateUIStateHandle} - A function that provides a delay and a handler for updating the UI state.
+ */
 
-
-function createUIHandler(
-	shouldDelay: (states: UIStates) => boolean,
+function createUIHandlerGetter(
+	shouldDelay: (states: UIState) => boolean,
 	changeUI: (dispatch: ReturnType<typeof useAppDispatch>) => void,
 	stepDelay: number = defaultDelay
 ): GetUpdateUIStateHandle {
 	return function UpdateUiStateHandle(
 		dispatch: ReturnType<typeof useAppDispatch>,
-		uiStates: UIStates,
+		uiStates: UIState,
 		customDelay: number = stepDelay
 	): [Delay, UpdateUIStateHandle] {
 		const delay = shouldDelay(uiStates) ? customDelay : 0;
@@ -90,7 +130,7 @@ export const steps: CustomStep[] = [
 			toolTipStyle: {
 				maxWidth: "40vw",
 			},
-			getUpdateUIStateHandle: createUIHandler(
+			getUpdateUIStateHandle: createUIHandlerGetter(
 				(states) => states.scenarioOpen || !states.phaseListOpen,
 				(dispatch) => dispatch(UIStateUpdated(["scenarioOpen", false]))
 			),
@@ -113,7 +153,7 @@ export const steps: CustomStep[] = [
 		data: {
 			id: UI_TOUR_STEP_ID.MORALE,
 			toolTipStyle: {
-				maxWidth: "40%"
+				maxWidth: "40%",
 			},
 			getUpdateUIStateHandle: (
 				dispatch,
@@ -160,7 +200,7 @@ export const steps: CustomStep[] = [
 				maxWidth: "50vw",
 				backgroundColor: "blue",
 			},
-			getUpdateUIStateHandle: createUIHandler(
+			getUpdateUIStateHandle: createUIHandlerGetter(
 				(uiStates) => uiStates.scenarioOpen,
 				(dispatch) => dispatch(UIStateUpdated(["scenarioOpen", false]))
 			),
@@ -278,8 +318,8 @@ export const steps: CustomStep[] = [
 		data: {
 			id: UI_TOUR_STEP_ID.THREAT,
 			toolTipStyle: {
-				maxWidth: "30vw"
-			}
+				maxWidth: "30vw",
+			},
 		},
 	},
 	{
@@ -314,7 +354,6 @@ export const steps: CustomStep[] = [
 		),
 		placement: "left",
 		data: {
-
 			id: UI_TOUR_STEP_ID.CHARACTER,
 		},
 	},
@@ -464,7 +503,7 @@ export const steps: CustomStep[] = [
 		data: {
 			id: UI_TOUR_STEP_ID.SCENARIO_BUTTON,
 			hideNextButton: true,
-			shouldSkip: (uiStates: UIStates) => uiStates.scenarioOpen,
+			shouldSkip: (uiStates: UIState) => uiStates.scenarioOpen,
 		},
 	},
 	{
@@ -483,7 +522,7 @@ export const steps: CustomStep[] = [
 			toolTipStyle: {
 				maxWidth: "40vw",
 			},
-			getUpdateUIStateHandle: createUIHandler(
+			getUpdateUIStateHandle: createUIHandlerGetter(
 				(states) => !states.scenarioOpen,
 				(dispatch) => dispatch(UIStateUpdated(["scenarioOpen", true]))
 			),
@@ -536,7 +575,7 @@ export const steps: CustomStep[] = [
 		placement: "top",
 		data: {
 			id: UI_TOUR_STEP_ID.WEATHER,
-			getUpdateUIStateHandle: createUIHandler(
+			getUpdateUIStateHandle: createUIHandlerGetter(
 				(state) => state.scenarioOpen,
 				(dispatch) => dispatch(UIStateUpdated(["scenarioOpen", false]))
 			),
@@ -569,41 +608,69 @@ export const steps: CustomStep[] = [
 		},
 	},
 	{
-		target: ".tour-guide",
+		target: ".tour-menu",
+		content: <span>Kliknij aby rozwinąć menu.</span>,
+		placement: "top",
+		data: {
+			id: UI_TOUR_STEP_ID.MENU,
+			shouldSkip: (uiStates) => !!uiStates.menuOpen,
+			hideNextButton: true,
+		},
+	},
+
+	{
+		target: ".tour-menu-players",
 		content: (
 			<span>
-				Aby dowiedzieć się więcej o zasadach rozgrywki, możesz otworzyć
-				poradnik klikając ikonę księgi.
+				Ten przycisk otwiera okno z informacją o postaciach innych
+				graczy.
 			</span>
 		),
 		placement: "top",
 		data: {
-			id: UI_TOUR_STEP_ID.GUIDE,
+			id: UI_TOUR_STEP_ID.MENU_PLAYERS,
+			getUpdateUIStateHandle: createUIHandlerGetter(
+				(states) => !states.menuOpen,
+				(dispatch) => dispatch(UIStateUpdated(["menuOpen", true])),
+				200
+			),
 		},
 	},
 	{
-		target: ".tour-settings",
+		target: ".tour-menu-options",
 		content: (
 			<span>
-				W opcjach możesz zresetować przewodnik po interfejsie gry.
-				<h4>Miłej rozgrywki!</h4>
+				W ustawieniach możesz zrestartować, zapisać lub cofnąc grę do
+				lobby.
 			</span>
 		),
 		placement: "top",
 		data: {
-			id: UI_TOUR_STEP_ID.SETTINGS,
+			id: UI_TOUR_STEP_ID.MENU_SETTINGS,
+		},
+	},
+	{
+		target: ".tour-menu-guide",
+		content: (
+			<span>Poradnik dostarcza bardziej szczegółowy opis zasad gry.</span>
+		),
+		placement: "top",
+		data: {
+			id: UI_TOUR_STEP_ID.MENU_GUIDE,
+		},
+	},
+	{
+		target: ".tour-menu-exit",
+		content: (
+			<span>
+					W opcjach w menu głównym możesz zresetować przewodnik po UI.
+					<br />
+			</span>
+		),
+		title: "Miłej Rozgrywki!",
+		placement: "top",
+		data: {
+			id: UI_TOUR_STEP_ID.MENU_EXIT,
 		},
 	},
 ];
-
-// getUpdateUIStateHandle: (dispatch, uiStates, delay = defaultDelay) => {
-// 	return [
-// 		delay,
-// 		() => {
-// 			if (uiStates.phaseListOpen) {
-// 				dispatch(UIStateUpdated(["phaseListOpen", false]));
-// 			}
-// 		},
-// 	];
-// },
-

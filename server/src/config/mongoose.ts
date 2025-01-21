@@ -1,8 +1,7 @@
 import mongoose from 'mongoose';
+import { config } from './config';
 
-const uri = "mongodb+srv://tosiek22:okrutnik22@cluster0.parqk0n.mongodb.net/UserData?retryWrites=true&w=majority&appName=Cluster0";
-
-mongoose.connect(uri);
+mongoose.connect(config.database.uri);
 
 const db = mongoose.connection;
 

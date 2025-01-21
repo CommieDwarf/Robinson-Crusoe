@@ -4,7 +4,7 @@
     grid-column: 5 / span 1;
     grid-row: 3 / span 2;
     background-image: url("../../../../public/UI/characters/background.png");
-    background-size: cover;
+    background-size: 50vh;
     border: 1px solid var(--borderColor);
     border-top: none;
     border-bottom: none;

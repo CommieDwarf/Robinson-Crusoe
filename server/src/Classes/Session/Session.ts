@@ -62,8 +62,6 @@ export class Session implements SessionData {
 		loadData?: SaveGameDocument
 	) {
 		this._settings = settings;
-		console.log("creating game with settings: ");
-		console.log(settings.difficultySettings);
 		if (loadData) {
 			this._loadData = loadData;
 			this.loadSessionData(loadData);
@@ -291,7 +289,6 @@ export class Session implements SessionData {
 					...(settings.difficultySettings ?? {})
 				}: getScaledDifficultySettings(this._players.length)
 			};
-			console.log(this._settings);
 		}
 	}
 
