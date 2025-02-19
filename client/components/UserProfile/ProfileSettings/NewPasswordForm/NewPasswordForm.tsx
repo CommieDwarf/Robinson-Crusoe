@@ -76,7 +76,7 @@ export function NewPasswordForm(props: Props) {
 			const url = config.SERVER_URL + "/auth/change-password";
 			const body = JSON.stringify({
 				newPassword,
-				currentPassword
+				currentPassword,
 			});
 
 			const result = await fetch(url, {
@@ -105,9 +105,13 @@ export function NewPasswordForm(props: Props) {
 		<div
 			className={`${formStyles.container} ${settingsStyles.formContainer}`}
 		>
-			<form className={`${formStyles.form}`} autoComplete="off" onSubmit={handleSubmit}>
+			<form
+				className={`${formStyles.form}`}
+				autoComplete="off"
+				onSubmit={handleSubmit}
+			>
 				<FormInput
-                    name={"currentPassword"}
+					name={"currentPassword"}
 					placeholder={t("form.oldPassword")}
 					type="password"
 					value={currentPassword}

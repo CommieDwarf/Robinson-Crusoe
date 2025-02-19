@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { Icon, insertIconsIntoText } from "../../../../utils/insertIconsIntoText/insertIconsIntoText";
+import {
+	insertIconsIntoText,
+} from "../../../../utils/insertIconsIntoText/insertIconsIntoText";
 import { Contents, GUIDE_CONTENT } from "./Contents/Contents";
 import styles from "./Guide.module.css";
 import { ArrangeCampPage } from "./pages/Action/ArrangeCampPage";
@@ -17,10 +19,6 @@ import { ActionResolvePage } from "./pages/ActionResolve/ActionResolvePage";
 import { WeatherPage } from "./pages/Weather/WeatherPage";
 import { NightPage } from "./pages/NightPage";
 
-
-
-
-
 export function Guide() {
 	const [selected, setSelected] = useState(GUIDE_CONTENT.INTRODUCTION);
 
@@ -30,26 +28,19 @@ export function Guide() {
 		setSelected(content);
 	}
 
-
-
 	return (
 		<div className={`${styles.container}`}>
 			<div className={styles.contents}>
-				<Contents onContentClick={select} selected={selected}/>
+				<Contents onContentClick={select} selected={selected} />
 			</div>
-			<div className={styles.page}>
-			{<SelectedComponent/>}
-
-			</div>
+			<div className={styles.page}>{<SelectedComponent />}</div>
 		</div>
 	);
 }
 
-
 export function insertIcon(icon: string) {
 	return insertIconsIntoText(icon, styles.icon);
 }
-
 
 const contentComponentMap = {
 	[GUIDE_CONTENT.INTRODUCTION]: IntroductionPage,
@@ -66,4 +57,4 @@ const contentComponentMap = {
 	[GUIDE_CONTENT.ACTION_PHASE_RESOLVE]: ActionResolvePage,
 	[GUIDE_CONTENT.WEATHER]: WeatherPage,
 	[GUIDE_CONTENT.NIGHT]: NightPage,
-}
+};

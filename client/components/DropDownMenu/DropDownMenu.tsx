@@ -15,7 +15,7 @@ interface Props {
 	onClose?: () => void;
 	styles?: React.CSSProperties;
 	children?: JSX.Element;
-	delay?: number
+	delay?: number;
 }
 
 const DropdownMenu = ({
@@ -36,7 +36,7 @@ const DropdownMenu = ({
 		...styles,
 		...size,
 		...currentStyle,
-		transition: `all ${delay ?? 500}ms`
+		transition: `all ${delay ?? 500}ms`,
 	};
 
 	return ReactDOM.createPortal(
@@ -50,7 +50,6 @@ const DropdownMenu = ({
 					`${direction}--${isOpen ? "open" : "closed"}`
 				]
 			}`}
-		
 		>
 			{children}
 		</div>,

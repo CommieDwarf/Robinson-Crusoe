@@ -6,7 +6,6 @@ import Link from "next/link";
 import { fetchAndUpdateUser } from "../../lib/fetchAndUpdateUser";
 import { getAuthToken } from "../../utils/auth/getAuthToken";
 import { useDispatch } from "react-redux";
-import { userUpdated } from "../../reduxSlices/connection";
 import { useAppSelector } from "../../store/hooks";
 
 enum VERIFICATION_STATUS {
@@ -85,7 +84,8 @@ export default function EmailActivation() {
 						<br />
 						Dziękujemy za potwierdzenie swojego adresu e-mail.
 						<br />
-						Zostaniesz przekierowywany za <strong>{redirectCounter}s</strong>.
+						Zostaniesz przekierowywany za{" "}
+						<strong>{redirectCounter}s</strong>.
 					</p>
 				</>
 			)}

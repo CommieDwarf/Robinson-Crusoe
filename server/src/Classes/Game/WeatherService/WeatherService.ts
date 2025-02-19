@@ -6,6 +6,7 @@ import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction"
 import {INVENTION_NORMAL} from "@shared/types/Game/InventionService/Invention";
 import {TREASURE_MYSTERY_CARD} from "@shared/types/Game/MysteryService/MYSTERY_CARD";
 import {LOG_CODE} from "@shared/types/Game/ChatLog/LOG_CODE";
+import { BasicResources } from "../ResourceService/BasicResources";
 
 export class WeatherService implements IWeatherService {
     private _tokens: IWeatherTokens = {
@@ -235,7 +236,12 @@ export class WeatherService implements IWeatherService {
                 );
                 break;
             case "beast":
-                //TODO: implement fighting beast.
+                this._game.beastService.fightCustomBeast(this._game.playerService.primePlayer.getCharacter(), {
+                    name: "Bestia",
+                    strength: 3,
+                    weaponLoss: 0,
+                    reward: new BasicResources(0, 0, 0, 0)
+                })
                 break;
             case "blank":
                 return;

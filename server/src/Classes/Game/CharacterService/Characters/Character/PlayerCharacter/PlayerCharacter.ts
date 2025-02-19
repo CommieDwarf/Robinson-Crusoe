@@ -1,187 +1,187 @@
-import {Character} from "../Character";
+import { Character } from "../Character";
 import {
-    IPlayerCharacter,
-    IPlayerCharacterRenderData,
-    PlayerCharacterName,
-    Wounds,
+	IPlayerCharacter,
+	IPlayerCharacterRenderData,
+	PlayerCharacterName,
+	Wounds,
 } from "@shared/types/Game/Characters/PlayerCharacter";
-import {IPlayer} from "@shared/types/Game/PlayerService/Player";
-import {PawnService} from "../../../../PawnService/PawnService";
-import {ICharEffects} from "@shared/types/Game/Characters/CharEffects";
-import {PlayerCharEffects} from "../../../CharEffects/CharEffects";
-import {IPawnService} from "@shared/types/Game/Pawns/PawnService";
-import {IGame} from "@shared/types/Game/Game";
-import {Gender} from "@shared/types/Game/Characters/Character";
-import {IAbility} from "@shared/types/Game/Skill/IAbility";
-import {AdventureAction} from "@shared/types/Game/ACTION";
-import {removeFromArray} from "@shared/utils/removeFromArray";
-import {LOG_CODE} from "@shared/types/Game/ChatLog/LOG_CODE";
-import {IBasicResourcesAmount} from "@shared/types/Game/Resources/Resources";
-import {INVENTION_PERSONAL} from "@shared/types/Game/InventionService/Invention";
-
+import { IPlayer } from "@shared/types/Game/PlayerService/Player";
+import { PawnService } from "../../../../PawnService/PawnService";
+import { ICharEffects } from "@shared/types/Game/Characters/CharEffects";
+import { PlayerCharEffects } from "../../../CharEffects/CharEffects";
+import { IPawnService } from "@shared/types/Game/Pawns/PawnService";
+import { IGame } from "@shared/types/Game/Game";
+import { Gender } from "@shared/types/Game/Characters/Character";
+import { IAbility } from "@shared/types/Game/Skill/IAbility";
+import { AdventureAction } from "@shared/types/Game/ACTION";
+import { removeFromArray } from "@shared/utils/removeFromArray";
+import { LOG_CODE } from "@shared/types/Game/ChatLog/LOG_CODE";
+import { IBasicResourcesAmount } from "@shared/types/Game/Resources/Resources";
+import { INVENTION_PERSONAL } from "@shared/types/Game/InventionService/Invention";
 
 export abstract class PlayerCharacter
-    extends Character
-    implements IPlayerCharacter {
+	extends Character
+	implements IPlayerCharacter
+{
+	protected readonly _player: IPlayer;
+	protected readonly _moraleThresholds: number[];
+	private _moraleThresholdsRemoved: number[] = [];
+	protected _pawnService: IPawnService<IPlayerCharacter>;
+	protected declare _name: PlayerCharacterName;
+	protected declare _skills: IAbility<any>[];
+	private _weaponBoost = 0;
+	private readonly _invention: INVENTION_PERSONAL;
 
+	private _hasPersonalResource = {
+		wood: false,
+		leather: false,
+		food: false,
+		dryFood: false,
+	};
 
-    protected readonly _player: IPlayer;
-    protected readonly _moraleThresholds: number[];
-    private _moraleThresholdsRemoved: number[] = [];
-    protected _pawnService: IPawnService<IPlayerCharacter>
-    protected declare _name: PlayerCharacterName;
-    protected declare _skills: IAbility<any>[];
-    private _weaponBoost = 0;
-    private readonly _invention: INVENTION_PERSONAL;
+	protected _wounds: Wounds = {
+		head: [],
+		arm: [],
+		stomach: [],
+		leg: [],
+	};
 
-    private _hasPersonalResource = {
-        wood: false,
-        leather: false,
-        food: false,
-        dryFood: false
-    }
+	protected constructor(
+		name: PlayerCharacterName,
+		id: number,
+		maxHealth: number,
+		game: IGame,
+		gender: Gender,
+		moraleThresholds: number[],
+		invention: INVENTION_PERSONAL,
+		player: IPlayer
+	) {
+		super(name, id, maxHealth, game);
+		this._player = player;
+		this._moraleThresholds = moraleThresholds;
+		this._gender = gender;
+		this._effects = new PlayerCharEffects(this);
+		this._pawnService = new PawnService(this._game, this);
+		this._invention = invention;
+		this.pawnService.initPawns(2, false, null);
+	}
 
-    protected _wounds: Wounds = {
-        head: [],
-        arm: [],
-        stomach: [],
-        leg: [],
-    }
+	get renderData(): IPlayerCharacterRenderData {
+		return {
+			...this.getPawnOwnerRenderData(),
+			pawnService: this._pawnService.renderData,
+		};
+	}
 
-    protected constructor(
-        name: PlayerCharacterName,
-        id: number,
-        maxHealth: number,
-        game: IGame,
-        gender: Gender,
-        moraleThresholds: number[],
-        invention: INVENTION_PERSONAL,
-        player: IPlayer,
-    ) {
-        super(name, id, maxHealth, game);
-        this._player = player;
-        this._moraleThresholds = moraleThresholds;
-        this._gender = gender;
-        this._effects = new PlayerCharEffects(this);
-        this._pawnService = new PawnService(this._game, this);
-        this._invention = invention;
-        this.pawnService.initPawns(2, false, null);
-    }
+	public getPawnOwnerRenderData(): Omit<
+		IPlayerCharacterRenderData,
+		"pawnService"
+	> {
+		return {
+			...super.getPawnOwnerRenderData(),
+			moraleThresholds: this._moraleThresholds,
+			playerId: this._player.id,
+			name: this.name,
+			abilities: this._skills.map((skill) => skill.renderData),
+			moraleThresholdsRemoved: this._moraleThresholdsRemoved,
+			wounds: this._wounds,
+			weaponBoost: this._weaponBoost,
+			hasPersonalResource: this._hasPersonalResource,
+			invention: this._invention,
+		};
+	}
 
+	// ---------------------------------------------
 
-    get renderData(): IPlayerCharacterRenderData {
-        return {
-            ...this.getPawnOwnerRenderData(),
-            pawnService: this._pawnService.renderData,
-        }
-    }
+	get invention(): INVENTION_PERSONAL {
+		return this._invention;
+	}
 
+	get hasPersonalResource() {
+		return this._hasPersonalResource;
+	}
 
-    public getPawnOwnerRenderData(): Omit<IPlayerCharacterRenderData, "pawnService"> {
-        return {
-            ...super.getPawnOwnerRenderData(),
-            moraleThresholds: this._moraleThresholds,
-            playerId: this._player.id,
-            name: this.name,
-            abilities: this._skills.map((skill) => skill.renderData),
-            moraleThresholdsRemoved: this._moraleThresholdsRemoved,
-            wounds: this._wounds,
-            weaponBoost: this._weaponBoost,
-            hasPersonalResource: this._hasPersonalResource,
-            invention: this._invention
-        }
-    }
+	get wounds(): Wounds {
+		return this._wounds;
+	}
 
-    // ---------------------------------------------
+	get moraleThresholdsRemoved(): number[] {
+		return this._moraleThresholdsRemoved;
+	}
 
-    get invention(): INVENTION_PERSONAL {
-        return this._invention;
-    }
+	get abilities(): IAbility<any>[] {
+		return this._skills;
+	}
 
-    get hasPersonalResource() {
-        return this._hasPersonalResource;
-    }
+	get effects(): ICharEffects {
+		return this._effects;
+	}
 
-    get wounds(): Wounds {
-        return this._wounds;
-    }
+	set effects(value: ICharEffects) {
+		this._effects = value;
+	}
 
-    get moraleThresholdsRemoved(): number[] {
-        return this._moraleThresholdsRemoved;
-    }
+	get name(): PlayerCharacterName {
+		return this._name;
+	}
 
-    get abilities(): IAbility<any>[] {
-        return this._skills;
-    }
+	set name(value: PlayerCharacterName) {
+		this._name = value;
+	}
 
-    get effects(): ICharEffects {
-        return this._effects;
-    }
+	get pawnService(): IPawnService<IPlayerCharacter> {
+		return this._pawnService;
+	}
 
-    set effects(value: ICharEffects) {
-        this._effects = value;
-    }
+	get player(): IPlayer {
+		return this._player;
+	}
 
-    get name(): PlayerCharacterName {
-        return this._name;
-    }
+	get moraleThresholds(): number[] {
+		return this._moraleThresholds;
+	}
 
-    set name(value: PlayerCharacterName) {
-        this._name = value;
-    }
+	get gender(): "male" | "female" {
+		return this._gender;
+	}
 
-    get pawnService(): IPawnService<IPlayerCharacter> {
-        return this._pawnService;
-    }
+	get shouldMoraleDrop(): boolean {
+		return this._moraleThresholds.includes(this.health);
+	}
 
-    get player(): IPlayer {
-        return this._player;
-    }
+	get weaponBoost(): number {
+		return this._weaponBoost;
+	}
 
-    get moraleThresholds(): number[] {
-        return this._moraleThresholds;
-    }
+	set weaponBoost(value: number) {
+		this._weaponBoost = value;
+	}
 
-    get gender(): "male" | "female" {
-        return this._gender;
-    }
+	// ---------------------------------------------
 
-    get shouldMoraleDrop(): boolean {
-        return this._moraleThresholds.includes(this.health);
-    }
+	setPersonalResource(resource: keyof IBasicResourcesAmount, value: boolean) {
+		this._hasPersonalResource[resource] = value;
+	}
 
-    get weaponBoost(): number {
-        return this._weaponBoost;
-    }
+	setWound(part: keyof Wounds, action: AdventureAction, source: string) {
+		this._wounds[part].push(action);
 
-    set weaponBoost(value: number) {
-        this._weaponBoost = value;
-    }
+		this._game.logService.addMessage(
+			{
+				code: LOG_CODE.CHARACTER_GOT_WOUND,
+				amount: 1,
+				subject1: this._name,
+				subject2: part,
+			},
+			"negative",
+			source
+		);
+	}
 
-
-    // ---------------------------------------------
-
-    setPersonalResource(resource: keyof IBasicResourcesAmount, value: boolean) {
-        this._hasPersonalResource[resource] = value;
-    }
-
-    setWound(part: keyof Wounds, action: AdventureAction, source: string) {
-        this._wounds[part].push(action);
-
-        this._game.logService.addMessage({
-            code: LOG_CODE.CHARACTER_GOT_WOUND,
-            amount: 1,
-            subject1: this._name,
-            subject2: part
-        }, "negative", source)
-
-    }
-
-    unsetWound(part: keyof Wounds, action: AdventureAction, source: string) {
-        if (!this._wounds[part]) {
-            return;
-        }
-        this._wounds[part] = removeFromArray(this._wounds[part], action);
-    }
-
+	unsetWound(part: keyof Wounds, action: AdventureAction, source: string) {
+		if (!this._wounds[part]) {
+			return;
+		}
+		this._wounds[part] = removeFromArray(this._wounds[part], action);
+	}
 }

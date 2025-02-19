@@ -1,10 +1,7 @@
-
-
-
 export function darkenColor(hex: string, factor = 0.8): string {
 	const [r, g, b] = hexToRgb(hex).map((val) => Math.floor(val * factor));
 	return `rgb(${r}, ${g}, ${b})`;
-  }
+}
 
 function hexToRgb(hex: string): [number, number, number] {
 	const bigint = parseInt(hex.replace("#", ""), 16);

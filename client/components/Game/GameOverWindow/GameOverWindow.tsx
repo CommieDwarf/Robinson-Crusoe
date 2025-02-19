@@ -22,7 +22,6 @@ export function GameOverWindow(props: Props) {
 			return t(`scenario.castaways.winNarrative`);
 		}
 		if (props.endGameSummary.defeatReason === "death") {
-			//todo: wprowadz opcje wyswielania nazw wielu martwych graczy
 			const deadPlayer = props.endGameSummary.players.find(
 				(player) => player.character!.health <= 0
 			)!;
@@ -38,29 +37,32 @@ export function GameOverWindow(props: Props) {
 	return (
 		<div className={styles.container}>
 			{gameWon ? (
-				<h2 className={styles.statusWin}>{t("menu.win").toUpperCase()}</h2>
+				<h2 className={styles.statusWin}>
+					{t("menu.win").toUpperCase()}
+				</h2>
 			) : (
-				<h2 className={styles.statusDefeat}>{t("menu.defeat").toUpperCase()}</h2>
+				<h2 className={styles.statusDefeat}>
+					{t("menu.defeat").toUpperCase()}
+				</h2>
 			)}
 			<p className={styles.narrative}>{getScenarioNarrative()}</p>
 			<div className={styles.summary}>
 				<div>
-					{capitalize(t("menu.rounds survived"))}: {props.endGameSummary.roundsSurvived}
+					{capitalize(t("menu.rounds survived"))}:{" "}
+					{props.endGameSummary.roundsSurvived}
 				</div>
 			</div>
 			{quickGame ? (
 				<div className={styles.buttonWrapper}>
 					<div className={"menuButton"}>
-						<Link href={"/"}>
-							{capitalize(t("menu.to menu"))}
-						</Link>
+						<Link href={"/"}>{capitalize(t("menu.to menu"))}</Link>
 					</div>
 				</div>
 			) : (
 				<div className={styles.buttonWrapper}>
 					<div className={"menuButton"}>
 						<Link href={"/multiplayer/lobby/" + sessionId}>
-						{capitalize(t("menu.to lobby"))}
+							{capitalize(t("menu.to lobby"))}
 						</Link>
 					</div>
 				</div>

@@ -1,5 +1,3 @@
-
-
 export enum JWT_ACTION {
     ACTIVATION = "activation",
     PASSWORD_RESET = "password reset",

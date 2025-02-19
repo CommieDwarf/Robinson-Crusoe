@@ -14,5 +14,4 @@ userRouter.get("/username-exists/:username", UserService.usernameExists);
 userRouter.get("/email-exists/:email", UserService.emailExists);
 userRouter.get("/avatar/:username", UserService.getUserAvatar);
 
-
 export { userRouter };

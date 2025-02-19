@@ -37,7 +37,6 @@ export function Multiplayer() {
 	function closeWindow() {
 		setSessionIdToJoin("");
 		setMessage("");
-		// clearQuery();
 	}
 
 	function handleRefreshClick() {
@@ -64,17 +63,6 @@ export function Multiplayer() {
 
 	function updateShowSpinner(value: boolean) {
 		setShowSpinner(value);
-	}
-
-	function clearQuery() {
-		router.replace(
-			{
-				pathname: router.pathname, // Aktualna ścieżka bez zmian
-				query: {}, // Pusta kwerenda
-			},
-			undefined,
-			{ shallow: true } // Zapobiega przeładowaniu strony
-		);
 	}
 
 	useEffect(() => {
@@ -180,10 +168,18 @@ export function Multiplayer() {
 			{message && (
 				<DraggableWindow
 					onClose={closeWindow}
-					styles={{ aspectRatio: "2", height: "20vh", padding: "1%", backgroundSize: "200%" }}
+					styles={{
+						aspectRatio: "2",
+						height: "20vh",
+						padding: "1%",
+						backgroundSize: "200%",
+					}}
 				>
+					<Message
 					{/* @ts-ignore */}
-					<Message message={t(`error.${message}`)} title={t(`error.disconnected`)} />
+						message={t(`error.${message}`)}
+						title={t(`error.disconnected`)}
+					/>
 				</DraggableWindow>
 			)}
 

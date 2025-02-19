@@ -16,5 +16,4 @@ emailVerificationRouter.post(
 	EmailVerificationService.reSendActivationEmail
 );
 
-
-export {emailVerificationRouter};
+export { emailVerificationRouter };

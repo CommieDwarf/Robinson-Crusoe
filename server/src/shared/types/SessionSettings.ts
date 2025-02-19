@@ -7,7 +7,7 @@ export interface DifficultySetup {
 
 export interface DifficultySettings extends DifficultySetup {
 	startingEquipment: number;
-    scaled: boolean;
+	scaled: boolean;
 }
 
 export interface SessionSettings {

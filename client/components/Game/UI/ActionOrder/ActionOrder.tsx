@@ -22,7 +22,7 @@ export default function ActionOrder(props: Props) {
                 <div className={styles.redArrow} key={i}>
                     <ResizableImage
                         src={redArrowImg}
-                        alt="strzałka"
+                        alt=""
                     />
                 </div>
             );

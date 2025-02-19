@@ -1,32 +1,28 @@
 .card {
-    aspect-ratio: 404 / 617;
-    position: absolute;
-    transition: all 0.5s;
-    z-index: 1;
-    font-size: 20px;
+	aspect-ratio: 404 / 617;
+	position: absolute;
+	transition: all 0.5s;
+	z-index: 1;
+	font-size: 20px;
 }
 
-
 .zIndexTransition {
-    animation-name: zIndex;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
-    animation-iteration-count: 1;
+	animation-name: zIndex;
+	animation-duration: 1s;
+	animation-fill-mode: forwards;
+	animation-iteration-count: 1;
 }
 
 @keyframes zIndex {
-    from {
-        z-index: 1
-    }
-    to {
-        z-index: 0
-    }
+	from {
+		z-index: 1;
+	}
+	to {
+		z-index: 0;
+	}
 }
 
 .enlarged {
-    z-index: 2;
-    font-size: 40px !important;
+	z-index: 2;
+	font-size: 40px !important;
 }
-
-
-

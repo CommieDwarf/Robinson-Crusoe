@@ -4,7 +4,6 @@
     left: -5%;
     top: -5%;
     height: 30% !important;
-    /*aspect-ratio: 240 / 130;*/
     aspect-ratio: 240 / 130 !important;
     overflow: hidden;
 }

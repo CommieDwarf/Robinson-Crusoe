@@ -1,27 +1,26 @@
-
 .container {
-    border-top: 1px dashed var(--borderColor);
-    width: 100%;
+	border-top: 1px dashed var(--borderColor);
+	width: 100%;
 }
 
 .containerBorderless {
-    border: none;
+	border: none;
 }
 
-.author, .time {
-    font-weight: bold;
-    margin-right: 5px;
+.author,
+.time {
+	font-weight: bold;
+	margin-right: 5px;
 }
 
 .messageContent {
-    word-wrap: break-word;
+	word-wrap: break-word;
 }
 
 .localUser {
-    color: var(--explore);
+	color: var(--explore);
 }
 
-
 .system {
-    color: #545454;
+	color: #545454;
 }

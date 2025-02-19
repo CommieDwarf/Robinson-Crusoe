@@ -22,11 +22,15 @@ export function GameOptions(props: Props) {
 		dispatch(socketEmit(SOCKET_EVENT_CLIENT.RESTART_GAME, { sessionId }));
 	}
 
-    function handleTerminateClick() {
-        dispatch(socketEmit(SOCKET_EVENT_CLIENT.TERMINATE_GAME, { sessionId }));
-    }
+	function handleTerminateClick() {
+		dispatch(socketEmit(SOCKET_EVENT_CLIENT.TERMINATE_GAME, { sessionId }));
+	}
 
-    const isHost = useAppSelector((state) => state.gameSession.data?.hostPlayer.id === state.gameSession.data?.localPlayer.id);
+	const isHost = useAppSelector(
+		(state) =>
+			state.gameSession.data?.hostPlayer.id ===
+			state.gameSession.data?.localPlayer.id
+	);
 
 	return (
 		<div className={styles.container}>
@@ -36,19 +40,25 @@ export function GameOptions(props: Props) {
 			<hr className={sharedStyles.hr} />
 			<div className={styles.buttons}>
 				<div
-					className={`menuButton ${styles.button} ${!isHost && "menuButtonDisabled"}`}
+					className={`menuButton ${styles.button} ${
+						!isHost && "menuButtonDisabled"
+					}`}
 					onClick={handleSaveClick}
 				>
 					Zapisz grę
 				</div>
 				<div
-					className={`menuButton ${styles.button} ${!isHost && "menuButtonDisabled"}`}
+					className={`menuButton ${styles.button} ${
+						!isHost && "menuButtonDisabled"
+					}`}
 					onClick={handleRestartClick}
 				>
 					Restartuj
 				</div>
-                <div
-					className={`menuButton ${styles.button} ${!isHost && "menuButtonDisabled"}`}
+				<div
+					className={`menuButton ${styles.button} ${
+						!isHost && "menuButtonDisabled"
+					}`}
 					onClick={handleTerminateClick}
 				>
 					Zakończ grę

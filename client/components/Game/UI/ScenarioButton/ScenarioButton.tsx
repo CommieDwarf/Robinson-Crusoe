@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styles from "./ScenarioButton.module.css";
 
 import redArrowImg from "/public/UI/misc/red-arrow.png";
@@ -9,7 +9,6 @@ import { useTranslation } from "react-i18next";
 import { capitalize } from "lodash";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
 import { selectGame } from "../../../../reduxSlices/gameSession";
-import { steps } from "components/Game/UITour/steps";
 import { useUITourControl } from "utils/hooks/useUITourControl";
 import { UI_TOUR_STEP_ID } from "types/UITour/UI_TOUR_STEP_ID";
 import { UIStateToggled, UIStateUpdated } from "reduxSlices/UITour";
@@ -35,11 +34,12 @@ function ScenarioButton(props: Props) {
 
 	const dispatch = useAppDispatch();
 
-
-
-	const { handleNextStep, delayInProgress: animationInProgress, currentStep, cleanupTimeout } =
-		useUITourControl();
-
+	const {
+		handleNextStep,
+		delayInProgress: animationInProgress,
+		currentStep,
+		cleanupTimeout,
+	} = useUITourControl();
 
 	const UIStepsBlockClickList = [
 		UI_TOUR_STEP_ID.SCENARIO_INFO,
@@ -52,13 +52,18 @@ function ScenarioButton(props: Props) {
 	];
 
 	function handleClick() {
-
-		if (animationInProgress || (currentStep && UIStepsBlockClickList.includes(currentStep.data.id))) {
+		if (
+			animationInProgress ||
+			(currentStep && UIStepsBlockClickList.includes(currentStep.data.id))
+		) {
 			return;
 		}
 		dispatch(UIStateToggled("scenarioOpen"));
 
-		if (currentStep && UIStepsDelayClickList.includes(currentStep.data.id)) {
+		if (
+			currentStep &&
+			UIStepsDelayClickList.includes(currentStep.data.id)
+		) {
 			handleNextStep();
 		}
 	}
@@ -71,7 +76,9 @@ function ScenarioButton(props: Props) {
 
 	const { t } = useTranslation();
 
-	const scenarioOpen = useAppSelector((state) => state.UITour.UiStates.scenarioOpen);
+	const scenarioOpen = useAppSelector(
+		(state) => state.UITour.UiStates.scenarioOpen
+	);
 
 	return (
 		<div

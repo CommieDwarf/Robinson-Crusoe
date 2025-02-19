@@ -1,27 +1,26 @@
 .container {
-    height: 80%;
-    min-width: 40%;
-    border: 1px solid var(--brown);
-    border-radius: 5px;
-    text-align: center;
-    font-weight: bold;
-    z-index: 9999999;
-    background-position-x: -40px;
-    background-position-y: -40px;
-    cursor: pointer;
-    background-image: url("../../../../../../public/UI/paper-background.png");
-    background-size: 150%;
-    line-height: 1.5em;
-    font-size: 2.5em;
-
+	height: 80%;
+	min-width: 40%;
+	border: 1px solid var(--brown);
+	border-radius: 5px;
+	text-align: center;
+	font-weight: bold;
+	z-index: 9999999;
+	background-position-x: -40px;
+	background-position-y: -40px;
+	cursor: pointer;
+	background-image: url("../../../../../../public/UI/paper-background.png");
+	background-size: 150%;
+	line-height: 1.5em;
+	font-size: 2em;
 }
 .container:hover {
-    transform: scale(110%);
-    filter: contrast(120%)
+	transform: scale(110%);
+	filter: contrast(120%);
 }
 
 .locked {
-    cursor: default !important;
-    filter: opacity(70%) !important;
-    transform: none !important;;
+	cursor: default !important;
+	filter: opacity(70%) !important;
+	transform: none !important;
 }

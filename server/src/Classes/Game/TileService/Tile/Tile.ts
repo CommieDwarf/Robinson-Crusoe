@@ -407,7 +407,6 @@ export class Tile extends AssignablePawnsItem implements ITile {
 		this.builtStructures[structure] += amount;
 	}
 
-	// TODO: implement edge cases
 	decrementStructureLvl(structure: BuiltTileStructure, amount: number) {
 		this.builtStructures[structure] -= amount;
 	}

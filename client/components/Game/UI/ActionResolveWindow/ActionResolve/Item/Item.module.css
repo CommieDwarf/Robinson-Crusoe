@@ -1,5 +1,5 @@
 .container {
-    height: 60%;
+    height: 70%;
     aspect-ratio: 404 / 617 !important;
     position: relative;
     top: 15%;
@@ -7,8 +7,9 @@
 
 .item {
     aspect-ratio: var(--cardAspectRatio);
-    width: 100%;
+    width: 90%;
     position: relative;
+    margin: auto;
 }
 
 .tile {
@@ -131,7 +132,6 @@
 .failure {
     -webkit-text-stroke: 2px darkred;
     color: orangered;
-    /*left: -10px;*/
 }
 
 
@@ -147,9 +147,8 @@
 
 .resolveButton {
     width: 80%;
-    top: 100%;
+
     font-size: 2em;
-    height: 12%;
     font-weight: bold;
     color: var(--brown);
     border: 1px solid var(--borderColor);
@@ -204,7 +203,7 @@
 
 .character {
     aspect-ratio: 1;
-    height: 25%;
+    height: 15%;
     position: relative;
     margin: 5px auto auto;
 }

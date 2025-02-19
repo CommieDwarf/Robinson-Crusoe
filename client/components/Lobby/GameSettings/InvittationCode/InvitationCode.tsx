@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { useAppSelector } from "../../../../store/hooks";
 import styles from "./InvitationCode.module.css";
 import { useState } from "react";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import { capitalize } from "lodash";
 
 interface Props {}
@@ -21,18 +21,15 @@ export function InvitationCode(props: Props) {
 
 	function handleCopyClick() {
 		navigator.clipboard.writeText(code).then(() => {
-			toast(<span> {t("toast.copied to clipboard")}</span>
-		, {
-			icon: <span>&#128203;</span>
-		}
-		)
+			toast(<span> {t("toast.copied to clipboard")}</span>, {
+				icon: <span>&#128203;</span>,
+			});
 		});
 	}
 
 	return (
 		<>
 			<span>
-				
 				{visible && (
 					<input
 						className={`${styles.input} font-mono`}
@@ -52,7 +49,11 @@ export function InvitationCode(props: Props) {
 					)}
 				</span>
 
-				<span className={styles.button} onClick={handleCopyClick} title="kopiuj">
+				<span
+					className={styles.button}
+					onClick={handleCopyClick}
+					title="kopiuj"
+				>
 					&#128203;
 				</span>
 			</span>

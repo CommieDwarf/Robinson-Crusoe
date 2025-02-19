@@ -3,7 +3,11 @@ import { ClientPayloadMap } from "./../../server/src/shared/types/Requests/Socke
 import { Dispatch, Middleware, MiddlewareAPI } from "redux";
 import { RootState, store } from "../store/store";
 import { Socket } from "socket.io-client";
-import { connectedUpdated, connectionLostUpdated, latencyUpdated } from "../reduxSlices/connection";
+import {
+	connectedUpdated,
+	connectionLostUpdated,
+	latencyUpdated,
+} from "../reduxSlices/connection";
 import {
 	ModifiedPayload,
 	SocketActions,
@@ -62,7 +66,7 @@ const socketMiddleware =
 		const emitQueue: SocketEmitAction<SOCKET_EVENT_CLIENT>[] = [];
 		let listeners: SocketListener[];
 
-		let connectedUpdatedTimeout : NodeJS.Timeout | null = null;
+		let connectedUpdatedTimeout: NodeJS.Timeout | null = null;
 		const connectedUpdatedDelayMs = 2000;
 
 		return (action: any) => {
@@ -85,7 +89,8 @@ const socketMiddleware =
 											);
 										});
 									}
-									connectedUpdatedTimeout && clearTimeout(connectedUpdatedTimeout);
+									connectedUpdatedTimeout &&
+										clearTimeout(connectedUpdatedTimeout);
 									connectedUpdatedTimeout = null;
 									api.dispatch(connectedUpdated(true));
 								}

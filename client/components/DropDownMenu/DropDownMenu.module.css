@@ -1,8 +1,6 @@
 .container {
-    position: absolute;
-    transition: all 0.5s;
-    overflow: hidden;
-    z-index: 9
-    
+	position: absolute;
+	transition: all 0.5s;
+	overflow: hidden;
+	z-index: 9;
 }
-

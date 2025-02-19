@@ -2,13 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import { RootState, store } from "../store/store";
 import { IPawnRenderData } from "@shared/types/Game/Pawns/Pawn";
 import { SessionRenderData } from "@shared/types/Session/Session";
-import { IGameRenderData } from "@shared/types/Game/Game";
 import { IActionSlotServiceRenderData } from "@shared/types/Game/ActionSlots";
 import { createSelector } from "reselect";
-import {
-	IPlayerCharacterRenderData,
-	PlayerCharacterName,
-} from "@shared/types/Game/Characters/PlayerCharacter";
 import { IPlayerRenderData } from "@shared/types/Game/PlayerService/Player";
 import { CHARACTER } from "@shared/types/Game/Characters/Character";
 import { IInventionRenderData } from "@shared/types/Game/InventionService/Invention";
@@ -73,7 +68,7 @@ export const gameSessionSlice = createSlice({
 			state.actionSlots = null;
 			state.playerLatencyList = [];
 			state.sessionId = "";
-		}
+		},
 	},
 });
 
@@ -84,7 +79,7 @@ export const {
 	actionSlotsPartiallyUpdated,
 	connectionStatusUpdated,
 	playerListLatencyUpdated,
-	gameSessionCleared
+	gameSessionCleared,
 } = gameSessionSlice.actions;
 
 export const selectActionSlotById = (
@@ -115,7 +110,6 @@ export const selectPlayerLatency = (
 	}
 };
 
-	
 export const selectActionSlotService = (state: RootState) =>
 	selectGame(state)?.actionSlotService;
 export const selectGlobalPawnService = (state: RootState) =>
@@ -156,8 +150,6 @@ export const selectPlayerByCharacter = (
 	selectPlayers(state)?.find(
 		(player) => player.assignedCharacter.char === character
 	);
-
-
 
 export const selectGameData = createSelector(
 	[
@@ -235,7 +227,6 @@ export const selectGameData = createSelector(
 		} as GameData;
 	}
 );
-
 
 interface GameData {
 	actionSlots: Map<string, IPawnRenderData<any> | null>;

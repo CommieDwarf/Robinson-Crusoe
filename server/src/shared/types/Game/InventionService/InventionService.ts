@@ -1,33 +1,35 @@
-import {IInvention, IInventionRenderData, INVENTION, INVENTION_NORMAL} from "./Invention";
-import {ICharacter} from "../Characters/Character";
-import {IPlayer} from "@shared/types/Game/PlayerService/Player";
-import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
+import {
+	IInvention,
+	IInventionRenderData,
+	INVENTION,
+} from "./Invention";
+import { ICharacter } from "../Characters/Character";
+import { IPlayerCharacter } from "@shared/types/Game/Characters/PlayerCharacter";
 
 export interface IInventionServiceRenderData {
-    inventions: IInventionRenderData[];
+	inventions: IInventionRenderData[];
 }
 
 export interface IInventionService {
-    inventions: IInvention[];
-    builtInventions: IInvention[];
-    scenario: string;
-    build: (invention: INVENTION, builder: ICharacter) => void;
-    destroy: (invention: INVENTION) => void;
-    updateLocks: () => void;
-    getInvention: (invention: INVENTION) => IInvention;
+	inventions: IInvention[];
+	builtInventions: IInvention[];
+	scenario: string;
+	build: (invention: INVENTION, builder: ICharacter) => void;
+	destroy: (invention: INVENTION) => void;
+	updateLocks: () => void;
+	getInvention: (invention: INVENTION) => IInvention;
 
-    shuffleInventionStack: () => void;
-    fireplace: boolean;
-    isBuilt: (invention: INVENTION) => boolean;
+	shuffleInventionStack: () => void;
+	fireplace: boolean;
+	isBuilt: (invention: INVENTION) => boolean;
 
-    addInvention: (invention: IInvention) => void;
+	addInvention: (invention: IInvention) => void;
 
-    useInvention: (name: INVENTION, character: IPlayerCharacter) => void;
-    pickInventionsFromStack: (amount: number) => IInvention[];
-    resetCardPawns: () => void;
+	useInvention: (name: INVENTION, character: IPlayerCharacter) => void;
+	pickInventionsFromStack: (amount: number) => IInvention[];
+	resetCardPawns: () => void;
 
-    onMapExplore: () => void;
+	onMapExplore: () => void;
 
-
-    renderData: IInventionServiceRenderData;
+	renderData: IInventionServiceRenderData;
 }

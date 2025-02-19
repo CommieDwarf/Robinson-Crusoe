@@ -71,20 +71,6 @@ export function MainMenu({ UserComponent }: Props) {
 		}
 	}
 
-	// useEffect(() => {
-	//     if (!user) {
-	//         return;
-	//     }
-
-	//     const listener = setSocketListener(SOCKET_EVENT_CLIENT.IS_QUICK_GAME_IN_PROGRESS_RESPONSE, (payload) => {
-	//         setGameInProgress(payload.value);
-	//     })
-	//     dispatch(socketEmit(SOCKET_EVENT_CLIENT.IS_QUICK_GAME_IN_PROGRESS, null))
-	//     return () => {
-	//         listener.off();
-	//     }
-	// }, [user, dispatch])
-
 	return (
 		<div className={styles.container}>
 			<div className={styles.title}>
@@ -92,17 +78,7 @@ export function MainMenu({ UserComponent }: Props) {
 			</div>
 			<div className={styles.menuWrapper}>
 				<ul className={styles.menu}>
-					{/* {gameInProgress && <Link
-                        aria-disabled={!socketConnected}
-                        href={`./play/${sessionId}`}
-                    >
-                        <li className={`${styles.menuItem} ${!socketConnected && styles.menuItemDisabled}`}>
-                            Continue
-                        </li>
-                    </Link>} */}
-					<span
-						onClick={handleQuickGameClick}
-					>
+					<span onClick={handleQuickGameClick}>
 						<li
 							className={`${styles.menuItem} ${
 								!socketConnected && styles.menuItemDisabled
@@ -124,9 +100,11 @@ export function MainMenu({ UserComponent }: Props) {
 						</li>
 					</Link>
 					<Link href={"./settings"}>
-						<li className={`${styles.menuItem} ${styles.button3} ${
+						<li
+							className={`${styles.menuItem} ${styles.button3} ${
 								!socketConnected && styles.menuItemDisabled
-							}`}>
+							}`}
+						>
 							{capitalize(t("menu.settings"))}
 						</li>
 					</Link>

@@ -1,83 +1,83 @@
 .container {
-    aspect-ratio: 1;
-    z-index: 9999;
-    border-radius: 100%;
+	aspect-ratio: 1;
+	z-index: 9999;
+	border-radius: 100%;
 }
 
-
 .pawn {
-    position: relative;
-    border-radius: 100%;
-    width: 100%;
-    height: 100%;
-    z-index: 999;
-
-    /*background-color: orange;*/
-    /*background-color: lightgray;*/
-    /*background-color: lightblue;*/
-    overflow: hidden;
-    border: 2px solid;
-} 
+	position: relative;
+	border-radius: 100%;
+	width: 100%;
+	height: 100%;
+	z-index: 999;
+	overflow: hidden;
+	border: 2px solid;
+}
 
 .imgWrapper {
-    position: relative;
-    width: 100%;
-    height: 100%;
+	position: relative;
+	width: 100%;
+	height: 100%;
 }
 
 .imgWrapperDarkened {
-    filter: brightness(30%);
+	filter: brightness(30%);
 }
 
 .dragged {
-    max-width: 40px;
-    max-height: 40px;
+	max-width: 40px;
+	max-height: 40px;
 }
 
 .friday {
-    background-color: white;
+	background-color: white;
 }
 
 .dog {
-    background-color: #FFC0CB !important;
+	background-color: #ffc0cb !important;
 }
 
 .explore {
-    background-color: #85a52a;
+	background-color: #85a52a;
 }
 
 .build {
-    background-color: #7f584a;
+	background-color: #7f584a;
 }
 
 .hunt {
-    background-color: #aa0d1c;
+	background-color: #aa0d1c;
 }
 
 .gather {
-    background-color: #797474;
+	background-color: #797474;
 }
 
 .gather-explore {
-    background: rgb(121, 116, 116);
-    background: linear-gradient(90deg, rgba(121, 116, 116, 1) 0%, rgba(122, 119, 111, 1) 46%, rgba(133, 165, 42, 1) 54%);
+	background: rgb(121, 116, 116);
+	background: linear-gradient(
+		90deg,
+		rgba(121, 116, 116, 1) 0%,
+		rgba(122, 119, 111, 1) 46%,
+		rgba(133, 165, 42, 1) 54%
+	);
 }
 
 .gatherContext {
-    width: 100%;
-    height: 100%;
+	width: 100%;
+	height: 100%;
 }
 
 .characterContext {
-    height: 42%;
+	height: 42%;
 }
 
 .otherContext {
-    height: 100%;
-    aspect-ratio: 1;
+	height: 100%;
+	aspect-ratio: 1;
 }
 
 .characterContextSideCharacter {
-    width: 100%;
-    height: 100%;
+	width: 100%;
+	height: 100%;
 }

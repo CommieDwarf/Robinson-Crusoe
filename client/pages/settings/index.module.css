@@ -1,36 +1,34 @@
 .container {
-    height: 60%;
-    aspect-ratio: var(--goldenRatio);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border: 1px solid var(--brown);
-    background-image: url("../../public/UI/paper-background.png");
-    color: var(--brown);
-    border-radius: 5px;
-    padding: 1%;
-    font-size: 1em;
-    
+	height: 60%;
+	aspect-ratio: var(--goldenRatio);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border: 1px solid var(--brown);
+	background-image: url("../../public/UI/paper-background.png");
+	color: var(--brown);
+	border-radius: 5px;
+	padding: 1%;
+	font-size: 1em;
 }
 
 .header {
-    position: relative;
+	position: relative;
 }
 
 .backButton {
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
 }
 
 .title {
-    text-align: center;
-    font-size: 1.1em;
+	text-align: center;
+	font-size: 1.1em;
 }
 
 .spacer {
-    height: 5%;
+	height: 5%;
 }
-

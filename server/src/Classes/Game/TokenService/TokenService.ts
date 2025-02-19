@@ -49,19 +49,6 @@ export class TokenService implements ITokenService {
         return tokenList;
     }
 
-    private testTokens() {
-        const length = this._tokenStack.length;
-        for (let i = 0; i < length; i++) {
-        }
-        // const testSet = new Set<string>();
-        //
-        // this.ownedTokens.forEach((token) => {
-        //     if (testSet.has(token.id)) {
-        //         throw new Error("powtarza sie");
-        //     }
-        //     testSet.add(token.id);
-        // });
-    }
 
     private autoUseFutureTokens() {
         this._owned.forEach((token) => token.autoDiscard());
@@ -69,7 +56,6 @@ export class TokenService implements ITokenService {
 
     public useToken(id: string, character: ICharacter) {
 
-        //TODO: make targeting other characters.
         const token = this.getOwnedToken(id)
         token.use(character, character);
         if (token.used) {

@@ -100,11 +100,6 @@ export class ActionSlotService implements IActionSlotService {
         }
     }
 
-    private incrPawnAmountInItem(droppableId: string) {
-        const item = getItemFromDroppableId(droppableId, this._game);
-    }
-
-
     public unsetPawn(droppableId: string) {
         this._slots.set(droppableId, null);
         if (droppableId.includes("gather")) {

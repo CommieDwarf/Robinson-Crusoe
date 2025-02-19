@@ -22,9 +22,12 @@ interface Props {
 export default function RestArrange(props: Props) {
 	let rewardLabel;
 
-	const playerAmount = useAppSelector((state) => state.gameSession.data?.players.length);
+	const playerAmount = useAppSelector(
+		(state) => state.gameSession.data?.players.length
+	);
 
-	const shouldChooseReward = props.type === ACTION.ARRANGE_CAMP && playerAmount === 4;
+	const shouldChooseReward =
+		props.type === ACTION.ARRANGE_CAMP && playerAmount === 4;
 
 	if (props.type === ACTION.ARRANGE_CAMP) {
 		rewardLabel = (

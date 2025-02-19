@@ -79,7 +79,7 @@ export class AdventureService implements IAdventureService {
         const card = this.popAdventureCardFromStack(resolvableItem.action);
         let relatedActionInfo = this.getRelatedActionInfo(resolvableItem);
 
-        //AdventureCardResolve Service must remember the action,
+        // AdventureCardResolve Service must remember the action
         // that triggered it for some  adventure cards effects.
         this._currentAdventure = {
             card,

@@ -1,38 +1,39 @@
 import {
-    IResourceCommittableItem,
-    IResourceCommittableItemRenderData
+	IResourceCommittableItem,
+	IResourceCommittableItemRenderData,
 } from "../ResourceCommitableItem/ResourceCommittableItem";
 
 export type ConstructionCostType = "wood" | "leather";
 
-export interface IConstructionRenderData extends IResourceCommittableItemRenderData<ConstructionCostType> {
-    name: CONSTRUCTION;
-    lvl: number;
-    locked: boolean;
-    canResourceBeSwitched: boolean;
-    temporaryBoost: number;
-
+export interface IConstructionRenderData
+	extends IResourceCommittableItemRenderData<ConstructionCostType> {
+	name: CONSTRUCTION;
+	lvl: number;
+	locked: boolean;
+	canResourceBeSwitched: boolean;
+	temporaryBoost: number;
 }
 
-export interface IConstruction extends IResourceCommittableItem<ConstructionCostType> {
-    name: CONSTRUCTION;
-    namePL: string;
-    lvl: number;
-    locked: boolean;
-    renderData: IConstructionRenderData;
-    resourceChoice: boolean;
+export interface IConstruction
+	extends IResourceCommittableItem<ConstructionCostType> {
+	name: CONSTRUCTION;
+	namePL: string;
+	lvl: number;
+	locked: boolean;
+	renderData: IConstructionRenderData;
+	resourceChoice: boolean;
 
-    temporaryBoost: number;
+	temporaryBoost: number;
 
-    boostedLvl: number;
+	boostedLvl: number;
 
-    incrTemporaryBoost: (value: number) => void;
-    resetTemporaryBoost: () => void;
+	incrTemporaryBoost: (value: number) => void;
+	resetTemporaryBoost: () => void;
 }
 
 export enum CONSTRUCTION {
-    SHELTER = "shelter",
-    ROOF = "roof",
-    PALISADE = "palisade",
-    WEAPON = "weapon",
+	SHELTER = "shelter",
+	ROOF = "roof",
+	PALISADE = "palisade",
+	WEAPON = "weapon",
 }

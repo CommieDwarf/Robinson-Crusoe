@@ -1,60 +1,56 @@
 .container {
-    width: 100%;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-right: 10px;
-
+	width: 100%;
+	color: white;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-right: 10px;
 }
 
-
 .sessionInfo {
-    display: inline-grid;
-    grid-template-columns: 4fr 3fr 2fr 2fr 2fr;
-    width: calc(100% - 55px);
-    height: 100%;
-    border-radius: 5px;
-    justify-content: space-evenly;
-    line-height: 20px;
-    border: 2px solid var(--borderColor);
-    background-color: var(--brown);
-    font-family: var(--font-mono);
-    padding: 0.5% 0 0.5% 0;
-    
+	display: inline-grid;
+	grid-template-columns: 4fr 3fr 2fr 2fr 2fr;
+	width: calc(100% - 55px);
+	height: 100%;
+	border-radius: 5px;
+	justify-content: space-evenly;
+	line-height: 20px;
+	border: 2px solid var(--borderColor);
+	background-color: var(--brown);
+	font-family: var(--font-mono);
+	padding: 0.5% 0 0.5% 0;
 }
 
 .sessionInfoShortened {
-    grid-template-columns: 4fr 3fr 2fr 2fr;
+	grid-template-columns: 4fr 3fr 2fr 2fr;
 }
 
 .sessionInfo > div {
-    padding-left: 1%;
-    padding-right: 1%;
-    text-align: center;
-    color: white;
-    font-size: 0.7em;
+	padding-left: 1%;
+	padding-right: 1%;
+	text-align: center;
+	color: white;
+	font-size: 0.7em;
 }
 
 .name {
-    grid-column: 1 / span 1;
+	grid-column: 1 / span 1;
 }
 
 .host {
-    grid-column: 2 / span 1;
-
+	grid-column: 2 / span 1;
 }
 
 .playerAmount {
-    grid-column: 3 / span 1;
+	grid-column: 3 / span 1;
 }
 
 .scenario {
-    grid-column: 4 / span 1;
+	grid-column: 4 / span 1;
 }
 
 .password {
-    grid-column: 5 / span 1;
+	grid-column: 5 / span 1;
 }
 
 /* .imgWrapper {
@@ -72,10 +68,10 @@
 } */
 
 .imgWrapper:hover {
-    scale: 1.1;
+	scale: 1.1;
 }
 
 .buttonWrapper {
-    margin-left: 5px;
-    font-size: 0.7em;
+	margin-left: 5px;
+	font-size: 0.7em;
 }

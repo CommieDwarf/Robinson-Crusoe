@@ -2,7 +2,6 @@ import {
     IInvention,
     IInventionRenderData,
     INVENTION,
-    INVENTION_PERSONAL,
     INVENTION_TYPE,
     InventionRequirements,
     InventionResource,

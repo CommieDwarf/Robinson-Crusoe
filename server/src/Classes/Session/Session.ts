@@ -14,14 +14,14 @@ import { PLAYER_COLOR } from "@shared/types/Game/PLAYER_COLOR";
 import { uuid } from "uuidv4";
 import { CONTROLLER_ACTION } from "@shared/types/CONTROLLER_ACTION";
 import { CHARACTER, Gender } from "@shared/types/Game/Characters/Character";
-import { PartialSessionSettings, SessionSettings } from "@shared/types/SessionSettings";
+import {
+	PartialSessionSettings,
+	SessionSettings,
+} from "@shared/types/SessionSettings";
 import { IUser } from "../../shared/types/User/IUser";
 import { Player } from "../Player/Player";
 import { io } from "../../../server";
-import {
-	SOCKET_EVENT_SERVER,
-} from "@shared/types/Requests/Socket";
-import { isPlayer } from "../../utils/isPlayer";
+import { SOCKET_EVENT_SERVER } from "@shared/types/Requests/Socket";
 import { ChatService } from "../ChatService/ChatService";
 import {
 	IChatService,
@@ -37,7 +37,6 @@ import { config } from "../../config/config";
 import { ISessionService } from "@shared/types/SessionService";
 import { SCENARIO_STATUS } from "@shared/types/Game/ScenarioService/ScenarioService";
 import { GAME_STATUS } from "@shared/types/Game/Game";
-import { EndGameSummary } from "@shared/types/Game/GameSummary/GameSummary";
 import { getScaledDifficultySettings } from "@shared/utils/getPlayerBasedDifficultySettings";
 
 export class Session implements SessionData {
@@ -53,10 +52,10 @@ export class Session implements SessionData {
 	private readonly _saveService = new SaveService(this);
 
 	private _loadData: SaveGameDocument | null = null;
-    private _invitationCode: string;
+	private _invitationCode: string;
 
 	constructor(
-        sessionService: ISessionService,
+		sessionService: ISessionService,
 		host: IUser,
 		settings: SessionSettings,
 		loadData?: SaveGameDocument
@@ -66,7 +65,7 @@ export class Session implements SessionData {
 			this._loadData = loadData;
 			this.loadSessionData(loadData);
 		}
-        this._invitationCode = sessionService.generateUniqueInvitationCode();
+		this._invitationCode = sessionService.generateUniqueInvitationCode();
 		this._host = host;
 		this.joinSession(host, Boolean(loadData));
 		this._sendLatencyInterval = setInterval(() => {
@@ -93,8 +92,12 @@ export class Session implements SessionData {
 	}
 
 	get gameStatus() {
-		if (this._gameController?.game && this._gameController.game.scenarioService.status === SCENARIO_STATUS.PENDING) {
-			return GAME_STATUS.IN_PROGRESS
+		if (
+			this._gameController?.game &&
+			this._gameController.game.scenarioService.status ===
+				SCENARIO_STATUS.PENDING
+		) {
+			return GAME_STATUS.IN_PROGRESS;
 		} else {
 			return GAME_STATUS.IN_LOBBY;
 		}
@@ -139,9 +142,9 @@ export class Session implements SessionData {
 		}, 0);
 	}
 
-    get invitationCode() {
-        return this._invitationCode
-    }
+	get invitationCode() {
+		return this._invitationCode;
+	}
 
 	public getBasicInfo(): SessionBasicInfo {
 		return {
@@ -170,10 +173,12 @@ export class Session implements SessionData {
 	}
 
 	public joinSession(user: IUser, load: boolean) {
-        if (load && !this.usersPlayerExist(user.id)) {
-            throw new SessionConnectError("user doesn't exist in save game", 
-                SESSION_CONNECTION_ERROR_CODE.ACCESS_DENIED)
-        }
+		if (load && !this.usersPlayerExist(user.id)) {
+			throw new SessionConnectError(
+				"user doesn't exist in save game",
+				SESSION_CONNECTION_ERROR_CODE.ACCESS_DENIED
+			);
+		}
 		if (this.usersPlayerExist(user.id)) {
 			this.getPlayerByUserId(user.id).setUser(user);
 		} else {
@@ -187,7 +192,6 @@ export class Session implements SessionData {
 	}
 
 	public leaveSession(user: IUser) {
-
 		const player = this.getPlayerByUserId(user.id);
 		if (this._host === player.user && this.usersInSession > 1) {
 			this.changeHost();
@@ -199,20 +203,17 @@ export class Session implements SessionData {
 			this.removePlayer(player.id);
 		}
 		this.addLeaveMessage(player.username);
-		
+
 		if (this._settings.difficultySettings.scaled) {
 			this.setScaledDifficultySettings();
 		}
 	}
 
 	public startGame(): BaseController {
-		const loadData = this._loadData
-			? {
-					seed: this._loadData.seed,
-					id: this._loadData.gameId,
-			  }
-			: undefined;
-		const game = new GameClass(this._players, this._settings.difficultySettings);
+		const game = new GameClass(
+			this._players,
+			this._settings.difficultySettings
+		);
 		const gameController = new GameController(game, this._players);
 		this._gameController = gameController;
 		if (this._loadData) {
@@ -284,14 +285,15 @@ export class Session implements SessionData {
 			this._settings = {
 				...this._settings,
 				...settings,
-				difficultySettings: !settings.difficultySettings?.scaled ? {
-					...this._settings.difficultySettings,
-					...(settings.difficultySettings ?? {})
-				}: getScaledDifficultySettings(this._players.length)
+				difficultySettings: !settings.difficultySettings?.scaled
+					? {
+							...this._settings.difficultySettings,
+							...(settings.difficultySettings ?? {}),
+					  }
+					: getScaledDifficultySettings(this._players.length),
 			};
 		}
 	}
-
 
 	public onSessionRemove() {
 		clearInterval(this._sendLatencyInterval);
@@ -435,12 +437,14 @@ export class Session implements SessionData {
 
 			this._settings = saveGame.sessionSettings;
 			this._loadData = saveGame;
-            this.chatService.addSystemMsg(SYSTEM_MSG.ONLY_PRESENT_PLAYERS_CAN_JOIN, "");
+			this.chatService.addSystemMsg(
+				SYSTEM_MSG.ONLY_PRESENT_PLAYERS_CAN_JOIN,
+				""
+			);
 		} catch (e) {
 			console.warn(e);
 		}
 	}
-
 
 	public isUserInSession(userId: string): boolean {
 		return this._players.some(
@@ -448,9 +452,9 @@ export class Session implements SessionData {
 		);
 	}
 
-    public usersPlayerExist(userId: string) {
-        return this._players.some((player) => player.user.id === userId);
-    }
+	public usersPlayerExist(userId: string) {
+		return this._players.some((player) => player.user.id === userId);
+	}
 
 	public restartGame() {
 		this.clearSaveData();
@@ -465,9 +469,10 @@ export class Session implements SessionData {
 	}
 
 	private removePlayer(playerId: string) {
-		this._players = this._players.filter((player) => player.id !== playerId);
+		this._players = this._players.filter(
+			(player) => player.id !== playerId
+		);
 	}
-
 
 	private clearSaveData() {
 		this._loadData = null;
@@ -484,6 +489,8 @@ export class Session implements SessionData {
 	}
 
 	private setScaledDifficultySettings() {
-		this._settings.difficultySettings = getScaledDifficultySettings(this._players.length);
+		this._settings.difficultySettings = getScaledDifficultySettings(
+			this._players.length
+		);
 	}
 }

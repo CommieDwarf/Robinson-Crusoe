@@ -1,76 +1,74 @@
 .container {
-    width: 80%;
-    aspect-ratio: 3;
-    background-image: url("../../public/UI/paper-background.png");
-    background-size: 100% 100%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    border-radius: 10px;
-    border: 1px solid var(--brown);
-    display: grid;
-    padding-left: 15px;
-    grid-template-columns: 50% 50%;
-    grid-template-rows: 11% 1fr;
+	width: 80%;
+	aspect-ratio: 3;
+	background-image: url("../../public/UI/paper-background.png");
+	background-size: 100% 100%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	border-radius: 10px;
+	border: 1px solid var(--brown);
+	display: grid;
+	padding-left: 15px;
+	grid-template-columns: 50% 50%;
+	grid-template-rows: 11% 1fr;
 }
 
 .panel {
-    grid-column: 1 / span 2;
-    grid-row: 1 / span 1;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    padding-top: 10px;
-    justify-content: space-between;
-    padding-left: 1px;
-    padding-right: 15px;
-    color: var(--brown);
-    font-weight: 500;
+	grid-column: 1 / span 2;
+	grid-row: 1 / span 1;
+	height: 100%;
+	width: 100%;
+	display: flex;
+	padding-top: 10px;
+	justify-content: space-between;
+	padding-left: 1px;
+	padding-right: 15px;
+	color: var(--brown);
+	font-weight: 500;
 }
 
 .buttons {
-    display: flex;
-    column-gap: 4%;
-    align-items: center;
+	display: flex;
+	column-gap: 4%;
+	align-items: center;
 }
 
-
 .backButton {
-    height: 100%;
-    scale: 1.2;
+	height: 100%;
+	scale: 1.2;
 }
 
 .button {
-    text-wrap: nowrap;
+	text-wrap: nowrap;
 }
 
-
 .imgWrapper {
-    height: 25px;
-    border: 1px solid var(--brown);
-    display: inline-block;
-    padding-left: 5px;
-    padding-right: 5px;
-    border-radius: 5px;
-    font-weight: 500;
-    cursor: pointer;
+	height: 25px;
+	border: 1px solid var(--brown);
+	display: inline-block;
+	padding-left: 5px;
+	padding-right: 5px;
+	border-radius: 5px;
+	font-weight: 500;
+	cursor: pointer;
 }
 
 .imgWrapper:hover {
-    scale: 1.1;
+	scale: 1.1;
 }
 
 .joinByCodeWrapper {
-    padding-right: 5px;
-    border-radius: 5px;
-    display: flex;
-    column-gap: 5px;
+	padding-right: 5px;
+	border-radius: 5px;
+	display: flex;
+	column-gap: 5px;
 }
 
 .joinByCodeInputDiv > input {
-    height: 90%;
-    font-size: 1em;
-    max-width: 5em;
+	height: 90%;
+	font-size: 1em;
+	max-width: 5em;
 }

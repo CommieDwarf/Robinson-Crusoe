@@ -1,47 +1,47 @@
 .container {
-    height: 20%;
-    aspect-ratio: 2;
-    position: absolute;
-    left: -60%;
-    top: 1%;
-    border-radius: 8%;
-    overflow: hidden;
+	height: 20%;
+	aspect-ratio: 2;
+	position: absolute;
+	left: -60%;
+	top: 1%;
+	border-radius: 8%;
+	overflow: hidden;
 }
 
 .background {
-    position: absolute;
-    width: 100%;
-    height: 100%;
+	position: absolute;
+	width: 100%;
+	height: 100%;
 }
 
 .counters {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    position: relative;
-    margin-top: 10px;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	position: relative;
+	margin-top: 10px;
 }
 
 .counter {
-    width: 30%;
-    height: 60%;
+	width: 30%;
+	height: 60%;
 }
 
 .categoryImg {
-    position: relative;
-    width: 80%;
-    aspect-ratio: 1;
-    margin: auto;
+	position: relative;
+	width: 80%;
+	aspect-ratio: 1;
+	margin: auto;
 }
 
 .count {
-    width: 80%;
-    aspect-ratio: 1;
-    margin: auto;
-    color: #dfb672;
-    font-size: 25px;
-    font-weight: 700;
-    text-align: center;
+	width: 80%;
+	aspect-ratio: 1;
+	margin: auto;
+	color: #dfb672;
+	font-size: 25px;
+	font-weight: 700;
+	text-align: center;
 }

@@ -139,16 +139,16 @@ export function BuildPage() {
 						</div>
 					</li>
 				</ul>
-				<p>W przypadku konstrukcji (schronienia, dachu i palisady) możesz zmieniać rodzaj 
-					surowca którego chcesz użyć.
-
+				<p>
+					W przypadku konstrukcji (schronienia, dachu i palisady)
+					możesz zmieniać rodzaj surowca którego chcesz użyć.
 				</p>
 				<div className={styles.flexBlock}>
 					<div className={styles.exampleGif}>
 						<ResizableImage
 							src={"/UI/guide/pawn-assignment-build.gif"}
 							alt="przydzielanie pionka"
-							/>
+						/>
 					</div>
 				</div>
 			</section>

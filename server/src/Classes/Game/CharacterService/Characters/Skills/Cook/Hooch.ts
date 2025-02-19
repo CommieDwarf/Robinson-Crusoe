@@ -4,9 +4,7 @@ import {IGame} from "@shared/types/Game/Game";
 import {PHASE} from "@shared/types/Game/PhaseService/Phase";
 import {IAbility} from "@shared/types/Game/Skill/IAbility";
 import {Cloud} from "@shared/types/Game/Weather/Weather";
-import {hooch} from "@shared/constants/SkillDescriptions/Cook";
 import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
-import {LOG_CODE} from "@shared/types/Game/ChatLog/LOG_CODE";
 
 export class Hooch extends Ability implements IAbility<Cloud> {
 

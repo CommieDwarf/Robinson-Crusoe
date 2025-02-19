@@ -1,84 +1,83 @@
 .container {
-    width: 100%;
-    height: 100%;
-    padding: 5px;
-    position: relative;
-    border: 1px solid var(--borderColor);
-    border-right: none;
-    grid-row: 1 / span 1;
-    grid-column: 1 / span 1;
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -moz-user-select: none; /* Old versions of Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none;
-    font-size: 2.2em;
+	width: 100%;
+	height: 100%;
+	padding: 5px;
+	position: relative;
+	border: 1px solid var(--borderColor);
+	border-right: none;
+	grid-row: 1 / span 1;
+	grid-column: 1 / span 1;
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none; /* Safari */
+	-moz-user-select: none; /* Old versions of Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+	user-select: none;
+	font-size: 2.2em;
 }
 
 .phaseIcon {
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 20%;
-    aspect-ratio: 1;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 20%;
+	aspect-ratio: 1;
 }
 
 .phaseName {
-    font-weight: bold;
+	font-weight: bold;
 }
 
 .event {
-    color: #6b814a;
+	color: #6b814a;
 }
 
-.action, .preAction {
-    color: #743230;
+.action,
+.preAction {
+	color: #743230;
 }
 
 .morale {
-    color: #594f25;
+	color: #594f25;
 }
 
 .night {
-    color: #2f2727;
+	color: #2f2727;
 }
 
 .production {
-    color: #5c3b1f;
+	color: #5c3b1f;
 }
 
 .weather {
-    color: #265167;
+	color: #265167;
 }
 
 .dropDownButton:hover {
-    scale: 1.2;
+	scale: 1.2;
 }
 
 .dropDownButton {
-    position: relative;
-    width: 100%;
-    height: 50%;
-    display: flex;
-    filter: var(--blackToBrown);
-    justify-content: center;
-    cursor: pointer;
-
+	position: relative;
+	width: 100%;
+	height: 50%;
+	display: flex;
+	filter: var(--blackToBrown);
+	justify-content: center;
+	cursor: pointer;
 }
 
 .dropDownText {
-    font-weight: bold;
-    font-size: 0.8em;
-    color: black;
-    height: 90%;
-    font-style: italic;
-    margin-right: 5px;
+	font-weight: bold;
+	font-size: 0.8em;
+	color: black;
+	height: 90%;
+	font-style: italic;
+	margin-right: 5px;
 }
 
 .triangle {
-    position: relative;
-    width: 10%;
-    height: 40%;
-    top: 30%;
+	position: relative;
+	width: 10%;
+	height: 40%;
+	top: 30%;
 }
-

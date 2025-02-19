@@ -1,7 +1,7 @@
 export interface ICharEffects {
-  diceQuestionMark: () => void;
-  death: () => void;
-  starve: () => void;
-  nightBeyondCamp: () => void;
-  getHurt: () => void;
+	diceQuestionMark: () => void;
+	death: () => void;
+	starve: () => void;
+	nightBeyondCamp: () => void;
+	getHurt: () => void;
 }

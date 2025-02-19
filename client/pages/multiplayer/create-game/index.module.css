@@ -1,30 +1,29 @@
 .container {
-    height: 80vh;
-    aspect-ratio: 1;
-    background-image: url("../../../public/UI/paper-background.png");
-    background-size: cover;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    border-radius: 5px;
-    border: 1px solid var(--brown);
-    color: var(--brown);
-    padding: 1%;
+	height: 80vh;
+	aspect-ratio: 1;
+	background-image: url("../../../public/UI/paper-background.png");
+	background-size: cover;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	border-radius: 5px;
+	border: 1px solid var(--brown);
+	color: var(--brown);
+	padding: 1%;
 }
 
 .menuButton {
-    position: absolute;
-    height: 8%;
-    aspect-ratio: 1;
-    left: 5px;
-    top: 5px;
-    cursor: pointer;
-    filter: var(--blackToBrown);
+	position: absolute;
+	height: 8%;
+	aspect-ratio: 1;
+	left: 5px;
+	top: 5px;
+	cursor: pointer;
+	filter: var(--blackToBrown);
 }
 
 .menuButton:hover {
-    scale: 1.1;
+	scale: 1.1;
 }
-

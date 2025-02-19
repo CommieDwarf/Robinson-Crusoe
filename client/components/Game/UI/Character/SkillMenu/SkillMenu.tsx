@@ -7,8 +7,6 @@ import { insertIconsIntoText } from "../../../../../utils/insertIconsIntoText/in
 import { ABILITY } from "@shared/types/Game/Skill/ABILITY";
 import { CHARACTER_CONTROLLER_ACTION } from "@shared/types/CONTROLLER_ACTION";
 import { useAppDispatch, useAppSelector } from "../../../../../store/hooks";
-import { alertUpdated } from "../../../../../reduxSlices/alert";
-import { ALERT_CODE } from "@shared/types/ALERT_CODE";
 import { useTranslation } from "react-i18next";
 import { capitalize } from "lodash";
 import { DisplayedAbilityInfo } from "../Character";
@@ -41,7 +39,7 @@ export default function SkillMenu(props: Props) {
 			`ability.${props.abilityInfo.ability.name}.description`
 		) as string;
 		comment = t(
-            // @ts-ignore
+			// @ts-ignore
 			`ability.${props.abilityInfo.ability.name}.comment`
 		) as string;
 		description = insertIconsIntoText(description, styles.icon);
@@ -87,7 +85,6 @@ export default function SkillMenu(props: Props) {
 					type: "error",
 				}
 			);
-			// dispatch(alertUpdated(ALERT_CODE.NOT_ENOUGH_DETERMINATION_FOR_ABILITY));
 		}
 
 		const ability = props.abilityInfo.ability.name as ABILITY;
@@ -116,9 +113,9 @@ export default function SkillMenu(props: Props) {
 	if (overallWeather === undefined) return null;
 	return (
 		<div
-			className={
-				`${styles.wrapper} ${props.abilityInfo.show && styles.abilityDescriptionVisible}`
-			}
+			className={`${styles.wrapper} ${
+				props.abilityInfo.show && styles.abilityDescriptionVisible
+			}`}
 		>
 			<div className={styles.container} style={containerStyle}>
 				{props.abilityInfo.ability && (

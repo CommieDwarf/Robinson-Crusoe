@@ -109,7 +109,6 @@ export class ConstructionService implements IConstructionService {
 	) {
 		const construct = this.getConstruction(construction);
 		const diff = construct.lvl - by;
-		const oldLvl = construct.lvl;
 		if (diff > 0) {
 			this.lvlDownConstruction(construction, by, logSource);
 		} else {

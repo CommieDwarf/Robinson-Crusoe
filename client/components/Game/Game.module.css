@@ -1,69 +1,64 @@
 .game {
-  
-    width: 100%;
-    max-height: 100%;
-    position: relative;
-    aspect-ratio: 2.3;
-    top: 50%;
-    transform: translateY(-50%);
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -khtml-user-select: none; /* Konqueror HTML */
-    -moz-user-select: none; /* Old versions of Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none;
-    border-radius: 5px;
-    border: 1px solid var(--borderColor);
-    overflow: hidden;
-    container-type: size;
-
+	width: 100%;
+	max-height: 100%;
+	position: relative;
+	aspect-ratio: 2.3;
+	top: 50%;
+	transform: translateY(-50%);
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none; /* Safari */
+	-khtml-user-select: none; /* Konqueror HTML */
+	-moz-user-select: none; /* Old versions of Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+	user-select: none;
+	border-radius: 5px;
+	border: 1px solid var(--borderColor);
+	overflow: hidden;
+	container-type: size;
 }
 
 .contentWrapper {
-    height: 100%;
-    width: 100%;
-    grid-template-columns: 1.5fr 3fr 0.9fr 1.1fr 2fr 3fr;
-    grid-template-rows: 2fr 12fr 8fr 3fr 1fr 2fr;
-    position: relative;
-    display: inline-grid;
-    background-image: url("../../public/UI/paper-background.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-    font-size: 1.3cqh;
+	height: 100%;
+	width: 100%;
+	grid-template-columns: 1.5fr 3fr 0.9fr 1.1fr 2fr 3fr;
+	grid-template-rows: 2fr 12fr 8fr 3fr 1fr 2fr;
+	position: relative;
+	display: inline-grid;
+	background-image: url("../../public/UI/paper-background.png");
+	background-size: cover;
+	background-repeat: no-repeat;
+	font-size: 1.3cqh;
 }
-
 
 .chatLog {
-    grid-column: 6 / span 1;
-    grid-row: 3 / span 2;
-    height: 100%;
-    font-size: 2em;
+	grid-column: 6 / span 1;
+	grid-row: 3 / span 2;
+	height: 100%;
+	font-size: 2em;
 }
 
-
 .health {
-    grid-column: 3 / span 3;
-    grid-row: 5 / span 1;
-    border: 1px solid var(--borderColor);
-    border-top: none;
+	grid-column: 3 / span 3;
+	grid-row: 5 / span 1;
+	border: 1px solid var(--borderColor);
+	border-top: none;
 }
 
 .morale {
-    grid-column: 2 / span 1;
-    grid-row: 1 / span 1;
+	grid-column: 2 / span 1;
+	grid-row: 1 / span 1;
 }
 
 .actionsOrder {
-    grid-column: 1 / span 2;
-    grid-row: 5 / span 1;
-    border-bottom: 1px solid var(--borderColor);
-
+	grid-column: 1 / span 2;
+	grid-row: 5 / span 1;
+	border-bottom: 1px solid var(--borderColor);
 }
 
 .tourStart {
-    width: 1px;
-    height: 1px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
+	width: 1px;
+	height: 1px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
 }

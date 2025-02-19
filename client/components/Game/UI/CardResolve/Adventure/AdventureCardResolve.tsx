@@ -18,8 +18,6 @@ export const AdventureCardResolve = (props: Props) => {
             <ResizableImage
                 src={imageUrl}
                 alt={"wydarzenie"}
-                // unselectable={"on"}
-                // draggable={"false"}
             />
         </>
     );

@@ -1,4 +1,3 @@
-import logMessageStyles from "../LogMessage/LogMessage.module.css";
 import * as React from "react";
 import { IChatMessageRenderData } from "@shared/types/ChatService/ChatService";
 import styles from "./ChatMessage.module.css";

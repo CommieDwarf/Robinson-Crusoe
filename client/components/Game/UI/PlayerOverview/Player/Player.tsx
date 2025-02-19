@@ -32,44 +32,46 @@ export function Player(props: Props) {
 				<div className={styles.latency}>
 					<PlayerLatency latency={latency} />
 				</div>
-                <div className={styles.userNameWrapper}>
-						<span
-							className={`${styles.username} font-mono`}
-							style={{ backgroundColor: props.player.color }}
-						>
-							{props.player.username}
-                            
-							{props.player.prime && (
-								<div className={styles.primePlayerIcon}>
-									<ResizableImage
-										src={starImg}
-										alt={"prime player"}
-									/>
-								</div>
-							)}
-						</span>
-					</div>
+				<div className={styles.userNameWrapper}>
+					<span
+						className={`${styles.username} font-mono`}
+						style={{ backgroundColor: props.player.color }}
+					>
+						{props.player.username}
+
+						{props.player.prime && (
+							<div className={styles.primePlayerIcon}>
+								<ResizableImage
+									src={starImg}
+									alt={"prime player"}
+								/>
+							</div>
+						)}
+					</span>
+				</div>
 			</div>
 			<div className={styles.characterWrapper}>
-				 <div className={styles.health}>
+				<div className={styles.health}>
 					<Health
 						vertical={true}
 						background={false}
-						 moraleThresholds={character.moraleThresholds} 
-						 maxHealth={character.maxHealth} 
-						 health={character.health}
-						 moraleThresholdsRemoved={character.moraleThresholdsRemoved}					/>
+						moraleThresholds={character.moraleThresholds}
+						maxHealth={character.maxHealth}
+						health={character.health}
+						moraleThresholdsRemoved={
+							character.moraleThresholdsRemoved
+						}
+					/>
 				</div>
-				 
-				 <div className={styles.character}>
 
+				<div className={styles.character}>
 					<div className={styles.charName}>
 						{capitalize(t(`character.${character.name}`))}
-					</div> 
-					
+					</div>
+
 					<div className={styles.imgWrapper}>
 						<CharacterImg character={props.player.character!} />
-					</div> 
+					</div>
 					<hr className={styles.hr} />
 					<div className={styles.expendables}>
 						<Expendables
@@ -81,7 +83,7 @@ export function Player(props: Props) {
 							}
 						/>
 					</div>
-                    <hr className={styles.hr} />
+					<hr className={styles.hr} />
 					<div className={styles.pawns}>
 						<Pawns
 							character={character}
@@ -90,7 +92,7 @@ export function Player(props: Props) {
 							droppableId={character.name}
 						/>
 					</div>
-				</div> 
+				</div>
 			</div>
 		</div>
 	);

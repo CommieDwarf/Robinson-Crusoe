@@ -7,10 +7,6 @@ import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
 
-
-
-
-
 export class EmailVerificationService {
 
     static verifyEmail = async (req: Request, res: Response) => {

@@ -1,84 +1,81 @@
 import {
-    IAssignablePawnsItem,
-    IAssignablePawnsItemRenderData
+	IAssignablePawnsItem,
+	IAssignablePawnsItemRenderData,
 } from "@shared/types/Game/AssignablePawnsItem/AssignablePawnsItem";
-import {ACTION, ACTION_ITEM, UniqueAction} from "@shared/types/Game/ACTION";
-import {IGame} from "@shared/types/Game/Game";
-import {actionToUniqueAction} from "@shared/utils/typeGuards/isUniqueAction";
+import { ACTION, ACTION_ITEM, UniqueAction } from "@shared/types/Game/ACTION";
+import { IGame } from "@shared/types/Game/Game";
+import { actionToUniqueAction } from "@shared/utils/typeGuards/isUniqueAction";
 
 export abstract class AssignablePawnsItem implements IAssignablePawnsItem {
+	protected _assignedPawnAmount: number = 0;
+	protected _requiredPawnAmount: number | null = 1;
 
+	protected _action: ACTION;
+	protected _actionItem: ACTION_ITEM;
+	protected _game: IGame;
 
-    protected _assignedPawnAmount: number = 0;
-    protected _requiredPawnAmount: number | null = 1;
+	protected constructor(type: ACTION, actionItem: ACTION_ITEM, game: IGame) {
+		this._game = game;
+		this._action = type;
+		this._actionItem = actionItem;
+	}
 
-    protected _action: ACTION;
-    protected _actionItem: ACTION_ITEM;
-    protected _game: IGame;
+	get uniqueAction(): UniqueAction {
+		return actionToUniqueAction(this._action, this._actionItem);
+	}
 
-    protected constructor(type: ACTION, actionItem: ACTION_ITEM, game: IGame) {
-        this._game = game;
-        this._action = type;
-        this._actionItem = actionItem;
-    }
+	get action(): ACTION {
+		return this._action;
+	}
 
+	get actionItem(): ACTION_ITEM {
+		return this._actionItem;
+	}
 
-    get uniqueAction(): UniqueAction {
-        return actionToUniqueAction(this._action, this._actionItem);
-    }
+	get assignedPawnAmount(): number {
+		return this._assignedPawnAmount;
+	}
 
+	get requiredPawnAmount(): number | null {
+		return this.getComputedRequiredPawnAmount();
+	}
 
-    get action(): ACTION {
-        return this._action;
-    }
+	set requiredPawnAmount(value: number | null) {
+		this._requiredPawnAmount = value;
+	}
 
-    get actionItem(): ACTION_ITEM {
-        return this._actionItem;
-    }
+	protected getAssignablePawnsRenderData(): IAssignablePawnsItemRenderData {
+		return {
+			assignedPawnAmount: this._assignedPawnAmount,
+			requiredPawnAmount: this.getComputedRequiredPawnAmount(),
+			action: this._action,
+			actionItem: this._actionItem,
+			uniqueAction: this.uniqueAction,
+		};
+	}
 
-    get assignedPawnAmount(): number {
-        return this._assignedPawnAmount;
-    }
+	public getComputedRequiredPawnAmount() {
+		if (!this._requiredPawnAmount) {
+			return null;
+		}
+		if (
+			this._game.actionService.hasGlobalModifier(this._action, "helper")
+		) {
+			return this._requiredPawnAmount + 1;
+		} else {
+			return this._requiredPawnAmount;
+		}
+	}
 
-    get requiredPawnAmount(): number | null {
-        return this.getComputedRequiredPawnAmount();
-    }
+	incrPawnAmount() {
+		this._assignedPawnAmount++;
+	}
 
-    set requiredPawnAmount(value: number | null) {
-        this._requiredPawnAmount = value;
-    }
+	decrPawnAmount() {
+		this._assignedPawnAmount--;
+	}
 
-    protected getAssignablePawnsRenderData(): IAssignablePawnsItemRenderData {
-        return {
-            assignedPawnAmount: this._assignedPawnAmount,
-            requiredPawnAmount: this.getComputedRequiredPawnAmount(),
-            action: this._action,
-            actionItem: this._actionItem,
-            uniqueAction: this.uniqueAction,
-        }
-    }
-
-    public getComputedRequiredPawnAmount() {
-        if (!this._requiredPawnAmount) {
-            return null;
-        }
-        if (this._game.actionService.hasGlobalModifier(this._action, "helper")) {
-            return this._requiredPawnAmount + 1
-        } else {
-            return this._requiredPawnAmount;
-        }
-
-    }
-
-    incrPawnAmount() {
-        this._assignedPawnAmount++;
-    }
-
-    decrPawnAmount() {
-        this._assignedPawnAmount--;
-    }
-
-    resetPawnAmount() {
-        this._assignedPawnAmount = 0;
-    }
+	resetPawnAmount() {
+		this._assignedPawnAmount = 0;
+	}
 }

@@ -32,16 +32,9 @@ export function Lobby() {
 
 	const sessionId = useAppSelector((state) => state.gameSession.sessionId);
 	const sessionData = useAppSelector((state) => state.gameSession.data);
-	const connected = useAppSelector((state) => state.connection.socketConnected);
-
-	// useEffect(() => {
-	//     if (sessionData?.game &&
-	//         loaded &&
-	//         sessionData.game.scenarioService.status === SCENARIO_STATUS.PENDING) {
-	//             alert("pushing to /play");
-	//         router.push(`/play/${sessionData.id}`);
-	//     }
-	// }, [])
+	const connected = useAppSelector(
+		(state) => state.connection.socketConnected
+	);
 
 	useEffect(() => {
 		dispatch(sessionIdUpdated(sessionIdQuery));

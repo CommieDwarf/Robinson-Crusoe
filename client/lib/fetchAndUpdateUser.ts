@@ -3,7 +3,7 @@ import config from "../config/config";
 import { UserData } from "@shared/types/UserData/UserData";
 import { fetchErrorUpdated, userUpdated } from "../reduxSlices/connection";
 import { toast } from "react-toastify";
-import i18next, { i18n } from "i18next"; 
+import i18next from "i18next"; 
 
 export const fetchAndUpdateUser = async (authToken: string, dispatch: ReturnType<typeof useAppDispatch>) => {
     const url = `${config.SERVER_URL}/user/get`;
@@ -19,7 +19,9 @@ export const fetchAndUpdateUser = async (authToken: string, dispatch: ReturnType
         });
 
         if (!response.ok) {
-            throw new Error("Network response was not ok");
+            console.error("Network response was not ok");
+            console.error(response);
+            return;
         }
         
         const json = await response.json();

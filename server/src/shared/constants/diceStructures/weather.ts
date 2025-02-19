@@ -1,30 +1,30 @@
-import {WeatherDiceSide} from "@shared/types/Game/RollDice/RollDice";
+import { WeatherDiceSide } from "@shared/types/Game/RollDice/RollDice";
 
 const winter: WeatherDiceSide[] = [
-    "snow",
-    "snow",
-    "double snow",
-    "double snow",
-    "double rain",
-    "double rain",
+	"snow",
+	"snow",
+	"double snow",
+	"double snow",
+	"double rain",
+	"double rain",
 ];
 
 const rain: WeatherDiceSide[] = [
-    "double rain",
-    "double rain",
-    "rain",
-    "rain",
-    "rain",
-    "snow",
+	"double rain",
+	"double rain",
+	"rain",
+	"rain",
+	"rain",
+	"snow",
 ];
 
 const animals: WeatherDiceSide[] = [
-    "beast",
-    "palisade",
-    "palisade",
-    "food",
-    "blank",
-    "blank",
+	"beast",
+	"palisade",
+	"palisade",
+	"food",
+	"blank",
+	"blank",
 ];
 
-export const weather = {winter, rain, animals};
+export const weather = { winter, rain, animals };

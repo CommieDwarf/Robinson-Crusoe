@@ -20,14 +20,14 @@ const mechanics = `Stos ma się składać z 15 znaczników drewna.
   Drewno odłożone na stos nie może być z niego zabrane.`;
 
 export const castaways = {
-  weather: {
-    rain: rainDays,
-    winter: snowDays,
-    animals: animalsDays,
-  },
-  text: {
-    description,
-    objective,
-    mechanics,
-  },
+	weather: {
+		rain: rainDays,
+		winter: snowDays,
+		animals: animalsDays,
+	},
+	text: {
+		description,
+		objective,
+		mechanics,
+	},
 };

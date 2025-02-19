@@ -1,9 +1,7 @@
-import {IMysteryCardRenderData} from "@shared/types/Game/MysteryService/MysteryCard";
+import { IMysteryCardRenderData } from "@shared/types/Game/MysteryService/MysteryCard";
 
 export const isMysteryCard = (
-    candidate: Object
+	candidate: Object
 ): candidate is IMysteryCardRenderData => {
-    return (
-        "drawLabel" in candidate
-    );
+	return "drawLabel" in candidate;
 };

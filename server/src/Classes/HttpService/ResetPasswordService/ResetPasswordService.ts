@@ -9,13 +9,8 @@ import { PasswordResetCode } from "../../../Models/PasswordResetCode";
 import jwt from "jsonwebtoken";
 import { JWT_ACTION } from "../../../@types/JwtAction";
 
-
-
-
-
 export class ResetPasswordService {
-
-    static async sendPasswordResetEmail(
+	static async sendPasswordResetEmail(
 		req: Request<{ email: string }>,
 		res: Response
 	) {
@@ -34,10 +29,13 @@ export class ResetPasswordService {
 				sharedConfig.limits.resetPasswordCodeLength
 			);
 
-			await PasswordResetCode.deleteOne({userId: user._id});
+			await PasswordResetCode.deleteOne({ userId: user._id });
 
-			const newCode = new PasswordResetCode({userId: user._id, code,
-				 expiresAt: Date.now() + config.expiration.passwordResetCodeMs});
+			const newCode = new PasswordResetCode({
+				userId: user._id,
+				code,
+				expiresAt: Date.now() + config.expiration.passwordResetCodeMs,
+			});
 			await newCode.save();
 
 			EmailService.sendEmail({
@@ -51,8 +49,7 @@ export class ResetPasswordService {
 			});
 			return res.status(200).json({
 				message: "password reset email sent",
-				expires:
-					Date.now() + config.expiration.passwordResetCodeMs,
+				expires: Date.now() + config.expiration.passwordResetCodeMs,
 			});
 		} catch (e) {
 			res.status(500).json({ message: "Internal server error" });
@@ -60,14 +57,14 @@ export class ResetPasswordService {
 		}
 	}
 
-    static async verifyPasswordCode(
+	static async verifyPasswordCode(
 		req: Request<{ code: string; email: string }>,
 		res: Response
 	) {
 		try {
 			const { code, email } = req.body;
 			if (!code || !email) {
-				return res.status(400).json({ message: "Missing body fields"});
+				return res.status(400).json({ message: "Missing body fields" });
 			}
 
 			const user = await User.findOne({ email });
@@ -80,7 +77,9 @@ export class ResetPasswordService {
 			});
 
 			if (!resetCode) {
-				return res.status(404).json({ message: "Code not found or expired" });
+				return res
+					.status(404)
+					.json({ message: "Code not found or expired" });
 			}
 
 			if (resetCode.code !== code) {
@@ -92,7 +91,7 @@ export class ResetPasswordService {
 			const token = jwt.sign(
 				{ userId: user._id, action: JWT_ACTION.PASSWORD_RESET },
 				config.server.jwtSecret,
-				{expiresIn: config.expiration.passwordResetTokenMs / 1000}
+				{ expiresIn: config.expiration.passwordResetTokenMs / 1000 }
 			);
 			res.setHeader("Authorization", `Bearer ${token}`);
 
@@ -104,8 +103,7 @@ export class ResetPasswordService {
 		}
 	}
 
-
-    static async resetPassword(req: Request, res: Response) {
+	static async resetPassword(req: Request, res: Response) {
 		try {
 			const userDoc = req.user as UserDocument;
 			const password = req.body.password;
@@ -129,5 +127,4 @@ export class ResetPasswordService {
 			return res.status(500).json({ message: "Something went wrong" });
 		}
 	}
-
 }

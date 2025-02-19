@@ -1,44 +1,38 @@
 .container {
-    height: 45%;
-    aspect-ratio: var(--cardAspectRatio);
-    background-size: contain;
-    position: absolute;
-    z-index: 99999999;
-    left: 47%;
-    top: 10%;
+	height: 45%;
+	aspect-ratio: var(--cardAspectRatio);
+	background-size: contain;
+	position: absolute;
+	z-index: 99999999;
+	left: 47%;
+	top: 10%;
 }
 
 .card {
-    height: 100%;
-    aspect-ratio: var(--cardAspectRatio);
-    position: relative;
-    margin: auto;
-    cursor: grab;
-    transition: all;
-    transition-duration: 0.3s
+	height: 100%;
+	aspect-ratio: var(--cardAspectRatio);
+	position: relative;
+	margin: auto;
+	cursor: grab;
+	transition: all;
+	transition-duration: 0.3s;
 }
 
 .enlarged {
-    scale: 2;
+	scale: 2;
 }
 
-
 .zoomButton {
-    z-index: 99999999;
-    width: 50%;
-    aspect-ratio: 1;
-    position: absolute;
-    top: -1%;
-    right: -15%;
-    opacity: 0.8;
-    cursor: pointer;
+	z-index: 99999999;
+	width: 50%;
+	aspect-ratio: 1;
+	position: absolute;
+	top: -1%;
+	right: -15%;
+	opacity: 0.8;
+	cursor: pointer;
 }
 
 .zoomButton:hover {
-    opacity: 1;
+	opacity: 1;
 }
-
-
-
-
-

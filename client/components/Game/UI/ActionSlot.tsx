@@ -1,10 +1,10 @@
 import React from "react";
 import styles from "./ActionSlot.module.css";
-import { Droppable, DroppableProvided, ResponderProvided } from "react-beautiful-dnd";
+import { Droppable, DroppableProvided } from "react-beautiful-dnd";
 
 import Pawn from "./Pawn";
 import { kebabCase } from "lodash";
-import { IPawn, IPawnRenderData } from "@shared/types/Game/Pawns/Pawn";
+import { IPawnRenderData } from "@shared/types/Game/Pawns/Pawn";
 import { ACTION, UniqueAction } from "@shared/types/Game/ACTION";
 import {
 	selectActionSlotById,
@@ -64,7 +64,9 @@ function ActionSlot(props: Props & StateProps) {
 			>
 				{props.isSlotMarked && <div className={styles.marked}></div>}
 				{pawnElement}
-				<div style={{ display: "none" }}>{provided && provided.placeholder}</div>
+				<div style={{ display: "none" }}>
+					{provided && provided.placeholder}
+				</div>
 			</div>
 		);
 	}

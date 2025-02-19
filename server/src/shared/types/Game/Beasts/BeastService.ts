@@ -1,19 +1,19 @@
-import {BeastStats, IBeast} from "./Beast";
-import {ICharacter} from "../Characters/Character";
+import { BeastStats, IBeast } from "./Beast";
+import { ICharacter } from "../Characters/Character";
 
 export interface IBeastServiceRenderData {
-    deckCount: number;
+	deckCount: number;
 }
 
 export interface IBeastService {
-    peekBeastFromDeck: () => IBeast;
-    deckCount: number;
-    renderData: IBeastServiceRenderData;
-    moveBeastFromStackToDeck: () => void;
-    addBeastToDeck: (beast: IBeast) => void;
-    getBeastsFromStack: (amount: number) => IBeast[];
-    fightBeast: (leader: ICharacter, beast: IBeast) => void;
-    fightCustomBeast: (leader: ICharacter, beastStats: BeastStats) => void;
-    removeBeastFromDeck: () => void;
-    swapDeckTopToBottom: () => void;
+	peekBeastFromDeck: () => IBeast;
+	deckCount: number;
+	renderData: IBeastServiceRenderData;
+	moveBeastFromStackToDeck: () => void;
+	addBeastToDeck: (beast: IBeast) => void;
+	getBeastsFromStack: (amount: number) => IBeast[];
+	fightBeast: (leader: ICharacter, beast: IBeast) => void;
+	fightCustomBeast: (leader: ICharacter, beastStats: BeastStats) => void;
+	removeBeastFromDeck: () => void;
+	swapDeckTopToBottom: () => void;
 }

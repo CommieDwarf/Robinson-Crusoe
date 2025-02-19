@@ -1,12 +1,11 @@
-import {Phase} from "@shared/types/Game/PhaseService/PhaseService";
-
+import { Phase } from "@shared/types/Game/PhaseService/PhaseService";
 
 export const phaseOrder: Phase[] = [
-    "event",
-    "morale",
-    "production",
-    "preAction",
-    "action",
-    "weather",
-    "night",
+	"event",
+	"morale",
+	"production",
+	"preAction",
+	"action",
+	"weather",
+	"night",
 ];

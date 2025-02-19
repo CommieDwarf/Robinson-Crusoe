@@ -13,7 +13,7 @@ export class AuthService {
 	static login = async (req: Request, res: Response, next: NextFunction) => {
 		passport.authenticate(
 			"local",
-			async (err: Error, user: UserDocument, info: any) => {
+			async (err: Error, user: UserDocument) => {
 				try {
 					if (err || !user) {
 						return res

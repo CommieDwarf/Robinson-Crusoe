@@ -1,7 +1,6 @@
 import { BackButton } from "components/BackButton/BackButton";
 import styles from "./index.module.css";
 import { StyledHr } from "components/StyledHr/StyledHr";
-import { CheckBox } from "components/Checkbox/CheckBox";
 import { useAppDispatch, useAppSelector } from "store/hooks";
 import { UserPreferencesData } from "@shared/types/UserData/UserData";
 import { userPreferencesUpdated } from "reduxSlices/connection";
@@ -46,7 +45,6 @@ export default function Settings() {
 			<div className={styles.spacer}></div>
 
 			<UserPreferences />
-			
 		</div>
 	);
 }

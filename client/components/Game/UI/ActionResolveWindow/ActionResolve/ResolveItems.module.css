@@ -1,49 +1,46 @@
 .container {
-    width: 100%;
-    height: 80%;
-    text-align: center;
-
+	width: 100%;
+	height: 80%;
+	text-align: center;
 }
 
 .title {
-    font-size: 3em;
-    font-weight: bold;
+	font-size: 3em;
+	font-weight: bold;
 }
 
 .threat {
-    color: var(--threat);
+	color: var(--threat);
 }
 
 .hunt {
-    color: var(--hunt);
+	color: var(--hunt);
 }
 
 .build {
-    color: var(--build);
+	color: var(--build);
 }
 
 .gather {
-    color: var(--gather);
+	color: var(--gather);
 }
 
 .explore {
-    color: var(--explore);
+	color: var(--explore);
 }
 
 .arrangeCamp {
-    color: var(--arrangeCamp)
+	color: var(--arrangeCamp);
 }
 
 .rest {
-    color: var(--rest);
+	color: var(--rest);
 }
-
 
 .items {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    vertical-align: top;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	vertical-align: top;
 }
-

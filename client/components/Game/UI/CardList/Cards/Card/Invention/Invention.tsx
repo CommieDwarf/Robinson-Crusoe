@@ -141,9 +141,14 @@ function Invention(props: Props) {
 				</div>
 			)}
 
-			{props.invention.inventionType === INVENTION_TYPE.SCENARIO && <div className={styles.scenarioIcon}>
-				<ResizableImage src={"/UI/icons/scenario.png"} alt="scenario" />
-			</div>}
+			{props.invention.inventionType === INVENTION_TYPE.SCENARIO && (
+				<div className={styles.scenarioIcon}>
+					<ResizableImage
+						src={"/UI/icons/scenario.png"}
+						alt="scenario"
+					/>
+				</div>
+			)}
 
 			<div className={`${styles.cardPawn} `}>
 				{props.invention.pawnService.pawns.map((pawn, i) => {
