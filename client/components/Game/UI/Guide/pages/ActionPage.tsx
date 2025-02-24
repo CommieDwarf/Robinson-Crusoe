@@ -68,7 +68,7 @@ export function ActionPage() {
 				<div className={styles.flexBlock}>
 					<div className={styles.pawnAssignmentImg}>
 					<ResizableImage
-							src={"/gif/pawn-assignment.gif"}
+							src={"/UI/guide/pawn-assignment.gif"}
 							alt="przeciąganie pionka"
 						/>
 					</div>
