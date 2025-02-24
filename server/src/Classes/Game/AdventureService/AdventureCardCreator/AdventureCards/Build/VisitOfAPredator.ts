@@ -30,6 +30,5 @@ export class VisitOfAPredator
     }
 
     triggerEventEffect() {
-        //TODO: implement throw animals weather dice.
     }
 }

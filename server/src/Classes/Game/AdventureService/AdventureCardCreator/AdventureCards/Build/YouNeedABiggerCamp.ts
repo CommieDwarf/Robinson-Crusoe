@@ -24,6 +24,5 @@ export class YouNeedABiggerCamp
     }
 
     triggerEventEffect() {
-        //TODO: implement +1 wood consumption on every construction
     }
 }

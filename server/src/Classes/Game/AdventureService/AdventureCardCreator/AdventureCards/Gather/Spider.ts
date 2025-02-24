@@ -16,6 +16,5 @@ export class Spider extends GatherAdventureCard implements IAdventureCard {
     }
 
     triggerEventEffect() {
-        //TODO: guy with wound can use only 1 pawn. discard wound.
     }
 }

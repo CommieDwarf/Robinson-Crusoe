@@ -24,7 +24,6 @@ export class SurpriseInTheBushes
     }
 
     resolveOption2(resolver: IPlayerCharacter) {
-        //TODO: implement picking starting equipment item.
     }
 
     triggerEventEffect() {

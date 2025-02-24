@@ -3,7 +3,6 @@ import { SCENARIO_STATUS } from "../ScenarioService/ScenarioService";
 
 interface EndGameSummaryData {
 	roundsSurvived: number;
-	// do rozbudowy
 }
 
 export interface EndGameSummary extends EndGameSummaryData {

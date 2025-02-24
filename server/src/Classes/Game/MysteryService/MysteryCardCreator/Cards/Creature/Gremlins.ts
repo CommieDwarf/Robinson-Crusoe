@@ -19,7 +19,6 @@ export class Gremlins extends CreatureMysteryCard {
     }
 
     triggerDrawEffect(drawer: ICharacter) {
-        //TODO: implement custom beast fight;
 
         this._game.beastService.fightCustomBeast(drawer, this._beastStats);
         this.shuffleIntoEventDeck();

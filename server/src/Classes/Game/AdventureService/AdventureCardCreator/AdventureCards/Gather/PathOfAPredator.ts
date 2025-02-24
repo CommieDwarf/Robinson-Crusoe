@@ -24,6 +24,5 @@ export class PathOfAPredator
     }
 
     triggerEventEffect() {
-        //TODO: set beast dice to weather.
     }
 }

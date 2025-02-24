@@ -18,7 +18,6 @@ export class WrongTrack extends ExploreAdventureCard implements IAdventureCard {
     }
 
     resolveOption1(resolver: IPlayerCharacter) {
-        //TODO: night out of camp
     }
 
     triggerEventEffect() {

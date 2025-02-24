@@ -22,6 +22,5 @@ export class Furs extends GatherAdventureCard implements IAdventureCard {
     }
 
     triggerEventEffect() {
-        //TODO: decrement 1 food in production Phase if possible
     }
 }

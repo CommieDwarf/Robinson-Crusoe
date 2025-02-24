@@ -8,27 +8,6 @@ import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 export class MonkeysWatchYou
     extends BuildAdventureCard
     implements IAdventureCard {
-    // protected _eventOptions: IAdventureEventsOption[] | null = [
-    //     {
-    //         label: "dach",
-    //         resolve: () => {
-    //             this._game.constructionService.setDividedLvlByTwoRoundedDown(CONSTRUCTION.ROOF, this._eventNamePL)
-    //         },
-    //         canBeResolved: () => {
-    //             return this._game.constructionService.isBuilt(CONSTRUCTION.ROOF)
-    //         },
-    //
-    //     },
-    //     {
-    //         label: "palisada",
-    //         resolve: () => {
-    //             this._game.constructionService.setDividedLvlByTwoRoundedDown(CONSTRUCTION.PALISADE, this._eventNamePL)
-    //         },
-    //         canBeResolved: () => {
-    //             return this._game.constructionService.isBuilt(CONSTRUCTION.PALISADE)
-    //         },
-    //     }
-    // ]
 
     constructor(game: IGame) {
         super(

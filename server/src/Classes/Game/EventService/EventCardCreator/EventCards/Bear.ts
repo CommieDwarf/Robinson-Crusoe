@@ -24,8 +24,7 @@ export class Bear extends EventCard implements IEventCard {
     }
 
     triggerEventEffect() {
-        //TODO: put mark on arrange camp.
-        //TODO arrange camp discards mark. No stuff gained.
+
     }
 
     triggerThreatEffect() {

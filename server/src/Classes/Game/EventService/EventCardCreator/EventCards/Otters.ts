@@ -26,13 +26,11 @@ export class Otters extends EventCard implements IEventCard {
     }
 
     triggerEventEffect() {
-        //TODO: dasdas
     }
 
     triggerThreatEffect() {
     }
 
     fullFill() {
-        //TODO: reverse resources's depletion
     }
 }

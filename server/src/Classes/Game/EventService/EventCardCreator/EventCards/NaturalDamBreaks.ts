@@ -23,12 +23,9 @@ export class NaturalDamBreaks extends EventCard implements IEventCard {
     }
 
     triggerEventEffect() {
-        //TODO: +1 wood but no food in production Phase.
-        //TODO: put explore question mark.
     }
 
     triggerThreatEffect() {
-        //TODO: if possible flip 2 invention cards.
     }
 
     fullFill() {

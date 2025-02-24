@@ -6,7 +6,6 @@ import {ACTION} from "@shared/types/Game/ACTION";
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 import {INVENTION_STARTER} from "@shared/types/Game/InventionService/Invention";
 
-//TODO: unimplemented.
 export class Accident extends BuildAdventureCard implements IAdventureCard {
     constructor(game: IGame) {
         super(ADVENTURE_CARD_BUILD.ACCIDENT, "gangrene", false, game, "shuffle", "");

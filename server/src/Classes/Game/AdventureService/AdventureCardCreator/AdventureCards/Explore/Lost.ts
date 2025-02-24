@@ -11,6 +11,5 @@ export class Lost extends ExploreAdventureCard implements IAdventureCard {
     }
 
     resolveOption1(resolver: IPlayerCharacter) {
-        //TODO: implement night out of camp and Morale down just before event Phase
     }
 }

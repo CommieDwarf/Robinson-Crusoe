@@ -9,6 +9,5 @@ export class StrangeDisease extends TrapMysteryCard {
     }
 
     triggerDrawEffect(drawer: ICharacter) {
-        //TODO: implement
     }
 }

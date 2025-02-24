@@ -21,7 +21,6 @@ export class ComingToTerms
     }
 
     resolveOption1(resolver: IPlayerCharacter) {
-        //TODO: implement discarding inventions.
         this.shuffleIntoEventDeck();
     }
 

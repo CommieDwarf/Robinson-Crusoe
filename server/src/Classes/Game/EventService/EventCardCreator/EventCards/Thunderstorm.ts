@@ -24,7 +24,6 @@ export class Thunderstorm extends EventCard implements IEventCard {
     }
 
     triggerEventEffect() {
-        //TODO deplete closest wood else Players get hurt
     }
 
     triggerThreatEffect() {
@@ -32,6 +31,5 @@ export class Thunderstorm extends EventCard implements IEventCard {
     }
 
     fullFill() {
-        //TODO: reverse depletion
     }
 }

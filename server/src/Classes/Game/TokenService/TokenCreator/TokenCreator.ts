@@ -57,7 +57,6 @@ export class TokenCreator implements ICreator<IToken, DISCOVERY_TOKEN> {
                 return new Treasure(game, this.getId());
             case DISCOVERY_TOKEN.VEGETABLES:
                 return new Vegetables(game, this.getId());
-            // TODO: implement conditional statement in the future for multiple scenarios.
             case DISCOVERY_TOKEN.SCENARIO_1:
                 return new Castaways1(game, this.getId());
             case DISCOVERY_TOKEN.SCENARIO_2:

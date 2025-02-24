@@ -45,7 +45,6 @@ export class ResourceService implements IResourceService {
 		this._game = game;
 	}
 
-	// ------------------------------------------------
 
 	get renderData(): IResourceServiceRenderData {
 		return {
@@ -77,8 +76,6 @@ export class ResourceService implements IResourceService {
 	set cellar(value: boolean) {
 		this._cellar = value;
 	}
-
-	// ------------------------------------
 
 	public addTokenToFuture(token: IToken) {
 		this._future.tokens.push(token);
@@ -250,7 +247,6 @@ export class ResourceService implements IResourceService {
 		const ownedAmount = this._owned.basic.getResource(resource);
 		const diff = ownedAmount - amount;
 		if (diff < 0) {
-			// this._owned.basic.setResource(resource, 0);
 			this.spendResourceFromOwned(resource, ownedAmount, logSource);
 			this._game.characterService.hurtAllPlayerCharacters(
 				Math.abs(diff),

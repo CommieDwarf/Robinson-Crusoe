@@ -23,7 +23,6 @@ export class FastWork extends BuildAdventureCard implements IAdventureCard {
     }
 
     resolveOption2(resolver: IPlayerCharacter) {
-        //TODO: implement building another item + rolling dices for it
     }
 
     triggerEventEffect() {

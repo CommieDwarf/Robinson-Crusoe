@@ -11,6 +11,5 @@ export class UnfortunateAdventure
     }
 
     triggerDrawEffect(drawer: ICharacter) {
-        //TODO: implement book effect.
     }
 }

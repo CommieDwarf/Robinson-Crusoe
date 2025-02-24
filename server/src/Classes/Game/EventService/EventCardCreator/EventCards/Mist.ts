@@ -23,7 +23,6 @@ export class Mist extends EventCard implements IEventCard {
     }
 
     triggerEventEffect() {
-        //TODO: put +1 required helper on explore action
         this._game.actionService.addGlobalCostModifier(ACTION.EXPLORE, "helper", true, this._namePL);
     }
 

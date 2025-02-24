@@ -25,11 +25,9 @@ export class FlyingSurprise extends EventCard implements IEventCard {
     }
 
     triggerEventEffect() {
-        //TODO: choose -1 roof or -1 palisade
     }
 
     triggerThreatEffect() {
-        //TODO: same as triggerEffect
     }
 
     fullFill() {

@@ -23,15 +23,12 @@ export class RavishingHurricane extends EventCard implements IEventCard {
     }
 
     triggerEventEffect() {
-        // const tiles = this._game.tileService.tilesAroundCamp;
     }
 
     triggerThreatEffect() {
-        //depletion stays
     }
 
     fullFill() {
-        //TODO: reverse depletion.
         this.incrDetermination(1);
     }
 }

@@ -42,7 +42,6 @@ export class ActionSlotService implements IActionSlotService {
 
     }
 
-    // -------------------------------------------------
 
     set slots(value: Map<string, IPawn | null>) {
         this._slots = value;
@@ -83,7 +82,6 @@ export class ActionSlotService implements IActionSlotService {
         return categorized;
     }
 
-    // -------------------------------------------------------
 
 
     public setPawn(droppableId: string, pawn: IPawn | null) {

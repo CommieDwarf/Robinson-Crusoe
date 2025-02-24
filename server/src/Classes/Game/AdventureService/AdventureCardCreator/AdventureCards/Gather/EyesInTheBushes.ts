@@ -25,7 +25,6 @@ export class EyesInTheBushes
     }
 
     triggerEventEffect() {
-        //TODO: set hungry animal in weather.
-        // this._game.weatherService.setToken()
+
     }
 }

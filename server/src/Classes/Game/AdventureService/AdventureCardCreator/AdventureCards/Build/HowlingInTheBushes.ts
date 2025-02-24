@@ -24,6 +24,5 @@ export class HowlingInTheBushes
     }
 
     triggerEventEffect() {
-        //todo: implement fighting beast by prime player
     }
 }

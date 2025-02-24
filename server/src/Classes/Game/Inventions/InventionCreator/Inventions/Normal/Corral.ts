@@ -28,7 +28,6 @@ export class Corral extends Invention implements IInvention {
         const canUse = tiles.some((tile) => tile.hasBasicResource("food"));
 
         if (canUse) {
-            // this._game.tileService.markTileResourcesForAction(tiles, TILE_RESOURCE_ACTION.ADD_MODIFIER, this._namePL, "food");
             this._used = true;
         }
     }

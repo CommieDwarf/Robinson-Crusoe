@@ -18,7 +18,6 @@ export class Tiger extends ExploreAdventureCard implements IAdventureCard {
     }
 
     resolveOption1(resolver: IPlayerCharacter) {
-        //TODO: night out of camp.
     }
 
     resolveOption2(resolver: IPlayerCharacter) {
@@ -26,7 +25,7 @@ export class Tiger extends ExploreAdventureCard implements IAdventureCard {
     }
 
     triggerEventEffect() {
-        //TODO: JUMP, JUMP
-        //TODO: JUMP ON THE TIGER
+        //JUMP, JUMP
+        //JUMP ON THE TIGER
     }
 }

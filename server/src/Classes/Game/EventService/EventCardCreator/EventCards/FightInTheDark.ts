@@ -34,7 +34,6 @@ export class FightInTheDark extends EventCard implements IEventCard {
     }
 
     triggerThreatEffect() {
-        //TODO: set hungry animals dice to weather.
     }
 
     fullFill() {

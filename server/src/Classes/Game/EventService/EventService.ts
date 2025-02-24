@@ -46,10 +46,6 @@ export class EventService implements IEventService {
     constructor(game: IGame) {
         this._game = game;
         this._eventCardDeck = this.initEventCards();
-
-        // this.testEventCards(Play);
-
-
     }
 
     get renderData(): IEventServiceRenderData {

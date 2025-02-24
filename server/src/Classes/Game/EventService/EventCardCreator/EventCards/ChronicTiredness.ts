@@ -24,7 +24,6 @@ export class ChronicTiredness extends EventCard implements IEventCard {
     }
 
     triggerEventEffect() {
-        //TODO: in this round night Phase increase food consumption by 1.
     }
 
     triggerThreatEffect() {

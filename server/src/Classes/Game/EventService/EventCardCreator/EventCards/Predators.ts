@@ -27,7 +27,6 @@ export class Predators extends EventCard implements IEventCard {
     }
 
     triggerEventEffect() {
-        //TODO: deplete closest food source or all Players get hurt.
     }
 
     triggerThreatEffect() {
@@ -36,6 +35,5 @@ export class Predators extends EventCard implements IEventCard {
 
     fullFill() {
         this.incrDetermination(1);
-        //TODO: reverse resource depletion.
     }
 }

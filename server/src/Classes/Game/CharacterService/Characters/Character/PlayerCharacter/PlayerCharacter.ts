@@ -91,7 +91,6 @@ export abstract class PlayerCharacter
 		};
 	}
 
-	// ---------------------------------------------
 
 	get invention(): INVENTION_PERSONAL {
 		return this._invention;
@@ -157,7 +156,6 @@ export abstract class PlayerCharacter
 		this._weaponBoost = value;
 	}
 
-	// ---------------------------------------------
 
 	setPersonalResource(resource: keyof IBasicResourcesAmount, value: boolean) {
 		this._hasPersonalResource[resource] = value;

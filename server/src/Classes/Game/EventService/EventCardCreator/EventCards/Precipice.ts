@@ -31,7 +31,6 @@ export class Precipice extends EventCard implements IEventCard {
     }
 
     triggerThreatEffect() {
-        //tile stays unavailable
     }
 
     fullFill() {

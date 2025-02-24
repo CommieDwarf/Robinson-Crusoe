@@ -36,7 +36,6 @@ export class Earthquake extends EventCard implements IEventCard {
     fullFill() {
         const tile = this._game.tileService.tiles.find((t) => t.modifiers.flipped?.source === this._name);
         if (tile) {
-            //TODO: ogarnij normalne tlumaczenie
             tile.unsetTileModifier("flipped", this._resolutionPL);
         }
     }

@@ -16,6 +16,5 @@ export class Sting extends BuildAdventureCard implements IAdventureCard {
     }
 
     triggerEventEffect() {
-        //TODO: implement
     }
 }

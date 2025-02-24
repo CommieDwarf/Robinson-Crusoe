@@ -13,6 +13,5 @@ export class HerbalMixture extends TreasureMysteryCard {
     }
 
     use() {
-        //TODO: implement
     }
 }

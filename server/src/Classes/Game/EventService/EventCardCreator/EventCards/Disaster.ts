@@ -24,14 +24,11 @@ export class Disaster extends EventCard implements IEventCard {
     }
 
     triggerEventEffect() {
-        //TODO: choose -1 roof or -1 palisade
     }
 
     triggerThreatEffect() {
-        //TODO -1/2 roof or palisade
     }
 
     fullFill() {
-        //TODO choose +1 roof or palisade (if shelter is built)
     }
 }

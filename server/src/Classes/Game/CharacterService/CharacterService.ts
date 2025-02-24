@@ -37,7 +37,6 @@ export class CharacterService implements ICharacterService {
         };
     }
 
-    // ------------------------------------------------------------
 
     get allCharacters(): ICharacter[] {
         return this._allCharacters;
@@ -62,7 +61,6 @@ export class CharacterService implements ICharacterService {
         return this.playerCharacters.some((character) => character.health <= 0);
     }
 
-    // -------------------------------------------
 
     removeMoraleThreshold(
         character: IPlayerCharacter | string,

@@ -9,6 +9,5 @@ export class BlowGun extends TrapMysteryCard {
     }
 
     triggerDrawEffect(drawer: ICharacter) {
-        //TODO: implement 1 pawn off action.
     }
 }

@@ -21,7 +21,5 @@ export class WinterFreezing
     }
 
     resolveOption1(resolver: IPlayerCharacter) {
-        const tile = this.getTile();
-        // this._game.tileService.markTileResourcesForAction([tile], TILE_RESOURCE_ACTION.DEPLETE, this._name, null);
     }
 }

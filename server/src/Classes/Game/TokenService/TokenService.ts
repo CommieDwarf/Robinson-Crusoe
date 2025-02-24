@@ -20,7 +20,6 @@ export class TokenService implements ITokenService {
         this._game = game;
         this._tokenStack = shuffle(this.getTokenStack(), this._game.getRandomNumber);
         this._tokenCreator = new TokenCreator(game);
-        // this.testTokens();
     }
 
     get ownedTokens(): IToken[] {

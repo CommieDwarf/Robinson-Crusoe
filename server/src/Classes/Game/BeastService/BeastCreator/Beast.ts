@@ -33,7 +33,6 @@ export class Beast extends AssignablePawnsItem implements IBeast {
 		};
 	}
 
-	// ----------------------------------------------
 
 	get requiredPawnAmount() {
 		return 2;

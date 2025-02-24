@@ -115,7 +115,6 @@ export class PhaseService implements IPhaseService {
 	};
 
 	private moraleEffect = () => {
-		// TODO: implement player choice when lvl 3 whenever he wants Determination or Health
 		this._game.moraleService.triggerPhaseEffect();
 	};
 

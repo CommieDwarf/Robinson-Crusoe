@@ -9,7 +9,5 @@ export class Net extends TrapMysteryCard {
     }
 
     triggerDrawEffect(drawer: ICharacter) {
-        //TODO: implement stop drawing cards.
-        //TODO: implement night outside the camp
     }
 }

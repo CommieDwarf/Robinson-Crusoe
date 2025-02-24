@@ -66,7 +66,6 @@ export class MysteryService implements IMysteryService {
             return;
         }
 
-        //TODO: think about targeting
         if (card.requiresTarget && this._currentCardThatRequiresTarget !== card) {
             this._currentCardThatRequiresTarget = card;
         } else {

@@ -30,12 +30,10 @@ export class BeastService implements IBeastService {
 		};
 	}
 
-	// --------------------------------------
 	get deckCount() {
 		return this._deck.length;
 	}
 
-	// --------------------------------------------
 
 	peekBeastFromDeck(): IBeast {
 		if (this.deckCount === 0) {

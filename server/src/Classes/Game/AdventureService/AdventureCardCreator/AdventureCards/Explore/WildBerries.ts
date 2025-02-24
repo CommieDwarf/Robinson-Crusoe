@@ -20,11 +20,9 @@ export class WildBerries
     }
 
     resolveOption1(resolver: IPlayerCharacter) {
-        //TODO: put wound.
         this.shuffleIntoEventDeck();
     }
 
     triggerEventEffect() {
-        //TODO: implement.
     }
 }

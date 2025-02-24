@@ -28,7 +28,6 @@ export class NightAttack extends EventCard implements IEventCard {
 
     triggerEventEffect() {
         this._game.characterService.hurtAllPlayerCharacters(1, this._name);
-        //TODO: if possible peek beast from hunting deck.
     }
 
     triggerThreatEffect() {
@@ -38,6 +37,5 @@ export class NightAttack extends EventCard implements IEventCard {
     }
 
     fullFill() {
-        //TODO: fight beast from deck. ignore it's strength.
     }
 }

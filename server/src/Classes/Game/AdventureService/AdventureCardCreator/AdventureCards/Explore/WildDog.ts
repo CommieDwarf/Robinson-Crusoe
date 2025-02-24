@@ -24,6 +24,5 @@ export class WildDog extends ExploreAdventureCard implements IAdventureCard {
     }
 
     triggerEventEffect() {
-        //TODO: implement decision
     }
 }

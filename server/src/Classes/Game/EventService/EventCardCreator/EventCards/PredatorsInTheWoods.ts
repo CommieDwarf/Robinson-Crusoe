@@ -27,16 +27,13 @@ export class PredatorsInTheWoods extends EventCard implements IEventCard {
     }
 
     triggerEventEffect() {
-        //TODO: put beast token on explore action.
     }
 
     triggerThreatEffect() {
-        //TODO: discard beast token.
         this._game.characterService.hurtAllPlayerCharacters(1, this._namePL);
     }
 
     fullFill() {
-        //TODO: discard beast token.
         this.incrDetermination(1);
     }
 }
