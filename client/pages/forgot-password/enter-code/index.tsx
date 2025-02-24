@@ -20,12 +20,9 @@ export default function ForgotPassword(props: { email: string }) {
 }
 
 export function getServerSideProps(context: GetServerSidePropsContext) {
-	// Pobranie nagłówków z cookies
 	const cookie = context.req.headers.cookie || "";
-
-	// Parsowanie cookies
 	const cookies = parse(cookie);
-	const email = cookies.Email || ""; // Pobranie cookie "Email" lub pusty string, jeśli brak
+	const email = cookies.Email || "";
 	return {
 		props: {
 			email,
