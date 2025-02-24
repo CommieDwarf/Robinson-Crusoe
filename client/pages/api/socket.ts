@@ -19,13 +19,8 @@ export function setSocketListener<E extends keyof ServerPayloadMap>(
 	event: E,
 	listener: (payload: ServerPayloadMap[E]) => any
 ): SocketListener {
+	// decorator do debugowania
 	function listenerDecorator(payload: ServerPayloadMap[E]) {
-		// if (event !== SOCKET_EVENT_SERVER.PLAYER_LATENCY_LIST_SENT &&
-		//     event !== SOCKET_EVENT_SERVER.PING &&
-		//     event !== SOCKET_EVENT_SERVER.ALERT_SENT &&
-		//     event !== SOCKET_EVENT_SERVER.USER_LATENCY_SENT
-		// )
-		//     alert("Handling event: " + event);
 		listener(payload);
 	}
 
