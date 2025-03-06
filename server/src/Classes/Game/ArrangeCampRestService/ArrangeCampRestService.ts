@@ -9,7 +9,6 @@ import { IPlayerCharacter } from "@shared/types/Game/Characters/PlayerCharacter"
 import { ACTION } from "@shared/types/Game/ACTION";
 
 export class ArrangeCampRestService implements IArrangeCampRestService {
-	// TODO: IMPLEMENT CHOICE BETWEEN BED EFFECT OR NORMAL EFFECT.
 	private readonly _game: IGame;
 
 	private _arrangeCampBonus: "determination" | "morale" | null = null;
@@ -75,7 +74,10 @@ export class ArrangeCampRestService implements IArrangeCampRestService {
 		}
 		if (this._game.playerService.players.length === 4) {
 			this._game.startPickingObject(
-				[{name: "determination", amount: determination}, {name: "morale", amount: 1}],
+				[
+					{ name: "determination", amount: determination },
+					{ name: "morale", amount: 1 },
+				],
 				character as IPlayerCharacter,
 				1,
 				ACTION.ARRANGE_CAMP,
@@ -90,7 +92,6 @@ export class ArrangeCampRestService implements IArrangeCampRestService {
 					} else {
 						this._game.moraleService.lvlUp(1, ACTION.ARRANGE_CAMP);
 					}
-					
 				}
 			);
 			return;

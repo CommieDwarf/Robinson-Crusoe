@@ -25,8 +25,6 @@ export class CloudBurst extends EventCard implements IEventCard {
 
     triggerEventEffect() {
         if (this._game.tileService.canCampBeMoved()) {
-            //TODO: implement
-            // this._game.tileService.forceCampMovement();
 
         } else {
             this._game.characterService.hurtAllPlayerCharacters(1, this.name);

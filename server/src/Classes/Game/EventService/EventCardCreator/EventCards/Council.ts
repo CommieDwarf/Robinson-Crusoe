@@ -23,15 +23,12 @@ export class Council extends EventCard implements IEventCard {
     }
 
     triggerEventEffect() {
-        //TODO: discard 3 inventions
     }
 
     triggerThreatEffect() {
-        //TODO: discard 2 inventions
     }
 
     fullFill() {
         this.incrDetermination(1);
-        //TODO: get 1 chosen invention
     }
 }

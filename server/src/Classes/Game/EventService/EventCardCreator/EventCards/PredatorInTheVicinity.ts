@@ -27,7 +27,6 @@ export class PredatorInTheVicinity extends EventCard implements IEventCard {
     }
 
     triggerEventEffect() {
-        //TODO: set animal dice at weather
     }
 
     triggerThreatEffect() {

@@ -17,6 +17,5 @@ export class Fruit extends GatherAdventureCard implements IAdventureCard {
     }
 
     triggerEventEffect() {
-        //TODO: implement
     }
 }

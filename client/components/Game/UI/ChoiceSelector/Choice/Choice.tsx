@@ -84,9 +84,10 @@ export function ChoiceObject(props: Props) {
 				<div className={`${styles.resource}`}>
 					{insertIconsIntoText(
 						// @ts-ignore
-						`${props.pickObject.object.amount!} \$${props.pickObject
+						`${props.pickObject.object.amount!} \$${
 							// @ts-ignore
-							.object.name!}\$` ?? " "
+							props.pickObject.object.name!
+						}\$` ?? " "
 					)}
 				</div>
 			) : (
@@ -99,9 +100,14 @@ export function ChoiceObject(props: Props) {
 						/>
 					</div>
 					<div className={`${styles.name}`}>
-						{/* @ts-ignore */}
-						{capitalize(dynamicTranslate(props.pickObject.object.name ?? props.pickObject.object.id))}
-
+						{capitalize(
+							dynamicTranslate(
+								// @ts-ignore
+								props.pickObject.object.name ??
+									// @ts-ignore
+									props.pickObject.object.id
+							)
+						)}
 					</div>
 				</>
 			)}

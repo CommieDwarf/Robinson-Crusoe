@@ -46,6 +46,5 @@ export class HungryPredator
     }
 
     triggerEventEffect() {
-        //todo: implement fighting beast by prime player
     }
 }

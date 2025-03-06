@@ -7,18 +7,6 @@ import {CONSTRUCTION} from "@shared/types/Game/ConstructionService/Construction"
 
 export class Bamboo extends ExploreAdventureCard implements IAdventureCard {
 
-    // protected _eventOption1 = {
-    //     label: "-1 $roof$",
-    //     resolve: () => {
-    //         this._game.constructionService.lvlDownOrGetHurt(CONSTRUCTION.ROOF, 1, this._eventNamePL);
-    //     },
-    // }
-    // protected _eventOption2 = {
-    //     label: "-1 $palisade$",
-    //     resolve: () => {
-    //         this._game.constructionService.lvlDownOrGetHurt(CONSTRUCTION.PALISADE, 1, this._eventNamePL);
-    //     },
-    // }
 
     constructor(game: IGame) {
         super(
@@ -40,6 +28,5 @@ export class Bamboo extends ExploreAdventureCard implements IAdventureCard {
     }
 
     triggerEventEffect() {
-        //TODO: implement choice between -1 roof and -1 palisade.
     }
 }

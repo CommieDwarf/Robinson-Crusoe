@@ -1,39 +1,39 @@
 .container {
-    height: 60px;
-    aspect-ratio: 741 / 566;
-    border-radius: 10px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px;
-    text-align: center;
-    font-weight: 800;
-    position: relative;
-    cursor: pointer;
-    font-size: 5em;
-    top: -10%;
+	height: 60px;
+	aspect-ratio: 741 / 566;
+	border-radius: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+	text-align: center;
+	font-weight: 800;
+	position: relative;
+	cursor: pointer;
+	font-size: 5em;
+	top: -10%;
 }
 
 .notClicked:hover {
-    scale: 1.1;
+	scale: 1.1;
 }
 
 .clicked {
-    opacity: 0.5;
-    filter: grayscale(100%);
+	opacity: 0.5;
+	filter: grayscale(100%);
 }
 
 .dices {
-    z-index: 1;
+	z-index: 1;
 }
 
 .roll {
-    z-index: 10;
+	z-index: 10;
 
-    line-height: 140%;
-    position: relative;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    color: white;
-    -webkit-text-stroke: 1px darkslategray;
+	line-height: 140%;
+	position: relative;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	color: white;
+	-webkit-text-stroke: 1px darkslategray;
 }

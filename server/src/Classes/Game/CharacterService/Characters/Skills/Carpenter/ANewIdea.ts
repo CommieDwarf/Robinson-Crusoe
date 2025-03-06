@@ -3,8 +3,6 @@ import {IAbility} from "@shared/types/Game/Skill/IAbility";
 import {IGame} from "@shared/types/Game/Game";
 import {IPlayerCharacter} from "@shared/types/Game/Characters/PlayerCharacter";
 import {ABILITY} from "@shared/types/Game/Skill/ABILITY";
-import {PHASE} from "@shared/types/Game/PhaseService/Phase";
-import {ACTION} from "@shared/types/Game/ACTION";
 
 export class ANewIdea extends Ability implements IAbility<any> {
 

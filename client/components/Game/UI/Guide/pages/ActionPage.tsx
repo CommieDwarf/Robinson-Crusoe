@@ -1,7 +1,6 @@
 import { kebabCase } from "lodash";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
 import styles from "../Guide.module.css";
-
 import { ACTION } from "@shared/types/Game/ACTION";
 import ActionSlot from "../../ActionSlot";
 
@@ -68,7 +67,7 @@ export function ActionPage() {
 				<div className={styles.flexBlock}>
 					<div className={styles.pawnAssignmentImg}>
 					<ResizableImage
-							src={"/gif/pawn-assignment.gif"}
+							src={"/UI/guide/pawn-assignment.gif"}
 							alt="przeciąganie pionka"
 						/>
 					</div>

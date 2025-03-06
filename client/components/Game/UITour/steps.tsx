@@ -380,7 +380,8 @@ export const steps: CustomStep[] = [
 		title: "Zasoby osobiste",
 		content: (
 			<span>
-				Twoja postać posiada zasoby które mogą użyte tylko przez nią.
+				Twoja postać posiada zasoby które mogą być użyte tylko przez
+				nią.
 				<ul>
 					<li>
 						Poziom broni ({insertIcon("$weapon$")}) - wykorzystywany
@@ -663,8 +664,8 @@ export const steps: CustomStep[] = [
 		target: ".tour-menu-exit",
 		content: (
 			<span>
-					W opcjach w menu głównym możesz zresetować przewodnik po UI.
-					<br />
+				W opcjach w menu głównym możesz zresetować przewodnik po UI.
+				<br />
 			</span>
 		),
 		title: "Miłej Rozgrywki!",

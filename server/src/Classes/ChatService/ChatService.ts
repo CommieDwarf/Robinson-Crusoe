@@ -1,12 +1,10 @@
 import {SessionData} from "@shared/types/Session/Session";
 import {
     IChatMessage,
-    IChatMessageRenderData,
     IChatService,
     SYSTEM_MSG,
     SystemMessage
 } from "@shared/types/ChatService/ChatService";
-import {LOG_CODE} from "@shared/types/Game/ChatLog/LOG_CODE";
 import {isSystemMsg} from "@shared/utils/typeGuards/isSystemMsg";
 
 

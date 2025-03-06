@@ -8,7 +8,7 @@ import { MainMenu } from "components/MainMenu/MainMenu";
 
 export default function VerifyYourEmail() {
 	const [emailResent, setEmailResent] = useState(false);
-	const {t} = useTranslation();
+	const { t } = useTranslation();
 
 	async function sendEmail() {
 		const authToken = getAuthToken();
@@ -19,11 +19,11 @@ export default function VerifyYourEmail() {
 				"Content-Type": "application/json",
 				Authorization: `${authToken}`,
 			},
-		}).then(result => {
+		}).then((result) => {
 			if (result.ok) {
 				setEmailResent(true);
-			} 
-		})
+			}
+		});
 	}
 
 	return (
@@ -34,9 +34,7 @@ export default function VerifyYourEmail() {
 					<div className={styles.container}>
 						{" "}
 						<h4>{t("emailActivation.title")}</h4>
-						<p>
-							{t("emailActivation.instructions")}
-						</p>
+						<p>{t("emailActivation.instructions")}</p>
 						{!emailResent ? (
 							<p>
 								{t("emailActivation.gotNoMessages")} <br />{" "}

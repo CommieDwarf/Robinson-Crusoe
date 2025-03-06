@@ -1,3 +1,3 @@
 export interface ICreator<Creation, Type> {
-  create: (name: Type) => Creation;
+	create: (name: Type) => Creation;
 }

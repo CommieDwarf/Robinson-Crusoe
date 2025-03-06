@@ -1,6 +1,5 @@
 .container {
     height: 90vh;
-
     aspect-ratio: 900 / 550;
     border-radius: 5px;
     border: 1px solid var(--brown);

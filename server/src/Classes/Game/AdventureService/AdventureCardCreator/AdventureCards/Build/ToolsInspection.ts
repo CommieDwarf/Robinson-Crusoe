@@ -21,10 +21,8 @@ export class ToolsInspection
     }
 
     resolveOption1(resolver: IPlayerCharacter) {
-        //TODO: implement marks on 2 inventions
     }
 
     triggerEventEffect() {
-        //TODO: implement flip marked inventions
     }
 }

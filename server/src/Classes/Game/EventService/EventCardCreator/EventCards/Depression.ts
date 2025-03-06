@@ -23,7 +23,6 @@ export class Depression extends EventCard implements IEventCard {
     }
 
     triggerEventEffect() {
-        //TODO: discard 2 inventions.
         this._game.characterService.decrDeterminationAllPlayerCharacters(
             1,
             this._namePL
@@ -32,7 +31,6 @@ export class Depression extends EventCard implements IEventCard {
 
     triggerThreatEffect() {
         this._game.moraleService.lvlDown(1, this._namePL);
-        //TODO: discard 2 inventions.
     }
 
     fullFill() {

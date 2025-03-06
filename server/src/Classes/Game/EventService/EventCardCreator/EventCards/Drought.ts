@@ -44,7 +44,6 @@ export class Drought extends EventCard implements IEventCard {
     fullFill() {
         const tile = this._game.tileService.tiles.find((tile) => tile.modifiers.terrainDepleted?.source === this._name);
         if (tile) {
-            //TODO: ogarnij tłumaczenie
             tile.unsetTileModifier("terrainDepleted", this._resolutionPL);
         }
         this.incrDetermination(1);

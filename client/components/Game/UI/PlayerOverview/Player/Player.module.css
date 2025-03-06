@@ -1,113 +1,100 @@
 .container {
-    height: 100%;
-    color: var(--brown);
-    font-weight: bold;
-    font-style: italic;
-    border: 1px solid var(--borderColor);
-    position: relative;
-
+	height: 100%;
+	color: var(--brown);
+	font-weight: bold;
+	font-style: italic;
+	border: 1px solid var(--borderColor);
+	position: relative;
 }
 
 .topBar {
-    height: 7%;
-    padding-top: 2.5%;
-    position: relative;
+	height: 7%;
+	padding-top: 2.5%;
+	position: relative;
 }
 
 .latency {
-
-    height: 70%;
-    aspect-ratio: 1;
-    position: relative;
-    float: left;
+	height: 70%;
+	aspect-ratio: 1;
+	position: relative;
+	float: left;
 }
 
 .userNameWrapper {
-    height: 50%;
-    position: relative;
+	height: 50%;
+	position: relative;
 }
 
 .primePlayerIcon {
-    aspect-ratio: 1;
-    height: 100%;
-    display: inline-block;
-    position: relative;
-    scale: 1.5;
-    transform-origin: 50% 50%;
-    margin-left: 3px;
+	aspect-ratio: 1;
+	height: 100%;
+	display: inline-block;
+	position: relative;
+	scale: 1.5;
+	transform-origin: 50% 50%;
+	margin-left: 3px;
 }
 
-
-
-.charName, .userNameWrapper {
-    text-align: center;
+.charName,
+.userNameWrapper {
+	text-align: center;
 }
 
 .username {
-    border-radius: 5px;
-    border: 1px solid var(--borderColor);
-    font-size: 2em;
-    vertical-align: top;
-    position: relative;
-    padding-left: 5%;
-    padding-right: 5%;
+	border-radius: 5px;
+	border: 1px solid var(--borderColor);
+	font-size: 2em;
+	vertical-align: top;
+	position: relative;
+	padding-left: 5%;
+	padding-right: 5%;
 }
-
-
 
 .characterWrapper {
-    width: 100%;
-    height: 90%;
-    overflow: visible;
-    position: relative;
-    display: flex;
+	width: 100%;
+	height: 90%;
+	overflow: visible;
+	position: relative;
+	display: flex;
 }
 
-
-
 .health {
-    width: 10%;
-    position: relative;
-    display: inline-block;
+	width: 10%;
+	position: relative;
+	display: inline-block;
 }
 
 .character {
-    width: 90%;
-   height: 100%;
-   position: relative;
-   font-size: 2em;
+	width: 90%;
+	height: 100%;
+	position: relative;
+	font-size: 2em;
 }
 
-
-
-
-
 .imgWrapper {
-    width: 100%;
-    position: relative;
-    margin: auto;
+	width: 100%;
+	position: relative;
+	margin: auto;
 }
 
 .expendables {
-    width: 80%;
-    height: 6%;
-    margin: auto;
+	width: 80%;
+	height: 6%;
+	margin: auto;
 }
 
 .hr {
-    width: 100%;
-    border-top: 1px solid var(--hunt);
-    border-bottom: 1px solid var(--borderColor);
-    margin-bottom: 5px;
+	width: 100%;
+	border-top: 1px solid var(--hunt);
+	border-bottom: 1px solid var(--borderColor);
+	margin-bottom: 5px;
 }
 
 .pawns {
-    width: 80%;
-    aspect-ratio: 2;
-    border: 1px solid var(--borderColor);
-    padding: 5px;
-    border-radius: 5px;
-    margin: auto;
+	width: 80%;
+	aspect-ratio: 2;
+	border: 1px solid var(--borderColor);
+	padding: 5px;
+	border-radius: 5px;
+	margin: auto;
 }
-
-

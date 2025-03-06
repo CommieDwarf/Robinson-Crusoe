@@ -1,38 +1,37 @@
 .container {
-    align-self: center;
-    height: 80%;
-    aspect-ratio: 1;
-    position: relative;
-    margin: auto;
+	align-self: center;
+	height: 80%;
+	aspect-ratio: 1;
+	position: relative;
+	margin: auto;
 }
 
-
-
 .ready {
-    filter: brightness(0) saturate(100%) invert(52%) sepia(93%) saturate(316%) hue-rotate(50deg) brightness(96%) contrast(87%);
+	filter: brightness(0) saturate(100%) invert(52%) sepia(93%) saturate(316%)
+		hue-rotate(50deg) brightness(96%) contrast(87%);
 }
 
 .notReady {
-    filter: invert(24%) sepia(83%) saturate(3654%) hue-rotate(341deg) brightness(65%) contrast(111%);
+	filter: invert(24%) sepia(83%) saturate(3654%) hue-rotate(341deg)
+		brightness(65%) contrast(111%);
 }
 
 .notReady > .readyImg {
-    left: 10%;
+	left: 10%;
 }
 
 .readyImg {
-    aspect-ratio: 1;
-    top: 10%;
-    left: 9%;
-    height: 80%;
-    position: absolute;
-    cursor: pointer;
+	aspect-ratio: 1;
+	top: 10%;
+	left: 9%;
+	height: 80%;
+	position: absolute;
+	cursor: pointer;
 }
 
-
 .circle {
-    aspect-ratio: 1;
-    height: 100%;
-    position: absolute;
-    pointer-events: none;
+	aspect-ratio: 1;
+	height: 100%;
+	position: absolute;
+	pointer-events: none;
 }

@@ -21,7 +21,6 @@ export class RuinedHut extends ExploreAdventureCard implements IAdventureCard {
     }
 
     resolveOption2(resolver: IPlayerCharacter) {
-        //TODO: implement free invention build (knife, rope, shovel or medicine)
         this.shuffleIntoEventDeck();
     }
 

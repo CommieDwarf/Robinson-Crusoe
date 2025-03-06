@@ -179,7 +179,7 @@ export function Player(props: Props) {
 						dropdownIndicator: (styles) => ({
 							...styles,
 							marginTop: "-15%",
-							color: darkenColor(playerColor)
+							color: darkenColor(playerColor),
 						}),
 						clearIndicator: (styles) => ({
 							...styles,
@@ -203,7 +203,7 @@ export function Player(props: Props) {
 						}),
 						option: (
 							styles,
-							{ data, isDisabled, isFocused, isSelected }
+							{ data }
 						) => {
 							return {
 								...styles,
@@ -223,7 +223,7 @@ export function Player(props: Props) {
 							border: "1px solid var(--borderColor)",
 						}),
 					}}
-					onChange={(newValue, actionMeta) =>
+					onChange={(newValue) =>
 						newValue &&
 						handleColorChange(newValue.value as PLAYER_COLOR)
 					}
@@ -246,5 +246,3 @@ export function Player(props: Props) {
 		</div>
 	);
 }
-
-

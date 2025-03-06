@@ -24,6 +24,5 @@ export class EmptyForest
     }
 
     triggerEventEffect() {
-        //TODO: implement token at hunt which makes beast stronger.
     }
 }

@@ -241,9 +241,7 @@ export class ActionService implements IActionService {
             this.setCanBeSkipped(allSlots);
         }
 
-
         this._occupiedSlots = allSlots[this._action];
-
         const resolvableItems: IResolvableItem[] = [];
         const helpers: string[] = [];
         this._occupiedSlots.forEach((pawn, droppableID) => {

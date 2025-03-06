@@ -1,13 +1,11 @@
 import styles from "./Castaways.module.css";
 import { ScenarioInfo } from "./ScenarioInfo/ScenarioInfo";
 import { WoodPile } from "./WoodPile/WoodPile";
-import React, { useLayoutEffect, useRef, useState } from "react";
-
+import React from "react";
 import bookEffectImg from "/public/UI/scenarios/castaways/book-effect.png";
 import totemEffectImg from "/public/UI/scenarios/castaways/totem-effect.png";
 import scenarioTokensImg from "/public/UI/scenarios/castaways/tokens.png";
 import Rounds from "./Rounds/Rounds";
-import { Card } from "../../../CardList/Cards/Card/Card";
 import ResizableImage from "../../../../../ResizableImage/ResizableImage";
 import { useTranslation } from "react-i18next";
 import { capitalize } from "lodash";
@@ -20,7 +18,6 @@ interface Props {
 
 export default function Castaways(props: Props) {
 	const currentRound = useAppSelector((state) => selectGame(state)?.round);
-	const inventionContRef = useRef<HTMLDivElement>(null);
 
 	const { t } = useTranslation();
 

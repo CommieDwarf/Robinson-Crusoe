@@ -21,8 +21,9 @@ export function GlobalWrapper(props: Props) {
 
 	const [reconnecting, setReconnecting] = useState(false);
 
-
-	const connectionLost = useAppSelector((state) => state.connection.socketConnectionLost);
+	const connectionLost = useAppSelector(
+		(state) => state.connection.socketConnectionLost
+	);
 	useEffect(() => {
 		if (connectionLost && isAuthenticated()) {
 			setReconnecting(true);
@@ -43,6 +44,7 @@ export function GlobalWrapper(props: Props) {
 		}
 		window.addEventListener("storage", handleStorage);
 
+
 		return () => {
 			window.removeEventListener("storage", handleStorage);
 		};
@@ -53,7 +55,6 @@ export function GlobalWrapper(props: Props) {
 		if (authenticated && !user) {
 			const token = getAuthToken() as string;
 			fetchAndUpdateUser(token, dispatch);
-			
 		}
 	}, [user, dispatch]);
 
@@ -91,8 +92,7 @@ export function GlobalWrapper(props: Props) {
 
 			fetchAndUpdateUser(token, dispatch);
 		}
-	}, [])
-
+	}, []);
 
 	return (
 		<>

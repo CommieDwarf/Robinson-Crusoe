@@ -25,14 +25,11 @@ export class StormDamage extends EventCard implements IEventCard {
     }
 
     triggerEventEffect() {
-        //TODO: choose lvl down half roof or palisade.
     }
 
     triggerThreatEffect() {
-        //TODO: choose -1 roof or palisade
     }
 
     fullFill() {
-        //TODO: choose +1 roof or palisade if shelter is built.
     }
 }

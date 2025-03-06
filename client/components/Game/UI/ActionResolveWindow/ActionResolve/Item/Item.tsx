@@ -1,10 +1,7 @@
 // @flow
 import * as React from "react";
 import { useState } from "react";
-
 import styles from "./Item.module.css";
-
-import redArrowImg from "/public/UI/misc/red-arrow.png";
 import { Tokens } from "./Tokens/Tokens";
 import reRollTokenImg from "/public/UI/tokens/reroll.png";
 import ResizableImage from "../../../../../ResizableImage/ResizableImage";
@@ -48,8 +45,7 @@ export const Item = (props: Props) => {
 	);
 	const pawnOwner = props.resolvableItem.leaderPawn.owner;
 	const isActionAllowed = !(
-		"wounds" in pawnOwner && //TODO: zrob tak samo na backendzie
-		pawnOwner.name !== localPlayer.character?.name
+		"wounds" in pawnOwner && pawnOwner.name !== localPlayer.character?.name
 	);
 
 	function handleBibleCheckBoxClick() {

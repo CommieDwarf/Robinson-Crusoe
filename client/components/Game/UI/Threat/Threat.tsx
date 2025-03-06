@@ -6,7 +6,7 @@ import { RootState } from "../../../../store/store";
 import { connect } from "react-redux";
 import { IEventCardRenderData } from "@shared/types/Game/EventService/EventCard";
 import { ThreatSlot } from "./ThreatSlot/ThreatSlot";
-import redArrowImg from "/public/UI/misc/red-arrow.png"
+import redArrowImg from "/public/UI/misc/red-arrow.png";
 import ResizableImage from "components/ResizableImage/ResizableImage";
 
 interface StateProps {
@@ -26,24 +26,14 @@ function Threat(props: StateProps & Props) {
 			} tour-threat`}
 		>
 			<div className={styles.threatSlot}>
-				<ThreatSlot card={props.leftSlot} />
+				<ThreatSlot card={props.leftSlot} side="left" />
 			</div>
 			<div className={styles.arrow}>
 				<ResizableImage src={redArrowImg} alt="" sizes={styles.arrow} />
 			</div>
 			<div className={styles.threatSlot}>
-				<ThreatSlot card={props.rightSlot} />
+				<ThreatSlot card={props.rightSlot} side="right" />
 			</div>
-{/* 
-			<div className={styles.xMark}>
-				<ResizableImage
-					src={"/UI/misc/x-mark.png"}
-					fill
-					alt="strzałka"
-					sizes={styles.curvedArrow}
-				/>
-			</div> */}
-
 		</div>
 	);
 }

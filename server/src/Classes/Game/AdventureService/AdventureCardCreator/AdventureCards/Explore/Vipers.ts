@@ -11,11 +11,9 @@ export class Vipers extends ExploreAdventureCard implements IAdventureCard {
     }
 
     resolveOption1(resolver: IPlayerCharacter) {
-        //TODO: put wound.
         this.shuffleIntoEventDeck();
     }
 
     triggerEventEffect() {
-        //TODO: implement.
     }
 }

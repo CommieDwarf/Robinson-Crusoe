@@ -9,6 +9,7 @@ import { sharedConfig } from "@shared/config/sharedConfig";
 import { FormError } from "components/Forms/Form/FormError/FormError";
 import { getAuthToken } from "utils/auth/getAuthToken";
 import config from "config/config";
+import { toast } from "react-toastify";
 
 interface Props {}
 
@@ -24,6 +25,7 @@ export function NewPasswordForm(props: Props) {
 		general: "",
 	});
 	const [loading, setLoading] = useState(false);
+	const [passwordChanged, setPasswordChanged] = useState(false);
 
 	const { t } = useTranslation();
 
@@ -61,6 +63,21 @@ export function NewPasswordForm(props: Props) {
 		}
 	}
 
+	function resetErrors() {
+		setErrors({
+			newPassword: "",
+			newPasswordConfirm: "",
+			currentPassword: "",
+			general: "",
+		});
+	}
+
+	function resetInputs() {
+		setCurrentPassword("");
+		setNewPassword("");
+		setNewPasswordConfirm("");
+	}
+
 	async function handleSubmit(event: FormEvent<HTMLFormElement>) {
 		try {
 			event.preventDefault();
@@ -76,7 +93,7 @@ export function NewPasswordForm(props: Props) {
 			const url = config.SERVER_URL + "/auth/change-password";
 			const body = JSON.stringify({
 				newPassword,
-				currentPassword
+				currentPassword,
 			});
 
 			const result = await fetch(url, {
@@ -89,8 +106,13 @@ export function NewPasswordForm(props: Props) {
 			});
 
 			if (result.ok) {
-				//TODO: zrób to
-				// alert("udało się");
+				toast("Hasło zostało zmienione!", {
+					type: "success",
+				});
+				resetErrors();
+				resetInputs();
+			} else if (result.status === 401) {
+				setError("general", "Nieprawidłowe dane");
 			} else {
 				setError("general", t("error.serverError"));
 			}
@@ -105,9 +127,13 @@ export function NewPasswordForm(props: Props) {
 		<div
 			className={`${formStyles.container} ${settingsStyles.formContainer}`}
 		>
-			<form className={`${formStyles.form}`} autoComplete="off" onSubmit={handleSubmit}>
+			<form
+				className={`${formStyles.form}`}
+				autoComplete="off"
+				onSubmit={handleSubmit}
+			>
 				<FormInput
-                    name={"currentPassword"}
+					name={"currentPassword"}
 					placeholder={t("form.oldPassword")}
 					type="password"
 					value={currentPassword}
@@ -148,6 +174,9 @@ export function NewPasswordForm(props: Props) {
 					label={t("form.changePassword")}
 					loadingLabel={t("form.sending")}
 				/>
+				{/* {true && <span className={styles.passwordChangedMsg}>
+					Hasło zmienione
+					</span>} */}
 			</form>
 		</div>
 	);

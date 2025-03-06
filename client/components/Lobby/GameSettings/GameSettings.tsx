@@ -172,7 +172,6 @@ export function GameSettings(props: Props) {
 		});
 	}
 
-
 	function handleDifficultyTypeChange(
 		event: React.FormEvent<HTMLSelectElement>
 	) {
@@ -282,7 +281,11 @@ export function GameSettings(props: Props) {
 				<select
 					className={`${styles.input}`}
 					onChange={handleDifficultyTypeChange}
-					value={localSettings.difficultySettings.scaled ? "scaled" : "custom"}
+					value={
+						localSettings.difficultySettings.scaled
+							? "scaled"
+							: "custom"
+					}
 					disabled={!editAllowed}
 				>
 					<option value="scaled">{t("gameSettings.scaled")}</option>
@@ -292,13 +295,17 @@ export function GameSettings(props: Props) {
 			<div className={styles.row}>
 				<div
 					className={`${styles.difficultySettings} ${
-						localSettings.difficultySettings.scaled && styles.disabled
+						localSettings.difficultySettings.scaled &&
+						styles.disabled
 					}`}
 				>
 					<div className={styles.difficultySetting}>
 						<div className={styles.difficultyLabel}>Piętaszek</div>
 						<CheckBox
-							disabled={localSettings.difficultySettings.scaled || !editAllowed}
+							disabled={
+								localSettings.difficultySettings.scaled ||
+								!editAllowed
+							}
 							checked={localSettings.difficultySettings.friday}
 							onChange={handleFridayChange}
 							className={styles.difficultySetting}
@@ -309,7 +316,10 @@ export function GameSettings(props: Props) {
 						<CheckBox
 							onChange={handleDogChange}
 							checked={localSettings.difficultySettings.dog}
-							disabled={localSettings.difficultySettings.scaled || !editAllowed}
+							disabled={
+								localSettings.difficultySettings.scaled ||
+								!editAllowed
+							}
 							className={styles.difficultySetting}
 						></CheckBox>
 					</div>
@@ -318,7 +328,10 @@ export function GameSettings(props: Props) {
 							Przedmioty startowe{" "}
 						</div>
 						<select
-							disabled={localSettings.difficultySettings.scaled || !editAllowed}
+							disabled={
+								localSettings.difficultySettings.scaled ||
+								!editAllowed
+							}
 							value={
 								localSettings.difficultySettings
 									.startingEquipment
@@ -326,8 +339,12 @@ export function GameSettings(props: Props) {
 							className={styles.difficultySetting}
 							onChange={handleStartingEquipmentChange}
 						>
-							{[0, 1, 2, 3, 4].map((amount, i ) => {
-								return <option value={amount} key={i}>{amount}</option>;
+							{[0, 1, 2, 3, 4].map((amount, i) => {
+								return (
+									<option value={amount} key={i}>
+										{amount}
+									</option>
+								);
 							})}
 						</select>
 					</div>

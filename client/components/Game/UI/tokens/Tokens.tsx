@@ -68,7 +68,6 @@ function Tokens(props: Props) {
         setMouseOverMenu(false);
     }
 
-    // TODO: make setSelectedToken(null) only when token have been used.
     function utilizeToken(id: string) {
         if (tokenLocked) {
             return;

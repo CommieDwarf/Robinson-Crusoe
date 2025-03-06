@@ -25,7 +25,6 @@ export class Flood extends EventCard implements IEventCard {
     }
 
     triggerEventEffect() {
-        //TODO: choose: flip invention or -1 weapon or -1 palisade or every player gets hurt.
     }
 
     triggerThreatEffect() {

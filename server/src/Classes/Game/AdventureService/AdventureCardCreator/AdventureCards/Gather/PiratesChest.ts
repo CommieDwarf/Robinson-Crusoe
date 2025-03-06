@@ -27,6 +27,5 @@ export class PiratesChest
     }
 
     triggerEventEffect() {
-        //TODO: every player can use only 1 pawn.
     }
 }

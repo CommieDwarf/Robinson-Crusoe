@@ -18,11 +18,9 @@ export class ThornyBush extends ExploreAdventureCard implements IAdventureCard {
     }
 
     resolveOption1(resolver: IPlayerCharacter) {
-        //TODO: implement wound
         this.shuffleIntoEventDeck();
     }
 
     triggerEventEffect() {
-        //TODO: implement
     }
 }

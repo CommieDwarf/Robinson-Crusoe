@@ -14,7 +14,6 @@ export class PawnService<Owner extends IPawnOwner> implements IPawnService<Owner
     constructor(game: IGame, owner: Owner) {
         this._game = game;
         this._owner = owner;
-        // this._pawns = this.initPawns(2, false, null, this._pawnIdCounter++);
         this._freePawns = [...this._pawns];
     }
 

@@ -20,13 +20,9 @@ export class Misadventure
     }
 
     resolveOption1(resolver: IPlayerCharacter) {
-        //TODO: implement wound
         this.shuffleIntoEventDeck();
     }
 
     triggerEventEffect() {
-        //TODO: implement action reduction
-        // to rest, arrange camp, build.
-        // Discard wound
     }
 }

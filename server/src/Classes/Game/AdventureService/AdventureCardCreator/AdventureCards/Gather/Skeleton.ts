@@ -22,7 +22,6 @@ export class Skeleton extends GatherAdventureCard implements IAdventureCard {
     }
 
     triggerEventEffect() {
-        //TODO: add random invention.
         this._game.moraleService.lvlDown(1, this._eventName);
     }
 }

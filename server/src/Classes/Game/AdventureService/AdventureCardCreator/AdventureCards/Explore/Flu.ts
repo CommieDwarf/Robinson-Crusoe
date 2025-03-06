@@ -30,6 +30,5 @@ export class Flu extends ExploreAdventureCard implements IAdventureCard {
     }
 
     triggerEventEffect() {
-        //TODO: implement double food consumption or get hurt.
     }
 }

@@ -2,15 +2,8 @@ import styles from "./UserProfile.module.css";
 
 import { useRouter } from "next/router";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { deleteAuthCookie } from "../../utils/auth/deleteAuthCookie";
-import { connectedUpdated, userUpdated } from "../../reduxSlices/connection";
 import { useEffect, useState } from "react";
 import { SessionBasicInfo } from "@shared/types/Session/Session";
-import { socket } from "../../store/store";
-import { UserAvatar } from "./UserAvatar/UserAvatar";
-import { useTranslation } from "react-i18next";
-import capitalize from "@shared/utils/capitalize";
-import { Session } from "../SessionList/Session/Session";
 import {
 	SOCKET_EVENT_CLIENT,
 	SOCKET_EVENT_SERVER,
@@ -23,15 +16,14 @@ import { UserData } from "@shared/types/UserData/UserData";
 
 interface Props {}
 
-
 export enum PROFILE_NAV {
 	HOME,
-	SETTINGS
+	SETTINGS,
 }
 
 export interface ProfileComponentProps {
 	user: UserData | null;
-    changeNav: (nav: PROFILE_NAV) => void;
+	changeNav: (nav: PROFILE_NAV) => void;
 }
 
 export function UserProfile(props: Props) {
@@ -44,11 +36,9 @@ export function UserProfile(props: Props) {
 
 	const [currentNav, setCurrentNav] = useState<PROFILE_NAV>(PROFILE_NAV.HOME);
 
-
 	function changeNav(nav: PROFILE_NAV) {
 		setCurrentNav(nav);
 	}
-
 
 	useEffect(() => {
 		const listeners = [
@@ -66,13 +56,13 @@ export function UserProfile(props: Props) {
 			),
 			setSocketListener(
 				SOCKET_EVENT_SERVER.GAME_IN_PROGRESS_LIST_CHANGED,
-				(payload) => {
+				() => {
 					requestGameList();
 				}
 			),
 		];
 
-		requestGameList();
+		// requestGameList();
 		return () => {
 			listeners.forEach((listener) => listener.off());
 		};
@@ -84,12 +74,14 @@ export function UserProfile(props: Props) {
 		);
 	}
 
-	
-
 	return (
 		<div className={styles.container}>
-			{currentNav === PROFILE_NAV.HOME &&  <ProfileHome user={user} changeNav={changeNav}/>}
-			{currentNav === PROFILE_NAV.SETTINGS && <ProfileSettings user={user} changeNav={changeNav}/>}
+			{currentNav === PROFILE_NAV.HOME && (
+				<ProfileHome user={user} changeNav={changeNav} />
+			)}
+			{currentNav === PROFILE_NAV.SETTINGS && (
+				<ProfileSettings user={user} changeNav={changeNav} />
+			)}
 		</div>
 	);
 }

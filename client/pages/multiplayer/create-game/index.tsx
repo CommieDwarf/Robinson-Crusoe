@@ -1,31 +1,33 @@
 import styles from "./index.module.css";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 import ResizableImage from "../../../components/ResizableImage/ResizableImage";
 import Link from "next/link";
-import {GAME_SETTINGS_MODE, GameSettings} from "../../../components/Lobby/GameSettings/GameSettings";
+import {
+	GAME_SETTINGS_MODE,
+	GameSettings,
+} from "../../../components/Lobby/GameSettings/GameSettings";
 import exitIcon from "/public/UI/icons/exit4.png";
 
-export interface Props {
-
-}
-
+export interface Props {}
 
 export function CreateGame() {
+	const { t } = useTranslation();
 
-
-    const {t} = useTranslation();
-
-
-    return <div className={styles.container}>
-        <Link href={"./"}>
-            <div className={styles.menuButton}>
-                <ResizableImage src={exitIcon} alt={"menu"}/>
-            </div>
-        </Link>
-        <div className={styles.gameSettings}>
-            <GameSettings mode={GAME_SETTINGS_MODE.GAME_CREATE} host={true}/>
-        </div>
-    </div>
+	return (
+		<div className={styles.container}>
+			<Link href={"./"}>
+				<div className={styles.menuButton}>
+					<ResizableImage src={exitIcon} alt={"menu"} />
+				</div>
+			</Link>
+			<div className={styles.gameSettings}>
+				<GameSettings
+					mode={GAME_SETTINGS_MODE.GAME_CREATE}
+					host={true}
+				/>
+			</div>
+		</div>
+	);
 }
 
 export default CreateGame;

@@ -22,11 +22,9 @@ export class TheIslandFightsBack extends EventCard implements IEventCard {
     }
 
     triggerEventEffect() {
-        //TODO: book effect..
     }
 
     triggerThreatEffect() {
-        //TODO: book effect...
     }
 
     fullFill() {

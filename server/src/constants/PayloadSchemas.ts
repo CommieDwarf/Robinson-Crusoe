@@ -64,7 +64,7 @@ export const ClientPayloadSchemas = {
 	}),
 	[SOCKET_EVENT_CLIENT.CHANGE_CHARACTER]: Joi.object({
 		sessionId: Joi.string().required(),
-		character: Joi.object().unknown(true), // Partial<AssignedCharacter>
+		character: Joi.object().unknown(true),
 	}),
 	[SOCKET_EVENT_CLIENT.SET_PLAYER_READY]: Joi.object({
 		sessionId: Joi.string().required(),

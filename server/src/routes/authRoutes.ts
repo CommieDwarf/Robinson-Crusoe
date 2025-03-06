@@ -11,7 +11,7 @@ const authRouter = express.Router();
 
 export interface AuthenticatedRequest extends Request {
 	user: UserDocument;
-  }
+}
 
 authRouter.post("/login", HttpLimiter.loginLimiter, AuthService.login);
 authRouter.post(
@@ -50,10 +50,16 @@ authRouter.post(
 
 export { authRouter };
 
-function ensureEmailVerified(req: AuthenticatedRequest, res: Response, next: NextFunction) {
-    if (req.user && req.user.emailVerified) {
-        return next();
-    } else {
-        return res.status(403).json({ message: "Email address is not verified." });
-    }
-};
+function ensureEmailVerified(
+	req: AuthenticatedRequest,
+	res: Response,
+	next: NextFunction
+) {
+	if (req.user && req.user.emailVerified) {
+		return next();
+	} else {
+		return res
+			.status(403)
+			.json({ message: "Email address is not verified." });
+	}
+}

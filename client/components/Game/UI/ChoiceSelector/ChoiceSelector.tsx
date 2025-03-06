@@ -71,8 +71,13 @@ export function ChoiceSelector(props: Props) {
 				) && (
 					<div className={styles.descriptionWrapper}>
 						<span className={styles.description}>
-							{/* @ts-ignore */}
-							{insertIconsIntoText(t(`ability.${props.choiceSelector.source}.description`)
+							{insertIconsIntoText(
+								// @ts-ignore
+
+								t(
+									// @ts-ignore
+									`ability.${props.choiceSelector.source}.description`
+								)
 							)}
 						</span>
 					</div>
@@ -118,8 +123,13 @@ export function ChoiceSelector(props: Props) {
 							onClick={handleSecondaryClick}
 						>
 							{insertIconsIntoText(
-								//@ts-ignore
-								capitalize(t(`pickObject.${source}.secondaryEffectLabel`))
+								capitalize(
+									// @ts-ignore
+									t(
+										// @ts-ignore
+										`pickObject.${source}.secondaryEffectLabel`
+									)
+								)
 							)}
 						</div>
 					)}

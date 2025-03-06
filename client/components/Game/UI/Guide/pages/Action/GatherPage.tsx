@@ -85,7 +85,7 @@ export function GatherPage() {
 								<ResizableImage
 									src={"/UI/misc/parrot.png"}
 									alt={"źródło pożywienia"}
-									style={{scale: "0.9"}}
+									style={{ scale: "0.9" }}
 								/>
 							</>
 						)}

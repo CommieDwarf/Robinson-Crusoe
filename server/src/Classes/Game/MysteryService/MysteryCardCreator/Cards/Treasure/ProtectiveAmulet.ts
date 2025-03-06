@@ -13,6 +13,5 @@ export class ProtectiveAmulet extends TreasureMysteryCard {
     }
 
     use(): void {
-        //todo: implement
     }
 }

@@ -17,9 +17,9 @@ export function UserAvatar(props: Props) {
 	);
 	const localAvatarSvg = useAppSelector(
 		(state) => state.connection.user?.avatar
-	);	
+	);
 
-	const {t} = useTranslation();
+	const { t } = useTranslation();
 
 	useEffect(() => {
 		if (props.username === "empty") {
@@ -38,12 +38,11 @@ export function UserAvatar(props: Props) {
 			return;
 		}
 
-		fetchAvatar().then((result) => {
-			setAvatarUrl(svgToUrl(result));
-			localStorage.setItem(getStorageKeyName(props.username), result);
-		}).catch(e => {
-			// do nothing
-		});
+		fetchAvatar()
+			.then((result) => {
+				setAvatarUrl(svgToUrl(result));
+				localStorage.setItem(getStorageKeyName(props.username), result);
+			});
 	}, [props.username, localAvatarSvg, localUserName]);
 
 	function svgToUrl(svg: string) {
@@ -56,27 +55,29 @@ export function UserAvatar(props: Props) {
 	}
 
 	async function fetchAvatar() {
-			const result = await fetch(
-				config.SERVER_URL + "/user/avatar/" + props.username,
-				{
-					method: "get",
-					headers: {
-						"Content-Type": "application/json",
-					},
-				}
-			)
-			
-			const json = await result.json();
-
-			if (!result.ok) {
-				return;
+		const result = await fetch(
+			config.SERVER_URL + "/user/avatar/" + props.username,
+			{
+				method: "get",
+				headers: {
+					"Content-Type": "application/json",
+				},
 			}
+		);
 
-			if (result.status === 429) {
-				toast(t("toast.request limit reached", {tryAfter: json.tryAfter}))
-			} else {
-				return json.svg;
-			}
+		const json = await result.json();
+
+		if (!result.ok) {
+			return;
+		}
+
+		if (result.status === 429) {
+			toast(
+				t("toast.request limit reached", { tryAfter: json.tryAfter })
+			);
+		} else {
+			return json.svg;
+		}
 	}
 
 	return (

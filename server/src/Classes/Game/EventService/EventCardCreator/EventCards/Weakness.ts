@@ -22,7 +22,6 @@ export class Weakness extends EventCard implements IEventCard {
     }
 
     triggerEventEffect() {
-        //TODO: prime player cant use abilities
     }
 
     triggerThreatEffect() {

@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import styles from "./Phase.module.css";
 
 import PhaseDropDownMenu from "./PhaseDropDownMenu/PhaseDropDownMenu";
@@ -22,8 +22,7 @@ export type PhaseType =
 	| "morale"
 	| "weather";
 
-interface Props {
-}
+interface Props {}
 
 function Phase(props: Props) {
 	const currentPhase = useAppSelector(
@@ -38,9 +37,11 @@ function Phase(props: Props) {
 			setContainerHeight(containerRef.current.offsetHeight);
 	}, []);
 
-	const { handleNextStep, cleanupTimeout, delayInProgress: animationInProgress, currentStep } =
-		useUITourControl();
-
+	const {
+		handleNextStep,
+		delayInProgress: animationInProgress,
+		currentStep,
+	} = useUITourControl();
 
 	const stepIdDelayList = [UI_TOUR_STEP_ID.PHASE, UI_TOUR_STEP_ID.PHASE_LIST];
 
@@ -54,7 +55,9 @@ function Phase(props: Props) {
 		}
 	}
 
-	const phaseListOpen = useAppSelector((state) => state.UITour.UiStates.phaseListOpen);
+	const phaseListOpen = useAppSelector(
+		(state) => state.UITour.UiStates.phaseListOpen
+	);
 
 	const [t] = useTranslation();
 

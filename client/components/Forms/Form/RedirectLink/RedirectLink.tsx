@@ -1,4 +1,3 @@
-import { capitalize } from "lodash";
 import styles from "./RedirectLink.module.css";
 import Link from "next/link";
 

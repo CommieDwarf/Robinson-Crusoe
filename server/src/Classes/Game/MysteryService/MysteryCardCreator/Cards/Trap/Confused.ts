@@ -9,6 +9,5 @@ export class Confused extends TrapMysteryCard {
     }
 
     triggerDrawEffect(drawer: ICharacter) {
-        //TODO: implement reroll success on Character.
     }
 }

@@ -8,6 +8,5 @@ export class TreasureMap extends TreasureMysteryCard {
     }
 
     use(): void {
-        //todo: implement
     }
 }

@@ -1,6 +1,6 @@
 import styles from "./index.module.css";
 import Loading from "../../components/Loading/Loading";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import {
 	SOCKET_EVENT_CLIENT,
@@ -22,7 +22,7 @@ import Game from "components/Game/Game";
 
 type Props = {};
 
-function Play(props: Props) {
+function Play() {
 	const router = useRouter();
 	const { t } = useTranslation();
 	const dispatch = useAppDispatch();
@@ -45,6 +45,7 @@ function Play(props: Props) {
 				);
 			}
 		};
+
 		router.events.on("routeChangeStart", handleRouteChange);
 		return () => {
 			router.events.off("routeChangeStart", handleRouteChange);
@@ -160,9 +161,6 @@ function Play(props: Props) {
 			router.push("/multiplayer/lobby/" + session.id);
 		}
 	}, [session, loaded]);
-
-
-
 
 	return (
 		<div className={styles.container}>

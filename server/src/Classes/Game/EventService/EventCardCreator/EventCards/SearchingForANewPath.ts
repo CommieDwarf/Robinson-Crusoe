@@ -23,12 +23,10 @@ export class SearchingForANewPath extends EventCard implements IEventCard {
     }
 
     triggerEventEffect() {
-        //TODO: put reRoll on explore action.
         this._game.actionService.setReRollToken(ACTION.EXPLORE, true, this._namePL);
     }
 
     triggerThreatEffect() {
-        //TODO: put question marks on explore and gather.
         this._game.actionService.setAdventureToken(ACTION.EXPLORE, true, this._namePL);
         this._game.actionService.setAdventureToken(ACTION.GATHER, true, this._namePL);
     }

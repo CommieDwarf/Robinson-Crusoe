@@ -22,11 +22,9 @@ export class StrongWind extends EventCard implements IEventCard {
     }
 
     triggerEventEffect() {
-        //TODO: put +1 required helper in build action
     }
 
     triggerThreatEffect() {
-        //TODO: if possible flip built invention.
     }
 
     fullFill() {

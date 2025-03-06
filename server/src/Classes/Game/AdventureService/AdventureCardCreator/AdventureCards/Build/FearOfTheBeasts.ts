@@ -25,7 +25,6 @@ export class FearOfTheBeasts
     }
 
     triggerEventEffect() {
-        //todo: implement const increment for constructions.
 
     }
 }

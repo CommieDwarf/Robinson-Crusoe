@@ -1,20 +1,16 @@
 import dynamic from "next/dynamic";
 import { useEffect } from "react";
-
 import styles from "./UITour.module.css";
 import { CustomTooltip } from "./CustomToolTip/CustomToolTip";
 import { steps } from "./steps";
 import { useAppSelector } from "store/hooks";
 import { useUITourControl } from "utils/hooks/useUITourControl";
-
-interface Props {}
-
 const JoyRideNoSSR = dynamic(() => import("react-joyride"), { ssr: false });
-export function UITour(props: Props) {
+export function UITour() {
 	const run = useAppSelector((state) => state.UITour.tourInProgress);
 	const stepIndex = useAppSelector((state) => state.UITour.stepIndex);
 	const { cleanupTimeout, handleNextStep } = useUITourControl();
-	
+
 	function handleNextClick() {
 		handleNextStep();
 	}

@@ -1,4 +1,1 @@
-
-
-export class EmailLimitReachedError extends Error {
-}
+export class EmailLimitReachedError extends Error {}

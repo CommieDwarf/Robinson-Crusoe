@@ -20,6 +20,5 @@ export class CaptainStonesSpyglass extends TreasureMysteryCard {
 
     use(target: number): void {
         super.use(target);
-        //TODO: reveal 3 tiles and place them on top of stack in preferred order.
     }
 }

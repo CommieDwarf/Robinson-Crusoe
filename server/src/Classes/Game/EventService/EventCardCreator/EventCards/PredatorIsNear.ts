@@ -26,15 +26,12 @@ export class PredatorIsNear extends EventCard implements IEventCard {
     }
 
     triggerEventEffect() {
-        //TODO: deplete closest food source od all Players get hurt
     }
 
     triggerThreatEffect() {
-        //TODO: put explore and gather question marks.
     }
 
     fullFill() {
-        //TODO: reverse depletion.
         this.incrDetermination(1);
     }
 }

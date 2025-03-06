@@ -8,7 +8,6 @@ import { LoginReqBody } from "@shared/types/Requests/Post";
 import Cookies from "js-cookie";
 import {
 	fetchErrorUpdated,
-	userUpdated,
 } from "../../../reduxSlices/connection";
 import { socketConnect } from "../../../middleware/socketMiddleware";
 import { useTranslation } from "react-i18next";
@@ -42,7 +41,6 @@ export default function AuthForm(props: Props) {
 	const [password, setPassword] = useState("");
 	const [passwordRepeat, setPasswordRepeat] = useState("");
 
-
 	const [passwordChanged, setPasswordChanged] = useState(true);
 
 	const router = useRouter();
@@ -59,7 +57,7 @@ export default function AuthForm(props: Props) {
 		form: "",
 	});
 
-	const user = useAppSelector(state => state.connection.user);
+	const user = useAppSelector((state) => state.connection.user);
 
 	useEffect(() => {
 		if (isAuthenticated() && !user) {
@@ -69,8 +67,7 @@ export default function AuthForm(props: Props) {
 			}
 			fetchAndUpdateUser(token, dispatch);
 		}
-	})
-
+	});
 
 	useEffect(() => {
 		setPasswordChanged(true);

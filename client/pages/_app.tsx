@@ -3,22 +3,32 @@ import React, { useEffect } from "react";
 import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
 import { store } from "../store/store";
-
 import { GlobalWrapper } from "../components/GlobalWrapper";
-
 import "../public/fontello/css/fontello.css";
 import "../I18n/I18n";
 import "react-toastify/dist/ReactToastify.css";
 import { InfoBadge } from "../components/InfoBadge/InfoBadge";
 import { Bounce, ToastContainer } from "react-toastify";
 import RouteGuard from "../components/RouteGuard/RouteGuard";
-import { HistoryManagerProvider, useHistoryManager } from "components/UserHistoryManager/UserHistoryManager";
+import {
+	HistoryManagerProvider,
+	useHistoryManager,
+} from "components/UserHistoryManager/UserHistoryManager";
+
+import { preloadFiles } from "config/preloadFiles";
+import Head from "next/head";
 
 export default function App<Props>({ Component, pageProps }: AppProps) {
 	const historyManager = useHistoryManager();
 
 	return (
 		<>
+		<Head>
+			{preloadFiles.map((path, i) => {
+				return <link key={i} rel={"preload"} as={"image"} href={path}></link>
+			})}
+
+		</Head>
 			<Provider store={store}>
 				<GlobalWrapper>
 					<HistoryManagerProvider value={historyManager}>

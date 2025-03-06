@@ -1,95 +1,93 @@
 .container {
-    background-image: url("../../../../public/UI/paper-background.png");
-    left: 30%;
-    top: 25%;
-    position: absolute;
-    z-index: 99999;
-    border-radius: 5px;
-    border: 1px solid var(--borderColor);
-    padding: 10px;
-    -webkit-box-shadow: inset 0 0 5px 2px var(--brown);
-    -moz-box-shadow: inset 0 0 5px 2px var(--brown);
-    box-shadow: inset 0 0 5px 2px var(--brown);
-    text-align: center;
-    font-size: 2em;
+	background-image: url("../../../../public/UI/paper-background.png");
+	left: 30%;
+	top: 25%;
+	position: absolute;
+	z-index: 99999;
+	border-radius: 5px;
+	border: 1px solid var(--borderColor);
+	padding: 10px;
+	-webkit-box-shadow: inset 0 0 5px 2px var(--brown);
+	-moz-box-shadow: inset 0 0 5px 2px var(--brown);
+	box-shadow: inset 0 0 5px 2px var(--brown);
+	text-align: center;
+	font-size: 2em;
 }
 
 .source {
-    text-align: center;
-    font-size: 1em;
-    color: var(--hunt);
-    font-family: Kaz;
+	text-align: center;
+	font-size: 1em;
+	color: var(--hunt);
+	font-family: Kaz;
 }
 
 .descriptionWrapper {
-    max-width: 300px;
-    margin: auto;
-    text-align: center;
+	max-width: 300px;
+	margin: auto;
+	text-align: center;
 }
 
 .description {
-    font-size: 1em;
-    font-style: italic;
-    margin: 5px auto auto;
-    font-weight: bold;
+	font-size: 1em;
+	font-style: italic;
+	margin: 5px auto auto;
+	font-weight: bold;
 }
 
-
 .icon {
-    height: 1em;
-    width: 1em;
-    aspect-ratio: 1;
-    position: relative;
-    margin-left: 3px;
-    display: inline-block;
+	height: 1em;
+	width: 1em;
+	aspect-ratio: 1;
+	position: relative;
+	margin-left: 3px;
+	display: inline-block;
 }
 
 .pickObjects {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    margin-top: 3vh;
-    column-gap: 2px;
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	margin-top: 3vh;
+	column-gap: 2px;
 }
 
-
 .buttons {
-    display: flex;
-    justify-content: space-around;
-    width: 180px;
-    height: 5vh;
-    margin: 3vh auto auto;
+	display: flex;
+	justify-content: space-around;
+	width: 180px;
+	height: 5vh;
+	margin: 3vh auto auto;
 }
 
 .button {
-    min-width: 30%;
-    padding-left: 5%;
-    padding-right: 5%;
-    height: 100%;
-    border-radius: 5px;
-    font-size: 1em;
-    font-weight: bolder;
-    text-align: center;
-    line-height: 1.5em;
-    border: 1px solid var(--borderColor);
-    cursor: pointer;
+	min-width: 30%;
+	padding-left: 5%;
+	padding-right: 5%;
+	height: 100%;
+	border-radius: 5px;
+	font-size: 1em;
+	font-weight: bolder;
+	text-align: center;
+	line-height: 1.5em;
+	border: 1px solid var(--borderColor);
+	cursor: pointer;
 }
 
 .button:hover {
-    scale: 1.1;
+	scale: 1.1;
 }
 
 .buttonCancel {
-    color: var(--hunt);
+	color: var(--hunt);
 }
 
 .button > span {
-    font-size: 1em;
-    line-height: 100%;
-    vertical-align: top;
-    display: inline-block;
-    position: relative;
-    top: 50%;
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
+	font-size: 1em;
+	line-height: 100%;
+	vertical-align: top;
+	display: inline-block;
+	position: relative;
+	top: 50%;
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
 }

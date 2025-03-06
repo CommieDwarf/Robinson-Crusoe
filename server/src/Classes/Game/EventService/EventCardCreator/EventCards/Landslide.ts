@@ -24,11 +24,9 @@ export class Landslide extends EventCard implements IEventCard {
     }
 
     triggerEventEffect() {
-        //TODO: move camp, check guide
     }
 
     triggerThreatEffect() {
-        //TODO: no resources in production Phase.
     }
 
     fullFill() {

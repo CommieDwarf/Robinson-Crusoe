@@ -28,7 +28,6 @@ export const LogMessage = (props: Props) => {
 		defaultValue: code,
 	});
 
-
 	return (
 		<div
 			className={`${styles.container} ${
@@ -57,7 +56,7 @@ export const LogMessage = (props: Props) => {
 				<span className={styles.messageSource}>
 					{insertIconsIntoText(
 						capitalize(dynamicTranslate(source)),
-                        styles.icon
+						styles.icon
 					)}{" "}
 					-{" "}
 				</span>

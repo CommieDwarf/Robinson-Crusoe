@@ -18,7 +18,6 @@ export class Puma extends ExploreAdventureCard implements IAdventureCard {
     }
 
     resolveOption1(resolver: IPlayerCharacter) {
-        //TODO: implement night out of camp.
     }
 
     resolveOption2(resolver: IPlayerCharacter) {
@@ -26,6 +25,5 @@ export class Puma extends ExploreAdventureCard implements IAdventureCard {
     }
 
     triggerEventEffect() {
-        //TODO: fight puma
     }
 }

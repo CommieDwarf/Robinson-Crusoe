@@ -289,7 +289,7 @@ export const resources = {
 				"discovery token": "token odkryć",
 			},
 			eventCard: {
-				[WRECKAGE_CARD.SUPPLY_CRATES]: "Skrzynie z jedzeniem"
+				[WRECKAGE_CARD.SUPPLY_CRATES]: "Skrzynie z jedzeniem",
 			},
 			adventureCard: {
 				[ADVENTURE_CARD_BUILD.ACCIDENT]: "wypadek",
@@ -696,6 +696,9 @@ export const resources = {
 				},
 			},
 			other: {
+				shuffle: "wtasuj",
+				discard: "odrzuć",
+				keep: "zatrzymaj",
 				"sleeping under open sky": "sen pod gołym niebem",
 				"unfulfilled demand": "niespełnione wymagania",
 				fight: "walcz",
@@ -715,13 +718,12 @@ export const resources = {
 				ability: "umiejętność",
 				draw: "dobierz",
 				finish: "zakończ",
-				shuffle: "wtasuj",
 				hour: "godzina",
 				hour_accusative_one: "godzinę",
 				hour_accusative_few: "godziny",
 				hour_accusative_many: "godzin",
 				male: "mężczyzna",
-				female: "kobieta"
+				female: "kobieta",
 			},
 			gameSettings: {
 				difficulty: "Poziom trudności",
@@ -731,7 +733,7 @@ export const resources = {
 			userProfile: {
 				accountSettings: "Ustawienia konta",
 				passwordChange: "Zmiana hasła",
-				backToProfile: "Wróć do profilu"
+				backToProfile: "Wróć do profilu",
 			},
 			menu: {
 				refresh: "odśwież",
@@ -801,10 +803,12 @@ export const resources = {
 			form: {
 				emailDoNotExist: `Nie znaleziono konta powiązanego z podanym adresem e-mail. Proszę sprawdzić,
 				 czy adres jest poprawny, lub założyć nowe konto, jeśli jeszcze go nie posiadasz.`,
-				codeSentOnAdress: "Wyslano wiadomość z kodem resetującym na adres:",
-				checkSpam: "Jeśli nie widzisz wiadomości w swojej skrzynce, sprawdź w folderze spam.",
+				codeSentOnAdress:
+					"Wyslano wiadomość z kodem resetującym na adres:",
+				checkSpam:
+					"Jeśli nie widzisz wiadomości w swojej skrzynce, sprawdź w folderze spam.",
 				enterCodeHere: "Wprowadź kod tutaj:",
-				confirmCode: 'Zatwierdź Kod',
+				confirmCode: "Zatwierdź Kod",
 				mailNotArrived: "Wiadomość nie dotarła?",
 				sendAgain: "Wyślij ponownie",
 				signInNewPassword: "Możesz teraz zalogować się nowym hasłem.",
@@ -812,21 +816,25 @@ export const resources = {
 				sending: "Wysyłanie",
 				sendLink: "Wyślij link",
 				send: "Wyślij",
-				sendEmailInstructions: "Wprowadź swój adres e-mail powiązany z kontem, a wyślemy Ci link do zresetowania hasła.",
+				sendEmailInstructions:
+					"Wprowadź swój adres e-mail powiązany z kontem, a wyślemy Ci link do zresetowania hasła.",
 				enterCodeInstructions: "",
 				"forgotPassword?": "Zapomniałeś hasła?",
 				changePassword: "Zmień hasło",
 				newPassword: "Nowe hasło",
 				passwordChanged: "Hasło zmienione",
-				invalidCode: "Wprowadzony kod jest błędny lub mineła jego ważność.",
+				invalidCode:
+					"Wprowadzony kod jest błędny lub mineła jego ważność.",
 				resetPasswordTokenExpired: "Token do resetowania hasła wygasł.",
 				oldPassword: "stare hasło",
-				incorrectCredentials: "Wprowadzony e-mail lub hasło jest nieprawidłowe.",
+				incorrectCredentials:
+					"Wprowadzony e-mail lub hasło jest nieprawidłowe.",
 				passwordsMustBeSame: "Hasła muszą być takie same.",
 				usernameTaken: "Nazwa użytkownika jest już zajęta.",
 				emailTaken: "Ten e-mail jest już używany.",
 				invalidEmail: "Podany adres e-mail jest nieprawidłowy.",
-				passwordTooShort: "Hasło musi mieć co najmniej {{amount}} znaków."
+				passwordTooShort:
+					"Hasło musi mieć co najmniej {{amount}} znaków.",
 			},
 			toast: {
 				"copied to clipboard": "Skopiowano do schowka!",

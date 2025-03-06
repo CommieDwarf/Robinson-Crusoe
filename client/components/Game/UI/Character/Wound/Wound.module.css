@@ -1,181 +1,174 @@
 .container {
-    position: absolute;
-    height: 17%;
-    aspect-ratio: 1;
-    grid-column: 1 / span 1;
-    grid-row: 3 / span 1;
-    z-index: 2;
+	position: absolute;
+	height: 17%;
+	aspect-ratio: 1;
+	grid-column: 1 / span 1;
+	grid-row: 3 / span 1;
+	z-index: 2;
 }
 
 /* HEAD */
 .cookMaleHead {
-    right: 22%;
-    top: 5%;
+	right: 22%;
+	top: 5%;
 }
 
 .cookFemaleHead {
-    left: 10%;
-    top: 8%;
+	left: 10%;
+	top: 8%;
 }
 
 .explorerMaleHead {
-    right: 26%;
-    top: 0;
+	right: 26%;
+	top: 0;
 }
 
-
 .explorerFemaleHead {
-    top: 1%;
-    right: 28%;
+	top: 1%;
+	right: 28%;
 }
 
 .carpenterMaleHead {
-    left: 10%;
-    top: 5%;
+	left: 10%;
+	top: 5%;
 }
 
 .carpenterFemaleHead {
-    top: 5%;
-    right: 30%;
+	top: 5%;
+	right: 30%;
 }
 
-
 .soldierMaleHead {
-    top: 0;
-    left: 15%;
+	top: 0;
+	left: 15%;
 }
 
 .soldierFemaleHead {
-    top: 7%;
-    left: 16%;
+	top: 7%;
+	left: 16%;
 }
-
 
 /* STOMACH */
 .cookMaleStomach {
-    top: 27%;
-    left: 6%;
+	top: 27%;
+	left: 6%;
 }
 
 .cookFemaleStomach {
-    right: 16%;
-    top: 27%;
+	right: 16%;
+	top: 27%;
 }
 
-
 .explorerMaleStomach {
-    top: 65%;
-    right: 10%;
+	top: 65%;
+	right: 10%;
 }
 
 .explorerFemaleStomach {
-    right: 12%;
-    top: 47%;
+	right: 12%;
+	top: 47%;
 }
 
 .carpenterMaleStomach {
-    top: 40%;
-    left: 14%;
+	top: 40%;
+	left: 14%;
 }
 
 .carpenterFemaleStomach {
-    left: 12%;
-    top: 47%;
+	left: 12%;
+	top: 47%;
 }
 
 .soldierMaleStomach {
-    right: 15%;
-    top: 10%;
+	right: 15%;
+	top: 10%;
 }
 
 .soldierFemaleStomach {
-    right: 15%;
-    top: 48%;
+	right: 15%;
+	top: 48%;
 }
 
 /* ARM */
 
 .cookMaleArm {
-    bottom: 13%;
-    right: 5%;
+	bottom: 13%;
+	right: 5%;
 }
 
 .cookFemaleArm {
-    left: 4%;
-    top: 35%;
+	left: 4%;
+	top: 35%;
 }
 
 .explorerMaleArm {
-    top: 30%;
-    left: 10%;
+	top: 30%;
+	left: 10%;
 }
 
 .explorerFemaleArm {
-    right: 14%;
-    top: 15%;
+	right: 14%;
+	top: 15%;
 }
 
 .carpenterMaleArm {
-    right: 15%;
-    top: 5%;
+	right: 15%;
+	top: 5%;
 }
 
 .carpenterFemaleArm {
-    right: 7%;
-    top: 10%;
+	right: 7%;
+	top: 10%;
 }
 
-
 .soldierMaleArm {
-    left: 18%;
-    top: 30%;
+	left: 18%;
+	top: 30%;
 }
 
 .soldierFemaleArm {
-    left: 12%;
-    top: 23%;
+	left: 12%;
+	top: 23%;
 }
-
 
 /* LEG */
 
 .cookMaleLeg {
-    bottom: 2%;
-    left: 7%;
+	bottom: 2%;
+	left: 7%;
 }
 
 .cookFemaleLeg {
-    bottom: 10%;
-    right: 0;
+	bottom: 10%;
+	right: 0;
 }
 
 .explorerMaleLeg {
-    bottom: 0;
-    left: 14%;
+	bottom: 0;
+	left: 14%;
 }
 
 .explorerFemaleLeg {
-    bottom: 0;
-    left: 20%;
+	bottom: 0;
+	left: 20%;
 }
 
 .carpenterMaleLeg {
-    bottom: 0;
-    left: 12%;
+	bottom: 0;
+	left: 12%;
 }
 
 .carpenterFemaleLeg {
-    bottom: 0;
-    left: 8%;
+	bottom: 0;
+	left: 8%;
 }
 
-
 .soldierMaleLeg {
-    bottom: 0;
-    left: 17%;
+	bottom: 0;
+	left: 17%;
 }
 
 .soldierFemaleLeg {
-    bottom: 0;
-    right: 5%;
+	bottom: 0;
+	right: 5%;
 }

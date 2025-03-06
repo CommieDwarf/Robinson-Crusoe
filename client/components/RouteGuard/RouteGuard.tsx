@@ -26,11 +26,6 @@ const RouteGuard: React.FC<Props> = ({ children }) => {
 			router.pathname.startsWith(path)
 		);
 
-
-		// (requiresAuth || (router.basePath + "/" === router.pathname)) &&
-		//  !isAuthenticated()  
-		//  && !user && router.push("/sign-in");
-
 		if (!requiresAuth && user && isAuthenticated()) {
 
 			if (historyManager?.canGoBack()) {

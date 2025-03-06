@@ -71,13 +71,14 @@ export function ExplorePage() {
 								<ResizableImage
 									src={"/UI/misc/parrot.png"}
 									alt={"źródło pożywienia"}
-									style={{scale: "0.9"}}
+									style={{ scale: "0.9" }}
 								/>
 							</>
 						)}
 						textElement={() => (
 							<strong>
-								Żródło surowca (w tym przypadku jedzenia {insertIcon("$food$")})
+								Żródło surowca (w tym przypadku jedzenia{" "}
+								{insertIcon("$food$")})
 							</strong>
 						)}
 					/>
@@ -91,8 +92,8 @@ export function ExplorePage() {
 						)}
 						textElement={() => (
 							<>
-								<strong>Bestia</strong> - losowa karta bestii dodawna do talii
-								polowania po udanej exploracji.
+								<strong>Bestia</strong> - losowa karta bestii
+								dodawna do talii polowania po udanej exploracji.
 							</>
 						)}
 					/>
@@ -101,7 +102,7 @@ export function ExplorePage() {
 							<ResizableImage
 								src={"/UI/misc/discovery-token.png"}
 								alt="żeton odkryć"
-								style={{scale: "0.9"}}
+								style={{ scale: "0.9" }}
 							/>
 						)}
 						textElement={() => (
@@ -151,7 +152,8 @@ export function ExplorePage() {
 						)}
 						textElement={() => (
 							<>
-								<strong>Rodzaj terenu</strong>{` - niektóre akcje
+								<strong>Rodzaj terenu</strong>
+								{` - niektóre akcje
 								wymagają posiadanie odkrytego kafelka z
 								konkretnym rodzajem terenu (np. budowa karty
 								pomysłu "Nóż" wymaga posiadania odkrytego

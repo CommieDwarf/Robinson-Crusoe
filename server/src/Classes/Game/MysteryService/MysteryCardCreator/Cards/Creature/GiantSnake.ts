@@ -10,7 +10,6 @@ export class GiantSnake
     }
 
     triggerDrawEffect(drawer: ICharacter) {
-        //TODO: implement stop drawing cards
         this._game.characterService.decrDeterminationOrGetHurt(
             drawer,
             drawer.determination,

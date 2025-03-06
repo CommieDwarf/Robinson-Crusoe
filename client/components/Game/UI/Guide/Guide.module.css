@@ -1,185 +1,178 @@
 .container {
-    font-size: 1.5em;
-    text-align: center;
-    font-weight: 500;
-    font-style: italic;
-    display: flex;
-    column-gap: 10px;
-    height: 100%;
-    aspect-ratio: var(--goldenRatio);
-    position: relative;
+	font-size: 1.5em;
+	text-align: center;
+	font-weight: 500;
+	font-style: italic;
+	display: flex;
+	column-gap: 10px;
+	height: 100%;
+	aspect-ratio: var(--goldenRatio);
+	position: relative;
 }
 
-/* 1280x960 */
-
-/* 1280x1024 */
-
 .page {
-    width: 75%;
-    display: inline-block;
-    overflow-y: scroll;
-    padding: 1%;
-    font-size: 1.2em;
+	width: 75%;
+	display: inline-block;
+	overflow-y: scroll;
+	padding: 1%;
+	font-size: 1.2em;
 }
 
 .contents {
-    height: 100%;
-    vertical-align: top;
-    width: 25%;
-    vertical-align: top;
-    display: inline-block;
-    flex-grow: 100%;
-    font-size: 1.3em;
+	height: 100%;
+	vertical-align: top;
+	width: 25%;
+	vertical-align: top;
+	display: inline-block;
+	flex-grow: 100%;
+	font-size: 1.3em;
 }
 
-
 .title {
-    color: var(--hunt);
-    font-family: "Kaz";
-    font-size: 2em;
-    font-style: normal;
+	color: var(--hunt);
+	font-family: "Kaz";
+	font-size: 2em;
+	font-style: normal;
 }
 
 .subTitle {
-    color: var(--hunt);
-    font-family: "Kaz";
-    font-size: 1.5em;
-    font-style: normal;
+	color: var(--hunt);
+	font-family: "Kaz";
+	font-size: 1.5em;
+	font-style: normal;
 }
 
 .p {
-    font-style: italic;
-    font-size: 0.9em;
-    text-align: left;
+	font-style: italic;
+	font-size: 0.9em;
+	text-align: left;
 }
 
 .list {
-    padding-left: 10px;
-    font-size: 0.8em;
-    text-align: left;
+	padding-left: 10px;
+	font-size: 0.8em;
+	text-align: left;
 }
 
 .li {
-    display: flex;
-    align-items: center;
-    column-gap: 10px;
-    flex-wrap: nowrap;
-    margin-bottom: 6px;
-    font-style: italic;
+	display: flex;
+	align-items: center;
+	column-gap: 10px;
+	flex-wrap: nowrap;
+	margin-bottom: 6px;
+	font-style: italic;
 }
 
 .listItemImg {
-    height: 0.7em;
-    aspect-ratio: 1;
-    position: relative;
-    scale: 2;
-    display: inline-block;
+	height: 0.7em;
+	aspect-ratio: 1;
+	position: relative;
+	scale: 2;
+	display: inline-block;
 }
 
-
 .listItemDescription {
-    text-align: left;
+	text-align: left;
 }
 
 .buttonNext {
-    float: right;
+	float: right;
 }
 
 .titleImg {
-    height: 2.5em;
-    aspect-ratio: 1;
-    position: relative;
+	height: 2.5em;
+	aspect-ratio: 1;
+	position: relative;
 }
 
 .flexBlock {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    column-gap: 2px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	column-gap: 2px;
 }
 
 .card {
-    height: 150px;
-    aspect-ratio: var(--cardAspectRatio);
-    position: relative;
+	height: 150px;
+	aspect-ratio: var(--cardAspectRatio);
+	position: relative;
 }
 
 .exampleImg {
-    height: 150px;
-    aspect-ratio: 1;
-    position: relative;
+	height: 150px;
+	aspect-ratio: 1;
+	position: relative;
 }
 
 .exampleGif {
-    height: 150px;
-    aspect-ratio: 339 / 265;
-    position: relative;
-    border: 1px solid var(--brown);
-    overflow: hidden;
-    border-radius: 5px;
+	height: 150px;
+	aspect-ratio: 339 / 265;
+	position: relative;
+	border: 1px solid var(--brown);
+	overflow: hidden;
+	border-radius: 5px;
 }
 
 .cardExampleImg {
-    height: 150px;
-    aspect-ratio: 1080 / 650;
-    position: realtive;
+	height: 150px;
+	aspect-ratio: 1080 / 650;
+	position: realtive;
 }
 
 .cardExampleImg2 {
-    height: 150px;
-    aspect-ratio: 391 / 272;
-    position: realtive;
-    border: 1px solid var(--brown);
-    border-radius: 5px;
-    overflow: hidden;
+	height: 150px;
+	aspect-ratio: 391 / 272;
+	position: realtive;
+	border: 1px solid var(--brown);
+	border-radius: 5px;
+	overflow: hidden;
 }
 
 .moraleIcon {
-    filter: brightness(95%)
+	filter: brightness(95%);
 }
 
 .moraleBlock {
-    width: 50%;
-    aspect-ratio: 5;
-    font-size: 0.3em;
-    border: 1px solid var(--brown);
-    border-radius: 5px;
-    padding: 10px;
-    margin: 10px auto 10px auto;
+	width: 50%;
+	aspect-ratio: 5;
+	font-size: 0.3em;
+	border: 1px solid var(--brown);
+	border-radius: 5px;
+	padding: 10px;
+	margin: 10px auto 10px auto;
 }
 
 .icon {
-    height: 1em;
-    aspect-ratio: 1;
-    position: relative;
-    display: inline-block;
-    scale: 1.4;
-    top: 1px;
-    margin-left: 4px;
-    margin-right: 4px;
+	height: 1em;
+	aspect-ratio: 1;
+	position: relative;
+	display: inline-block;
+	scale: 1.4;
+	top: 1px;
+	margin-left: 4px;
+	margin-right: 4px;
 }
 
 .iconMorale {
-    aspect-ratio: 2;
-    scale: 1;
+	aspect-ratio: 2;
+	scale: 1;
 }
 
 .tile {
-    aspect-ratio: 1;
-    height: 100px;
-    position: relative;
+	aspect-ratio: 1;
+	height: 100px;
+	position: relative;
 }
 
 .pawnAssignmentImg {
-    aspect-ratio: 339 / 248;
-    height: 100px;
-    border: 1px solid var(--brown);
-    border-radius: 5px;
-    overflow: hidden;
+	aspect-ratio: 339 / 248;
+	height: 100px;
+	border: 1px solid var(--brown);
+	border-radius: 5px;
+	overflow: hidden;
 }
 
-
 .borderRadius {
-    border-radius: 1px;
-    overflow: hidden;
+	border-radius: 1px;
+	overflow: hidden;
 }

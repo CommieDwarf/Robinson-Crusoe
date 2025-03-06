@@ -1,6 +1,6 @@
 import styles from "./ControlPanel.module.css";
 import { NextPhaseButton } from "../NextPhaseButton/NextPhaseButton";
-import React, { useState } from "react";
+import React from "react";
 import { PlayerReadiness } from "./PlayerReadiness/PlayerReadiness";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
 import { selectGame } from "../../../../reduxSlices/gameSession";

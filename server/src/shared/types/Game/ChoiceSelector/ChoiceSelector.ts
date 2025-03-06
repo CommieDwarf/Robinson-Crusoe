@@ -22,9 +22,9 @@ export type ChoosableObject =
 	| TileType
 	| ICharacter
 	| ChoosableConstruction
-    | {name: "morale", amount: number}
-	| {name: "determination", amount: number}
-	| {name: "health", amount: number}
+	| { name: "morale"; amount: number }
+	| { name: "determination"; amount: number }
+	| { name: "health"; amount: number };
 
 export type ChoiceSubject =
 	| "beast"
@@ -49,7 +49,7 @@ export type ChoosableRenderData<T extends ChoosableObject> = {
 export interface IChoiceSelector<T extends ChoosableObject> {
 	objects: Choosable<T>[];
 	picker: IPlayerCharacter;
-    
+
 	pickSubject: ChoiceSubject;
 	amount: number;
 	source: string;

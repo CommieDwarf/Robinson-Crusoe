@@ -1,4 +1,3 @@
-import { UserData } from "@shared/types/UserData/UserData";
 import { UserAvatar } from "../UserAvatar/UserAvatar";
 import styles from "../UserProfile.module.css";
 import { deleteAuthCookie } from "utils/auth/deleteAuthCookie";
@@ -11,7 +10,6 @@ import { socketEmit } from "middleware/socketMiddleware";
 import { SOCKET_EVENT_CLIENT } from "@shared/types/Requests/Socket";
 import { PROFILE_NAV, ProfileComponentProps } from "../UserProfile";
 import { useDispatch } from "react-redux";
-import { useAppSelector } from "store/hooks";
 import { LoadingSpinner } from "components/LoaderSpinner/LoaderSpinner";
 
 export function ProfileHome(props: ProfileComponentProps) {
@@ -27,15 +25,6 @@ export function ProfileHome(props: ProfileComponentProps) {
 		dispatch(connectedUpdated(false));
 		socket.disconnect();
 		router.push("/sign-in");
-	}
-
-	function handleJoinGameClick(sessionId: string) {
-		dispatch(
-			socketEmit(SOCKET_EVENT_CLIENT.JOIN_SESSION, {
-				sessionId,
-				password: "",
-			})
-		);
 	}
 
 	function handdleSettingsClick() {

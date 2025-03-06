@@ -1,27 +1,17 @@
 import { SOCKET_EVENT_CLIENT } from "@shared/types/Requests/Socket";
-import {
-	CustomStep,
-	UpdateUIStateHandle,
-} from "./../../components/Game/UITour/steps";
 import { steps } from "components/Game/UITour/steps";
 import { socketEmit } from "middleware/socketMiddleware";
 import { useState, useRef, useCallback, useEffect } from "react";
 import { userPreferencesUpdated } from "reduxSlices/connection";
-import {
-	stepIndexUpdated,
-	tourInProgressUpdated,
-} from "reduxSlices/UITour";
+import { stepIndexUpdated, tourInProgressUpdated } from "reduxSlices/UITour";
 import { useAppDispatch, useAppSelector } from "store/hooks";
 import { UIState } from "types/UITour/UIStates";
 import { batch } from "react-redux";
 
-
-
-
 /**
  * Custom hook: useUITourControl
  *
- * @description Provides control over a UI Tour at the component level. 
+ * @description Provides control over a UI Tour at the component level.
  * It manages delays and step transitions, offering a streamlined approach to UI state management.
  *
  * - For a delay, the `getUpdateUIStateHandle` method must be provided in the `CustomStep` object.
@@ -50,8 +40,6 @@ import { batch } from "react-redux";
  * }
  */
 
-
-
 export function useUITourControl() {
 	const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 	const [delayInProgress, setDelayInProgress] = useState(false);
@@ -63,9 +51,7 @@ export function useUITourControl() {
 	const uiStates = useAppSelector((state) => state.UITour.UiStates);
 	const currentStepIndex = useAppSelector((state) => state.UITour.stepIndex);
 
-
 	const handleNextStep = useCallback(() => {
-
 		// Gets the next step index skipping unnecessary steps.
 		const nextStepIndex = calculateNextStepIndex(
 			currentStepIndex,
@@ -132,7 +118,7 @@ export function useUITourControl() {
 
 	useEffect(() => {
 		return cleanupTimeout;
-	}, [])
+	}, []);
 
 	return {
 		cleanupTimeout,

@@ -18,7 +18,7 @@ export class GrandmasRecipe extends Ability implements IAbility<null> {
         );
     }
 
-    use(target = null) {
+    use() {
         if (this._game.resourceService.canAffordResource("food", 1)) {
             const characters = this._game.characterService.allCharacters.filter((char) => char.name !== CHARACTER.DOG);
             this._game.resourceService.spendBasicResourceIfPossible("food", 1, "");

@@ -27,7 +27,6 @@ export class DangerousNight extends EventCard implements IEventCard {
     }
 
     triggerEventEffect() {
-        // TODO: implement adding beast to event cards.
         this._game.eventService.addCardToTopOfStack(undefined);
     }
 
@@ -36,6 +35,5 @@ export class DangerousNight extends EventCard implements IEventCard {
     }
 
     fullFill() {
-        // TODO: shuffle beast in to the event cards.
     }
 }

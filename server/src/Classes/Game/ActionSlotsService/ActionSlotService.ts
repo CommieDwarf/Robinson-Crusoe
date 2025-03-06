@@ -42,7 +42,6 @@ export class ActionSlotService implements IActionSlotService {
 
     }
 
-    // -------------------------------------------------
 
     set slots(value: Map<string, IPawn | null>) {
         this._slots = value;
@@ -83,7 +82,6 @@ export class ActionSlotService implements IActionSlotService {
         return categorized;
     }
 
-    // -------------------------------------------------------
 
 
     public setPawn(droppableId: string, pawn: IPawn | null) {
@@ -99,11 +97,6 @@ export class ActionSlotService implements IActionSlotService {
             Boolean(pawn) ? this._game.arrangeCampRestService.incrPawnAmount("arrangeCamp") : this._game.arrangeCampRestService.decrPawnAmount("arrangeCamp");
         }
     }
-
-    private incrPawnAmountInItem(droppableId: string) {
-        const item = getItemFromDroppableId(droppableId, this._game);
-    }
-
 
     public unsetPawn(droppableId: string) {
         this._slots.set(droppableId, null);

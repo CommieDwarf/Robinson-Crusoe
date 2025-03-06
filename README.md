@@ -1,63 +1,60 @@
-# Board Game
+# Praca Inżynierska - Implementacja Gry Planszowej w Postaci Aplikacji
 
-### By Konrad Czaczkowski
 
-## Purpose
+- **Imię i Nazwisko**: Konrad Czaczkowski
+- **Promotor**: dr. inż. Tomasz Grześ
+- **Kierunek**: Informatyka Stosowana
+- **Uczelnia**: Wyższa Szkoła Ekonomiczna w Białymstoku
+- **Rok akademicki**: 2024/2025
 
-<strong>This is not a commercial product.</strong>
-<br> I've created this for learning purposes and to play it with my close friends online since I liked this board game
-very much.
+## Opis projektu
+Projekt polega na implementacji gry planszowej w postaci aplikacji webowej, umożliwiającej rozgrywkę wieloosobową przez Internet. Gra została zrealizowana z wykorzystaniem nowoczesnych technologii, takich jak **React**, **Next.js**, **Node.js**, **TypeScript** oraz **Socket.io**.
 
-## About
 
-This project my browser version of existing board
-game.
+## Struktura projektu
+Projekt składa się z dwóch głównych modułów:
+1. **Klient**: Aplikacja kliencka znajdująca się w folderze `client`.
+2. **Serwer**: Aplikacja serwerowa znajdująca się w folderze `server`.
 
-## Game concepts
+## Wymagania systemowe
+Aby uruchomić projekt, wymagane są następujące narzędzia i usługi:
+1. **Node.js** (wersja 20.17.0 lub wyższa)
+2. **MongoDB** (lokalna instalacja lub zdalne repozytorium, np. MongoDB Atlas)
+3. **Skrzynka pocztowa e-mail** (np. Gmail) do wysyłania powiadomień i wiadomości
 
-You are a survivor on desert island. Your primary goal is
-to survive and fulfill scenario's objective by exploring,
-gathering resources, building and upgrading camp and building inventions.
-At the beginning you own 2 random utility items for e.g. pistol.
-<br>
-The game contains with different phases in which different things happen  (for e.g. weather phase where you are disposed
-to weather effects)
-Game can be played solo or with max. 4 players.
+## Instrukcja uruchomienia
+Aby uruchomić projekt, wykonaj następujące kroki:
 
-## Features
+### 1. Skonfiguruj pliki `.env`
+- W folderze "client" i "server" utwórz pliki `.env` na podstawie znajdujących się tam plików `.env.example`.  
+- Wypełnij wymagane zmienne środowiskowe.  
 
-* Single-player
-* One scenario
-    * castaways
-* 4 characters
-* Two Side characters
-    * Friday
-    * Dog
+Do lokalnego uruchomienia projektu wymagana jest tylko konfiguracja poniższych zmiennych środowiskowych:
+- **MONGODB_URI**: Connection string do bazy danych MongoDB.  
+- **EMAIL_SERVICE**: Nazwa usługi e-mail (np. gmail).  
+- **EMAIL_USER**: Adres e-mail do wysyłania wiadomości.  
+- **EMAIL_PASSWORD**: Hasło aplikacji e-mail.  
+- **EMAIL_FROM**: Adres e-mail nadawcy.
 
-## Upcoming features
+Aby umożliwić botowi wysyłanie wiadomości e-mail, należy skonfigurować konto e-mail (np. Gmail) i wygenerować hasło aplikacji, które zostanie użyte w zmiennej środowiskowej EMAIL_PASSWORD. W przypadku Gmaila, hasło aplikacji można wygenerować w ustawieniach konta, w sekcji Bezpieczeństwo > Dostęp do aplikacji.
 
-* Multiplayer with up to 4 players.
-* 5 more playable scenarios
-* 4 characters
-* Text chat
-* Register and login system
-* Game history
+### 2. Zainstaluj zależności
+- W folderze `client` i `server` uruchom polecenie:
+  ```bash
+  npm install 
+- W przypadku gdy nie uda się zainstalować zależności użyj flagi --force:
+  ```bash 
+  npm install --force
 
-## Technologies:
-
-* Typescript
-* React
-* Next.js
-* Redux
-* Node.js
-* Express.js
-
-## How to run dev server:
-
-* Install Node.js
-* Open terminal in project's root folder
-* Install project's dependencies by typing: npm i
-* Do the same in /client nad /server
-* In separate terminals both in /client and /server type: npm run dev
-* open browser at http://localhost:3000/
-* enjoy
+### 3. Skompiluj pliki źródłowe
+- W folderze 'client' i 'server' wpisz polecenie 
+  ```bash
+  npm build
+### 4. Uruchom projekt
+- W folderze 'client' i 'server' wpisz polecenie
+  ```bash
+  npm run
+- Uruchom przeglądarkę i w pasku adresu wpisz: 
+  ```bash 
+  http://localhost:3000
+W przypadku innej konfiguracji zastąp 3000 skonfigurowanym portem.

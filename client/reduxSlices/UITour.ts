@@ -1,17 +1,15 @@
 import { UIState } from "../types/UITour/UIStates";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import Entries from "@shared/types/Entries";
-import { steps } from "components/Game/UITour/steps";
 
 export interface UITourState {
 	stepIndex: number;
 	tourInProgress: boolean;
 	UiStates: UIState;
-	tourRefused: false,
+	tourRefused: false;
 }
 
 const initialState: UITourState = {
-	stepIndex: 22,
+	stepIndex: 0,
 	tourInProgress: false,
 	tourRefused: false,
 	UiStates: {
@@ -21,15 +19,13 @@ const initialState: UITourState = {
 	},
 };
 
-
-
 export const UITourSlice = createSlice({
 	name: "UITour",
 	initialState,
 	reducers: {
 		UITourInitialStateSet() {
 			return initialState;
-		}, 
+		},
 		stepIndexUpdated(state, action) {
 			state.stepIndex = action.payload;
 		},
@@ -38,25 +34,27 @@ export const UITourSlice = createSlice({
 		},
 		UIStateUpdated<K extends keyof UIState>(
 			state: UITourState,
-			action: PayloadAction<[key: K, value: UIState[K] ]>
+			action: PayloadAction<[key: K, value: UIState[K]]>
 		) {
-			const [key, value ] = action.payload;
+			const [key, value] = action.payload;
 			state.UiStates[key] = value;
 		},
-        UIStateToggled<K extends keyof UIState>(
+		UIStateToggled<K extends keyof UIState>(
 			state: UITourState,
 			action: PayloadAction<K>
 		) {
-            const key = action.payload;
-            const currentValue = state.UiStates[key];
-            if (typeof currentValue !== 'boolean') {
-                throw  new Error(`Value for ${key} is not a boolean! Cannot toggle.`);
-            }
+			const key = action.payload;
+			const currentValue = state.UiStates[key];
+			if (typeof currentValue !== "boolean") {
+				throw new Error(
+					`Value for ${key} is not a boolean! Cannot toggle.`
+				);
+			}
 			state.UiStates[action.payload] = !state.UiStates[action.payload];
 		},
 		UITourRefusedUpdated(state, action) {
 			state.tourRefused = action.payload;
-		}
+		},
 	},
 });
 
@@ -66,8 +64,5 @@ export const {
 	UIStateUpdated,
 	UIStateToggled,
 	UITourRefusedUpdated,
-	UITourInitialStateSet
+	UITourInitialStateSet,
 } = UITourSlice.actions;
-
-
-

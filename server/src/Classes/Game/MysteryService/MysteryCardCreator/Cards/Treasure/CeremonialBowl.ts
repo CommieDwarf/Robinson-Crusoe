@@ -15,10 +15,8 @@ export class CeremonialBowl extends TreasureMysteryCard {
     }
 
     triggerDrawEffect(drawer: ICharacter) {
-        //TODO: implement reroll token on drawer.
     }
 
     triggerEventEffect() {
-        //TODO: implement delete reroll token on drawer.
     }
 }

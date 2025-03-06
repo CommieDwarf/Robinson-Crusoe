@@ -20,7 +20,6 @@ export class PredatorInTheCamp
     }
 
     resolveOption1(resolver: IPlayerCharacter) {
-        //TODO: fight beast
         this.shuffleIntoEventDeck();
     }
 

@@ -39,7 +39,6 @@ export class HowlingFromTheWoods extends EventCard implements IEventCard {
     }
 
     triggerThreatEffect() {
-        // TODO: fight beast from top of the deck.
     }
 
     fullFill() {

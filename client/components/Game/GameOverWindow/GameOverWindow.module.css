@@ -1,37 +1,34 @@
 .container {
-    height: 32vh;
-    aspect-ratio: 3;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    font-size: 2.3em;
+	height: 32vh;
+	aspect-ratio: 3;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	font-size: 2.3em;
 }
 
 .status {
-    font-family: "Kaz";
-    font-size: 2rem;
+	font-family: "Kaz";
+	font-size: 2rem;
 }
 
 .statusWin {
-    color: green;
+	color: green;
 }
 
 .statusDefeat {
-    color: var(--hunt);
+	color: var(--hunt);
 }
 
-
 .narrative {
-    font-style: italic;
+	font-style: italic;
 }
 
 .summary {
-
 }
 
 .buttonWrapper {
-    margin-top: 2%;
+	margin-top: 2%;
 }
-

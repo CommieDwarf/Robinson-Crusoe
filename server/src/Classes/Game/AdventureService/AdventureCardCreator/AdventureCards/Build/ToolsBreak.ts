@@ -18,6 +18,5 @@ export class ToolsBreak extends BuildAdventureCard implements IAdventureCard {
     }
 
     resolveOption1(resolver: IPlayerCharacter) {
-        //TODO: implement flip invention
     }
 }

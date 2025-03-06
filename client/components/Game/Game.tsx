@@ -12,11 +12,8 @@ import ChatLog from "./UI/ChatLog/ChatLog";
 import Tokens from "./UI/tokens/Tokens";
 import ScenarioButton from "./UI/ScenarioButton/ScenarioButton";
 import actionSlotStyles from "./UI/ActionSlot.module.css";
-
-// stupid asshole vercel, acknowledge this casing!!!
 import Threat from "./UI/Threat/Threat";
 import ArrangeCampRest from "./UI/ArrangeCampRest/ArrangeCampRest";
-
 import {
 	DragDropContext,
 	DragStart,
@@ -317,9 +314,6 @@ export default function Game(props: Props) {
 		};
 	}, []);
 
-
-
-
 	return (
 		<>
 			<div
@@ -457,7 +451,7 @@ export default function Game(props: Props) {
 							/>
 						</div>
 						<div className={styles.chatLog}>
-							<ChatLog enableLog={true}/>
+							<ChatLog enableLog={true} />
 						</div>
 
 						<Weather />
@@ -486,7 +480,7 @@ export default function Game(props: Props) {
 						{showOptions && (
 							<DraggableWindow
 								width={"40%"}
-								styles={{fontSize: "1.1em"}}
+								styles={{ fontSize: "1.1em" }}
 								onClose={toggleShowOptions}
 							>
 								<GameOptions />
