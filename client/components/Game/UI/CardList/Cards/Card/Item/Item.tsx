@@ -47,8 +47,6 @@ export default function Item(props: Props) {
                           onClick={handleButtonClick}
                           key={i}
         >
-                          priority
-                          priority
             <ResizableImage src={useImg} alt={"użyj"} fill priority/>
         </div>)
     }
