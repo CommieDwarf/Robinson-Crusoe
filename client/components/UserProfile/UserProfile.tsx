@@ -62,7 +62,7 @@ export function UserProfile(props: Props) {
 			),
 		];
 
-		requestGameList();
+		// requestGameList();
 		return () => {
 			listeners.forEach((listener) => listener.off());
 		};

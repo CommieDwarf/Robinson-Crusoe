@@ -1,7 +1,6 @@
 import { kebabCase } from "lodash";
 import ResizableImage from "../../../../ResizableImage/ResizableImage";
 import styles from "../Guide.module.css";
-
 import { ACTION } from "@shared/types/Game/ACTION";
 import ActionSlot from "../../ActionSlot";
 
