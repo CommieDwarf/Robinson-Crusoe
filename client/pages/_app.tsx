@@ -15,20 +15,12 @@ import {
 	useHistoryManager,
 } from "components/UserHistoryManager/UserHistoryManager";
 
-import { preloadFiles } from "config/preloadFiles";
-import Head from "next/head";
 
 export default function App<Props>({ Component, pageProps }: AppProps) {
 	const historyManager = useHistoryManager();
 
 	return (
 		<>
-		<Head>
-			{preloadFiles.map((path, i) => {
-				return <link key={i} rel={"preload"} as={"image"} href={path}></link>
-			})}
-
-		</Head>
 			<Provider store={store}>
 				<GlobalWrapper>
 					<HistoryManagerProvider value={historyManager}>

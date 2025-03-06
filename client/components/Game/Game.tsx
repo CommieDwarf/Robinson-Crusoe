@@ -57,9 +57,15 @@ import { UITour } from "./UITour/UITour";
 import { UITourPrompt } from "./UITour/UITourPrompt/UITourPrompt";
 import { UITourInitialStateSet } from "reduxSlices/UITour";
 import { playerContainerAspectRatio } from "./UI/PlayerOverview/Player/aspectRatio";
+import usePreloadImages from "utils/hooks/UsePreloadedImages";
+import { GameFiles } from "config/preloadFiles";
 interface Props {}
 
 export default function Game(props: Props) {
+
+	usePreloadImages(GameFiles);
+
+
 	const [isPawnBeingDragged, setIsPawnBeingDragged] = useState(false);
 
 	// Increase of proper component's z-index is necessary to render dragged pawn above other components
