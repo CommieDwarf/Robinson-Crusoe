@@ -47,7 +47,9 @@ export default function Item(props: Props) {
                           onClick={handleButtonClick}
                           key={i}
         >
-            <ResizableImage src={useImg} alt={"użyj"} fill/>
+                          priority
+                          priority
+            <ResizableImage src={useImg} alt={"użyj"} fill priority/>
         </div>)
     }
 
@@ -56,6 +58,7 @@ export default function Item(props: Props) {
             <ResizableImage
                 src={`/UI/cards/items/${kebabCase(props.item.name)}.png`}
                 alt={props.item.name}
+                priority
             />
             <div className={styles.buttons}>
                 {buttons}
