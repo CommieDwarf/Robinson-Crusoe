@@ -1,7 +1,7 @@
 .container {
 	width: 80%;
 	aspect-ratio: 3;
-	background-image: url("../../public/UI/paper-background.png");
+	background-image: url("../../public/UI/paper-background.webp");
 	background-size: 100% 100%;
 	position: absolute;
 	top: 50%;

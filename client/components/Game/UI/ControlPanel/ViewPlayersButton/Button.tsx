@@ -1,5 +1,5 @@
 import styles from "./Button.module.css";
-import ResizableImage from "../../../../ResizableImage/ResizableImage";
+import ResizableImage from "../../../../DynamicImage/DynamicImage";
 import { StaticImageData } from "next/image";
 import { CSSProperties } from "react";
 

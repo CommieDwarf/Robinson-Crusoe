@@ -96,7 +96,7 @@
     text-align: center;
     border-radius: 5px;
     color: var(--brown);
-    background-image: url("../../../../../../../public/UI/paper-background.png");
+    background-image: url("../../../../../../../public/UI/paper-background.webp");
     background-size: cover;
     border: 1px solid var(--borderColor);
     padding: 0 5px 0 5px;

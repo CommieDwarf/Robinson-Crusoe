@@ -29,7 +29,7 @@
 
 /* Handle */
 .scroll::-webkit-scrollbar-thumb {
-    background-image: url("../../../../public/UI/map/boardVert.jpg");
+    background-image: url("../../../../public/UI/misc/board-vert.webp");
     background-size: cover;
     border-radius: 5px;
     border: 1px solid var(--borderColor);

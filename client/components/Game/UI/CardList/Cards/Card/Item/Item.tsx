@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Item.module.css";
-import useImg from "/public/UI/icons/use-mark.png";
-import ResizableImage from "../../../../../../ResizableImage/ResizableImage";
+import useImg from "/public/UI/icons/use-mark.webp";
+import ResizableImage from "../../../../../../DynamicImage/DynamicImage";
 import {kebabCase} from "lodash";
 import {IItemRenderData, ITEM} from "@shared/types/Game/Equipment/Item";
 import {OTHER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
@@ -54,7 +54,7 @@ export default function Item(props: Props) {
     return (
         <div className={styles.container}>
             <ResizableImage
-                src={`/UI/cards/items/${kebabCase(props.item.name)}.png`}
+                src={`/UI/cards/items/${kebabCase(props.item.name)}.webp`}
                 alt={props.item.name}
                 priority
             />

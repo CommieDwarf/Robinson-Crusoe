@@ -1,5 +1,5 @@
 import { insertIconsIntoText } from "../../../../../../utils/insertIconsIntoText/insertIconsIntoText";
-import ResizableImage from "../../../../../ResizableImage/ResizableImage";
+import ResizableImage from "../../../../../DynamicImage/DynamicImage";
 import guideStyles from "../../Guide.module.css";
 import { ImgListItem } from "../../ImgList.tsx/ImgListItem";
 
@@ -9,14 +9,14 @@ export function WeatherPage() {
 			<div className={guideStyles.flexBlock}>
 				<div className={guideStyles.titleImg}>
 					<ResizableImage
-						src={"/UI/phase/weather.png"}
+						src={"/UI/phase/weather.webp"}
 						alt="action"
 					/>
 				</div>
 				<h2 className={guideStyles.title}>Faza Pogody</h2>
 				<div className={guideStyles.titleImg}>
 					<ResizableImage
-						src={"/UI/phase/weather.png"}
+						src={"/UI/phase/weather.webp"}
 						alt="action"
 					/>
 				</div>
@@ -33,7 +33,7 @@ export function WeatherPage() {
 					<ImgListItem
 						imgElement={() => (
 							<ResizableImage
-								src={"/UI/dice/weather/rain/rain.png"}
+								src={"/UI/dice/weather/rain/rain.webp"}
 								alt="kość pogody"
 							/>
 						)}
@@ -47,7 +47,7 @@ export function WeatherPage() {
 					<ImgListItem
 						imgElement={() => (
 							<ResizableImage
-								src={"/UI/dice/weather/winter/snow.png"}
+								src={"/UI/dice/weather/winter/snow.webp"}
 								alt="kość pogody"
 							/>
 						)}
@@ -61,7 +61,7 @@ export function WeatherPage() {
 					<ImgListItem
 						imgElement={() => (
 							<ResizableImage
-								src={"/UI/dice/weather/animals/beast.png"}
+								src={"/UI/dice/weather/animals/beast.webp"}
 								alt="kość wygłodniałych zwierząt"
 							/>
 						)}
@@ -91,7 +91,7 @@ export function WeatherPage() {
 					<ImgListItem
 						imgElement={() => (
 							<ResizableImage
-								src="/UI/weather/tokens/rain.png"
+								src="/UI/weather/tokens/rain.webp"
 								alt="żeton chmury deszczowej"
 							/>
 						)}
@@ -102,7 +102,7 @@ export function WeatherPage() {
 					<ImgListItem
 						imgElement={() => (
 							<ResizableImage
-								src="/UI/weather/tokens/snow.png"
+								src="/UI/weather/tokens/snow.webp"
 								alt="żeton chmury zimowej"
 							/>
 						)}
@@ -113,7 +113,7 @@ export function WeatherPage() {
 					<ImgListItem
 						imgElement={() => (
 							<ResizableImage
-								src="/UI/weather/tokens/storm.png"
+								src="/UI/weather/tokens/storm.webp"
 								alt="żeton sztormu"
 							/>
 						)}
@@ -132,7 +132,7 @@ export function WeatherPage() {
 					<ImgListItem
 						imgElement={() => (
 							<ResizableImage
-								src="/UI/weather/rain-cloud.png"
+								src="/UI/weather/rain-cloud.webp"
 								alt="deszczowa chmura"
 							/>
 						)}
@@ -144,7 +144,7 @@ export function WeatherPage() {
 					<ImgListItem
 						imgElement={() => (
 							<ResizableImage
-								src="/UI/weather/snow-cloud.png"
+								src="/UI/weather/snow-cloud.webp"
 								alt="śniegowa chmura"
 							/>
 						)}
@@ -191,7 +191,7 @@ export function WeatherPage() {
 					<ImgListItem
 						imgElement={() => (
 							<ResizableImage
-								src="/UI/dice/weather/animals/beast.png"
+								src="/UI/dice/weather/animals/beast.webp"
 								alt="bestia"
 							/>
 						)}
@@ -207,7 +207,7 @@ export function WeatherPage() {
 					<ImgListItem
 						imgElement={() => (
 							<ResizableImage
-								src="/UI/dice/weather/animals/palisade.png"
+								src="/UI/dice/weather/animals/palisade.webp"
 								alt="palisada"
 							/>
 						)}
@@ -226,7 +226,7 @@ export function WeatherPage() {
 					<ImgListItem
 						imgElement={() => (
 							<ResizableImage
-								src="/UI/dice/weather/animals/food.png"
+								src="/UI/dice/weather/animals/food.webp"
 								alt="palisada"
 							/>
 						)}

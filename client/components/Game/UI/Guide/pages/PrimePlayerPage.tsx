@@ -1,4 +1,4 @@
-import ResizableImage from "../../../../ResizableImage/ResizableImage";
+import ResizableImage from "../../../../DynamicImage/DynamicImage";
 import styles from "../Guide.module.css";
 import { ClickNextPhaseSection } from "./ClickNextPhaseSection";
 
@@ -8,11 +8,11 @@ export function PrimPlayerPage() {
 		<>
 			<div className={styles.flexBlock}>
 				<div className={styles.titleImg}>
-					<ResizableImage src="/UI/icons/star.png" alt="star" />
+					<ResizableImage src="/UI/icons/star.webp" alt="star" />
 				</div>
 				<h2 className={styles.title}>Pierwszy gracz</h2>
 				<div className={styles.titleImg}>
-					<ResizableImage src="/UI/icons/star.png" alt="star" />
+					<ResizableImage src="/UI/icons/star.webp" alt="star" />
 				</div>
 			</div>
 			<div>

@@ -1,7 +1,7 @@
 import styles from "./Record.module.css";
-import leatherImg from "/public/UI/resources/leather.png";
-import woodImg from "/public/UI/resources/wood.png";
-import ResizableImage from "../../../../../../ResizableImage/ResizableImage";
+import leatherImg from "/public/UI/resources/leather.webp";
+import woodImg from "/public/UI/resources/wood.webp";
+import ResizableImage from "../../../../../../DynamicImage/DynamicImage";
 
 interface Props {
     value: number,

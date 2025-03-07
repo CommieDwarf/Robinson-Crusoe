@@ -1,8 +1,8 @@
 // @flow
 import * as React from "react";
 import styles from "./NextActionButton.module.css";
-import redArrowImg from "/public/UI/misc/red-arrow.png";
-import ResizableImage from "../../../../ResizableImage/ResizableImage";
+import redArrowImg from "/public/UI/misc/red-arrow.webp";
+import ResizableImage from "../../../../DynamicImage/DynamicImage";
 import {actionOrder} from "@shared/constants/actionOrder";
 import {kebabCase} from "lodash";
 import {IActionServiceRenderData} from "@shared/types/Game/ActionService/ActionService";
@@ -43,7 +43,7 @@ export const NextActionButton = (props: Props) => {
             </div>
             <div className={styles.nextAction}>
                 <ResizableImage
-                    src={`/UI/actions/${kebabCase(nextAction)}.png`}
+                    src={`/UI/actions/${kebabCase(nextAction)}.webp`}
                     alt={"Następna akcja"}
                 />
             </div>

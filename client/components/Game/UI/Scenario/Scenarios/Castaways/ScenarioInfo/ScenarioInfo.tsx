@@ -3,7 +3,7 @@ import * as React from "react";
 import { useLayoutEffect, useRef, useState } from "react";
 import styles from "./ScenarioInfo.module.css";
 import { Button } from "./Button/Button";
-import ResizableImage from "../../../../../../ResizableImage/ResizableImage";
+import ResizableImage from "../../../../../../DynamicImage/DynamicImage";
 import { castaways } from "@shared/constants/scenarios/castaways";
 import Entries from "@shared/types/Entries";
 import { ScenarioText } from "@shared/types/Game/ScenarioService/ScenarioService";
@@ -58,7 +58,7 @@ export const ScenarioInfo = () => {
 			<div className={styles.description}>
 				<div className={styles.paperImg}>
 					<ResizableImage
-						src={"/UI/scenarios/scroll.png"}
+						src={"/UI/scenarios/scroll.webp"}
 						alt=""
 					/>
 				</div>

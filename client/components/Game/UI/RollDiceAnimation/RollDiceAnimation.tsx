@@ -149,7 +149,7 @@ export const RollDiceAnimation = (props: Props) => {
 			// Tutaj dodajemy wszystkie elementy, które są stałe w scenie (np. światło, tło)
 			const backgroundGeometry = new THREE.BoxGeometry(19, 11, 1);
 			const backgroundTexture = new THREE.TextureLoader().load(
-				"/UI/dice/background.png"
+				"/UI/dice/background.webp"
 			);
 			const backgroundMaterial = new THREE.MeshPhongMaterial({
 				map: backgroundTexture,

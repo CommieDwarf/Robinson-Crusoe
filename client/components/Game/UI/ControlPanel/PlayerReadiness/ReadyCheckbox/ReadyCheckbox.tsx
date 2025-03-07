@@ -4,9 +4,9 @@ import {useAppDispatch} from "../../../../../../store/hooks";
 import {SOCKET_EVENT_CLIENT} from "@shared/types/Requests/Socket";
 import {socketEmit} from "../../../../../../middleware/socketMiddleware";
 import {useState} from "react";
-import ResizableImage from "../../../../../ResizableImage/ResizableImage";
-import checkMark from "/public/UI/misc/check-mark.png";
-import starImg from "/public/UI/icons/star.png";
+import ResizableImage from "../../../../../DynamicImage/DynamicImage";
+import checkMark from "/public/UI/misc/check-mark.webp";
+import starImg from "/public/UI/icons/star.webp";
 
 interface Props {
     player: IPlayerRenderData,

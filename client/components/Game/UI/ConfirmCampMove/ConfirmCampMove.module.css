@@ -5,7 +5,7 @@
 	font-size: 2em;
 	left: calc(50% - 32vh / 2 * 1.8);
 	top: calc(50% - 32vh / 2);
-	background-image: url("../../../../public/UI/paper-background.png");
+	background-image: url("../../../../public/UI/paper-background.webp");
 	z-index: 999999;
 	text-align: center;
 	border: 2px solid var(--borderColor);

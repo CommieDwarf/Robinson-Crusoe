@@ -1,4 +1,4 @@
-import ResizableImage from "components/ResizableImage/ResizableImage";
+import ResizableImage from "components/DynamicImage/DynamicImage";
 import styles from "./MenuItem.module.css";
 import { StaticImageData } from "next/image";
 import { CSSProperties } from "react";

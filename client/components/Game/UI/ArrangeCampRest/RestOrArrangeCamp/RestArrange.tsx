@@ -2,15 +2,15 @@ import React from "react";
 import styles from "./RestArrange.module.css";
 import ActionSlot from "../../ActionSlot";
 
-import moraleArrowRightImg from "/public/UI/icons/morale-arrow-right.png";
-import heartImg from "/public/UI/icons/heart.png";
-import moraleIconImg from "/public/UI/icons/morale.png";
+import moraleArrowRightImg from "/public/UI/icons/morale-arrow-right.webp";
+import heartImg from "/public/UI/icons/heart.webp";
+import moraleIconImg from "/public/UI/icons/morale.webp";
 import { useTranslation } from "react-i18next";
-import ResizableImage from "../../../../ResizableImage/ResizableImage";
+import ResizableImage from "../../../../DynamicImage/DynamicImage";
 import { ACTION, ACTION_ITEM } from "@shared/types/Game/ACTION";
 import { getActionSlotDroppableId } from "@shared/utils/getActionSlotDroppableId";
 import { capitalize } from "lodash";
-import diagnal from "/public/UI/misc/cross-line.png";
+import diagnal from "/public/UI/misc/cross-line.webp";
 import { insertIconsIntoText } from "utils/insertIconsIntoText/insertIconsIntoText";
 import { useAppSelector } from "store/hooks";
 

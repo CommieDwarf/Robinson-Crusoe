@@ -1,12 +1,12 @@
 import styles from "./index.module.css";
 import { useTranslation } from "react-i18next";
-import ResizableImage from "../../../components/ResizableImage/ResizableImage";
+import ResizableImage from "../../../components/DynamicImage/DynamicImage";
 import Link from "next/link";
 import {
 	GAME_SETTINGS_MODE,
 	GameSettings,
 } from "../../../components/Lobby/GameSettings/GameSettings";
-import exitIcon from "/public/UI/icons/exit4.png";
+import exitIcon from "/public/UI/icons/exit4.webp";
 
 export interface Props {}
 

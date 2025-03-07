@@ -1,7 +1,7 @@
 .container {
     height: 25vh;
     aspect-ratio: 2;
-    background-image: url("../../public/UI/paper-background.png");
+    background-image: url("../../public/UI/paper-background.webp");
     border: 1px solid var(--brown);
     border-radius: 1vh;
     position: relative;

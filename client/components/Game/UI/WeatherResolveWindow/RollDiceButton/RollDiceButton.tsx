@@ -2,8 +2,8 @@
 import * as React from "react";
 import { useState } from "react";
 import styles from "./RollDiceButton.module.css";
-import dicesImg from "/public/UI/misc/dices.png";
-import ResizableImage from "../../../../ResizableImage/ResizableImage";
+import dicesImg from "/public/UI/misc/dices.webp";
+import ResizableImage from "../../../../DynamicImage/DynamicImage";
 import { OTHER_CONTROLLER_ACTION } from "@shared/types/CONTROLLER_ACTION";
 import { useAppDispatch } from "../../../../../store/hooks";
 import { socketEmitAction } from "../../../../../middleware/socketMiddleware";

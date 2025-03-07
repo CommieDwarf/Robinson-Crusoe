@@ -41,7 +41,7 @@ body {
 	background-size: cover;
 	background-position-y: -100px;
 	background-attachment: fixed;
-	background-image: url("../public/menu-background.jpg");
+	background-image: url("../public/UI/menu-background.webp");
 	position: relative;
 	height: 100vh;
 	scrollbar-color: var(--borderColor) transparent;
@@ -155,7 +155,7 @@ a {
 }
 
 .Toastify__toast {
-	background: url("../public/UI/characters/background.png") !important;
+	background: url("../public/UI/characters/background.webp") !important;
 	background-size: 400px !important;
 	font-weight: 500 !important;
 	box-shadow: inset 0px 0px 4px 0px var(--brown) !important;

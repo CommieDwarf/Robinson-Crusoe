@@ -1,5 +1,5 @@
 import styles from "./Choice.module.css";
-import ResizableImage from "../../../../ResizableImage/ResizableImage";
+import ResizableImage from "../../../../DynamicImage/DynamicImage";
 import { capitalize, kebabCase } from "lodash";
 import { IInventionRenderData } from "@shared/types/Game/InventionService/Invention";
 import { isPlayerCharacter } from "@shared/utils/typeGuards/isPlayerCharacter";
@@ -30,29 +30,29 @@ export function ChoiceObject(props: Props) {
 
 	switch (true) {
 		case props.pickSubject === "beast":
-			imgUrlPath = `${basePath}/cards/beasts/${name}.png`;
+			imgUrlPath = `${basePath}/cards/beasts/${name}.webp`;
 			break;
 		case props.pickSubject === "item":
-			imgUrlPath = `${basePath}/cards/items/${name}.png`;
+			imgUrlPath = `${basePath}/cards/items/${name}.webp`;
 			break;
 		case props.pickSubject === "invention":
 			const invention = props.pickObject.object as IInventionRenderData;
-			imgUrlPath = `${basePath}/inventions/${invention.inventionType}/${name}.png`;
+			imgUrlPath = `${basePath}/inventions/${invention.inventionType}/${name}.webp`;
 			break;
 		case props.pickSubject === "token":
-			imgUrlPath = `${basePath}/tokens/discovery/${name}.png`;
+			imgUrlPath = `${basePath}/tokens/discovery/${name}.webp`;
 			break;
 		case props.pickSubject === "tileType":
-			imgUrlPath = `${basePath}/map/tiles/${name}.png`;
+			imgUrlPath = `${basePath}/map/tiles/${name}.webp`;
 			break;
 		case props.pickSubject === "construction":
-			imgUrlPath = `${basePath}/constructions/${name}-icon.png`;
+			imgUrlPath = `${basePath}/constructions/${name}-icon.webp`;
 			break;
 		case props.pickSubject === "character":
 			const character = props.pickObject.object as ICharacterRenderData;
 			imgUrlPath = isPlayerCharacter(character)
-				? `${basePath}/characters/player-characters/${name}-${character.gender}.png`
-				: `${basePath}/characters/side-characters/${name}-pic.png`;
+				? `${basePath}/characters/player-characters/${name}-${character.gender}.webp`
+				: `${basePath}/characters/side-characters/${name}-pic.webp`;
 			break;
 	}
 

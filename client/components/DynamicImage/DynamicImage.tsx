@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Image, { ImageProps, StaticImageData } from "next/image";
-import styles from "./ResizableImage.module.css";
+import styles from "./DynamicImage.module.css";
 
 interface Props extends ImageProps {
 	src: string | StaticImageData;
@@ -10,17 +10,22 @@ interface Props extends ImageProps {
 
 export default function ResizableImage(props: Props) {
 	const containerRef = useRef<HTMLDivElement>(null);
-	const [containerWidth, setContainerWidth] = useState<number>(0);
-
-	const scale = props.scale ?? 1;
+	const [containerWidth, setContainerWidth] = useState(0);
 
 	useEffect(() => {
-		const parentWidth =
-			containerRef.current?.getBoundingClientRect().width ?? 0;
-		setContainerWidth(parentWidth * scale);
-	}, [scale]);
+		if (!containerRef.current) return;
+	
+		// Tworzymy obserwatora do śledzenia zmian szerokości kontenera
+		const observer = new ResizeObserver((entries) => {
+		  if (!entries[0]) return;
+		  setContainerWidth(entries[0].contentRect.width);
+		});
+		
+		observer.observe(containerRef.current);
+		
+		return () => observer.disconnect(); // Odłącz obserwator przy odmontowaniu
+	  }, []);
 
-	const sizes = `(max-width: ${containerWidth}px) 100vw, ${containerWidth}px`;
 
 	return (
 		<div
@@ -31,9 +36,9 @@ export default function ResizableImage(props: Props) {
 				{...props}
 				alt={props.alt}
 				fill
-				sizes={sizes}
 				className={styles.preventSelect}
 				draggable={false}
+				sizes={`${containerWidth}px`}
 			></Image>
 		</div>
 	);

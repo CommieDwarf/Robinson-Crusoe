@@ -5,7 +5,7 @@
 	height: 100%;
 	position: relative;
 	z-index: 101;
-	background-image: url("../../../../public/UI/paper-background.png");
+	background-image: url("../../../../public/UI/paper-background.webp");
 	background-position: 50% 50%;
 }
 

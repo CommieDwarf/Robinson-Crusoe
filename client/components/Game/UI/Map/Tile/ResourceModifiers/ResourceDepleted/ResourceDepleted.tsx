@@ -1,6 +1,6 @@
 import styles from "./ResourceDepleted.module.css";
-import ResizableImage from "../../../../../../ResizableImage/ResizableImage";
-import xMarkImg from "/public/UI/misc/x-mark.png";
+import ResizableImage from "../../../../../../DynamicImage/DynamicImage";
+import xMarkImg from "/public/UI/misc/x-mark.webp";
 import React from "react";
 import { Side } from "@shared/types/Game/TileService/TileResourceService";
 

@@ -3,9 +3,9 @@ import styles from "./AllResources.module.css";
 import frameStyles from "./Frame/Frame.module.css";
 import { Frame } from "./Frame/Frame";
 import { Resources } from "./Resources/Resources";
-import productionImg from "/public/UI/phase/production.png";
-import boardImg from "/public/UI/misc/board.jpg";
-import ResizableImage from "../../../ResizableImage/ResizableImage";
+import productionImg from "/public/UI/phase/production.webp";
+import boardImg from "/public/UI/misc/board.webp";
+import ResizableImage from "../../../DynamicImage/DynamicImage";
 import { objectsEqual } from "@shared/utils/objectsEqual";
 import { useAppSelector } from "../../../../store/hooks";
 import {

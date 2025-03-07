@@ -1,4 +1,4 @@
-import ResizableImage from "../../../../../ResizableImage/ResizableImage";
+import ResizableImage from "../../../../../DynamicImage/DynamicImage";
 import { insertIcon } from "../../Guide";
 import styles from "../../Guide.module.css";
 import { ImgListItem } from "../../ImgList.tsx/ImgListItem";
@@ -10,14 +10,14 @@ export function GatherPage() {
 				<div className={styles.flexBlock}>
 					<div className={styles.titleImg}>
 						<ResizableImage
-							src={"/UI/phase/action.png"}
+							src={"/UI/phase/action.webp"}
 							alt="action"
 						/>
 					</div>
 					<h2 className={styles.title}>Faza Akcji</h2>
 					<div className={styles.titleImg}>
 						<ResizableImage
-							src={"/UI/phase/action.png"}
+							src={"/UI/phase/action.webp"}
 							alt="action"
 						/>
 					</div>
@@ -25,14 +25,14 @@ export function GatherPage() {
 				<div className={styles.flexBlock}>
 					<div className={styles.titleImg}>
 						<ResizableImage
-							src={"/UI/actions/gather.png"}
+							src={"/UI/actions/gather.webp"}
 							alt="action"
 						/>
 					</div>
 					<h2 className={styles.subTitle}>Zbieranie Surowców</h2>
 					<div className={styles.titleImg}>
 						<ResizableImage
-							src={"/UI/actions/gather.png"}
+							src={"/UI/actions/gather.webp"}
 							alt="action"
 						/>
 					</div>
@@ -66,7 +66,7 @@ export function GatherPage() {
 				<div className={styles.flexBlock}>
 					<div className={styles.exampleImg}>
 						<ResizableImage
-							src={"/UI/map/tiles/0.png"}
+							src={"/UI/map/tiles/0.webp"}
 							alt={"kafelek"}
 						/>
 					</div>
@@ -83,7 +83,7 @@ export function GatherPage() {
 						imgElement={() => (
 							<>
 								<ResizableImage
-									src={"/UI/misc/parrot.png"}
+									src={"/UI/misc/parrot.webp"}
 									alt={"źródło pożywienia"}
 									style={{ scale: "0.9" }}
 								/>
@@ -99,7 +99,7 @@ export function GatherPage() {
 						imgElement={() => (
 							<>
 								<ResizableImage
-									src={"/UI/misc/fish.png"}
+									src={"/UI/misc/fish.webp"}
 									alt={"źródło pożywienia"}
 								/>
 							</>
@@ -114,7 +114,7 @@ export function GatherPage() {
 						imgElement={() => (
 							<>
 								<ResizableImage
-									src={"/UI/misc/wood.png"}
+									src={"/UI/misc/wood.webp"}
 									alt={"źródło drewna"}
 								/>
 							</>

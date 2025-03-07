@@ -1,5 +1,5 @@
 import { insertIconsIntoText } from "../../../../../utils/insertIconsIntoText/insertIconsIntoText";
-import ResizableImage from "../../../../ResizableImage/ResizableImage";
+import ResizableImage from "../../../../DynamicImage/DynamicImage";
 import Morale from "../../Morale/Morale";
 import { insertIcon } from "../Guide";
 import styles from "../Guide.module.css";
@@ -14,11 +14,11 @@ export function MoralePage() {
 		<>
         <div className={styles.flexBlock}>
             <div className={`${styles.titleImg} ${styles.moraleIcon}`}>
-                <ResizableImage src={"/UI/phase/morale.png"} alt="event" />
+                <ResizableImage src={"/UI/phase/morale.webp"} alt="event" />
             </div>
             <h2 className={styles.title}>Faza Morali</h2>
             <div className={`${styles.titleImg} ${styles.moraleIcon}`}>
-                <ResizableImage src={"/UI/phase/morale.png"} alt="event" />
+                <ResizableImage src={"/UI/phase/morale.webp"} alt="event" />
             </div>
         </div>
         <section>

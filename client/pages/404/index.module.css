@@ -1,7 +1,7 @@
 .container {
     width: 700px;
     height: 400px;
-    background: url("../../public/UI/paper-background.png");
+    background: url("../../public/UI/paper-background.webp");
     position: absolute;
     top: 50%;
     left: 50%;

@@ -1,5 +1,5 @@
 import styles from "./ResourceModifier.module.css";
-import ResizableImage from "../../../../../../ResizableImage/ResizableImage";
+import ResizableImage from "../../../../../../DynamicImage/DynamicImage";
 import React from "react";
 import { Side } from "@floating-ui/utils";
 import { TileResource } from "@shared/types/Game/TileService/ITile";
@@ -13,7 +13,7 @@ export function ResourceModifier(props: Props) {
 	return (
 		<div className={`${styles.container} ${styles[props.side]}`}>
 			<ResizableImage
-				src={`/UI/tokens/modifiers/${props.resource}.png`}
+				src={`/UI/tokens/modifiers/${props.resource}.webp`}
 				alt={"dodatkowy zasób"}
 				fill
 			/>

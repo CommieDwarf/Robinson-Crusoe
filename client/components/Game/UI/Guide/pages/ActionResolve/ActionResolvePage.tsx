@@ -1,5 +1,5 @@
 import { insertIconsIntoText } from "../../../../../../utils/insertIconsIntoText/insertIconsIntoText";
-import ResizableImage from "../../../../../ResizableImage/ResizableImage";
+import ResizableImage from "../../../../../DynamicImage/DynamicImage";
 import ActionOrder from "../../../ActionOrder/ActionOrder";
 import guideStyles from "../../Guide.module.css";
 import { ImgListItem } from "../../ImgList.tsx/ImgListItem";
@@ -11,14 +11,14 @@ export function ActionResolvePage() {
 				<div className={guideStyles.flexBlock}>
 					<div className={guideStyles.titleImg}>
 						<ResizableImage
-							src={"/UI/phase/action.png"}
+							src={"/UI/phase/action.webp"}
 							alt="action"
 						/>
 					</div>
 					<h2 className={guideStyles.title}>Faza Akcji</h2>
 					<div className={guideStyles.titleImg}>
 						<ResizableImage
-							src={"/UI/phase/action.png"}
+							src={"/UI/phase/action.webp"}
 							alt="action"
 						/>
 					</div>
@@ -63,7 +63,7 @@ export function ActionResolvePage() {
 							className={`${guideStyles.listItemImg} ${guideStyles.diceSide}`}
 						>
 							<ResizableImage
-								src={"/UI/dice/action/explore/success.png"}
+								src={"/UI/dice/action/explore/success.webp"}
 								alt="symbol sukcesu"
 							/>
 						</div>
@@ -75,7 +75,7 @@ export function ActionResolvePage() {
 						imgElement={() => (
 							<ResizableImage
 								src={
-									"/UI/dice/action/explore/determination.png"
+									"/UI/dice/action/explore/determination.webp"
 								}
 								alt="kość przygody"
 							/>
@@ -91,7 +91,7 @@ export function ActionResolvePage() {
 					<ImgListItem
 						imgElement={() => (
 							<ResizableImage
-								src={"/UI/dice/action/explore/mystery.png"}
+								src={"/UI/dice/action/explore/mystery.webp"}
 								alt="kość przygody"
 							/>
 						)}
@@ -106,7 +106,7 @@ export function ActionResolvePage() {
 					<ImgListItem
 						imgElement={() => (
 							<ResizableImage
-								src={"/UI/dice/action/explore/hurt.png"}
+								src={"/UI/dice/action/explore/hurt.webp"}
 								alt="kość przygody"
 							/>
 						)}
@@ -121,7 +121,7 @@ export function ActionResolvePage() {
 					<ImgListItem
 						imgElement={() => (
 							<ResizableImage
-								src={"/UI/dice/action/explore/blank.png"}
+								src={"/UI/dice/action/explore/blank.webp"}
 								alt="symbol sukcesu"
 							/>
 						)}

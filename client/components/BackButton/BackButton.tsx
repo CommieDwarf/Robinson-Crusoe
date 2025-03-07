@@ -1,7 +1,7 @@
 import styles from "./BackButton.module.css";
-import ResizableImage from "../ResizableImage/ResizableImage";
+import ResizableImage from "../DynamicImage/DynamicImage";
 import Link from "next/link";
-import exitIcon from "/public/UI/icons/exit4.png";
+import exitIcon from "/public/UI/icons/exit4.webp";
 
 interface Props {
     url?: string;

@@ -1,9 +1,9 @@
 // @flow
 import * as React from "react";
 import styles from "./CloudsTotal.module.css";
-import snowCloudImg from "/public/UI/weather/snow-cloud.png";
-import rainCloudImg from "/public/UI/weather/rain-cloud.png";
-import ResizableImage from "../../../../../ResizableImage/ResizableImage";
+import snowCloudImg from "/public/UI/weather/snow-cloud.webp";
+import rainCloudImg from "/public/UI/weather/rain-cloud.webp";
+import ResizableImage from "../../../../../DynamicImage/DynamicImage";
 import { IWeatherServiceRenderData } from "@shared/types/Game/Weather/Weather";
 
 type Props = {

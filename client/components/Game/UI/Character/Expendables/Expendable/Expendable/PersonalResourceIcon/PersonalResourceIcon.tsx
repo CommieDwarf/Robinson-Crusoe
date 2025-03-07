@@ -1,5 +1,5 @@
 import styles from "./PersonalResourceIcon.module.css";
-import ResizableImage from "../../../../../../../ResizableImage/ResizableImage";
+import ResizableImage from "../../../../../../../DynamicImage/DynamicImage";
 import { IBasicResourcesAmount } from "@shared/types/Game/Resources/Resources";
 
 interface Props {
@@ -11,7 +11,7 @@ export function PersonalResourceIcon(props: Props) {
 	return (
 		<div className={styles.container}>
 			<ResizableImage
-				src={`/UI/icons/${props.type}.png`}
+				src={`/UI/icons/${props.type}.webp`}
 				alt={props.type}
 			/>
 		</div>

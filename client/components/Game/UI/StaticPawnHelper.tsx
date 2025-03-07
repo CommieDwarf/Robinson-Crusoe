@@ -1,7 +1,7 @@
 import { PAWN_HELPER_ACTION } from "@shared/types/Game/Pawns/Pawn";
 import styles from "./Pawn.module.css";
 import React from "react";
-import ResizableImage from "../../ResizableImage/ResizableImage";
+import ResizableImage from "../../DynamicImage/DynamicImage";
 import { kebabCase } from "lodash";
 
 interface Props {
@@ -17,7 +17,7 @@ export function StaticPawnHelper(props: Props) {
 				} borderless`}
 			>
 				<ResizableImage
-					src={`/UI/characters/pawns/helper.png`}
+					src={`/UI/characters/pawns/helper.webp`}
 					alt={"helper"}
 				/>
 			</div>

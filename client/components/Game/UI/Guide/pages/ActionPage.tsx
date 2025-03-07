@@ -1,5 +1,5 @@
 import { kebabCase } from "lodash";
-import ResizableImage from "../../../../ResizableImage/ResizableImage";
+import ResizableImage from "../../../../DynamicImage/DynamicImage";
 import styles from "../Guide.module.css";
 import { ACTION } from "@shared/types/Game/ACTION";
 import ActionSlot from "../../ActionSlot";
@@ -11,14 +11,14 @@ export function ActionPage() {
 				<div className={styles.flexBlock}>
 					<div className={styles.titleImg}>
 						<ResizableImage
-							src={"/UI/phase/action.png"}
+							src={"/UI/phase/action.webp"}
 							alt="action"
 						/>
 					</div>
 					<h2 className={styles.title}>Faza Akcji</h2>
 					<div className={styles.titleImg}>
 						<ResizableImage
-							src={"/UI/phase/action.png"}
+							src={"/UI/phase/action.webp"}
 							alt="action"
 						/>
 					</div>
@@ -52,7 +52,7 @@ export function ActionPage() {
 							<li className={styles.li} key={i}>
 								<div className={styles.listItemImg}>
 									<ResizableImage
-										src={`/UI/actions/${kebabCase(action)}.png`} alt={""}									/>
+										src={`/UI/actions/${kebabCase(action)}.webp`} alt={""}									/>
 								</div>
 								<div className={styles.listItemDescription}>
 									{actionDesription[action]}

@@ -2,7 +2,7 @@
 import * as React from "react";
 import styles from "./RoundSquare.module.css";
 import logStyles from "../../../../../ChatLog/LogMessage/LogMessage.module.css";
-import ResizableImage from "../../../../../../../ResizableImage/ResizableImage";
+import ResizableImage from "../../../../../../../DynamicImage/DynamicImage";
 
 interface Props {
     round: number;
@@ -37,7 +37,7 @@ export function RoundSquare(props: Props) {
                     key={key}
                 >
                     <ResizableImage
-                        src={`/UI/scenarios/${key}.png`}
+                        src={`/UI/scenarios/${key}.webp`}
                         alt={"pogoda"}
                     />
                 </div>
@@ -57,7 +57,7 @@ export function RoundSquare(props: Props) {
             </div>
             <div className={`${styles.squareImg} ${props.currentRound && styles.squareImgCurrent}`}>
                 <ResizableImage
-                    src={"/UI/scenarios/squares/" + imgNumber + ".png"}
+                    src={"/UI/scenarios/squares/" + imgNumber + ".webp"}
                     className={`${styles.square} ${props.dark && styles.dark}`}
                     fill
                     alt={"runda"}
@@ -69,7 +69,7 @@ export function RoundSquare(props: Props) {
             {props.ship && (
                 <div className={styles.ship}>
                     <ResizableImage
-                        src={"/UI/scenarios/boat.png"}
+                        src={"/UI/scenarios/boat.webp"}
                         alt="Łódź"
                         fill
                         sizes={styles.ship}

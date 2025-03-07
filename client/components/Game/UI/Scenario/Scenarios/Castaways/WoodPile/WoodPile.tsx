@@ -2,9 +2,9 @@
 import * as React from "react";
 
 import styles from "./WoodPile.module.css";
-import fireImg from "/public/UI/scenarios/fire.png";
-import woodImg from "/public/UI/resources/wood.png";
-import ResizableImage from "../../../../../../ResizableImage/ResizableImage";
+import fireImg from "/public/UI/scenarios/fire.webp";
+import woodImg from "/public/UI/resources/wood.webp";
+import ResizableImage from "../../../../../../DynamicImage/DynamicImage";
 import { OTHER_CONTROLLER_ACTION } from "@shared/types/CONTROLLER_ACTION";
 import { useTranslation } from "react-i18next";
 import { capitalize } from "lodash";
@@ -32,7 +32,7 @@ export const WoodPile = (props: Props) => {
 	return (
 		<div className={styles.container}>
 			<div className={styles.frame}>
-				<ResizableImage src={"/UI/scenarios/square-frame.png"} alt="" />
+				<ResizableImage src={"/UI/scenarios/square-frame.webp"} alt="" />
 			</div>
 			<div className={styles.woodPileLvl}>
 				{scenarioService.woodStashLvl}/5
@@ -55,7 +55,7 @@ export const WoodPile = (props: Props) => {
 				}`}
 			>
 				<ResizableImage
-					src={`/UI/scenarios/castaways/woodStack${scenarioService.woodStashLvl}.png`}
+					src={`/UI/scenarios/castaways/woodStack${scenarioService.woodStashLvl}.webp`}
 					fill
 					sizes={styles.woodStack}
 					alt={"stos drewna"}

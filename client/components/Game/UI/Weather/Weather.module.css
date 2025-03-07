@@ -3,7 +3,7 @@
     grid-column: 3 / span 2;
     height: 100%;
     width: 100%;
-    background-image: url("../../../../public/UI/weather/weather-pic.png");
+    background-image: url("../../../../public/UI/weather/weather-pic.webp");
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;

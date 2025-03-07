@@ -6,15 +6,15 @@ import {ActionDice} from "@shared/types/Game/RollDice/RollDice";
 import {sleep} from "@shared/utils/sleep";
 import {RESOLVE_ITEM_STATUS} from "@shared/types/Game/ActionService/IResolvableItem";
 import {NextActionButton} from "./NextActionButton/NextActionButton";
-import redArrowImg from "/public/UI/misc/red-arrow.png";
+import redArrowImg from "/public/UI/misc/red-arrow.webp";
 import {isAdventureAction} from "@shared/utils/typeGuards/isAdventureAction";
-import ResizableImage from "../../../ResizableImage/ResizableImage";
+import ResizableImage from "../../../DynamicImage/DynamicImage";
 import {CHARACTER, ICharacterRenderData} from "@shared/types/Game/Characters/Character";
 import {ACTION_CONTROLLER_ACTION, CHARACTER_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import sharedStyles from "../../../../styles/shared.module.css";
 import Draggable from "react-draggable";
 import {RollDiceWindow} from "./RollDiceWindow/RollDiceWindow";
-import actionIconImg from "/public/UI/phase/action.png";
+import actionIconImg from "/public/UI/phase/action.webp";
 import {capitalize, kebabCase} from "lodash";
 import {useTranslation} from "react-i18next";
 import {useAppDispatch, useAppSelector} from "../../../../store/hooks";
@@ -212,7 +212,7 @@ export const ActionResolveWindow = () => {
                     }))}</div>
                     <div className={styles.actionIcon}>
                         <ResizableImage
-                            src={`/UI/actions/${kebabCase(actionService.action)}.png`}
+                            src={`/UI/actions/${kebabCase(actionService.action)}.webp`}
                             alt={"akcja"}
                         />
                     </div>

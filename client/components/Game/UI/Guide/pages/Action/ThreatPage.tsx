@@ -1,4 +1,4 @@
-import ResizableImage from "../../../../../ResizableImage/ResizableImage";
+import ResizableImage from "../../../../../DynamicImage/DynamicImage";
 import styles from "../../Guide.module.css";
 
 export function ThreatPage() {
@@ -8,14 +8,14 @@ export function ThreatPage() {
 				<div className={styles.flexBlock}>
 					<div className={styles.titleImg}>
 						<ResizableImage
-							src={"/UI/phase/action.png"}
+							src={"/UI/phase/action.webp"}
 							alt="action"
 						/>
 					</div>
 					<h2 className={styles.title}>Faza Akcji</h2>
 					<div className={styles.titleImg}>
 						<ResizableImage
-							src={"/UI/phase/action.png"}
+							src={"/UI/phase/action.webp"}
 							alt="action"
 						/>
 					</div>
@@ -23,14 +23,14 @@ export function ThreatPage() {
 				<div className={styles.flexBlock}>
 					<div className={styles.titleImg}>
 						<ResizableImage
-							src={"/UI/actions/threat.png"}
+							src={"/UI/actions/threat.webp"}
 							alt="action"
 						/>
 					</div>
 					<h2 className={styles.subTitle}>Zagrożenie</h2>
 					<div className={styles.titleImg}>
 						<ResizableImage
-							src={"/UI/actions/threat.png"}
+							src={"/UI/actions/threat.webp"}
 							alt="action"
 						/>
 					</div>
@@ -38,7 +38,7 @@ export function ThreatPage() {
 				<div className={styles.flexBlock}>
 					<div className={styles.cardExampleImg}>
 						<ResizableImage
-							src="/UI/guide/event/event-card-example.png"
+							src="/UI/guide/event/event-card-example.webp"
 							alt="event card example"
 						/>
 					</div>
@@ -76,7 +76,7 @@ export function ThreatPage() {
 					<li className={styles.li}>
 						<div className={styles.listItemImg}>
 							<ResizableImage
-								src="/UI/characters/pawns/helper.png"
+								src="/UI/characters/pawns/helper.webp"
 								alt="pionek"
 							/>
 						</div>
@@ -87,7 +87,7 @@ export function ThreatPage() {
 					<li className={styles.li}>
 						<div className={styles.listItemImg}>
 							<ResizableImage
-								src="/UI/icons/weapon.png"
+								src="/UI/icons/weapon.webp"
 								alt="broń"
 							/>
 						</div>
@@ -102,7 +102,7 @@ export function ThreatPage() {
 					<li className={styles.li}>
 						<div className={styles.listItemImg}>
 							<ResizableImage
-								src="/UI/icons/wood.png"
+								src="/UI/icons/wood.webp"
 								alt="broń"
 							/>
 						</div>
@@ -114,7 +114,7 @@ export function ThreatPage() {
 					<li className={styles.li}>
 						<div className={styles.listItemImg}>
 							<ResizableImage
-								src="/UI/icons/shovel.png"
+								src="/UI/icons/shovel.webp"
 								alt="broń"
 							/>
 						</div>

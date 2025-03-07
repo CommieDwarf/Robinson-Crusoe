@@ -6,8 +6,8 @@ import { RootState } from "../../../../store/store";
 import { connect } from "react-redux";
 import { IEventCardRenderData } from "@shared/types/Game/EventService/EventCard";
 import { ThreatSlot } from "./ThreatSlot/ThreatSlot";
-import redArrowImg from "/public/UI/misc/red-arrow.png";
-import ResizableImage from "components/ResizableImage/ResizableImage";
+import redArrowImg from "/public/UI/misc/red-arrow.webp";
+import ResizableImage from "components/DynamicImage/DynamicImage";
 
 interface StateProps {
 	leftSlot: IEventCardRenderData | null;

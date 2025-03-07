@@ -27,7 +27,7 @@
 .menu {
     display: flex;
     flex-direction: column;
-    background-image: url("../../../../public/UI/paper-background.png");
+    background-image: url("../../../../public/UI/paper-background.webp");
     background-size: 100vh;
     border: 1px solid var(--borderColor);
     padding: 0 3% 0 5%;

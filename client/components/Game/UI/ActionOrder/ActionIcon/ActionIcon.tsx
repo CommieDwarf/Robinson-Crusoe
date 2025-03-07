@@ -1,11 +1,11 @@
 import styles from "../ActionOrder.module.css";
-import ResizableImage from "../../../../ResizableImage/ResizableImage";
+import ResizableImage from "../../../../DynamicImage/DynamicImage";
 import React from "react";
 import { ACTION } from "@shared/types/Game/ACTION";
 import { kebabCase } from "lodash";
 import { isAdventureAction } from "@shared/utils/typeGuards/isAdventureAction";
-import reRollTokenImg from "/public/UI/tokens/reroll.png";
-import timeConsumingActionToken from "/public/UI/tokens/time-consuming-action.png";
+import reRollTokenImg from "/public/UI/tokens/reroll.webp";
+import timeConsumingActionToken from "/public/UI/tokens/time-consuming-action.webp";
 import { selectActionService } from "../../../../../reduxSlices/gameSession";
 import { RootState } from "../../../../../store/store";
 import { createSelector } from "reselect";
@@ -36,7 +36,7 @@ const selectTokensByAction = createSelector(
 );
 
 export function ActionIcon(props: Props) {
-	let adventureTokenSrc = `/UI/actions/${kebabCase(props.action)}.png`;
+	let adventureTokenSrc = `/UI/actions/${kebabCase(props.action)}.webp`;
 	let reRollToken;
 	let timeConsumingActionIcon;
 
@@ -46,7 +46,7 @@ export function ActionIcon(props: Props) {
 
 	if (isAdventureAction(props.action) && tokenModifiers) {
 		if (tokenModifiers.adventure) {
-			adventureTokenSrc = `/UI/tokens/adventure/${props.action}.png`;
+			adventureTokenSrc = `/UI/tokens/adventure/${props.action}.webp`;
 		}
 
 		if (tokenModifiers.reRoll) {

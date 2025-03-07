@@ -1,5 +1,5 @@
-import redArrowImg from "/public/UI/misc/red-arrow.png";
-import ResizableImage from "../../../ResizableImage/ResizableImage";
+import redArrowImg from "/public/UI/misc/red-arrow.webp";
+import ResizableImage from "../../../DynamicImage/DynamicImage";
 import styles from "./ActionOrder.module.css";
 import React from "react";
 import {actionOrder} from "@shared/constants/actionOrder";

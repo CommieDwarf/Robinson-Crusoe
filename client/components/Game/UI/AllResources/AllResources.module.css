@@ -1,6 +1,6 @@
 .container {
     position: relative;
-    background-image: url("../../../../public/UI/resources/background.jpg");
+    background-image: url("../../../../public/UI/resources/background.webp");
     background-size: contain;
     font-weight: bold;
     grid-column: 3 / span 2;

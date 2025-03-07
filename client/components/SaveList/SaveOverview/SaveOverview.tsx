@@ -1,7 +1,7 @@
 import styles from "./SaveOverview.module.css";
 import { SaveOverview as SaveOverviewType } from "@shared/types/SaveGame";
-import ResizableImage from "../../ResizableImage/ResizableImage";
-import playersIconImg from "/public/UI/icons/players.png";
+import ResizableImage from "../../DynamicImage/DynamicImage";
+import playersIconImg from "/public/UI/icons/players.webp";
 
 interface Props {
 	save: SaveOverviewType;

@@ -1,8 +1,8 @@
 // @flow
 import * as React from "react";
 import styles from "./ConfirmCampMove.module.css";
-import redArrowImg from "/public/UI/misc/red-arrow.png";
-import ResizableImage from "../../../ResizableImage/ResizableImage";
+import redArrowImg from "/public/UI/misc/red-arrow.webp";
+import ResizableImage from "../../../DynamicImage/DynamicImage";
 
 import { ITileRenderData } from "@shared/types/Game/TileService/ITile";
 import { TILE_CONTROLLER_ACTION } from "@shared/types/CONTROLLER_ACTION";
@@ -43,7 +43,7 @@ export const ConfirmCampMove = (props: Props) => {
 						src={
 							"/UI/Map/tiles/" +
 							currentCamp?.tileResourceService?.id +
-							".png"
+							".webp"
 						}
 						alt={"Obecny obóz"}
 						fill
@@ -63,7 +63,7 @@ export const ConfirmCampMove = (props: Props) => {
 						src={
 							"/UI/Map/tiles/" +
 							props.nextCamp.tileResourceService?.id +
-							".png"
+							".webp"
 						}
 						alt={"Przyszły obóz"}
 						fill

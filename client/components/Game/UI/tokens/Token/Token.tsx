@@ -1,7 +1,7 @@
 // @flow
 import * as React from "react";
 import styles from "./Token.module.css";
-import ResizableImage from "../../../../ResizableImage/ResizableImage";
+import ResizableImage from "../../../../DynamicImage/DynamicImage";
 import { kebabCase } from "lodash";
 import { objectsEqual } from "@shared/utils/objectsEqual";
 import { ITokenRenderData } from "@shared/types/Game/TokenService/Token";
@@ -37,7 +37,7 @@ const Token = (props: Props) => {
 			onMouseOutCapture={props.mouseLeaveToken}
 		>
 			<ResizableImage
-				src={`/UI/tokens/discovery/${kebabCase(props.token.name)}.png`}
+				src={`/UI/tokens/discovery/${kebabCase(props.token.name)}.webp`}
 				fill
 				alt={"token"}
 				sizes={styles.token}

@@ -1,5 +1,5 @@
 import { insertIconsIntoText } from "../../../../../../utils/insertIconsIntoText/insertIconsIntoText";
-import ResizableImage from "../../../../../ResizableImage/ResizableImage";
+import ResizableImage from "../../../../../DynamicImage/DynamicImage";
 import styles from "../../Guide.module.css";
 import { ImgListItem } from "../../ImgList.tsx/ImgListItem";
 
@@ -10,14 +10,14 @@ export function HuntPage() {
 				<div className={styles.flexBlock}>
 					<div className={styles.titleImg}>
 						<ResizableImage
-							src={"/UI/phase/action.png"}
+							src={"/UI/phase/action.webp"}
 							alt="action"
 						/>
 					</div>
 					<h2 className={styles.title}>Faza Akcji</h2>
 					<div className={styles.titleImg}>
 						<ResizableImage
-							src={"/UI/phase/action.png"}
+							src={"/UI/phase/action.webp"}
 							alt="action"
 						/>
 					</div>
@@ -25,14 +25,14 @@ export function HuntPage() {
 				<div className={styles.flexBlock}>
 					<div className={styles.titleImg}>
 						<ResizableImage
-							src={"/UI/actions/hunt.png"}
+							src={"/UI/actions/hunt.webp"}
 							alt="action"
 						/>
 					</div>
 					<h2 className={styles.subTitle}>Polowanie</h2>
 					<div className={styles.titleImg}>
 						<ResizableImage
-							src={"/UI/actions/hunt.png"}
+							src={"/UI/actions/hunt.webp"}
 							alt="action"
 						/>
 					</div>
@@ -51,7 +51,7 @@ export function HuntPage() {
 				<div className={styles.flexBlock}>
 					<div className={styles.card}>
 						<ResizableImage
-							src={"/UI/cards/beasts/tiger.png"}
+							src={"/UI/cards/beasts/tiger.webp"}
 							alt="karta bestii"
 						/>
 					</div>
@@ -66,7 +66,7 @@ export function HuntPage() {
 					<ImgListItem
 						imgElement={() => (
 							<ResizableImage
-								src={"/UI/misc/black-skull.png"}
+								src={"/UI/misc/black-skull.webp"}
 								alt={"siła"}
 							/>
 						)}
@@ -83,7 +83,7 @@ export function HuntPage() {
 					<ImgListItem
 						imgElement={() => (
 							<ResizableImage
-								src={"/UI/icons/weapon.png"}
+								src={"/UI/icons/weapon.webp"}
 								alt={"spadek poziomu broni"}
 							/>
 						)}
@@ -98,7 +98,7 @@ export function HuntPage() {
 					<ImgListItem
 						imgElement={() => (
 							<ResizableImage
-								src={"/UI/icons/food.png"}
+								src={"/UI/icons/food.webp"}
 								alt={"jedzenie"}
 							/>
 						)}
@@ -111,7 +111,7 @@ export function HuntPage() {
 					<ImgListItem
 						imgElement={() => (
 							<ResizableImage
-								src={"/UI/resources/leather.png"}
+								src={"/UI/resources/leather.webp"}
 								alt={"jedzenie"}
 							/>
 						)}

@@ -1,4 +1,4 @@
-import ResizableImage from "../../../../../ResizableImage/ResizableImage";
+import ResizableImage from "../../../../../DynamicImage/DynamicImage";
 import { insertIcon } from "../../Guide";
 import styles from "../../Guide.module.css";
 import { ImgListItem } from "../../ImgList.tsx/ImgListItem";
@@ -10,14 +10,14 @@ export function ExplorePage() {
 				<div className={styles.flexBlock}>
 					<div className={styles.titleImg}>
 						<ResizableImage
-							src={"/UI/phase/action.png"}
+							src={"/UI/phase/action.webp"}
 							alt="action"
 						/>
 					</div>
 					<h2 className={styles.title}>Faza Akcji</h2>
 					<div className={styles.titleImg}>
 						<ResizableImage
-							src={"/UI/phase/action.png"}
+							src={"/UI/phase/action.webp"}
 							alt="action"
 						/>
 					</div>
@@ -25,14 +25,14 @@ export function ExplorePage() {
 				<div className={styles.flexBlock}>
 					<div className={styles.titleImg}>
 						<ResizableImage
-							src={"/UI/actions/explore.png"}
+							src={"/UI/actions/explore.webp"}
 							alt="action"
 						/>
 					</div>
 					<h2 className={styles.subTitle}>Exploracja</h2>
 					<div className={styles.titleImg}>
 						<ResizableImage
-							src={"/UI/actions/explore.png"}
+							src={"/UI/actions/explore.webp"}
 							alt="action"
 						/>
 					</div>
@@ -53,7 +53,7 @@ export function ExplorePage() {
 				<div className={styles.flexBlock}>
 					<div className={styles.exampleImg}>
 						<ResizableImage
-							src={"/UI/map/tiles/8.png"}
+							src={"/UI/map/tiles/8.webp"}
 							alt={"kafelek"}
 						/>
 					</div>
@@ -69,7 +69,7 @@ export function ExplorePage() {
 						imgElement={() => (
 							<>
 								<ResizableImage
-									src={"/UI/misc/parrot.png"}
+									src={"/UI/misc/parrot.webp"}
 									alt={"źródło pożywienia"}
 									style={{ scale: "0.9" }}
 								/>
@@ -85,7 +85,7 @@ export function ExplorePage() {
 					<ImgListItem
 						imgElement={() => (
 							<ResizableImage
-								src={"/UI/misc/beast.png"}
+								src={"/UI/misc/beast.webp"}
 								alt="bestia"
 								style={{ scale: "0.9" }}
 							/>
@@ -100,7 +100,7 @@ export function ExplorePage() {
 					<ImgListItem
 						imgElement={() => (
 							<ResizableImage
-								src={"/UI/misc/discovery-token.png"}
+								src={"/UI/misc/discovery-token.webp"}
 								alt="żeton odkryć"
 								style={{ scale: "0.9" }}
 							/>
@@ -115,7 +115,7 @@ export function ExplorePage() {
 					<ImgListItem
 						imgElement={() => (
 							<ResizableImage
-								src={"/UI/misc/natural-shelter.png"}
+								src={"/UI/misc/natural-shelter.webp"}
 								alt="żeton odkryć"
 							/>
 						)}
@@ -132,7 +132,7 @@ export function ExplorePage() {
 					<ImgListItem
 						imgElement={() => (
 							<ResizableImage
-								src={"/UI/misc/totem.png"}
+								src={"/UI/misc/totem.webp"}
 								alt="żeton odkryć"
 							/>
 						)}
@@ -146,7 +146,7 @@ export function ExplorePage() {
 					<ImgListItem
 						imgElement={() => (
 							<ResizableImage
-								src={"/UI/misc/terrain.png"}
+								src={"/UI/misc/terrain.webp"}
 								alt="rodzaj terenu"
 							/>
 						)}

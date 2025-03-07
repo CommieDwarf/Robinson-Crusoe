@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Tile.module.css";
 import { MoveCampArrow } from "./MoveCampArrow/MoveCampArrow";
-import ResizableImage from "../../../../ResizableImage/ResizableImage";
+import ResizableImage from "../../../../DynamicImage/DynamicImage";
 import { ITileRenderData } from "@shared/types/Game/TileService/ITile";
 import { TILE_CONTROLLER_ACTION } from "@shared/types/CONTROLLER_ACTION";
 import { useAppDispatch, useAppSelector } from "../../../../../store/hooks";
@@ -79,7 +79,7 @@ export default function Tile(props: Props) {
 				<>
 					<div className={styles.tile}>
 						<ResizableImage
-							src={`/UI/map/tiles/${imgId}.png`}
+							src={`/UI/map/tiles/${imgId}.webp`}
 							alt={"kafelek"}
 						/>
 					</div>
@@ -91,7 +91,7 @@ export default function Tile(props: Props) {
 							<ResizableImage
 								src={`/UI/tokens/${
 									shelterBuilt ? "shelter" : "camp"
-								}.png`}
+								}.webp`}
 								fill
 								alt={"obóz"}
 							/>

@@ -1,8 +1,8 @@
-import treasureIcon from "/public/UI/misc/treasure.png";
-import plusImg from "/public/UI/misc/plus.png";
-import minusImg from "/public/UI/misc/minus.png";
+import treasureIcon from "/public/UI/misc/treasure.webp";
+import plusImg from "/public/UI/misc/plus.webp";
+import minusImg from "/public/UI/misc/minus.webp";
 import styles from "./UseButtons.module.css";
-import ResizableImage from "../../../../../../../ResizableImage/ResizableImage";
+import ResizableImage from "../../../../../../../DynamicImage/DynamicImage";
 import {kebabCase} from "lodash";
 import {ITreasureMysteryCardRenderData} from "@shared/types/Game/MysteryService/MysteryCard";
 import {isStorageCard} from "@shared/utils/typeGuards/isStorageCard";
@@ -50,7 +50,7 @@ export default function UseButtons(props: Props) {
 
     if (isStorageCard(props.card) && props.card.stored) {
         Object.entries(props.card.stored).forEach(([res, amount]) => {
-            const sourceImg = `/UI/resources/${kebabCase(res)}.png`;
+            const sourceImg = `/UI/resources/${kebabCase(res)}.webp`;
             for (let i = 0; i < amount; i++) {
                 resources.push(
                     <div className={styles.resource}>

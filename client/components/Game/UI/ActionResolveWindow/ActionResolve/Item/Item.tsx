@@ -3,8 +3,8 @@ import * as React from "react";
 import { useState } from "react";
 import styles from "./Item.module.css";
 import { Tokens } from "./Tokens/Tokens";
-import reRollTokenImg from "/public/UI/tokens/reroll.png";
-import ResizableImage from "../../../../../ResizableImage/ResizableImage";
+import reRollTokenImg from "/public/UI/tokens/reroll.webp";
+import ResizableImage from "../../../../../DynamicImage/DynamicImage";
 import {
 	IResolvableItemRenderData,
 	RESOLVE_ITEM_STATUS,
@@ -64,7 +64,7 @@ export const Item = (props: Props) => {
 		image = (
 			<div className={styles.threat}>
 				<ResizableImage
-					src={`/UI/cards/event/${kebabCase(card.name)}.png`}
+					src={`/UI/cards/event/${kebabCase(card.name)}.webp`}
 					alt={card.name}
 				/>
 			</div>
@@ -74,7 +74,7 @@ export const Item = (props: Props) => {
 		image = (
 			<div className={styles.hunt}>
 				<ResizableImage
-					src={`/UI/cards/beasts/${kebabCase(beast.name)}.png`}
+					src={`/UI/cards/beasts/${kebabCase(beast.name)}.webp`}
 					alt={beast.name}
 				/>
 			</div>
@@ -91,7 +91,7 @@ export const Item = (props: Props) => {
 				<ResizableImage
 					src={`/UI/inventions/${invention.inventionType}/${kebabCase(
 						invention.name
-					)}${reverse}.png`}
+					)}${reverse}.webp`}
 					alt={invention.name}
 				/>
 			</div>
@@ -109,7 +109,7 @@ export const Item = (props: Props) => {
 				<ResizableImage
 					src={`/UI/constructions/${kebabCase(
 						construction.name
-					)}.png`}
+					)}.webp`}
 					alt={construction.name}
 				/>
 			</div>
@@ -137,7 +137,7 @@ export const Item = (props: Props) => {
 		image = (
 			<div className={styles.tile}>
 				<ResizableImage
-					src={`/UI/map/tiles/${id}.png`}
+					src={`/UI/map/tiles/${id}.webp`}
 					alt={"kafelek"}
 				/>
 			</div>
@@ -151,7 +151,7 @@ export const Item = (props: Props) => {
 					<span className={styles.gatherAmount}>1</span>
 					<div className={styles.resourceIcon}>
 						<ResizableImage
-							src={`/UI/resources/${tile.tileResourceService?.resources[side].resource}.png`}
+							src={`/UI/resources/${tile.tileResourceService?.resources[side].resource}.webp`}
 							alt={"surowiec"}
 						/>
 					</div>
@@ -164,7 +164,7 @@ export const Item = (props: Props) => {
 				<ResizableImage
 					src={`/UI/actions/${kebabCase(
 						props.resolvableItem.action
-					)}-picture.png`}
+					)}-picture.webp`}
 					alt={props.resolvableItem.action}
 				/>
 			</div>

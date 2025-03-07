@@ -2,10 +2,10 @@
 import * as React from "react";
 import styles from "./Header.module.css";
 import { RoundSquare } from "../../Scenario/Scenarios/Castaways/Rounds/RoundSquare/RoundSquare";
-import weatherImg from "/public/UI/phase/weather.png";
-import redArrowImg from "/public/UI/misc/red-arrow.png";
-import nightImg from "/public/UI/phase/night.png";
-import ResizableImage from "../../../../ResizableImage/ResizableImage";
+import weatherImg from "/public/UI/phase/weather.webp";
+import redArrowImg from "/public/UI/misc/red-arrow.webp";
+import nightImg from "/public/UI/phase/night.webp";
+import ResizableImage from "../../../../DynamicImage/DynamicImage";
 import { OTHER_CONTROLLER_ACTION } from "@shared/types/CONTROLLER_ACTION";
 import { useAppDispatch } from "../../../../../store/hooks";
 import { socketEmitAction } from "../../../../../middleware/socketMiddleware";

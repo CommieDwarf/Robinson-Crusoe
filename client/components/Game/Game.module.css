@@ -24,7 +24,7 @@
 	grid-template-rows: 2fr 12fr 8fr 3fr 1fr 2fr;
 	position: relative;
 	display: inline-grid;
-	background-image: url("../../public/UI/paper-background.png");
+	background-image: url("../../public/UI/paper-background.webp");
 	background-size: cover;
 	background-repeat: no-repeat;
 	font-size: 1.3cqh;

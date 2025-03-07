@@ -1,4 +1,4 @@
-import ResizableImage from "../../../../../ResizableImage/ResizableImage";
+import ResizableImage from "../../../../../DynamicImage/DynamicImage";
 import styles from "../../Guide.module.css";
 
 export function RestPage() {
@@ -8,14 +8,14 @@ export function RestPage() {
 				<div className={styles.flexBlock}>
 					<div className={styles.titleImg}>
 						<ResizableImage
-							src={"/UI/phase/action.png"}
+							src={"/UI/phase/action.webp"}
 							alt="action"
 						/>
 					</div>
 					<h2 className={styles.title}>Faza Akcji</h2>
 					<div className={styles.titleImg}>
 						<ResizableImage
-							src={"/UI/phase/action.png"}
+							src={"/UI/phase/action.webp"}
 							alt="action"
 						/>
 					</div>
@@ -23,14 +23,14 @@ export function RestPage() {
 				<div className={styles.flexBlock}>
 					<div className={styles.titleImg}>
 						<ResizableImage
-							src={"/UI/actions/rest.png"}
+							src={"/UI/actions/rest.webp"}
 							alt="action"
 						/>
 					</div>
 					<h2 className={styles.subTitle}>Odpoczynek</h2>
 					<div className={styles.titleImg}>
 						<ResizableImage
-							src={"/UI/actions/rest.png"}
+							src={"/UI/actions/rest.webp"}
 							alt="action"
 						/>
 					</div>

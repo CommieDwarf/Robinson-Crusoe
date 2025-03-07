@@ -1,8 +1,8 @@
 // @flow
 import * as React from "react";
 import styles from "./Tokens.module.css";
-import reRollTokenImg from "/public/UI/tokens/reroll.png";
-import ResizableImage from "../../../../../../ResizableImage/ResizableImage";
+import reRollTokenImg from "/public/UI/tokens/reroll.webp";
+import ResizableImage from "../../../../../../DynamicImage/DynamicImage";
 import {ACTION} from "@shared/types/Game/ACTION";
 import {isAdventureAction} from "@shared/utils/typeGuards/isAdventureAction";
 import {ActionTokens} from "@shared/types/Game/ActionService/ActionService";
@@ -26,7 +26,7 @@ export const Tokens = (props: Props) => {
             {isAdventureAction(props.action) && props.adventureTokens[props.action] && (
                 <div className={styles.token}>
                     <ResizableImage
-                        src={`/UI/tokens/adventure/${props.action}.png`}
+                        src={`/UI/tokens/adventure/${props.action}.webp`}
                         alt={"przerzut sukcesu"}
                     />
                 </div>

@@ -1,8 +1,8 @@
 // @flow
 import * as React from "react";
 import styles from "./ResourceActionButton.module.css";
-import circleImg from "/public/UI/misc/red-circle-2.png";
-import ResizableImage from "../../../../../../ResizableImage/ResizableImage";
+import circleImg from "/public/UI/misc/red-circle-2.webp";
+import ResizableImage from "../../../../../../DynamicImage/DynamicImage";
 import { TILE_CONTROLLER_ACTION } from "@shared/types/CONTROLLER_ACTION";
 import { socketEmitAction } from "../../../../../../../middleware/socketMiddleware";
 import { useAppDispatch } from "../../../../../../../store/hooks";

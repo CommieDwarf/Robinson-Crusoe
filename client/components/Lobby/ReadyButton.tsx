@@ -1,8 +1,8 @@
 import styles from "./ReadyButton.module.css";
-import ResizableImage from "../ResizableImage/ResizableImage";
-import circleImg from "/public/UI/misc/black-circle.png";
-import checkMark from "/public/UI/misc/check-mark.png";
-import xMarkImg from "/public/UI/misc/x-mark.png";
+import ResizableImage from "../DynamicImage/DynamicImage";
+import circleImg from "/public/UI/misc/black-circle.webp";
+import checkMark from "/public/UI/misc/check-mark.webp";
+import xMarkImg from "/public/UI/misc/x-mark.webp";
 
 interface Props {
 	ready: boolean;

@@ -2,12 +2,12 @@ import React from "react";
 import Pawn from "../../Pawn";
 import styles from "./SideCharacters.module.css";
 import { Droppable } from "react-beautiful-dnd";
-import fridayPicImg from "/public/UI/characters/side-characters/friday-pic.png";
-import dogPicImg from "/public/UI/characters/side-characters/dog-pic.png";
-import dogUsageImg from "/public/UI/characters/dog-usage.png";
+import fridayPicImg from "/public/UI/characters/side-characters/friday-pic.webp";
+import dogPicImg from "/public/UI/characters/side-characters/dog-pic.webp";
+import dogUsageImg from "/public/UI/characters/dog-usage.webp";
 import { useAppSelector } from "../../../../../store/hooks";
-import ResizableImage from "../../../../ResizableImage/ResizableImage";
-import determinationTokenImg from "/public/UI/tokens/determination.png";
+import ResizableImage from "../../../../DynamicImage/DynamicImage";
+import determinationTokenImg from "/public/UI/tokens/determination.webp";
 import { objectsEqual } from "@shared/utils/objectsEqual";
 import { getOwnedDroppableId } from "@shared/utils/getOwnedDroppableId";
 import { ISideCharacterRenderData } from "@shared/types/Game/Characters/SideCharacter";
@@ -40,7 +40,7 @@ function SideCharacters(props: Props) {
 					<div className={styles.disableOverlay}>
 						<div className={styles.diagnal}>
 							<ResizableImage
-								src={"/UI/misc/cross-line.png"}
+								src={"/UI/misc/cross-line.webp"}
 								alt=""
 							/>
 						</div>
@@ -107,7 +107,7 @@ function SideCharacters(props: Props) {
 					<div className={styles.disableOverlay}>
 						<div className={styles.diagnal}>
 							<ResizableImage
-								src={"/UI/misc/cross-line.png"}
+								src={"/UI/misc/cross-line.webp"}
 								alt=""
 							/>
 						</div>

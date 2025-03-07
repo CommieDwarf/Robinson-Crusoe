@@ -2,8 +2,8 @@ import styles from "./CostBlock.module.css";
 
 import { Record } from "./Record/Record";
 import React from "react";
-import crossLineImg from "/public/UI/misc/cross-line.png";
-import ResizableImage from "../../../../../ResizableImage/ResizableImage";
+import crossLineImg from "/public/UI/misc/cross-line.webp";
+import ResizableImage from "../../../../../DynamicImage/DynamicImage";
 import { IBasicResourcesAmount } from "@shared/types/Game/Resources/Resources";
 
 interface ResourceCost {

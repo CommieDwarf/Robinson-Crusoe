@@ -29,7 +29,7 @@
 }
 
 .scroll::-webkit-scrollbar-thumb:horizontal {
-	background-image: url("../../../../public/UI/misc/board.jpg");
+	background-image: url("../../../../public/UI/misc/board.webp");
 	background-size: cover;
 	border-radius: 5px;
 	border: 1px solid var(--borderColor);

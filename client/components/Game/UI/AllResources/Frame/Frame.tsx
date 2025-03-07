@@ -1,9 +1,9 @@
 // @flow
 import * as React from "react";
 import styles from "./Frame.module.css";
-import boardImg from "/public/UI/misc/board.jpg";
-import boardVertImg from "/public/UI/misc/board-vert.jpg";
-import ResizableImage from "../../../../ResizableImage/ResizableImage";
+import boardImg from "/public/UI/misc/board.webp";
+import boardVertImg from "/public/UI/misc/board-vert.webp";
+import ResizableImage from "../../../../DynamicImage/DynamicImage";
 
 type Props = {};
 export const Frame = (props: Props) => {

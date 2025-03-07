@@ -1,5 +1,5 @@
 import styles from "./CharacterImg.module.css";
-import ResizableImage from "../../../../ResizableImage/ResizableImage";
+import ResizableImage from "../../../../DynamicImage/DynamicImage";
 import React from "react";
 import Entries from "@shared/types/Entries";
 import {
@@ -38,7 +38,7 @@ export default function CharacterImg({ character }: Props) {
 			<div className={styles.characterPicture}>
 				{wounds}
 				<ResizableImage
-					src={`/UI/characters/player-characters/${charImgName}.png`}
+					src={`/UI/characters/player-characters/${charImgName}.webp`}
 					fill
 					alt="character"
 					sizes={styles.characterPicture}

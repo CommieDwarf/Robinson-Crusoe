@@ -1,4 +1,4 @@
-import ResizableImage from "../../../../../ResizableImage/ResizableImage";
+import ResizableImage from "../../../../../DynamicImage/DynamicImage";
 import styles from "../../Guide.module.css";
 
 export function ArrangeCampPage() {
@@ -8,14 +8,14 @@ export function ArrangeCampPage() {
 				<div className={styles.flexBlock}>
 					<div className={styles.titleImg}>
 						<ResizableImage
-							src={"/UI/phase/action.png"}
+							src={"/UI/phase/action.webp"}
 							alt="action"
 						/>
 					</div>
 					<h2 className={styles.title}>Faza Akcji</h2>
 					<div className={styles.titleImg}>
 						<ResizableImage
-							src={"/UI/phase/action.png"}
+							src={"/UI/phase/action.webp"}
 							alt="action"
 						/>
 					</div>
@@ -23,14 +23,14 @@ export function ArrangeCampPage() {
 				<div className={styles.flexBlock}>
 					<div className={styles.titleImg}>
 						<ResizableImage
-							src={"/UI/actions/arrange-camp.png"}
+							src={"/UI/actions/arrange-camp.webp"}
 							alt="action"
 						/>
 					</div>
 					<h2 className={styles.subTitle}>PorzĄdkowanie Obozu</h2>
 					<div className={styles.titleImg}>
 						<ResizableImage
-							src={"/UI/actions/arrange-camp.png"}
+							src={"/UI/actions/arrange-camp.webp"}
 							alt="action"
 						/>
 					</div>

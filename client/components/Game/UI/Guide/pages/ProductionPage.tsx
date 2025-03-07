@@ -1,4 +1,4 @@
-import ResizableImage from "../../../../ResizableImage/ResizableImage";
+import ResizableImage from "../../../../DynamicImage/DynamicImage";
 import { insertIcon } from "../Guide";
 import styles from "../Guide.module.css";
 import { ClickNextPhaseSection } from "./ClickNextPhaseSection";
@@ -15,7 +15,7 @@ export function ProductionPage() {
 				<div className={styles.flexBlock}>
 					<div className={styles.tile}>
 						<ResizableImage
-							src="/UI/map/tiles/0.png"
+							src="/UI/map/tiles/0.webp"
 							alt="kafelek"
 						/>
 					</div>

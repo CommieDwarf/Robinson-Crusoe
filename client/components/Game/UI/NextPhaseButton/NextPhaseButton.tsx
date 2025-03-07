@@ -1,8 +1,8 @@
 // @flow
 import * as React from "react";
 import styles from "./NextPhaseButton.module.css";
-import compassImg from "/public/UI/tokens/compass.png";
-import ResizableImage from "../../../ResizableImage/ResizableImage";
+import compassImg from "/public/UI/tokens/compass.webp";
+import ResizableImage from "../../../DynamicImage/DynamicImage";
 import {
 	socketEmitAction,
 } from "../../../../middleware/socketMiddleware";

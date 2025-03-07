@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./UserAvatar.module.css";
-import ResizableImage from "../../ResizableImage/ResizableImage";
+import ResizableImage from "../../DynamicImage/DynamicImage";
 import { useAppSelector } from "../../../store/hooks";
 import config from "../../../config/config";
 import { toast } from "react-toastify";

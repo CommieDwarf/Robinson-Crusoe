@@ -1,8 +1,8 @@
 import styles from "./TileModifier.module.css";
-import ResizableImage from "../../../../../ResizableImage/ResizableImage";
-import timeConsumingActionToken from "/public/UI/tokens/time-consuming-action.png";
-import greaterDangerToken from "/public/UI/tokens/greater-danger.png";
-import xMarkImg from "/public/UI/misc/x-mark.png";
+import ResizableImage from "../../../../../DynamicImage/DynamicImage";
+import timeConsumingActionToken from "/public/UI/tokens/time-consuming-action.webp";
+import greaterDangerToken from "/public/UI/tokens/greater-danger.webp";
+import xMarkImg from "/public/UI/misc/x-mark.webp";
 import React from "react";
 
 interface Props {

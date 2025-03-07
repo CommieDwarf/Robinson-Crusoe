@@ -1,4 +1,4 @@
-import ResizableImage from "../../../../ResizableImage/ResizableImage";
+import ResizableImage from "../../../../DynamicImage/DynamicImage";
 import guideStyles from "../Guide.module.css";
 
 export function NightPage() {
@@ -8,13 +8,13 @@ export function NightPage() {
 				<div
 					className={`${guideStyles.titleImg} ${guideStyles.moraleIcon}`}
 				>
-					<ResizableImage src={"/UI/phase/night.png"} alt="event" />
+					<ResizableImage src={"/UI/phase/night.webp"} alt="event" />
 				</div>
 				<h2 className={guideStyles.title}>Faza Nocy</h2>
 				<div
 					className={`${guideStyles.titleImg} ${guideStyles.moraleIcon}`}
 				>
-					<ResizableImage src={"/UI/phase/night.png"} alt="event" />
+					<ResizableImage src={"/UI/phase/night.webp"} alt="event" />
 				</div>
 			</div>
 				<ul className={guideStyles.list}>

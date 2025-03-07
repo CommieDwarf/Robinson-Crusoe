@@ -3,7 +3,7 @@
 	height: 100%;
 	grid-column: 5 / span 1;
 	grid-row: 3 / span 2;
-	background-image: url("../../../../public/UI/characters/background.png");
+	background-image: url("../../../../public/UI/characters/background.webp");
 	background-size: 50vh;
 	border: 1px solid var(--borderColor);
 	border-top: none;

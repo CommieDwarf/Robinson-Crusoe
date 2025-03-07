@@ -5,7 +5,7 @@
 }
 
 .button {
-    background-image: url("../../../../../../../../public/UI/paper-background.png");
+    background-image: url("../../../../../../../../public/UI/paper-background.webp");
     width: 40%;
     margin: auto;
     display: block;
@@ -35,7 +35,7 @@
     width: 28%;
     aspect-ratio: 1;
     border-radius: 100%;
-    background-image: url("../../../../../../../../public/UI/paper-background.png");
+    background-image: url("../../../../../../../../public/UI/paper-background.webp");
     background-size: contain;
     position: relative;
     border: 1px solid var(--borderColor);
@@ -61,7 +61,7 @@
 }
 
 .storageButton {
-    background-image: url("../../../../../../../../public/UI/paper-background.png");
+    background-image: url("../../../../../../../../public/UI/paper-background.webp");
     cursor: pointer;
 }
 

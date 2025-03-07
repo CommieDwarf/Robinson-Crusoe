@@ -4,8 +4,8 @@ import styles from "./Phase.module.css";
 import PhaseDropDownMenu from "./PhaseDropDownMenu/PhaseDropDownMenu";
 import { useTranslation } from "react-i18next";
 
-import triangle from "/public/UI/misc/triangle.png";
-import ResizableImage from "../../../ResizableImage/ResizableImage";
+import triangle from "/public/UI/misc/triangle.webp";
+import ResizableImage from "../../../DynamicImage/DynamicImage";
 import capitalize from "@shared/utils/capitalize";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
 import { selectGame } from "../../../../reduxSlices/gameSession";
@@ -74,7 +74,7 @@ function Phase(props: Props) {
 			</strong>
 			<div className={styles.phaseIcon}>
 				<ResizableImage
-					src={`/UI/phase/${currentPhase}.png`}
+					src={`/UI/phase/${currentPhase}.webp`}
 					fill
 					alt="phase icon"
 				/>

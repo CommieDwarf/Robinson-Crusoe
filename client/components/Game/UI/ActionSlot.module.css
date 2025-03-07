@@ -63,43 +63,43 @@
 }
 
 .explore {
-	background-image: url("../../../public/UI/actionSlots/explore.png");
+	background-image: url("../../../public/UI/actionSlots/explore.webp");
 }
 
 .gather {
-	background-image: url("../../../public/UI/actionSlots/gather.png");
+	background-image: url("../../../public/UI/actionSlots/gather.webp");
 }
 
 .construction {
-	background-image: url("../../../public/UI/actionSlots/build.png");
+	background-image: url("../../../public/UI/actionSlots/build.webp");
 }
 
 .threat {
-	background-image: url("../../../public/UI/actionSlots/threat.png");
+	background-image: url("../../../public/UI/actionSlots/threat.webp");
 }
 
 .invention {
-	background-image: url("../../../public/UI/actionSlots/build.png");
+	background-image: url("../../../public/UI/actionSlots/build.webp");
 }
 
 .hunt {
-	background-image: url("../../../public/UI/actionSlots/hunt.png");
+	background-image: url("../../../public/UI/actionSlots/hunt.webp");
 }
 
 .arrange-camp {
-	background-image: url("../../../public/UI/actionSlots/arrange-camp.png");
+	background-image: url("../../../public/UI/actionSlots/arrange-camp.webp");
 }
 
 .rest {
-	background-image: url("../../../public/UI/actionSlots/rest.png");
+	background-image: url("../../../public/UI/actionSlots/rest.webp");
 }
 
 .helper {
 	/* if action is type of helper it overrides action's background image*/
-	background-image: url("../../../public/UI/actionSlots/helper.png") !important;
+	background-image: url("../../../public/UI/actionSlots/helper.webp") !important;
 	background-position-y: 2px;
 }
 
 .helperCard {
-	background-image: url("../../../public/UI/characters/pawns/helper.png") !important;
+	background-image: url("../../../public/UI/characters/pawns/helper.webp") !important;
 }

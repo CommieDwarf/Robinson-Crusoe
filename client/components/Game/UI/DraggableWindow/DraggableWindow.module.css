@@ -1,5 +1,5 @@
 .container {
-    background-image: url("../../../../public/UI/paper-background.png");
+    background-image: url("../../../../public/UI/paper-background.webp");
     z-index: 999;
     position: absolute;
     border: 1px solid var(--brown);

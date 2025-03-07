@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./Morale.module.css";
 import MoraleBar from "./MoraleBar/MoraleBar";
-import moraleArrowLeftImg from "/public/UI/icons/morale-arrow-left.png";
-import moraleArrowRightImg from "/public/UI/icons/morale-arrow-right.png";
-import ResizableImage from "../../../ResizableImage/ResizableImage";
+import moraleArrowLeftImg from "/public/UI/icons/morale-arrow-left.webp";
+import moraleArrowRightImg from "/public/UI/icons/morale-arrow-right.webp";
+import ResizableImage from "../../../DynamicImage/DynamicImage";
 import { useAppSelector } from "../../../../store/hooks";
 import { selectGame } from "../../../../reduxSlices/gameSession";
 

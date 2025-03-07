@@ -5,7 +5,7 @@
 }
 
 .containerBackground {
-	background-image: url("../../../../public/UI/characters/background.png");
+	background-image: url("../../../../public/UI/characters/background.webp");
 	background-size: 50vh;
 }
 

@@ -48,7 +48,7 @@
 .barDecoration {
     width: 20%;
     height: 100%;
-    background-image: url("../../../../../public/UI/resources/silver.jpg");
+    background-image: url("../../../../../public/UI/resources/silver.webp");
     background-size: contain;
     z-index: 10;
     position: relative;

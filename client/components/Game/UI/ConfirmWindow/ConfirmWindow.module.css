@@ -5,7 +5,7 @@
 	left: calc(35%);
 	top: 20%;
 	border: 2px solid var(--borderColor);
-	background-image: url("../../../../public/UI/paper-background.png");
+	background-image: url("../../../../public/UI/paper-background.webp");
 	background-size: cover;
 	border-radius: 5px;
 	text-align: center;

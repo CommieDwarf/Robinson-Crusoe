@@ -1,8 +1,8 @@
 import styles from "./ControlPanel.module.css";
 import { ReadyButton } from "../ReadyButton";
 import { useEffect, useState } from "react";
-import compassImg from "/public/UI/tokens/compass.png";
-import ResizableImage from "../../ResizableImage/ResizableImage";
+import compassImg from "/public/UI/tokens/compass.webp";
+import ResizableImage from "../../DynamicImage/DynamicImage";
 import { useRouter } from "next/router";
 import { SOCKET_EVENT_CLIENT } from "@shared/types/Requests/Socket";
 import { BackButton } from "../../BackButton/BackButton";

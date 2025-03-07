@@ -1,8 +1,8 @@
 // @flow
 import * as React from "react";
-import magnifyingGlassImg from "/public/UI/misc/magnifying-glass.png";
+import magnifyingGlassImg from "/public/UI/misc/magnifying-glass.webp";
 import styles from "./ZoomButton.module.css";
-import ResizableImage from "../../../../ResizableImage/ResizableImage";
+import ResizableImage from "../../../../DynamicImage/DynamicImage";
 
 type Props = {
 	onClick: () => void;

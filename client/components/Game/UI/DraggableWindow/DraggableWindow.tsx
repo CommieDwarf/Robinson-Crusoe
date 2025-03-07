@@ -2,8 +2,8 @@ import styles from "./DraggableWindow.module.css";
 import Draggable from "react-draggable";
 import sharedStyles from "../../../../styles/shared.module.css";
 import { CSSProperties, useLayoutEffect, useRef, useState } from "react";
-import ResizableImage from "../../../ResizableImage/ResizableImage";
-import xMark from "/public/UI/misc/x-mark.png";
+import ResizableImage from "../../../DynamicImage/DynamicImage";
+import xMark from "/public/UI/misc/x-mark.webp";
 
 interface Props {
 	width?: number | string;

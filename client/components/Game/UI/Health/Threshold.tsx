@@ -1,9 +1,9 @@
 import styles from "./Health.module.css";
-import xMark from "/public/UI/misc/x-mark.png";
+import xMark from "/public/UI/misc/x-mark.webp";
 
-import moraleArrowLeftImg from "/public/UI/icons/morale-arrow-left.png";
+import moraleArrowLeftImg from "/public/UI/icons/morale-arrow-left.webp";
 import React from "react";
-import ResizableImage from "../../../ResizableImage/ResizableImage";
+import ResizableImage from "../../../DynamicImage/DynamicImage";
 import { CHARACTER_CONTROLLER_ACTION } from "@shared/types/CONTROLLER_ACTION";
 import { useAppDispatch } from "../../../../store/hooks";
 import { socketEmitAction } from "../../../../middleware/socketMiddleware";

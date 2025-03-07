@@ -2,8 +2,8 @@
 	width: 100%;
 	height: 100%;
 	position: relative;
-	background-image: url("../../../../../../public/UI/misc/event-background.png"),
-		url("../../../../../../public/UI/cards/event/event-slot-background.png");
+	background-image: url("../../../../../../public/UI/misc/event-background.webp"),
+		url("../../../../../../public/UI/cards/event/event-slot-background.webp");
 	background-size: cover;
 	transition: all 0.5s;
 	cursor: pointer;

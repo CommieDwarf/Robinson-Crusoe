@@ -3,7 +3,7 @@ import styles from "./CardSlot.module.css";
 
 import { kebabCase } from "lodash";
 import { IEventCardRenderData } from "@shared/types/Game/EventService/EventCard";
-import ResizableImage from "../../../../../ResizableImage/ResizableImage";
+import ResizableImage from "../../../../../DynamicImage/DynamicImage";
 import { Side } from "@shared/types/Game/TileService/TileResourceService";
 import { getObjectsComparator } from "../../../../../../utils/getObjectsComparator";
 
@@ -50,7 +50,7 @@ export function CardSlot(props: Props) {
 					<ResizableImage
 						src={`/UI/cards/event/${kebabCase(
 							props.card.name
-						)}.png`}
+						)}.webp`}
 						alt={props.card.name}
 						scale={4}
 					/>

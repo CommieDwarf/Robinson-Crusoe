@@ -19,7 +19,7 @@
 }
 
 .container {
-	background-image: url("../../../../../public/UI/characters/background.png");
+	background-image: url("../../../../../public/UI/characters/background.webp");
 	background-size: contain;
 	height: 100%;
 	border: 1px solid var(--borderColor);

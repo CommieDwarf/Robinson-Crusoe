@@ -167,7 +167,7 @@ function getCubeTextures(
 
 	return Object.entries(structure).map(([key, side]) => {
 		return new THREE.MeshPhysicalMaterial({
-			map: loader.load(`/${kebabCase(side)}.png`),
+			map: loader.load(`/${kebabCase(side)}.webp`),
 			clearcoat: 0,
 			clearcoatRoughness: 0,
 			metalness: 0,

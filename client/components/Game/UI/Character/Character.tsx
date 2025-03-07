@@ -9,13 +9,13 @@ import Entries from "@shared/types/Entries";
 import Wound from "./Wound/Wound";
 import { getOwnedDroppableId } from "@shared/utils/getOwnedDroppableId";
 import { IAbilityRenderData } from "@shared/types/Game/Skill/IAbility";
-import ResizableImage from "../../../ResizableImage/ResizableImage";
+import ResizableImage from "../../../DynamicImage/DynamicImage";
 import { capitalize, kebabCase } from "lodash";
 import { useTranslation } from "react-i18next";
 import { Expendables } from "./Expendables/Expendables";
 import CharacterImg from "./CharacterImg/CharacterImg";
 import Pawns from "./Pawns/Pawns";
-import starImg from "/public/UI/icons/star.png";
+import starImg from "/public/UI/icons/star.webp";
 
 export interface DisplayedAbilityInfo {
 	ability: IAbilityRenderData;

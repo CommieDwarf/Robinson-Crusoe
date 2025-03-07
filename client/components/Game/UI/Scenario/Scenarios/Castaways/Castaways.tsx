@@ -2,11 +2,11 @@ import styles from "./Castaways.module.css";
 import { ScenarioInfo } from "./ScenarioInfo/ScenarioInfo";
 import { WoodPile } from "./WoodPile/WoodPile";
 import React from "react";
-import bookEffectImg from "/public/UI/scenarios/castaways/book-effect.png";
-import totemEffectImg from "/public/UI/scenarios/castaways/totem-effect.png";
-import scenarioTokensImg from "/public/UI/scenarios/castaways/tokens.png";
+import bookEffectImg from "/public/UI/scenarios/castaways/book-effect.webp";
+import totemEffectImg from "/public/UI/scenarios/castaways/totem-effect.webp";
+import scenarioTokensImg from "/public/UI/scenarios/castaways/tokens.webp";
 import Rounds from "./Rounds/Rounds";
-import ResizableImage from "../../../../../ResizableImage/ResizableImage";
+import ResizableImage from "../../../../../DynamicImage/DynamicImage";
 import { useTranslation } from "react-i18next";
 import { capitalize } from "lodash";
 import { useAppSelector } from "../../../../../../store/hooks";
@@ -60,7 +60,7 @@ export default function Castaways(props: Props) {
 			<div className={styles.bottomSection}>
 				<div className={styles.bottomSectionBackground}>
 					<ResizableImage
-						src={"/UI/scenarios/test2.png"}
+						src={"/UI/scenarios/test2.webp"}
 						alt={"background"}
 					/>
 				</div>

@@ -1,4 +1,4 @@
-import ResizableImage from "../../../../../ResizableImage/ResizableImage";
+import ResizableImage from "../../../../../DynamicImage/DynamicImage";
 import styles from "../../Guide.module.css";
 
 export function BuildPage() {
@@ -8,14 +8,14 @@ export function BuildPage() {
 				<div className={styles.flexBlock}>
 					<div className={styles.titleImg}>
 						<ResizableImage
-							src={"/UI/phase/action.png"}
+							src={"/UI/phase/action.webp"}
 							alt="action"
 						/>
 					</div>
 					<h2 className={styles.title}>Faza Akcji</h2>
 					<div className={styles.titleImg}>
 						<ResizableImage
-							src={"/UI/phase/action.png"}
+							src={"/UI/phase/action.webp"}
 							alt="action"
 						/>
 					</div>
@@ -23,14 +23,14 @@ export function BuildPage() {
 				<div className={styles.flexBlock}>
 					<div className={styles.titleImg}>
 						<ResizableImage
-							src={"/UI/actions/build.png"}
+							src={"/UI/actions/build.webp"}
 							alt="action"
 						/>
 					</div>
 					<h2 className={styles.subTitle}>Budowanie</h2>
 					<div className={styles.titleImg}>
 						<ResizableImage
-							src={"/UI/actions/build.png"}
+							src={"/UI/actions/build.webp"}
 							alt="action"
 						/>
 					</div>
@@ -59,7 +59,7 @@ export function BuildPage() {
 					<li className={styles.li}>
 						<div className={styles.listItemImg}>
 							<ResizableImage
-								src={"/UI/constructions/shelter-icon.png"}
+								src={"/UI/constructions/shelter-icon.webp"}
 								alt="action"
 							/>
 						</div>
@@ -76,7 +76,7 @@ export function BuildPage() {
 					<li className={styles.li}>
 						<div className={styles.listItemImg}>
 							<ResizableImage
-								src={"/UI/constructions/roof-icon.png"}
+								src={"/UI/constructions/roof-icon.webp"}
 								alt="action"
 							/>
 						</div>
@@ -92,7 +92,7 @@ export function BuildPage() {
 					<li className={styles.li}>
 						<div className={styles.listItemImg}>
 							<ResizableImage
-								src={"/UI/constructions/palisade-icon.png"}
+								src={"/UI/constructions/palisade-icon.webp"}
 								alt="action"
 							/>
 						</div>
@@ -109,7 +109,7 @@ export function BuildPage() {
 					<li className={styles.li}>
 						<div className={styles.listItemImg}>
 							<ResizableImage
-								src={"/UI/constructions/weapon-icon.png"}
+								src={"/UI/constructions/weapon-icon.webp"}
 								alt="action"
 							/>
 						</div>
@@ -124,7 +124,7 @@ export function BuildPage() {
 						<div className={styles.listItemImg}>
 							<div style={{ aspectRatio: 0.7 }}>
 								<ResizableImage
-									src={"/UI/inventions/normal/moat.png"}
+									src={"/UI/inventions/normal/moat.webp"}
 									alt="action"
 								/>
 							</div>

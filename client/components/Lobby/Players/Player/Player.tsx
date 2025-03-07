@@ -1,12 +1,12 @@
 import styles from "./Player.module.css";
-import bootKickImg from "/public/UI/boot-kick.png";
-import ResizableImage from "../../../ResizableImage/ResizableImage";
+import bootKickImg from "/public/UI/boot-kick.webp";
+import ResizableImage from "../../../DynamicImage/DynamicImage";
 import { useTranslation } from "react-i18next";
 import { IPlayerRenderData } from "@shared/types/Game/PlayerService/Player";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { CHARACTER } from "@shared/types/Game/Characters/Character";
-import checkMark from "/public/UI/misc/check-mark.png";
-import xMarkImg from "/public/UI/misc/x-mark.png";
+import checkMark from "/public/UI/misc/check-mark.webp";
+import xMarkImg from "/public/UI/misc/x-mark.webp";
 import { SOCKET_EVENT_CLIENT } from "@shared/types/Requests/Socket";
 import { PlayerLatency } from "../../../PlayerLatency/PlayerLatency";
 import capitalize from "@shared/utils/capitalize";
@@ -120,7 +120,7 @@ export function Player(props: Props) {
 				{props.host && (
 					<div className={styles.host}>
 						<ResizableImage
-							src={"/UI/misc/crown.png"}
+							src={"/UI/misc/crown.webp"}
 							alt={"host"}
 							fill
 						/>

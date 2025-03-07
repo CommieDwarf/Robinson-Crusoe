@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./MoraleBar.module.css";
-import moraleIconImg from "/public/UI/icons/morale.png";
-import heartImg from "/public/UI/misc/heart.png";
-import crossLineImg from "/public/UI/misc/cross-line.png";
-import ResizableImage from "../../../../ResizableImage/ResizableImage";
+import moraleIconImg from "/public/UI/icons/morale.webp";
+import heartImg from "/public/UI/misc/heart.webp";
+import crossLineImg from "/public/UI/misc/cross-line.webp";
+import ResizableImage from "../../../../DynamicImage/DynamicImage";
 
 interface Props {
 	current: boolean;

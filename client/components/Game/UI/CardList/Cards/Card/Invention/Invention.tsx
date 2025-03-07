@@ -6,7 +6,7 @@ import {
 	useAppDispatch,
 	useAppSelector,
 } from "../../../../../../../store/hooks";
-import ResizableImage from "../../../../../../ResizableImage/ResizableImage";
+import ResizableImage from "../../../../../../DynamicImage/DynamicImage";
 import { kebabCase } from "lodash";
 import { OTHER_CONTROLLER_ACTION } from "@shared/types/CONTROLLER_ACTION";
 import { ACTION } from "@shared/types/Game/ACTION";
@@ -19,7 +19,7 @@ import { getObjectsComparator } from "../../../../../../../utils/getObjectsCompa
 import { selectGame } from "../../../../../../../reduxSlices/gameSession";
 import { socketEmitAction } from "../../../../../../../middleware/socketMiddleware";
 import CommittedResources from "../../../../CommittedResources/CommittedResources";
-import buildIconImg from "/public/UI/actionSlots/build.png";
+import buildIconImg from "/public/UI/actionSlots/build.webp";
 
 type Props = {
 	invention: IInventionRenderData;
@@ -55,7 +55,7 @@ function Invention(props: Props) {
 			resources.push(
 				<div className={styles.resource} key={i}>
 					<ResizableImage
-						src={`/UI/resources/${resource}.png`}
+						src={`/UI/resources/${resource}.webp`}
 						alt="surowiec"
 					/>
 				</div>
@@ -96,7 +96,7 @@ function Invention(props: Props) {
 					props.invention.inventionType
 				}/${kebabCase(props.invention.name)}${
 					props.invention.isBuilt ? "-reverse" : ""
-				}.png`}
+				}.webp`}
 				alt={"karta pomysłu"}
 			/>
 			{color && (
@@ -144,7 +144,7 @@ function Invention(props: Props) {
 			{props.invention.inventionType === INVENTION_TYPE.SCENARIO && (
 				<div className={styles.scenarioIcon}>
 					<ResizableImage
-						src={"/UI/icons/scenario.png"}
+						src={"/UI/icons/scenario.webp"}
 						alt="scenario"
 					/>
 				</div>

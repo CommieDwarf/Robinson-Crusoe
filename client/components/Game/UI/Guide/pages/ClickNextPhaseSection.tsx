@@ -1,5 +1,5 @@
 import { insertIconsIntoText } from "../../../../../utils/insertIconsIntoText/insertIconsIntoText";
-import ResizableImage from "../../../../ResizableImage/ResizableImage";
+import ResizableImage from "../../../../DynamicImage/DynamicImage";
 import { insertIcon } from "../Guide";
 import styles from "../Guide.module.css";
 

@@ -1,7 +1,7 @@
 import React from "react";
 
 import styles from "./Wound.module.css";
-import ResizableImage from "../../../../ResizableImage/ResizableImage";
+import ResizableImage from "../../../../DynamicImage/DynamicImage";
 import { capitalize } from "lodash";
 import {
 	IPlayerCharacterRenderData,
@@ -32,7 +32,7 @@ function Wound(props: Props) {
 			style={style}
 		>
 			<ResizableImage
-				src={`/UI/characters/wounds/${props.action}.png`}
+				src={`/UI/characters/wounds/${props.action}.webp`}
 				alt={"rana"}
 				sizes={styles.container}
 				fill

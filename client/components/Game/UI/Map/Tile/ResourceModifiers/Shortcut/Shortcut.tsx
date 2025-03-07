@@ -1,6 +1,6 @@
 import styles from "./Shortcut.module.css";
-import ResizableImage from "../../../../../../ResizableImage/ResizableImage";
-import shortcutImg from "/public/UI/tokens/shortcut.png";
+import ResizableImage from "../../../../../../DynamicImage/DynamicImage";
+import shortcutImg from "/public/UI/tokens/shortcut.webp";
 import { Side } from "@shared/types/Game/TileService/TileResourceService";
 
 interface Props {

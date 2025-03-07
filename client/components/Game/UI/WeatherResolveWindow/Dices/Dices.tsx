@@ -1,10 +1,10 @@
 // @flow
 import * as React from "react";
 import styles from "./Dices.module.css";
-import rainImg from "/public/UI/scenarios/rain.png";
-import snowImg from "/public/UI/scenarios/snow.png";
-import hungryAnimalImg from "/public/UI/scenarios/hungryAnimal.png";
-import ResizableImage from "../../../../ResizableImage/ResizableImage";
+import rainImg from "/public/UI/scenarios/rain.webp";
+import snowImg from "/public/UI/scenarios/snow.webp";
+import hungryAnimalImg from "/public/UI/scenarios/hungryAnimal.webp";
+import ResizableImage from "../../../../DynamicImage/DynamicImage";
 
 type Props = {
 	animals: boolean;

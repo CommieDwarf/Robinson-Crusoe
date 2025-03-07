@@ -1,10 +1,10 @@
 import React from "react";
 import styles from "./Health.module.css";
-import heartImg from "/public/UI/misc/heart.png";
-import redHeartImg from "/public/UI/icons/red-heart.png";
-import skullImg from "/public/UI/icons/skull.png";
+import heartImg from "/public/UI/misc/heart.webp";
+import redHeartImg from "/public/UI/icons/red-heart.webp";
+import skullImg from "/public/UI/icons/skull.webp";
 import Threshold from "./Threshold";
-import ResizableImage from "../../../ResizableImage/ResizableImage";
+import ResizableImage from "../../../DynamicImage/DynamicImage";
 import { getObjectsComparator } from "../../../../utils/getObjectsComparator";
 import { useAppSelector } from "../../../../store/hooks";
 import { selectGame } from "../../../../reduxSlices/gameSession";
