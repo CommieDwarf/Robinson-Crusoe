@@ -10,7 +10,7 @@ import Wound from "./Wound/Wound";
 import { getOwnedDroppableId } from "@shared/utils/getOwnedDroppableId";
 import { IAbilityRenderData } from "@shared/types/Game/Skill/IAbility";
 import ResizableImage from "../../../DynamicImage/DynamicImage";
-import { capitalize, kebabCase } from "lodash";
+import { capitalize } from "lodash";
 import { useTranslation } from "react-i18next";
 import { Expendables } from "./Expendables/Expendables";
 import CharacterImg from "./CharacterImg/CharacterImg";
@@ -28,7 +28,7 @@ interface Props {
 
 export default function Character(props: Props) {
 	const character = useAppSelector(
-		(state) => state.gameSession.data?.localPlayer.character!
+		(state) => state.gameSession.data!.localPlayer.character!
 	);
 	const [displayedAbilityInfo, setDisplayedAbilityInfo] =
 		useState<DisplayedAbilityInfo>({
@@ -74,7 +74,7 @@ export default function Character(props: Props) {
 		: styles.zIndexTransition;
 
 	const pawns = useAppSelector((state) => {
-		return state.gameSession.data!.localPlayer.character?.pawnService
+		return state.gameSession.data!.localPlayer.character!.pawnService
 			.freePawns!;
 	});
 

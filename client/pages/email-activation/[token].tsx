@@ -6,7 +6,6 @@ import Link from "next/link";
 import { fetchAndUpdateUser } from "../../lib/fetchAndUpdateUser";
 import { getAuthToken } from "../../utils/auth/getAuthToken";
 import { useDispatch } from "react-redux";
-import { useAppSelector } from "../../store/hooks";
 
 enum VERIFICATION_STATUS {
 	SUCCESS = "success",
@@ -23,7 +22,6 @@ export default function EmailActivation() {
 	);
 
 	const [redirectCounter, setRedirectCounter] = useState(10);
-	const user = useAppSelector((state) => state.connection.user);
 
 	useEffect(() => {
 		const token = router.query.token as string;

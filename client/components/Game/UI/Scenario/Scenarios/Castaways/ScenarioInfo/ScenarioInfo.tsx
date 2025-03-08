@@ -1,6 +1,6 @@
 // @flow
 import * as React from "react";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import styles from "./ScenarioInfo.module.css";
 import { Button } from "./Button/Button";
 import ResizableImage from "../../../../../../DynamicImage/DynamicImage";
@@ -11,31 +11,14 @@ import { useTranslation } from "react-i18next";
 import { capitalize } from "lodash";
 
 export const ScenarioInfo = () => {
-	const [unrolled, setUnrolled] = useState(false);
 	const [buttonClicked, setButtonClicked] = useState("description");
 
 	const containerRef = useRef<HTMLDivElement>(null);
-	const [containerWidth, setContainerWidth] = useState(0);
 
-	useLayoutEffect(() => {
-		if (containerRef.current) {
-			setContainerWidth(containerRef.current.offsetWidth);
-		}
-	}, []);
 
 	function handleButtonClick(button: string) {
-		if (button !== buttonClicked) {
-			setUnrolled(true);
-		} else {
-			setUnrolled((prev) => !prev);
-		}
 		setButtonClicked(button);
 	}
-
-	function handleRollClick() {
-		setUnrolled((prev) => !prev);
-	}
-
 	const buttons: JSX.Element[] = [];
 
 	const textEntries = Object.entries(castaways.text) as Entries<ScenarioText>;
@@ -65,9 +48,9 @@ export const ScenarioInfo = () => {
 				<div className={styles.text}>
 
 
-						{/* @ts-ignore */}
+					{/* @ts-ignore */}
 
-				<h4>{capitalize(t(`other.${buttonClicked}`))}</h4>
+					<h4>{capitalize(t(`other.${buttonClicked}`))}</h4>
 
 					<p className={styles.p}>
 

@@ -10,7 +10,7 @@ import { selectGame } from "../../../../reduxSlices/gameSession";
 function Morale() {
 	const moraleBars = [];
 	const currentMorale = useAppSelector(
-		(state) => selectGame(state)?.moraleService.lvl!
+		(state) => selectGame(state)!.moraleService.lvl
 	);
 
 	for (let i = -3; i <= 3; i++) {

@@ -10,7 +10,8 @@ import {
 } from "../reduxSlices/connection";
 import {
 	ModifiedPayload,
-	SocketActions,
+	SOCKET_ACTION_TYPE,
+	SocketAction,
 	SocketConnectAction,
 	SocketDisconnectAction,
 	SocketEmitAction,
@@ -23,26 +24,21 @@ import {
 	SOCKET_EVENT_SERVER,
 } from "@shared/types/Requests/Socket";
 
-export const SOCKET_CONNECT = "socket connect";
-export const SOCKET_DISCONNECT = "socket disconnect";
-export const SOCKET_EMIT = "socket emit";
-export const SOCKET_EMIT_ACTION = "socket emit action";
-
 export const socketConnect = (payload: {
 	authToken: string;
 }): SocketConnectAction => ({
-	type: SOCKET_CONNECT,
+	type: SOCKET_ACTION_TYPE.CONNECT,
 	payload,
 });
 export const socketDisconnect = (): SocketDisconnectAction => ({
-	type: SOCKET_DISCONNECT,
+	type: SOCKET_ACTION_TYPE.DISCONNECT,
 });
 export const socketEmit = <T extends SOCKET_EVENT_CLIENT>(
 	event: T,
 	payload: ModifiedPayload<T>
 ): SocketEmitAction<T> => {
 	return {
-		type: SOCKET_EMIT,
+		type: SOCKET_ACTION_TYPE.EMIT,
 		event,
 		payload,
 	};
@@ -62,17 +58,16 @@ export const socketEmitAction = <A extends keyof ActionArgMap>(
 const socketMiddleware =
 	(socket: Socket): Middleware =>
 	(api: MiddlewareAPI<Dispatch, typeof store>) =>
-	(next: Dispatch<SocketActions>) => {
+	(next: Dispatch<SocketAction>) => {
 		const emitQueue: SocketEmitAction<SOCKET_EVENT_CLIENT>[] = [];
 		let listeners: SocketListener[];
 
 		let connectedUpdatedTimeout: NodeJS.Timeout | null = null;
-		const connectedUpdatedDelayMs = 2000;
 
-		return (action: any) => {
+		return (action: SocketAction) => {
 			if (api) {
 				switch (action.type) {
-					case SOCKET_CONNECT:
+					case SOCKET_ACTION_TYPE.CONNECT:
 						socket.io.opts.extraHeaders = {
 							Authorization: action.payload.authToken,
 						};
@@ -89,8 +84,9 @@ const socketMiddleware =
 											);
 										});
 									}
-									connectedUpdatedTimeout &&
+									if (connectedUpdatedTimeout) {
 										clearTimeout(connectedUpdatedTimeout);
+									}
 									connectedUpdatedTimeout = null;
 									api.dispatch(connectedUpdated(true));
 								}
@@ -137,14 +133,14 @@ const socketMiddleware =
 						}
 						break;
 
-					case "disconnect":
+					case SOCKET_ACTION_TYPE.DISCONNECT:
 						console.log("socket disconnected");
 						socket.close();
 						listeners.forEach((listener) => listener.off());
 						api.dispatch(connectedUpdated(false));
 						break;
 
-					case SOCKET_EMIT:
+					case SOCKET_ACTION_TYPE.EMIT:
 						if (!socket.connected) {
 							emitQueue.push(action);
 						}
@@ -153,18 +149,6 @@ const socketMiddleware =
 							hydratePayload(action.payload)
 						);
 						break;
-
-					case SOCKET_EMIT_ACTION:
-						if (!socket.connected) {
-							emitQueue.push(action);
-							socket.emit(
-								action.event,
-								hydratePayload({
-									...action.payload,
-									hydrateSessionId: true,
-								})
-							);
-						}
 				}
 			}
 
@@ -177,7 +161,7 @@ const socketMiddleware =
 				if (!payload || typeof payload !== "object") {
 					return payload;
 				}
-				if (payload.hasOwnProperty("hydrateSessionId")) {
+				if ("hydrateSessionId" in payload) {
 					// const sessionId = api.getState().getState().gameSession.data?.id;
 					const state = api.getState() as unknown as RootState;
 					const hydrated = {

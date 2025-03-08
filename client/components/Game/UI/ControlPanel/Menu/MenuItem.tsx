@@ -1,8 +1,5 @@
-import ResizableImage from "components/DynamicImage/DynamicImage";
 import styles from "./MenuItem.module.css";
-import { StaticImageData } from "next/image";
 import { CSSProperties } from "react";
-import { StyledHr } from "components/StyledHr/StyledHr";
 
 interface Props {
 	button: JSX.Element;

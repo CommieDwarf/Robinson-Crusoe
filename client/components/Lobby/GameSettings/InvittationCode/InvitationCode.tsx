@@ -3,13 +3,11 @@ import { useAppSelector } from "../../../../store/hooks";
 import styles from "./InvitationCode.module.css";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { capitalize } from "lodash";
 
-interface Props {}
 
-export function InvitationCode(props: Props) {
+export function InvitationCode() {
 	const code = useAppSelector(
-		(state) => state.gameSession.data?.invitationCode!
+		(state) => state.gameSession.data!.invitationCode
 	);
 	const { t } = useTranslation();
 

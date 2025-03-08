@@ -14,8 +14,8 @@ type Props = {
     currentAction: ACTION;
 };
 export const ReRollButton = (props: Props) => {
-    let character = props.actionService.lastRolledItem?.leaderPawn.owner;
-    let reRollAbility = character ? getCharacterRerollAbility(character) : undefined;
+    const character = props.actionService.lastRolledItem?.leaderPawn.owner;
+    const reRollAbility = character ? getCharacterRerollAbility(character) : undefined;
 
     const {t} = useTranslation();
 

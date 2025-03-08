@@ -68,7 +68,7 @@ export function DraggableWindow(props: Props) {
 	}, [containerRef]);
 
 	function handleClick() {
-		props.onClose && props.onClose();
+		props.onClose?.();
 	}
 
 	return (

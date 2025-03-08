@@ -2,8 +2,6 @@ import React, { ReactNode, useEffect } from "react";
 import { useRouter } from "next/router";
 import { isAuthenticated } from "../../utils/auth/isAuthenticated";
 import { useAppSelector } from "../../store/hooks";
-import { getAuthToken } from "../../utils/auth/getAuthToken";
-import { isTokenValid } from "../../utils/auth/isTokenValid";
 import { useHistory } from "components/UserHistoryManager/UserHistoryManager";
 
 type Props = {

@@ -4,7 +4,7 @@ import { Droppable, DroppableProvided } from "react-beautiful-dnd";
 
 import Pawn from "./Pawn";
 import { kebabCase } from "lodash";
-import { IPawnRenderData } from "@shared/types/Game/Pawns/Pawn";
+import { IPawnOwnerRenderData, IPawnRenderData } from "@shared/types/Game/Pawns/Pawn";
 import { ACTION, UniqueAction } from "@shared/types/Game/ACTION";
 import {
 	selectActionSlotById,
@@ -28,7 +28,7 @@ interface Props {
 }
 
 interface StateProps {
-	pawn: IPawnRenderData<any> | null;
+	pawn: IPawnRenderData<IPawnOwnerRenderData> | null;
 	isSlotMarked: boolean;
 }
 
@@ -95,7 +95,7 @@ function ActionSlot(props: Props & StateProps) {
 }
 
 function mapStateToProps(state: RootState, props: Props): Props & StateProps {
-	const pawn: IPawnRenderData<any> | null = selectActionSlotById(
+	const pawn: IPawnRenderData<IPawnOwnerRenderData> | null = selectActionSlotById(
 		state,
 		props.id
 	);

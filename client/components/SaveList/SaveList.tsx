@@ -12,9 +12,7 @@ import { setSocketListener } from "../../pages/api/socket";
 import { sessionIdUpdated } from "../../reduxSlices/gameSession";
 import { useRouter } from "next/router";
 
-interface Props {}
-
-export function SaveList(props: Props) {
+export function SaveList() {
 	const dispatch = useAppDispatch();
 	const router = useRouter();
 

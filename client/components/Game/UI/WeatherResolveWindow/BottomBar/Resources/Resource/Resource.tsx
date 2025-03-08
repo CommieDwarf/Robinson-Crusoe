@@ -4,7 +4,6 @@ import styles from "./Resource.module.css";
 import { Subtrahend } from "../Resources";
 import ResizableImage from "../../../../../../DynamicImage/DynamicImage";
 import { OverallWeather } from "@shared/types/Game/Weather/Weather";
-import { useTranslation } from "react-i18next";
 import { dynamicTranslate } from "utils/dynamicTranslate";
 
 type WeatherResource = "roof" | "palisade" | "food" | "wood" | "weapon";
@@ -20,7 +19,6 @@ export const Resource = (props: Props) => {
 	const subtrahends: JSX.Element[] = [];
 	let total = props.amount;
 
-	const { t } = useTranslation();
 
 	props.subtrahends.forEach((value, key) => {
 		total += value;
@@ -39,7 +37,7 @@ export const Resource = (props: Props) => {
 
 	const totalColorClass = total >= 0 ? styles.surplus : styles.deficit;
 
-	let amount = (
+	const amount = (
 		<div className={styles.amount}>
 			<span>{props.amount}</span>
 			{props.resolved && (

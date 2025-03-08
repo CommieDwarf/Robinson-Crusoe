@@ -17,7 +17,7 @@ export interface SocketListener {
 
 export function setSocketListener<E extends keyof ServerPayloadMap>(
 	event: E,
-	listener: (payload: ServerPayloadMap[E]) => any
+	listener: (payload: ServerPayloadMap[E]) => void
 ): SocketListener {
 	// decorator do debugowania
 	function listenerDecorator(payload: ServerPayloadMap[E]) {

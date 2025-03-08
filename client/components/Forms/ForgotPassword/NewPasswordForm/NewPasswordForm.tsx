@@ -76,7 +76,7 @@ export function NewPasswordForm(props: ForgetPasswordFormProps) {
 				props.setError(t("error.serverError"));
 			}
 			
-		} catch (e) {
+		} catch {
 			props.setError(t("error.connectError"));
 		} finally {
 			props.setLoading(false);

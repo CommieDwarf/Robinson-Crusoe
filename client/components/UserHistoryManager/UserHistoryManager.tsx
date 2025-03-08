@@ -15,7 +15,10 @@ export function HistoryManagerProvider({
 	value,
 	children,
 }: {
-	value: any;
+	value: {
+		history: string[],
+		canGoBack: () => boolean,
+	};
 	children: ReactNode;
 }) {
 	return (

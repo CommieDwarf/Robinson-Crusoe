@@ -10,7 +10,6 @@ import { Invention } from "./Invention/Invention";
 interface Props {
 	character: CHARACTER;
 	gender: Gender;
-	setGender: (gender: Gender) => void;
 }
 
 export function Character(props: Props) {

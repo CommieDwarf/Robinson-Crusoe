@@ -39,7 +39,7 @@ import {
 	OTHER_CONTROLLER_ACTION,
 } from "@shared/types/CONTROLLER_ACTION";
 import { MysteryCardDraw } from "./UI/MysteryCardDraw/MysteryCardDraw";
-import { IPawnRenderData } from "@shared/types/Game/Pawns/Pawn";
+import { IPawnOwnerRenderData, IPawnRenderData } from "@shared/types/Game/Pawns/Pawn";
 import {
 	actionSlotUpdated,
 	selectGameData,
@@ -57,9 +57,8 @@ import { UITour } from "./UITour/UITour";
 import { UITourPrompt } from "./UITour/UITourPrompt/UITourPrompt";
 import { UITourInitialStateSet } from "reduxSlices/UITour";
 import { playerContainerAspectRatio } from "./UI/PlayerOverview/Player/aspectRatio";
-interface Props {}
 
-export default function Game(props: Props) {
+export default function Game() {
 	const [isPawnBeingDragged, setIsPawnBeingDragged] = useState(false);
 
 	// Increase of proper component's z-index is necessary to render dragged pawn above other components
@@ -92,11 +91,6 @@ export default function Game(props: Props) {
 	}, []);
 
 	const [windowHeight, setWindowHeight] = useState(window.outerHeight);
-	const [windowWidth, setWindowWidth] = useState(window.outerWidth);
-
-	const [windowAspectRatio, setWindowAspectRatio] = useState(
-		windowWidth / windowHeight
-	);
 
 	useGameHeight();
 
@@ -110,7 +104,6 @@ export default function Game(props: Props) {
 					setActionOrderHeight(actionOrderRef.current.offsetHeight);
 				}
 				setWindowHeight(window.outerHeight);
-				setWindowWidth(window.innerWidth);
 			}
 
 			window.addEventListener("resize", updateWindowSize);
@@ -121,9 +114,6 @@ export default function Game(props: Props) {
 		return windowHeight;
 	}
 
-	useEffect(() => {
-		setWindowAspectRatio(windowWidth / windowHeight);
-	}, [windowWidth, windowHeight]);
 
 	function showCampMoveConfirm(tile: ITileRenderData) {
 		setNextCamp(tile);
@@ -238,7 +228,7 @@ export default function Game(props: Props) {
 		const destinationId = result.destination?.droppableId;
 		const sourceId = result.source.droppableId;
 		const draggedPawn = gameData.allPawns.find(
-			(p: IPawnRenderData<any>) => p.draggableId === result.draggableId
+			(p: IPawnRenderData<IPawnOwnerRenderData>) => p.draggableId === result.draggableId
 		);
 
 		if (

@@ -1,6 +1,5 @@
 import { MysteryCardCounter } from "./MysteryCardCounter/MysteryCardCounter";
 import * as React from "react";
-import { useState } from "react";
 import { MYSTERY_CONTROLLER_ACTION } from "@shared/types/CONTROLLER_ACTION";
 import { CardResolveButtonProp } from "../CardResolve/CardResolve";
 import { MysteryCardResolve } from "../CardResolve/Mystery/MysteryCardResolve";
@@ -58,7 +57,6 @@ export function MysteryCardDraw() {
 		}
 	}
 
-	const [enlarged, setEnlarged] = useState(false);
 
 	const character = mysteryService?.drawer?.name;
 
@@ -70,7 +68,7 @@ export function MysteryCardDraw() {
 	return (
 		<Draggable bounds={"parent"}>
 			<div
-				className={`${styles.container} ${enlarged && styles.enlarged}`}
+				className={`${styles.container}`}
 			>
 				<div className={styles.card}>
 					<MysteryCardResolve card={mysteryService.currentResolve} />

@@ -10,7 +10,7 @@ interface Props {
 
 export default function Constructions(props: Props) {
 	const constructions = useAppSelector(
-		(state) => selectGame(state)?.constructionService.constructions!
+		(state) => selectGame(state)!.constructionService.constructions
 	);
 	return (
 		<div

@@ -5,16 +5,16 @@ import styles from "./EnterPassword.module.css";
 
 type Input = string | boolean | number | undefined;
 
-interface Props<T extends Input> {
+interface Props {
 	header?: string;
 	message?: string;
 	buttonText?: string;
 	onChange?: (input: Input) => boolean;
-	onClick?: (input: Input) => any;
+	onClick?: (input: Input) => void;
 	defaultValue?: Input;
 }
 
-export function Prompt<T extends Input>(props: Props<T>) {
+export function Prompt(props: Props) {
 	const [input, setInput] = useState(props.defaultValue);
 
 	const { t } = useTranslation();
@@ -28,7 +28,7 @@ export function Prompt<T extends Input>(props: Props<T>) {
 	}
 
 	function handleClick() {
-		props.onClick && props.onClick(input);
+		props.onClick?.(input);
 	}
 
 	return (

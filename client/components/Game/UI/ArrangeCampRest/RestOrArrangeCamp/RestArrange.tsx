@@ -4,10 +4,9 @@ import ActionSlot from "../../ActionSlot";
 
 import moraleArrowRightImg from "/public/UI/icons/morale-arrow-right.webp";
 import heartImg from "/public/UI/icons/heart.webp";
-import moraleIconImg from "/public/UI/icons/morale.webp";
 import { useTranslation } from "react-i18next";
 import ResizableImage from "../../../../DynamicImage/DynamicImage";
-import { ACTION, ACTION_ITEM } from "@shared/types/Game/ACTION";
+import { ACTION } from "@shared/types/Game/ACTION";
 import { getActionSlotDroppableId } from "@shared/utils/getActionSlotDroppableId";
 import { capitalize } from "lodash";
 import diagnal from "/public/UI/misc/cross-line.webp";

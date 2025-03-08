@@ -5,12 +5,12 @@ import { useAppSelector } from "../../../store/hooks";
 import ResizableImage from "../../DynamicImage/DynamicImage";
 import { kebabCase } from "lodash";
 import { ACTION } from "@shared/types/Game/ACTION";
-import { IPawnRenderData } from "@shared/types/Game/Pawns/Pawn";
+import { IPawnOwnerRenderData, IPawnRenderData } from "@shared/types/Game/Pawns/Pawn";
 import { selectGame } from "../../../reduxSlices/gameSession";
 import { darkenColor } from "utils/darkenColor";
 
 interface Props {
-	pawn: IPawnRenderData<any>;
+	pawn: IPawnRenderData<IPawnOwnerRenderData>;
 	context: ACTION | "character" | "other";
 	index: number;
 	disabled: boolean;
@@ -22,9 +22,11 @@ export default function Pawn(props: Props) {
 	if (props.pawn.action) {
 		imageName = "helper";
 		pawnClass = kebabCase(props.pawn.action);
-	} else {
+	} else if ("gender" in props.pawn.owner) {
 		pawnClass = props.pawn.owner.name;
 		imageName = `${props.pawn.owner.name}-${props.pawn.owner.gender}`;
+	} else {
+		throw new Error("Pawn owner is neither helper nor character")
 	}
 
 	const context =
@@ -101,7 +103,7 @@ export default function Pawn(props: Props) {
 					index={props.index}
 					isDragDisabled={disabled}
 				>
-					{(provided, snapshot) => {
+					{(provided) => {
 						return (
 							<div
 								className={

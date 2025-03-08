@@ -15,7 +15,7 @@ export interface Props {
 
 export function Button(props: Props) {
 	function handleClick() {
-		props.onClick && props.onClick();
+		props.onClick?.();
 	}
 
 	return (

@@ -16,6 +16,7 @@ export function StyledHr(props: Props) {
 			break;
 		case "darkRed":
 			setColor("var(--hunt)");
+			break;
 		default:
 			setColor("var(--hunt)");
 	}

@@ -13,7 +13,6 @@ import { socketConnect } from "../../../middleware/socketMiddleware";
 import { useTranslation } from "react-i18next";
 import capitalize from "@shared/utils/capitalize";
 import { LoadingSpinner } from "../../LoaderSpinner/LoaderSpinner";
-import { toast } from "react-toastify";
 import { FormButton } from "../Form/FormButton.tsx/FormButton";
 import { RedirectLink } from "../Form/RedirectLink/RedirectLink";
 import { FormInput } from "../Form/FormInput/FormInput";
@@ -41,7 +40,6 @@ export default function AuthForm(props: Props) {
 	const [password, setPassword] = useState("");
 	const [passwordRepeat, setPasswordRepeat] = useState("");
 
-	const [passwordChanged, setPasswordChanged] = useState(true);
 
 	const router = useRouter();
 	const dispatch = useAppDispatch();
@@ -69,9 +67,6 @@ export default function AuthForm(props: Props) {
 		}
 	});
 
-	useEffect(() => {
-		setPasswordChanged(true);
-	}, [props.loginMode]);
 
 	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
@@ -108,7 +103,7 @@ export default function AuthForm(props: Props) {
 			} else {
 				setError("form", t("error.serverError"));
 			}
-		} catch (e) {
+		} catch (e: unknown) {
 			handleFetchError(e);
 		}
 	}
@@ -131,7 +126,7 @@ export default function AuthForm(props: Props) {
 			} else {
 				setError("form", "Attempt to sign up failed.");
 			}
-		} catch (e) {
+		} catch (e: unknown) {
 			handleFetchError(e);
 		}
 	}
@@ -240,9 +235,6 @@ export default function AuthForm(props: Props) {
 		checkPasswordsSame(password, passwordRepeat);
 	}, [password, passwordRepeat]);
 
-	useEffect(() => {
-		setPasswordChanged(true);
-	}, [password]);
 
 	function checkPasswordsSame(password: string, repeatPassword: string) {
 		if (password && repeatPassword && password !== repeatPassword) {
@@ -252,7 +244,7 @@ export default function AuthForm(props: Props) {
 		}
 	}
 
-	function handleFetchError(error: any) {
+	function handleFetchError(error: unknown) {
 		if (error instanceof TypeError) {
 			dispatch(fetchErrorUpdated(true));
 		} else {
@@ -269,7 +261,7 @@ export default function AuthForm(props: Props) {
 					"Content-Type": "application/json",
 				},
 			});
-		} catch (e) {
+		} catch {
 			return false;
 		}
 	}
@@ -292,7 +284,7 @@ export default function AuthForm(props: Props) {
 				},
 			});
 			return result.status === 409;
-		} catch (error) {
+		} catch {
 			return false;
 		}
 	}
@@ -320,21 +312,10 @@ export default function AuthForm(props: Props) {
 		(state) => state.connection.fetchError
 	);
 
-	async function handleLimitReached(json: any) {
-		toast(
-			t("toast.request limit reached", {
-				tryAfter: json.tryAfter,
-			}),
-			{
-				type: "error",
-			}
-		);
-	}
-
-	async function handleFailedLoginLimitReached(json: any) {
+	async function handleFailedLoginLimitReached({tryAfter}: {tryAfter: number}) {
 		setError(
 			"form",
-			t("menu.login request limit reached", { tryAfter: json.tryAfter })
+			t("menu.login request limit reached", { tryAfter })
 		);
 	}
 
@@ -473,10 +454,4 @@ export default function AuthForm(props: Props) {
 		</>
 	);
 }
-function isInRange(
-	length: number,
-	usernameMinLength: number,
-	usernameMaxLength: number
-): boolean {
-	throw new Error("Function not implemented.");
-}
+

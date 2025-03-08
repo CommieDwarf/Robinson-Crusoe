@@ -22,11 +22,10 @@ export type PhaseType =
 	| "morale"
 	| "weather";
 
-interface Props {}
 
-function Phase(props: Props) {
+function Phase() {
 	const currentPhase = useAppSelector(
-		(state) => selectGame(state)?.phaseService.phase!
+		(state) => selectGame(state)!.phaseService.phase
 	);
 
 	const [containerHeight, setContainerHeight] = useState(0);

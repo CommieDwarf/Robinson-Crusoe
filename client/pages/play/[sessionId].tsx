@@ -20,8 +20,6 @@ import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import Game from "components/Game/Game";
 
-type Props = {};
-
 function Play() {
 	const router = useRouter();
 	const { t } = useTranslation();
@@ -59,7 +57,7 @@ function Play() {
 	}, [sessionId, sessionIdQuery, dispatch]);
 
 	useEffect(() => {
-		const handlePopState = (event: PopStateEvent) => {
+		const handlePopState = () => {
 			router.push("/").then();
 		};
 
@@ -105,7 +103,9 @@ function Play() {
 			setSocketListener(
 				SOCKET_EVENT_SERVER.SESSION_CONNECTION_STATUS_SENT,
 				(payload) => {
-					payload.error && setConnectError(payload.error);
+					if (payload.error) {
+						setConnectError(payload.error);
+					}
 				}
 			)
 		);

@@ -69,7 +69,7 @@ export default function CodeVerificationForm(
 				path: "/",
 			});
 			props.onSuccess();
-		} catch (e) {
+		} catch {
 			props.setError(t("error.connectError"));
 		} finally {
 			props.setLoading(false);
@@ -103,7 +103,7 @@ export default function CodeVerificationForm(
 			if (result.ok) {
 				setMailReSent(true);
 			}
-		} catch (e) {
+		} catch {
 			props.setError(t("error.connectError"));
 		} finally {
 			props.setLoading(false);

@@ -30,10 +30,10 @@ export default function ChatLog(props: Props) {
 	const messagesRef = useRef<HTMLDivElement>(null);
 
 	const localUsername = useAppSelector(
-		(state) => state.gameSession.data?.localPlayer.username!
+		(state) => state.gameSession.data!.localPlayer.username
 	);
 	const chatMessages = useAppSelector(
-		(state) => state.gameSession.data?.chatService.messages
+		(state) => state.gameSession.data!.chatService.messages
 	);
 	const logMessages = useAppSelector((state) => selectGame(state)?.logs);
 
@@ -90,7 +90,11 @@ export default function ChatLog(props: Props) {
 	useEffect(() => {
 		setUnreadMessages((prev) => {
 			const newState = { ...prev };
-			logMode ? (newState.log = false) : (newState.chat = false);
+			if (logMode) {
+				newState.log = false;
+			} else {
+				newState.chat = false;
+			}
 			return newState;
 		});
 	}, [logMode]);

@@ -10,10 +10,10 @@ import { useAppDispatch } from "../../../../store/hooks";
 import { socketEmitAction } from "../../../../middleware/socketMiddleware";
 import { dynamicTranslate } from "../../../../utils/dynamicTranslate";
 import { ABILITY } from "@shared/types/Game/Skill/ABILITY";
-import { IChoiceSelectorRenderData } from "@shared/types/Game/ChoiceSelector/ChoiceSelector";
+import { ChoosableObject, IChoiceSelectorRenderData } from "@shared/types/Game/ChoiceSelector/ChoiceSelector";
 
 interface Props {
-	choiceSelector: IChoiceSelectorRenderData<any>;
+	choiceSelector: IChoiceSelectorRenderData<ChoosableObject>;
 }
 
 export function ChoiceSelector(props: Props) {

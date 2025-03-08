@@ -6,7 +6,6 @@ import { UI_TOUR_STEP_ID } from "types/UITour/UI_TOUR_STEP_ID";
 import { useAppDispatch } from "store/hooks";
 import { UIStateUpdated } from "reduxSlices/UITour";
 import { CSSProperties } from "react";
-import { StyledHr } from "components/StyledHr/StyledHr";
 
 const defaultDelay = 520;
 

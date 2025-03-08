@@ -106,14 +106,14 @@ export const resources = {
 				[ABILITY.RECONNAISSANCE]: {
 					name: "Rekonesans",
 					name_genitive: "Rekonesansu",
-					description: `Odrzuć 2 \$determination\$, aby pociągnąć 3 kafelki Wyspy
+					description: `Odrzuć 2 $determination$, aby pociągnąć 3 kafelki Wyspy
                         ze stosu, wybrać 1 z nich i położyć go na wierzchu stosu.`,
 					comment: "Wracamy do dziczy? Nareszcie!",
 				},
 				[ABILITY.MOTIVATIONAL_SPEECH]: {
 					name: "Mowa ku pokrzepieniu serc",
 					name_genitive: "Mowy ku pokrzepieniu serc",
-					description: `Odrzuć 3 \$determination\$ aby \$morale\$.`,
+					description: `Odrzuć 3 $determination$ aby $morale$.`,
 					comment:
 						"Nie martwcie się! Z nie takich opałów wychodziłem bez szwanku.",
 				},
@@ -885,8 +885,8 @@ export const resources = {
 		logMessages: {
 			[LOG_CODE.WEATHER_TOKEN_SET]:
 				'Położono token $t(translation:weatherToken.{{subject1}}, {"context": "genitive"}) na polu przygody.',
-			[LOG_CODE.WEATHER_CLOUD_DECREMENTED]: `Odjęto {{amount}} chmurkę $t(translation:weatherToken.{{subject1}}, {\"context\": \"genitive\"}).`,
-			[LOG_CODE.WEATHER_CLOUD_INCREMENTED]: `Dodano {{amount}} chmurkę $t(translation:weatherToken.{{subject1}}, {\"context\": \"genitive\"}).`,
+			[LOG_CODE.WEATHER_CLOUD_DECREMENTED]: `Odjęto {{amount}} chmurkę $t(translation:weatherToken.{{subject1}}, {"context": "genitive"}).`,
+			[LOG_CODE.WEATHER_CLOUD_INCREMENTED]: `Dodano {{amount}} chmurkę $t(translation:weatherToken.{{subject1}}, {"context": "genitive"}).`,
 			[LOG_CODE.ACTION_GOT_TOKEN]:
 				'Położono token $t(translation:tokens.{{subject1}}, {"context": "genitive"}) na polu $t(translation:action.{{subject2}}, {"context": "genitive"}).',
 			[LOG_CODE.ACTION_LOST_TOKEN]:

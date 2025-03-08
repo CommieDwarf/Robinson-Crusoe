@@ -19,9 +19,9 @@ interface Props {
 }
 
 function Health(props: Props) {
-	let icons: JSX.Element[] = [];
+	const icons: JSX.Element[] = [];
 	const characterService = useAppSelector(
-		(state) => selectGame(state)?.characterService!
+		(state) => selectGame(state)!.characterService
 	);
 
 	for (let i = props.maxHealth; i > 0; i--) {

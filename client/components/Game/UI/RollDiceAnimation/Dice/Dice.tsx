@@ -116,7 +116,7 @@ export class Dice implements IDice {
 	}
 
 	private rotateAxis(axis: "x" | "y" | "z", degrees: number) {
-		let radians = degreesToRadians(degrees);
+		const radians = degreesToRadians(degrees);
 		const diff = radians - this._mesh.rotation[axis];
 		if (diff > 0.01) {
 			this._mesh.rotation[axis] += diff / 16;
@@ -165,7 +165,7 @@ function getCubeTextures(
 			? structures.weather[dice as WeatherDice]
 			: structures[type][dice as ActionDice];
 
-	return Object.entries(structure).map(([key, side]) => {
+	return Object.values(structure).map((side) => {
 		return new THREE.MeshPhysicalMaterial({
 			map: loader.load(`/${kebabCase(side)}.webp`),
 			clearcoat: 0,

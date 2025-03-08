@@ -46,7 +46,7 @@ function Cards(props: Props) {
 	const cards = useAppSelector((state) => {
 		return selectCards(state);
 	});
-	let cardsSelected = cards[props.tab];
+	const cardsSelected = cards[props.tab];
 	let column = -1;
 	let row = -1;
 	const aspectRatio = 0.654;

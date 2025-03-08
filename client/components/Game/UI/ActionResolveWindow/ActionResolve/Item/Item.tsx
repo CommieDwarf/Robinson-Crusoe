@@ -41,7 +41,7 @@ export const Item = (props: Props) => {
 	const dispatch = useAppDispatch();
 
 	const localPlayer = useAppSelector(
-		(state) => state.gameSession.data?.localPlayer!
+		(state) => state.gameSession.data!.localPlayer
 	);
 	const pawnOwner = props.resolvableItem.leaderPawn.owner;
 	const isActionAllowed = !(

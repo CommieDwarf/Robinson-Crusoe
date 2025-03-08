@@ -11,7 +11,7 @@ import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
 import { selectGame } from "../../../../reduxSlices/gameSession";
 import { useUITourControl } from "utils/hooks/useUITourControl";
 import { UI_TOUR_STEP_ID } from "types/UITour/UI_TOUR_STEP_ID";
-import { UIStateToggled, UIStateUpdated } from "reduxSlices/UITour";
+import { UIStateToggled } from "reduxSlices/UITour";
 
 interface Props {
 	topLayerElement: string;

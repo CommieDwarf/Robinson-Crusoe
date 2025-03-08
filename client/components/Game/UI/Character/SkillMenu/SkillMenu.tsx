@@ -24,7 +24,7 @@ interface Props {
 export default function SkillMenu(props: Props) {
 	const { t } = useTranslation();
 	const localCharacter = useAppSelector(
-		(state) => state.gameSession.data?.localPlayer.character!
+		(state) => state.gameSession.data!.localPlayer.character!
 	);
 
 	const overallWeather = useAppSelector(

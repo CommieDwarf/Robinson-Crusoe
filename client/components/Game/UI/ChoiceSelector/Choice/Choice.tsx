@@ -23,7 +23,7 @@ interface Props {
 export function ChoiceObject(props: Props) {
 	const basePath = "/UI";
 	let imgUrlPath = "";
-	let name =
+	const name =
 		"name" in props.pickObject.object
 			? kebabCase(props.pickObject.object.name)
 			: props.pickObject.object.id;
@@ -36,8 +36,7 @@ export function ChoiceObject(props: Props) {
 			imgUrlPath = `${basePath}/cards/items/${name}.webp`;
 			break;
 		case props.pickSubject === "invention":
-			const invention = props.pickObject.object as IInventionRenderData;
-			imgUrlPath = `${basePath}/inventions/${invention.inventionType}/${name}.webp`;
+			imgUrlPath = `${basePath}/inventions/${(props.pickObject.object as IInventionRenderData).inventionType}/${name}.webp`;
 			break;
 		case props.pickSubject === "token":
 			imgUrlPath = `${basePath}/tokens/discovery/${name}.webp`;
@@ -84,10 +83,10 @@ export function ChoiceObject(props: Props) {
 				<div className={`${styles.resource}`}>
 					{insertIconsIntoText(
 						// @ts-ignore
-						`${props.pickObject.object.amount!} \$${
+						`${props.pickObject.object.amount!} $${
 							// @ts-ignore
 							props.pickObject.object.name!
-						}\$` ?? " "
+						}$` ?? " "
 					)}
 				</div>
 			) : (

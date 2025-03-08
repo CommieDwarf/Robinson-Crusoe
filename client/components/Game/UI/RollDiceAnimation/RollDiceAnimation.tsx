@@ -88,7 +88,7 @@ export const RollDiceAnimation = (props: Props) => {
 			getDiceFromOffset(current, diceArr, event)?.onMouseEnter();
 		}
 
-		function handleMouseLeave(event: MouseEvent) {
+		function handleMouseLeave() {
 			diceArr.forEach((dice) => {
 				dice.onMouseLeave();
 			});

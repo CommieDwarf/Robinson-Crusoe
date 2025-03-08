@@ -1,5 +1,3 @@
-import { useTranslation } from "react-i18next";
-import { capitalize } from "lodash";
 import styles from "./Message.module.css";
 import { StyledHr } from "components/StyledHr/StyledHr";
 
@@ -9,7 +7,6 @@ interface Props {
 }
 
 export function Message(props: Props) {
-	const { t } = useTranslation();
 
 	return (
 		<div className={styles.container}>

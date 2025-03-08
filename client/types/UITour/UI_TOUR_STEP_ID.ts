@@ -20,7 +20,7 @@ export enum UI_TOUR_STEP_ID {
 	HEALTH = "health",
 	SCENARIO_BUTTON = "scenario button",
 	SCENARIO = "scenario",
-	SCENARIO_ROUNDS = "scenario info",
+	SCENARIO_ROUNDS = "scenario rounds",
 	SCENARIO_INFO = "scenario info",
 	WEATHER = "weather",
 	DISCOVERY_TOKENS = "discovery tokens",

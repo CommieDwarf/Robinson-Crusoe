@@ -8,9 +8,8 @@ import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
 import { socketEmit } from "../../../../middleware/socketMiddleware";
 import { SOCKET_EVENT_CLIENT } from "@shared/types/Requests/Socket";
 
-interface Props {}
 
-export function GameOptions(props: Props) {
+export function GameOptions() {
 	const dispatch = useAppDispatch();
 	const sessionId = useAppSelector((state) => state.gameSession.sessionId);
 

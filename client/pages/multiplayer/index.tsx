@@ -176,7 +176,7 @@ export function Multiplayer() {
 					}}
 				>
 					<Message
-					// @ts-ignore
+					// @ts-expect-error
 						message={t(`error.${message}`)}
 						title={t(`error.disconnected`)}
 					/>

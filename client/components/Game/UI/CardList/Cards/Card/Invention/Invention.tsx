@@ -151,7 +151,7 @@ function Invention(props: Props) {
 			)}
 
 			<div className={`${styles.cardPawn} `}>
-				{props.invention.pawnService.pawns.map((pawn, i) => {
+				{props.invention.pawnService.pawns.map((pawn) => {
 					return (
 						<ActionSlot
 							type={"helper"}

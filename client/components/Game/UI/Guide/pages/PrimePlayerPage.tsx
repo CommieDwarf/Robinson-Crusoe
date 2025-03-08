@@ -1,6 +1,5 @@
 import ResizableImage from "../../../../DynamicImage/DynamicImage";
 import styles from "../Guide.module.css";
-import { ClickNextPhaseSection } from "./ClickNextPhaseSection";
 
 
 export function PrimPlayerPage() {

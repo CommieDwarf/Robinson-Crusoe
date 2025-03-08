@@ -13,9 +13,8 @@ import {
 	selectTokenService,
 } from "../../../../reduxSlices/gameSession";
 
-interface Props {}
 
-function AllResources(props: Props) {
+function AllResources() {
 	const { future, owned } = useAppSelector(selectResourceService) || {};
 
 	const tokenService = useAppSelector(selectTokenService);

@@ -3,7 +3,6 @@ import styles from "./UserProfile.module.css";
 import { useRouter } from "next/router";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { useEffect, useState } from "react";
-import { SessionBasicInfo } from "@shared/types/Session/Session";
 import {
 	SOCKET_EVENT_CLIENT,
 	SOCKET_EVENT_SERVER,
@@ -14,7 +13,6 @@ import { ProfileHome } from "./ProfileHome/ProfileHome";
 import { ProfileSettings } from "./ProfileSettings/ProfileSettings";
 import { UserData } from "@shared/types/UserData/UserData";
 
-interface Props {}
 
 export enum PROFILE_NAV {
 	HOME,
@@ -26,13 +24,10 @@ export interface ProfileComponentProps {
 	changeNav: (nav: PROFILE_NAV) => void;
 }
 
-export function UserProfile(props: Props) {
+export function UserProfile() {
 	const router = useRouter();
 	const user = useAppSelector((state) => state.connection.user);
 	const dispatch = useAppDispatch();
-	const [sessionsInProgress, setSessionsInProgress] = useState<
-		SessionBasicInfo[] | null
-	>(null);
 
 	const [currentNav, setCurrentNav] = useState<PROFILE_NAV>(PROFILE_NAV.HOME);
 
@@ -42,12 +37,6 @@ export function UserProfile(props: Props) {
 
 	useEffect(() => {
 		const listeners = [
-			setSocketListener(
-				SOCKET_EVENT_SERVER.GAME_IN_PROGRESS_LIST_SENT,
-				(payload) => {
-					setSessionsInProgress(payload.sessionList);
-				}
-			),
 			setSocketListener(
 				SOCKET_EVENT_SERVER.JOIN_SESSION_RESPONSE,
 				(payload) => {

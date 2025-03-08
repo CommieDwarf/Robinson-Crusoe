@@ -11,9 +11,8 @@ import { getAuthToken } from "utils/auth/getAuthToken";
 import config from "config/config";
 import { toast } from "react-toastify";
 
-interface Props {}
 
-export function NewPasswordForm(props: Props) {
+export function NewPasswordForm() {
 	const [currentPassword, setCurrentPassword] = useState("");
 	const [newPassword, setNewPassword] = useState("");
 	const [newPasswordConfirm, setNewPasswordConfirm] = useState("");
@@ -25,7 +24,6 @@ export function NewPasswordForm(props: Props) {
 		general: "",
 	});
 	const [loading, setLoading] = useState(false);
-	const [passwordChanged, setPasswordChanged] = useState(false);
 
 	const { t } = useTranslation();
 
@@ -116,7 +114,7 @@ export function NewPasswordForm(props: Props) {
 			} else {
 				setError("general", t("error.serverError"));
 			}
-		} catch (e) {
+		} catch {
 			setError("general", t("error.connectError"));
 		} finally {
 			setLoading(false);

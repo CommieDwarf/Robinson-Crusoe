@@ -18,7 +18,9 @@ export function GenderSwitch(props: Props) {
 	const { t } = useTranslation();
 
 	function handleMaleClick() {
-		gender !== "male" && switchGender("male");
+		if (gender !== "male") {
+			switchGender("male");
+		}
 	}
 
 	function switchGender(gender: Gender) {
@@ -34,7 +36,9 @@ export function GenderSwitch(props: Props) {
 	}
 
 	function handleFemaleClick() {
-		gender !== "female" && switchGender("female");
+		if (gender !== "female") {
+			switchGender("female")
+		}
 	}
 
 	return (

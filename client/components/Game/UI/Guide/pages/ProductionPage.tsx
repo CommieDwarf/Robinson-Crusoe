@@ -1,7 +1,6 @@
 import ResizableImage from "../../../../DynamicImage/DynamicImage";
 import { insertIcon } from "../Guide";
 import styles from "../Guide.module.css";
-import { ClickNextPhaseSection } from "./ClickNextPhaseSection";
 
 export function ProductionPage() {
 	return (

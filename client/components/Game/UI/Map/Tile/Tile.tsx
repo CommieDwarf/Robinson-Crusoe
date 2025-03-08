@@ -29,7 +29,7 @@ export default function Tile(props: Props) {
 			)?.lvl === 1
 	);
 
-	let style = {
+	const style = {
 		top: props.tile.position.cords.top + "%",
 		left: props.tile.position.cords.left + "%",
 	};

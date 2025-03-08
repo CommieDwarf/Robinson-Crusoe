@@ -7,13 +7,9 @@ import { ForgetPasswordFormProps } from "../@Props";
 import config from "config/config";
 import Cookies from "js-cookie";
 
-interface Props extends ForgetPasswordFormProps {
-	
-}
 
-export function SendEmailForm(props: Props) {
+export function SendEmailForm(props: ForgetPasswordFormProps) {
 	const [email, setEmail] = useState("");
-	const [emailError, setEmailError] = useState("");
 
 	const { t } = useTranslation();
 
@@ -31,7 +27,6 @@ export function SendEmailForm(props: Props) {
 				body,
 			});
 
-	
 			if (result.status === 404) {
 				props.setError(t("form.emailDoNotExist"));
 				return;
@@ -39,7 +34,7 @@ export function SendEmailForm(props: Props) {
 				props.setError(t("error.serverError"));
 				return;
 			}
-	 
+
 			if (result.ok) {
 				const json = await result.json();
 				const expires: number = json.expires;
@@ -52,12 +47,12 @@ export function SendEmailForm(props: Props) {
 				});
 				props.onSuccess();
 			}
-		} catch (error) {
+		} catch {
 			props.setError(t("error.connectError"))
 		} finally {
 			props.setLoading(false);
 		}
-	
+
 	}
 
 	return (
@@ -70,7 +65,6 @@ export function SendEmailForm(props: Props) {
 				value={email}
 				onChange={(e) => setEmail(e.target.value)}
 				required
-				error={emailError}
 			/>
 
 			<FormButton

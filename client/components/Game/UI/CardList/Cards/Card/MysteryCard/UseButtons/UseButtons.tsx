@@ -9,6 +9,7 @@ import {isStorageCard} from "@shared/utils/typeGuards/isStorageCard";
 import {MYSTERY_CONTROLLER_ACTION} from "@shared/types/CONTROLLER_ACTION";
 import {useAppDispatch} from "../../../../../../../../store/hooks";
 import {socketEmitAction} from "../../../../../../../../middleware/socketMiddleware";
+import { ReactElement } from "react";
 
 interface Props {
     card: ITreasureMysteryCardRenderData;
@@ -46,7 +47,7 @@ export default function UseButtons(props: Props) {
     }
 
 
-    const resources: any[] = [];
+    const resources: ReactElement[] = [];
 
     if (isStorageCard(props.card) && props.card.stored) {
         Object.entries(props.card.stored).forEach(([res, amount]) => {

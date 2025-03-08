@@ -12,7 +12,7 @@ interface Props {
 
 function ArrangeCampRest(props: Props) {
 	const arrangeCampRestService = useAppSelector(
-		(state) => selectGame(state)?.arrangeCampRestService!
+		(state) => selectGame(state)!.arrangeCampRestService
 	);
 
 	if (!arrangeCampRestService) return null;

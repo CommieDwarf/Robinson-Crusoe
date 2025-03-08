@@ -8,8 +8,7 @@ import { OTHER_CONTROLLER_ACTION } from "@shared/types/CONTROLLER_ACTION";
 import { useAppDispatch } from "../../../../../store/hooks";
 import { socketEmitAction } from "../../../../../middleware/socketMiddleware";
 
-type Props = {};
-export const RollDiceButton = (props: Props) => {
+export const RollDiceButton = () => {
 	const [clicked, setClicked] = useState(false);
 
 	const dispatch = useAppDispatch();

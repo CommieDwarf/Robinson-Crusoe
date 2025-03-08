@@ -10,15 +10,12 @@ import ResizableImage from "../../../../DynamicImage/DynamicImage";
 import determinationTokenImg from "/public/UI/tokens/determination.webp";
 import { objectsEqual } from "@shared/utils/objectsEqual";
 import { getOwnedDroppableId } from "@shared/utils/getOwnedDroppableId";
-import { ISideCharacterRenderData } from "@shared/types/Game/Characters/SideCharacter";
 import { useTranslation } from "react-i18next";
 import { capitalize } from "lodash";
 import { selectGame } from "../../../../../reduxSlices/gameSession";
 import Health from "../../Health/Health";
 
-interface Props {}
-
-function SideCharacters(props: Props) {
+function SideCharacters() {
 	const friday = useAppSelector(
 		(state) => selectGame(state)?.characterService.friday
 	);

@@ -186,7 +186,7 @@ export function Player(props: Props) {
 							padding: 0,
 							color: "red",
 						}),
-						indicatorSeparator: (styles) => ({
+						indicatorSeparator: () => ({
 							hidden: true,
 						}),
 						valueContainer: (styles) => ({

@@ -1,5 +1,4 @@
 import styles from "./index.module.css";
-import { useTranslation } from "react-i18next";
 import ResizableImage from "../../../components/DynamicImage/DynamicImage";
 import Link from "next/link";
 import {
@@ -8,10 +7,8 @@ import {
 } from "../../../components/Lobby/GameSettings/GameSettings";
 import exitIcon from "/public/UI/icons/exit4.webp";
 
-export interface Props {}
 
 export function CreateGame() {
-	const { t } = useTranslation();
 
 	return (
 		<div className={styles.container}>

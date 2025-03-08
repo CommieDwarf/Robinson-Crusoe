@@ -13,17 +13,17 @@ export default function ResizableImage(props: Props) {
 
 	useEffect(() => {
 		if (!containerRef.current) return;
-	
+
 		// Tworzymy obserwatora do śledzenia zmian szerokości kontenera
 		const observer = new ResizeObserver((entries) => {
-		  if (!entries[0]) return;
-		  setContainerWidth(entries[0].contentRect.width);
+			if (!entries[0]) return;
+			setContainerWidth(entries[0].contentRect.width);
 		});
-		
+
 		observer.observe(containerRef.current);
-		
+
 		return () => observer.disconnect(); // Odłącz obserwator przy odmontowaniu
-	  }, []);
+	}, []);
 
 
 	return (

@@ -11,7 +11,7 @@ export type ComponentName =
 const scenarioCards = ["mast", "axe"];
 
 export function stringIncludesSomeArrayElement(array: string[], str: string) {
-	for (let element of array) {
+	for (const element of array) {
 		if (str.includes(element)) {
 			return true;
 		}

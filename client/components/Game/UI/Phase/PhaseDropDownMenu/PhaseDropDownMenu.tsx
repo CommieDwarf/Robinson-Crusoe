@@ -23,7 +23,7 @@ export default function PhaseDropDownMenu(props: Props) {
 		"weather",
 		"night",
 	];
-	let currentPhase =
+	const currentPhase =
 		props.currentPhase === "preAction" ? "action" : props.currentPhase;
 
 	const phaseElements = phases.map((phase, i) => {

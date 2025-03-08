@@ -1,69 +1,69 @@
 .container {
-    position: absolute;
-    width: 100%;
-    height: 100%;
+	position: absolute;
+	width: 100%;
+	height: 100%;
 }
 
 .topBar {
-    width: 100%;
-    height: 6%;
-    position: relative;
+	width: 100%;
+	height: 6%;
+	position: relative;
 }
 
 .leftBar {
-    width: 6.5%;
-    height: 88%;
-    position: relative;
-    float: left;
+	width: 6.5%;
+	height: 88%;
+	position: relative;
+	float: left;
 }
 
 .rightBar {
-    width: 6.5%;
-    height: 88%;
-    position: relative;
-    float: right;
+	width: 6.5%;
+	height: 88%;
+	position: relative;
+	float: right;
 }
 
 .botBar {
-    height: 6%;
-    width: 100%;
-    position: absolute;
-    bottom: 0;
+	height: 6%;
+	width: 100%;
+	position: absolute;
+	bottom: 0;
 }
 
 .midBar {
-    /*width: 88%;*/
-    /*height: 6%;*/
-    /*position: relative;*/
-    /*margin-left: 6%;*/
-    /*margin-top: 50%;*/
-    /*z-index: 1;*/
-    width: 88%;
-    height: 7%;
-    bottom: 46%;
-    margin-left: 6%;
-    position: absolute;
+	/*width: 88%;*/
+	/*height: 6%;*/
+	/*position: relative;*/
+	/*margin-left: 6%;*/
+	/*margin-top: 50%;*/
+	/*z-index: 1;*/
+	width: 88%;
+	height: 7%;
+	bottom: 46%;
+	margin-left: 6%;
+	position: absolute;
 }
 
 .barDecoration {
-    width: 20%;
-    height: 100%;
-    background-image: url("../../../../../public/UI/resources/silver.webp");
-    background-size: contain;
-    z-index: 10;
-    position: relative;
-    margin: auto;
-    border-radius: 5px;
-    border: 1px solid gray;
-    top: -100%;
+	width: 20%;
+	height: 100%;
+	background-image: url("../../../../../public/UI/resources/silver.webp");
+	background-size: contain;
+	z-index: 10;
+	position: relative;
+	margin: auto;
+	border-radius: 5px;
+	border: 1px solid gray;
+	top: -100%;
 }
 
 .productionIcon {
-    position: absolute;
-    height: 100%;
-    aspect-ratio: 1;
-    border-radius: 100%;
-    left: 25%;
-    top: 0;
-    filter: saturate(7);
+	position: absolute;
+	height: 100%;
+	aspect-ratio: 1;
+	border-radius: 100%;
+	left: 25%;
+	top: 0;
+	filter: saturate(7);
 }

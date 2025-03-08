@@ -3,7 +3,6 @@ import { ReadyButton } from "../ReadyButton";
 import { useEffect, useState } from "react";
 import compassImg from "/public/UI/tokens/compass.webp";
 import ResizableImage from "../../DynamicImage/DynamicImage";
-import { useRouter } from "next/router";
 import { SOCKET_EVENT_CLIENT } from "@shared/types/Requests/Socket";
 import { BackButton } from "../../BackButton/BackButton";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
@@ -17,7 +16,6 @@ interface Props {
 export function ControlPanel(props: Props) {
 	const [ready, setReady] = useState(props.ready);
 
-	const router = useRouter();
 	const dispatch = useAppDispatch();
 
 	const isHost = useAppSelector(

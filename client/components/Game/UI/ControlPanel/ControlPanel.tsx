@@ -27,7 +27,7 @@ interface Props {
 
 export function ControlPanel(props: Props) {
 	const isPreAction = useAppSelector(
-		(state) => selectGame(state)?.phaseService.phase! === "preAction"
+		(state) => selectGame(state)!.phaseService.phase! === "preAction"
 	);
 
 	function handleOptionsClick() {
@@ -72,7 +72,7 @@ export function ControlPanel(props: Props) {
 		}
 	}
 
-	const moreThanOnePlayer = useAppSelector((state) => state.gameSession.data?.players.length! > 1);
+	const moreThanOnePlayer = useAppSelector((state) => state.gameSession.data!.players.length > 1);
 
 	const chatLog = document.getElementById("chatLog");
 

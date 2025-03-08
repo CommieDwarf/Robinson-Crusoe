@@ -5,10 +5,8 @@ import {WeatherToken} from "./WeatherToken/WeatherToken";
 import {useAppSelector} from "../../../../store/hooks";
 import {selectGame} from "../../../../reduxSlices/gameSession";
 
-type Props = {};
-
-export const Weather = (props: Props) => {
-    const weatherTokens = useAppSelector((state) => selectGame(state)?.weatherService.tokens!);
+export const Weather = () => {
+    const weatherTokens = useAppSelector((state) => selectGame(state)!.weatherService.tokens!);
 
     return (
         <div className={`${styles.container} tour-weather`}>

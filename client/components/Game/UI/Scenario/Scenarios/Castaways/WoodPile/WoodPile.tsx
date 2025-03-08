@@ -6,8 +6,6 @@ import fireImg from "/public/UI/scenarios/fire.webp";
 import woodImg from "/public/UI/resources/wood.webp";
 import ResizableImage from "../../../../../../DynamicImage/DynamicImage";
 import { OTHER_CONTROLLER_ACTION } from "@shared/types/CONTROLLER_ACTION";
-import { useTranslation } from "react-i18next";
-import { capitalize } from "lodash";
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -15,10 +13,9 @@ import {
 import { selectGame } from "../../../../../../../reduxSlices/gameSession";
 import { socketEmitAction } from "../../../../../../../middleware/socketMiddleware";
 
-type Props = {};
-export const WoodPile = (props: Props) => {
+export const WoodPile = () => {
 	const scenarioService = useAppSelector(
-		(state) => selectGame(state)?.scenarioService!
+		(state) => selectGame(state).scenarioService
 	);
 
 	const dispatch = useAppDispatch();
@@ -27,7 +24,6 @@ export const WoodPile = (props: Props) => {
 		dispatch(socketEmitAction(OTHER_CONTROLLER_ACTION.ADD_WOOD_TO_PILE));
 	}
 
-	const { t } = useTranslation();
 
 	return (
 		<div className={styles.container}>
@@ -38,9 +34,8 @@ export const WoodPile = (props: Props) => {
 				{scenarioService.woodStashLvl}/5
 			</div>
 			<div
-				className={`${styles.fire} ${
-					!scenarioService.isFireBuilt && styles.fireNotBuilt
-				}`}
+				className={`${styles.fire} ${!scenarioService.isFireBuilt && styles.fireNotBuilt
+					}`}
 			>
 				<ResizableImage
 					src={fireImg}
@@ -50,9 +45,8 @@ export const WoodPile = (props: Props) => {
 				/>
 			</div>
 			<div
-				className={`${styles.woodStack} ${
-					styles["level" + scenarioService.woodStashLvl]
-				}`}
+				className={`${styles.woodStack} ${styles["level" + scenarioService.woodStashLvl]
+					}`}
 			>
 				<ResizableImage
 					src={`/UI/scenarios/castaways/woodStack${scenarioService.woodStashLvl}.webp`}
@@ -79,9 +73,8 @@ export const WoodPile = (props: Props) => {
 
 					{scenarioService.woodStashLvl < 5 && (
 						<div
-							className={`${styles.woodButton} ${
-								styles.addWoodButton
-							} 
+							className={`${styles.woodButton} ${styles.addWoodButton
+								} 
 							
 							${scenarioService.canAddWood && styles.buttonActive}`}
 							onClick={handleButtonClick}

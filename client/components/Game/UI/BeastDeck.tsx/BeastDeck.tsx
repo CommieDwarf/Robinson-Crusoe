@@ -14,7 +14,7 @@ interface Props {
 
 export default function BeastDeck(props: Props) {
 	const beastAmount = useAppSelector(
-		(state) => selectGame(state)?.beastService.deckCount!
+		(state) => selectGame(state)!.beastService.deckCount
 	);
 	const dragDisabled = useAppSelector(
 		(state) => state.UITour.UiStates.scenarioOpen

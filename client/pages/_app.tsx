@@ -1,5 +1,5 @@
 import "../styles/globals.css";
-import React, { useEffect } from "react";
+import React from "react";
 import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
 import { store } from "../store/store";
@@ -16,7 +16,7 @@ import {
 } from "components/UserHistoryManager/UserHistoryManager";
 
 
-export default function App<Props>({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps }: AppProps) {
 	const historyManager = useHistoryManager();
 
 	return (

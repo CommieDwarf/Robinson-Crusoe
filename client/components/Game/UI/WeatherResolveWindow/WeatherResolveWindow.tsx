@@ -11,8 +11,8 @@ import { RollDiceWindow } from "./RollDiceWindow/RollDiceWindow";
 import { useAppSelector } from "../../../../store/hooks";
 import { selectGame } from "../../../../reduxSlices/gameSession";
 
-type Props = {};
-export const WeatherResolveWindow = (props: Props) => {
+
+export const WeatherResolveWindow = () => {
 	const weatherDices = useAppSelector(
 		(state) => selectGame(state)?.scenarioService.weather
 	);

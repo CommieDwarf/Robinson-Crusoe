@@ -18,7 +18,7 @@ interface Props {
 export default function Threshold(props: Props) {
 	const dispatch = useAppDispatch();
 
-	let blinkClass =
+	const blinkClass =
 		props.thresholdAmountForRemoval > 0 && !props.removed
 			? styles.thresholdMarkedForRemoval
 			: "";

@@ -10,10 +10,10 @@ export function dynamicTranslate(text: string) {
 	categories.forEach((category) => {
 		if (i18n.exists(`${category}.${text}`)) {
 			if (Object.values(ABILITY).includes(text as ABILITY)) {
-				// @ts-ignore
+				// @ts-expect-error 
 				translated = t(`ability.${text}.name`);
 			} else {
-				// @ts-ignore
+				// @ts-expect-error
 				translated = t(`${category}.${text}`);
 			}
 		}

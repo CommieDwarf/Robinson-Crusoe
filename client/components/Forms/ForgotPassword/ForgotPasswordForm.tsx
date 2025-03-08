@@ -30,7 +30,6 @@ interface Props {
 export function ForgotPasswordForm(props: Props | EnterCodeProps) {
 	const [error, setError] = useState("");
 	const [loading, setLoading] = useState(false);
-	const [finished, setFinished] = useState(false);
 
 	const router = useRouter();
 

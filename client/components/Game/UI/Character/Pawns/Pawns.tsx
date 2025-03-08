@@ -3,11 +3,11 @@ import Pawn from "../../Pawn";
 import { Droppable } from "react-beautiful-dnd";
 import React from "react";
 import { ICharacterRenderData } from "@shared/types/Game/Characters/Character";
-import { IPawnRenderData } from "@shared/types/Game/Pawns/Pawn";
+import { IPawnOwnerRenderData, IPawnRenderData } from "@shared/types/Game/Pawns/Pawn";
 
 interface Props {
 	character: ICharacterRenderData;
-	pawns: IPawnRenderData<any>[];
+	pawns: IPawnRenderData<IPawnOwnerRenderData>[];
 	dragDisabled: boolean;
 	droppableId: string;
 }

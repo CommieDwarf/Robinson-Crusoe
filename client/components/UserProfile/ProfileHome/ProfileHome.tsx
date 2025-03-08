@@ -6,8 +6,6 @@ import { socket } from "store/store";
 import { useRouter } from "next/router";
 import { capitalize } from "lodash";
 import { useTranslation } from "react-i18next";
-import { socketEmit } from "middleware/socketMiddleware";
-import { SOCKET_EVENT_CLIENT } from "@shared/types/Requests/Socket";
 import { PROFILE_NAV, ProfileComponentProps } from "../UserProfile";
 import { useDispatch } from "react-redux";
 import { LoadingSpinner } from "components/LoaderSpinner/LoaderSpinner";

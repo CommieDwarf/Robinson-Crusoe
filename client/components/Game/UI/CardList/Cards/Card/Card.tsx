@@ -61,10 +61,10 @@ export const Card = (props: Props) => {
 		cursor: enlarged ? "zoom-out" : "zoom-in",
 		height: enlarged
 			? props.height *
-					(props.enlargeParams
-						? props.enlargeParams.scale
-						: enlargeMultiplayer) +
-			  "px"
+			(props.enlargeParams
+				? props.enlargeParams.scale
+				: enlargeMultiplayer) +
+			"px"
 			: props.height + "px",
 	};
 

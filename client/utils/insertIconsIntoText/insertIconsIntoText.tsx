@@ -68,7 +68,7 @@ function splitByWordAndIcon(string: string) {
 
 	// Splitujemy na tablice przez $ oraz &.
 	// @ na początku wyrazu oznacza ikonę. @ na koncu wyrazu oznacza słowo lub pusty string.
-	let array = string.split(/\$|&/);
+	const array = string.split(/\$|&/);
 	// Pozbywamy się pustych stringów oraz zbędnych @
 	return array.filter((word) => word !== "" && !word.endsWith("@"));
 }

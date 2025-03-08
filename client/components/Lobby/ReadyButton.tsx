@@ -12,7 +12,7 @@ interface Props {
 
 export function ReadyButton(props: Props) {
 	function handleClick() {
-		props.onClick && props.onClick();
+		props.onClick?.();
 	}
 
 	return (

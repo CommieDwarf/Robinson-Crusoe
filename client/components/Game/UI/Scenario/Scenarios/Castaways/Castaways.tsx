@@ -12,11 +12,7 @@ import { capitalize } from "lodash";
 import { useAppSelector } from "../../../../../../store/hooks";
 import { selectGame } from "../../../../../../reduxSlices/gameSession";
 
-interface Props {
-	zIndex: string;
-}
-
-export default function Castaways(props: Props) {
+export default function Castaways() {
 	const currentRound = useAppSelector((state) => selectGame(state)?.round);
 
 	const { t } = useTranslation();

@@ -13,7 +13,7 @@ type Props = {
 }
 
 export default function ActionOrder(props: Props) {
-    let actionIcons: JSX.Element[] = [];
+    const actionIcons: JSX.Element[] = [];
 
 
     actionOrder.forEach((action, i) => {

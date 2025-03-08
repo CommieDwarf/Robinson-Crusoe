@@ -1,6 +1,6 @@
 import { configureStore, Store } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
-import { Context, createWrapper } from "next-redux-wrapper";
+import { createWrapper } from "next-redux-wrapper";
 import { alertSlice } from "../reduxSlices/alert";
 import { gameSessionSlice } from "../reduxSlices/gameSession";
 import socketMiddleware from "../middleware/socketMiddleware";
@@ -23,7 +23,7 @@ export type RootState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;
 
 // Konfiguracja store
-const makeStore = (context: Context): Store<RootState> => {
+const makeStore = (): Store<RootState> => {
 	return configureStore({
 		reducer: rootReducer,
 		middleware: (getDefaultMiddleware) =>
@@ -32,5 +32,5 @@ const makeStore = (context: Context): Store<RootState> => {
 	});
 };
 
-export const store = makeStore({});
+export const store = makeStore();
 export const wrapper = createWrapper(makeStore, { debug: true });

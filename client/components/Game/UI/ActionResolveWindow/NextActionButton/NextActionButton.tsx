@@ -13,7 +13,7 @@ type Props = {
 };
 
 export const NextActionButton = (props: Props) => {
-    let currentActionIndex = actionOrder.findIndex(
+    const currentActionIndex = actionOrder.findIndex(
         (action) => props.actionService.action === action
     );
 

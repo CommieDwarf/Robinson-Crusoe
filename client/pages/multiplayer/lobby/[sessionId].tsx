@@ -17,13 +17,11 @@ import {
 } from "../../../reduxSlices/gameSession";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { ControlPanel } from "../../../components/Lobby/ControlPanel/ControlPanel";
-import { Gender } from "@shared/types/Game/Characters/Character";
 import ChatLog from "../../../components/Game/UI/ChatLog/ChatLog";
 import { socketEmit } from "../../../middleware/socketMiddleware";
 import { setSocketListener } from "../../api/socket";
 
 export function Lobby() {
-	const [gender, setGender] = useState<Gender>("male");
 	const router = useRouter();
 	const dispatch = useAppDispatch();
 	const [loaded, setLoaded] = useState(false);
@@ -103,10 +101,6 @@ export function Lobby() {
 		}
 	}, [loaded, sessionId, sessionData?.game]);
 
-	function handleSetGender(gender: Gender) {
-		setGender(gender);
-	}
-
 	return (
 		<div className={styles.container}>
 			{sessionData && (
@@ -150,7 +144,6 @@ export function Lobby() {
 							gender={
 								sessionData.localPlayer.assignedCharacter.gender
 							}
-							setGender={handleSetGender}
 						/>
 					</div>
 				</>

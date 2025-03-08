@@ -14,7 +14,6 @@ import { useTranslation } from "react-i18next";
 import capitalize from "@shared/utils/capitalize";
 import {
 	gameSessionCleared,
-	gameSessionUpdated,
 } from "../../reduxSlices/gameSession";
 import { setSocketListener } from "pages/api/socket";
 
@@ -26,7 +25,6 @@ export function MainMenu({ UserComponent }: Props) {
 	const [isAnimated, setIsAnimated] = useState(false);
 	const animationDurationMs = 200;
 
-	const [gameInProgress, setGameInProgress] = useState(false);
 
 	const router = useRouter();
 	const { t } = useTranslation();
@@ -61,7 +59,7 @@ export function MainMenu({ UserComponent }: Props) {
 		if (!socketConnected) {
 			animateAuth(event);
 		}
-		dispatch(gameSessionCleared(null));
+		dispatch(gameSessionCleared());
 		dispatch(socketEmit(SOCKET_EVENT_CLIENT.CREATE_QUICK_GAME, null));
 	}
 

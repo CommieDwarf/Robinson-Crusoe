@@ -118,7 +118,7 @@ export function WeatherPage() {
 							/>
 						)}
 						textElement={() => <><strong>Żeton sztormu</strong> - niszczony jest 1 poziom
-						 {insertIconsIntoText("$palisade$", guideStyles.icon)}palisady.</>}
+							{insertIconsIntoText("$palisade$", guideStyles.icon)}palisady.</>}
 					/>
 				</ul>
 			</section>
@@ -137,7 +137,7 @@ export function WeatherPage() {
 							/>
 						)}
 						textElement={() => <strong>Deszczowa chmura</strong>}
-						
+
 					/>
 				</ul>
 				<ul className={guideStyles.list}>

@@ -6,7 +6,6 @@ import {socketEmit} from "../../../../../../middleware/socketMiddleware";
 import {useState} from "react";
 import ResizableImage from "../../../../../DynamicImage/DynamicImage";
 import checkMark from "/public/UI/misc/check-mark.webp";
-import starImg from "/public/UI/icons/star.webp";
 
 interface Props {
     player: IPlayerRenderData,

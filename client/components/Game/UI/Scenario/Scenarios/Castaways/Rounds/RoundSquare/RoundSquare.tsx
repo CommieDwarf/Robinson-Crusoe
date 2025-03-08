@@ -1,7 +1,6 @@
 // @flow
 import * as React from "react";
 import styles from "./RoundSquare.module.css";
-import logStyles from "../../../../../ChatLog/LogMessage/LogMessage.module.css";
 import ResizableImage from "../../../../../../../DynamicImage/DynamicImage";
 
 interface Props {

@@ -1,6 +1,5 @@
 // @flow
 import * as React from "react";
-import { useState } from "react";
 import styles from "./CardResolve.module.css";
 import Draggable from "react-draggable";
 import { AdventureCardResolve } from "./Adventure/AdventureCardResolve";
@@ -36,17 +35,12 @@ type Props = {
 };
 
 const CardResolve = (props: Props) => {
-	const [enlarged, setEnlarged] = useState(false);
 
 	const dispatch = useAppDispatch();
 
 	const localPlayer = useAppSelector(
 		(state) => state.gameSession.data?.localPlayer
 	);
-
-	function toggleZoom() {
-		setEnlarged((state) => !state);
-	}
 
 	const playerResolver = useAppSelector((state) =>
 		selectPlayerByCharacter(state, props.resolve.resolver.name)
@@ -137,9 +131,7 @@ const CardResolve = (props: Props) => {
 		<Draggable bounds={"parent"}>
 			<div className={styles.container}>
 				<div
-					className={`${styles.card} ${
-						enlarged ? styles.enlarged : ""
-					}`}
+					className={`${styles.card}`}
 				>
 					{isAdventureCardRenderData(props.resolve.card) ? (
 						<AdventureCardResolve card={props.resolve.card} />

@@ -13,7 +13,7 @@ i18next
 		interpolation: {
 			escapeValue: false,
 			// eslint-disable-next-line no-unused-vars
-			format: function (value, format, lng) {
+			format: function (value, format) {
 				if (format === "uppercase") return value.toUpperCase();
 				if (format === "lowercase") return value.toLowerCase();
 				if (format === "capitalize")
