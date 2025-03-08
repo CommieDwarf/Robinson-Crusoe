@@ -28,7 +28,7 @@ export default function Scenario(props: Props) {
 			} tour-scenario`}
 		>
 			<div className={styles.content} style={contentStyle}>
-				<Castaways zIndex={props.zIndex} />
+				<Castaways/>
 			</div>
 			<div className={styles.background}></div>
 		</div>
