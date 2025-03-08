@@ -83,7 +83,7 @@ function getProperImg(
 		return (
 			<div
 				key={key}
-				className={iconClassName ? iconClassName : styles.icon}
+				className={`${iconClassName ? iconClassName : styles.icon} ${str.includes("morale") && styles.morale}`}
 				style={{ aspectRatio: str.includes("morale") ? 2.5 : 1 }}
 			>
 				<ResizableImage
