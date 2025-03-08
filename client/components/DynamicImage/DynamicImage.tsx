@@ -4,7 +4,6 @@ import styles from "./DynamicImage.module.css";
 
 interface Props extends ImageProps {
 	src: string | StaticImageData;
-	alt: string;
 	scale?: number;
 }
 
@@ -33,12 +32,11 @@ export default function ResizableImage(props: Props) {
 			className={`${styles.container} ${props.className}`}
 		>
 			<Image
-				{...props}
-				alt={props.alt}
 				fill
-				className={styles.preventSelect}
 				draggable={false}
 				sizes={`${containerWidth}px`}
+				{...props}
+				className={styles.preventSelect}
 			></Image>
 		</div>
 	);
