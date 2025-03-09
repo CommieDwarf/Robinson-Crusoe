@@ -1,6 +1,6 @@
 import styles from "./ControlPanel.module.css";
 import { NextPhaseButton } from "../NextPhaseButton/NextPhaseButton";
-import React from "react";
+import React, { useRef } from "react";
 import { PlayerReadiness } from "./PlayerReadiness/PlayerReadiness";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
 import { selectGame } from "../../../../reduxSlices/gameSession";
@@ -13,7 +13,7 @@ import menuIconImg from "/public/UI/icons/menu.webp";
 import { Button } from "./ViewPlayersButton/Button";
 import { MenuItem } from "./Menu/MenuItem";
 import { useRouter } from "next/router";
-import { UIStateToggled } from "reduxSlices/UITour";
+import { UIStateToggled, UIStateUpdated } from "reduxSlices/UITour";
 import { useUITourControl } from "utils/hooks/useUITourControl";
 import { UI_TOUR_STEP_ID } from "types/UITour/UI_TOUR_STEP_ID";
 
@@ -72,13 +72,30 @@ export function ControlPanel(props: Props) {
 		}
 	}
 
-	const moreThanOnePlayer = useAppSelector((state) => state.gameSession.data!.players.length > 1);
+	const buttonRef = useRef<HTMLDivElement>(null);
+
+	function handleOuterMenuClick(event: MouseEvent) {
+		const current = buttonRef.current;
+		if (!current) {
+			return;
+		}
+		if (currentStep.data.id === UI_TOUR_STEP_ID.MENU ||
+			current.contains(event.target as HTMLElement)
+		) {
+			return;
+		}
+			dispatch(UIStateUpdated(["menuOpen", false]));
+	}
+
+	const moreThanOnePlayer = useAppSelector(
+		(state) => state.gameSession.data!.players.length > 1
+	);
 
 	const chatLog = document.getElementById("chatLog");
 
 	return (
 		<div className={styles.container}>
-			<div className={`${styles.dropDownButton} tour-menu`}>
+			<div className={`${styles.dropDownButton} tour-menu`} ref={buttonRef}>
 				<Button
 					onClick={handleMenuButtonClick}
 					imgSrc={menuIconImg}
@@ -105,6 +122,7 @@ export function ControlPanel(props: Props) {
 						flexDirection: "column",
 					}}
 					delay={200}
+					onOuterClick={handleOuterMenuClick}
 				>
 					<div className={styles.menu}>
 						<MenuItem

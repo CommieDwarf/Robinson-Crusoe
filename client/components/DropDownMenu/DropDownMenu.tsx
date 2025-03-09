@@ -1,4 +1,4 @@
-import React, { CSSProperties } from "react";
+import React, { CSSProperties, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 import dropDownMenuStyles from "./DropDownMenu.module.css";
 
@@ -16,6 +16,7 @@ interface Props {
 	styles?: React.CSSProperties;
 	children?: JSX.Element;
 	delay?: number;
+	onOuterClick?: (event: MouseEvent) => void;
 }
 
 const DropdownMenu = ({
@@ -23,10 +24,10 @@ const DropdownMenu = ({
 	size,
 	direction,
 	root,
-	onClose,
 	styles,
 	delay,
 	children,
+	onOuterClick,
 }: Props) => {
 	const currentStyle = isOpen
 		? mappedStyles.open[direction]
@@ -39,9 +40,31 @@ const DropdownMenu = ({
 		transition: `all ${delay ?? 500}ms`,
 	};
 
+	const containerRef = useRef(null);
+
+	useEffect(() => {
+		if (!onOuterClick) {
+			return;
+		}
+		function handleOuterClick(event: MouseEvent) {
+			const {current} = containerRef;
+			if (!onOuterClick || !current) {
+				return;
+			}
+			const target = event.target as HTMLElement;
+			if (!(current as HTMLElement).contains(target)) {
+				onOuterClick(event);
+			}
+		}
+
+		window.addEventListener("click", handleOuterClick);
+		return () => {
+			window.removeEventListener("click", handleOuterClick);
+		};
+	}, [onOuterClick, containerRef.current]);
+
 	return ReactDOM.createPortal(
 		<div
-			onClick={onClose}
 			style={style}
 			className={`${dropDownMenuStyles.container} ${
 				dropDownMenuStyles[direction]
@@ -50,6 +73,7 @@ const DropdownMenu = ({
 					`${direction}--${isOpen ? "open" : "closed"}`
 				]
 			}`}
+			ref={containerRef}
 		>
 			{children}
 		</div>,
