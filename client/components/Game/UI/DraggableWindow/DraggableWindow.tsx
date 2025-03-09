@@ -2,7 +2,7 @@ import styles from "./DraggableWindow.module.css";
 import Draggable from "react-draggable";
 import sharedStyles from "../../../../styles/shared.module.css";
 import { CSSProperties, useLayoutEffect, useRef, useState } from "react";
-import ResizableImage from "../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../DynamicImage/DynamicImage";
 import xMark from "/public/UI/misc/x-mark.webp";
 
 interface Props {
@@ -86,7 +86,7 @@ export function DraggableWindow(props: Props) {
 				{props.children}
 				{props.onClose && (
 					<div className={styles.close} onClick={handleClick}>
-						<ResizableImage src={xMark} alt={"close"} />
+						<DynamicImage src={xMark} alt={"close"} />
 					</div>
 				)}
 			</div>

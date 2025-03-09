@@ -3,7 +3,7 @@ import styles from "./CostBlock.module.css";
 import { Record } from "./Record/Record";
 import React from "react";
 import crossLineImg from "/public/UI/misc/cross-line.webp";
-import ResizableImage from "../../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../../DynamicImage/DynamicImage";
 import { IBasicResourcesAmount } from "@shared/types/Game/Resources/Resources";
 
 interface ResourceCost {
@@ -59,7 +59,7 @@ export function CostBlock(props: Props) {
 			)}
 			{props.resource2 && (
 				<div className={styles.diagonal}>
-					<ResizableImage src={crossLineImg} alt={""} />
+					<DynamicImage src={crossLineImg} alt={""} />
 				</div>
 			)}
 			{props.resource2 && (

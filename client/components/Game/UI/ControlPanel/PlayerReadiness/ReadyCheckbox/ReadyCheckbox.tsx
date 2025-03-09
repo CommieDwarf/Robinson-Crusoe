@@ -4,7 +4,7 @@ import {useAppDispatch} from "../../../../../../store/hooks";
 import {SOCKET_EVENT_CLIENT} from "@shared/types/Requests/Socket";
 import {socketEmit} from "../../../../../../middleware/socketMiddleware";
 import {useState} from "react";
-import ResizableImage from "../../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../../DynamicImage/DynamicImage";
 import checkMark from "/public/UI/misc/check-mark.webp";
 
 interface Props {
@@ -35,7 +35,7 @@ export function ReadyCheckbox(props: Props) {
         style={style} onClick={handleClick}>
         {props.player.ready &&
             <div className={styles.checkImg}>
-                <ResizableImage src={checkMark} alt={"ready"}/>
+                <DynamicImage src={checkMark} alt={"ready"}/>
             </div>}
 
     </div>

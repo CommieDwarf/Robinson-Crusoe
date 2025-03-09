@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styles from "./ScenarioButton.module.css";
 
 import redArrowImg from "/public/UI/misc/red-arrow.webp";
-import ResizableImage from "../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../DynamicImage/DynamicImage";
 import { INVENTION_TYPE } from "@shared/types/Game/InventionService/Invention";
 import { getObjectsComparator } from "../../../../utils/getObjectsComparator";
 import { useTranslation } from "react-i18next";
@@ -93,7 +93,7 @@ function ScenarioButton(props: Props) {
 							scenarioOpen && styles.arrowRotated
 						}`}
 					>
-						<ResizableImage src={redArrowImg} alt="strzałka" />
+						<DynamicImage src={redArrowImg} alt="strzałka" />
 					</div>
 				</div>
 				<div className={styles.label}>
@@ -115,7 +115,7 @@ function ScenarioButton(props: Props) {
 							scenarioOpen && styles.arrowRotated
 						}`}
 					>
-						<ResizableImage src={redArrowImg} alt="strzałka" />
+						<DynamicImage src={redArrowImg} alt="strzałka" />
 					</div>
 				</div>
 			</div>

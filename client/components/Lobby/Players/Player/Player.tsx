@@ -1,6 +1,6 @@
 import styles from "./Player.module.css";
 import bootKickImg from "/public/UI/boot-kick.webp";
-import ResizableImage from "../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../DynamicImage/DynamicImage";
 import { useTranslation } from "react-i18next";
 import { IPlayerRenderData } from "@shared/types/Game/PlayerService/Player";
 import React, { ChangeEvent, useEffect, useState } from "react";
@@ -105,9 +105,9 @@ export function Player(props: Props) {
 				onClick={handleReadyClick}
 			>
 				{props.player.ready ? (
-					<ResizableImage src={checkMark} alt={"readiness"} />
+					<DynamicImage src={checkMark} alt={"readiness"} />
 				) : (
-					<ResizableImage src={xMarkImg} alt={"readiness"} />
+					<DynamicImage src={xMarkImg} alt={"readiness"} />
 				)}
 			</div>
 
@@ -119,7 +119,7 @@ export function Player(props: Props) {
 				{props.player.username}
 				{props.host && (
 					<div className={styles.host}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/misc/crown.webp"}
 							alt={"host"}
 							fill
@@ -240,7 +240,7 @@ export function Player(props: Props) {
 				onClick={handleKickClick}
 			>
 				{!props.host && (
-					<ResizableImage src={bootKickImg} alt={"bootKick"} />
+					<DynamicImage src={bootKickImg} alt={"bootKick"} />
 				)}
 			</div>
 		</div>

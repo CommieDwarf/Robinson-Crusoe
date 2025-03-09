@@ -1,4 +1,4 @@
-import ResizableImage from "../../components/DynamicImage/DynamicImage";
+import DynamicImage from "../../components/DynamicImage/DynamicImage";
 import { PAWN_HELPER_ACTION } from "@shared/types/Game/Pawns/Pawn";
 import { StaticPawnHelper } from "../../components/Game/UI/StaticPawnHelper";
 import styles from "./icon.module.css";
@@ -86,7 +86,7 @@ function getProperImg(
 				className={`${iconClassName ? iconClassName : styles.icon} ${str.includes("morale") && styles.morale}`}
 				style={{ aspectRatio: str.includes("morale") ? 2.5 : 1 }}
 			>
-				<ResizableImage
+				<DynamicImage
 					src={`/UI/icons/${str.toLowerCase()}.webp`}
 					alt={str}
 				/>

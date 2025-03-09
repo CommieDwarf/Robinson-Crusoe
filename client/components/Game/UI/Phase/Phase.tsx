@@ -5,7 +5,7 @@ import PhaseDropDownMenu from "./PhaseDropDownMenu/PhaseDropDownMenu";
 import { useTranslation } from "react-i18next";
 
 import triangle from "/public/UI/misc/triangle.webp";
-import ResizableImage from "../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../DynamicImage/DynamicImage";
 import capitalize from "@shared/utils/capitalize";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
 import { selectGame } from "../../../../reduxSlices/gameSession";
@@ -72,7 +72,7 @@ function Phase() {
 				</span>
 			</strong>
 			<div className={styles.phaseIcon}>
-				<ResizableImage
+				<DynamicImage
 					src={`/UI/phase/${currentPhase}.webp`}
 					fill
 					alt="phase icon"
@@ -83,7 +83,7 @@ function Phase() {
 					{capitalize(t("other.order"))}
 				</span>
 				<div className={styles.triangle}>
-					<ResizableImage src={triangle} alt={""} />
+					<DynamicImage src={triangle} alt={""} />
 				</div>
 
 				{/*<div className={styles.arrowImg}>*/}

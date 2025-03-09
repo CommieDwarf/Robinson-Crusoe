@@ -1,5 +1,5 @@
 import { kebabCase } from "lodash";
-import ResizableImage from "../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../DynamicImage/DynamicImage";
 import styles from "../Guide.module.css";
 import { ACTION } from "@shared/types/Game/ACTION";
 import ActionSlot from "../../ActionSlot";
@@ -10,14 +10,14 @@ export function ActionPage() {
 			<section>
 				<div className={styles.flexBlock}>
 					<div className={styles.titleImg}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/phase/action.webp"}
 							alt="action"
 						/>
 					</div>
 					<h2 className={styles.title}>Faza Akcji</h2>
 					<div className={styles.titleImg}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/phase/action.webp"}
 							alt="action"
 						/>
@@ -51,7 +51,7 @@ export function ActionPage() {
 						return (
 							<li className={styles.li} key={i}>
 								<div className={styles.listItemImg}>
-									<ResizableImage
+									<DynamicImage
 										src={`/UI/actions/${kebabCase(action)}.webp`} alt={""}									/>
 								</div>
 								<div className={styles.listItemDescription}>
@@ -66,7 +66,7 @@ export function ActionPage() {
 				<p>Aby zaplanować akcję przeciągnij pionek na miejsce akcji.</p>
 				<div className={styles.flexBlock}>
 					<div className={styles.pawnAssignmentImg}>
-					<ResizableImage
+					<DynamicImage
 							src={"/UI/guide/pawn-assignment.gif"}
 							alt="przeciąganie pionka"
 						/>

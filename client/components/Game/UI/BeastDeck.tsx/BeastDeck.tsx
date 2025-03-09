@@ -2,7 +2,7 @@ import styles from "./BeastDeck.module.css";
 import ActionSlot from "../ActionSlot";
 import beastReverseImg from "/public/UI/cards/reverse/beast.webp";
 import React from "react";
-import ResizableImage from "../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../DynamicImage/DynamicImage";
 import { getActionSlotDroppableId } from "@shared/utils/getActionSlotDroppableId";
 import { ACTION } from "@shared/types/Game/ACTION";
 import { useAppSelector } from "../../../../store/hooks";
@@ -33,7 +33,7 @@ export default function BeastDeck(props: Props) {
 					styles.card + " " + (beastAmount === 0 && styles.locked)
 				}
 			>
-				<ResizableImage src={beastReverseImg} alt="Bestia" />
+				<DynamicImage src={beastReverseImg} alt="Bestia" />
 			</div>
 			<div className={styles.beastCount}>{beastAmount}</div>
 

@@ -3,7 +3,7 @@ import * as React from "react";
 import styles from "./Button.module.css";
 import {capitalize} from "lodash";
 import {useTranslation} from "react-i18next";
-import ResizableImage from "components/DynamicImage/DynamicImage";
+import DynamicImage from "components/DynamicImage/DynamicImage";
 
 
 type Props = {
@@ -27,7 +27,7 @@ export const Button = (props: Props) => {
             onClick={handleClick}
         >
             <div className={styles.frame}>
-                <ResizableImage src={"/UI/scenarios/rectangle-frame.webp"} alt={"frame"} />
+                <DynamicImage src={"/UI/scenarios/rectangle-frame.webp"} alt={"frame"} />
             </div>
             <div className={`${styles.text}`}>
                 {/*@ts-ignore*/}

@@ -1,4 +1,4 @@
-import ResizableImage from "../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../DynamicImage/DynamicImage";
 import guideStyles from "../Guide.module.css";
 
 export function NightPage() {
@@ -8,13 +8,13 @@ export function NightPage() {
 				<div
 					className={`${guideStyles.titleImg} ${guideStyles.moraleIcon}`}
 				>
-					<ResizableImage src={"/UI/phase/night.webp"} alt="event" />
+					<DynamicImage src={"/UI/phase/night.webp"} alt="event" />
 				</div>
 				<h2 className={guideStyles.title}>Faza Nocy</h2>
 				<div
 					className={`${guideStyles.titleImg} ${guideStyles.moraleIcon}`}
 				>
-					<ResizableImage src={"/UI/phase/night.webp"} alt="event" />
+					<DynamicImage src={"/UI/phase/night.webp"} alt="event" />
 				</div>
 			</div>
 				<ul className={guideStyles.list}>
@@ -54,7 +54,7 @@ export function NightPage() {
 
 				<div className={guideStyles.flexBlock}>
 					<div className={guideStyles.exampleGif} style={{height: "250px"}}>
-						<ResizableImage 
+						<DynamicImage 
 							src={"/UI/guide/camp-movement.gif"}
 							alt="przenoszenie obozu"/>
 

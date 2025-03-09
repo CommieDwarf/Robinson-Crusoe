@@ -1,7 +1,7 @@
 import styles from "./Record.module.css";
 import leatherImg from "/public/UI/resources/leather.webp";
 import woodImg from "/public/UI/resources/wood.webp";
-import ResizableImage from "../../../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../../../DynamicImage/DynamicImage";
 
 interface Props {
     value: number,
@@ -17,7 +17,7 @@ export function Record(props: Props) {
             {props.value}
         </div>
         <div className={`${styles.icon} ${props.type === "wood" ? styles.iconWood : ""}`}>
-            <ResizableImage src={props.type === "leather" ? leatherImg : woodImg} alt={props.type} fill/>
+            <DynamicImage src={props.type === "leather" ? leatherImg : woodImg} alt={props.type} fill/>
         </div>
     </div>
 }

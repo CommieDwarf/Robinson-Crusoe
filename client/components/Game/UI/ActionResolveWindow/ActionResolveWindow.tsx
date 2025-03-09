@@ -8,7 +8,7 @@ import { RESOLVE_ITEM_STATUS } from "@shared/types/Game/ActionService/IResolvabl
 import { NextActionButton } from "./NextActionButton/NextActionButton";
 import redArrowImg from "/public/UI/misc/red-arrow.webp";
 import { isAdventureAction } from "@shared/utils/typeGuards/isAdventureAction";
-import ResizableImage from "../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../DynamicImage/DynamicImage";
 import {
 	CHARACTER,
 	ICharacterRenderData,
@@ -192,7 +192,7 @@ export const ActionResolveWindow = () => {
 			<div className={styles.container} ref={containerRef}>
 				{reRollButtonClicked && (
 					<div className={styles.reRollArrowTip}>
-						<ResizableImage
+						<DynamicImage
 							src={redArrowImg}
 							alt={"przerzuć kość"}
 						/>
@@ -227,7 +227,7 @@ export const ActionResolveWindow = () => {
 					)}
 				<div className={styles.header}>
 					<div className={styles.actionIcon}>
-						<ResizableImage
+						<DynamicImage
 							src={actionIconImg}
 							alt={"akcja"}
 							className={styles.actionIcon}
@@ -241,7 +241,7 @@ export const ActionResolveWindow = () => {
 						)}
 					</div>
 					<div className={styles.actionIcon}>
-						<ResizableImage
+						<DynamicImage
 							src={`/UI/actions/${kebabCase(
 								actionService.action
 							)}.webp`}

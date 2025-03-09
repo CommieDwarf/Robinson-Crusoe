@@ -2,7 +2,7 @@
 import * as React from "react";
 import styles from "./Tokens.module.css";
 import reRollTokenImg from "/public/UI/tokens/reroll.webp";
-import ResizableImage from "../../../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../../../DynamicImage/DynamicImage";
 import {ACTION} from "@shared/types/Game/ACTION";
 import {isAdventureAction} from "@shared/utils/typeGuards/isAdventureAction";
 import {ActionTokens} from "@shared/types/Game/ActionService/ActionService";
@@ -17,7 +17,7 @@ export const Tokens = (props: Props) => {
         <div className={styles.container}>
             {isAdventureAction(props.action) && props.reRollTokens[props.action] && (
                 <div className={styles.token}>
-                    <ResizableImage
+                    <DynamicImage
                         src={reRollTokenImg}
                         alt={"przerzut sukcesu"}
                     />
@@ -25,7 +25,7 @@ export const Tokens = (props: Props) => {
             )}
             {isAdventureAction(props.action) && props.adventureTokens[props.action] && (
                 <div className={styles.token}>
-                    <ResizableImage
+                    <DynamicImage
                         src={`/UI/tokens/adventure/${props.action}.webp`}
                         alt={"przerzut sukcesu"}
                     />

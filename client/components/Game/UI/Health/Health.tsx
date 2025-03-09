@@ -4,7 +4,7 @@ import heartImg from "/public/UI/misc/heart.webp";
 import redHeartImg from "/public/UI/icons/red-heart.webp";
 import skullImg from "/public/UI/icons/skull.webp";
 import Threshold from "./Threshold";
-import ResizableImage from "../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../DynamicImage/DynamicImage";
 import { getObjectsComparator } from "../../../../utils/getObjectsComparator";
 import { useAppSelector } from "../../../../store/hooks";
 import { selectGame } from "../../../../reduxSlices/gameSession";
@@ -32,7 +32,7 @@ function Health(props: Props) {
 				} ${props.vertical && styles.verticalWrapper}`}
 				key={i}
 			>
-				<ResizableImage
+				<DynamicImage
 					src={i === props.health ? redHeartImg : heartImg}
 					fill
 					alt="serce"
@@ -63,7 +63,7 @@ function Health(props: Props) {
 			}`}
 			key={2137}
 		>
-			<ResizableImage src={skullImg} alt="śmierć" />
+			<DynamicImage src={skullImg} alt="śmierć" />
 		</div>
 	);
 	return (

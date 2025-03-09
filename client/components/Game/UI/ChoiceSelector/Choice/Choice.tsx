@@ -1,5 +1,5 @@
 import styles from "./Choice.module.css";
-import ResizableImage from "../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../DynamicImage/DynamicImage";
 import { capitalize, kebabCase } from "lodash";
 import { IInventionRenderData } from "@shared/types/Game/InventionService/Invention";
 import { isPlayerCharacter } from "@shared/utils/typeGuards/isPlayerCharacter";
@@ -92,7 +92,7 @@ export function ChoiceObject(props: Props) {
 			) : (
 				<>
 					<div className={`${styles.imgWrapper}`}>
-						<ResizableImage
+						<DynamicImage
 							src={imgUrlPath}
 							alt={String(name)}
 							fill

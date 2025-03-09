@@ -1,5 +1,5 @@
 import styles from "./Character.module.css";
-import ResizableImage from "../../DynamicImage/DynamicImage";
+import DynamicImage from "../../DynamicImage/DynamicImage";
 import { CHARACTER, Gender } from "@shared/types/Game/Characters/Character";
 import { Abilities } from "./Abilities/Abilities";
 import { useTranslation } from "react-i18next";
@@ -22,7 +22,7 @@ export function Character(props: Props) {
 					{capitalize(t(`character.${props.character}`))}
 				</div>
 				<div className={styles.characterImage}>
-					<ResizableImage
+					<DynamicImage
 						src={`/UI/characters/player-characters/no-wounds/${props.character}-${props.gender}.webp`}
 						alt={"character"}
 					/>

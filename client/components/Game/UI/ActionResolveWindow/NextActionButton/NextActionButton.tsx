@@ -2,7 +2,7 @@
 import * as React from "react";
 import styles from "./NextActionButton.module.css";
 import redArrowImg from "/public/UI/misc/red-arrow.webp";
-import ResizableImage from "../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../DynamicImage/DynamicImage";
 import {actionOrder} from "@shared/constants/actionOrder";
 import {kebabCase} from "lodash";
 import {IActionServiceRenderData} from "@shared/types/Game/ActionService/ActionService";
@@ -36,13 +36,13 @@ export const NextActionButton = (props: Props) => {
     return (
         <div className={styles.container} onClick={clickHandle}>
             <div className={styles.arrow}>
-                <ResizableImage
+                <DynamicImage
                     src={redArrowImg}
                     alt={"Następna akcja"}
                 />
             </div>
             <div className={styles.nextAction}>
-                <ResizableImage
+                <DynamicImage
                     src={`/UI/actions/${kebabCase(nextAction)}.webp`}
                     alt={"Następna akcja"}
                 />

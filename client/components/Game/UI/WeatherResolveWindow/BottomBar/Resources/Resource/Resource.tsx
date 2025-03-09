@@ -2,7 +2,7 @@
 import * as React from "react";
 import styles from "./Resource.module.css";
 import { Subtrahend } from "../Resources";
-import ResizableImage from "../../../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../../../DynamicImage/DynamicImage";
 import { OverallWeather } from "@shared/types/Game/Weather/Weather";
 import { dynamicTranslate } from "utils/dynamicTranslate";
 
@@ -26,7 +26,7 @@ export const Resource = (props: Props) => {
 			<div className={styles.subtrahend} key={key}>
 				<span className={styles.subtrahendValue}>{value}</span>
 				<div className={styles.subtrahendImage}>
-					<ResizableImage
+					<DynamicImage
 						src={`/UI/weather/subtrahends/${key}.webp`}
 						alt={"wynik"}
 					/>
@@ -52,7 +52,7 @@ export const Resource = (props: Props) => {
 	return (
 		<div className={styles.container}>
 			<div className={styles.labelImg}>
-				<ResizableImage
+				<DynamicImage
 					src={`/UI/weather/resources/${props.type}.webp`}
 					fill
 					alt={props.type}

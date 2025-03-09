@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { IEventCardRenderData } from "@shared/types/Game/EventService/EventCard";
 import { ThreatSlot } from "./ThreatSlot/ThreatSlot";
 import redArrowImg from "/public/UI/misc/red-arrow.webp";
-import ResizableImage from "components/DynamicImage/DynamicImage";
+import DynamicImage from "components/DynamicImage/DynamicImage";
 
 interface StateProps {
 	leftSlot: IEventCardRenderData | null;
@@ -29,7 +29,7 @@ function Threat(props: StateProps & Props) {
 				<ThreatSlot card={props.leftSlot} side="left" />
 			</div>
 			<div className={styles.arrow}>
-				<ResizableImage src={redArrowImg} alt="" sizes={styles.arrow} />
+				<DynamicImage src={redArrowImg} alt="" sizes={styles.arrow} />
 			</div>
 			<div className={styles.threatSlot}>
 				<ThreatSlot card={props.rightSlot} side="right" />

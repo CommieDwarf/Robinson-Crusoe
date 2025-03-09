@@ -1,5 +1,5 @@
 import redArrowImg from "/public/UI/misc/red-arrow.webp";
-import ResizableImage from "../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../DynamicImage/DynamicImage";
 import styles from "./ActionOrder.module.css";
 import React from "react";
 import {actionOrder} from "@shared/constants/actionOrder";
@@ -20,7 +20,7 @@ export default function ActionOrder(props: Props) {
         if (i > 0) {
             actionIcons.push(
                 <div className={styles.redArrow} key={i}>
-                    <ResizableImage
+                    <DynamicImage
                         src={redArrowImg}
                         alt=""
                     />

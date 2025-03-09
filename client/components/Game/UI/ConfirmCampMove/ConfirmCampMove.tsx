@@ -2,7 +2,7 @@
 import * as React from "react";
 import styles from "./ConfirmCampMove.module.css";
 import redArrowImg from "/public/UI/misc/red-arrow.webp";
-import ResizableImage from "../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../DynamicImage/DynamicImage";
 
 import { ITileRenderData } from "@shared/types/Game/TileService/ITile";
 import { TILE_CONTROLLER_ACTION } from "@shared/types/CONTROLLER_ACTION";
@@ -39,7 +39,7 @@ export const ConfirmCampMove = (props: Props) => {
 			<h3>Czy na pewno chcesz przenieść obóz?</h3>
 			<div className={styles.tiles}>
 				<div className={styles.tile}>
-					<ResizableImage
+					<DynamicImage
 						src={
 							"/UI/Map/tiles/" +
 							currentCamp?.tileResourceService?.id +
@@ -51,7 +51,7 @@ export const ConfirmCampMove = (props: Props) => {
 					/>
 				</div>
 				<div className={styles.arrow}>
-					<ResizableImage
+					<DynamicImage
 						src={redArrowImg}
 						alt={"strzałka"}
 						fill
@@ -59,7 +59,7 @@ export const ConfirmCampMove = (props: Props) => {
 					/>
 				</div>
 				<div className={styles.tile}>
-					<ResizableImage
+					<DynamicImage
 						src={
 							"/UI/Map/tiles/" +
 							props.nextCamp.tileResourceService?.id +

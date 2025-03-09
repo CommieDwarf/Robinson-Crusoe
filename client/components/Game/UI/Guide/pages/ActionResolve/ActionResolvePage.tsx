@@ -1,5 +1,5 @@
 import { insertIconsIntoText } from "../../../../../../utils/insertIconsIntoText/insertIconsIntoText";
-import ResizableImage from "../../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../../DynamicImage/DynamicImage";
 import ActionOrder from "../../../ActionOrder/ActionOrder";
 import guideStyles from "../../Guide.module.css";
 import { ImgListItem } from "../../ImgList.tsx/ImgListItem";
@@ -10,14 +10,14 @@ export function ActionResolvePage() {
 			<section>
 				<div className={guideStyles.flexBlock}>
 					<div className={guideStyles.titleImg}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/phase/action.webp"}
 							alt="action"
 						/>
 					</div>
 					<h2 className={guideStyles.title}>Faza Akcji</h2>
 					<div className={guideStyles.titleImg}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/phase/action.webp"}
 							alt="action"
 						/>
@@ -62,7 +62,7 @@ export function ActionResolvePage() {
 						<div
 							className={`${guideStyles.listItemImg} ${guideStyles.diceSide}`}
 						>
-							<ResizableImage
+							<DynamicImage
 								src={"/UI/dice/action/explore/success.webp"}
 								alt="symbol sukcesu"
 							/>
@@ -73,7 +73,7 @@ export function ActionResolvePage() {
 					</li>
 					<ImgListItem
 						imgElement={() => (
-							<ResizableImage
+							<DynamicImage
 								src={
 									"/UI/dice/action/explore/determination.webp"
 								}
@@ -90,7 +90,7 @@ export function ActionResolvePage() {
 					/>
 					<ImgListItem
 						imgElement={() => (
-							<ResizableImage
+							<DynamicImage
 								src={"/UI/dice/action/explore/mystery.webp"}
 								alt="kość przygody"
 							/>
@@ -105,7 +105,7 @@ export function ActionResolvePage() {
 					/>
 					<ImgListItem
 						imgElement={() => (
-							<ResizableImage
+							<DynamicImage
 								src={"/UI/dice/action/explore/hurt.webp"}
 								alt="kość przygody"
 							/>
@@ -120,7 +120,7 @@ export function ActionResolvePage() {
 					/>
 					<ImgListItem
 						imgElement={() => (
-							<ResizableImage
+							<DynamicImage
 								src={"/UI/dice/action/explore/blank.webp"}
 								alt="symbol sukcesu"
 							/>

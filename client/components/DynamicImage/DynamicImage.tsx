@@ -7,7 +7,7 @@ interface Props extends ImageProps {
 	scale?: number;
 }
 
-export default function ResizableImage(props: Props) {
+export default function DynamicImage(props: Props) {
 	const containerRef = useRef<HTMLDivElement>(null);
 	const [containerWidth, setContainerWidth] = useState(0);
 
@@ -24,7 +24,6 @@ export default function ResizableImage(props: Props) {
 
 		return () => observer.disconnect(); // Odłącz obserwator przy odmontowaniu
 	}, []);
-
 
 	return (
 		<div

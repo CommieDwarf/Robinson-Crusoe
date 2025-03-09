@@ -1,4 +1,4 @@
-import ResizableImage from "../../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../../DynamicImage/DynamicImage";
 import styles from "../../Guide.module.css";
 
 export function BuildPage() {
@@ -7,14 +7,14 @@ export function BuildPage() {
 			<section>
 				<div className={styles.flexBlock}>
 					<div className={styles.titleImg}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/phase/action.webp"}
 							alt="action"
 						/>
 					</div>
 					<h2 className={styles.title}>Faza Akcji</h2>
 					<div className={styles.titleImg}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/phase/action.webp"}
 							alt="action"
 						/>
@@ -22,14 +22,14 @@ export function BuildPage() {
 				</div>
 				<div className={styles.flexBlock}>
 					<div className={styles.titleImg}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/actions/build.webp"}
 							alt="action"
 						/>
 					</div>
 					<h2 className={styles.subTitle}>Budowanie</h2>
 					<div className={styles.titleImg}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/actions/build.webp"}
 							alt="action"
 						/>
@@ -58,7 +58,7 @@ export function BuildPage() {
 				<ul className={styles.list}>
 					<li className={styles.li}>
 						<div className={styles.listItemImg}>
-							<ResizableImage
+							<DynamicImage
 								src={"/UI/constructions/shelter-icon.webp"}
 								alt="action"
 							/>
@@ -75,7 +75,7 @@ export function BuildPage() {
 					</li>
 					<li className={styles.li}>
 						<div className={styles.listItemImg}>
-							<ResizableImage
+							<DynamicImage
 								src={"/UI/constructions/roof-icon.webp"}
 								alt="action"
 							/>
@@ -91,7 +91,7 @@ export function BuildPage() {
 					</li>
 					<li className={styles.li}>
 						<div className={styles.listItemImg}>
-							<ResizableImage
+							<DynamicImage
 								src={"/UI/constructions/palisade-icon.webp"}
 								alt="action"
 							/>
@@ -108,7 +108,7 @@ export function BuildPage() {
 					</li>
 					<li className={styles.li}>
 						<div className={styles.listItemImg}>
-							<ResizableImage
+							<DynamicImage
 								src={"/UI/constructions/weapon-icon.webp"}
 								alt="action"
 							/>
@@ -123,7 +123,7 @@ export function BuildPage() {
 					<li className={styles.li}>
 						<div className={styles.listItemImg}>
 							<div style={{ aspectRatio: 0.7 }}>
-								<ResizableImage
+								<DynamicImage
 									src={"/UI/inventions/normal/moat.webp"}
 									alt="action"
 								/>
@@ -145,7 +145,7 @@ export function BuildPage() {
 				</p>
 				<div className={styles.flexBlock}>
 					<div className={styles.exampleGif}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/guide/pawn-assignment-build.gif"}
 							alt="przydzielanie pionka"
 						/>

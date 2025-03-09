@@ -1,5 +1,5 @@
 import styles from "./CharacterImg.module.css";
-import ResizableImage from "../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../DynamicImage/DynamicImage";
 import React from "react";
 import Entries from "@shared/types/Entries";
 import {
@@ -37,7 +37,7 @@ export default function CharacterImg({ character }: Props) {
 		<div className={styles.container}>
 			<div className={styles.characterPicture}>
 				{wounds}
-				<ResizableImage
+				<DynamicImage
 					src={`/UI/characters/player-characters/${charImgName}.webp`}
 					fill
 					alt="character"

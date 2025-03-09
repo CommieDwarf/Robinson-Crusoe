@@ -6,7 +6,7 @@ import fridayPicImg from "/public/UI/characters/side-characters/friday-pic.webp"
 import dogPicImg from "/public/UI/characters/side-characters/dog-pic.webp";
 import dogUsageImg from "/public/UI/characters/dog-usage.webp";
 import { useAppSelector } from "../../../../../store/hooks";
-import ResizableImage from "../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../DynamicImage/DynamicImage";
 import determinationTokenImg from "/public/UI/tokens/determination.webp";
 import { objectsEqual } from "@shared/utils/objectsEqual";
 import { getOwnedDroppableId } from "@shared/utils/getOwnedDroppableId";
@@ -36,7 +36,7 @@ function SideCharacters() {
 				{!difficultySettings?.friday && (
 					<div className={styles.disableOverlay}>
 						<div className={styles.diagnal}>
-							<ResizableImage
+							<DynamicImage
 								src={"/UI/misc/cross-line.webp"}
 								alt=""
 							/>
@@ -84,14 +84,14 @@ function SideCharacters() {
 						{friday.determination}
 					</div>
 					<div className={styles.determinationIcon}>
-						<ResizableImage
+						<DynamicImage
 							src={determinationTokenImg}
 							alt={"determinacja"}
 						/>
 					</div>
 				</div>
 				<div className={styles.fridayPic}>
-					<ResizableImage
+					<DynamicImage
 						src={fridayPicImg}
 						fill
 						alt="Piętaszek"
@@ -103,7 +103,7 @@ function SideCharacters() {
 				{!difficultySettings?.dog && (
 					<div className={styles.disableOverlay}>
 						<div className={styles.diagnal}>
-							<ResizableImage
+							<DynamicImage
 								src={"/UI/misc/cross-line.webp"}
 								alt=""
 							/>
@@ -140,7 +140,7 @@ function SideCharacters() {
 					{capitalize(t("character.dog"))}
 				</div>
 				<div className={styles.dogUsage}>
-					<ResizableImage
+					<DynamicImage
 						src={dogUsageImg}
 						fill
 						alt="umiejętności psa"
@@ -148,7 +148,7 @@ function SideCharacters() {
 					/>
 				</div>
 				<div className={`${styles.dogPic}`}>
-					<ResizableImage
+					<DynamicImage
 						src={dogPicImg}
 						fill
 						alt="pies"

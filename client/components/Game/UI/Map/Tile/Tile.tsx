@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Tile.module.css";
 import { MoveCampArrow } from "./MoveCampArrow/MoveCampArrow";
-import ResizableImage from "../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../DynamicImage/DynamicImage";
 import { ITileRenderData } from "@shared/types/Game/TileService/ITile";
 import { TILE_CONTROLLER_ACTION } from "@shared/types/CONTROLLER_ACTION";
 import { useAppDispatch, useAppSelector } from "../../../../../store/hooks";
@@ -78,7 +78,7 @@ export default function Tile(props: Props) {
 			{props.tile.show && (
 				<>
 					<div className={styles.tile}>
-						<ResizableImage
+						<DynamicImage
 							src={`/UI/map/tiles/${imgId}.webp`}
 							alt={"kafelek"}
 						/>
@@ -88,7 +88,7 @@ export default function Tile(props: Props) {
 
 					{props.tile.camp && (
 						<div className={styles.campIcon}>
-							<ResizableImage
+							<DynamicImage
 								src={`/UI/tokens/${
 									shelterBuilt ? "shelter" : "camp"
 								}.webp`}

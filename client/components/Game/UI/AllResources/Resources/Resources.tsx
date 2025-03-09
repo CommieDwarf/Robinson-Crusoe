@@ -2,7 +2,7 @@
 import * as React from "react";
 import {useEffect, useRef} from "react";
 import styles from "./Resources.module.css";
-import ResizableImage from "../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../DynamicImage/DynamicImage";
 import {kebabCase} from "lodash";
 import {IBasicResourcesAmount, IResourcesRenderData} from "@shared/types/Game/Resources/Resources";
 import Entries from "@shared/types/Entries";
@@ -50,7 +50,7 @@ export const Resources = (props: Props) => {
         resources.push(
             <div className={styles.resource} key={key}>
                 <div className={`${styles.icon} ${styles[key]}`}>
-                    <ResizableImage
+                    <DynamicImage
                         src={`/UI/resources/${kebabCase(key)}.webp`}
                         alt={key}
                     />

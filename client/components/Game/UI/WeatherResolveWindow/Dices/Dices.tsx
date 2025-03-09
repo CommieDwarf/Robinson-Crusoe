@@ -4,7 +4,7 @@ import styles from "./Dices.module.css";
 import rainImg from "/public/UI/scenarios/rain.webp";
 import snowImg from "/public/UI/scenarios/snow.webp";
 import hungryAnimalImg from "/public/UI/scenarios/hungryAnimal.webp";
-import ResizableImage from "../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../DynamicImage/DynamicImage";
 
 type Props = {
 	animals: boolean;
@@ -16,7 +16,7 @@ export const Dices = (props: Props) => {
 		<div className={styles.container}>
 			{props.rain && (
 				<div className={`${styles.dice} ${styles.rain}`}>
-					<ResizableImage
+					<DynamicImage
 						src={rainImg}
 						fill
 						alt={"kość deszczu"}
@@ -26,7 +26,7 @@ export const Dices = (props: Props) => {
 			)}
 			{props.snow && (
 				<div className={`${styles.dice} ${styles.snow}`}>
-					<ResizableImage
+					<DynamicImage
 						src={snowImg}
 						fill
 						alt={"kość śniegu"}
@@ -36,7 +36,7 @@ export const Dices = (props: Props) => {
 			)}
 			{props.animals && (
 				<div className={`${styles.dice} ${styles.animals}`}>
-					<ResizableImage
+					<DynamicImage
 						src={hungryAnimalImg}
 						fill
 						alt={"kość wygłodniawych zwierząt"}

@@ -1,7 +1,7 @@
 // @flow
 import * as React from "react";
 import cardResolveStyles from "../CardResolve.module.css";
-import ResizableImage from "../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../DynamicImage/DynamicImage";
 import {IMysteryCardRenderData} from "@shared/types/Game/MysteryService/MysteryCard";
 import {kebabCase} from "lodash";
 
@@ -20,7 +20,7 @@ export const MysteryCardResolve = (props: Props) => {
 
     return (
         <>
-            <ResizableImage
+            <DynamicImage
                 src={cardImgSrc}
                 alt={"karta tajemnic"}
                 fill

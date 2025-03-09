@@ -1,5 +1,5 @@
 import styles from "../ActionOrder.module.css";
-import ResizableImage from "../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../DynamicImage/DynamicImage";
 import React from "react";
 import { ACTION } from "@shared/types/Game/ACTION";
 import { kebabCase } from "lodash";
@@ -52,7 +52,7 @@ export function ActionIcon(props: Props) {
 		if (tokenModifiers.reRoll) {
 			reRollToken = (
 				<div className={styles.token}>
-					<ResizableImage
+					<DynamicImage
 						src={reRollTokenImg}
 						alt={"reroll"}
 						className={styles.reRoll}
@@ -69,7 +69,7 @@ export function ActionIcon(props: Props) {
 		) {
 			timeConsumingActionIcon = (
 				<div className={styles.token}>
-					<ResizableImage
+					<DynamicImage
 						src={timeConsumingActionToken}
 						alt={"wymagany dodatkowy pionek"}
 					/>
@@ -80,7 +80,7 @@ export function ActionIcon(props: Props) {
 
 	return (
 		<div className={styles.actionIcon}>
-			<ResizableImage src={adventureTokenSrc} alt={props.action} />
+			<DynamicImage src={adventureTokenSrc} alt={props.action} />
 			<div className={styles.tokens}>
 				{reRollToken}
 				{timeConsumingActionIcon}

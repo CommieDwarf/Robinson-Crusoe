@@ -2,7 +2,7 @@
 import * as React from "react";
 import magnifyingGlassImg from "/public/UI/misc/magnifying-glass.webp";
 import styles from "./ZoomButton.module.css";
-import ResizableImage from "../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../DynamicImage/DynamicImage";
 
 type Props = {
 	onClick: () => void;
@@ -15,7 +15,7 @@ export const ZoomButton = (props: Props) => {
 			onClick={props.onClick}
 		>
 			<div className={styles.magnifyingGlass}>
-				<ResizableImage
+				<DynamicImage
 					src={magnifyingGlassImg}
 					alt={"powiększ"}
 					sizes={styles.magnifyingGlass}

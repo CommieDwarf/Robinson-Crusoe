@@ -4,7 +4,7 @@ import Tile from "./Tile/Tile";
 import BeastDeck from "../BeastDeck.tsx/BeastDeck";
 import map from "/public/UI/map/map.webp";
 import redArrowImg from "/public/UI/misc/red-arrow.webp";
-import ResizableImage from "../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../DynamicImage/DynamicImage";
 import { getObjectsComparator } from "../../../../utils/getObjectsComparator";
 import getMouseDownHandle from "../../../../utils/dragAndScrollHandle";
 import { ITileRenderData } from "@shared/types/Game/TileService/ITile";
@@ -136,7 +136,7 @@ function Map(props: Props) {
 		>
 			{tileService.isMarkedActionRemaining && (
 				<div className={styles.tipArrow}>
-					<ResizableImage
+					<DynamicImage
 						src={redArrowImg}
 						alt={""}
 						fill
@@ -165,7 +165,7 @@ function Map(props: Props) {
 			>
 				<div className={`${styles.content}`} style={contentStyle}>
 					<div className={styles.map}>
-						<ResizableImage src={map} alt="mapa" />
+						<DynamicImage src={map} alt="mapa" />
 						{tiles}
 					</div>
 				</div>

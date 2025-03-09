@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 import { capitalize } from "lodash";
 import starImg from "/public/UI/icons/star.webp";
 import Pawns from "../../Character/Pawns/Pawns";
-import ResizableImage from "../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../DynamicImage/DynamicImage";
 import { PlayerLatency } from "../../../../PlayerLatency/PlayerLatency";
 import { useAppSelector } from "../../../../../store/hooks";
 import { selectPlayerLatency } from "../../../../../reduxSlices/gameSession";
@@ -41,7 +41,7 @@ export function Player(props: Props) {
 
 						{props.player.prime && (
 							<div className={styles.primePlayerIcon}>
-								<ResizableImage
+								<DynamicImage
 									src={starImg}
 									alt={"prime player"}
 								/>

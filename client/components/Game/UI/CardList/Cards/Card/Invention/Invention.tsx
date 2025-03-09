@@ -6,7 +6,7 @@ import {
 	useAppDispatch,
 	useAppSelector,
 } from "../../../../../../../store/hooks";
-import ResizableImage from "../../../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../../../DynamicImage/DynamicImage";
 import { kebabCase } from "lodash";
 import { OTHER_CONTROLLER_ACTION } from "@shared/types/CONTROLLER_ACTION";
 import { ACTION } from "@shared/types/Game/ACTION";
@@ -54,7 +54,7 @@ function Invention(props: Props) {
 		for (let i = 0; i < props.invention.committedResources?.amount; i++) {
 			resources.push(
 				<div className={styles.resource} key={i}>
-					<ResizableImage
+					<DynamicImage
 						src={`/UI/resources/${resource}.webp`}
 						alt="surowiec"
 					/>
@@ -91,7 +91,7 @@ function Invention(props: Props) {
 		<div className={`${styles.container} `}>
 			<div className={styles.boxShadowOverlay} style={style}></div>
 
-			<ResizableImage
+			<DynamicImage
 				src={`/UI/inventions/${
 					props.invention.inventionType
 				}/${kebabCase(props.invention.name)}${
@@ -106,7 +106,7 @@ function Invention(props: Props) {
 					}`}
 					style={{ backgroundColor: color }}
 				>
-					<ResizableImage src={buildIconImg} alt={"build"} />
+					<DynamicImage src={buildIconImg} alt={"build"} />
 				</div>
 			)}
 
@@ -143,7 +143,7 @@ function Invention(props: Props) {
 
 			{props.invention.inventionType === INVENTION_TYPE.SCENARIO && (
 				<div className={styles.scenarioIcon}>
-					<ResizableImage
+					<DynamicImage
 						src={"/UI/icons/scenario.webp"}
 						alt="scenario"
 					/>

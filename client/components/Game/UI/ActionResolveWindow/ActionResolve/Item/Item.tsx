@@ -4,7 +4,7 @@ import { useState } from "react";
 import styles from "./Item.module.css";
 import { Tokens } from "./Tokens/Tokens";
 import reRollTokenImg from "/public/UI/tokens/reroll.webp";
-import ResizableImage from "../../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../../DynamicImage/DynamicImage";
 import {
 	IResolvableItemRenderData,
 	RESOLVE_ITEM_STATUS,
@@ -63,7 +63,7 @@ export const Item = (props: Props) => {
 			.item as unknown as IEventCardRenderData;
 		image = (
 			<div className={styles.threat}>
-				<ResizableImage
+				<DynamicImage
 					src={`/UI/cards/event/${kebabCase(card.name)}.webp`}
 					alt={card.name}
 				/>
@@ -73,7 +73,7 @@ export const Item = (props: Props) => {
 		const beast = props.resolvableItem.item as unknown as IBeastRenderData;
 		image = (
 			<div className={styles.hunt}>
-				<ResizableImage
+				<DynamicImage
 					src={`/UI/cards/beasts/${kebabCase(beast.name)}.webp`}
 					alt={beast.name}
 				/>
@@ -88,7 +88,7 @@ export const Item = (props: Props) => {
 				: "";
 		image = (
 			<div className={styles.invention}>
-				<ResizableImage
+				<DynamicImage
 					src={`/UI/inventions/${invention.inventionType}/${kebabCase(
 						invention.name
 					)}${reverse}.webp`}
@@ -106,7 +106,7 @@ export const Item = (props: Props) => {
 					styles[construction.name] + " " + styles.construction
 				}
 			>
-				<ResizableImage
+				<DynamicImage
 					src={`/UI/constructions/${kebabCase(
 						construction.name
 					)}.webp`}
@@ -136,7 +136,7 @@ export const Item = (props: Props) => {
 
 		image = (
 			<div className={styles.tile}>
-				<ResizableImage
+				<DynamicImage
 					src={`/UI/map/tiles/${id}.webp`}
 					alt={"kafelek"}
 				/>
@@ -150,7 +150,7 @@ export const Item = (props: Props) => {
 				<div className={styles.gather}>
 					<span className={styles.gatherAmount}>1</span>
 					<div className={styles.resourceIcon}>
-						<ResizableImage
+						<DynamicImage
 							src={`/UI/resources/${tile.tileResourceService?.resources[side].resource}.webp`}
 							alt={"surowiec"}
 						/>
@@ -161,7 +161,7 @@ export const Item = (props: Props) => {
 	} else {
 		image = (
 			<div className={styles.restArrange}>
-				<ResizableImage
+				<DynamicImage
 					src={`/UI/actions/${kebabCase(
 						props.resolvableItem.action
 					)}-picture.webp`}
@@ -207,7 +207,7 @@ export const Item = (props: Props) => {
 		buttonText = [
 			"Przerzuć",
 			<div className={styles.reRollToken} key={"1"}>
-				<ResizableImage src={reRollTokenImg} alt={"przerzut sukcesu"} />
+				<DynamicImage src={reRollTokenImg} alt={"przerzut sukcesu"} />
 			</div>,
 		];
 	} else if (props.resolvableItem.shouldRollDices) {

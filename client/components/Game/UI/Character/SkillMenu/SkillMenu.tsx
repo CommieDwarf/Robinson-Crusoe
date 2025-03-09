@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./SkillMenu.module.css";
 import snowImg from "/public/UI/scenarios/snow.webp";
 import rainImg from "/public/UI/scenarios/rain.webp";
-import ResizableImage from "../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../DynamicImage/DynamicImage";
 import { insertIconsIntoText } from "../../../../../utils/insertIconsIntoText/insertIconsIntoText";
 import { ABILITY } from "@shared/types/Game/Skill/ABILITY";
 import { CHARACTER_CONTROLLER_ACTION } from "@shared/types/CONTROLLER_ACTION";
@@ -148,7 +148,7 @@ export default function SkillMenu(props: Props) {
 											}`}
 											onClick={handleRainCloudClick}
 										>
-											<ResizableImage
+											<DynamicImage
 												src={rainImg}
 												alt={"deszcz"}
 												fill
@@ -164,7 +164,7 @@ export default function SkillMenu(props: Props) {
 											}`}
 											onClick={handleSnowCloudClick}
 										>
-											<ResizableImage
+											<DynamicImage
 												src={snowImg}
 												alt={"śnieg"}
 												fill

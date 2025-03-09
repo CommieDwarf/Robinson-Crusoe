@@ -2,7 +2,7 @@
 import * as React from "react";
 import styles from "./NextPhaseButton.module.css";
 import compassImg from "/public/UI/tokens/compass.webp";
-import ResizableImage from "../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../DynamicImage/DynamicImage";
 import {
 	socketEmitAction,
 } from "../../../../middleware/socketMiddleware";
@@ -77,7 +77,7 @@ export const NextPhaseButton = (props: Props) => {
 			onClick={handleClick}
 		>
 			<div className={styles.token}>
-				<ResizableImage src={compassImg} alt="następna faza" />
+				<DynamicImage src={compassImg} alt="następna faza" />
 			</div>
 		</div>
 	);

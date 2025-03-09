@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./CommittedResources.module.css";
-import ResizableImage from "../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../DynamicImage/DynamicImage";
 import { SingleResourceRequirement } from "@shared/types/Game/ResourceCommitableItem/ResourceCommittableItem";
 import { IBasicResourcesAmount } from "@shared/types/Game/Resources/Resources";
 import { PersonalResourceIcon } from "../Character/Expendables/Expendable/Expendable/PersonalResourceIcon/PersonalResourceIcon";
@@ -23,7 +23,7 @@ function CommittedResources(props: Props) {
 					props.background && styles.background
 				}`}
 			>
-				<ResizableImage src={`/UI/icons/${type}.webp`} alt={type} />
+				<DynamicImage src={`/UI/icons/${type}.webp`} alt={type} />
 			</div>
 		);
 	}

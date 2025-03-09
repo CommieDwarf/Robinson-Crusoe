@@ -5,7 +5,7 @@ import { Frame } from "./Frame/Frame";
 import { Resources } from "./Resources/Resources";
 import productionImg from "/public/UI/phase/production.webp";
 import boardImg from "/public/UI/misc/board.webp";
-import ResizableImage from "../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../DynamicImage/DynamicImage";
 import { objectsEqual } from "@shared/utils/objectsEqual";
 import { useAppSelector } from "../../../../store/hooks";
 import {
@@ -36,10 +36,10 @@ function AllResources() {
 				/>
 			</div>
 			<div className={frameStyles.midBar}>
-				<ResizableImage src={boardImg} alt={"ramka"} />
+				<DynamicImage src={boardImg} alt={"ramka"} />
 				<div className={frameStyles.barDecoration}>
 					<div className={frameStyles.productionIcon}>
-						<ResizableImage
+						<DynamicImage
 							src={productionImg}
 							alt={"ikona produkcji"}
 						/>

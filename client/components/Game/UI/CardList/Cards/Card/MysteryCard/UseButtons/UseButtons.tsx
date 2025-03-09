@@ -2,7 +2,7 @@ import treasureIcon from "/public/UI/misc/treasure.webp";
 import plusImg from "/public/UI/misc/plus.webp";
 import minusImg from "/public/UI/misc/minus.webp";
 import styles from "./UseButtons.module.css";
-import ResizableImage from "../../../../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../../../../DynamicImage/DynamicImage";
 import {kebabCase} from "lodash";
 import {ITreasureMysteryCardRenderData} from "@shared/types/Game/MysteryService/MysteryCard";
 import {isStorageCard} from "@shared/utils/typeGuards/isStorageCard";
@@ -36,7 +36,7 @@ export default function UseButtons(props: Props) {
                     onMouseLeave={props.onMouseLeaveButton}
                     onClick={props.use}
                 >
-                    <ResizableImage
+                    <DynamicImage
                         className={styles.treasureImage}
                         src={treasureIcon}
                         alt="użycie"
@@ -55,7 +55,7 @@ export default function UseButtons(props: Props) {
             for (let i = 0; i < amount; i++) {
                 resources.push(
                     <div className={styles.resource}>
-                        <ResizableImage
+                        <DynamicImage
                             src={sourceImg}
                             alt="depozyt"
                         />
@@ -107,7 +107,7 @@ export default function UseButtons(props: Props) {
                         onMouseLeave={props.onMouseLeaveButton}
                         onClick={handleWithdraw}
                     >
-                        <ResizableImage
+                        <DynamicImage
                             src={minusImg}
                             alt="Wyjmij"
                         />
@@ -119,7 +119,7 @@ export default function UseButtons(props: Props) {
                         onMouseLeave={props.onMouseLeaveButton}
                         onClick={handleDeposit}
                     >
-                        <ResizableImage
+                        <DynamicImage
                             src={plusImg}
                             alt="Zdeponuj"
                         />

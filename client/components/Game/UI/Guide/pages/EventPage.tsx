@@ -1,4 +1,4 @@
-import ResizableImage from "../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../DynamicImage/DynamicImage";
 import styles from "../Guide.module.css";
 
 
@@ -8,14 +8,14 @@ export function EventPage() {
 			<section>
 				<div className={styles.flexBlock}>
 					<div className={styles.titleImg}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/phase/event.webp"}
 							alt="event"
 						/>
 					</div>
 					<h2 className={styles.title}>Faza Wydarzenia</h2>
 					<div className={styles.titleImg}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/phase/event.webp"}
 							alt="event"
 						/>
@@ -29,13 +29,13 @@ export function EventPage() {
 			<section>
 				<div className={styles.flexBlock}>
 					<div className={styles.cardExampleImg}>
-						<ResizableImage
+						<DynamicImage
 							src="/UI/guide/event/event-card-example.webp"
 							alt="event card example"
 						/>
 					</div>
 					<div className={styles.cardExampleImg2}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/guide/event/threat.webp"}
 							alt="event"
 						/>
@@ -44,7 +44,7 @@ export function EventPage() {
 				<ul className={styles.list}>
 					<li className={styles.li}>
 						<div className={styles.listItemImg}>
-							<ResizableImage
+							<DynamicImage
 								src={"/UI/tokens/adventure/explore.webp"}
 								alt="token"
 							/>
@@ -58,7 +58,7 @@ export function EventPage() {
 					</li>
 					<li className={styles.li}>
 						<div className={styles.listItemImg}>
-							<ResizableImage
+							<DynamicImage
 								src={"/UI/scenarios/book.webp"}
 								alt="token"
 							/>

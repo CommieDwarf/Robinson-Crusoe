@@ -2,7 +2,7 @@
 import * as React from "react";
 import styles from "./LogMessage.module.css";
 import { RoundSquare } from "../../Scenario/Scenarios/Castaways/Rounds/RoundSquare/RoundSquare";
-import ResizableImage from "../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../DynamicImage/DynamicImage";
 import { ILogMessageRenderData } from "@shared/types/Game/ChatLog/LogMessage";
 import { useTranslation } from "react-i18next";
 import { insertIconsIntoText } from "../../../../../utils/insertIconsIntoText/insertIconsIntoText";
@@ -46,7 +46,7 @@ export const LogMessage = (props: Props) => {
 			</div>
 
 			<div className={styles.phaseIcon}>
-				<ResizableImage
+				<DynamicImage
 					src={"/UI/phase/" + msg.phase + ".webp"}
 					alt={"faza"}
 				/>

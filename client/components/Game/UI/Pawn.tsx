@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Pawn.module.css";
 import { Draggable } from "react-beautiful-dnd";
 import { useAppSelector } from "../../../store/hooks";
-import ResizableImage from "../../DynamicImage/DynamicImage";
+import DynamicImage from "../../DynamicImage/DynamicImage";
 import { kebabCase } from "lodash";
 import { ACTION } from "@shared/types/Game/ACTION";
 import { IPawnOwnerRenderData, IPawnRenderData } from "@shared/types/Game/Pawns/Pawn";
@@ -80,7 +80,7 @@ export default function Pawn(props: Props) {
 					player && !props.pawn.action && styles.imgWrapperDarkened
 				}`}
 			>
-				<ResizableImage
+				<DynamicImage
 					src={`/UI/characters/pawns/${imageName}.webp`}
 					fill
 					alt="pionek"

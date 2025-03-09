@@ -1,4 +1,4 @@
-import ResizableImage from "../../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../../DynamicImage/DynamicImage";
 import { insertIcon } from "../../Guide";
 import styles from "../../Guide.module.css";
 import { ImgListItem } from "../../ImgList.tsx/ImgListItem";
@@ -9,14 +9,14 @@ export function ExplorePage() {
 			<section>
 				<div className={styles.flexBlock}>
 					<div className={styles.titleImg}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/phase/action.webp"}
 							alt="action"
 						/>
 					</div>
 					<h2 className={styles.title}>Faza Akcji</h2>
 					<div className={styles.titleImg}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/phase/action.webp"}
 							alt="action"
 						/>
@@ -24,14 +24,14 @@ export function ExplorePage() {
 				</div>
 				<div className={styles.flexBlock}>
 					<div className={styles.titleImg}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/actions/explore.webp"}
 							alt="action"
 						/>
 					</div>
 					<h2 className={styles.subTitle}>Exploracja</h2>
 					<div className={styles.titleImg}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/actions/explore.webp"}
 							alt="action"
 						/>
@@ -52,13 +52,13 @@ export function ExplorePage() {
 				</ul>
 				<div className={styles.flexBlock}>
 					<div className={styles.exampleImg}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/map/tiles/8.webp"}
 							alt={"kafelek"}
 						/>
 					</div>
 					<div className={styles.exampleGif}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/guide/pawn-assignment-explore.gif"}
 							alt={"przydzielanie pionka"}
 						/>
@@ -68,7 +68,7 @@ export function ExplorePage() {
 					<ImgListItem
 						imgElement={() => (
 							<>
-								<ResizableImage
+								<DynamicImage
 									src={"/UI/misc/parrot.webp"}
 									alt={"źródło pożywienia"}
 									style={{ scale: "0.9" }}
@@ -84,7 +84,7 @@ export function ExplorePage() {
 					/>
 					<ImgListItem
 						imgElement={() => (
-							<ResizableImage
+							<DynamicImage
 								src={"/UI/misc/beast.webp"}
 								alt="bestia"
 								style={{ scale: "0.9" }}
@@ -99,7 +99,7 @@ export function ExplorePage() {
 					/>
 					<ImgListItem
 						imgElement={() => (
-							<ResizableImage
+							<DynamicImage
 								src={"/UI/misc/discovery-token.webp"}
 								alt="żeton odkryć"
 								style={{ scale: "0.9" }}
@@ -114,7 +114,7 @@ export function ExplorePage() {
 					/>
 					<ImgListItem
 						imgElement={() => (
-							<ResizableImage
+							<DynamicImage
 								src={"/UI/misc/natural-shelter.webp"}
 								alt="żeton odkryć"
 							/>
@@ -131,7 +131,7 @@ export function ExplorePage() {
 
 					<ImgListItem
 						imgElement={() => (
-							<ResizableImage
+							<DynamicImage
 								src={"/UI/misc/totem.webp"}
 								alt="żeton odkryć"
 							/>
@@ -145,7 +145,7 @@ export function ExplorePage() {
 					/>
 					<ImgListItem
 						imgElement={() => (
-							<ResizableImage
+							<DynamicImage
 								src={"/UI/misc/terrain.webp"}
 								alt="rodzaj terenu"
 							/>

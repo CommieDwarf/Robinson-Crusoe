@@ -3,7 +3,7 @@ import styles from "./PhaseDropDownMenu.module.css";
 import { useTranslation } from "react-i18next";
 
 import { PhaseType } from "../Phase";
-import ResizableImage from "../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../DynamicImage/DynamicImage";
 import { capitalize } from "lodash";
 
 interface Props {
@@ -50,7 +50,7 @@ export default function PhaseDropDownMenu(props: Props) {
 					)}
 				</div>
 				<div className={styles.phasePicture}>
-					<ResizableImage
+					<DynamicImage
 						src={`/UI/phase/${phase}-pic.webp`}
 						alt={phase}
 					/>

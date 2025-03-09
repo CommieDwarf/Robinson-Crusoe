@@ -1,4 +1,4 @@
-import ResizableImage from "../../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../../DynamicImage/DynamicImage";
 import styles from "../../Guide.module.css";
 
 export function RestPage() {
@@ -7,14 +7,14 @@ export function RestPage() {
 			<section>
 				<div className={styles.flexBlock}>
 					<div className={styles.titleImg}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/phase/action.webp"}
 							alt="action"
 						/>
 					</div>
 					<h2 className={styles.title}>Faza Akcji</h2>
 					<div className={styles.titleImg}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/phase/action.webp"}
 							alt="action"
 						/>
@@ -22,14 +22,14 @@ export function RestPage() {
 				</div>
 				<div className={styles.flexBlock}>
 					<div className={styles.titleImg}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/actions/rest.webp"}
 							alt="action"
 						/>
 					</div>
 					<h2 className={styles.subTitle}>Odpoczynek</h2>
 					<div className={styles.titleImg}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/actions/rest.webp"}
 							alt="action"
 						/>
@@ -48,7 +48,7 @@ export function RestPage() {
 				</ul>
 				<div className={styles.flexBlock}>
 					<div className={styles.exampleGif}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/guide/pawn-assignment-rest.gif"}
 							alt={"przydzielanie pionka"}
 						/>

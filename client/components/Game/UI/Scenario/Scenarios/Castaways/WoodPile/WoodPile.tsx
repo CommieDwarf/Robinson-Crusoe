@@ -4,7 +4,7 @@ import * as React from "react";
 import styles from "./WoodPile.module.css";
 import fireImg from "/public/UI/scenarios/fire.webp";
 import woodImg from "/public/UI/resources/wood.webp";
-import ResizableImage from "../../../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../../../DynamicImage/DynamicImage";
 import { OTHER_CONTROLLER_ACTION } from "@shared/types/CONTROLLER_ACTION";
 import {
 	useAppDispatch,
@@ -28,7 +28,7 @@ export const WoodPile = () => {
 	return (
 		<div className={styles.container}>
 			<div className={styles.frame}>
-				<ResizableImage src={"/UI/scenarios/square-frame.webp"} alt="" />
+				<DynamicImage src={"/UI/scenarios/square-frame.webp"} alt="" />
 			</div>
 			<div className={styles.woodPileLvl}>
 				{scenarioService.woodStashLvl}/5
@@ -37,7 +37,7 @@ export const WoodPile = () => {
 				className={`${styles.fire} ${!scenarioService.isFireBuilt && styles.fireNotBuilt
 					}`}
 			>
-				<ResizableImage
+				<DynamicImage
 					src={fireImg}
 					fill
 					alt={"ogień"}
@@ -48,7 +48,7 @@ export const WoodPile = () => {
 				className={`${styles.woodStack} ${styles["level" + scenarioService.woodStashLvl]
 					}`}
 			>
-				<ResizableImage
+				<DynamicImage
 					src={`/UI/scenarios/castaways/woodStack${scenarioService.woodStashLvl}.webp`}
 					fill
 					sizes={styles.woodStack}
@@ -62,7 +62,7 @@ export const WoodPile = () => {
 						{scenarioService.committedWood}/
 						{scenarioService.woodStashLvl}
 						<div className={styles.woodImage}>
-							<ResizableImage
+							<DynamicImage
 								src={woodImg}
 								fill
 								alt={"drewno"}

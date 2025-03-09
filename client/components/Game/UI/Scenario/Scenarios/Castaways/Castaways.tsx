@@ -6,7 +6,7 @@ import bookEffectImg from "/public/UI/scenarios/castaways/book-effect.webp";
 import totemEffectImg from "/public/UI/scenarios/castaways/totem-effect.webp";
 import scenarioTokensImg from "/public/UI/scenarios/castaways/tokens.webp";
 import Rounds from "./Rounds/Rounds";
-import ResizableImage from "../../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../../DynamicImage/DynamicImage";
 import { useTranslation } from "react-i18next";
 import { capitalize } from "lodash";
 import { useAppSelector } from "../../../../../../store/hooks";
@@ -35,7 +35,7 @@ export default function Castaways() {
 					<div
 						className={styles.eventEffect + " " + styles.bookEffect}
 					>
-						<ResizableImage
+						<DynamicImage
 							src={bookEffectImg}
 							fill
 							alt={"tokeny"}
@@ -43,7 +43,7 @@ export default function Castaways() {
 						/>
 					</div>
 					<div className={styles.eventEffect}>
-						<ResizableImage
+						<DynamicImage
 							src={totemEffectImg}
 							fill
 							alt={"tokeny"}
@@ -55,14 +55,14 @@ export default function Castaways() {
 
 			<div className={styles.bottomSection}>
 				<div className={styles.bottomSectionBackground}>
-					<ResizableImage
+					<DynamicImage
 						src={"/UI/scenarios/test2.webp"}
 						alt={"background"}
 					/>
 				</div>
 
 				<div className={styles.tokens}>
-					<ResizableImage
+					<DynamicImage
 						src={scenarioTokensImg}
 						fill
 						alt={"tokeny"}
@@ -76,10 +76,10 @@ export default function Castaways() {
 				</div>
 				<div className={styles.effects}>
 					<div className={styles.effect}>
-						<ResizableImage src={bookEffectImg} alt="" />
+						<DynamicImage src={bookEffectImg} alt="" />
 					</div>
 					<div className={styles.effect}>
-						<ResizableImage src={totemEffectImg} alt="" />
+						<DynamicImage src={totemEffectImg} alt="" />
 					</div>
 				</div>
 			</div>

@@ -1,5 +1,5 @@
 import styles from "./TileModifier.module.css";
-import ResizableImage from "../../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../../DynamicImage/DynamicImage";
 import timeConsumingActionToken from "/public/UI/tokens/time-consuming-action.webp";
 import greaterDangerToken from "/public/UI/tokens/greater-danger.webp";
 import xMarkImg from "/public/UI/misc/x-mark.webp";
@@ -30,7 +30,7 @@ export function TileModifier(props: Props) {
 				props.type === "terrainDepleted" && styles.terrainDepleted
 			}`}
 		>
-			<ResizableImage src={src} alt={"zagrożenie"} />
+			<DynamicImage src={src} alt={"zagrożenie"} />
 		</div>
 	);
 }

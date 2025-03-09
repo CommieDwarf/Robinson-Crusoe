@@ -3,7 +3,7 @@ import xMark from "/public/UI/misc/x-mark.webp";
 
 import moraleArrowLeftImg from "/public/UI/icons/morale-arrow-left.webp";
 import React from "react";
-import ResizableImage from "../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../DynamicImage/DynamicImage";
 import { CHARACTER_CONTROLLER_ACTION } from "@shared/types/CONTROLLER_ACTION";
 import { useAppDispatch } from "../../../../store/hooks";
 import { socketEmitAction } from "../../../../middleware/socketMiddleware";
@@ -46,7 +46,7 @@ export default function Threshold(props: Props) {
 				}`}
 				onClick={handleClick}
 			>
-				<ResizableImage
+				<DynamicImage
 					src={moraleArrowLeftImg}
 					fill
 					alt="morale"
@@ -54,7 +54,7 @@ export default function Threshold(props: Props) {
 				/>
 				{props.removed && (
 					<div className={styles.xMark}>
-						<ResizableImage src={xMark} alt="usunięty próg" />
+						<DynamicImage src={xMark} alt="usunięty próg" />
 					</div>
 				)}
 			</div>

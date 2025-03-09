@@ -2,7 +2,7 @@
 import * as React from "react";
 import styles from "./MysteryCard.module.css";
 import UseButtons from "./UseButtons/UseButtons";
-import ResizableImage from "../../../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../../../DynamicImage/DynamicImage";
 import { IMysteryCardRenderData } from "@shared/types/Game/MysteryService/MysteryCard";
 import { kebabCase } from "lodash";
 import { MYSTERY_CONTROLLER_ACTION } from "@shared/types/CONTROLLER_ACTION";
@@ -42,7 +42,7 @@ export const MysteryCard = (props: Props) => {
 
 	return (
 		<div className={`${styles.container}`}>
-			<ResizableImage
+			<DynamicImage
 				src={imgUrl}
 				alt={"karta pomysłu"}
 				placeholder="blur"

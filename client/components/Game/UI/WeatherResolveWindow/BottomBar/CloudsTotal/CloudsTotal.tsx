@@ -3,7 +3,7 @@ import * as React from "react";
 import styles from "./CloudsTotal.module.css";
 import snowCloudImg from "/public/UI/weather/snow-cloud.webp";
 import rainCloudImg from "/public/UI/weather/rain-cloud.webp";
-import ResizableImage from "../../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../../DynamicImage/DynamicImage";
 import { IWeatherServiceRenderData } from "@shared/types/Game/Weather/Weather";
 
 type Props = {
@@ -19,7 +19,7 @@ export const CloudsTotal = (props: Props) => {
 					<span className={styles.cloudCount}>
 						{props.weatherService.overallWeather.snow}
 					</span>
-					<ResizableImage
+					<DynamicImage
 						src={snowCloudImg}
 						fill
 						alt={"chmurka zimowa"}
@@ -32,7 +32,7 @@ export const CloudsTotal = (props: Props) => {
 					<span className={styles.cloudCount}>
 						{props.weatherService.overallWeather.rain}
 					</span>
-					<ResizableImage
+					<DynamicImage
 						src={rainCloudImg}
 						fill
 						alt={"chmurka deszczowa"}

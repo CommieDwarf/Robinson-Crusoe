@@ -1,4 +1,4 @@
-import ResizableImage from "../../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../../DynamicImage/DynamicImage";
 import { insertIcon } from "../../Guide";
 import styles from "../../Guide.module.css";
 import { ImgListItem } from "../../ImgList.tsx/ImgListItem";
@@ -9,14 +9,14 @@ export function GatherPage() {
 			<section>
 				<div className={styles.flexBlock}>
 					<div className={styles.titleImg}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/phase/action.webp"}
 							alt="action"
 						/>
 					</div>
 					<h2 className={styles.title}>Faza Akcji</h2>
 					<div className={styles.titleImg}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/phase/action.webp"}
 							alt="action"
 						/>
@@ -24,14 +24,14 @@ export function GatherPage() {
 				</div>
 				<div className={styles.flexBlock}>
 					<div className={styles.titleImg}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/actions/gather.webp"}
 							alt="action"
 						/>
 					</div>
 					<h2 className={styles.subTitle}>Zbieranie Surowców</h2>
 					<div className={styles.titleImg}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/actions/gather.webp"}
 							alt="action"
 						/>
@@ -65,13 +65,13 @@ export function GatherPage() {
 			<section>
 				<div className={styles.flexBlock}>
 					<div className={styles.exampleImg}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/map/tiles/0.webp"}
 							alt={"kafelek"}
 						/>
 					</div>
 					<div className={styles.exampleGif}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/guide/pawn-assignment-gather.gif"}
 							alt={"przydzielanie pionka"}
 						/>
@@ -82,7 +82,7 @@ export function GatherPage() {
 					<ImgListItem
 						imgElement={() => (
 							<>
-								<ResizableImage
+								<DynamicImage
 									src={"/UI/misc/parrot.webp"}
 									alt={"źródło pożywienia"}
 									style={{ scale: "0.9" }}
@@ -98,7 +98,7 @@ export function GatherPage() {
 					<ImgListItem
 						imgElement={() => (
 							<>
-								<ResizableImage
+								<DynamicImage
 									src={"/UI/misc/fish.webp"}
 									alt={"źródło pożywienia"}
 								/>
@@ -113,7 +113,7 @@ export function GatherPage() {
 					<ImgListItem
 						imgElement={() => (
 							<>
-								<ResizableImage
+								<DynamicImage
 									src={"/UI/misc/wood.webp"}
 									alt={"źródło drewna"}
 								/>

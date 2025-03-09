@@ -1,4 +1,4 @@
-import ResizableImage from "../../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../../DynamicImage/DynamicImage";
 import styles from "../../Guide.module.css";
 
 export function ArrangeCampPage() {
@@ -7,14 +7,14 @@ export function ArrangeCampPage() {
 			<section>
 				<div className={styles.flexBlock}>
 					<div className={styles.titleImg}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/phase/action.webp"}
 							alt="action"
 						/>
 					</div>
 					<h2 className={styles.title}>Faza Akcji</h2>
 					<div className={styles.titleImg}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/phase/action.webp"}
 							alt="action"
 						/>
@@ -22,14 +22,14 @@ export function ArrangeCampPage() {
 				</div>
 				<div className={styles.flexBlock}>
 					<div className={styles.titleImg}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/actions/arrange-camp.webp"}
 							alt="action"
 						/>
 					</div>
 					<h2 className={styles.subTitle}>PorzĄdkowanie Obozu</h2>
 					<div className={styles.titleImg}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/actions/arrange-camp.webp"}
 							alt="action"
 						/>
@@ -54,7 +54,7 @@ export function ArrangeCampPage() {
 				</ul>
 				<div className={styles.flexBlock}>
 					<div className={styles.exampleGif}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/guide/pawn-assignment-arrange-camp.gif"}
 							alt={"przydzielanie pionka"}
 						/>

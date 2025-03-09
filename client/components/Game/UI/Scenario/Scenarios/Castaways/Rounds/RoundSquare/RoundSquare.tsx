@@ -1,7 +1,7 @@
 // @flow
 import * as React from "react";
 import styles from "./RoundSquare.module.css";
-import ResizableImage from "../../../../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../../../../DynamicImage/DynamicImage";
 
 interface Props {
     round: number;
@@ -35,7 +35,7 @@ export function RoundSquare(props: Props) {
                     }
                     key={key}
                 >
-                    <ResizableImage
+                    <DynamicImage
                         src={`/UI/scenarios/${key}.webp`}
                         alt={"pogoda"}
                     />
@@ -55,7 +55,7 @@ export function RoundSquare(props: Props) {
                 {weatherEffects}
             </div>
             <div className={`${styles.squareImg} ${props.currentRound && styles.squareImgCurrent}`}>
-                <ResizableImage
+                <DynamicImage
                     src={"/UI/scenarios/squares/" + imgNumber + ".webp"}
                     className={`${styles.square} ${props.dark && styles.dark}`}
                     fill
@@ -67,7 +67,7 @@ export function RoundSquare(props: Props) {
             </div>
             {props.ship && (
                 <div className={styles.ship}>
-                    <ResizableImage
+                    <DynamicImage
                         src={"/UI/scenarios/boat.webp"}
                         alt="Łódź"
                         fill

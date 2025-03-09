@@ -3,7 +3,7 @@ import styles from "./MoraleBar.module.css";
 import moraleIconImg from "/public/UI/icons/morale.webp";
 import heartImg from "/public/UI/misc/heart.webp";
 import crossLineImg from "/public/UI/misc/cross-line.webp";
-import ResizableImage from "../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../DynamicImage/DynamicImage";
 
 interface Props {
 	current: boolean;
@@ -33,7 +33,7 @@ export default function MoraleBar(props: Props) {
 					{props.value !== 0 && (
 						<div className={styles.moraleIcon}>
 							<div className={styles.moraleImg}>
-								<ResizableImage
+								<DynamicImage
 									src={moraleIconImg}
 									fill
 									alt="morale"
@@ -59,7 +59,7 @@ export default function MoraleBar(props: Props) {
 				<div className={styles.moraleLabel}>
 					<div className={styles.lastMoraleBarValue}>3</div>
 					<div className={styles.lastMoraleIcon}>
-						<ResizableImage
+						<DynamicImage
 							src={moraleIconImg}
 							fill
 							alt="morale"
@@ -67,7 +67,7 @@ export default function MoraleBar(props: Props) {
 						/>
 					</div>
 					<div className={styles.heart}>
-						<ResizableImage
+						<DynamicImage
 							src={heartImg}
 							fill
 							alt="życie"
@@ -75,7 +75,7 @@ export default function MoraleBar(props: Props) {
 						/>
 					</div>
 					<div className={styles.crossLine}>
-						<ResizableImage src={crossLineImg} alt={""} fill />
+						<DynamicImage src={crossLineImg} alt={""} fill />
 					</div>
 				</div>
 			</div>

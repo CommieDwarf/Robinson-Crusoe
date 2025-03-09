@@ -1,4 +1,4 @@
-import ResizableImage from "components/DynamicImage/DynamicImage";
+import DynamicImage from "components/DynamicImage/DynamicImage";
 import styles from "./Checkbox.module.css";
 
 interface Props {
@@ -22,14 +22,14 @@ export function CheckBox(
 				<input type="checkbox" {...props} className={styles.input} />
 			</div>
 			<div className={styles.frame} aria-hidden="true">
-				<ResizableImage
+				<DynamicImage
 					src={`/UI/scenarios/squares/${frameNumber}.webp`}
 					alt="checkbox"
 				/>
 			</div>
 			{props.checked && (
 				<div className={styles.checkMark} aria-hidden="true">
-					<ResizableImage
+					<DynamicImage
 						src={"/UI/misc/x-mark.webp"}
 						alt="checkmark"
 					/>

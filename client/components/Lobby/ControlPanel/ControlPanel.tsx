@@ -2,7 +2,7 @@ import styles from "./ControlPanel.module.css";
 import { ReadyButton } from "../ReadyButton";
 import { useEffect, useState } from "react";
 import compassImg from "/public/UI/tokens/compass.webp";
-import ResizableImage from "../../DynamicImage/DynamicImage";
+import DynamicImage from "../../DynamicImage/DynamicImage";
 import { SOCKET_EVENT_CLIENT } from "@shared/types/Requests/Socket";
 import { BackButton } from "../../BackButton/BackButton";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
@@ -76,7 +76,7 @@ export function ControlPanel(props: Props) {
 				onClick={handleStartClick}
 			>
 				<div className={`${styles.startButton}`}>
-					<ResizableImage
+					<DynamicImage
 						src={compassImg}
 						alt={"start"}
 						priority={true}

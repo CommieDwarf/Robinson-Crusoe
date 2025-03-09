@@ -1,5 +1,5 @@
 import styles from "./ReadyButton.module.css";
-import ResizableImage from "../DynamicImage/DynamicImage";
+import DynamicImage from "../DynamicImage/DynamicImage";
 import circleImg from "/public/UI/misc/black-circle.webp";
 import checkMark from "/public/UI/misc/check-mark.webp";
 import xMarkImg from "/public/UI/misc/x-mark.webp";
@@ -22,10 +22,10 @@ export function ReadyButton(props: Props) {
 		>
 			<div className={`${styles.readyImg}`}>
 				{props.ready && (
-					<ResizableImage src={checkMark} alt={"ready"} />
+					<DynamicImage src={checkMark} alt={"ready"} />
 				)}
 				{!props.ready && (
-					<ResizableImage src={xMarkImg} alt={"not ready"} />
+					<DynamicImage src={xMarkImg} alt={"not ready"} />
 				)}
 			</div>
 			<div
@@ -33,7 +33,7 @@ export function ReadyButton(props: Props) {
 					!props.ready && styles.notReady
 				}`}
 			>
-				<ResizableImage src={circleImg} alt={"ready"} />
+				<DynamicImage src={circleImg} alt={"ready"} />
 			</div>
 		</div>
 	);

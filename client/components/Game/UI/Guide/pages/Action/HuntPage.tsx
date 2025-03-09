@@ -1,5 +1,5 @@
 import { insertIconsIntoText } from "../../../../../../utils/insertIconsIntoText/insertIconsIntoText";
-import ResizableImage from "../../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../../DynamicImage/DynamicImage";
 import styles from "../../Guide.module.css";
 import { ImgListItem } from "../../ImgList.tsx/ImgListItem";
 
@@ -9,14 +9,14 @@ export function HuntPage() {
 			<section>
 				<div className={styles.flexBlock}>
 					<div className={styles.titleImg}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/phase/action.webp"}
 							alt="action"
 						/>
 					</div>
 					<h2 className={styles.title}>Faza Akcji</h2>
 					<div className={styles.titleImg}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/phase/action.webp"}
 							alt="action"
 						/>
@@ -24,14 +24,14 @@ export function HuntPage() {
 				</div>
 				<div className={styles.flexBlock}>
 					<div className={styles.titleImg}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/actions/hunt.webp"}
 							alt="action"
 						/>
 					</div>
 					<h2 className={styles.subTitle}>Polowanie</h2>
 					<div className={styles.titleImg}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/actions/hunt.webp"}
 							alt="action"
 						/>
@@ -50,13 +50,13 @@ export function HuntPage() {
 				</ul>
 				<div className={styles.flexBlock}>
 					<div className={styles.card}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/cards/beasts/tiger.webp"}
 							alt="karta bestii"
 						/>
 					</div>
 					<div className={styles.exampleGif}>
-						<ResizableImage
+						<DynamicImage
 							src={"/UI/guide/pawn-assignment-hunt.gif"}
 							alt={"przydzielanie pionka"}
 						/>
@@ -65,7 +65,7 @@ export function HuntPage() {
 				<ul className={styles.list}>
 					<ImgListItem
 						imgElement={() => (
-							<ResizableImage
+							<DynamicImage
 								src={"/UI/misc/black-skull.webp"}
 								alt={"siła"}
 							/>
@@ -82,7 +82,7 @@ export function HuntPage() {
 					/>
 					<ImgListItem
 						imgElement={() => (
-							<ResizableImage
+							<DynamicImage
 								src={"/UI/icons/weapon.webp"}
 								alt={"spadek poziomu broni"}
 							/>
@@ -97,7 +97,7 @@ export function HuntPage() {
 					/>
 					<ImgListItem
 						imgElement={() => (
-							<ResizableImage
+							<DynamicImage
 								src={"/UI/icons/food.webp"}
 								alt={"jedzenie"}
 							/>
@@ -110,7 +110,7 @@ export function HuntPage() {
 					/>
 					<ImgListItem
 						imgElement={() => (
-							<ResizableImage
+							<DynamicImage
 								src={"/UI/resources/leather.webp"}
 								alt={"jedzenie"}
 							/>

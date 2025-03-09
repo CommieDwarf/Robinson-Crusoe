@@ -6,7 +6,7 @@ import { OTHER_CONTROLLER_ACTION } from "@shared/types/CONTROLLER_ACTION";
 import getActionSlots from "../../getActionSlots";
 import { objectsEqual } from "@shared/utils/objectsEqual";
 import styles from "./Construction.module.css";
-import ResizableImage from "../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../DynamicImage/DynamicImage";
 import { CostBlock } from "./CostBlock/CostBlock";
 import React from "react";
 import { useTranslation } from "react-i18next";
@@ -130,14 +130,14 @@ function Construction(props: Props) {
 						: ""
 				}`}
 			>
-				<ResizableImage
+				<DynamicImage
 					src={`/UI/constructions/${constrImgName}.webp`}
 					fill
 					alt={props.construction.name}
 				/>
 			</div>
 			<div className={styles.structureIcon}>
-				<ResizableImage
+				<DynamicImage
 					src={`/UI/constructions/${props.construction.name}-icon.webp`}
 					fill
 					alt={props.construction.name + " icon"}

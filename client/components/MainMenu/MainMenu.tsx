@@ -1,5 +1,5 @@
 import styles from "./MainMenu.module.css";
-import ResizableImage from "../DynamicImage/DynamicImage";
+import DynamicImage from "../DynamicImage/DynamicImage";
 import Link from "next/link";
 import React, { ReactElement, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
@@ -72,7 +72,7 @@ export function MainMenu({ UserComponent }: Props) {
 	return (
 		<div className={styles.container}>
 			<div className={styles.title}>
-				<ResizableImage src={"/UI/title.webp"} alt={"title"} />
+				<DynamicImage src={"/UI/title.webp"} alt={"title"} />
 			</div>
 			<div className={styles.menuWrapper}>
 				<ul className={styles.menu}>

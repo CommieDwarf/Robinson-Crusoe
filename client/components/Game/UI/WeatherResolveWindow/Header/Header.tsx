@@ -5,7 +5,7 @@ import { RoundSquare } from "../../Scenario/Scenarios/Castaways/Rounds/RoundSqua
 import weatherImg from "/public/UI/phase/weather.webp";
 import redArrowImg from "/public/UI/misc/red-arrow.webp";
 import nightImg from "/public/UI/phase/night.webp";
-import ResizableImage from "../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../DynamicImage/DynamicImage";
 import { OTHER_CONTROLLER_ACTION } from "@shared/types/CONTROLLER_ACTION";
 import { useAppDispatch } from "../../../../../store/hooks";
 import { socketEmitAction } from "../../../../../middleware/socketMiddleware";
@@ -24,7 +24,7 @@ export const Header = (props: Props) => {
 	return (
 		<div className={styles.container}>
 			<div className={styles.symbol}>
-				<ResizableImage src={weatherImg} alt={"pogoda"} />
+				<DynamicImage src={weatherImg} alt={"pogoda"} />
 			</div>
 			<span className={styles.title}>Faza Pogody</span>
 			<div className={styles.symbol + " " + styles.round}>
@@ -39,7 +39,7 @@ export const Header = (props: Props) => {
 			{props.resolved && (
 				<div className={styles.nextPhaseButton} onClick={handleClick}>
 					<div className={styles.arrow}>
-						<ResizableImage
+						<DynamicImage
 							src={redArrowImg}
 							alt={"strzałka"}
 							fill
@@ -47,7 +47,7 @@ export const Header = (props: Props) => {
 						/>
 					</div>
 					<div className={styles.night}>
-						<ResizableImage
+						<DynamicImage
 							src={nightImg}
 							alt={"następna faza"}
 							fill

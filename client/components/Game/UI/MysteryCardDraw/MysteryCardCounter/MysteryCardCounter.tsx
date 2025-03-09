@@ -1,7 +1,7 @@
 // @flow
 import * as React from "react";
 import styles from "./MysteryCardCounter.module.css";
-import ResizableImage from "../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../DynamicImage/DynamicImage";
 import { MysteryCardsAmount } from "@shared/types/Game/MysteryService/MysteryService";
 
 type Props = {
@@ -11,7 +11,7 @@ export const MysteryCardCounter = (props: Props) => {
 	return (
 		<div className={styles.container}>
 			<div className={styles.background}>
-				<ResizableImage
+				<DynamicImage
 					src={"/UI/misc/mystery-background.webp"}
 					fill
 					sizes={styles.mysteryCountBackground}
@@ -23,7 +23,7 @@ export const MysteryCardCounter = (props: Props) => {
 					return (
 						<div className={styles.counter} key={category}>
 							<div className={styles.categoryImg}>
-								<ResizableImage
+								<DynamicImage
 									src={`/UI/misc/${category}.webp`}
 									fill
 									alt={"licznik"}

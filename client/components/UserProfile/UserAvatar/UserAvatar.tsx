@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./UserAvatar.module.css";
-import ResizableImage from "../../DynamicImage/DynamicImage";
+import DynamicImage from "../../DynamicImage/DynamicImage";
 import { useAppSelector } from "../../../store/hooks";
 import config from "../../../config/config";
 import { toast } from "react-toastify";
@@ -82,7 +82,7 @@ export function UserAvatar(props: Props) {
 
 	return (
 		<div className={styles.container}>
-			{avatarUrl && <ResizableImage src={avatarUrl} alt="avatar" />}
+			{avatarUrl && <DynamicImage src={avatarUrl} alt="avatar" />}
 		</div>
 	);
 }

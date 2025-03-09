@@ -1,6 +1,6 @@
 import { PHASE } from "@shared/types/Game/PhaseService/Phase";
 import styles from "../Guide.module.css";
-import ResizableImage from "../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../DynamicImage/DynamicImage";
 import capitalize from "@shared/utils/capitalize";
 import i18next from "i18next";
 
@@ -29,7 +29,7 @@ export function IntroductionPage() {
 						return (
 							<li key={phase} className={styles.li}>
 								<div className={styles.listItemImg}>
-									<ResizableImage
+									<DynamicImage
 										src={"/UI/phase/" + phase + ".webp"}
 										alt={phase}
 									/>

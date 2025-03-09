@@ -9,7 +9,7 @@ import Entries from "@shared/types/Entries";
 import Wound from "./Wound/Wound";
 import { getOwnedDroppableId } from "@shared/utils/getOwnedDroppableId";
 import { IAbilityRenderData } from "@shared/types/Game/Skill/IAbility";
-import ResizableImage from "../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../DynamicImage/DynamicImage";
 import { capitalize } from "lodash";
 import { useTranslation } from "react-i18next";
 import { Expendables } from "./Expendables/Expendables";
@@ -112,7 +112,7 @@ export default function Character(props: Props) {
 			<div className={styles.characterName}>
 				{capitalize(t(`character.${character.name}`))}
 				<div className={styles.primePlayerIcon}>
-					<ResizableImage src={starImg} alt={"prime player"} />
+					<DynamicImage src={starImg} alt={"prime player"} />
 				</div>
 			</div>
 

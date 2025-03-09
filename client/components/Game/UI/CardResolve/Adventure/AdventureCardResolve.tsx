@@ -1,6 +1,6 @@
 // @flow
 import * as React from "react";
-import ResizableImage from "../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../DynamicImage/DynamicImage";
 import {IAdventureCardRenderData} from "@shared/types/Game/AdventureService/AdventureCard";
 import {kebabCase} from "lodash";
 
@@ -14,7 +14,7 @@ export const AdventureCardResolve = (props: Props) => {
 
     return (
         <>
-            <ResizableImage
+            <DynamicImage
                 src={imageUrl}
                 alt={"wydarzenie"}
             />

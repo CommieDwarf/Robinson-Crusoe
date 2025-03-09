@@ -19,6 +19,7 @@ import { setSocketListener, SocketListener } from "../api/socket";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import Game from "components/Game/Game";
+import { ERROR_CODE } from "@shared/types/Errors/ERROR";
 
 function Play() {
 	const router = useRouter();
@@ -104,7 +105,12 @@ function Play() {
 				SOCKET_EVENT_SERVER.SESSION_CONNECTION_STATUS_SENT,
 				(payload) => {
 					if (payload.error) {
-						setConnectError(payload.error);
+						if (payload.error === SESSION_CONNECTION_ERROR_CODE.SESSION_NOT_FOUND) {
+							router.push("/404");
+						} else {
+							setConnectError(payload.error);
+
+						}
 					}
 				}
 			)

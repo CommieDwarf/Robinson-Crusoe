@@ -3,7 +3,7 @@ import styles from "./Morale.module.css";
 import MoraleBar from "./MoraleBar/MoraleBar";
 import moraleArrowLeftImg from "/public/UI/icons/morale-arrow-left.webp";
 import moraleArrowRightImg from "/public/UI/icons/morale-arrow-right.webp";
-import ResizableImage from "../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../DynamicImage/DynamicImage";
 import { useAppSelector } from "../../../../store/hooks";
 import { selectGame } from "../../../../reduxSlices/gameSession";
 
@@ -23,7 +23,7 @@ function Morale() {
 		<div className={styles.container}>
 			<div className={styles.leftBar}>
 				<div className={styles.arrow}>
-					<ResizableImage
+					<DynamicImage
 						src={moraleArrowLeftImg}
 						fill
 						sizes={styles.arrow}
@@ -33,7 +33,7 @@ function Morale() {
 			</div>
 			<div className={styles.rightBar}>
 				<div className={styles.arrow}>
-					<ResizableImage
+					<DynamicImage
 						src={moraleArrowRightImg}
 						fill
 						sizes={styles.arrow}

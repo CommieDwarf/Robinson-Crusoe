@@ -1,5 +1,5 @@
 import styles from "./Button.module.css";
-import ResizableImage from "../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../DynamicImage/DynamicImage";
 import { StaticImageData } from "next/image";
 import { CSSProperties } from "react";
 
@@ -32,7 +32,7 @@ export function Button(props: Props) {
 				}`}
 				style={props.filter ? { filter: props.filter} : {} }
 			>
-				<ResizableImage src={props.imgSrc} alt={"button"} />
+				<DynamicImage src={props.imgSrc} alt={"button"} />
 			</div>
 		</div>
 	);

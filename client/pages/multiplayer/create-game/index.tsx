@@ -1,5 +1,5 @@
 import styles from "./index.module.css";
-import ResizableImage from "../../../components/DynamicImage/DynamicImage";
+import DynamicImage from "../../../components/DynamicImage/DynamicImage";
 import Link from "next/link";
 import {
 	GAME_SETTINGS_MODE,
@@ -14,7 +14,7 @@ export function CreateGame() {
 		<div className={styles.container}>
 			<Link href={"./"}>
 				<div className={styles.menuButton}>
-					<ResizableImage src={exitIcon} alt={"menu"} />
+					<DynamicImage src={exitIcon} alt={"menu"} />
 				</div>
 			</Link>
 			<div className={styles.gameSettings}>

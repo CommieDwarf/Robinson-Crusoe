@@ -1,6 +1,6 @@
 import styles from "./SaveOverview.module.css";
 import { SaveOverview as SaveOverviewType } from "@shared/types/SaveGame";
-import ResizableImage from "../../DynamicImage/DynamicImage";
+import DynamicImage from "../../DynamicImage/DynamicImage";
 import playersIconImg from "/public/UI/icons/players.webp";
 
 interface Props {
@@ -34,7 +34,7 @@ export function SaveOverview(props: Props) {
 						props.selected && styles.playersIconSelected
 					}`}
 				>
-					<ResizableImage src={playersIconImg} alt={"players"} />
+					<DynamicImage src={playersIconImg} alt={"players"} />
 				</div>
 			</div>
 			<div className={styles.date}>{formatter.format(date)}</div>

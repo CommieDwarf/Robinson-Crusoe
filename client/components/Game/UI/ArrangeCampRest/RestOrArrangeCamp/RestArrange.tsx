@@ -5,7 +5,7 @@ import ActionSlot from "../../ActionSlot";
 import moraleArrowRightImg from "/public/UI/icons/morale-arrow-right.webp";
 import heartImg from "/public/UI/icons/heart.webp";
 import { useTranslation } from "react-i18next";
-import ResizableImage from "../../../../DynamicImage/DynamicImage";
+import DynamicImage from "../../../../DynamicImage/DynamicImage";
 import { ACTION } from "@shared/types/Game/ACTION";
 import { getActionSlotDroppableId } from "@shared/utils/getActionSlotDroppableId";
 import { capitalize } from "lodash";
@@ -37,7 +37,7 @@ export default function RestArrange(props: Props) {
 			>
 				{shouldChooseReward && (
 					<div className={styles.diagnal}>
-						<ResizableImage src={diagnal} alt="" />
+						<DynamicImage src={diagnal} alt="" />
 					</div>
 				)}
 				<div
@@ -58,7 +58,7 @@ export default function RestArrange(props: Props) {
 				</div>
 				<div className={styles.moraleReward}>
 					<div className={styles.moraleArrow}>
-						<ResizableImage
+						<DynamicImage
 							src={moraleArrowRightImg}
 							alt="strzałka morali"
 						/>
@@ -71,7 +71,7 @@ export default function RestArrange(props: Props) {
 			<div className={`${styles.actionReward} ${styles.restReward}`}>
 				<div className={styles.plus}>+</div>
 				<div className={styles.heart}>
-					<ResizableImage src={heartImg} alt="serce" />
+					<DynamicImage src={heartImg} alt="serce" />
 				</div>
 			</div>
 		);
