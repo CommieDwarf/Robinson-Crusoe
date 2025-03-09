@@ -81,3 +81,13 @@
 	height: 40%;
 	top: 30%;
 }
+
+.phaseList {
+	z-index: 99;
+	cursor: default;
+	font-size: 1.5em;
+	background-image: url("../../../../public/UI/paper-background.webp");
+	background-position-y: -55px;
+	background-size: 1600px 1000px;
+	background-repeat: no-repeat;
+}

@@ -1,7 +1,6 @@
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import styles from "./Phase.module.css";
 
-import PhaseDropDownMenu from "./PhaseDropDownMenu/PhaseDropDownMenu";
 import { useTranslation } from "react-i18next";
 
 import triangle from "/public/UI/misc/triangle.webp";
@@ -12,6 +11,8 @@ import { selectGame } from "../../../../reduxSlices/gameSession";
 import { useUITourControl } from "utils/hooks/useUITourControl";
 import { UI_TOUR_STEP_ID } from "types/UITour/UI_TOUR_STEP_ID";
 import { UIStateToggled } from "reduxSlices/UITour";
+import DropdownMenu from "components/DropDownMenu/DropDownMenu";
+import { PhaseElement } from "./PhaseList/PhaseElement";
 
 export type PhaseType =
 	| "production"
@@ -22,19 +23,40 @@ export type PhaseType =
 	| "morale"
 	| "weather";
 
+const phases: PhaseType[] = [
+	"event",
+	"morale",
+	"production",
+	"action",
+	"weather",
+	"night",
+];
 
 function Phase() {
 	const currentPhase = useAppSelector(
 		(state) => selectGame(state)!.phaseService.phase
 	);
 
-	const [containerHeight, setContainerHeight] = useState(0);
 	const containerRef = useRef<HTMLDivElement>(null);
 
-	useLayoutEffect(() => {
-		if (containerRef.current)
+	const [containerHeight, setContainerHeight] = useState(0);
+	const [containerWidth, setContainerWidth] = useState(0);
+
+	useEffect(() => {
+		if (!containerRef.current) return;
+
+		const resizeObserver = new ResizeObserver(() => {
+			if (!containerRef.current) {
+				return;
+			}
 			setContainerHeight(containerRef.current.offsetHeight);
-	}, []);
+			setContainerWidth(containerRef.current?.offsetWidth);
+		});
+
+		resizeObserver.observe(containerRef.current);
+
+		return () => resizeObserver.disconnect(); // clean up 
+	  }, []);
 
 	const {
 		handleNextStep,
@@ -59,6 +81,8 @@ function Phase() {
 	);
 
 	const [t] = useTranslation();
+
+	const mapContainer = document.getElementById("map");
 
 	return (
 		<div className={`${styles.container} tour-phase`} ref={containerRef}>
@@ -85,16 +109,37 @@ function Phase() {
 				<div className={styles.triangle}>
 					<DynamicImage src={triangle} alt={""} />
 				</div>
-
-				{/*<div className={styles.arrowImg}>*/}
-				{/*    <ResizableImage src={redArrowImg} alt={""} fill></Image>*/}
-				{/*</div>*/}
 			</div>
-			<PhaseDropDownMenu
-				currentPhase={currentPhase}
-				show={phaseListOpen}
-				rowHeight={containerHeight}
-			/>
+
+			{mapContainer && (
+				<DropdownMenu
+					isOpen={phaseListOpen}
+					size={{
+						width: containerWidth + "px",
+						height: (containerHeight + 5) * 6 + "px",
+					}}
+					direction={"bottom"}
+					root={mapContainer}
+				>
+					<div className={styles.phaseList}>
+						{phases.map((phase, i) => {
+							return (
+								<PhaseElement
+									currentPhase={
+										currentPhase === phase ||
+										(currentPhase === "preAction" &&
+											phase === "action")
+									}
+									phase={phase}
+									i={i}
+									key={i}
+									height={containerHeight + 5}
+								/>
+							);
+						})}
+					</div>
+				</DropdownMenu>
+			)}
 		</div>
 	);
 }

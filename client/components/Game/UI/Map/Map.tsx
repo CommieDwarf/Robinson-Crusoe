@@ -131,6 +131,7 @@ function Map(props: Props) {
 	return (
 		<div
 			className={`${styles.container} ${zIndexClass} tour-map`}
+			id="map"
 			ref={container}
 			onMouseDown={mouseDownHandle}
 		>

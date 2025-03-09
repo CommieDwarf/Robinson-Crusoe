@@ -3,6 +3,8 @@ import ReactDOM from "react-dom";
 import dropDownMenuStyles from "./DropDownMenu.module.css";
 
 type Direction = "top" | "right" | "bottom" | "left";
+const defaultDuration = 500;
+
 
 interface Props {
 	isOpen: boolean;
@@ -14,7 +16,7 @@ interface Props {
 	root: Element | DocumentFragment;
 	onClose?: () => void;
 	styles?: React.CSSProperties;
-	children?: JSX.Element;
+	children?: JSX.Element | JSX.Element[];
 	delay?: number;
 	onOuterClick?: (event: MouseEvent) => void;
 }
@@ -33,11 +35,13 @@ const DropdownMenu = ({
 		? mappedStyles.open[direction]
 		: mappedStyles.closed[direction];
 
+
 	const style: CSSProperties = {
 		...styles,
 		...size,
 		...currentStyle,
-		transition: `all ${delay ?? 500}ms`,
+		transitionDuration: `${delay ?? defaultDuration}ms`,
+		transitionProperty: ["top", "bottom"].includes(direction) ? "height" : "width"
 	};
 
 	const containerRef = useRef(null);

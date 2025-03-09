@@ -93,6 +93,8 @@ export function ControlPanel(props: Props) {
 
 	const chatLog = document.getElementById("chatLog");
 
+	
+
 	return (
 		<div className={styles.container}>
 			<div className={`${styles.dropDownButton} tour-menu`} ref={buttonRef}>
