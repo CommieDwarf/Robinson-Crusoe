@@ -36,12 +36,13 @@
 	width: 300%;
 	position: relative;
 	background-image: url("../../../../public/UI/paper-background.webp");
-	transition: left 0.5s;
+	transition: all 0.5s;
 	background-size: cover;
 	display: flex;
 	flex-wrap: nowrap;
 	overflow: visible;
 	column-gap: 1%;
+	overflow: hidden;
 }
 
 .cards {

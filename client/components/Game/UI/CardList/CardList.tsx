@@ -1,6 +1,6 @@
 // @flow
 import * as React from "react";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import styles from "./CardList.module.css";
 import { Tabs } from "./Tabs/Tabs";
 import Cards from "./Cards/Cards";
@@ -20,7 +20,6 @@ const scrollLeft = {
 	mysteryCards: "-100%",
 	items: "-200%",
 };
-
 
 export const CardList = (props: Props) => {
 	const [scrollTop, setScrollTop] = useState(0);
@@ -50,14 +49,61 @@ export const CardList = (props: Props) => {
 		props.topLayerElement.includes("invention") ||
 		props.topLayerElement.includes("mystery");
 
-	const cardHeight = (containerWidth - cardDimensions.scrollbar) / 4 / cardDimensions.cardAspectRatio;
+	const [cardHeight, setCardHeight] = useState(0);
 
-	const length = useAppSelector(
-		(state) => selectGame(state).inventionService.inventions.length
+	useEffect(() => {
+		setCardHeight((containerWidth - cardDimensions.scrollbar) /
+		cardDimensions.cardsPerRow /
+		cardDimensions.cardAspectRatio)
+	}, [containerWidth])
+
+	useEffect(() => {
+		if (!containerRef.current) {
+			return;
+		}
+		const resizeObserver = new ResizeObserver(() => {
+			setContainerWidth(containerRef.current?.offsetWidth ?? 0);
+		})
+		resizeObserver.observe(containerRef.current);
+
+		return () => {
+			resizeObserver.disconnect();
+		}
+	})
+
+
+	const [inventionAmount, mysteryAmount, itemAmount] = useAppSelector(
+		(state) => {
+			const game = selectGame(state);
+			return [
+				game.inventionService.inventions.length,
+				game.mysteryService.cardsAsReminders.length,
+				game.equipmentService.items.length,
+			];
+		}
 	);
-	const column = Math.ceil(length / 4);
-	const contentHeight = column * cardHeight;
 
+	const [contentHeight, setContentHeight] = useState(0);
+
+	useEffect(() => {
+		let cardAmount = 0;
+		switch (selectedTab) {
+			case "items":
+				cardAmount = itemAmount;
+				break;
+			case "mysteryCards":
+				cardAmount = mysteryAmount;
+				break;
+			case "inventions":
+				cardAmount = inventionAmount;
+				break;
+		}
+		const totalRows = Math.ceil(cardAmount / 4);
+		const totalCardsHeight = Math.max(totalRows) * cardHeight
+		const containerHeight = containerRef.current?.clientHeight || 0;
+		setContentHeight(Math.max(totalCardsHeight, containerHeight));
+
+	}, [selectedTab, itemAmount, mysteryAmount, inventionAmount, containerRef.current, containerWidth])
 
 	return (
 		<>
