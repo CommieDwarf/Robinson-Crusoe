@@ -7,6 +7,7 @@
 	position: relative;
 	overflow-y: scroll;
 	overflow-x: hidden;
+	scroll-behavior: smooth;
 }
 
 /* width */
@@ -32,7 +33,28 @@
 }
 
 .content {
-	width: 91%;
+	width: 300%;
+	position: relative;
 	background-image: url("../../../../public/UI/paper-background.webp");
+	transition: left 0.5s;
 	background-size: cover;
+	display: flex;
+	flex-wrap: nowrap;
+	overflow: visible;
+	column-gap: 1%;
 }
+
+.cards {
+	width: 33%;
+	height: 500px;
+}
+
+.inventions {
+}
+
+.mysteryCards {
+}
+
+.items {
+}
+

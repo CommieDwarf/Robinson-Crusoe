@@ -12,6 +12,7 @@ import {
 } from "../../../../../reduxSlices/gameSession";
 import { createSelector } from "reselect";
 import { RootState } from "../../../../../store/store";
+import { cardDimensions } from "../cardDimensions";
 
 const selectCards = createSelector(
 	[
@@ -46,21 +47,16 @@ function Cards(props: Props) {
 	const cards = useAppSelector((state) => {
 		return selectCards(state);
 	});
+
 	const cardsSelected = cards[props.tab];
-	let column = -1;
-	let row = -1;
-	const aspectRatio = 0.654;
-	const tabsHeight = 20;
-	const scrollbar = 20;
-	const totalWidth = props.containerWidth - scrollbar;
+	const totalWidth = props.containerWidth - cardDimensions.scrollbar;
 	const cardWidth = totalWidth / 4;
-	const cardHeight = cardWidth / aspectRatio;
+	const cardHeight = cardWidth / cardDimensions.cardAspectRatio;
 
-	const maxColumns = 4;
+	const cardElements = cardsSelected?.map((card, i) => {
+		const column = Math.ceil(i  % cardDimensions.cardsPerRow);
+		const row = Math.floor(i / cardDimensions.cardsPerRow);
 
-	const cardElements = cardsSelected?.map((card) => {
-		column = column == maxColumns - 1 ? 0 : column + 1;
-		row = column == 0 ? row + 1 : row;
 		return (
 			<Card
 				top={props.scrollTop}
@@ -75,16 +71,12 @@ function Cards(props: Props) {
 			/>
 		);
 	});
-	const contentStyle = {
-		height: (row + 1) * cardHeight + tabsHeight,
-	};
 
 	return (
 		<div
 			className={`${styles.container} ${
 				props.topLayer && styles.zIndexIncreased
 			}`}
-			style={contentStyle}
 		>
 			{cardElements}
 		</div>

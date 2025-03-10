@@ -11,6 +11,8 @@ import { isMysteryCard } from "@shared/utils/typeGuards/isMysteryCard";
 import { IInventionRenderData } from "@shared/types/Game/InventionService/Invention";
 import Item from "./Item/Item";
 
+const enlargeMultiplayer = 2.1;
+
 type Props = {
 	card: IMysteryCardRenderData | IInventionRenderData | IItemRenderData;
 	column: number;
@@ -43,9 +45,8 @@ export const Card = (props: Props) => {
 
 	let card;
 
-	const enlargeMultiplayer = 2.1;
-
 	const top = props.row * props.height;
+	const gapRow = 5;
 
 	const wrapperStyle = {
 		left: enlarged
@@ -56,21 +57,18 @@ export const Card = (props: Props) => {
 		top: enlarged
 			? props.enlargeParams?.top
 				? props.enlargeParams.top
-				: props.top + 5
+				: props.top + gapRow
 			: top,
 		cursor: enlarged ? "zoom-out" : "zoom-in",
 		height: enlarged
 			? props.height *
-			(props.enlargeParams
-				? props.enlargeParams.scale
-				: enlargeMultiplayer) +
-			"px"
+					(props.enlargeParams
+						? props.enlargeParams.scale
+						: enlargeMultiplayer) +
+			  "px"
 			: props.height + "px",
 	};
 
-	const enlargedClass = enlarged ? styles.enlarged : styles.zIndexTransition;
-
-	const zIndexClass = props.zIndexIncreased ? styles.zIndexIncreased : "";
 
 	if (isInventionRenderData(props.card)) {
 		card = (
@@ -97,7 +95,11 @@ export const Card = (props: Props) => {
 
 	return (
 		<div
-			className={`${styles.card} ${styles.zIndexIncreased} ${enlargedClass} ${zIndexClass}`}
+			className={`${styles.card} ${
+				styles.zIndexIncreased
+			} ${enlarged ? styles.enlarged : styles.zIndexTransition} ${
+				props.zIndexIncreased && styles.zIndexIncreased
+			}`}
 			style={wrapperStyle}
 			onClick={handleEnlarge}
 		>
