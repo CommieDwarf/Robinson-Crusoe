@@ -103,7 +103,7 @@ export const CardList = (props: Props) => {
 		const containerHeight = containerRef.current?.clientHeight || 0;
 		setContentHeight(Math.max(totalCardsHeight, containerHeight));
 
-	}, [selectedTab, itemAmount, mysteryAmount, inventionAmount, containerRef.current, containerWidth])
+	}, [selectedTab, itemAmount, mysteryAmount, inventionAmount, containerRef.current, containerWidth, cardHeight])
 
 	return (
 		<>

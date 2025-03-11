@@ -30,6 +30,7 @@ function Construction(props: Props) {
 		);
 	});
 
+
 	const ownedResourcesAmount = useAppSelector((state) => {
 		return selectGame(state)?.resourceService.owned.basic;
 	});

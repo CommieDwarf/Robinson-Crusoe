@@ -6,6 +6,7 @@ import moraleArrowRightImg from "/public/UI/icons/morale-arrow-right.webp";
 import DynamicImage from "../../../DynamicImage/DynamicImage";
 import { useAppSelector } from "../../../../store/hooks";
 import { selectGame } from "../../../../reduxSlices/gameSession";
+import { MoraleBar3 } from "./MoraleBar/MoraleBar3";
 
 function Morale() {
 	const moraleBars = [];
@@ -15,14 +16,13 @@ function Morale() {
 
 	for (let i = -3; i <= 3; i++) {
 		moraleBars.push(
-			<MoraleBar current={i === currentMorale} value={i} key={i} />
 		);
 	}
 
 	return (
 		<div className={styles.container}>
-			<div className={styles.leftBar}>
-				<div className={styles.arrow}>
+			<div className={`${styles.arrowBar} ${styles.leftArrowBar}`}>
+				<div className={styles.arrowImg}>
 					<DynamicImage
 						src={moraleArrowLeftImg}
 						fill
@@ -31,8 +31,8 @@ function Morale() {
 					/>
 				</div>
 			</div>
-			<div className={styles.rightBar}>
-				<div className={styles.arrow}>
+			<div className={`${styles.arrowBar} ${styles.rightArrowBar}`}>
+				<div className={styles.arrowImg}>
 					<DynamicImage
 						src={moraleArrowRightImg}
 						fill
@@ -41,7 +41,15 @@ function Morale() {
 					/>
 				</div>
 			</div>
-			<div className={styles.botBar}>{moraleBars}</div>
+			<div className={styles.botBar}>{
+				[...[-3, -2, -1, 0, 1, 2].map((lvl) => {
+					return 	<MoraleBar current={lvl === currentMorale} value={lvl} key={lvl} />
+				
+				}),
+			<MoraleBar3 current={currentMorale === 3}/>
+			]
+				
+				}</div>
 		</div>
 	);
 }

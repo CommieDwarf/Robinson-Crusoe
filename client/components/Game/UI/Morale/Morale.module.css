@@ -2,36 +2,36 @@
     border: 1px solid var(--borderColor);
     width: 100%;
     height: 100%;
-}
-
-.leftBar {
-    width: 50%;
-    height: 45%;
-    border-bottom: 1px solid var(--borderColor);
-    border-right: 1px solid var(--borderColor);
-    vertical-align: top;
-    display: inline-block;
-}
-
-.rightBar {
-    width: 50%;
-    height: 45%;
-    display: inline-block;
-    border-bottom: 1px solid var(--borderColor);
-    vertical-align: top;
-}
-
-
-.arrow {
-    height: 2lh;
-    width: 8lh;
-    margin: auto;
     position: relative;
+}
+
+.leftArrowBar {
+    border-right: 1px solid var(--borderColor);
+}
+
+
+.arrowBar {
+    vertical-align: top;
+    width: 50%;
+    height: 45%;
+    display: inline-block;
+    border-bottom: 1px solid var(--borderColor);
+    position: relative;
+}
+
+
+.arrowImg {
+    height: 94%;
+    top: 3%;
+    left: 50%;
+    transform: translateX(-50%);
+    aspect-ratio: var(--moraleArrowAspectRatio);
+    position: absolute;
 }
 
 .botBar {
     height: 55%;
     width: 100%;
-    vertical-align: top;
+    display: flex;
 }
 

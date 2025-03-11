@@ -22,11 +22,11 @@
 }
 
 .palisade {
-    aspect-ratio: 1.33;
+    aspect-ratio: 382 / 286;
     position: absolute;
-    height: 115%;
-    right: 1%;
-    bottom: -15%;
+    height: 100%;
+    bottom: -3%;
+    right: 0;
 }
 
 .level0 {

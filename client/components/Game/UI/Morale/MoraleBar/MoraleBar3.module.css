@@ -1,0 +1,36 @@
+.container {
+	border: none;
+}
+
+.value {
+	position: absolute;
+	font-weight: bold;
+	font-size: 2em;
+	left: 0;
+	top: -12%;
+}
+
+.icon {
+	position: absolute;
+	height: 60%;
+	aspect-ratio: 1;
+	left: 16%;
+	top: 0;
+}
+
+.diagnal {
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	filter: var(--blackToBorderColor);
+}
+
+.heart {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	aspect-ratio: 1;
+	height: 80%;
+}
