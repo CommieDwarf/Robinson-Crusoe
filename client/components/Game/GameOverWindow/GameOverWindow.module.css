@@ -10,7 +10,9 @@
 }
 
 .status {
-	font-family: "Kaz";
+	font-family: KazPro;
+	font-weight: normal;
+	text-transform: uppercase;
 	font-size: 2rem;
 }
 

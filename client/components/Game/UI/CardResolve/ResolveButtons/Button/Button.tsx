@@ -19,7 +19,7 @@ export function Button(props: CardResolveButtonProp) {
 
 	return (
 		<div
-			className={`${styles.container} ${
+			className={`${styles.container} primaryButton ${
 				props.locked ? styles.locked : ""
 			}`}
 			onClick={handleClick}

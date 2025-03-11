@@ -8,8 +8,11 @@
     top: 35vh;
     left: calc(50% - 25vh);
     text-align: center;
-    font-size: 1.3em;
-    font-family: Kaz;
+    font-size: 1em;
+    font-family: KazPro;
+	font-weight: normal;
+	text-transform: uppercase;
+    color: var(--hunt);
 }
 
 

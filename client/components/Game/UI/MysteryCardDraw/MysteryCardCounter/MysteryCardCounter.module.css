@@ -1,8 +1,8 @@
 .container {
-	height: 20%;
-	aspect-ratio: 2;
+	height: 30%;
+	aspect-ratio: 1.5;
 	position: absolute;
-	left: -60%;
+	left: -67%;
 	top: 1%;
 	border-radius: 8%;
 	overflow: hidden;

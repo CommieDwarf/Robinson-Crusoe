@@ -62,13 +62,12 @@ export const Card = (props: Props) => {
 		cursor: enlarged ? "zoom-out" : "zoom-in",
 		height: enlarged
 			? props.height *
-					(props.enlargeParams
-						? props.enlargeParams.scale
-						: enlargeMultiplayer) +
-			  "px"
+			(props.enlargeParams
+				? props.enlargeParams.scale
+				: enlargeMultiplayer) +
+			"px"
 			: props.height + "px",
 	};
-
 
 	if (isInventionRenderData(props.card)) {
 		card = (
@@ -95,11 +94,8 @@ export const Card = (props: Props) => {
 
 	return (
 		<div
-			className={`${styles.card} ${
-				styles.zIndexIncreased
-			} ${enlarged ? styles.enlarged : styles.zIndexTransition} ${
-				props.zIndexIncreased && styles.zIndexIncreased
-			}`}
+			className={`${styles.card} ${styles.zIndexIncreased} ${enlarged ? styles.enlarged : styles.zIndexTransition
+				} ${props.zIndexIncreased && styles.zIndexIncreased}`}
 			style={wrapperStyle}
 			onClick={handleEnlarge}
 		>

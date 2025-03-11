@@ -1,18 +1,19 @@
 import React, { useState } from "react";
-import styles from "./SkillMenu.module.css";
+import styles from "./AbilityPanel.module.css";
 import snowImg from "/public/UI/scenarios/snow.webp";
 import rainImg from "/public/UI/scenarios/rain.webp";
-import DynamicImage from "../../../../DynamicImage/DynamicImage";
-import { insertIconsIntoText } from "../../../../../utils/insertIconsIntoText/insertIconsIntoText";
+import DynamicImage from "../../../../../DynamicImage/DynamicImage";
+import { insertIconsIntoText } from "../../../../../../utils/insertIconsIntoText/insertIconsIntoText";
 import { ABILITY } from "@shared/types/Game/Skill/ABILITY";
 import { CHARACTER_CONTROLLER_ACTION } from "@shared/types/CONTROLLER_ACTION";
-import { useAppDispatch, useAppSelector } from "../../../../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../../../store/hooks";
 import { useTranslation } from "react-i18next";
 import { capitalize } from "lodash";
-import { DisplayedAbilityInfo } from "../Character";
-import { selectGame } from "../../../../../reduxSlices/gameSession";
-import { socketEmitAction } from "../../../../../middleware/socketMiddleware";
+import { DisplayedAbilityInfo } from "../../Character";
+import { selectGame } from "../../../../../../reduxSlices/gameSession";
+import { socketEmitAction } from "../../../../../../middleware/socketMiddleware";
 import { toast } from "react-toastify";
+import { StyledHr } from "components/StyledHr/StyledHr";
 
 interface Props {
 	abilityInfo: DisplayedAbilityInfo;
@@ -21,7 +22,7 @@ interface Props {
 	ownedDetermination: number;
 }
 
-export default function SkillMenu(props: Props) {
+export default function AbilityPanel(props: Props) {
 	const { t } = useTranslation();
 	const localCharacter = useAppSelector(
 		(state) => state.gameSession.data!.localPlayer.character!
@@ -112,11 +113,7 @@ export default function SkillMenu(props: Props) {
 
 	if (overallWeather === undefined) return null;
 	return (
-		<div
-			className={`${styles.wrapper} ${
-				props.abilityInfo.show && styles.abilityDescriptionVisible
-			}`}
-		>
+
 			<div className={styles.container} style={containerStyle}>
 				{props.abilityInfo.ability && (
 					<>
@@ -131,7 +128,7 @@ export default function SkillMenu(props: Props) {
 
 						<div className={styles.text}>
 							<div className={styles.quote}>{comment}</div>
-							<hr className={styles.hr} />
+							<StyledHr />
 							<div className={styles.description}>
 								{description}
 							</div>
@@ -193,6 +190,5 @@ export default function SkillMenu(props: Props) {
 					</>
 				)}
 			</div>
-		</div>
 	);
 }

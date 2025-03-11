@@ -27,19 +27,25 @@
     text-align: center;
     z-index: 1;
     position: relative;
-    font-size: 2.1em;
-    padding-top: 5%;
+    font-size: 1.6em;
     padding-left: 15%;
     padding-right: 15%;
     font-weight: 500;
-    font-family: Caveat;
+    font-family: KazPro;
+    font-style: italic;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
 }
 
 .text > h4 {
     font-size: 1.2em;
-    font-weight: 700;
     margin: none;
     padding: 0;
+    text-transform: uppercase;
+    color: var(--hunt);
+
 }
 
 .text > p {

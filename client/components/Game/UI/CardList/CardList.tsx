@@ -6,7 +6,7 @@ import { Tabs } from "./Tabs/Tabs";
 import Cards from "./Cards/Cards";
 import { useAppSelector } from "store/hooks";
 import { selectGame } from "reduxSlices/gameSession";
-import { cardDimensions } from "./cardDimensions";
+import { dimensions } from "./dimensions";
 
 type Props = {
 	topLayerElement: string;
@@ -52,9 +52,9 @@ export const CardList = (props: Props) => {
 	const [cardHeight, setCardHeight] = useState(0);
 
 	useEffect(() => {
-		setCardHeight((containerWidth - cardDimensions.scrollbar) /
-		cardDimensions.cardsPerRow /
-		cardDimensions.cardAspectRatio)
+		setCardHeight((containerWidth - dimensions.scrollbar) /
+		dimensions.cardsPerRow /
+		dimensions.cardAspectRatio)
 	}, [containerWidth])
 
 	useEffect(() => {
@@ -99,7 +99,7 @@ export const CardList = (props: Props) => {
 				break;
 		}
 		const totalRows = Math.ceil(cardAmount / 4);
-		const totalCardsHeight = Math.max(totalRows) * cardHeight
+		const totalCardsHeight = Math.max(totalRows) * cardHeight + dimensions.tabsHeight
 		const containerHeight = containerRef.current?.clientHeight || 0;
 		setContentHeight(Math.max(totalCardsHeight, containerHeight));
 

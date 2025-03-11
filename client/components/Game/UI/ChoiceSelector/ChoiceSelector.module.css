@@ -18,7 +18,9 @@
 	text-align: center;
 	font-size: 1em;
 	color: var(--hunt);
-	font-family: Kaz;
+	font-family: KazPro;
+	font-weight: normal;
+	text-transform: uppercase;
 }
 
 .descriptionWrapper {

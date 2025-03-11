@@ -3,26 +3,30 @@
     height: 50%;
     position: relative;
     display: flex;
+    font-family: KazPro;
+    text-transform: uppercase;
 }
 
 
 .actionName {
-    font-size: 1.1vw;
+    font-size: 0.9vw;
     text-align: left;
     font-style: italic;
     font-weight: 800;
-    line-height: 90%;
+    line-height: 1em;
     color: #451e14;
     opacity: 0.5;
-    position: absolute;
-    top: 5%;
+    height: 100%;
     width: 70%;
     left: 21%;
     z-index: 1;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    
 }
 
 .actionNameRest {
-    top: 20%;
     font-size: 2.3em;
 }
 

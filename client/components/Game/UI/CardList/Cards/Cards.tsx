@@ -12,7 +12,7 @@ import {
 } from "../../../../../reduxSlices/gameSession";
 import { createSelector } from "reselect";
 import { RootState } from "../../../../../store/store";
-import { cardDimensions } from "../cardDimensions";
+import { dimensions } from "../dimensions";
 
 const selectCards = createSelector(
 	[
@@ -49,13 +49,13 @@ function Cards(props: Props) {
 	});
 
 	const cardsSelected = cards[props.tab];
-	const totalWidth = props.containerWidth - cardDimensions.scrollbar;
+	const totalWidth = props.containerWidth - dimensions.scrollbar;
 	const cardWidth = totalWidth / 4;
-	const cardHeight = cardWidth / cardDimensions.cardAspectRatio;
+	const cardHeight = cardWidth / dimensions.cardAspectRatio;
 
 	const cardElements = cardsSelected?.map((card, i) => {
-		const column = Math.ceil(i  % cardDimensions.cardsPerRow);
-		const row = Math.floor(i / cardDimensions.cardsPerRow);
+		const column = Math.ceil(i  % dimensions.cardsPerRow);
+		const row = Math.floor(i / dimensions.cardsPerRow);
 
 		return (
 			<Card

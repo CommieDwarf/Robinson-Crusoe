@@ -23,11 +23,17 @@
 
 .title {
     color: #d2b48c;
-    font-family: Kaz;
-    font-size: 3em;
+    font-family: KazPro;
+    font-size: 2.5em;
+	text-transform: uppercase;
     text-align: center;
     height: 10%;
 }
+
+.title > h2 {
+    font-weight: 400;
+}
+
 
 .rounds {
     margin-top: 1%;

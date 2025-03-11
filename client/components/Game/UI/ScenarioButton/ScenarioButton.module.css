@@ -24,8 +24,8 @@
 
 .label {
 	text-align: center;
-	font-weight: bold;
-	color: var(--brown);
+	font-family: KazPro;
+	text-transform: uppercase;
 	font-size: 3em;
 	height: 50%;
 	line-height: 100%;

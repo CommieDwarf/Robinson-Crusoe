@@ -88,7 +88,7 @@ export default function UseButtons(props: Props) {
         <div className={styles.container}>
             {buttonType === "single" && props.card.uses !== props.card.usedCount && (
                 <button
-                    className={styles.button}
+                    className={`${styles.button} primaryButton`}
                     onMouseEnter={props.onMouseEnterButton}
                     onMouseLeave={props.onMouseLeaveButton}
                     onClick={props.use}

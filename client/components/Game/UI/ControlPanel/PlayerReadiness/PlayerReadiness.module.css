@@ -8,7 +8,9 @@
 }
 
 .text {
-    font-family: Kaz;
+    font-family: KazPro;
+	font-weight: normal;
+	text-transform: uppercase;
     color: var(--hunt);
     text-align: center;
     font-size: 1.2em;

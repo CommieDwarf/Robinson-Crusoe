@@ -5,6 +5,8 @@
     grid-row: 4 / span 1;
     border-left: 1px solid var(--borderColor);
     border-bottom: 1px solid var(--borderColor);
+    position: relative;
+    z-index: 65;
 }
 
 .zIndexIncreased {

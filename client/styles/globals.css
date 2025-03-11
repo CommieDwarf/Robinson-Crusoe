@@ -14,6 +14,12 @@
 }
 
 @font-face {
+	font-family: "KazPro";
+	src: local("KazPro"), url("../public/fonts/KazPro/P22KazPro.ttf") format("truetype"),
+		url("../public/fonts/KazPro/P22KazPro.ttf") format("truetype");
+}
+
+@font-face {
 	font-family: "Inconsolata";
 	src: local("Inconsolata"),
 		url("../public/fonts/Inconsolata/Inconsolata-VariableFont.ttf")
@@ -26,6 +32,8 @@
 		url("../public/fonts/Caveat/Caveat-VariableFont_wght.ttf")
 			format("truetype");
 }
+
+
 
 html,
 body {
@@ -92,6 +100,8 @@ a {
 	--arrangeCamp: #2e3563;
 	--rest: #f8b121;
 	--weather: #068ad4;
+	--borderColor: #b49c7d;
+
 	--cardAspectRatio: 0.67;
 	--beastCardAspectRatio: 409 / 610;
 	--shelterAspectRatio: 579 / 402;
@@ -103,7 +113,6 @@ a {
 
 	--kazFontFamily: "P22 Kaz W01SC Thin SC";
 
-	--borderColor: #b49c7d;
 	--blackToBrown: invert(11%) sepia(11%) saturate(7369%) hue-rotate(342deg)
 		brightness(95%) contrast(91%);
 	--blackToBorderColor: invert(86%) sepia(5%) saturate(2312%)
@@ -119,6 +128,24 @@ a {
 
 .grabbing {
 	cursor: grabbing;
+}
+
+.primaryButton {
+    transition: all 0.1s;
+    font-weight: bold;
+    color: var(--hunt);
+    border: 1px solid var(--borderColor);
+    border-radius: 5px;
+    -webkit-box-shadow: 4px 4px 5px -4px var(--brown);
+    -moz-box-shadow: 4px 4px 5px -4px var(--brown);
+    box-shadow: 4px 4px 5px -4px var(--brown);
+    display: flex;
+    justify-content: center;
+    font-family: KazPro;
+    text-transform: uppercase;
+	padding: 2% 5% 2% 5%;
+
+	cursor: pointer;
 }
 
 .menuButton {

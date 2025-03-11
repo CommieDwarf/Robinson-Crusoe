@@ -15,7 +15,6 @@ export const ScenarioInfo = () => {
 
 	const containerRef = useRef<HTMLDivElement>(null);
 
-
 	function handleButtonClick(button: string) {
 		setButtonClicked(button);
 	}
@@ -37,24 +36,20 @@ export const ScenarioInfo = () => {
 		);
 	});
 	return (
-		<div className={`${styles.container} tour-scenario-info`} ref={containerRef}>
+		<div
+			className={`${styles.container} tour-scenario-info`}
+			ref={containerRef}
+		>
 			<div className={styles.description}>
 				<div className={styles.paperImg}>
-					<DynamicImage
-						src={"/UI/scenarios/scroll.webp"}
-						alt=""
-					/>
+					<DynamicImage src={"/UI/scenarios/scroll.webp"} alt="" />
 				</div>
 				<div className={styles.text}>
-
-
 					{/* @ts-ignore */}
 
 					<h4>{capitalize(t(`other.${buttonClicked}`))}</h4>
 
 					<p className={styles.p}>
-
-
 						{/*@ts-ignore*/}
 						{t(`scenario.castaways.${buttonClicked}`)}
 					</p>

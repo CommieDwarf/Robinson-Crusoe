@@ -127,7 +127,10 @@ export const Item = (props: Props) => {
 		props.resolvableItem.action === ACTION.EXPLORE
 	) {
 		const tile = props.resolvableItem.item as unknown as ITileRenderData;
-		itemTypeStatusClass = styles.tileStatus;
+		itemTypeStatusClass =
+			props.resolvableItem.resolveStatus === RESOLVE_ITEM_STATUS.SUCCESS
+				? styles.tileStatus
+				: styles.tileStatusFailure;
 		const id =
 			tile.tileResourceService?.id != null &&
 			(props.resolved || props.resolvableItem.action === ACTION.GATHER)
@@ -249,7 +252,7 @@ export const Item = (props: Props) => {
 				</div>
 			)}
 			<div
-				className={`${styles.resolveButton} ${lockedButtonClass}`}
+				className={`${styles.resolveButton} ${lockedButtonClass} primaryButton`}
 				onClick={handleClick}
 			>
 				{buttonText}

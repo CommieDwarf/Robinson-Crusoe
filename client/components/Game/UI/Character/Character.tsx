@@ -1,8 +1,8 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
 import styles from "./Character.module.css";
 import SideCharacters from "./SideCharacters/SideCharacters";
-import SkillLabel from "./SkillLabel/SkillLabel";
-import SkillMenu from "./SkillMenu/SkillMenu";
+import Ability from "./Abilities/Ability/Ability";
+import AbilityPanel from "./Abilities/AbilityPanel/AbilityPanel";
 import { Wounds } from "@shared/types/Game/Characters/PlayerCharacter";
 import { useAppSelector } from "../../../../store/hooks";
 import Entries from "@shared/types/Entries";
@@ -16,6 +16,7 @@ import { Expendables } from "./Expendables/Expendables";
 import CharacterImg from "./CharacterImg/CharacterImg";
 import Pawns from "./Pawns/Pawns";
 import starImg from "/public/UI/icons/star.webp";
+import { Abilities } from "./Abilities/Abilites";
 
 export interface DisplayedAbilityInfo {
 	ability: IAbilityRenderData;
@@ -30,20 +31,9 @@ export default function Character(props: Props) {
 	const character = useAppSelector(
 		(state) => state.gameSession.data!.localPlayer.character!
 	);
-	const [displayedAbilityInfo, setDisplayedAbilityInfo] =
-		useState<DisplayedAbilityInfo>({
-			ability: character.abilities[0],
-			show: false,
-		});
 
-	function selectAbility(ability: IAbilityRenderData) {
-		setDisplayedAbilityInfo((prev) => {
-			return {
-				ability,
-				show: !(prev.ability === ability && prev.show),
-			};
-		});
-	}
+
+	
 
 	const [containerWidth, setContainerWidth] = useState(0);
 	const containerRef = useRef<HTMLDivElement>(null);
@@ -55,19 +45,7 @@ export default function Character(props: Props) {
 		}
 	}, []);
 
-	const skills = character.abilities.map((skill, i) => {
-		return (
-			<SkillLabel
-				ability={skill}
-				selectAbility={selectAbility}
-				key={i}
-				selected={
-					skill === displayedAbilityInfo.ability &&
-					displayedAbilityInfo.show
-				}
-			/>
-		);
-	});
+	
 
 	const zIndexClass = props.zIndex.includes("freepawns")
 		? styles.zIndexIncreased
@@ -101,7 +79,8 @@ export default function Character(props: Props) {
 	const droppableId = getOwnedDroppableId(character.name, "character");
 	return (
 		<div
-			className={`${styles.container} ${zIndexClass} tour-character`}
+			className={`${styles.container} ${zIndexClass} tour-character`} 
+			id="character"
 			ref={containerRef}
 		>
 			<div
@@ -116,19 +95,10 @@ export default function Character(props: Props) {
 				</div>
 			</div>
 
-			<SkillMenu
-				abilityInfo={displayedAbilityInfo}
-				used={
-					character.abilities.find(
-						(skill) =>
-							skill.name === displayedAbilityInfo.ability.name
-					)?.usedInThisRound || false
-				}
-				width={containerWidth}
-				ownedDetermination={character.determination}
-			/>
-			<div className={`${styles.skills} tour-character-abilities`}>
-				{skills}
+
+
+			<div className={`${styles.abilities} tour-character-abilities`}>
+				{<Abilities abilities={character.abilities} ownedDetermination={character.determination}/>}
 			</div>
 			<div className={styles.rightTop}>
 				<Expendables

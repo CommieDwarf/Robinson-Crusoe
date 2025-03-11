@@ -1,6 +1,6 @@
 import React from "react";
 
-import styles from "./SkillLabel.module.css";
+import styles from "./Ability.module.css";
 import { useTranslation } from "react-i18next";
 import { IAbilityRenderData } from "@shared/types/Game/Skill/IAbility";
 
@@ -10,7 +10,7 @@ interface Props {
 	selected: boolean;
 }
 
-export default function SkillLabel(props: Props) {
+export default function Ability(props: Props) {
 	function handleClick() {
 		props.selectAbility(props.ability);
 	}

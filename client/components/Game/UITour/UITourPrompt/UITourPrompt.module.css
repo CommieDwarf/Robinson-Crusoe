@@ -15,7 +15,9 @@
 }
 
 .button {
-    font-family: Kaz;
+    font-family: KazPro;
+	font-weight: normal;
+	text-transform: uppercase;
     cursor: pointer;
 }
 

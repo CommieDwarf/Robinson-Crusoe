@@ -30,16 +30,19 @@
 
 .title {
 	color: var(--hunt);
-	font-family: "Kaz";
 	font-size: 2em;
+}
+
+.title, .subTitle {
+	font-family: KazPro;
+	text-transform: uppercase;
+	font-weight: 500;
 	font-style: normal;
 }
 
 .subTitle {
 	color: var(--hunt);
-	font-family: "Kaz";
 	font-size: 1.5em;
-	font-style: normal;
 }
 
 .p {

@@ -22,6 +22,7 @@ function ArrangeCampRest(props: Props) {
 			className={`${styles.container} ${
 				props.topLayer && styles.zIndexIncreased
 			} tour-arrange-rest`}
+			id="arrange-rest"
 		>
 			<RestArrange
 				pawnAmount={arrangeCampRestService.pawnAmount.rest}

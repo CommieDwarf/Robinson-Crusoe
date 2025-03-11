@@ -1,42 +1,27 @@
-.wrapper {
-	margin-left: 0;
-	width: 0;
-	left: 0;
-	bottom: 0;
-	height: auto;
-	transition: all 0.5s;
-	overflow: hidden;
-	font-size: 2em;
-	font-weight: bold;
-	grid-column: 1 / span 1;
-	grid-row: 3 / span 2;
-	position: absolute;
-}
-
-.abilityDescriptionVisible {
-	width: 200%;
-	margin-left: -200%;
-}
 
 .container {
-	background-image: url("../../../../../public/UI/characters/background.webp");
+	background-image: url("../../../../../../public/UI/characters/background.webp");
 	background-size: contain;
-	height: 100%;
 	border: 1px solid var(--borderColor);
+	border-right: none;
+	width: 100%;
+	font-size: 2em;
+	z-index: 11;
 }
 
 .topBar {
-	height: 18%;
-	padding-top: 5px;
 	position: relative;
-	top: 4%;
+	top: 5px;
 	font-style: italic;
 }
 
 .abilityName {
 	text-align: center;
-	font-size: 1.5em;
-	margin-top: -5px;
+	font-size: 1.3em;
+	font-family: KazPro;
+	color: var(--hunt);
+	text-transform: uppercase;
+	
 }
 
 .chooseCloud {
@@ -63,8 +48,6 @@
 }
 
 .useButton {
-	background-color: var(--brown);
-	color: white;
 	height: 1.5em;
 	aspect-ratio: 3;
 	text-align: center;
@@ -74,6 +57,11 @@
 	margin: 5px auto auto;
 	top: -5px;
 	transition: all 0.1s;
+	font-family: KazPro;
+	text-transform: uppercase;
+	border: 1px solid rgba(188, 130, 122, 0.6);
+	color: var(--hunt);
+	font-weight: bold;
 }
 
 .useButton:hover {
@@ -95,21 +83,23 @@
 .text {
 	position: relative;
 	padding: 2%;
-	margin-top: 5px;
+	margin-top: 1em;
 	text-align: center;
 }
 
 .quote {
-	font-weight: bold;
-	font-style: italic;
-	font-size: 0.7em;
-	font-family: Snell Roundhand, cursive;
+	font-size: 0.8em;
+	font-weight: 500;
+    font-family: KazPro;
+    font-style: italic;
 	margin-top: -10px;
 }
 
 .description {
 	font-size: 1em;
 	margin-top: -8px;
+	font-weight: bold;
+
 }
 
 .icon {

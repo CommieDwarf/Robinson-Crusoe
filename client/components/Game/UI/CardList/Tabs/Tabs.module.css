@@ -3,12 +3,13 @@
 	height: 7%;
 	position: absolute;
 	bottom: 2px;
-	left: 5px;
+	left: 0;
 	display: flex;
 	justify-content: space-around;
 	z-index: 10;
 	grid-column: 6 / span 1;
 	grid-row: 1 / span 2;
+	padding-right: 20px;
 }
 
 .tab {

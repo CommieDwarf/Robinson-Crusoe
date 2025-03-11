@@ -2,8 +2,9 @@
 	width: 100%;
 	height: 10vh;
 	font-size: 1em;
-	font-weight: 600;
 	border-bottom: 1px solid var(--hunt);
+    font-family: KazPro;
+
 }
 
 .contentWrapper {
@@ -25,4 +26,5 @@
 	aspect-ratio: 1;
 	position: relative;
 	scale: 1.2;
+
 }

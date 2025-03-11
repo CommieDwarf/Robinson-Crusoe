@@ -1,18 +1,19 @@
 .container {
 	height: 80%;
 	min-width: 40%;
-	border: 1px solid var(--brown);
 	border-radius: 5px;
 	text-align: center;
 	font-weight: bold;
 	z-index: 9999999;
 	background-position-x: -40px;
 	background-position-y: -40px;
-	cursor: pointer;
 	background-image: url("../../../../../../public/UI/paper-background.webp");
 	background-size: 150%;
-	line-height: 1.5em;
-	font-size: 2em;
+	padding-left: 3%;
+	padding-right: 3%;
+	font-size: 1.8em;
+	display: flex;
+	align-items: center;
 }
 .container:hover {
 	transform: scale(110%);
@@ -21,6 +22,6 @@
 
 .locked {
 	cursor: default !important;
-	filter: opacity(70%) !important;
+	filter: opacity(50%) !important;
 	transform: none !important;
 }

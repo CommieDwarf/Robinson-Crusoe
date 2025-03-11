@@ -10,7 +10,9 @@
 }
 
 .title {
-    font-family: "Kaz", serif;
+    font-family: KazPro;
+	font-weight: normal;
+	text-transform: uppercase;
     color: var(--hunt);
     font-size: 1.5em;
     text-align: center;
@@ -58,10 +60,11 @@
 }
 
 .toolTipButton {
-    font-family: "Kaz", serif;
+    font-family: KazPro;
+	font-weight: normal;
+	text-transform: uppercase;
     background-color: transparent;
     color: var(--hunt);
-    font-weight: 600;
     cursor: pointer;
 }
 

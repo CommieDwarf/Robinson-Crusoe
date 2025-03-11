@@ -21,7 +21,9 @@
     line-height: 1em;
     margin-top: 10px;
     color: var(--hunt);
-    font-family: Kaz;
+    font-family: KazPro;
+	font-weight: normal;
+	text-transform: uppercase;
 }
 
 .backLink {
