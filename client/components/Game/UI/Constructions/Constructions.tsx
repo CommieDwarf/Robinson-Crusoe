@@ -19,7 +19,6 @@ export default function Constructions(props: Props) {
 			} tour-constructions`}
 		>
 
-			
 			{constructions.map((construction, i) => {
 				return <Construction construction={construction} key={i} />;
 			})}

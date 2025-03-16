@@ -1,8 +1,6 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
 import styles from "./Character.module.css";
 import SideCharacters from "./SideCharacters/SideCharacters";
-import Ability from "./Abilities/Ability/Ability";
-import AbilityPanel from "./Abilities/AbilityPanel/AbilityPanel";
 import { Wounds } from "@shared/types/Game/Characters/PlayerCharacter";
 import { useAppSelector } from "../../../../store/hooks";
 import Entries from "@shared/types/Entries";

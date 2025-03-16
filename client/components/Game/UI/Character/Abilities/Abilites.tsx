@@ -1,8 +1,7 @@
-import { useAppSelector } from "store/hooks";
 import styles from "./Abilities.module.css";
 import { IAbilityRenderData } from "@shared/types/Game/Skill/IAbility";
 import { DisplayedAbilityInfo } from "../Character";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Ability from "./Ability/Ability";
 import DropdownMenu from "components/DropDownMenu/DropDownMenu";
 import AbilityPanel from "./AbilityPanel/AbilityPanel";
