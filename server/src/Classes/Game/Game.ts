@@ -115,10 +115,11 @@ export class GameClass implements IGame {
 			player.initCharacter(this);
 			player.ready = false;
 		});
-		this._seed = loadData?.seed || uuid();
+		// this._seed = loadData?.seed || uuid();
+		this._seed = "abcd";
 		this._difficultySettings = difficultySettings;
 		this._id = loadData?.id || uuid();
-		this._rng = seedrandom();
+		this._rng = seedrandom("abcd");
 
 		this._actionService = new ActionService(this);
 
