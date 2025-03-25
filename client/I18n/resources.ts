@@ -711,6 +711,7 @@ export const resources = {
 				objective: "cel",
 				description: "opis",
 				mechanics: "budowa stosu",
+				//test
 				"wood pile": "stos drewna",
 				"camp movement": "przeniesienie obozu",
 				confirm: "zatwierdź",
