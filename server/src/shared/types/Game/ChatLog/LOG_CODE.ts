@@ -23,7 +23,7 @@ export enum LOG_CODE {
 	ALL_PLAYERS_GOT_DETERMINATION = "all players got determination",
 
 	LOST_GAINED_TREASURES = "lost gained treasures",
-	FOOD_ROTTED = "food got rotten",
+	FOOD_ROTTED = "food rotted",
 	INVENTION_BUILT = "invention built",
 	CONSTRUCTION_UPGRADED = "construction upgraded",
 

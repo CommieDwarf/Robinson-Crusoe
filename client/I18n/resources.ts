@@ -713,6 +713,7 @@ export const resources = {
 				mechanics: "budowa stosu",
 				"wood pile": "stos drewna",
 				"camp movement": "przeniesienie obozu",
+				"food rotted": "Jedzenie zgniło",
 				confirm: "zatwierdź",
 				cancel: "anuluj",
 				ability: "umiejętność",

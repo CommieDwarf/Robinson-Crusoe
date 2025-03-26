@@ -25,6 +25,8 @@ export default function DynamicImage(props: Props) {
 		return () => observer.disconnect(); // Odłącz obserwator przy odmontowaniu
 	}, []);
 
+	const scale = props.scale || 1;
+
 	return (
 		<div
 			ref={containerRef}
@@ -33,7 +35,7 @@ export default function DynamicImage(props: Props) {
 			<Image
 				fill
 				draggable={false}
-				sizes={`${containerWidth}px`}
+				sizes={`${containerWidth * scale}px`}
 				{...props}
 				className={styles.preventSelect}
 			></Image>

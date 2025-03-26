@@ -40,9 +40,13 @@ export const CardList = (props: Props) => {
 			setSelectedTab(tab);
 		}
 	}
+	const contentRef = useRef(null);
 
 	function handleScroll(event: React.UIEvent<HTMLDivElement>) {
 		setScrollTop(event.currentTarget.scrollTop);
+		if (props.isBeingDragged && containerRef.current) {
+			containerRef.current.scrollLeft = 0;
+		}
 	}
 
 	const topLayer =
@@ -105,22 +109,29 @@ export const CardList = (props: Props) => {
 
 	}, [selectedTab, itemAmount, mysteryAmount, inventionAmount, containerRef.current, containerWidth, cardHeight])
 
+
+	
+
 	return (
 		<>
 			<Tabs switchTab={switchTab} currentTab={selectedTab} />
 			<div
 				className={`${styles.container}
                  ${topLayer && styles.zIndexIncreased}
-                 ${props.isBeingDragged && styles.disabledScroll} tour-cards`}
+				 ${props.isBeingDragged && styles.disabledScroll}
+                 tour-cards`}
 				ref={containerRef}
 				onScroll={handleScroll}
 			>
 				<div
-					className={styles.content}
+					className={`${styles.content} ${props.isBeingDragged && styles.disabledScroll}`}
 					style={{
 						left: scrollLeft[selectedTab],
 						height: contentHeight + "px",
 					}}
+					ref={contentRef}
+					
+					
 				>
 					<div className={`${styles.cards} ${styles.inventions}`}>
 						<Cards

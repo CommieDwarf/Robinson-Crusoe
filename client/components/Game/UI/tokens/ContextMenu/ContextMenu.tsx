@@ -40,7 +40,7 @@ export const ContextMenu = (props: Props) => {
 				{capitalize(props.token.description)}
 			</div>
 			<div
-				className={`${styles.useButton} ${styles.useButtonClickable}`}
+				className={`${styles.button} primaryButton`}
 				onClick={handleClick}
 			>
 				Użyj
