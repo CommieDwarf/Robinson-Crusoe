@@ -62,11 +62,13 @@ export function ControlPanel(props: Props) {
 	];
 
 	function handleMenuButtonClick() {
+		
 		if (delayInProgress || stepIdsInMenu.includes(currentStep.data.id)) {
 			return;
 		}
 		if (currentStep.data.id === UI_TOUR_STEP_ID.MENU) {
 			handleNextStep();
+			alert("click");
 		} else {
 			dispatch(UIStateToggled("menuOpen"));
 		}
