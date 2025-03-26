@@ -44,6 +44,9 @@ export const NextPhaseButton = (props: Props) => {
 			return;
 		}
 
+		alert("click");
+
+
 		if (players.some((player) => !player.ready) && phase === "preAction") {
 			toast(capitalize(t("alerts.players not ready for action")), {
 				type: "error",
@@ -56,6 +59,8 @@ export const NextPhaseButton = (props: Props) => {
 			});
 			return;
 		}
+
+
 
 		dispatch(socketEmitAction(OTHER_CONTROLLER_ACTION.SET_NEXT_PHASE));
 	}

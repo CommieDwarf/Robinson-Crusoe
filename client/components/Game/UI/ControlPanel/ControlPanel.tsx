@@ -68,7 +68,6 @@ export function ControlPanel(props: Props) {
 		}
 		if (currentStep.data.id === UI_TOUR_STEP_ID.MENU) {
 			handleNextStep();
-			alert("click");
 		} else {
 			dispatch(UIStateToggled("menuOpen"));
 		}
