@@ -60,10 +60,6 @@ export const NextPhaseButton = (props: Props) => {
 			});
 			return;
 		}
-		if (phase === "preAction") {
-		console.time('buttonReaction');
-
-		}
 		dispatch(socketEmitAction(OTHER_CONTROLLER_ACTION.SET_NEXT_PHASE));
 	}
 
