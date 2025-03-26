@@ -183,6 +183,10 @@ export const ActionResolveWindow = () => {
 
 	const { t } = useTranslation();
 
+	useEffect(() => {
+		console.timeEnd('buttonReaction');
+	})
+
 	if (!actionService) return null;
 	return (
 		<Draggable

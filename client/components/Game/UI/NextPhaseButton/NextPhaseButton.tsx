@@ -12,6 +12,9 @@ import { selectGame, selectPlayers } from "../../../../reduxSlices/gameSession";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import capitalize from "@shared/utils/capitalize";
+import { useEffect, useState } from "react";
+import { setSocketListener } from "pages/api/socket";
+import { SOCKET_EVENT_SERVER } from "@shared/types/Requests/Socket";
 
 type Props = {
 	locked: boolean;
@@ -39,13 +42,11 @@ export const NextPhaseButton = (props: Props) => {
 
 	const { t } = useTranslation();
 
+
 	function handleClick() {
 		if (props.locked || !players) {
 			return;
 		}
-
-		alert("click");
-
 
 		if (players.some((player) => !player.ready) && phase === "preAction") {
 			toast(capitalize(t("alerts.players not ready for action")), {
@@ -59,11 +60,13 @@ export const NextPhaseButton = (props: Props) => {
 			});
 			return;
 		}
+		if (phase === "preAction") {
+		console.time('buttonReaction');
 
-
-
+		}
 		dispatch(socketEmitAction(OTHER_CONTROLLER_ACTION.SET_NEXT_PHASE));
 	}
+
 
 	const style = {
 		backgroundColor: primePlayerColor,
