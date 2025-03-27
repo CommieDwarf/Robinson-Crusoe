@@ -41,7 +41,7 @@ export const ConfirmCampMove = (props: Props) => {
 				<div className={styles.tile}>
 					<DynamicImage
 						src={
-							"/UI/Map/tiles/" +
+							"/UI/map/tiles/" +
 							currentCamp?.tileResourceService?.id +
 							".webp"
 						}
