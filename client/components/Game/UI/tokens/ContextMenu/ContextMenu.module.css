@@ -44,9 +44,12 @@
 	height: 4vh;
 	aspect-ratio: 3;
 	margin: auto;
-	position: relative;
+	position: absolute;
 	line-height: 2.5vh;
-	top: 5%;
+	bottom: 10%;
+	left: 50%;
+	transform: translateX(-50%);
+	transform-origin: 0%;
 }
 .button:hover {
 	scale :1.2;
