@@ -1,4 +1,4 @@
-{
+export const translation = {
     "errors": {
       "missingEmail": "Adres e-mail jest wymagany.",
       "userNotFound": "Użytkownik nie znaleziony."

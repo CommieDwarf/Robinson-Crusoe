@@ -1,15 +1,19 @@
 import i18next from 'i18next';
-import Backend from 'i18next-fs-backend';
-import { join } from 'path';
+import { translation } from "./locales/pl/translation";
 
-i18next.use(Backend).init({
+const resources = {
+  pl: {
+    translation
+  }
+}
+
+
+i18next.init({
   debug: true,
-  backend: {
-    loadPath: join(__dirname, 'locales/{{lng}}/{{ns}}.json'),
-  },
+  resources,
   fallbackLng: 'pl',
   preload: ['pl'],
-  ns: ['translation'], // upewnij się, że to pasuje do twoich plików
+  ns: ['translation'],
   defaultNS: 'translation',
   interpolation: {
     escapeValue: false,
@@ -18,4 +22,5 @@ i18next.use(Backend).init({
   if (err) console.error('i18next initialization failed', err);
   else console.log('i18next initialized successfully');
 });
+
 export default i18next;
