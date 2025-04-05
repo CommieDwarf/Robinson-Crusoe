@@ -60,6 +60,8 @@ export class MailOptions {
 
 	private prepareActivationOptions() {
 		const { t } = i18next;
+
+
 		return {
 			from: config.email.from,
 			to: this._userEmail,

@@ -8,7 +8,7 @@
     "start": "node ./dist/server.js",
     "nodemon": "nodemon ./server.ts",
     "dev": "nodemon",
-    "build": "tsc && tsc-alias"
+    "build": "tsc && tsc-alias && xcopy /E /I src\\i18next\\locales dist\\src\\i18next\\locales"
   },
   "nodemonConfig": {
     "ignore": [
