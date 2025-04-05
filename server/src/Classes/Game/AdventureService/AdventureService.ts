@@ -49,6 +49,7 @@ export class AdventureService implements IAdventureService {
 
     
     get currentAdventureRenderData(): CurrentResolveRenderData<IAdventureCard> | null {
+
         return this._currentAdventure && {
             card: this._currentAdventure.card.renderData,
             resolver: this._currentAdventure.player.getCharacter().renderData,

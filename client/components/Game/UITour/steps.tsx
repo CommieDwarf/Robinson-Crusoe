@@ -142,18 +142,15 @@ export const steps: CustomStep[] = [
 		content: (
 			<span>
 				Ten panel przedstawia aktualny poziom <em>morali</em> (
-				{insertIconsIntoText("morale-arrow")}) oraz powiązaną z nim
+				{insertIconsIntoText("$morale-arrow$")}) oraz powiązaną z nim
 				ilość otrzymywanej bądź traconej <em>determinacji</em> (
-				{insertIconsIntoText("determination")}). Jest ona wymagana do
+				{insertIconsIntoText("$determination$")}). Jest ona wymagana do
 				posługiwania się umiejętnościami postaci.
 			</span>
 		),
 		spotlightClicks: false,
 		data: {
 			id: UI_TOUR_STEP_ID.MORALE,
-			toolTipStyle: {
-				maxWidth: "40%",
-			},
 			getUpdateUIStateHandle: (
 				dispatch,
 				uiStates,
@@ -671,6 +668,18 @@ export const steps: CustomStep[] = [
 		placement: "top",
 		data: {
 			id: UI_TOUR_STEP_ID.MENU_EXIT,
+		},
+	},
+	{
+		target: "",
+		content: (
+			<span>
+			</span>
+		),
+		title: "",
+		placement: "top",
+		data: {
+			id: UI_TOUR_STEP_ID.DONE,
 		},
 	},
 ];

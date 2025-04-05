@@ -121,7 +121,7 @@ function Phase() {
 					direction={"bottom"}
 					root={mapContainer}
 				>
-					<div className={styles.phaseList}>
+					<div className={`${styles.phaseList} tour-phase-list`}>
 						{phases.map((phase, i) => {
 							return (
 								<PhaseElement

@@ -28,6 +28,7 @@ import { IEventCard } from "@shared/types/Game/EventService/EventCard";
 import { IGame } from "@shared/types/Game/Game";
 import { ICharacter } from "@shared/types/Game/Characters/Character";
 import { Construction } from "../ConstructionService/Construction";
+import { isPlayerCharacter } from "@shared/utils/typeGuards/isPlayerCharacter";
 
 export class ResolvableItem implements IResolvableItem {
 	private readonly _item: Item;
@@ -313,6 +314,11 @@ export class ResolvableItem implements IResolvableItem {
 			);
 			this.resolveStatus = RESOLVE_ITEM_STATUS.FAILURE;
 		}
+		if (this._rollDiceResults?.mystery.result === "mystery" && !isPlayerCharacter(character)) {
+			this._game.characterService.hurt(character, 1, "Przygoda");
+			return;
+		}
+
 		if (this._rollDiceResults?.mystery.result === "mystery") {
 			this._game.adventureService.setCurrentAdventure(this);
 		}

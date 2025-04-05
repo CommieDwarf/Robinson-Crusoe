@@ -7,6 +7,7 @@ import { stepIndexUpdated, tourInProgressUpdated } from "reduxSlices/UITour";
 import { useAppDispatch, useAppSelector } from "store/hooks";
 import { UIState } from "types/UITour/UIStates";
 import { batch } from "react-redux";
+import { UI_TOUR_STEP_ID } from "types/UITour/UI_TOUR_STEP_ID";
 
 /**
  * Custom hook: useUITourControl
@@ -57,9 +58,12 @@ export function useUITourControl() {
 			currentStepIndex,
 			uiStates
 		);
+
+
 		const nextStep = steps[nextStepIndex];
 		// Stops when tour is at end.
-		if (!nextStep) {
+		if (!nextStep || nextStep.data.id === UI_TOUR_STEP_ID.DONE) {
+			dispatch(stepIndexUpdated(nextStepIndex));
 			handleTourDone();
 			return;
 		}

@@ -30,4 +30,5 @@ export enum UI_TOUR_STEP_ID {
 	MENU_GUIDE = "menu guide",
 	MENU_SETTINGS = "menu settings",
 	MENU_EXIT = "end",
+	DONE = "done",
 }

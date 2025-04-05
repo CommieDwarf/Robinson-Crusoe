@@ -23,6 +23,7 @@ import {MissingLeaderError} from "../Errors/MissingLeaderError";
 import {getItemFromDroppableId} from "../../../utils/getItemFromDroppableId";
 import {LOG_CODE} from "@shared/types/Game/ChatLog/LOG_CODE";
 import {ActionDice} from "@shared/types/Game/RollDice/RollDice";
+import { isPlayerCharacter } from "@shared/utils/typeGuards/isPlayerCharacter";
 
 
 export class ActionService implements IActionService {
@@ -324,9 +325,7 @@ export class ActionService implements IActionService {
             isAdventureAction(resolvableItem.action) &&
             this.shouldSetAdventureCard(resolvableItem)
         ) {
-            if (resolvableItem.leaderPawn.owner.name === CHARACTER.FRIDAY) {
-                this._game.characterService.hurt(CHARACTER.FRIDAY, 1, "Przygoda");
-            } else {
+            if (isPlayerCharacter(resolvableItem.leaderPawn.owner)) {
                 this._game.adventureService.setCurrentAdventure(resolvableItem);
             }
             this.setAdventureToken(
@@ -336,7 +335,6 @@ export class ActionService implements IActionService {
             );
         }
         this._lastRolledItem = null;
-
     }
 
     private shouldSetAdventureCard(resolvableItem: IResolvableItem): boolean {

@@ -59,6 +59,7 @@ export function ControlPanel(props: Props) {
 		UI_TOUR_STEP_ID.MENU_GUIDE,
 		UI_TOUR_STEP_ID.MENU_PLAYERS,
 		UI_TOUR_STEP_ID.MENU_SETTINGS,
+		UI_TOUR_STEP_ID.MENU_EXIT
 	];
 
 	function handleMenuButtonClick() {
@@ -77,7 +78,7 @@ export function ControlPanel(props: Props) {
 
 	function handleOuterMenuClick(event: MouseEvent) {
 		const current = buttonRef.current;
-		if (!current) {
+		if (!current || delayInProgress || stepIdsInMenu.includes(currentStep.data.id)) {
 			return;
 		}
 		if (currentStep.data.id === UI_TOUR_STEP_ID.MENU ||
