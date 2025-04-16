@@ -53,7 +53,8 @@ An unofficial, non-commercial passion project that brings the classic board game
 - SMTP credentials for email (Tested with gmail)
 
 ### Installation
-1. Clone the repository:
-```bash
-git clone https://github.com/your-username/robinson-crusoe-fan-project.git
-cd robinson-crusoe-fan-project
+1. Clone the repository.
+2. Install depedencies by typing `npm i` (both in client and server folders).
+3. 
+
+
