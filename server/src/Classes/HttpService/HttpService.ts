@@ -39,11 +39,10 @@ export class HttpService {
 
 	private setupMiddleware() {
 		this.setupCorsMiddleware();
-
 		this._app.use(express.json());
 		this._app.use(
 			session({
-				secret: "your-secret-key",
+				secret: config.server.sessionSecret,
 				resave: false,
 				saveUninitialized: false,
 			})

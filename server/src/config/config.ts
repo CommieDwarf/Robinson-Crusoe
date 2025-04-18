@@ -12,6 +12,7 @@ const config = {
 	server: {
 		port: process.env.PORT || 3000,
 		jwtSecret: process.env.JWT_SECRET || "your-secret-key",
+		sessionSecret: process.env.SESSION_SECRET || "your-secret-key",
 		clientUrls: dev ? [(process.env.CLIENT_DEV_URL || "")]:  process.env.CLIENT_PROD_URLS?.split(",").map((url => url.trim())) || [""]
 	},
 	database: {
@@ -29,7 +30,6 @@ const config = {
 		user: process.env.EMAIL_USER || "your-email@gmail.com",
 		password: process.env.EMAIL_PASSWORD || "your-email-password",
 		from: process.env.EMAIL_FROM || "no-reply@yourdomain.com",
-
 	},
 	ping: {
 		frequency:
