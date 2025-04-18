@@ -1,7 +1,19 @@
 import mongoose from 'mongoose';
 import { config } from './config';
 
-mongoose.connect(config.database.uri);
+
+
+
+async function connectToDb() {
+    try {
+        await mongoose.connect(config.database.uri);
+    } catch {
+        connectToDb();
+    }
+}
+
+connectToDb();
+
 
 const db = mongoose.connection;
 

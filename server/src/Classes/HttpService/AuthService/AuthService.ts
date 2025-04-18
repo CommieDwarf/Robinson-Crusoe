@@ -11,34 +11,40 @@ import { AuthenticatedRequest } from "../../../routes/authRoutes";
 
 export class AuthService {
 	static login = async (req: Request, res: Response, next: NextFunction) => {
-		passport.authenticate(
-			"local",
-			async (err: Error, user: UserDocument) => {
-				try {
-					if (err || !user) {
-						return res
-							.status(401)
-							.json({ message: "Nieprawidłowe dane logowania." });
-					}
-
-					req.login(user, { session: false }, (err: Error) => {
+		try {
+			passport.authenticate(
+				"local",
+				async (err: Error, user: UserDocument) => {
 						if (err) {
-							res.status(500).json({
-								message: "Błąd logowania.",
-							});
+							return res.status(500).json({ message: "Internal server error"});
 						}
-						const token = jwt.sign(
-							{ userId: user._id },
-							config.server.jwtSecret
-						);
-						res.setHeader("Authorization", `Bearer ${token}`);
-						return res.json({ message: "Logged in successfully" });
-					});
-				} catch (e) {
-					console.error(e);
+						if (!user) {
+							return res
+								.status(401)
+								.json({ message: "Nieprawidłowe dane logowania." });
+						}
+	
+						req.login(user, { session: false }, (err: Error) => {
+							if (err) {
+								res.status(500).json({
+									message: "Błąd logowania.",
+								});
+							}
+							const token = jwt.sign(
+								{ userId: user._id },
+								config.server.jwtSecret
+							);
+							res.setHeader("Authorization", `Bearer ${token}`);
+							return res.json({ message: "Logged in successfully" });
+						});
+					
 				}
-			}
-		)(req, res, next);
+			)(req, res, next);
+		} catch (error) {
+			console.warn("jgsdoijgiodsjgiofdsjgiofdsjgiohrfjoi");
+			return res.status(500).json({ message: "Internal server error"});
+		}
+		
 	};
 
 	static register = async (req: Request, res: Response) => {

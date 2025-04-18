@@ -63,6 +63,11 @@ passport.serializeUser((user: UserDocument, done) => {
 	done(null, user._id);
 });
 passport.deserializeUser((id, done) => {
-	const user = User.findOne({ id });
-	done(null, user);
+	try {
+		const user = User.findOne({ id });
+		done(null, user);
+	} catch (e) {
+		return done(e);
+	}
+	
 });
