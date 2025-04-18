@@ -32,8 +32,10 @@ yarn-error.log*
 ./env
 ./env.local
 
+./client/.env.local
 ./client/.env
 ./server./env
+./server./env.local
 ./client/.env.production
 
 # vercel
@@ -44,3 +46,4 @@ yarn-error.log*
 client/.env.local
 client/.env
 client/preload.txt
+server/.env

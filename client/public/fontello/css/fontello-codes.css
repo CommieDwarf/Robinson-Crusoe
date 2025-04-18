@@ -1,0 +1,8 @@
+
+.icon-eye:before { content: '\e800'; } /* '' */
+.icon-eye-off:before { content: '\e801'; } /* '' */
+.icon-arrows-ccw:before { content: '\e802'; } /* '' */
+.icon-warning:before { content: '\e803'; } /* '' */
+.icon-lock:before { content: '\e804'; } /* '' */
+.icon-lock-open:before { content: '\e805'; } /* '' */
+.icon-paper-plane:before { content: '\e806'; } /* '' */
