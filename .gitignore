@@ -34,7 +34,6 @@ yarn-error.log*
 ./env.local
 
 ./client/.env.local
-./client/.env
 ./server./env
 ./server./env.local
 ./client/.env.production
@@ -42,8 +41,6 @@ yarn-error.log*
 # vercel
 .vercel
 
-# IDE
-./client/.idea/
 ./server/.idea/
 .idea/
 
@@ -51,8 +48,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 client/.env.local
-client/.env
 client/preload.txt
 server/.env
 ./tsconfig.json
+.gitignore
+server/Dockerfile
+server/fly.toml
+server/.dockerignore
 .gitignore
