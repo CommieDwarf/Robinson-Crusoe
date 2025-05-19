@@ -29,10 +29,11 @@
   },
   "include": [
     "Client/next-env.d.ts",
+    "jest.config.ts",
     "**/*.ts",
     "**/*.tsx"
 , "components/Game/UI/Guide/ImgList", "components/Forms/Form/RedirectLink", "pages/forgot-password/enter-code", "components/UserProfile/ProfileSettings/ChangePassword"  ],
   "exclude": [
-    "node_modules"
+    "node_modules",
   ]
 }

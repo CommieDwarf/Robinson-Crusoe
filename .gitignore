@@ -54,3 +54,5 @@ client/.env.local
 client/.env
 client/preload.txt
 server/.env
+./tsconfig.json
+.gitignore
