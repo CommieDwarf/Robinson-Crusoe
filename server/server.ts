@@ -6,6 +6,7 @@ import {Server} from "socket.io";
 import { config } from "./src/config/config";
 
 
+
 //global configs
 require('./src/config/passport');
 require("./src/config/mongoose");
@@ -27,8 +28,10 @@ const sessionService = new SessionService();
 const socketService = new SocketService(io, sessionService);
 
 
+
+
+
 socketService.startListening();
-httpServer.listen(config.server.port, () => {
+httpServer.listen(Number(config.server.port), "0.0.0.0", () => {
     console.log('server running on port:', config.server.port);
 })
-

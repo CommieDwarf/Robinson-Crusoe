@@ -17,6 +17,7 @@ export class HttpService {
 	constructor(app: ReturnType<typeof App>) {
 		this._app = app;
 		this.initialize();
+		this._app.set('trust proxy', 1);
 	}
 
 	public createServer() {
@@ -51,6 +52,7 @@ export class HttpService {
 		this._app.use(
 			HttpLimiter.limiter
 		)
+
 	}
 
 	private setupPassportMiddleWare() {
