@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { config } from './config';
+import { sleep } from '@shared/utils/sleep';
 
 
 
@@ -8,6 +9,7 @@ async function connectToDb() {
     try {
         await mongoose.connect(config.database.uri);
     } catch {
+        sleep(5000);
         connectToDb();
     }
 }
