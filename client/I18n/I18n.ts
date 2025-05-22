@@ -1,6 +1,7 @@
 import i18next from "i18next";
 import { initReactI18next } from "react-i18next";
 import { resources } from "./resources";
+import { devMode } from "config/config";
 i18next
 	.use(initReactI18next) // passes i18n down to react-i18next
 	.init({
@@ -9,7 +10,7 @@ i18next
 		// or even better, manage them via a UI: https://react.i18next.com/guides/multiple-translation-files#manage-your-translations-with-a-management-gui)
 		resources,
 		lng: "pl", // if you're using a language detector, do not define the lng option
-		debug: true,
+		debug: devMode,
 		interpolation: {
 			escapeValue: false,
 			// eslint-disable-next-line no-unused-vars

@@ -1,4 +1,4 @@
-const dev = process.env.NODE_ENV !== "production";
+export const devMode = process.env.NODE_ENV !== "production";
 
 const config = {
 	SERVER_URL: getServerUrl(),
@@ -7,12 +7,12 @@ const config = {
 export default config;
 
 function getServerUrl(): string {
-	const url = dev
+	const url = devMode
 		? process.env.NEXT_PUBLIC_DEV_SERVER_URL
 		: process.env.NEXT_PUBLIC_PROD_SERVER_URL;
 
 	if (!url) {
-		if (dev) {
+		if (devMode) {
 			throw new Error(
 				"DEV_SERVER_URL is not defined in development mode"
 			);

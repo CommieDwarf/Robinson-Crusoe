@@ -25,7 +25,6 @@ export function getObjectsComparator<P>(
 			});
 		});
 
-		console.log(copy1, copy2);
 
 		return objectsEqual(copy1, copy2);
 	};
