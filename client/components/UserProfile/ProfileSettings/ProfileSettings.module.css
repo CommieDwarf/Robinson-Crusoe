@@ -1,10 +1,12 @@
 .button {
     user-select: none;
     cursor: pointer;
-    margin: 0;
     background-color: var(--brown);
     color: white;
     border-radius: 5px;
+    width: 90%;
+    font-size: 1.2rem;
+    margin: auto;
 }
 
 .formContainer {

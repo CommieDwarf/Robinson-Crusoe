@@ -17,7 +17,7 @@ export function ChatMessage(props: Props) {
 	let minute = date.getMinutes().toString();
 	minute = minute.length === 1 ? "0" + minute : minute;
 
-	const { t } = useTranslation("systemMessages");
+	const { t } = useTranslation("systemMessages")!;
 	const content = isSystemMsg(props.message)
 		? t(`${props.message.content}`, {
 			subject1: props.message.subject1,
