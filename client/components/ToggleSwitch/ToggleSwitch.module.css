@@ -1,0 +1,50 @@
+.container {
+    position: relative;
+    height: 100%;
+    aspect-ratio: 2;
+    display: inline-block;
+    container-type: size;
+}
+
+.container input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    inset: 0;
+    border-radius: 50cqh;
+    cursor: pointer;
+    transition: background-color 0.4s;
+    display: flex;
+    align-items: center;
+}
+
+.knob {
+    position: absolute;
+    height: 80cqh;
+    aspect-ratio: 1;
+    top: 10%;
+    left: 10cqh;
+    border-radius: 50%;
+    transition: transform 0.4s, background-color 0.4s, left 0.4s;
+}
+
+.sliderUnchecked {
+    background-color: #ccc;
+}
+.sliderChecked {
+    background-color: #2196F3;
+}
+
+.knobDefault {
+    background-color: white;
+}
+
+
+
+.container input:checked + .slider .knob {
+    left: calc(100cqw - 80cqh - 10cqh);
+}

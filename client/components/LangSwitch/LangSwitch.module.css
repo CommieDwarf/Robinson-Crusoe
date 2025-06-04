@@ -1,0 +1,46 @@
+.container {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    padding: 0 5px 0 5px;
+    box-sizing: content-box;
+    height: 4vh;
+    aspect-ratio: 4;
+    column-gap: 0.7vh;
+    container-type: size;
+    z-index: 9999999;
+    border-radius: 5px;
+    background-image: url("/UI/paper-background.webp");
+    background-size: contain;
+    border: 1px solid var(--borderColor);
+    user-select: none;
+}
+
+.container > label {
+    width: fit-content;
+    font-size: 60cqh;
+}
+
+.switch {
+    height: 100%;
+    position: relative;
+}
+
+
+.polishLabel {
+    color: var(--polishRed);
+}
+
+.englishLabel {
+    color: var(--britishBlue);
+}
+
+.toggleSwitchPolish {
+    background-color: var(--polishRed);
+}
+.toggleSwitchEnglish {
+    background-color: var(--britishBlue);
+}
