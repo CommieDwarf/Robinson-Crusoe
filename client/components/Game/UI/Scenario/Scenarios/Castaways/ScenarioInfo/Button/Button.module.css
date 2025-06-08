@@ -1,14 +1,15 @@
 .button {
     width: 95%;
     height: 20%;
-    line-height: 180%;
     padding: 5%;
     text-align: center;
     position: relative;
     cursor: pointer;
-    font-size: 3em;
+    font-size: 1.9em;
     font-weight: 500;
     color: #d2b48c;
+    display: flex;
+    justify-items: center;
 }
 
 .button:hover {
@@ -17,7 +18,7 @@
 
 .frame {
     position: absolute;
-    height: 95%;
+    height: 105%;
     width: 95%;
     top: 2.5%;
     left: 2.5%;
@@ -36,7 +37,6 @@
     position: relative;
     z-index: 2;
     font-style: italic;
-    font-family: Snell Roundhand, cursive;
     width: 100%;
     height: 100%;
     vertical-align: center;

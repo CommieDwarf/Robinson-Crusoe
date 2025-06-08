@@ -3,157 +3,83 @@ import DynamicImage from "../../../../DynamicImage/DynamicImage";
 import styles from "../Guide.module.css";
 import { ACTION } from "@shared/types/Game/ACTION";
 import ActionSlot from "../../ActionSlot";
+import { Trans, useTranslation } from "react-i18next";
+import { Header } from "./Header/Header";
+import { TransListItems } from "../TransListItems/TransListItems";
 
 export function ActionPage() {
-	return (
-		<>
-			<section>
-				<div className={styles.flexBlock}>
-					<div className={styles.titleImg}>
-						<DynamicImage
-							src={"/UI/phase/action.webp"}
-							alt="action"
-						/>
-					</div>
-					<h2 className={styles.title}>Faza Akcji</h2>
-					<div className={styles.titleImg}>
-						<DynamicImage
-							src={"/UI/phase/action.webp"}
-							alt="action"
-						/>
-					</div>
-				</div>
-				<p className={styles.p}>
-					Jest to najważniejsza faza gry i składa się z dwóch etapów:
-					Planowania i Rozpatrywania Akcji.
-				</p>
-				<h3 className={styles.subTitle}>Planowanie</h3>
-				<p className={styles.p}>
-					Podczas planowania Akcji gracze nie rozgrywają
-					indywidualnych tur, ale wspólnie decydują, które Akcje chcą
-					wykonać w danej rundzie. Następnie zaznaczają swój wybór,
-					przypisując swoje pionki do określonych Akcji.
-				</p>
-				<p className={styles.p}>
-					Pionki reprezentują aktywność Postaci na wyspie, więc
-					dysponując dwoma pionkami, każdy gracz może podjąć do dwóch
-					akcji. Jednakże, niejedna Akcja wymaga przypisania więcej
-					niż jednego pionka, aby ją wykonać.
-				</p>
-				<p className={styles.p}>
-					Każdy rodzaj Akcji (z wyjątkiem Akcji Zagrożenia) może być
-					podejmowany wielokrotnie w tej samej rundzie i przez różnych
-					graczy.
-				</p>
-				<p className={styles.p}>Dostępne są następujące Akcje:</p>
-				<ul className={styles.list}>
-					{Object.values(ACTION).map((action, i) => {
-						return (
-							<li className={styles.li} key={i}>
-								<div className={styles.listItemImg}>
-									<DynamicImage
-										src={`/UI/actions/${kebabCase(action)}.webp`} alt={""}									/>
-								</div>
-								<div className={styles.listItemDescription}>
-									{actionDesription[action]}
-								</div>
-							</li>
-						);
-					})}
-				</ul>
-			</section>
-			<section>
-				<p>Aby zaplanować akcję przeciągnij pionek na miejsce akcji.</p>
-				<div className={styles.flexBlock}>
-					<div className={styles.pawnAssignmentImg}>
-					<DynamicImage
-							src={"/UI/guide/pawn-assignment.gif"}
-							alt="przeciąganie pionka"
-						/>
-					</div>
-				</div>
-				<ul className={styles.list}>
-					<li className={styles.li}>
-						<div className={styles.listItemImg}>
-							<ActionSlot
-								type={"leader"}
-								action={ACTION.EXPLORE}
-								uniqueAction={ACTION.EXPLORE}
-								id={""}
-								static={true}
-							/>
-						</div>
-						<div className={styles.listItemDescription}>
-							- umieszczenie pionka w tym slocie oznacza, że dana
-							postać wykonuje daną akcję.
-						</div>
-					</li>
-					<li className={styles.li}>
-						<div className={styles.listItemImg}>
-							<ActionSlot
-								type={"helper"}
-								action={ACTION.EXPLORE}
-								uniqueAction={ACTION.EXPLORE}
-								id={""}
-								static={true}
-							/>
-						</div>
-						<div className={styles.listItemDescription}>
-							- jest to slot pomocniczy. Pionki na tym miejscu
-							tylko asystują i nie ponoszą żadnych konsekwencji za
-							tą akcję.
-						</div>
-					</li>
-				</ul>
-			</section>
-		</>
-	);
-}
+  const { t } = useTranslation();
 
-const actionDesription = {
-	[ACTION.THREAT]: (
-		<span>
-			<strong>Akcja Zagrożenia</strong> - akcja ta jest podejmowana, aby
-			zapobiec wprowadzeniu w życie efektu Zagrożenia przedstawionego na
-			kon- kretnej karcie Wydarzenia znajdującej się na planszy w polu
-			Akcji Zagrożenia. Za wykonanie tej Akcji gracz otrzymuje korzyści
-			przed- stawione na karcie (np. żetony Determinacji lub inne zasoby).
-		</span>
-	),
-	[ACTION.HUNT]: (
-		<span>
-			<strong>Polowanie</strong> - pozwala graczowi uzyskać większą ilość
-			pożywienia i skór, ale zwykle wiąże się z otrzymaniem Ran.
-		</span>
-	),
-	[ACTION.BUILD]: (
-		<span>
-			<strong>Budowa</strong> – pozwala graczom budować Schronienie, Dach,
-			Palisadę lub Broń oraz przekształcać Pomysły w Przedmioty.
-		</span>
-	),
-	[ACTION.GATHER]: (
-		<span>
-			<strong>Zbieranie Surowców</strong> - pozwala graczom zdobywać
-			zasoby dostępne na odkrytych kafelkach Wyspy.
-		</span>
-	),
-	[ACTION.EXPLORE]: (
-		<span>
-			<strong>Eksploracja</strong> - pozwala graczom odkrywać wyspę.
-		</span>
-	),
-	[ACTION.ARRANGE_CAMP]: (
-		<span>
-			<strong>Porządkowanie Obozu</strong> – pozwala graczowi otrzymać 2
-			żeto- ny Determinacji i zwiększyć o 1 poziom Morale (w grze
-			4-osobowej, gracz wybiera czy otrzymuje żetony Determinacji, czy
-			zwiększa Mo- rale).
-		</span>
-	),
-    [ACTION.REST]: (
-		<span>
-			<strong>Odpoczynek</strong> – pozwala uleczyć 1 Ranę
-		</span>
-	),
-};
+  const tPath = "guide.pages.actionPage";
+  const tPathS1 = `${tPath}.section1`;
+  const tPathS2 = `${tPath}.section2`;
+  const tPathS3 = `${tPath}.section3`;
+
+  return (
+    <>
+      <Header
+        title={t("phase.phase", { phase: "action" })}
+        img={<DynamicImage src={"/UI/phase/action.webp"} alt="action" />}
+      />
+      <section>
+        <p className={styles.p}>{t(`${tPathS1}.paragraph1`)}</p>
+      </section>
+      <section>
+        <h3 className={styles.subTitle}></h3>
+        {[1, 2, 3, 4].map((paragraphNum) => {
+          return (
+            <p className={styles.p}>
+              {t(`${tPathS2}.paragraph${paragraphNum}`, {
+                returnObjects: false,
+              })}
+            </p>
+          );
+        })}
+        <ul className={styles.list}>
+          {Object.values(ACTION).map((action, i) => {
+            return (
+              <li className={styles.li} key={i}>
+                <div className={styles.listItemImg}>
+                  <DynamicImage
+                    src={`/UI/actions/${kebabCase(action)}.webp`}
+                    alt={""}
+                  />
+                </div>
+                <div className={styles.listItemDescription}>
+                  <Trans i18nKey={`${tPathS2}.actionDescription.${action}`} />
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+      <section>
+        <p>{t(`${tPathS3}.paragraph1`)}</p>
+        <div className={styles.flexBlock}>
+          <div className={styles.pawnAssignmentImg}>
+            <DynamicImage
+              src={"/UI/guide/pawn-assignment.gif"}
+              alt="przeciąganie pionka"
+            />
+          </div>
+        </div>
+        <ul className={styles.list}>
+          <TransListItems
+            baseTPath={tPathS3}
+            img={["leader", "helper"].map((type) => {
+              return (
+                <ActionSlot
+                  type={type as "leader" | "helper"}
+                  action={ACTION.EXPLORE}
+                  uniqueAction={ACTION.EXPLORE}
+                  id={""}
+                  static={true}
+                />
+              );
+            })}
+          />
+        </ul>
+      </section>
+    </>
+  );
+}

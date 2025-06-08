@@ -1,139 +1,80 @@
-import { insertIconsIntoText } from "../../../../../../utils/insertIconsIntoText/insertIconsIntoText";
+import { Icon } from "../../../../../../utils/insertIconsIntoText/insertIconsIntoText";
 import DynamicImage from "../../../../../DynamicImage/DynamicImage";
 import ActionOrder from "../../../ActionOrder/ActionOrder";
 import guideStyles from "../../Guide.module.css";
-import { ImgListItem } from "../../ImgList.tsx/ImgListItem";
-import styles from "./ActionResolvePage.module.css";
+import styles from "../../Guide.module.css";
+import { Header } from "../Header/Header";
+import { Trans, useTranslation } from "react-i18next";
+import { TransListItems } from "../../TransListItems/TransListItems";
+
+import successDice from "public/UI/dice/action/explore/success.webp";
+import determinationDice from "public/UI/dice/action/explore/determination.webp";
+import adventureDice from "public/UI/dice/action/explore/mystery.webp";
+import hurtDice from "public/UI/dice/action/explore/hurt.webp";
+import blankDice from "public/UI/dice/action/explore/blank.webp";
+import { StaticImageData } from "next/image";
+
 export function ActionResolvePage() {
-	return (
-		<>
-			<section>
-				<div className={guideStyles.flexBlock}>
-					<div className={guideStyles.titleImg}>
-						<DynamicImage
-							src={"/UI/phase/action.webp"}
-							alt="action"
-						/>
-					</div>
-					<h2 className={guideStyles.title}>Faza Akcji</h2>
-					<div className={guideStyles.titleImg}>
-						<DynamicImage
-							src={"/UI/phase/action.webp"}
-							alt="action"
-						/>
-					</div>
-				</div>
-				<div className={guideStyles.flexBlock}>
-					<h2 className={guideStyles.subTitle}>
-						Rozpatrywanie akcji
-					</h2>
-				</div>
-				<p className={guideStyles.p}>
-					Gdy już rozdysponujesz wszystkie pionki kliknij ikonę
-					kompasu {insertIconsIntoText("$compass$", guideStyles.icon)}
-					, aby przejść do rozpatrywania akcji (w przypadku gry
-					wieloosobowej gracze muszą wyrazić gotowość).
-				</p>
-				<div className={styles.actionOrder}>
-					<ActionOrder actionOrderContainerRef={undefined} />
-				</div>
-				<p className={guideStyles.p}>
-					Podczas wykonywania akcji wszystkie zdobyte surowce, żetony
-					odkryć i karty skarbów umieszczane są w{" "}
-					<strong>przyszłych surowcach</strong>.
-				</p>
-				<p className={guideStyles.p}>
-					Po fazie akcji surowce umieszczane są w{" "}
-					<strong>posiadanych surowcach</strong> i stają się dostępne
-					dla graczy.
-				</p>
-			</section>
-			<section>
-				<h2 className={guideStyles.subTitle}>Rzucanie koścmi</h2>
-				<p className={guideStyles.p}>
-					W akcjach takich jak <strong>exploracja</strong>,{" "}
-					<strong>zbieranie surowców</strong> oraz{" "}
-					<strong>budowanie</strong> możliwe jest przydzielenie 1
-					pionka mniej. W takim przypadku gracz rzuca 3 koścmi, a
-					pomyślność akcji jest zależna od wyniku rzutu jednej z nich.
-				</p>
-				<ul className={guideStyles.list}>
-					<li className={guideStyles.li}>
-						<div
-							className={`${guideStyles.listItemImg} ${guideStyles.diceSide}`}
-						>
-							<DynamicImage
-								src={"/UI/dice/action/explore/success.webp"}
-								alt="symbol sukcesu"
-							/>
-						</div>
-						<div className={guideStyles.listItemDescription}>
-							<strong>Sukces</strong> - Akcja się udała.
-						</div>
-					</li>
-					<ImgListItem
-						imgElement={() => (
-							<DynamicImage
-								src={
-									"/UI/dice/action/explore/determination.webp"
-								}
-								alt="kość przygody"
-							/>
-						)}
-						textElement={() => (
-							<>
-								<strong>Żetony determinacji</strong> - Akcja się
-								nie udała. Gracz dostaje 2 żetony determinacji.
-							</>
-						)}
-						borderRadius
-					/>
-					<ImgListItem
-						imgElement={() => (
-							<DynamicImage
-								src={"/UI/dice/action/explore/mystery.webp"}
-								alt="kość przygody"
-							/>
-						)}
-						textElement={() => (
-							<>
-								<strong>Przygoda</strong> - Gracz rozpatruje
-								kartę przygody.
-							</>
-						)}
-						borderRadius
-					/>
-					<ImgListItem
-						imgElement={() => (
-							<DynamicImage
-								src={"/UI/dice/action/explore/hurt.webp"}
-								alt="kość przygody"
-							/>
-						)}
-						textElement={() => (
-							<>
-								<strong>Obrażenia</strong> - Gracz otrzymuje
-								ranę.
-							</>
-						)}
-						borderRadius
-					/>
-					<ImgListItem
-						imgElement={() => (
-							<DynamicImage
-								src={"/UI/dice/action/explore/blank.webp"}
-								alt="symbol sukcesu"
-							/>
-						)}
-						textElement={() => (
-							<>
-								<strong>Pusto</strong> - Nic się nie dzieje.
-							</>
-						)}
-						borderRadius
-					/>
-				</ul>
-			</section>
-		</>
-	);
+  const { t } = useTranslation();
+
+  const tPath = "guide.pages.actionResolvePage";
+  const tPathS2 = `${tPath}.section2`;
+
+  return (
+    <>
+      <Header title={t(`${tPath}.title`)} />
+      <section>
+        <p className={guideStyles.p}>
+          <Trans
+            i18nKey={`${tPath}.section1.paragraph1`}
+            components={{ Icon: <Icon /> }}
+          />
+        </p>
+        <div className={styles.actionOrder}>
+          <ActionOrder actionOrderContainerRef={undefined} />
+        </div>
+        {[2, 3].map((paragraph) => {
+          return (
+            <p className={guideStyles.p}>
+              <Trans
+                i18nKey={`${tPath}.section1.paragraph${paragraph}`}
+                t={t}
+                components={{ strong: <strong /> }}
+              />
+            </p>
+          );
+        })}
+      </section>
+      <section>
+        <h2 className={guideStyles.subTitle}>{t(`${tPathS2}.title`)}</h2>
+        <p className={guideStyles.p}>
+          <Trans
+            i18nKey={`${tPathS2}.paragraph1`}
+            components={{ strong: <strong /> }}
+          />
+        </p>
+        <ul className={guideStyles.list}>
+          <TransListItems
+            baseTPath={`${tPathS2}.ul1`}
+            components={{ strong: <strong /> }}
+            img={[
+              successDice,
+              determinationDice,
+              adventureDice,
+              hurtDice,
+              blankDice,
+            ].map((src: StaticImageData) => {
+              return (
+                <DynamicImage
+                  src={src}
+                  alt={t("other.dice")}
+                  className={styles.dice}
+                />
+              );
+            })}
+          />
+        </ul>
+      </section>
+    </>
+  );
 }

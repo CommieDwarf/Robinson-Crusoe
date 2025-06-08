@@ -18,18 +18,21 @@ import { DISCOVERY_TOKEN } from "@shared/types/Game/TokenService/Token";
 import { SCENARIO } from "@shared/types/Game/ScenarioService/SCENARIO";
 import { PAWN_HELPER_ACTION } from "@shared/types/Game/Pawns/Pawn";
 import { SYSTEM_MSG } from "@shared/types/ChatService/ChatService";
-import { GUIDE_CONTENT } from "components/Game/UI/Guide/Contents/Contents";
 import { WRECKAGE_CARD } from "@shared/types/Game/EventService/EVENT_CARD";
+import { UI_TOUR_STEP_ID } from "../../types/UITour/UI_TOUR_STEP_ID";
+import { GUIDE_CONTENT } from "../../components/Game/UI/Guide/Contents/Contents";
+import { PHASE } from "@shared/types/Game/PhaseService/Phase";
+import { ACTION } from "@shared/types/Game/ACTION";
 
 export const en = {
   translation: {
     character: {
-      cook: "cook",
-      explorer: "explorer",
-      carpenter: "carpenter",
-      soldier: "soldier",
-      friday: "friday",
-      dog: "dog",
+      cook: "Cook",
+      explorer: "Explorer",
+      carpenter: "Carpenter",
+      soldier: "Soldier",
+      friday: "Friday",
+      dog: "Dog",
     },
     scenario: {
       castaways: {
@@ -56,6 +59,8 @@ export const en = {
         defeatNarrative_death: `The conditions on the island proved too dangerous. Your
           efforts to survive were insufficient. Player {{player}} has breathed their last.  
           You will remain forever in the shadow of this cursed island.`,
+        putOnPileButton: `Put on pile`,
+        woodPile: "wood pile",
       },
     },
     ability: {
@@ -166,7 +171,7 @@ export const en = {
     },
 
     phase: {
-      phase: `$t(phase.{{phase}})`,
+      phase: `$t(phase.{{phase}}) Phase`,
       event: `event`,
       morale: `morale`,
       production: `production`,
@@ -184,7 +189,7 @@ export const en = {
     },
 
     action: {
-      action: `$t(translation:action.{{action}} action`,
+      action: `$t(translation:action.{{action}}) action`,
       threat: `threat`,
       hunt: `hunt`,
       build: `build`,
@@ -225,6 +230,11 @@ export const en = {
       snow_genitive: `snow's`,
       storm: `storm`,
       storm_genitive: `storm's`,
+    },
+    dice: {
+      weather: "weather dice",
+      rain: "rain dice",
+      beast: "hungry animals dice",
     },
 
     tokens: {
@@ -583,6 +593,8 @@ export const en = {
       },
     },
     other: {
+      yes: "yes",
+      no: "no",
       shuffle: `shuffle`,
       discard: `discard`,
       keep: `keep`,
@@ -612,11 +624,32 @@ export const en = {
       hour_accusative_many: `hours`,
       male: `male`,
       female: `female`,
+      owned: "owned",
+      future: "future",
+      close: "close",
+      next: "next",
+      abilityPreview: "ability preview",
+      invention: "invention",
+      pageNotFound: "Page not found",
+      backToHomePage: "Back to home page",
+      dice: "dice",
     },
     gameSettings: {
       difficulty: `Difficulty level`,
       scaled: `Scaled by number of players`,
       custom: `Custom`,
+      startingItems: "starting items",
+      playerAmount: "player amount",
+      saveGame: "save game",
+      restart: "restart",
+      finishGame: "finish game",
+      savedGames: "saved games",
+      load: "load",
+      delete: "delete",
+    },
+    generalSettings: {
+      title: "General Settings",
+      UIGuide: `User interface tour`,
     },
     userProfile: {
       accountSettings: `Account settings`,
@@ -633,6 +666,8 @@ export const en = {
       host: `host`,
       players: `players`,
       scenario: `scenario`,
+      mainMenu: "main menu",
+      guide: "guide",
       password: `password`,
       public: `public`,
       "private game": `private game`,
@@ -684,6 +719,523 @@ export const en = {
         [GUIDE_CONTENT.ACTION_PHASE_RESOLVE]: `Action phase resolve`,
         [GUIDE_CONTENT.WEATHER]: `$t(translation:phase.phase, {"phase": "weather"})`,
         [GUIDE_CONTENT.NIGHT]: `$t(translation:phase.phase, {"phase": "night"})`,
+      },
+      pages: {
+        introduction: {
+          gameObjective: {
+            title: "Game Objective",
+            paragraph: `Robinson Crusoe is a cooperative game. Players either win
+                  together (if they manage to survive and achieve the goal defined by the
+                  Scenario), or lose together (if at least one Character dies or if they
+                  fail to meet the Scenario’s objective within the specified number of
+                  rounds).`,
+          },
+          roundProgression: {
+            title: `Round Progression`,
+            paragraph: `The game lasts for several rounds, the number of which is
+                 defined on the Scenario card. Each round is divided into phases, which
+                 are resolved in the following order:`,
+          },
+          phaseDescription: {
+            [PHASE.EVENT]: `During this phase, the top card from the Event deck is
+                  drawn and resolved.`,
+            [PHASE.MORALE]: `This phase is resolved only by the First Player, who 
+                  discards or gains Determination tokens based on the position on the
+                  Morale track.`,
+            [PHASE.PRODUCTION]: `Players receive resources from sources located on the
+                  Island tile where the players' Camp is situated.`,
+            [PHASE.ACTION]: `This is the most important phase of the round, during
+                  which players first plan their actions together and then carry them out.`,
+            [PHASE.WEATHER]: `Players must face the weather, which is determined
+                  by dice rolls and/or Weather tokens.`,
+            [PHASE.NIGHT]: `During this phase, players must, among other things, feed
+                  themselves and will suffer if they do not have Shelter.`,
+          },
+        },
+        eventPage: {
+          title: `$t(translation:phase.phase)`,
+          paragraph1: `In this phase, an event card is drawn and placed on the threat space.`,
+          li1: `<strong>Adventure icon</strong> means that during the next action of the
+            type matching the icon's color, an adventure card will be resolved
+            (in this case, exploration).`,
+          li2: `<strong>Book icon</strong> triggers an effect specific to the scenario
+            (described on the scenario card).`,
+          li3: `<strong>Event Effect</strong> triggers an effect (usually negative) when
+            the card is drawn.`,
+          li4: `<strong>Threat Action</strong> is an action that players must perform to
+            remove the card from the threat space.`,
+          li5: `<strong>Threat Effect</strong> is the effect that will be triggered if the
+            card is pushed off the threat spaces.`,
+          paragraph2: `If, when drawing an event card, there is already a card on the
+            threat space, the new card replaces it, pushing the existing one to the left,
+            which in turn pushes any card already on the left space. If the card on the
+            left space is pushed out, it disappears and its threat effect is triggered.`,
+        },
+        moralePage: {
+          section1: {
+            title: `Morale Phase`,
+            paragraph1: `In this phase, the morale level is checked. Based on it, determination tokens <Icon icon="determination"/> are either granted to or taken from the <strong>first</strong> player <Icon icon="star"/>.`,
+            paragraph2: `Determination <Icon icon="determination"/> is needed for characters to use their abilities.`,
+            ul1: {
+              li1: `The player discards or receives an amount of determination tokens <Icon icon="determination"/> equal to the morale level.`,
+              li2: `If the morale level <Icon icon="morale-arrow"/> is negative, the first player <Icon icon="star"/> loses determination tokens.`,
+              li3: `If the player lacks the required tokens to discard, they receive a wound for each missing token according to the <strong>unmet requirements</strong> rule.`,
+              li4: `If morale is 3, the player receives 3 determination tokens <Icon icon="determination"/> and heals 1 wound <Icon icon="heart"/>.`,
+            },
+          },
+          section2: {
+            title: `Unmet Requirements`,
+            paragraph1: `If the game requires a player to discard a resource they don’t have, they receive a wound for each missing resource. For example:`,
+            li: `2 food resources <Icon icon="food"/> are required from tiles adjacent to the camp, and these resources then become unavailable. If there is only 1 food resource available around the camp, each player receives 1 wound.`,
+            paragraph2: `In cases where the rule says IF POSSIBLE, players do not receive wounds for missing resources.`,
+          },
+        },
+        actionPage: {
+          section1: {
+            paragraph1: `This is the most important phase of the game and consists of two stages: Planning and Resolving Actions.`,
+          },
+          section2: {
+            title1: `Planning`,
+            paragraph1: `During the Action Planning stage, players do not take individual turns, but instead decide together which Actions they want to perform during the current round. Then, they mark their choices by assigning their pawns to specific Actions.`,
+            paragraph2: `Pawns represent the activity of a Character on the island, so with two pawns, each player can take up to two actions. However, some Actions require more than one pawn to be successfully carried out.`,
+            paragraph3: `Each type of Action (except the Threat Action) can be taken multiple times in the same round and by different players.`,
+            paragraph4: `The available Actions are:`,
+            actionDescription: {
+              [ACTION.THREAT]: `<strong>Threat Action</strong> – this action is taken to prevent the effect of a Threat from being triggered, as shown on a specific Event card on the board in the Threat Action field. Completing this Action grants the player the benefits listed on the card (e.g., Determination tokens or other resources).`,
+              [ACTION.HUNT]: `<strong>Hunting</strong> – allows the player to obtain more food and hides, but usually results in receiving Wounds.`,
+              [ACTION.BUILD]: `<strong>Building</strong> – allows players to build Shelter, Roof, Palisade, or Weapons, and to turn Ideas into Items.`,
+              [ACTION.GATHER]: `<strong>Gathering Resources</strong> – allows players to obtain resources available on discovered Island tiles.`,
+              [ACTION.EXPLORE]: `<strong>Exploration</strong> – allows players to discover new parts of the island.`,
+              [ACTION.ARRANGE_CAMP]: `<strong>Arranging Camp</strong> – allows the player to gain 2 Determination tokens and increase Morale by 1 (in a 4-player game, the player chooses whether to receive Determination tokens or increase Morale).`,
+              [ACTION.REST]: `<strong>Resting</strong> – allows the player to heal 1 Wound.`,
+            },
+          },
+          section3: {
+            paragraph1: `To plan an action, drag a pawn onto the action space.`,
+            li1: `- placing a pawn in this slot means the character performs the given action.`,
+            li2: `- this is a support slot. Pawns placed here only assist and do not suffer any consequences of the action.`,
+          },
+        },
+        threatPage: {
+          section1: {
+            ul1: {
+              li1: `At the beginning of each round, a new Event card is drawn which contains a specific Threat Action. Players may choose to perform this Action to prevent the Threat effect from taking place later.`,
+              li2: `Each Threat Action is a one-time Action available on a specific card. After resolving it, the card is discarded.`,
+              li3: `To perform a Threat Action, players must assign the number of pawns shown on the card (1 or 2) and meet certain additional requirements (for example: having food or wood to discard, having a minimum weapon level, etc.).`,
+            },
+            paragraph1: `Possible requirements for performing a Threat Action:`,
+            ul2: {
+              li1: `The action requires assigning 1 pawn.`,
+              li2: `Performing the Action requires having Weapons at level 1 (or higher). When resolving the Action, the Weapon level is not decreased. If players do not meet the required Weapon level, they cannot take the Action.`,
+              li3: `Performing the Action requires possessing (and discarding during resolution) 1 of the specified resources.`,
+              li4: `Performing the Action requires possessing the specified crafted Item. The Item is not lost.`,
+            },
+          },
+        },
+        huntPage: {
+          section1: {
+            ul1: {
+              li1: `Hunting always requires using 2 pawns.`,
+              li2: `Hunting is only possible if there is a Hunting deck on the board containing at least one Beast card. Each Beast card allows for one hunt.`,
+              li3: `You can go hunting even if the Weapon level is 0.`,
+              li4: `Hunting always ends in success (unless the hunting character dies from wounds).`,
+            },
+            ul2: {
+              li1: `<strong>Beast strength</strong> – if it is higher than the Weapon level <Icon icon="weapon"/>, the player takes damage for each missing level.`,
+              li2: `<strong>Weapon level reduction</strong> – the number by which the Weapon level decreases after the hunt. For each missing level, the player takes damage.`,
+              li3: `<strong>Obtained food</strong> – added to the upcoming resources.`,
+              li4: `<strong>Obtained hide</strong> – added to the upcoming resources.`,
+            },
+          },
+        },
+        buildPage: {
+          section1: {
+            ul1: {
+              li1: `Building requires using 1 or 2 pawns.`,
+              li2: `When using only 1 pawn, during the resolution of the Action, the player must roll the Building dice to check whether the Action is successful, whether they receive Wounds, or whether an Adventure occurs.`,
+              li3: `Assigning 2 pawns to the Action guarantees success, and the player does not have to roll any dice.`,
+              li4: `This Action allows you to build a Shelter, Roof, Palisade, or Weapon, or to transform Ideas into Items.`,
+            },
+          },
+          section2: {
+            ul1: {
+              li1: `<strong>Shelter</strong> <br />During the Night phase, it protects from receiving Wounds caused by sleeping under the open sky. A Shelter is required before building a Roof or Palisade. Once built, a Shelter cannot be lost (unless specified by Scenario rules). Note that some Island tiles may provide natural Shelter.`,
+              li2: `<strong>Roof</strong> <br />
+        Protects against weather effects during the Weather phase. To build a Roof, a Shelter must already be present – either constructed or provided by a natural Shelter on the Island tile where the Camp is located.`,
+              li3: `<strong>Palisade</strong> <br />
+        Protects against Storm effects and other in-game effects (e.g., wild animal attacks). To build a Palisade, a Shelter must already be present – either constructed or provided by a natural Shelter on the Island tile where the Camp is located.`,
+              li4: `<strong>Weapon</strong> <br />
+        Primarily used during Hunting. The higher the Weapon level, the lower the chance the player will receive Wounds during a Beast encounter.`,
+              li5: `<strong>Items</strong> <br />
+        Crafting some Items usually provides an additional effect that can be very useful to players (e.g., the “Map” provides an extra pawn for Exploration Actions).`,
+            },
+            paragraph1: `When constructing (Shelter, Roof, or Palisade), you can choose which type of resource to use.`,
+          },
+        },
+        gatherPage: {
+          section1: {
+            ul1: {
+              li1: `Gathering Resources requires using 1 or 2 pawns.`,
+              li2: `When using only 1 pawn, during the resolution of the Action, the player must roll the Gathering dice to determine if the Action is successful, whether they receive Wounds, or whether an Adventure occurs.`,
+              li3: `Assigning 2 pawns to the Action guarantees success, and the player does not have to roll any dice.`,
+              li4: `During a single Action, a player gathers resources from only one chosen Source. Each Source provides one unit of a resource (this amount may be modified by the effects of certain Items, Adventures, Events, etc.).`,
+              li5: `The further a tile is from the Camp, the more pawns the Action on it will require.`,
+            },
+          },
+          section2: {
+            paragraph1: `Possible resources to gather:`,
+            ul1: {
+              li1: `<strong>Food source <Icon icon="food"/></strong>`,
+              li2: `<strong>Food source <Icon icon="food"/></strong>`,
+              li3: `<strong>Wood source <Icon icon="wood"/></strong>`,
+            },
+          },
+        },
+        explorePage: {
+          section1: {
+            ul1: {
+              li1: `Exploration requires using 1 or 2 pawns.`,
+              li2: `When using only 1 pawn, during the resolution of the Action, the player must roll the Exploration dice to determine whether the Action is successful, whether they receive Wounds, or whether an Adventure occurs.`,
+              li3: `The further the tile is from the Camp, the more pawns the Action on it will require.`,
+            },
+            ul2: {
+              li1: `<strong>Resource source</strong> (in this case, food <Icon icon="food"/>)`,
+              li2: `<strong>Beast</strong> – a random Beast card is added to the Hunting deck after a successful exploration.`,
+              li3: `<strong>Discovery tokens</strong> – added to future resources after a successful exploration.`,
+              li4: `<strong>Natural shelter</strong> – having the Camp on this tile works similarly to having a built Shelter, but with important differences.`,
+              li5: `<strong>Totem</strong> – the effect is described on the Scenario card.`,
+              li6: `<strong>Terrain type</strong> – some actions require a discovered tile with a specific type of terrain (e.g., building the "Knife" invention card requires a discovered tile with Mountain terrain).`,
+            },
+          },
+        },
+        arrangeCampPage: {
+          section1: {
+            ul1: {
+              li1: `Arranging the Camp requires using 1 pawn.`,
+              li2: `Arranging the Camp allows the player to gain 2 Determination tokens and increase Morale by 1 level (in a 4-player game, the player must choose one or the other).`,
+              li3: `Each player pawn assigned to the Arrange the Camp Action is resolved separately, which means that if a player assigns both their pawns to this Action, they will resolve it twice and therefore gain 4 Determination tokens and increase Morale by 2 levels.`,
+            },
+          },
+        },
+        restPage: {
+          section1: {
+            ul1: {
+              li1: `Resting requires using 1 pawn.`,
+              li2: `Resting allows the player to heal 1 Wound.`,
+              li3: `Each player pawn assigned to Rest is resolved separately, which means that if a player assigns both of their pawns to Rest, they will resolve it twice and therefore heal 2 Wounds.`,
+            },
+          },
+        },
+        actionResolvePage: {
+          title: `Resolving Actions`,
+          section1: {
+            paragraph1: `
+      Once you have allocated all your pawns, click the compass icon
+      <Icon icon="compass"/>, to proceed to the action resolution phase 
+      (in a multiplayer game, all players must indicate readiness).`,
+            paragraph2: `During the action phase, all gained resources, discovery tokens,
+        and treasure cards are placed in the <strong>future resources</strong>.`,
+            paragraph3: `After the action phase, the resources are moved to the
+        <strong>owned resources</strong> and become available to the players.`,
+          },
+          section2: {
+            title: `Rolling Dice`,
+            paragraph1: `For actions such as <strong>exploration</strong>, 
+      <strong>gathering resources</strong>, and <strong>building</strong>,
+      it is possible to assign 1 pawn less. In that case, the player rolls 3 dice,
+      and the success of the action depends on the result of one of them.`,
+            ul1: {
+              li1: `<strong>Success</strong> – The action was successful.`,
+              li2: `<strong>Determination tokens</strong> – The action failed.
+        The player receives 2 determination tokens.`,
+              li3: `<strong>Adventure</strong> – The player resolves an adventure card.`,
+              li4: `<strong>Wound</strong> – The player receives a wound.`,
+              li5: `<strong>Blank</strong> – Nothing happens.`,
+            },
+          },
+        },
+        weatherPage: {
+          section1: {
+            paragraph1: `In this phase, players must face the weather conditions
+            on the island. Weather is determined by rolling dice. The type of dice 
+            rolled in each round is specified on the scenario card.`,
+          },
+          section2: {
+            title: `Weather Dice`,
+            ul: {
+              li1: `<strong>Rain Die</strong>`,
+              li2: `<strong>Snow Die</strong>`,
+              li3: `<strong>Hungry Animals Die</strong>`,
+            },
+          },
+          section3: {
+            title: `Weather Tokens`,
+            ul1: {
+              li1: `During the game, up to 3 types of tokens can be placed in the weather area.`,
+              li2: `If a given token is already present in the weather area, nothing happens.`,
+            },
+            ul2: {
+              li1: `<strong>Rain Cloud Token</strong> – represents 1 rain cloud.`,
+              li2: `<strong>Snow Cloud Token</strong> – represents 1 snow cloud.`,
+              li3: `<strong>Storm Token</strong> – reduces the <Icon icon="palisade"/> palisade level by 1.`,
+            },
+          },
+          section4: {
+            title: `Clouds`,
+            paragraph1: `There are two types of clouds on the Rain and Snow dice:`,
+            ul1: {
+              li1: `<strong>Rain Cloud</strong>`,
+              li2: `<strong>Snow Cloud</strong>`,
+            },
+          },
+          section5: {
+            title: `Resolving Clouds`,
+            ul1: {
+              li1: `Count all snow clouds (from dice and tokens). For each snow cloud, discard 1 <Icon icon="wood"/> wood (to stay warm).`,
+              li2: `Count all clouds (from dice and tokens) and compare the total to the roof level.
+                <Icon icon="roof"/> The roof level indicates how many clouds it protects against.`,
+              li3: `For each missing level of roof protection, discard 1 
+                 <Icon icon="food"/> food and 1 <Icon icon="wood"/> wood (to stay warm).`,
+              li4: `For each resource the players cannot discard, each player receives 1 wound.`,
+              li5: `All weather tokens are discarded.`,
+            },
+          },
+          section6: {
+            title: `Hungry Animals`,
+            paragraph1: `The Hungry Animals die shows the following effects affecting players:`,
+            ul1: {
+              li1: `A fight against a beast with strength 3 is resolved. (<strong>First player</strong> fights,
+         the weapon level does not decrease.)`,
+              li2: `The <Icon icon="palisade"/> palisade level decreases by 1.`,
+              li3: `Players discard 1 <Icon icon="food"/> food.`,
+            },
+          },
+        },
+        nightPage: {
+          section1: {
+            ul1: {
+              li1: `During the Night phase, each player must eat a meal. To do this, 
+                1 food must be discarded per player. If the players don't have enough food, 
+                they must jointly decide who will go without. Each player who doesn't have 
+                food discarded for them receives 2 Wounds.`,
+              li2: `During the Night phase, players may decide to move the Camp to an adjacent tile. 
+                This choice affects which resources players will receive in the next round 
+                during the Production phase, and which tiles/areas will be adjacent for 
+                purposes such as Gathering Resources and Exploration, etc.`,
+              li3: `If players have not built a Shelter (and their Camp is not located on 
+                an Island tile with a natural Shelter), each player receives 1 Wound for 
+                sleeping under the open sky.`,
+              li4: `If the players do not have non-perishable food or an Item ("Cellar") 
+                or Treasure ("Crates" or "Barrel") that allows food storage, all remaining 
+                food after the Night phase spoils and is discarded.`,
+              li5: `After the Night phase, character abilities are refreshed and can be used again.`,
+            },
+          },
+        },
+      },
+    },
+    UITour: {
+      prompt: {
+        question: `Would you like a guided tour of the game interface?`,
+        dontAskAgain: `Don\`t ask again`,
+      },
+      steps: {
+        [UI_TOUR_STEP_ID.PHASE]: {
+          content:
+            "This is where the current phase is displayed. Click on " +
+            "<strong><em>$t(other.order)</em></strong> to continue.",
+        },
+        [UI_TOUR_STEP_ID.PHASE_LIST]: {
+          content: `Each round consists of <strong>6 phases</strong>, which are resolved
+            in the order shown in this list.`,
+        },
+        [UI_TOUR_STEP_ID.MORALE]: {
+          title: `Morale`,
+          content: `<span>This panel shows the current level of <em>morale</em> 
+            (<Icon icon="morale-arrow" />) and the associated amount of gained or lost
+            <em>determination</em> (<Icon icon="determination" />). It is required to
+            use the character’s abilities.</span>`,
+        },
+        [UI_TOUR_STEP_ID.MAP]: {
+          title: `Map`,
+          content: `The island map consists of hexagonal tiles, each representing a
+            different terrain area. Here you can drag pawns to gather resources and/or
+            explore.
+            <ul>
+              <li>
+                <strong>Zooming in and out</strong> – to adjust the map view, use the mouse wheel or the “+” and “−” buttons.
+              </li>
+              <li>
+                <strong>Moving the map</strong> – to see other parts of the island, hold down the left mouse button and drag the map in the desired direction.
+              </li>
+            </ul>`,
+        },
+        [UI_TOUR_STEP_ID.RESOURCES]: {
+          title: `Resources`,
+          content: `
+            Here you can track the resources belonging to your team. They are divided into 2 categories.
+            <ul>
+              <li>
+                <strong>Future resources</strong> (at the top) – resources you have gained during the current Action Phase but do not yet possess. They become <strong>owned resources</strong> after all actions are resolved.
+              </li>
+              <li>
+                <strong>Owned resources</strong> (at the bottom) – these are in your possession and you can use them.
+              </li>
+            </ul>`,
+        },
+        [UI_TOUR_STEP_ID.CONSTRUCTIONS]: {
+          title: "Constructions and Weapon",
+          content: `To survive on a deserted island, you need to ensure proper shelter and
+            weapons. Building them requires a specific amount of one of the resources
+            shown next to the construction. If you have both types of required resources,
+            you can choose which one to use by clicking on its icon.
+            <ul>
+              <li>
+                <strong>Shelter</strong> (<Icon icon="shelter" />) - protects players
+                  while sleeping, preventing damage from sleeping outdoors. Only 1 level
+                  can be built.
+              </li>
+              <li>
+                <strong>Roof</strong> (<Icon icon="roof" />) - protects players and
+                  resources from weather conditions.
+              </li>
+              <li>
+                <strong>Palisade</strong> (<Icon icon="palisade" />) - protects players
+                from wild animals.
+              </li>
+              <li>
+                <strong>Weapon</strong> (<Icon icon="weapon" />) - used for hunting beasts.
+                The more dangerous the beast, the higher weapon level is needed to survive
+                unscathed.
+              </li>`,
+        },
+        [UI_TOUR_STEP_ID.CARDS]: {
+          title: `Owned Cards`,
+          content: `There are 3 types of cards here:
+            <ul>
+              <li>Invention cards</li>
+              <li>Mystery cards</li>
+              <li>Items</li>
+            </ul>
+            Switch between them by clicking on the tabs.`,
+        },
+        [UI_TOUR_STEP_ID.THREAT]: {
+          title: "Threat Actions",
+          content: `At the beginning of each round, during the first phase, a new event
+            card is placed here.
+            <br />
+            Perform the actions associated with them to receive rewards and avoid negative
+             consequences.`,
+        },
+        [UI_TOUR_STEP_ID.ARRANGE_REST]: {
+          title: "Camp arranging nad resting",
+          content: `These slots are used for planning rest and camp arranging actions.
+            <ul>
+              <li>
+                An unlimited number of pawns can be assigned to each of these actions.
+              </li>
+              <li>Each action always succeeds.</li>
+            </ul>`,
+        },
+        [UI_TOUR_STEP_ID.CHARACTER]: {
+          title: "Character Card",
+          content: `This section contains information about your character and side
+            characters.`,
+        },
+        [UI_TOUR_STEP_ID.CHARACTER_IMG]: {
+          title: `Character`,
+          content: `This is your character. Within this area, wounds received on specific
+            body parts will be displayed.`,
+        },
+        [UI_TOUR_STEP_ID.CHARACTER_EXPENDABLES]: {
+          title: `Personal resources`,
+          content: `Your character has resources that can only be used by them.
+            <ul>
+              <li>Weapon level (<Icon icon="weapon" />) – used during hunting.</li>
+              <li>Determination tokens (<Icon icon="determination" />) – required to use abilities.</li>
+            </ul>`,
+        },
+        [UI_TOUR_STEP_ID.CHARACTER_PAWNS]: {
+          title: `Pawns`,
+          content: `Pawns are used to plan actions. They represent the time your character
+           spends performing a specific task. During the action phase, drag them onto the
+           appropriate slots to plan your next moves.`,
+        },
+        [UI_TOUR_STEP_ID.CHARACTER_ABILITIES]: {
+          title: "Abilities",
+          content: `Here is the list of your character's abilities.
+            <ul>
+              <li>Some abilities can only be used in specific situations.</li>
+              <li>Skills related to dice rerolls are used directly in the action resolve window.</li>
+            </ul>`,
+        },
+        [UI_TOUR_STEP_ID.CHARACTER_SIDE_CHARACTERS]: {
+          title: "Side Characters",
+          content: `Here are the side characters and their pawns.
+          <ul>
+            <li>Every player has access to and control over them.</li>
+            <li>The dog has no health and does not take damage.</li>
+            <li>The dog can only be used as an assistant for hunting or exploration actions.</li>
+          </ul>`,
+        },
+        [UI_TOUR_STEP_ID.HEALTH]: {
+          title: "Health",
+          content: `Here is your character's health.
+            <ul>
+              <li>For each damage point received, the health marker moves to the right.</li>
+              <li>If the health marker passes the arrow (<Icon icon="morale-arrow" />), the team's morale decreases by 1.</li>
+              <li>When the marker reaches the end, the character dies and the players lose.</li>
+            </ul>
+            `,
+        },
+        [UI_TOUR_STEP_ID.SCENARIO_BUTTON]: {
+          title: "Scenario card",
+          content: `Here is the button that slides out the scenario card.  
+            Click it to continue.`,
+        },
+        [UI_TOUR_STEP_ID.SCENARIO]: {
+          title: "Scenario card",
+          content: `Here you can find information about the course of the game and the
+            victory conditions for the scenario.`,
+        },
+        [UI_TOUR_STEP_ID.SCENARIO_ROUNDS]: {
+          title: "Weather",
+          content: `The game consists of up to 12 rounds, with dice placed above them that
+            are rolled during the Weather phase. In each round, the outcome of these dice
+            rolls will affect the weather conditions you’ll have to face.`,
+        },
+        [UI_TOUR_STEP_ID.SCENARIO_INFO]: {
+          title: "Scenario Description",
+          content: `Before starting the game, don’t forget to review the scenario
+            information and its mechanics.`,
+        },
+        [UI_TOUR_STEP_ID.WEATHER]: {
+          content: `Temporary tokens will be placed here and counted during the Weather
+            phase.`,
+        },
+        [UI_TOUR_STEP_ID.DISCOVERY_TOKENS]: {
+          content: `Discovery tokens gained during map exploration will be placed here.`,
+        },
+        [UI_TOUR_STEP_ID.NEXT_PHASE]: {
+          content: `This is the main button that controls the flow of the game. Clicking
+            it will advance to the next phase.`,
+        },
+        [UI_TOUR_STEP_ID.MENU]: {
+          content: `Click to expand the menu.`,
+        },
+        [UI_TOUR_STEP_ID.MENU_PLAYERS]: {
+          content: `This button opens a window with information about other players’
+            characters.`,
+        },
+        [UI_TOUR_STEP_ID.MENU_SETTINGS]: {
+          content: `In the settings, you can restart, save, or return the game to the lobby.`,
+        },
+        [UI_TOUR_STEP_ID.MENU_GUIDE]: {
+          content: `The guide provides a more detailed description of the game rules.`,
+        },
+        [UI_TOUR_STEP_ID.MENU_EXIT]: {
+          content: `In the main menu options, you can reset the UI guide.`,
+        },
       },
     },
     form: {

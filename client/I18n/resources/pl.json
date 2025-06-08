@@ -1,0 +1,1197 @@
+{
+  "character": {
+    "cook": "Kucharz",
+    "cook_female": "Kucharka",
+    "explorer": "Odkrywca",
+    "carpenter": "Cieśla",
+    "soldier": "Żołnierz",
+    "friday": "Piętaszek",
+    "dog": "Pies"
+  },
+  "scenario": {
+    "castaways": {
+      "name": "rozbitkowie",
+      "description": "Jesteście rozbitkami na bezludnej wyspie.\n                        Jest koniec lata, musicie przygotować się na nadejście zimy\n                        — zbudować schronienie, dach, palisadę. Ciężko będzie przetrwać \n                        nadchodzące ciężkie miesiące jesieni i zimy. Potrzebny będzie też\n                        stos drewna, który będzie można podpalić i liczyć, że jakiś statek \n                        przepływający na horyzoncie was dostrzeże.",
+      "objective": "Aby wygrać, gracze muszą wytworzyć przedmiot Ogień oraz\n                        zbudować stos drewna przedstawiony na karcie scenariusza. Jeśli w 10.,\n                        11. czy 12. rundzie warunki te są spełnione, to gracze wygrywają.",
+      "mechanics": "Stos ma się składać z 15 znaczników drewna.\n                        Drewno na stos gracze mogą odkładać przed fazą Akcji. W jednej rundzie można\n                        odłożyć na stos dowolną ilość drewna, ale ukończyć nie więcej niż 1 etap budowy stosu. \n                        (za pierwszym razem 1 znacznik drewna, następnie max. 2 znaczniki itd.), \n                        Drewno odłożone na stos nie może być z niego zabrane.",
+      "winNarrative": "Mimo licznych przeciwności i trudnych warunków na wyspie udało wam się\n                        przetrwać. Przepływający statek dojrzał wasz płonący stos i\n                        przypłynął wam na ratunek.",
+      "defeatNarrative_missedObjective": "Niestety nie udało wam zbudować i rozpalić stosu na czas.\n                     Pomimo waszych desperackich krzyków przepływający statek was nie zauważył. Wygląda na to,\n                      że utkneliście tu na zawsze.",
+      "defeatNarrative_death": "Warunki panujące na wyspie okazały się zbyt niebezpieczne. \n                       Wasze wysiłki, by przetrwać, okazały się niewystarczające.\n                       Gracz {{player}} wyzionął ducha.\n                       Na zawsze pozostaniecie w cieniu tej przeklętej wyspy.",
+      "putOnPileButton": "Odłóż na stos",
+      "woodPile": "stos drewna"
+    }
+  },
+  "ability": {
+    "grandmas recipe": {
+      "name": "Babcina Receptura",
+      "name_genitive": "Babcinej Receptury",
+      "description": "Odrzuć 2 $determination$ aby uleczyć 2 $heart$ odrzucając 1 $food$",
+      "comment": "Po zupie mojej babci na pewno poczujesz się lepiej."
+    },
+    "hooch": {
+      "name": "Samogon",
+      "name_genitive": "Samogonu",
+      "description": "Odrzuć 3 $determination$, aby usunąć 1 $rain-cloud$ lub zamienić 1 $snow-cloud$ w 1 $rain-cloud$",
+      "comment": "Wiem, że jest zimno i w ogóle, ale mam tu coś co ogrzeje ciało i rozjaśni umysł."
+    },
+    "scrounger": {
+      "name": "Bystre Oko",
+      "name_genitive": "Bystrego Oka",
+      "description": "Odrzuć 2 $determination$, aby $reroll$ dowolną szarą kość podczas swojej Akcji.",
+      "comment": "Gdy mówię, że się znajdzie to się znajdzie. Trzeba tylko wiedzieć, gdzie szukać!"
+    },
+    "stone soup": {
+      "name": "Zupa z Gwoździa",
+      "name_genitive": "Zupy z Gwoździa",
+      "description": "Odrzuć 3 $determination$, aby otrzymać 1 $food$.",
+      "comment": "Brak składników to nie przeszkoda, to wyzwanie. Dobry kucharz poradzi sobie w każdej sytuacji!"
+    },
+    "lucky": {
+      "name": "Dziecko szczęścia",
+      "name_genitive": "Dziecka szczęścia",
+      "description": "Odrzuć 2 $determination$, aby $reroll$ dowolną zieloną kość podczas swojej Akcji.",
+      "comment": "Wygląda na to, że szczęście mi dziś sprzyja!"
+    },
+    "Reconnaissance": {
+      "name": "Rekonesans",
+      "name_genitive": "Rekonesansu",
+      "description": "Odrzuć 2 $determination$, aby pociągnąć 3 kafelki Wyspy\n                        ze stosu, wybrać 1 z nich i położyć go na wierzchu stosu.",
+      "comment": "Wracamy do dziczy? Nareszcie!"
+    },
+    "motivational speech": {
+      "name": "Mowa ku pokrzepieniu serc",
+      "name_genitive": "Mowy ku pokrzepieniu serc",
+      "description": "Odrzuć 3 $determination$ aby $morale$.",
+      "comment": "Nie martwcie się! Z nie takich opałów wychodziłem bez szwanku."
+    },
+    "scouting": {
+      "name": "Zwiad",
+      "name_genitive": "Zwiadu",
+      "description": "Odrzuć 3 $determination$, aby pociągnąć 2 $discovery$$ i wybrać z nich 1.",
+      "comment": "A to ci ciekawe. Przyjrzę się temu bliżej."
+    },
+    "economical construction": {
+      "name": "Oszczędna konstrukcja",
+      "name_genitive": "Oszczędnej konstrukcji",
+      "description": "Odrzuć 2 $determination$, aby zużyć 1 $wood$ mniej podczas jednej swojej Akcji dowolnego typu.",
+      "comment": "Za mało materiału? O czym ty mówisz? Mamy go aż nadto!"
+    },
+    "craftsmanship": {
+      "name": "Rzemiosło",
+      "name_genitive": "Rzemiosła",
+      "description": "Odrzuć 2 $determination$, aby $reroll$ dowolną brązową kość podczas swojej Akcji.",
+      "comment": "Mógłbym to wbić z zamkniętymi oczami"
+    },
+    "a new idea": {
+      "name": "Nowy pomysł",
+      "name_genitive": "Nowego pomysłu",
+      "description": "Odrzuć 3 $determination$, aby pociągnąć 5 kart z talii Pomysłów i wybrać 1 z nich.",
+      "comment": "Zdaje się, że wiem, jak ulepszyć nasze obozowisko…"
+    },
+    "handyman": {
+      "name": "Złota rączka",
+      "name_genitive": "Złotej rączki",
+      "description": "Odrzuć 3 $determination$, aby uzyskać jednorazowego $build$.",
+      "comment": "To w sumie dość proste, zajmie ledwie parę chwil."
+    },
+    "tracking": {
+      "name": "Tropienie",
+      "name_genitive": "Tropienia",
+      "description": "Odrzuć 2 $determination$, aby spojrzeć na górną kartę z talii Polowania i umieścić ją z powrotem na wierzchu talii lub na jej spodzie.",
+      "comment": "Chwilę temu przemknął tędy tygrys. Wielki tygrys…"
+    },
+    "the hunt": {
+      "name": "Polowanie",
+      "name_genitive": "Polowania",
+      "description": "Odrzuć 4 $determination$, aby wziąć wierzchnią kartę z talii Bestii i położyć na wierzchu talii polowania, bez oglądania jej.",
+      "comment": "Kici-kici, bestyjko!"
+    },
+    "frenzy": {
+      "name": "Furia",
+      "name_genitive": "Furii",
+      "description": "Odrzuć 3 $determination$, a by tymczasowo otrzymać +3 $weapon$ do kolejnej walki.",
+      "comment": "Teraz to jestem naprawdę wściekły. Przysięgam, nie polubicie mnie takiego!"
+    },
+    "defensive plan": {
+      "name": "Plan zapasowy",
+      "name_genitive": "Planu zapasowego",
+      "description": "Odrzuć 3 $determination$, aby zwiększyć poziom $palisade$ lub $weapon$ o 1.",
+      "comment": "A ty, kucharzu, zabiezpieczasz lewą flankę…"
+    },
+    "fridays ability": {
+      "name": "Przerzut kości akcji",
+      "name_genitive": "Przerzutu kości akcji",
+      "description": "Odrzuć 3 $determination$, aby przerzucić dowolną kość akcji."
+    }
+  },
+  "personalInventionDescription": {
+    "spear": "+3 $weapon$",
+    "fireplace": "$food$ -> +2$heart$ (w fazie nocy)",
+    "shortcut": "+1 surowiec z wybranego kafelka w okół obozu w fazie produkcji",
+    "snare": "+1 $food$ (na kafelku obozu)"
+  },
+  "phase": {
+    "phase": "faza $t(phase.{{phase}}, {\"context\": \"genitive\"})",
+    "event": "wydarzenie",
+    "event_genitive": "wydarzenia",
+    "morale": "morale",
+    "morale_genitive": "morali",
+    "production": "produkcja",
+    "production_genitive": "produkcji",
+    "preAction": "akcja",
+    "preAction_genitive": "akcji",
+    "action": "akcja",
+    "action_genitive": "akcji",
+    "weather": "pogoda",
+    "weather_genitive": "pogody",
+    "night": "noc",
+    "night_genitive": "nocy"
+  },
+  "resource": {
+    "food": "pożywienie",
+    "food_many": "pożywienia",
+    "food_few": "pożywienia",
+    "dryFood": "suchy prowiant",
+    "dryFood_many": "suchych prowiantów",
+    "dryFood_few": "suche prowianty",
+    "wood": "drewno",
+    "wood_many": "drewna",
+    "wood_few": "drewna",
+    "leather": "skóra",
+    "leather_many": "skór",
+    "leather_few": "skóry",
+    "leather_genitive": "skórę"
+  },
+  "action": {
+    "action": "akcja $t(translation:action.{{action}}, {\"context\": \"genitive\"})",
+    "threat": "zagrożenie",
+    "threat_genitive": "zagrożenia",
+    "hunt": "polowanie",
+    "hunt_genitive": "polowania",
+    "build": "budowanie",
+    "build_genitive": "budowania",
+    "gather": "zbieranie",
+    "gather_genitive": "zbierania",
+    "explore": "eksploracja",
+    "explore_genitive": "eksploracji",
+    "arrange camp": "porządkowanie obozu",
+    "arrange camp_genitive": "porządkowania obozu",
+    "rest": "odpoczynek",
+    "rest_genitive": "odpoczynku"
+  },
+  "construction": {
+    "shelter": "schronienie",
+    "shelter_genitive": "schronienia",
+    "shelter_accusative": "schronienie",
+    "palisade": "palisada",
+    "palisade_genitive": "palisady",
+    "palisade_accusative": "palisadę",
+    "roof": "dach",
+    "roof_genitive": "dachu",
+    "roof_accusative": "dach",
+    "weapon": "broń",
+    "weapon_genitive": "broni",
+    "weapon_accusative": "broń"
+  },
+  "adventureOptionLabel": {
+    "shuffle": "wtasuj",
+    "discard": "odrzuć",
+    "keep": "zatrzymaj"
+  },
+  "bodyPart": {
+    "head_locative": "głowie",
+    "stomach_locative": "brzuchu",
+    "arm_locative": "ramieniu",
+    "leg_locative": "nodze"
+  },
+  "weatherToken": {
+    "rain": "deszcz",
+    "rain_genitive": "deszczu",
+    "snow": "śnieg",
+    "snow_genitive": "śniegu",
+    "storm": "sztorm",
+    "storm_genitive": "sztormu"
+  },
+  "dice": {
+    "weather": "Kość śniegu",
+    "rain": "kość deszczu",
+    "beast": "kość wygłodniałych zwierząt"
+  },
+  "tokens": {
+    "adventure": "przygoda",
+    "adventure_genitive": "przygody",
+    "reroll": "przerzut",
+    "reroll_genitive": "przerzutu",
+    "discovery token": "token odkryć"
+  },
+  "eventCard": { "supply crates": "Skrzynie z jedzeniem" },
+  "adventureCard": {
+    "accident": "wypadek",
+    "breakdown": "załamanie",
+    "broken lever": "złamana dźwignia",
+    "coming to terms": "realna ocena sytuacji",
+    "construction": "konstrukcja",
+    "construction is weak": "marna konstrukcja",
+    "cut head": "skaleczenie",
+    "dangerous work": "niebezpieczna praca",
+    "dark clouds in the sky": "zachmurzone niebo",
+    "fast work": "pośpiech",
+    "fear of the beasts": "strach przed bestiami",
+    "hard work": "ciężka praca",
+    "howling in the bushes": "wycie w buszu",
+    "hungry predator": "wygłodniały drapieżnik",
+    "in a hurry": "w pośpiechu",
+    "laborious work": "mozolna praca",
+    "lack of hope": "brak nadziei!",
+    "monkeys watch you": "małpy Cię obserwują",
+    "nasty wound": "paskudna rana",
+    "predator in the camp": "bestia w obozie",
+    "savings": "oszczędności",
+    "string": "użądlenie",
+    "tired": "wyczerpany",
+    "tools break": "pękniete narzędzie",
+    "tools inspection": "kontrola narzędzi",
+    "unmotivated": "zdemotywowany",
+    "visit of a predator": "wizyta bestii",
+    "wind storm": "wichura",
+    "you need a bigger camp": "potrzeba zmian",
+    "bamboo": "bambus",
+    "carcass": "padlina",
+    "cold wind": "zimny wiatr",
+    "dangerous terrain": "niebezpieczny teren",
+    "empty forest": "pusty las",
+    "flu": "grypa",
+    "it will rain": "niebo zaciąga się",
+    "lost": "zagubiony",
+    "lost in the thicket": "zagubiony w gęstwinie",
+    "lost in the woods": "zagubiony w lesie",
+    "misadventure": "nieszczęśliwy wypadek",
+    "old grave": "stary grób",
+    "old hut": "stara chata",
+    "puma": "puma!",
+    "remains of a settlement": "pozostałości osady",
+    "ruined hut": "zniszczona chatka",
+    "secret cave": "tajemnicza jaskinia",
+    "shrine": "kapliczka",
+    "signs of fire": "ślady ognia",
+    "storm on the horizon": "nadciąga sztorm",
+    "surprising discovery": "zaskakujące znalezisko",
+    "swamp": "bagniska",
+    "there's something in the air": "coś się szykuje",
+    "thorny bush": "kolczasty krzew",
+    "tiger": "tygrys!",
+    "vipers": "żmije!",
+    "wild berries": "dzikie jagody",
+    "wild dog": "dziki pies",
+    "wrong track": "pomylone ścieżki",
+    "after the hurricane": "po huraganie",
+    "end of source": "koniec źródła",
+    "eyes in the bushes": "oczy w ciemności",
+    "fruit": "owoce",
+    "furs": "skóry",
+    "gold coin": "złota moneta!",
+    "mushrooms": "grzyby",
+    "nestlings": "pisklaki",
+    "new flock": "nowe stado",
+    "nice surprise": "okazja",
+    "path of a predator": "ścieżka drapieżnika",
+    "pirate's chest": "skrzynia piratów",
+    "shortage": "końcówka",
+    "signs of a predator": "ślady drapieżnika",
+    "skeleton": "szkielet",
+    "spider": "pająk",
+    "surprise in the bushes": "znalezisko w krzakach",
+    "tracks of a predator": "niebezpieczne ślady",
+    "twisted ankle": "skręcona kostka",
+    "unbelievable effort": "niewiarygodny wysiłek",
+    "unexpected discovery": "niespodziewane znalezisko",
+    "unexpected troubles": "niespodziewane trudności",
+    "viper": "żmija",
+    "weather breakdown": "załamanie pogody",
+    "winter freezing": "zimowy chłód",
+    "winter is coming": "nadchodzi zima"
+  },
+  "adventureCardEvent": {
+    "gangrene": "gangrena",
+    "it's going well": "dobrze idzie",
+    "lack of ideas": "brak pomysłów",
+    "stronger construction": "mocniejsza konstrukcja",
+    "bang!": "trach!",
+    "headache": "ból głowy",
+    "heavy rain is over": "koniec ulewy",
+    "haste makes waste": "co nagle to po diable",
+    "expensive protection": "kosztowna ochrona",
+    "the beast is here!": "bestia jest tutaj!",
+    "revisit": "rewizyta",
+    "snap!": "trzask!",
+    "monkeys in the camp!": "małpy w obozie!",
+    "infection": "infekcja",
+    "what goes around...": "nosił wilk razy kilka...",
+    "bad construction": "licha konstrukcja",
+    "shivers": "dreszcze",
+    "dispute": "spór",
+    "broken tools": "zepsute narzędzia",
+    "tools are breaking": "narzędzia się psują",
+    "night visit": "nocna wizyta",
+    "natural palisade": "naturalna palisada",
+    "camp expansion": "rozbudowa obozowiska",
+    "wood snap!": "trzask łamanego drewna!",
+    "diarrhea": "biegunka",
+    "snow": "śnieg",
+    "hungry predators": "głodne drapieżniki",
+    "sore throat": "ból gardła",
+    "detached clouds": "oberwane chmury",
+    "swollen ankle": "spuchnięta kostka",
+    "memories of dead castaway": "wspomnienia o martwym rozbitku",
+    "ghost of a castaway": "duch rozbitka",
+    "puma is attacking!": "atak pumy!",
+    "epidemic": "epidemia",
+    "restless dreams": "niespokojne sny",
+    "awakening of the beast": "przebudzenie bestii",
+    "nightmares": "koszmary",
+    "storm": "sztorm",
+    "cursed island": "przeklęta wyspa",
+    "swollen arm": "spuchnięte ramię",
+    "the tiger has found you": "tygrys was odnajduje",
+    "fewer": "gorączka",
+    "indigestion": "niestrawność",
+    "old buddy": "stary znajomy",
+    "another hurricane": "kolejny huragan",
+    "unexpected visit": "niespodziewana wizyta",
+    "stomachache": "ból brzucha",
+    "insects": "insekty",
+    "cursed coin": "przeklęta moneta",
+    "angry bird": "wściekłe ptaszyszko",
+    "all is gone": "wszystko przepadło",
+    "collapsed roof": "zapadnięty dach",
+    "attack of a beast": "atak bestii",
+    "curse": "klątwa",
+    "memories of the dead explorer": "wspomnienia martwego odkrywcy",
+    "neck bite": "ugryzienie w kark",
+    "memories": "wspomnienia",
+    "attack of a hungry predator": "atak wygłodniałego drapieżnika",
+    "sore arms": "obolałe ramiona",
+    "bite": "ukąszenie",
+    "frost": "przymrozek"
+  },
+  "item": {
+    "bible": "biblia",
+    "bible_accusative": "biblię",
+    "biscuits": "suchary",
+    "empty bottle": "pusta butelka",
+    "empty bottle_accusative": "pustą butelkę",
+    "flask of rum": "flaszka rumu",
+    "flask of rum_accusative": "flaszkę rumu",
+    "hammer": "młotek",
+    "pistol": "pistolet",
+    "storm glass": "barometr",
+    "tobacco": "Fajka i tytoń",
+    "tobacco_accusative": "Fajkę i tytoń"
+  },
+  "mysteryCard": {
+    "a shiny jewel": "wielki klejnot",
+    "bats": "nietoperze",
+    "big ape": "wielka małpa",
+    "bite": "ugryzienie",
+    "furious tiger": "rozszalały tygrys",
+    "giant snake": "ogromny wąż",
+    "gorilla": "goryl",
+    "gremlins": "gremliny",
+    "savage": "dzikus",
+    "scorpion": "skorpion",
+    "snake": "wąż",
+    "spiders": "pająki",
+    "unleashed beast": "bestia na wolności",
+    "blow gun": "dmuchawka",
+    "blunt spear": "stara dzida",
+    "collapse": "zapadło się",
+    "confused": "otumaniony",
+    "hidden rope": "ukryta lina",
+    "net": "sieć",
+    "poison": "trucizna",
+    "sharp blade": "ostrze",
+    "spider web": "pająk",
+    "strange disease": "dziwne schorzenie",
+    "terrible scream": "przeraźliwy krzyk",
+    "drap door": "zapadnia",
+    "unfortunate adventure": "nieszczęśliwa przygoda",
+    "amulet with portrait of beautiful lady": "medalion z portretem pięknej damy",
+    "antique rapier": "zabytkowy rapier",
+    "backpack": "plecak",
+    "barrel": "beczka",
+    "blankets": "koce",
+    "bottle of wine": "butelka wina",
+    "boxes": "skrzynie",
+    "candles": "świeczki",
+    "captain stones spyglass": "luneta kapitana Stone'a",
+    "cave with furs": "grota ze skórami",
+    "ceremonial bowl": "ceremonialna czara",
+    "compass": "kompas",
+    "crocks": "gliniane naczynia",
+    "gold": "złoto!",
+    "hammock": "hamak",
+    "hatched": "siekiera",
+    "helmet": "hełm",
+    "herbal mixture": "ziołowa mikstura",
+    "old clothes": "komplet starych ubrań",
+    "old map": "stara mapa",
+    "old rifle": "stara strzelba",
+    "protective amulet": "amulet ochronny",
+    "ropes": "liny",
+    "sabre": "szabla",
+    "treasure map": "mapa skarbów"
+  },
+  "mysteryCardEvent": {
+    "night demon": "nocny demon",
+    "gorilla in the camp": "goryl w obozie",
+    "Gremlins have tracked you down": "gremliny was wytropiły",
+    "failed hunt": "nieudane polowanie",
+    "curse defeated!": "klątwa pokonana!"
+  },
+  "invention": {
+    "basket": "koszyk",
+    "bed": "łóżko",
+    "belts": "pasy",
+    "bow": "łuk",
+    "cellar": "piwnica",
+    "cellar_accusative": "piwnicę",
+    "corral": "zagroda",
+    "corral_accusative": "zagrodę",
+    "diary": "pamiętnik",
+    "drums": "bębny",
+    "furnace": "piec",
+    "lantern": "latarnia",
+    "lantern_accusative": "latarnię",
+    "moat": "ogrodzenie",
+    "pit": "wilczy dół",
+    "raft": "tratwa",
+    "raft_accusative": "tratwę",
+    "sack": "wór",
+    "shield": "tarcza",
+    "shield_accusative": "tarczę",
+    "sling": "proca",
+    "sling_accusative": "procę",
+    "wall": "mur",
+    "fireplace": "palenisko",
+    "shortcut": "skrót",
+    "snare": "wnyki",
+    "spear": "dzida",
+    "spear_accusative": "dzidę",
+    "axe": "siekiera",
+    "axe_accusative": "siekierę",
+    "mast": "maszt",
+    "bricks": "cegły",
+    "dam": "tama",
+    "dam_accusative": "tamę",
+    "fire": "ogień",
+    "knife": "nóż",
+    "map": "mapa",
+    "map_accusative": "mapę",
+    "medicine": "lek",
+    "pot": "naczynia",
+    "rope": "lina",
+    "rope_accusative": "linę",
+    "shovel": "łopata",
+    "shovel_accusative": "łopatę"
+  },
+  "beast": {
+    "alligator": "aligator",
+    "alligator_accusative": "aligatora",
+    "bear": "niedźwiedź",
+    "bear_accusative": "niedźwiedzia",
+    "birds": "ptaki",
+    "boa": "boa",
+    "boa_accusative": "boa'ę",
+    "chamois": "kozica",
+    "chamois_accusative": "kozicę",
+    "cheetah": "gepard",
+    "cheetah_accusative": "geparda",
+    "fox": "lis",
+    "fox_accusative": "lisa",
+    "goats": "kozły",
+    "gorilla": "goryl",
+    "gorilla_accusative": "goryla",
+    "iguana": "legwan",
+    "iguana_accusative": "legwana",
+    "jaguar": "jaguar",
+    "jaguar_accusative": "jaguara",
+    "puma": "puma",
+    "puma_accusative": "pumę",
+    "tapir": "tapir",
+    "tapir_accusative": "tapira",
+    "tiger": "tygrys",
+    "tiger_accusative": "tygrysa",
+    "wild dog": "dziki pies",
+    "wild dog_accusative": "dzikiego psa",
+    "wild pig": "dzika świnia",
+    "wild pig_accusative": "dziką świnię"
+  },
+  "discoveryToken": {
+    "candles": "Świece",
+    "candles_genitive": "Świec",
+    "fallen tree": "Powalone drzewo",
+    "fallen tree_genitive": "Powalonego drzewa",
+    "goat": "Koza",
+    "healing herbs": "Zioła",
+    "herbs": "Przyprawy",
+    "large leaves": "Wielkie liście",
+    "nourishing larvae": "Pożywne larwy",
+    "old machete": "Stara Maczeta",
+    "poison": "Trujące Pędy",
+    "scenario 1_castaways": "Zioła",
+    "scenario 2_castaways": "Oliwa",
+    "scenario 3_castaways": "Szabla pirata",
+    "scenario 4_castaways": "Medalik z portretem Kobiety",
+    "thorny bushes": "Cierniste krzewy",
+    "tobacco": "Tytoń",
+    "treasure": "Znalezisko",
+    "vegetables": "Jadalne kłącza"
+  },
+  "cardListTab": {
+    "inventions": "K. Pomysłów",
+    "mystery cards": "K. Tajemnic",
+    "items": "Przedmioty"
+  },
+  "alerts": {
+    "not enough materials for action": "Brakuje materiałów do wykonania tej akcji.",
+    "not enough determination for ability": "Brakuje punktów determinacji do użycia tej umiejętności.",
+    "beast deck is empty": "Stos z bestiami jest pusty.",
+    "players not ready for action": "Gracze muszą zgłosić gotowość",
+    "this is prime player action": "Zmianę fazy podejmuje pierwszy gracz",
+    "missing pawn leader": "Brakuje pionka na głównym slocie akcji",
+    "missing pawn helper": "Brakuje pionków pomocniczych"
+  },
+  "pickObject": {
+    "Reconnaissance": {
+      "source": "$t(translation:ability.Reconnaissance.name)",
+      "description": "Wybierz kafelek, który zostanie umieszczony na wierzchu stosu."
+    },
+    "scouting": {
+      "source": "$t(translation:ability.scouting.name)",
+      "description": "Dobierz token."
+    },
+    "a new idea": {
+      "source": "$t(translation:ability.a new idea.name)",
+      "description": "Dobierz kartę pomysłu."
+    },
+    "tracking": {
+      "source": "$t(translation:ability.tracking.name)",
+      "description": "",
+      "effectLabel": "Na spód",
+      "secondaryEffectLabel": "Na wierzch"
+    },
+    "defensive plan": {
+      "source": "$t(translation:ability.defensive plan.name)",
+      "description": "$t(translation:ability.defensive plan.comment)",
+      "effectLabel": "+$weapon$",
+      "secondaryEffectLabel": "+$palisade$"
+    }
+  },
+  "other": {
+    "yes": "tak",
+    "no": "nie",
+    "shuffle": "wtasuj",
+    "discard": "odrzuć",
+    "keep": "zatrzymaj",
+    "sleeping under open sky": "sen pod gołym niebem",
+    "unfulfilled demand": "niespełnione wymagania",
+    "fight": "walcz",
+    "level": "poziom",
+    "use": "użyj",
+    "order": "kolejność",
+    "scenario": "scenariusz",
+    "round": "runda",
+    "action order": "kolejność akcji",
+    "objective": "cel",
+    "description": "opis",
+    "mechanics": "budowa stosu",
+    "wood pile": "stos drewna",
+    "camp movement": "przeniesienie obozu",
+    "food rotted": "Jedzenie zgniło",
+    "confirm": "zatwierdź",
+    "cancel": "anuluj",
+    "ability": "umiejętność",
+    "draw": "dobierz",
+    "finish": "zakończ",
+    "hour": "godzina",
+    "hour_accusative_one": "godzinę",
+    "hour_accusative_few": "godziny",
+    "hour_accusative_many": "godzin",
+    "male": "mężczyzna",
+    "female": "kobieta",
+    "owned": "posiadane",
+    "future": "przyszłe",
+    "close": "zamknij",
+    "next": "dalej",
+    "abilityPreview": "podgląd umiejętności",
+    "invention": "karta pomysłu",
+    "pageNotFound": "Nie znaleziono strony",
+    "backToHomePage": "Powrót do strony głównej",
+    "dice": "kość"
+  },
+  "gameSettings": {
+    "difficulty": "Poziom trudności",
+    "scaled": "Skalowany liczbą graczy",
+    "custom": "Własny",
+    "startingItems": "przedmioty startowe",
+    "playerAmount": "liczba graczy",
+    "saveGame": "zapisz grę",
+    "restart": "zrestartuj",
+    "finishGame": "zakończ grę",
+    "savedGames": "zapisane gry",
+    "load": "wczytaj",
+    "delete": "usuń"
+  },
+  "generalSettings": {
+    "title": "Opcje",
+    "UIGuide": "Przewodnik po interfejsie"
+  },
+  "userProfile": {
+    "accountSettings": "Ustawienia konta",
+    "passwordChange": "Zmiana hasła",
+    "backToProfile": "Wróć do profilu"
+  },
+  "menu": {
+    "refresh": "odśwież",
+    "create game": "stwórz grę",
+    "load game": "wczytaj grę",
+    "join with game code": "dołącz wpisując kod gry",
+    "join": "dołącz",
+    "name": "nazwa",
+    "host": "gospodarz",
+    "players": "gracze",
+    "scenario": "scenariusz",
+    "mainMenu": "główne menu",
+    "guide": "poradnik",
+    "password": "hasło",
+    "public": "publiczna",
+    "private game": "gra prywatna",
+    "enter password": "wpisz hasło",
+    "error": "błąd",
+    "save": "zapisz",
+    "invitation code": "kod zaproszenia",
+    "copy to clipboard": "kopiuj do schowka",
+    "show": "pokaż",
+    "hide": "ukryj",
+    "sign in": "zaloguj",
+    "sign in_reflexive pronoun": "zaloguj się",
+    "sign up": "zarejestruj",
+    "sign out": "wyloguj",
+    "signing in": "logowanie",
+    "signing up": "rejestrowanie",
+    "new account": "nowe konto",
+    "username": "nazwa użytkownika",
+    "repeat password": "powtórz hasło",
+    "already have an account?": "masz już konto?",
+    "don't have an account yet?": "nie masz jeszcze konta?",
+    "create one": "stwórz nowe",
+    "quick game": "szybka gra",
+    "settings": "opcje",
+    "multiplayer": "wielu graczy",
+    "default game name": "gra użytkownika {{username}}",
+    "win": "wygrana",
+    "defeat": "przegrana",
+    "rounds survived": "przetrwane rundy",
+    "to menu": "do menu",
+    "to lobby": "do lobby",
+    "server connection lost": "Brak połączenia z serverem",
+    "another connection attempt in": "Kolejna próba nastąpi za {{seconds}} sekund.",
+    "login request limit reached": "Wprowadziłeś/aś błędne hasło za dużo razy. Twoje konto zostało tymczasowo zablokowane na {{tryAfter}} minut."
+  },
+  "guide": {
+    "contents": {
+      "introduction": "Wprowadzenie",
+      "event phase": "$t(translation:phase.phase, {\"phase\": \"event\"})",
+      "morale phase": "$t(translation:phase.phase, {\"phase\": \"morale\"})",
+      "action phase planning": "Planowanie Akcji",
+      "threat action": "$t(translation:action.action, {\"action\": \"threat\"})",
+      "hunt action": "$t(translation:action.action, {\"action\": \"hunt\"})",
+      "build action": "$t(translation:action.action, {\"action\": \"build\"})",
+      "gather action": "$t(translation:action.action, {\"action\": \"gather\"})",
+      "exploration action": "$t(translation:action.action, {\"action\": \"explore\"})",
+      "arrange camp action": "$t(translation:action.arrange camp)",
+      "rest action": "$t(translation:action.action, {\"action\": \"rest\"})",
+      "action phase resolve": "Rozstrzyganie Akcji",
+      "weather": "$t(translation:phase.phase, {\"phase\": \"weather\"})",
+      "night": "$t(translation:phase.phase, {\"phase\": \"night\"})"
+    },
+    "pages": {
+      "introduction": {
+        "gameObjective": {
+          "title": "Cel gry",
+          "paragraph": "Robinson Crusoe to gra kooperacyjna. Gracze albo razem odniosą\n            zwycięstwo (jeśli uda im się przetrwać i zrealizować cel określony przez\n            Scenariusz), albo razem poniosą porażkę (jeśli przynajmniej jedna z Postaci\n            gracza zginie lub jeśli nie spełnią celu Scenariusza w określonej liczbie rund)"
+        },
+        "roundProgression": {
+          "title": "Przebieg rundy",
+          "paragraph": "Gra trwa kilka rund, których liczba określona jest na karcie każdego\n          Scenariuza. Każda runda jest podzielona na fazy, które są rozpatrywane\n          w następujący sposób:"
+        },
+        "phaseDescription": {
+          "event": "podczas niej dociągana jest i rozpatrywana wierzchnia kartę z\n              talii Wydarzenia.",
+          "morale": "rozpatruje ją tylko Pierwszy Gracz, który odrzuca lub \n              otrzymuje żetony Determinacji zgodnie ze wskazaniem na torze Morale.",
+          "production": "gracze otrzymują surowce, których źródła znajdują się na\n              kafelku Wyspy, na którym mieści się Obóz graczy.",
+          "action": "jest to najważniejsza faza w rundzie, podczas której gracze\n              najpierw wspólnie planują swoje działania, a następnie je realizują",
+          "weather": " gracze muszą zmierzyć się z pogodą określoną przez rzut\n              kośćmi i/lub żetony Pogody.",
+          "night": "w której gracze będą m.in. musieli się wyżywić, a także będą\n              cierpieć, jeśli nie będą posiadać Schronienia"
+        }
+      },
+      "eventPage": {
+        "title": "$t(translation:phase.phase)",
+        "paragraph1": "W tej fazie dobierana jest karta wydarzenia i kładziona na polu\n          zagrożenia.",
+        "li1": "<strong>Ikona przygody</strong> oznacza, że przy kolejnej akcji\n            typu odpowiadającemu kolorowi ikony zostanie rozpatrzona karta\n            przygody (w tym przypadku exploracji).",
+        "li2": "<strong>Ikona księgi</strong> wywołuje efekt odpowiedni dla\n              konkretnego scenariusza (opisany w karcie scenariusza).",
+        "li3": "<strong>Efekt Wydarzenia</strong> wywołuje efekt (przeważnie\n              negatywny) przy dobieraniu karty.",
+        "li4": "<strong>Akcja Zagrożenia</strong> jest to akcja która gracze muszą\n              wykonać, żeby usunąć kartę z pola zagrożenia.",
+        "li5": "<strong>Efekt Zagrożenia</strong> jest to efekt który zostanie\n              wywołany jeśli karta zostanie wypchnięta z pól zagrożenia.",
+        "paragraph2": "Jeśli przy dobieraniu karty wydarzenia, na polu leży już karta, nowa\n            karta zajmuje jej miejsce, a ta przesuwana jest na pole po lewej i wypycha\n            kartę lężącą na lewym polu. Jeśli karta lewego pola zostanie wypchnięta, znika\n            i wywoływany jest jej efekt zagrożenia."
+      },
+      "moralePage": {
+        "section1": {
+          "title": "Faza Morali",
+          "paragraph1": "W tej fazie sprawdzany jest poziom morali. Na jego podstawie\n          przydzialane/zabierane są żetony determinacji <Icon icon=\"determination\"/>\n          <strong>pierwszemu </strong> <Icon icon=\"star\"/>\n          graczowi.",
+          "paragraph2": "Determinacja <Icon icon=\"determination\"/> jest potrzebna do używania\n          umiejętności przez postać.",
+          "ul1": {
+            "li1": "Gracz odrzuca/otrzymuje ilość żetonów determinacji\n              <Icon icon=\"determination\"/> odpowiadającą poziomowi morali",
+            "li2": "Jeśli poziom morali <Icon icon=\"morale-arrow\"/>\n              jest ujemny, pierwszemu graczowi <Icon icon=\"star\"/> są zabierane\n              żetony determinacji.",
+            "li3": "Jeśli graczowi brakuje żetonów do odrzucenia otrzymuje ranę zgodnie\n              z zasadą <strong>niespełnionych wymagań</strong> za każdy brakujący\n              żeton.",
+            "li4": "Jeśli morale wynosi 3, gracz dostaje 3 żetony determinacji \n                <Icon icon=\"determination\"/> oraz leczy 1 ranę {<Icon icon=\"heart\"/> ."
+          }
+        },
+        "section2": {
+          "title": "Niespełnione wymagania",
+          "paragraph1": "Jeśli gra każe odrzucić przez gracza jakiś zasób, a ten jego nie\n              posiada, otrzymuje ranę za każdy brakujący zasób. Np.",
+          "li": "Wymagane jest wybranie 2 zasobów z jedzeniem <Icon icon=\"food\"/>\n              z kafelków graniczących z obozem po czym zasobe te stają się\n              niedostępne. Na kafelkach w okół obozu istnieje tylko 1 zasób z\n              jedzeniem. Gracze dostają po 1 ranie.",
+          "paragraph2": "W przypadku twierdzenia JEŚLI TO MOŻLIWE gracze nie otrzymują rany za\n              brakujące zasoby."
+        }
+      },
+      "actionPage": {
+        "section1": {
+          "paragraph1": "Jest to najważniejsza faza gry i składa się z dwóch etapów:\n              Planowania i Rozpatrywania Akcji."
+        },
+        "section2": {
+          "title1": "Planowanie",
+          "paragraph1": "Podczas planowania Akcji gracze nie rozgrywają indywidualnych tur,\n             ale wspólnie decydują, które Akcje chcą wykonać w danej rundzie. Następnie\n             zaznaczają swój wybór, przypisując swoje pionki do określonych Akcji.",
+          "paragraph2": "Pionki reprezentują aktywność Postaci na wyspie, więc dysponując\n             dwoma pionkami, każdy gracz może podjąć do dwóch akcji. Jednakże, niejedna\n             Akcja wymaga przypisania więcej niż jednego pionka, aby ją wykonać.",
+          "paragraph3": "Każdy rodzaj Akcji (z wyjątkiem Akcji Zagrożenia) może być\n             podejmowany wielokrotnie w tej samej rundzie i przez różnych graczy.",
+          "paragraph4": "Dostępne są następujące Akcje:",
+          "actionDescription": {
+            "threat": "<strong>Akcja Zagrożenia</strong> - akcja ta jest\n                podejmowana, aby zapobiec wprowadzeniu w życie efektu Zagrożenia\n                przedstawionego na konkretnej karcie Wydarzenia znajdującej się na planszy\n                w polu Akcji Zagrożenia. Za wykonanie tej Akcji gracz otrzymuje korzyści\n                przedstawione na karcie (np. żetony Determinacji lub inne zasoby).",
+            "hunt": "<strong>Polowanie</strong> - pozwala graczowi uzyskać\n                większą ilość pożywienia i skór, ale zwykle wiąże się z otrzymaniem Ran.",
+            "build": "<strong>Budowa</strong> – pozwala graczom budować Schronienie,\n                Dach, Palisadę lub Broń oraz przekształcać Pomysły w Przedmioty.",
+            "gather": "<strong>Zbieranie Surowców</strong> - pozwala graczom\n                zdobywać zasoby dostępne na odkrytych kafelkach Wyspy.",
+            "explore": "<strong>Eksploracja</strong> - pozwala graczom odkrywać\n                wyspę.",
+            "arrange camp": "<strong>Porządkowanie Obozu</strong> – pozwala\n                graczowi otrzymać 2 żetony Determinacji i zwiększyć o 1 poziom Morale\n                (w grze 4-osobowej, gracz wybiera czy otrzymuje żetony Determinacji, czy\n                zwiększa Mo- rale).",
+            "rest": "<strong>Odpoczynek</strong> – pozwala uleczyć 1 Ranę"
+          }
+        },
+        "section3": {
+          "paragraph1": "Aby zaplanować akcję przeciągnij pionek na miejsce akcji.",
+          "li1": "- umieszczenie pionka w tym slocie oznacza, że dana postać\n              wykonuje daną akcję.",
+          "li2": "- jest to slot pomocniczy. Pionki na tym miejscu tylko asystują i\n              nie ponoszą żadnych konsekwencji za tą akcję."
+        }
+      },
+      "threatPage": {
+        "section1": {
+          "ul1": {
+            "li1": "Na początku każdej rundy dobierana jest nowa karta Wydarzenia, któ-\n                ra zawiera określoną Akcję Zagrożenia. Gracze mogą ją wykonać, aby\n                zapobiec późniejszemu wprowadzeniu efektu Zagrożenia danej karty",
+            "li2": "Każda Akcja Zagrożenia jest jednorazową Akcją dostępną na określo-\n                nej karcie i po jej rozpatrzeniu karta zostaje odrzucona",
+            "li3": "Do wykonania Akcji Zagrożenia trzeba przypisać przedstawioną na\n                karcie liczbę pionków (1 lub 2) i spełnić pewne dodatkowe wymaga-\n                nia (na przykład: posiadać pożywienie lub drewno potrzebne do od-\n                rzucenia, posiadać minimalny poziom broni, itp.)"
+          },
+          "paragraph1": "Możliwe wymagania do podjęcia Akcji Zagrożenia:",
+          "ul2": {
+            "li1": "Akcja wymaga przypisania 1 pionka",
+            "li2": "wykonanie Akcji wymaga posiadania Broni na poziomie 1 (lub wyż-\n                szym). W momencie rozpatrywania Akcji nie obniża się poziomu Broni\n                o wskazaną wartość. Jeśli gracze nie dysponują określonym poziomem\n                Broni, nie mogą podjąć takiej Akcji",
+            "li3": "wykonanie Akcji wymaga posiadania (i odrzucenia w momencie\n                rozpatrywania) 1 przedstawionego surowca",
+            "li4": "wykonanie Akcji wymaga posiadania przedstawionego wytworzo- nego\n                Przedmiotu. Przedmiot ten nie jest tracony."
+          }
+        }
+      },
+      "huntPage": {
+        "section1": {
+          "ul1": {
+            "li1": "Polowanie zawsze wymaga użycia 2 pionków.",
+            "li2": "Polowanie jest możliwe tylko, jeśli na planszy znajduje się talia\n                Polowa- nia składająca się z przynajmniej jednej karty Bestii. Jedna\n                karta Bestii umożliwia jedno polowanie.",
+            "li3": "Można polować nawet, jeśli poziom Broni wynosi 0",
+            "li4": "Polowanie zawsze kończy się sukcesem (z wyjątkiem kiedy postać\n                polująca zginie od ran)."
+          },
+          "ul2": {
+            "li1": "<strong>Siła bestii</strong> - jeśli jest większa od poziomu\n                broni <Icon icon=\"weapon\"/> gracz dostaje obrażenia za każdy brakujący\n                poziom.",
+            "li2": "<strong>Spadek poziomu broni</strong> - liczba o jaką spada\n                poziom broni po polowaniu. Za każdy brakujący poziom gracz\n                dostaje obrażenia.",
+            "li3": "<strong>Zdobyte pożywienie</strong> - dodawane jest do przyszłych\n                surowców.",
+            "li4": "<strong>Zdobyta skóra</strong> - dodawana jest do przyszłych\n                surowców."
+          }
+        }
+      },
+      "buildPage": {
+        "section1": {
+          "ul1": {
+            "li1": "Budowa wymaga użycia 1 lub 2 pionków.",
+            "li2": "Używając tylko 1 pionka, podczas rozpatrywania Akcji, gracz będzie\n                musiał rzucić kośćmi Budowy, aby sprawdzić czy będzie ona udana, czy\n                otrzyma Rany lub czy spotka go Przygoda.",
+            "li3": "Przypisując do Akcji 2 pionki, będzie ona na pewno udana i gracz nie\n                będzie musiał wykonywać rzutu żadnymi kośćmi.",
+            "li4": "Akcja pozwala zbudować Schronienie, Dach, Palisadę czy Broń lub\n                przekształcać Pomysły w Przedmioty."
+          }
+        },
+        "section2": {
+          "ul1": {
+            "li1": "<strong>Schronienie</strong> <br />W fazie Nocy chroni przed\n                otrzymywaniem Ran za spanie pod gołym niebem. Schronienie\n                umożliwia budowę Dachu i Palisady. Raz zbudowane Schronienie nie\n                może zostać utracone (chyba że zasady Scenariusza mówią inaczej).\n                Należy zwrócić uwagę na to, że niektóre kafelki Wyspy mogą\n                posiadać naturalne Schronienie.",
+            "li2": "<strong>Dach</strong> <br />\n                Chroni przed warunkami atmosferycznymi podczas fazy Pogody. Aby\n                budować Dach, trzeba najpierw posiadać Schronienie – musi być ono\n                albo wybudowane, albo Obóz graczy musi znajdować się na kafelku\n                Wyspy z naturalnym Schronieniem.",
+            "li3": "<strong>Palisada</strong> <br />\n                Chroni przed skutkami Sztormu i innymi efektami w trakcie gry (np.\n                atakami dzikich zwierząt). Aby budować Palisadę, trzeba najpierw\n                posiadać Schronienie – musi być ono albo wybudowane, albo Obóz\n                graczy musi znajdować się na kafelku Wyspy z naturalnym\n                Schronieniem.",
+            "li4": "<strong>Broń</strong> <br />\n                Potrzebna głównie podczas Polowania. Im wyższy poziom Broni, tym\n                mniejsze prawdopodobieństwo, że gracz otrzyma Rany podczas Walki z\n                Bestią.",
+            "li5": "<strong>Przedmioty</strong> <br />\n                Wytworzenie niektórych Przedmiotów zazwyczaj przynosi dodat- kowy\n                efekt, który może okazać się dla graczy bardzo przydatny (np.\n                „Mapa” zapewnia dodatkowy pionek do wykorzystania podczas Akcji\n                Eksploracji)."
+          },
+          "paragraph1": "W przypadku konstrukcji (schronienia, dachu i palisady) możesz\n              zmieniać rodzaj surowca którego chcesz użyć."
+        }
+      },
+      "gatherPage": {
+        "section1": {
+          "ul1": {
+            "li1": "Zbieranie Surowców wymaga użycia 1 lub 2 pionków.",
+            "li2": "Używając tylko 1 pionka, podczas rozpatrywania Akcji, gracz będzie\n                musiał rzucić kośćmi Zbierania Surowców, aby sprawdzić czy będzie\n                ona udana, czy otrzyma Rany lub czy spotka go Przygoda.",
+            "li3": "Przypisując do Akcji 2 pionki, będzie ona na pewno udana i gracz nie\n                będzie musiał wykonywać rzutu żadnymi kośćmi.",
+            "li4": "W ramach jednej Akcji gracz zbiera surowiec tylko z jednego, wybranego\n                Źródła. Każde Źródło dostarcza jedną sztukę surowca (ilość ta\n                może być modyfikowana przez efekty działania niektórych Przedmio-\n                tów, Przygód lub Wydarzeń itp.).",
+            "li5": "Im dalej kafelek znajduje się od obozu, tym więcej akcja na nim\n                będzie wymagała pionków."
+          }
+        },
+        "section2": {
+          "paragraph1": "Możliwe surowce do zebrania: ",
+          "ul1": {
+            "li1": "<strong>Żródło pożywienia <Icon icon=\"food\"/></strong>",
+            "li2": "<strong>Żródło pożywienia <Icon icon=\"food\"/></strong>",
+            "li3": "<strong>Żródło drewna <Icon icon=\"wood\"/></strong>"
+          }
+        }
+      },
+      "explorePage": {
+        "section1": {
+          "ul1": {
+            "li1": "Eksploracja wymaga użycia 1 lub 2 pionków.",
+            "li2": "Używając tylko 1 pionka, podczas rozpatrywania Akcji, gracz będzie\n                musiał rzucić kośćmi Eksploracji, aby sprawdzić czy będzie ona\n                udana, czy otrzyma Rany lub czy spotka go Przygoda.",
+            "li3": "Im dalej kafelek znajduje się od obozu, tym więcej akcja na nim\n                będzie wymagała pionków."
+          },
+          "ul2": {
+            "li1": "<strong> Żródło surowca</strong> (w tym przypadku jedzenia\n                <Icon icon=\"food\"/>)",
+            "li2": "<strong>Bestia</strong> - losowa karta bestii dodawna do talii\n                polowania po udanej exploracji.",
+            "li3": "<strong>Żetony odkryć</strong> - dodawane do przyszłych surowców\n                po udanej exploracji.",
+            "li4": "<strong>Naturalne schronienie</strong> - posiadanie obozu na tym\n                kafelku działa podobnie jak posiadanie wybudowanego schronienia\n                lecz z istotnymi różnicami.",
+            "li5": "<strong>Totem</strong> - efekt opisany w karcie scenariusza.",
+            "li6": "<strong>Rodzaj terenu</strong> - niektóre akcje\n\t\t\t\t\t\t\t\twymagają posiadanie odkrytego kafelka z\n\t\t\t\t\t\t\t\tkonkretnym rodzajem terenu (np. budowa karty\n\t\t\t\t\t\t\t\tpomysłu \"Nóż\" wymaga posiadania odkrytego\n\t\t\t\t\t\t\t\tkafelka z terenem gór)."
+          }
+        }
+      },
+      "arrangeCampPage": {
+        "section1": {
+          "ul1": {
+            "li1": "Porządkowanie Obozu wymaga użycia 1 pionka.",
+            "li2": "Porządkowanie Obozu pozwala graczowi uzyskać 2 żetony Determi- nacji\n            oraz zwiększyć Morale o 1 poziom (w przypadku rozgrywki 4-osobowej\n            gracz musi zdecydować czy wybiera jedno, czy drugie).",
+            "li3": "Każdego pionka gracza, który jest przypisany do Porządkowania Obo-\n            zu rozpatruje się oddzielnie, co oznacza, że jeśli jeden gracz\n            przypisze oba swoje pionki do Porządkowania Obozu, to będzie\n            rozpatrywał tę Akcję dwukrotnie i w rezultacie otrzyma 4 żetony\n            Determinacji oraz zwiększy Morale o 2 poziomy."
+          }
+        }
+      },
+      "restPage": {
+        "section1": {
+          "ul1": {
+            "li1": "Odpoczynek wymaga użycia 1 pionka.",
+            "li2": "Odpoczynek pozwala graczowi uleczyć 1 Ranę.",
+            "li3": "Każdego pionka gracza, który jest przypisany do Odpoczynku roz-\n                patruje się oddzielnie, co oznacza, że jeśli jeden gracz przypisze\n                oba swoje pionki do Odpoczynku, to będzie rozpatrywał go dwukrotnie\n                i w rezultacie otrzyma uleczy 2 Rany."
+          }
+        }
+      },
+      "actionResolvePage": {
+        "title": "Rozpatrywanie Akcji",
+        "section1": {
+          "paragraph1": "\n              Gdy już rozdysponujesz wszystkie pionki kliknij ikonę kompasu\n              <Icon icon=\"compass\"/>, aby przejść do\n              rozpatrywania akcji (w przypadku gry wieloosobowej gracze muszą\n              wyrazić gotowość).",
+          "paragraph2": "Podczas wykonywania akcji wszystkie zdobyte surowce, żetony\n                odkryć i karty skarbów umieszczane są w <strong>przyszłych surowcach\n                </strong>.",
+          "paragraph3": "Po fazie akcji surowce umieszczane są w <strong>posiadanych\n                surowcach</strong> i stają się dostępne dla graczy."
+        },
+        "section2": {
+          "title": "Rzucanie koścmi",
+          "paragraph1": "W akcjach takich jak <strong>exploracja</strong>,\n              <strong>zbieranie surowców</strong> oraz <strong>budowanie</strong>\n              możliwe jest przydzielenie 1 pionka mniej. W takim przypadku gracz\n              rzuca 3 koścmi, a pomyślność akcji jest zależna od wyniku rzutu jednej\n              z nich.",
+          "ul1": {
+            "li1": "<strong>Sukces</strong> - Akcja się udała.",
+            "li2": "<strong>Żetony determinacji</strong> - Akcja się nie udała.\n                Gracz dostaje 2 żetony determinacji.",
+            "li3": "<strong>Przygoda</strong> - Gracz rozpatruje kartę przygody.",
+            "li4": "<strong>Obrażenia</strong> - Gracz otrzymuje ranę.",
+            "li5": "<strong>Pusto</strong> - Nic się nie dzieje."
+          }
+        }
+      },
+      "weatherPage": {
+        "section1": {
+          "paragraph1": "W tej fazie gracze muszą zmierzyć się z warunkami atmosferycznymi\n              panującymi na wyspie. Pogoda jest losowana poprzez rzut koścmi. Rodzaj\n              rzucanych kości dla każdej rundy zaznaczony jest w karcie scenariusza."
+        },
+        "section2": {
+          "title": "Kości pogody",
+          "ul": {
+            "li1": "<strong>Kość deszczowa</strong>",
+            "li2": "<strong>Kość śniegu</strong>",
+            "li3": "<strong>Kość wygłodniałych zwierząt</strong>"
+          }
+        },
+        "section3": {
+          "title": "Żetony pogody",
+          "ul1": {
+            "li1": "W trakcie trwania gry na polu pogody mogą zostać położone 3 rodzaje\n            żetonów.",
+            "li2": "Jeśli na polu pogody istnieje już dany żeton, nic się nie dzieje."
+          },
+          "ul2": {
+            "li1": "<strong>Żeton chmury deszczowej</strong> - reprezentuje 1 chmure\n                deszczową.",
+            "li2": "<strong>Żeton chmury zimowej</strong> - reprezentuje 1 chmure\n                śniegową.",
+            "li3": "<strong>Żeton sztormu</strong> - niszczony jest 1 poziom\n                <Icon icon=\"palisade\"/> palisady."
+          }
+        },
+        "section4": {
+          "title": "Chmury",
+          "paragraph1": "Na kościach Deszczowej i Zimowej występują 2 rodzaje chmur:",
+          "ul1": {
+            "li1": "<strong>Deszczowa chmura</strong>",
+            "li2": "<strong>Śniegowa chmura</strong>"
+          }
+        },
+        "section5": {
+          "title": "Rozpatrywanie chmur",
+          "ul1": {
+            "li1": "Sumowana jest liczba zimowych chmur (z kości oraz żetonu). Na każdą\n                zimową chmurę odrzucane jest 1 <Icon icon=\"wood\"/> drewno (w celu ogrzania\n                się).",
+            "li2": "Sumowana jest liczba wszytkich chmur (z kości oraz żetonów) i\n                porównywana z poziomem dachu. <Icon icon=\"roof\"/> Poziom dachu wskazuje\n                ilość chmur przed którymi chroni.",
+            "li3": "Za każdy brakujący poziom dachu odrzucane jest 1\n                <Icon icon=\"food\"/> jedzenie oraz 1 <Icon icon=\"wood\"/> drewno (w celu\n                ogrzania się).",
+            "li4": "Za każdy surowiec którego gracze nie mogą odrzucić, dostają po 1\n                ranie.",
+            "li5": "Żetony pogody są odrzucane."
+          }
+        },
+        "section6": {
+          "title": "Wygłodniałe zwierzęta",
+          "paragraph1": "Na kości Wygłodniałych zwierząt widnieją następujące efekty wpływające\n          na graczy:",
+          "ul1": {
+            "li1": " Rozpatrywana jest walka z bestią o sile 3. (walczy <strong>pierwszy\n                gracz</strong> poziom broni nie spada.)",
+            "li2": "Poziom <Icon icon=\"palisade\"/> palisady spada o 1.",
+            "li3": "Gracze odrzucają 1 <Icon icon=\"food\"/> jedzenie"
+          }
+        }
+      },
+      "nightPage": {
+        "section1": {
+          "ul1": {
+            "li1": "W fazie Nocy każdy gracz musi zjeść posiłek. W tym celu należy\n              odrzucić po 1 pożywieniu za każdego gracza. Jeśli gracze nie\n              dysponują wystarcza- jącą ilością pożywienia, to wspólnie decydują,\n              kto nie będzie jadł. Każdy gracz, za którego nie zostanie odrzucone\n              pożywienie, otrzymuje 2 Rany",
+            "li2": "W fazie Nocy gracze mogą zdecydować o przeniesieniu Obozu na\n              sąsiedni kafelek. Od tego wyboru zależy, jakie surowce gracze\n              otrzymają w następnej rundzie w fazie Produkcji i które\n              kafelki/obszary będą sąsiadujące dla celów Zbierania Surowców oraz\n              Eksploracji, itp.",
+            "li3": "Jeśli gracze nie mają wybudowanego Schronienia (i ich Obóz nie znaj-\n              duje się na kafelku Wyspy z naturalnym Schronieniem), to każdy gracz\n              otrzymuje 1 Ranę za spanie pod gołym niebem.",
+            "li4": "Jeśli gracze nie posiadają niepsującego się pożywienia albo\n              Przedmiotu („Piwnica”) czy Skarbu („Skrzynie” lub „Beczka”), który\n              pozwala na przechowywanie pożywienia, to całe pożywienie, pozostałe\n              po fazie Nocy, psuje się i jest odrzucane.",
+            "li5": "Po fazie nocy umiejetności postaci są odświeżąne i mogą zostać\n              ponownie użyte."
+          }
+        }
+      }
+    }
+  },
+  "UITour": {
+    "prompt": {
+      "question": "Czy chcesz być oprowadzony po interfejsie gry?",
+      "dontAskAgain": "Nie pytaj więcej"
+    },
+    "steps": {
+      "phase": {
+        "content": "Tutaj wyświetlana jest aktualna faza. Kliknij w\n            <strong><em>$t(other.order)</em></strong>, aby kontynuować."
+      },
+      "phase list": {
+        "content": "Każda runda składa się z <strong>6 faz</strong>,\n            które są rozpatrywane w kolejności przedstawionej na tej liście."
+      },
+      "morale": {
+        "title": "Morale",
+        "content": "<span>Ten panel przedstawia aktualny poziom <em>morali</em> \n            (<Icon icon=\"morale-arrow\"/>) oraz powiązaną z nim ilość otrzymywanej bądź traconej\n            <em>determinacji</em> (<Icon icon=\"determination\"/>). Jest ona wymagana do\n            posługiwania się umiejętnościami postaci.</span>"
+      },
+      "map": {
+        "title": "Mapa",
+        "content": "Mapa wyspy składa się z sześciokątnych kafelków, z których każdy\n            reprezentuje inny fragment terenu. Tutaj możesz przeciągać pionki w celu\n            zbierania surowców i/lub eksploracji.\n            <ul>\n              <li>\n                  <strong>Przybliżanie i oddalanie</strong> – aby\n                  dostosować widok mapy, używaj kółka myszy lub przycisków\n                  „+” i „-”.\n              </li>\n              <li>\n                  <strong>Przesuwanie mapy</strong> – aby zobaczyć inne\n                  części wyspy, przytrzymaj lewy przycisk myszy i\n                  przeciągnij mapę w wybranym kierunku.\n              </li>\n            </ul>"
+      },
+      "resources": {
+        "title": "Surowce",
+        "content": "\n            Tutaj możesz śledzić należące do Twojej drużyny surowce. Są one\n            podzielone na 2 kategorie.\n            <ul>\n              <li>\n                  <strong>Surowce przyszłe</strong> (na górze) - surowce\n                  które zdobyliście w aktualnej Fazie Akcji, ale ich\n                  jeszcze nie macie. Przechodzą one do\n                  <strong>posiadanych surowców</strong> po rozpatrzeniu\n                  wszystkich akcji.\n              </li>\n              <li>\n                  <strong>Surowce posiadane</strong> (na dole) - są w\n                  waszym posiadaniu i możecie ich używać.\n              </li>\n            </ul>"
+      },
+      "constructions": {
+        "title": "Konstrukcja i broń",
+        "content": "\n            Aby przetrwać na bezludnej wyspie, musicie zadbać o odpowiednie\n            schronienie oraz broń. Ich budowa wymaga określonej ilości\n            jednego z surowców widocznych przy danej konstrukcji. Jeśli\n            posiadasz oba rodzaje wymaganych surowców, możesz wybrać,\n            którego chcesz użyć, klikając na jego ikonę.\n            <ul>\n              <li>\n                  <strong>Schronienie</strong> (<Icon icon=\"shelter\"/>) - chroni graczy\n                  podczas snu, co sprawia, że nie otrzymują obrażeń za\n                  spanie pod gołym niebem. Można zbudować tylko 1 poziom.\n              </li>\n              <li>\n                  <strong>Dach</strong> (<Icon icon=\"roof\"/>)\n                  - chroni graczy i zasoby przed warunkami\n                  atmosferycznymi.\n              </li>\n              <li>\n                  <strong>Palisada</strong> (<Icon icon=\"palisade\"/>) - chroni graczy przed dzikimi\n                  zwierzętami.\n              </li>\n              <li>\n                  <strong>Broń</strong> (<Icon icon=\"weapon\"/>) - Służy do polowań na bestie.\n                  Im groźniejsza bestia tym potrzebny jest wyższy poziom broni, aby\n                  wybrnąć bez szwanku.\n              </li>\n            </ul>"
+      },
+      "tour cards": {
+        "title": "Posiadane Karty",
+        "content": "Tutaj mieszczą się 3 rodzaje kart \n            <ul>\n              <li>Karty pomysłów</li>\n              <li>Karty tajemnic</li>\n              <li>Przedmioty</li>\n            </ul>\n            Przełączaj się miedzy nimi klikając w zakładki."
+      },
+      "threat": {
+        "title": "Akcje zagrożenia",
+        "content": "\n          Na początku każdej rundy w pierwszej fazie umieszczana jest\n          tutaj Nowa Karta wydarzenia.\n          <br />\n          Wykonuj związane z nimi akcje, aby otrzymywać nagrody i uniknać\n          negatywnych konsekwencji."
+      },
+      "arrange rest": {
+        "title": "Akcje porządkowania obozu i odpoczynku",
+        "content": "\n            Te miejsca służą do planowania akcji odpoczynku i porzadkowania\n            obozu.\n            <ul>\n              <li>\n                  Do każdej z tych akcji można przypisać nieskończona\n                  ilośc pionków\n              </li>\n              <li>Każda akcja kończy się sukcesem</li>\n            </ul>"
+      },
+      "character": {
+        "title": "Karta postaci",
+        "content": "Tutaj mieszczą się informacje o Twojej postaci oraz\n            postaciach pobocznych."
+      },
+      "character img": {
+        "title": "Postać",
+        "content": "Tak wygląda twoja postać. W jej obrębie będą\n            wyświetlane otrzymywane przez nią rany dla konkretnych części ciała."
+      },
+      "character expendables": {
+        "title": "Osobiste Zasoby",
+        "content": "Twoja postać posiada zasoby które mogą\n            być użyte tylko przez nią.\n            <ul>\n              <li>Poziom broni (<Icon icon=\"weapon\"/>) - wykorzystywany podczas polowania.</li>\n              <li>Żetony determinacji (<Icon icon=\"determination\"/>) - potrzebne do używania umiejętności</li>\n            </ul>"
+      },
+      "character pawns": {
+        "title": "Pionki",
+        "content": "Pionki służą do planowania akcji. Reprezentują\n            one czas, który Twoja postać poświęca na wykonanie określonego zadania. W fazie\n            akcji przeciągnij je na odpowiednie pola, aby zaplanować kolejne działania."
+      },
+      "character abilities": {
+        "title": "Umiejętności",
+        "content": "\n            Tutaj znajdują się lista umiejetności Twojej postaci.\n            <ul>\n              <li>Niektórych umiejetności da się użyć tylko w określonych sytuacjach.</li>\n              <li>Umiejętności związane z przerzutem kości używa się bezpośrednio w oknie\n                  rozpatrywana akcji.</li>\n            </ul>"
+      },
+      "character side characters": {
+        "title": "Postaci Poboczne",
+        "content": "\n            Tutaj znajdują się postaci poboczne i ich pionki.\n            <ul>\n              <li>Każdy gracz ma do nich dostęp i kontrolę.</li>\n              <li>Pies nie posiada zdrowia i nie otrzymuje obrażeń.</li>\n              <li>Psa można używać tylko jako pomocnika do akcji polowania lub eksploracji.</li>\n            </ul>"
+      },
+      "health": {
+        "title": "Zdrowie",
+        "content": "Tutaj znajduje się zdrowie Twojej postaci.\n            <ul>\n              <li>Za każdy otrzymany punkt obrażeń wskaźnik zdrowia przesuwa się w prawo</li>\n              <li>Jeśli wskaźnik zdrowia przejdzie przez strzałkę (<Icon icon=\"morale-arrow\"/>), morale\n                  drużyny spadają o 1.\n              </li>\n              <li>Gdy wskażnik dojdzie do końca, postać umiera i gracze przegrywają.</li>\n            </ul>"
+      },
+      "scenario button": {
+        "title": "Karta Scenariusza",
+        "content": "Tutaj znajduje się przycisk który wysuwa kartę scenariusza.\n            Kliknij go aby kontynuować."
+      },
+      "scenario": {
+        "title": "Karta Scenariusza",
+        "content": "Tutaj zawarte są informacje o przebiegu rozgrywki oraz warunkach\n            zwycięstwa danego scenariusza."
+      },
+      "scenario rounds": {
+        "title": "Pogoda",
+        "content": "Gra składa się maksymalnie z 12 rund, a nad\n            nimi znajdują się kości, które będą rzucane w fazie Pogody. W każdej rundzie\n            wynik rzutu tymi kośćmi będzie wpływał na warunki pogodowe z którymi będziecie\n            musieli się mierzyć."
+      },
+      "scenario info": {
+        "title": "Opis Scenariusza",
+        "content": "Przed rozpoczęciem gry nie zapomnij zapoznać się\n            z informacjami o scenariuszu i jego mechanikami."
+      },
+      "weather": {
+        "content": "Tutaj będą umieszczane tymczasowe żetony, które będą\n            zliczane w fazie Pogody."
+      },
+      "discovery tokens": {
+        "content": "Tutaj będą umieszczane żetony odkryć\n            otrzymywane podczas eksploracji mapy."
+      },
+      "next phase": {
+        "content": "To jest główny przycisk który steruje przebiegiem\n            rozgrywki. Klikniecie go spowoduje przejście do kolejnej fazy."
+      },
+      "menu": { "content": "Kliknij aby rozwinąć menu." },
+      "menu players": {
+        "content": "Ten przycisk otwiera okno z informacją o\n            postaciach innych graczy."
+      },
+      "menu settings": {
+        "content": "W ustawieniach możesz zrestartować, zapisać lub\n            cofnąc grę do lobby."
+      },
+      "menu guide": {
+        "content": "Poradnik dostarcza bardziej szczegółowy opis zasad\n            gry."
+      },
+      "end": {
+        "content": "W opcjach w menu głównym możesz zresetować\n            przewodnik po UI."
+      }
+    }
+  },
+  "form": {
+    "emailDoNotExist": "Nie znaleziono konta powiązanego z podanym adresem e-mail. Proszę sprawdzić,\n\t\t\t\t czy adres jest poprawny, lub założyć nowe konto, jeśli jeszcze go nie posiadasz.",
+    "codeSentOnAdress": "Wyslano wiadomość z kodem resetującym na adres:",
+    "checkSpam": "Jeśli nie widzisz wiadomości w swojej skrzynce, sprawdź w folderze spam.",
+    "enterCodeHere": "Wprowadź kod tutaj:",
+    "confirmCode": "Zatwierdź Kod",
+    "mailNotArrived": "Wiadomość nie dotarła?",
+    "sendAgain": "Wyślij ponownie",
+    "signInNewPassword": "Możesz teraz zalogować się nowym hasłem.",
+    "backToSignIn": "Powrót do logowania",
+    "sending": "Wysyłanie",
+    "sendLink": "Wyślij link",
+    "send": "Wyślij",
+    "sendEmailInstructions": "Wprowadź swój adres e-mail powiązany z kontem, a wyślemy Ci link do zresetowania hasła.",
+    "enterCodeInstructions": "",
+    "forgotPassword?": "Zapomniałeś hasła?",
+    "changePassword": "Zmień hasło",
+    "newPassword": "Nowe hasło",
+    "passwordChanged": "Hasło zmienione",
+    "invalidCode": "Wprowadzony kod jest błędny lub mineła jego ważność.",
+    "resetPasswordTokenExpired": "Token do resetowania hasła wygasł.",
+    "oldPassword": "stare hasło",
+    "incorrectCredentials": "Wprowadzony e-mail lub hasło jest nieprawidłowe.",
+    "passwordsMustBeSame": "Hasła muszą być takie same.",
+    "usernameTaken": "Nazwa użytkownika jest już zajęta.",
+    "emailTaken": "Ten e-mail jest już używany.",
+    "invalidEmail": "Podany adres e-mail jest nieprawidłowy.",
+    "passwordTooShort": "Hasło musi mieć co najmniej {{amount}} znaków."
+  },
+  "toast": {
+    "copied to clipboard": "Skopiowano do schowka!",
+    "game saved": "Zapisano grę!",
+    "unable to save game": "Nie udało się zapisać gry!",
+    "game restarted": "Gra została zrestartowana przez gospodarza",
+    "request limit reached": "Limit zapytań wyczerpany. Spróbuj za {{tryAfter}} sekund."
+  },
+  "error": {
+    "session not found": "Nie znaleziono sesji",
+    "game in progress": "Gra już się zaczeła",
+    "server full": "Sesja jest pełna",
+    "incorrect password": "nieprawidłowe hasło",
+    "kicked": "Zostałeś wyrzucony",
+    "connectError": "Wystąpił problem z połączeniem z serwerem. Sprawdź swoje\n\t\t\t\t\t\t\t\t\tpołączenie internetowe i spróbuj ponownie.",
+    "serverError": "Błąd serwera. Spróbuj ponownie później.",
+    "somethingWentWrong": "Coś poszło nie tak",
+    "disconnected": "Rozłączono"
+  },
+  "emailActivation": {
+    "title": "Zweryfikuj swój e-mail",
+    "instructions": "Na Twój adres e-mail został wysłany link\n\t\t\t\t\t\t\tweryfikacyjny. Aby dokończyć proces rejestracji,\n\t\t\t\t\t\t\tkliknij w link w otrzymanej wiadomości. Jeśli nie\n\t\t\t\t\t\t\twidzisz e-maila, sprawdź folder Spam lub Oferty",
+    "gotNoMessages": "Nie dostałeś wiadomości?",
+    "sendAgain": "Wyślij jeszcze raz",
+    "sent": "Wysłano"
+  },
+  "systemMessages": {
+    "player has joined session": "{{subject1}} dołączył do sesji.",
+    "player has left session": "{{subject1}} wyszedł z sesji.",
+    "only present players can join": "Tylko gracze obecni przy zapisie gry mogą dołączyć do sesji.",
+    "game terminated": "Gra została zakończona przez gospodarza",
+    "game restarted": "Restart gry"
+  },
+  "logMessages": {
+    "weather token set": "Położono token $t(translation:weatherToken.{{subject1}}, {\"context\": \"genitive\"}) na polu przygody.",
+    "weather cloud decremented": "Odjęto {{amount}} chmurkę $t(translation:weatherToken.{{subject1}}, {\"context\": \"genitive\"}).",
+    "weather cloud incremented": "Dodano {{amount}} chmurkę $t(translation:weatherToken.{{subject1}}, {\"context\": \"genitive\"}).",
+    "action got token": "Położono token $t(translation:tokens.{{subject1}}, {\"context\": \"genitive\"}) na polu $t(translation:action.{{subject2}}, {\"context\": \"genitive\"}).",
+    "action lost token": "Zabrano token $t(translation:tokens.{{subject1}}, {\"context\": \"genitive\"}) z pola $t(translation:action.{{subject2}}, {\"context\": \"genitive\"}).",
+    "owned resource added": "Dodano {{amount}} $t(translation:resource.{{subject1}}, {\"count\": {{amount}}, \"context\": \"genitive\"}) do posiadanych surowców.",
+    "future resource added": "Dodano {{amount}} $t(translation:resource.{{subject1}}, {\"count\": {{amount}}, \"context\": \"genitive\"}) do przyszłych surowców.",
+    "owned resource removed": "Odrzucono {{amount}} $t(translation:resource.{{subject1}}, {\"count\": {{amount}}, \"context\": \"genitive\"}) z posiadanych surowców.",
+    "camp moved": "Przeniesiono obóz.",
+    "tile modifier added": "",
+    "tile modifier removed": "",
+    "wood added to pile": "Dodano drewno na stos.",
+    "morale increased": "Morale zwiększyły się do poziomu {{amount}}.",
+    "morale decreased": "Morale zmniejszyły sie do poziomu {{amount}}.",
+    "invention built": "Zbudowano $t(translation:invention.{{subject1}}, {\"context\": \"accusative\"}).",
+    "game won": "Gra wygrana!",
+    "game lost": "Gra przegrana!",
+    "food rotted": "Jedzenie zgniło.",
+    "character eats": "$t(translation:character.{{subject1}}) spożywa $t(translation:resource.{{subject2}}).",
+    "beast moved to bottom of deck": "Bestia została przeniesiona na dno talii.",
+    "beast got hunted": "Upolowano $t(translation:beast.{{subject1}}, {\"context\": \"accusative\"}).",
+    "beast shuffled into event deck": "Wtasowano bestię do talii wydarzeń.",
+    "construction upgraded": "Ulepszono $t(translation:construction.{{subject1}}, {\"context\": \"accusative\"}) do poziomu {{amount}}.",
+    "construction downgraded": "Poziom $t(translation:construction.{{subject1}}, {\"context\": \"genitive\"}) spadł do poziomu {{amount}}.",
+    "item granted": "Otrzymano $t(translation:item.{{subject1}}, {\"context\": \"accusative\"}).",
+    "character used token": "$t(translation:character.{{subject1}}) użył tokenu: $t(translation:discoveryToken.{{subject2}}, {\"context\": \"genitive\"}).",
+    "character used ability": "$t(translation:character.{{subject1}}) użył $t(translation:ability.{{subject2}}.name, {\"context\": \"genitive\"}).",
+    "character got hurt": "$t(translation:character.{{subject1}}) otrzymał {{amount}} obrażeń.",
+    "character got healed": "$t(translation:character.{{subject1}}) został uleczony z {{amount}} obrażeń.",
+    "resource boost removed": "Źródło $t(translation:resource.{{subject1}}, {\"context\": \"genitive\"}) nie daje już dodatkowego surowca.",
+    "resource boost added": "Źródło $t(translation:resource.{{subject1}}, {\"context\": \"genitive\"}) będzie dawać dodatkowy surowiec.",
+    "resource depleted": "Źródło $t(translation:resource.{{subject1}}, {\"context\": \"genitive\"}) zostało wyczerpane.",
+    "resource replenished": "Źródło $t(translation:resource.{{subject1}}, {\"context\": \"genitive\"}) zostało odnowione.",
+    "future resource removed": "Zabrano {{amount}} $t(translation:resource.{{subject1}}, {\"count\": {{amount}}}) z przyszłych surowców",
+    "character got wound": "$t(translation:character.{{subject1}}) otrzymał ranę na $t(translation:bodyPart.{{subject2}}, {\"context\": \"locative\"})",
+    "character lost wound": "$t(translation:character.{{subject1}}, {\"context\": \"dative\"}) nie dokucza już rana na $t(translation:resource.{{subject1}}, {\"context\": \"locative\"}).",
+    "lost gained treasures": "Zebrane skarby zostały utracone!",
+    "all players got determination": "Wszyscy gracze otrzymują {{amount}} deteterminacji.",
+    "all players lost determination": "Wszyscy gracze tracą {{amount}} determinacji.",
+    "all players got hurt": "Wszyscy gracze otrzymują {{amount}} obrażeń.",
+    "all players got healed": "Wszyscy gracze leczą się z {{amount}} obrażeń.",
+    "new prime player": "Gracz {{subject1}} jest teraz pierwszym graczem.",
+    "character lost determination": "$t(translation:character.{{subject1}}) traci {{amount}} determinacji.",
+    "character got determination": "$t(translation:character.{{subject1}}) zyskuje {{amount}} determinacji."
+  }
+}

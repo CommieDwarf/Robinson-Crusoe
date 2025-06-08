@@ -1,0 +1,1120 @@
+{
+  "character": {
+    "cook": "Cook",
+    "explorer": "Explorer",
+    "carpenter": "Carpenter",
+    "soldier": "Soldier",
+    "friday": "Friday",
+    "dog": "Dog"
+  },
+  "scenario": {
+    "castaways": {
+      "name": "castaways",
+      "description": "You are castaways on a deserted island. It’s the end of summer, and\n          you must prepare for the coming winter — build a shelter, a roof, and a palisade.\n          It will be hard to survive the difficult months of autumn and winter ahead. You\n          will also need a pile of wood that you can set on fire, hoping that some ship \n          passing on the horizon will notice you.",
+      "objective": "To win, players must create the Fire item and build the wood pile \n          shown on the scenario card. If these conditions are met in the 10th, 11th, 12th\n          round, the players win.",
+      "mechanics": "The pile consists of 15 wood tokens. Players can place wood on the\n          pile before the Action phase. In one round, any amount of wood can be placed on\n          the pile, but no more than one building stage of the pile can be completed. (At\n          first, 1 wood token, then a maximum of 2 tokens, and so on.) Wood placed on the\n          pile cannot be taken back from it.",
+      "winNarrative": "Despite numerous hardships and difficult conditions on the island,\n          you managed to survive. A passing ship spotted your burning woodpile and came to\n          rescue you..",
+      "defeatNarrative_missedObjective": "Unfortunately, you failed to build and light the\n          woodpile in time. Despite your desperate cries, the passing ship did not notice \n          you. It seems you are stuck here forever.",
+      "defeatNarrative_death": "The conditions on the island proved too dangerous. Your\n          efforts to survive were insufficient. Player {{player}} has breathed their last.  \n          You will remain forever in the shadow of this cursed island.",
+      "putOnPileButton": "Put on pile",
+      "woodPile": "wood pile"
+    }
+  },
+  "ability": {
+    "grandmas recipe": {
+      "name": "Grandma's Recipe",
+      "description": "Discard 2 $determination$ to heal 2 $heart$ by discarding 1$food$.",
+      "comment": "After my grandma's soup, you'll definitely feel better."
+    },
+    "hooch": {
+      "name": "Hooch",
+      "description": "Discard 3 $determination$ to remove 1 $rain-cloud$ or convert 1\n          $snow-cloud$ into 1 $rain-cloud$.",
+      "comment": "I know it's cold and all, but I've got something to warm your body and\n          clear your mind."
+    },
+    "scrounger": {
+      "name": "Scrounger",
+      "description": "Discard 2 $determination$ to $reroll$ any gather die during your\n          Action.",
+      "comment": "When I say we'll find it, we will. You just have to know where to look!"
+    },
+    "stone soup": {
+      "name": "Stone Soup",
+      "description": "Discard 3 $determination$ to gain 1 $food$.",
+      "comment": "No ingredients? No problem, just a challenge. A good cook can handle\n          anything!"
+    },
+    "lucky": {
+      "name": "Lucky",
+      "description": "Discard 2 $determination$ to $reroll$ any green die during your\n          Action.",
+      "comment": "Looks like luck is on my side today!"
+    },
+    "Reconnaissance": {
+      "name": "Reconnaissance",
+      "description": "Discard 2 $determination$ to draw 3 Island tiles from the stack,\n          choose 1 and place it on top of the stack.",
+      "comment": "Back to the wilderness? Finally!"
+    },
+    "motivational speech": {
+      "name": "Motivational Speech",
+      "description": "Discard 3 $determination$ to increase $morale$.",
+      "comment": "Don't worry! I've been through worse and came out unscathed."
+    },
+    "scouting": {
+      "name": "Scouting",
+      "description": "Discard 3 $determination$ to draw 2 $discovery$ cards and choose 1.",
+      "comment": "That's interesting. I'll take a closer look."
+    },
+    "economical construction": {
+      "name": "Economical Construction",
+      "description": "Discard 2 $determination$ to use 1 less $wood$ during one of your\n          Actions of any type.",
+      "comment": "Not enough materials? What are you talking about? We've got plenty!"
+    },
+    "craftsmanship": {
+      "name": "Craftsmanship",
+      "description": "Discard 2 $determination$ to $reroll$ any brown die during your\n          Action.",
+      "comment": "I could do this with my eyes closed."
+    },
+    "a new idea": {
+      "name": "A New Idea",
+      "description": "Discard 3 $determination$ to draw 5 Idea cards and choose 1.",
+      "comment": "I think I know how to improve our camp…"
+    },
+    "handyman": {
+      "name": "Handyman",
+      "description": "Discard 3 $determination$ to gain a one-time\n          $build$.",
+      "comment": "It's pretty simple, will take just a few moments."
+    },
+    "tracking": {
+      "name": "Tracking",
+      "description": "Discard 2 $determination$ to look at the top card of the Hunting\n          deck and place it back on top or bottom of the deck.",
+      "comment": "A tiger just passed by here. A big tiger…"
+    },
+    "the hunt": {
+      "name": "The Hunt",
+      "description": "Discard 4 $determination$ to take the top card of the Beast deck and\n          place it on top of the Hunting deck without looking at it.",
+      "comment": "Here kitty kitty, beastie!"
+    },
+    "frenzy": {
+      "name": "Frenzy",
+      "description": "Discard 3 $determination$ to temporarily gain +3 $weapon$ for the\n          next fight.",
+      "comment": "Now I'm really furious. I swear, you won't like me like this!"
+    },
+    "defensive plan": {
+      "name": "Defensive Plan",
+      "description": "Discard 3 $determination$ to increase the level of $palisade$ or\n          $weapon$ by 1.",
+      "comment": "And you, cook, secure the left flank…"
+    },
+    "fridays ability": {
+      "name": "Action Die Reroll",
+      "description": "Discard 3 $determination$ to reroll any action die."
+    }
+  },
+  "personalInventionDescription": {
+    "spear": "+3 $weapon$",
+    "fireplace": "$food$ -> +2 $heart$ (during night phase)",
+    "shortcut": "+1 resource from a chosen tile around the camp\n        during production phase",
+    "snare": "+1 $food$ (on the camp tile)"
+  },
+  "phase": {
+    "phase": "$t(phase.{{phase}}) Phase",
+    "event": "event",
+    "morale": "morale",
+    "production": "production",
+    "preAction": "pre-action",
+    "action": "action",
+    "weather": "weather",
+    "night": "night"
+  },
+  "resource": {
+    "food": "food",
+    "dryFood": "dry food",
+    "wood": "wood",
+    "leather": "leather"
+  },
+  "action": {
+    "action": "$t(translation:action.{{action}}) action",
+    "threat": "threat",
+    "hunt": "hunt",
+    "build": "build",
+    "gather": "gather",
+    "explore": "explore",
+    "arrange camp": "arrange camp",
+    "rest": "rest"
+  },
+  "construction": {
+    "shelter": "shelter",
+    "shelter_genitive": "shelter's",
+    "palisade": "palisade",
+    "palisade_genitive": "palisade's",
+    "roof": "roof",
+    "roof_genitive": "roof's",
+    "weapon": "weapon",
+    "weapon_genitive": "weapon's"
+  },
+  "adventureOptionLabel": {
+    "shuffle": "shuffle",
+    "discard": "discard",
+    "keep": "keep"
+  },
+  "bodyPart": {
+    "head": "head",
+    "stomach": "stomach",
+    "arm": "arm",
+    "leg": "leg"
+  },
+  "weatherToken": {
+    "rain": "rain",
+    "rain_genitive": "rain's",
+    "snow": "snow",
+    "snow_genitive": "snow's",
+    "storm": "storm",
+    "storm_genitive": "storm's"
+  },
+  "dice": {
+    "weather": "weather dice",
+    "rain": "rain dice",
+    "beast": "hungry animals dice"
+  },
+  "tokens": {
+    "adventure": "adventure",
+    "adventure_genitive": "adventure's",
+    "reroll": "reroll",
+    "reroll_genitive": "reroll's",
+    "discovery token": "discovery token"
+  },
+  "eventCard": { "supply crates": "Supply crates" },
+  "adventureCard": {
+    "accident": "Accident",
+    "breakdown": "Breakdown",
+    "broken lever": "Broken Lever",
+    "coming to terms": "Coming to Terms",
+    "construction": "Construction",
+    "construction is weak": "Construction is Weak",
+    "cut head": "Cut Head",
+    "dangerous work": "Dangerous Work",
+    "dark clouds in the sky": "Dark Clouds in the Sky",
+    "fast work": "Fast Work",
+    "fear of the beasts": "Fear of the Beasts",
+    "hard work": "Hard Work",
+    "howling in the bushes": "Howling in the Bushes",
+    "hungry predator": "Hungry Predator",
+    "in a hurry": "In a Hurry",
+    "laborious work": "Laborious Work",
+    "lack of hope": "Lack of Hope",
+    "monkeys watch you": "Monkeys Watch You",
+    "nasty wound": "Nasty Wound",
+    "predator in the camp": "Predator in the Camp",
+    "savings": "Savings",
+    "string": "Sting",
+    "tired": "Tired",
+    "tools break": "Tools Break",
+    "tools inspection": "Tools Inspection",
+    "unmotivated": "Unmotivated",
+    "visit of a predator": "Visit of a Predator",
+    "wind storm": "Wind Storm",
+    "you need a bigger camp": "You Need a Bigger Camp",
+    "bamboo": "Bamboo",
+    "carcass": "Carcass",
+    "cold wind": "Cold Wind",
+    "dangerous terrain": "Dangerous Terrain",
+    "empty forest": "Empty Forest",
+    "flu": "Flu",
+    "it will rain": "It Will Rain",
+    "lost": "Lost",
+    "lost in the thicket": "Lost in the Thicket",
+    "lost in the woods": "Lost in the Woods",
+    "misadventure": "Misadventure",
+    "old grave": "Old Grave",
+    "old hut": "Old Hut",
+    "puma": "Puma",
+    "remains of a settlement": "Remains of a Settlement",
+    "ruined hut": "Ruined Hut",
+    "secret cave": "Secret Cave",
+    "shrine": "Shrine",
+    "signs of fire": "Signs of Fire",
+    "storm on the horizon": "Storm on the Horizon",
+    "surprising discovery": "Surprising Discovery",
+    "swamp": "Swamp",
+    "there's something in the air": "There's Something in the Air",
+    "thorny bush": "Thorny Bush",
+    "tiger": "Tiger",
+    "vipers": "Vipers",
+    "wild berries": "Wild Berries",
+    "wild dog": "Wild Dog",
+    "wrong track": "Wrong Track",
+    "after the hurricane": "After the Hurricane",
+    "end of source": "End of Source",
+    "eyes in the bushes": "Eyes in the Bushes",
+    "fruit": "Fruit",
+    "furs": "Furs",
+    "gold coin": "Gold Coin",
+    "mushrooms": "Mushrooms",
+    "nestlings": "Nestlings",
+    "new flock": "New Flock",
+    "nice surprise": "Nice Surprise",
+    "path of a predator": "Path of a Predator",
+    "pirate's chest": "Pirate's Chest",
+    "shortage": "Shortage",
+    "signs of a predator": "Signs of a Predator",
+    "skeleton": "Skeleton",
+    "spider": "Spider",
+    "surprise in the bushes": "Surprise in the Bushes",
+    "tracks of a predator": "Tracks of a Predator",
+    "twisted ankle": "Twisted Ankle",
+    "unbelievable effort": "Unbelievable Effort",
+    "unexpected discovery": "Unexpected Discovery",
+    "unexpected troubles": "Unexpected Troubles",
+    "viper": "Viper",
+    "weather breakdown": "Weather Breakdown",
+    "winter freezing": "Winter Freezing",
+    "winter is coming": "Winter is Coming"
+  },
+  "adventureCardEvent": {
+    "gangrene": "gangrene",
+    "it's going well": "it's going well",
+    "lack of ideas": "lack of ideas",
+    "stronger construction": "stronger construction",
+    "bang!": "bang!",
+    "headache": "headache",
+    "heavy rain is over": "heavy rain is over",
+    "haste makes waste": "haste makes waste",
+    "expensive protection": "expensive protection",
+    "the beast is here!": "the beast is here!",
+    "revisit": "revisit",
+    "snap!": "snap!",
+    "monkeys in the camp!": "monkeys in the camp!",
+    "infection": "infection",
+    "what goes around...": "what goes around...",
+    "bad construction": "bad construction",
+    "shivers": "shivers",
+    "dispute": "dispute",
+    "broken tools": "broken tools",
+    "tools are breaking": "tools are breaking",
+    "night visit": "night visit",
+    "natural palisade": "natural palisade",
+    "camp expansion": "camp expansion",
+    "wood snap!": "wood snap!",
+    "diarrhea": "diarrhea",
+    "snow": "snow",
+    "hungry predators": "hungry predators",
+    "sore throat": "sore throat",
+    "detached clouds": "detached clouds",
+    "swollen ankle": "swollen ankle",
+    "memories of dead castaway": "memories of dead castaway",
+    "ghost of a castaway": "ghost of a castaway",
+    "puma is attacking!": "puma is attacking!",
+    "epidemic": "epidemic",
+    "restless dreams": "restless dreams",
+    "awakening of the beast": "awakening of the beast",
+    "nightmares": "nightmares",
+    "storm": "storm",
+    "cursed island": "cursed island",
+    "swollen arm": "swollen arm",
+    "the tiger has found you": "the tiger has found you",
+    "fewer": "fever",
+    "indigestion": "indigestion",
+    "old buddy": "old buddy",
+    "another hurricane": "another hurricane",
+    "unexpected visit": "unexpected visit",
+    "stomachache": "stomachache",
+    "insects": "insects",
+    "cursed coin": "cursed coin",
+    "angry bird": "angry bird",
+    "all is gone": "all is gone",
+    "collapsed roof": "collapsed roof",
+    "attack of a beast": "attack of a beast",
+    "curse": "curse",
+    "memories of the dead explorer": "memories of the dead explorer",
+    "neck bite": "neck bite",
+    "memories": "memories",
+    "attack of a hungry predator": "attack of a hungry predator",
+    "sore arms": "sore arms",
+    "bite": "bite",
+    "frost": "frost"
+  },
+  "item": {
+    "bible": "bible",
+    "biscuits": "biscuits",
+    "empty bottle": "empty bottle",
+    "flask of rum": "flask of rum",
+    "hammer": "hammer",
+    "pistol": "pistol",
+    "storm glass": "storm glass",
+    "tobacco": "pipe and tobacco"
+  },
+  "mysteryCard": {
+    "a shiny jewel": "big jewel",
+    "bats": "bats",
+    "big ape": "big ape",
+    "bite": "bite",
+    "furious tiger": "furious tiger",
+    "giant snake": "giant snake",
+    "gorilla": "gorilla",
+    "gremlins": "gremlins",
+    "savage": "savage",
+    "scorpion": "scorpion",
+    "snake": "snake",
+    "spiders": "spiders",
+    "unleashed beast": "unleashed beast",
+    "blow gun": "blowgun",
+    "blunt spear": "blunt spear",
+    "collapse": "collapse",
+    "confused": "confused",
+    "hidden rope": "hidden rope",
+    "net": "net",
+    "poison": "poison",
+    "sharp blade": "sharp blade",
+    "spider web": "spider web",
+    "strange disease": "strange disease",
+    "terrible scream": "terrible scream",
+    "drap door": "trap door",
+    "unfortunate adventure": "unfortunate adventure",
+    "amulet with portrait of beautiful lady": "amulet with portrait of beautiful lady",
+    "antique rapier": "antique rapier",
+    "backpack": "backpack",
+    "barrel": "barrel",
+    "blankets": "blankets",
+    "bottle of wine": "bottle of wine",
+    "boxes": "boxes",
+    "candles": "candles",
+    "captain stones spyglass": "Captain Stone's spyglass",
+    "cave with furs": "cave with furs",
+    "ceremonial bowl": "ceremonial bowl",
+    "compass": "compass",
+    "crocks": "crocks",
+    "gold": "gold!",
+    "hammock": "hammock",
+    "hatched": "hatchet",
+    "helmet": "helmet",
+    "herbal mixture": "herbal mixture",
+    "old clothes": "set of old clothes",
+    "old map": "old map",
+    "old rifle": "old rifle",
+    "protective amulet": "protective amulet",
+    "ropes": "ropes",
+    "sabre": "sabre",
+    "treasure map": "treasure map"
+  },
+  "mysteryCardEvent": {
+    "night demon": "night demon",
+    "gorilla in the camp": "gorilla in the camp",
+    "Gremlins have tracked you down": "Gremlins have tracked you down",
+    "failed hunt": "failed hunt",
+    "curse defeated!": "curse defeated!"
+  },
+  "invention": {
+    "basket": "basket",
+    "bed": "bed",
+    "belts": "belts",
+    "bow": "bow",
+    "cellar": "cellar",
+    "corral": "corral",
+    "diary": "diary",
+    "drums": "drums",
+    "furnace": "furnace",
+    "lantern": "lantern",
+    "moat": "moat",
+    "pit": "pit",
+    "raft": "raft",
+    "sack": "sack",
+    "shield": "shield",
+    "sling": "sling",
+    "wall": "wall",
+    "fireplace": "fireplace",
+    "shortcut": "shortcut",
+    "snare": "snare",
+    "spear": "spear",
+    "axe": "axe",
+    "mast": "mast",
+    "bricks": "bricks",
+    "dam": "dam",
+    "fire": "fire",
+    "knife": "knife",
+    "map": "map",
+    "map_accusative": "map",
+    "medicine": "medicine",
+    "pot": "pots",
+    "rope": "rope",
+    "shovel": "shovel"
+  },
+  "beast": {
+    "alligator": "alligator",
+    "bear": "bear",
+    "birds": "birds",
+    "boa": "boa",
+    "chamois": "chamois",
+    "cheetah": "cheetah",
+    "fox": "fox",
+    "goats": "goats",
+    "gorilla": "gorilla",
+    "iguana": "iguana",
+    "jaguar": "jaguar",
+    "puma": "puma",
+    "tapir": "tapir",
+    "tiger": "tiger",
+    "wild dog": "wild dog",
+    "wild pig": "wild pig"
+  },
+  "discoveryToken": {
+    "candles": "Candles",
+    "fallen tree": "Fallen tree",
+    "goat": "Goat",
+    "healing herbs": "Healing herbs",
+    "herbs": "Herbs",
+    "large leaves": "Large leaves",
+    "nourishing larvae": "Nourishing larvae",
+    "old machete": "Old machete",
+    "poison": "Poison",
+    "scenario 1_castaways": "Herbs",
+    "scenario 2_castaways": "Olive oil",
+    "scenario 3_castaways": "Pirate saber",
+    "scenario 4_castaways": "Medallion with woman's \n        portrait",
+    "thorny bushes": "Thorny bushes",
+    "tobacco": "Tobacco",
+    "treasure": "Treasure",
+    "vegetables": "Vegetables"
+  },
+  "cardListTab": {
+    "inventions": "inventions",
+    "mystery cards": "Mystery cards",
+    "items": "items"
+  },
+  "alerts": {
+    "not enough materials for action": "Not enough materials to perform this\n        action.",
+    "not enough determination for ability": "Not enough determination points\n        to use this ability.",
+    "beast deck is empty": "The beast deck is empty.",
+    "players not ready for action": "Players must signal readiness.",
+    "this is prime player action": "Phase change is decided by the\n        prime player.",
+    "missing pawn leader": "Leader pawn is missing on the main action slot.",
+    "missing pawn helper": "Helper pawns are missing."
+  },
+  "pickObject": {
+    "Reconnaissance": {
+      "source": "$t(translation:ability.Reconnaissance.name)",
+      "description": "Choose a tile to be placed on top of the deck."
+    },
+    "scouting": {
+      "source": "$t(translation:ability.scouting.name)",
+      "description": "Draw a token."
+    },
+    "a new idea": {
+      "source": "$t(translation:ability.a new idea.name)",
+      "description": "Draw an idea card."
+    },
+    "tracking": {
+      "source": "$t(translation:ability.tracking.name)",
+      "description": "",
+      "effectLabel": "To the bottom",
+      "secondaryEffectLabel": "To the top"
+    },
+    "defensive plan": {
+      "source": "$t(translation:ability.defensive plan.name)",
+      "description": "$t(translation:ability.defensive plan.comment)",
+      "effectLabel": "+$weapon$",
+      "secondaryEffectLabel": "+$palisade$"
+    }
+  },
+  "other": {
+    "yes": "yes",
+    "no": "no",
+    "shuffle": "shuffle",
+    "discard": "discard",
+    "keep": "keep",
+    "sleeping under open sky": "sleeping under open sky",
+    "unfulfilled demand": "unfulfilled demand",
+    "fight": "fight",
+    "level": "level",
+    "use": "use",
+    "order": "order",
+    "scenario": "scenario",
+    "round": "round",
+    "action order": "action order",
+    "objective": "objective",
+    "description": "description",
+    "mechanics": "mechanics",
+    "wood pile": "wood pile",
+    "camp movement": "camp movement",
+    "food rotted": "food rotted",
+    "confirm": "confirm",
+    "cancel": "cancel",
+    "ability": "ability",
+    "draw": "draw",
+    "finish": "finish",
+    "hour": "hour",
+    "hour_accusative_one": "hour",
+    "hour_accusative_few": "hours",
+    "hour_accusative_many": "hours",
+    "male": "male",
+    "female": "female",
+    "owned": "owned",
+    "future": "future",
+    "close": "close",
+    "next": "next",
+    "abilityPreview": "ability preview",
+    "invention": "invention",
+    "pageNotFound": "Page not found",
+    "backToHomePage": "Back to home page",
+    "dice": "dice"
+  },
+  "gameSettings": {
+    "difficulty": "Difficulty level",
+    "scaled": "Scaled by number of players",
+    "custom": "Custom",
+    "startingItems": "starting items",
+    "playerAmount": "player amount",
+    "saveGame": "save game",
+    "restart": "restart",
+    "finishGame": "finish game",
+    "savedGames": "saved games",
+    "load": "load",
+    "delete": "delete"
+  },
+  "generalSettings": {
+    "title": "General Settings",
+    "UIGuide": "User interface tour"
+  },
+  "userProfile": {
+    "accountSettings": "Account settings",
+    "passwordChange": "Change password",
+    "backToProfile": "Back to profile"
+  },
+  "menu": {
+    "refresh": "refresh",
+    "create game": "create game",
+    "load game": "load game",
+    "join with game code": "join with game code",
+    "join": "join",
+    "name": "name",
+    "host": "host",
+    "players": "players",
+    "scenario": "scenario",
+    "mainMenu": "main menu",
+    "guide": "guide",
+    "password": "password",
+    "public": "public",
+    "private game": "private game",
+    "enter password": "enter password",
+    "error": "error",
+    "save": "save",
+    "invitation code": "invitation code",
+    "copy to clipboard": "copy to clipboard",
+    "show": "show",
+    "hide": "hide",
+    "sign in": "sign in",
+    "sign up": "sign up",
+    "sign out": "sign out",
+    "signing in": "signing in",
+    "signing up": "signing up",
+    "new account": "new account",
+    "username": "username",
+    "repeat password": "repeat password",
+    "already have an account?": "already have an account?",
+    "don't have an account yet?": "don't have an account yet?",
+    "create one": "create one",
+    "quick game": "quick game",
+    "settings": "settings",
+    "multiplayer": "multiplayer",
+    "default game name": "user's game {{username}}",
+    "win": "win",
+    "defeat": "defeat",
+    "rounds survived": "rounds survived",
+    "to menu": "to menu",
+    "to lobby": "to lobby",
+    "server connection lost": "Server connection lost",
+    "another connection attempt in": "Another connection attempt in {{seconds}} seconds.",
+    "login request limit reached": "You have entered incorrect password too many times.\n        Your account is temporarily locked for {{tryAfter}} minutes."
+  },
+  "guide": {
+    "contents": {
+      "introduction": "Introduction",
+      "event phase": "$t(translation:phase.phase, {\"phase\": \"event\"})",
+      "morale phase": "$t(translation:phase.phase, {\"phase\": \"morale\"})",
+      "action phase planning": "Action planning",
+      "threat action": "$t(translation:action.action, {\"action\": \"threat\"})",
+      "hunt action": "$t(translation:action.action, {\"action\": \"hunt\"})",
+      "build action": "$t(translation:action.action, {\"action\": \"build\"})",
+      "gather action": "$t(translation:action.action, {\"action\": \"gather\"})",
+      "exploration action": "$t(translation:action.action, {\"action\": \"explore\"})",
+      "arrange camp action": "$t(translation:action.arrange camp)",
+      "rest action": "$t(translation:action.action, {\"action\": \"rest\"})",
+      "action phase resolve": "Action phase resolve",
+      "weather": "$t(translation:phase.phase, {\"phase\": \"weather\"})",
+      "night": "$t(translation:phase.phase, {\"phase\": \"night\"})"
+    },
+    "pages": {
+      "introduction": {
+        "gameObjective": {
+          "title": "Game Objective",
+          "paragraph": "Robinson Crusoe is a cooperative game. Players either win\n                  together (if they manage to survive and achieve the goal defined by the\n                  Scenario), or lose together (if at least one Character dies or if they\n                  fail to meet the Scenario’s objective within the specified number of\n                  rounds)."
+        },
+        "roundProgression": {
+          "title": "Round Progression",
+          "paragraph": "The game lasts for several rounds, the number of which is\n                 defined on the Scenario card. Each round is divided into phases, which\n                 are resolved in the following order:"
+        },
+        "phaseDescription": {
+          "event": "During this phase, the top card from the Event deck is\n                  drawn and resolved.",
+          "morale": "This phase is resolved only by the First Player, who \n                  discards or gains Determination tokens based on the position on the\n                  Morale track.",
+          "production": "Players receive resources from sources located on the\n                  Island tile where the players' Camp is situated.",
+          "action": "This is the most important phase of the round, during\n                  which players first plan their actions together and then carry them out.",
+          "weather": "Players must face the weather, which is determined\n                  by dice rolls and/or Weather tokens.",
+          "night": "During this phase, players must, among other things, feed\n                  themselves and will suffer if they do not have Shelter."
+        }
+      },
+      "eventPage": {
+        "title": "$t(translation:phase.phase)",
+        "paragraph1": "In this phase, an event card is drawn and placed on the threat space.",
+        "li1": "<strong>Adventure icon</strong> means that during the next action of the\n            type matching the icon's color, an adventure card will be resolved\n            (in this case, exploration).",
+        "li2": "<strong>Book icon</strong> triggers an effect specific to the scenario\n            (described on the scenario card).",
+        "li3": "<strong>Event Effect</strong> triggers an effect (usually negative) when\n            the card is drawn.",
+        "li4": "<strong>Threat Action</strong> is an action that players must perform to\n            remove the card from the threat space.",
+        "li5": "<strong>Threat Effect</strong> is the effect that will be triggered if the\n            card is pushed off the threat spaces.",
+        "paragraph2": "If, when drawing an event card, there is already a card on the\n            threat space, the new card replaces it, pushing the existing one to the left,\n            which in turn pushes any card already on the left space. If the card on the\n            left space is pushed out, it disappears and its threat effect is triggered."
+      },
+      "moralePage": {
+        "section1": {
+          "title": "Morale Phase",
+          "paragraph1": "In this phase, the morale level is checked. Based on it, determination tokens <Icon icon=\"determination\"/> are either granted to or taken from the <strong>first</strong> player <Icon icon=\"star\"/>.",
+          "paragraph2": "Determination <Icon icon=\"determination\"/> is needed for characters to use their abilities.",
+          "ul1": {
+            "li1": "The player discards or receives an amount of determination tokens <Icon icon=\"determination\"/> equal to the morale level.",
+            "li2": "If the morale level <Icon icon=\"morale-arrow\"/> is negative, the first player <Icon icon=\"star\"/> loses determination tokens.",
+            "li3": "If the player lacks the required tokens to discard, they receive a wound for each missing token according to the <strong>unmet requirements</strong> rule.",
+            "li4": "If morale is 3, the player receives 3 determination tokens <Icon icon=\"determination\"/> and heals 1 wound <Icon icon=\"heart\"/>."
+          }
+        },
+        "section2": {
+          "title": "Unmet Requirements",
+          "paragraph1": "If the game requires a player to discard a resource they don’t have, they receive a wound for each missing resource. For example:",
+          "li": "2 food resources <Icon icon=\"food\"/> are required from tiles adjacent to the camp, and these resources then become unavailable. If there is only 1 food resource available around the camp, each player receives 1 wound.",
+          "paragraph2": "In cases where the rule says IF POSSIBLE, players do not receive wounds for missing resources."
+        }
+      },
+      "actionPage": {
+        "section1": {
+          "paragraph1": "This is the most important phase of the game and consists of two stages: Planning and Resolving Actions."
+        },
+        "section2": {
+          "title1": "Planning",
+          "paragraph1": "During the Action Planning stage, players do not take individual turns, but instead decide together which Actions they want to perform during the current round. Then, they mark their choices by assigning their pawns to specific Actions.",
+          "paragraph2": "Pawns represent the activity of a Character on the island, so with two pawns, each player can take up to two actions. However, some Actions require more than one pawn to be successfully carried out.",
+          "paragraph3": "Each type of Action (except the Threat Action) can be taken multiple times in the same round and by different players.",
+          "paragraph4": "The available Actions are:",
+          "actionDescription": {
+            "threat": "<strong>Threat Action</strong> – this action is taken to prevent the effect of a Threat from being triggered, as shown on a specific Event card on the board in the Threat Action field. Completing this Action grants the player the benefits listed on the card (e.g., Determination tokens or other resources).",
+            "hunt": "<strong>Hunting</strong> – allows the player to obtain more food and hides, but usually results in receiving Wounds.",
+            "build": "<strong>Building</strong> – allows players to build Shelter, Roof, Palisade, or Weapons, and to turn Ideas into Items.",
+            "gather": "<strong>Gathering Resources</strong> – allows players to obtain resources available on discovered Island tiles.",
+            "explore": "<strong>Exploration</strong> – allows players to discover new parts of the island.",
+            "arrange camp": "<strong>Arranging Camp</strong> – allows the player to gain 2 Determination tokens and increase Morale by 1 (in a 4-player game, the player chooses whether to receive Determination tokens or increase Morale).",
+            "rest": "<strong>Resting</strong> – allows the player to heal 1 Wound."
+          }
+        },
+        "section3": {
+          "paragraph1": "To plan an action, drag a pawn onto the action space.",
+          "li1": "- placing a pawn in this slot means the character performs the given action.",
+          "li2": "- this is a support slot. Pawns placed here only assist and do not suffer any consequences of the action."
+        }
+      },
+      "threatPage": {
+        "section1": {
+          "ul1": {
+            "li1": "At the beginning of each round, a new Event card is drawn which contains a specific Threat Action. Players may choose to perform this Action to prevent the Threat effect from taking place later.",
+            "li2": "Each Threat Action is a one-time Action available on a specific card. After resolving it, the card is discarded.",
+            "li3": "To perform a Threat Action, players must assign the number of pawns shown on the card (1 or 2) and meet certain additional requirements (for example: having food or wood to discard, having a minimum weapon level, etc.)."
+          },
+          "paragraph1": "Possible requirements for performing a Threat Action:",
+          "ul2": {
+            "li1": "The action requires assigning 1 pawn.",
+            "li2": "Performing the Action requires having Weapons at level 1 (or higher). When resolving the Action, the Weapon level is not decreased. If players do not meet the required Weapon level, they cannot take the Action.",
+            "li3": "Performing the Action requires possessing (and discarding during resolution) 1 of the specified resources.",
+            "li4": "Performing the Action requires possessing the specified crafted Item. The Item is not lost."
+          }
+        }
+      },
+      "huntPage": {
+        "section1": {
+          "ul1": {
+            "li1": "Hunting always requires using 2 pawns.",
+            "li2": "Hunting is only possible if there is a Hunting deck on the board containing at least one Beast card. Each Beast card allows for one hunt.",
+            "li3": "You can go hunting even if the Weapon level is 0.",
+            "li4": "Hunting always ends in success (unless the hunting character dies from wounds)."
+          },
+          "ul2": {
+            "li1": "<strong>Beast strength</strong> – if it is higher than the Weapon level <Icon icon=\"weapon\"/>, the player takes damage for each missing level.",
+            "li2": "<strong>Weapon level reduction</strong> – the number by which the Weapon level decreases after the hunt. For each missing level, the player takes damage.",
+            "li3": "<strong>Obtained food</strong> – added to the upcoming resources.",
+            "li4": "<strong>Obtained hide</strong> – added to the upcoming resources."
+          }
+        }
+      },
+      "buildPage": {
+        "section1": {
+          "ul1": {
+            "li1": "Building requires using 1 or 2 pawns.",
+            "li2": "When using only 1 pawn, during the resolution of the Action, the player must roll the Building dice to check whether the Action is successful, whether they receive Wounds, or whether an Adventure occurs.",
+            "li3": "Assigning 2 pawns to the Action guarantees success, and the player does not have to roll any dice.",
+            "li4": "This Action allows you to build a Shelter, Roof, Palisade, or Weapon, or to transform Ideas into Items."
+          }
+        },
+        "section2": {
+          "ul1": {
+            "li1": "<strong>Shelter</strong> <br />During the Night phase, it protects from receiving Wounds caused by sleeping under the open sky. A Shelter is required before building a Roof or Palisade. Once built, a Shelter cannot be lost (unless specified by Scenario rules). Note that some Island tiles may provide natural Shelter.",
+            "li2": "<strong>Roof</strong> <br />\n        Protects against weather effects during the Weather phase. To build a Roof, a Shelter must already be present – either constructed or provided by a natural Shelter on the Island tile where the Camp is located.",
+            "li3": "<strong>Palisade</strong> <br />\n        Protects against Storm effects and other in-game effects (e.g., wild animal attacks). To build a Palisade, a Shelter must already be present – either constructed or provided by a natural Shelter on the Island tile where the Camp is located.",
+            "li4": "<strong>Weapon</strong> <br />\n        Primarily used during Hunting. The higher the Weapon level, the lower the chance the player will receive Wounds during a Beast encounter.",
+            "li5": "<strong>Items</strong> <br />\n        Crafting some Items usually provides an additional effect that can be very useful to players (e.g., the “Map” provides an extra pawn for Exploration Actions)."
+          },
+          "paragraph1": "When constructing (Shelter, Roof, or Palisade), you can choose which type of resource to use."
+        }
+      },
+      "gatherPage": {
+        "section1": {
+          "ul1": {
+            "li1": "Gathering Resources requires using 1 or 2 pawns.",
+            "li2": "When using only 1 pawn, during the resolution of the Action, the player must roll the Gathering dice to determine if the Action is successful, whether they receive Wounds, or whether an Adventure occurs.",
+            "li3": "Assigning 2 pawns to the Action guarantees success, and the player does not have to roll any dice.",
+            "li4": "During a single Action, a player gathers resources from only one chosen Source. Each Source provides one unit of a resource (this amount may be modified by the effects of certain Items, Adventures, Events, etc.).",
+            "li5": "The further a tile is from the Camp, the more pawns the Action on it will require."
+          }
+        },
+        "section2": {
+          "paragraph1": "Possible resources to gather:",
+          "ul1": {
+            "li1": "<strong>Food source <Icon icon=\"food\"/></strong>",
+            "li2": "<strong>Food source <Icon icon=\"food\"/></strong>",
+            "li3": "<strong>Wood source <Icon icon=\"wood\"/></strong>"
+          }
+        }
+      },
+      "explorePage": {
+        "section1": {
+          "ul1": {
+            "li1": "Exploration requires using 1 or 2 pawns.",
+            "li2": "When using only 1 pawn, during the resolution of the Action, the player must roll the Exploration dice to determine whether the Action is successful, whether they receive Wounds, or whether an Adventure occurs.",
+            "li3": "The further the tile is from the Camp, the more pawns the Action on it will require."
+          },
+          "ul2": {
+            "li1": "<strong>Resource source</strong> (in this case, food <Icon icon=\"food\"/>)",
+            "li2": "<strong>Beast</strong> – a random Beast card is added to the Hunting deck after a successful exploration.",
+            "li3": "<strong>Discovery tokens</strong> – added to future resources after a successful exploration.",
+            "li4": "<strong>Natural shelter</strong> – having the Camp on this tile works similarly to having a built Shelter, but with important differences.",
+            "li5": "<strong>Totem</strong> – the effect is described on the Scenario card.",
+            "li6": "<strong>Terrain type</strong> – some actions require a discovered tile with a specific type of terrain (e.g., building the \"Knife\" invention card requires a discovered tile with Mountain terrain)."
+          }
+        }
+      },
+      "arrangeCampPage": {
+        "section1": {
+          "ul1": {
+            "li1": "Arranging the Camp requires using 1 pawn.",
+            "li2": "Arranging the Camp allows the player to gain 2 Determination tokens and increase Morale by 1 level (in a 4-player game, the player must choose one or the other).",
+            "li3": "Each player pawn assigned to the Arrange the Camp Action is resolved separately, which means that if a player assigns both their pawns to this Action, they will resolve it twice and therefore gain 4 Determination tokens and increase Morale by 2 levels."
+          }
+        }
+      },
+      "restPage": {
+        "section1": {
+          "ul1": {
+            "li1": "Resting requires using 1 pawn.",
+            "li2": "Resting allows the player to heal 1 Wound.",
+            "li3": "Each player pawn assigned to Rest is resolved separately, which means that if a player assigns both of their pawns to Rest, they will resolve it twice and therefore heal 2 Wounds."
+          }
+        }
+      },
+      "actionResolvePage": {
+        "title": "Resolving Actions",
+        "section1": {
+          "paragraph1": "\n      Once you have allocated all your pawns, click the compass icon\n      <Icon icon=\"compass\"/>, to proceed to the action resolution phase \n      (in a multiplayer game, all players must indicate readiness).",
+          "paragraph2": "During the action phase, all gained resources, discovery tokens,\n        and treasure cards are placed in the <strong>future resources</strong>.",
+          "paragraph3": "After the action phase, the resources are moved to the\n        <strong>owned resources</strong> and become available to the players."
+        },
+        "section2": {
+          "title": "Rolling Dice",
+          "paragraph1": "For actions such as <strong>exploration</strong>, \n      <strong>gathering resources</strong>, and <strong>building</strong>,\n      it is possible to assign 1 pawn less. In that case, the player rolls 3 dice,\n      and the success of the action depends on the result of one of them.",
+          "ul1": {
+            "li1": "<strong>Success</strong> – The action was successful.",
+            "li2": "<strong>Determination tokens</strong> – The action failed.\n        The player receives 2 determination tokens.",
+            "li3": "<strong>Adventure</strong> – The player resolves an adventure card.",
+            "li4": "<strong>Wound</strong> – The player receives a wound.",
+            "li5": "<strong>Blank</strong> – Nothing happens."
+          }
+        }
+      },
+      "weatherPage": {
+        "section1": {
+          "paragraph1": "In this phase, players must face the weather conditions\n            on the island. Weather is determined by rolling dice. The type of dice \n            rolled in each round is specified on the scenario card."
+        },
+        "section2": {
+          "title": "Weather Dice",
+          "ul": {
+            "li1": "<strong>Rain Die</strong>",
+            "li2": "<strong>Snow Die</strong>",
+            "li3": "<strong>Hungry Animals Die</strong>"
+          }
+        },
+        "section3": {
+          "title": "Weather Tokens",
+          "ul1": {
+            "li1": "During the game, up to 3 types of tokens can be placed in the weather area.",
+            "li2": "If a given token is already present in the weather area, nothing happens."
+          },
+          "ul2": {
+            "li1": "<strong>Rain Cloud Token</strong> – represents 1 rain cloud.",
+            "li2": "<strong>Snow Cloud Token</strong> – represents 1 snow cloud.",
+            "li3": "<strong>Storm Token</strong> – reduces the <Icon icon=\"palisade\"/> palisade level by 1."
+          }
+        },
+        "section4": {
+          "title": "Clouds",
+          "paragraph1": "There are two types of clouds on the Rain and Snow dice:",
+          "ul1": {
+            "li1": "<strong>Rain Cloud</strong>",
+            "li2": "<strong>Snow Cloud</strong>"
+          }
+        },
+        "section5": {
+          "title": "Resolving Clouds",
+          "ul1": {
+            "li1": "Count all snow clouds (from dice and tokens). For each snow cloud, discard 1 <Icon icon=\"wood\"/> wood (to stay warm).",
+            "li2": "Count all clouds (from dice and tokens) and compare the total to the roof level.\n                <Icon icon=\"roof\"/> The roof level indicates how many clouds it protects against.",
+            "li3": "For each missing level of roof protection, discard 1 \n                 <Icon icon=\"food\"/> food and 1 <Icon icon=\"wood\"/> wood (to stay warm).",
+            "li4": "For each resource the players cannot discard, each player receives 1 wound.",
+            "li5": "All weather tokens are discarded."
+          }
+        },
+        "section6": {
+          "title": "Hungry Animals",
+          "paragraph1": "The Hungry Animals die shows the following effects affecting players:",
+          "ul1": {
+            "li1": "A fight against a beast with strength 3 is resolved. (<strong>First player</strong> fights,\n         the weapon level does not decrease.)",
+            "li2": "The <Icon icon=\"palisade\"/> palisade level decreases by 1.",
+            "li3": "Players discard 1 <Icon icon=\"food\"/> food."
+          }
+        }
+      },
+      "nightPage": {
+        "section1": {
+          "ul1": {
+            "li1": "During the Night phase, each player must eat a meal. To do this, \n                1 food must be discarded per player. If the players don't have enough food, \n                they must jointly decide who will go without. Each player who doesn't have \n                food discarded for them receives 2 Wounds.",
+            "li2": "During the Night phase, players may decide to move the Camp to an adjacent tile. \n                This choice affects which resources players will receive in the next round \n                during the Production phase, and which tiles/areas will be adjacent for \n                purposes such as Gathering Resources and Exploration, etc.",
+            "li3": "If players have not built a Shelter (and their Camp is not located on \n                an Island tile with a natural Shelter), each player receives 1 Wound for \n                sleeping under the open sky.",
+            "li4": "If the players do not have non-perishable food or an Item (\"Cellar\") \n                or Treasure (\"Crates\" or \"Barrel\") that allows food storage, all remaining \n                food after the Night phase spoils and is discarded.",
+            "li5": "After the Night phase, character abilities are refreshed and can be used again."
+          }
+        }
+      }
+    }
+  },
+  "UITour": {
+    "prompt": {
+      "question": "Would you like a guided tour of the game interface?",
+      "dontAskAgain": "Don`t ask again"
+    },
+    "steps": {
+      "phase": {
+        "content": "This is where the current phase is displayed. Click on <strong><em>$t(other.order)</em></strong> to continue."
+      },
+      "phase list": {
+        "content": "Each round consists of <strong>6 phases</strong>, which are resolved\n            in the order shown in this list."
+      },
+      "morale": {
+        "title": "Morale",
+        "content": "<span>This panel shows the current level of <em>morale</em> \n            (<Icon icon=\"morale-arrow\" />) and the associated amount of gained or lost\n            <em>determination</em> (<Icon icon=\"determination\" />). It is required to\n            use the character’s abilities.</span>"
+      },
+      "map": {
+        "title": "Map",
+        "content": "The island map consists of hexagonal tiles, each representing a\n            different terrain area. Here you can drag pawns to gather resources and/or\n            explore.\n            <ul>\n              <li>\n                <strong>Zooming in and out</strong> – to adjust the map view, use the mouse wheel or the “+” and “−” buttons.\n              </li>\n              <li>\n                <strong>Moving the map</strong> – to see other parts of the island, hold down the left mouse button and drag the map in the desired direction.\n              </li>\n            </ul>"
+      },
+      "resources": {
+        "title": "Resources",
+        "content": "\n            Here you can track the resources belonging to your team. They are divided into 2 categories.\n            <ul>\n              <li>\n                <strong>Future resources</strong> (at the top) – resources you have gained during the current Action Phase but do not yet possess. They become <strong>owned resources</strong> after all actions are resolved.\n              </li>\n              <li>\n                <strong>Owned resources</strong> (at the bottom) – these are in your possession and you can use them.\n              </li>\n            </ul>"
+      },
+      "constructions": {
+        "title": "Constructions and Weapon",
+        "content": "To survive on a deserted island, you need to ensure proper shelter and\n            weapons. Building them requires a specific amount of one of the resources\n            shown next to the construction. If you have both types of required resources,\n            you can choose which one to use by clicking on its icon.\n            <ul>\n              <li>\n                <strong>Shelter</strong> (<Icon icon=\"shelter\" />) - protects players\n                  while sleeping, preventing damage from sleeping outdoors. Only 1 level\n                  can be built.\n              </li>\n              <li>\n                <strong>Roof</strong> (<Icon icon=\"roof\" />) - protects players and\n                  resources from weather conditions.\n              </li>\n              <li>\n                <strong>Palisade</strong> (<Icon icon=\"palisade\" />) - protects players\n                from wild animals.\n              </li>\n              <li>\n                <strong>Weapon</strong> (<Icon icon=\"weapon\" />) - used for hunting beasts.\n                The more dangerous the beast, the higher weapon level is needed to survive\n                unscathed.\n              </li>"
+      },
+      "tour cards": {
+        "title": "Owned Cards",
+        "content": "There are 3 types of cards here:\n            <ul>\n              <li>Invention cards</li>\n              <li>Mystery cards</li>\n              <li>Items</li>\n            </ul>\n            Switch between them by clicking on the tabs."
+      },
+      "threat": {
+        "title": "Threat Actions",
+        "content": "At the beginning of each round, during the first phase, a new event\n            card is placed here.\n            <br />\n            Perform the actions associated with them to receive rewards and avoid negative\n             consequences."
+      },
+      "arrange rest": {
+        "title": "Camp arranging nad resting",
+        "content": "These slots are used for planning rest and camp arranging actions.\n            <ul>\n              <li>\n                An unlimited number of pawns can be assigned to each of these actions.\n              </li>\n              <li>Each action always succeeds.</li>\n            </ul>"
+      },
+      "character": {
+        "title": "Character Card",
+        "content": "This section contains information about your character and side\n            characters."
+      },
+      "character img": {
+        "title": "Character",
+        "content": "This is your character. Within this area, wounds received on specific\n            body parts will be displayed."
+      },
+      "character expendables": {
+        "title": "Personal resources",
+        "content": "Your character has resources that can only be used by them.\n            <ul>\n              <li>Weapon level (<Icon icon=\"weapon\" />) – used during hunting.</li>\n              <li>Determination tokens (<Icon icon=\"determination\" />) – required to use abilities.</li>\n            </ul>"
+      },
+      "character pawns": {
+        "title": "Pawns",
+        "content": "Pawns are used to plan actions. They represent the time your character\n           spends performing a specific task. During the action phase, drag them onto the\n           appropriate slots to plan your next moves."
+      },
+      "character abilities": {
+        "title": "Abilities",
+        "content": "Here is the list of your character's abilities.\n            <ul>\n              <li>Some abilities can only be used in specific situations.</li>\n              <li>Skills related to dice rerolls are used directly in the action resolve window.</li>\n            </ul>"
+      },
+      "character side characters": {
+        "title": "Side Characters",
+        "content": "Here are the side characters and their pawns.\n          <ul>\n            <li>Every player has access to and control over them.</li>\n            <li>The dog has no health and does not take damage.</li>\n            <li>The dog can only be used as an assistant for hunting or exploration actions.</li>\n          </ul>"
+      },
+      "health": {
+        "title": "Health",
+        "content": "Here is your character's health.\n            <ul>\n              <li>For each damage point received, the health marker moves to the right.</li>\n              <li>If the health marker passes the arrow (<Icon icon=\"morale-arrow\" />), the team's morale decreases by 1.</li>\n              <li>When the marker reaches the end, the character dies and the players lose.</li>\n            </ul>\n            "
+      },
+      "scenario button": {
+        "title": "Scenario card",
+        "content": "Here is the button that slides out the scenario card.  \n            Click it to continue."
+      },
+      "scenario": {
+        "title": "Scenario card",
+        "content": "Here you can find information about the course of the game and the\n            victory conditions for the scenario."
+      },
+      "scenario rounds": {
+        "title": "Weather",
+        "content": "The game consists of up to 12 rounds, with dice placed above them that\n            are rolled during the Weather phase. In each round, the outcome of these dice\n            rolls will affect the weather conditions you’ll have to face."
+      },
+      "scenario info": {
+        "title": "Scenario Description",
+        "content": "Before starting the game, don’t forget to review the scenario\n            information and its mechanics."
+      },
+      "weather": {
+        "content": "Temporary tokens will be placed here and counted during the Weather\n            phase."
+      },
+      "discovery tokens": {
+        "content": "Discovery tokens gained during map exploration will be placed here."
+      },
+      "next phase": {
+        "content": "This is the main button that controls the flow of the game. Clicking\n            it will advance to the next phase."
+      },
+      "menu": { "content": "Click to expand the menu." },
+      "menu players": {
+        "content": "This button opens a window with information about other players’\n            characters."
+      },
+      "menu settings": {
+        "content": "In the settings, you can restart, save, or return the game to the lobby."
+      },
+      "menu guide": {
+        "content": "The guide provides a more detailed description of the game rules."
+      },
+      "end": {
+        "content": "In the main menu options, you can reset the UI guide."
+      }
+    }
+  },
+  "form": {
+    "emailDoNotExist": "No account found linked to the provided email address. Please\n        check if the address is correct, or create a new account if you don't have one yet.",
+    "codeSentOnAdress": "A message with a reset code was sent to the address:",
+    "checkSpam": "If you don't see the message in your inbox, please check the spam folder.",
+    "enterCodeHere": "Enter the code here:",
+    "confirmCode": "Confirm Code",
+    "mailNotArrived": "Mail didn't arrive?",
+    "sendAgain": "Send again",
+    "signInNewPassword": "You can now sign in with your new password.",
+    "backToSignIn": "Back to sign in",
+    "sending": "Sending",
+    "sendLink": "Send link",
+    "send": "Send",
+    "sendEmailInstructions": "Enter your email address linked to your account, and we will\n        send you a password reset link.",
+    "enterCodeInstructions": "",
+    "forgotPassword?": "Forgot password?",
+    "changePassword": "Change password",
+    "newPassword": "New password",
+    "passwordChanged": "Password changed",
+    "invalidCode": "The entered code is invalid or has expired.",
+    "resetPasswordTokenExpired": "Password reset token has expired.",
+    "oldPassword": "old password",
+    "incorrectCredentials": "The entered email or password is incorrect.",
+    "passwordsMustBeSame": "Passwords must be the same.",
+    "usernameTaken": "Username is already taken.",
+    "emailTaken": "This email is already in use.",
+    "invalidEmail": "The provided email address is invalid.",
+    "passwordTooShort": "Password must be at least {{amount}} characters long."
+  },
+  "toast": {
+    "copied to clipboard": "Copied to clipboard!",
+    "game saved": "Game saved!",
+    "unable to save game": "Unable to save game!",
+    "game restarted": "Game was restarted by the host",
+    "request limit reached": "Request limit reached. Try again in {{tryAfter}} seconds."
+  },
+  "error": {
+    "session not found": "Session not found",
+    "game in progress": "Game already in progress",
+    "server full": "Session is full",
+    "incorrect password": "Incorrect password",
+    "kicked": "You have been kicked",
+    "connectError": "There was a problem connecting to the server. Please check your\n        internet connection and try again.",
+    "serverError": "Server error. Please try again later.",
+    "somethingWentWrong": "Something went wrong",
+    "disconnected": "Disconnected"
+  },
+  "emailActivation": {
+    "title": "Verify your email",
+    "instructions": "A verification link has been sent to your email address. To complete\n        the registration process, click the link in the received message. If you don't see\n        the email, please check the Spam or Promotions folder.",
+    "gotNoMessages": "Didn't receive the message?",
+    "sendAgain": "Send again",
+    "sent": "Sent"
+  },
+  "systemMessages": {
+    "player has joined session": "{{subject1}} has joined the session.",
+    "player has left session": "{{subject1}} has left the session.",
+    "only present players can join": "Only players present at the game save can\n      join the session.",
+    "game terminated": "The game was terminated by the host.",
+    "game restarted": "Game restarted."
+  },
+  "logMessages": {
+    "weather token set": "Placed the $t(translation:weatherToken.{{subject1}})\n      token on the adventure tile.",
+    "weather cloud decremented": "Removed {{amount}} \n      $t(translation:weatherToken.{{subject1}}) cloud(s).",
+    "weather cloud incremented": "Added {{amount}}\n      $t(translation:weatherToken.{{subject1}}) cloud(s).",
+    "action got token": "Placed the $t(translation:tokens.{{subject1}}) token on\n      the $t(translation:action.{{subject2}}) tile.",
+    "action lost token": "Removed the $t(translation:tokens.{{subject1}}) token\n      from the $t(translation:action.{{subject2}}) tile.",
+    "owned resource added": "Added {{amount}}\n      $t(translation:resource.{{subject1}}) to owned resources.",
+    "future resource added": "Added {{amount}} \n      $t(translation:resource.{{subject1}}) to future resources.",
+    "owned resource removed": "Discarded {{amount}}\n      $t(translation:resource.{{subject1}}) from owned resources.",
+    "camp moved": "Moved the camp.",
+    "tile modifier added": "",
+    "tile modifier removed": "",
+    "wood added to pile": "Added wood to the pile.",
+    "morale increased": "Morale increased to level {{amount}}.",
+    "morale decreased": "Morale decreased to level {{amount}}.",
+    "invention built": "Built $t(translation:invention.{{subject1}}).",
+    "game won": "Game won!",
+    "game lost": "Game lost!",
+    "food rotted": "Food has rotted.",
+    "character eats": "$t(translation:character.{{subject1}}) consumes\n      $t(translation:resource.{{subject2}}).",
+    "beast moved to bottom of deck": "Beast moved to the bottom of the deck.",
+    "beast got hunted": "Tracked nad hunted $t(translation:beast.{{subject1}}).",
+    "beast shuffled into event deck": "Shuffled the beast into the event deck.",
+    "construction upgraded": "Upgraded $t(translation:construction.{{subject1}})\n      to level {{amount}}.",
+    "construction downgraded": "$t(translation:construction.{{subject1}}) level\n      dropped to {{amount}}.",
+    "item granted": "Received $t(translation:item.{{subject1}}).",
+    "character used token": "$t(translation:character.{{subject1}}) used token:\n      $t(translation:discoveryToken.{{subject2}}).",
+    "character used ability": "$t(translation:character.{{subject1}}) used\n      $t(translation:ability.{{subject2}}.name).",
+    "character got hurt": "$t(translation:character.{{subject1}}) took {{amount}}\n      damage.",
+    "character got healed": "$t(translation:character.{{subject1}}) healed\n      {{amount}} damage.",
+    "resource boost removed": "Source of $t(translation:resource.{{subject1}})\n      no longer provides extra resource.",
+    "resource boost added": "Source of $t(translation:resource.{{subject1}} \n      will provide extra resource.",
+    "resource depleted": "Source of $t(translation:resource.{{subject1}}) has\n      been depleted.",
+    "resource replenished": "Source of $t(translation:resource.{{subject1}})\n      has been replenished.",
+    "future resource removed": "Removed {{amount}} \n      $t(translation:resource.{{subject1}}) from future resources.",
+    "character got wound": "$t(translation:character.{{subject1}}) received a\n      wound on $t(translation:bodyPart.{{subject2}}).",
+    "character lost wound": "$t(translation:character.{{subject1}}) no longer\n    suffers from a wound on $t(translation:resource.{{subject1}}).",
+    "lost gained treasures": "Collected treasures have been lost!",
+    "all players got determination": "All players gain {{amount}} determination.",
+    "all players lost determination": "All players lose {{amount}} determination.",
+    "all players got hurt": "All players take {{amount}} damage.",
+    "all players got healed": "All players heal {{amount}} damage.",
+    "new prime player": "Player {{subject1}} is now the prime player.",
+    "character lost determination": "$t(translation:character.{{subject1}}) loses\n      {{amount}} determination.",
+    "character got determination": "$t(translation:character.{{subject1}}) gains\n      {{amount}} determination."
+  }
+}

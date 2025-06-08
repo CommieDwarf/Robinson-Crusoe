@@ -179,3 +179,14 @@
 	border-radius: 1px;
 	overflow: hidden;
 }
+
+.dice {
+	border-radius: 10%;
+	overflow: hidden;
+}
+
+.actionOrder {
+	width: 100%;
+	height: 20px;
+	font-size: 6px;
+}

@@ -3,6 +3,13 @@
 	width: 100%;
 }
 
+
+.content:hover {
+	background-color: rgba(69, 30, 20, 0.8);
+	color: white;
+}
+
+
 .selected {
 	background-color: var(--brown);
 	color: white;
@@ -11,4 +18,6 @@
 .content {
 	width: 100%;
 	display: block;
+	padding-left: 2px;
 }
+

@@ -88,7 +88,7 @@ a {
 :root {
 	--toastify-color-error: var(--hunt) !important;
 	--toastify-color-warning: #a77716 !important;
-	--brown: #451e14;
+	--brown: rgb(69, 30, 20);
 	--tan: #d2b48c;
 	--warmIvory: #fff6ed;
 	--beastRed: rgb(186, 51, 28);
@@ -115,8 +115,7 @@ a {
 
 	--kazFontFamily: "P22 Kaz W01SC Thin SC";
 
-	--blackToBrown: invert(11%) sepia(11%) saturate(7369%) hue-rotate(342deg)
-		brightness(95%) contrast(91%);
+	--blackToBrown: brightness(0) saturate(100%) invert(10%) sepia(38%) saturate(1787%) hue-rotate(337deg) brightness(103%) contrast(93%);
 	--blackToBorderColor: invert(86%) sepia(5%) saturate(2312%)
 		hue-rotate(348deg) brightness(76%) contrast(78%);
 	--blackToHuntColor: brightness(0) saturate(100%) invert(9%) sepia(65%)

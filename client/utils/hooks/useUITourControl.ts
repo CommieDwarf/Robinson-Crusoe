@@ -1,5 +1,5 @@
 import { SOCKET_EVENT_CLIENT } from "@shared/types/Requests/Socket";
-import { steps } from "components/Game/UITour/steps";
+import { steps } from "../../components/Game/UITour/steps/steps";
 import { socketEmit } from "middleware/socketMiddleware";
 import { useState, useRef, useCallback, useEffect } from "react";
 import { userPreferencesUpdated } from "reduxSlices/connection";

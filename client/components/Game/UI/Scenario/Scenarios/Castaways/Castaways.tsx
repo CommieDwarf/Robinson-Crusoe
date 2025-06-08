@@ -13,76 +13,56 @@ import { useAppSelector } from "../../../../../../store/hooks";
 import { selectGame } from "../../../../../../reduxSlices/gameSession";
 
 export default function Castaways() {
-	const currentRound = useAppSelector((state) => selectGame(state)?.round);
+  const currentRound = useAppSelector((state) => selectGame(state)?.round);
 
-	const { t } = useTranslation();
+  const { t } = useTranslation();
 
-	return (
-		<div className={styles.container}>
-			<div className={styles.title}>
-				<h2>{capitalize(t("scenario.castaways.name"))}</h2>
-			</div>
+  return (
+    <div className={styles.container}>
+      <div className={styles.title}>
+        <h2>{capitalize(t("scenario.castaways.name"))}</h2>
+      </div>
 
-			<div className={styles.rounds}>
-				<Rounds current={currentRound || 1} />
-			</div>
+      <div className={styles.rounds}>
+        <Rounds current={currentRound || 1} />
+      </div>
 
-			<div className={styles.middleSection}>
-				<div className={styles.scenarioInfo}>
-					<ScenarioInfo />
-				</div>
-				<div className={styles.eventEffects}>
-					<div
-						className={styles.eventEffect + " " + styles.bookEffect}
-					>
-						<DynamicImage
-							src={bookEffectImg}
-							fill
-							alt={"tokeny"}
-							sizes={styles.eventEffect}
-						/>
-					</div>
-					<div className={styles.eventEffect}>
-						<DynamicImage
-							src={totemEffectImg}
-							fill
-							alt={"tokeny"}
-							sizes={styles.eventEffect}
-						/>
-					</div>
-				</div>
-			</div>
+      <div className={styles.middleSection}>
+        <div className={styles.scenarioInfo}>
+          <ScenarioInfo />
+        </div>
+        <div className={styles.effects}>
+          <div className={styles.effect}>
+            <DynamicImage src={bookEffectImg} fill alt={"tokeny"} />
+          </div>
+          <div className={styles.eventEffect}>
+            <DynamicImage src={totemEffectImg} fill alt={"tokeny"} />
+          </div>
+        </div>
+      </div>
 
-			<div className={styles.bottomSection}>
-				<div className={styles.bottomSectionBackground}>
-					<DynamicImage
-						src={"/UI/scenarios/test2.webp"}
-						alt={"background"}
-					/>
-				</div>
+      <div className={styles.bottomSection}>
+        <div className={styles.bottomSectionBackground}>
+          <DynamicImage src={"/UI/scenarios/test2.webp"} alt={"background"} />
+        </div>
 
-				<div className={styles.tokens}>
-					<DynamicImage
-						src={scenarioTokensImg}
-						fill
-						alt={"tokeny"}
-						sizes={styles.tokens}
-					/>
-				</div>
-				<div className={styles.woodPileWrapper}>
-					<div className={styles.woodPile}>
-						<WoodPile />
-					</div>
-				</div>
-				<div className={styles.effects}>
-					<div className={styles.effect}>
-						<DynamicImage src={bookEffectImg} alt="" />
-					</div>
-					<div className={styles.effect}>
-						<DynamicImage src={totemEffectImg} alt="" />
-					</div>
-				</div>
-			</div>
-		</div>
-	);
+        <div className={styles.tokens}>
+          <DynamicImage src={scenarioTokensImg} fill alt={"tokeny"} />
+        </div>
+        <div className={styles.woodPileWrapper}>
+          <div className={styles.woodPile}>
+            <WoodPile />
+          </div>
+        </div>
+        <div className={styles.effects}>
+          <div className={styles.effect}>
+            <DynamicImage src={bookEffectImg} alt="" />
+          </div>
+          <div className={styles.effect}>
+            <DynamicImage src={totemEffectImg} alt="" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }

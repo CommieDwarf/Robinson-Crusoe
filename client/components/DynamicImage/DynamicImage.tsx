@@ -1,44 +1,45 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { CSSProperties, useEffect, useRef, useState } from "react";
 import Image, { ImageProps, StaticImageData } from "next/image";
 import styles from "./DynamicImage.module.css";
 
 interface Props extends ImageProps {
-	src: string | StaticImageData;
-	scale?: number;
+  src: string | StaticImageData;
+  scale?: number;
+  className?: string;
+  style?: CSSProperties;
 }
 
 export default function DynamicImage(props: Props) {
-	const containerRef = useRef<HTMLDivElement>(null);
-	const [containerWidth, setContainerWidth] = useState(0);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [containerWidth, setContainerWidth] = useState(0);
 
-	useEffect(() => {
-		if (!containerRef.current) return;
+  useEffect(() => {
+    if (!containerRef.current) return;
 
-		// Tworzymy obserwatora do śledzenia zmian szerokości kontenera
-		const observer = new ResizeObserver((entries) => {
-			if (!entries[0]) return;
-			setContainerWidth(entries[0].contentRect.width);
-		});
+    const observer = new ResizeObserver((entries) => {
+      if (!entries[0]) return;
+      setContainerWidth(entries[0].contentRect.width);
+    });
 
-		observer.observe(containerRef.current);
+    observer.observe(containerRef.current);
 
-		return () => observer.disconnect(); // Odłącz obserwator przy odmontowaniu
-	}, []);
+    return () => observer.disconnect();
+  }, []);
 
-	const scale = props.scale || 1;
+  const scale = props.scale || 1;
 
-	return (
-		<div
-			ref={containerRef}
-			className={`${styles.container} ${props.className}`}
-		>
-			<Image
-				fill
-				draggable={false}
-				sizes={`${containerWidth * scale}px`}
-				{...props}
-				className={styles.preventSelect}
-			></Image>
-		</div>
-	);
+  return (
+    <div
+      ref={containerRef}
+      className={`${styles.container} ${props.className}`}
+    >
+      <Image
+        fill
+        draggable={false}
+        sizes={`${containerWidth * scale}px`}
+        {...props}
+        className={`${props.className} ${styles.preventSelect}`}
+      ></Image>
+    </div>
+  );
 }
